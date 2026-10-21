@@ -19,8 +19,9 @@ type Row = { data_json: string };
 
 /** A01b SQLite store for knowledge revisions, mirroring TradeStore conventions:
  *  immediate transactions, idempotency replay, outbox events, immutable rows.
- *  Publishing never mutates: it appends a published row for the same (document,version);
- *  at most one staged revision may exist per document at a time. */
+ *  A revision is staged then published in place, keeping its revisionId stable;
+ *  the no-update trigger locks it once published so content can never change.
+ *  At most one staged revision may exist per document at a time. */
 export class SqliteKnowledgeStore implements KnowledgeRepository {
   constructor(private readonly db: Database.Database) {}
 
@@ -90,32 +91,35 @@ export class SqliteKnowledgeStore implements KnowledgeRepository {
   }
 
   getRevision(revisionId: string): KnowledgeRevision | null {
+    const workspaceId = this.workspaceId();
     const row = this.db
-      .prepare("SELECT data_json FROM knowledge_revision WHERE id=?")
-      .get(revisionId) as Row | undefined;
+      .prepare("SELECT data_json FROM knowledge_revision WHERE id=? AND workspace_id=?")
+      .get(revisionId, workspaceId) as Row | undefined;
     return row ? (JSON.parse(row.data_json) as KnowledgeRevision) : null;
   }
 
   findPublished(query: KnowledgeQuery): KnowledgeRevision[] {
     const parsed = KnowledgeQuerySchema.parse(query);
+    const workspaceId = this.workspaceId();
     const rows = this.db
       .prepare(
-        "SELECT data_json FROM knowledge_revision WHERE status='published' ORDER BY document_id, version DESC",
+        "SELECT data_json FROM knowledge_revision WHERE workspace_id=? AND status='published' ORDER BY document_id, version DESC",
       )
-      .all() as Row[];
+      .all(workspaceId) as Row[];
     const at = Date.parse(parsed.at);
     const seen = new Set<string>();
     const out: KnowledgeRevision[] = [];
     for (const row of rows) {
       const revision = JSON.parse(row.data_json) as KnowledgeRevision;
-      if (seen.has(revision.documentId)) continue; // first hit is the highest version
-      seen.add(revision.documentId);
-      if (Date.parse(revision.createdAt) > at) continue;
+      // Filter (publishedAt≤at and scope) before dedup so an excluded newer
+      // version falls back to the newest version that actually matches.
       if (revision.publishedAt !== null && Date.parse(revision.publishedAt) > at) continue;
       const { scope } = revision.content;
-      if (!scope.platforms.includes(parsed.scope.platform)) continue;
-      if (!scope.markets.includes(parsed.scope.market)) continue;
-      if (!scope.categories.includes(parsed.scope.category)) continue;
+      if (scope.platforms.length && !scope.platforms.includes(parsed.scope.platform)) continue;
+      if (scope.markets.length && !scope.markets.includes(parsed.scope.market)) continue;
+      if (scope.categories.length && !scope.categories.includes(parsed.scope.category)) continue;
+      if (seen.has(revision.documentId)) continue;
+      seen.add(revision.documentId);
       out.push(revision);
     }
     return out;
@@ -139,11 +143,7 @@ export class SqliteKnowledgeStore implements KnowledgeRepository {
       if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
       const staged = this.db
         .prepare(
-          `SELECT version FROM knowledge_revision k
-           WHERE document_id=? AND status='staged'
-             AND NOT EXISTS (
-               SELECT 1 FROM knowledge_revision p
-               WHERE p.document_id=k.document_id AND p.version=k.version AND p.status='published')`,
+          "SELECT version FROM knowledge_revision WHERE document_id=? AND status='staged'",
         )
         .get(draft.documentId) as { version: number } | undefined;
       if (staged)
@@ -186,7 +186,7 @@ export class SqliteKnowledgeStore implements KnowledgeRepository {
         .prepare("INSERT INTO idempotency VALUES (?,?,?)")
         .run(idempotencyKey, requestHash, JSON.stringify(result));
       return result;
-    })();
+    }).immediate();
   }
 
   publish(
@@ -207,21 +207,14 @@ export class SqliteKnowledgeStore implements KnowledgeRepository {
       if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
       const target = this.getRevision(parsed.revisionId);
       if (!target) return failure("NOT_FOUND", "指定版本不存在");
-      const publishedRow = this.db
-        .prepare(
-          "SELECT data_json FROM knowledge_revision WHERE document_id=? AND version=? AND status='published'",
-        )
-        .get(target.documentId, target.version) as Row | undefined;
-      if (publishedRow) {
-        // Retry-safe across different keys: republishing returns the existing publication.
-        const publishedAlready = JSON.parse(publishedRow.data_json) as KnowledgeRevision;
-        const result = this.ok(publishedAlready, [publishedAlready.revisionId]);
+      if (target.status === "published") {
+        // Republishing an already-published revision is idempotent across keys.
+        const result = this.ok(target, [target.revisionId]);
         this.db
           .prepare("INSERT INTO idempotency VALUES (?,?,?)")
           .run(idempotencyKey, requestHash, JSON.stringify(result));
         return result;
       }
-      if (target.status !== "staged") return failure("NOT_FOUND", "指定版本不存在");
       if (target.sourceHash !== parsed.sourceHash)
         return failure(
           "SOURCE_CONFLICT",
@@ -230,26 +223,27 @@ export class SqliteKnowledgeStore implements KnowledgeRepository {
       const now = new Date().toISOString();
       const published: KnowledgeRevision = {
         ...target,
-        revisionId: randomUUID(),
         status: "published",
         publishedAt: now,
       };
-      this.revisionRow(published, workspaceId);
+      // Publish transitions the staged row in place: revisionId stays stable and
+      // content is untouched; the no-update trigger then locks the published row.
+      this.db
+        .prepare(
+          "UPDATE knowledge_revision SET status='published', published_at=?, data_json=? WHERE id=? AND status='staged'",
+        )
+        .run(now, JSON.stringify(published), target.revisionId);
       this.emit(
         workspaceId,
         "knowledge.publish",
-        {
-          entityId: published.revisionId,
-          stagedRevisionId: target.revisionId,
-          documentId: published.documentId,
-        },
+        { entityId: target.revisionId, documentId: target.documentId },
         context,
       );
-      const result = this.ok(published, [published.revisionId]);
+      const result = this.ok(published, [target.revisionId]);
       this.db
         .prepare("INSERT INTO idempotency VALUES (?,?,?)")
         .run(idempotencyKey, requestHash, JSON.stringify(result));
       return result;
-    })();
+    }).immediate();
   }
 }

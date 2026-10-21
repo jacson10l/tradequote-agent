@@ -50,7 +50,7 @@ CREATE TABLE knowledge_revision (
   data_json TEXT NOT NULL
 );
 CREATE INDEX knowledge_revision_document ON knowledge_revision(document_id, version DESC);
-CREATE TRIGGER knowledge_revision_no_update BEFORE UPDATE ON knowledge_revision BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE'); END;
+CREATE TRIGGER knowledge_revision_no_update BEFORE UPDATE ON knowledge_revision WHEN OLD.status='published' BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE'); END;
 CREATE TRIGGER knowledge_revision_no_delete BEFORE DELETE ON knowledge_revision BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE'); END;
 `,
   },

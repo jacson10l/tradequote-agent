@@ -275,3 +275,52 @@ it("A01-6: reopen keeps published knowledge; rows are immutable", () => {
   db.close();
   reopened.close();
 });
+
+it("A01-7: query falls back to the newest published version matching scope", () => {
+  const file = join(temp(), "kb.sqlite");
+  const repo = openRepo(file);
+  const documentId = randomUUID();
+  const alibaba = {
+    platforms: ["alibaba_intl_rfq"],
+    markets: ["DE"],
+    categories: ["apparel-tshirt"],
+  };
+  const amazon = { ...alibaba, platforms: ["amazon_listing"] };
+  const v1 = okRevision(repo, stageCmd(draft({ documentId, scope: alibaba })), human);
+  repo.executeKnowledge(publishCmd({ revisionId: idOf(v1), sourceHash: hashOf(v1) }), human);
+  const v2 = okRevision(
+    repo,
+    stageCmd(draft({ documentId, expectedVersion: 1, scope: amazon })),
+    human,
+  );
+  repo.executeKnowledge(publishCmd({ revisionId: idOf(v2), sourceHash: hashOf(v2) }), human);
+  // v2 only matches amazon; querying alibaba must fall back to v1, not drop the document.
+  const found = KnowledgeListResultSchema.parse(
+    repo.executeKnowledge(
+      queryCmd({ platform: "alibaba_intl_rfq", market: "DE", category: "apparel-tshirt" }),
+      human,
+    ),
+  );
+  expect(found.ok && found.data.revisions).toHaveLength(1);
+  expect(found.ok && found.data.revisions[0]?.version).toBe(1);
+  repo.close();
+});
+
+it("A01-8: empty scope dimension is universal across any value", () => {
+  const file = join(temp(), "kb.sqlite");
+  const repo = openRepo(file);
+  const input = draft({ scope: { platforms: [], markets: ["DE"], categories: ["apparel-tshirt"] } });
+  const staged = okRevision(repo, stageCmd(input), human);
+  repo.executeKnowledge(
+    publishCmd({ revisionId: idOf(staged), sourceHash: hashOf(staged) }),
+    human,
+  );
+  const found = KnowledgeListResultSchema.parse(
+    repo.executeKnowledge(
+      queryCmd({ platform: "amazon_listing", market: "DE", category: "apparel-tshirt" }),
+      human,
+    ),
+  );
+  expect(found.ok && found.data.revisions).toHaveLength(1);
+  repo.close();
+});
