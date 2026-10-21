@@ -45,3 +45,12 @@ A/B/C成员开发对应任务必须各开独立分支、使用独立工作目录
 B的公共契约小PR先合入，A/C再接同一类型；A统一未发布迁移编号，C统一桌面桥接/公共组件接线。各成员负责自己的业务页面和Wiki，不把所有UI或文档排给C。先完成一个可验证小切片就集成，不在三条长期分支上积累最后一次性合并。
 
 任务页必须记录领取人、真实taskBase、机器环境、验证范围与未完成项；接口未实现或真实模型未调用时不能标done。PR基线用与目标分支的真实merge-base，保留历史失败记录；生成文件冲突取源码/映射的正确并集后重新生成，不选一边丢掉另一成员的覆盖。
+
+
+## 文本换行与旧 Windows 工作目录
+
+仓库 .gitattributes 规定文本以 LF 存储和检出，二进制保持原字节。请保持编辑器使用 LF；提交前运行 pnpm check:line-endings 和既有 Wiki 门禁。不得因 CRLF 检出问题重算归档哈希或豁免归档检查。
+
+此公共修复由 C 独立交付，A01b 无需承担全仓归一化。修复合入后，A/B 在自己的任务分支合并 origin/codex/m1-foundation，再检查。git add --renormalize . 只重新暂存已跟踪文件，不会把现有工作区 CRLF 自动改为 LF；新 .gitattributes 也须显式 git add。当前索引已为 LF 时，renormalize 可以没有纯换行差异。
+
+旧目录先保存未提交工作和本地未推送提交；推荐保留原目录，在新目录 clone 已包含修复的任务分支后运行 pnpm install --frozen-lockfile、pnpm check:line-endings、pnpm wiki:check。不要求修改全局 core.autocrlf。仅 pull 不保证刷新所有旧文件；不要用 reset --hard 或 clean 丢弃成员工作。临时关闭 autocrlf 的新 clone 可缓解修复合入前的问题，但不能替代仓库策略。详见 [换行决定](wiki-project/wiki/decisions/0016-仓库文本统一LF.md)。

@@ -6,7 +6,8 @@
     "experiments/m0-reuse/evidence/install-initial.log",
     "experiments/m0-reuse/evidence/install-pinned.log",
     "experiments/m0-reuse/evidence/solivio.tap",
-    ".node-version"
+    ".node-version",
+    ".gitattributes"
   ],
   "exclusionPolicy": [
     "Wiki 自身不递归采集为应用源码；维护脚本另存指纹",
@@ -1045,6 +1046,24 @@
       "role": "A01合成知识候选样本，非已发布或已验收规则",
       "pages": [
         "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    ".gitattributes": {
+      "role": "Repository LF checkout policy and read-only line-ending regression gate",
+      "pages": [
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "scripts/check-line-endings.mjs": {
+      "role": "Repository LF checkout policy and read-only line-ending regression gate",
+      "pages": [
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "scripts/check-line-endings.test.mjs": {
+      "role": "Repository LF checkout policy and read-only line-ending regression gate",
+      "pages": [
+        "wiki/M1验证与协作.md"
       ]
     }
   }

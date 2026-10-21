@@ -117,3 +117,10 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 ## 产品HTML交互演示纳管
 
 本轮新增experiments/product-walkthrough/index.html、check.mjs与README.md，逐文件映射至 [[产品交互演示]]，覆盖离线交互行为、关键状态/金额测试和启动说明。同步 [[项目说明书]]、任务、导航、状态和追加日志；生成清单后运行只读check/lint与固定e0f9336基线sync。映射变更运行现有Wiki工具回归，未修改维护工具算法。当前HTML为合成教学样机，不与正式Electron或业务验收混计，实际结果见 [[2026-10-21-产品HTML交互演示]]。
+
+
+## C 公共换行修复与完整性边界
+
+本次按方案 A 将 .gitattributes 纳入 extraFiles 和职责映射，新增 scripts/check-line-endings.mjs 及六项回归映射到 [[M1验证与协作]]；package.json 将本机换行检查放到 check 首项。check-wiki-sync.mjs 同时识别无扩展名 .gitattributes，并新增反向测试，防止只改检出策略却遗漏语义页、任务和追加日志。映射及维护代码变化后重新生成机械清单并执行全部 Wiki 回归。
+
+build-code-index 和 lint-wiki 的原始字节/字符串比较逻辑保持：不在哈希前偷偷归一化，不更新四份原始归档的批准哈希，不删除任何历史证据。本机已有 LF 索引时 renormalize 不必制造大量差异。干净 clone 使用 autocrlf=true 与 false 验证相同快照，旧 Windows 工作目录按 CONTRIBUTING 保存工作后重新检出。任务 [[2026-10-21-C仓库换行修复]] 与 [[0016-仓库文本统一LF]] 记录真实基线、验证和后置 Windows 边界；不恢复 Actions。

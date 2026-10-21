@@ -66,3 +66,13 @@ test('SVG assets require semantic Wiki, task and append-only log changes',()=>{
  assert.ok(result.errors.includes('TASK_UPDATE_REQUIRED'));
  assert.ok(result.errors.includes('APPEND_ONLY_LOG_REQUIRED'));
 });
+
+test('Git attributes require semantic Wiki, task and append-only log changes',()=>{
+ const file='.gitattributes';
+ assert.equal(codeFile(file),true);
+ const result=assess(fixture({changed:[file],currentCoverage:{[file]:{pages:['wiki/module.md']}}}));
+ assert.equal(result.status,'failed');
+ assert.ok(result.errors.includes(`${file}: RELATED_WIKI_BODY_UPDATE_REQUIRED`));
+ assert.ok(result.errors.includes('TASK_UPDATE_REQUIRED'));
+ assert.ok(result.errors.includes('APPEND_ONLY_LOG_REQUIRED'));
+});
