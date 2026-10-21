@@ -190,3 +190,11 @@ README/AGENTS/CONTRIBUTING、开发步骤、状态与CONTEXT同步。恢复摘�
 - 本次配置/文档门禁实际结果见raw/local-verification-validation.json；业务代码未改，上一提交53项单测/5项Electron等原证据保留，不冒充本轮重跑。Windows本机结果尚未运行/收到，须Windows开发者补验，C01整体未完成。
 
 - 本机策略切片收口：Actions disabled断言、workflow无残留、业务/本地测试与60c4489无差异、pnpm check含6项工程、36项Wiki、生成/只读check/lint及两套sync均通过。配置子任务done，原C01a/C01仍待对应技术/平台工作；推送原PR，不合并，不触发云端测试。
+
+
+## 2026-10-21 macOS优先与Windows验证后置
+
+- 用户明确先跳过Windows验证、先完成需求开发、默认macOS为主；从ab936c95bd217b2398af5862f52c61948c0cd753继续同一C分支/PR#2，当前Windows不阻塞开发或合入，仍记未验证。Actions继续关闭，不新增云端检查。
+- 同步AGENTS、贡献/README/PR模板、M1验证/分工/测试交付/交接、Wiki流程、C任务、CONTEXT/状态/导航，新增 [[0014-macOS优先与Windows验收后置]]。旧平台与CI证据保留；跨平台目标与非作者复审/P0不取消，PR不自动合并。
+- 纯文档变化，无业务/测试/维护工具/映射改动，不新增或重跑镜像测试；实际Wiki生成/只读校验/lint及本次/PR基线sync结果见raw/mac-first-validation.json。
+- 首次PR基线sync发现本轮脚本误用索引内容覆盖日志，返回APPEND_ONLY_LOG_REQUIRED；已从ab936c9完整恢复全部历史日志，再追加本条。失败保留raw/mac-first-initial-validation.json，未删除旧证据或放宽门禁。

@@ -34,9 +34,9 @@ pnpm wiki:test
 
 原生测试使用 Electron 的 Node ABI；若重新安装原生依赖后报 ABI 不匹配，运行 `pnpm native:rebuild`。`package:mac`/`package:win` 配置 DMG/NSIS，不自动发布；本轮未做最终安装验收。完整模型评估入口待 T40 实现，不提供假成功命令。本机验收与三人职责见 [M1 验证与协作](wiki-project/wiki/M1验证与协作.md)。
 
-## 本机双平台验收
+## macOS 优先的本机验收
 
-本项目不使用 GitHub Actions 或云端自动测试；仓库Actions已关闭，本分支移除工程/Wiki两个workflow。上述pnpm本地命令保持：你在macOS、Windows开发者在Windows分别执行并记录实际提交、版本、命令/退出码及结果，PR通过非作者评审。未执行的平台明确写未运行，不以另一平台结果代替。代码与Wiki同步仍是P0完成条件。详见[本机验收决定](wiki-project/wiki/decisions/0013-本机双平台验收停用Actions.md)。
+本项目不使用 GitHub Actions 或云端自动测试；仓库Actions已关闭，本分支移除工程/Wiki两个workflow。上述pnpm本地命令保持，当前默认以macOS验收推进需求开发与PR；Windows验证后置，不阻塞当前开发/合入，记“未验证/后置”。你在macOS执行并记录实际提交、版本、命令/退出码及结果，保留非作者评审与P0代码/Wiki同步。核心需求完成后由Windows开发者补对应验收，详见[macOS优先决定](wiki-project/wiki/decisions/0014-macOS优先与Windows验收后置.md)。
 
 ## 参赛方案与下一步
 

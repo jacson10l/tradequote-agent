@@ -1,5 +1,7 @@
 # 当前上下文
 
+- 最新用户阶段决定：先完成需求开发，默认macOS优先，当前Windows验证跳过/后置，不阻塞开发和PR合入。Windows仍未验证，跨平台目标保留；Actions保持关闭，macOS本机检查、P0与非作者复审继续。PR#2当前只待非作者技术复审，未合并。见 [[0014-macOS优先与Windows验收后置]]。
+
 - 最新用户决定：不使用GitHub Actions或云端自动测试；macOS由本人、Windows由Windows开发者本机验收。仓库Actions已关闭回读enabled=false，C分支移除engineering/wiki workflow；本机pnpm/Wiki门禁保持，PR#2待技术复审不合并，不再等待账单/云端CI恢复。详见 [[0013-本机双平台验收停用Actions]]、[[C01a-本机验收与停用Actions]]。Windows本机结果尚未执行/收到，不代签。
 
 - C01a PR#2评审P2已复现并修复：Executor保留Provider已归因TradeFault，补实际Provider＋Executor两种顺序测试；本次起点b05f2e8，详见 [[C运行恢复实现]]。原51项本机通过证据保留；新增完整复验53项单测/5项Electron/36项Wiki、type/build/check/lint与两基线sync均通过，见raw/c01a-p2-validation.json。

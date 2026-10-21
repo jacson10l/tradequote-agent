@@ -32,9 +32,9 @@ node --test wiki-project/scripts/wiki-tools.test.mjs wiki-project/scripts/wiki-s
 
 用户决定不使用 GitHub Actions 或云端自动测试。仓库 Actions 已关闭，engineering/wiki workflow 在本切片移除；原有本机命令、金额/状态/持久化测试和 P0 Wiki 同步要求完整保留。历史 CI 启动失败作为历史证据保留，不视为通过，也不再要求处理账单恢复云端运行。
 
-macOS 由项目负责人、Windows 由 Windows 开发者分别执行。每个平台记录实际提交、OS/CPU、Node/pnpm/Electron版本、命令/退出码、关键行为结果及未运行项；相关改动至少运行 typecheck、适用测试、build、check和Wiki生成/只读校验/基线sync，维护工具或映射变动运行Wiki回归。平台未测就明确标未运行，不拿另一平台结果代替。
+当前默认macOS优先，先完成需求开发；Windows验证后置，不阻塞当前开发和PR合入。macOS记录实际提交、OS/CPU、Node/pnpm/Electron版本、命令/退出码与关键行为结果；相关改动运行typecheck、适用测试、build、check和Wiki生成/只读校验/基线sync，维护工具或映射变动补Wiki回归。Windows记“未验证/后置”，待核心需求完成后由Windows开发者补真实记录，不拿macOS结果代替。
 
-PR 至少一名非作者对照实现、Wiki与本机证据评审；不等待远端CI、不要求设置Actions必需检查。分支保护/规则集的实际状态单独核实，不能宣称本机检查自动构成服务端强制。当前策略见 [本机验收决定](wiki-project/wiki/decisions/0013-本机双平台验收停用Actions.md)。
+PR 至少一名非作者对照实现、Wiki与本机证据评审；不等待远端CI、不要求设置Actions必需检查。分支保护/规则集的实际状态单独核实，不能宣称本机检查自动构成服务端强制。当前平台顺序见 [macOS优先决定](wiki-project/wiki/decisions/0014-macOS优先与Windows验收后置.md)；停用Actions决定继续有效。
 
 项目规则入口：[AGENTS.md](AGENTS.md)。知识入口：[Wiki 索引](wiki-project/index.md)。
 

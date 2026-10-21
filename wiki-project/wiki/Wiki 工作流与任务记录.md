@@ -100,3 +100,8 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 维护脚本算法、pnpm命令和业务测试均未改变；映射变化仍执行36项Wiki回归、生成/只读check/lint和本次60c4489及PR45a9975两套sync。当前策略及证据见 [[0013-本机双平台验收停用Actions]]、[[C01a-本机验收与停用Actions]]。P0代码与Wiki同交付要求保持，不把停用云端等同免检。
 
 移除前的[wiki workflow](https://github.com/jacson10l/tradequote-agent/blob/60c4489d458f341adddfd723c103e75751401048/.github/workflows/wiki.yml)仅作历史来源；当前执行方式以本页本机命令与贡献规范为准。
+
+
+## macOS优先阶段的Wiki记录
+
+用户将当前验证顺序调整为先macOS需求开发，Windows后置，不阻塞当前PR。根AGENTS、贡献规范、README和PR模板同步这一阻塞关系；P0本机生成/只读check/lint/真实基线sync保持，Windows仍明写未验证而非通过。此次仅文档调整，不改维护算法、覆盖映射、业务或测试源码，执行适用Wiki检查，记录raw/mac-first-validation.json。详见 [[0014-macOS优先与Windows验收后置]]、[[C01a-状态机与取消基础]]。
