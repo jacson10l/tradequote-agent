@@ -1,0 +1,17 @@
+{
+  "status": "failed",
+  "base": "45a9975506030170bcb8dc770919b7cb5de89fa6",
+  "checks": [
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs .",
+      "exitCode": 0,
+      "output": "generate: files=140, lines=39173, generated=5, excluded=5"
+    },
+    {
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exitCode": 1,
+      "output": "C01b recovery cases: TYPE_INVALID; ADR0015: missing required headings for decision, alternatives, consequences and rollback."
+    }
+  ],
+  "resolution": "Use supported process page type and required ADR headings; retain draft decision status. Rerun evidence recorded separately. No implementation tests executed."
+}

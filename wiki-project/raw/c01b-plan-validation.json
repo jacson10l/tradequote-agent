@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "recordedAt": "2026-10-21T09:48:03.408825+00:00",
+  "taskBase": "45a9975506030170bcb8dc770919b7cb5de89fa6",
+  "branch": "codex/c01b-storage-plan",
+  "environment": {
+    "os": "Darwin",
+    "architecture": "arm64",
+    "node": "22.22.0",
+    "pnpm": "10.13.1"
+  },
+  "scope": "Documentation preparation only. Proposed storage interfaces, transaction design and 20 unexecuted recovery case groups; no application, migration, dependency or tool changes.",
+  "references": {
+    "B00": "4e8c66366c05468ee133134dc4399aeb5971d1e3",
+    "C01a": "68455a35e21aa7563f12102b337f15f6f799a4aa",
+    "C01aReview": "2db64b4b8cecee160d137c74a42ec6a8f1462d41",
+    "PR1": "OPEN",
+    "PR2": "OPEN"
+  },
+  "checks": [
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs .",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"generate\",\n  \"files\": 140,\n  \"lines\": 39173,\n  \"generated\": 5,\n  \"excluded\": 5\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 140,\n  \"lines\": 39173,\n  \"generated\": 5,\n  \"excluded\": 5\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exitCode": 0,
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 77,\n  \"semantic\": 61,\n  \"reachable\": 77\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 45a9975506030170bcb8dc770919b7cb5de89fa6",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"45a9975506030170bcb8dc770919b7cb5de89fa6\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "output": ""
+    }
+  ],
+  "notRun": [
+    "All C01b recovery implementation tests R01-R20",
+    "Application typecheck, unit tests, build and Electron tests: no implementation changes",
+    "Real DeepSeek, Windows and installed-package tests"
+  ],
+  "initialEvidence": "raw/c01b-plan-initial-validation.json"
+}

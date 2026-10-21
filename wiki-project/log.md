@@ -162,3 +162,11 @@ README/AGENTS/CONTRIBUTING、开发步骤、状态与CONTEXT同步。恢复摘�
 ## 2026-10-21 三人交接复验与推送完成
 
 本次重新执行离线冻结安装、typecheck、42项单元、构建＋5项Electron、6项工程、36项Wiki回归、只读清单/lint/基线sync及差异检查，全部通过；证据raw/parallel-handoff-validation.json。代码与交接共同提交58b462ee9c9d096c480d331036f51ae2bcfa87f6已推送codex/m1-foundation，ls-remote与本地SHA一致；raw/parallel-handoff-git.json保留首次HTTP 400与单次调整传输参数后成功记录。没有改远端main。交接准备done，A01/B00/B01/C01仍待成员领取、评审和实施；真实模型/Windows未验收。后续仅补记本条状态并通过文档门禁。
+
+## 2026-10-21 C01b存储与恢复准备
+
+按用户要求在独立worktree/分支codex/c01b-storage-plan准备存储接口、同事务方案和20组恢复测试，起点45a9975。固定核对B00/C01a/复核提交4e8c663、68455a3、2db64b4及两PR仍OPEN；不复制未合入源码。新增 [[C01b存储接口与事务方案]]、[[C01b恢复测试用例]]、[[0015-C01b同事务运行恢复方案]] 和 [[C01b-存储与恢复准备]]，同步C任务、公共接口、持久化、交接/分工、导航/状态/上下文。
+
+设计明确queued不写旧报价成功缓存、执行票据隔离、控制重放不派发、quote/turn/run/outbox/幂等同事务、崩溃不自动计费。B待确认澄清正文与重开list，A待确认迁移实际编号/缺前驱校验/同连接提交入口。业务实现和恢复用例均未执行，不代签；本次仅文档门禁，结果记录raw/c01b-plan-validation.json。旧日志/验证证据不改写，未提交推送或合并。
+
+准备验收补记：generate/只读check/lint/45a9975基线sync/git diff --check全部退出0，140纳管源码不变、77篇Markdown/61篇语义页可达、codeFiles=0。首次type/ADR章节检查失败保留raw/c01b-plan-initial-validation.json，修正正文后通过，不调整门禁。准备任务done，接口/ADR仍draft，C01整体active；R01～R20未运行，不将文档校验充当恢复测试通过。

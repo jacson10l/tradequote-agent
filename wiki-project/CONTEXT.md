@@ -1,5 +1,9 @@
 # 当前上下文
 
+- 当前任务：[[C01b-存储与恢复准备]]已完成文档验收，分支codex/c01b-storage-plan，taskBase45a9975506030170bcb8dc770919b7cb5de89fa6；只有文档准备，无源码/迁移变更。读 [[C01b存储接口与事务方案]]、[[C01b恢复测试用例]]；方案/ADR仍draft待AB确认，C01整体active。
+- 已核对远端：B00 PR#1/4e8c663、C01a PR#2/68455a3均OPEN，C01a复核2db64b4已推送；这些未进入本分支共同基线。C已由用户领取，不能把下方交接初期的“均draft/新接口未实现”当作所有分支当前状态。
+- 新依赖：B确认并交付clarification/list/控制幂等；A确认迁移4→run5实际编号、缺前驱拒绝与单连接提交入口。C本次准备20组恢复测试，全部未运行；后续依赖合入后另开codex/c01b-run-persistence。不代签AB评审，不自动推送或合并。
+
 - 已完成交接准备：[[2026-10-21-三人并行交接准备]]。用户已授权本轮准备完成后提交并推送；本批共同起点/PR目标codex/m1-foundation，准备开始基线b69c4e50060a54e656017c2b17c4bb04e836630e。代码基线58b462ee9c9d096c480d331036f51ae2bcfa87f6已推送并核对远端一致，证据raw/parallel-handoff-git.json；后续补记为纯文档提交，成员从远端最新头部开分支。
 - 立即读 [[三人并行开发交接]]、[[首批并行接口约定]]；A领取 [[A01-知识发布与来源查询]]，B先B00契约再 [[B01-规则检查与双反馈]]，C领取 [[C01-Agent运行恢复与集成]]。任务均draft，实际成员姓名/评审/环境尚未登记；新接口尚未实现。
 - 成员各自独立clone/worktree、各开任务分支：codex/a01-knowledge-publish、codex/b00-first-batch-contracts、codex/b01-rules-feedback、codex/c01-agent-recovery。禁止在main/集成分支直接做成员功能；小PR合入集成分支。
