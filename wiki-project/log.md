@@ -292,3 +292,5 @@ HTML目标对齐本轮收尾：25项逻辑测试通过；Wiki回归首轮GENERAT
 用户授权提交合并推送；本聊天在独立codex/project-product-manual提交b8f518c，保留六轮文档/HTML/测试/截图原证据；a14d79f无冲突合入远端be53b98（PR #3的9个A01合成fixture）。初次合并树check/lint暴露既有JSON未登记覆盖，本轮补到A业务LLMWiki方案，并说明候选未通过业务语义验收，不改样本或替A标done。按code-review技能执行Standards/Spec独立技术复核，任务 [[2026-10-21-产品资料集成验证]]，最终验证/远端结果后续记录。
 
 独立评审闭环增量：Standards仅发现上述上游覆盖阻断；Spec复现来源撤回后总览审核/发送仍画完成勾。现按当前产出就绪度重算风险/审核/发送步骤并标明历史批准/发送需复核，补总览渲染回归；历史记录不清除。
+
+本轮候选4412c8f完成独立技术复核：Standards覆盖阻断、Spec总览P2均闭环，无剩余阻断。实际HTML45/45、Wiki36/36、generate/check153文件、lint102页、两个固定基线sync与diff-check均通过。72份原raw和9个上游样本逐字节保留。准确记录raw/product-manual-integration-validation.json；集成验证任务done仅表示候选已准备，实际远端合并以PR/Git为准。
