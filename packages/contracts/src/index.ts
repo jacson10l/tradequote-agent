@@ -6,12 +6,14 @@ import { z } from "zod";
 import type { CheckClient } from "./checks";
 import type { KnowledgeClient } from "./knowledge";
 import { IssueSchema } from "./protocol";
+import { AgentReadCommandSchema, AgentReadResultSchema, type ReadAgentClient } from "./read-tools";
 import type { RunClient } from "./runs";
 
 export * from "./checks";
 export * from "./knowledge";
 export { unavailableFirstBatchClient } from "./pending-client";
 export { FailureSchema, IssueSchema, PublicErrorSchema } from "./protocol";
+export * from "./read-tools";
 export * from "./runs";
 
 import { ErrorCodeSchema } from "./errors";
@@ -86,7 +88,8 @@ export interface DesktopClient
     AgentClient,
     KnowledgeClient,
     CheckClient,
-    RunClient {
+    RunClient,
+    ReadAgentClient {
   getWorkspace(): Promise<WorkspaceResult>;
   createWorkspace(command: CreateWorkspace): Promise<WorkspaceResult>;
   renameWorkspace(command: RenameWorkspace): Promise<WorkspaceResult>;
@@ -99,8 +102,13 @@ export const RuntimeCommandSchema = z.union([
   CommandSchema,
   TradeCommandSchema,
   AgentCommandSchema,
+  AgentReadCommandSchema,
 ]);
-export const RuntimeResultSchema = z.union([ResultSchema, TradeResultSchema]);
+export const RuntimeResultSchema = z.union([
+  ResultSchema,
+  TradeResultSchema,
+  AgentReadResultSchema,
+]);
 export type RuntimeCommand = z.infer<typeof RuntimeCommandSchema>;
 export type RuntimeResult = z.infer<typeof RuntimeResultSchema>;
 export const WorkerRequestSchema = z.strictObject({

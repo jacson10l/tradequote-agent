@@ -70,7 +70,7 @@ pnpm wiki:test
 
 ## 两个参考项目与 C 的完整任务
 
-Solivio参考业务工作流，Harness参考受控Agent执行；采用自有实现不减少对应功能的验收。当前源码逐项对照、已完成/待实现/延期、C00～C07任务/依赖/清单见[双参考项目与C路线](wiki-project/wiki/双参考项目功能对照与C开发路线.md)。C01只覆盖运行恢复；本轮[C02a](wiki-project/wiki/tasks/C02a-受限只读工具循环.md)新增有界只读工具循环内部模块，已用现有SQLite目录和确定性核价测试，尚未接生产入口或真实模型。完整工具、写入账本、事件、语言/PDF和知识整理继续按账本交付。最新共同基线be53b98已合入A合成fixture，不能据此宣称知识服务、迁移或事务依赖就绪。
+Solivio参考业务工作流，Harness参考受控Agent执行；采用自有实现不减少对应功能的验收。当前源码逐项对照、已完成/待实现/延期、C00～C07任务/依赖/清单见[双参考项目与C路线](wiki-project/wiki/双参考项目功能对照与C开发路线.md)。C01只覆盖运行恢复；本轮[C02a](wiki-project/wiki/tasks/C02a-受限只读工具循环.md)新增有界只读工具循环内部模块，已用现有SQLite目录和确定性核价测试；后续C02b已接四工具正式Worker/桌面入口，真实供应商语义仍未评估。完整工具、写入账本、事件、语言/PDF和知识整理继续按账本交付。最新共同基线be53b98已合入A合成fixture，不能据此宣称知识服务、迁移或事务依赖就绪。
 
 ## 从这里开工
 
@@ -109,4 +109,4 @@ macOS 开发启动使用本地 TradeQuote.app，Dock 名称与图标一致；重
 
 ## C02b商品与报价只读工具
 
-[C02b接口与边界](wiki-project/wiki/C02b商品与报价只读工具.md)已把只读循环接到现有SQLite已发布商品、授权历史报价与确定性核价：宿主固定范围/日期，保留来源、真实错误和未保存预览，无报价写入。实现/验证见[C02b任务](wiki-project/wiki/tasks/C02b-商品与报价只读工具.md)。search_knowledge/validate_quote缺正式服务，未注册；生产Worker/UI仍为原understand/revise，本轮没有新增入口或完整运行恢复。
+[C02b接口与边界](wiki-project/wiki/C02b商品与报价只读工具.md)已把只读循环接到现有SQLite已发布商品、授权历史报价与确定性核价：宿主固定范围/日期，保留来源、真实错误和未保存预览，无报价写入。实现/验证见[C02b任务](wiki-project/wiki/tasks/C02b-商品与报价只读工具.md)。search_knowledge/validate_quote缺正式服务，继续未注册。后续已接正式Worker/Main/preload和侧栏“只读助手”：本分支启动pnpm dev后，配置模型、发布商品，进入只读助手选择报价并输入任务即可使用四工具，见[桌面使用说明](wiki-project/wiki/C02b桌面只读助手.md)。原understand/revise保存路径兼容；未完成持久运行恢复。

@@ -105,6 +105,7 @@ export class SqliteWorkspaceRepository implements WorkspaceRepository {
 }
 
 export { AgentExecutor } from "./agent-executor";
+export { CatalogQuoteReadService } from "./catalog-quote-read-service";
 export { DeepSeekProvider } from "./deepseek";
 
 export { ModelSettingsStore } from "./model-settings";

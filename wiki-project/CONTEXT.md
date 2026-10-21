@@ -1,5 +1,9 @@
 # 当前上下文
 
+- 最新任务 [[C02b-Worker与桌面只读入口]]，新分支codex/c02b-desktop-read-tools，taskBase=4324dc85bdd00657831f7428496c60e5332bb428（上一轮真实adapter本地检查点），共同/PR基线仍be53b98。
+- 四只读工具已接严格公共agent.read/readAgent、正式Main/Worker/preload与侧栏“只读助手”；宿主workspace/asOf/Main凭据、实际观测/来源/错误与未保存预览。原保存路径兼容，单请求门禁/在途去重，无自动重试/持久化/只读公开取消。说明 [[C02b桌面只读助手]]，验证raw/c02b-desktop-validation.json。
+- 知识/规则继续未注册，完整C02b仍部分；C01b/c、C02c、C03和真实DeepSeek、Windows/最终安装未完成。下列各轮事实保留历史作用域。
+
 - 最新任务 [[C02b-商品与报价只读工具]]，分支codex/c02b-catalog-quote-tools，taskBase=4a56a42ceae83ec44783d9046ae7d4d3696bbda4（C02a本地检查点），共同/PR基线仍be53b98，本轮不推送/合并。
 - CatalogQuoteReadAgent接现有read/trade.get和calculateQuoteV1：商品检索/发布ID回读、授权报价修订精确回读、未保存核价预览；宿主scope/asOf、冻结快照、真实来源/公开失败/observations。新增13项真实业务测试，结果raw/c02b-validation.json。
 - C02b整体部分完成；search_knowledge等B00a/A检索引用，validate_quote等B01/A规则来源，均未注册。原Worker/UI未接新adapter；C02c写工具、C01b/c恢复和真实DeepSeek仍待。接口 [[C02b商品与报价只读工具]]；以下为此前各轮历史事实。

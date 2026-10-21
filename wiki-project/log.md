@@ -269,3 +269,16 @@ C02a验收补记：检查并行与构建产生临时配置扫描冲突，且基�
 首次文档批量更新因stdin编码错误未执行，随后sync正确拒绝缺正文与log。保留raw/c02b-initial-validation.json，分批UTF-8重做文档后重跑，未放宽检查或覆盖历史证据。
 
 C02b已有业务只读子切片收口：92单元（含13新增）、5项现有Electron＋build、6工程、36Wiki工具、typecheck及生成/check/lint、固定4a56a42和be53b98两套sync/差异检查全部退出0，证据raw/c02b-validation.json。该子任务done，完整C02b仍部分；知识/规则、生产接线、写工具/恢复与真实供应商未完成。
+
+
+## 2026-10-21 C02b正式Worker与桌面只读入口
+
+用户明确要求四工具在正式应用实际可用。先把前轮adapter保存为本地4324dc85bdd00657831f7428496c60e5332bb428，再建独立codex/c02b-desktop-read-tools；本任务基线4324dc8，共同/PR基线be53b98。新增独立agent.read与严格四工具/结果公共schema，旧adapter复用并删除重复内部投影；Main白名单与凭据注入、Worker宿主scope/日期/只读并发服务、preload/readAgent/mock和公共导出同批接好，原报价保存路径兼容。只读等待135秒覆盖运行120秒，失败/断线不重发或误报保存。
+
+新增侧栏只读助手、报价授权选择、任务输入和模型说明/真实结果/来源/错误/未保存预览展示。新增12项单测，首轮104项通过；新定向Electron流程通过四工具、900.00原报价与1080.00预览、来源行/hash、缺Key零请求、知识/规则拒绝、业务失败/澄清/401、忙态/键盘/900px和重开不重发，业务板面不变。截图审阅发现basis右对齐继承，保留初图后修正事实正文左对齐、金额右对齐，最终全量复验记录raw/c02b-desktop-validation.json。
+
+新增 [[C02b桌面只读助手]]、[[C02b-Worker与桌面只读入口]]、[[0018-独立只读命令与桌面接线]]，同步旧C02b/完整路线、M1接口/工程/工作台/验证、M4、公共接口、能力图、状态/CONTEXT/README/导航与覆盖。知识/规则保持未注册，C01b/c恢复/取消、C02c写工具、C03事件、真实DeepSeek、Windows/安装仍未完成。无新依赖、迁移或业务写入，无推送/PR/合并，也不替A/B签署人工评审。
+
+桌面接线首次全量回归补记：104单元、36Wiki和工程/生成/check/lint/sync通过，但Electron为5通过/1失败，因旧workspace精确桥接名单遗漏readAgent。保留raw/c02b-desktop-initial-validation.json，增加唯一授权方法并保留原Node/桥接限制，重新运行完整六项。
+
+正式只读入口验收收口：旧桥接精确名单补readAgent后全量6项Electron（含build）通过，104单元、6工程、36Wiki工具与typecheck/生成/只读check/lint、固定4324dc8和be53b98两基线sync均退出0，证据raw/c02b-desktop-validation.json。表单及900px结果截图已重新查看，事实/来源左对齐，初稿与首次失败证据保留。该四工具桌面子任务done；知识/规则、持久恢复/取消、写工具与真实供应商未完成。

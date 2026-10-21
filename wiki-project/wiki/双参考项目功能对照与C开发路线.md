@@ -44,7 +44,7 @@ sources:
 | 参考能力 | 当前实现与状态 | C的后续交付 |
 |---|---|---|
 | Provider/凭据隔离 | **部分**：DeepSeek JSON、45秒单请求、128KiB响应上限、鉴权/限流/取消、Main安全存储已接线；真实供应商未验收 | C04能力矩阵/显式评估；模型选择与执行器选择分开 |
-| 单会话工具循环/allowlist | **内部切片已完成，生产待接线**：本轮read-tool-runtime.ts运行JSON动作→宿主工具→下一轮；仅注册的六类查询/计算名可调用 | C02b接真实A/B端口，C02c补持久化写工具；不能把C02a称为完整T41完成 |
+| 单会话工具循环/allowlist | **四只读工具已接正式桌面**：read-tool-runtime执行JSON动作→宿主工具→下一轮；正式factory只注册商品/报价/核价四工具，知识/规则保持未注册 | C02b接真实A/B端口，C02c补持久化写工具；不能把C02a称为完整T41完成 |
 | 严格工具参数与结果 | **内部切片已完成**：defineReadTool使用宿主提供的Zod schema，输入/结果均验证；业务DTO从contracts导入 | B维护正式业务schema，C维护适配层；未知工具/字段拒绝。宿主handler可信，allowlist不是OS沙箱 |
 | 上下文与运行预算 | **部分**：原一次对话上下文100000 UTF-8字节/最近6成功对话；新只读循环每次发送前核对全上下文，默认8次工具/120秒，上限12次/300秒/100000字节 | C02b按真实资料做摘录、历史和来源版本策略；C04记录可用token/费用来源，价格未知不得填0 |
 | 取消/超时/失败 | **部分**：C01a已有进程内取消；C02a覆盖整个只读任务及不合作adapter的晚到结果 | C01b/c将取消事实、attempt隔离接数据库和UI；不能把AbortController当持久化取消 |
@@ -64,7 +64,7 @@ C01只是运行恢复切片，不代表C全部工作。以下编号与T任务对
 | C01b **待实现，落库依赖未齐**（T44） | agent-run-store及测试、run/control表、claim票据、澄清、同事务提交、启动中断、显式retry | B澄清/list/控制语义；A实际迁移、连续前驱、同连接提交入口。详细接口和R01～R20已有草案，不等完整知识业务 |
 | C01c **待实现**（T42/44） | Main/worker/preload白名单、quote-agent状态/取消/重开列表/重试UI、agent-recovery Electron测试 | C01b服务与B正式协议；写入失败/结果未知要查询事实，不换业务key自动重试 |
 | C02a **本轮内部模块已验证**（T41） | read-tool-runtime.ts及测试，严格注册/串行工具循环/上下文与预算/取消，不含写工具或IPC | 复用现有Provider和contracts，不依赖A/B新接口；实际测试使用现有SQLite目录和确定性金额模块 |
-| C02b **部分完成：已有商品/报价只读子切片**（T41） | CatalogQuoteReadAgent接真实trade.get/read与既有确定性核价；宿主绑定workspace/商品范围/报价修订白名单/asOf，返回实际观测/来源。验收见 [[C02b-商品与报价只读工具]] | 商品检索/发布ID回读/报价修订回读及场景存在时的纯核价已接内部循环；知识仍须A查询/B00a，规则须B01；生产导出/IPC/UI未接，旧understand/revise兼容。未实现工具不注册 |
+| C02b **部分完成：已有商品/报价只读子切片**（T41） | CatalogQuoteReadAgent接真实trade.get/read与既有确定性核价；宿主绑定workspace/商品范围/报价修订白名单/asOf，返回实际观测/来源。验收见 [[C02b-商品与报价只读工具]] | 四工具已接正式公共导出、Worker、agent.read与桌面只读助手；知识仍须A查询/B00a，规则须B01；旧understand/revise兼容。未实现工具不注册 |
 | C02c **待实现**（T41/44） | 草稿写工具、每toolCall与业务operation关联、持久幂等和当前revision校验，AgentRuntime完整读→算→校验→写链路 | C01b、B正式写契约/状态、A事务入口；无发布/审批/自动外发；收费重试由人明确发起 |
 | C03 **待实现**（T42/44） | run.events/订阅、事件序号与补页、Main生命周期回收、UI去重/断线恢复 | B事件/游标契约＋A事务/outbox＋C01b。先做持久业务事件；token delta属后续展示优化，不能承担恢复事实 |
 | C04 **部分完成，真实评估待运行**（T40/53） | 连接/结构化/工具协议、限流/失败/语义/跨品类/语言样本矩阵，显式真实模型评估入口及脱敏报告 | 现有凭据UI；供应商调用须用户在应用提供可用配置，不读取现存真实Key文件。无Key不假通过；本地fixture验证可独立推进 |
@@ -140,4 +140,8 @@ C01只是运行恢复切片，不代表C全部工作。以下编号与T任务对
 
 上文be53b98为路线初次审阅基线；本轮从C02a本地检查点4a56a42另开codex/c02b-catalog-quote-tools，实际完成商品/报价与纯核价适配。[[C02b商品与报价只读工具]]列出真实公开服务、scope、分页/快照、预览身份、结果/来源与失败语义，[[C02b-商品与报价只读工具]]记录验收。get_product_revisions读取现有发布商品ID，不声称独立商品历史服务；get_quote按宿主授权修订ID原样读取，核价预览没有保存ID。只读结果与evidenceIds回给宿主，模型summary不能替代事实。
 
-C02b整体保持部分：search_knowledge缺B00a/A正式检索与引用，validate_quote缺B01纯检查及A适用规则来源；这两个工具没有注册，不返回空知识或pending假报告。原Worker/UI仍走旧AgentExecutor，本轮未开启新IPC，也未完成C02c/C01b恢复或真实供应商验收。后续先协调公开入口/生产调用方，再按成熟服务增加知识/规则。
+C02b整体保持部分：search_knowledge缺B00a/A正式检索与引用，validate_quote缺B01纯检查及A适用规则来源；这两个工具没有注册，不返回空知识或pending假报告。该段是adapter初次切片边界；后续 [[C02b桌面只读助手]] 已开放独立agent.read/正式Worker/UI，原保存路径仍走旧AgentExecutor。C02c/C01b与真实供应商未完成，知识/规则继续等真实服务。
+
+## C02b正式桌面入口进展
+
+四个已有只读工具已通过独立agent.read进入正式Worker/桌面，UI可选报价、发任务、查看实际结果/来源与未保存核价。严格公共命令/结果和调用方/mock同批同步，Main产生凭据快照，Worker产生workspace/asOf；只读任务没有持久恢复/取消承诺。验收 [[C02b-Worker与桌面只读入口]]，当前行为 [[C02b桌面只读助手]]。C02b仍部分完成（知识/规则未注册），C01/C02c/C03保持待实现。

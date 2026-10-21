@@ -106,6 +106,7 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
         "publishCatalog",
         "publishKnowledge",
         "queryKnowledge",
+        "readAgent",
         "renameWorkspace",
         "retryAgentRun",
         "reviseQuote",

@@ -17,6 +17,8 @@ export const mockWorkspace: Workspace = {
 /** Read-only UI fixture. No persistence or successful fake writes. */
 export const readonlyMockClient: DesktopClient = {
   ...unavailableFirstBatchClient,
+  readAgent: async () =>
+    failure("CAPABILITY_UNAVAILABLE", "只读样例不能调用模型，请在桌面应用使用只读助手"),
   understandInquiry: async () => failure("CAPABILITY_UNAVAILABLE", "只读样例不能调用模型"),
   reviseQuote: async () => failure("CAPABILITY_UNAVAILABLE", "只读样例不能调用模型"),
   modelSettings: async () => failure("CAPABILITY_UNAVAILABLE", "请在桌面应用中配置模型"),

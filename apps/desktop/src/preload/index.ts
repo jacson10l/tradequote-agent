@@ -1,5 +1,7 @@
 import {
   AgentCommandSchema,
+  AgentReadCommandSchema,
+  AgentReadResultSchema,
   CommandSchema,
   CsvSelectionSchema,
   type DesktopClient,
@@ -42,6 +44,15 @@ async function invokeAgent(input: unknown) {
 }
 const client: DesktopClient = {
   ...unavailableFirstBatchClient,
+  readAgent: async (command) => {
+    const parsed = AgentReadCommandSchema.safeParse(command);
+    if (!parsed.success) return failure("VALIDATION_ERROR", "只读任务字段不合法");
+    try {
+      return AgentReadResultSchema.parse(await ipcRenderer.invoke("agent.read", parsed.data));
+    } catch {
+      return failure("CAPABILITY_UNAVAILABLE", "只读连接中断，未保存报价；重新运行会再次调用模型");
+    }
+  },
   understandInquiry: (command) => invokeAgent({ ...command, method: "agent.understand" }),
   reviseQuote: (command) => invokeAgent({ ...command, method: "agent.revise" }),
   modelSettings: async (command) => {

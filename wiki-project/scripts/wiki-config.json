@@ -1121,6 +1121,55 @@
         "wiki/C02b商品与报价只读工具.md",
         "wiki/M4模型与报价修订.md"
       ]
+    },
+    "packages/contracts/src/read-tools.ts": {
+      "role": "独立只读命令、四工具统一投影与严格结果",
+      "pages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    "packages/contracts/src/read-tools.test.ts": {
+      "role": "只读命令/Worker联合与字段/范围/结果注入拒绝",
+      "pages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    "packages/infrastructure/src/catalog-quote-read-service.ts": {
+      "role": "正式Worker只读服务、宿主范围/时钟、在途门禁",
+      "pages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    "packages/infrastructure/src/catalog-quote-read-service.test.ts": {
+      "role": "真实仓库服务鉴权、在途去重与失败释放",
+      "pages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    "apps/desktop/src/main/worker-client.test.ts": {
+      "role": "只读传输deadline、结果校验和退出不重发",
+      "pages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/read-assistant.tsx": {
+      "role": "桌面只读任务/范围、实际结果与来源展示",
+      "pages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    "tests/e2e/read-assistant.spec.ts": {
+      "role": "正式Electron四工具、错误边界、来源/金额/重开验收",
+      "pages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md"
+      ]
     }
   }
 }

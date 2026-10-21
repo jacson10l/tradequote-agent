@@ -179,6 +179,7 @@ else {
         "quote.createV1",
         "agent.understand",
         "agent.revise",
+        "agent.read",
       ] as const) {
         ipcMain.handle(method, (event, input: unknown) => {
           if (

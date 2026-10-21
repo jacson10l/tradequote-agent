@@ -23,7 +23,7 @@ describe("B00 read-only mock and formal preload capability gate", () => {
     vi.resetModules();
     vi.clearAllMocks();
   });
-  it("implements all public methods without exposing new IPC or returning fake successful writes", async () => {
+  it("keeps the ten B00 methods unavailable without sending their IPC or returning fake writes", async () => {
     await import("./index");
     const desktop: DesktopClient = electron.exposeInMainWorld.mock.calls[0]?.[1];
     expect(desktop).toBeDefined();
@@ -111,5 +111,47 @@ describe("B00 read-only mock and formal preload capability gate", () => {
       ).toMatchObject({ ok: false, error: { code: "VALIDATION_ERROR" } });
     }
     expect(electron.invoke).not.toHaveBeenCalled();
+  });
+  it("exposes only the strict agent.read command and validates its reply", async () => {
+    await import("./index");
+    const desktop: DesktopClient = electron.exposeInMainWorld.mock.calls[0]?.[1];
+    const command = {
+      ...read,
+      method: "agent.read" as const,
+      payload: { instruction: "只读查询", quoteRevisionIds: [] },
+    };
+    electron.invoke.mockResolvedValue({
+      ok: true,
+      data: {
+        workspaceId: mockAgentRun.runId,
+        asOf: mockAgentRun.createdAt,
+        outcome: "completed",
+        summary: "未保存报价",
+        toolCalls: 0,
+        observations: [],
+      },
+      warnings: [],
+      evidenceIds: [],
+    });
+    expect(await desktop.readAgent(command)).toMatchObject({ ok: true });
+    expect(electron.invoke).toHaveBeenCalledWith("agent.read", command);
+    const invalid = {
+      ...command,
+      payload: { ...command.payload, workspaceId: mockAgentRun.runId },
+    };
+    expect(await desktop.readAgent(invalid)).toMatchObject({
+      ok: false,
+      error: { code: "VALIDATION_ERROR" },
+    });
+    expect(electron.invoke).toHaveBeenCalledTimes(1);
+    electron.invoke.mockResolvedValue({ ok: true, data: { approved: true } });
+    expect(await desktop.readAgent(command)).toMatchObject({
+      ok: false,
+      error: { code: "CAPABILITY_UNAVAILABLE" },
+    });
+    expect(await readonlyMockClient.readAgent(command)).toMatchObject({
+      ok: false,
+      error: { code: "CAPABILITY_UNAVAILABLE" },
+    });
   });
 });

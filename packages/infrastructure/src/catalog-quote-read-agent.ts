@@ -1,11 +1,16 @@
 import { randomUUID } from "node:crypto";
 import {
-  FailureSchema,
+  AgentReadDataSchema,
+  CalculationPreviewResultSchema,
+  CalculationPreviewSchema,
+  CatalogSearchInputSchema,
+  CatalogSearchResultSchema,
   failure,
-  ProductSchema,
+  ProductReadInputSchema,
+  ProductReadResultSchema,
   QuoteInputSchema,
-  QuoteSnapshotSchema,
-  QuoteV1Schema,
+  QuoteReadInputSchema,
+  QuoteReadResultSchema,
   type TradeBoard,
   TradeResultSchema,
 } from "@tradequote/contracts";
@@ -26,26 +31,6 @@ const scopeSchema = z.strictObject({
   quoteRevisionIds: z.array(z.uuid()).max(50),
   productIds: z.array(z.uuid()).max(500).optional(),
 });
-const productIdsSchema = z
-  .array(ProductSchema.shape.id)
-  .min(1)
-  .max(50)
-  .refine((ids) => new Set(ids).size === ids.length, "商品标识不能重复");
-const previewSchema = QuoteV1Schema.pick({
-  createdAt: true,
-  scenario: true,
-  currency: true,
-  lines: true,
-  goodsTotal: true,
-  pending: true,
-  calculationPolicy: true,
-});
-function resultSchema<T extends z.ZodType>(data: T) {
-  return z.discriminatedUnion("ok", [
-    z.strictObject({ ok: z.literal(true), data, evidenceIds: z.array(z.string()) }),
-    FailureSchema,
-  ]);
-}
 const success = <T>(data: T, evidenceIds: string[]) => ({
   ok: true as const,
   data,
@@ -120,19 +105,8 @@ export class CatalogQuoteReadAgent {
         name: "search_catalog",
         description:
           "检索当前已发布商品快照（不含暂存资料）。按ID稳定分页；返回来源hash、批次和价格行。过期资料可读，有效性由核价重新检查。",
-        inputSchema: z.strictObject({
-          query: z.string().trim().max(200).default(""),
-          category: ProductSchema.shape.category.optional(),
-          limit: z.number().int().min(1).max(50).default(20),
-          afterId: ProductSchema.shape.id.nullable().default(null),
-        }),
-        outputSchema: resultSchema(
-          z.strictObject({
-            items: z.array(ProductSchema).max(50),
-            nextAfterId: z.uuid().nullable(),
-            asOf: z.iso.datetime(),
-          }),
-        ),
+        inputSchema: CatalogSearchInputSchema,
+        outputSchema: CatalogSearchResultSchema,
         execute: async ({ query, category, limit, afterId }) =>
           read("search_catalog", () => {
             const term = query.toLocaleLowerCase("en-US");
@@ -159,10 +133,8 @@ export class CatalogQuoteReadAgent {
         name: "get_product_revisions",
         description:
           "按已发布商品快照ID精确读取，保留sourceHash与价格来源行；全部ID须在宿主授权范围。当前没有独立商品历史版本服务。",
-        inputSchema: z.strictObject({ productIds: productIdsSchema }),
-        outputSchema: resultSchema(
-          z.strictObject({ products: z.array(ProductSchema).max(50), asOf: z.iso.datetime() }),
-        ),
+        inputSchema: ProductReadInputSchema,
+        outputSchema: ProductReadResultSchema,
         execute: async ({ productIds }) =>
           read("get_product_revisions", () => {
             const selected = productIds.map((id) => products.find((p) => p.id === id));
@@ -176,14 +148,8 @@ export class CatalogQuoteReadAgent {
         name: "get_quote",
         description:
           "按宿主授权的报价修订ID读取精确历史快照，返回是否当前最新；不改写、重算或批准旧报价。",
-        inputSchema: z.strictObject({ revisionId: QuoteSnapshotSchema.shape.id }),
-        outputSchema: resultSchema(
-          z.strictObject({
-            quote: QuoteSnapshotSchema,
-            isLatest: z.boolean(),
-            asOf: z.iso.datetime(),
-          }),
-        ),
+        inputSchema: QuoteReadInputSchema,
+        outputSchema: QuoteReadResultSchema,
         execute: async ({ revisionId }) =>
           read("get_quote", () => {
             const quote = quotes.find((q) => q.id === revisionId);
@@ -208,13 +174,7 @@ export class CatalogQuoteReadAgent {
           description:
             "调用既有价目表确定性核价，仅返回未保存计算预览。核价日期由宿主固定；未知/过期/MOQ不填零；不创建报价ID或修订。",
           inputSchema: QuoteInputSchema,
-          outputSchema: resultSchema(
-            z.strictObject({
-              kind: z.literal("calculation_preview"),
-              calculation: previewSchema,
-              asOf: z.iso.datetime(),
-            }),
-          ),
+          outputSchema: CalculationPreviewResultSchema,
           execute: async (input) =>
             read("calculate_quote", () => {
               const quote = calculateQuoteV1(input, scenario, products, {
@@ -223,7 +183,7 @@ export class CatalogQuoteReadAgent {
                 createdAt: asOf,
               });
               // Strip temporary QuoteV1 identity so the model cannot mistake a calculation for a saved revision.
-              const calculation = previewSchema.parse({
+              const calculation = CalculationPreviewSchema.parse({
                 createdAt: quote.createdAt,
                 scenario: quote.scenario,
                 currency: quote.currency,
@@ -260,6 +220,11 @@ export class CatalogQuoteReadAgent {
       })),
       unavailableTools: ["search_knowledge", "validate_quote"],
     }).run(instruction, cancellation);
-    return { ...outcome, workspaceId: this.scope.workspaceId, asOf, observations };
+    return AgentReadDataSchema.parse({
+      ...outcome,
+      workspaceId: this.scope.workspaceId,
+      asOf,
+      observations,
+    });
   }
 }

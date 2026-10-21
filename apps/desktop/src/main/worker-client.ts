@@ -13,7 +13,11 @@ export class BusinessWorker {
   private exited = false;
   private readonly pending = new Map<
     string,
-    { resolve: (result: RuntimeResult) => void; timer: ReturnType<typeof setTimeout> }
+    {
+      resolve: (result: RuntimeResult) => void;
+      timer: ReturnType<typeof setTimeout>;
+      readOnly: boolean;
+    }
   >();
   constructor(entry: string, database: string, fixture?: string) {
     this.child = utilityProcess.fork(entry, [database, ...(fixture ? [fixture] : [])], {
@@ -38,7 +42,12 @@ export class BusinessWorker {
     for (const pending of this.pending.values()) {
       clearTimeout(pending.timer);
       pending.resolve(
-        failure("CAPABILITY_UNAVAILABLE", "业务进程不可用，请重启应用；重试将复用操作标识"),
+        failure(
+          "CAPABILITY_UNAVAILABLE",
+          pending.readOnly
+            ? "只读任务连接中断，未保存报价；重新运行会再次调用模型"
+            : "业务进程不可用，请重启应用；重试将复用操作标识",
+        ),
       );
     }
     this.pending.clear();
@@ -51,11 +60,22 @@ export class BusinessWorker {
       const timer = setTimeout(
         () => {
           this.pending.delete(id);
-          resolve(failure("CAPABILITY_UNAVAILABLE", "保存结果未知，请重试同一操作或重新加载"));
+          resolve(
+            failure(
+              "CAPABILITY_UNAVAILABLE",
+              command.method === "agent.read"
+                ? "只读任务等待超时，未保存报价；重新运行会再次调用模型"
+                : "保存结果未知，请重试同一操作或重新加载",
+            ),
+          );
         },
-        command.method.startsWith("agent.") ? 60000 : 15000,
+        command.method === "agent.read"
+          ? 135000
+          : command.method.startsWith("agent.")
+            ? 60000
+            : 15000,
       );
-      this.pending.set(id, { resolve, timer });
+      this.pending.set(id, { resolve, timer, readOnly: command.method === "agent.read" });
       this.child.postMessage({ id, command, ...(credentials ? { credentials } : {}) });
     });
   }

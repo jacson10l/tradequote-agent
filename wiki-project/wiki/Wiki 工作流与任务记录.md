@@ -126,3 +126,9 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 ## C02b只读业务适配覆盖
 
 本轮新增catalog-quote-read-agent.ts及测试，逐文件归 [[C02b商品与报价只读工具]]/M4知识页；ReadToolRuntime的hostContext增量同步原路线/M4正文。配置只增加两项coverage，不改维护算法；仍执行36项Wiki工具回归，保留上轮raw与log，固定本任务4a56a42和累计PR基线be53b98检查同步。知识/任务/0017决定已从index可达，状态/CONTEXT明确C02b部分完成和A/B未就绪接口，不以schema/mock冒充服务。验证见 [[C02b-商品与报价只读工具]]。
+
+## C02b四工具正式桌面接线覆盖
+
+新增read-tools契约/测试、只读服务/测试、Worker客户端测试、只读页面和Electron用例共7项逐文件映射至 [[C02b桌面只读助手]]/M4。原contracts index/mock、基础设施index、Main/worker/preload及App等继续使用原M1接口/工程/UI映射，实际正文均同步必要的只读协议、凭据/时钟/等待边界和页面行为；不是只改新页面绕过旧责任页。adapter改用共享公共schema，原C02b页明确后续已接正式入口，旧子任务证据保持原样。
+
+本轮维护配置只增加coverage，不改变工具算法；运行36项Wiki工具回归、生成/只读check/lint，固定4324dc8任务基线和be53b98累计PR基线sync。初始截图的右对齐继承问题保留在.runtime初稿图后修正；最终命令与视觉检查记录raw/c02b-desktop-validation.json，任务 [[C02b-Worker与桌面只读入口]]。日志只追加，历史验证JSON按基线逐字节保留；真实供应商/恢复/Windows不冒领。

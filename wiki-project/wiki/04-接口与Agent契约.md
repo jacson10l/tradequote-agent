@@ -230,3 +230,9 @@ Main 发出文件选择/保存令牌，后台用令牌访问受控路径；原�
 [[A业务LLMWiki方案]]要求AI只能创建候选；知识审核、发布、撤回由human_ui入口执行，模型/原文不能自报审核人和权限。B00现有agent.start只可启动询盘/报价修订，其completed必须有committedRevisionId；知识整理需独立KnowledgeBuildCommand/Run，不扩用旧报价命令偷渡Markdown。
 
 [[B00a-业务Wiki契约补充]]将补来源、wiki候选/审核/发布、search/resolveCitation及lint/impact/重建接口。ArtifactStore现为async，WikiService先异步验证artifact再提交SQLite引用事务/outbox，知识Repository事务可同步。正式搜索只返回适用的已发布有效版本，历史引用解析与候选管理是独立入口；renderer始终不访问文件/数据库。变更清单与旧协议兼容见 [[B00知识契约差距与补充]]。
+
+## 已实现的独立只读agent.read
+
+完整AgentRuntime仍为目标设计；当前新增可实际使用的agent.read/readAgent仅处理本机用户发起的四工具只读任务，公共strict输入/观测/结果见contracts/read-tools.ts，使用与失败边界见 [[C02b桌面只读助手]]。命令无写幂等键、无客户端workspace/asOf/credentials/工具注入；Main凭据和Worker宿主范围分开产生。四工具输入/结果统一导出，原adapter改为共用，不另建DTO。
+
+该读结果可返回模型说明或澄清及实际查询/预览/失败/来源，不携committedRevisionId，也不触发运行表或报价提交。当前同请求仅在途去重，传输与Provider不自动重试，重开不重发；不能将其当作agent.start/resume或跨重启计费恰好一次。知识/规则保持未注册，旧understand/revise保存行为不变。验收见 [[C02b-Worker与桌面只读入口]]。
