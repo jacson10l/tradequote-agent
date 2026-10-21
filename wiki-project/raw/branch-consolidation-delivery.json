@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "recordedAt": "2026-10-21T10:06:35.029087+00:00",
+  "target": "codex/m1-foundation",
+  "deliveredCodeAndReviewHead": "a5e04d185d2d6791bdbb85262eb053a69fe374a1",
+  "pullRequests": [
+    {
+      "mergeCommit": {
+        "oid": "4e8c66366c05468ee133134dc4399aeb5971d1e3"
+      },
+      "mergedAt": "2026-10-21T10:04:22Z",
+      "number": 1,
+      "state": "MERGED",
+      "url": "https://github.com/jacson10l/tradequote-agent/pull/1"
+    },
+    {
+      "mergeCommit": {
+        "oid": "f57f0e600ca65ce5b1de378be70bc36a98cb2acf"
+      },
+      "mergedAt": "2026-10-21T10:04:22Z",
+      "number": 2,
+      "state": "MERGED",
+      "url": "https://github.com/jacson10l/tradequote-agent/pull/2"
+    }
+  ],
+  "deletedLocalAndRemoteBranches": [
+    "codex/a01-llm-wiki-plan",
+    "codex/c01a-verification",
+    "codex/c01b-storage-plan"
+  ],
+  "retainedRemoteHeads": {
+    "codex/a01-knowledge-publish": "544ea51fab3d980baf1401bd6ad2a90f56373f4b",
+    "codex/b00-first-batch-contracts": "4e8c66366c05468ee133134dc4399aeb5971d1e3",
+    "codex/c01-agent-recovery": "68455a35e21aa7563f12102b337f15f6f799a4aa",
+    "codex/m1-foundation": "a5e04d185d2d6791bdbb85262eb053a69fe374a1",
+    "main": "ef14fc3c1838f3b605956dd00922a2517f9144a6"
+  },
+  "worktreeArchival": "Three archive requests returned queued. Detached clean checkouts retained pending app archive; branch refs removed only after ancestor verification.",
+  "preservedIgnoredScreenshots": "/Users/jason/.codex/worktree-evidence/2026-10-21-consolidation/c01a-verification",
+  "checks": [
+    {
+      "command": "verify remote target, PR merged state, ancestor relation and removed local/remote refs",
+      "exitCode": 0
+    }
+  ]
+}

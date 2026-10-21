@@ -240,3 +240,8 @@ B00代码提交e71442d127edeb9a62a9a0cd5a127ee0ae2898be已推送并核对远端�
 按用户授权先提交推送C01b准备文档a0a30a6，再整合B00 4e8c663、A01方案1819d9d、C01a 68455a3、复核2db64b4和C01b原历史。两个独立技术评审分别按工程规范与需求符合性检查B00/C01a，均无阻断发现；不代签T00或人工业务验收。Wiki覆盖取有效源码并集后重新生成清单；历史raw非生成文件逐字节核对、log旧非空行检查均无丢失。新增[[分支收口与共同基线]]与[[2026-10-21-分支收口与集成验收]]，同步README、CONTEXT、状态、公共接口和受影响任务。
 
 组合验证实际通过typecheck、16文件66单元测试、5项真实Electron端到端测试（合成本地HTTP模型）。完整门禁记录见raw/branch-consolidation-validation.json，历史保存证据见raw/branch-consolidation-preservation.json。Windows、真实DeepSeek和C01b运行持久化未验证。远端交付和清理结果在完成后追加；A fixture分支缺Wiki排除，旧名称非祖先分支保留。
+
+
+## 2026-10-21 共同基线交付与临时分支清理
+
+共同分支codex/m1-foundation已非强制推送a5e04d1并在原工作目录快进，PR#1/#2回读MERGED。66单元、5真实Electron、6工程、36Wiki回归及类型/生成/check/lint/固定基线sync全部通过。B00/C01a限定技术切片完成，不代签人类团队验收。祖先与干净核对后删除a01-llm-wiki-plan、c01a-verification、c01b-storage-plan三个本地/远端临时分支，ABC/main/旧名称分支保留。三个工作树归档请求返回queued，先保留detached副本；21个未跟踪截图/指标已另存保留，不宣称异步归档完成。详见raw/branch-consolidation-delivery.json与[[分支收口与共同基线]]。本交付记录仍在独立整合分支提交，推送快进后清理该临时分支。
