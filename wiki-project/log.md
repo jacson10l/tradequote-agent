@@ -217,3 +217,11 @@ B00代码提交e71442d127edeb9a62a9a0cd5a127ee0ae2898be已推送并核对远端�
 - 同步AGENTS、贡献/README/PR模板、M1验证/分工/测试交付/交接、Wiki流程、C任务、CONTEXT/状态/导航，新增 [[0014-macOS优先与Windows验收后置]]。旧平台与CI证据保留；跨平台目标与非作者复审/P0不取消，PR不自动合并。
 - 纯文档变化，无业务/测试/维护工具/映射改动，不新增或重跑镜像测试；实际Wiki生成/只读校验/lint及本次/PR基线sync结果见raw/mac-first-validation.json。
 - 首次PR基线sync发现本轮脚本误用索引内容覆盖日志，返回APPEND_ONLY_LOG_REQUIRED；已从ab936c9完整恢复全部历史日志，再追加本条。失败保留raw/mac-first-initial-validation.json，未删除旧证据或放宽门禁。
+
+## 2026-10-21 B00 C评审与C01a独立复核
+
+发现既有C分支68455a3已包含状态机、取消和P2修复，使用独立codex/c01a-verification工作目录复验，原任务目录保持不动。B00 Standards与Spec均无阻断项，typecheck与55项单元通过；澄清内容持久化保留为C01b协调项。本次类型检查、53项单元、含构建的5项实际Electron回归通过，完整门禁结果记录raw/c01a-reverification.json，B00记录raw/b00-c-reverification.json。同步 [[B00-C接口评审]]、[[C运行恢复实现]]、[[C01a-状态机与取消基础]] 和当前状态；无应用源码改动，不重复实现，不自动合并或推送。真实模型、Windows、持久化恢复和新取消UI未验收。
+
+## 2026-10-21 C01a复核文档提交交付
+
+用户随后明确授权提交推送本次复核与Wiki改动，交付分支codex/c01a-verification，起点68455a3；原C01分支与PR#2保持不动。交付前复跑清单只读check、lint、相对68455a3的同步及差异检查通过，代码变更0。精确交付提交以该分支Git记录为准。当前PR#1/B00与PR#2/C01a均仍打开；下一步先完成评审合入、B/C澄清信息契约与A迁移顺序协调，再推进C01b运行持久化、重启interrupted、显式重试与提交原子性，最后接C01c桌面入口。真实模型和Windows未验证的边界保留。

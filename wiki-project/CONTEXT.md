@@ -11,6 +11,8 @@
 - 已完成交接准备：[[2026-10-21-三人并行交接准备]]。用户已授权本轮准备完成后提交并推送；本批共同起点/PR目标codex/m1-foundation，准备开始基线b69c4e50060a54e656017c2b17c4bb04e836630e。代码基线58b462ee9c9d096c480d331036f51ae2bcfa87f6已推送并核对远端一致，证据raw/parallel-handoff-git.json；后续补记为纯文档提交，成员从远端最新头部开分支。
 - 立即读 [[三人并行开发交接]]、[[首批并行接口约定]]；A领取 [[A01-知识发布与来源查询]]，B先B00契约再 [[B01-规则检查与双反馈]]，C领取 [[C01-Agent运行恢复与集成]]。A01/B01/C01仍draft；B00代码已在独立分支实施，实际A/C评审未登记。
 
+- 本次在codex/c01a-verification独立目录复核已有C分支68455a3，沿用原代码；B00 C两轴评审无阻断项，澄清内容持久化仍待B/C确定。复验见 [[C01a-状态机与取消基础]]；原C分支未修改，PR未自动合并。
+
 - 最新用户阶段决定：先完成需求开发，默认macOS优先，当前Windows验证跳过/后置，不阻塞开发和PR合入。Windows仍未验证，跨平台目标保留；Actions保持关闭，macOS本机检查、P0与非作者复审继续。PR#2当前只待非作者技术复审，未合并。见 [[0014-macOS优先与Windows验收后置]]。
 
 - 最新用户决定：不使用GitHub Actions或云端自动测试；macOS由本人、Windows由Windows开发者本机验收。仓库Actions已关闭回读enabled=false，C分支移除engineering/wiki workflow；本机pnpm/Wiki门禁保持，PR#2待技术复审不合并，不再等待账单/云端CI恢复。详见 [[0013-本机双平台验收停用Actions]]、[[C01a-本机验收与停用Actions]]。Windows本机结果尚未执行/收到，不代签。
