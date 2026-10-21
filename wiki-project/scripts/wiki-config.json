@@ -48,7 +48,9 @@
     "raw/generated/代码清单.md",
     "raw/generated/源码快照.md",
     "raw/generated/源码覆盖矩阵.md",
-    "raw/generated/命令与运行时清单.md"
+    "raw/generated/命令与运行时清单.md",
+    "scripts/check-wiki-sync.mjs",
+    "scripts/wiki-sync.test.mjs"
   ],
   "coverage": {
     ".gitignore": {
@@ -237,6 +239,230 @@
       "pages": [
         "wiki/测试与验证地图.md",
         "wiki/知识库可靠性与覆盖范围.md"
+      ]
+    },
+    "experiments/m0-platform/README.md": {
+      "role": "平台探针生命周期与验证编排",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/测试与验证地图.md"
+      ]
+    },
+    "experiments/m0-platform/business-tools.mjs": {
+      "role": "被否决的 Electron Harness 候选复现",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/decisions/0004-M0平台与执行器选型.md"
+      ]
+    },
+    "experiments/m0-platform/contracts.test.ts": {
+      "role": "T00 部分可执行边界契约与拒绝测试",
+      "pages": [
+        "wiki/M0契约评审准备.md",
+        "wiki/03-领域与数据契约.md"
+      ]
+    },
+    "experiments/m0-platform/contracts.ts": {
+      "role": "T00 部分可执行边界契约与拒绝测试",
+      "pages": [
+        "wiki/M0契约评审准备.md",
+        "wiki/03-领域与数据契约.md"
+      ]
+    },
+    "experiments/m0-platform/evidence/dependencies.json": {
+      "role": "本轮平台合成实验结果与版本证据",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/测试与验证地图.md"
+      ]
+    },
+    "experiments/m0-platform/evidence/desktop.json": {
+      "role": "本轮平台合成实验结果与版本证据",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/测试与验证地图.md"
+      ]
+    },
+    "experiments/m0-platform/evidence/initial-desktop.json": {
+      "role": "本轮平台合成实验结果与版本证据",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/测试与验证地图.md"
+      ]
+    },
+    "experiments/m0-platform/evidence/initial-packaged.json": {
+      "role": "本轮平台合成实验结果与版本证据",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/测试与验证地图.md"
+      ]
+    },
+    "experiments/m0-platform/evidence/package-initial.json": {
+      "role": "本轮平台合成实验结果与版本证据",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/测试与验证地图.md"
+      ]
+    },
+    "experiments/m0-platform/evidence/packaged.json": {
+      "role": "本轮平台合成实验结果与版本证据",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/测试与验证地图.md"
+      ]
+    },
+    "experiments/m0-platform/executor-probe.mjs": {
+      "role": "最小工具执行器与 SQLite/取消/错误分支验证",
+      "pages": [
+        "wiki/运行时能力地图.md",
+        "wiki/M0平台验证记录.md"
+      ]
+    },
+    "experiments/m0-platform/executor.mjs": {
+      "role": "最小工具执行器与 SQLite/取消/错误分支验证",
+      "pages": [
+        "wiki/运行时能力地图.md",
+        "wiki/M0平台验证记录.md"
+      ]
+    },
+    "experiments/m0-platform/harness-desktop.mjs": {
+      "role": "被否决的 Electron Harness 候选复现",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/decisions/0004-M0平台与执行器选型.md"
+      ]
+    },
+    "experiments/m0-platform/main.cjs": {
+      "role": "平台探针生命周期与验证编排",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/测试与验证地图.md"
+      ]
+    },
+    "experiments/m0-platform/model-provider.mjs": {
+      "role": "桌面模型设置与凭据隔离验证",
+      "pages": [
+        "wiki/模型服务设置验证.md",
+        "wiki/配置路径与敏感信息.md"
+      ]
+    },
+    "experiments/m0-platform/package.json": {
+      "role": "平台探针精确依赖与构建配置",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/系统架构.md"
+      ]
+    },
+    "experiments/m0-platform/parsers.mjs": {
+      "role": "合成文件解析、来源位置与 PDF 引擎对照",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/核心业务流程.md"
+      ]
+    },
+    "experiments/m0-platform/pdf-probe.mjs": {
+      "role": "合成文件解析、来源位置与 PDF 引擎对照",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/核心业务流程.md"
+      ]
+    },
+    "experiments/m0-platform/pnpm-lock.yaml": {
+      "role": "平台探针精确依赖与构建配置",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/系统架构.md"
+      ]
+    },
+    "experiments/m0-platform/settings-preload.cjs": {
+      "role": "桌面模型设置与凭据隔离验证",
+      "pages": [
+        "wiki/模型服务设置验证.md",
+        "wiki/配置路径与敏感信息.md"
+      ]
+    },
+    "experiments/m0-platform/settings.cjs": {
+      "role": "桌面模型设置与凭据隔离验证",
+      "pages": [
+        "wiki/模型服务设置验证.md",
+        "wiki/配置路径与敏感信息.md"
+      ]
+    },
+    "experiments/m0-platform/settings.css": {
+      "role": "桌面模型设置与凭据隔离验证",
+      "pages": [
+        "wiki/模型服务设置验证.md",
+        "wiki/配置路径与敏感信息.md"
+      ]
+    },
+    "experiments/m0-platform/settings.html": {
+      "role": "桌面模型设置与凭据隔离验证",
+      "pages": [
+        "wiki/模型服务设置验证.md",
+        "wiki/配置路径与敏感信息.md"
+      ]
+    },
+    "experiments/m0-platform/settings.js": {
+      "role": "桌面模型设置与凭据隔离验证",
+      "pages": [
+        "wiki/模型服务设置验证.md",
+        "wiki/配置路径与敏感信息.md"
+      ]
+    },
+    "experiments/m0-platform/storage.mjs": {
+      "role": "真实 SQLite 原子性、迁移与持久幂等探针",
+      "pages": [
+        "wiki/数据持久化与状态.md",
+        "wiki/M0平台验证记录.md"
+      ]
+    },
+    "experiments/m0-platform/tsconfig.json": {
+      "role": "平台探针精确依赖与构建配置",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/系统架构.md"
+      ]
+    },
+    "experiments/m0-platform/verify.mjs": {
+      "role": "平台探针生命周期与验证编排",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/测试与验证地图.md"
+      ]
+    },
+    "experiments/m0-platform/worker.mjs": {
+      "role": "平台探针生命周期与验证编排",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/测试与验证地图.md"
+      ]
+    },
+    "experiments/m0-platform/evidence/validation.json": {
+      "role": "本轮命令退出码、源码指纹与已选路径验证汇总",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/测试与验证地图.md"
+      ]
+    },
+    "CONTRIBUTING.md": {
+      "role": "Mandatory Wiki delivery policy and PR/CI enforcement",
+      "pages": [
+        "wiki/Wiki 工作流与任务记录.md",
+        "wiki/05-三人分工与开发步骤.md"
+      ]
+    },
+    ".github/pull_request_template.md": {
+      "role": "Mandatory Wiki delivery policy and PR/CI enforcement",
+      "pages": [
+        "wiki/Wiki 工作流与任务记录.md",
+        "wiki/05-三人分工与开发步骤.md"
+      ]
+    },
+    ".github/workflows/wiki.yml": {
+      "role": "Mandatory Wiki delivery policy and PR/CI enforcement",
+      "pages": [
+        "wiki/Wiki 工作流与任务记录.md",
+        "wiki/05-三人分工与开发步骤.md"
       ]
     }
   }

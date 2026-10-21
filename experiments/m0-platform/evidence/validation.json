@@ -1,0 +1,188 @@
+{
+  "at": "2026-10-21T03:41:22.589Z",
+  "status": "passed",
+  "scope": "Selected M0 macOS probe route only; rejected Harness and deferred acceptance are separate",
+  "environment": {
+    "node": "v22.22.0",
+    "platform": "darwin",
+    "arch": "arm64"
+  },
+  "checks": [
+    {
+      "command": "pnpm install --frozen-lockfile --ignore-scripts",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "Lockfile is up to date, resolution step is skipped\nAlready up to date\n\nDone in 549ms using pnpm v10.13.1\n",
+      "stderr": ""
+    },
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "\n> tradequote-m0-platform@0.0.1 typecheck <probe-root>\n> tsc --noEmit\n\n",
+      "stderr": ""
+    },
+    {
+      "command": "pnpm test:contracts",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "\n> tradequote-m0-platform@0.0.1 test:contracts <probe-root>\n> tsx --test contracts.test.ts\n\nTAP version 13\n# Subtest: decimal strings preserve exact values and reject coerced representations\nok 1 - decimal strings preserve exact values and reject coerced representations\n  ---\n  duration_ms: 0.895083\n  type: 'test'\n  ...\n# Subtest: quantity unknown/zero/negative and unitless are rejected\nok 2 - quantity unknown/zero/negative and unitless are rejected\n  ---\n  duration_ms: 1.214083\n  type: 'test'\n  ...\n# Subtest: typed patch cannot inject totals, actor, approval or a workspace\nok 3 - typed patch cannot inject totals, actor, approval or a workspace\n  ---\n  duration_ms: 1.644\n  type: 'test'\n  ...\n# Subtest: approval requires exact revision and both hashes\nok 4 - approval requires exact revision and both hashes\n  ---\n  duration_ms: 0.319834\n  type: 'test'\n  ...\n1..4\n# tests 4\n# suites 0\n# pass 4\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 211.771417\n",
+      "stderr": ""
+    },
+    {
+      "command": "node --check business-tools.mjs",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check executor-probe.mjs",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check executor.mjs",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check harness-desktop.mjs",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check main.cjs",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check model-provider.mjs",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check parsers.mjs",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check pdf-probe.mjs",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check settings-preload.cjs",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check settings.cjs",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check settings.js",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check storage.mjs",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check verify.mjs",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check worker.mjs",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "pnpm probe",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "\n> tradequote-m0-platform@0.0.1 probe <probe-root>\n> electron .\n\n{\"status\":\"passed\",\"packaged\":false,\"checks\":[\"sqlite-initial\",\"sqlite-crash\",\"sqlite-reopen\",\"four-input-formats\",\"react-pdf-candidate\",\"electron-print-to-pdf\",\"pdf-content-and-source-locations\",\"settings-page-and-secret-store\",\"minimal-executor-in-electron\"],\"failures\":[]}\n",
+      "stderr": ""
+    },
+    {
+      "command": "pnpm package:mac",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "\n> tradequote-m0-platform@0.0.1 package:mac <probe-root>\n> electron-builder --mac dir --publish never\n\n  • electron-builder  version=26.15.3 os=25.4.0\n  • loaded configuration  file=package.json (\"build\" field)\n  • executing @electron/rebuild  electronVersion=44.9.2 arch=arm64 buildFromSource=false workspaceRoot=<probe-root> projectDir=./ appDir=./\n  • installing native dependencies  arch=arm64\n  • preparing       moduleName=better-sqlite3 arch=arm64\n  • finished        moduleName=better-sqlite3 arch=arm64\n  • completed installing native dependencies\n  • packaging       platform=darwin arch=arm64 electron=44.9.2 appOutDir=dist/mac-arm64\n  • downloaded      label=electron progress=100%\n  • downloaded electron zip extracted successfully  output=<probe-root>/dist/mac-arm64\n  • searching for node modules  pm=pnpm searchDir=<probe-root>\n  • platform-specific optional dependencies not bundled — add them to your project's optionalDependencies if your app requires them (pnpm 10+ does not auto-install transitive platform binaries)  dependencies=[\"@napi-rs/canvas-darwin-x64@1.0.12\",\"@napi-rs/canvas-linux-arm-gnueabihf@1.0.12\",\"@napi-rs/canvas-linux-arm64-gnu@1.0.12\",\"@napi-rs/canvas-linux-arm64-musl@1.0.12\",\"@napi-rs/canvas-linux-riscv64-gnu@1.0.12\",\"@napi-rs/canvas-linux-x64-gnu@1.0.12\",\"@napi-rs/canvas-linux-x64-musl@1.0.12\",\"@napi-rs/canvas-win32-arm64-msvc@1.0.12\",\"@napi-rs/canvas-win32-x64-msvc@1.0.12\"]\n  • default Electron icon is used  reason=application icon is not set\n  • skipped macOS code signing  reason=identity explicitly is set to null\n",
+      "stderr": ""
+    },
+    {
+      "command": "macOS packaged app probe",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "{\"status\":\"passed\",\"packaged\":true,\"checks\":[\"sqlite-initial\",\"sqlite-crash\",\"sqlite-reopen\",\"four-input-formats\",\"react-pdf-candidate\",\"electron-print-to-pdf\",\"pdf-content-and-source-locations\",\"settings-page-and-secret-store\",\"minimal-executor-in-electron\"],\"failures\":[]}\n",
+      "stderr": ""
+    }
+  ],
+  "sources": {
+    "business-tools.mjs": "407a158b43e1e41ec1914b5268959585b6780c262b56df6160310c617af215b0",
+    "contracts.test.ts": "22b51e6acdb740c7bbe1e072f69138dadcbfa0562247764f2a49c53840ca2433",
+    "contracts.ts": "7fa0a23cde8085475be9fc6e1e66e59adb9554c5a7df6d64b6b36ffdcd74f770",
+    "executor-probe.mjs": "6175ccde3aabd34da5466dbba4241e1d5042ba6d544135ebbb93be4c7e8d5ab4",
+    "executor.mjs": "10815cef982b0280c798c349014090dd0505bd3c59cf4fec13ad321401506a66",
+    "harness-desktop.mjs": "cb94cc67c8a9dbfa0c4192576c07614179aa5345525d288f36af971e7a94151b",
+    "main.cjs": "e747590410376486886b08529fc78f4a1aca25b7cd9ad5305b447798a5f07e34",
+    "model-provider.mjs": "288187f70b6d7306ce89dbfcd4283cdf0a4318dd5c528223ec70ed080bb8188b",
+    "package.json": "6077e544417a8ba673b4e24221819e45662965e56a531a157e75a0ab015c84eb",
+    "parsers.mjs": "9c90634d76eab91ab614a990aff65a09463794cee97adec072fd264c48d1dba5",
+    "pdf-probe.mjs": "4f88f2bb2c894bc4ba2d60dbff4ad56a997db2a88e66dd0e587645046ee46d19",
+    "pnpm-lock.yaml": "b5c5a459b7d5e01f9d25d92872049e7622701318c06dda40f9029afecdada048",
+    "settings-preload.cjs": "95419aa4293adb8d1ffd30d04c92c0fde14d049f426e853b463c7111d1528dbf",
+    "settings.cjs": "8a13345e217ff71eddf05b3ff3331044ea56cbf1f0ef9c7dbbca6c64011bd401",
+    "settings.css": "b168919cf42e60c40249779c9b6141399b9c82f8045338fde69b8daf3298f55c",
+    "settings.html": "1e42ecf1a4c463f66637e978a73de69f96cbf29d1b7b0789e9a3d28d5cae385f",
+    "settings.js": "aef6c794c47ee32b19ea6d283a73c5e2b22bfa18d2e3152f4347ff8e86042f3e",
+    "storage.mjs": "fc28e40cc2efcc771265e9072471438bbefa7186e0c68336d66f0b2a0262d7e6",
+    "tsconfig.json": "915e1147936c2efedd51f453904dc746d3f5a60136fcb84cb6968b03a97c961a",
+    "verify.mjs": "9cc2a0843a0c2d23d53357a34958134285ef0b1c80728396f90791ffa19d2edf",
+    "worker.mjs": "8c6e23f2e29cc970b99facdfabd4f734c5ef09bf51f06a4b0365cabbde4f22dd"
+  },
+  "reports": {
+    "desktop.json": "81aa166a686ae15f1db168317409a809a602993d937090308e1d4bdc0b9c3dbe",
+    "packaged.json": "aab8acec34726c7973e0d33554f8c007596376380cc3b222b26fc386891f53d0",
+    "initial-desktop.json": "f19d2417476ee2d2bbf1c5ca16c6c3888f40fa65dac88c861dabf0944397c8de",
+    "package-initial.json": "3ef5f9a54a5ff8e93d107b9ac2353e78fc4f4fedc54213281c774c8376b698d7"
+  },
+  "notCompleted": [
+    "Real DeepSeek credentials/model evaluation",
+    "Windows and signed installer/upgrade acceptance (user deferred)",
+    "Exact RTL text roundtrip and language expert review",
+    "Full production contracts and durable streamed AgentRun recovery",
+    "Three developer contract sign-off"
+  ]
+}

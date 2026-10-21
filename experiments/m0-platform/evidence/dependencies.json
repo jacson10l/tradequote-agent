@@ -1,0 +1,280 @@
+{
+  "dependencies": [
+    {
+      "name": "@fontsource/noto-sans",
+      "requested": "5.3.0",
+      "installed": "5.3.0",
+      "developmentOnly": false,
+      "license": "OFL-1.1",
+      "licenses": [
+        {
+          "file": "LICENSE",
+          "sha256": "54ec7b5a35310ad66f9f3091426f7028484cbf9ae1ab5da30122ee412a3009e1"
+        }
+      ]
+    },
+    {
+      "name": "@fontsource/noto-sans-arabic",
+      "requested": "5.3.0",
+      "installed": "5.3.0",
+      "developmentOnly": false,
+      "license": "OFL-1.1",
+      "licenses": [
+        {
+          "file": "LICENSE",
+          "sha256": "91053c23e8a0fe5fc9b5fdbe5ff74ceffd66f6f996c123f1a6ca4c23487c1fff"
+        }
+      ]
+    },
+    {
+      "name": "@fontsource/noto-sans-sc",
+      "requested": "5.3.1",
+      "installed": "5.3.1",
+      "developmentOnly": false,
+      "license": "OFL-1.1",
+      "licenses": [
+        {
+          "file": "LICENSE",
+          "sha256": "18aabf190848725e2576eefb5c29ba06aac1029d02132252a7f312eac2e50cf3"
+        }
+      ]
+    },
+    {
+      "name": "@react-pdf/renderer",
+      "requested": "4.9.0",
+      "installed": "4.9.0",
+      "developmentOnly": false,
+      "license": "MIT",
+      "licenses": []
+    },
+    {
+      "name": "better-sqlite3",
+      "requested": "13.0.3",
+      "installed": "13.0.3",
+      "developmentOnly": false,
+      "license": "MIT",
+      "licenses": [
+        {
+          "file": "LICENSE",
+          "sha256": "09856b52897c91ab67e7456ef43067019f31dfd3b87fda72e655736b1ebdee55"
+        }
+      ]
+    },
+    {
+      "name": "csv-parse",
+      "requested": "7.0.3",
+      "installed": "7.0.3",
+      "developmentOnly": false,
+      "license": "MIT",
+      "licenses": [
+        {
+          "file": "LICENSE",
+          "sha256": "032efe3de772e9f85c722ee9ff7ccd5cab01e024296b2b8d25893bf779be9360"
+        }
+      ]
+    },
+    {
+      "name": "decimal.js",
+      "requested": "10.6.0",
+      "installed": "10.6.0",
+      "developmentOnly": false,
+      "license": "MIT",
+      "licenses": [
+        {
+          "file": "LICENCE.md",
+          "sha256": "3108b546bcff5d346923a82f48b2d252ca722f9088076db6d145f6b67757ad6c"
+        }
+      ]
+    },
+    {
+      "name": "drizzle-orm",
+      "requested": "0.45.4",
+      "installed": "0.45.4",
+      "developmentOnly": false,
+      "license": "Apache-2.0",
+      "licenses": []
+    },
+    {
+      "name": "exceljs",
+      "requested": "4.4.0",
+      "installed": "4.4.0",
+      "developmentOnly": false,
+      "license": "MIT",
+      "licenses": [
+        {
+          "file": "LICENSE",
+          "sha256": "2ed526b7e7c7681dc2347995b5036ddf73dc27d0539cdea59b6d4a72b63a57a0"
+        }
+      ]
+    },
+    {
+      "name": "fast-xml-parser",
+      "requested": "5.11.2",
+      "installed": "5.11.2",
+      "developmentOnly": false,
+      "license": "MIT",
+      "licenses": [
+        {
+          "file": "LICENSE",
+          "sha256": "7883225d5e84a6bbb9b170c3d891b4bf6d6259cee869c86bd86381a927071745"
+        }
+      ]
+    },
+    {
+      "name": "jszip",
+      "requested": "3.10.2",
+      "installed": "3.10.2",
+      "developmentOnly": false,
+      "license": "(MIT OR GPL-3.0-or-later)",
+      "licenses": [
+        {
+          "file": "LICENSE.markdown",
+          "sha256": "566c953c6090b1218ca6217dd7359d45dde46581968586dc607d59a78af6a9c4"
+        }
+      ]
+    },
+    {
+      "name": "mammoth",
+      "requested": "1.13.0",
+      "installed": "1.13.0",
+      "developmentOnly": false,
+      "license": "BSD-2-Clause",
+      "licenses": [
+        {
+          "file": "LICENSE",
+          "sha256": "6663bbd049205d38a496ccacb412a151980b444627d38de218b3b809aef330f1"
+        }
+      ]
+    },
+    {
+      "name": "pdfjs-dist",
+      "requested": "6.4.299",
+      "installed": "6.4.299",
+      "developmentOnly": false,
+      "license": "Apache-2.0",
+      "licenses": [
+        {
+          "file": "LICENSE",
+          "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+        }
+      ]
+    },
+    {
+      "name": "react",
+      "requested": "19.3.1",
+      "installed": "19.3.1",
+      "developmentOnly": false,
+      "license": "MIT",
+      "licenses": [
+        {
+          "file": "LICENSE",
+          "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93"
+        }
+      ]
+    },
+    {
+      "name": "zod",
+      "requested": "4.6.7",
+      "installed": "4.6.7",
+      "developmentOnly": false,
+      "license": "MIT",
+      "licenses": [
+        {
+          "file": "LICENSE",
+          "sha256": "3f1189b28e3866e0d979968d466b78f813f76827cfdca1fbb124cc0a5c8841f8"
+        }
+      ]
+    },
+    {
+      "name": "@types/node",
+      "requested": "^24.19.2",
+      "installed": "24.19.2",
+      "developmentOnly": true,
+      "license": "MIT",
+      "licenses": [
+        {
+          "file": "LICENSE",
+          "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383"
+        }
+      ]
+    },
+    {
+      "name": "electron",
+      "requested": "44.9.2",
+      "installed": "44.9.2",
+      "developmentOnly": true,
+      "license": "MIT",
+      "licenses": [
+        {
+          "file": "LICENSE",
+          "sha256": "5154e165bd6c2cc0cfbcd8916498c7abab0497923bafcd5cb07673fe8480087d"
+        }
+      ]
+    },
+    {
+      "name": "electron-builder",
+      "requested": "26.15.3",
+      "installed": "26.15.3",
+      "developmentOnly": true,
+      "license": "MIT",
+      "licenses": [
+        {
+          "file": "LICENSE",
+          "sha256": "bed8d0ab3e6031817f775a641ff37313b0f5591bc8ba0ed79b978dafbd4231ce"
+        }
+      ]
+    },
+    {
+      "name": "tsx",
+      "requested": "4.23.15",
+      "installed": "4.23.15",
+      "developmentOnly": true,
+      "license": "MIT",
+      "licenses": [
+        {
+          "file": "LICENSE",
+          "sha256": "8dded67841a9261a622c739fb61c81785e93765de852828ceeb9403d20a74581"
+        }
+      ]
+    },
+    {
+      "name": "typescript",
+      "requested": "7.0.2",
+      "installed": "7.0.2",
+      "developmentOnly": true,
+      "license": "Apache-2.0",
+      "licenses": [
+        {
+          "file": "LICENSE",
+          "sha256": "a7d00bfd54525bc694b6e32f64c7ebcf5e6b7ae3657be5cc12767bce74654a47"
+        }
+      ]
+    },
+    {
+      "name": "@deepseek-ai/dsh-sdk-client",
+      "requested": "0.2.1-rc.2",
+      "installed": "0.2.1-rc.2",
+      "developmentOnly": true,
+      "license": "MIT",
+      "licenses": [
+        {
+          "file": "LICENSE",
+          "sha256": "ebb4f09972aee8608be255debaf78451a68e95c290f55c240dec2ecfa16ea6be"
+        }
+      ]
+    },
+    {
+      "name": "@deepseek-ai/dsh-tools",
+      "requested": "0.2.1-rc.2",
+      "installed": "0.2.1-rc.2",
+      "developmentOnly": true,
+      "license": "MIT",
+      "licenses": [
+        {
+          "file": "LICENSE",
+          "sha256": "ebb4f09972aee8608be255debaf78451a68e95c290f55c240dec2ecfa16ea6be"
+        }
+      ]
+    }
+  ]
+}

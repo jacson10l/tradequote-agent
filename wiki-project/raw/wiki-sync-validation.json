@@ -1,0 +1,58 @@
+{
+  "at": "2026-10-21T03:51:57.786328+00:00",
+  "status": "passed",
+  "scope": "Local repository Wiki delivery rules and enforcement; remote CI/branch protection not executed",
+  "checks": [
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 59,\n  \"lines\": 26848,\n  \"generated\": 5,\n  \"excluded\": 7\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "node --check wiki-project/scripts/check-wiki-sync.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check wiki-project/scripts/wiki-sync.test.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base ef14fc3",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"ef14fc3c1838f3b605956dd00922a2517f9144a6\",\n  \"status\": \"passed\",\n  \"codeFiles\": 34,\n  \"knowledgePages\": 20,\n  \"tasks\": 2,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --test wiki-project/scripts/wiki-tools.test.mjs wiki-project/scripts/wiki-sync.test.mjs",
+      "exitCode": 0,
+      "stdout": "TAP version 13\n# Subtest: code with related knowledge, task and appended log passes\nok 1 - code with related knowledge, task and appended log passes\n  ---\n  duration_ms: 1.494083\n  type: 'test'\n  ...\n# Subtest: generated snapshots alone cannot satisfy knowledge/task/log changes\nok 2 - generated snapshots alone cannot satisfy knowledge/task/log changes\n  ---\n  duration_ms: 0.2625\n  type: 'test'\n  ...\n# Subtest: metadata-only or whitespace-only edits cannot satisfy semantic update\nok 3 - metadata-only or whitespace-only edits cannot satisfy semantic update\n  ---\n  duration_ms: 0.126167\n  type: 'test'\n  ...\n# Subtest: each source needs its own mapped knowledge, unrelated pages do not suffice\nok 4 - each source needs its own mapped knowledge, unrelated pages do not suffice\n  ---\n  duration_ms: 0.108167\n  type: 'test'\n  ...\n# Subtest: deleted source uses baseline mapping; unknown source fails\nok 5 - deleted source uses baseline mapping; unknown source fails\n  ---\n  duration_ms: 0.457333\n  type: 'test'\n  ...\n# Subtest: history rewrite and removed task do not pass\nok 6 - history rewrite and removed task do not pass\n  ---\n  duration_ms: 0.170333\n  type: 'test'\n  ...\n# Subtest: Wiki maintenance code requires workflow knowledge, not generated data\nok 7 - Wiki maintenance code requires workflow knowledge, not generated data\n  ---\n  duration_ms: 0.197167\n  type: 'test'\n  ...\n# Subtest: ordinary documentation-only edits do not trigger code delivery check\nok 8 - ordinary documentation-only edits do not trigger code delivery check\n  ---\n  duration_ms: 0.1595\n  type: 'test'\n  ...\n# Subtest: real Git baseline includes committed, unstaged and untracked sources\nok 9 - real Git baseline includes committed, unstaged and untracked sources\n  ---\n  duration_ms: 202.431041\n  type: 'test'\n  ...\n# Subtest: same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\nok 10 - same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\n  ---\n  duration_ms: 646.550916\n  type: 'test'\n  ...\n# Subtest: source drift fails without writes; generation repairs snapshot while preserving ingest baseline\nok 11 - source drift fails without writes; generation repairs snapshot while preserving ingest baseline\n  ---\n  duration_ms: 318.522666\n  type: 'test'\n  ...\n# Subtest: explicit ingest records a non-Git project honestly\nok 12 - explicit ingest records a non-Git project honestly\n  ---\n  duration_ms: 281.230792\n  type: 'test'\n  ...\n# Subtest: tool inventory names come from definitions, not nested headers/output/schema fields\nok 13 - tool inventory names come from definitions, not nested headers/output/schema fields\n  ---\n  duration_ms: 126.929125\n  type: 'test'\n  ...\n# Subtest: new unclassified source fails; missing knowledge target and stale mapping fail\nok 14 - new unclassified source fails; missing knowledge target and stale mapping fail\n  ---\n  duration_ms: 280.334833\n  type: 'test'\n  ...\n# Subtest: generated coverage tampering is detected by lint and remains untouched\nok 15 - generated coverage tampering is detected by lint and remains untouched\n  ---\n  duration_ms: 201.800083\n  type: 'test'\n  ...\n# Subtest: sensitive filename is excluded before read; external source symlink is not followed\nok 16 - sensitive filename is excluded before read; external source symlink is not followed\n  ---\n  duration_ms: 125.252416\n  type: 'test'\n  ...\n# Subtest: Wiki and generated-output symlinks cannot write outside project\nok 17 - Wiki and generated-output symlinks cannot write outside project\n  ---\n  duration_ms: 174.724792\n  type: 'test'\n  ...\n# Subtest: missing schema field\nok 18 - missing schema field\n  ---\n  duration_ms: 197.840958\n  type: 'test'\n  ...\n# Subtest: bad type\nok 19 - bad type\n  ---\n  duration_ms: 196.102167\n  type: 'test'\n  ...\n# Subtest: bad date\nok 20 - bad date\n  ---\n  duration_ms: 201.261333\n  type: 'test'\n  ...\n# Subtest: bad status\nok 21 - bad status\n  ---\n  duration_ms: 196.083375\n  type: 'test'\n  ...\n# Subtest: missing wiki target\nok 22 - missing wiki target\n  ---\n  duration_ms: 193.559542\n  type: 'test'\n  ...\n# Subtest: missing markdown target\nok 23 - missing markdown target\n  ---\n  duration_ms: 191.55625\n  type: 'test'\n  ...\n# Subtest: invalid source line\nok 24 - invalid source line\n  ---\n  duration_ms: 197.800375\n  type: 'test'\n  ...\n# Subtest: verified without code evidence\nok 25 - verified without code evidence\n  ---\n  duration_ms: 191.389541\n  type: 'test'\n  ...\n# Subtest: source escaping project\nok 26 - source escaping project\n  ---\n  duration_ms: 193.3745\n  type: 'test'\n  ...\n# Subtest: unfilled placeholder\nok 27 - unfilled placeholder\n  ---\n  duration_ms: 190.907958\n  type: 'test'\n  ...\n# Subtest: all sources are validated even after a valid implementation source\nok 28 - all sources are validated even after a valid implementation source\n  ---\n  duration_ms: 192.252542\n  type: 'test'\n  ...\n# Subtest: orphan pages and duplicate basenames are rejected\nok 29 - orphan pages and duplicate basenames are rejected\n  ---\n  duration_ms: 357.742792\n  type: 'test'\n  ...\n# Subtest: completed task requires actual verification record\nok 30 - completed task requires actual verification record\n  ---\n  duration_ms: 195.370625\n  type: 'test'\n  ...\n# Subtest: archived source cannot bypass inspection through silent changes\nok 31 - archived source cannot bypass inspection through silent changes\n  ---\n  duration_ms: 198.046333\n  type: 'test'\n  ...\n# Subtest: source references cannot open excluded runtime data\nok 32 - source references cannot open excluded runtime data\n  ---\n  duration_ms: 198.722333\n  type: 'test'\n  ...\n# Subtest: new JSON evidence is checked and sensitive Wiki filenames are rejected before read\nok 33 - new JSON evidence is checked and sensitive Wiki filenames are rejected before read\n  ---\n  duration_ms: 294.350458\n  type: 'test'\n  ...\n# Subtest: secret/JWT/private-key/PII detections redact the value in diagnostics\nok 34 - secret/JWT/private-key/PII detections redact the value in diagnostics\n  ---\n  duration_ms: 724.817583\n  type: 'test'\n  ...\n1..34\n# tests 34\n# suites 0\n# pass 34\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 6331.851917\n",
+      "stderr": ""
+    },
+    {
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 45,\n  \"semantic\": 30,\n  \"reachable\": 45\n}\n",
+      "stderr": "",
+      "phase": "after-task-and-log-sync"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base ef14fc3",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"ef14fc3c1838f3b605956dd00922a2517f9144a6\",\n  \"status\": \"passed\",\n  \"codeFiles\": 34,\n  \"knowledgePages\": 20,\n  \"tasks\": 2,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "phase": "after-task-and-log-sync"
+    }
+  ],
+  "tests": 34
+}

@@ -1,0 +1,164 @@
+{
+  "at": "2026-10-21T03:27:48.240Z",
+  "packaged": false,
+  "platform": "darwin",
+  "arch": "arm64",
+  "os": "25.4.0",
+  "versions": {
+    "node": "24.22.0",
+    "acorn": "8.18.0",
+    "ada": "4.0.0",
+    "amaro": "1.1.11",
+    "ares": "1.34.8",
+    "brotli": "1.2.0",
+    "cldr": "48.0",
+    "icu": "78.2",
+    "llhttp": "9.4.3",
+    "merve": "1.2.2",
+    "modules": "149",
+    "napi": "10",
+    "nbytes": "0.1.4",
+    "ncrypto": "0.0.1",
+    "nghttp2": "1.70.0",
+    "nghttp3": "",
+    "ngtcp2": "",
+    "openssl": "0.0.0",
+    "simdjson": "4.6.11",
+    "simdutf": "7.7.0",
+    "sqlite": "3.53.4",
+    "tz": "2026d",
+    "undici": "7.29.1",
+    "unicode": "17.0",
+    "uv": "1.52.1",
+    "uvwasi": "0.0.23",
+    "v8": "15.2.124.43-electron.0",
+    "zlib": "1.3.2.1-motley",
+    "zstd": "1.6.0",
+    "electron": "44.9.2",
+    "chrome": "152.0.7977.167"
+  },
+  "checks": [
+    {
+      "name": "sqlite-initial",
+      "status": "passed",
+      "data": {
+        "ok": true,
+        "result": [
+          "native-sqlite-drizzle-decimal-text",
+          "foreign-keys-enforced",
+          "atomic-rollback-revision-outbox-idempotency",
+          "wal-consistent-backup",
+          "migration-failure-rolls-back"
+        ],
+        "node": "v24.22.0",
+        "modules": "149"
+      }
+    },
+    {
+      "name": "sqlite-crash",
+      "status": "passed",
+      "data": {
+        "ok": true,
+        "result": [
+          "forced-utility-process-crash"
+        ]
+      }
+    },
+    {
+      "name": "sqlite-reopen",
+      "status": "passed",
+      "data": {
+        "ok": true,
+        "result": [
+          "process-restart-idempotency",
+          "same-key-different-payload-conflict",
+          "stale-version-rejected",
+          "crash-uncommitted-transaction-rolled-back",
+          "upgrade-v1-to-v2",
+          "backup-restores-original-schema-and-data"
+        ],
+        "node": "v24.22.0",
+        "modules": "149"
+      }
+    },
+    {
+      "name": "four-input-formats",
+      "status": "passed",
+      "data": {
+        "ok": true,
+        "result": {
+          "checks": [
+            "csv-bom-quotes-multiline-physical-line-and-malformed-row",
+            "xlsx-sheet-cell-location-cached-formula-and-missing-cache",
+            "docx-text-table-paragraph-location-escaping-and-corruption",
+            "legacy-xls-doc-and-macro-format-explicitly-unsupported"
+          ],
+          "sampleLocations": {
+            "csv": {
+              "kind": "csv",
+              "row": 2,
+              "columns": [
+                "sku",
+                "name",
+                "price"
+              ]
+            },
+            "xlsx": {
+              "kind": "sheet",
+              "sheet": "商品",
+              "cellRange": "B2"
+            },
+            "docx": {
+              "kind": "docx",
+              "paragraphId": "paragraph-2",
+              "tableId": "table-1",
+              "cell": "R1C1"
+            }
+          },
+          "limits": [
+            "DOCX mapping validates basic paragraphs/tables only; merged cells, tracked changes and text boxes need broader fixtures",
+            "Formula values are caches, never recalculated; absent cache is missing data",
+            "needs_ocr is a routing signal, not OCR or proof of image-only input"
+          ]
+        },
+        "node": "v24.22.0",
+        "modules": "149"
+      }
+    },
+    {
+      "name": "react-pdf-candidate",
+      "status": "passed",
+      "data": {
+        "ok": true,
+        "result": {
+          "rendered": true
+        },
+        "node": "v24.22.0",
+        "modules": "149"
+      }
+    }
+  ],
+  "failures": [
+    {
+      "name": "electron-print-to-pdf",
+      "error": "Error: Script failed to execute, this normally means an error was thrown. Check the renderer console for the error."
+    },
+    {
+      "name": "pdf-content-and-source-locations",
+      "error": "Error: pdf-inspect: Error: ENOENT: no such file or directory, open '<probe-data>/electron.pdf'"
+    },
+    {
+      "name": "harness-in-electron",
+      "error": "Error: harness: Error: [{\"check\":\"runtime\",\"status\":\"failed\",\"error\":\"TransportClosedError: dsh profile \\\"sdk-minimal\\\": JSON-RPC input closed\\nexit code: 1\\nstderr tail:\\ndsh: fatal uncaught exception: Error: dsh: host preparation failed: node-addon-require-builtin unsupported: Unsupported/no-context (unsupported Electron runtime fingerprint: Node 24.22.0, V8 15.2.124.43-electron.0 (supported Electron versions: 43.0.0, 44.0.0, 44.7.0, 45.0.0-alpha.6))\\n    at boot (file://<probe-app>/node_modules/.pnpm/@deepseek-ai+dsh-app-boot@0.2.1-rc.2_@deepseek-ai+cordis-plugin-group@1.0.5_@deepseek-a_35e6d6a110c743604c34b32ddb5d907b/node_modules/@deepseek-ai/dsh-app-boot/lib/index.js:4560:9)\\n    at async runProfile (file://<probe-app>/node_modules/.pnpm/@deepseek-ai+dsh@0.2.1-rc.2_ee35c8538ced117f667ec72e74fb5694/node_modules/@deepseek-ai/dsh/lib/profile-boot-C14i-8IN.js:302:15)\\n    at async runCli (file://<probe-app>/node_modules/.pnpm/@deepseek-ai+dsh@0.2.1-rc.2_ee35c8538ced117f667ec72e74fb5694/node_modules/@deepseek-ai/dsh/lib/bin.js:215:5)\\n    at async file://<probe-app>/node_modules/.pnpm/@deepseek-ai+dsh@0.2.1-rc.2_ee35c8538ced117f667ec72e74fb5694/node_modules/@deepseek-ai/dsh/lib/bin.js:252:23 {\\n  [cause]: Error: node-addon-require-builtin unsupported: Unsupported/no-context (unsupported Electron runtime fingerprint: Node 24.22.0, V8 15.2.124.43-electron.0 (supported Electron versions: 43.0.0, 44.0.0, 44.7.0, 45.0.0-alpha.6))\\n      at Object.requireBuiltin (<probe-app>/node_modules/.pnpm/node-addon-native-custom-loader@0.1.9/node_modules/node-addon-native-custom-loader/lib/index.js:572:28)\\n      at Object.requireBuiltin (<probe-app>/node_modules/.pnpm/node-addon-require-builtin@0.1.9/node_modules/node-addon-require-builtin/lib/index.js:13:16)\\n      at internalModules (file://<probe-app>/node_modules/.pnpm/@deepseek-ai+dsh-app-boot@0.2.1-rc.2_@deepseek-ai+cordis-plugin-group@1.0.5_@deepseek-a_35e6d6a110c743604c34b32ddb5d907b/node_modules/@deepseek-ai/dsh-app-boot/lib/index.js:1781:26)\\n      at installRuntimeInterception (file://<probe-app>/node_modules/.pnpm/@deepseek-ai+dsh-app-boot@0.2.1-rc.2_@deepseek-ai+cordis-plugin-group@1.0.5_@deepseek-a_35e6d6a110c743604c34b32ddb5d907b/node_modules/@deepseek-ai/dsh-app-boot/lib/index.js:1847:80)\\n      at new PluginPackages (file://<probe-app>/node_modules/.pnpm/@deepseek-ai+dsh-app-boot@0.2.1-rc.2_@deepseek-ai+cordis-plugin-group@1.0.5_@deepseek-a_35e6d6a110c743604c34b32ddb5d907b/node_modules/@deepseek-ai/dsh-app-boot/lib/index.js:3501:24)\\n      at Fiber.execute (file://<probe-app>/node_modules/.pnpm/@deepseek-ai+cordis@4.0.5_@deepseek-ai+cordis-plugin-include@1.0.10_@deepseek-ai+cordis-plugin-loader@1.0.6/node_modules/@deepseek-ai/cordis/lib/index.js:1068:24)\\n      at file://<probe-app>/node_modules/.pnpm/@deepseek-ai+cordis@4.0.5_@deepseek-ai+cordis-plugin-include@1.0.10_@deepseek-ai+cordis-plugin-loader@1.0.6/node_modules/@deepseek-ai/cordis/lib/index.js:1142:34\\n      at file://<probe-app>/node_modules/.pnpm/@deepseek-ai+dsh@0.2.1-rc.2_ee35c8538ced117f667ec72e74fb5694/node_modules/@deepseek-ai/dsh/lib/profile-boot-C14i-8IN.js:306:18\\n      at boot (file://<probe-app>/node_modules/.pnpm/@deepseek-ai+dsh-app-boot@0.2.1-rc.2_@deepseek-ai+cordis-plugin-group@1.0.5_@deepseek-a_35e6d6a110c743604c34b32ddb5d907b/node_modules/@deepseek-ai/dsh-app-boot/lib/index.js:4536:18)\\n      at async runProfile (file://<probe-app>/node_modules/.pnpm/@deepseek-ai+dsh@0.2.1-rc.2_ee35c8538ced117f667ec72e74fb5694/node_modules/@deepseek-ai/dsh/lib/profile-boot-C14i-8IN.js:302:15)\\n      at async runCli (file://<probe-app>/node_modules/.pnpm/@deepseek-ai+dsh@0.2.1-rc.2_ee35c8538ced117f667ec72e74fb5694/node_modules/@deepseek-ai/dsh/lib/bin.js:215:5)\\n      at async file://<probe-app>/node_modules/.pnpm/@deepseek-ai+dsh@0.2.1-rc.2_ee35c8538ced117f667ec72e74fb5694/node_modules/@deepseek-ai/dsh/lib/bin.js:252:23 {\\n    code: 'Unsupported/no-context',\\n    diagnostics: {\\n      mode: 'napi',\\n      product: 'require-builtin',\\n      backend: 'napi',\\n      binary_abi: 'napi-v9',\\n      node: '24.22.0',\\n      napi_version: 10,\\n      platform: 'darwin',\\n      arch: 'arm64',\\n      uses_node_addon_api: true,\\n      has_v8_context: false,\\n      realm_slot: 38,\\n      embedder_fields: 0,\\n      embedder_data: '',\\n      isolate: '',\\n      context: '',\\n      realm: '',\\n      realm_vptr: '',\\n      getter_address: '',\\n      getter_symbol: 'not-found',\\n      getter_symbol_name: '',\\n      getter_pattern: 'none',\\n      getter_image: '',\\n      vptr_image: '',\\n      offset: '',\\n      require_builtin_name: '',\\n      smoke_property: '',\\n      target: 'internal/modules/esm/loader',\\n      target_exports_ok: false,\\n      status: 'Unsupported/no-context',\\n      result: 'unsupported',\\n      error: 'unsupported Electron runtime fingerprint: Node 24.22.0, V8 15.2.124.43-electron.0 (supported Electron versions: 43.0.0, 44.0.0, 44.7.0, 45.0.0-alpha.6)'\\n    }\\n  }\\n}\"}]"
+    }
+  ],
+  "realModel": false,
+  "artifacts": [
+    {
+      "name": "react-pdf.pdf",
+      "bytes": 22748,
+      "sha256": "261657b7928f364f28c433197a2f801d75e5f4fd45575de8b42e7a83fd8f9775"
+    }
+  ],
+  "status": "partial"
+}

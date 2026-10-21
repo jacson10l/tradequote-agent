@@ -2,6 +2,8 @@
 
 本目录属于同一 tradequote-agent 仓库，根目录协作规则仍然适用。用户要求当前就完成工程 Wiki，不再把索引、覆盖或 lint 推迟到 M1。
 
+根规则中的 **P0 代码与 Wiki 同步**是所有成员与编码 Agent 的最高优先级项目完成条件。代码作者对相关知识页、任务页和追加日志负责；Wiki 未同步或门禁失败，任务不得标 done，交付不得标完成，PR 不得合并。仅刷新 raw/generated 不算完成。评审者必须确认内容与实现一致。
+
 ## 路径与证据
 
 - 源码根为本目录父级；Wiki 根为 wiki-project。脚本接受项目根路径参数，禁止硬编码开发者机器路径。
@@ -36,6 +38,7 @@ node wiki-project/scripts/build-code-index.mjs . --ingest
 node wiki-project/scripts/build-code-index.mjs .
 node wiki-project/scripts/build-code-index.mjs . --check
 node wiki-project/scripts/lint-wiki.mjs .
+node wiki-project/scripts/check-wiki-sync.mjs . --base <本次改动基线>
 node --test wiki-project/scripts/wiki-tools.test.mjs
 node --check wiki-project/scripts/build-code-index.mjs
 node --check wiki-project/scripts/lint-wiki.mjs

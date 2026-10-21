@@ -1,0 +1,529 @@
+{
+  "at": "2026-10-21T03:40:20.089Z",
+  "packaged": false,
+  "platform": "darwin",
+  "arch": "arm64",
+  "os": "25.4.0",
+  "versions": {
+    "node": "24.22.0",
+    "acorn": "8.18.0",
+    "ada": "4.0.0",
+    "amaro": "1.1.11",
+    "ares": "1.34.8",
+    "brotli": "1.2.0",
+    "cldr": "48.0",
+    "icu": "78.2",
+    "llhttp": "9.4.3",
+    "merve": "1.2.2",
+    "modules": "149",
+    "napi": "10",
+    "nbytes": "0.1.4",
+    "ncrypto": "0.0.1",
+    "nghttp2": "1.70.0",
+    "nghttp3": "",
+    "ngtcp2": "",
+    "openssl": "0.0.0",
+    "simdjson": "4.6.11",
+    "simdutf": "7.7.0",
+    "sqlite": "3.53.4",
+    "tz": "2026d",
+    "undici": "7.29.1",
+    "unicode": "17.0",
+    "uv": "1.52.1",
+    "uvwasi": "0.0.23",
+    "v8": "15.2.124.43-electron.0",
+    "zlib": "1.3.2.1-motley",
+    "zstd": "1.6.0",
+    "electron": "44.9.2",
+    "chrome": "152.0.7977.167"
+  },
+  "checks": [
+    {
+      "name": "sqlite-initial",
+      "status": "passed",
+      "data": {
+        "ok": true,
+        "result": [
+          "native-sqlite-drizzle-decimal-text",
+          "foreign-keys-enforced",
+          "atomic-rollback-revision-outbox-idempotency",
+          "wal-consistent-backup",
+          "migration-failure-rolls-back"
+        ],
+        "node": "v24.22.0",
+        "modules": "149"
+      }
+    },
+    {
+      "name": "sqlite-crash",
+      "status": "passed",
+      "data": {
+        "ok": true,
+        "result": [
+          "forced-utility-process-crash"
+        ]
+      }
+    },
+    {
+      "name": "sqlite-reopen",
+      "status": "passed",
+      "data": {
+        "ok": true,
+        "result": [
+          "process-restart-idempotency",
+          "same-key-different-payload-conflict",
+          "stale-version-rejected",
+          "crash-uncommitted-transaction-rolled-back",
+          "upgrade-v1-to-v2",
+          "backup-restores-original-schema-and-data"
+        ],
+        "node": "v24.22.0",
+        "modules": "149"
+      }
+    },
+    {
+      "name": "four-input-formats",
+      "status": "passed",
+      "data": {
+        "ok": true,
+        "result": {
+          "checks": [
+            "csv-bom-quotes-multiline-physical-line-and-malformed-row",
+            "xlsx-sheet-cell-location-cached-formula-and-missing-cache",
+            "docx-text-table-paragraph-location-escaping-and-corruption",
+            "legacy-xls-doc-and-macro-format-explicitly-unsupported"
+          ],
+          "sampleLocations": {
+            "csv": {
+              "kind": "csv",
+              "row": 2,
+              "columns": [
+                "sku",
+                "name",
+                "price"
+              ]
+            },
+            "xlsx": {
+              "kind": "sheet",
+              "sheet": "商品",
+              "cellRange": "B2"
+            },
+            "docx": {
+              "kind": "docx",
+              "paragraphId": "paragraph-2",
+              "tableId": "table-1",
+              "cell": "R1C1"
+            }
+          },
+          "limits": [
+            "DOCX mapping validates basic paragraphs/tables only; merged cells, tracked changes and text boxes need broader fixtures",
+            "Formula values are caches, never recalculated; absent cache is missing data",
+            "needs_ocr is a routing signal, not OCR or proof of image-only input"
+          ]
+        },
+        "node": "v24.22.0",
+        "modules": "149"
+      }
+    },
+    {
+      "name": "react-pdf-candidate",
+      "status": "passed",
+      "data": {
+        "ok": true,
+        "result": {
+          "rendered": true
+        },
+        "node": "v24.22.0",
+        "modules": "149"
+      }
+    },
+    {
+      "name": "electron-print-to-pdf",
+      "status": "passed",
+      "data": {
+        "scriptsDisabled": true,
+        "networkBlocked": true,
+        "blockedRequests": 0,
+        "embeddedFontPackages": [
+          "noto-sans",
+          "noto-sans-sc",
+          "noto-sans-arabic"
+        ]
+      }
+    },
+    {
+      "name": "pdf-content-and-source-locations",
+      "status": "passed",
+      "data": {
+        "electron": {
+          "pages": 5,
+          "spans": 154,
+          "status": "text",
+          "arabicRoundtrip": false,
+          "arabicSpans": [
+            {
+              "text": "ﺮ",
+              "location": {
+                "kind": "pdf",
+                "page": 1,
+                "textSpanId": "p1-s12",
+                "bbox": [
+                  467.8363795568167,
+                  733.3800045625001,
+                  3.2669998638749997,
+                  8.249999656249999
+                ]
+              },
+              "dir": "rtl"
+            },
+            {
+              "text": "ﻌ",
+              "location": {
+                "kind": "pdf",
+                "page": 1,
+                "textSpanId": "p1-s13",
+                "bbox": [
+                  471.1033700456921,
+                  733.3800045625001,
+                  4.29824982090625,
+                  8.249999656249999
+                ]
+              },
+              "dir": "rtl"
+            },
+            {
+              "text": "ﺳ",
+              "location": {
+                "kind": "pdf",
+                "page": 1,
+                "textSpanId": "p1-s14",
+                "bbox": [
+                  475.40161049159866,
+                  733.3800045625001,
+                  6.467999730499999,
+                  8.249999656249999
+                ]
+              },
+              "dir": "rtl"
+            },
+            {
+              "text": "ص",
+              "location": {
+                "kind": "pdf",
+                "page": 1,
+                "textSpanId": "p1-s18",
+                "bbox": [
+                  484.0145937827244,
+                  733.3800045625001,
+                  10.7744995510625,
+                  8.249999656249999
+                ]
+              },
+              "dir": "rtl"
+            },
+            {
+              "text": "ﺮ",
+              "location": {
+                "kind": "pdf",
+                "page": 1,
+                "textSpanId": "p1-s19",
+                "bbox": [
+                  494.54158996909956,
+                  733.3800045625001,
+                  3.2669998638749997,
+                  8.249999656249999
+                ]
+              },
+              "dir": "rtl"
+            },
+            {
+              "text": "ﻋ",
+              "location": {
+                "kind": "pdf",
+                "page": 1,
+                "textSpanId": "p1-s20",
+                "bbox": [
+                  497.8085804579749,
+                  733.3800045625001,
+                  4.14974982709375,
+                  8.249999656249999
+                ]
+              },
+              "dir": "rtl"
+            },
+            {
+              "text": "ﻢ",
+              "location": {
+                "kind": "pdf",
+                "page": 1,
+                "textSpanId": "p1-s24",
+                "bbox": [
+                  514.4983003625699,
+                  733.3800045625001,
+                  4.636499806812499,
+                  8.249999656249999
+                ]
+              },
+              "dir": "rtl"
+            },
+            {
+              "text": "ﻟ",
+              "location": {
+                "kind": "pdf",
+                "page": 1,
+                "textSpanId": "p1-s25",
+                "bbox": [
+                  519.1347938693826,
+                  733.3800045625001,
+                  2.1449999106249997,
+                  8.249999656249999
+                ]
+              },
+              "dir": "rtl"
+            },
+            {
+              "text": "ﺎ",
+              "location": {
+                "kind": "pdf",
+                "page": 1,
+                "textSpanId": "p1-s26",
+                "bbox": [
+                  521.2797828300081,
+                  733.3800045625001,
+                  2.4007498999687495,
+                  8.249999656249999
+                ]
+              },
+              "dir": "rtl"
+            },
+            {
+              "text": "ﻌ",
+              "location": {
+                "kind": "pdf",
+                "page": 1,
+                "textSpanId": "p1-s27",
+                "bbox": [
+                  523.6805243299772,
+                  733.3800045625001,
+                  4.29824982090625,
+                  8.249999656249999
+                ]
+              },
+              "dir": "rtl"
+            },
+            {
+              "text": "ﻟ",
+              "location": {
+                "kind": "pdf",
+                "page": 1,
+                "textSpanId": "p1-s28",
+                "bbox": [
+                  527.9787647758839,
+                  733.3800045625001,
+                  2.1449999106249997,
+                  8.249999656249999
+                ]
+              },
+              "dir": "rtl"
+            },
+            {
+              "text": "ﺎ",
+              "location": {
+                "kind": "pdf",
+                "page": 1,
+                "textSpanId": "p1-s29",
+                "bbox": [
+                  530.1237537365093,
+                  733.3800045625001,
+                  2.4007498999687495,
+                  8.249999656249999
+                ]
+              },
+              "dir": "rtl"
+            },
+            {
+              "text": "ﺎ",
+              "location": {
+                "kind": "pdf",
+                "page": 1,
+                "textSpanId": "p1-s33",
+                "bbox": [
+                  536.8887337896351,
+                  733.3800045625001,
+                  2.4007498999687495,
+                  8.249999656249999
+                ]
+              },
+              "dir": "rtl"
+            },
+            {
+              "text": "ﺣ",
+              "location": {
+                "kind": "pdf",
+                "page": 1,
+                "textSpanId": "p1-s36",
+                "bbox": [
+                  542.1192214366981,
+                  733.3800045625001,
+                  4.859249797531249,
+                  8.249999656249999
+                ]
+              },
+              "dir": "rtl"
+            },
+            {
+              "text": "ﺮ",
+              "location": {
+                "kind": "pdf",
+                "page": 1,
+                "textSpanId": "p1-s37",
+                "bbox": [
+                  546.6484608979798,
+                  733.3800045625001,
+                  3.2669998638749997,
+                  8.249999656249999
+                ]
+              },
+              "dir": "rtl"
+            },
+            {
+              "text": "ﻣ",
+              "location": {
+                "kind": "pdf",
+                "page": 1,
+                "textSpanId": "p1-s38",
+                "bbox": [
+                  549.9154513868551,
+                  733.3800045625001,
+                  4.33124981953125,
+                  8.249999656249999
+                ]
+              },
+              "dir": "rtl"
+            }
+          ],
+          "firstLocation": {
+            "kind": "pdf",
+            "page": 1,
+            "textSpanId": "p1-s0",
+            "bbox": [
+              41.99999825,
+              779.8800026250001,
+              59.9999975,
+              14.999999375
+            ]
+          }
+        },
+        "react-pdf": {
+          "pages": 6,
+          "spans": 130,
+          "status": "text",
+          "arabicRoundtrip": false,
+          "arabicSpans": [
+            {
+              "text": "مرحب\u0005ا ب\u0005العالم",
+              "location": {
+                "kind": "pdf",
+                "page": 1,
+                "textSpanId": "p1-s4",
+                "bbox": [
+                  517.100029,
+                  758.466017,
+                  48.13129999999988,
+                  10
+                ]
+              },
+              "dir": "rtl"
+            }
+          ],
+          "firstLocation": {
+            "kind": "pdf",
+            "page": 1,
+            "textSpanId": "p1-s0",
+            "bbox": [
+              30,
+              791.010015,
+              72.00000000000001,
+              18
+            ]
+          }
+        },
+        "image-only": {
+          "pages": 1,
+          "spans": 0,
+          "status": "needs_ocr",
+          "arabicRoundtrip": false,
+          "arabicSpans": []
+        }
+      }
+    },
+    {
+      "name": "settings-page-and-secret-store",
+      "status": "passed",
+      "data": {
+        "storage": "encrypted",
+        "encryptedRestart": true,
+        "rendererHasNode": false,
+        "secretNotReturned": true,
+        "strictIpc": true,
+        "realModel": false
+      }
+    },
+    {
+      "name": "minimal-executor-in-electron",
+      "status": "passed",
+      "data": {
+        "ok": true,
+        "result": {
+          "checks": [
+            "model-discovery",
+            "three-tools-real-sqlite-commit",
+            "repeat-run-no-duplicate-revision",
+            "unregistered-tool-rejected",
+            "forged-tool-argument-rejected",
+            "auth-and-rate-errors",
+            "empty-response-is-failure",
+            "bounded-timeout",
+            "cancel-aborts-in-flight-request",
+            "retry-after-cancel-retains-commit"
+          ],
+          "realModel": false,
+          "streaming": false
+        },
+        "node": "v24.22.0",
+        "modules": "149"
+      }
+    }
+  ],
+  "failures": [],
+  "realModel": false,
+  "notRun": [
+    "Harness candidate rejected on Electron 44.9.2; see initial-desktop.json",
+    "Real DeepSeek",
+    "Windows installation",
+    "Signed installer"
+  ],
+  "artifacts": [
+    {
+      "name": "electron.pdf",
+      "bytes": 96135,
+      "sha256": "968bb373ebcef754b9914f501374db09b6424a17162404696363a6fe9e58bc4a"
+    },
+    {
+      "name": "react-pdf.pdf",
+      "bytes": 22748,
+      "sha256": "aa1026a41ef92731f6189ca2cd696ce1ed1d61bb0c6c502df9c5ea3229c11978"
+    },
+    {
+      "name": "image-only.pdf",
+      "bytes": 1077,
+      "sha256": "8deed22b5b4a4a6759f7d77f619c104a0084670a74a406d4ea505df0d9aeb075"
+    }
+  ],
+  "limits": [
+    "RTL visual sample reviewed separately; exact Arabic text extraction is not passed",
+    "Synthetic fixtures only; no complete product workflows",
+    "Unsigned macOS app directory is not installer/upgrade/Windows acceptance"
+  ],
+  "status": "passed"
+}

@@ -1,19 +1,17 @@
 # 当前上下文
 
-- 当前目标：工程 Wiki 补齐已完成；[[2026-10-21-工程Wiki补齐]] 为 done，接下来继续 [[2026-10-21-M0技术验证]]，M0 仍未退出。
-- 当前阶段：T01 技术评估完成；T02 本机合成服务实验通过，真实模型与双平台打包待验收。Electron 产品尚未初始化。
-- 已定路线：Electron＋React＋TypeScript；单机本地数据；在线模型，DeepSeek 优先，保留供应商适配层。
-- 产品：跨品类；商品和规则来自导入资料及配置；Excel/CSV、文字型 PDF/Word；两种定价；任意目标语言辅助输出；中文界面、摘要和任务。
-- 行为：单据工作台为主，对话辅助；Agent 可自动保存新草稿版本；缺项和歧义确认；人工最终审核；保留历史。
-- UI 最新选择：`npx getdesign@latest add mistral.ai`，浅色。此前 Claude 选择已被替换。
-- 团队：A 数据与知识，B 询报价业务，C 桌面与 Agent；三人全栈，先冻结接口和数据契约。
-- 已落地：[M0 技术验证记录](wiki/技术验证记录.md)和 [独立探针](../experiments/m0-reuse/README.md)。Solivio 两个原样候选的 11 个行为刻画通过，生产改用 csv-parse/decimal.js；Harness 11 个检查项符合预期，有条件采用官方 SDK/runtime＋业务 profile。
-- 限制：模拟模型/内存业务服务，不是实际 DeepSeek/SQLite；SDK 无单会话取消，活动 run 独占进程并通过 close 取消；不允许把多个并发 run 放进同一进程。
-- 下一步：T00 三人评审；C 补 T02 真实模型与独立双平台打包探针，A/B/C 按 T03/T04 验证存储/解析/PDF；关卡未齐前不宣称 M0 完成或运行版本已冻结。
-- 排期：按完成标准推进，无固定天数承诺。
-- 关键待验证：Harness 真实业务服务、打包和宿主崩溃恢复；数据库原生模块；DeepSeek 实际模型能力；多语言 PDF 字体和 RTL；Windows 实测资源。
+- 技术栈细节复核：[[2026-10-21-技术栈细节核对]]。[[02-技术选型与架构]] 已明确 Zod 仅落地 M0 子集，Tailwind/shadcn 等尚待正式 renderer；补 @hookform/resolvers 及 T10/T11/T13/T14 验收。后续 M1 按清单落实，不将 HTML 设置探针当作 React 工作台。
 
-- Wiki 入口：[[项目状态]]、[[工程Wiki要求对照]]、[[Wiki 工作流与任务记录]]。新代码须同步知识页与映射，generate 后运行只读 --check/lint；不再推迟到 M1。
-- 首次 Wiki 验收：27 个纳管文件/10,738 行，25 个语义页，4 个机械 Markdown＋inventory JSON；25 项维护工具测试通过。实际命令与输出见 [验证记录](raw/wiki-validation.json)。
+- P0 最高优先级项目规则：所有成员及编码 Agent 每次代码交付必须同步关联知识页、任务页和追加日志，检查通过后才能标完成/合并。详见根 AGENTS、CONTRIBUTING 与 [[2026-10-21-Wiki强制同步规则]]；不能延期给其他成员补写。
 
-- Git 保存：用户已授权将方案、M0 探针及 Wiki 提交到本地，未推送；提交号以 git log 为准。提交前脱敏本机路径并补齐凭据/数据库/会话/构建产物忽略规则，原始归档与 M0 测试证据保持不变。
+- 当前任务：[[2026-10-21-M0技术验证]]，本轮增量详见 [[M0平台验证记录]]。
+- 用户最新调整：先不做最终安装/双平台验收，不作为开发推进前提；Key 必须经系统设置输入。保留这些未完成项，不能称通过。
+- 选型：Electron 44.9.2＋React/TypeScript 产品方向不变；最小执行器取代默认 Harness，理由为 0.2.1-rc.2 对当前 Electron 原生运行时指纹不兼容。见 [[0004-M0平台与执行器选型]]。
+- 新实验：experiments/m0-platform，真实 Utility Process SQLite、事务/重启/强杀回滚/备份，四类解析、两种 PDF、safeStorage 设置页、合成模型三工具链。
+- 模型设置启动：pnpm --dir experiments/m0-platform settings。用户在页面输入 Key，测试连接后选模型。无真实 Key 已被读取或模型已通过的声明。
+- 主产品仍待 M1 初始化；独立 HTML 设置页不是 React 产品已经完成。A 数据/B 领域/C 桌面，三人全栈，T00 材料已备但未签署。
+- 未完成：真实模型全评估、完整运行持久化/流式、RTL 精确文本回读及复杂输入、Windows/签名安装/升级。按用户调整可继续 M1，同时跟踪。
+- 后续操作：核对本轮 validation.json，再三人评审契约，初始化正式 workspace；将探针已验证机制迁入 ports/adapters，不把合成 SKU/单工作区假设移入生产。
+- Wiki：新源码必须更新 coverage，generate→--check→lint；脚本变更须跑回归。工程 Wiki 已在 M0 完成，不延期。
+- 本地 Git 基线 ef14fc3；本轮改动未提交，未推送。原始归档和此前 M0 证据保留。
+- 最终本轮验证：20 条命令退出 0；开发与 macOS 未签名目录包各 9 组探针通过，包已实际启动。RTL 精确回读和 Harness 候选明确未通过，不包含在通过结论内。

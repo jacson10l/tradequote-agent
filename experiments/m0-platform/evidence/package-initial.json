@@ -1,0 +1,8 @@
+{
+  "command": "pnpm --dir experiments/m0-platform package:mac",
+  "exitCode": 1,
+  "stage": "pnpm production dependency enumeration",
+  "diagnostic": "FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory",
+  "decision": "Move rejected Harness candidate to devDependencies; rebuild selected production dependency graph",
+  "scope": "Observed failure with Harness in production graph; exact memory-allocation root cause not proven"
+}

@@ -31,7 +31,7 @@ export function build(root, { check = false } = {}) {
     if (!page.startsWith("wiki/") || !page.endsWith(".md")) fail(file.path, "COVERAGE_TARGET_NOT_SEMANTIC");
     read(root, `wiki-project/${page}`);
   }
-  const toolFiles = ["build-code-index.mjs", "wiki-lib.mjs", "wiki-config.json", "lint-wiki.mjs", "wiki-tools.test.mjs"];
+  const toolFiles = ["build-code-index.mjs", "wiki-lib.mjs", "wiki-config.json", "lint-wiki.mjs", "wiki-tools.test.mjs", "check-wiki-sync.mjs", "wiki-sync.test.mjs"];
   const toolchain = Object.fromEntries(toolFiles.map(file => [file, sha(read(root, `wiki-project/scripts/${file}`))]));
   const inventory = {
     schemaVersion: 1, baseline,

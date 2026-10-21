@@ -31,3 +31,7 @@
 - 不复制上游应用 UI；不启用其默认 shell、文件操作、任意 MCP 服务器或用户可编辑插件配置。
 
 独立锁定的 `@opentelemetry/api: 1.9.1` 是本实验的依赖解析修正，没有修改上游源码。完整分发依赖及其 NOTICE/字体/原生二进制许可须在安装包形成时重新汇总。
+
+## 2026-10-21 桌面实测更新
+
+Harness SDK/runtime 0.2.1-rc.2 在 Electron 44.9.2 的 native loader 初始化失败。此前 Node 实验仍有效，但不再作为默认桌面执行器；候选留于 m0-platform 的 devDependencies，生产方向切最小执行器。PDF 对照新增 react-pdf 4.9.0，不复制 Solivio PDF 模块，采用 printToPDF。见 [本轮实测](wiki-project/wiki/M0平台验证记录.md) 与 [ADR 0004](wiki-project/wiki/decisions/0004-M0平台与执行器选型.md)。

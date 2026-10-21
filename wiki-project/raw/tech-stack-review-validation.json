@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-21",
+  "scope": "技术栈文档核对；未执行应用测试或安装依赖",
+  "baseline": "ef14fc3c1838f3b605956dd00922a2517f9144a6",
+  "status": "passed",
+  "checks": [
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 59,\n  \"lines\": 26850,\n  \"generated\": 5,\n  \"excluded\": 7\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 46,\n  \"semantic\": 31,\n  \"reachable\": 46\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base ef14fc3c1838f3b605956dd00922a2517f9144a6",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"ef14fc3c1838f3b605956dd00922a2517f9144a6\",\n  \"status\": \"passed\",\n  \"codeFiles\": 34,\n  \"knowledgePages\": 21,\n  \"tasks\": 3,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "git diff --cached --check",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}

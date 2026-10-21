@@ -1,0 +1,55 @@
+{
+  "at": "2026-10-21T03:45:16.397164+00:00",
+  "status": "passed",
+  "scope": "Wiki integration for M0 platform probe",
+  "checks": [
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 56,\n  \"lines\": 26739,\n  \"generated\": 5,\n  \"excluded\": 7\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "node --check wiki-project/scripts/wiki-tools.test.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "git diff --cached --check",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --test wiki-project/scripts/wiki-tools.test.mjs",
+      "exitCode": 0,
+      "stdout": "TAP version 13\n# Subtest: same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\nok 1 - same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\n  ---\n  duration_ms: 651.237459\n  type: 'test'\n  ...\n# Subtest: source drift fails without writes; generation repairs snapshot while preserving ingest baseline\nok 2 - source drift fails without writes; generation repairs snapshot while preserving ingest baseline\n  ---\n  duration_ms: 319.159833\n  type: 'test'\n  ...\n# Subtest: explicit ingest records a non-Git project honestly\nok 3 - explicit ingest records a non-Git project honestly\n  ---\n  duration_ms: 249.565875\n  type: 'test'\n  ...\n# Subtest: tool inventory names come from definitions, not nested headers/output/schema fields\nok 4 - tool inventory names come from definitions, not nested headers/output/schema fields\n  ---\n  duration_ms: 132.727792\n  type: 'test'\n  ...\n# Subtest: new unclassified source fails; missing knowledge target and stale mapping fail\nok 5 - new unclassified source fails; missing knowledge target and stale mapping fail\n  ---\n  duration_ms: 285.112209\n  type: 'test'\n  ...\n# Subtest: generated coverage tampering is detected by lint and remains untouched\nok 6 - generated coverage tampering is detected by lint and remains untouched\n  ---\n  duration_ms: 192.11425\n  type: 'test'\n  ...\n# Subtest: sensitive filename is excluded before read; external source symlink is not followed\nok 7 - sensitive filename is excluded before read; external source symlink is not followed\n  ---\n  duration_ms: 121.46025\n  type: 'test'\n  ...\n# Subtest: Wiki and generated-output symlinks cannot write outside project\nok 8 - Wiki and generated-output symlinks cannot write outside project\n  ---\n  duration_ms: 182.76475\n  type: 'test'\n  ...\n# Subtest: missing schema field\nok 9 - missing schema field\n  ---\n  duration_ms: 183.306625\n  type: 'test'\n  ...\n# Subtest: bad type\nok 10 - bad type\n  ---\n  duration_ms: 184.653083\n  type: 'test'\n  ...\n# Subtest: bad date\nok 11 - bad date\n  ---\n  duration_ms: 192.737167\n  type: 'test'\n  ...\n# Subtest: bad status\nok 12 - bad status\n  ---\n  duration_ms: 273.627916\n  type: 'test'\n  ...\n# Subtest: missing wiki target\nok 13 - missing wiki target\n  ---\n  duration_ms: 245.469875\n  type: 'test'\n  ...\n# Subtest: missing markdown target\nok 14 - missing markdown target\n  ---\n  duration_ms: 206.353375\n  type: 'test'\n  ...\n# Subtest: invalid source line\nok 15 - invalid source line\n  ---\n  duration_ms: 182.275958\n  type: 'test'\n  ...\n# Subtest: verified without code evidence\nok 16 - verified without code evidence\n  ---\n  duration_ms: 184.965875\n  type: 'test'\n  ...\n# Subtest: source escaping project\nok 17 - source escaping project\n  ---\n  duration_ms: 228.009792\n  type: 'test'\n  ...\n# Subtest: unfilled placeholder\nok 18 - unfilled placeholder\n  ---\n  duration_ms: 209.7335\n  type: 'test'\n  ...\n# Subtest: all sources are validated even after a valid implementation source\nok 19 - all sources are validated even after a valid implementation source\n  ---\n  duration_ms: 213.642666\n  type: 'test'\n  ...\n# Subtest: orphan pages and duplicate basenames are rejected\nok 20 - orphan pages and duplicate basenames are rejected\n  ---\n  duration_ms: 418.984292\n  type: 'test'\n  ...\n# Subtest: completed task requires actual verification record\nok 21 - completed task requires actual verification record\n  ---\n  duration_ms: 188.815666\n  type: 'test'\n  ...\n# Subtest: archived source cannot bypass inspection through silent changes\nok 22 - archived source cannot bypass inspection through silent changes\n  ---\n  duration_ms: 187.45875\n  type: 'test'\n  ...\n# Subtest: source references cannot open excluded runtime data\nok 23 - source references cannot open excluded runtime data\n  ---\n  duration_ms: 190.397\n  type: 'test'\n  ...\n# Subtest: new JSON evidence is checked and sensitive Wiki filenames are rejected before read\nok 24 - new JSON evidence is checked and sensitive Wiki filenames are rejected before read\n  ---\n  duration_ms: 288.140542\n  type: 'test'\n  ...\n# Subtest: secret/JWT/private-key/PII detections redact the value in diagnostics\nok 25 - secret/JWT/private-key/PII detections redact the value in diagnostics\n  ---\n  duration_ms: 733.624917\n  type: 'test'\n  ...\n1..25\n# tests 25\n# suites 0\n# pass 25\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 6510.717791\n",
+      "stderr": ""
+    },
+    {
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 44,\n  \"semantic\": 29,\n  \"reachable\": 44\n}\n",
+      "stderr": ""
+    }
+  ],
+  "statistics": {
+    "files": 56,
+    "lines": 26739,
+    "semanticPages": 29,
+    "markdownPages": 44
+  },
+  "priorRegression": {
+    "passed": 20,
+    "failed": 5,
+    "reason": "Fixtures coupled to live source reference and single tool-definition file; isolated source fixture and grouped assertions"
+  },
+  "applicationEvidence": "experiments/m0-platform/evidence/validation.json"
+}

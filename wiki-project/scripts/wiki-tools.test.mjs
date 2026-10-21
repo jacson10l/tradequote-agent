@@ -17,6 +17,13 @@ function fixture(t) {
     fs.mkdirSync(path.dirname(path.join(root, relative)), { recursive: true });
     fs.copyFileSync(path.join(original, relative), path.join(root, relative));
   }
+  // Negative source-reference tests own their valid baseline. The live status
+  // page can change its evidence list as the product grows.
+  const statusPage = path.join(root, "wiki-project/wiki/项目状态.md");
+  const statusText = fs.readFileSync(statusPage, "utf8");
+  const fixtureText = statusText.replace(/^sources:\n(?:  - .*\n)+/m, "sources:\n  - README.md:1\n");
+  assert.ok(fixtureText.includes("  - README.md:1\n"), "source fixture was not installed");
+  fs.writeFileSync(statusPage, fixtureText);
   return root;
 }
 function run(root, file, args = []) {
@@ -89,8 +96,13 @@ test("tool inventory names come from definitions, not nested headers/output/sche
   assert.equal(generate(root).status, 0);
   const text = fs.readFileSync(path.join(root, "wiki-project/raw/generated/命令与运行时清单.md"), "utf8");
   const section = text.split("## 业务工具注册\n")[1].split("\n## ")[0];
-  const names = [...section.matchAll(/^\| (\w+) \|/gm)].map(match => match[1]);
-  assert.deepEqual(names, ["search_catalog", "calculate_quote", "create_quote_revision"]);
+  const rows = section.split("\n").filter(row => /^\| \w+ \|/.test(row));
+  const sources = [...new Set(rows.map(row => row.split("|")[2].trim().replace(/:\d+$/, "")))];
+  assert.ok(sources.length > 0);
+  for (const source of sources) {
+    const names = rows.filter(row => row.split("|")[2].trim().replace(/:\d+$/, "") === source).map(row => row.split("|")[1].trim());
+    assert.deepEqual(names, ["search_catalog", "calculate_quote", "create_quote_revision"]);
+  }
 });
 
 test("new unclassified source fails; missing knowledge target and stale mapping fail", t => {

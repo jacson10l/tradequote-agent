@@ -1,0 +1,85 @@
+{
+  "name": "tradequote-m0-platform",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "main.cjs",
+  "description": "Synthetic M0 native storage, parsing and PDF probe",
+  "author": "TradeQuote team",
+  "packageManager": "pnpm@10.13.1",
+  "scripts": {
+    "probe": "electron .",
+    "package:mac": "electron-builder --mac dir --publish never",
+    "package:win": "electron-builder --win dir --publish never",
+    "typecheck": "tsc --noEmit",
+    "test:contracts": "tsx --test contracts.test.ts",
+    "settings": "electron . --settings"
+  },
+  "dependencies": {
+    "@fontsource/noto-sans": "5.3.0",
+    "@fontsource/noto-sans-arabic": "5.3.0",
+    "@fontsource/noto-sans-sc": "5.3.1",
+    "@react-pdf/renderer": "4.9.0",
+    "better-sqlite3": "13.0.3",
+    "csv-parse": "7.0.3",
+    "decimal.js": "10.6.0",
+    "drizzle-orm": "0.45.4",
+    "exceljs": "4.4.0",
+    "fast-xml-parser": "5.11.2",
+    "jszip": "3.10.2",
+    "mammoth": "1.13.0",
+    "pdfjs-dist": "6.4.299",
+    "react": "19.3.1",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "electron": "44.9.2",
+    "electron-builder": "26.15.3",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "@deepseek-ai/dsh-sdk-client": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-tools": "0.2.1-rc.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "electron",
+      "better-sqlite3"
+    ],
+    "overrides": {
+      "@opentelemetry/api": "1.9.1"
+    }
+  },
+  "build": {
+    "appId": "local.tradequote.m0probe",
+    "productName": "TradeQuote M0 Probe",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "*.mjs",
+      "*.cjs",
+      "package.json",
+      "*.html",
+      "*.css",
+      "*.js"
+    ],
+    "asar": true,
+    "asarUnpack": [
+      "**/*.node",
+      "**/@deepseek-ai/**",
+      "**/@fontsource/**"
+    ],
+    "mac": {
+      "identity": null,
+      "target": [
+        "dir"
+      ]
+    },
+    "win": {
+      "target": [
+        "dir"
+      ]
+    }
+  }
+}

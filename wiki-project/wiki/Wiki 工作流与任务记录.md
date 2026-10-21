@@ -11,6 +11,23 @@ sources:
 
 # Wiki 工作流与任务记录
 
+## P0 强制交付条件
+
+用户明确要求所有成员编码完成后必须记录工程 Wiki，优先级为项目内最高。作者在同一交付中更新关联知识页正文、任务页和追加日志；重要决定写 ADR，状态与下一步变化更新 CONTEXT。评审者核对内容与实现一致。缺记录或门禁失败即未完成，不标 done、不合并；不能只改日期或重新生成快照。
+
+新增 `check-wiki-sync.mjs` 对基线之后的提交、未提交及未跟踪代码检查：每个变更源文件至少关联一个正文发生变化的知识页，同时有任务更新和末尾追加日志；删除文件使用基线覆盖映射。Wiki 维护脚本变更必须更新本工作流页。当前日期/元数据或仅空白改动不计作正文更新。
+
+```sh
+node wiki-project/scripts/check-wiki-sync.mjs . --base <本次改动基线>
+node --test wiki-project/scripts/wiki-tools.test.mjs wiki-project/scripts/wiki-sync.test.mjs
+```
+
+CI 定义在 `.github/workflows/wiki.yml`，PR 清单在 `.github/pull_request_template.md`，全员规则见 [CONTRIBUTING](../../CONTRIBUTING.md)。本地完成这些检查不等于远端保护已开启：workflow 提交后由 GitHub 执行，管理员将 `Wiki / wiki-sync` 设置为必需检查并限制绕过。脚本只能检查结构性同步，语义真实性仍由作者和评审者负责。
+
+本轮实施任务：[[2026-10-21-Wiki强制同步规则]]。
+
+## 日常维护
+
 维护只使用 Node 标准库，不依赖应用 node_modules。命令从项目根目录执行，也可把 `.` 换成任意项目绝对路径；项目配置及生成物位于该根目录内。
 
 ```sh

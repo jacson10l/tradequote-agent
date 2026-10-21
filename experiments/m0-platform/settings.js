@@ -1,0 +1,11 @@
+const byId=id=>document.getElementById(id);
+const api=window.modelSettings;
+const messages={KEY_REQUIRED:'请先输入并保存 API Key。',MODEL_REQUIRED:'请选择模型并保存。',MODEL_AUTH_FAILED:'认证失败，请检查 API Key。',MODEL_RATE_LIMITED:'请求受到限流，请稍后重试。',MODEL_TIMEOUT:'请求超时，请重试。',MODEL_CONNECTION_FAILED:'连接失败，请检查网络。',MODEL_INVALID_OUTPUT:'模型返回内容未通过格式校验。',CREDENTIAL_UNAVAILABLE:'系统无法解密原有凭据，请重新输入并保存。',SETTINGS_FAILED:'操作未完成，请检查配置后重试。',REQUEST_BUSY:'正在处理，请稍候。'};
+function showInfo(info){byId('model').value=info.model;byId('badge').textContent=info.hasKey?(info.storage==='encrypted'?'已加密保存':'仅本次运行'):'尚未配置';}
+async function action(work){document.querySelectorAll('button').forEach(b=>b.disabled=true);try{await work()}catch{byId('status').textContent='操作失败，请重试。'}finally{document.querySelectorAll('button').forEach(b=>b.disabled=false)}}
+function unwrap(result){if(!result.ok){byId('status').textContent=messages[result.error]||'操作未完成，请稍后重试。';return null}return result.value}
+byId('form').addEventListener('submit',event=>{event.preventDefault();action(async()=>{const input={key:byId('key').value,model:byId('model').value};byId('key').value='';const info=unwrap(await api.save(input));input.key='';if(info){showInfo(info);byId('status').textContent=info.storage==='encrypted'?'配置已保存。可以测试连接。':'系统加密不可用，Key 仅保留在内存中。';}})});
+byId('connect').onclick=()=>action(async()=>{byId('status').textContent='正在连接 DeepSeek…';const models=unwrap(await api.models());if(models){byId('models').replaceChildren(...models.map(id=>{const option=document.createElement('option');option.value=id;return option}));byId('status').textContent=`连接成功，可用模型 ${models.length} 个。请在模型栏选择并保存。`;}});
+byId('verify').onclick=()=>action(async()=>{byId('status').textContent='正在发送合成验证请求…';const result=unwrap(await api.verify());if(result)byId('status').textContent='模型连接及 JSON 格式验证通过。完整 Agent 能力尚需单独验证。';});
+byId('clear').onclick=()=>action(async()=>{const info=unwrap(await api.clear());if(info){showInfo(info);byId('key').value='';byId('status').textContent='已清除 Key。';}});
+action(async()=>{const info=unwrap(await api.status());if(info){showInfo(info);byId('status').textContent=info.initError?messages[info.initError]:info.hasKey?'已有配置，可以测试连接。':'输入 API Key 后保存，即可测试连接。';}});

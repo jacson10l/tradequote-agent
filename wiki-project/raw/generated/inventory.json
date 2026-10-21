@@ -13,13 +13,39 @@
   },
   "scope": "project files only; wiki tooling hashes are provenance, not recursively indexed application source",
   "toolchain": {
-    "build-code-index.mjs": "31d9db6d9c1db25c4971213ee2da8d7e0e790417a200bb3a8e80aaf507b11f9b",
+    "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "de295b3b85c0b50ad62801f5ed9feb0c824c3e6d8436b86d84b7a6b51e98d464",
-    "wiki-config.json": "7f91e9167fa6b5f8417ef0ff1ccbb81ebec480b387357dc9abab7ecfaacd995d",
+    "wiki-config.json": "96b61114dd55351a75e6c68ffedb245d4bf57e1890574c93df000917a834fc3b",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
-    "wiki-tools.test.mjs": "98ad0e0af5684c0a406e971ce3367a14b060619e13fb232e58a56e8d2722bfda"
+    "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
+    "check-wiki-sync.mjs": "7b72d9dcc26f1d18076787d261f1e4e7e79dee6fd007228c3074bd9dd1bdccf6",
+    "wiki-sync.test.mjs": "9cfbdfd4d409d9605b108ef9df7b3f9d51613da0f386d50285243b0c5106eb63"
   },
   "files": [
+    {
+      "path": ".github/pull_request_template.md",
+      "type": "md",
+      "lines": 21,
+      "bytes": 696,
+      "sha256": "eb59a43dc775675800de8c54f1562624d13402c1801c30002110da3332a256ad",
+      "role": "Mandatory Wiki delivery policy and PR/CI enforcement",
+      "pages": [
+        "wiki/Wiki 工作流与任务记录.md",
+        "wiki/05-三人分工与开发步骤.md"
+      ]
+    },
+    {
+      "path": ".github/workflows/wiki.yml",
+      "type": "yml",
+      "lines": 33,
+      "bytes": 1043,
+      "sha256": "9a00bf2fdf25a0dc5d229a2d2c48b40e4681ed46a4d794abc0d3bd16b8636c24",
+      "role": "Mandatory Wiki delivery policy and PR/CI enforcement",
+      "pages": [
+        "wiki/Wiki 工作流与任务记录.md",
+        "wiki/05-三人分工与开发步骤.md"
+      ]
+    },
     {
       "path": ".gitignore",
       "type": ".gitignore",
@@ -34,13 +60,25 @@
     {
       "path": "AGENTS.md",
       "type": "md",
-      "lines": 30,
-      "bytes": 2330,
-      "sha256": "610e30ea3cf4a2907d0f0bb5034d3fa70711423bc746403762bc8c5eca22a4e0",
+      "lines": 46,
+      "bytes": 4264,
+      "sha256": "b4d36d297174859cda9741bb343d04335148e83e708756eaa5470a1e933f712f",
       "role": "项目入口与协作约束",
       "pages": [
         "wiki/项目状态.md",
         "wiki/Wiki 工作流与任务记录.md"
+      ]
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "type": "md",
+      "lines": 37,
+      "bytes": 2794,
+      "sha256": "e97b0e6c7fc6d887ba42b693384d3f1280f69c3df6f673313e66f782131c9db9",
+      "role": "Mandatory Wiki delivery policy and PR/CI enforcement",
+      "pages": [
+        "wiki/Wiki 工作流与任务记录.md",
+        "wiki/05-三人分工与开发步骤.md"
       ]
     },
     {
@@ -57,9 +95,9 @@
     {
       "path": "README.md",
       "type": "md",
-      "lines": 28,
-      "bytes": 2236,
-      "sha256": "4e9d41ac515c73182fe61a7b307acf7cffe4d5ba037ed49a6acba81160d48941",
+      "lines": 42,
+      "bytes": 3498,
+      "sha256": "ff17400cfaa1bcc2d25f5d4035eb46bfc87d784f16ef068266eebd83278f2d53",
       "role": "项目入口与协作约束",
       "pages": [
         "wiki/项目状态.md",
@@ -69,9 +107,9 @@
     {
       "path": "THIRD_PARTY_NOTICES.md",
       "type": "md",
-      "lines": 19,
-      "bytes": 1197,
-      "sha256": "aaa1720a626a0d8d92b3580a6435ba05d2998894818e939cf681f5c44477d5e8",
+      "lines": 25,
+      "bytes": 1948,
+      "sha256": "d3a2ed0cf6e3d4708f0911ea19c4818381aae8ff874ae1c560260690690cb906",
       "role": "复用来源与许可边界",
       "pages": [
         "wiki/decisions/0002-上游复用方式.md",
@@ -81,13 +119,361 @@
     {
       "path": "UPSTREAM.md",
       "type": "md",
-      "lines": 33,
-      "bytes": 3173,
-      "sha256": "b8e05939d023cf4ba1ace0dc32d83b52737b07450d375c4b372a43739cabf8fa",
+      "lines": 37,
+      "bytes": 3674,
+      "sha256": "48bc39fff11f7b9cda06b09cc26d182c42c0d75edaeff43b9a4804c63e9e3435",
       "role": "复用来源与许可边界",
       "pages": [
         "wiki/decisions/0002-上游复用方式.md",
         "wiki/风险与待验证事项.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/README.md",
+      "type": "md",
+      "lines": 33,
+      "bytes": 3299,
+      "sha256": "022b9a290b938799107d3c2946a4e9d42579385da7539bddf21aac477f5da8ed",
+      "role": "平台探针生命周期与验证编排",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/测试与验证地图.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/business-tools.mjs",
+      "type": "mjs",
+      "lines": 37,
+      "bytes": 1707,
+      "sha256": "407a158b43e1e41ec1914b5268959585b6780c262b56df6160310c617af215b0",
+      "role": "被否决的 Electron Harness 候选复现",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/decisions/0004-M0平台与执行器选型.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/contracts.test.ts",
+      "type": "ts",
+      "lines": 22,
+      "bytes": 1683,
+      "sha256": "22b51e6acdb740c7bbe1e072f69138dadcbfa0562247764f2a49c53840ca2433",
+      "role": "T00 部分可执行边界契约与拒绝测试",
+      "pages": [
+        "wiki/M0契约评审准备.md",
+        "wiki/03-领域与数据契约.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/contracts.ts",
+      "type": "ts",
+      "lines": 13,
+      "bytes": 1258,
+      "sha256": "7fa0a23cde8085475be9fc6e1e66e59adb9554c5a7df6d64b6b36ffdcd74f770",
+      "role": "T00 部分可执行边界契约与拒绝测试",
+      "pages": [
+        "wiki/M0契约评审准备.md",
+        "wiki/03-领域与数据契约.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/evidence/dependencies.json",
+      "type": "json",
+      "lines": 280,
+      "bytes": 6902,
+      "sha256": "01c706cb33b9073ea7952094446113cac6046de4044cfd23621d6daf526f0c2d",
+      "role": "本轮平台合成实验结果与版本证据",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/测试与验证地图.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/evidence/desktop.json",
+      "type": "json",
+      "lines": 529,
+      "bytes": 14198,
+      "sha256": "81aa166a686ae15f1db168317409a809a602993d937090308e1d4bdc0b9c3dbe",
+      "role": "本轮平台合成实验结果与版本证据",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/测试与验证地图.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/evidence/initial-desktop.json",
+      "type": "json",
+      "lines": 164,
+      "bytes": 9308,
+      "sha256": "f19d2417476ee2d2bbf1c5ca16c6c3888f40fa65dac88c861dabf0944397c8de",
+      "role": "本轮平台合成实验结果与版本证据",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/测试与验证地图.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/evidence/initial-packaged.json",
+      "type": "json",
+      "lines": 228,
+      "bytes": 6027,
+      "sha256": "0665419886221aa49adeb9206760bb0bb47c7ddf1aee412774599a26eaaa68d2",
+      "role": "本轮平台合成实验结果与版本证据",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/测试与验证地图.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/evidence/package-initial.json",
+      "type": "json",
+      "lines": 8,
+      "bytes": 485,
+      "sha256": "3ef5f9a54a5ff8e93d107b9ac2353e78fc4f4fedc54213281c774c8376b698d7",
+      "role": "本轮平台合成实验结果与版本证据",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/测试与验证地图.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/evidence/packaged.json",
+      "type": "json",
+      "lines": 529,
+      "bytes": 14197,
+      "sha256": "aab8acec34726c7973e0d33554f8c007596376380cc3b222b26fc386891f53d0",
+      "role": "本轮平台合成实验结果与版本证据",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/测试与验证地图.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/evidence/validation.json",
+      "type": "json",
+      "lines": 188,
+      "bytes": 9210,
+      "sha256": "dcf3a7309244823ec354c40ec6316973721d9df85f70016473b877450ecaed3c",
+      "role": "本轮命令退出码、源码指纹与已选路径验证汇总",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/测试与验证地图.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/executor-probe.mjs",
+      "type": "mjs",
+      "lines": 42,
+      "bytes": 4137,
+      "sha256": "6175ccde3aabd34da5466dbba4241e1d5042ba6d544135ebbb93be4c7e8d5ab4",
+      "role": "最小工具执行器与 SQLite/取消/错误分支验证",
+      "pages": [
+        "wiki/运行时能力地图.md",
+        "wiki/M0平台验证记录.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/executor.mjs",
+      "type": "mjs",
+      "lines": 21,
+      "bytes": 1176,
+      "sha256": "10815cef982b0280c798c349014090dd0505bd3c59cf4fec13ad321401506a66",
+      "role": "最小工具执行器与 SQLite/取消/错误分支验证",
+      "pages": [
+        "wiki/运行时能力地图.md",
+        "wiki/M0平台验证记录.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/harness-desktop.mjs",
+      "type": "mjs",
+      "lines": 207,
+      "bytes": 11615,
+      "sha256": "cb94cc67c8a9dbfa0c4192576c07614179aa5345525d288f36af971e7a94151b",
+      "role": "被否决的 Electron Harness 候选复现",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/decisions/0004-M0平台与执行器选型.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/main.cjs",
+      "type": "cjs",
+      "lines": 92,
+      "bytes": 8461,
+      "sha256": "e747590410376486886b08529fc78f4a1aca25b7cd9ad5305b447798a5f07e34",
+      "role": "平台探针生命周期与验证编排",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/测试与验证地图.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/model-provider.mjs",
+      "type": "mjs",
+      "lines": 25,
+      "bytes": 1753,
+      "sha256": "288187f70b6d7306ce89dbfcd4283cdf0a4318dd5c528223ec70ed080bb8188b",
+      "role": "桌面模型设置与凭据隔离验证",
+      "pages": [
+        "wiki/模型服务设置验证.md",
+        "wiki/配置路径与敏感信息.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/package.json",
+      "type": "json",
+      "lines": 85,
+      "bytes": 1989,
+      "sha256": "6077e544417a8ba673b4e24221819e45662965e56a531a157e75a0ab015c84eb",
+      "role": "平台探针精确依赖与构建配置",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/系统架构.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/parsers.mjs",
+      "type": "mjs",
+      "lines": 63,
+      "bytes": 5774,
+      "sha256": "9c90634d76eab91ab614a990aff65a09463794cee97adec072fd264c48d1dba5",
+      "role": "合成文件解析、来源位置与 PDF 引擎对照",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/核心业务流程.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/pdf-probe.mjs",
+      "type": "mjs",
+      "lines": 29,
+      "bytes": 2970,
+      "sha256": "4f88f2bb2c894bc4ba2d60dbff4ad56a997db2a88e66dd0e587645046ee46d19",
+      "role": "合成文件解析、来源位置与 PDF 引擎对照",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/核心业务流程.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/pnpm-lock.yaml",
+      "type": "yaml",
+      "lines": 13113,
+      "bytes": 757870,
+      "sha256": "b5c5a459b7d5e01f9d25d92872049e7622701318c06dda40f9029afecdada048",
+      "role": "平台探针精确依赖与构建配置",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/系统架构.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/settings-preload.cjs",
+      "type": "cjs",
+      "lines": 8,
+      "bytes": 387,
+      "sha256": "95419aa4293adb8d1ffd30d04c92c0fde14d049f426e853b463c7111d1528dbf",
+      "role": "桌面模型设置与凭据隔离验证",
+      "pages": [
+        "wiki/模型服务设置验证.md",
+        "wiki/配置路径与敏感信息.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/settings.cjs",
+      "type": "cjs",
+      "lines": 51,
+      "bytes": 4444,
+      "sha256": "8a13345e217ff71eddf05b3ff3331044ea56cbf1f0ef9c7dbbca6c64011bd401",
+      "role": "桌面模型设置与凭据隔离验证",
+      "pages": [
+        "wiki/模型服务设置验证.md",
+        "wiki/配置路径与敏感信息.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/settings.css",
+      "type": "css",
+      "lines": 1,
+      "bytes": 2286,
+      "sha256": "b168919cf42e60c40249779c9b6141399b9c82f8045338fde69b8daf3298f55c",
+      "role": "桌面模型设置与凭据隔离验证",
+      "pages": [
+        "wiki/模型服务设置验证.md",
+        "wiki/配置路径与敏感信息.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/settings.html",
+      "type": "html",
+      "lines": 9,
+      "bytes": 2351,
+      "sha256": "1e42ecf1a4c463f66637e978a73de69f96cbf29d1b7b0789e9a3d28d5cae385f",
+      "role": "桌面模型设置与凭据隔离验证",
+      "pages": [
+        "wiki/模型服务设置验证.md",
+        "wiki/配置路径与敏感信息.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/settings.js",
+      "type": "js",
+      "lines": 11,
+      "bytes": 2757,
+      "sha256": "aef6c794c47ee32b19ea6d283a73c5e2b22bfa18d2e3152f4347ff8e86042f3e",
+      "role": "桌面模型设置与凭据隔离验证",
+      "pages": [
+        "wiki/模型服务设置验证.md",
+        "wiki/配置路径与敏感信息.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/storage.mjs",
+      "type": "mjs",
+      "lines": 68,
+      "bytes": 5010,
+      "sha256": "fc28e40cc2efcc771265e9072471438bbefa7186e0c68336d66f0b2a0262d7e6",
+      "role": "真实 SQLite 原子性、迁移与持久幂等探针",
+      "pages": [
+        "wiki/数据持久化与状态.md",
+        "wiki/M0平台验证记录.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/tsconfig.json",
+      "type": "json",
+      "lines": 16,
+      "bytes": 248,
+      "sha256": "915e1147936c2efedd51f453904dc746d3f5a60136fcb84cb6968b03a97c961a",
+      "role": "平台探针精确依赖与构建配置",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/系统架构.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/verify.mjs",
+      "type": "mjs",
+      "lines": 29,
+      "bytes": 2821,
+      "sha256": "9cc2a0843a0c2d23d53357a34958134285ef0b1c80728396f90791ffa19d2edf",
+      "role": "平台探针生命周期与验证编排",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/测试与验证地图.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-platform/worker.mjs",
+      "type": "mjs",
+      "lines": 19,
+      "bytes": 1437,
+      "sha256": "8c6e23f2e29cc970b99facdfabd4f734c5ef09bf51f06a4b0365cabbde4f22dd",
+      "role": "平台探针生命周期与验证编排",
+      "pages": [
+        "wiki/M0平台验证记录.md",
+        "wiki/测试与验证地图.md"
       ]
     },
     {
