@@ -28,11 +28,13 @@ node --test wiki-project/scripts/wiki-tools.test.mjs wiki-project/scripts/wiki-s
 
 允许提交明确标注的 WIP 保存工作，但未同步 Wiki 的任务不能标完成或合并。PR 模板必须给出 Wiki/任务链接与验证结果；评审者逐项核对实现、来源与限制，不接受只改日期、空泛日志或无关知识页凑数。维护责任属于代码作者，不能默认由 C 兜底。
 
-## 自动检查与仓库设置
+## 本机检查与仓库设置
 
-`.github/workflows/wiki.yml` 的 `Wiki / wiki-sync` 检查在 PR 上运行生成物检查、lint、回归测试与基线差异校验。它能发现结构性遗漏，不能证明自然语言描述真实完整。
+用户决定不使用 GitHub Actions 或云端自动测试。仓库 Actions 已关闭，engineering/wiki workflow 在本切片移除；原有本机命令、金额/状态/持久化测试和 P0 Wiki 同步要求完整保留。历史 CI 启动失败作为历史证据保留，不视为通过，也不再要求处理账单恢复云端运行。
 
-仓库管理员需要在 GitHub 分支保护或 ruleset 中把该检查设为必需，并限制绕过，才能在服务端禁止失败 PR 合并。仅添加 workflow 文件不会自动改变远端保护设置；本次不声称已启用远端强制保护。
+当前默认macOS优先，先完成需求开发；Windows验证后置，不阻塞当前开发和PR合入。macOS记录实际提交、OS/CPU、Node/pnpm/Electron版本、命令/退出码与关键行为结果；相关改动运行typecheck、适用测试、build、check和Wiki生成/只读校验/基线sync，维护工具或映射变动补Wiki回归。Windows记“未验证/后置”，待核心需求完成后由Windows开发者补真实记录，不拿macOS结果代替。
+
+PR 至少一名非作者对照实现、Wiki与本机证据评审；不等待远端CI、不要求设置Actions必需检查。分支保护/规则集的实际状态单独核实，不能宣称本机检查自动构成服务端强制。当前平台顺序见 [macOS优先决定](wiki-project/wiki/decisions/0014-macOS优先与Windows验收后置.md)；停用Actions决定继续有效。
 
 项目规则入口：[AGENTS.md](AGENTS.md)。知识入口：[Wiki 索引](wiki-project/index.md)。
 

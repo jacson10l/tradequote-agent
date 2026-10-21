@@ -1,0 +1,13 @@
+{
+  "status": "failed",
+  "base": "45a9975506030170bcb8dc770919b7cb5de89fa6",
+  "checks": [
+    {
+      "command": "pnpm wiki:sync --base 45a9975506030170bcb8dc770919b7cb5de89fa6",
+      "exitCode": 1,
+      "output": "\n> tradequote-agent@0.1.0 wiki:sync <project>\n> node wiki-project/scripts/check-wiki-sync.mjs . --base 45a9975506030170bcb8dc770919b7cb5de89fa6\n\n{\n  \"base\": \"45a9975506030170bcb8dc770919b7cb5de89fa6\",\n  \"status\": \"failed\",\n  \"codeFiles\": 10,\n  \"knowledgePages\": 16,\n  \"tasks\": 3,\n  \"errors\": [\n    \"APPEND_ONLY_LOG_REQUIRED\"\n  ]\n}\n ELIFECYCLE  Command failed with exit code 1.\n"
+    }
+  ],
+  "cause": "Documentation update script mistakenly wrote index content into log.md.",
+  "resolution": "Reconstructed log.md from exact ab936c9 committed bytes and appended the new entry; all historical evidence preserved. Final checks recorded separately."
+}

@@ -32,7 +32,11 @@ pnpm wiki:test
 
 产品图标已接入 Dock/窗口及打包；重启 `pnpm dev` 后生效。外壳固定到窗口，滚动由 main 主区域承担；≤1000px 显示图标导航。图标源修改后运行 `pnpm icons:generate`，构建会检查 SVG/PNG/ICNS/ICO 同步。当前增量与边界见 [M1 布局图标与契约任务](wiki-project/wiki/tasks/2026-10-21-M1布局图标与契约补齐.md)。
 
-原生测试使用 Electron 的 Node ABI；若重新安装原生依赖后报 ABI 不匹配，运行 `pnpm native:rebuild`。`package:mac`/`package:win` 配置 DMG/NSIS，不自动发布；本轮未做最终安装验收。完整模型评估入口待 T40 实现，不提供假成功命令。CI 与三人职责见 [M1 验证与协作](wiki-project/wiki/M1验证与协作.md)。
+原生测试使用 Electron 的 Node ABI；若重新安装原生依赖后报 ABI 不匹配，运行 `pnpm native:rebuild`。`package:mac`/`package:win` 配置 DMG/NSIS，不自动发布；本轮未做最终安装验收。完整模型评估入口待 T40 实现，不提供假成功命令。本机验收与三人职责见 [M1 验证与协作](wiki-project/wiki/M1验证与协作.md)。
+
+## macOS 优先的本机验收
+
+本项目不使用 GitHub Actions 或云端自动测试；仓库Actions已关闭，本分支移除工程/Wiki两个workflow。上述pnpm本地命令保持，当前默认以macOS验收推进需求开发与PR；Windows验证后置，不阻塞当前开发/合入，记“未验证/后置”。你在macOS执行并记录实际提交、版本、命令/退出码及结果，保留非作者评审与P0代码/Wiki同步。核心需求完成后由Windows开发者补对应验收，详见[macOS优先决定](wiki-project/wiki/decisions/0014-macOS优先与Windows验收后置.md)。
 
 ## 参赛方案与下一步
 

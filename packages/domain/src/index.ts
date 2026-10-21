@@ -53,6 +53,7 @@ export function createWorkspaceService(repository: WorkspaceRepository) {
   };
 }
 
+export { type AgentRunAction, transitionAgentRun } from "./agent-run";
 export { reviseQuote } from "./revision";
 export type { TradeRepository } from "./trade";
 export {

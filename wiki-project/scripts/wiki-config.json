@@ -459,19 +459,6 @@
         "wiki/05-三人分工与开发步骤.md"
       ]
     },
-    ".github/workflows/wiki.yml": {
-      "role": "Mandatory Wiki delivery policy and PR/CI enforcement",
-      "pages": [
-        "wiki/Wiki 工作流与任务记录.md",
-        "wiki/05-三人分工与开发步骤.md"
-      ]
-    },
-    ".github/workflows/engineering.yml": {
-      "role": "M1 quality checks, desktop verification and CI",
-      "pages": [
-        "wiki/M1验证与协作.md"
-      ]
-    },
     ".node-version": {
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
@@ -910,13 +897,15 @@
     "packages/infrastructure/src/agent-executor.ts": {
       "role": "有界模型执行与提交前版本复核",
       "pages": [
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C运行恢复实现.md"
       ]
     },
     "packages/infrastructure/src/deepseek.ts": {
       "role": "官方DeepSeek JSON网络适配和失败边界",
       "pages": [
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C运行恢复实现.md"
       ]
     },
     "packages/infrastructure/src/model-settings.ts": {
@@ -929,14 +918,16 @@
       "role": "修订幂等冲突事务与迁移验收",
       "pages": [
         "wiki/M4模型与报价修订.md",
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/C运行恢复实现.md"
       ]
     },
     "packages/infrastructure/src/deepseek.test.ts": {
       "role": "模型HTTP失败和超时回归",
       "pages": [
         "wiki/M4模型与报价修订.md",
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/C运行恢复实现.md"
       ]
     },
     "packages/infrastructure/src/model-settings.test.ts": {
@@ -1018,6 +1009,18 @@
       "pages": [
         "wiki/首批并行接口约定.md",
         "wiki/M1工程基线.md"
+      ]
+    },
+    "packages/domain/src/agent-run.ts": {
+      "role": "C01a纯运行状态转换与终态边界",
+      "pages": [
+        "wiki/C运行恢复实现.md"
+      ]
+    },
+    "packages/domain/src/agent-run.test.ts": {
+      "role": "C01a取消提交顺序、中断、显式重试与澄清状态测试",
+      "pages": [
+        "wiki/C运行恢复实现.md"
       ]
     }
   }

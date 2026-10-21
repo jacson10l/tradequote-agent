@@ -13,6 +13,7 @@ import { TradeFault } from "@tradequote/domain";
 import Database from "better-sqlite3";
 import { afterEach, expect, it, vi } from "vitest";
 import { AgentExecutor } from "./agent-executor";
+import { DeepSeekProvider } from "./deepseek";
 import { SqliteWorkspaceRepository } from "./index";
 import { migrate, migrations } from "./migrations";
 
@@ -320,4 +321,123 @@ it("refuses no-op and duplicate/foreign patches without creating V2", async () =
     ).toBe(false);
   }
   expect(f.read().quotes).toHaveLength(1);
+});
+
+it("cancels all waiters of one operation, blocks a late proposal and permits an explicit same-key retry", async () => {
+  const f = fixture();
+  let resolve: (value: unknown) => void = () => {};
+  let signal: AbortSignal | undefined;
+  const json = vi.fn((_messages: unknown, cancellation?: AbortSignal) => {
+    signal = cancellation;
+    return new Promise<unknown>((r) => {
+      resolve = r;
+    });
+  });
+  const agent = new AgentExecutor(f.repo, () => ({ json }));
+  const first = agent.execute(f.command, creds);
+  const duplicate = agent.execute({ ...f.command, requestId: randomUUID() }, creds);
+  expect(agent.cancel(randomUUID())).toBe(false);
+  expect(agent.cancel(f.command.idempotencyKey)).toBe(true);
+  expect(signal?.aborted).toBe(true);
+  expect(agent.cancel(f.command.idempotencyKey)).toBe(false);
+  // Deliberately ignore the network signal: the executor must still reject this output.
+  resolve(f.understanding);
+  expect(await first).toMatchObject({ ok: false, error: { code: "CANCELLED" } });
+  expect(await duplicate).toEqual(await first);
+  expect(json).toHaveBeenCalledTimes(1);
+  expect(f.read().quotes).toHaveLength(0);
+  expect(f.read().turns).toHaveLength(0);
+  expect(f.repo.agentReplay(f.command)).toBeNull();
+  const retry = agent.execute(f.command, creds);
+  expect(signal?.aborted).toBe(false);
+  resolve(f.understanding);
+  expect((await retry).ok).toBe(true);
+  expect(json).toHaveBeenCalledTimes(2);
+  expect(f.read().quotes).toHaveLength(1);
+});
+
+it("maps an abort rejection to cancellation without writing or exposing provider secrets", async () => {
+  const f = fixture();
+  const agent = new AgentExecutor(f.repo, () => ({
+    json: (_messages, signal) =>
+      new Promise((_resolve, reject) => {
+        signal?.addEventListener("abort", () => reject(new Error("SECRET transport detail")), {
+          once: true,
+        });
+      }),
+  }));
+  const pending = agent.execute(f.command, creds);
+  expect(agent.cancel(f.command.idempotencyKey)).toBe(true);
+  const result = await pending;
+  expect(result).toMatchObject({ ok: false, error: { code: "CANCELLED" } });
+  expect(JSON.stringify(result)).not.toContain("SECRET");
+  expect(f.read().quotes).toHaveLength(0);
+  expect(f.read().turns).toHaveLength(0);
+});
+
+it.each([
+  ["timeout", "MODEL_TIMEOUT"],
+  ["cancel", "CANCELLED"],
+] as const)(
+  "preserves the provider's first abort cause when %s happens first",
+  async (first, code) => {
+    const f = fixture();
+    const timeout = new AbortController();
+    const deadline = vi.spyOn(AbortSignal, "timeout").mockReturnValue(timeout.signal);
+    let rejectTransport: () => void = () => {};
+    const transport = vi.fn<typeof fetch>().mockImplementation(
+      () =>
+        new Promise((_resolve, reject) => {
+          rejectTransport = () => reject(new Error("synthetic transport abort"));
+        }),
+    );
+    const provider = new DeepSeekProvider(creds, transport);
+    const json = vi.spyOn(provider, "json");
+    const agent = new AgentExecutor(f.repo, () => provider);
+    try {
+      const pending = agent.execute(f.command, creds);
+      if (first === "timeout") {
+        timeout.abort(new DOMException("synthetic deadline", "TimeoutError"));
+        expect(agent.cancel(f.command.idempotencyKey)).toBe(true);
+      } else {
+        expect(agent.cancel(f.command.idempotencyKey)).toBe(true);
+        timeout.abort(new DOMException("synthetic deadline", "TimeoutError"));
+      }
+      rejectTransport();
+      await expect(json.mock.results[0]?.value).rejects.toMatchObject({ code });
+      expect(await pending).toMatchObject({ ok: false, error: { code } });
+      expect(transport).toHaveBeenCalledTimes(1);
+      expect(f.read().quotes).toHaveLength(0);
+      expect(f.read().turns).toHaveLength(0);
+      expect(f.repo.agentReplay(f.command)).toBeNull();
+    } finally {
+      deadline.mockRestore();
+    }
+  },
+);
+
+it("does not accept cancellation after commit and replays a lost response without another model call", async () => {
+  const f = fixture();
+  let resolve: (value: unknown) => void = () => {};
+  const json = vi.fn(
+    () =>
+      new Promise<unknown>((r) => {
+        resolve = r;
+      }),
+  );
+  const agent = new AgentExecutor(f.repo, () => ({ json }));
+  const pending = agent.execute(f.command, creds);
+  resolve(f.understanding);
+  // The commit continuation executes first, before pending-map cleanup.
+  await Promise.resolve();
+  expect(f.read().quotes).toHaveLength(1);
+  expect(agent.cancel(f.command.idempotencyKey)).toBe(false);
+  const saved = await pending;
+  expect(saved.ok).toBe(true);
+  expect(agent.cancel(f.command.idempotencyKey)).toBe(false);
+  // Simulate a caller losing the successful reply, then reusing its original key.
+  expect(await new AgentExecutor(f.reopen(), () => ({ json })).execute(f.command)).toEqual(saved);
+  expect(json).toHaveBeenCalledTimes(1);
+  expect(f.read().quotes).toHaveLength(1);
+  expect(f.read().turns).toHaveLength(1);
 });

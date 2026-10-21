@@ -1,0 +1,9 @@
+{
+  "status": "failed",
+  "recordedAt": "2026-10-21 08:58:32 UTC",
+  "base": "b05f2e8a49ed9ee858a7b989e7306b9b931b55db",
+  "command": "ELECTRON_RUN_AS_NODE=1 apps/desktop/node_modules/.bin/electron node_modules/vitest/vitest.mjs run packages/infrastructure/src/agent.test.ts -t 'preserves the provider'",
+  "exitCode": 1,
+  "output": "\n RUN  v5.0.5 <project>\n\n ❯ packages/infrastructure/src/agent.test.ts (11 tests | 1 failed | 9 skipped) 41ms\n   × preserves the provider's first abort cause when timeout happens first 33ms\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/agent.test.ts > preserves the provider's first abort cause when timeout happens first\nAssertionError: expected { ok: false, error: { …(4) } } to match object { ok: false, …(1) }\n(3 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  {\n    \"error\": {\n-     \"code\": \"MODEL_TIMEOUT\",\n+     \"code\": \"CANCELLED\",\n    },\n    \"ok\": false,\n  }\n\n ❯ packages/infrastructure/src/agent.test.ts:403:27\n    401|     rejectTransport();\n    402|     await expect(json.mock.results[0]?.value).rejects.toMatchObject({ …\n    403|     expect(await pending).toMatchObject({ ok: false, error: { code } }…\n       |                           ^\n    404|     expect(transport).toHaveBeenCalledTimes(1);\n    405|     expect(f.read().quotes).toHaveLength(0);\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n\n Test Files  1 failed (1)\n      Tests  1 failed | 1 passed | 9 skipped (11)\n   Start at  16:53:08\n   Duration  581ms (import 72%, transform 17%, tests 10%, worker 1%)\n\n",
+  "diagnosis": "The real provider preserved MODEL_TIMEOUT; Executor catch then replaced it because cancellation.signal.aborted was checked first."
+}

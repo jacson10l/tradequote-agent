@@ -1,0 +1,22 @@
+{
+  "status": "failed",
+  "recordedAt": "2026-10-21 08:58:32 UTC",
+  "runId": 39571473237,
+  "url": "https://github.com/jacson10l/tradequote-agent/actions/runs/39571473237",
+  "headSha": "b05f2e8a49ed9ee858a7b989e7306b9b931b55db",
+  "conclusion": "startup_failure",
+  "jobs": 0,
+  "checkRuns": 0,
+  "workflowPath": "BuildFailed",
+  "annotationSource": "Authenticated GitHub run summary UI, Annotations section",
+  "annotation": "The job was not started because recent account payments have failed or your spending limit needs to be increased. Please check the 'Billing & plans' section in your settings.",
+  "repositoryActionsEnabled": true,
+  "rerun": {
+    "command": "gh run rerun 39571473237 --repo jacson10l/tradequote-agent",
+    "exitCode": 1,
+    "message": "run 39571473237 cannot be rerun; its workflow file may be broken"
+  },
+  "assessment": "GitHub account payment/spending restriction prevents jobs from starting. The generic CLI rerun error does not establish invalid workflow syntax. No jobs or tests ran; local results are separate.",
+  "requiredAction": "Repository/account owner must resolve payment or spending-limit restriction in GitHub Billing & plans, then trigger and verify fresh CI.",
+  "changes": "No workflow, Actions permission, billing, payment or spending settings changed."
+}

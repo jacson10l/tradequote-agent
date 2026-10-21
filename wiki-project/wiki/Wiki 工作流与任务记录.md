@@ -22,7 +22,7 @@ node wiki-project/scripts/check-wiki-sync.mjs . --base <本次改动基线>
 node --test wiki-project/scripts/wiki-tools.test.mjs wiki-project/scripts/wiki-sync.test.mjs
 ```
 
-CI 定义在 `.github/workflows/wiki.yml`，PR 清单在 `.github/pull_request_template.md`，全员规则见 [CONTRIBUTING](../../CONTRIBUTING.md)。本地完成这些检查不等于远端保护已开启：workflow 提交后由 GitHub 执行，管理员将 `Wiki / wiki-sync` 设置为必需检查并限制绕过。脚本只能检查结构性同步，语义真实性仍由作者和评审者负责。
+用户最新决定仅本机验收，仓库Actions关闭且本分支移除wiki.yml/engineering.yml，不设置Actions必需检查。PR清单在 `.github/pull_request_template.md`，全员规则见 [CONTRIBUTING](../../CONTRIBUTING.md)。生成、只读check/lint、维护回归与真实基线sync由作者本机执行，评审者核对证据与正文；脚本仍只检查结构性同步，语义真实性由作者和评审者负责。
 
 本轮实施任务：[[2026-10-21-Wiki强制同步规则]]。
 
@@ -90,3 +90,23 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 ## B00契约覆盖
 
 本批新增knowledge/checks/runs、protocol/pending-client、三组契约测试和preload回归，映射到 [[首批并行接口约定]]；index/mock/preload同步原M1语义页。新增B00任务与0010决定及导航，生成清单后执行只读check/lint/sync，配置变更运行Wiki回归；不改工具实现。A/C业务任务仍draft，不因接口代码可导入而提前完成，见 [[B00-首批公共契约]]。
+
+## C01a 覆盖与同步记录
+
+本轮在 wiki-config.json 为 domain/agent-run.ts 与测试新增逐文件覆盖，已有 Provider/执行器及测试追加 [[C运行恢复实现]]；domain 公共导出继续由 M1 接口页说明。配置变更只登记职责，不改采集、lint或同步算法。新知识/任务/ADR/评审页从 index 可达，生成物由本切片源码重新生成。
+
+首次基线同步因遗漏本工作流正文更新返回 RELATED_WIKI_BODY_UPDATE_REQUIRED，失败命令保留在 raw/c01a-initial-validation.json；补齐此处实际映射说明后重新执行，不删除旧证据或放宽门禁。机械清单、只读check/lint、Wiki维护回归和以45a9975506030170bcb8dc770919b7cb5de89fa6为基线的sync结果见 [[C01a-状态机与取消基础]]。后续合入B00/A时取覆盖并集再生成，不能用C分支覆盖其他作者条目。
+
+
+## 本机验收替代云端workflow
+
+本轮删除wiki.yml与engineering.yml，并在wiki-config.json移除两项当前覆盖；删除文件的同步仍使用60c4489基线中的原映射，分别更新本页/分工页与M1验证页，不能通过删映射规避文档。原workflow可以从60c4489历史读取，旧日志/CI失败/raw证据保留。PR模板新增macOS/Windows本机证据要求，贡献规范与根AGENTS同步最新用户决定。
+
+维护脚本算法、pnpm命令和业务测试均未改变；映射变化仍执行36项Wiki回归、生成/只读check/lint和本次60c4489及PR45a9975两套sync。当前策略及证据见 [[0013-本机双平台验收停用Actions]]、[[C01a-本机验收与停用Actions]]。P0代码与Wiki同交付要求保持，不把停用云端等同免检。
+
+移除前的[wiki workflow](https://github.com/jacson10l/tradequote-agent/blob/60c4489d458f341adddfd723c103e75751401048/.github/workflows/wiki.yml)仅作历史来源；当前执行方式以本页本机命令与贡献规范为准。
+
+
+## macOS优先阶段的Wiki记录
+
+用户将当前验证顺序调整为先macOS需求开发，Windows后置，不阻塞当前PR。根AGENTS、贡献规范、README和PR模板同步这一阻塞关系；P0本机生成/只读check/lint/真实基线sync保持，Windows仍明写未验证而非通过。此次仅文档调整，不改维护算法、覆盖映射、业务或测试源码，执行适用Wiki检查，记录raw/mac-first-validation.json。详见 [[0014-macOS优先与Windows验收后置]]、[[C01a-状态机与取消基础]]。

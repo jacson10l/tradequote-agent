@@ -8,9 +8,11 @@ export class DeepSeekProvider {
     private readonly endpoint = "https://api.deepseek.com",
     private readonly timeoutMs = 45000,
   ) {}
-  async json(messages: ModelMessage[]): Promise<unknown> {
-    const signal = AbortSignal.timeout(this.timeoutMs);
+  async json(messages: ModelMessage[], cancellation?: AbortSignal): Promise<unknown> {
+    const timeout = AbortSignal.timeout(this.timeoutMs);
+    const signal = cancellation ? AbortSignal.any([cancellation, timeout]) : timeout;
     try {
+      signal.throwIfAborted();
       const response = await this.transport(`${this.endpoint}/chat/completions`, {
         method: "POST",
         redirect: "error",
@@ -67,6 +69,8 @@ export class DeepSeekProvider {
         throw new TradeFault("MODEL_INVALID_OUTPUT", "模型输出不完整或格式不支持，未保存报价");
       return JSON.parse(choice.message.content);
     } catch (error) {
+      if (cancellation?.aborted && signal.reason === cancellation.reason)
+        throw new TradeFault("CANCELLED", "模型请求已取消，未提交新版本");
       if (signal.aborted)
         throw new TradeFault("MODEL_TIMEOUT", "模型请求超时，未提交新版本；可重试同一操作");
       if (error instanceof TradeFault) throw error;

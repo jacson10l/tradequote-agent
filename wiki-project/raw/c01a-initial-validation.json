@@ -1,0 +1,12 @@
+{
+  "status": "failed",
+  "taskBase": "45a9975506030170bcb8dc770919b7cb5de89fa6",
+  "checks": [
+    {
+      "command": "pnpm wiki:sync --base 45a9975506030170bcb8dc770919b7cb5de89fa6",
+      "exitCode": 1,
+      "output": "\n> tradequote-agent@0.1.0 wiki:sync <project>\n> node wiki-project/scripts/check-wiki-sync.mjs . --base 45a9975506030170bcb8dc770919b7cb5de89fa6\n\n{\n  \"base\": \"45a9975506030170bcb8dc770919b7cb5de89fa6\",\n  \"status\": \"failed\",\n  \"codeFiles\": 8,\n  \"knowledgePages\": 8,\n  \"tasks\": 2,\n  \"errors\": [\n    \"wiki-project/scripts/wiki-config.json: RELATED_WIKI_BODY_UPDATE_REQUIRED\"\n  ]\n}\n ELIFECYCLE  Command failed with exit code 1.\n"
+    }
+  ],
+  "resolution": "Added semantic workflow documentation for the changed Wiki coverage configuration; final validation retained separately."
+}

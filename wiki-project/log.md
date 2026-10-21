@@ -182,3 +182,38 @@ B00代码提交e71442d127edeb9a62a9a0cd5a127ee0ae2898be已推送并核对远端�
 ## 2026-10-21 A01方案提交交付复验
 
 用户后续明确要求提交推送本次方案与Wiki增量，交付分支为codex/a01-llm-wiki-plan，基线4e8c663。重新生成并通过只读check、lint、基线sync与Git差异检查，149纳管源码不变、80Markdown/64语义页可达、代码变更0；对应任务 [[2026-10-21-A01业务Wiki方案补齐]]。历史未推送记录保留，最新交付以该分支Git记录为准。仅交付方案，不声明A01/B00a业务实现、三方评审或集成合入完成。
+
+## 2026-10-21 C01a 状态机与取消基础
+
+- 用户明确分配C01并要求先评审B00/推进C01a；从45a9975506030170bcb8dc770919b7cb5de89fa6建立独立codex/c01-agent-recovery，不改集成分支。B00固定4e8c663，C两轴评审无阻断项，typecheck/55项单测复跑通过；waiting_input澄清信息恢复待B/C明确，不代签A或合入B00。
+- 新增domain状态转换与测试，Provider可选AbortSignal/首次信号归因，Executor按业务键共享取消、拦截晚到输出并在同步提交前关闭取消窗口。新增九项测试；typecheck/51项单测/含构建的5项实际Electron回归通过。
+- 同步 [[C运行恢复实现]]、[[C01a-状态机与取消基础]]、[[C01-Agent运行恢复与集成]]、[[B00-C接口评审]]、[[0012-C01a取消与提交边界]]、M4/接口页、CONTEXT/项目状态、导航与覆盖。最终工程/Wiki门禁见raw/c01a-validation.json，B00复跑见raw/c01a-b00-review.json。
+- C01整体active；本轮仅内部取消基础，无run表/新IPC/UI、重启恢复或真实模型通过声明；知识AI等B00a，A/B服务联调、真实DeepSeek和Windows仍待验收。未推送/发布。
+
+- C01a收口：工程check、36项Wiki回归、生成物只读检查/lint和固定taskBase同步均通过。首次sync遗漏覆盖配置对应工作流正文导致失败，补齐说明后重跑通过，旧失败保留raw/c01a-initial-validation.json。C01a限定基础切片done，C01仍active；本地保存后不推送。
+
+
+## 2026-10-21 C01a P2超时归因修复与CI核实
+
+- 从b05f2e8继续同一C分支/PR#2，目标与merge-base保持codex/m1-foundation/45a9975。实际Provider＋Executor可控顺序复现timeout→cancel期望MODEL_TIMEOUT但实际CANCELLED，原红色输出保留raw/c01a-p2-red.json。
+- Executor改为先保留TradeFault，再对未归因异常取消兜底；补timeout→cancel、cancel→timeout两项集成回归，针对性两项已通过，无报价/对话/幂等落库。本地完整验证见raw/c01a-p2-validation.json。同步 [[C运行恢复实现]]、M4、ADR0012、任务、状态和CONTEXT。
+- 远端run39571473237 startup_failure，0job/0check/无日志，无法重跑；已登录GitHub摘要Annotations确认近期付款失败或支出限额限制。证据raw/c01a-ci-startup.json，需账户负责人处理Billing & plans。未改workflow/权限/账单，C01a恢复active，PR保持不合并，不以本机验证宣称远端CI通过。
+
+- P2本机收口：typecheck、53项Vitest、含build的5项实际Electron、6项工程、36项Wiki、生成物只读check/lint及b05f2e8/45a9975两套sync全部通过，原红色输出保留。记录raw/c01a-p2-validation.json仅代表本地检查；CI账户门槛未解除，C01a保持active，推送修复到原PR供复审，不合并。
+
+
+## 2026-10-21 用户决定停用Actions改本机验收
+
+- 用户明确不需要GitHub Actions/云端自动测试，由本人macOS与Windows开发者分别本机验收。基线60c4489d458f341adddfd723c103e75751401048，继续C分支/PR#2，不合并。通过REST关闭仓库Actions，回读enabled=false、in_progress运行数0，证据raw/local-verification-actions.json；未改账单/预算/其他权限。
+- 删除engineering.yml/wiki.yml及当前覆盖映射，保留全部本机pnpm/测试/构建/P0门禁。同步AGENTS、贡献/README/PR模板、M1验证/分工/测试交付/交接、Wiki工作流、C任务、状态/CONTEXT与导航，新增 [[0013-本机双平台验收停用Actions]]、[[C01a-本机验收与停用Actions]]。历史CI失败与账单证据保留，改为历史，不记通过。
+- 本次配置/文档门禁实际结果见raw/local-verification-validation.json；业务代码未改，上一提交53项单测/5项Electron等原证据保留，不冒充本轮重跑。Windows本机结果尚未运行/收到，须Windows开发者补验，C01整体未完成。
+
+- 本机策略切片收口：Actions disabled断言、workflow无残留、业务/本地测试与60c4489无差异、pnpm check含6项工程、36项Wiki、生成/只读check/lint及两套sync均通过。配置子任务done，原C01a/C01仍待对应技术/平台工作；推送原PR，不合并，不触发云端测试。
+
+
+## 2026-10-21 macOS优先与Windows验证后置
+
+- 用户明确先跳过Windows验证、先完成需求开发、默认macOS为主；从ab936c95bd217b2398af5862f52c61948c0cd753继续同一C分支/PR#2，当前Windows不阻塞开发或合入，仍记未验证。Actions继续关闭，不新增云端检查。
+- 同步AGENTS、贡献/README/PR模板、M1验证/分工/测试交付/交接、Wiki流程、C任务、CONTEXT/状态/导航，新增 [[0014-macOS优先与Windows验收后置]]。旧平台与CI证据保留；跨平台目标与非作者复审/P0不取消，PR不自动合并。
+- 纯文档变化，无业务/测试/维护工具/映射改动，不新增或重跑镜像测试；实际Wiki生成/只读校验/lint及本次/PR基线sync结果见raw/mac-first-validation.json。
+- 首次PR基线sync发现本轮脚本误用索引内容覆盖日志，返回APPEND_ONLY_LOG_REQUIRED；已从ab936c9完整恢复全部历史日志，再追加本条。失败保留raw/mac-first-initial-validation.json，未删除旧证据或放宽门禁。

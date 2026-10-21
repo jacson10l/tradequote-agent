@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "recordedAt": "2026-10-21 09:22:21 UTC",
+  "base": "ab936c95bd217b2398af5862f52c61948c0cd753",
+  "prBase": "45a9975506030170bcb8dc770919b7cb5de89fa6",
+  "scope": "Documentation only: macOS-first development/merge acceptance; Windows deferred and not claimed passed. Actions remain disabled.",
+  "checks": [
+    {
+      "command": "pnpm wiki:generate",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:generate <project>\n> node wiki-project/scripts/build-code-index.mjs .\n\n{\n  \"mode\": \"generate\",\n  \"files\": 140,\n  \"lines\": 39413,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n"
+    },
+    {
+      "command": "pnpm wiki:check",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:check <project>\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 140,\n  \"lines\": 39413,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 80,\n  \"semantic\": 64,\n  \"reachable\": 80\n}\n"
+    },
+    {
+      "command": "pnpm wiki:sync --base ab936c95bd217b2398af5862f52c61948c0cd753",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:sync <project>\n> node wiki-project/scripts/check-wiki-sync.mjs . --base ab936c95bd217b2398af5862f52c61948c0cd753\n\n{\n  \"base\": \"ab936c95bd217b2398af5862f52c61948c0cd753\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "pnpm wiki:sync --base 45a9975506030170bcb8dc770919b7cb5de89fa6",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:sync <project>\n> node wiki-project/scripts/check-wiki-sync.mjs . --base 45a9975506030170bcb8dc770919b7cb5de89fa6\n\n{\n  \"base\": \"45a9975506030170bcb8dc770919b7cb5de89fa6\",\n  \"status\": \"passed\",\n  \"codeFiles\": 10,\n  \"knowledgePages\": 16,\n  \"tasks\": 3,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "git diff --quiet ab936c95bd217b2398af5862f52c61948c0cd753 -- apps packages tests scripts package.json wiki-project/scripts && git diff --check",
+      "exitCode": 0,
+      "output": ""
+    }
+  ],
+  "previousFailure": "raw/mac-first-initial-validation.json",
+  "notRerun": [
+    "Unchanged business typecheck/unit/build/Electron and unchanged Wiki maintenance regression tests"
+  ],
+  "existingMacEvidence": "raw/c01a-p2-validation.json",
+  "windows": "Not verified; deferred and no longer a current development/merge prerequisite",
+  "remaining": "Non-author final PR review and C01b/C01c business implementation; no merge authorization."
+}
