@@ -13,6 +13,7 @@ import { TradeFault } from "@tradequote/domain";
 import Database from "better-sqlite3";
 import { afterEach, expect, it, vi } from "vitest";
 import { AgentExecutor } from "./agent-executor";
+import { DeepSeekProvider } from "./deepseek";
 import { SqliteWorkspaceRepository } from "./index";
 import { migrate, migrations } from "./migrations";
 
@@ -373,6 +374,47 @@ it("maps an abort rejection to cancellation without writing or exposing provider
   expect(f.read().quotes).toHaveLength(0);
   expect(f.read().turns).toHaveLength(0);
 });
+
+it.each([
+  ["timeout", "MODEL_TIMEOUT"],
+  ["cancel", "CANCELLED"],
+] as const)(
+  "preserves the provider's first abort cause when %s happens first",
+  async (first, code) => {
+    const f = fixture();
+    const timeout = new AbortController();
+    const deadline = vi.spyOn(AbortSignal, "timeout").mockReturnValue(timeout.signal);
+    let rejectTransport: () => void = () => {};
+    const transport = vi.fn<typeof fetch>().mockImplementation(
+      () =>
+        new Promise((_resolve, reject) => {
+          rejectTransport = () => reject(new Error("synthetic transport abort"));
+        }),
+    );
+    const provider = new DeepSeekProvider(creds, transport);
+    const json = vi.spyOn(provider, "json");
+    const agent = new AgentExecutor(f.repo, () => provider);
+    try {
+      const pending = agent.execute(f.command, creds);
+      if (first === "timeout") {
+        timeout.abort(new DOMException("synthetic deadline", "TimeoutError"));
+        expect(agent.cancel(f.command.idempotencyKey)).toBe(true);
+      } else {
+        expect(agent.cancel(f.command.idempotencyKey)).toBe(true);
+        timeout.abort(new DOMException("synthetic deadline", "TimeoutError"));
+      }
+      rejectTransport();
+      await expect(json.mock.results[0]?.value).rejects.toMatchObject({ code });
+      expect(await pending).toMatchObject({ ok: false, error: { code } });
+      expect(transport).toHaveBeenCalledTimes(1);
+      expect(f.read().quotes).toHaveLength(0);
+      expect(f.read().turns).toHaveLength(0);
+      expect(f.repo.agentReplay(f.command)).toBeNull();
+    } finally {
+      deadline.mockRestore();
+    }
+  },
+);
 
 it("does not accept cancellation after commit and replays a lost response without another model call", async () => {
   const f = fixture();

@@ -162,11 +162,11 @@ export class AgentExecutor {
       attempt.cancellable = false;
       return this.repository.commitAgent(command, proposal.data, credentials.model);
     } catch (error) {
+      // The provider has already attributed errors such as timeout vs cancellation.
+      if (error instanceof TradeFault) return failure(error.code, error.message);
       if (attempt.controller.signal.aborted)
         return failure("CANCELLED", "请求已取消，未提交新版本");
-      return error instanceof TradeFault
-        ? failure(error.code, error.message)
-        : failure("STORAGE_ERROR", "对话保存失败，请保留输入并重试同一操作");
+      return failure("STORAGE_ERROR", "对话保存失败，请保留输入并重试同一操作");
     } finally {
       attempt.cancellable = false;
     }

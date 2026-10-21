@@ -67,6 +67,10 @@ B00 C侧两轴技术评审无阻断项，复跑类型和55项单测通过；接�
 
 本轮安装、开工冒烟通过；修改后 typecheck、51项Vitest与含构建的5项实际Electron回归通过，使用隔离工作区/合成HTTP/Key。最终工程/Wiki generate/check/lint/sync及回归结果以 [[C01a-状态机与取消基础]]、raw/c01a-validation.json 为准。真实DeepSeek和Windows未运行；新取消UI与run强杀恢复尚未接线，不计通过。
 
+## C01a评审跟进
+
+PR#2的P2修复保留Provider超时/取消归因，补实际Provider＋Executor两种先后顺序回归。C01a因远端账单/额度导致startup_failure、0项检查而恢复active；需账户负责人处理Billing & plans并复跑CI后再评审合入。无workflow或账户配置改动。当前源码/证据见 [[C运行恢复实现]]、[[C01a-状态机与取消基础]]。
+
 ## 未完成项
 
 C01b运行记录/控制幂等落库、同事务提交事实、重启中断/显式重试及C01c桌面和A/B联调仍未完成；B00合入与A迁移4/预留5协调、A实际评审仍待确认。超出本批范围的完整市场文化知识、语言产出、审批/PDF、双平台签名安装仍按总计划推进。自己的Wiki知识页、本任务、log、coverage、状态更新属于本人交付，不能转给C收尾。

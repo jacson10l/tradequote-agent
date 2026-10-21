@@ -1287,8 +1287,8 @@
       "path": "packages/infrastructure/src/agent-executor.ts",
       "type": "ts",
       "lines": 174,
-      "bytes": 8609,
-      "sha256": "8f3f0a2aceda92e188343de39a076932fc459192733e3ec1cc833eb0ab9dc238",
+      "bytes": 8693,
+      "sha256": "2f2c962e2f17a5ddb62782a88ac37fef4e5e29565f035418c8286e577e8318d2",
       "role": "有界模型执行与提交前版本复核",
       "pages": [
         "wiki/M4模型与报价修订.md",
@@ -1298,9 +1298,9 @@
     {
       "path": "packages/infrastructure/src/agent.test.ts",
       "type": "ts",
-      "lines": 401,
-      "bytes": 14936,
-      "sha256": "20a9fb4e624a9bace30900e93dfbbf056bf9309581f5a67a9b4368765750eeba",
+      "lines": 443,
+      "bytes": 16607,
+      "sha256": "e3420dacb60402614eeed5799b5124942592a8597671280864087c414c2645a6",
       "role": "修订幂等冲突事务与迁移验收",
       "pages": [
         "wiki/M4模型与报价修订.md",

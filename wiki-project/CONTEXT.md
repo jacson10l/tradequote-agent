@@ -1,6 +1,9 @@
 # 当前上下文
 
-- C01已由用户分配给本次Codex，独立worktree/分支codex/c01-agent-recovery，taskBase45a9975506030170bcb8dc770919b7cb5de89fa6。C01a新增纯状态机、进程内取消/AbortSignal与提交边界；51项单测和5项实际Electron回归通过，工程check/36项Wiki回归/生成只读检查/lint/基线同步通过，证据见 [[C01a-状态机与取消基础]]。该基础子切片done，C01整体active，run落库/重启/正式IPC/UI尚未实现。
+- C01a PR#2评审P2已复现并修复：Executor保留Provider已归因TradeFault，补实际Provider＋Executor两种顺序测试；本次起点b05f2e8，详见 [[C运行恢复实现]]。原51项本机通过证据保留；新增完整复验53项单测/5项Electron/36项Wiki、type/build/check/lint与两基线sync均通过，见raw/c01a-p2-validation.json。
+- 远端run39571473237为startup_failure/0job/0check；已登录GitHub Annotations确认账户付款失败或支出限额问题，见raw/c01a-ci-startup.json。需负责人处理Billing & plans并重新触发CI，不能用本地通过代替；C01a恢复active、PR保持打开不合并，未改workflow/账户配置。
+
+- C01已由用户分配给本次Codex，独立worktree/分支codex/c01-agent-recovery，taskBase45a9975506030170bcb8dc770919b7cb5de89fa6。C01a新增纯状态机、进程内取消/AbortSignal与提交边界；51项单测和5项实际Electron回归通过，工程check/36项Wiki回归/生成只读检查/lint/基线同步通过，证据见 [[C01a-状态机与取消基础]]。该基础子切片初次本机验收曾记done，现因评审/远端CI恢复active；C01整体active，run落库/重启/正式IPC/UI尚未实现。
 - B00已在独立分支推送至4e8c663；C侧技术评审两轴无阻断项，复跑typecheck/55项单测通过，见 [[B00-C接口评审]]。A实际评审与共同分支合入尚未确认，不能把现C分支当已接入新契约。waiting_input澄清文字的保存/重开查询待B/C明确；知识AI候选Markdown另等B00a，不阻塞报价恢复。
 
 - 已完成交接准备：[[2026-10-21-三人并行交接准备]]。用户已授权本轮准备完成后提交并推送；本批共同起点/PR目标codex/m1-foundation，准备开始基线b69c4e50060a54e656017c2b17c4bb04e836630e。代码基线58b462ee9c9d096c480d331036f51ae2bcfa87f6已推送并核对远端一致，证据raw/parallel-handoff-git.json；后续补记为纯文档提交，成员从远端最新头部开分支。

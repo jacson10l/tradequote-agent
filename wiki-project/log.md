@@ -172,3 +172,12 @@ README/AGENTS/CONTRIBUTING、开发步骤、状态与CONTEXT同步。恢复摘�
 - C01整体active；本轮仅内部取消基础，无run表/新IPC/UI、重启恢复或真实模型通过声明；知识AI等B00a，A/B服务联调、真实DeepSeek和Windows仍待验收。未推送/发布。
 
 - C01a收口：工程check、36项Wiki回归、生成物只读检查/lint和固定taskBase同步均通过。首次sync遗漏覆盖配置对应工作流正文导致失败，补齐说明后重跑通过，旧失败保留raw/c01a-initial-validation.json。C01a限定基础切片done，C01仍active；本地保存后不推送。
+
+
+## 2026-10-21 C01a P2超时归因修复与CI核实
+
+- 从b05f2e8继续同一C分支/PR#2，目标与merge-base保持codex/m1-foundation/45a9975。实际Provider＋Executor可控顺序复现timeout→cancel期望MODEL_TIMEOUT但实际CANCELLED，原红色输出保留raw/c01a-p2-red.json。
+- Executor改为先保留TradeFault，再对未归因异常取消兜底；补timeout→cancel、cancel→timeout两项集成回归，针对性两项已通过，无报价/对话/幂等落库。本地完整验证见raw/c01a-p2-validation.json。同步 [[C运行恢复实现]]、M4、ADR0012、任务、状态和CONTEXT。
+- 远端run39571473237 startup_failure，0job/0check/无日志，无法重跑；已登录GitHub摘要Annotations确认近期付款失败或支出限额限制。证据raw/c01a-ci-startup.json，需账户负责人处理Billing & plans。未改workflow/权限/账单，C01a恢复active，PR保持不合并，不以本机验证宣称远端CI通过。
+
+- P2本机收口：typecheck、53项Vitest、含build的5项实际Electron、6项工程、36项Wiki、生成物只读check/lint及b05f2e8/45a9975两套sync全部通过，原红色输出保留。记录raw/c01a-p2-validation.json仅代表本地检查；CI账户门槛未解除，C01a保持active，推送修复到原PR供复审，不合并。
