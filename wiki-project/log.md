@@ -294,3 +294,16 @@ HTML目标对齐本轮收尾：25项逻辑测试通过；Wiki回归首轮GENERAT
 独立评审闭环增量：Standards仅发现上述上游覆盖阻断；Spec复现来源撤回后总览审核/发送仍画完成勾。现按当前产出就绪度重算风险/审核/发送步骤并标明历史批准/发送需复核，补总览渲染回归；历史记录不清除。
 
 本轮候选4412c8f完成独立技术复核：Standards覆盖阻断、Spec总览P2均闭环，无剩余阻断。实际HTML45/45、Wiki36/36、generate/check153文件、lint102页、两个固定基线sync与diff-check均通过。72份原raw和9个上游样本逐字节保留。准确记录raw/product-manual-integration-validation.json；集成验证任务done仅表示候选已准备，实际远端合并以PR/Git为准。
+
+
+## 2026-10-21 C 仓库 LF 换行修复启动
+
+用户确认方案 A，由 C 在独立 codex/c-wiki-lf、基线56c909e 实施 .gitattributes、只读换行门禁及 P0 同步。初步六项换行回归通过，证明 CRLF/mixed、缺失 LF 策略和旧索引可阻断，autocrlf=true/false 重新检出保持文本/二进制字节；最终整仓验证另行追加。四份归档/原哈希保持，A01b 不承担公共修复。知识 [[M1验证与协作]]、[[Wiki 工作流与任务记录]]，任务 [[2026-10-21-C仓库换行修复]]，决定 [[0016-仓库文本统一LF]]；未标最终完成。
+
+
+C 换行修复首次整仓检查：typecheck/build、37项Wiki回归和只读check/lint通过；pnpm check 因共同基线A01a JSON排版失败，固定基线sync因M1工程基线正文遗漏失败，保留 raw/c-lf-initial-validation.json。已仅格式化样本并验证JSON语义与56c909e一致，补关联知识页后复验；未改A01b业务或归档。
+
+
+## 2026-10-21 C 仓库 LF 修复验证完成
+
+实现提交03a7bc4，本机check（12项工程）、typecheck/build、37项Wiki回归、生成/只读check/lint与固定56c909e同步全部通过。旧基线autocrlf=true干净clone复现GENERATED_DRIFT与四个ARCHIVE_HASH_MISMATCH；修复提交true/false两份新clone均通过，重生成无差异、工作树干净、归档与二进制字节一致。73份历史非生成raw与基线一致，样本格式化后JSON语义不变。详见raw/c-lf-validation.json、raw/c-lf-checkouts.json、raw/c-lf-preservation.json；首次失败保留raw/c-lf-initial-validation.json。任务 [[2026-10-21-C仓库换行修复]] 保持active待非作者评审/合入，独立PR目标codex/m1-foundation；Windows实机/完整业务E2E/安装未验证，不将macOS Git模拟当作Windows验收。
