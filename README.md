@@ -2,11 +2,35 @@
 
 外贸询报价协同桌面 Agent。以企业导入的商品、价格和知识资料为依据，辅助完成跨品类询盘理解、报价、需求变更、复核及多语言对外输出。
 
-**当前已有 M0 本机平台探针和独立 Electron 模型设置窗口；正式产品与 MVP 尚未完成。** 已确定采用 Electron＋React＋TypeScript，首版单机保存数据，优先接入 DeepSeek；最终安装和双平台验收按用户本轮决定暂缓。UI 使用 `getdesign` 的 **mistral.ai** 参考，并适配为浅色单据工作台。
+**当前已进入 M1：正式 Electron＋React 工作台可创建、修改和重开本地工作区；完整报价 MVP 尚未完成。** 首版单机保存数据，优先接入 DeepSeek；最终安装和双平台验收按用户决定暂缓。UI 使用 `getdesign` 的 **mistral.ai** 参考，并适配为浅色单据工作台。
 
 最新结论：[M0 平台验证记录](wiki-project/wiki/M0平台验证记录.md)。Solivio 不整体 Fork，CSV/金额采用 csv-parse 与 decimal.js；Harness 在普通 Node 的历史实验通过，但在 Electron 44.9.2 初始化失败，当前默认改选最小执行器。
 
-正式前端与契约基线还包括 **Tailwind CSS、shadcn/ui、Lucide React、Zod、React Hook Form＋@hookform/resolvers、React Router、TanStack Query**，质量基线为 Biome、tsc、Vitest、React Testing Library 与 Playwright Electron。当前 Zod 仅已用于 M0 部分契约，Tailwind/shadcn 等正式 UI 尚未接入；逐项职责、落地状态和 M1 任务见[技术栈细节](wiki-project/wiki/02-技术选型与架构.md#共享前端与契约具体依赖及落地状态)。
+正式前端已接入 **Tailwind CSS、shadcn 组件组织方式、Lucide、Zod、React Hook Form＋resolvers、React Router、TanStack Query**；Biome、tsc、Vitest、React Testing Library 与 Playwright Electron 已建立检查入口。当前真实业务是工作区持久化，报价表格/差异为明确标注的合成预览。实现与剩余范围见 [M1 工程基线](wiki-project/wiki/M1工程基线.md) 和 [M1 任务](wiki-project/wiki/tasks/2026-10-21-M1工程初始化.md)。
+
+## 启动正式工程
+
+使用 Node **22.22.0**、pnpm **10.13.1**，无需安装数据库服务：
+
+```sh
+pnpm install --frozen-lockfile
+pnpm dev
+```
+
+安装时自动为 Electron 重建 SQLite。数据保存在 Electron userData 的 workspaces/default 目录，首次打开为空工作台。开发检查：
+
+```sh
+pnpm typecheck
+pnpm test
+pnpm test:e2e
+pnpm build
+pnpm wiki:generate
+pnpm check
+pnpm wiki:sync --base <本次任务开始的提交>
+pnpm wiki:test
+```
+
+原生测试使用 Electron 的 Node ABI；若重新安装原生依赖后报 ABI 不匹配，运行 `pnpm native:rebuild`。`package:mac`/`package:win` 配置 DMG/NSIS，不自动发布；本轮未做最终安装验收。完整模型评估入口待 T40 实现，不提供假成功命令。CI 与三人职责见 [M1 验证与协作](wiki-project/wiki/M1验证与协作.md)。
 
 ## 从这里开工
 
@@ -29,7 +53,7 @@ pnpm --dir experiments/m0-reuse install --frozen-lockfile --ignore-scripts
 pnpm --dir experiments/m0-reuse test
 ```
 
-见 [探针说明与证据](experiments/m0-reuse/README.md)、[上游来源](UPSTREAM.md)和[许可声明](THIRD_PARTY_NOTICES.md)。实验使用真正安装的 Harness 与本地模拟模型/业务服务；没有真实 DeepSeek 调用、Electron 安装包或 Windows 验收通过的结论。根目录应用启动/构建命令仍待 M1 实现。
+见 [探针说明与证据](experiments/m0-reuse/README.md)、[上游来源](UPSTREAM.md)和[许可声明](THIRD_PARTY_NOTICES.md)。历史实验使用真正安装的 Harness 与本地模拟模型/业务服务；不代表真实 DeepSeek 或 Windows 验收通过。独立实验锁文件保留，不纳入正式 workspace。
 
 ## M0 平台探针与系统设置
 
@@ -39,4 +63,4 @@ pnpm --dir experiments/m0-reuse test
 pnpm --dir experiments/m0-platform settings
 ```
 
-在页面填写 API Key，保存后测试连接、选择账户可用模型；Key 不放进聊天或仓库。设置页目前是 M0 验证界面，正式 React 产品尚未初始化。真实模型结果只有执行连接/模型验证后才成立。
+在页面填写 API Key，保存后测试连接、选择账户可用模型；Key 不放进聊天或仓库。模型设置目前仍为 M0 验证界面，迁入正式 React 系统设置属于 T40；正式工作区设置已经实现。真实模型结果只有执行连接/模型验证后才成立。

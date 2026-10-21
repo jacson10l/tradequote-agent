@@ -1,0 +1,67 @@
+{
+  "name": "@tradequote/desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "TradeQuote local desktop workbench",
+  "author": "TradeQuote team",
+  "main": "out/main/index.js",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "package:mac": "electron-builder --mac --publish never",
+    "package:win": "electron-builder --win --publish never"
+  },
+  "dependencies": {
+    "better-sqlite3": "13.0.3"
+  },
+  "devDependencies": {
+    "@tradequote/contracts": "workspace:*",
+    "@tradequote/domain": "workspace:*",
+    "@tradequote/infrastructure": "workspace:*",
+    "@hookform/resolvers": "6.0.0",
+    "@radix-ui/react-slot": "1.5.0",
+    "@tailwindcss/vite": "4.3.3",
+    "@tanstack/react-query": "5.104.5",
+    "@vitejs/plugin-react": "6.1.2",
+    "class-variance-authority": "0.7.1",
+    "clsx": "2.1.1",
+    "electron": "44.9.2",
+    "electron-builder": "26.15.3",
+    "electron-vite": "6.0.0",
+    "lucide-react": "1.60.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "react-hook-form": "7.90.0",
+    "react-router-dom": "7.18.4",
+    "tailwind-merge": "3.7.0",
+    "tailwindcss": "4.3.3",
+    "vite": "8.3.4",
+    "zod": "4.6.7"
+  },
+  "build": {
+    "appId": "local.tradequote.desktop",
+    "productName": "TradeQuote",
+    "files": [
+      "out/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "asarUnpack": [
+      "**/*.node"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "identity": null
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    }
+  }
+}

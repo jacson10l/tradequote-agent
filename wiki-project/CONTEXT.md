@@ -1,17 +1,15 @@
 # 当前上下文
 
-- 技术栈细节复核：[[2026-10-21-技术栈细节核对]]。[[02-技术选型与架构]] 已明确 Zod 仅落地 M0 子集，Tailwind/shadcn 等尚待正式 renderer；补 @hookform/resolvers 及 T10/T11/T13/T14 验收。后续 M1 按清单落实，不将 HTML 设置探针当作 React 工作台。
-
-- P0 最高优先级项目规则：所有成员及编码 Agent 每次代码交付必须同步关联知识页、任务页和追加日志，检查通过后才能标完成/合并。详见根 AGENTS、CONTRIBUTING 与 [[2026-10-21-Wiki强制同步规则]]；不能延期给其他成员补写。
-
-- 当前任务：[[2026-10-21-M0技术验证]]，本轮增量详见 [[M0平台验证记录]]。
-- 用户最新调整：先不做最终安装/双平台验收，不作为开发推进前提；Key 必须经系统设置输入。保留这些未完成项，不能称通过。
-- 选型：Electron 44.9.2＋React/TypeScript 产品方向不变；最小执行器取代默认 Harness，理由为 0.2.1-rc.2 对当前 Electron 原生运行时指纹不兼容。见 [[0004-M0平台与执行器选型]]。
-- 新实验：experiments/m0-platform，真实 Utility Process SQLite、事务/重启/强杀回滚/备份，四类解析、两种 PDF、safeStorage 设置页、合成模型三工具链。
-- 模型设置启动：pnpm --dir experiments/m0-platform settings。用户在页面输入 Key，测试连接后选模型。无真实 Key 已被读取或模型已通过的声明。
-- 主产品仍待 M1 初始化；独立 HTML 设置页不是 React 产品已经完成。A 数据/B 领域/C 桌面，三人全栈，T00 材料已备但未签署。
-- 未完成：真实模型全评估、完整运行持久化/流式、RTL 精确文本回读及复杂输入、Windows/签名安装/升级。按用户调整可继续 M1，同时跟踪。
-- 后续操作：核对本轮 validation.json，再三人评审契约，初始化正式 workspace；将探针已验证机制迁入 ports/adapters，不把合成 SKU/单工作区假设移入生产。
-- Wiki：新源码必须更新 coverage，generate→--check→lint；脚本变更须跑回归。工程 Wiki 已在 M0 完成，不延期。
-- 本地 Git 基线 ef14fc3；本轮改动未提交，未推送。原始归档和此前 M0 证据保留。
-- 最终本轮验证：20 条命令退出 0；开发与 macOS 未签名目录包各 9 组探针通过，包已实际启动。RTL 精确回读和 Harness 候选明确未通过，不包含在通过结论内。
+- 当前任务：[[2026-10-21-M1工程初始化]]，active。首个工作区纵向切片已落地，完整 M1/MVP 尚未完成。
+- M1 初始化切片与 Wiki 按用户要求保存本地提交，后续布局/图标和 M1 补齐以该提交为新基线；不推送。
+- M0 与 P0 Wiki 规则已提交本地 32d7e8c90a7ec4dce1966fdf6e2a73c0b4066826，未推送；当前分支 codex/m1-foundation。M1 同步门禁以该提交为基线。
+- P0：代码作者在同一交付更新关联知识正文、任务、追加日志和覆盖，并通过门禁；适用于所有成员及 Agent，不满足不得 done/合并。
+- 正式工程：desktop/contracts/domain/infrastructure，Electron/React/TS。pnpm install --frozen-lockfile 后 pnpm dev。见 [[M1工程基线]]。
+- 实际能力：工作区创建/修改/重开，SQLite 单写入、幂等/版本冲突、初始迁移、ArtifactStore。见 [[M1接口与持久化]]。
+- UI 已接入约定的表单/路由/查询与共享组件；报价表格与差异为显式合成预览，Agent/审核禁用。见 [[M1工作台]]。
+- 验证与未完成范围见 [[M1验证与协作]] 及任务记录；测试使用隔离合成数据，不读取真实凭据。
+- 模型 API Key 仍通过 pnpm --dir experiments/m0-platform settings 配置；正式 React 系统设置迁移在 T40。没有真实模型通过声明。
+- 最小执行器替代 Harness 的选择不变；M0 原始探针和证据保留，见 [[0004-M0平台与执行器选型]]。
+- A 数据/B 领域/C 桌面三人全栈，T00 评审未签署。后续先评审完整 DTO，再按各模块继续 T11/T12/T13 与 M2/M3/M4。
+- 未完成：报价/审批/真实 Agent、job/outbox 完整恢复、真实模型评估、RTL 精确回读、Windows/签名安装/升级。用户允许暂缓最终安装验收并继续开发。
+- CI 已配置，远端执行和分支保护未设置；不能声称远端门禁已全部生效。

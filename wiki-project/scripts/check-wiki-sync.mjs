@@ -8,7 +8,7 @@ export const body = text => text.replace(/^---\r?\n[\s\S]*?\r?\n---(?:\r?\n|$)/,
 export function codeFile(file) {
   if(file.startsWith('wiki-project/')) return file.startsWith('wiki-project/scripts/');
   if(file.split('/').some(part=>['.git','node_modules','.runtime','.scratch','.cache','dist','build','out','coverage'].includes(part)||sensitiveName(part)))return false;
-  return /\.(?:[cm]?[jt]sx?|json|ya?ml|toml|sql|rs|py|sh|css|html)$/.test(file)||/(?:^|\/)(?:Dockerfile|Makefile|\.gitignore)$/.test(file);
+  return /\.(?:[cm]?[jt]sx?|json|ya?ml|toml|sql|rs|py|sh|css|html)$/.test(file)||/(?:^|\/)(?:Dockerfile|Makefile|\.gitignore|\.node-version)$/.test(file);
 }
 export function assess({changed,currentCoverage,baseCoverage,readCurrent,readBase}) {
   const code=changed.filter(codeFile),errors=[];

@@ -4,7 +4,13 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import {execFileSync} from 'node:child_process';
-import {assess,body,check} from './check-wiki-sync.mjs';
+import {assess,body,check,codeFile} from './check-wiki-sync.mjs';
+test('runtime version pin is a mandatory Wiki-synchronized configuration change',()=>{
+ assert.equal(codeFile('.node-version'),true);
+ const r=assess({changed:['.node-version'],currentCoverage:{'.node-version':{pages:['wiki/module.md']}},baseCoverage:{},readCurrent:()=>'',readBase:()=>''});
+ assert.equal(r.status,'failed');
+ assert.ok(r.errors.includes('.node-version: RELATED_WIKI_BODY_UPDATE_REQUIRED'));
+});
 const page='wiki-project/wiki/module.md',task='wiki-project/wiki/tasks/change.md',log='wiki-project/log.md';
 function fixture(overrides={}) {
  const before={[page]:'---\nupdated: 2026-10-20\n---\nOld behavior',[task]:'Old task',[log]:'History\n'};

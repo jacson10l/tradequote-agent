@@ -5,7 +5,8 @@
     "experiments/m0-reuse/evidence/install-frozen.log",
     "experiments/m0-reuse/evidence/install-initial.log",
     "experiments/m0-reuse/evidence/install-pinned.log",
-    "experiments/m0-reuse/evidence/solivio.tap"
+    "experiments/m0-reuse/evidence/solivio.tap",
+    ".node-version"
   ],
   "exclusionPolicy": [
     "Wiki 自身不递归采集为应用源码；维护脚本另存指纹",
@@ -463,6 +464,278 @@
       "pages": [
         "wiki/Wiki 工作流与任务记录.md",
         "wiki/05-三人分工与开发步骤.md"
+      ]
+    },
+    ".github/workflows/engineering.yml": {
+      "role": "M1 quality checks, desktop verification and CI",
+      "pages": [
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    ".node-version": {
+      "role": "M1 pinned workspace build and desktop process lifecycle",
+      "pages": [
+        "wiki/M1工程基线.md"
+      ]
+    },
+    "apps/desktop/components.json": {
+      "role": "M1 React workspace form and document layout",
+      "pages": [
+        "wiki/M1工作台.md"
+      ]
+    },
+    "apps/desktop/electron.vite.config.ts": {
+      "role": "M1 pinned workspace build and desktop process lifecycle",
+      "pages": [
+        "wiki/M1工程基线.md"
+      ]
+    },
+    "apps/desktop/package.json": {
+      "role": "M1 pinned workspace build and desktop process lifecycle",
+      "pages": [
+        "wiki/M1工程基线.md"
+      ]
+    },
+    "apps/desktop/src/main/index.ts": {
+      "role": "M1 pinned workspace build and desktop process lifecycle",
+      "pages": [
+        "wiki/M1工程基线.md"
+      ]
+    },
+    "apps/desktop/src/main/worker-client.ts": {
+      "role": "M1 pinned workspace build and desktop process lifecycle",
+      "pages": [
+        "wiki/M1工程基线.md"
+      ]
+    },
+    "apps/desktop/src/preload/index.ts": {
+      "role": "M1 pinned workspace build and desktop process lifecycle",
+      "pages": [
+        "wiki/M1工程基线.md"
+      ]
+    },
+    "apps/desktop/src/renderer/index.html": {
+      "role": "M1 React workspace form and document layout",
+      "pages": [
+        "wiki/M1工作台.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/App.tsx": {
+      "role": "M1 React workspace form and document layout",
+      "pages": [
+        "wiki/M1工作台.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/env.d.ts": {
+      "role": "M1 React workspace form and document layout",
+      "pages": [
+        "wiki/M1工作台.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/workbench.tsx": {
+      "role": "M1 React workspace form and document layout",
+      "pages": [
+        "wiki/M1工作台.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/workspace.test.tsx": {
+      "role": "M1 quality checks, desktop verification and CI",
+      "pages": [
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/workspace.tsx": {
+      "role": "M1 React workspace form and document layout",
+      "pages": [
+        "wiki/M1工作台.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/main.tsx": {
+      "role": "M1 React workspace form and document layout",
+      "pages": [
+        "wiki/M1工作台.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/shared/button.tsx": {
+      "role": "M1 React workspace form and document layout",
+      "pages": [
+        "wiki/M1工作台.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/shared/utils.ts": {
+      "role": "M1 React workspace form and document layout",
+      "pages": [
+        "wiki/M1工作台.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/theme.css": {
+      "role": "M1 React workspace form and document layout",
+      "pages": [
+        "wiki/M1工作台.md"
+      ]
+    },
+    "apps/desktop/src/workers/business.ts": {
+      "role": "M1 pinned workspace build and desktop process lifecycle",
+      "pages": [
+        "wiki/M1工程基线.md"
+      ]
+    },
+    "biome.json": {
+      "role": "M1 quality checks, desktop verification and CI",
+      "pages": [
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "package.json": {
+      "role": "M1 pinned workspace build and desktop process lifecycle",
+      "pages": [
+        "wiki/M1工程基线.md"
+      ]
+    },
+    "packages/contracts/package.json": {
+      "role": "M1 shared contracts, workspace domain and storage adapters",
+      "pages": [
+        "wiki/M1接口与持久化.md"
+      ]
+    },
+    "packages/contracts/src/contracts.test.ts": {
+      "role": "M1 quality checks, desktop verification and CI",
+      "pages": [
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "packages/contracts/src/index.ts": {
+      "role": "M1 shared contracts, workspace domain and storage adapters",
+      "pages": [
+        "wiki/M1接口与持久化.md"
+      ]
+    },
+    "packages/contracts/src/mock.ts": {
+      "role": "M1 shared contracts, workspace domain and storage adapters",
+      "pages": [
+        "wiki/M1接口与持久化.md"
+      ]
+    },
+    "packages/domain/package.json": {
+      "role": "M1 shared contracts, workspace domain and storage adapters",
+      "pages": [
+        "wiki/M1接口与持久化.md"
+      ]
+    },
+    "packages/domain/src/domain.test.ts": {
+      "role": "M1 quality checks, desktop verification and CI",
+      "pages": [
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "packages/domain/src/index.ts": {
+      "role": "M1 shared contracts, workspace domain and storage adapters",
+      "pages": [
+        "wiki/M1接口与持久化.md"
+      ]
+    },
+    "packages/infrastructure/package.json": {
+      "role": "M1 shared contracts, workspace domain and storage adapters",
+      "pages": [
+        "wiki/M1接口与持久化.md"
+      ]
+    },
+    "packages/infrastructure/src/artifacts.ts": {
+      "role": "M1 shared contracts, workspace domain and storage adapters",
+      "pages": [
+        "wiki/M1接口与持久化.md"
+      ]
+    },
+    "packages/infrastructure/src/index.ts": {
+      "role": "M1 shared contracts, workspace domain and storage adapters",
+      "pages": [
+        "wiki/M1接口与持久化.md"
+      ]
+    },
+    "packages/infrastructure/src/migrations.ts": {
+      "role": "M1 shared contracts, workspace domain and storage adapters",
+      "pages": [
+        "wiki/M1接口与持久化.md"
+      ]
+    },
+    "packages/infrastructure/src/schema.ts": {
+      "role": "M1 shared contracts, workspace domain and storage adapters",
+      "pages": [
+        "wiki/M1接口与持久化.md"
+      ]
+    },
+    "packages/infrastructure/src/storage.test.ts": {
+      "role": "M1 quality checks, desktop verification and CI",
+      "pages": [
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "playwright.config.ts": {
+      "role": "M1 quality checks, desktop verification and CI",
+      "pages": [
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "pnpm-lock.yaml": {
+      "role": "M1 pinned workspace build and desktop process lifecycle",
+      "pages": [
+        "wiki/M1工程基线.md"
+      ]
+    },
+    "pnpm-workspace.yaml": {
+      "role": "M1 pinned workspace build and desktop process lifecycle",
+      "pages": [
+        "wiki/M1工程基线.md"
+      ]
+    },
+    "scripts/check-boundaries.mjs": {
+      "role": "M1 quality checks, desktop verification and CI",
+      "pages": [
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "scripts/test-unit.mjs": {
+      "role": "M1 quality checks, desktop verification and CI",
+      "pages": [
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "tests/e2e/workspace.spec.ts": {
+      "role": "M1 quality checks, desktop verification and CI",
+      "pages": [
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "tsconfig.json": {
+      "role": "M1 quality checks, desktop verification and CI",
+      "pages": [
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "vitest.config.ts": {
+      "role": "M1 quality checks, desktop verification and CI",
+      "pages": [
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "scripts/check-boundaries.test.mjs": {
+      "role": "Negative tests for renderer and domain module boundaries",
+      "pages": [
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "scripts/prepare-electron.mjs": {
+      "role": "Prepare fresh Electron binary and isolate renderer-only test server",
+      "pages": [
+        "wiki/M1工程基线.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "apps/desktop/vite.renderer.config.ts": {
+      "role": "Prepare fresh Electron binary and isolate renderer-only test server",
+      "pages": [
+        "wiki/M1工程基线.md",
+        "wiki/M1验证与协作.md"
       ]
     }
   }

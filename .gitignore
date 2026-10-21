@@ -54,6 +54,7 @@ build/
 out/
 release/
 coverage/
+output/playwright/
 *.dmg
 *.exe
 *.msi

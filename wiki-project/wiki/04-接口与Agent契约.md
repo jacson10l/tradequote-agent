@@ -196,3 +196,7 @@ Main 发出文件选择/保存令牌，后台用令牌访问受控路径；原�
 ## M0 本轮实现状态
 
 本轮默认执行器已切为最小工具循环，见 [[0004-M0平台与执行器选型]]；前述 Harness 约束仅适用于保留候选。T00 部分 strict schema/测试与评审清单见 [[M0契约评审准备]]。正式端口及完整公共契约仍需 M1 实现。
+
+## M1 首个契约切片
+
+正式 contracts 已落地 workspace.get/create/rename 的严格命令/响应与 DesktopClient；宿主上下文不接受调用方注入。typedPatch 目前仅 setQuantity/setCommercialTerm，JSON Schema 转换测试不代表模型已验收。详细端口、错误、事务与未实现部分见 [[M1接口与持久化]]；上文完整报价/Agent 目录仍是规划。

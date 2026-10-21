@@ -8,7 +8,7 @@ reference: mistral.ai
 
 # 桌面工作台设计规范
 
-使用 Mistral AI 参考的浅色设计语言，服务商品资料、报价单、Agent 辅助、风险与版本比较。用户最终指定命令为 `npx getdesign@latest add mistral.ai`，已执行；本文件在生成模板基础上作产品适配。当前是设计规范，尚无实现页面或视觉验收结果。
+使用 Mistral AI 参考的浅色设计语言，服务商品资料、报价单、Agent 辅助、风险与版本比较。用户最终指定命令为 `npx getdesign@latest add mistral.ai`，已执行；本文件在生成模板基础上作产品适配。M1 已实现首个 React 工作台与工作区表单，实际截图和验收边界见 [M1 工作台](wiki-project/wiki/M1工作台.md)。
 
 原始模板保存在 [mistral-original.md](wiki-project/raw/design/mistral-original.md)，来源为 [getdesign Mistral 页面](https://getdesign.md/mistral.ai/design-md)，CLI 版本 0.6.26。原始文件是第三方独立分析；本文件是项目唯一 UI 规范。归档中营销布局、字体、品牌标记和附带工具命令不是产品必须照搬的要求。
 
@@ -87,4 +87,4 @@ reference: mistral.ai
 
 M1 将语义变量落在 renderer 的统一 theme.css，通过 Tailwind/shadcn 变量映射使用；feature 页面不自建第二套色板。组件中的 loading/error/selected/disabled/focus/hover/pressed 状态都要有实际表现。
 
-验收记录包括代表页截图、键盘路径、状态切换、对比度、表格缩放、长字段、中文与 RTL 输出；截图与实际界面验收尚未执行。关联 [MVP 页面](wiki-project/wiki/01-MVP范围与验收.md) 与 [测试要求](wiki-project/wiki/06-测试与交付.md)。
+验收记录包括代表页截图、键盘路径、状态切换、对比度、表格缩放、长字段、中文与 RTL 输出；M1 已检查实际 Electron 截图和 900px 收窄布局；完整系统缩放、跨平台视觉与语言输出仍待验收。关联 [MVP 页面](wiki-project/wiki/01-MVP范围与验收.md) 与 [测试要求](wiki-project/wiki/06-测试与交付.md)。

@@ -1,0 +1,13 @@
+{
+  "name": "@tradequote/infrastructure",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": "./src/index.ts",
+  "dependencies": {
+    "@tradequote/contracts": "workspace:*",
+    "@tradequote/domain": "workspace:*",
+    "better-sqlite3": "13.0.3",
+    "drizzle-orm": "0.45.4"
+  }
+}
