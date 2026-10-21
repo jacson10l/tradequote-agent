@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "47c115083b845036101672b00b791fdb6c88b72c4afd7fd2a9b51eb4f1ec5367",
+    "wiki-config.json": "549bd6c983688e23a88c3030c989c913e0bcd3a147f113cdaa3e66d5eeeff3f9",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -209,13 +209,14 @@
     {
       "path": "apps/desktop/src/preload/contracts.test.ts",
       "type": "ts",
-      "lines": 115,
-      "bytes": 4411,
-      "sha256": "3f492cb7d84ea74d7a08e203657e4fb97c5380f668a602cef2be90b5a13da318",
+      "lines": 148,
+      "bytes": 5822,
+      "sha256": "7fa753e7bc0fd54be0b55551059139ca5e6c85360bd4bb429af2f7a003340ba3",
       "role": "B00 preload and mock capability gate without new IPC",
       "pages": [
         "wiki/首批并行接口约定.md",
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/B00a知识Wiki公共协议.md"
       ]
     },
     {
@@ -1175,12 +1176,35 @@
     {
       "path": "packages/contracts/src/index.ts",
       "type": "ts",
-      "lines": 132,
-      "bytes": 4496,
-      "sha256": "b8489d4e657fb4c16f042c789daa9772b0107e429233c59ca1c3ee89d07a0ad8",
+      "lines": 136,
+      "bytes": 4632,
+      "sha256": "ab37ce2308e66ac1222eba46a5e9e96289515b59294d3e7a6ab6f9d7b6a97e79",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/B00a知识Wiki公共协议.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/knowledge-wiki.test.ts",
+      "type": "ts",
+      "lines": 587,
+      "bytes": 21230,
+      "sha256": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+      "role": "B00a P0 authority, provenance, historical-read, validity and pagination negative regressions",
+      "pages": [
+        "wiki/B00a知识Wiki公共协议.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/knowledge-wiki.ts",
+      "type": "ts",
+      "lines": 724,
+      "bytes": 28668,
+      "sha256": "7d9177f877175d18f9fa0df2135dae1d5cec9adf8316bdaa7bcd2c5426e5ff07",
+      "role": "B00a P0 versioned Markdown, source, review, retrieval, citation and consumption protocols",
+      "pages": [
+        "wiki/B00a知识Wiki公共协议.md"
       ]
     },
     {
@@ -1208,23 +1232,25 @@
     {
       "path": "packages/contracts/src/mock.ts",
       "type": "ts",
-      "lines": 146,
-      "bytes": 5276,
-      "sha256": "342dff1e47d5aac4cdd3b7bb87a91f171a5d760ed30f2a22e881730be7140a27",
+      "lines": 285,
+      "bytes": 9640,
+      "sha256": "2192a814cc876f40ebe96c15b13630c64b32a17d0df7955da5254a2800c7fa5a",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/B00a知识Wiki公共协议.md"
       ]
     },
     {
       "path": "packages/contracts/src/pending-client.ts",
       "type": "ts",
-      "lines": 31,
-      "bytes": 1736,
-      "sha256": "159b71bd4d5e55fd52c480a2686cd59ded5398fc66eb133a35513bba6baf6496",
+      "lines": 33,
+      "bytes": 1889,
+      "sha256": "77191cf315e337b05d59add688f0185976949f7fcf6eb02ded65a1372eda94b0",
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
-        "wiki/首批并行接口约定.md"
+        "wiki/首批并行接口约定.md",
+        "wiki/B00a知识Wiki公共协议.md"
       ]
     },
     {
@@ -1291,6 +1317,17 @@
       "role": "Strict shared value, patch, approval and event contract foundation",
       "pages": [
         "wiki/M1接口与持久化.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/wiki-integrity.ts",
+      "type": "ts",
+      "lines": 64,
+      "bytes": 3036,
+      "sha256": "c18f3d7a1aa73d56ff5b77dc9af73d53b60e8d2717e92bc135a42ed391c2ab31",
+      "role": "B00a exact UTF-8 content, source-set and excerpt integrity verification",
+      "pages": [
+        "wiki/B00a知识Wiki公共协议.md"
       ]
     },
     {
@@ -1739,23 +1776,25 @@
     {
       "path": "tests/e2e/workspace.spec.ts",
       "type": "ts",
-      "lines": 287,
-      "bytes": 12254,
-      "sha256": "e17de96e146e27dc79fe22e1bee346bf048f22055010d1d82862fbde2f889fb8",
+      "lines": 311,
+      "bytes": 13133,
+      "sha256": "38d3c2c1b435e818964d83351ee052867b11c013afa293783419662f349398c0",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/B00a知识Wiki公共协议.md"
       ]
     },
     {
       "path": "tests/fixtures/knowledge/knowledge-drafts.a01a.json",
       "type": "json",
-      "lines": 263,
-      "bytes": 9129,
-      "sha256": "f93bf31d2e86bf260926d3d458c8eee28d25cee1057f849b7cac7826311e2751",
+      "lines": 217,
+      "bytes": 8577,
+      "sha256": "a3e4b7e6e7f4b98ce0ad3b22c7fc651d564c89bfa9d5fb61014752c2d87d1c80",
       "role": "A01合成知识候选样本，非已发布或已验收规则",
       "pages": [
-        "wiki/A业务LLMWiki方案.md"
+        "wiki/A业务LLMWiki方案.md",
+        "wiki/B00a知识Wiki公共协议.md"
       ]
     },
     {

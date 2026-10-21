@@ -9,19 +9,9 @@
       "content": {
         "title": "付款条款完整性（合成正例）",
         "scope": {
-          "platforms": [
-            "alibaba_intl_rfq",
-            "amazon_listing"
-          ],
-          "markets": [
-            "DE",
-            "US"
-          ],
-          "categories": [
-            "apparel-tshirt",
-            "desk-lamp",
-            "stainless-bottle"
-          ]
+          "platforms": ["alibaba_intl_rfq", "amazon_listing"],
+          "markets": ["DE", "US"],
+          "categories": ["apparel-tshirt", "desk-lamp", "stainless-bottle"]
         },
         "sourceStatus": "synthetic",
         "sourceLabel": "合成测试来源：付款比例拆分说明",
@@ -53,15 +43,9 @@
       "content": {
         "title": "贸易术语范围（合成反例）",
         "scope": {
-          "platforms": [
-            "alibaba_intl_rfq"
-          ],
-          "markets": [
-            "DE"
-          ],
-          "categories": [
-            "apparel-tshirt"
-          ]
+          "platforms": ["alibaba_intl_rfq"],
+          "markets": ["DE"],
+          "categories": ["apparel-tshirt"]
         },
         "sourceStatus": "synthetic",
         "sourceLabel": "合成测试来源：术语与付款边界反例说明",
@@ -94,18 +78,9 @@
       "content": {
         "title": "报价有效期与币种（合成正例）",
         "scope": {
-          "platforms": [
-            "alibaba_intl_rfq",
-            "amazon_listing"
-          ],
-          "markets": [
-            "DE",
-            "US"
-          ],
-          "categories": [
-            "desk-lamp",
-            "stainless-bottle"
-          ]
+          "platforms": ["alibaba_intl_rfq", "amazon_listing"],
+          "markets": ["DE", "US"],
+          "categories": ["desk-lamp", "stainless-bottle"]
         },
         "sourceStatus": "synthetic",
         "sourceLabel": "合成测试来源：有效期币种完整性",
@@ -137,16 +112,9 @@
       "content": {
         "title": "RFQ交期承诺（合成反例）",
         "scope": {
-          "platforms": [
-            "alibaba_intl_rfq"
-          ],
-          "markets": [
-            "DE",
-            "US"
-          ],
-          "categories": [
-            "apparel-tshirt"
-          ]
+          "platforms": ["alibaba_intl_rfq"],
+          "markets": ["DE", "US"],
+          "categories": ["apparel-tshirt"]
         },
         "sourceStatus": "synthetic",
         "sourceLabel": "合成测试来源：RFQ回复风格",
@@ -179,15 +147,9 @@
       "content": {
         "title": "Listing夸大词（合成反例）",
         "scope": {
-          "platforms": [
-            "amazon_listing"
-          ],
-          "markets": [
-            "US"
-          ],
-          "categories": [
-            "stainless-bottle"
-          ]
+          "platforms": ["amazon_listing"],
+          "markets": ["US"],
+          "categories": ["stainless-bottle"]
         },
         "sourceStatus": "synthetic",
         "sourceLabel": "合成测试来源：Listing标题风格反例",
@@ -220,17 +182,9 @@
       "content": {
         "title": "保温杯交期确认（合成正例）",
         "scope": {
-          "platforms": [
-            "amazon_listing",
-            "alibaba_intl_rfq"
-          ],
-          "markets": [
-            "DE",
-            "US"
-          ],
-          "categories": [
-            "stainless-bottle"
-          ]
+          "platforms": ["amazon_listing", "alibaba_intl_rfq"],
+          "markets": ["DE", "US"],
+          "categories": ["stainless-bottle"]
         },
         "sourceStatus": "synthetic",
         "sourceLabel": "合成测试来源：品类交期承诺需确认依据",

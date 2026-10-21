@@ -294,3 +294,15 @@ HTML目标对齐本轮收尾：25项逻辑测试通过；Wiki回归首轮GENERAT
 独立评审闭环增量：Standards仅发现上述上游覆盖阻断；Spec复现来源撤回后总览审核/发送仍画完成勾。现按当前产出就绪度重算风险/审核/发送步骤并标明历史批准/发送需复核，补总览渲染回归；历史记录不清除。
 
 本轮候选4412c8f完成独立技术复核：Standards覆盖阻断、Spec总览P2均闭环，无剩余阻断。实际HTML45/45、Wiki36/36、generate/check153文件、lint102页、两个固定基线sync与diff-check均通过。72份原raw和9个上游样本逐字节保留。准确记录raw/product-manual-integration-validation.json；集成验证任务done仅表示候选已准备，实际远端合并以PR/Git为准。
+
+## 2026-10-22 B00a P0 公共 Wiki 协议
+
+B 在独立 codex/b00a-knowledge-wiki-contracts 工作树从 56c909e21aefa484b6805bf9afc7c94b0e1d4576 开工；新增 knowledge-wiki/wiki-integrity 与反向测试，覆盖 Markdown/多来源/审核发布/稳定检索引用/消费事务端口，保持旧 B00/Runtime/Agent 白名单，12 方法明确不可用。同步 [[B00a知识Wiki公共协议]]、[[B00a-业务Wiki契约补充]]、0011 决策、M1/首批接口/覆盖映射/导航/CONTEXT/项目状态。C 设计对齐已纳入；A 通过 PR#6 评论收到清单，实际评审/合入待完成，A01c 未解锁，P1 另交。
+
+首次类型检查退出 1（测试夹具类型问题）已修正；完整单元初次 84 项/增加权限反例后 85 项通过。最终完整检查以本轮任务及原始验证 JSON 为准；不把合成协议检查当 A 业务服务或真实模型通过。
+
+B00a P0 最终 macOS 本机验证：pnpm typecheck、85 项单元、含 build 的 5 项真实 Electron、6 项工程/边界/check、36 项 Wiki 回归、generate 与固定 56c909e sync 全部退出 0，证据 raw/b00a-validation.json；初始失败及修正保留 raw/b00a-initial-validation.json。历史 raw 非生成文件逐字节不变、log 精确前缀保留、A01a JSON 解析值一致。C 空页游标 P2 已修复并补反例，仍待复核结论；A 实际评审和共同分支合入待完成，A01c 未解锁。
+
+C 范围技术复核完成：空页游标 P2 独立确认修复，相关2文件/20项测试退出0，其余客户端/IPC和宿主接线范围无阻断，记录 raw/b00a-c-review.json；不代替 A 来源/存储/发布/检索评审或 T00 人类签字。A 评审及合入仍待，任务保持 active。
+
+B00a P0 远端交接：代码提交 26421ab5bf93f74b20d5888f0e1ff3b48b9bfc36 已正常推送独立分支，[PR #7](https://github.com/jacson10l/tradequote-agent/pull/7) 目标 codex/m1-foundation，已请求 A/ssyyy31 评审；API 核对 OPEN、尚无 review、未合入，证据 raw/b00a-delivery.json。本次仅追加交付事实，已测源码/config hash 不变；A01c 未解锁，合入后通知仍待。
