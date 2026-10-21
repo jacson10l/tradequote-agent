@@ -1,5 +1,7 @@
 # 当前上下文
 
+- 本次在codex/c01a-verification独立目录复核已有C分支68455a3，沿用原代码；B00 C两轴评审无阻断项，澄清内容持久化仍待B/C确定。复验见 [[C01a-状态机与取消基础]]；原C分支未修改，PR未自动合并。
+
 - 最新用户阶段决定：先完成需求开发，默认macOS优先，当前Windows验证跳过/后置，不阻塞开发和PR合入。Windows仍未验证，跨平台目标保留；Actions保持关闭，macOS本机检查、P0与非作者复审继续。PR#2当前只待非作者技术复审，未合并。见 [[0014-macOS优先与Windows验收后置]]。
 
 - 最新用户决定：不使用GitHub Actions或云端自动测试；macOS由本人、Windows由Windows开发者本机验收。仓库Actions已关闭回读enabled=false，C分支移除engineering/wiki workflow；本机pnpm/Wiki门禁保持，PR#2待技术复审不合并，不再等待账单/云端CI恢复。详见 [[0013-本机双平台验收停用Actions]]、[[C01a-本机验收与停用Actions]]。Windows本机结果尚未执行/收到，不代签。

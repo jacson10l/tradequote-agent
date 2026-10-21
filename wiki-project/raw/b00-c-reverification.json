@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "recordedAt": "2026-10-21T09:28:58.137642+00:00",
+  "baseline": "45a9975506030170bcb8dc770919b7cb5de89fa6",
+  "reviewedCommit": "4e8c66366c05468ee133134dc4399aeb5971d1e3",
+  "scope": "C-facing Standards and Spec review; no blocking findings. waiting_input clarification persistence must be agreed before C01b. No A review or merge approval.",
+  "checks": [
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 typecheck <b00-project>\n> tsc --noEmit\n\n"
+    },
+    {
+      "command": "pnpm test",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 test <b00-project>\n> node scripts/test-unit.mjs\n\n\n RUN  v5.0.5 <b00-project>\n\n\n Test Files  15 passed (15)\n      Tests  55 passed (55)\n   Start at  17:28:55\n   Duration  2.35s (import 56%, environment 21%, tests 14%, transform 8%, worker 1%)\n\n    Isolate  15 workers spawned · ~446ms startup each (spawn + environment, per file)\n             at least ~298ms faster with isolate: false — reuses workers across files instead of one per file\n\n"
+    }
+  ]
+}
