@@ -106,3 +106,7 @@ pnpm --dir experiments/m0-platform settings
 在页面填写 API Key，保存后测试连接、选择账户可用模型；Key 不放进聊天或仓库。该命令仅启动历史M0页面；正式应用已提供“模型设置”，不会自动读取或迁移M0凭据。真实模型结果只有执行连接/模型验证后才成立。
 
 macOS 开发启动使用本地 TradeQuote.app，Dock 名称与图标一致；重启 pnpm dev 生效，已有工作区目录保留。
+
+## C02b商品与报价只读工具
+
+[C02b接口与边界](wiki-project/wiki/C02b商品与报价只读工具.md)已把只读循环接到现有SQLite已发布商品、授权历史报价与确定性核价：宿主固定范围/日期，保留来源、真实错误和未保存预览，无报价写入。实现/验证见[C02b任务](wiki-project/wiki/tasks/C02b-商品与报价只读工具.md)。search_knowledge/validate_quote缺正式服务，未注册；生产Worker/UI仍为原understand/revise，本轮没有新增入口或完整运行恢复。

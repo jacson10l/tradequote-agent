@@ -122,3 +122,7 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 首次登记A来源文本覆盖后生成报STALE_COVERAGE，因为默认扩展扫描不纳管.txt；已将8份合成原文显式加入extraFiles，既不移除来源映射也不放宽工具算法，随后重跑生成与维护回归。失败记录保留在本轮initial-validation。
 
 本轮pnpm check与Electron构建并行时误扫构建的临时配置，另发现基线合成JSON未符合Biome格式；旧失败保存后等待构建结束再串行check。仅对合成draft JSON布局归一，并实际比较JSON解析值及8份原文字节均与be53b98相同，不加格式例外或弱化检查。
+
+## C02b只读业务适配覆盖
+
+本轮新增catalog-quote-read-agent.ts及测试，逐文件归 [[C02b商品与报价只读工具]]/M4知识页；ReadToolRuntime的hostContext增量同步原路线/M4正文。配置只增加两项coverage，不改维护算法；仍执行36项Wiki工具回归，保留上轮raw与log，固定本任务4a56a42和累计PR基线be53b98检查同步。知识/任务/0017决定已从index可达，状态/CONTEXT明确C02b部分完成和A/B未就绪接口，不以schema/mock冒充服务。验证见 [[C02b-商品与报价只读工具]]。

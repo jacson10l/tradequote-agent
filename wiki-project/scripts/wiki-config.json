@@ -1107,6 +1107,20 @@
         "wiki/双参考项目功能对照与C开发路线.md",
         "wiki/A业务LLMWiki方案.md"
       ]
+    },
+    "packages/infrastructure/src/catalog-quote-read-agent.ts": {
+      "role": "C02b真实商品报价只读适配、来源快照、范围核价与无写入回归",
+      "pages": [
+        "wiki/C02b商品与报价只读工具.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    "packages/infrastructure/src/catalog-quote-read-agent.test.ts": {
+      "role": "C02b真实商品报价只读适配、来源快照、范围核价与无写入回归",
+      "pages": [
+        "wiki/C02b商品与报价只读工具.md",
+        "wiki/M4模型与报价修订.md"
+      ]
     }
   }
 }

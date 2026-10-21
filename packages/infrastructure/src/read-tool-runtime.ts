@@ -77,6 +77,7 @@ export class ReadToolRuntime {
     private readonly provider: Pick<DeepSeekProvider, "json">,
     tools: ReadTool[],
     limits: z.input<typeof limitsSchema> = {},
+    private readonly hostContext?: unknown,
   ) {
     this.limits = limitsSchema.parse(limits);
     for (const tool of tools) {
@@ -138,6 +139,8 @@ export class ReadToolRuntime {
         throw new TradeFault("VALIDATION_ERROR", "任务上下文不可序列化或超过大小限制");
       }
     };
+    if (this.hostContext !== undefined)
+      messages.push({ role: "user", content: serialize({ hostContext: this.hostContext }) });
     let toolCalls = 0;
     for (;;) {
       serialize(messages);

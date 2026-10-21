@@ -258,3 +258,14 @@ B00代码提交e71442d127edeb9a62a9a0cd5a127ee0ae2898be已推送并核对远端�
 C02a验收补记：检查并行与构建产生临时配置扫描冲突，且基线A合成JSON格式不符合Biome，旧失败已保留。构建结束后串行重跑工程检查；合成JSON只格式化，解析内容及8份原文字节与be53b98逐一相同；未改规则内容或来源。
 
 本轮限定切片收口：79单元（含13新工具循环）、5真实Electron（含build）、6工程、36Wiki工具回归及typecheck/生成/只读check/lint/固定be53b98同步均退出0；真实DeepSeek、C01b恢复和生产工具接线仍未完成。C02a任务按此限定范围done，验收证据raw/c-runtime-validation.json，旧失败保留。
+
+
+## 2026-10-21 C02b已有商品报价真实只读工具
+
+按用户要求继续C02b，先把已验证C02a代码/测试/Wiki保存为本地提交4a56a42ceae83ec44783d9046ae7d4d3696bbda4，再在同一独立C工作树开codex/c02b-catalog-quote-tools；本任务基线即4a56a42，共同/PR基线be53b98，未推送/合并。新增CatalogQuoteReadAgent，把search_catalog/get_product_revisions/get_quote和有场景时calculate_quote接到现有read/trade.get与domain.calculateQuoteV1。宿主scope/asOf、快照冻结/分页、精确历史、来源hash/价格行、FailureSchema与实际observations、预览去临时身份均有具体接口，见 [[C02b商品与报价只读工具]]、[[C02b-商品与报价只读工具]] 和 [[0017-只读业务快照与核价预览]]。
+
+13项新增测试用真实临时SQLite工作区/CSV人工发布/历史报价和本地HTTP Provider动作，验证原确定性金额与未知/零/MOQ/过期、范围/参数拒绝、稳定快照、错误脱敏和九组业务表无写入。首轮typecheck与92项单元通过，最终结果raw/c02b-validation.json。同步M2/M4、完整路线（C02b整体部分）、C主任务、能力图、README、状态/CONTEXT/导航和两文件覆盖，生成并执行本机与Wiki门禁。search_knowledge缺B00a/A检索引用、validate_quote缺B01/A适用规则，均未注册；原Worker/UI不接新adapter，无新公共DTO/迁移/存储导出/依赖或收费调用。真实DeepSeek、C01b R01～R20、Windows/安装未运行。
+
+首次文档批量更新因stdin编码错误未执行，随后sync正确拒绝缺正文与log。保留raw/c02b-initial-validation.json，分批UTF-8重做文档后重跑，未放宽检查或覆盖历史证据。
+
+C02b已有业务只读子切片收口：92单元（含13新增）、5项现有Electron＋build、6工程、36Wiki工具、typecheck及生成/check/lint、固定4a56a42和be53b98两套sync/差异检查全部退出0，证据raw/c02b-validation.json。该子任务done，完整C02b仍部分；知识/规则、生产接线、写工具/恢复与真实供应商未完成。

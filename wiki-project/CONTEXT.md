@@ -1,5 +1,9 @@
 # 当前上下文
 
+- 最新任务 [[C02b-商品与报价只读工具]]，分支codex/c02b-catalog-quote-tools，taskBase=4a56a42ceae83ec44783d9046ae7d4d3696bbda4（C02a本地检查点），共同/PR基线仍be53b98，本轮不推送/合并。
+- CatalogQuoteReadAgent接现有read/trade.get和calculateQuoteV1：商品检索/发布ID回读、授权报价修订精确回读、未保存核价预览；宿主scope/asOf、冻结快照、真实来源/公开失败/observations。新增13项真实业务测试，结果raw/c02b-validation.json。
+- C02b整体部分完成；search_knowledge等B00a/A检索引用，validate_quote等B01/A规则来源，均未注册。原Worker/UI未接新adapter；C02c写工具、C01b/c恢复和真实DeepSeek仍待。接口 [[C02b商品与报价只读工具]]；以下为此前各轮历史事实。
+
 - 最新任务为 [[C02a-受限只读工具循环]]，分支codex/c-runtime-roadmap，taskBase=be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce。[[双参考项目功能对照与C开发路线]]统一两个上游功能、实际源码、C00～C07任务/依赖/验收和延期条件；C01只是恢复切片。
 - 本轮新增受限只读JSON工具循环内部模块：注册schema/结果校验、默认8工具/120秒/100000字节、取消/晚到防护；SQLite目录与确定性核价实际验证，不新增报价。不接生产IPC/UI、不支持写工具、不冒称完整Agent/真实供应商已通过。验证以raw/c-runtime-validation.json为准。
 - be53b98已合入A合成fixture；早期“未合入/无打开PR”仅属原核查时点。B澄清/list与A迁移前驱/同连接原子提交仍未齐；C01b及R01～R20待实现，C02b可按已有公开读服务继续。Windows/签名安装后置，真实DeepSeek未评估。以下收口记录保留历史背景。
