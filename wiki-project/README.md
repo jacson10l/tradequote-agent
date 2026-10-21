@@ -15,3 +15,6 @@ node --test wiki-project/scripts/wiki-tools.test.mjs
 源内容变化后先更新知识页与分类，再 `node wiki-project/scripts/build-code-index.mjs .`。需要新采集基线时才加 `--ingest`；日常检查不改基线。
 
 [规则](AGENTS.md)、[[Wiki 工作流与任务记录]]、[验证记录](raw/wiki-validation.json)说明维护与实际结果。标准库脚本不依赖应用依赖安装；根目录应用启动/打包命令仍不存在。
+
+
+本目录只维护工程源码与交付知识。业务LLM Wiki计划位于各workspace运行数据中，原件/Markdown/人工发布/检索维护见 [[A业务LLMWiki方案]]；新A01验收与B00差距分别见 [[A01-知识发布与来源查询]]、[[B00知识契约差距与补充]]。不要把企业客户原件写入本工程Wiki。

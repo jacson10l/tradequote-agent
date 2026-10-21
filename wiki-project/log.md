@@ -171,3 +171,14 @@ README/AGENTS/CONTRIBUTING、开发步骤、状态与CONTEXT同步。恢复摘�
 B00最终复验raw/b00-validation.json全部通过：typecheck、55项单元、构建＋5项实际Electron、6项工程、36项Wiki、生成/只读check/lint、45a9975基线sync、Git差异检查。首次Electron白名单漏新增方法已同步并补实际未接入断言，raw/b00-e2e-initial-validation.json保留。实现与本地验证完成，A/C评审和合入待执行。
 
 B00代码提交e71442d127edeb9a62a9a0cd5a127ee0ae2898be已推送并核对远端一致，创建[PR #1](https://github.com/jacson10l/tradequote-agent/pull/1)，目标codex/m1-foundation。连接器404后本机gh创建成功，证据raw/b00-delivery.json。A/C评审和合入仍待执行；补记仅文档，代码/测试结果保持。
+
+
+## 2026-10-21 A01业务LLM Wiki方案补齐
+
+按用户明确要求，在独立codex/a01-llm-wiki-plan（基线4e8c663）仅更新Wiki。区分工程Wiki和workspace业务知识，补齐原件/Markdown版本、AI增量候选、人工审核发布、关键词检索与引用、持续维护；A01改为五切片和A-W01～10验收。对照B00 knowledge/runs/checks与ArtifactStore源码，记录无规则正文、多来源、审核与有效性、通用引用、知识运行及异步事务缺口，建立B00a P0/P1任务。同步A/B/C依赖、领域/接口/存储/交接、状态/CONTEXT与导航；未修改业务源码或实现新服务，旧验证与原始资料保留。验证见 [[2026-10-21-A01业务Wiki方案补齐]]。
+
+本次方案验证raw/a01-wiki-plan-validation.json已通过：生成/只读check/lint/4e8c663基线sync、脚本语法与Git空白检查均退出0；149纳管源码不变、80Markdown/64语义页可达、代码变更0。仅文档编辑任务done，A01/B00a实现仍draft，真实三方评审/业务测试未执行；修改保留在独立方案分支，未提交推送。
+
+## 2026-10-21 A01方案提交交付复验
+
+用户后续明确要求提交推送本次方案与Wiki增量，交付分支为codex/a01-llm-wiki-plan，基线4e8c663。重新生成并通过只读check、lint、基线sync与Git差异检查，149纳管源码不变、80Markdown/64语义页可达、代码变更0；对应任务 [[2026-10-21-A01业务Wiki方案补齐]]。历史未推送记录保留，最新交付以该分支Git记录为准。仅交付方案，不声明A01/B00a业务实现、三方评审或集成合入完成。

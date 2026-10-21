@@ -221,3 +221,10 @@ Main 发出文件选择/保存令牌，后台用令牌访问受控路径；原�
 ## 正式模型与两轮修订增量
 
 正式入口agent.understand携scenarioId/buyer/inquiry，agent.revise携baseId/expectedVersion/instruction；共同带schemaVersion/requestId/idempotencyKey。密钥不在任何renderer业务命令中，模型输出不接受金额或权限字段。返回现有TradeResult和最新board/turns，错误MISSING_FACTS用于需补充、不产生空草稿；完整run事件/取消接口尚未实现。 细节与当前边界见 [[M4模型与报价修订]]，本轮验证见 [[2026-10-21-正式模型与两轮修订]]。
+
+
+## 业务知识整理与查询补充边界
+
+[[A业务LLMWiki方案]]要求AI只能创建候选；知识审核、发布、撤回由human_ui入口执行，模型/原文不能自报审核人和权限。B00现有agent.start只可启动询盘/报价修订，其completed必须有committedRevisionId；知识整理需独立KnowledgeBuildCommand/Run，不扩用旧报价命令偷渡Markdown。
+
+[[B00a-业务Wiki契约补充]]将补来源、wiki候选/审核/发布、search/resolveCitation及lint/impact/重建接口。ArtifactStore现为async，WikiService先异步验证artifact再提交SQLite引用事务/outbox，知识Repository事务可同步。正式搜索只返回适用的已发布有效版本，历史引用解析与候选管理是独立入口；renderer始终不访问文件/数据库。变更清单与旧协议兼容见 [[B00知识契约差距与补充]]。

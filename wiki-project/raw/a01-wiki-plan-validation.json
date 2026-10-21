@@ -1,0 +1,60 @@
+{
+  "status": "passed",
+  "base": "4e8c66366c05468ee133134dc4399aeb5971d1e3",
+  "scope": "Documentation-only A01 business LLM Wiki plan and B00 contract gap audit; no application or schema implementation.",
+  "checks": [
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs .",
+      "exitCode": 0,
+      "checkedAt": "2026-10-21T07:32:56.242376+00:00",
+      "output": "{\n  \"mode\": \"generate\",\n  \"files\": 149,\n  \"lines\": 40320,\n  \"generated\": 5,\n  \"excluded\": 5\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "exitCode": 0,
+      "checkedAt": "2026-10-21T07:32:56.384847+00:00",
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 149,\n  \"lines\": 40320,\n  \"generated\": 5,\n  \"excluded\": 5\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exitCode": 0,
+      "checkedAt": "2026-10-21T07:32:56.641076+00:00",
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 80,\n  \"semantic\": 64,\n  \"reachable\": 80\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 4e8c66366c05468ee133134dc4399aeb5971d1e3",
+      "exitCode": 0,
+      "checkedAt": "2026-10-21T07:32:56.769131+00:00",
+      "output": "{\n  \"base\": \"4e8c66366c05468ee133134dc4399aeb5971d1e3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "node --check wiki-project/scripts/build-code-index.mjs",
+      "exitCode": 0,
+      "checkedAt": "2026-10-21T07:32:56.802367+00:00",
+      "output": ""
+    },
+    {
+      "command": "node --check wiki-project/scripts/lint-wiki.mjs",
+      "exitCode": 0,
+      "checkedAt": "2026-10-21T07:32:56.836737+00:00",
+      "output": ""
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "checkedAt": "2026-10-21T07:32:56.850235+00:00",
+      "output": ""
+    },
+    {
+      "command": "git diff --cached --check",
+      "exitCode": 0,
+      "checkedAt": "2026-10-21T07:32:56.859003+00:00",
+      "output": ""
+    }
+  ],
+  "changeScope": {
+    "allChangesWithin": "wiki-project/",
+    "fileCount": 23,
+    "businessTests": "Not run: documentation only; no claim of new business acceptance."
+  }
+}
