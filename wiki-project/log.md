@@ -157,3 +157,8 @@ raw/agent-validation.json记录类型、42项单元/集成、build＋5项实际E
 README/AGENTS/CONTRIBUTING、开发步骤、状态与CONTEXT同步。恢复摘要去除过时“当前缺覆盖”矛盾，历史任务和raw失败证据全部保留。本轮仅准备分工和共同代码，不假称新知识/规则/run服务已实现或三人已评审。验证/提交推送见 [[2026-10-21-三人并行交接准备]]。
 
 本轮最终验证：pnpm typecheck、pnpm test（42项）、pnpm test:e2e（构建＋5项真实Electron）、pnpm check（6项工程＋边界＋只读清单/lint）、pnpm wiki:test（36项）、check-wiki-sync --base b69c4e50060a54e656017c2b17c4bb04e836630e和git diff/缓存空白检查均退出0；四页1380/900布局及截图核对完成。初次类型/导航定位失败记录保留，修正后通过，未改业务安全或存储。记录raw/compact-layout-validation.json；本次布局任务done，Windows/系统缩放/安装未运行。
+
+
+## 2026-10-21 三人交接复验与推送完成
+
+本次重新执行离线冻结安装、typecheck、42项单元、构建＋5项Electron、6项工程、36项Wiki回归、只读清单/lint/基线sync及差异检查，全部通过；证据raw/parallel-handoff-validation.json。代码与交接共同提交58b462ee9c9d096c480d331036f51ae2bcfa87f6已推送codex/m1-foundation，ls-remote与本地SHA一致；raw/parallel-handoff-git.json保留首次HTTP 400与单次调整传输参数后成功记录。没有改远端main。交接准备done，A01/B00/B01/C01仍待成员领取、评审和实施；真实模型/Windows未验收。后续仅补记本条状态并通过文档门禁。

@@ -1,6 +1,6 @@
 # 当前上下文
 
-- 当前工作：[[2026-10-21-三人并行交接准备]]。用户已授权本轮准备完成后提交并推送；本批共同起点/PR目标codex/m1-foundation，准备开始基线b69c4e50060a54e656017c2b17c4bb04e836630e。最终commit/推送以Git与交付消息为准，不能据旧“未推送”记录推断当前状态。
+- 已完成交接准备：[[2026-10-21-三人并行交接准备]]。用户已授权本轮准备完成后提交并推送；本批共同起点/PR目标codex/m1-foundation，准备开始基线b69c4e50060a54e656017c2b17c4bb04e836630e。代码基线58b462ee9c9d096c480d331036f51ae2bcfa87f6已推送并核对远端一致，证据raw/parallel-handoff-git.json；后续补记为纯文档提交，成员从远端最新头部开分支。
 - 立即读 [[三人并行开发交接]]、[[首批并行接口约定]]；A领取 [[A01-知识发布与来源查询]]，B先B00契约再 [[B01-规则检查与双反馈]]，C领取 [[C01-Agent运行恢复与集成]]。任务均draft，实际成员姓名/评审/环境尚未登记；新接口尚未实现。
 - 成员各自独立clone/worktree、各开任务分支：codex/a01-knowledge-publish、codex/b00-first-batch-contracts、codex/b01-rules-feedback、codex/c01-agent-recovery。禁止在main/集成分支直接做成员功能；小PR合入集成分支。
 - B维护公共契约；A维护迁移/存储导出（知识迁移4，run预留5，其他编号协调）；C维护Main/preload/worker/App接线与公共UI/构建。A/B自写业务feature页面和Wiki。新代码按独立模块新增，避免三人同时扩写trade-store/quotes大文件。
@@ -8,7 +8,7 @@
 - 已实现 [[M2真实报价V1]]：场景版本、固定UTF-8 CSV预览/人工发布、价目表档位、同币种同单位/decimal计算、不可变V1与重开；商品合计不含运税费。已发布SKU覆盖、四格式/知识检索/第二定价未实现。
 - 已实现 [[M4模型与报价修订]]：Main safeStorage正式设置、worker有界DeepSeek JSON adapter、询盘理解/三类字段修改V2V3、对话与差异。正式HTTPS固定，测试替身仅未打包且隔离目录的环回端点；真实DeepSeek未验收。全部报价draft，审批禁用。
 - 迁移1～3保留：quote_revision/agent_turn追加，不改V1原文；版本/对话/outbox/幂等同事务、提交前复核base。成功结果重开可回放；UI未提交操作键/失败对话/待决run不持久化，C01负责补齐。旧九类TypedPatch仅契约基础，不等于当前三个操作之外都已可执行。
-- 上轮真实本机验证：42项Vitest、5项Electron、6项工程、36项Wiki、type/build/check/lint/sync通过，raw/agent-validation.json；所有模型请求用合成HTTP和Key，不能算真实供应商/Windows通过。本次交接另写raw/parallel-handoff-validation.json，不替成员新代码验收。
+- 上轮真实本机验证：42项Vitest、5项Electron、6项工程、36项Wiki、type/build/check/lint/sync通过，raw/agent-validation.json；所有模型请求用合成HTTP和Key，不能算真实供应商/Windows通过。本次交接复验同样全部通过，记录raw/parallel-handoff-validation.json；不替成员新代码验收。
 - 历史覆盖失败已解决并保留raw/feedback-final-check.json与任务记录；开发名称/统一反馈改动保留共同交接，不再把当时active误写当前阻塞。原raw来源与旧失败记录不可删除。
 - 剩余：真实供应商评估/运行恢复；平台文化profile、知识与两类规则双反馈；英德产出/审批PDF；备份、稳定五次演示、Windows/最终签名安装和远端保护。最后安装按用户既有决定暂缓，真实Key仅在应用输入，不读真实凭据文件。
 - 赛事口径：两种语言或两类角色/场景二选一，不要求两个电商平台，批量鼓励/多岗位可选；差异表不能替代规则校验反馈。真实业务/规则适用性与T00成员评审仍待确认。
