@@ -112,3 +112,8 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 ## macOS优先阶段的Wiki记录
 
 用户将当前验证顺序调整为先macOS需求开发，Windows后置，不阻塞当前PR。根AGENTS、贡献规范、README和PR模板同步这一阻塞关系；P0本机生成/只读check/lint/真实基线sync保持，Windows仍明写未验证而非通过。此次仅文档调整，不改维护算法、覆盖映射、业务或测试源码，执行适用Wiki检查，记录raw/mac-first-validation.json。详见 [[0014-macOS优先与Windows验收后置]]、[[C01a-状态机与取消基础]]。
+
+
+## 产品HTML交互演示纳管
+
+本轮新增experiments/product-walkthrough/index.html、check.mjs与README.md，逐文件映射至 [[产品交互演示]]，覆盖离线交互行为、关键状态/金额测试和启动说明。同步 [[项目说明书]]、任务、导航、状态和追加日志；生成清单后运行只读check/lint与固定e0f9336基线sync。映射变更运行现有Wiki工具回归，未修改维护工具算法。当前HTML为合成教学样机，不与正式Electron或业务验收混计，实际结果见 [[2026-10-21-产品HTML交互演示]]。

@@ -1022,6 +1022,30 @@
       "pages": [
         "wiki/C运行恢复实现.md"
       ]
+    },
+    "experiments/product-walkthrough/index.html": {
+      "role": "Standalone synthetic product interaction walkthrough",
+      "pages": [
+        "wiki/产品交互演示.md"
+      ]
+    },
+    "experiments/product-walkthrough/check.mjs": {
+      "role": "Prototype amount version approval recovery regression checks",
+      "pages": [
+        "wiki/产品交互演示.md"
+      ]
+    },
+    "experiments/product-walkthrough/README.md": {
+      "role": "Local walkthrough launch scope and operation guide",
+      "pages": [
+        "wiki/产品交互演示.md"
+      ]
+    },
+    "tests/fixtures/knowledge/knowledge-drafts.a01a.json": {
+      "role": "A01合成知识候选样本，非已发布或已验收规则",
+      "pages": [
+        "wiki/A业务LLMWiki方案.md"
+      ]
     }
   }
 }
