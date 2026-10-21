@@ -194,3 +194,55 @@ describe("B00 read-only mock and formal preload capability gate", () => {
     });
   });
 });
+
+describe("C04 exact desktop evaluation gate", () => {
+  it("validates the full command locally and does not send credentials, endpoints or unconfirmed paid starts", async () => {
+    vi.resetModules();
+    vi.clearAllMocks();
+    await import("./index");
+    const desktop: DesktopClient = electron.exposeInMainWorld.mock.calls[0]?.[1];
+    const command = {
+      schemaVersion: 1 as const,
+      requestId: crypto.randomUUID(),
+      idempotencyKey: crypto.randomUUID(),
+      method: "modelEvaluation.start" as const,
+      payload: {
+        mode: "deepseek" as const,
+        model: "synthetic-model",
+        confirmedPaid: true as const,
+      },
+    };
+    for (const bad of [
+      Object.assign({}, command, { credentials: { key: "injected" } }),
+      Object.assign({}, command, { endpoint: "https://invalid.example" }),
+      { ...command, payload: { ...command.payload, confirmedPaid: false } },
+      Object.assign({}, command, { method: "modelEvaluation.fake" }),
+    ])
+      expect(await desktop.modelEvaluation(bad as never)).toMatchObject({
+        ok: false,
+        error: { code: "VALIDATION_ERROR" },
+      });
+    expect(electron.invoke).not.toHaveBeenCalled();
+    electron.invoke.mockResolvedValue({
+      ok: true,
+      data: { kind: "runs", canStart: true, runs: [] },
+      warnings: [],
+      evidenceIds: [],
+    });
+    expect(await desktop.modelEvaluation(command)).toMatchObject({
+      ok: true,
+      data: { kind: "runs" },
+    });
+    expect(electron.invoke).toHaveBeenCalledWith("modelEvaluation.start", command);
+    electron.invoke.mockResolvedValue({
+      ok: true,
+      data: { kind: "runs", canStart: true, runs: [], key: "injected" },
+      warnings: [],
+      evidenceIds: [],
+    });
+    expect(await desktop.modelEvaluation(command)).toMatchObject({
+      ok: false,
+      error: { code: "CAPABILITY_UNAVAILABLE" },
+    });
+  });
+});

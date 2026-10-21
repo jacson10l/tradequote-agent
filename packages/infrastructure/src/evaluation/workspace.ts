@@ -20,8 +20,8 @@ export function board(result: TradeResult) {
   if (!result.ok) throw new Error("Synthetic evaluation setup failed");
   return result.data;
 }
-export function evaluationWorkspace(sku: string) {
-  const directory = mkdtempSync(join(tmpdir(), "tradequote-c04-synthetic-"));
+export function evaluationWorkspace(sku: string, workspaceRoot?: string) {
+  const directory = mkdtempSync(join(workspaceRoot ?? tmpdir(), "tradequote-c04-synthetic-"));
   const repo = new SqliteWorkspaceRepository(join(directory, "evaluation.sqlite"));
   try {
     repo.commit(

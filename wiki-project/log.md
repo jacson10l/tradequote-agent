@@ -325,3 +325,11 @@ C02c多步闭环收口：188单元、8真实Electron含build、6工程、36Wiki�
 
 
 C04收口：48点fixture通过（186次替身请求/真实0），193单元、8真实Electron含build、6工程、36Wiki、类型和机械生成/只读check/lint、0ccd72f/be53b98双基线sync均退出0。真实模式not_run按约定退出2，单独保留报告；tokens/cost未知。结构合法语义错误会失败并跳过依赖修订，显式retry保持操作键/attempt且控制重放不派发。证据raw/c04-validation.json、c04-fixture-report.json、c04-deepseek-report.json与c04-initial-validation.json；75份历史raw及旧log前缀保留。任务done限本切片，真实供应商/正式评估UI/Windows/安装/非作者评审未完成。
+
+
+## 2026-10-22 C04正式设置与显式真实评估
+
+从febd14d独立codex/c04-desktop-evaluation接入模型设置显式评估：宿主快照/新四IPC、独立进程/临时库/OS锁和心跳、取消/幂等/恢复、共享报告契约与原生保存。未知/未确认/凭据端点注入拒绝，HTTP测试强制fixture，真实账户未调用、不推送。知识[[C04正式设置评估入口]]、任务[[C04-正式设置与显式真实评估]]、取舍[[0023-显式评估宿主与独立进程]]。早期类型/字段同步与Blob下载验收失败如实保留，改原生保存后重验，最终证据收口后追加。
+
+
+C04正式入口收口：202单元、9真实Electron含build、6工程、36Wiki回归、类型、生成/只读check/lint与febd14d/be53b98双基线sync和diff均退出0，见raw/c04-desktop-validation.json。48点fixture186替身请求/真实0；CLI真实not_run按约定退出2单列，桌面3次环回HTTP强制fixture、不作为供应商通过。原生保存选择/取消、实际JSON脱敏落盘、应用关闭中断/重开零派发和当前业务库无污染通过。Blob下载未落盘、章节约束及README更新后机械清单漂移保留initial-validation后修正，未放宽旧强杀deadline。79份历史raw与完整log前缀保持，原公共infrastructure index不变。任务done限定本轮显式入口/生命周期/脱敏，真实账户/Windows/安装、非作者及B契约复核仍待；独立分支本地提交，不推送。

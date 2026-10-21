@@ -6,6 +6,8 @@ import {
   CsvSelectionSchema,
   type DesktopClient,
   failure,
+  ModelEvaluationCommandSchema,
+  ModelEvaluationResultSchema,
   ModelResultSchema,
   ModelSettingsCommandSchema,
   ResultSchema,
@@ -58,6 +60,17 @@ async function invokeRun(input: unknown) {
   }
 }
 const client: DesktopClient = {
+  modelEvaluation: async (command) => {
+    const parsed = ModelEvaluationCommandSchema.safeParse(command);
+    if (!parsed.success) return failure("VALIDATION_ERROR", "评估请求字段不合法");
+    try {
+      return ModelEvaluationResultSchema.parse(
+        await ipcRenderer.invoke(parsed.data.method, parsed.data),
+      );
+    } catch {
+      return failure("CAPABILITY_UNAVAILABLE", "评估连接中断，请刷新历史；不会自动重新调用模型");
+    }
+  },
   ...unavailableFirstBatchClient,
   startAgentRun: async (command) => RunResultSchema.parse(await invokeRun(command)),
   getAgentRun: async (command) => RunResultSchema.parse(await invokeRun(command)),

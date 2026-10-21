@@ -5,6 +5,7 @@ import {
 } from "@tradequote/contracts";
 import { useEffect, useState } from "react";
 import { Button } from "../shared/button";
+import { ModelEvaluationPanel } from "./model-evaluation";
 export function ModelSettingsPage({ client }: { client: DesktopClient }) {
   const [status, setStatus] = useState<Extract<ModelResult, { ok: true }>["data"] | null>(null);
   const [key, setKey] = useState("");
@@ -57,7 +58,7 @@ export function ModelSettingsPage({ client }: { client: DesktopClient }) {
     }
   }
   return (
-    <div>
+    <div className="space-y-4">
       <h1 className="sr-only">模型设置</h1>
       <section className="panel space-y-4">
         <h2>DeepSeek 连接与凭据</h2>
@@ -133,6 +134,12 @@ export function ModelSettingsPage({ client }: { client: DesktopClient }) {
         )}
         {feedback && <p role="status">{feedback}</p>}
       </section>
+      <ModelEvaluationPanel
+        client={client}
+        hasKey={status?.hasKey ?? false}
+        savedModel={status?.model ?? ""}
+        configDirty={busy || key !== "" || model !== status?.model}
+      />
     </div>
   );
 }

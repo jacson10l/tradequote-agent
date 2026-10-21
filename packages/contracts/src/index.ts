@@ -5,12 +5,14 @@ export * from "./agent";
 import { z } from "zod";
 import type { CheckClient } from "./checks";
 import type { KnowledgeClient } from "./knowledge";
+import type { ModelEvaluationClient } from "./model-evaluation";
 import { IssueSchema } from "./protocol";
 import { AgentReadCommandSchema, AgentReadResultSchema, type ReadAgentClient } from "./read-tools";
 import { type RunClient, RunCommandSchema, RunListResultSchema, RunResultSchema } from "./runs";
 
 export * from "./checks";
 export * from "./knowledge";
+export * from "./model-evaluation";
 export { unavailableFirstBatchClient } from "./pending-client";
 export { FailureSchema, IssueSchema, PublicErrorSchema } from "./protocol";
 export * from "./read-tools";
@@ -89,7 +91,8 @@ export interface DesktopClient
     KnowledgeClient,
     CheckClient,
     RunClient,
-    ReadAgentClient {
+    ReadAgentClient,
+    ModelEvaluationClient {
   getWorkspace(): Promise<WorkspaceResult>;
   createWorkspace(command: CreateWorkspace): Promise<WorkspaceResult>;
   renameWorkspace(command: RenameWorkspace): Promise<WorkspaceResult>;

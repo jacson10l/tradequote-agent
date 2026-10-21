@@ -7,6 +7,41 @@ import { EvaluationReportSchema, EvaluationRowSchema, markdownReport } from "./r
 import { evaluateC04 } from "./runner";
 
 describe("C04 evaluations against isolated real business services", () => {
+  it("preserves cancellation without starting a provider and never promotes it to a passing report", async () => {
+    const network = vi.spyOn(globalThis, "fetch");
+    const controller = new AbortController();
+    controller.abort();
+    try {
+      const report = await evaluateC04({ mode: "fixture", cancellation: controller.signal });
+      expect(report.status).toBe("cancelled");
+      expect(report.modelCalls).toBe(0);
+      expect(report.rows.every((r) => r.status === "not_run")).toBe(true);
+      expect(network).not.toHaveBeenCalled();
+    } finally {
+      network.mockRestore();
+    }
+  });
+  it("real-mode unit stub uses the fixed endpoint and stops on auth failure instead of issuing further paid requests", async () => {
+    const network = vi
+      .spyOn(globalThis, "fetch")
+      .mockImplementation(async () => new Response("SYNTHETIC_AUTH_PAYLOAD", { status: 401 }));
+    try {
+      const report = await evaluateC04({
+        mode: "deepseek",
+        credentials: { key: "synthetic-real-mode-unit-key", model: "synthetic-model" },
+      });
+      expect(report.status).toBe("failed");
+      expect(report.realRequests).toBe(1);
+      expect(network).toHaveBeenCalledTimes(1);
+      expect(network.mock.calls[0]?.[0]).toBe("https://api.deepseek.com/chat/completions");
+      expect(report.rows[0]?.errorCode).toBe("MODEL_AUTH_FAILED");
+      expect(report.rows.some((r) => r.reason === "provider_unavailable")).toBe(true);
+      expect(JSON.stringify(report)).not.toContain("synthetic-real-mode-unit-key");
+      expect(JSON.stringify(report)).not.toContain("SYNTHETIC_AUTH_PAYLOAD");
+    } finally {
+      network.mockRestore();
+    }
+  });
   it("evaluates three categories in three languages through V1/V2/V3, clarification, blocking and all failure probes", async () => {
     const network = vi
       .spyOn(globalThis, "fetch")

@@ -38,7 +38,7 @@ pnpm wiki:test
 
 运行 `pnpm eval:model --mode fixture`，执行三品类、中英德、两轮修订及失败/取消/显式重试的48个合成检查点；默认在 `.runtime/c04-fixture.json` 与 `.md` 生成脱敏报告，可用 `--output` 指定报告前缀。这会调用真实业务服务及模型响应解析，但模型回答是预编排替身，不能证明 DeepSeek 语义通过。
 
-`pnpm eval:model --mode deepseek` 在当前 CLI 明确生成未运行报告并退出2：没有读取现存设置、Key文件或环境凭据，也不接受命令行Key。真实评估须后续由正式宿主接线并经用户配置/授权；当前未运行。未知token/费用为null，规则仍限B00。范围与证据见 [C04评估](wiki-project/wiki/C04模型评估与脱敏报告.md) 和 [任务](wiki-project/wiki/tasks/C04-评估样本与脱敏报告.md)。
+`pnpm eval:model --mode deepseek` 在当前 CLI 明确生成未运行报告并退出2：没有读取现存设置、Key文件或环境凭据，也不接受命令行Key。真实评估现由下述正式设置入口承接，必须经用户保存配置并显式启动；CLI仍不发真实请求，本轮未运行真实账户。未知token/费用为null，规则仍限B00。范围与证据见 [C04评估](wiki-project/wiki/C04模型评估与脱敏报告.md) 和 [任务](wiki-project/wiki/tasks/C04-评估样本与脱敏报告.md)。
 
 ## macOS 优先的本机验收
 
@@ -124,3 +124,7 @@ macOS 开发启动使用本地 TradeQuote.app，Dock 名称与图标一致；重
 ## 多步工具报价
 
 在“资料与报价”勾选“多步工具报价（读取、核价、规则校验后保存）”，再理解询盘或修订：助手逐步读取真实商品/知识、确定性核价、执行两类有限规则，可修正候选后保存一版未审核草稿。阻断问题不保存；缺规则/未知金额明确待确认。运行记录可看实际步骤与来源、取消或显式重试，重开不自动收费。当前每次仅支持一个实际商品品类（允许场景标签不同）、B00 required/forbidden_literal 两字段规则，不是完整合规认证；说明与限制见 [C02c闭环](wiki-project/wiki/C02c多步报价工具闭环.md) 和 [任务验证](wiki-project/wiki/tasks/C02c-多步报价工具闭环.md)。
+
+## 在正式设置中显式评估
+
+进入“模型设置”下方评估面板，默认合成fixture，点击后在独立临时工作区验证，不写当前业务报价。真实DeepSeek须先保存Key/模型，切换真实模式并勾选可能计费确认再点击启动；最多372次请求/10分钟，token与费用未知。可取消、重开只读历史、不自动重跑，报告通过本机保存对话框下载JSON/Markdown。清除设置不代替取消在途请求。实际供应商结果只在用户启动后成立，本轮自动化仍是明确fixture。详见[正式入口](wiki-project/wiki/C04正式设置评估入口.md)与[任务验证](wiki-project/wiki/tasks/C04-正式设置与显式真实评估.md)。

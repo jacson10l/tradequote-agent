@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "exports": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./evaluation": "./src/evaluation/public.ts"
+  },
   "dependencies": {
     "@tradequote/contracts": "workspace:*",
     "@tradequote/domain": "workspace:*",

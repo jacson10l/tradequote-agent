@@ -89,13 +89,28 @@ const human = { actorId: "synthetic-evaluator", origin: "human_ui" as const };
 export async function evaluateC04(options: {
   mode: "fixture" | "deepseek";
   credentials?: ModelCredentials;
+  cancellation?: AbortSignal;
+  onProgress?: (observedRows: number) => void;
+  httpFixture?: { endpoint: string; credentials: ModelCredentials };
+  workspaceRoot?: string;
 }): Promise<EvaluationReport> {
+  if (options.mode !== "fixture" && options.mode !== "deepseek")
+    throw new Error("Invalid evaluation mode");
+  if (
+    options.httpFixture &&
+    (options.mode !== "fixture" ||
+      !/^http:\/\/127\.0\.0\.1:\d+$/.test(options.httpFixture.endpoint))
+  )
+    throw new Error("Invalid isolated HTTP fixture");
   const startedAt = new Date().toISOString();
   const credential =
     options.mode === "deepseek" ? ModelCredentialsSchema.safeParse(options.credentials) : null;
   const credentials: ModelCredentials | undefined =
     options.mode === "fixture"
-      ? { key: "synthetic-c04-key", model: "synthetic-c04-model" }
+      ? (options.httpFixture?.credentials ?? {
+          key: "synthetic-c04-key",
+          model: "synthetic-c04-model",
+        })
       : credential?.success
         ? credential.data
         : undefined;
@@ -108,29 +123,57 @@ export async function evaluateC04(options: {
     ),
   );
   const row = (id: string) => rows.find((r) => r.id === id)!;
+  let providerStopped = false;
+  const progress = () => options.onProgress?.(rows.filter((r) => r.status !== "not_run").length);
+  const bindCancellation = (
+    coordinator: AgentRunCoordinator,
+    f: ReturnType<typeof evaluationWorkspace>,
+  ) => {
+    const cancel = () => {
+      for (const run of f.repo.runStore().list({ limit: 100 }).runs)
+        if (["queued", "running"].includes(run.status))
+          coordinator.execute({
+            ...envelope(),
+            method: "agent.cancel",
+            payload: { runId: run.runId },
+          });
+    };
+    options.cancellation?.addEventListener("abort", cancel, { once: true });
+    return () => options.cancellation?.removeEventListener("abort", cancel);
+  };
   if (credentials) {
     for (const sample of semanticCases) {
+      if (options.cancellation?.aborted || providerStopped) break;
       let f: ReturnType<typeof evaluationWorkspace> | undefined;
       let coordinator: AgentRunCoordinator | undefined;
       let activeRow = row(`${sample.id}-v1`);
       let calls = 0;
       let version = 1;
+      let unbind = () => {};
       try {
-        f = evaluationWorkspace(sample.category.sku);
+        f = evaluationWorkspace(sample.category.sku, options.workspaceRoot);
         const workspace = f;
         const fixture = () =>
           fixtureTransport({ product: workspace.product, version, language: sample.language });
         coordinator = new AgentRunCoordinator(
           f.repo,
           () =>
-            new DeepSeekProvider(credentials, async (...args) => {
-              calls++;
-              return options.mode === "fixture" ? fixture()(...args) : fetch(...args);
-            }),
+            new DeepSeekProvider(
+              credentials,
+              async (...args) => {
+                calls++;
+                return options.mode === "fixture" && !options.httpFixture
+                  ? fixture()(...args)
+                  : fetch(...args);
+              },
+              options.httpFixture?.endpoint,
+            ),
         );
+        unbind = bindCancellation(coordinator, f);
         let baseId = "";
         const snapshots = new Map<string, string>();
         for (version = 1; version <= 3; version++) {
+          if (options.cancellation?.aborted) break;
           activeRow = row(`${sample.id}-v${version}`);
           const initialCalls = calls,
             startTime = performance.now();
@@ -197,6 +240,22 @@ export async function evaluateC04(options: {
             ),
           });
           activeRow.status = activeRow.checks.every((c) => c.passed) ? "passed" : "failed";
+          if (options.cancellation?.aborted) {
+            activeRow.status = "cancelled";
+            activeRow.reason = "cancelled";
+          }
+          if (
+            (options.mode === "deepseek" || options.httpFixture) &&
+            !result.ok &&
+            [
+              "MODEL_AUTH_FAILED",
+              "MODEL_RATE_LIMITED",
+              "CAPABILITY_UNAVAILABLE",
+              "MODEL_TIMEOUT",
+            ].includes(result.error.code)
+          )
+            providerStopped = true;
+          progress();
           if (activeRow.status !== "passed" || !quote) {
             for (let next = version + 1; next <= 3; next++)
               row(`${sample.id}-v${next}`).reason = "prior_step_failed";
@@ -211,11 +270,14 @@ export async function evaluateC04(options: {
         activeRow.errorCode = publicCode(error);
         activeRow.checks = checks({ outcome: false });
       } finally {
+        unbind();
+        progress();
         await coordinator?.close();
         f?.close();
       }
     }
     for (const spec of specifications.filter((s) => s.kind !== "semantic")) {
+      if (options.cancellation?.aborted || providerStopped) break;
       const resultRow = row(spec.id);
       if (options.mode === "deepseek" && spec.kind === "failure") continue;
       const failure = spec.kind === "failure" ? (spec.id.slice(8) as FailureCase) : undefined;
@@ -223,8 +285,9 @@ export async function evaluateC04(options: {
       const startTime = performance.now();
       let f: ReturnType<typeof evaluationWorkspace> | undefined;
       let coordinator: AgentRunCoordinator | undefined;
+      let unbind = () => {};
       try {
-        f = evaluationWorkspace("DEMO-TEE");
+        f = evaluationWorkspace("DEMO-TEE", options.workspaceRoot);
         const workspace = f;
         const transport = fixtureTransport({
           product: f.product,
@@ -247,9 +310,11 @@ export async function evaluateC04(options: {
           credentials,
           async (...args) => {
             calls++;
-            return options.mode === "fixture" ? transport(...args) : fetch(...args);
+            return options.mode === "fixture" && (failure || !options.httpFixture)
+              ? transport(...args)
+              : fetch(...args);
           },
-          undefined,
+          options.httpFixture?.endpoint,
           failure === "timeout" ? 10 : 45000,
         );
         if (failure === "pre_cancel") {
@@ -265,6 +330,7 @@ export async function evaluateC04(options: {
           }
         } else {
           coordinator = new AgentRunCoordinator(f.repo, () => provider);
+          unbind = bindCancellation(coordinator, f);
           const result = await coordinator.executeLegacy(
             {
               ...envelope(),
@@ -284,6 +350,17 @@ export async function evaluateC04(options: {
             credentials,
           );
           resultRow.errorCode = result.ok ? null : result.error.code;
+          if (
+            (options.mode === "deepseek" || options.httpFixture) &&
+            !result.ok &&
+            [
+              "MODEL_AUTH_FAILED",
+              "MODEL_RATE_LIMITED",
+              "CAPABILITY_UNAVAILABLE",
+              "MODEL_TIMEOUT",
+            ].includes(result.error.code)
+          )
+            providerStopped = true;
         }
         const current = board(
           f.repo.executeTrade(
@@ -353,6 +430,10 @@ export async function evaluateC04(options: {
         });
         resultRow.status = resultRow.checks.every((c) => c.passed) ? "passed" : "failed";
         resultRow.reason = "observed";
+        if (options.cancellation?.aborted) {
+          resultRow.status = "cancelled";
+          resultRow.reason = "cancelled";
+        }
       } catch (error) {
         resultRow.status = "failed";
         resultRow.reason = "evaluation_error";
@@ -361,22 +442,34 @@ export async function evaluateC04(options: {
       } finally {
         resultRow.modelCalls = calls;
         resultRow.elapsedMs = Math.round(performance.now() - startTime);
+        unbind();
+        progress();
         await coordinator?.close();
         f?.close();
       }
     }
   }
+  for (const row of rows)
+    if (
+      row.status === "not_run" &&
+      ["credentials_not_provided", "prior_step_failed"].includes(row.reason)
+    ) {
+      if (options.cancellation?.aborted) row.reason = "cancelled";
+      else if (providerStopped) row.reason = "provider_unavailable";
+    }
   const modelCalls = rows.reduce((n, r) => n + r.modelCalls, 0);
   const model = credentials?.model;
   return EvaluationReportSchema.parse({
     schemaVersion: 1,
     suite: "c04-v1",
     mode: options.mode,
-    status: rows.some((r) => r.status === "failed")
-      ? "failed"
-      : rows.every((r) => r.status === "not_run")
-        ? "not_run"
-        : "passed",
+    status: rows.some((r) => r.status === "cancelled" || r.reason === "cancelled")
+      ? "cancelled"
+      : rows.some((r) => r.status === "failed")
+        ? "failed"
+        : rows.every((r) => r.status === "not_run")
+          ? "not_run"
+          : "passed",
     providerValidation:
       options.mode === "fixture" ? "fixture_only" : modelCalls > 0 ? "observed" : "not_run",
     syntheticData: true,

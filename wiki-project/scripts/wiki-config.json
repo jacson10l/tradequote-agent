@@ -482,7 +482,8 @@
     "apps/desktop/electron.vite.config.ts": {
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     "apps/desktop/package.json": {
@@ -495,7 +496,8 @@
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     "apps/desktop/src/main/worker-client.ts": {
@@ -510,7 +512,8 @@
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     "apps/desktop/src/renderer/index.html": {
@@ -609,13 +612,15 @@
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     "packages/contracts/src/mock.ts": {
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     "packages/domain/package.json": {
@@ -640,7 +645,8 @@
     "packages/infrastructure/package.json": {
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     "packages/infrastructure/src/artifacts.ts": {
@@ -710,7 +716,8 @@
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     "tsconfig.json": {
@@ -963,7 +970,8 @@
     "apps/desktop/src/renderer/src/features/model-settings.tsx": {
       "role": "正式模型设置交互",
       "pages": [
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     "apps/desktop/src/renderer/src/features/quote-agent.tsx": {
@@ -1038,7 +1046,8 @@
       "pages": [
         "wiki/首批并行接口约定.md",
         "wiki/M1工程基线.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     "packages/domain/src/agent-run.ts": {
@@ -1338,43 +1347,97 @@
     "packages/infrastructure/src/evaluation/cases.ts": {
       "role": "C04独立模型评估、故障矩阵与脱敏报告",
       "pages": [
-        "wiki/C04模型评估与脱敏报告.md"
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     "packages/infrastructure/src/evaluation/evaluation.test.ts": {
       "role": "C04独立模型评估、故障矩阵与脱敏报告",
       "pages": [
-        "wiki/C04模型评估与脱敏报告.md"
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     "packages/infrastructure/src/evaluation/fixture-model.ts": {
       "role": "C04独立模型评估、故障矩阵与脱敏报告",
       "pages": [
-        "wiki/C04模型评估与脱敏报告.md"
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     "packages/infrastructure/src/evaluation/report.ts": {
       "role": "C04独立模型评估、故障矩阵与脱敏报告",
       "pages": [
-        "wiki/C04模型评估与脱敏报告.md"
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     "packages/infrastructure/src/evaluation/runner.ts": {
       "role": "C04独立模型评估、故障矩阵与脱敏报告",
       "pages": [
-        "wiki/C04模型评估与脱敏报告.md"
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     "packages/infrastructure/src/evaluation/workspace.ts": {
       "role": "C04独立模型评估、故障矩阵与脱敏报告",
       "pages": [
-        "wiki/C04模型评估与脱敏报告.md"
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     "scripts/evaluate-model.mjs": {
       "role": "C04独立模型评估、故障矩阵与脱敏报告",
       "pages": [
         "wiki/C04模型评估与脱敏报告.md"
+      ]
+    },
+    "apps/desktop/src/main/evaluation-host.ts": {
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    "apps/desktop/src/main/evaluation-host.test.ts": {
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    "apps/desktop/src/workers/evaluation.ts": {
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/model-evaluation.tsx": {
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    "packages/contracts/src/model-evaluation.ts": {
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    "packages/infrastructure/src/evaluation/public.ts": {
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    "packages/infrastructure/src/evaluation/worker-protocol.ts": {
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    "tests/e2e/model-evaluation.spec.ts": {
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md"
       ]
     }
   }

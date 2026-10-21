@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "39d8b045370fb4522fdc4bc22236dce136a953fb882b5e02d3d31b975f646ea6",
+    "wiki-config.json": "310580d35927589c2c33c48ded4bf0b77b84cf141902cd701ab1738e5056dd0e",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -94,9 +94,9 @@
     {
       "path": "README.md",
       "type": "md",
-      "lines": 126,
-      "bytes": 13524,
-      "sha256": "dfcb0f31a6ad77c68c272c32b3890122fb119e8db0a0d4f4c7c6387920e1d67c",
+      "lines": 130,
+      "bytes": 14309,
+      "sha256": "b7f59079c6e9b00308d57200b95055e3b7bb16180e6bfc0ef18587b859ed8376",
       "role": "项目入口与协作约束",
       "pages": [
         "wiki/项目状态.md",
@@ -141,12 +141,13 @@
     {
       "path": "apps/desktop/electron.vite.config.ts",
       "type": "ts",
-      "lines": 34,
-      "bytes": 998,
-      "sha256": "90b5a825722635b7a774fe3e4714f2ec946ae143c3d621058273d921c6da4f14",
+      "lines": 38,
+      "bytes": 1087,
+      "sha256": "680c6bba3b6ba2649d51672ccf2c3d5f53e51b0896492cad584d01717e7ce209",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     {
@@ -185,15 +186,38 @@
       ]
     },
     {
+      "path": "apps/desktop/src/main/evaluation-host.test.ts",
+      "type": "ts",
+      "lines": 212,
+      "bytes": 8403,
+      "sha256": "ba953e314be4d4f85fa144bbf8ec0b535c62c93720bc8b956a447a534ff031b0",
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/main/evaluation-host.ts",
+      "type": "ts",
+      "lines": 335,
+      "bytes": 12519,
+      "sha256": "8c8549f257d6b77b6a94f80328577a3c3135af5b8c7eeb158efc4b82866a4442",
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
       "path": "apps/desktop/src/main/index.ts",
       "type": "ts",
-      "lines": 230,
-      "bytes": 9305,
-      "sha256": "b538b9ce53abe45fc6cfbdbce16304b45d07c72672238a33d177f8532eef0864",
+      "lines": 299,
+      "bytes": 12137,
+      "sha256": "b476d3159d8e2341c0a958bc1d1fba76d60d7d4297501aa291ea831b34658d4d",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     {
@@ -225,26 +249,28 @@
     {
       "path": "apps/desktop/src/preload/contracts.test.ts",
       "type": "ts",
-      "lines": 196,
-      "bytes": 7519,
-      "sha256": "5b39a3bdd269578ae3574ce70ce0216359eceef872a1df4ed64ae4a2990d1f0e",
+      "lines": 248,
+      "bytes": 9405,
+      "sha256": "26d72c12c84dd8ef43c0092d1e42de6f3ce11c6bc5ee3f8c69ecffbf7477c14b",
       "role": "B00 preload and mock capability gate without new IPC",
       "pages": [
         "wiki/首批并行接口约定.md",
         "wiki/M1工程基线.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     {
       "path": "apps/desktop/src/preload/index.ts",
       "type": "ts",
-      "lines": 105,
-      "bytes": 4757,
-      "sha256": "7e26c91c1e228e239294601f519265487041f301868f7b48abb7ea5ea5b126e8",
+      "lines": 118,
+      "bytes": 5300,
+      "sha256": "bc981bb7096886229acd54af70bca5631b33511cc09d43c4834544b60fce6151",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     {
@@ -305,14 +331,26 @@
       ]
     },
     {
+      "path": "apps/desktop/src/renderer/src/features/model-evaluation.tsx",
+      "type": "tsx",
+      "lines": 333,
+      "bytes": 12577,
+      "sha256": "062b7d7e1ff55d76bae675541d014ed9f7d22799ae16ad3e4fbc89cb97a69430",
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
       "path": "apps/desktop/src/renderer/src/features/model-settings.tsx",
       "type": "tsx",
-      "lines": 138,
-      "bytes": 4780,
-      "sha256": "0d0bb8b70d58f7f9fdb18fd4b2d49a10bb176904d004f94d2ef553d8e0f3bab6",
+      "lines": 145,
+      "bytes": 5072,
+      "sha256": "f59926049386f4fa3384a8859021a1683e8459bed268698fbf51429a39c8042f",
       "role": "正式模型设置交互",
       "pages": [
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     {
@@ -471,6 +509,17 @@
       "pages": [
         "wiki/M1工程基线.md",
         "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/workers/evaluation.ts",
+      "type": "ts",
+      "lines": 60,
+      "bytes": 2413,
+      "sha256": "a4104e39bc32a3e1193f50fb42d4f8cc263a08652541d1ade7e718a5b5f99f90",
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     {
@@ -1201,13 +1250,14 @@
     {
       "path": "packages/contracts/src/index.ts",
       "type": "ts",
-      "lines": 143,
-      "bytes": 4823,
-      "sha256": "a1a0275f5272d1a2902a083fe6737b93223db13b61ef148b4ca02db3b4bb5def",
+      "lines": 146,
+      "bytes": 4951,
+      "sha256": "6a383decb9ec420de0b66c7743793212de8a6da1837336899d0e74567c227823",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     {
@@ -1235,12 +1285,24 @@
     {
       "path": "packages/contracts/src/mock.ts",
       "type": "ts",
-      "lines": 149,
-      "bytes": 5436,
-      "sha256": "6acf3e11cf9d81f01d5adb6bd1b4b95a2d3c4499d587ab00707f8139b365580c",
+      "lines": 161,
+      "bytes": 5789,
+      "sha256": "b0b6ed6b387af98960ece1a06c7908c88e7c8c7776da65fbf1c9fea2b4f9ebe8",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/model-evaluation.ts",
+      "type": "ts",
+      "lines": 237,
+      "bytes": 8007,
+      "sha256": "fd41913cb03a8cc80052db48cc5887036b8bc252e02fc5993a8154ff453fff40",
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     {
@@ -1473,12 +1535,13 @@
     {
       "path": "packages/infrastructure/package.json",
       "type": "json",
-      "lines": 15,
-      "bytes": 351,
-      "sha256": "0e5033d3619e8d746dfcc77db444a8a3ff8b3e04cd5b3cf199523a31cab37347",
+      "lines": 18,
+      "bytes": 416,
+      "sha256": "64917b3f08bb7f8b231eb2df6418913358c0ce778513aea2ea72413e8eda5d48",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     {
@@ -1668,23 +1731,25 @@
     {
       "path": "packages/infrastructure/src/evaluation/cases.ts",
       "type": "ts",
-      "lines": 123,
-      "bytes": 4112,
-      "sha256": "1b091f95400f7c71793670d8ad142457cddeb89f2b4d7126c0c0855c258d1762",
+      "lines": 81,
+      "bytes": 3302,
+      "sha256": "02c65c86806043ae4cce208bd8620cc8057a93aebaaf9b4977ec42c758d8a590",
       "role": "C04独立模型评估、故障矩阵与脱敏报告",
       "pages": [
-        "wiki/C04模型评估与脱敏报告.md"
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/evaluation/evaluation.test.ts",
       "type": "ts",
-      "lines": 143,
-      "bytes": 6521,
-      "sha256": "6e1f188a7d3c084515db38294996f79b0a289fff13c481d24a2847e0b79cdb16",
+      "lines": 178,
+      "bytes": 8188,
+      "sha256": "15cf228209139c1daa87e3deed6eaa6596833c0153250ab8b71cb1cd9d4d069f",
       "role": "C04独立模型评估、故障矩阵与脱敏报告",
       "pages": [
-        "wiki/C04模型评估与脱敏报告.md"
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     {
@@ -1695,40 +1760,66 @@
       "sha256": "6b8a0244b192cae1010667738ae18e35f8e3054e322c4963878d687ef07f9554",
       "role": "C04独立模型评估、故障矩阵与脱敏报告",
       "pages": [
-        "wiki/C04模型评估与脱敏报告.md"
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/public.ts",
+      "type": "ts",
+      "lines": 5,
+      "bytes": 276,
+      "sha256": "9b5c8ac8185e9416205e6cf7c3053f4d3e3a8398a1980d08f92a57283db75330",
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/evaluation/report.ts",
       "type": "ts",
-      "lines": 128,
-      "bytes": 4739,
-      "sha256": "edf62c5a1e2508028de67d1b8b455c0ab38d05f1cf08f3b0e0ab65022a08d1ff",
+      "lines": 30,
+      "bytes": 1344,
+      "sha256": "01533d97d29db155e5f0fb52badbf5bbbca89419962b3777db01cbd869d6041e",
       "role": "C04独立模型评估、故障矩阵与脱敏报告",
       "pages": [
-        "wiki/C04模型评估与脱敏报告.md"
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/evaluation/runner.ts",
       "type": "ts",
-      "lines": 392,
-      "bytes": 15202,
-      "sha256": "9fa8181d37316f43d380e36e03991fb9a4ee8f81ee56b63a699e60b8c8ab1374",
+      "lines": 485,
+      "bytes": 18606,
+      "sha256": "20105c23e1628f98e18a74496e0b572e22d5d11bb802de241223b1201e845a55",
       "role": "C04独立模型评估、故障矩阵与脱敏报告",
       "pages": [
-        "wiki/C04模型评估与脱敏报告.md"
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/worker-protocol.ts",
+      "type": "ts",
+      "lines": 29,
+      "bytes": 1163,
+      "sha256": "470e31072f3266f1b7d0f90ad85c25bfc18fb456773ebac6dfa8b5ef64fe461e",
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/evaluation/workspace.ts",
       "type": "ts",
       "lines": 153,
-      "bytes": 4629,
-      "sha256": "84b7d76b3279033a01f0de665f25263de99d2818c428dd94719427ada4a07393",
+      "bytes": 4670,
+      "sha256": "cce7503a32a1a301ebbf617bae5a9a075d2004497b382b343502a2cc0d406ea8",
       "role": "C04独立模型评估、故障矩阵与脱敏报告",
       "pages": [
-        "wiki/C04模型评估与脱敏报告.md"
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     {
@@ -2109,6 +2200,17 @@
       ]
     },
     {
+      "path": "tests/e2e/model-evaluation.spec.ts",
+      "type": "ts",
+      "lines": 206,
+      "bytes": 9528,
+      "sha256": "011b00ba51577a9d6d33a58888b19d70497b9c4a4dbdebb20028cc96f75c55f6",
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
       "path": "tests/e2e/multistep-agent.spec.ts",
       "type": "ts",
       "lines": 244,
@@ -2159,13 +2261,14 @@
     {
       "path": "tests/e2e/workspace.spec.ts",
       "type": "ts",
-      "lines": 277,
-      "bytes": 11946,
-      "sha256": "8878c58115d4d08c53c4fcb27e153a6f15c289aed2f8fe3cbce86adb77238160",
+      "lines": 278,
+      "bytes": 11973,
+      "sha256": "4492c0d62dfbbaa230f29391eb6d61d7a373c0ee4be46184564d7ae0163eca51",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     {

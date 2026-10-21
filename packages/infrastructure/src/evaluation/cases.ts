@@ -22,7 +22,14 @@ export const categories = [
     totals: [null, null, null],
   },
 ] as const;
-export const languages = ["zh", "en", "de"] as const;
+export type { FailureCase } from "@tradequote/contracts";
+export {
+  evaluationFailures as failureCases,
+  evaluationLanguages as languages,
+  evaluationPlan,
+} from "@tradequote/contracts";
+
+import { evaluationLanguages as languages } from "@tradequote/contracts";
 export type Language = (typeof languages)[number];
 export const terms = {
   zh: { payment: "T/T", delivery: "30天", nextPayment: "30%预付，70%发货前", nextDelivery: "45天" },
@@ -67,57 +74,8 @@ export const semanticCases = categories.flatMap((category) =>
     instructions: instructions(category.sku, category.unit, language),
   })),
 );
-export const failureCases = [
-  "auth",
-  "rate_limit",
-  "server",
-  "network",
-  "invalid_json",
-  "truncated",
-  "oversized",
-  "empty",
-  "extra_field",
-  "amount_injection",
-  "unknown_tool",
-  "false_complete",
-  "tool_budget",
-  "timeout",
-  "cancel_late",
-  "pre_cancel",
-  "explicit_retry",
-] as const;
-export type FailureCase = (typeof failureCases)[number];
 export const clarificationCases = {
   zh: "合成询盘：请报 DEMO-TEE，但数量未确定；先询问数量，不得保存或猜测。",
   en: "Synthetic inquiry: quote an unspecified product and quantity. Ask for clarification; do not guess or save.",
   de: "Synthetische Anfrage: Artikel und Menge fehlen. Bitte zuerst nachfragen, nichts erfinden oder speichern.",
 } as const;
-
-export const evaluationPlan = [
-  ...semanticCases.flatMap((c) =>
-    [1, 2, 3].map((v) => ({
-      id: `${c.id}-v${v}`,
-      kind: "semantic" as const,
-      category: c.category.id,
-      language: c.language,
-    })),
-  ),
-  ...languages.map((language) => ({
-    id: `clarification-${language}`,
-    kind: "clarification" as const,
-    category: null,
-    language,
-  })),
-  {
-    id: "rule-block",
-    kind: "rule_block" as const,
-    category: "apparel" as const,
-    language: "en" as const,
-  },
-  ...failureCases.map((failure) => ({
-    id: `failure-${failure}`,
-    kind: "failure" as const,
-    category: null,
-    language: null,
-  })),
-];
