@@ -162,3 +162,13 @@ README/AGENTS/CONTRIBUTING、开发步骤、状态与CONTEXT同步。恢复摘�
 ## 2026-10-21 三人交接复验与推送完成
 
 本次重新执行离线冻结安装、typecheck、42项单元、构建＋5项Electron、6项工程、36项Wiki回归、只读清单/lint/基线sync及差异检查，全部通过；证据raw/parallel-handoff-validation.json。代码与交接共同提交58b462ee9c9d096c480d331036f51ae2bcfa87f6已推送codex/m1-foundation，ls-remote与本地SHA一致；raw/parallel-handoff-git.json保留首次HTTP 400与单次调整传输参数后成功记录。没有改远端main。交接准备done，A01/B00/B01/C01仍待成员领取、评审和实施；真实模型/Windows未验收。后续仅补记本条状态并通过文档门禁。
+
+
+## 2026-10-21 C01a 状态机与取消基础
+
+- 用户明确分配C01并要求先评审B00/推进C01a；从45a9975506030170bcb8dc770919b7cb5de89fa6建立独立codex/c01-agent-recovery，不改集成分支。B00固定4e8c663，C两轴评审无阻断项，typecheck/55项单测复跑通过；waiting_input澄清信息恢复待B/C明确，不代签A或合入B00。
+- 新增domain状态转换与测试，Provider可选AbortSignal/首次信号归因，Executor按业务键共享取消、拦截晚到输出并在同步提交前关闭取消窗口。新增九项测试；typecheck/51项单测/含构建的5项实际Electron回归通过。
+- 同步 [[C运行恢复实现]]、[[C01a-状态机与取消基础]]、[[C01-Agent运行恢复与集成]]、[[B00-C接口评审]]、[[0012-C01a取消与提交边界]]、M4/接口页、CONTEXT/项目状态、导航与覆盖。最终工程/Wiki门禁见raw/c01a-validation.json，B00复跑见raw/c01a-b00-review.json。
+- C01整体active；本轮仅内部取消基础，无run表/新IPC/UI、重启恢复或真实模型通过声明；知识AI等B00a，A/B服务联调、真实DeepSeek和Windows仍待验收。未推送/发布。
+
+- C01a收口：工程check、36项Wiki回归、生成物只读检查/lint和固定taskBase同步均通过。首次sync遗漏覆盖配置对应工作流正文导致失败，补齐说明后重跑通过，旧失败保留raw/c01a-initial-validation.json。C01a限定基础切片done，C01仍active；本地保存后不推送。

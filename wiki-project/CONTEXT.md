@@ -1,7 +1,10 @@
 # 当前上下文
 
+- C01已由用户分配给本次Codex，独立worktree/分支codex/c01-agent-recovery，taskBase45a9975506030170bcb8dc770919b7cb5de89fa6。C01a新增纯状态机、进程内取消/AbortSignal与提交边界；51项单测和5项实际Electron回归通过，工程check/36项Wiki回归/生成只读检查/lint/基线同步通过，证据见 [[C01a-状态机与取消基础]]。该基础子切片done，C01整体active，run落库/重启/正式IPC/UI尚未实现。
+- B00已在独立分支推送至4e8c663；C侧技术评审两轴无阻断项，复跑typecheck/55项单测通过，见 [[B00-C接口评审]]。A实际评审与共同分支合入尚未确认，不能把现C分支当已接入新契约。waiting_input澄清文字的保存/重开查询待B/C明确；知识AI候选Markdown另等B00a，不阻塞报价恢复。
+
 - 已完成交接准备：[[2026-10-21-三人并行交接准备]]。用户已授权本轮准备完成后提交并推送；本批共同起点/PR目标codex/m1-foundation，准备开始基线b69c4e50060a54e656017c2b17c4bb04e836630e。代码基线58b462ee9c9d096c480d331036f51ae2bcfa87f6已推送并核对远端一致，证据raw/parallel-handoff-git.json；后续补记为纯文档提交，成员从远端最新头部开分支。
-- 立即读 [[三人并行开发交接]]、[[首批并行接口约定]]；A领取 [[A01-知识发布与来源查询]]，B先B00契约再 [[B01-规则检查与双反馈]]，C领取 [[C01-Agent运行恢复与集成]]。任务均draft，实际成员姓名/评审/环境尚未登记；新接口尚未实现。
+- 立即读 [[三人并行开发交接]]、[[首批并行接口约定]]；A领取 [[A01-知识发布与来源查询]]，B先B00契约再 [[B01-规则检查与双反馈]]，C领取 [[C01-Agent运行恢复与集成]]。交接准备时任务均draft；本轮C已领取/登记环境，B00已在其分支实现待合入，A/B其余进展不由C代签。
 - 成员各自独立clone/worktree、各开任务分支：codex/a01-knowledge-publish、codex/b00-first-batch-contracts、codex/b01-rules-feedback、codex/c01-agent-recovery。禁止在main/集成分支直接做成员功能；小PR合入集成分支。
 - B维护公共契约；A维护迁移/存储导出（知识迁移4，run预留5，其他编号协调）；C维护Main/preload/worker/App接线与公共UI/构建。A/B自写业务feature页面和Wiki。新代码按独立模块新增，避免三人同时扩写trade-store/quotes大文件。
 - B00先合新契约再接依赖类型。A可先做三品类/来源样本，C可先真实模型验证与运行状态机；B检查核心先用合成published规则，完整联调换A真实查询。取消/重试的完成/提交竞态有独立验收，不依赖规则服务。

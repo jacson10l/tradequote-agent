@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "5d9f102e4e2ae7cdc98cb36126baf86247832a21868275f88b7b1d4a28e8d71e",
+    "wiki-config.json": "c8406bc7b941e5401769c9a09f0fdfff9e4ad4cf3e86f5e9ec289a6c25c981bd",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -1195,6 +1195,28 @@
       ]
     },
     {
+      "path": "packages/domain/src/agent-run.test.ts",
+      "type": "ts",
+      "lines": 37,
+      "bytes": 2024,
+      "sha256": "cd167c7dfde6113e6e58275a59660eaf7fb64468255b2054beadf4e8a0686838",
+      "role": "C01a取消提交顺序、中断、显式重试与澄清状态测试",
+      "pages": [
+        "wiki/C运行恢复实现.md"
+      ]
+    },
+    {
+      "path": "packages/domain/src/agent-run.ts",
+      "type": "ts",
+      "lines": 36,
+      "bytes": 1261,
+      "sha256": "b6b7b7629e523c0636d5c4a5841409b20ce420a111bb4fec006db7d2ca43e8ed",
+      "role": "C01a纯运行状态转换与终态边界",
+      "pages": [
+        "wiki/C运行恢复实现.md"
+      ]
+    },
+    {
       "path": "packages/domain/src/domain.test.ts",
       "type": "ts",
       "lines": 36,
@@ -1208,9 +1230,9 @@
     {
       "path": "packages/domain/src/index.ts",
       "type": "ts",
-      "lines": 64,
-      "bytes": 2244,
-      "sha256": "6a82afade37f430392420ea4688be2ff0843e2d4e5cb545d567a22ef87d14c99",
+      "lines": 65,
+      "bytes": 2315,
+      "sha256": "818a9237921282e9c03e3343d53f926ed5ef2b7c5c8cbe376788ea646ea1c2f8",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md"
@@ -1264,24 +1286,26 @@
     {
       "path": "packages/infrastructure/src/agent-executor.ts",
       "type": "ts",
-      "lines": 146,
-      "bytes": 7346,
-      "sha256": "789dbbd9b21abf757902cf697fdea42344b5cb167801e92c3516f73b66ed7b4a",
+      "lines": 174,
+      "bytes": 8609,
+      "sha256": "8f3f0a2aceda92e188343de39a076932fc459192733e3ec1cc833eb0ab9dc238",
       "role": "有界模型执行与提交前版本复核",
       "pages": [
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C运行恢复实现.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/agent.test.ts",
       "type": "ts",
-      "lines": 323,
-      "bytes": 11603,
-      "sha256": "502a573ad34fbf56348113840f9354d348ae98cd48c02245d6f4f876eebeae8d",
+      "lines": 401,
+      "bytes": 14936,
+      "sha256": "20a9fb4e624a9bace30900e93dfbbf056bf9309581f5a67a9b4368765750eeba",
       "role": "修订幂等冲突事务与迁移验收",
       "pages": [
         "wiki/M4模型与报价修订.md",
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/C运行恢复实现.md"
       ]
     },
     {
@@ -1309,24 +1333,26 @@
     {
       "path": "packages/infrastructure/src/deepseek.test.ts",
       "type": "ts",
-      "lines": 75,
-      "bytes": 3007,
-      "sha256": "c2d50d4c05a61f524c6c0ddb4255267a607fe95bd3d954bf62a338512d46306b",
+      "lines": 143,
+      "bytes": 5466,
+      "sha256": "c9e794cec9f77f8b03ac75fb6a6555dc665ac65771915c243f71b2668c27fe7b",
       "role": "模型HTTP失败和超时回归",
       "pages": [
         "wiki/M4模型与报价修订.md",
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/C运行恢复实现.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/deepseek.ts",
       "type": "ts",
-      "lines": 81,
-      "bytes": 3365,
-      "sha256": "2a6c4b606b8655a9ae1ce9a1594def6954a478b67ced4f3f2ff510e5b61e9ca9",
+      "lines": 85,
+      "bytes": 3674,
+      "sha256": "1064655c57bdef24fdabccdf9fe27bd31fec821f3491990b1ec3bfa994f340ee",
       "role": "官方DeepSeek JSON网络适配和失败边界",
       "pages": [
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C运行恢复实现.md"
       ]
     },
     {

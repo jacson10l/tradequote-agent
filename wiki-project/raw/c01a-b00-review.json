@@ -1,0 +1,38 @@
+{
+  "status": "passed",
+  "recordedAt": "2026-10-21 08:38:26 UTC",
+  "base": "45a9975506030170bcb8dc770919b7cb5de89fa6",
+  "reviewedHead": "4e8c66366c05468ee133134dc4399aeb5971d1e3",
+  "diffCommand": "git diff 45a9975506030170bcb8dc770919b7cb5de89fa6...4e8c663",
+  "axes": {
+    "standards": {
+      "findings": 0
+    },
+    "spec": {
+      "findings": 0
+    }
+  },
+  "checks": [
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 typecheck <B00>\n> tsc --noEmit\n\n"
+    },
+    {
+      "command": "pnpm test",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 test <B00>\n> node scripts/test-unit.mjs\n\n\n RUN  v5.0.5 <B00>\n\n\n Test Files  15 passed (15)\n      Tests  55 passed (55)\n   Start at  16:31:04\n   Duration  9.48s (import 58%, tests 23%, environment 12%, transform 6%, worker 1%)\n\n    Isolate  15 workers spawned · ~1.16s startup each (spawn + environment, per file)\n             at least ~770ms faster with isolate: false — reuses workers across files instead of one per file\n\n"
+    }
+  ],
+  "notes": [
+    "C technical review only; A review and team human sign-off not substituted.",
+    "Clarification persistence and restart retrieval for waiting_input must be agreed before runtime integration.",
+    "No B00 merge/push or remote CI in this task."
+  ],
+  "sourceLocations": [
+    "4e8c663:packages/contracts/src/runs.ts:7-34",
+    "4e8c663:packages/contracts/src/runs.ts:36-68",
+    "4e8c663:packages/contracts/src/runs.test.ts:21-110",
+    "4e8c663:packages/contracts/src/index.ts:84-111"
+  ]
+}

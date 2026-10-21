@@ -85,3 +85,9 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 本轮用户明确要求A/B/C独立分支，入口 [[三人并行开发交接]] 与 [[首批并行接口约定]]。README/AGENTS/CONTRIBUTING现统一共同起点、任务分支、公共文件协调和小PR流程。A01/B01/C01目前draft，领取人、taskBase和机器环境由本人填写；只有交接准备任务可在本轮实际验证后done，不能把计划接口写成已经部署。
 
 每位作者在自己的feature分支同步知识、任务、log和覆盖，不由C事后代写。并行冲突中保留双方语义和旧证据，coverage合并按文件取并集、raw/generated重新生成，CONTEXT只压缩当前状态而不删除历史任务/raw。执行sync时取实际任务起点或PR merge-base，不复用交接准备的旧SHA。具体记录 [[2026-10-21-三人并行交接准备]]。
+
+## C01a 覆盖与同步记录
+
+本轮在 wiki-config.json 为 domain/agent-run.ts 与测试新增逐文件覆盖，已有 Provider/执行器及测试追加 [[C运行恢复实现]]；domain 公共导出继续由 M1 接口页说明。配置变更只登记职责，不改采集、lint或同步算法。新知识/任务/ADR/评审页从 index 可达，生成物由本切片源码重新生成。
+
+首次基线同步因遗漏本工作流正文更新返回 RELATED_WIKI_BODY_UPDATE_REQUIRED，失败命令保留在 raw/c01a-initial-validation.json；补齐此处实际映射说明后重新执行，不删除旧证据或放宽门禁。机械清单、只读check/lint、Wiki维护回归和以45a9975506030170bcb8dc770919b7cb5de89fa6为基线的sync结果见 [[C01a-状态机与取消基础]]。后续合入B00/A时取覆盖并集再生成，不能用C分支覆盖其他作者条目。
