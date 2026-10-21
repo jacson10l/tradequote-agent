@@ -21,7 +21,7 @@
       "output": "e71442d127edeb9a62a9a0cd5a127ee0ae2898be"
     },
     {
-      "command": "gh pr create --repo jacson10l/tradequote-agent --base codex/m1-foundation --head codex/b00-first-batch-contracts --title B00 --body-file /tmp/b00-pr.md",
+      "command": "gh pr create --repo jacson10l/tradequote-agent --base codex/m1-foundation --head codex/b00-first-batch-contracts --title 'B00：知识、报价检查与 Agent 运行公共契约' --body-file /tmp/b00-pr.md",
       "exitCode": 0,
       "output": "https://github.com/jacson10l/tradequote-agent/pull/1"
     }
