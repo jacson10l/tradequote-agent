@@ -112,6 +112,24 @@
       "startedAt": "2026-10-22T01:34:05.665152+08:00",
       "exitCode": 0,
       "output": "{\n  \"base\": \"56c909e21aefa484b6805bf9afc7c94b0e1d4576\",\n  \"status\": \"passed\",\n  \"codeFiles\": 14,\n  \"knowledgePages\": 10,\n  \"tasks\": 2,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "pnpm wiki:check",
+      "startedAt": "2026-10-22T01:36:51.411992+08:00",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/b00a-p1-knowledge-build-maintenance/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 160,\n  \"lines\": 45587,\n  \"generated\": 5,\n  \"excluded\": 31\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 105,\n  \"semantic\": 89,\n  \"reachable\": 105\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base ae1af9d3ab2d560847be6df6bdc6346bb6f27f58",
+      "startedAt": "2026-10-22T01:36:53.943489+08:00",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"ae1af9d3ab2d560847be6df6bdc6346bb6f27f58\",\n  \"status\": \"passed\",\n  \"codeFiles\": 10,\n  \"knowledgePages\": 9,\n  \"tasks\": 2,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 56c909e21aefa484b6805bf9afc7c94b0e1d4576",
+      "startedAt": "2026-10-22T01:36:54.315736+08:00",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"56c909e21aefa484b6805bf9afc7c94b0e1d4576\",\n  \"status\": \"passed\",\n  \"codeFiles\": 14,\n  \"knowledgePages\": 10,\n  \"tasks\": 2,\n  \"errors\": []\n}\n"
     }
   ],
   "reviewFindings": "wiki-project/raw/b00a-p1-review-findings.json",
