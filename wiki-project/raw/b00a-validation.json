@@ -96,6 +96,18 @@
       "startedAt": "2026-10-22T01:06:04.112081+08:00",
       "exitCode": 0,
       "output": ""
+    },
+    {
+      "command": "pnpm wiki:check",
+      "startedAt": "2026-10-22T01:08:26.237073+08:00",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/b00a-knowledge-wiki-contracts/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 156,\n  \"lines\": 43372,\n  \"generated\": 5,\n  \"excluded\": 31\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 103,\n  \"semantic\": 87,\n  \"reachable\": 103\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 56c909e21aefa484b6805bf9afc7c94b0e1d4576",
+      "startedAt": "2026-10-22T01:08:27.075679+08:00",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"56c909e21aefa484b6805bf9afc7c94b0e1d4576\",\n  \"status\": \"passed\",\n  \"codeFiles\": 10,\n  \"knowledgePages\": 8,\n  \"tasks\": 1,\n  \"errors\": []\n}\n"
     }
   ],
   "initialFailures": "wiki-project/raw/b00a-initial-validation.json",

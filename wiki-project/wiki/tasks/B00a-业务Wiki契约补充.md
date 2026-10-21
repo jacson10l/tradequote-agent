@@ -12,6 +12,7 @@ sources:
   - apps/desktop/src/preload/contracts.test.ts:1
   - wiki-repo:wiki/B00a知识Wiki公共协议.md:1
   - wiki-repo:raw/b00a-validation.json:1
+  - wiki-repo:raw/b00a-delivery.json:1
 ---
 
 # B00a-业务Wiki契约补充
@@ -65,6 +66,10 @@ A 在另一开发者机器，不在本机聊天。已在 [A01b PR #6 对齐评�
 | node wiki-project/scripts/check-wiki-sync.mjs . --base 56c909e21aefa484b6805bf9afc7c94b0e1d4576 | 0 |
 
 历史 raw 非生成证据逐字节不变，log 保留精确前缀；A01a fixture parsed JSON 与 taskBase 相同，仅重排格式。构建的已有 chunk size/Vite native loader 警告不阻断；无新增 Windows/安装通过声明。
+
+## PR 交接
+
+[PR #7](https://github.com/jacson10l/tradequote-agent/pull/7) 已创建并推送，目标 codex/m1-foundation，远端代码头核对为 26421ab5bf93f74b20d5888f0e1ff3b48b9bfc36；后续仅补本文/日志/交付记录，不变更已测源码。已向 A（ssyyy31）发起正式 review request，当前 OPEN、无 GitHub review、未合入；C 独立技术复核证据单列，不伪造同账号 GitHub 批准。[交付事实](../../raw/b00a-delivery.json) 保存原始 PR 头、目标、reviewRequests 与未解锁状态。A 应评审此 PR 中协议/存储差距，合入前不能以分支存在开始依赖共同类型。
 
 ## 未完成项
 

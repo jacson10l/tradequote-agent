@@ -304,3 +304,5 @@ B 在独立 codex/b00a-knowledge-wiki-contracts 工作树从 56c909e21aefa484b68
 B00a P0 最终 macOS 本机验证：pnpm typecheck、85 项单元、含 build 的 5 项真实 Electron、6 项工程/边界/check、36 项 Wiki 回归、generate 与固定 56c909e sync 全部退出 0，证据 raw/b00a-validation.json；初始失败及修正保留 raw/b00a-initial-validation.json。历史 raw 非生成文件逐字节不变、log 精确前缀保留、A01a JSON 解析值一致。C 空页游标 P2 已修复并补反例，仍待复核结论；A 实际评审和共同分支合入待完成，A01c 未解锁。
 
 C 范围技术复核完成：空页游标 P2 独立确认修复，相关2文件/20项测试退出0，其余客户端/IPC和宿主接线范围无阻断，记录 raw/b00a-c-review.json；不代替 A 来源/存储/发布/检索评审或 T00 人类签字。A 评审及合入仍待，任务保持 active。
+
+B00a P0 远端交接：代码提交 26421ab5bf93f74b20d5888f0e1ff3b48b9bfc36 已正常推送独立分支，[PR #7](https://github.com/jacson10l/tradequote-agent/pull/7) 目标 codex/m1-foundation，已请求 A/ssyyy31 评审；API 核对 OPEN、尚无 review、未合入，证据 raw/b00a-delivery.json。本次仅追加交付事实，已测源码/config hash 不变；A01c 未解锁，合入后通知仍待。

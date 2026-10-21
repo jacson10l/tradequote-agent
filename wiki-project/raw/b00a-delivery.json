@@ -1,0 +1,26 @@
+{
+  "status": "awaiting_A_review",
+  "recordedAt": "2026-10-22T01:08:26.194743+08:00",
+  "taskBase": "56c909e21aefa484b6805bf9afc7c94b0e1d4576",
+  "testedCodeCommit": "26421ab5bf93f74b20d5888f0e1ff3b48b9bfc36",
+  "pullRequest": {
+    "baseRefName": "codex/m1-foundation",
+    "headRefName": "codex/b00a-knowledge-wiki-contracts",
+    "headRefOid": "26421ab5bf93f74b20d5888f0e1ff3b48b9bfc36",
+    "mergeStateStatus": "CLEAN",
+    "number": 7,
+    "reviewRequests": [
+      {
+        "__typename": "User",
+        "login": "ssyyy31"
+      }
+    ],
+    "reviews": [],
+    "state": "OPEN",
+    "url": "https://github.com/jacson10l/tradequote-agent/pull/7"
+  },
+  "cReview": "wiki-project/raw/b00a-c-review.json",
+  "validation": "wiki-project/raw/b00a-validation.json",
+  "a01cUnlocked": false,
+  "mergePerformed": false
+}
