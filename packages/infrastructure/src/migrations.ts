@@ -33,6 +33,27 @@ CREATE TRIGGER agent_turn_no_update BEFORE UPDATE ON agent_turn BEGIN SELECT RAI
 CREATE TRIGGER agent_turn_no_delete BEFORE DELETE ON agent_turn BEGIN SELECT RAISE(ABORT, 'IMMUTABLE_TURN'); END;
 `,
   },
+  {
+    // A01b: knowledge revisions. A owns the migration sequence; C's run tables must
+    // register as version 5 after this and never renumber 4.
+    version: 4,
+    sql: `
+CREATE TABLE knowledge_revision (
+  id TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL REFERENCES workspace(id),
+  document_id TEXT NOT NULL,
+  version INTEGER NOT NULL CHECK(version>0),
+  status TEXT NOT NULL CHECK(status IN ('staged','published')),
+  source_hash TEXT NOT NULL CHECK(length(source_hash)=64),
+  created_at TEXT NOT NULL,
+  published_at TEXT,
+  data_json TEXT NOT NULL
+);
+CREATE INDEX knowledge_revision_document ON knowledge_revision(document_id, version DESC);
+CREATE TRIGGER knowledge_revision_no_update BEFORE UPDATE ON knowledge_revision BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE'); END;
+CREATE TRIGGER knowledge_revision_no_delete BEFORE DELETE ON knowledge_revision BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE'); END;
+`,
+  },
 ];
 export function migrate(db: Database.Database, steps = migrations) {
   const current = Number(db.pragma("user_version", { simple: true }));

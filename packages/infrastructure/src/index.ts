@@ -9,9 +9,14 @@ import {
   type TradeCommand,
   WorkspaceSchema,
 } from "@tradequote/contracts";
-import { transitionWorkspace, type WorkspaceRepository } from "@tradequote/domain";
+import {
+  createKnowledgeService,
+  transitionWorkspace,
+  type WorkspaceRepository,
+} from "@tradequote/domain";
 import Database from "better-sqlite3";
 import { drizzle } from "drizzle-orm/better-sqlite3";
+import { SqliteKnowledgeStore } from "./knowledge-store";
 import { migrate } from "./migrations";
 import { workspace } from "./schema";
 import { TradeStore } from "./trade-store";
@@ -87,6 +92,9 @@ export class SqliteWorkspaceRepository implements WorkspaceRepository {
   executeTrade(command: TradeCommand, context: ExecutionContext) {
     return new TradeStore(this.db).execute(command, context);
   }
+  executeKnowledge(command: unknown, context: ExecutionContext) {
+    return createKnowledgeService(new SqliteKnowledgeStore(this.db)).execute(command, context);
+  }
   agentReplay(command: import("@tradequote/contracts").AgentCommand) {
     return new TradeStore(this.db).replay(command);
   }
@@ -106,5 +114,6 @@ export class SqliteWorkspaceRepository implements WorkspaceRepository {
 
 export { AgentExecutor } from "./agent-executor";
 export { DeepSeekProvider } from "./deepseek";
+export { SqliteKnowledgeStore } from "./knowledge-store";
 
 export { ModelSettingsStore } from "./model-settings";
