@@ -1022,6 +1022,31 @@
       "pages": [
         "wiki/C运行恢复实现.md"
       ]
+    },
+    "packages/domain/src/knowledge.ts": {
+      "role": "A01b知识审核发布服务：human_ui门禁与方法分发",
+      "pages": [
+        "wiki/A知识发布实现.md"
+      ]
+    },
+    "packages/infrastructure/src/knowledge-store.ts": {
+      "role": "A01b知识版本SQLite存储：hash绑定、原地发布、幂等与不可变",
+      "pages": [
+        "wiki/A知识发布实现.md"
+      ]
+    },
+    "packages/infrastructure/src/knowledge-store.test.ts": {
+      "role": "A01b知识存储回归：发布门禁、幂等、版本、scope与不可变",
+      "pages": [
+        "wiki/A知识发布实现.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "tests/fixtures/knowledge/knowledge-drafts.a01a.json": {
+      "role": "A01a三品类合成知识草稿fixture",
+      "pages": [
+        "wiki/A知识发布实现.md"
+      ]
     }
   }
 }

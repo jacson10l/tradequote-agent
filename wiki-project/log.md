@@ -245,3 +245,9 @@ B00代码提交e71442d127edeb9a62a9a0cd5a127ee0ae2898be已推送并核对远端�
 ## 2026-10-21 共同基线交付与临时分支清理
 
 共同分支codex/m1-foundation已非强制推送a5e04d1并在原工作目录快进，PR#1/#2回读MERGED。66单元、5真实Electron、6工程、36Wiki回归及类型/生成/check/lint/固定基线sync全部通过。B00/C01a限定技术切片完成，不代签人类团队验收。祖先与干净核对后删除a01-llm-wiki-plan、c01a-verification、c01b-storage-plan三个本地/远端临时分支，ABC/main/旧名称分支保留。三个工作树归档请求返回queued，先保留detached副本；21个未跟踪截图/指标已另存保留，不宣称异步归档完成。详见raw/branch-consolidation-delivery.json与[[分支收口与共同基线]]。本交付记录仍在独立整合分支提交，推送快进后清理该临时分支。
+
+## 2026-10-21 A01b知识存储评审修正与Wiki同步
+
+- 在 codex/a01b-knowledge-store 审查 A01b（SqliteKnowledgeStore/createKnowledgeService/迁移4/测试）并修正：findPublished 先按 publishedAt/scope 过滤再按 document 去重（新版本不匹配时回退到旧匹配版本）、空 scope 维度按通用、publish 原地 staged→published 保持 revisionId 稳定、getRevision/findPublished 按 workspace 隔离、写事务 immediate；补 A01-7/A01-8 回归，推送 5551ef3。
+- 同步 [[A知识发布实现]]（新增 module 页）、[[A01-知识发布与来源查询]] 任务页（领取人 ssyyy31、A01a/A01b 记录、status active）与 coverage（knowledge.ts/knowledge-store.ts/knowledge-store.test.ts/knowledge-drafts.a01a.json），索引补导航。
+- 本机未安装 node_modules，typecheck 与知识测试未复跑；Wiki 生成成功（153 文件/5 生成物），build-code-index --check 退出 0，lint 仅剩 4 个 raw/ 归档 CRLF 造成的 ARCHIVE_HASH_MISMATCH（历史遗留，需团队 .gitattributes 决策），无新增失败。
