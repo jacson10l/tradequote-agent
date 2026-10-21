@@ -4,6 +4,7 @@ type: interface
 status: active
 updated: 2026-10-21
 sources:
+  - wiki-repo:wiki/参赛要求对齐与验收.md:1
   - wiki-repo:wiki/03-领域与数据契约.md:1
   - wiki-repo:raw/source-manifest.md:1
 ---
@@ -60,6 +61,8 @@ interface Issue {
 
 错误码基线：`VALIDATION_ERROR`、`NOT_FOUND`、`REVISION_CONFLICT`、`IDEMPOTENCY_CONFLICT`、`SOURCE_CONFLICT`、`SOURCE_EXPIRED`、`MISSING_FACTS`、`RULE_BLOCKED`、`UNSUPPORTED_FORMAT`、`CAPABILITY_UNAVAILABLE`、`MODEL_AUTH_FAILED`、`MODEL_RATE_LIMITED`、`MODEL_TIMEOUT`、`MODEL_INVALID_OUTPUT`、`CANCELLED`、`STORAGE_ERROR`、`ARTIFACT_FAILED`、`ACTION_NOT_ALLOWED`。
 
+通用 Issue 仍可承载输入/存储错误；业务校验反馈须额外关联 RuleCheck 的 checkId/category、revision 与可选 artifact/hash，不能把所有表单错误当作参赛校验。字段的严格 schema 和持久化在 T00/T11/T32 同步实现。
+
 每个错误附可定位 issues；日志内部堆栈不返回业务 UI。可成功保存一个不完整草稿，其 Result 为成功，但草稿的 readiness/检查清楚显示缺项；这与保存失败是两件事。
 
 ## 业务查询与命令目录
@@ -85,7 +88,8 @@ interface Issue {
 | `quote.get` / `quote.compare` | quoteId 或两 revisionId | 当前/历史快照或按 lineId 的差异 | B；只读 |
 | `quote.restoreAsDraft` | quoteId、sourceRevisionId、expectedAggregateVersion | 新 revision、时效检查 | B；人工 |
 | `task.resolve` | taskId、expectedVersion、回答与 evidence | resolution、需要重算的字段 | B；仅人工确认事实，后续调用 revise |
-| `output.generate` | revisionId、locale、scene、templateRevisionId | jobId；完成后 artifactId/bundleId | B 接口，C 执行语言生成；不改事实 |
+| `output.generate` | revisionId、locale、scene、templateRevisionId、platformProfileRevisionId、localizationProfileRevisionId | jobId；完成后 artifactId/bundleId | B 接口，C 执行语言生成；不改事实 |
+| `output.validate` | artifactId/hash、revisionId、规则与适配配置版本 | checks、待人工语义复核项；不返回虚构通过 | B 检查语义，C 提供生成内容；提交/批准时复查 |
 | `quote.submitReview` | quoteId、revisionId、expectedAggregateVersion、bundleId/hash | 待审核记录、阻断项 | B；人工 |
 | `quote.approve` | 同上＋contentHash、reviewNote | approvalId | B；仅人工入口，不注册 Agent 工具 |
 | `quote.reject` | quoteId、revisionId、expectedAggregateVersion、原因 | lifecycleEventId | B；仅人工 |
@@ -97,6 +101,8 @@ interface Issue {
 | `workspace.backup/restore` | Main 的目录令牌或备份 token | jobId、校验清单/新 workspaceId | A 存储，C 系统交互；不含凭据 |
 
 typedPatch 是明确的判别联合，如 `setQuantity(lineId, Quantity)`、`selectProduct(lineId, productRevisionId)`、`selectPrice(lineId, priceRevisionId)`、`setPackaging`、`setDeliveryTerm`、`setCommercialTerm`、`addLine`、`removeLine`、`setPricingPolicy`。禁止接受能写 `total`、`approval`、`actor`、`contentHash` 的任意 JSON Patch。
+
+新增 output.validate 与适配配置参数仍是待 T00/T11 评审的接口设计，这些规划能力尚未开放 IPC；当前已开放的手工 V1 方法另见 [[M2真实报价V1]]。quote.validate 覆盖事实/合同与目标市场规则，output.validate 覆盖具体产出的平台规则、事实一致性及本地化复核状态；提交审核/批准必须核对两者与当前 revision/bundle 的绑定及来源有效性。返回 checks 携带稳定 checkId/category、字段或内容块位置、依据、严重程度、原因和建议，renderer 由同一结果呈现风险标记＋文本批注，不能自行推断通过。详见 [[参赛要求对齐与验收]] 与 [[03-领域与数据契约]]。
 
 修改事实和修改产出语言是不同用例。渲染层不能自行修改价格结果；所有行编辑和对话修改走同一个 revise 服务。
 
@@ -145,7 +151,7 @@ Harness 当前有条件采用，使用专用 profile、独立数据目录与固�
   → 形成 typedPatch
   → quote.revise 在事务内重算、校验、保存新版本
   → 生成本地化 artifact
-  → 校验事实引用与必填字段
+  → 校验事实引用、必填字段、平台规则与本地化复核状态
   → 展示新版本、差异、风险与任务
 ```
 
@@ -205,3 +211,13 @@ Main 发出文件选择/保存令牌，后台用令牌访问受控路径；原�
 ## M1 契约基础补齐
 
 九类 typedPatch、五态 Fact/来源、审批绑定和九种 strict RunEvent 已有正式 executable schema，详见 [[M1接口与持久化]]。setQuantity 现用 Quantity.value/unitId，旧两个补丁的初始形状不作为冻结接口。schema/mock/测试同步，三人 T00 评审仍未发生；完整命令目录与服务并未全部实现，不因此开放额外 IPC/Agent 工具。
+
+
+## 手工 V1 实现对照
+
+[[M2真实报价V1]] 已落地可编辑场景、CSV 暂存/人工发布、价目表档位与草稿冻结/重开，任务见 [[2026-10-21-演示场景与报价V1]]。这不是完整 AC-01/03/05/06/08/11/12 或赛事工作流验收：导入仅固定 CSV，知识检索、价格更新、第二定价、平台文化校验、双反馈、正式审批/PDF仍待完成；后续 [[M4模型与报价修订]] 已新增正式Provider与V2/V3路径，真实供应商验收未执行。执行接口以 contracts/trade.ts 与 agent.ts 的已实现子集为准，本文其余规则保持目标/待评审设计；T00 人工评审未代签。
+
+
+## 正式模型与两轮修订增量
+
+正式入口agent.understand携scenarioId/buyer/inquiry，agent.revise携baseId/expectedVersion/instruction；共同带schemaVersion/requestId/idempotencyKey。密钥不在任何renderer业务命令中，模型输出不接受金额或权限字段。返回现有TradeResult和最新board/turns，错误MISSING_FACTS用于需补充、不产生空草稿；完整run事件/取消接口尚未实现。 细节与当前边界见 [[M4模型与报价修订]]，本轮验证见 [[2026-10-21-正式模型与两轮修订]]。

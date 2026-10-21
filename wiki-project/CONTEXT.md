@@ -1,19 +1,15 @@
 # 当前上下文
 
-- 当前增量：[[2026-10-21-M1布局图标与契约补齐]] 已验证，限定增量 done；初始化 [[2026-10-21-M1工程初始化]] 已保存本地 7c5a2eb，完整 M1/MVP 仍 active。
-- 新增产品图标、外壳固定高度/main 独立滚动、窄屏图标导航；E2E 独占 5189，不占用 dev 的 5179。
-- T11 增加九类 typedPatch、Fact/来源/审批绑定和运行事件 schema；没有报价/Agent 服务接入。
-- 本增量 Wiki 同步基线为 7c5a2eb；不推送。
-- M0 与 P0 Wiki 规则已提交本地 32d7e8c90a7ec4dce1966fdf6e2a73c0b4066826，未推送；当前分支 codex/m1-foundation。该提交是初始化历史基线，当前增量改用 7c5a2eb。
-- P0：代码作者在同一交付更新关联知识正文、任务、追加日志和覆盖，并通过门禁；适用于所有成员及 Agent，不满足不得 done/合并。
-- 正式工程：desktop/contracts/domain/infrastructure，Electron/React/TS。pnpm install --frozen-lockfile 后 pnpm dev。见 [[M1工程基线]]。
-- 实际能力：工作区创建/修改/重开，SQLite 单写入、幂等/版本冲突、初始迁移、ArtifactStore。见 [[M1接口与持久化]]。
-- UI 已接入约定的表单/路由/查询与共享组件；报价表格与差异为显式合成预览，Agent/审核禁用。见 [[M1工作台]]。
-- 验证与未完成范围见 [[M1验证与协作]] 及任务记录；测试使用隔离合成数据，不读取真实凭据。
-- 模型 API Key 仍通过 pnpm --dir experiments/m0-platform settings 配置；正式 React 系统设置迁移在 T40。没有真实模型通过声明。
-- 最小执行器替代 Harness 的选择不变；M0 原始探针和证据保留，见 [[0004-M0平台与执行器选型]]。
-- A 数据/B 领域/C 桌面三人全栈，T00 评审未签署。后续先评审完整 DTO，再按各模块继续 T11/T12/T13 与 M2/M3/M4。
-- 未完成：报价/审批/真实 Agent、job/outbox 完整恢复、真实模型评估、RTL 精确回读、Windows/签名安装/升级。用户允许暂缓最终安装验收并继续开发。
-- CI 已配置，远端执行和分支保护未设置；不能声称远端门禁已全部生效。
-
-- 本轮验证：13 项 Vitest、2 项 Electron、4 项 Node 边界/图标、36 项 Wiki 回归与 P0 同步通过；macOS 大窗口受工作区限制高度 815，未声称实际 1080 高或系统缩放验收。下一步为 T00 实际评审及按 M2/M3/M4 落地领域服务，见任务未完成项。
+- 当前工作：[[2026-10-21-三人并行交接准备]]。用户已授权本轮准备完成后提交并推送；本批共同起点/PR目标codex/m1-foundation，准备开始基线b69c4e50060a54e656017c2b17c4bb04e836630e。最终commit/推送以Git与交付消息为准，不能据旧“未推送”记录推断当前状态。
+- 立即读 [[三人并行开发交接]]、[[首批并行接口约定]]；A领取 [[A01-知识发布与来源查询]]，B先B00契约再 [[B01-规则检查与双反馈]]，C领取 [[C01-Agent运行恢复与集成]]。任务均draft，实际成员姓名/评审/环境尚未登记；新接口尚未实现。
+- 成员各自独立clone/worktree、各开任务分支：codex/a01-knowledge-publish、codex/b00-first-batch-contracts、codex/b01-rules-feedback、codex/c01-agent-recovery。禁止在main/集成分支直接做成员功能；小PR合入集成分支。
+- B维护公共契约；A维护迁移/存储导出（知识迁移4，run预留5，其他编号协调）；C维护Main/preload/worker/App接线与公共UI/构建。A/B自写业务feature页面和Wiki。新代码按独立模块新增，避免三人同时扩写trade-store/quotes大文件。
+- B00先合新契约再接依赖类型。A可先做三品类/来源样本，C可先真实模型验证与运行状态机；B检查核心先用合成published规则，完整联调换A真实查询。取消/重试的完成/提交竞态有独立验收，不依赖规则服务。
+- 已实现 [[M2真实报价V1]]：场景版本、固定UTF-8 CSV预览/人工发布、价目表档位、同币种同单位/decimal计算、不可变V1与重开；商品合计不含运税费。已发布SKU覆盖、四格式/知识检索/第二定价未实现。
+- 已实现 [[M4模型与报价修订]]：Main safeStorage正式设置、worker有界DeepSeek JSON adapter、询盘理解/三类字段修改V2V3、对话与差异。正式HTTPS固定，测试替身仅未打包且隔离目录的环回端点；真实DeepSeek未验收。全部报价draft，审批禁用。
+- 迁移1～3保留：quote_revision/agent_turn追加，不改V1原文；版本/对话/outbox/幂等同事务、提交前复核base。成功结果重开可回放；UI未提交操作键/失败对话/待决run不持久化，C01负责补齐。旧九类TypedPatch仅契约基础，不等于当前三个操作之外都已可执行。
+- 上轮真实本机验证：42项Vitest、5项Electron、6项工程、36项Wiki、type/build/check/lint/sync通过，raw/agent-validation.json；所有模型请求用合成HTTP和Key，不能算真实供应商/Windows通过。本次交接另写raw/parallel-handoff-validation.json，不替成员新代码验收。
+- 历史覆盖失败已解决并保留raw/feedback-final-check.json与任务记录；开发名称/统一反馈改动保留共同交接，不再把当时active误写当前阻塞。原raw来源与旧失败记录不可删除。
+- 剩余：真实供应商评估/运行恢复；平台文化profile、知识与两类规则双反馈；英德产出/审批PDF；备份、稳定五次演示、Windows/最终签名安装和远端保护。最后安装按用户既有决定暂缓，真实Key仅在应用输入，不读真实凭据文件。
+- 赛事口径：两种语言或两类角色/场景二选一，不要求两个电商平台，批量鼓励/多岗位可选；差异表不能替代规则校验反馈。真实业务/规则适用性与T00成员评审仍待确认。
+- P0：每位代码作者同分支同步语义知识/任务/追加log/coverage/生成检查，维护工具改动补回归；验证真实通过才done。不得把协作任务当自动派生子Agent授权。

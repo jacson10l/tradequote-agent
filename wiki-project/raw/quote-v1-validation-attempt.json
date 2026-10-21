@@ -1,0 +1,30 @@
+{
+  "status": "failed",
+  "scope": "manual quote V1 on local macOS; synthetic inputs; OS picker return substituted; no real model or Windows/install tests",
+  "base": "b69c4e50060a54e656017c2b17c4bb04e836630e",
+  "checks": [
+    {
+      "command": "pnpm install --offline --frozen-lockfile",
+      "startedAt": "2026-10-21T05:12:19.672736+00:00",
+      "exitCode": 0,
+      "output": "Scope: all 5 workspace projects\nLockfile is up to date, resolution step is skipped\nAlready up to date\n\n. postinstall$ node scripts/prepare-electron.mjs && pnpm native:rebuild\n. postinstall: Electron executable ready\n. postinstall: > tradequote-agent@0.1.0 native:rebuild /Users/jason/Documents/code/tradequote-agent\n. postinstall: > pnpm --filter @tradequote/desktop exec electron-builder install-app-deps\n. postinstall:   • electron-builder  version=26.15.3\n. postinstall:   • loaded configuration  file=package.json (\"build\" field)\n. postinstall:   • packageManager not detected by file, falling back to environment detection  resolvedPackageManager=pnpm detected=/Users/jason/Documents/code/tradequote-agent\n. postinstall:   • detected workspace root for project using packageManager field  pm=pnpm config=pnpm@10.13.1 resolved=/Users/jason/Documents/code/tradequote-agent projectDir=/Users/jason/Documents/code/tradequote-agent/apps/desktop\n. postinstall:   • executing @electron/rebuild  electronVersion=44.9.2 arch=arm64 buildFromSource=false workspaceRoot=/Users/jason/Documents/code/tradequote-agent projectDir=./ appDir=./\n. postinstall:   • installing native dependencies  arch=arm64\n. postinstall:   • preparing       moduleName=better-sqlite3 arch=arm64\n. postinstall:   • finished        moduleName=better-sqlite3 arch=arm64\n. postinstall:   • completed installing native dependencies\n. postinstall: Done\nDone in 2.2s using pnpm v10.13.1\n"
+    },
+    {
+      "command": "pnpm typecheck",
+      "startedAt": "2026-10-21T05:12:22.005875+00:00",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 typecheck /Users/jason/Documents/code/tradequote-agent\n> tsc --noEmit\n\n"
+    },
+    {
+      "command": "pnpm test",
+      "startedAt": "2026-10-21T05:12:24.319842+00:00",
+      "exitCode": 1,
+      "output": "\n> tradequote-agent@0.1.0 test /Users/jason/Documents/code/tradequote-agent\n> node scripts/test-unit.mjs\n\n\n RUN  v5.0.5 /Users/jason/Documents/code/tradequote-agent\n\n ❯ packages/infrastructure/src/trade-store.test.ts (7 tests | 1 failed) 139ms\n   × limits pasted CSV by UTF-8 bytes before storing a staged source 21ms\n\n Test Files  1 failed | 6 passed (7)\n      Tests  1 failed | 25 passed (26)\n   Start at  13:12:24\n   Duration  1.13s (import 55%, environment 16%, tests 15%, transform 12%, worker 2%)\n\n ELIFECYCLE  Test failed. See above for more details.\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/trade-store.test.ts > limits pasted CSV by UTF-8 bytes before storing a staged source\nAssertionError: expected { ok: true, data: { …(4) }, …(2) } to match object { ok: false, …(1) }\n(7 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  {\n-   \"error\": {\n-     \"code\": \"VALIDATION_ERROR\",\n-   },\n-   \"ok\": false,\n+   \"ok\": true,\n  }\n\n ❯ packages/infrastructure/src/trade-store.test.ts:338:7\n    336|         payload: { sourceName: \"large.csv\", sourceStatus: \"synthetic\",…\n    337|       }),\n    338|     ).toMatchObject({ ok: false, error: { code: \"VALIDATION_ERROR\" } }…\n       |       ^\n    339|     expect(\n    340|       board(run({ schemaVersion: 1, requestId: randomUUID(), method: \"…\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n"
+    },
+    {
+      "command": "pnpm check",
+      "exitCode": 1,
+      "output": "Biome and 5 Node tests passed; module boundary rejected decimal.js in packages/domain/src/trade.ts. Added exact domain-only pure decimal.js allowance with negative tests; platform/model SDK restrictions retained."
+    }
+  ]
+}

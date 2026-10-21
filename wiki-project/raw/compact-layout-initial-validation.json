@@ -1,0 +1,12 @@
+{
+  "status": "failed",
+  "baseline": "b69c4e50060a54e656017c2b17c4bb04e836630e",
+  "checks": [
+    {
+      "command": "pnpm typecheck",
+      "startedAt": "2026-10-21T05:50:13.056086+00:00",
+      "exitCode": 1,
+      "output": "\n> tradequote-agent@0.1.0 typecheck /Users/jason/Documents/code/tradequote-agent\n> tsc --noEmit\n\ntests/e2e/workspace.spec.ts(61,38): error TS2379: Argument of type '{ name: string | undefined; exact: true; }' is not assignable to parameter of type '{ checked?: boolean; description?: string | RegExp; disabled?: boolean; exact?: boolean; expanded?: boolean; includeHidden?: boolean; level?: number; name?: string | RegExp; pressed?: boolean; selected?: boolean; }' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.\n  Types of property 'name' are incompatible.\n    Type 'string | undefined' is not assignable to type 'string | RegExp'.\n      Type 'undefined' is not assignable to type 'string | RegExp'.\ntests/e2e/workspace.spec.ts(62,48): error TS2379: Argument of type '{ name: string | undefined; exact: true; }' is not assignable to parameter of type '{ checked?: boolean; description?: string | RegExp; disabled?: boolean; exact?: boolean; expanded?: boolean; includeHidden?: boolean; level?: number; name?: string | RegExp; pressed?: boolean; selected?: boolean; }' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.\n  Types of property 'name' are incompatible.\n    Type 'string | undefined' is not assignable to type 'string | RegExp'.\n      Type 'undefined' is not assignable to type 'string | RegExp'.\ntests/e2e/workspace.spec.ts(82,67): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.\n  Type 'undefined' is not assignable to type 'string'.\n ELIFECYCLE  Command failed with exit code 1.\n"
+    }
+  ]
+}

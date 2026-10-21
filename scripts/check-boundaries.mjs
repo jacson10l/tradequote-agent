@@ -36,7 +36,8 @@ export function inspectImports(file, text) {
         ((renderer || pure) && isBuiltin(name)) ||
         (pure &&
           !name.startsWith(".") &&
-          !["@tradequote/contracts", "zod", "vitest"].includes(name)) ||
+          !["@tradequote/contracts", "zod", "vitest"].includes(name) &&
+          !(file.startsWith("packages/domain/") && name === "decimal.js")) ||
         (file.startsWith("packages/contracts/") && target.includes("domain")) ||
         (name.startsWith(".") &&
           target.startsWith("packages/") &&

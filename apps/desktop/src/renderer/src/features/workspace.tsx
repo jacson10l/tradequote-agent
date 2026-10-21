@@ -6,10 +6,12 @@ import {
   WorkspaceFormSchema,
   type WorkspaceResult,
 } from "@tradequote/contracts";
-import { FolderPlus, RefreshCw } from "lucide-react";
+import { FolderPlus } from "lucide-react";
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "../shared/button";
+import { useMessage } from "../shared/message";
+import { Notification } from "../shared/notification";
 
 export function useWorkspace(client: DesktopClient) {
   return useQuery({
@@ -28,11 +30,15 @@ export function WorkspacePage({ client }: { client: DesktopClient }) {
     return (
       <section className="panel">
         <h1>工作区暂时无法读取</h1>
-        <p role="alert">{query.error.message}</p>
-        <Button onClick={() => void query.refetch()}>
-          <RefreshCw size={16} />
-          重新加载
-        </Button>
+        <Notification
+          title="工作区读取失败"
+          description={query.error.message}
+          action={{
+            label: "重新加载",
+            onClick: () => void query.refetch(),
+            pending: query.isFetching,
+          }}
+        />
       </section>
     );
   return (
@@ -51,6 +57,7 @@ function WorkspaceForm({
   workspace: Workspace | null;
 }) {
   const queries = useQueryClient();
+  const message = useMessage();
   const operation = useRef<{ fingerprint: string; key: string } | null>(null);
   const form = useForm<{ name: string }>({
     resolver: zodResolver(WorkspaceFormSchema),
@@ -75,24 +82,21 @@ function WorkspaceForm({
         : client.createWorkspace({ ...common, method: "workspace.create", payload: { name } });
     },
     onSuccess: async (result) => {
-      if (result.ok) await queries.invalidateQueries({ queryKey: ["workspace"] });
+      if (result.ok) {
+        message.success("工作区已保存至本机");
+        await queries.invalidateQueries({ queryKey: ["workspace"] });
+      } else if (result.error.code !== "REVISION_CONFLICT") {
+        message.error(result.error.message);
+      }
     },
+    onError: () => message.error("连接中断，请重试同一操作。"),
   });
   const result = mutation.data;
   const error = result && !result.ok ? result.error : null;
   return (
     <section className="panel max-w-2xl">
-      <div className="eyebrow">LOCAL WORKSPACE</div>
-      <h1>{workspace ? "工作区设置" : "建立你的第一份工作区"}</h1>
-      <p className="description">
-        {workspace
-          ? `已保存至本机 · 版本 ${workspace.version}`
-          : "先为本地资料命名。之后导入商品、建立询盘，逐步形成可追溯的报价。"}
-      </p>
-      <form
-        onSubmit={form.handleSubmit((data) => mutation.mutate(data))}
-        className="space-y-4 mt-6"
-      >
+      <h1 className="sr-only">{workspace ? "工作区设置" : "创建工作区"}</h1>
+      <form onSubmit={form.handleSubmit((data) => mutation.mutate(data))} className="space-y-4">
         <div>
           <label htmlFor="workspace-name">工作区名称</label>
           <input
@@ -111,21 +115,20 @@ function WorkspaceForm({
             {form.formState.errors.name?.message}
           </p>
         </div>
-        {error && (
-          <div role="alert" className="error-box">
-            <p>{error.message}</p>
-            {error.code === "REVISION_CONFLICT" && (
-              <Button
-                variant="outline"
-                type="button"
-                onClick={() => void queries.invalidateQueries({ queryKey: ["workspace"] })}
-              >
-                重新加载最新版本
-              </Button>
-            )}
-          </div>
+        {error?.code === "REVISION_CONFLICT" && (
+          <Notification
+            title="工作区版本已更新"
+            description={error.message}
+            action={{
+              label: "重新加载最新版本",
+              onClick: () => void queries.invalidateQueries({ queryKey: ["workspace"] }),
+              pending: queries.isFetching({ queryKey: ["workspace"] }) > 0,
+            }}
+          />
         )}
-        {mutation.isError && <p role="alert">连接中断，请重试同一操作。</p>}
+        {workspace && (
+          <p className="text-sm text-muted-foreground">已保存至本机 · 版本 {workspace.version}</p>
+        )}
         <Button type="submit" disabled={mutation.isPending}>
           <FolderPlus size={16} />
           {mutation.isPending ? "正在保存…" : workspace ? "保存工作区" : "创建工作区"}

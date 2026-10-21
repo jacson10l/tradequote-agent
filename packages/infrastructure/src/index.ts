@@ -6,6 +6,7 @@ import {
   type ExecutionContext,
   failure,
   ResultSchema,
+  type TradeCommand,
   WorkspaceSchema,
 } from "@tradequote/contracts";
 import { transitionWorkspace, type WorkspaceRepository } from "@tradequote/domain";
@@ -13,6 +14,7 @@ import Database from "better-sqlite3";
 import { drizzle } from "drizzle-orm/better-sqlite3";
 import { migrate } from "./migrations";
 import { workspace } from "./schema";
+import { TradeStore } from "./trade-store";
 
 export { FileArtifactStore } from "./artifacts";
 export class SqliteWorkspaceRepository implements WorkspaceRepository {
@@ -82,7 +84,27 @@ export class SqliteWorkspaceRepository implements WorkspaceRepository {
       })
       .immediate();
   }
+  executeTrade(command: TradeCommand, context: ExecutionContext) {
+    return new TradeStore(this.db).execute(command, context);
+  }
+  agentReplay(command: import("@tradequote/contracts").AgentCommand) {
+    return new TradeStore(this.db).replay(command);
+  }
+  commitAgent(
+    command: import("@tradequote/contracts").AgentCommand,
+    proposal:
+      | import("@tradequote/contracts").Understanding
+      | import("@tradequote/contracts").RevisionProposal,
+    model: string,
+  ) {
+    return new TradeStore(this.db).commitAgent(command, proposal, model);
+  }
   close() {
     this.db.close();
   }
 }
+
+export { AgentExecutor } from "./agent-executor";
+export { DeepSeekProvider } from "./deepseek";
+
+export { ModelSettingsStore } from "./model-settings";

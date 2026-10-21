@@ -1,0 +1,78 @@
+{
+  "status": "passed",
+  "scope": "Documentation alignment only; no application or real-model tests",
+  "base": "b69c4e50060a54e656017c2b17c4bb04e836630e",
+  "checks": [
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs .",
+      "startedAt": "2026-10-21T04:56:28.910288+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"generate\",\n  \"files\": 114,\n  \"lines\": 34467,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "startedAt": "2026-10-21T04:56:29.034570+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 114,\n  \"lines\": 34467,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "startedAt": "2026-10-21T04:56:29.134115+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 58,\n  \"semantic\": 42,\n  \"reachable\": 58\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base b69c4e50060a54e656017c2b17c4bb04e836630e",
+      "startedAt": "2026-10-21T04:56:29.332936+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"b69c4e50060a54e656017c2b17c4bb04e836630e\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "git diff --check",
+      "startedAt": "2026-10-21T04:56:29.413295+00:00",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "command": "git diff --cached --check",
+      "startedAt": "2026-10-21T04:56:29.423954+00:00",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "phase": "final-after-task-completion",
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "startedAt": "2026-10-21T04:56:52.882366+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 114,\n  \"lines\": 34467,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n"
+    },
+    {
+      "phase": "final-after-task-completion",
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "startedAt": "2026-10-21T04:56:53.019122+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 58,\n  \"semantic\": 42,\n  \"reachable\": 58\n}\n"
+    },
+    {
+      "phase": "final-after-task-completion",
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base b69c4e50060a54e656017c2b17c4bb04e836630e",
+      "startedAt": "2026-10-21T04:56:53.231791+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"b69c4e50060a54e656017c2b17c4bb04e836630e\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n"
+    },
+    {
+      "phase": "final-after-task-completion",
+      "command": "git diff --check",
+      "startedAt": "2026-10-21T04:56:53.322528+00:00",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "phase": "final-after-task-completion",
+      "command": "git diff --cached --check",
+      "startedAt": "2026-10-21T04:56:53.334148+00:00",
+      "exitCode": 0,
+      "output": ""
+    }
+  ]
+}

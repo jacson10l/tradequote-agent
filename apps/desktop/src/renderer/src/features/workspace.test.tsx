@@ -6,6 +6,7 @@ import userEvent from "@testing-library/user-event";
 import { failure, success } from "@tradequote/contracts";
 import { mockWorkspace, readonlyMockClient } from "@tradequote/contracts/mock";
 import { afterEach, expect, it, vi } from "vitest";
+import { MessageProvider } from "../shared/message";
 import { WorkspacePage } from "./workspace";
 
 afterEach(cleanup);
@@ -13,7 +14,9 @@ function mount(client = readonlyMockClient) {
   const query = new QueryClient({ defaultOptions: { queries: { retry: false } } });
   render(
     <QueryClientProvider client={query}>
-      <WorkspacePage client={client} />
+      <MessageProvider>
+        <WorkspacePage client={client} />
+      </MessageProvider>
     </QueryClientProvider>,
   );
 }
@@ -49,4 +52,31 @@ it("surfaces conflicts and reloads current data without silently retrying", asyn
   await user.click(screen.getByRole("button", { name: "重新加载最新版本" }));
   expect(await screen.findByText("已保存至本机 · 版本 2")).toBeVisible();
   expect(screen.getByLabelText("工作区名称")).toHaveValue("新名称");
+});
+it("uses message for a rejected write while preserving the entered form", async () => {
+  const user = userEvent.setup();
+  const createWorkspace = vi.fn().mockResolvedValue(failure("ACTION_NOT_ALLOWED", "操作不允许"));
+  mount({ ...readonlyMockClient, getWorkspace: async () => success(null), createWorkspace });
+  await user.type(await screen.findByLabelText("工作区名称"), "保留我的输入");
+  await user.click(screen.getByRole("button", { name: "创建工作区" }));
+  expect(await screen.findByRole("alert")).toHaveTextContent("操作不允许");
+  expect(screen.getByLabelText("工作区名称")).toHaveValue("保留我的输入");
+  await user.click(screen.getByRole("button", { name: "关闭提示" }));
+  expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+});
+it("retries a load notification and removes it after recovery", async () => {
+  const user = userEvent.setup();
+  const getWorkspace = vi
+    .fn()
+    .mockResolvedValueOnce(failure("ACTION_NOT_ALLOWED", "调用来源不允许"))
+    .mockResolvedValueOnce(failure("ACTION_NOT_ALLOWED", "调用来源不允许"))
+    .mockResolvedValue(success(null));
+  mount({ ...readonlyMockClient, getWorkspace });
+  expect(await screen.findByRole("alert")).toHaveTextContent("调用来源不允许");
+  await user.click(screen.getByRole("button", { name: "重新加载" }));
+  expect(await screen.findByRole("alert")).toHaveTextContent("调用来源不允许");
+  await user.click(screen.getByRole("button", { name: "重新加载" }));
+  expect(await screen.findByRole("button", { name: "创建工作区" })).toBeVisible();
+  expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+  expect(getWorkspace).toHaveBeenCalledTimes(3);
 });

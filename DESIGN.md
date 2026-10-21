@@ -8,7 +8,7 @@ reference: mistral.ai
 
 # 桌面工作台设计规范
 
-使用 Mistral AI 参考的浅色设计语言，服务商品资料、报价单、Agent 辅助、风险与版本比较。用户最终指定命令为 `npx getdesign@latest add mistral.ai`，已执行；本文件在生成模板基础上作产品适配。M1 已实现首个 React 工作台与工作区表单，实际截图和验收边界见 [M1 工作台](wiki-project/wiki/M1工作台.md)。
+使用 Mistral AI 参考的浅色设计语言，服务商品资料、报价单、Agent 辅助、风险与版本比较。用户最终指定命令为 `npx getdesign@latest add mistral.ai`，已执行；本文件在生成模板基础上作产品适配。M1 已实现首个 React 工作台与工作区表单；手工 V1 新增资料与报价页，复用同一组件/色板，实际截图和验收边界见 [M1 工作台](wiki-project/wiki/M1工作台.md)。
 
 原始模板保存在 [mistral-original.md](wiki-project/raw/design/mistral-original.md)，来源为 [getdesign Mistral 页面](https://getdesign.md/mistral.ai/design-md)，CLI 版本 0.6.26。原始文件是第三方独立分析；本文件是项目唯一 UI 规范。归档中营销布局、字体、品牌标记和附带工具命令不是产品必须照搬的要求。
 
@@ -61,7 +61,7 @@ reference: mistral.ai
 
 应用使用项目自有橙色单据与折线箭头图标；SVG 是源文件，PNG/ICNS/ICO 由 icons:generate 生成并用哈希清单验证，开发 Dock 与窗口、侧栏及打包入口共用该标记。
 
-默认侧栏 208px；主区域顶部 56px 工具栏，显示单据号、版本、保存/运行状态和主要操作。中央单据优先占宽，Agent 面板默认 340px，可调整/收起；来源与风险放在单据标签页或按需抽屉，不强塞常驻四列。
+默认侧栏 208px；所有页面不设置独占一行的页头、大标题、英文眉题或宣传说明，主区域四周留白统一 16px，首个业务面板直接顶到内容起点。页面名称由侧栏导航表达，保留 sr-only 一级标题供辅助技术使用；单据号、版本、保存/运行状态和主要操作放入对应业务面板现有的紧凑标题行或表单，不另建全页工具栏。中央单据优先占宽，Agent 面板当前 300px；可调整/收起仍待实现。来源与风险放在单据标签页或按需抽屉，不强塞常驻四列。
 
 宽度 ≥1440px 可并排展示单据、对话与辅助信息；1100～1439px 保留单据＋对话，来源使用抽屉；更窄或高缩放时侧栏折叠、对话成为可切换面板。表格可水平滚动并保留 SKU/行号，不能缩小文字来硬塞全部列。
 
@@ -92,3 +92,11 @@ reference: mistral.ai
 M1 将语义变量落在 renderer 的统一 theme.css，通过 Tailwind/shadcn 变量映射使用；feature 页面不自建第二套色板。组件中的 loading/error/selected/disabled/focus/hover/pressed 状态都要有实际表现。
 
 验收记录包括代表页截图、键盘路径、状态切换、对比度、表格缩放、长字段、中文与 RTL 输出；M1 已检查实际 Electron 截图和 900px 收窄布局；完整系统缩放、跨平台视觉与语言输出仍待验收。关联 [MVP 页面](wiki-project/wiki/01-MVP范围与验收.md) 与 [测试要求](wiki-project/wiki/06-测试与交付.md)。
+
+## 统一操作反馈
+
+短时操作错误通过 `useMessage().error(text)` 展示，成功通过 `.success(text)` 展示。App 只挂一个 MessageProvider，默认顶部居中、白底阴影、语义图标，不挤占单据；错误 6 秒、成功 4 秒后消失，悬停/键盘聚焦暂停计时，提供关闭按钮。同内容同类型刷新计时，最多显示 3 条。
+
+截图中的加载错误及版本冲突使用共享 Notification：右上角标题、原因与重新加载按钮，加载期间禁用操作；这类影响当前数据的通知不自动消失，也不提供绕过问题的关闭入口，数据恢复后由页面移除。组件支持可选 onClose，用于未来允许主动忽略的通知。两类反馈同时出现时 message 移到窗口底部，避免重叠。错误 role=alert、成功 role=status，不自动抢焦点。
+
+字段错误、CSV 行级问题和合成资料标识属于数据上下文，继续就地展示。统一反馈只改变显示与生命周期，不改变 IPC 错误、安全校验、金额或持久化契约。

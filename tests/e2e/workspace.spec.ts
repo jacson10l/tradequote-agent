@@ -18,6 +18,7 @@ test("development renderer runs with React refresh and the real desktop bridge",
     },
   });
   try {
+    expect(await app.evaluate(({ app }) => app.getName())).toBe("TradeQuote");
     const page = await app.firstWindow();
     await expect(page.getByRole("heading", { name: "从一份询盘开始" })).toBeVisible();
     await page.getByRole("link", { name: "创建工作区", exact: true }).click();
@@ -46,6 +47,42 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
     await name.fill("E2E 合成工作区");
     await page.getByRole("button", { name: "创建工作区", exact: true }).click();
     await expect(page.getByText("已保存至本机 · 版本 1")).toBeVisible();
+    // Every route starts with business content, including at a narrow desktop width.
+    for (const width of [1380, 900]) {
+      await app.evaluate(({ BrowserWindow }, nextWidth) => {
+        BrowserWindow.getAllWindows()[0]?.setContentSize(nextWidth, 800);
+      }, width);
+      for (const [route, ready] of [
+        ["单据工作台", "报价单据"],
+        ["资料与报价", "1 · 演示场景"],
+        ["模型设置", "DeepSeek 连接与凭据"],
+        ["工作区设置", "工作区设置"],
+      ] as const) {
+        await page.getByRole("navigation").getByRole("link", { name: route, exact: true }).click();
+        await expect(page.getByRole("heading", { name: ready, exact: true })).toBeAttached();
+        await page.getByRole("main").evaluate((element) => {
+          element.scrollTop = 0;
+        });
+        await expect
+          .poll(() =>
+            page.getByRole("main").evaluate((main) => {
+              const panel = main.querySelector(".panel");
+              if (!panel) return false;
+              const bounds = panel.getBoundingClientRect();
+              const mainBounds = main.getBoundingClientRect();
+              return (
+                Math.abs(bounds.top - mainBounds.top - 16) <= 1 &&
+                bounds.left >= mainBounds.left &&
+                bounds.right <= mainBounds.right &&
+                main.scrollWidth === main.clientWidth
+              );
+            }),
+          )
+          .toBe(true);
+        const index = ["单据工作台", "资料与报价", "模型设置", "工作区设置"].indexOf(route);
+        await page.screenshot({ path: `output/playwright/compact-${width}-${index}.png` });
+      }
+    }
     await name.focus();
     await expect(name).toBeFocused();
     expect(
@@ -54,7 +91,20 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
         node: typeof Reflect.get(window, "require"),
       })),
     ).toEqual({
-      bridge: ["createWorkspace", "getWorkspace", "renameWorkspace"],
+      bridge: [
+        "createQuoteV1",
+        "createWorkspace",
+        "getTrade",
+        "getWorkspace",
+        "modelSettings",
+        "pickCatalogCsv",
+        "publishCatalog",
+        "renameWorkspace",
+        "reviseQuote",
+        "saveScenario",
+        "stageCatalog",
+        "understandInquiry",
+      ],
       node: "undefined",
     });
     // Exercise the same public bridge from a second operation while the form is stale.

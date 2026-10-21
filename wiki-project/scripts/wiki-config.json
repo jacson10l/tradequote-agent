@@ -801,6 +801,169 @@
       "pages": [
         "wiki/M1接口与持久化.md"
       ]
+    },
+    "packages/contracts/src/trade.ts": {
+      "role": "Strict scenario, catalog publication and quote V1 command/data contracts",
+      "pages": [
+        "wiki/M2真实报价V1.md"
+      ]
+    },
+    "packages/domain/src/trade.ts": {
+      "role": "Deterministic tier pricing, unknown amounts and human-only V1 service",
+      "pages": [
+        "wiki/M2真实报价V1.md"
+      ]
+    },
+    "packages/infrastructure/src/catalog-csv.ts": {
+      "role": "Bounded UTF-8 CSV parsing, row provenance and staged validation",
+      "pages": [
+        "wiki/M2真实报价V1.md"
+      ]
+    },
+    "packages/infrastructure/src/trade-store.ts": {
+      "role": "Atomic scenario/catalog/immutable quote V1 storage and retries",
+      "pages": [
+        "wiki/M2真实报价V1.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/quotes.tsx": {
+      "role": "Scenario form, confirmed CSV import and persisted quote V1 UI",
+      "pages": [
+        "wiki/M2真实报价V1.md"
+      ]
+    },
+    "packages/domain/src/trade.test.ts": {
+      "role": "Quote V1 amount, source, transaction, migration and real Electron regression evidence",
+      "pages": [
+        "wiki/M2真实报价V1.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "packages/infrastructure/src/trade-store.test.ts": {
+      "role": "Quote V1 amount, source, transaction, migration and real Electron regression evidence",
+      "pages": [
+        "wiki/M2真实报价V1.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "tests/e2e/quote-v1.spec.ts": {
+      "role": "Quote V1 amount, source, transaction, migration and real Electron regression evidence",
+      "pages": [
+        "wiki/M2真实报价V1.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "scripts/desktop-executable.mjs": {
+      "role": "macOS developer application display name and Electron launcher isolation",
+      "pages": [
+        "wiki/M1工程基线.md"
+      ]
+    },
+    "scripts/dev-desktop.mjs": {
+      "role": "macOS developer application display name and Electron launcher isolation",
+      "pages": [
+        "wiki/M1工程基线.md"
+      ]
+    },
+    "scripts/desktop-executable.test.mjs": {
+      "role": "Native macOS application name and upstream bundle integrity regression",
+      "pages": [
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/shared/message.tsx": {
+      "role": "Shared transient message provider, deduplication and timer lifecycle",
+      "pages": [
+        "wiki/M1工作台.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/shared/notification.tsx": {
+      "role": "Persistent actionable notification rendered outside document flow",
+      "pages": [
+        "wiki/M1工作台.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/shared/feedback.test.tsx": {
+      "role": "Feedback lifetime, retry, accessibility roles and dismissal regression",
+      "pages": [
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "tests/e2e/feedback.spec.ts": {
+      "role": "Actual Electron notification layout, zoom, recovery and message regression",
+      "pages": [
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "packages/contracts/src/agent.ts": {
+      "role": "模型设置与询盘受限修改严格契约",
+      "pages": [
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    "packages/domain/src/revision.ts": {
+      "role": "不可变报价修订与确定性重算",
+      "pages": [
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    "packages/infrastructure/src/agent-executor.ts": {
+      "role": "有界模型执行与提交前版本复核",
+      "pages": [
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    "packages/infrastructure/src/deepseek.ts": {
+      "role": "官方DeepSeek JSON网络适配和失败边界",
+      "pages": [
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    "packages/infrastructure/src/model-settings.ts": {
+      "role": "主进程凭据加密持久化与内存回退",
+      "pages": [
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    "packages/infrastructure/src/agent.test.ts": {
+      "role": "修订幂等冲突事务与迁移验收",
+      "pages": [
+        "wiki/M4模型与报价修订.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "packages/infrastructure/src/deepseek.test.ts": {
+      "role": "模型HTTP失败和超时回归",
+      "pages": [
+        "wiki/M4模型与报价修订.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "packages/infrastructure/src/model-settings.test.ts": {
+      "role": "凭据生命周期与不回显回归",
+      "pages": [
+        "wiki/M4模型与报价修订.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/model-settings.tsx": {
+      "role": "正式模型设置交互",
+      "pages": [
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/quote-agent.tsx": {
+      "role": "询盘两轮修订和真实版本差异",
+      "pages": [
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    "tests/e2e/quote-agent.spec.ts": {
+      "role": "真实Electron加HTTP替身两轮报价验收",
+      "pages": [
+        "wiki/M4模型与报价修订.md",
+        "wiki/M1验证与协作.md"
+      ]
     }
   }
 }

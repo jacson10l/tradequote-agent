@@ -3,6 +3,7 @@ import { ArrowRight, FileText, MessageSquare, ShieldAlert } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../shared/button";
+import { Notification } from "../shared/notification";
 import { useWorkspace } from "./workspace";
 
 export function Workbench({ client }: { client: DesktopClient }) {
@@ -10,21 +11,17 @@ export function Workbench({ client }: { client: DesktopClient }) {
   const [preview, setPreview] = useState(false);
   return (
     <>
-      <header className="page-heading">
-        <div>
-          <div className="eyebrow">QUOTE WORKSPACE</div>
-          <h1>把每一次报价，变成有据可循的决定。</h1>
-          <p className="description">单据是事实，Agent 协助整理与修改，最终由你审核。</p>
-        </div>
-        <span className="status-badge">本地工作区</span>
-      </header>
+      <h1 className="sr-only">单据工作台</h1>
       {query.isError && (
-        <div className="error-box" role="alert">
-          {query.error.message}
-          <Button variant="outline" onClick={() => void query.refetch()}>
-            重新加载
-          </Button>
-        </div>
+        <Notification
+          title="工作区读取失败"
+          description={query.error.message}
+          action={{
+            label: "重新加载",
+            onClick: () => void query.refetch(),
+            pending: query.isFetching,
+          }}
+        />
       )}
       <div className="workbench-grid">
         <section className="panel document">
@@ -115,19 +112,19 @@ export function Workbench({ client }: { client: DesktopClient }) {
               <h2>从一份询盘开始</h2>
               <p>
                 {query.data
-                  ? `「${query.data.name}」已准备好。商品导入与报价编辑将在后续里程碑接入。`
+                  ? `「${query.data.name}」已准备好。可以导入 CSV 并保存真实报价草稿 V1。`
                   : "先创建本地工作区，再开始整理商品与客户需求。"}
               </p>
               <Button asChild>
-                <Link to="/workspace">
-                  {query.data ? "管理工作区" : "创建工作区"}
+                <Link to={query.data ? "/quotes" : "/workspace"}>
+                  {query.data ? "建立真实报价 V1" : "创建工作区"}
                   <ArrowRight size={16} />
                 </Link>
               </Button>
             </div>
           )}
           <footer className="document-footer">
-            <span>正式报价服务尚未接入</span>
+            <span>此处为布局预览；真实草稿请前往资料与报价</span>
             <Button disabled title="需完成报价与审批模块">
               提交人工审核
             </Button>

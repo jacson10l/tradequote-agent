@@ -7,7 +7,21 @@ export const mockWorkspace: Workspace = {
 };
 /** Read-only UI fixture. No persistence or successful fake writes. */
 export const readonlyMockClient: DesktopClient = {
+  understandInquiry: async () => failure("CAPABILITY_UNAVAILABLE", "只读样例不能调用模型"),
+  reviseQuote: async () => failure("CAPABILITY_UNAVAILABLE", "只读样例不能调用模型"),
+  modelSettings: async () => failure("CAPABILITY_UNAVAILABLE", "请在桌面应用中配置模型"),
   getWorkspace: async () => success(mockWorkspace),
+  getTrade: async () => ({
+    ok: true,
+    data: { scenario: null, batches: [], products: [], quotes: [], turns: [] },
+    warnings: [],
+    evidenceIds: [],
+  }),
+  saveScenario: async () => failure("CAPABILITY_UNAVAILABLE", "只读样例不能保存"),
+  stageCatalog: async () => failure("CAPABILITY_UNAVAILABLE", "只读样例不能保存"),
+  publishCatalog: async () => failure("CAPABILITY_UNAVAILABLE", "只读样例不能保存"),
+  createQuoteV1: async () => failure("CAPABILITY_UNAVAILABLE", "只读样例不能保存"),
+  pickCatalogCsv: async () => ({ status: "cancelled" }),
   createWorkspace: async () => failure("CAPABILITY_UNAVAILABLE", "只读样例不能保存"),
   renameWorkspace: async () => failure("CAPABILITY_UNAVAILABLE", "只读样例不能保存"),
 };

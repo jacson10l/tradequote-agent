@@ -1,0 +1,16 @@
+{
+  "status": "failed",
+  "scope": "Initial observed validation attempts; subsequent successful record kept separately",
+  "checks": [
+    {
+      "command": "pnpm test",
+      "exitCode": 1,
+      "output": "24 tests: 3 failed, 21 passed. trade-store tests added idempotencyKey to strict trade.get queries. Corrected test envelopes without relaxing validation."
+    },
+    {
+      "command": "pnpm test:e2e",
+      "exitCode": 1,
+      "output": "Build succeeded. Test collection failed: Cannot find package @tradequote/contracts imported from tests/e2e/quote-v1.spec.ts. Replaced imported fixture with an independent synthetic CSV; no root package dependency added."
+    }
+  ]
+}

@@ -1,11 +1,23 @@
 import type { DesktopClient } from "@tradequote/contracts";
-import { Folder, LayoutDashboard, Settings } from "lucide-react";
+import { FileText, Folder, LayoutDashboard, Settings } from "lucide-react";
 import { Navigate, NavLink, Route, Routes } from "react-router-dom";
 import brandIcon from "../../../resources/icon.svg";
+import { ModelSettingsPage } from "./features/model-settings";
+import { QuotesPage } from "./features/quotes";
 import { Workbench } from "./features/workbench";
 import { useWorkspace, WorkspacePage } from "./features/workspace";
 
+import { MessageProvider } from "./shared/message";
+
 export function App({ client }: { client: DesktopClient }) {
+  return (
+    <MessageProvider>
+      <AppContent client={client} />
+    </MessageProvider>
+  );
+}
+
+function AppContent({ client }: { client: DesktopClient }) {
   const query = useWorkspace(client);
   return (
     <div className="app-shell">
@@ -25,19 +37,29 @@ export function App({ client }: { client: DesktopClient }) {
             <LayoutDashboard size={18} />
             <span className="nav-label">单据工作台</span>
           </NavLink>
+          <NavLink to="/quotes" aria-label="资料与报价" title="资料与报价">
+            <FileText size={18} />
+            <span className="nav-label">资料与报价</span>
+          </NavLink>
           <NavLink to="/workspace" aria-label="工作区设置" title="工作区设置">
             <Settings size={18} />
             <span className="nav-label">工作区设置</span>
           </NavLink>
+          <NavLink to="/model" aria-label="模型设置" title="模型设置">
+            <Settings size={18} />
+            <span className="nav-label">模型设置</span>
+          </NavLink>
         </nav>
         <div className="sidebar-footer" title="本地数据 · 人工审核">
           <span className="dot" />
-          本地数据 · 人工审核<p>M1 工程基础</p>
+          本地数据 · 人工审核<p>询报价 · 模型辅助草稿</p>
         </div>
       </aside>
       <main tabIndex={-1} aria-label="工作内容">
         <Routes>
           <Route path="/" element={<Workbench client={client} />} />
+          <Route path="/quotes" element={<QuotesPage client={client} />} />
+          <Route path="/model" element={<ModelSettingsPage client={client} />} />
           <Route path="/workspace" element={<WorkspacePage client={client} />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

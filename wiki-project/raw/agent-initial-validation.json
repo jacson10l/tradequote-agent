@@ -1,0 +1,21 @@
+{
+  "status": "failed",
+  "scope": "Initial local implementation checks; synthetic data only",
+  "checks": [
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 1,
+      "output": "SavedQuote expected version literal 1; infrastructure imported undeclared zod. Corrected to QuoteSnapshot and shared SavedCredentialsSchema."
+    },
+    {
+      "command": "pnpm test",
+      "exitCode": 1,
+      "output": "30 passed, 1 failed. Failure injection migration 3 skipped because schema now at 3; update injection to 4."
+    },
+    {
+      "command": "pnpm test:e2e",
+      "exitCode": 1,
+      "output": "4 passed, 1 failed. quote-agent had completed two revisions but model settings link matched both nav and body. Scoped locator to navigation; targeted rerun passed."
+    }
+  ]
+}

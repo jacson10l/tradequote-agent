@@ -1,7 +1,13 @@
+import { type AgentClient, AgentCommandSchema, ModelCredentialsSchema } from "./agent";
+
+export * from "./agent";
+
 import { z } from "zod";
 import { ErrorCodeSchema } from "./errors";
+import { type TradeClient, TradeCommandSchema, TradeResultSchema } from "./trade";
 
 export { ErrorCodeSchema } from "./errors";
+export * from "./trade";
 
 export const NameSchema = z.string().trim().min(1, "请输入工作区名称").max(80, "名称最多 80 字");
 export const WorkspaceFormSchema = z.strictObject({ name: NameSchema });
@@ -57,7 +63,7 @@ export function failure(
   code: z.infer<typeof ErrorCodeSchema>,
   message: string,
   currentAggregateVersion?: number,
-): WorkspaceResult {
+): Extract<WorkspaceResult, { ok: false }> {
   return {
     ok: false,
     error: {
@@ -72,7 +78,7 @@ export function failure(
 export function success(data: Workspace | null): WorkspaceResult {
   return { ok: true, data, warnings: [], evidenceIds: [] };
 }
-export interface DesktopClient {
+export interface DesktopClient extends TradeClient, AgentClient {
   getWorkspace(): Promise<WorkspaceResult>;
   createWorkspace(command: CreateWorkspace): Promise<WorkspaceResult>;
   renameWorkspace(command: RenameWorkspace): Promise<WorkspaceResult>;
@@ -81,8 +87,20 @@ export interface ExecutionContext {
   actorId: string;
   origin: "human_ui" | "agent_tool" | "system_job";
 }
-export const WorkerRequestSchema = z.strictObject({ id: z.uuid(), command: CommandSchema });
-export const WorkerReplySchema = z.strictObject({ id: z.uuid(), result: ResultSchema });
+export const RuntimeCommandSchema = z.union([
+  CommandSchema,
+  TradeCommandSchema,
+  AgentCommandSchema,
+]);
+export const RuntimeResultSchema = z.union([ResultSchema, TradeResultSchema]);
+export type RuntimeCommand = z.infer<typeof RuntimeCommandSchema>;
+export type RuntimeResult = z.infer<typeof RuntimeResultSchema>;
+export const WorkerRequestSchema = z.strictObject({
+  id: z.uuid(),
+  command: RuntimeCommandSchema,
+  credentials: ModelCredentialsSchema.optional(),
+});
+export const WorkerReplySchema = z.strictObject({ id: z.uuid(), result: RuntimeResultSchema });
 
 export type { RunEvent } from "./events";
 export { RunEventSchema, RunStatusSchema } from "./events";

@@ -5,6 +5,7 @@
   "type": "module",
   "exports": "./src/index.ts",
   "dependencies": {
-    "@tradequote/contracts": "workspace:*"
+    "@tradequote/contracts": "workspace:*",
+    "decimal.js": "10.6.0"
   }
 }

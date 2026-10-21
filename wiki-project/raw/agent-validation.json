@@ -1,0 +1,151 @@
+{
+  "status": "passed",
+  "scope": "Formal model settings and V1/V2/V3 on local macOS; synthetic HTTP model and synthetic keys/data only; no real DeepSeek, Windows or installer acceptance. Existing concurrent feedback and desktop-name changes retained.",
+  "base": "b69c4e50060a54e656017c2b17c4bb04e836630e",
+  "checks": [
+    {
+      "command": "pnpm exec biome check --write packages/infrastructure/src/agent.test.ts",
+      "startedAt": "2026-10-21T05:34:06.372668+00:00",
+      "exitCode": 0,
+      "output": "Checked 1 file in 30ms. No fixes applied.\n"
+    },
+    {
+      "command": "pnpm typecheck",
+      "startedAt": "2026-10-21T05:34:06.698709+00:00",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 typecheck <project>\n> tsc --noEmit\n\n"
+    },
+    {
+      "command": "pnpm test",
+      "startedAt": "2026-10-21T05:34:07.950184+00:00",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 test <project>\n> node scripts/test-unit.mjs\n\n\n RUN  v5.0.5 <project>\n\n\n Test Files  11 passed (11)\n      Tests  42 passed (42)\n   Start at  13:34:08\n   Duration  1.35s (import 57%, environment 21%, tests 13%, transform 8%, worker 1%)\n\n"
+    },
+    {
+      "command": "pnpm test:e2e",
+      "startedAt": "2026-10-21T05:34:10.055780+00:00",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 test:e2e <project>\n> pnpm build && playwright test\n\n\n> tradequote-agent@0.1.0 build <project>\n> node scripts/check-icons.mjs && pnpm --filter @tradequote/desktop build\n\nApplication icons passed: SVG/1024 PNG/macOS ICNS/Windows ICO\n\n> @tradequote/desktop@0.1.0 build <project>/apps/desktop\n> electron-vite build\n\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 238 modules transformed.\nrendering chunks...\nout/main/worker.js                 1.26 kB\nout/main/index.js                  9.54 kB\nout/main/chunks/src-C1nsw6AB.js  478.74 kB\n\n✓ built in 70ms\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 104 modules transformed.\nrendering chunks...\nout/preload/index.js  197.95 kB\n\n✓ built in 26ms\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 2101 modules transformed.\nrendering chunks...\nout/renderer/index.html                   0.64 kB\nout/renderer/assets/index-CzAptGSB.css   14.60 kB\nout/renderer/assets/index-Uc6fzMwt.js   507.92 kB\n\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n✓ built in 241ms\n[WebServer] (node:8079) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (node:8094) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:\n[WebServer]   - ESM syntax in a file loaded as CommonJS (vite.renderer.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\n[WebServer]   - ESM syntax in a file loaded as CommonJS (electron.vite.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\n[WebServer] Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.\n\nRunning 5 tests using 1 worker\n\n(node:8101) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n  ✓  1 tests/e2e/feedback.spec.ts:8:1 › desktop feedback floats above content and recovers through the notification action (2.6s)\n  ✓  2 tests/e2e/quote-agent.spec.ts:9:1 › desktop settings and HTTP adapter support inquiry plus two saved revisions, differences, failures and reopen (4.3s)\n  ✓  3 tests/e2e/quote-v1.spec.ts:11:1 › real desktop imports CSV with confirmation, saves deterministic V1 and reopens frozen evidence (2.8s)\n  ✓  4 tests/e2e/workspace.spec.ts:8:1 › development renderer runs with React refresh and the real desktop bridge (916ms)\n  ✓  5 tests/e2e/workspace.spec.ts:33:1 › real desktop persists workspace, validates IPC, handles conflict and reopens (3.4s)\n\n  5 passed (15.7s)\n"
+    },
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs .",
+      "startedAt": "2026-10-21T05:34:27.605153+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"generate\",\n  \"files\": 140,\n  \"lines\": 39153,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n"
+    },
+    {
+      "command": "pnpm check",
+      "startedAt": "2026-10-21T05:34:27.749586+00:00",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 check <project>\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 77 files in 33ms. No fixes applied.\nTAP version 13\n# Subtest: renderer cannot reach Node, database or desktop internals through import forms\nok 1 - renderer cannot reach Node, database or desktop internals through import forms\n  ---\n  duration_ms: 9.824042\n  type: 'test'\n  ...\n# Subtest: pure modules use public contracts while other platform dependencies are rejected\nok 2 - pure modules use public contracts while other platform dependencies are rejected\n  ---\n  duration_ms: 2.852583\n  type: 'test'\n  ...\n# Subtest: domain permits exact pure decimal dependency without opening contracts or SDK imports\nok 3 - domain permits exact pure decimal dependency without opening contracts or SDK imports\n  ---\n  duration_ms: 0.59\n  type: 'test'\n  ...\n# Subtest: committed icon resources match their source manifest\nok 4 - committed icon resources match their source manifest\n  ---\n  duration_ms: 2.072875\n  type: 'test'\n  ...\n# Subtest: editing either SVG or packaged icon without generation blocks the build\nok 5 - editing either SVG or packaged icon without generation blocks the build\n  ---\n  duration_ms: 6.481417\n  type: 'test'\n  ...\n# Subtest: macOS native process and runtime display TradeQuote while upstream Electron stays intact\nok 6 - macOS native process and runtime display TradeQuote while upstream Electron stays intact\n  ---\n  duration_ms: 530.303666\n  type: 'test'\n  ...\n1..6\n# tests 6\n# suites 0\n# pass 6\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 593.3245\nModule boundaries passed\n\n> tradequote-agent@0.1.0 wiki:check <project>\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 140,\n  \"lines\": 39153,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 66,\n  \"semantic\": 50,\n  \"reachable\": 66\n}\n"
+    },
+    {
+      "command": "pnpm wiki:test",
+      "startedAt": "2026-10-21T05:34:29.684391+00:00",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:test <project>\n> node --test wiki-project/scripts/wiki-tools.test.mjs wiki-project/scripts/wiki-sync.test.mjs\n\nTAP version 13\n# Subtest: runtime version pin is a mandatory Wiki-synchronized configuration change\nok 1 - runtime version pin is a mandatory Wiki-synchronized configuration change\n  ---\n  duration_ms: 1.474084\n  type: 'test'\n  ...\n# Subtest: code with related knowledge, task and appended log passes\nok 2 - code with related knowledge, task and appended log passes\n  ---\n  duration_ms: 0.329791\n  type: 'test'\n  ...\n# Subtest: generated snapshots alone cannot satisfy knowledge/task/log changes\nok 3 - generated snapshots alone cannot satisfy knowledge/task/log changes\n  ---\n  duration_ms: 0.095792\n  type: 'test'\n  ...\n# Subtest: metadata-only or whitespace-only edits cannot satisfy semantic update\nok 4 - metadata-only or whitespace-only edits cannot satisfy semantic update\n  ---\n  duration_ms: 0.110917\n  type: 'test'\n  ...\n# Subtest: each source needs its own mapped knowledge, unrelated pages do not suffice\nok 5 - each source needs its own mapped knowledge, unrelated pages do not suffice\n  ---\n  duration_ms: 0.186167\n  type: 'test'\n  ...\n# Subtest: deleted source uses baseline mapping; unknown source fails\nok 6 - deleted source uses baseline mapping; unknown source fails\n  ---\n  duration_ms: 0.203208\n  type: 'test'\n  ...\n# Subtest: history rewrite and removed task do not pass\nok 7 - history rewrite and removed task do not pass\n  ---\n  duration_ms: 0.089583\n  type: 'test'\n  ...\n# Subtest: Wiki maintenance code requires workflow knowledge, not generated data\nok 8 - Wiki maintenance code requires workflow knowledge, not generated data\n  ---\n  duration_ms: 0.075583\n  type: 'test'\n  ...\n# Subtest: ordinary documentation-only edits do not trigger code delivery check\nok 9 - ordinary documentation-only edits do not trigger code delivery check\n  ---\n  duration_ms: 0.327666\n  type: 'test'\n  ...\n# Subtest: real Git baseline includes committed, unstaged and untracked sources\nok 10 - real Git baseline includes committed, unstaged and untracked sources\n  ---\n  duration_ms: 226.390333\n  type: 'test'\n  ...\n# Subtest: SVG assets require semantic Wiki, task and append-only log changes\nok 11 - SVG assets require semantic Wiki, task and append-only log changes\n  ---\n  duration_ms: 0.137834\n  type: 'test'\n  ...\n# Subtest: same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\nok 12 - same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\n  ---\n  duration_ms: 913.554959\n  type: 'test'\n  ...\n# Subtest: source drift fails without writes; generation repairs snapshot while preserving ingest baseline\nok 13 - source drift fails without writes; generation repairs snapshot while preserving ingest baseline\n  ---\n  duration_ms: 761.197625\n  type: 'test'\n  ...\n# Subtest: explicit ingest records a non-Git project honestly\nok 14 - explicit ingest records a non-Git project honestly\n  ---\n  duration_ms: 354.033792\n  type: 'test'\n  ...\n# Subtest: tool inventory names come from definitions, not nested headers/output/schema fields\nok 15 - tool inventory names come from definitions, not nested headers/output/schema fields\n  ---\n  duration_ms: 185.890083\n  type: 'test'\n  ...\n# Subtest: new unclassified source fails; missing knowledge target and stale mapping fail\nok 16 - new unclassified source fails; missing knowledge target and stale mapping fail\n  ---\n  duration_ms: 326.477541\n  type: 'test'\n  ...\n# Subtest: generated coverage tampering is detected by lint and remains untouched\nok 17 - generated coverage tampering is detected by lint and remains untouched\n  ---\n  duration_ms: 304.544833\n  type: 'test'\n  ...\n# Subtest: sensitive filename is excluded before read; external source symlink is not followed\nok 18 - sensitive filename is excluded before read; external source symlink is not followed\n  ---\n  duration_ms: 190.596833\n  type: 'test'\n  ...\n# Subtest: Wiki and generated-output symlinks cannot write outside project\nok 19 - Wiki and generated-output symlinks cannot write outside project\n  ---\n  duration_ms: 224.969875\n  type: 'test'\n  ...\n# Subtest: missing schema field\nok 20 - missing schema field\n  ---\n  duration_ms: 284.8955\n  type: 'test'\n  ...\n# Subtest: bad type\nok 21 - bad type\n  ---\n  duration_ms: 306.52975\n  type: 'test'\n  ...\n# Subtest: bad date\nok 22 - bad date\n  ---\n  duration_ms: 286.16775\n  type: 'test'\n  ...\n# Subtest: bad status\nok 23 - bad status\n  ---\n  duration_ms: 292.11575\n  type: 'test'\n  ...\n# Subtest: missing wiki target\nok 24 - missing wiki target\n  ---\n  duration_ms: 291.169875\n  type: 'test'\n  ...\n# Subtest: missing markdown target\nok 25 - missing markdown target\n  ---\n  duration_ms: 290.56325\n  type: 'test'\n  ...\n# Subtest: invalid source line\nok 26 - invalid source line\n  ---\n  duration_ms: 330.83575\n  type: 'test'\n  ...\n# Subtest: verified without code evidence\nok 27 - verified without code evidence\n  ---\n  duration_ms: 289.266875\n  type: 'test'\n  ...\n# Subtest: source escaping project\nok 28 - source escaping project\n  ---\n  duration_ms: 301.652875\n  type: 'test'\n  ...\n# Subtest: unfilled placeholder\nok 29 - unfilled placeholder\n  ---\n  duration_ms: 300.136167\n  type: 'test'\n  ...\n# Subtest: all sources are validated even after a valid implementation source\nok 30 - all sources are validated even after a valid implementation source\n  ---\n  duration_ms: 298.766459\n  type: 'test'\n  ...\n# Subtest: orphan pages and duplicate basenames are rejected\nok 31 - orphan pages and duplicate basenames are rejected\n  ---\n  duration_ms: 538.520708\n  type: 'test'\n  ...\n# Subtest: completed task requires actual verification record\nok 32 - completed task requires actual verification record\n  ---\n  duration_ms: 303.124958\n  type: 'test'\n  ...\n# Subtest: archived source cannot bypass inspection through silent changes\nok 33 - archived source cannot bypass inspection through silent changes\n  ---\n  duration_ms: 282.51425\n  type: 'test'\n  ...\n# Subtest: source references cannot open excluded runtime data\nok 34 - source references cannot open excluded runtime data\n  ---\n  duration_ms: 290.55425\n  type: 'test'\n  ...\n# Subtest: new JSON evidence is checked and sensitive Wiki filenames are rejected before read\nok 35 - new JSON evidence is checked and sensitive Wiki filenames are rejected before read\n  ---\n  duration_ms: 420.09925\n  type: 'test'\n  ...\n# Subtest: secret/JWT/private-key/PII detections redact the value in diagnostics\nok 36 - secret/JWT/private-key/PII detections redact the value in diagnostics\n  ---\n  duration_ms: 946.223417\n  type: 'test'\n  ...\n1..36\n# tests 36\n# suites 0\n# pass 36\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 9379.233084\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base b69c4e50060a54e656017c2b17c4bb04e836630e",
+      "startedAt": "2026-10-21T05:34:39.338468+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"b69c4e50060a54e656017c2b17c4bb04e836630e\",\n  \"status\": \"passed\",\n  \"codeFiles\": 50,\n  \"knowledgePages\": 27,\n  \"tasks\": 5,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "git diff --check",
+      "startedAt": "2026-10-21T05:34:39.635335+00:00",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "command": "git diff --cached --check",
+      "startedAt": "2026-10-21T05:34:39.656004+00:00",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs .",
+      "phase": "final-doc-status",
+      "startedAt": "2026-10-21T05:35:29.856083+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"generate\",\n  \"files\": 140,\n  \"lines\": 39153,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "phase": "final-doc-status",
+      "startedAt": "2026-10-21T05:35:30.021529+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 140,\n  \"lines\": 39153,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "phase": "final-doc-status",
+      "startedAt": "2026-10-21T05:35:30.148580+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 66,\n  \"semantic\": 50,\n  \"reachable\": 66\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base b69c4e50060a54e656017c2b17c4bb04e836630e",
+      "phase": "final-doc-status",
+      "startedAt": "2026-10-21T05:35:30.396486+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"b69c4e50060a54e656017c2b17c4bb04e836630e\",\n  \"status\": \"passed\",\n  \"codeFiles\": 50,\n  \"knowledgePages\": 27,\n  \"tasks\": 5,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "git diff --check",
+      "phase": "final-doc-status",
+      "startedAt": "2026-10-21T05:35:30.768259+00:00",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "command": "git diff --cached --check",
+      "phase": "final-doc-status",
+      "startedAt": "2026-10-21T05:35:30.793188+00:00",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs .",
+      "phase": "final-doc-status",
+      "startedAt": "2026-10-21T05:36:12.193008+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"generate\",\n  \"files\": 140,\n  \"lines\": 39153,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "phase": "final-doc-status",
+      "startedAt": "2026-10-21T05:36:12.319189+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 140,\n  \"lines\": 39153,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "phase": "final-doc-status",
+      "startedAt": "2026-10-21T05:36:12.432082+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 66,\n  \"semantic\": 50,\n  \"reachable\": 66\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base b69c4e50060a54e656017c2b17c4bb04e836630e",
+      "phase": "final-doc-status",
+      "startedAt": "2026-10-21T05:36:12.652543+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"b69c4e50060a54e656017c2b17c4bb04e836630e\",\n  \"status\": \"passed\",\n  \"codeFiles\": 50,\n  \"knowledgePages\": 27,\n  \"tasks\": 5,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "git diff --check",
+      "phase": "final-doc-status",
+      "startedAt": "2026-10-21T05:36:12.927532+00:00",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "command": "git diff --cached --check",
+      "phase": "final-doc-status",
+      "startedAt": "2026-10-21T05:36:12.946935+00:00",
+      "exitCode": 0,
+      "output": ""
+    }
+  ]
+}

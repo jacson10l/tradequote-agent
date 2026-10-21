@@ -32,3 +32,17 @@ test("pure modules use public contracts while other platform dependencies are re
     inspectImports("packages/contracts/src/x.ts", "import '@tradequote/domain'").length > 0,
   );
 });
+
+test("domain permits exact pure decimal dependency without opening contracts or SDK imports", () => {
+  assert.deepEqual(
+    inspectImports("packages/domain/src/pricing.ts", "import Decimal from 'decimal.js'"),
+    [],
+  );
+  for (const [file, source] of [
+    ["packages/contracts/src/x.ts", "import Decimal from 'decimal.js'"],
+    ["packages/domain/src/x.ts", "import 'decimal.js/internal'"],
+    ["packages/domain/src/x.ts", "import 'electron'"],
+    ["packages/domain/src/x.ts", "import 'openai'"],
+  ])
+    assert.ok(inspectImports(file, source).length > 0);
+});

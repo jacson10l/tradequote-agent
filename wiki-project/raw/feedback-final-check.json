@@ -1,0 +1,18 @@
+{
+  "status": "failed",
+  "date": "2026-10-21",
+  "base": "b69c4e50060a54e656017c2b17c4bb04e836630e",
+  "reason": "Concurrent source changes appeared after earlier successful checks; not authored by this feedback task.",
+  "checks": [
+    {
+      "command": "pnpm check",
+      "exitCode": 1,
+      "result": "Wiki read-only check: packages/contracts/src/agent.ts UNCOVERED_FILE"
+    },
+    {
+      "command": "pnpm wiki:sync --base b69c4e50060a54e656017c2b17c4bb04e836630e",
+      "exitCode": 1,
+      "result": "COVERAGE_MAPPING_REQUIRED: packages/contracts/src/agent.ts; packages/domain/src/revision.ts"
+    }
+  ]
+}

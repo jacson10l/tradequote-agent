@@ -1,9 +1,10 @@
 import { randomUUID } from "node:crypto";
 import {
-  type Command,
   failure,
+  type ModelCredentials,
+  type RuntimeCommand,
+  type RuntimeResult,
   WorkerReplySchema,
-  type WorkspaceResult,
 } from "@tradequote/contracts";
 import { type UtilityProcess, utilityProcess } from "electron";
 
@@ -12,10 +13,10 @@ export class BusinessWorker {
   private exited = false;
   private readonly pending = new Map<
     string,
-    { resolve: (result: WorkspaceResult) => void; timer: ReturnType<typeof setTimeout> }
+    { resolve: (result: RuntimeResult) => void; timer: ReturnType<typeof setTimeout> }
   >();
-  constructor(entry: string, database: string) {
-    this.child = utilityProcess.fork(entry, [database], {
+  constructor(entry: string, database: string, fixture?: string) {
+    this.child = utilityProcess.fork(entry, [database, ...(fixture ? [fixture] : [])], {
       serviceName: "TradeQuote Business",
       stdio: "ignore",
     });
@@ -42,17 +43,20 @@ export class BusinessWorker {
     }
     this.pending.clear();
   }
-  request(command: Command): Promise<WorkspaceResult> {
+  request(command: RuntimeCommand, credentials?: ModelCredentials): Promise<RuntimeResult> {
     if (this.exited || this.pending.size >= 50)
       return Promise.resolve(failure("CAPABILITY_UNAVAILABLE", "业务进程暂不可用，请重试"));
     return new Promise((resolve) => {
       const id = randomUUID();
-      const timer = setTimeout(() => {
-        this.pending.delete(id);
-        resolve(failure("CAPABILITY_UNAVAILABLE", "保存结果未知，请重试同一操作或重新加载"));
-      }, 15000);
+      const timer = setTimeout(
+        () => {
+          this.pending.delete(id);
+          resolve(failure("CAPABILITY_UNAVAILABLE", "保存结果未知，请重试同一操作或重新加载"));
+        },
+        command.method.startsWith("agent.") ? 60000 : 15000,
+      );
       this.pending.set(id, { resolve, timer });
-      this.child.postMessage({ id, command });
+      this.child.postMessage({ id, command, ...(credentials ? { credentials } : {}) });
     });
   }
   close() {
