@@ -1,0 +1,263 @@
+{
+  "_comment": "A01a knowledge fixtures as KnowledgeDraftInput[] per origin/codex/b00-first-batch-contracts packages/contracts/src/knowledge.ts. SYNTHETIC fake rules for engine tests only, never real compliance claims. sources/*.txt are the verbatim originals inlined as sourceText with text location. Field gaps needing B00 schema extension are listed in _pendingB00Extensions.",
+  "fixturesVersion": "a01b-contract-aligned-2026-10-21",
+  "synthetic": true,
+  "drafts": [
+    {
+      "documentId": "11111111-1111-4111-8111-111111111101",
+      "expectedVersion": 0,
+      "content": {
+        "title": "付款条款完整性（合成正例）",
+        "scope": {
+          "platforms": [
+            "alibaba_intl_rfq",
+            "amazon_listing"
+          ],
+          "markets": [
+            "DE",
+            "US"
+          ],
+          "categories": [
+            "apparel-tshirt",
+            "desk-lamp",
+            "stainless-bottle"
+          ]
+        },
+        "sourceStatus": "synthetic",
+        "sourceLabel": "合成测试来源：付款比例拆分说明",
+        "sourceText": "报价单中的预付与尾款比例相加必须等于100%。本条为合成测试规则，不对应任何真实合同条款。",
+        "location": {
+          "kind": "text",
+          "start": 0,
+          "end": 45
+        },
+        "rules": [
+          {
+            "ruleId": "22222222-2222-4222-8222-222222222201",
+            "category": "commercial_terms",
+            "title": "预付与尾款比例合计须为100%",
+            "message": "预付与尾款比例相加不等于100%时判定合同条款错误。",
+            "suggestedAction": "修正付款比例使合计等于100%后重新提交。",
+            "field": "payment",
+            "condition": {
+              "kind": "required"
+            },
+            "failureSeverity": "block"
+          }
+        ]
+      }
+    },
+    {
+      "documentId": "11111111-1111-4111-8111-111111111102",
+      "expectedVersion": 0,
+      "content": {
+        "title": "贸易术语范围（合成反例）",
+        "scope": {
+          "platforms": [
+            "alibaba_intl_rfq"
+          ],
+          "markets": [
+            "DE"
+          ],
+          "categories": [
+            "apparel-tshirt"
+          ]
+        },
+        "sourceStatus": "synthetic",
+        "sourceLabel": "合成测试来源：术语与付款边界反例说明",
+        "sourceText": "贸易术语仅界定交货风险与费用划分，不自动确定付款时间与所有权转移。本条为合成测试反例说明。",
+        "location": {
+          "kind": "text",
+          "start": 0,
+          "end": 45
+        },
+        "rules": [
+          {
+            "ruleId": "22222222-2222-4222-8222-222222222202",
+            "category": "commercial_terms",
+            "title": "禁止宣称贸易术语已涵盖付款安排",
+            "message": "文案出现FOB已包含付款时间与所有权安排的表述即为错误；术语不覆盖付款与所有权。",
+            "suggestedAction": "删除该表述，单独约定付款时间与所有权转移。",
+            "field": "payment",
+            "condition": {
+              "kind": "forbidden_literal",
+              "literal": "FOB已包含付款时间"
+            },
+            "failureSeverity": "block"
+          }
+        ]
+      }
+    },
+    {
+      "documentId": "11111111-1111-4111-8111-111111111103",
+      "expectedVersion": 0,
+      "content": {
+        "title": "报价有效期与币种（合成正例）",
+        "scope": {
+          "platforms": [
+            "alibaba_intl_rfq",
+            "amazon_listing"
+          ],
+          "markets": [
+            "DE",
+            "US"
+          ],
+          "categories": [
+            "desk-lamp",
+            "stainless-bottle"
+          ]
+        },
+        "sourceStatus": "synthetic",
+        "sourceLabel": "合成测试来源：有效期币种完整性",
+        "sourceText": "对外报价须明确有效期与币种，缺失字段应阻断提交。本条为合成测试规则。",
+        "location": {
+          "kind": "text",
+          "start": 0,
+          "end": 34
+        },
+        "rules": [
+          {
+            "ruleId": "22222222-2222-4222-8222-222222222203",
+            "category": "commercial_terms",
+            "title": "报价须含有效期与币种",
+            "message": "对外报价缺少有效期或币种时判定不完整。",
+            "suggestedAction": "补充有效期天数与币种字段。",
+            "field": "payment",
+            "condition": {
+              "kind": "required"
+            },
+            "failureSeverity": "block"
+          }
+        ]
+      }
+    },
+    {
+      "documentId": "11111111-1111-4111-8111-111111111104",
+      "expectedVersion": 0,
+      "content": {
+        "title": "RFQ交期承诺（合成反例）",
+        "scope": {
+          "platforms": [
+            "alibaba_intl_rfq"
+          ],
+          "markets": [
+            "DE",
+            "US"
+          ],
+          "categories": [
+            "apparel-tshirt"
+          ]
+        },
+        "sourceStatus": "synthetic",
+        "sourceLabel": "合成测试来源：RFQ回复风格",
+        "sourceText": "RFQ首轮回复应短先回答买家问题再列出待确认澄清项。本条为合成平台风格测试规则。",
+        "location": {
+          "kind": "text",
+          "start": 0,
+          "end": 40
+        },
+        "rules": [
+          {
+            "ruleId": "22222222-2222-4222-8222-222222222204",
+            "category": "platform_guidance",
+            "title": "禁止无依据承诺交期",
+            "message": "RFQ回复出现保证按期交付而供货未确认时告警。",
+            "suggestedAction": "改为待采购确认的表述并创建采购确认任务。",
+            "field": "delivery",
+            "condition": {
+              "kind": "forbidden_literal",
+              "literal": "保证按期交付"
+            },
+            "failureSeverity": "warning"
+          }
+        ]
+      }
+    },
+    {
+      "documentId": "11111111-1111-4111-8111-111111111105",
+      "expectedVersion": 0,
+      "content": {
+        "title": "Listing夸大词（合成反例）",
+        "scope": {
+          "platforms": [
+            "amazon_listing"
+          ],
+          "markets": [
+            "US"
+          ],
+          "categories": [
+            "stainless-bottle"
+          ]
+        },
+        "sourceStatus": "synthetic",
+        "sourceLabel": "合成测试来源：Listing标题风格反例",
+        "sourceText": "标题不应堆砌关键词或使用无依据夸大词。本条为合成平台反例测试规则。",
+        "location": {
+          "kind": "text",
+          "start": 0,
+          "end": 33
+        },
+        "rules": [
+          {
+            "ruleId": "22222222-2222-4222-8222-222222222205",
+            "category": "platform_guidance",
+            "title": "禁止无依据夸大词",
+            "message": "标题出现best quality cheapest等无实证断言词时告警。",
+            "suggestedAction": "删除断言词或补充可核对依据。",
+            "field": "payment",
+            "condition": {
+              "kind": "forbidden_literal",
+              "literal": "best quality cheapest"
+            },
+            "failureSeverity": "warning"
+          }
+        ]
+      }
+    },
+    {
+      "documentId": "11111111-1111-4111-8111-111111111106",
+      "expectedVersion": 0,
+      "content": {
+        "title": "保温杯交期确认（合成正例）",
+        "scope": {
+          "platforms": [
+            "amazon_listing",
+            "alibaba_intl_rfq"
+          ],
+          "markets": [
+            "DE",
+            "US"
+          ],
+          "categories": [
+            "stainless-bottle"
+          ]
+        },
+        "sourceStatus": "synthetic",
+        "sourceLabel": "合成测试来源：品类交期承诺需确认依据",
+        "sourceText": "保温杯类目应标注容量数值与计量单位。本条为合成品类测试规则。",
+        "location": {
+          "kind": "text",
+          "start": 0,
+          "end": 30
+        },
+        "rules": [
+          {
+            "ruleId": "22222222-2222-4222-8222-222222222206",
+            "category": "commercial_terms",
+            "title": "交期承诺须有供货确认",
+            "message": "对外承诺发货期前须存在已确认的供货交期。",
+            "suggestedAction": "获取供应商确认或标注待确认。",
+            "field": "delivery",
+            "condition": {
+              "kind": "required"
+            },
+            "failureSeverity": "block"
+          }
+        ]
+      }
+    }
+  ],
+  "_pendingB00Extensions": [
+    "RuleDefinition.field enum is payment|delivery only; fibre-composition check (src-terms-fibre-conflict) and lamp electrical-spec check (src-platform-lamp-spec) need either a new field enum value (e.g. product_attributes) or stay text-only knowledge without executable rule. Raised for B per contracts change process; these two source files are kept unreferenced until resolved."
+  ]
+}
