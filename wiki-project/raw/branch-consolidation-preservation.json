@@ -1,0 +1,60 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "command": "compare raw non-generated blobs against 4e8c663",
+      "exitCode": 0,
+      "files": 42,
+      "mismatches": []
+    },
+    {
+      "command": "preserve historical nonempty log lines from 4e8c663",
+      "exitCode": 0,
+      "missingLines": 0
+    },
+    {
+      "command": "compare raw non-generated blobs against 1819d9d",
+      "exitCode": 0,
+      "files": 43,
+      "mismatches": []
+    },
+    {
+      "command": "preserve historical nonempty log lines from 1819d9d",
+      "exitCode": 0,
+      "missingLines": 0
+    },
+    {
+      "command": "compare raw non-generated blobs against 68455a3",
+      "exitCode": 0,
+      "files": 48,
+      "mismatches": []
+    },
+    {
+      "command": "preserve historical nonempty log lines from 68455a3",
+      "exitCode": 0,
+      "missingLines": 0
+    },
+    {
+      "command": "compare raw non-generated blobs against 2db64b4",
+      "exitCode": 0,
+      "files": 50,
+      "mismatches": []
+    },
+    {
+      "command": "preserve historical nonempty log lines from 2db64b4",
+      "exitCode": 0,
+      "missingLines": 0
+    },
+    {
+      "command": "compare raw non-generated blobs against a0a30a6",
+      "exitCode": 0,
+      "files": 40,
+      "mismatches": []
+    },
+    {
+      "command": "preserve historical nonempty log lines from a0a30a6",
+      "exitCode": 0,
+      "missingLines": 0
+    }
+  ]
+}

@@ -1,42 +1,13 @@
 # 当前上下文
 
-- 最新要求：A01升级为业务LLM Wiki，工程wiki-project与workspace业务资料隔离；版本化Markdown、AI候选、人工审核发布、检索引用、持续维护均为验收。读 [[A业务LLMWiki方案]]、[[A01-知识发布与来源查询]]。
-- 本次方案补齐已完成，生成/check/lint/sync与语法/差异检查通过（raw/a01-wiki-plan-validation.json）；仅方案/任务/验收编辑，在codex/a01-llm-wiki-plan，基线4e8c663；源码仍为B00规则切片。[[B00知识契约差距与补充]]列出P0/P1，[[B00a-业务Wiki契约补充]]待开工；不能把B00通过当完整业务Wiki通过。
-- 下一步：B00评审→B00a P0→A01a/b/c；B00a P1→C知识执行＋A01d/e。C原报价恢复、A样本、B纯规则可继续；未合入分支不是其他成员已取得的共同基线。本轮用户已授权将方案提交并推送至codex/a01-llm-wiki-plan；交付提交以该分支Git记录为准，不自动合入。
-
-- 本轮B00验证：55项单元、5项实际Electron、6项工程、36项Wiki、类型/构建/check/lint/sync全部通过；证据raw/b00-validation.json，首次fixture类型和桌面桥接名单失败保留，不声称真实模型/Windows验收。
-- 交付入口：[B00 PR #1](https://github.com/jacson10l/tradequote-agent/pull/1)，代码提交e71442d127edeb9a62a9a0cd5a127ee0ae2898be已推送codex/b00-first-batch-contracts并核对远端；后续仅文档补记。目标codex/m1-foundation，等待A/C评审，不自动合并。
-- 最新：[[B00-首批公共契约]] 在独立codex/b00-first-batch-contracts实现三组schema/端口/公共导出、mock与客户端未接入门禁；taskBase=45a9975506030170bcb8dc770919b7cb5de89fa6。A/C评审与集成合入待执行，A01/B01/C01服务未实现；本分支不改变数据库或原业务白名单。
-
-- 当前任务：[[C01b-存储与恢复准备]]已完成文档验收，分支codex/c01b-storage-plan，taskBase45a9975506030170bcb8dc770919b7cb5de89fa6；只有文档准备，无源码/迁移变更。读 [[C01b存储接口与事务方案]]、[[C01b恢复测试用例]]；方案/ADR仍draft待AB确认，C01整体active。
-- 已核对远端：B00 PR#1/4e8c663、C01a PR#2/68455a3均OPEN，C01a复核2db64b4已推送；这些未进入本分支共同基线。C已由用户领取，不能把下方交接初期的“均draft/新接口未实现”当作所有分支当前状态。
-- 新依赖：B确认并交付clarification/list/控制幂等；A确认迁移4→run5实际编号、缺前驱拒绝与单连接提交入口。C本次准备20组恢复测试，全部未运行；后续依赖合入后另开codex/c01b-run-persistence。不代签AB评审，不自动推送或合并。
-
-- 已完成交接准备：[[2026-10-21-三人并行交接准备]]。用户已授权本轮准备完成后提交并推送；本批共同起点/PR目标codex/m1-foundation，准备开始基线b69c4e50060a54e656017c2b17c4bb04e836630e。代码基线58b462ee9c9d096c480d331036f51ae2bcfa87f6已推送并核对远端一致，证据raw/parallel-handoff-git.json；后续补记为纯文档提交，成员从远端最新头部开分支。
-- 立即读 [[三人并行开发交接]]、[[首批并行接口约定]]；A领取 [[A01-知识发布与来源查询]]，B先B00契约再 [[B01-规则检查与双反馈]]，C领取 [[C01-Agent运行恢复与集成]]。A01/B01/C01仍draft；B00代码已在独立分支实施，实际A/C评审未登记。
-
-- 本次在codex/c01a-verification独立目录复核已有C分支68455a3，沿用原代码；B00 C两轴评审无阻断项，澄清内容持久化仍待B/C确定。复验见 [[C01a-状态机与取消基础]]；原C分支未修改，PR未自动合并。
-
-- 最新用户阶段决定：先完成需求开发，默认macOS优先，当前Windows验证跳过/后置，不阻塞开发和PR合入。Windows仍未验证，跨平台目标保留；Actions保持关闭，macOS本机检查、P0与非作者复审继续。PR#2当前只待非作者技术复审，未合并。见 [[0014-macOS优先与Windows验收后置]]。
-
-- 最新用户决定：不使用GitHub Actions或云端自动测试；macOS由本人、Windows由Windows开发者本机验收。仓库Actions已关闭回读enabled=false，C分支移除engineering/wiki workflow；本机pnpm/Wiki门禁保持，PR#2待技术复审不合并，不再等待账单/云端CI恢复。详见 [[0013-本机双平台验收停用Actions]]、[[C01a-本机验收与停用Actions]]。Windows本机结果尚未执行/收到，不代签。
-
-- C01a PR#2评审P2已复现并修复：Executor保留Provider已归因TradeFault，补实际Provider＋Executor两种顺序测试；本次起点b05f2e8，详见 [[C运行恢复实现]]。原51项本机通过证据保留；新增完整复验53项单测/5项Electron/36项Wiki、type/build/check/lint与两基线sync均通过，见raw/c01a-p2-validation.json。
-- 远端run39571473237为startup_failure/0job/0check；已登录GitHub Annotations确认账户付款失败或支出限额问题，见raw/c01a-ci-startup.json。这是当时导致CI阻塞的事实；随后用户已选择停用Actions，不再要求处理Billing & plans或重跑CI。C01a保持active待技术复审/本机适用平台记录；旧账单证据不改写。
-
-- C01已由用户分配给本次Codex，独立worktree/分支codex/c01-agent-recovery，taskBase45a9975506030170bcb8dc770919b7cb5de89fa6。C01a新增纯状态机、进程内取消/AbortSignal与提交边界；51项单测和5项实际Electron回归通过，工程check/36项Wiki回归/生成只读检查/lint/基线同步通过，证据见 [[C01a-状态机与取消基础]]。该基础子切片初次本机验收曾记done，现因评审/远端CI恢复active；C01整体active，run落库/重启/正式IPC/UI尚未实现。
-- B00已在独立分支推送至4e8c663；C侧技术评审两轴无阻断项，复跑typecheck/55项单测通过，见 [[B00-C接口评审]]。A实际评审与共同分支合入尚未确认，不能把现C分支当已接入新契约。waiting_input澄清文字的保存/重开查询待B/C明确；知识AI候选Markdown另等B00a，不阻塞报价恢复。
-
-- 已完成交接准备：[[2026-10-21-三人并行交接准备]]。用户已授权本轮准备完成后提交并推送；本批共同起点/PR目标codex/m1-foundation，准备开始基线b69c4e50060a54e656017c2b17c4bb04e836630e。代码基线58b462ee9c9d096c480d331036f51ae2bcfa87f6已推送并核对远端一致，证据raw/parallel-handoff-git.json；后续补记为纯文档提交，成员从远端最新头部开分支。
-- 立即读 [[三人并行开发交接]]、[[首批并行接口约定]]；A领取 [[A01-知识发布与来源查询]]，B先B00契约再 [[B01-规则检查与双反馈]]，C领取 [[C01-Agent运行恢复与集成]]。交接准备时任务均draft；本轮C已领取/登记环境，B00已在其分支实现待合入，A/B其余进展不由C代签。
-- 成员各自独立clone/worktree、各开任务分支：codex/a01-knowledge-publish、codex/b00-first-batch-contracts、codex/b01-rules-feedback、codex/c01-agent-recovery。禁止在main/集成分支直接做成员功能；小PR合入集成分支。
-- B维护公共契约；A维护迁移/存储导出（知识迁移4，run预留5，其他编号协调）；C维护Main/preload/worker/App接线与公共UI/构建。A/B自写业务feature页面和Wiki。新代码按独立模块新增，避免三人同时扩写trade-store/quotes大文件。
-- 原规则切片等B00合入；新版业务Wiki等B00a对应P0/P1合入后再接依赖类型。A可先做三品类/来源样本，C可先真实模型验证与运行状态机；B检查核心先用合成published规则，完整联调换A真实查询。取消/重试的完成/提交竞态有独立验收，不依赖规则服务。
-- 已实现 [[M2真实报价V1]]：场景版本、固定UTF-8 CSV预览/人工发布、价目表档位、同币种同单位/decimal计算、不可变V1与重开；商品合计不含运税费。已发布SKU覆盖、四格式/知识检索/第二定价未实现。
-- 已实现 [[M4模型与报价修订]]：Main safeStorage正式设置、worker有界DeepSeek JSON adapter、询盘理解/三类字段修改V2V3、对话与差异。正式HTTPS固定，测试替身仅未打包且隔离目录的环回端点；真实DeepSeek未验收。全部报价draft，审批禁用。
-- 迁移1～3保留：quote_revision/agent_turn追加，不改V1原文；版本/对话/outbox/幂等同事务、提交前复核base。成功结果重开可回放；UI未提交操作键/失败对话/待决run不持久化，C01负责补齐。旧九类TypedPatch仅契约基础，不等于当前三个操作之外都已可执行。
-- 上轮真实本机验证：42项Vitest、5项Electron、6项工程、36项Wiki、type/build/check/lint/sync通过，raw/agent-validation.json；所有模型请求用合成HTTP和Key，不能算真实供应商/Windows通过。本次交接复验同样全部通过，记录raw/parallel-handoff-validation.json；不替成员新代码验收。
-- 历史覆盖失败已解决并保留raw/feedback-final-check.json与任务记录；开发名称/统一反馈改动保留共同交接，不再把当时active误写当前阻塞。原raw来源与旧失败记录不可删除。
-- 剩余：真实供应商评估/运行恢复；平台文化profile、知识与两类规则双反馈；英德产出/审批PDF；备份、稳定五次演示、Windows/最终签名安装和远端保护。最后安装按用户既有决定暂缓，真实Key仅在应用输入，不读真实凭据文件。
-- 赛事口径：两种语言或两类角色/场景二选一，不要求两个电商平台，批量鼓励/多岗位可选；差异表不能替代规则校验反馈。真实业务/规则适用性与T00成员评审仍待确认。
-- P0：每位代码作者同分支同步语义知识/任务/追加log/coverage/生成检查，维护工具改动补回归；验证真实通过才done。不得把协作任务当自动派生子Agent授权。
+- 当前收口任务：[[2026-10-21-分支收口与集成验收]]、[[分支收口与共同基线]]。用户已明确授权提交推送、完成技术评审、合入符合条件的成果及清理临时分支；整合分支codex/branch-consolidation，taskBase45a9975506030170bcb8dc770919b7cb5de89fa6，共同目标codex/m1-foundation。远端交付与清理结果以任务和Git记录为准。
+- 已在本地共同候选基线汇合B00/4e8c663、A01方案/1819d9d、C01a/68455a3、独立复核/2db64b4、C01b准备/a0a30a6。B00/C01a两名独立Agent分别完成Standards与Spec复核，两分支各轴均无阻断项；这是用户授权的技术复核，不冒充人类A/C签字，T00团队业务验收仍未完成。
+- 组合代码已重新通过typecheck、66项单元和含构建的5项真实Electron回归；后续工程/Wiki检查见raw/branch-consolidation-validation.json。raw非生成证据与各来源逐文件字节一致，历史日志非空行全部保留，见raw/branch-consolidation-preservation.json。旧单分支失败/通过证据保留原作用域。
+- B00只有知识/检查/run契约、mock与明确不可用门禁；新业务IPC仍未开启。C01a只有纯状态机与进程内取消，Provider/Executor保持首个错误归因，提交后不撤销完成事实；无run表、新取消UI或重启恢复。
+- A01业务LLM Wiki按[[A业务LLMWiki方案]]区分工程/业务知识；原件与Markdown版本、AI候选、人工审核发布、检索引用、持续维护为A-W01～10验收。[[B00a-业务Wiki契约补充]] P0/P1仍待开发，原B00不代表完整业务Wiki已就绪。
+- [[C01b-存储与恢复准备]]文档已完成并推送a0a30a6，[[C01b存储接口与事务方案]]/[[C01b恢复测试用例]]仍为草案，20组恢复用例未运行。下一步B补clarification/list/控制重放口径，A确认迁移前驱和同连接提交入口，C再从更新共同分支开codex/c01b-run-persistence。
+- 迁移仅1～3已实现，知识4/run5仍是A维护的预留，不能跳过前驱/填空迁移。金额确定性计算、decimal跨边界、未知非零、报价/对话/幂等/outbox事务与旧快照不可变规则保持。
+- A远端codex/a01-knowledge-publish/544ea51目前仅9个合成fixture文件，尚无同步Wiki，未纳入本次；不替A补签验收。A/B/C任务分支保留，已合入临时方案/验证分支才清理，其他聊天工作树不改。
+- 当前策略：macOS本机需求开发优先，Windows/最终签名安装后置且未验收；按用户决定不使用Actions，保留本机检查与P0。真实DeepSeek未评估，HTTP替身不能算供应商通过。旧CI账单失败是历史，不要求恢复云端CI。
+- 正式应用已有工作区、场景/CSV发布、价目表手工V1、模型设置/受限询盘修订V2/V3与差异。完整知识库、两类规则双反馈、审批/双语产出/PDF、稳定演示与双平台仍未完成。
+- 赛事口径：两种语言或两类角色/场景二选一，不要求两个平台；批量鼓励、多岗位可选；差异表不替代规则反馈。P0要求每位作者同步知识/任务/log/覆盖/真实检查，不把Wiki补写转给其他成员。

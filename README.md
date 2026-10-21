@@ -66,7 +66,7 @@ pnpm wiki:test
 | B | 公共契约、两类规则检查、风险标记＋文本批注 | 先codex/b00-first-batch-contracts，再codex/b01-rules-feedback；[B任务](wiki-project/wiki/tasks/B01-规则检查与双反馈.md) |
 | C | DeepSeek评估、Agent取消/中断/重试、桌面集成 | codex/c01-agent-recovery；[C01任务](wiki-project/wiki/tasks/C01-Agent运行恢复与集成.md) |
 
-开工命令、公共文件边界、依赖和验收见 [交接入口](wiki-project/wiki/三人并行开发交接.md)，新接口定义见 [首批接口约定](wiki-project/wiki/首批并行接口约定.md)。[B00公共契约](wiki-project/wiki/tasks/B00-首批公共契约.md)已在独立分支实现，知识/检查/run服务仍待开发。A/C先审阅接口并继续样本/模型与状态机工作，依赖新DTO的代码等B00评审合入共同分支；正式客户端目前明确返回能力未接入，不伪造成功。
+开工命令、公共文件边界、依赖和验收见 [交接入口](wiki-project/wiki/三人并行开发交接.md)，新接口定义见 [首批接口约定](wiki-project/wiki/首批并行接口约定.md)。[B00公共契约](wiki-project/wiki/tasks/B00-首批公共契约.md)和C01a进程内状态机已完成独立技术复核并纳入本次收口，A01知识库方案与C01b存储准备一并保留。交付状态见[分支收口记录](wiki-project/wiki/分支收口与共同基线.md)。知识/检查/run正式服务仍待开发，客户端明确返回能力未接入；下一步先补B的澄清内容和运行列表契约、A的迁移及同连接事务入口，再实现C01b持久化恢复。
 
 ## 从这里开工
 

@@ -233,3 +233,10 @@ B00代码提交e71442d127edeb9a62a9a0cd5a127ee0ae2898be已推送并核对远端�
 设计明确queued不写旧报价成功缓存、执行票据隔离、控制重放不派发、quote/turn/run/outbox/幂等同事务、崩溃不自动计费。B待确认澄清正文与重开list，A待确认迁移实际编号/缺前驱校验/同连接提交入口。业务实现和恢复用例均未执行，不代签；本次仅文档门禁，结果记录raw/c01b-plan-validation.json。旧日志/验证证据不改写，未提交推送或合并。
 
 准备验收补记：generate/只读check/lint/45a9975基线sync/git diff --check全部退出0，140纳管源码不变、77篇Markdown/61篇语义页可达、codeFiles=0。首次type/ADR章节检查失败保留raw/c01b-plan-initial-validation.json，修正正文后通过，不调整门禁。准备任务done，接口/ADR仍draft，C01整体active；R01～R20未运行，不将文档校验充当恢复测试通过。
+
+
+## 2026-10-21 分支收口与组合验证
+
+按用户授权先提交推送C01b准备文档a0a30a6，再整合B00 4e8c663、A01方案1819d9d、C01a 68455a3、复核2db64b4和C01b原历史。两个独立技术评审分别按工程规范与需求符合性检查B00/C01a，均无阻断发现；不代签T00或人工业务验收。Wiki覆盖取有效源码并集后重新生成清单；历史raw非生成文件逐字节核对、log旧非空行检查均无丢失。新增[[分支收口与共同基线]]与[[2026-10-21-分支收口与集成验收]]，同步README、CONTEXT、状态、公共接口和受影响任务。
+
+组合验证实际通过typecheck、16文件66单元测试、5项真实Electron端到端测试（合成本地HTTP模型）。完整门禁记录见raw/branch-consolidation-validation.json，历史保存证据见raw/branch-consolidation-preservation.json。Windows、真实DeepSeek和C01b运行持久化未验证。远端交付和清理结果在完成后追加；A fixture分支缺Wiki排除，旧名称非祖先分支保留。
