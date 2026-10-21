@@ -1,6 +1,7 @@
 # 当前上下文
 
 - 本轮B00验证：55项单元、5项实际Electron、6项工程、36项Wiki、类型/构建/check/lint/sync全部通过；证据raw/b00-validation.json，首次fixture类型和桌面桥接名单失败保留，不声称真实模型/Windows验收。
+- 交付入口：[B00 PR #1](https://github.com/jacson10l/tradequote-agent/pull/1)，代码提交e71442d127edeb9a62a9a0cd5a127ee0ae2898be已推送codex/b00-first-batch-contracts并核对远端；后续仅文档补记。目标codex/m1-foundation，等待A/C评审，不自动合并。
 - 最新：[[B00-首批公共契约]] 在独立codex/b00-first-batch-contracts实现三组schema/端口/公共导出、mock与客户端未接入门禁；taskBase=45a9975506030170bcb8dc770919b7cb5de89fa6。A/C评审与集成合入待执行，A01/B01/C01服务未实现；本分支不改变数据库或原业务白名单。
 
 - 已完成交接准备：[[2026-10-21-三人并行交接准备]]。用户已授权本轮准备完成后提交并推送；本批共同起点/PR目标codex/m1-foundation，准备开始基线b69c4e50060a54e656017c2b17c4bb04e836630e。代码基线58b462ee9c9d096c480d331036f51ae2bcfa87f6已推送并核对远端一致，证据raw/parallel-handoff-git.json；后续补记为纯文档提交，成员从远端最新头部开分支。

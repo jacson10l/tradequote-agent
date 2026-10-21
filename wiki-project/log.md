@@ -169,3 +169,5 @@ README/AGENTS/CONTRIBUTING、开发步骤、状态与CONTEXT同步。恢复摘�
 按用户要求在独立worktree和codex/b00-first-batch-contracts分支，从45a9975506030170bcb8dc770919b7cb5de89fa6实施知识/检查/run严格schema、端口、公共导出与合成mock。preload仅增加不发IPC的未接入门禁和回归；无迁移、金额算法或依赖变更。初次测试类型错误保留raw/b00-initial-validation.json，修正后typecheck与55项单元通过；最终验证另行补记。同步接口页、任务/ADR、A/B/C接入说明、M1语义、状态/CONTEXT、导航与源码覆盖。A/C签字及合入待完成，见 [[B00-首批公共契约]]。
 
 B00最终复验raw/b00-validation.json全部通过：typecheck、55项单元、构建＋5项实际Electron、6项工程、36项Wiki、生成/只读check/lint、45a9975基线sync、Git差异检查。首次Electron白名单漏新增方法已同步并补实际未接入断言，raw/b00-e2e-initial-validation.json保留。实现与本地验证完成，A/C评审和合入待执行。
+
+B00代码提交e71442d127edeb9a62a9a0cd5a127ee0ae2898be已推送并核对远端一致，创建[PR #1](https://github.com/jacson10l/tradequote-agent/pull/1)，目标codex/m1-foundation。连接器404后本机gh创建成功，证据raw/b00-delivery.json。A/C评审和合入仍待执行；补记仅文档，代码/测试结果保持。
