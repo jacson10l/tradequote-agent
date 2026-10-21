@@ -3,6 +3,17 @@ import { type AgentClient, AgentCommandSchema, ModelCredentialsSchema } from "./
 export * from "./agent";
 
 import { z } from "zod";
+import type { CheckClient } from "./checks";
+import type { KnowledgeClient } from "./knowledge";
+import { IssueSchema } from "./protocol";
+import type { RunClient } from "./runs";
+
+export * from "./checks";
+export * from "./knowledge";
+export { unavailableFirstBatchClient } from "./pending-client";
+export { FailureSchema, IssueSchema, PublicErrorSchema } from "./protocol";
+export * from "./runs";
+
 import { ErrorCodeSchema } from "./errors";
 import { type TradeClient, TradeCommandSchema, TradeResultSchema } from "./trade";
 
@@ -32,14 +43,6 @@ export const CommandSchema = z.discriminatedUnion("method", [
 export type Command = z.infer<typeof CommandSchema>;
 export type CreateWorkspace = Extract<Command, { method: "workspace.create" }>;
 export type RenameWorkspace = Extract<Command, { method: "workspace.rename" }>;
-export const IssueSchema = z.strictObject({
-  code: z.string(),
-  fieldPath: z.string().optional(),
-  severity: z.enum(["info", "warning", "block", "pending"]),
-  message: z.string(),
-  evidenceIds: z.array(z.string()),
-  suggestedAction: z.string().optional(),
-});
 export const ResultSchema = z.discriminatedUnion("ok", [
   z.strictObject({
     ok: z.literal(true),
@@ -78,7 +81,12 @@ export function failure(
 export function success(data: Workspace | null): WorkspaceResult {
   return { ok: true, data, warnings: [], evidenceIds: [] };
 }
-export interface DesktopClient extends TradeClient, AgentClient {
+export interface DesktopClient
+  extends TradeClient,
+    AgentClient,
+    KnowledgeClient,
+    CheckClient,
+    RunClient {
   getWorkspace(): Promise<WorkspaceResult>;
   createWorkspace(command: CreateWorkspace): Promise<WorkspaceResult>;
   renameWorkspace(command: RenameWorkspace): Promise<WorkspaceResult>;

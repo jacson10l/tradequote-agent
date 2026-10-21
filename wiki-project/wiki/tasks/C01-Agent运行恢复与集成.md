@@ -25,6 +25,8 @@ C01a先复验正式设置/真实模型两轮（有权限Key才执行），同时
 
 ## 接口与依赖
 
+B00现有RunClient/AgentRun与10个新方法的未接入门禁可审阅；C后续按模块扩展Runtime/Worker白名单并接真实服务，不直接把门禁替换为假成功。 B00评审/验证见 [[B00-首批公共契约]]。
+
 B00提供AgentRun和新增agent.start/get/cancel/retry协议，保留现有understand/revise兼容；A统一存储导出和迁移，run预留迁移5，落库前合入A的迁移4。状态机/Provider AbortSignal可先独立实现，不能假造A已完成。
 
 A/B业务端口成熟后才加接线；C不写另一份规则算法或知识查询，也不要求A/B等待自己的真实模型效果。运行记录不含credentials，读取模型设置仍由Main承担。

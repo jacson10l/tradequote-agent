@@ -1,0 +1,15 @@
+{
+  "status": "failed",
+  "checks": [
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 1,
+      "output": "preload/contracts.test.ts: schemaVersion inferred as number; checks.test.ts and knowledge.test.ts: array element possibly undefined. Fixed fixture literal inference and guarded element access; no application implementation failure."
+    },
+    {
+      "command": "pnpm wiki:check",
+      "exitCode": 1,
+      "output": "ADR required headings missing: 替代方案/后果/回滚方式. Split and renamed headings without removing decision content."
+    }
+  ]
+}

@@ -9,6 +9,7 @@ import {
   ResultSchema,
   TradeCommandSchema,
   TradeResultSchema,
+  unavailableFirstBatchClient,
 } from "@tradequote/contracts";
 import { contextBridge, ipcRenderer } from "electron";
 
@@ -40,6 +41,7 @@ async function invokeAgent(input: unknown) {
   }
 }
 const client: DesktopClient = {
+  ...unavailableFirstBatchClient,
   understandInquiry: (command) => invokeAgent({ ...command, method: "agent.understand" }),
   reviseQuote: (command) => invokeAgent({ ...command, method: "agent.revise" }),
   modelSettings: async (command) => {

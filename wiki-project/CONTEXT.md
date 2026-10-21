@@ -1,7 +1,10 @@
 # 当前上下文
 
+- 本轮B00验证：55项单元、5项实际Electron、6项工程、36项Wiki、类型/构建/check/lint/sync全部通过；证据raw/b00-validation.json，首次fixture类型和桌面桥接名单失败保留，不声称真实模型/Windows验收。
+- 最新：[[B00-首批公共契约]] 在独立codex/b00-first-batch-contracts实现三组schema/端口/公共导出、mock与客户端未接入门禁；taskBase=45a9975506030170bcb8dc770919b7cb5de89fa6。A/C评审与集成合入待执行，A01/B01/C01服务未实现；本分支不改变数据库或原业务白名单。
+
 - 已完成交接准备：[[2026-10-21-三人并行交接准备]]。用户已授权本轮准备完成后提交并推送；本批共同起点/PR目标codex/m1-foundation，准备开始基线b69c4e50060a54e656017c2b17c4bb04e836630e。代码基线58b462ee9c9d096c480d331036f51ae2bcfa87f6已推送并核对远端一致，证据raw/parallel-handoff-git.json；后续补记为纯文档提交，成员从远端最新头部开分支。
-- 立即读 [[三人并行开发交接]]、[[首批并行接口约定]]；A领取 [[A01-知识发布与来源查询]]，B先B00契约再 [[B01-规则检查与双反馈]]，C领取 [[C01-Agent运行恢复与集成]]。任务均draft，实际成员姓名/评审/环境尚未登记；新接口尚未实现。
+- 立即读 [[三人并行开发交接]]、[[首批并行接口约定]]；A领取 [[A01-知识发布与来源查询]]，B先B00契约再 [[B01-规则检查与双反馈]]，C领取 [[C01-Agent运行恢复与集成]]。A01/B01/C01仍draft；B00代码已在独立分支实施，实际A/C评审未登记。
 - 成员各自独立clone/worktree、各开任务分支：codex/a01-knowledge-publish、codex/b00-first-batch-contracts、codex/b01-rules-feedback、codex/c01-agent-recovery。禁止在main/集成分支直接做成员功能；小PR合入集成分支。
 - B维护公共契约；A维护迁移/存储导出（知识迁移4，run预留5，其他编号协调）；C维护Main/preload/worker/App接线与公共UI/构建。A/B自写业务feature页面和Wiki。新代码按独立模块新增，避免三人同时扩写trade-store/quotes大文件。
 - B00先合新契约再接依赖类型。A可先做三品类/来源样本，C可先真实模型验证与运行状态机；B检查核心先用合成published规则，完整联调换A真实查询。取消/重试的完成/提交竞态有独立验收，不依赖规则服务。

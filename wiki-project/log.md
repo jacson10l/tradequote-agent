@@ -162,3 +162,10 @@ README/AGENTS/CONTRIBUTING、开发步骤、状态与CONTEXT同步。恢复摘�
 ## 2026-10-21 三人交接复验与推送完成
 
 本次重新执行离线冻结安装、typecheck、42项单元、构建＋5项Electron、6项工程、36项Wiki回归、只读清单/lint/基线sync及差异检查，全部通过；证据raw/parallel-handoff-validation.json。代码与交接共同提交58b462ee9c9d096c480d331036f51ae2bcfa87f6已推送codex/m1-foundation，ls-remote与本地SHA一致；raw/parallel-handoff-git.json保留首次HTTP 400与单次调整传输参数后成功记录。没有改远端main。交接准备done，A01/B00/B01/C01仍待成员领取、评审和实施；真实模型/Windows未验收。后续仅补记本条状态并通过文档门禁。
+
+
+## 2026-10-21 B00首批公共契约
+
+按用户要求在独立worktree和codex/b00-first-batch-contracts分支，从45a9975506030170bcb8dc770919b7cb5de89fa6实施知识/检查/run严格schema、端口、公共导出与合成mock。preload仅增加不发IPC的未接入门禁和回归；无迁移、金额算法或依赖变更。初次测试类型错误保留raw/b00-initial-validation.json，修正后typecheck与55项单元通过；最终验证另行补记。同步接口页、任务/ADR、A/B/C接入说明、M1语义、状态/CONTEXT、导航与源码覆盖。A/C签字及合入待完成，见 [[B00-首批公共契约]]。
+
+B00最终复验raw/b00-validation.json全部通过：typecheck、55项单元、构建＋5项实际Electron、6项工程、36项Wiki、生成/只读check/lint、45a9975基线sync、Git差异检查。首次Electron白名单漏新增方法已同步并补实际未接入断言，raw/b00-e2e-initial-validation.json保留。实现与本地验证完成，A/C评审和合入待执行。

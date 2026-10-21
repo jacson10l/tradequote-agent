@@ -92,21 +92,67 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
       })),
     ).toEqual({
       bridge: [
+        "cancelAgentRun",
+        "checkQuote",
         "createQuoteV1",
         "createWorkspace",
+        "getAgentRun",
+        "getKnowledgeRevision",
+        "getQuoteChecks",
         "getTrade",
         "getWorkspace",
         "modelSettings",
         "pickCatalogCsv",
         "publishCatalog",
+        "publishKnowledge",
+        "queryKnowledge",
         "renameWorkspace",
+        "retryAgentRun",
         "reviseQuote",
         "saveScenario",
         "stageCatalog",
+        "stageKnowledge",
+        "startAgentRun",
         "understandInquiry",
       ],
       node: "undefined",
     });
+    const pendingCapabilities = await page.evaluate(async () => {
+      const read = { schemaVersion: 1 as const, requestId: crypto.randomUUID() };
+      const write = { ...read, idempotencyKey: crypto.randomUUID() };
+      return Promise.all([
+        window.tradequote.queryKnowledge({
+          ...read,
+          method: "knowledge.query",
+          payload: {
+            scope: { platform: "RFQ", market: "Brazil", category: "板材" },
+            at: "2026-10-21T00:00:00.000Z",
+          },
+        }),
+        window.tradequote.checkQuote({
+          ...write,
+          method: "quote.check",
+          payload: { revisionId: crypto.randomUUID() },
+        }),
+        window.tradequote.startAgentRun({
+          ...write,
+          method: "agent.start",
+          payload: {
+            method: "agent.understand",
+            payload: {
+              scenarioId: crypto.randomUUID(),
+              buyer: "合成测试",
+              inquiry: "仅验证未接入门禁",
+            },
+          },
+        }),
+      ]);
+    });
+    for (const result of pendingCapabilities)
+      expect(result).toMatchObject({
+        ok: false,
+        error: { code: "CAPABILITY_UNAVAILABLE", retryable: false },
+      });
     // Exercise the same public bridge from a second operation while the form is stale.
     const external = await page.evaluate(async () =>
       window.tradequote.renameWorkspace({

@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "5d9f102e4e2ae7cdc98cb36126baf86247832a21868275f88b7b1d4a28e8d71e",
+    "wiki-config.json": "698a7d6269a1caf0a930d02b477fd9c8372c181160cd8e53887222a8d57d6dd1",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -118,8 +118,8 @@
       "path": "README.md",
       "type": "md",
       "lines": 100,
-      "bytes": 8581,
-      "sha256": "598322bacb1da9ccbc2f81b2601261e6b1b45bd80028a26270eaae94f8a677be",
+      "bytes": 8741,
+      "sha256": "6c8cffee37c59cdaa590c8dd446738a76b5c263bc59466b7c525d24cf99b2106",
       "role": "项目入口与协作约束",
       "pages": [
         "wiki/项目状态.md",
@@ -230,11 +230,23 @@
       ]
     },
     {
+      "path": "apps/desktop/src/preload/contracts.test.ts",
+      "type": "ts",
+      "lines": 115,
+      "bytes": 4411,
+      "sha256": "3f492cb7d84ea74d7a08e203657e4fb97c5380f668a602cef2be90b5a13da318",
+      "role": "B00 preload and mock capability gate without new IPC",
+      "pages": [
+        "wiki/首批并行接口约定.md",
+        "wiki/M1工程基线.md"
+      ]
+    },
+    {
       "path": "apps/desktop/src/preload/index.ts",
       "type": "ts",
-      "lines": 72,
-      "bytes": 3196,
-      "sha256": "3536260054167370002a8a41a34e7337d5a0ae85abf65398a33a1863034b6c8d",
+      "lines": 74,
+      "bytes": 3261,
+      "sha256": "c0b1eb4e4d0f2623d44cfe13b582e9623526089b6ef6cd7ecadd6112d9baa234",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md"
@@ -1085,6 +1097,28 @@
       ]
     },
     {
+      "path": "packages/contracts/src/checks.test.ts",
+      "type": "ts",
+      "lines": 179,
+      "bytes": 6002,
+      "sha256": "b24404f6158c2bcf6678872dd582048a95f72c4c3cdaada52dc14eddcd34234b",
+      "role": "B00 strict knowledge/check/run protocols and boundary regression",
+      "pages": [
+        "wiki/首批并行接口约定.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/checks.ts",
+      "type": "ts",
+      "lines": 136,
+      "bytes": 5101,
+      "sha256": "245b0d26cb04520502a886c080e0248a01b0c83e5635d47fd5c57cb2bb9ada61",
+      "role": "B00 strict knowledge/check/run protocols and boundary regression",
+      "pages": [
+        "wiki/首批并行接口约定.md"
+      ]
+    },
+    {
       "path": "packages/contracts/src/contracts.test.ts",
       "type": "ts",
       "lines": 55,
@@ -1131,23 +1165,67 @@
     {
       "path": "packages/contracts/src/index.ts",
       "type": "ts",
-      "lines": 124,
-      "bytes": 4302,
-      "sha256": "39d267d6c73823f4283369e616ecc8609753f76fdafe655209af20aaa4a16bcb",
+      "lines": 132,
+      "bytes": 4496,
+      "sha256": "b8489d4e657fb4c16f042c789daa9772b0107e429233c59ca1c3ee89d07a0ad8",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md"
       ]
     },
     {
+      "path": "packages/contracts/src/knowledge.test.ts",
+      "type": "ts",
+      "lines": 160,
+      "bytes": 6460,
+      "sha256": "f72bec14d85e47b55bf3e5417bf564c16e3a3b109563383b65762d4efcb3d232",
+      "role": "B00 strict knowledge/check/run protocols and boundary regression",
+      "pages": [
+        "wiki/首批并行接口约定.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/knowledge.ts",
+      "type": "ts",
+      "lines": 177,
+      "bytes": 6842,
+      "sha256": "be970620289068a323502ad19e6cc25c753273d951c7e590b2d07097254ff169",
+      "role": "B00 strict knowledge/check/run protocols and boundary regression",
+      "pages": [
+        "wiki/首批并行接口约定.md"
+      ]
+    },
+    {
       "path": "packages/contracts/src/mock.ts",
       "type": "ts",
-      "lines": 51,
-      "bytes": 2254,
-      "sha256": "b98f720eba7dbe2cb3dfd3e04865fe9c486e79b9ccd33fa1b51e1261169f58b3",
+      "lines": 146,
+      "bytes": 5276,
+      "sha256": "342dff1e47d5aac4cdd3b7bb87a91f171a5d760ed30f2a22e881730be7140a27",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/pending-client.ts",
+      "type": "ts",
+      "lines": 31,
+      "bytes": 1736,
+      "sha256": "159b71bd4d5e55fd52c480a2686cd59ded5398fc66eb133a35513bba6baf6496",
+      "role": "B00 strict knowledge/check/run protocols and boundary regression",
+      "pages": [
+        "wiki/首批并行接口约定.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/protocol.ts",
+      "type": "ts",
+      "lines": 20,
+      "bytes": 770,
+      "sha256": "fbc109ab817d98fc5f3a0d91340b06889d5bf996399e2bf1abe34e831fa4091b",
+      "role": "B00 strict knowledge/check/run protocols and boundary regression",
+      "pages": [
+        "wiki/首批并行接口约定.md"
       ]
     },
     {
@@ -1159,6 +1237,28 @@
       "role": "Strict shared value, patch, approval and event contract foundation",
       "pages": [
         "wiki/M1接口与持久化.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/runs.test.ts",
+      "type": "ts",
+      "lines": 110,
+      "bytes": 4397,
+      "sha256": "c677e714c750675855c7443af9aa7a4183eec1f44ce8097256ac11f23502925c",
+      "role": "B00 strict knowledge/check/run protocols and boundary regression",
+      "pages": [
+        "wiki/首批并行接口约定.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/runs.ts",
+      "type": "ts",
+      "lines": 68,
+      "bytes": 3102,
+      "sha256": "2ce637912077f4a3cafa8e36eab059b214d053666e00e69b832044bf32265f51",
+      "role": "B00 strict knowledge/check/run protocols and boundary regression",
+      "pages": [
+        "wiki/首批并行接口约定.md"
       ]
     },
     {
@@ -1603,9 +1703,9 @@
     {
       "path": "tests/e2e/workspace.spec.ts",
       "type": "ts",
-      "lines": 241,
-      "bytes": 10770,
-      "sha256": "73da738edfe701f39b7207654caa999a6b58d02342b09843c11a656ae89ee707",
+      "lines": 287,
+      "bytes": 12254,
+      "sha256": "e17de96e146e27dc79fe22e1bee346bf048f22055010d1d82862fbde2f889fb8",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md"

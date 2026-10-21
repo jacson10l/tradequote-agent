@@ -85,3 +85,8 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 本轮用户明确要求A/B/C独立分支，入口 [[三人并行开发交接]] 与 [[首批并行接口约定]]。README/AGENTS/CONTRIBUTING现统一共同起点、任务分支、公共文件协调和小PR流程。A01/B01/C01目前draft，领取人、taskBase和机器环境由本人填写；只有交接准备任务可在本轮实际验证后done，不能把计划接口写成已经部署。
 
 每位作者在自己的feature分支同步知识、任务、log和覆盖，不由C事后代写。并行冲突中保留双方语义和旧证据，coverage合并按文件取并集、raw/generated重新生成，CONTEXT只压缩当前状态而不删除历史任务/raw。执行sync时取实际任务起点或PR merge-base，不复用交接准备的旧SHA。具体记录 [[2026-10-21-三人并行交接准备]]。
+
+
+## B00契约覆盖
+
+本批新增knowledge/checks/runs、protocol/pending-client、三组契约测试和preload回归，映射到 [[首批并行接口约定]]；index/mock/preload同步原M1语义页。新增B00任务与0010决定及导航，生成清单后执行只读check/lint/sync，配置变更运行Wiki回归；不改工具实现。A/C业务任务仍draft，不因接口代码可导入而提前完成，见 [[B00-首批公共契约]]。
