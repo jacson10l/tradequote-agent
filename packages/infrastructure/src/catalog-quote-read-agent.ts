@@ -52,8 +52,7 @@ export class CatalogQuoteReadAgent {
     this.scope = scopeSchema.parse(scope);
   }
 
-  async run(instruction: string, cancellation?: AbortSignal) {
-    if (cancellation?.aborted) throw new TradeFault("CANCELLED", "只读任务已取消，未读取业务资料");
+  prepare() {
     const checkWorkspace = () => {
       const workspace = this.repository.read();
       if (!workspace) throw new TradeFault("NOT_FOUND", "请先创建工作区");
@@ -199,7 +198,7 @@ export class CatalogQuoteReadAgent {
             }),
         }),
       );
-    const outcome = await new ReadToolRuntime(this.provider, tools, this.limits, {
+    const hostContext = {
       workspaceId: this.scope.workspaceId,
       asOf,
       snapshot: "当前已发布业务快照；asOf为核价日期，不提供历史时点检索",
@@ -219,7 +218,18 @@ export class CatalogQuoteReadAgent {
         version: q.version,
       })),
       unavailableTools: ["search_knowledge", "validate_quote"],
-    }).run(instruction, cancellation);
+    };
+    return { tools, hostContext, observations, board };
+  }
+
+  async run(instruction: string, cancellation?: AbortSignal) {
+    if (cancellation?.aborted) throw new TradeFault("CANCELLED", "只读任务已取消，未读取业务资料");
+    const { tools, hostContext, observations } = this.prepare();
+    const asOf = this.scope.asOf;
+    const outcome = await new ReadToolRuntime(this.provider, tools, this.limits, hostContext).run(
+      instruction,
+      cancellation,
+    );
     return AgentReadDataSchema.parse({
       ...outcome,
       workspaceId: this.scope.workspaceId,

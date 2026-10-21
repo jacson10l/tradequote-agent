@@ -479,3 +479,69 @@ it("start and control effects are returned only after their transaction succeeds
   f.db.exec("DROP TRIGGER fail_control");
   expect(f.store.commitQuote(ticket, f.proposal, "fixture").status).toBe("completed");
 });
+
+it("upgrades a real v6 run/control/write-receipt database to v7 without rewriting old business or run bytes", () => {
+  const f = fixture(),
+    command = f.start(),
+    run = f.store.start(command).run,
+    ticket = f.claim(run.runId),
+    id = randomUUID();
+  f.store.prepareWrite(ticket, id, f.proposal, "synthetic-v6");
+  const done = f.store.commitWrite(ticket, id, f.proposal, "synthetic-v6");
+  f.store.control(f.control(run.runId, "agent.cancel"));
+  const path = `${f.file}.v6`;
+  let old = new Database(path);
+  cleanups.push(() => old.close());
+  migrate(old, migrations.slice(0, 6));
+  const tables = [
+    "workspace",
+    "scenario_revision",
+    "catalog_batch",
+    "catalog_product",
+    "quote_v1",
+    "quote_revision",
+    "agent_turn",
+    "idempotency",
+    "outbox",
+    "knowledge_revision",
+    "agent_run",
+    "agent_run_control",
+    "agent_write_call",
+  ];
+  const columns = new Map<string, string[]>();
+  for (const table of tables) {
+    const names = (old.prepare(`PRAGMA table_info(${table})`).all() as { name: string }[]).map(
+      (column) => column.name,
+    );
+    columns.set(table, names);
+    for (const row of f.db.prepare(`SELECT ${names.join(",")} FROM ${table}`).all() as Record<
+      string,
+      string | number | null
+    >[])
+      old
+        .prepare(
+          `INSERT INTO ${table} (${names.join(",")}) VALUES (${names.map(() => "?").join(",")})`,
+        )
+        .run(...names.map((name) => row[name]!));
+  }
+  const snapshot = () =>
+    JSON.stringify(
+      tables.map((table) =>
+        old.prepare(`SELECT ${columns.get(table)!.join(",")} FROM ${table} ORDER BY rowid`).all(),
+      ),
+    );
+  const before = snapshot();
+  expect(old.pragma("user_version", { simple: true })).toBe(6);
+  old.close();
+  old = new Database(path);
+  migrate(old);
+  migrate(old);
+  expect(old.pragma("user_version", { simple: true })).toBe(7);
+  expect(snapshot()).toBe(before);
+  const upgraded = new SqliteWorkspaceRepository(path);
+  try {
+    expect(upgraded.runStore().get(done.runId)).toEqual(done);
+  } finally {
+    upgraded.close();
+  }
+});

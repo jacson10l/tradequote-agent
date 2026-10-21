@@ -7,6 +7,7 @@ export const AgentCommandSchema = z.discriminatedUnion("method", [
     ...envelope,
     method: z.literal("agent.understand"),
     payload: z.strictObject({
+      executionMode: z.literal("tool_loop").optional(),
       scenarioId: z.uuid(),
       buyer: QuoteInputSchema.shape.buyer,
       inquiry: QuoteInputSchema.shape.inquiry,
@@ -16,6 +17,7 @@ export const AgentCommandSchema = z.discriminatedUnion("method", [
     ...envelope,
     method: z.literal("agent.revise"),
     payload: z.strictObject({
+      executionMode: z.literal("tool_loop").optional(),
       baseId: z.uuid(),
       expectedVersion: z.number().int().positive(),
       instruction: z.string().trim().min(1).max(8000),

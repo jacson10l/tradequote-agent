@@ -307,3 +307,13 @@ C02c存储前置验收收口：131单元、6既有真实Electron与build、6工�
 - 未推送/合入。完整多步C02c、知识规则、C03事件、真实DeepSeek、Windows/最终安装未验收；非作者与A/B复核不代签。
 
 C02c本轮收口：153单元、7真实Electron含build、6工程、36Wiki回归与typecheck、生成/只读check/lint、67c69c7/be53b98双基线sync、diff检查全部退出0，raw/c02c-runtime-validation.json记录实际环境和测试源码hash。70份历史raw与log完整前缀保留，10强杀点保留旧V1/V2/V3字节。初始失败及生成期间Wiki夹具漂移保留在initial-validation，稳定重跑通过，未修改维护工具。任务done限定受限协调/恢复/写账本；完整C02c和非作者复核仍未关闭，无推送。
+
+## 2026-10-22 C02c多步报价闭环
+
+- 独立codex/c02c-multistep-tools，taskBase4c09785、共同祖先be53b98。开工A=0f613b8，期间更新c6539e8，已fetch核对仅合并共同分支文档/演示，packages业务/迁移无变化；B仍4e8c663且只有检查契约。证据raw/c02c-multistep-dependencies.json，本轮补循环所需纯QuoteCheckService实现待B复核，不代签B01。
+- 接通真实商品/报价→确定性核价→A已发布适用规则→B00纯规则→候选修正→原子草稿写；宿主候选/校验ID与旧票据隔离，写事务重查资料/报价/来源。迁移7保存不可变步骤、写授权和真实revision报告；旧单次及只读四工具兼容，每run一版，无自动收费恢复。
+- 最初直接要求场景自由文本品类等于商品品类，误挡现有演示；修正为商品唯一实际品类的宿主查询/校验视图，保留原保存场景、拒绝混合实际品类。其余类型/fixture/严格预览投影失败保留raw/c02c-multistep-initial-validation.json。
+- 已通过188单元（含三品类两轮/未知金额、候选修正、旧授权/假金额/篡改、15个真实SIGKILL点和v6→v7字节保持）、8项真实Electron含build（多步V1/V2/V3、阻断来源、强杀重开零自动请求、显式retry）。Wiki与工程门禁继续收口，最终记录以新任务/raw为准。
+- 知识[[C02c多步报价工具闭环]]、任务[[C02c-多步报价工具闭环]]、决定[[0021-多步候选授权与规则校验]]已同步。未推送/合入；真实DeepSeek、Windows/安装、B01/B00a扩展、C03与非作者复核仍待。
+
+C02c多步闭环收口：188单元、8真实Electron含build、6工程、36Wiki回归、类型、生成/只读check/lint及4c09785/be53b98双基线同步全部退出0，见raw/c02c-multistep-validation.json。72份旧raw字节与log完整前缀保持。工程边界首次拒绝domain测试导入mock子路径，改本地纯夹具后复跑通过，不放宽门禁；失败记录保留。A最新c6539e8/B最新4e8c663已复核，A新头不含新packages接口/迁移；B01/B00a与人工复核不冒领完成。任务done仅限当前公开契约内的真实多步报价闭环，继续独立分支、无推送。

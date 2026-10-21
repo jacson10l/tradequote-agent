@@ -143,3 +143,62 @@ it("persists clarification only while waiting and bounds discovery across execut
     }).success,
   ).toBe(true);
 });
+
+it("opts into the full loop without changing legacy commands or accepting model-owned execution facts", () => {
+  const loop = {
+    ...start,
+    payload: {
+      ...start.payload,
+      payload: { ...start.payload.payload, executionMode: "tool_loop" },
+    },
+  };
+  expect(RunCommandSchema.safeParse(loop).success).toBe(true);
+  expect(WorkerRequestSchema.safeParse({ id: run.runId, command: loop }).success).toBe(true);
+  for (const extra of [
+    { prices: ["0"] },
+    { approved: true },
+    { validationId: run.runId },
+    { toolCallId: run.runId },
+    { workspaceId: run.runId },
+    { executionMode: "unrestricted" },
+  ])
+    expect(
+      RunCommandSchema.safeParse({
+        ...loop,
+        payload: { ...loop.payload, payload: { ...loop.payload.payload, ...extra } },
+      }).success,
+    ).toBe(false);
+  expect(AgentRunSchema.safeParse(run).success).toBe(true);
+});
+it("bounds and binds public tool progress to the current attempt", () => {
+  const step = {
+    toolCallId: run.runId,
+    attempt: 1,
+    ordinal: 1,
+    tool: "calculate_quote",
+    ok: true,
+    evidenceIds: [],
+    errorCode: null,
+  };
+  expect(AgentRunSchema.safeParse({ ...run, toolSteps: [step] }).success).toBe(true);
+  for (const patch of [
+    { attempt: 2 },
+    { ordinal: 2 },
+    { tool: "approve_quote" },
+    { ok: false },
+    { errorCode: "MODEL_TIMEOUT" },
+  ])
+    expect(AgentRunSchema.safeParse({ ...run, toolSteps: [{ ...step, ...patch }] }).success).toBe(
+      false,
+    );
+  expect(
+    AgentRunSchema.safeParse({
+      ...run,
+      toolSteps: Array.from({ length: 13 }, (_, i) => ({
+        ...step,
+        toolCallId: crypto.randomUUID(),
+        ordinal: i + 1,
+      })),
+    }).success,
+  ).toBe(false);
+});

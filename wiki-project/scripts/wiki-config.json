@@ -502,7 +502,8 @@
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     "apps/desktop/src/preload/index.ts": {
@@ -631,7 +632,8 @@
     "packages/domain/src/index.ts": {
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     "packages/infrastructure/package.json": {
@@ -657,7 +659,8 @@
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     "packages/infrastructure/src/schema.ts": {
@@ -901,7 +904,8 @@
     "packages/contracts/src/agent.ts": {
       "role": "模型设置与询盘受限修改严格契约",
       "pages": [
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     "packages/domain/src/revision.ts": {
@@ -965,7 +969,8 @@
       "role": "询盘两轮修订和真实版本差异",
       "pages": [
         "wiki/M4模型与报价修订.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     "tests/e2e/quote-agent.spec.ts": {
@@ -991,7 +996,8 @@
     "packages/contracts/src/runs.ts": {
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
-        "wiki/首批并行接口约定.md"
+        "wiki/首批并行接口约定.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     "packages/contracts/src/protocol.ts": {
@@ -1022,7 +1028,8 @@
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
         "wiki/首批并行接口约定.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     "apps/desktop/src/preload/contracts.test.ts": {
@@ -1049,14 +1056,16 @@
       "role": "C02a受限只读工具循环、预算取消与真实业务计算回归",
       "pages": [
         "wiki/双参考项目功能对照与C开发路线.md",
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     "packages/infrastructure/src/read-tool-runtime.test.ts": {
       "role": "C02a受限只读工具循环、预算取消与真实业务计算回归",
       "pages": [
         "wiki/双参考项目功能对照与C开发路线.md",
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     "tests/fixtures/knowledge/knowledge-drafts.a01a.json": {
@@ -1127,7 +1136,8 @@
       "role": "C02b真实商品报价只读适配、来源快照、范围核价与无写入回归",
       "pages": [
         "wiki/C02b商品与报价只读工具.md",
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     "packages/infrastructure/src/catalog-quote-read-agent.test.ts": {
@@ -1210,20 +1220,23 @@
       "role": "持久运行存储、票据、控制重放与同连接报价原子提交",
       "pages": [
         "wiki/C02c持久运行与写入前置.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     "packages/infrastructure/src/agent-run-store.test.ts": {
       "role": "真实SQLite运行恢复前置、故障回滚、版本凭据与升级回归",
       "pages": [
         "wiki/C02c持久运行与写入前置.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     "apps/desktop/src/renderer/src/features/agent-runs.tsx": {
       "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
       "pages": [
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     "packages/infrastructure/src/agent-run-coordinator.test.ts": {
@@ -1235,19 +1248,22 @@
     "packages/infrastructure/src/agent-run-coordinator.ts": {
       "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
       "pages": [
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     "packages/infrastructure/src/agent-run-recovery.test.ts": {
       "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
       "pages": [
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     "packages/infrastructure/src/testing/run-fixture.ts": {
       "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
       "pages": [
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     "packages/infrastructure/src/worker-ownership.ts": {
@@ -1265,7 +1281,8 @@
     "tests/fixtures/run-crash-child.ts": {
       "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
       "pages": [
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     "apps/desktop/src/renderer/src/features/agent-runs.test.tsx": {
@@ -1273,6 +1290,48 @@
       "pages": [
         "wiki/C02c统一运行与写账本.md",
         "wiki/M1验证与协作.md"
+      ]
+    },
+    "packages/domain/src/quote-checks.test.ts": {
+      "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
+      "pages": [
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    "packages/domain/src/quote-checks.ts": {
+      "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
+      "pages": [
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    "packages/infrastructure/src/quote-draft-plan.ts": {
+      "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
+      "pages": [
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    "packages/infrastructure/src/quote-tool-agent.test.ts": {
+      "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
+      "pages": [
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    "packages/infrastructure/src/quote-tool-agent.ts": {
+      "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
+      "pages": [
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    "tests/e2e/multistep-agent.spec.ts": {
+      "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
+      "pages": [
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    "tests/fixtures/multistep-seed.ts": {
+      "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
+      "pages": [
+        "wiki/C02c多步报价工具闭环.md"
       ]
     }
   }

@@ -16,7 +16,7 @@ import { expect, it, vi } from "vitest";
 import { z } from "zod";
 import { DeepSeekProvider, type ModelMessage } from "./deepseek";
 import { SqliteWorkspaceRepository } from "./index";
-import { defineReadTool, ReadToolRuntime } from "./read-tool-runtime";
+import { defineBusinessTool, defineReadTool, ReadToolRuntime } from "./read-tool-runtime";
 
 const call = { kind: "tool", name: "search_catalog", input: { query: "合成商品" } };
 const done = { kind: "complete", summary: "已读取合成商品，未保存报价" };
@@ -296,4 +296,19 @@ it("does not turn instruction-like tool data into a callable write tool", async 
     new ReadToolRuntime({ json }, [makeTool(execute)]).run("查询"),
   ).rejects.toMatchObject({ code: "ACTION_NOT_ALLOWED" });
   expect(execute).toHaveBeenCalledTimes(1);
+});
+
+it("read-only wrapper refuses a registered draft write tool before invoking the model or handler", () => {
+  const execute = vi.fn(async () => ({ ok: true as const }));
+  const write = defineBusinessTool({
+    name: "create_draft",
+    description: "synthetic",
+    inputSchema: z.strictObject({}),
+    outputSchema: z.strictObject({ ok: z.literal(true) }),
+    execute,
+  });
+  const json = vi.fn();
+  expect(() => new ReadToolRuntime({ json }, [write])).toThrow("工具未获允许");
+  expect(json).not.toHaveBeenCalled();
+  expect(execute).not.toHaveBeenCalled();
 });

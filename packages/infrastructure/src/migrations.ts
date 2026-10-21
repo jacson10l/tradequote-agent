@@ -102,6 +102,23 @@ CREATE TRIGGER agent_write_committed_no_update BEFORE UPDATE ON agent_write_call
 CREATE TRIGGER agent_write_no_delete BEFORE DELETE ON agent_write_call BEGIN SELECT RAISE(ABORT,'IMMUTABLE_WRITE_RECEIPT'); END;
 `,
   },
+  {
+    version: 7,
+    sql: `
+ALTER TABLE agent_write_call ADD COLUMN validation_json TEXT CHECK(validation_json IS NULL OR json_valid(validation_json));
+CREATE TABLE agent_tool_step (
+  run_id TEXT NOT NULL REFERENCES agent_run(run_id),
+  attempt INTEGER NOT NULL,
+  tool_call_id TEXT NOT NULL,
+  ordinal INTEGER NOT NULL,
+  data_json TEXT NOT NULL CHECK(json_valid(data_json)),
+  PRIMARY KEY(run_id,attempt,tool_call_id),
+  UNIQUE(run_id,attempt,ordinal)
+);
+CREATE TRIGGER agent_tool_step_no_update BEFORE UPDATE ON agent_tool_step BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END;
+CREATE TRIGGER agent_tool_step_no_delete BEFORE DELETE ON agent_tool_step BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END;
+`,
+  },
 ];
 export function migrate(db: Database.Database, steps = migrations) {
   // Validate the complete lineage before touching user_version or executing any DDL.

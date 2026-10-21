@@ -127,7 +127,9 @@ export class BusinessWorker {
         command.method === "agent.read"
           ? 135000
           : command.method === "agent.understand" || command.method === "agent.revise"
-            ? 60000
+            ? command.payload.executionMode === "tool_loop"
+              ? 135000
+              : 60000
             : 15000,
       );
       this.pending.set(id, { resolve, timer, readOnly: command.method === "agent.read" });

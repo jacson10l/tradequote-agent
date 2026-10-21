@@ -21,7 +21,10 @@ export function data(result: TradeResult) {
   if (!result.ok) throw new Error(result.error.message);
   return result.data;
 }
-export function runFixture(cleanups: (() => void)[]) {
+export function runFixture(
+  cleanups: (() => void)[],
+  options: { category?: string; sku?: string } = {},
+) {
   const dir = mkdtempSync(join(tmpdir(), "tradequote-run-"));
   cleanups.push(() => rmSync(dir, { recursive: true, force: true }));
   const file = join(dir, "workspace.sqlite");
@@ -36,7 +39,10 @@ export function runFixture(cleanups: (() => void)[]) {
       {
         ...common(),
         method: "scenario.save",
-        payload: { expectedVersion: 0, scenario: demoScenario },
+        payload: {
+          expectedVersion: 0,
+          scenario: { ...demoScenario, category: options.category ?? demoScenario.category },
+        },
       },
       context,
     ),
@@ -61,7 +67,7 @@ export function runFixture(cleanups: (() => void)[]) {
       },
       context,
     ),
-  ).products.find((p) => p.sku === "DEMO-TEE");
+  ).products.find((p) => p.sku === (options.sku ?? "DEMO-TEE"));
   if (!product) throw new Error("fixture");
   const db = new Database(file);
   cleanups.push(() => db.close());
@@ -74,7 +80,7 @@ export function runFixture(cleanups: (() => void)[]) {
     },
   });
   const proposal: Understanding = {
-    lines: [{ productId: product.id, quantity: "100", unit: "piece" }],
+    lines: [{ productId: product.id, quantity: "100", unit: product.unit }],
     payment: "",
     delivery: "",
     summary: "合成建议",

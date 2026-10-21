@@ -3,6 +3,8 @@ import {
   AgentCommandSchema,
   type AgentRun,
   AgentRunSchema,
+  type AgentToolStep,
+  AgentToolStepSchema,
   ClarificationSchema,
   failure,
   ModelCredentialsSchema,
@@ -18,6 +20,18 @@ import {
 import { TradeFault, transitionAgentRun } from "@tradequote/domain";
 import type Database from "better-sqlite3";
 import { z } from "zod";
+import { SqliteKnowledgeStore } from "./knowledge-store";
+import {
+  checkDraft,
+  checkedKnowledge,
+  type DraftAuthorization,
+  DraftAuthorizationSchema,
+  digest,
+  draftPlan,
+  knowledgeQuery,
+  knowledgeStamp,
+  semanticQuote,
+} from "./quote-draft-plan";
 import { TradeStore } from "./trade-store";
 
 export interface RunTicket {
@@ -83,9 +97,54 @@ export class AgentRunStore {
       this.trades.committedAgentRevision(run.command) !== run.committedRevisionId
     )
       throw new TradeFault("STORAGE_ERROR", "运行提交引用不一致");
+    if (run.toolSteps) {
+      const steps = (
+        this.db
+          .prepare(
+            "SELECT data_json FROM agent_tool_step WHERE run_id=? AND attempt=? ORDER BY ordinal",
+          )
+          .all(run.runId, run.attempt) as { data_json: string }[]
+      ).map((row) => AgentToolStepSchema.parse(JSON.parse(row.data_json)));
+      if (digest(steps) !== digest(run.toolSteps))
+        throw new TradeFault("STORAGE_ERROR", "运行步骤与工具账本不一致");
+    }
+    if (run.validation?.kind === "saved_revision") {
+      const receipt = this.db
+        .prepare(
+          "SELECT validation_json FROM agent_write_call WHERE run_id=? AND status='committed'",
+        )
+        .get(run.runId) as { validation_json: string | null } | undefined;
+      if (!receipt?.validation_json) throw new TradeFault("STORAGE_ERROR", "缺少已保存校验依据");
+      const proof = DraftAuthorizationSchema.parse(JSON.parse(receipt.validation_json));
+      const report = run.validation.report;
+      const knowledgeStore = new SqliteKnowledgeStore(this.db);
+      const knowledge = checkedKnowledge({
+        ok: true,
+        data: {
+          kind: "list",
+          revisions: report.ruleRevisionIds.map((id) => knowledgeStore.getRevision(id)),
+        },
+        warnings: [],
+        evidenceIds: [],
+      });
+      const board = this.trades.execute(
+        { schemaVersion: 1, requestId: randomUUID(), method: "trade.get" },
+        { actorId: "local-user", origin: "agent_tool" },
+      );
+      const quote = board.ok
+        ? board.data.quotes.find((quote) => quote.id === run.committedRevisionId)
+        : undefined;
+      if (
+        !quote ||
+        knowledgeStamp(knowledge) !== proof.knowledgeStamp ||
+        digest(semanticQuote(quote)) !== digest(semanticQuote(proof.calculated)) ||
+        digest(checkDraft(quote, knowledge, report.checkedAt, report.reportId)) !== digest(report)
+      )
+        throw new TradeFault("STORAGE_ERROR", "检查报告与已保存报价或来源不一致");
+    }
     return run;
   }
-  private event(run: AgentRun) {
+  private event(run: AgentRun, type = `agent.run.${run.status}`) {
     this.db
       .prepare(
         "INSERT INTO outbox(event_id,workspace_id,type,payload_json,context_json,created_at) VALUES (?,?,?,?,?,?)",
@@ -93,7 +152,7 @@ export class AgentRunStore {
       .run(
         randomUUID(),
         this.workspaceId(),
-        `agent.run.${run.status}`,
+        type,
         JSON.stringify({
           runId: run.runId,
           attempt: run.attempt,
@@ -104,7 +163,7 @@ export class AgentRunStore {
         run.updatedAt,
       );
   }
-  private save(run: AgentRun, ticket: RunTicket | null = null): AgentRun {
+  private save(run: AgentRun, ticket: RunTicket | null = null, eventType?: string): AgentRun {
     const checked = AgentRunSchema.parse(run);
     this.db
       .prepare(
@@ -123,7 +182,7 @@ export class AgentRunStore {
           "UPDATE agent_write_call SET status='abandoned' WHERE run_id=? AND status='prepared'",
         )
         .run(run.runId);
-    this.event(checked);
+    this.event(checked, eventType);
     return checked;
   }
   private now(run?: AgentRun) {
@@ -150,6 +209,9 @@ export class AgentRunStore {
         row.execution_id === ticket.executionId &&
         row.worker_session_id === ticket.workerSessionId,
     };
+  }
+  isCurrentExecution(ticket: RunTicket): boolean {
+    return this.transaction(() => this.current(ticket).matches);
   }
   get(runId: string): AgentRun {
     return this.transaction(() => this.decode(this.row(z.uuid().parse(runId))));
@@ -393,6 +455,7 @@ export class AgentRunStore {
           tool_name: string;
           revision_id: string | null;
           input_json: string;
+          validation_json: string | null;
         }
       | undefined;
   }
@@ -419,6 +482,153 @@ export class AgentRunStore {
         )
         .run(done.committedRevisionId, ticket.runId, toolCallId);
       return done;
+    });
+  }
+
+  recordToolStep(
+    ticket: RunTicket,
+    step: AgentToolStep,
+    validation?: NonNullable<AgentRun["validation"]>,
+  ): AgentRun {
+    return this.transaction(() => {
+      const current = this.current(ticket);
+      if (!current.matches) return current.run;
+      return this.appendToolStep(current.run, step, ticket, validation);
+    });
+  }
+  private appendToolStep(
+    run: AgentRun,
+    input: AgentToolStep,
+    ticket: RunTicket | null,
+    validation?: NonNullable<AgentRun["validation"]>,
+  ): AgentRun {
+    const step = AgentToolStepSchema.parse(input);
+    const prior = this.db
+      .prepare(
+        "SELECT data_json FROM agent_tool_step WHERE run_id=? AND attempt=? AND tool_call_id=?",
+      )
+      .get(run.runId, run.attempt, step.toolCallId) as { data_json: string } | undefined;
+    if (prior) {
+      if (prior.data_json !== JSON.stringify(step))
+        throw new TradeFault("IDEMPOTENCY_CONFLICT", "工具调用身份已用于其他步骤");
+      return run;
+    }
+    if (step.attempt !== run.attempt || step.ordinal !== (run.toolSteps?.length ?? 0) + 1)
+      throw new TradeFault("VALIDATION_ERROR", "工具步骤次序无效");
+    this.db
+      .prepare("INSERT INTO agent_tool_step VALUES (?,?,?,?,?)")
+      .run(run.runId, run.attempt, step.toolCallId, step.ordinal, JSON.stringify(step));
+    return this.save(
+      {
+        ...run,
+        toolSteps: [...(run.toolSteps ?? []), step],
+        ...(["calculate_quote", "search_knowledge"].includes(step.tool)
+          ? { validation: undefined }
+          : {}),
+        ...(validation ? { validation } : {}),
+        updatedAt: this.now(run),
+      },
+      ticket,
+      "agent.tool.completed",
+    );
+  }
+  prepareValidatedWrite(
+    ticket: RunTicket,
+    toolCallId: string,
+    proposal: Understanding | RevisionProposal,
+    model: string,
+    authorization: DraftAuthorization,
+  ) {
+    return this.transaction(() => {
+      const proof = DraftAuthorizationSchema.parse(authorization);
+      if (!this.prepareWrite(ticket, toolCallId, proposal, model)) return false;
+      const row = this.writeRow(ticket.runId, toolCallId);
+      if (!row) throw new TradeFault("STORAGE_ERROR", "写工具调用记录缺失");
+      const json = JSON.stringify(proof);
+      if (row.validation_json !== null && row.validation_json !== json)
+        throw new TradeFault("IDEMPOTENCY_CONFLICT", "写工具调用校验依据发生变化");
+      if (row.status === "committed") return true;
+      this.db
+        .prepare(
+          "UPDATE agent_write_call SET validation_json=? WHERE run_id=? AND tool_call_id=? AND status='prepared'",
+        )
+        .run(json, ticket.runId, toolCallId);
+      return true;
+    });
+  }
+  /** Recheck the live published facts and prices inside the same write transaction.
+   * No model value can substitute for these host-owned validation inputs. */
+  commitValidatedWrite(
+    ticket: RunTicket,
+    toolCallId: string,
+    proposal: Understanding | RevisionProposal,
+    model: string,
+    authorization: DraftAuthorization,
+  ): AgentRun {
+    return this.transaction(() => {
+      if (!this.prepareValidatedWrite(ticket, toolCallId, proposal, model, authorization))
+        return this.current(ticket).run;
+      const current = this.current(ticket);
+      if (!current.matches) return current.run;
+      const proof = DraftAuthorizationSchema.parse(authorization);
+      if (
+        proof.asOf !== proof.calculated.createdAt ||
+        proof.asOf.slice(0, 10) !== new Date().toISOString().slice(0, 10)
+      )
+        throw new TradeFault("SOURCE_EXPIRED", "核价日期已变化，请重新计算");
+      const result = this.trades.execute(
+        { schemaVersion: 1, requestId: randomUUID(), method: "trade.get" },
+        { actorId: "local-user", origin: "agent_tool" },
+      );
+      if (!result.ok) throw new TradeFault(result.error.code, result.error.message);
+      const planned = draftPlan(
+        result.data,
+        current.run.command,
+        proposal,
+        this.workspaceId(),
+        proof.asOf,
+        proof.calculated.id,
+      );
+      if (digest(semanticQuote(planned)) !== digest(semanticQuote(proof.calculated)))
+        throw new TradeFault("SOURCE_CONFLICT", "核价候选与当前资料不一致，请重新核价");
+      const at = this.now();
+      const knowledge = checkedKnowledge({
+        ok: true,
+        data: {
+          kind: "list",
+          revisions: new SqliteKnowledgeStore(this.db).findPublished(knowledgeQuery(planned, at)),
+        },
+        warnings: [],
+        evidenceIds: [],
+      });
+      if (knowledgeStamp(knowledge) !== proof.knowledgeStamp)
+        throw new TradeFault("SOURCE_CONFLICT", "适用知识版本已变化，请重新检索校验");
+      const checked = checkDraft(planned, knowledge, at);
+      if (checked.issues.some((issue) => issue.severity === "block"))
+        throw new TradeFault("RULE_BLOCKED", "候选仍有阻断规则问题，未保存");
+      const done = this.commitWrite(ticket, toolCallId, proposal, model);
+      const saved = this.trades.execute(
+        { schemaVersion: 1, requestId: randomUUID(), method: "trade.get" },
+        { actorId: "local-user", origin: "agent_tool" },
+      );
+      if (!saved.ok) throw new TradeFault(saved.error.code, saved.error.message);
+      const quote = saved.data.quotes.find((quote) => quote.id === done.committedRevisionId);
+      if (!quote || digest(semanticQuote(quote)) !== digest(semanticQuote(planned)))
+        throw new TradeFault("SOURCE_CONFLICT", "实际保存与已核价候选不一致");
+      return this.appendToolStep(
+        done,
+        {
+          toolCallId,
+          attempt: done.attempt,
+          ordinal: (done.toolSteps?.length ?? 0) + 1,
+          tool: done.command.method === "agent.understand" ? "create_draft" : "apply_patch",
+          ok: true,
+          errorCode: null,
+          evidenceIds: [quote.id],
+        },
+        null,
+        { kind: "saved_revision", report: checkDraft(quote, knowledge, at) },
+      );
     });
   }
   control(input: Extract<RunCommand, { method: "agent.cancel" | "agent.retry" }>): Effect {
@@ -459,6 +669,8 @@ export class AgentRunStore {
             attempt: run.attempt + (status === "queued" ? 1 : 0),
             error: null,
             clarification: null,
+            toolSteps: status === "queued" && run.toolSteps ? [] : run.toolSteps,
+            validation: status === "queued" ? undefined : run.validation,
             updatedAt: this.now(run),
           })
         : run;

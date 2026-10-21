@@ -1,5 +1,6 @@
 import {
   type AgentRun,
+  type AgentToolStep,
   type DesktopClient,
   type RunListQuery,
   type TradeResult,
@@ -17,6 +18,16 @@ const labels: Record<AgentRun["status"], string> = {
   interrupted: "已中断",
 };
 
+const toolLabels: Record<AgentToolStep["tool"], string> = {
+  search_catalog: "检索商品",
+  get_product_revisions: "读取商品资料",
+  get_quote: "读取报价",
+  search_knowledge: "读取适用知识",
+  calculate_quote: "核价",
+  validate_quote: "规则校验",
+  create_draft: "保存草稿",
+  apply_patch: "保存修订",
+};
 export function AgentRuns({
   client,
   onSaved,
@@ -132,7 +143,7 @@ export function AgentRuns({
       )}
       {!runs.length && <p>暂无运行记录。</p>}
       {runs.map((run) => (
-        <article className="basis space-y-2" key={run.runId} aria-label={`运行 ${run.runId}`}>
+        <article className="inset space-y-2" key={run.runId} aria-label={`运行 ${run.runId}`}>
           <p>
             {labels[run.status]} · 第 {run.attempt} 次尝试 ·{" "}
             {run.command.method === "agent.understand" ? "询盘理解" : "报价修订"}
@@ -145,6 +156,69 @@ export function AgentRuns({
           {run.clarification && <p>请补充：{run.clarification}</p>}
           {run.error && <p>{run.error.message}</p>}
           {run.committedRevisionId && <p>已保存草稿版本：{run.committedRevisionId}</p>}
+          {run.toolSteps && run.toolSteps.length > 0 && (
+            <details>
+              <summary>实际工具步骤（{run.toolSteps.length}）</summary>
+              <ol>
+                {run.toolSteps.map((step) => (
+                  <li key={step.toolCallId}>
+                    {step.ordinal} · {toolLabels[step.tool]} ·{" "}
+                    {step.ok ? "成功" : `失败：${step.errorCode}`}
+                  </li>
+                ))}
+              </ol>
+            </details>
+          )}
+          {run.validation && (
+            <details open>
+              <summary>
+                {run.validation.kind === "saved_revision"
+                  ? "已保存草稿检查（非审批）"
+                  : "核价预览检查（未保存）"}
+              </summary>
+              {run.validation.report.coverage.map((coverage) => (
+                <p key={coverage.category}>
+                  {coverage.category === "commercial_terms" ? "商业条款" : "平台指引"}：
+                  {coverage.status === "pending"
+                    ? "缺少适用规则，待确认"
+                    : `已执行${coverage.appliedRuleIds.length}条适用规则`}
+                </p>
+              ))}
+              {run.validation.report.issues.map((issue) => (
+                <article
+                  className="inset space-y-2"
+                  key={issue.checkId}
+                  aria-label={`规则问题 ${issue.checkId}`}
+                >
+                  <p>
+                    {issue.severity === "block"
+                      ? "阻断"
+                      : issue.severity === "warning"
+                        ? "提醒"
+                        : "待确认"}{" "}
+                    ·{" "}
+                    {issue.fieldPath === "payment"
+                      ? "付款"
+                      : issue.fieldPath === "delivery"
+                        ? "交货"
+                        : "平台"}
+                    ：{issue.message}
+                  </p>
+                  <p>{issue.suggestedAction}</p>
+                  {issue.evidence.map((source) => (
+                    <small
+                      className="block break-all"
+                      key={`${source.revisionId}:${source.ruleId}`}
+                    >
+                      {source.sourceStatus === "synthetic" ? "合成来源" : "用户资料"} ·{" "}
+                      {source.sourceLabel} · 版本 {source.revisionId} · 原文位置{" "}
+                      {source.location.start}–{source.location.end} · SHA-256 {source.sourceHash}
+                    </small>
+                  ))}
+                </article>
+              ))}
+            </details>
+          )}
           {["queued", "running", "waiting_input"].includes(run.status) && (
             <Button
               type="button"

@@ -90,6 +90,11 @@ for (const point of [
   "committed",
   "cancelled",
   "retry-queued",
+  "validated-prepared",
+  "validated-inside-receipt",
+  "inside-final-step",
+  "inside-validation",
+  "validated-committed",
 ]) {
   it(`R13/R14 SIGKILL at ${point} keeps atomic business facts, recovers without model requests`, async () => {
     const f = runFixture(cleanups),
@@ -141,6 +146,7 @@ for (const point of [
     const [, signal] = await exited;
     children.delete(child);
     expect(signal).toBe("SIGKILL");
+    const completed = point === "committed" || point === "validated-committed";
     const owner = new WorkerOwnership(f.file);
     try {
       f.reopen();
@@ -148,14 +154,12 @@ for (const point of [
       const coordinator = new AgentRunCoordinator(f.repo, () => ({ json }));
       const run = f.store.get(checkpoint.runId);
       expect(run.status).toBe(
-        point === "committed" ? "completed" : point === "cancelled" ? "cancelled" : "interrupted",
+        completed ? "completed" : point === "cancelled" ? "cancelled" : "interrupted",
       );
       expect(run.attempt).toBe(point === "retry-queued" ? 2 : 1);
-      expect(f.counts().quote_v1! - countsBefore.quote_v1!).toBe(point === "committed" ? 1 : 0);
-      expect(f.counts().agent_turn! - countsBefore.agent_turn!).toBe(point === "committed" ? 1 : 0);
-      expect(f.repo.agentReplay({ ...command, ...command.payload })?.ok ?? false).toBe(
-        point === "committed",
-      );
+      expect(f.counts().quote_v1! - countsBefore.quote_v1!).toBe(completed ? 1 : 0);
+      expect(f.counts().agent_turn! - countsBefore.agent_turn!).toBe(completed ? 1 : 0);
+      expect(f.repo.agentReplay({ ...command, ...command.payload })?.ok ?? false).toBe(completed);
       for (const row of frozen)
         expect(
           f.db
@@ -165,11 +169,19 @@ for (const point of [
             .get((row as { id: string }).id, (row as { id: string }).id),
         ).toEqual(row);
       const receipts = f.db.prepare("SELECT status,revision_id FROM agent_write_call").all();
-      if (point === "committed")
+      if (completed)
         expect(receipts).toEqual([{ status: "committed", revision_id: run.committedRevisionId }]);
       else
         for (const receipt of receipts)
           expect(receipt).toEqual({ status: "abandoned", revision_id: null });
+      if (point === "validated-committed") {
+        expect(run.validation).toMatchObject({
+          kind: "saved_revision",
+          report: { revisionId: run.committedRevisionId },
+        });
+        expect(run.toolSteps).toHaveLength(1);
+      } else if (point !== "committed")
+        expect(f.db.prepare("SELECT * FROM agent_tool_step").all()).toHaveLength(0);
       const before = f.counts();
       expect(f.store.recoverOnStartup()).toEqual([]);
       expect(f.counts()).toEqual(before);

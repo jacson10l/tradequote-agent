@@ -1,5 +1,7 @@
 import { z } from "zod";
 import { AgentCommandSchema, ClarificationSchema } from "./agent";
+import { CheckReportSchema } from "./checks";
+import { ErrorCodeSchema } from "./errors";
 import { RunStatusSchema } from "./events";
 import { PublicErrorSchema, readEnvelope, resultSchema, writeEnvelope } from "./protocol";
 
@@ -8,6 +10,28 @@ export const AgentOperationSchema = z.discriminatedUnion("method", [
   AgentCommandSchema.options[0].pick({ method: true, payload: true }),
   AgentCommandSchema.options[1].pick({ method: true, payload: true }),
 ]);
+export const AgentToolNameSchema = z.enum([
+  "search_catalog",
+  "get_product_revisions",
+  "get_quote",
+  "search_knowledge",
+  "calculate_quote",
+  "validate_quote",
+  "create_draft",
+  "apply_patch",
+]);
+export const AgentToolStepSchema = z
+  .strictObject({
+    toolCallId: z.uuid(),
+    attempt: z.number().int().positive(),
+    ordinal: z.number().int().min(1).max(12),
+    tool: AgentToolNameSchema,
+    ok: z.boolean(),
+    evidenceIds: z.array(z.string().min(1).max(200)).max(500),
+    errorCode: ErrorCodeSchema.nullable(),
+  })
+  .refine((step) => step.ok === (step.errorCode === null), "工具失败须保留错误码");
+export type AgentToolStep = z.infer<typeof AgentToolStepSchema>;
 export const AgentRunSchema = z
   .strictObject({
     runId: z.uuid(),
@@ -21,10 +45,28 @@ export const AgentRunSchema = z
     committedRevisionId: z.uuid().nullable(),
     error: PublicErrorSchema.nullable(),
     clarification: ClarificationSchema.shape.clarification.nullable(),
+    toolSteps: z.array(AgentToolStepSchema).max(12).optional(),
+    validation: z
+      .strictObject({
+        kind: z.enum(["calculation_preview", "saved_revision"]),
+        report: CheckReportSchema,
+      })
+      .optional(),
   })
   .superRefine((run, context) => {
     const invalid = (message: string) => context.addIssue({ code: "custom", message });
     if (run.command.idempotencyKey !== run.operationKey) invalid("业务操作键不能改变");
+    if (
+      run.toolSteps?.some(
+        (step, index) => step.attempt !== run.attempt || step.ordinal !== index + 1,
+      )
+    )
+      invalid("工具步骤须属于当前attempt且连续");
+    if (
+      run.validation?.kind === "saved_revision" &&
+      (run.status !== "completed" || run.validation.report.revisionId !== run.committedRevisionId)
+    )
+      invalid("检查报告须关联真实已保存版本");
     const base = run.command.method === "agent.revise" ? run.command.payload.baseId : null;
     if (run.baseRevisionId !== base) invalid("基线必须与原业务命令一致");
     if (Date.parse(run.updatedAt) < Date.parse(run.createdAt)) invalid("更新时间不能早于创建时间");

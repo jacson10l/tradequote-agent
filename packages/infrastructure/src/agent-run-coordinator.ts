@@ -18,7 +18,9 @@ import { TradeFault } from "@tradequote/domain";
 import { AgentExecutor } from "./agent-executor";
 import type { RunTicket } from "./agent-run-store";
 import type { DeepSeekProvider } from "./deepseek";
+import { DeepSeekProvider as DefaultProvider } from "./deepseek";
 import type { SqliteWorkspaceRepository } from "./index";
+import { QuoteToolAgent } from "./quote-tool-agent";
 
 const ok = <T>(data: T) => ({ ok: true as const, data, warnings: [], evidenceIds: [] });
 const fault = (error: unknown) =>
@@ -43,7 +45,7 @@ export class AgentRunCoordinator {
   >();
   constructor(
     private readonly repository: SqliteWorkspaceRepository,
-    provider?: (credentials: ModelCredentials) => Pick<DeepSeekProvider, "json">,
+    private readonly provider?: (credentials: ModelCredentials) => Pick<DeepSeekProvider, "json">,
   ) {
     this.store = repository.runStore();
     this.generator = new AgentExecutor(repository, provider);
@@ -130,6 +132,15 @@ export class AgentRunCoordinator {
         throw new TradeFault("CAPABILITY_UNAVAILABLE", "已有模型请求运行中，请稍后显式重试");
       if (!credentials) throw new TradeFault("MODEL_AUTH_FAILED", "请先保存模型设置");
       if (cancellation.aborted || this.closed) return this.store.get(run.runId);
+      if (run.command.payload.executionMode === "tool_loop")
+        return await new QuoteToolAgent(
+          this.repository,
+          this.store,
+          this.provider?.(credentials) ?? new DefaultProvider(credentials),
+          ticket,
+          run.command,
+          credentials.model,
+        ).run(cancellation);
       const deadline = AbortSignal.timeout(50000);
       const signal = AbortSignal.any([cancellation, deadline]);
       let onAbort = () => {};

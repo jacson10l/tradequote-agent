@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "d6e956f174c1366acdf21655cb26e2c0236930d579301645f939f345579b7f5f",
+    "wiki-config.json": "f32b1dc57b2bc98e32c497a5e223813f9757a53516c331b33558dc1858c18f6a",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -94,9 +94,9 @@
     {
       "path": "README.md",
       "type": "md",
-      "lines": 116,
-      "bytes": 11878,
-      "sha256": "a7d861284cd5cc46b5235d01e60c98b8dd99ce75802954eba57082b2f46dd1b8",
+      "lines": 120,
+      "bytes": 12635,
+      "sha256": "784b64f74d44fd5cdf52541b8129861a485967197a85c0cdfcb0053db2e2f9d8",
       "role": "项目入口与协作约束",
       "pages": [
         "wiki/项目状态.md",
@@ -212,13 +212,14 @@
     {
       "path": "apps/desktop/src/main/worker-client.ts",
       "type": "ts",
-      "lines": 150,
-      "bytes": 4891,
-      "sha256": "9b8dd1b2d2e99b5379552e09bf6c43415198f1c4bbb18aaa3925413243873666",
+      "lines": 152,
+      "bytes": 4976,
+      "sha256": "d4e472d3df71629298f3d051d5242ece3a686fb52f85f2c5b82645bf63b0e1fc",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     {
@@ -294,12 +295,13 @@
     {
       "path": "apps/desktop/src/renderer/src/features/agent-runs.tsx",
       "type": "tsx",
-      "lines": 185,
-      "bytes": 6160,
-      "sha256": "cc1cf7b6e8e6c69827443332e3cadc9aff460f1e237162395d6779a9e3de34cf",
+      "lines": 259,
+      "bytes": 9234,
+      "sha256": "f501ffbf3c4481c16f92b9f640df4143d64324b55d6aded0a5e91c33586be1ae",
       "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
       "pages": [
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     {
@@ -316,13 +318,14 @@
     {
       "path": "apps/desktop/src/renderer/src/features/quote-agent.tsx",
       "type": "tsx",
-      "lines": 257,
-      "bytes": 9398,
-      "sha256": "b0649d96743afc29cb8ae38cea9f15356bd97fb5995d1b5dfffb18281adc7ab0",
+      "lines": 278,
+      "bytes": 10107,
+      "sha256": "4c054651882e92947391b643e9e3c77872fb7f025ff4b393f0ca532c53849878",
       "role": "询盘两轮修订和真实版本差异",
       "pages": [
         "wiki/M4模型与报价修订.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     {
@@ -1119,12 +1122,13 @@
     {
       "path": "packages/contracts/src/agent.ts",
       "type": "ts",
-      "lines": 104,
-      "bytes": 3785,
-      "sha256": "4736b53e37965fc4248643227edce063ea74dd6da1b2c38a428b96e884ca2384",
+      "lines": 106,
+      "bytes": 3897,
+      "sha256": "866e1eb9ecc12c9fe1e1c8f7bd3f5d48a822b352f9cab810dc2108d6dfc78044",
       "role": "模型设置与询盘受限修改严格契约",
       "pages": [
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     {
@@ -1298,24 +1302,26 @@
     {
       "path": "packages/contracts/src/runs.test.ts",
       "type": "ts",
-      "lines": 145,
-      "bytes": 5659,
-      "sha256": "ef6cb71c0828d701bba43e80cf19990e5305fc7e67b15bb2017ebb319858576f",
+      "lines": 204,
+      "bytes": 7389,
+      "sha256": "7c00d955ed9db9e4e8266c7e7ec20c1c9710e1fa7c3713b58f154a931507a9fb",
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
         "wiki/首批并行接口约定.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     {
       "path": "packages/contracts/src/runs.ts",
       "type": "ts",
-      "lines": 91,
-      "bytes": 4143,
-      "sha256": "47b7861ab7c1bd9704b93064d429bd5b106b460f1350cb1068d460a54cf2fdf3",
+      "lines": 133,
+      "bytes": 5587,
+      "sha256": "2747b9846b42abcd24c1a2b3fd73d21f64fa5e21ffc832b67de73ac2b2fd890f",
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
-        "wiki/首批并行接口约定.md"
+        "wiki/首批并行接口约定.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     {
@@ -1387,12 +1393,13 @@
     {
       "path": "packages/domain/src/index.ts",
       "type": "ts",
-      "lines": 66,
-      "bytes": 2369,
-      "sha256": "357314c4f4e5e7971447b66cffcefd47e09134892d63aa71275750e2b5ddf7cd",
+      "lines": 67,
+      "bytes": 2421,
+      "sha256": "2e6876a4b4435392a8dad5b31ba39fe88dec01f9b11fb61634275d0c06268b87",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     {
@@ -1404,6 +1411,28 @@
       "role": "A01b知识审核发布服务：human_ui门禁与方法分发",
       "pages": [
         "wiki/A知识发布实现.md"
+      ]
+    },
+    {
+      "path": "packages/domain/src/quote-checks.test.ts",
+      "type": "ts",
+      "lines": 171,
+      "bytes": 5988,
+      "sha256": "2022a5b0196516e9d3d7c1175cbfb924704c2497a41327aa48d839013f390f48",
+      "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
+      "pages": [
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "packages/domain/src/quote-checks.ts",
+      "type": "ts",
+      "lines": 97,
+      "bytes": 3847,
+      "sha256": "551cda444f4996a7cfc0a98b541b922a4c637f7b560c7cf0aeafdafc77151b85",
+      "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
+      "pages": [
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     {
@@ -1478,47 +1507,51 @@
     {
       "path": "packages/infrastructure/src/agent-run-coordinator.ts",
       "type": "ts",
-      "lines": 187,
-      "bytes": 7993,
-      "sha256": "bdee100a92dde72f6ae00b34c1fc1a36d45630c31769f0b48672ce0b8b8951b9",
+      "lines": 198,
+      "bytes": 8455,
+      "sha256": "f119709837b2c23b024a6d6d364aefa2de376b4df521f2df51599fa22071861e",
       "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
       "pages": [
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/agent-run-recovery.test.ts",
       "type": "ts",
-      "lines": 182,
-      "bytes": 6629,
-      "sha256": "f259f695ded21ce2c90d66428e924614b039d76d24bda74786ec473037d9ed06",
+      "lines": 194,
+      "bytes": 7126,
+      "sha256": "b5fd5397da1063f2eb9e02612896db69ae7a13ffd18170131548c6709915a836",
       "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
       "pages": [
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/agent-run-store.test.ts",
       "type": "ts",
-      "lines": 481,
-      "bytes": 18603,
-      "sha256": "af811a19ed23f5d74b29bec7252cef765a8d30a2f8a1b3321f1c22b514c38976",
+      "lines": 547,
+      "bytes": 20698,
+      "sha256": "45b7c55f24d8ca4e69e145edbb0aec4357a7e1cc5e5758e697a7bcfc143dcf5f",
       "role": "真实SQLite运行恢复前置、故障回滚、版本凭据与升级回归",
       "pages": [
         "wiki/C02c持久运行与写入前置.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/agent-run-store.ts",
       "type": "ts",
-      "lines": 497,
-      "bytes": 18544,
-      "sha256": "4e8a1405c64d3dfc71b7f2b16f2278f1a83be43546a3a3a96c00add60e30ecfe",
+      "lines": 709,
+      "bytes": 27278,
+      "sha256": "ab7a066efaaa6e3754bf9a4fa19cf8a6d590145e1afd4b27b1491c911bfe3ac7",
       "role": "持久运行存储、票据、控制重放与同连接报价原子提交",
       "pages": [
         "wiki/C02c持久运行与写入前置.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     {
@@ -1572,13 +1605,14 @@
     {
       "path": "packages/infrastructure/src/catalog-quote-read-agent.ts",
       "type": "ts",
-      "lines": 230,
-      "bytes": 9733,
-      "sha256": "a69822d8e3019ea9144eebe5cc84a30985b613f2bad60bc7c1b4b0e20e3517d5",
+      "lines": 240,
+      "bytes": 9963,
+      "sha256": "cd4abf0963ab1c2c922a9ae94122db3eec1feefdbb2f971d785a970d441c684d",
       "role": "C02b真实商品报价只读适配、来源快照、范围核价与无写入回归",
       "pages": [
         "wiki/C02b商品与报价只读工具.md",
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     {
@@ -1668,13 +1702,14 @@
     {
       "path": "packages/infrastructure/src/migrations.ts",
       "type": "ts",
-      "lines": 120,
-      "bytes": 6800,
-      "sha256": "bfba8cb5b426904ce6f403dc6e0cb40328fc25161f50b5ab6449fae18a7ffdd3",
+      "lines": 137,
+      "bytes": 7525,
+      "sha256": "77edfac30380627a201859e5f19b4c2d41a2b9eb5239cd796fd13e735a556775",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     {
@@ -1701,27 +1736,62 @@
       ]
     },
     {
+      "path": "packages/infrastructure/src/quote-draft-plan.ts",
+      "type": "ts",
+      "lines": 124,
+      "bytes": 4578,
+      "sha256": "87111b9a887346454a449f46a186acd4fee2d1e74602c2dc91b4ffc7e6a669ef",
+      "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
+      "pages": [
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/quote-tool-agent.test.ts",
+      "type": "ts",
+      "lines": 626,
+      "bytes": 26026,
+      "sha256": "6673240f5db6dc82e6724d58ff5bc2f5166dd906754cc48064350d0d5115f566",
+      "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
+      "pages": [
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/quote-tool-agent.ts",
+      "type": "ts",
+      "lines": 364,
+      "bytes": 15040,
+      "sha256": "4b309684ee2785418065e77d9a36172f774523167d254240fbc23bced70ad844",
+      "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
+      "pages": [
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
       "path": "packages/infrastructure/src/read-tool-runtime.test.ts",
       "type": "ts",
-      "lines": 299,
-      "bytes": 11728,
-      "sha256": "c3464ae2aec1601a75a73d1b1b64580b96ab97933ec4a5e913d09ba2899b4298",
+      "lines": 314,
+      "bytes": 12321,
+      "sha256": "33823486e55e3262a44af81a3ab98b703a3635fd6851d975300f117b84c3ba3c",
       "role": "C02a受限只读工具循环、预算取消与真实业务计算回归",
       "pages": [
         "wiki/双参考项目功能对照与C开发路线.md",
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/read-tool-runtime.ts",
       "type": "ts",
-      "lines": 176,
-      "bytes": 7693,
-      "sha256": "fc88482c5005972d62330045ca0c32f3a6d7f23916d020ad990a0af846cacf28",
+      "lines": 230,
+      "bytes": 10269,
+      "sha256": "e3cd38ce0079707ece8a859d86a2569e28181d7db1696b813c3e48f880ce2608",
       "role": "C02a受限只读工具循环、预算取消与真实业务计算回归",
       "pages": [
         "wiki/双参考项目功能对照与C开发路线.md",
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     {
@@ -1749,12 +1819,13 @@
     {
       "path": "packages/infrastructure/src/testing/run-fixture.ts",
       "type": "ts",
-      "lines": 126,
-      "bytes": 3480,
-      "sha256": "2e1585537582a5e256982f7219e19a935bad3db5895d6b5920a025d0c63f0193",
+      "lines": 132,
+      "bytes": 3649,
+      "sha256": "4ad7343744bbee59768aee6ca67eff982b60622d5b1dee72a0466426e906f583",
       "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
       "pages": [
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     {
@@ -1960,6 +2031,17 @@
       ]
     },
     {
+      "path": "tests/e2e/multistep-agent.spec.ts",
+      "type": "ts",
+      "lines": 244,
+      "bytes": 10625,
+      "sha256": "6b827af0d1f544d97799d5f9d7b612a03943516143a773db6fa31bc856ffba50",
+      "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
+      "pages": [
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
       "path": "tests/e2e/quote-agent.spec.ts",
       "type": "ts",
       "lines": 191,
@@ -2118,14 +2200,26 @@
       ]
     },
     {
+      "path": "tests/fixtures/multistep-seed.ts",
+      "type": "ts",
+      "lines": 96,
+      "bytes": 3257,
+      "sha256": "9b4269ef603dc25a068dc2653e3b72eb23e8aa270fdeb1f2ddba9399b0ab0c61",
+      "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
+      "pages": [
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
       "path": "tests/fixtures/run-crash-child.ts",
       "type": "ts",
-      "lines": 69,
-      "bytes": 2700,
-      "sha256": "a8f48802d44815e6f7244a57344949bbe616ab459b9c04858fdaf69d01adc11c",
+      "lines": 100,
+      "bytes": 4066,
+      "sha256": "4a08d5c406ac5bb58d9f887eda4982322dcdcd0a48ea76819b83bad5dd5711f6",
       "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
       "pages": [
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     {

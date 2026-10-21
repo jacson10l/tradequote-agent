@@ -2,7 +2,7 @@
 title: Wiki 工作流与任务记录
 type: meta
 status: active
-updated: 2026-10-21
+updated: 2026-10-22
 sources:
   - wiki-repo:scripts/build-code-index.mjs:1
   - wiki-repo:scripts/lint-wiki.mjs:1
@@ -142,3 +142,8 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 ## C02c运行协调后续
 
 本轮[[C02c-统一调度与强杀恢复]]逐文件登记协调器、Worker独占、真实进程fixture、草稿账本与桌面运行记录；受影响源码追加对应新知识页，保留其他职责映射及所有旧证据。未修改Wiki工具算法；配置变化仍运行工具回归、生成/只读check/lint及67c69c7与be53b98双基线同步。
+
+
+## C02c多步闭环后续
+
+本轮[[C02c-多步报价工具闭环]]为纯规则、候选授权、循环服务及合成seed/模型和强杀测试逐文件登记覆盖，受影响源码追加新知识页，保留既有职责与旧证据。未修改采集/lint/sync算法；映射变化仍执行Wiki工具回归、生成/只读check/lint和4c09785/be53b98双基线同步。

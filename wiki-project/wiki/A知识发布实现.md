@@ -2,7 +2,7 @@
 title: A知识发布实现
 type: module
 status: observed
-updated: 2026-10-21
+updated: 2026-10-22
 sources:
   - packages/infrastructure/src/knowledge-store.ts:1
   - packages/domain/src/knowledge.ts:1
@@ -33,3 +33,8 @@ A01b 在 codex/a01b-knowledge-store 实现 [[首批并行接口约定]] 中 Know
 ## C02c候选整合后的验证与修正
 
 C02c前置候选从A01b/0f613b8整合本模块和真实迁移4，知识模型工具与IPC仍未注册。整合审阅发现已发布版本异键重复publish在hash校验前返回成功，本轮将hash校验移到published分支之前，错误hash仍报SOURCE_CONFLICT；增加真实SQLite回归。源码格式按现有Biome归一，不改查询范围规则或原版本身份。原“未安装依赖/未复跑”保留作为A当时记录；本候选实际安装并重新运行类型及知识回归，证据见 [[C02c-持久运行与写入前置]]，不代签A完整知识业务验收。
+
+
+## C02c多步闭环后续
+
+C02c现按[[C02c多步报价工具闭环]]以agent_tool只读调用真实knowledge.query，消费published适用规则/原文/hash并核验内容；写事务重读当前适用版本，更新竞态拒绝旧授权。Agent没有stage/publish能力，A人工发布门禁保持。该接线不是通用业务Wiki/B00a检索已经完成。

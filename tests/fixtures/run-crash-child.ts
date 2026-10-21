@@ -8,6 +8,12 @@ import {
   WorkerOwnership,
 } from "../../packages/infrastructure/src/index";
 
+import {
+  type DraftAuthorization,
+  draftPlan,
+  knowledgeStamp,
+} from "../../packages/infrastructure/src/quote-draft-plan";
+
 const [file, fixturePath, point] = process.argv.slice(2);
 if (!file || !fixturePath || !point) throw new Error("synthetic args");
 const ownership = new WorkerOwnership(file);
@@ -31,7 +37,24 @@ checkpoint("running");
 // real HTTP request. This checkpoint covers response received, before transaction.
 checkpoint("proposal");
 const id = randomUUID();
-store.prepareWrite(ticket, id, proposal, "synthetic-crash-model");
+const validated =
+  point.startsWith("validated-") || point === "inside-final-step" || point === "inside-validation";
+let proof: DraftAuthorization | undefined;
+if (validated) {
+  const at = new Date().toISOString();
+  const board = repo.executeTrade(
+    { schemaVersion: 1, requestId: randomUUID(), method: "trade.get" },
+    { actorId: "synthetic", origin: "agent_tool" },
+  );
+  if (!board.ok) throw new Error("synthetic board");
+  proof = {
+    asOf: at,
+    calculated: draftPlan(board.data, run.command, proposal, repo.read()!.id, at, randomUUID()),
+    knowledgeStamp: knowledgeStamp([]),
+  };
+  store.prepareValidatedWrite(ticket, id, proposal, "synthetic-crash-model", proof);
+} else store.prepareWrite(ticket, id, proposal, "synthetic-crash-model");
+checkpoint("validated-prepared");
 checkpoint("prepared");
 if (point === "cancelled" || point === "retry-queued") {
   const envelope = () => ({
@@ -58,12 +81,20 @@ const trigger =
       ? "AFTER UPDATE ON agent_run WHEN json_extract(NEW.data_json,'$.status')='completed'"
       : point === "inside-receipt"
         ? "AFTER UPDATE ON agent_write_call WHEN NEW.status='committed'"
-        : null;
+        : point === "inside-final-step"
+          ? "AFTER INSERT ON agent_tool_step"
+          : point === "inside-validation"
+            ? "AFTER UPDATE ON agent_run WHEN json_extract(NEW.data_json,'$.validation.kind')='saved_revision'"
+            : point === "validated-inside-receipt"
+              ? "AFTER UPDATE ON agent_write_call WHEN NEW.status='committed'"
+              : null;
 if (trigger)
   db.exec(
     `CREATE TEMP TRIGGER synthetic_crash ${trigger} BEGIN SELECT synthetic_checkpoint(); END`,
   );
-store.commitWrite(ticket, id, proposal, "synthetic-crash-model");
+if (proof) store.commitValidatedWrite(ticket, id, proposal, "synthetic-crash-model", proof);
+else store.commitWrite(ticket, id, proposal, "synthetic-crash-model");
+checkpoint("validated-committed");
 checkpoint("committed");
 repo.close();
 ownership.close();
