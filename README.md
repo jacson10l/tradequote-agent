@@ -32,7 +32,13 @@ pnpm wiki:test
 
 产品图标已接入 Dock/窗口及打包；重启 `pnpm dev` 后生效。外壳固定到窗口，滚动由 main 主区域承担；≤1000px 显示图标导航。图标源修改后运行 `pnpm icons:generate`，构建会检查 SVG/PNG/ICNS/ICO 同步。当前增量与边界见 [M1 布局图标与契约任务](wiki-project/wiki/tasks/2026-10-21-M1布局图标与契约补齐.md)。
 
-原生测试使用 Electron 的 Node ABI；若重新安装原生依赖后报 ABI 不匹配，运行 `pnpm native:rebuild`。`package:mac`/`package:win` 配置 DMG/NSIS，不自动发布；本轮未做最终安装验收。完整模型评估入口待 T40 实现，不提供假成功命令。本机验收与三人职责见 [M1 验证与协作](wiki-project/wiki/M1验证与协作.md)。
+原生测试使用 Electron 的 Node ABI；若重新安装原生依赖后报 ABI 不匹配，运行 `pnpm native:rebuild`。`package:mac`/`package:win` 配置 DMG/NSIS，不自动发布；本轮未做最终安装验收。C04 已提供 fixture 优先评估，真实供应商验收仍未运行，见下节。本机验收与三人职责见 [M1 验证与协作](wiki-project/wiki/M1验证与协作.md)。
+
+## 模型评估样本与报告
+
+运行 `pnpm eval:model --mode fixture`，执行三品类、中英德、两轮修订及失败/取消/显式重试的48个合成检查点；默认在 `.runtime/c04-fixture.json` 与 `.md` 生成脱敏报告，可用 `--output` 指定报告前缀。这会调用真实业务服务及模型响应解析，但模型回答是预编排替身，不能证明 DeepSeek 语义通过。
+
+`pnpm eval:model --mode deepseek` 在当前 CLI 明确生成未运行报告并退出2：没有读取现存设置、Key文件或环境凭据，也不接受命令行Key。真实评估须后续由正式宿主接线并经用户配置/授权；当前未运行。未知token/费用为null，规则仍限B00。范围与证据见 [C04评估](wiki-project/wiki/C04模型评估与脱敏报告.md) 和 [任务](wiki-project/wiki/tasks/C04-评估样本与脱敏报告.md)。
 
 ## macOS 优先的本机验收
 

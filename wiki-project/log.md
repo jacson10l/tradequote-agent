@@ -317,3 +317,11 @@ C02c本轮收口：153单元、7真实Electron含build、6工程、36Wiki回归�
 - 知识[[C02c多步报价工具闭环]]、任务[[C02c-多步报价工具闭环]]、决定[[0021-多步候选授权与规则校验]]已同步。未推送/合入；真实DeepSeek、Windows/安装、B01/B00a扩展、C03与非作者复核仍待。
 
 C02c多步闭环收口：188单元、8真实Electron含build、6工程、36Wiki回归、类型、生成/只读check/lint及4c09785/be53b98双基线同步全部退出0，见raw/c02c-multistep-validation.json。72份旧raw字节与log完整前缀保持。工程边界首次拒绝domain测试导入mock子路径，改本地纯夹具后复跑通过，不放宽门禁；失败记录保留。A最新c6539e8/B最新4e8c663已复核，A新头不含新packages接口/迁移；B01/B00a与人工复核不冒领完成。任务done仅限当前公开契约内的真实多步报价闭环，继续独立分支、无推送。
+
+
+## 2026-10-22 C04评估样本与脱敏报告
+
+从0ccd72f建立独立codex/c04-model-evaluation；新增真实业务链上的48点合成样本与故障/取消/显式重试，strict白名单JSON/Markdown报告，模式明确区分fixture和未运行DeepSeek。原公开服务/IPC/迁移/B协议不改，未读取真实Key或数据库、不推送。知识[[C04模型评估与脱敏报告]]、任务[[C04-评估样本与脱敏报告]]、取舍[[0022-评估隔离与结果脱敏]]。初始根tests依赖解析、ES2022 findLast及单位字段检查失败已修正；真实验证收口追加在本条后，不删除旧证据。
+
+
+C04收口：48点fixture通过（186次替身请求/真实0），193单元、8真实Electron含build、6工程、36Wiki、类型和机械生成/只读check/lint、0ccd72f/be53b98双基线sync均退出0。真实模式not_run按约定退出2，单独保留报告；tokens/cost未知。结构合法语义错误会失败并跳过依赖修订，显式retry保持操作键/attempt且控制重放不派发。证据raw/c04-validation.json、c04-fixture-report.json、c04-deepseek-report.json与c04-initial-validation.json；75份历史raw及旧log前缀保留。任务done限本切片，真实供应商/正式评估UI/Windows/安装/非作者评审未完成。

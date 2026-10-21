@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "f32b1dc57b2bc98e32c497a5e223813f9757a53516c331b33558dc1858c18f6a",
+    "wiki-config.json": "39d8b045370fb4522fdc4bc22236dce136a953fb882b5e02d3d31b975f646ea6",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -94,9 +94,9 @@
     {
       "path": "README.md",
       "type": "md",
-      "lines": 120,
-      "bytes": 12635,
-      "sha256": "784b64f74d44fd5cdf52541b8129861a485967197a85c0cdfcb0053db2e2f9d8",
+      "lines": 126,
+      "bytes": 13524,
+      "sha256": "dfcb0f31a6ad77c68c272c32b3890122fb119e8db0a0d4f4c7c6387920e1d67c",
       "role": "项目入口与协作约束",
       "pages": [
         "wiki/项目状态.md",
@@ -1100,12 +1100,13 @@
     {
       "path": "package.json",
       "type": "json",
-      "lines": 46,
-      "bytes": 2056,
-      "sha256": "681da811b57a6fd125b406705da03da07bc204886587137fd9a6030cfbd7b8a1",
+      "lines": 47,
+      "bytes": 2109,
+      "sha256": "879a4fc8bc3dd02e1e2af038668f5159dd5b086821f7a2b4831de38d25eb549b",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/C04模型评估与脱敏报告.md"
       ]
     },
     {
@@ -1665,6 +1666,72 @@
       ]
     },
     {
+      "path": "packages/infrastructure/src/evaluation/cases.ts",
+      "type": "ts",
+      "lines": 123,
+      "bytes": 4112,
+      "sha256": "1b091f95400f7c71793670d8ad142457cddeb89f2b4d7126c0c0855c258d1762",
+      "role": "C04独立模型评估、故障矩阵与脱敏报告",
+      "pages": [
+        "wiki/C04模型评估与脱敏报告.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/evaluation.test.ts",
+      "type": "ts",
+      "lines": 143,
+      "bytes": 6521,
+      "sha256": "6e1f188a7d3c084515db38294996f79b0a289fff13c481d24a2847e0b79cdb16",
+      "role": "C04独立模型评估、故障矩阵与脱敏报告",
+      "pages": [
+        "wiki/C04模型评估与脱敏报告.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/fixture-model.ts",
+      "type": "ts",
+      "lines": 136,
+      "bytes": 5816,
+      "sha256": "6b8a0244b192cae1010667738ae18e35f8e3054e322c4963878d687ef07f9554",
+      "role": "C04独立模型评估、故障矩阵与脱敏报告",
+      "pages": [
+        "wiki/C04模型评估与脱敏报告.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/report.ts",
+      "type": "ts",
+      "lines": 128,
+      "bytes": 4739,
+      "sha256": "edf62c5a1e2508028de67d1b8b455c0ab38d05f1cf08f3b0e0ab65022a08d1ff",
+      "role": "C04独立模型评估、故障矩阵与脱敏报告",
+      "pages": [
+        "wiki/C04模型评估与脱敏报告.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/runner.ts",
+      "type": "ts",
+      "lines": 392,
+      "bytes": 15202,
+      "sha256": "9fa8181d37316f43d380e36e03991fb9a4ee8f81ee56b63a699e60b8c8ab1374",
+      "role": "C04独立模型评估、故障矩阵与脱敏报告",
+      "pages": [
+        "wiki/C04模型评估与脱敏报告.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/workspace.ts",
+      "type": "ts",
+      "lines": 153,
+      "bytes": 4629,
+      "sha256": "84b7d76b3279033a01f0de665f25263de99d2818c428dd94719427ada4a07393",
+      "role": "C04独立模型评估、故障矩阵与脱敏报告",
+      "pages": [
+        "wiki/C04模型评估与脱敏报告.md"
+      ]
+    },
+    {
       "path": "packages/infrastructure/src/index.ts",
       "type": "ts",
       "lines": 125,
@@ -1971,6 +2038,17 @@
       "role": "macOS developer application display name and Electron launcher isolation",
       "pages": [
         "wiki/M1工程基线.md"
+      ]
+    },
+    {
+      "path": "scripts/evaluate-model.mjs",
+      "type": "mjs",
+      "lines": 76,
+      "bytes": 2761,
+      "sha256": "3363703bd1b3eb02b677e14bad99005d4f096223d1ca4b84bfb2a3a7ac4fcbbb",
+      "role": "C04独立模型评估、故障矩阵与脱敏报告",
+      "pages": [
+        "wiki/C04模型评估与脱敏报告.md"
       ]
     },
     {
