@@ -1,0 +1,355 @@
+{
+  "schemaVersion": 1,
+  "baseline": {
+    "collectedAt": "2026-10-20T18:55:33.524Z",
+    "date": "2026-10-21",
+    "sourceRoot": ".",
+    "git": {
+      "head": "8fc9a9ba39e51fb7db195300d81b541dd3a3a843",
+      "branch": "main",
+      "status": "M README.md\n?? .gitignore\n?? AGENTS.md\n?? DESIGN.md\n?? THIRD_PARTY_NOTICES.md\n?? UPSTREAM.md\n?? experiments/m0-reuse/README.md\n?? experiments/m0-reuse/business-tools.mjs\n?? experiments/m0-reuse/collect-evidence.mjs\n?? experiments/m0-reuse/evidence/docs-check.json\n?? experiments/m0-reuse/evidence/harness.json\n?? experiments/m0-reuse/evidence/harness.stdout.log\n?? experiments/m0-reuse/evidence/install-frozen.log\n?? experiments/m0-reuse/evidence/install-initial.log\n?? experiments/m0-reuse/evidence/install-pinned.log\n?? experiments/m0-reuse/evidence/solivio.tap\n?? experiments/m0-reuse/evidence/source-audit.json\n?? experiments/m0-reuse/evidence/summary.json\n?? experiments/m0-reuse/harness-probe.mjs\n?? experiments/m0-reuse/package.json\n?? experiments/m0-reuse/pnpm-lock.yaml\n?? experiments/m0-reuse/solivio.test.ts\n?? experiments/m0-reuse/vendor/harness/LICENSE\n?? experiments/m0-reuse/vendor/solivio/LICENSE\n?? experiments/m0-reuse/vendor/solivio/offerTotals.ts\n?? experiments/m0-reuse/vendor/solivio/productParser.ts\n?? experiments/m0-reuse/vendor/solivio/provenance.json\n?? wiki-project/.obsidian/app.json\n?? wiki-project/AGENTS.md\n?? wiki-project/CONTEXT.md\n?? wiki-project/README.md\n?? wiki-project/index.md\n?? wiki-project/log.md\n?? wiki-project/raw/design/claude-original.md\n?? wiki-project/raw/design/mistral-original.md\n?? wiki-project/raw/file-provenance.json\n?? \"wiki-project/raw/inputs/\\345\\244\\226\\350\\264\\270\\350\\257\\242\\346\\212\\245\\344\\273\\267\\345\\215\\217\\345\\220\\214 Agent \\345\\256\\214\\346\\225\\264\\344\\272\\247\\345\\223\\201\\344\\270\\216\\345\\256\\236\\346\\226\\275\\346\\226\\271\\346\\241\\210.md\"\n?? \"wiki-project/raw/inputs/\\351\\241\\271\\347\\233\\256\\346\\236\\204\\345\\273\\272\\346\\212\\200\\346\\234\\257\\346\\240\\210.md\"\n?? wiki-project/raw/planning-checks.json\n?? wiki-project/raw/source-manifest.md\n?? wiki-project/raw/upstream-audit.json\n?? wiki-project/raw/wiki-validation.json\n?? \"wiki-project/raw/\\350\\247\\204\\345\\210\\222\\346\\234\\237\\346\\235\\245\\346\\272\\220\\346\\240\\270\\346\\237\\245.md\"\n?? wiki-project/scripts/build-code-index.mjs\n?? wiki-project/scripts/lint-wiki.mjs\n?? wiki-project/scripts/wiki-config.json\n?? wiki-project/scripts/wiki-lib.mjs\n?? wiki-project/scripts/wiki-tools.test.mjs\n?? \"wiki-project/wiki/01-MVP\\350\\214\\203\\345\\233\\264\\344\\270\\216\\351\\252\\214\\346\\224\\266.md\"\n?? \"wiki-project/wiki/02-\\346\\212\\200\\346\\234\\257\\351\\200\\211\\345\\236\\213\\344\\270\\216\\346\\236\\266\\346\\236\\204.md\"\n?? \"wiki-project/wiki/03-\\351\\242\\206\\345\\237\\237\\344\\270\\216\\346\\225\\260\\346\\215\\256\\345\\245\\221\\347\\272\\246.md\"\n?? \"wiki-project/wiki/04-\\346\\216\\245\\345\\217\\243\\344\\270\\216Agent\\345\\245\\221\\347\\272\\246.md\"\n?? \"wiki-project/wiki/05-\\344\\270\\211\\344\\272\\272\\345\\210\\206\\345\\267\\245\\344\\270\\216\\345\\274\\200\\345\\217\\221\\346\\255\\245\\351\\252\\244.md\"\n?? \"wiki-project/wiki/06-\\346\\265\\213\\350\\257\\225\\344\\270\\216\\344\\272\\244\\344\\273\\230.md\"\n?? \"wiki-project/wiki/07-\\346\\234\\215\\345\\212\\241\\345\\231\\250\\346\\274\\224\\350\\277\\233\\344\\270\\216\\351\\243\\216\\351\\231\\251.md\"\n?? \"wiki-project/wiki/Wiki \\345\\267\\245\\344\\275\\234\\346\\265\\201\\344\\270\\216\\344\\273\\273\\345\\212\\241\\350\\256\\260\\345\\275\\225.md\"\n?? \"wiki-project/wiki/decisions/0001-Mistral\\345\\267\\245\\344\\275\\234\\345\\217\\260\\351\\243\\216\\346\\240\\274.md\"\n?? \"wiki-project/wiki/decisions/0002-\\344\\270\\212\\346\\270\\270\\345\\244\\215\\347\\224\\250\\346\\226\\271\\345\\274\\217.md\"\n?? \"wiki-project/wiki/decisions/0003-\\345\\267\\245\\347\\250\\213Wiki\\347\\273\\264\\346\\212\\244\\345\\237\\272\\347\\272\\277.md\"\n?? \"wiki-project/wiki/tasks/2026-10-21-M0\\346\\212\\200\\346\\234\\257\\351\\252\\214\\350\\257\\201.md\"\n?? \"wiki-project/wiki/tasks/2026-10-21-\\345\\267\\245\\347\\250\\213Wiki\\350\\241\\245\\351\\275\\220.md\"\n?? \"wiki-project/wiki/\\345\\267\\245\\347\\250\\213Wiki\\350\\246\\201\\346\\261\\202\\345\\257\\271\\347\\205\\247.md\"\n?? \"wiki-project/wiki/\\346\\212\\200\\346\\234\\257\\351\\252\\214\\350\\257\\201\\350\\256\\260\\345\\275\\225.md\"\n?? \"wiki-project/wiki/\\346\\225\\260\\346\\215\\256\\346\\214\\201\\344\\271\\205\\345\\214\\226\\344\\270\\216\\347\\212\\266\\346\\200\\201.md\"\n?? \"wiki-project/wiki/\\346\\240\\270\\345\\277\\203\\344\\270\\232\\345\\212\\241\\346\\265\\201\\347\\250\\213.md\"\n?? \"wiki-project/wiki/\\346\\265\\213\\350\\257\\225\\344\\270\\216\\351\\252\\214\\350\\257\\201\\345\\234\\260\\345\\233\\276.md\"\n?? \"wiki-project/wiki/\\347\\237\\245\\350\\257\\206\\345\\272\\223\\345\\217\\257\\351\\235\\240\\346\\200\\247\\344\\270\\216\\350\\246\\206\\347\\233\\226\\350\\214\\203\\345\\233\\264.md\"\n?? \"wiki-project/wiki/\\347\\263\\273\\347\\273\\237\\346\\236\\266\\346\\236\\204.md\"\n?? \"wiki-project/wiki/\\350\\277\\220\\350\\241\\214\\346\\227\\266\\350\\203\\275\\345\\212\\233\\345\\234\\260\\345\\233\\276.md\"\n?? \"wiki-project/wiki/\\351\\205\\215\\347\\275\\256\\350\\267\\257\\345\\276\\204\\344\\270\\216\\346\\225\\217\\346\\204\\237\\344\\277\\241\\346\\201\\257.md\"\n?? \"wiki-project/wiki/\\351\\241\\271\\347\\233\\256\\347\\212\\266\\346\\200\\201.md\"\n?? \"wiki-project/wiki/\\351\\242\\206\\345\\237\\237\\350\\257\\215\\346\\261\\207\\350\\241\\250.md\"\n?? \"wiki-project/wiki/\\351\\243\\216\\351\\231\\251\\344\\270\\216\\345\\276\\205\\351\\252\\214\\350\\257\\201\\344\\272\\213\\351\\241\\271.md\""
+    },
+    "sourceRootRedacted": true
+  },
+  "scope": "project files only; wiki tooling hashes are provenance, not recursively indexed application source",
+  "toolchain": {
+    "build-code-index.mjs": "31d9db6d9c1db25c4971213ee2da8d7e0e790417a200bb3a8e80aaf507b11f9b",
+    "wiki-lib.mjs": "de295b3b85c0b50ad62801f5ed9feb0c824c3e6d8436b86d84b7a6b51e98d464",
+    "wiki-config.json": "7f91e9167fa6b5f8417ef0ff1ccbb81ebec480b387357dc9abab7ecfaacd995d",
+    "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
+    "wiki-tools.test.mjs": "98ad0e0af5684c0a406e971ce3367a14b060619e13fb232e58a56e8d2722bfda"
+  },
+  "files": [
+    {
+      "path": ".gitignore",
+      "type": ".gitignore",
+      "lines": 65,
+      "bytes": 939,
+      "sha256": "0c8405abe17f2abf49a6e019c3c0a11fa2c6871243b8fa8cfae7be844354ad7e",
+      "role": "运行数据与依赖排除",
+      "pages": [
+        "wiki/配置路径与敏感信息.md"
+      ]
+    },
+    {
+      "path": "AGENTS.md",
+      "type": "md",
+      "lines": 30,
+      "bytes": 2330,
+      "sha256": "610e30ea3cf4a2907d0f0bb5034d3fa70711423bc746403762bc8c5eca22a4e0",
+      "role": "项目入口与协作约束",
+      "pages": [
+        "wiki/项目状态.md",
+        "wiki/Wiki 工作流与任务记录.md"
+      ]
+    },
+    {
+      "path": "DESIGN.md",
+      "type": "md",
+      "lines": 90,
+      "bytes": 7198,
+      "sha256": "b6e45babb19e37cdedebea2a576266ea31f7f44fb9449ccd37ca746d3c5c415b",
+      "role": "当前视觉规范",
+      "pages": [
+        "wiki/decisions/0001-Mistral工作台风格.md"
+      ]
+    },
+    {
+      "path": "README.md",
+      "type": "md",
+      "lines": 28,
+      "bytes": 2236,
+      "sha256": "4e9d41ac515c73182fe61a7b307acf7cffe4d5ba037ed49a6acba81160d48941",
+      "role": "项目入口与协作约束",
+      "pages": [
+        "wiki/项目状态.md",
+        "wiki/Wiki 工作流与任务记录.md"
+      ]
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "type": "md",
+      "lines": 19,
+      "bytes": 1197,
+      "sha256": "aaa1720a626a0d8d92b3580a6435ba05d2998894818e939cf681f5c44477d5e8",
+      "role": "复用来源与许可边界",
+      "pages": [
+        "wiki/decisions/0002-上游复用方式.md",
+        "wiki/风险与待验证事项.md"
+      ]
+    },
+    {
+      "path": "UPSTREAM.md",
+      "type": "md",
+      "lines": 33,
+      "bytes": 3173,
+      "sha256": "b8e05939d023cf4ba1ace0dc32d83b52737b07450d375c4b372a43739cabf8fa",
+      "role": "复用来源与许可边界",
+      "pages": [
+        "wiki/decisions/0002-上游复用方式.md",
+        "wiki/风险与待验证事项.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-reuse/README.md",
+      "type": "md",
+      "lines": 36,
+      "bytes": 2852,
+      "sha256": "b57776814c4e95a1f2f255a6669dabd43622fe05c36a1af66a9cf387472a34bb",
+      "role": "探针运行入口与限制",
+      "pages": [
+        "wiki/系统架构.md",
+        "wiki/测试与验证地图.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-reuse/business-tools.mjs",
+      "type": "mjs",
+      "lines": 37,
+      "bytes": 1707,
+      "sha256": "407a158b43e1e41ec1914b5268959585b6780c262b56df6160310c617af215b0",
+      "role": "受控业务工具桥接",
+      "pages": [
+        "wiki/运行时能力地图.md",
+        "wiki/核心业务流程.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-reuse/collect-evidence.mjs",
+      "type": "mjs",
+      "lines": 47,
+      "bytes": 3023,
+      "sha256": "bd7a527e11b2e11ba7db6dd7ded2ca219518ee74d4448a1fb67c9a16a4f6a172",
+      "role": "验证与证据收集",
+      "pages": [
+        "wiki/测试与验证地图.md",
+        "wiki/知识库可靠性与覆盖范围.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-reuse/evidence/docs-check.json",
+      "type": "json",
+      "lines": 30,
+      "bytes": 2302,
+      "sha256": "7391e6c8c94e1b38b5ca8bd169a6b167a681e510e104f7de7f7018d9ed0b43fb",
+      "role": "既有 M0 实验记录；历史快照不随本轮重写",
+      "pages": [
+        "wiki/测试与验证地图.md",
+        "wiki/知识库可靠性与覆盖范围.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-reuse/evidence/harness.json",
+      "type": "json",
+      "lines": 287,
+      "bytes": 6015,
+      "sha256": "fea07a9daef630042bf5db4cd0cd99cb7d227ca4e31d532ca18ced18fb4d66b2",
+      "role": "既有 M0 实验记录；历史快照不随本轮重写",
+      "pages": [
+        "wiki/测试与验证地图.md",
+        "wiki/知识库可靠性与覆盖范围.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-reuse/evidence/harness.stdout.log",
+      "type": "log",
+      "lines": 287,
+      "bytes": 6015,
+      "sha256": "fea07a9daef630042bf5db4cd0cd99cb7d227ca4e31d532ca18ced18fb4d66b2",
+      "role": "既有 M0 实验记录；历史快照不随本轮重写",
+      "pages": [
+        "wiki/测试与验证地图.md",
+        "wiki/知识库可靠性与覆盖范围.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-reuse/evidence/install-frozen.log",
+      "type": "log",
+      "lines": 4,
+      "bytes": 105,
+      "sha256": "c0c17af0f79cc264a42dab2cc3edbb1a156ad6e484128f962f1867611696d1b8",
+      "role": "既有 M0 实验记录；历史快照不随本轮重写",
+      "pages": [
+        "wiki/测试与验证地图.md",
+        "wiki/知识库可靠性与覆盖范围.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-reuse/evidence/install-initial.log",
+      "type": "log",
+      "lines": 51,
+      "bytes": 2659,
+      "sha256": "9aeb5be10c9dcf99ede3deb243383c869ff0221ff65a223853dc7da97f7bb136",
+      "role": "既有 M0 实验记录；历史快照不随本轮重写",
+      "pages": [
+        "wiki/测试与验证地图.md",
+        "wiki/知识库可靠性与覆盖范围.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-reuse/evidence/install-pinned.log",
+      "type": "log",
+      "lines": 8,
+      "bytes": 316,
+      "sha256": "b840b1e85d922de1d16425aa0a8440b293cdb06adb9f64d211133cc6ca01df1c",
+      "role": "既有 M0 实验记录；历史快照不随本轮重写",
+      "pages": [
+        "wiki/测试与验证地图.md",
+        "wiki/知识库可靠性与覆盖范围.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-reuse/evidence/solivio.tap",
+      "type": "tap",
+      "lines": 76,
+      "bytes": 2130,
+      "sha256": "d46738c494c53e0c9f2646045a01c1369727a1a8248ea59b0d86024b86ed7b6e",
+      "role": "既有 M0 实验记录；历史快照不随本轮重写",
+      "pages": [
+        "wiki/测试与验证地图.md",
+        "wiki/知识库可靠性与覆盖范围.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-reuse/evidence/source-audit.json",
+      "type": "json",
+      "lines": 80,
+      "bytes": 2794,
+      "sha256": "ab9ce7fec1d88295c25a6de01d3b60760b48ddc7bd272ea2b4d2506dfe987fe0",
+      "role": "既有 M0 实验记录；历史快照不随本轮重写",
+      "pages": [
+        "wiki/测试与验证地图.md",
+        "wiki/知识库可靠性与覆盖范围.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-reuse/evidence/summary.json",
+      "type": "json",
+      "lines": 60,
+      "bytes": 2008,
+      "sha256": "5b3f59ac7cbb4fcd742100bb6594af7e0df18f8d05ac372bef18f8bdb5e84177",
+      "role": "既有 M0 实验记录；历史快照不随本轮重写",
+      "pages": [
+        "wiki/测试与验证地图.md",
+        "wiki/知识库可靠性与覆盖范围.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-reuse/harness-probe.mjs",
+      "type": "mjs",
+      "lines": 213,
+      "bytes": 11803,
+      "sha256": "26ab53f7229aa7fbea3bf9ca5ddfa048f7217c6422259e0161e2f9725e1debf0",
+      "role": "模型与业务fixture、进程生命周期",
+      "pages": [
+        "wiki/运行时能力地图.md",
+        "wiki/数据持久化与状态.md",
+        "wiki/核心业务流程.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-reuse/package.json",
+      "type": "json",
+      "lines": 27,
+      "bytes": 605,
+      "sha256": "240ae732f9f7230c362ce97ece60091d691169f6a8b9215e6244331796848ab4",
+      "role": "直接依赖、脚本与完整依赖解析",
+      "pages": [
+        "wiki/系统架构.md",
+        "wiki/配置路径与敏感信息.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-reuse/pnpm-lock.yaml",
+      "type": "yaml",
+      "lines": 8941,
+      "bytes": 627097,
+      "sha256": "b77283095fb0744e995a5d04ee4e0b266cc2dd93711ac22640cc780d4278d873",
+      "role": "直接依赖、脚本与完整依赖解析",
+      "pages": [
+        "wiki/系统架构.md",
+        "wiki/配置路径与敏感信息.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-reuse/solivio.test.ts",
+      "type": "ts",
+      "lines": 74,
+      "bytes": 3632,
+      "sha256": "aefcb6885bfcccd3874309619973609c9a85e0e6fe01fca08a03fa32330f606d",
+      "role": "验证与证据收集",
+      "pages": [
+        "wiki/测试与验证地图.md",
+        "wiki/知识库可靠性与覆盖范围.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-reuse/vendor/harness/LICENSE",
+      "type": "LICENSE",
+      "lines": 21,
+      "bytes": 1065,
+      "sha256": "ebb4f09972aee8608be255debaf78451a68e95c290f55c240dec2ecfa16ea6be",
+      "role": "第三方许可与副本指纹",
+      "pages": [
+        "wiki/decisions/0002-上游复用方式.md",
+        "wiki/风险与待验证事项.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-reuse/vendor/solivio/LICENSE",
+      "type": "LICENSE",
+      "lines": 21,
+      "bytes": 1077,
+      "sha256": "f31d38ecceaeb198007ae8641b3b3f37a522946abc11b9ca544afa33e5ef86d6",
+      "role": "第三方许可与副本指纹",
+      "pages": [
+        "wiki/decisions/0002-上游复用方式.md",
+        "wiki/风险与待验证事项.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-reuse/vendor/solivio/offerTotals.ts",
+      "type": "ts",
+      "lines": 7,
+      "bytes": 329,
+      "sha256": "8bb05eeff51c438ee8f8efa05fa25d3eac5e67ed37de85532f581785286f9b27",
+      "role": "原样上游行为刻画对象",
+      "pages": [
+        "wiki/技术验证记录.md",
+        "wiki/decisions/0002-上游复用方式.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-reuse/vendor/solivio/productParser.ts",
+      "type": "ts",
+      "lines": 203,
+      "bytes": 5840,
+      "sha256": "2ccb2e11e62463ba4c3f538d747ed8ce84a9ae23f1a493bf3407fa0b7079f80c",
+      "role": "原样上游行为刻画对象",
+      "pages": [
+        "wiki/技术验证记录.md",
+        "wiki/decisions/0002-上游复用方式.md"
+      ]
+    },
+    {
+      "path": "experiments/m0-reuse/vendor/solivio/provenance.json",
+      "type": "json",
+      "lines": 24,
+      "bytes": 893,
+      "sha256": "b171a002d573643cde2e4f3d511b97dbec1af22c1b9870fd6e0908985514be56",
+      "role": "第三方许可与副本指纹",
+      "pages": [
+        "wiki/decisions/0002-上游复用方式.md",
+        "wiki/风险与待验证事项.md"
+      ]
+    }
+  ],
+  "exclusionPolicy": [
+    "Wiki 自身不递归采集为应用源码；维护脚本另存指纹",
+    "跳过全部符号链接；读写引用也拒绝符号链接和越界",
+    "排除 .git、node_modules、构建产物、缓存、.runtime/.scratch",
+    "读取前排除凭据名称、.env、私钥和真实数据库",
+    "普通日志默认排除；仅纳管已审阅的 M0 合成 evidence 日志",
+    "纳管文本代码/配置/文档/锁文件及显式 LICENSE；新文件必须人工映射"
+  ]
+}

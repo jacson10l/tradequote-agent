@@ -1,0 +1,84 @@
+{
+  "checkedAt": "2026-10-21",
+  "timezone": "Asia/Shanghai",
+  "repositories": [
+    {
+      "repository": "solivio",
+      "commit": "0418df8d0568da80da421dc14da36bf2d7e4d0e1",
+      "method": "static source inspection, not installed or run",
+      "files": [
+        {
+          "path": "package.json",
+          "sha256": "ea04fad031b2449a65d10a0f6c1ad3126c32c8c50894f045b373f49038eee518"
+        },
+        {
+          "path": "apps/solivio/package.json",
+          "sha256": "732bfd7264d74894daeef4cd832e2d73ed762b3ee2a3d63c9818294384a025e3"
+        },
+        {
+          "path": "LICENSE",
+          "sha256": "f31d38ecceaeb198007ae8641b3b3f37a522946abc11b9ca544afa33e5ef86d6"
+        },
+        {
+          "path": "docs/architecture.md",
+          "sha256": "18c7dcb99a6707ea76c69a873e3c0d831d327808e3b327673ee2009bec516614"
+        },
+        {
+          "path": "modules/csv-import/src/lib/productParser.ts",
+          "sha256": "2ccb2e11e62463ba4c3f538d747ed8ce84a9ae23f1a493bf3407fa0b7079f80c"
+        },
+        {
+          "path": "modules/offers/src/lib/offerTotals.ts",
+          "sha256": "8bb05eeff51c438ee8f8efa05fa25d3eac5e67ed37de85532f581785286f9b27"
+        },
+        {
+          "path": "modules/offers/src/services.ts",
+          "sha256": "6a54b32f1949853893bf4fd3da6a39dc0f48729a9109f1b8bba69944ed26ea65"
+        },
+        {
+          "path": "modules/offer-pdf/src/lib/renderOfferPdf.ts",
+          "sha256": "e7e32e630f649db6dd18f4b3ed93b87aae628f7cdbeb848960d744bf7215d454"
+        },
+        {
+          "path": "modules/knowledge-base/src/ai/tools.ts",
+          "sha256": "b7a0c3cc5dbc9bd6765460b0782344e13e68253d6505cf370f27d28485b63810"
+        }
+      ]
+    },
+    {
+      "repository": "harness",
+      "commit": "687f282e8625c6b8d11ff58211a90524be2e4317",
+      "method": "static source inspection, not installed or run",
+      "files": [
+        {
+          "path": "package.json",
+          "sha256": "12bb41cd8212021a784b33a20c2b84372189a9505b42081d5e3869e21ff5cffc"
+        },
+        {
+          "path": "README.md",
+          "sha256": "0f5516be2acde776f05572cbc8c3093c90549afe04ce118e11157d073d5d15f4"
+        },
+        {
+          "path": "LICENSE",
+          "sha256": "ebb4f09972aee8608be255debaf78451a68e95c290f55c240dec2ecfa16ea6be"
+        },
+        {
+          "path": "docs/architecture.md",
+          "sha256": "95a7722c7096d665d8adedeb733b8f5ad7740e67cb5c6e9dc91ec05f430cb760"
+        },
+        {
+          "path": "packages/sdk/client/package.json",
+          "sha256": "ff33f2ecec2d48bb8a24397cc664fc2dd50ba49d5288eb11fea1cb12931e5d5f"
+        },
+        {
+          "path": "packages/sdk/client/README.md",
+          "sha256": "48b032e54e64324f0cb5824822ac65be59ef64bc77fbb72bb00ea993958233e2"
+        },
+        {
+          "path": "packages/bundle/sdk-minimal/README.md",
+          "sha256": "c88ec05c6198bd975fb795788920a54846f4f9ab51e20ab124c4b89635e528d7"
+        }
+      ]
+    }
+  ]
+}

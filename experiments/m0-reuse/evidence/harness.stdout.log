@@ -1,0 +1,287 @@
+{
+  "at": "2026-10-20T18:38:58.904Z",
+  "environment": {
+    "node": "v22.22.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "release": "25.4.0"
+  },
+  "realModel": false,
+  "checks": [
+    {
+      "check": "initialize",
+      "status": "passed",
+      "ms": 588
+    },
+    {
+      "check": "business-tools-and-structured-result",
+      "status": "passed",
+      "eventCount": 56,
+      "decimalTotal": "0.30"
+    },
+    {
+      "check": "tool-allowlist-enforced",
+      "status": "passed",
+      "visibleTools": [
+        "calculate_quote",
+        "create_quote_revision",
+        "search_catalog"
+      ],
+      "blocked": [
+        "bash",
+        "numeric quantity",
+        "forged workspaceId"
+      ]
+    },
+    {
+      "check": "host-idempotency-repeat",
+      "status": "passed",
+      "committedRevisions": 1
+    },
+    {
+      "check": "graceful-close-process-reaped",
+      "status": "passed"
+    },
+    {
+      "check": "resume-after-process-restart",
+      "status": "passed",
+      "committedRevisions": 1
+    },
+    {
+      "check": "cancel-by-owned-process-close",
+      "status": "passed",
+      "ms": 21,
+      "committedRevisions": 1,
+      "pendingResult": {
+        "rejected": true,
+        "error": "TransportClosedError"
+      }
+    },
+    {
+      "check": "resume-after-cancellation",
+      "status": "passed"
+    },
+    {
+      "check": "missing-session-rejected",
+      "status": "passed"
+    },
+    {
+      "check": "per-session-cancel-not-in-protocol",
+      "status": "passed",
+      "rpcErrorCode": -32603,
+      "decision": "one active run per owned process; close cancels process"
+    },
+    {
+      "check": "final-close-process-reaped",
+      "status": "passed"
+    }
+  ],
+  "requests": [
+    {
+      "path": "/v1/messages",
+      "tools": [
+        "calculate_quote",
+        "create_quote_revision",
+        "search_catalog"
+      ],
+      "stream": true,
+      "mode": "flow",
+      "toolResultCount": 0,
+      "toolErrorCount": 0
+    },
+    {
+      "path": "/v1/messages",
+      "tools": [
+        "calculate_quote",
+        "create_quote_revision",
+        "search_catalog"
+      ],
+      "stream": true,
+      "mode": "flow",
+      "toolResultCount": 1,
+      "toolErrorCount": 0
+    },
+    {
+      "path": "/v1/messages",
+      "tools": [
+        "calculate_quote",
+        "create_quote_revision",
+        "search_catalog"
+      ],
+      "stream": true,
+      "mode": "flow",
+      "toolResultCount": 2,
+      "toolErrorCount": 0
+    },
+    {
+      "path": "/v1/messages",
+      "tools": [
+        "calculate_quote",
+        "create_quote_revision",
+        "search_catalog"
+      ],
+      "stream": true,
+      "mode": "flow",
+      "toolResultCount": 3,
+      "toolErrorCount": 0
+    },
+    {
+      "path": "/v1/messages",
+      "tools": [
+        "calculate_quote",
+        "create_quote_revision",
+        "search_catalog"
+      ],
+      "stream": true,
+      "mode": "flow",
+      "toolResultCount": 4,
+      "toolErrorCount": 0
+    },
+    {
+      "path": "/v1/messages",
+      "tools": [
+        "calculate_quote",
+        "create_quote_revision",
+        "search_catalog"
+      ],
+      "stream": true,
+      "mode": "flow",
+      "toolResultCount": 5,
+      "toolErrorCount": 1
+    },
+    {
+      "path": "/v1/messages",
+      "tools": [
+        "calculate_quote",
+        "create_quote_revision",
+        "search_catalog"
+      ],
+      "stream": true,
+      "mode": "flow",
+      "toolResultCount": 6,
+      "toolErrorCount": 2
+    },
+    {
+      "path": "/v1/messages",
+      "tools": [
+        "calculate_quote",
+        "create_quote_revision",
+        "search_catalog"
+      ],
+      "stream": true,
+      "mode": "flow",
+      "toolResultCount": 7,
+      "toolErrorCount": 3
+    },
+    {
+      "path": "/v1/messages",
+      "tools": [
+        "calculate_quote",
+        "create_quote_revision",
+        "search_catalog"
+      ],
+      "stream": true,
+      "mode": "resume",
+      "toolResultCount": 7,
+      "toolErrorCount": 3
+    },
+    {
+      "path": "/v1/messages",
+      "tools": [
+        "calculate_quote",
+        "create_quote_revision",
+        "search_catalog"
+      ],
+      "stream": true,
+      "mode": "resume",
+      "toolResultCount": 8,
+      "toolErrorCount": 3
+    },
+    {
+      "path": "/v1/messages",
+      "tools": [
+        "calculate_quote",
+        "create_quote_revision",
+        "search_catalog"
+      ],
+      "stream": true,
+      "mode": "wait",
+      "toolResultCount": 8,
+      "toolErrorCount": 3
+    },
+    {
+      "path": "/v1/messages",
+      "tools": [
+        "calculate_quote",
+        "create_quote_revision",
+        "search_catalog"
+      ],
+      "stream": true,
+      "mode": "resume",
+      "toolResultCount": 8,
+      "toolErrorCount": 3
+    },
+    {
+      "path": "/v1/messages",
+      "tools": [
+        "calculate_quote",
+        "create_quote_revision",
+        "search_catalog"
+      ],
+      "stream": true,
+      "mode": "resume",
+      "toolResultCount": 9,
+      "toolErrorCount": 3
+    }
+  ],
+  "businessCalls": [
+    {
+      "tool": "search_catalog",
+      "args": {
+        "query": "valve"
+      }
+    },
+    {
+      "tool": "calculate_quote",
+      "args": {
+        "sku": "VALVE-01",
+        "quantity": "3"
+      }
+    },
+    {
+      "tool": "create_quote_revision",
+      "args": {
+        "calculationId": "calc-1",
+        "expectedVersion": 0
+      }
+    },
+    {
+      "tool": "create_quote_revision",
+      "args": {
+        "calculationId": "calc-1",
+        "expectedVersion": 0
+      }
+    },
+    {
+      "tool": "create_quote_revision",
+      "args": {
+        "calculationId": "calc-1",
+        "expectedVersion": 0
+      }
+    },
+    {
+      "tool": "create_quote_revision",
+      "args": {
+        "calculationId": "calc-1",
+        "expectedVersion": 0
+      }
+    }
+  ],
+  "dependencies": {
+    "@deepseek-ai/dsh-sdk-client": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-tools": "0.2.1-rc.2",
+    "csv-parse": "7.0.3",
+    "decimal.js": "10.6.0",
+    "tsx": "4.23.15"
+  }
+}

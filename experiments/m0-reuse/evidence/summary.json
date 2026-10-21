@@ -1,0 +1,60 @@
+{
+  "at": "2026-10-20T18:39:00.742Z",
+  "environment": {
+    "node": "v22.22.0",
+    "pnpm": "10.13.1",
+    "platform": "darwin",
+    "arch": "arm64",
+    "release": "25.4.0"
+  },
+  "credentials": {
+    "deepseekKeyPresent": false,
+    "configuredModelPresent": false,
+    "secretValuesRead": false
+  },
+  "scope": "upstream extraction and installed Harness against synthetic local services",
+  "versions": {
+    "@deepseek-ai/dsh": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-sdk-client": "0.2.1-rc.2"
+  },
+  "directDependencies": {
+    "@deepseek-ai/dsh-sdk-client": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-tools": "0.2.1-rc.2",
+    "csv-parse": "7.0.3",
+    "decimal.js": "10.6.0",
+    "tsx": "4.23.15"
+  },
+  "solivioSourceHashesVerified": true,
+  "commands": [
+    {
+      "command": "pnpm exec tsx --test solivio.test.ts",
+      "exitCode": 0,
+      "elapsedMs": 482,
+      "output": "solivio.tap"
+    },
+    {
+      "command": "node harness-probe.mjs",
+      "exitCode": 0,
+      "elapsedMs": 1891,
+      "output": "harness.stdout.log"
+    }
+  ],
+  "notRun": [
+    "real DeepSeek inference",
+    "Electron packaging/installation",
+    "Windows",
+    "production SQLite transaction/crash recovery",
+    "PDF/RTL",
+    "full Solivio application"
+  ],
+  "sha256": {
+    "package.json": "240ae732f9f7230c362ce97ece60091d691169f6a8b9215e6244331796848ab4",
+    "pnpm-lock.yaml": "b77283095fb0744e995a5d04ee4e0b266cc2dd93711ac22640cc780d4278d873",
+    "solivio.test.ts": "aefcb6885bfcccd3874309619973609c9a85e0e6fe01fca08a03fa32330f606d",
+    "business-tools.mjs": "407a158b43e1e41ec1914b5268959585b6780c262b56df6160310c617af215b0",
+    "harness-probe.mjs": "26ab53f7229aa7fbea3bf9ca5ddfa048f7217c6422259e0161e2f9725e1debf0",
+    "collect-evidence.mjs": "bd7a527e11b2e11ba7db6dd7ded2ca219518ee74d4448a1fb67c9a16a4f6a172",
+    "evidence/harness.json": "fea07a9daef630042bf5db4cd0cd99cb7d227ca4e31d532ca18ced18fb4d66b2",
+    "evidence/solivio.tap": "d46738c494c53e0c9f2646045a01c1369727a1a8248ea59b0d86024b86ed7b6e"
+  }
+}

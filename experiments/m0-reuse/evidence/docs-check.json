@@ -1,0 +1,30 @@
+{
+  "at": "2026-10-20T18:39:55.651973+00:00",
+  "authoredMarkdownFiles": 20,
+  "localLinksChecked": 111,
+  "semanticPages": 8,
+  "originalInputsUnchanged": true,
+  "errors": [],
+  "sha256": {
+    "README.md": "4e9d41ac515c73182fe61a7b307acf7cffe4d5ba037ed49a6acba81160d48941",
+    "AGENTS.md": "610e30ea3cf4a2907d0f0bb5034d3fa70711423bc746403762bc8c5eca22a4e0",
+    "DESIGN.md": "b6e45babb19e37cdedebea2a576266ea31f7f44fb9449ccd37ca746d3c5c415b",
+    "UPSTREAM.md": "b8e05939d023cf4ba1ace0dc32d83b52737b07450d375c4b372a43739cabf8fa",
+    "THIRD_PARTY_NOTICES.md": "aaa1720a626a0d8d92b3580a6435ba05d2998894818e939cf681f5c44477d5e8",
+    "wiki-project/CONTEXT.md": "4c626604b7d7f6dec9406eadc9f46837fe6428c2ffd1b369752adb9682e0112b",
+    "wiki-project/README.md": "d7db2ae4b0d228d40f6879ffbc344a579775ee1d0acefdf50cf27607ddaa0608",
+    "wiki-project/log.md": "9fa3627c0510c245868dd96ecc413c29e7c30d6a38cabdd72e8bac46c1a88f9a",
+    "wiki-project/index.md": "b7d8005bd670196a5bbf2c60d5475670aa30793fdca6a6985d8ff73dc49e104d",
+    "wiki-project/AGENTS.md": "c1d2eabc63b3cca53c78d64079e29179017251e5cdf4d86687d49f8534528fe5",
+    "wiki-project/wiki/技术验证记录.md": "1c813ac962bf5a0f546833d5e2696e077d1a29b8cda4821fab814d9a4c0c0c0a",
+    "wiki-project/wiki/07-服务器演进与风险.md": "0c8aef14456a002e97404357f68799e6d922c4e23caf0ff85e64fc230aa94b75",
+    "wiki-project/wiki/06-测试与交付.md": "83e805ddbe75b54976d21177e8740ad6d91b18363901d4d101a60b5e2b57bd86",
+    "wiki-project/wiki/01-MVP范围与验收.md": "1d0882cd487aca8f5f143c3b10ca7cb263af6f4657ad1d37ce7910d8b8d34bf4",
+    "wiki-project/wiki/02-技术选型与架构.md": "5992d7753e2cc1f88619d5c616e46935b048e821243d52099a1d7aa157e86020",
+    "wiki-project/wiki/04-接口与Agent契约.md": "2197ee13a538bfe315c00c136f78747b533ec3e3456fb01c1287dc8e58140537",
+    "wiki-project/wiki/03-领域与数据契约.md": "d4916f34dec1409652c11588ee2021141143ed85143a85e7d4a2835b57a3bd6f",
+    "wiki-project/wiki/05-三人分工与开发步骤.md": "fdd4cedbb4b59c666f49ee8a558f64c84bf0271f4182f2c6dd3ed9425e4ca915",
+    "experiments/m0-reuse/README.md": "b57776814c4e95a1f2f255a6669dabd43622fe05c36a1af66a9cf387472a34bb",
+    "wiki-project/raw/source-manifest.md": "a632c201124d5c796100df23c2b5be366bda7cdcba91683cbb0ef362d02a259d"
+  }
+}

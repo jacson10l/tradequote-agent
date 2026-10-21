@@ -1,0 +1,127 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "at": "2026-10-20T19:01:08.352852+00:00",
+  "scope": "Engineering Wiki only; no product/model/platform acceptance",
+  "environment": {
+    "node": "v22.22.0",
+    "platform": "macOS arm64"
+  },
+  "checks": [
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs .",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 27,\n  \"lines\": 10738,\n  \"generated\": 5,\n  \"excluded\": 4\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 27,\n  \"lines\": 10738,\n  \"generated\": 5,\n  \"excluded\": 4\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 40,\n  \"semantic\": 25,\n  \"reachable\": 40\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "node --check wiki-project/scripts/wiki-lib.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check wiki-project/scripts/build-code-index.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check wiki-project/scripts/lint-wiki.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check wiki-project/scripts/wiki-tools.test.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --test wiki-project/scripts/wiki-tools.test.mjs",
+      "exitCode": 0,
+      "stdout": "See raw/wiki-tools.tap",
+      "stderr": ""
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "git diff --cached --check",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "statistics": {
+    "managedFiles": 27,
+    "managedLines": 10738,
+    "semanticPages": 25,
+    "markdownPages": 40,
+    "mechanicalMarkdown": 4,
+    "machineInventory": 1,
+    "regressionTests": 25
+  },
+  "toolchain": {
+    "build-code-index.mjs": "31d9db6d9c1db25c4971213ee2da8d7e0e790417a200bb3a8e80aaf507b11f9b",
+    "wiki-lib.mjs": "de295b3b85c0b50ad62801f5ed9feb0c824c3e6d8436b86d84b7a6b51e98d464",
+    "wiki-config.json": "7f91e9167fa6b5f8417ef0ff1ccbb81ebec480b387357dc9abab7ecfaacd995d",
+    "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
+    "wiki-tools.test.mjs": "98ad0e0af5684c0a406e971ce3367a14b060619e13fb232e58a56e8d2722bfda"
+  },
+  "sourceInventorySha256": "763472d6a5a82d66b6a30fcf3b67de1232850542fdcfa405bfdff83ee83c19b6",
+  "git": {
+    "head": "8fc9a9ba39e51fb7db195300d81b541dd3a3a843",
+    "branch": "main",
+    "worktree": " M README.md\n?? .gitignore\n?? AGENTS.md\n?? DESIGN.md\n?? THIRD_PARTY_NOTICES.md\n?? UPSTREAM.md\n?? experiments/\n?? wiki-project/\n"
+  },
+  "limits": [
+    "No new application tests: application files unchanged",
+    "Existing M0 results remain historical",
+    "No real DeepSeek, Windows, Electron packaging, SQLite or PDF acceptance",
+    "Static scanning cannot prove semantic correctness or exhaustive privacy coverage"
+  ],
+  "finalizedAt": "2026-10-20T19:03:35.200192+00:00",
+  "finalDocumentChecks": [
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 27,\n  \"lines\": 10738,\n  \"generated\": 5,\n  \"excluded\": 4\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 40,\n  \"semantic\": 25,\n  \"reachable\": 40\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "git diff --cached --check",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}

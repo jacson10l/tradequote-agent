@@ -1,0 +1,24 @@
+{
+  "repository": "https://github.com/solivio-ai/solivio",
+  "commit": "0418df8d0568da80da421dc14da36bf2d7e4d0e1",
+  "files": [
+    {
+      "upstreamPath": "modules/csv-import/src/lib/productParser.ts",
+      "localPath": "experiments/m0-reuse/vendor/solivio/productParser.ts",
+      "sha256": "2ccb2e11e62463ba4c3f538d747ed8ce84a9ae23f1a493bf3407fa0b7079f80c",
+      "modifications": "none"
+    },
+    {
+      "upstreamPath": "modules/offers/src/lib/offerTotals.ts",
+      "localPath": "experiments/m0-reuse/vendor/solivio/offerTotals.ts",
+      "sha256": "8bb05eeff51c438ee8f8efa05fa25d3eac5e67ed37de85532f581785286f9b27",
+      "modifications": "none"
+    },
+    {
+      "upstreamPath": "LICENSE",
+      "localPath": "experiments/m0-reuse/vendor/solivio/LICENSE",
+      "sha256": "f31d38ecceaeb198007ae8641b3b3f37a522946abc11b9ca544afa33e5ef86d6",
+      "modifications": "none"
+    }
+  ]
+}

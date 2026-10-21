@@ -1,0 +1,76 @@
+TAP version 13
+# Subtest: compatible: BOM, semicolon, Chinese category attributes
+ok 1 - compatible: BOM, semicolon, Chinese category attributes
+  ---
+  duration_ms: 3.255209
+  type: 'test'
+  ...
+# Subtest: compatible: quoted comma, escaped quote and multiline cell
+ok 2 - compatible: quoted comma, escaped quote and multiline cell
+  ---
+  duration_ms: 0.337458
+  type: 'test'
+  ...
+# Subtest: compatible: tab-separated data
+ok 3 - compatible: tab-separated data
+  ---
+  duration_ms: 0.397125
+  type: 'test'
+  ...
+# Subtest: mismatch: delimiters inside quoted header defeat automatic detection
+ok 4 - mismatch: delimiters inside quoted header defeat automatic detection
+  ---
+  duration_ms: 0.411
+  type: 'test'
+  ...
+# Subtest: mismatch: unclosed quote is accepted without diagnostic
+ok 5 - mismatch: unclosed quote is accepted without diagnostic
+  ---
+  duration_ms: 0.577292
+  type: 'test'
+  ...
+# Subtest: mismatch: extra cell is silently discarded
+ok 6 - mismatch: extra cell is silently discarded
+  ---
+  duration_ms: 0.637041
+  type: 'test'
+  ...
+# Subtest: mismatch: extraction requires upstream VAT/gross/description schema
+ok 7 - mismatch: extraction requires upstream VAT/gross/description schema
+  ---
+  duration_ms: 0.242834
+  type: 'test'
+  ...
+# Subtest: mismatch: Chinese column aliases require our mapping UI
+ok 8 - mismatch: Chinese column aliases require our mapping UI
+  ---
+  duration_ms: 0.059458
+  type: 'test'
+  ...
+# Subtest: mismatch: ambiguous price 1.234 becomes 1234, not three-decimal price
+ok 9 - mismatch: ambiguous price 1.234 becomes 1234, not three-decimal price
+  ---
+  duration_ms: 0.496083
+  type: 'test'
+  ...
+# Subtest: mismatch: JS number sum fails exact decimal equality
+ok 10 - mismatch: JS number sum fails exact decimal equality
+  ---
+  duration_ms: 1.073791
+  type: 'test'
+  ...
+# Subtest: mismatch: totals helper assumes validated quantity and discount
+ok 11 - mismatch: totals helper assumes validated quantity and discount
+  ---
+  duration_ms: 0.075083
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 164.509125

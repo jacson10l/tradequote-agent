@@ -1,0 +1,27 @@
+{
+  "name": "tradequote-m0-reuse",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.13.1",
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "scripts": {
+    "test": "node collect-evidence.mjs",
+    "test:solivio": "tsx --test solivio.test.ts",
+    "probe:harness": "node harness-probe.mjs"
+  },
+  "pnpm": {
+    "overrides": {
+      "@opentelemetry/api": "1.9.1"
+    }
+  },
+  "dependencies": {
+    "@deepseek-ai/dsh-sdk-client": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-tools": "0.2.1-rc.2",
+    "csv-parse": "7.0.3",
+    "decimal.js": "10.6.0",
+    "tsx": "4.23.15"
+  }
+}

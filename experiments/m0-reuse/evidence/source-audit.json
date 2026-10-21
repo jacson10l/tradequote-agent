@@ -1,0 +1,80 @@
+[
+  {
+    "name": "solivio",
+    "commit": "0418df8d0568da80da421dc14da36bf2d7e4d0e1",
+    "remote": "https://github.com/solivio-ai/solivio.git",
+    "files": [
+      {
+        "path": "package.json",
+        "sha256": "ea04fad031b2449a65d10a0f6c1ad3126c32c8c50894f045b373f49038eee518"
+      },
+      {
+        "path": "apps/solivio/package.json",
+        "sha256": "732bfd7264d74894daeef4cd832e2d73ed762b3ee2a3d63c9818294384a025e3"
+      },
+      {
+        "path": "modules/csv-import/src/lib/productParser.ts",
+        "sha256": "2ccb2e11e62463ba4c3f538d747ed8ce84a9ae23f1a493bf3407fa0b7079f80c"
+      },
+      {
+        "path": "modules/offers/src/lib/offerTotals.ts",
+        "sha256": "8bb05eeff51c438ee8f8efa05fa25d3eac5e67ed37de85532f581785286f9b27"
+      },
+      {
+        "path": "modules/offers/src/services.ts",
+        "sha256": "6a54b32f1949853893bf4fd3da6a39dc0f48729a9109f1b8bba69944ed26ea65"
+      },
+      {
+        "path": "modules/offer-pdf/src/lib/renderOfferPdf.ts",
+        "sha256": "e7e32e630f649db6dd18f4b3ed93b87aae628f7cdbeb848960d744bf7215d454"
+      },
+      {
+        "path": "modules/knowledge-base/src/ai/tools.ts",
+        "sha256": "b7a0c3cc5dbc9bd6765460b0782344e13e68253d6505cf370f27d28485b63810"
+      },
+      {
+        "path": "LICENSE",
+        "sha256": "f31d38ecceaeb198007ae8641b3b3f37a522946abc11b9ca544afa33e5ef86d6"
+      }
+    ]
+  },
+  {
+    "name": "harness",
+    "commit": "687f282e8625c6b8d11ff58211a90524be2e4317",
+    "remote": "https://github.com/deepseek-ai/deepseek-harness.git",
+    "files": [
+      {
+        "path": "packages/sdk/client/src/launch.ts",
+        "sha256": "d7187537945618d6190bf98ab5893de9a1a059e4e2ec4d3778386eaffe5148af"
+      },
+      {
+        "path": "packages/sdk/client/src/client.ts",
+        "sha256": "b768a3a2bc2b9267ce0ca544b43129bf1dd691c1663756b810dc5f7bc1c1ff91"
+      },
+      {
+        "path": "packages/sdk/protocol/src/types.ts",
+        "sha256": "67c20951b975462a71e0cdbbd8b61bd0c9cdf9abff4ac4a52f70795411751cd2"
+      },
+      {
+        "path": "packages/sdk/server/src/server.ts",
+        "sha256": "3dd846373e346f7547e97a73c3eae0f243e7aa77bd34950c540046c73d628479"
+      },
+      {
+        "path": "packages/bundle/sdk-minimal/cordis.patch.yml",
+        "sha256": "464ea07c03d3639c2c387fa3a684f5d4001e7ca39f8257b361c604f19487af66"
+      },
+      {
+        "path": "packages/llm/llm-deepseek/src/config.ts",
+        "sha256": "6bdba6214bf62089b91e5b7e223d87de583b8752daef124b26d3094758ed0ce9"
+      },
+      {
+        "path": "packages/core/tools/src/schema.ts",
+        "sha256": "096f679e38626cc52536b8ecb9eef4c551c1a8a095c8e84f7a3b6156ee533653"
+      },
+      {
+        "path": "LICENSE",
+        "sha256": "ebb4f09972aee8608be255debaf78451a68e95c290f55c240dec2ecfa16ea6be"
+      }
+    ]
+  }
+]

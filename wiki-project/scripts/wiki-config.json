@@ -1,0 +1,243 @@
+{
+  "version": 1,
+  "extraFiles": [
+    "experiments/m0-reuse/evidence/harness.stdout.log",
+    "experiments/m0-reuse/evidence/install-frozen.log",
+    "experiments/m0-reuse/evidence/install-initial.log",
+    "experiments/m0-reuse/evidence/install-pinned.log",
+    "experiments/m0-reuse/evidence/solivio.tap"
+  ],
+  "exclusionPolicy": [
+    "Wiki 自身不递归采集为应用源码；维护脚本另存指纹",
+    "跳过全部符号链接；读写引用也拒绝符号链接和越界",
+    "排除 .git、node_modules、构建产物、缓存、.runtime/.scratch",
+    "读取前排除凭据名称、.env、私钥和真实数据库",
+    "普通日志默认排除；仅纳管已审阅的 M0 合成 evidence 日志",
+    "纳管文本代码/配置/文档/锁文件及显式 LICENSE；新文件必须人工映射"
+  ],
+  "archivalMarkdown": [
+    "raw/inputs/项目构建技术栈.md",
+    "raw/inputs/外贸询报价协同 Agent 完整产品与实施方案.md",
+    "raw/design/mistral-original.md",
+    "raw/design/claude-original.md"
+  ],
+  "required": [
+    "README.md",
+    "AGENTS.md",
+    "index.md",
+    "CONTEXT.md",
+    "log.md",
+    "raw/source-manifest.md",
+    "raw/ingest-baseline.json",
+    ".obsidian/app.json",
+    "scripts/build-code-index.mjs",
+    "scripts/lint-wiki.mjs",
+    "scripts/wiki-tools.test.mjs",
+    "wiki/系统架构.md",
+    "wiki/项目状态.md",
+    "wiki/运行时能力地图.md",
+    "wiki/核心业务流程.md",
+    "wiki/数据持久化与状态.md",
+    "wiki/领域词汇表.md",
+    "wiki/测试与验证地图.md",
+    "wiki/配置路径与敏感信息.md",
+    "wiki/风险与待验证事项.md",
+    "wiki/知识库可靠性与覆盖范围.md",
+    "wiki/Wiki 工作流与任务记录.md",
+    "wiki/工程Wiki要求对照.md",
+    "raw/generated/代码清单.md",
+    "raw/generated/源码快照.md",
+    "raw/generated/源码覆盖矩阵.md",
+    "raw/generated/命令与运行时清单.md"
+  ],
+  "coverage": {
+    ".gitignore": {
+      "role": "运行数据与依赖排除",
+      "pages": [
+        "wiki/配置路径与敏感信息.md"
+      ]
+    },
+    "README.md": {
+      "role": "项目入口与协作约束",
+      "pages": [
+        "wiki/项目状态.md",
+        "wiki/Wiki 工作流与任务记录.md"
+      ]
+    },
+    "AGENTS.md": {
+      "role": "项目入口与协作约束",
+      "pages": [
+        "wiki/项目状态.md",
+        "wiki/Wiki 工作流与任务记录.md"
+      ]
+    },
+    "DESIGN.md": {
+      "role": "当前视觉规范",
+      "pages": [
+        "wiki/decisions/0001-Mistral工作台风格.md"
+      ]
+    },
+    "UPSTREAM.md": {
+      "role": "复用来源与许可边界",
+      "pages": [
+        "wiki/decisions/0002-上游复用方式.md",
+        "wiki/风险与待验证事项.md"
+      ]
+    },
+    "THIRD_PARTY_NOTICES.md": {
+      "role": "复用来源与许可边界",
+      "pages": [
+        "wiki/decisions/0002-上游复用方式.md",
+        "wiki/风险与待验证事项.md"
+      ]
+    },
+    "experiments/m0-reuse/README.md": {
+      "role": "探针运行入口与限制",
+      "pages": [
+        "wiki/系统架构.md",
+        "wiki/测试与验证地图.md"
+      ]
+    },
+    "experiments/m0-reuse/package.json": {
+      "role": "直接依赖、脚本与完整依赖解析",
+      "pages": [
+        "wiki/系统架构.md",
+        "wiki/配置路径与敏感信息.md"
+      ]
+    },
+    "experiments/m0-reuse/pnpm-lock.yaml": {
+      "role": "直接依赖、脚本与完整依赖解析",
+      "pages": [
+        "wiki/系统架构.md",
+        "wiki/配置路径与敏感信息.md"
+      ]
+    },
+    "experiments/m0-reuse/business-tools.mjs": {
+      "role": "受控业务工具桥接",
+      "pages": [
+        "wiki/运行时能力地图.md",
+        "wiki/核心业务流程.md"
+      ]
+    },
+    "experiments/m0-reuse/harness-probe.mjs": {
+      "role": "模型与业务fixture、进程生命周期",
+      "pages": [
+        "wiki/运行时能力地图.md",
+        "wiki/数据持久化与状态.md",
+        "wiki/核心业务流程.md"
+      ]
+    },
+    "experiments/m0-reuse/collect-evidence.mjs": {
+      "role": "验证与证据收集",
+      "pages": [
+        "wiki/测试与验证地图.md",
+        "wiki/知识库可靠性与覆盖范围.md"
+      ]
+    },
+    "experiments/m0-reuse/solivio.test.ts": {
+      "role": "验证与证据收集",
+      "pages": [
+        "wiki/测试与验证地图.md",
+        "wiki/知识库可靠性与覆盖范围.md"
+      ]
+    },
+    "experiments/m0-reuse/vendor/solivio/productParser.ts": {
+      "role": "原样上游行为刻画对象",
+      "pages": [
+        "wiki/技术验证记录.md",
+        "wiki/decisions/0002-上游复用方式.md"
+      ]
+    },
+    "experiments/m0-reuse/vendor/solivio/offerTotals.ts": {
+      "role": "原样上游行为刻画对象",
+      "pages": [
+        "wiki/技术验证记录.md",
+        "wiki/decisions/0002-上游复用方式.md"
+      ]
+    },
+    "experiments/m0-reuse/vendor/solivio/LICENSE": {
+      "role": "第三方许可与副本指纹",
+      "pages": [
+        "wiki/decisions/0002-上游复用方式.md",
+        "wiki/风险与待验证事项.md"
+      ]
+    },
+    "experiments/m0-reuse/vendor/solivio/provenance.json": {
+      "role": "第三方许可与副本指纹",
+      "pages": [
+        "wiki/decisions/0002-上游复用方式.md",
+        "wiki/风险与待验证事项.md"
+      ]
+    },
+    "experiments/m0-reuse/vendor/harness/LICENSE": {
+      "role": "第三方许可与副本指纹",
+      "pages": [
+        "wiki/decisions/0002-上游复用方式.md",
+        "wiki/风险与待验证事项.md"
+      ]
+    },
+    "experiments/m0-reuse/evidence/docs-check.json": {
+      "role": "既有 M0 实验记录；历史快照不随本轮重写",
+      "pages": [
+        "wiki/测试与验证地图.md",
+        "wiki/知识库可靠性与覆盖范围.md"
+      ]
+    },
+    "experiments/m0-reuse/evidence/harness.json": {
+      "role": "既有 M0 实验记录；历史快照不随本轮重写",
+      "pages": [
+        "wiki/测试与验证地图.md",
+        "wiki/知识库可靠性与覆盖范围.md"
+      ]
+    },
+    "experiments/m0-reuse/evidence/harness.stdout.log": {
+      "role": "既有 M0 实验记录；历史快照不随本轮重写",
+      "pages": [
+        "wiki/测试与验证地图.md",
+        "wiki/知识库可靠性与覆盖范围.md"
+      ]
+    },
+    "experiments/m0-reuse/evidence/install-frozen.log": {
+      "role": "既有 M0 实验记录；历史快照不随本轮重写",
+      "pages": [
+        "wiki/测试与验证地图.md",
+        "wiki/知识库可靠性与覆盖范围.md"
+      ]
+    },
+    "experiments/m0-reuse/evidence/install-initial.log": {
+      "role": "既有 M0 实验记录；历史快照不随本轮重写",
+      "pages": [
+        "wiki/测试与验证地图.md",
+        "wiki/知识库可靠性与覆盖范围.md"
+      ]
+    },
+    "experiments/m0-reuse/evidence/install-pinned.log": {
+      "role": "既有 M0 实验记录；历史快照不随本轮重写",
+      "pages": [
+        "wiki/测试与验证地图.md",
+        "wiki/知识库可靠性与覆盖范围.md"
+      ]
+    },
+    "experiments/m0-reuse/evidence/solivio.tap": {
+      "role": "既有 M0 实验记录；历史快照不随本轮重写",
+      "pages": [
+        "wiki/测试与验证地图.md",
+        "wiki/知识库可靠性与覆盖范围.md"
+      ]
+    },
+    "experiments/m0-reuse/evidence/source-audit.json": {
+      "role": "既有 M0 实验记录；历史快照不随本轮重写",
+      "pages": [
+        "wiki/测试与验证地图.md",
+        "wiki/知识库可靠性与覆盖范围.md"
+      ]
+    },
+    "experiments/m0-reuse/evidence/summary.json": {
+      "role": "既有 M0 实验记录；历史快照不随本轮重写",
+      "pages": [
+        "wiki/测试与验证地图.md",
+        "wiki/知识库可靠性与覆盖范围.md"
+      ]
+    }
+  }
+}

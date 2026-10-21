@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-21",
+  "timezone": "Asia/Shanghai",
+  "sources": [
+    {
+      "source": "user-provided:项目构建技术栈.md",
+      "copy": "wiki-project/raw/inputs/项目构建技术栈.md",
+      "sha256": "7a03681da9a90d556542303b6f5b955b0c2248d3e5987f8e084408899b3b8187"
+    },
+    {
+      "source": "user-provided:外贸询报价协同 Agent 完整产品与实施方案.md",
+      "copy": "wiki-project/raw/inputs/外贸询报价协同 Agent 完整产品与实施方案.md",
+      "sha256": "6726a24f55dabf4261cea0a1d75338c5017129c6f6e903f87df21dda5b340fb6"
+    },
+    {
+      "source": "project-root:DESIGN.md",
+      "copy": "wiki-project/raw/design/claude-original.md",
+      "sha256": "3d972f34f8d4f33b442fa28220cf3b7ca2f13c0a97c468e3988148f82521f9df",
+      "status": "superseded-by-mistral"
+    },
+    {
+      "source": "npx --yes getdesign@latest add mistral.ai --force",
+      "copy": "wiki-project/raw/design/mistral-original.md",
+      "sha256": "e56a8eeb44ed6e9522c59cd59ddf1d2ace9e435265cce25f8367b4e4b473f13d",
+      "status": "current-design-reference"
+    }
+  ],
+  "getdesign_cached_packages": [
+    {
+      "name": "getdesign",
+      "version": "0.6.26",
+      "license": "MIT"
+    }
+  ],
+  "pathRedaction": "Local absolute paths removed before the first project snapshot commit; archived copies and hashes are unchanged."
+}
