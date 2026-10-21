@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "fa07a7b63ea5745d582013f79445c9d5ff97b79f81393dffdcad4b7299074212",
+    "wiki-config.json": "7cede8cbaad98acc5bdb498e72d6f6f29301df0e21a34b3c1b6943fe7094b0d7",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -221,9 +221,9 @@
     {
       "path": "apps/desktop/src/preload/contracts.test.ts",
       "type": "ts",
-      "lines": 157,
-      "bytes": 5898,
-      "sha256": "96ab392432858fcab2aba58cc31b14ce967784144e34339b447bdf16970a6536",
+      "lines": 160,
+      "bytes": 6109,
+      "sha256": "3b2b21b2f847d6164b871699f32f9af3e99722ded3ea83488e34481407f9759d",
       "role": "B00 preload and mock capability gate without new IPC",
       "pages": [
         "wiki/首批并行接口约定.md",
@@ -1199,9 +1199,9 @@
     {
       "path": "packages/contracts/src/mock.ts",
       "type": "ts",
-      "lines": 148,
-      "bytes": 5413,
-      "sha256": "19b37b5946974a51f42c28e0b63630c5c9d1abe3119c9af07bdd129fcb254ca2",
+      "lines": 149,
+      "bytes": 5436,
+      "sha256": "6acf3e11cf9d81f01d5adb6bd1b4b95a2d3c4499d587ab00707f8139b365580c",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md"
@@ -1210,9 +1210,9 @@
     {
       "path": "packages/contracts/src/pending-client.ts",
       "type": "ts",
-      "lines": 31,
-      "bytes": 1736,
-      "sha256": "159b71bd4d5e55fd52c480a2686cd59ded5398fc66eb133a35513bba6baf6496",
+      "lines": 32,
+      "bytes": 1817,
+      "sha256": "cdedf515858bf108a45d3123c7af0c6036859a080902229a9236d593af83709a",
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
         "wiki/首批并行接口约定.md"
@@ -1267,9 +1267,9 @@
     {
       "path": "packages/contracts/src/runs.test.ts",
       "type": "ts",
-      "lines": 110,
-      "bytes": 4397,
-      "sha256": "c677e714c750675855c7443af9aa7a4183eec1f44ce8097256ac11f23502925c",
+      "lines": 145,
+      "bytes": 5676,
+      "sha256": "9b01a3e9b7a4fa2b548ceac4ab6bf92c64f6a23b0a08c48fd80825a84c9cd45a",
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
         "wiki/首批并行接口约定.md"
@@ -1278,9 +1278,9 @@
     {
       "path": "packages/contracts/src/runs.ts",
       "type": "ts",
-      "lines": 68,
-      "bytes": 3102,
-      "sha256": "2ce637912077f4a3cafa8e36eab059b214d053666e00e69b832044bf32265f51",
+      "lines": 91,
+      "bytes": 4143,
+      "sha256": "47b7861ab7c1bd9704b93064d429bd5b106b460f1350cb1068d460a54cf2fdf3",
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
         "wiki/首批并行接口约定.md"
@@ -1355,12 +1355,23 @@
     {
       "path": "packages/domain/src/index.ts",
       "type": "ts",
-      "lines": 65,
-      "bytes": 2315,
-      "sha256": "818a9237921282e9c03e3343d53f926ed5ef2b7c5c8cbe376788ea646ea1c2f8",
+      "lines": 66,
+      "bytes": 2369,
+      "sha256": "357314c4f4e5e7971447b66cffcefd47e09134892d63aa71275750e2b5ddf7cd",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md"
+      ]
+    },
+    {
+      "path": "packages/domain/src/knowledge.ts",
+      "type": "ts",
+      "lines": 51,
+      "bytes": 2118,
+      "sha256": "ae52d505e67d3ec6ac388397fe102dec020a8057dbb67bb4bad1770398dd9779",
+      "role": "A01b知识审核发布服务：human_ui门禁与方法分发",
+      "pages": [
+        "wiki/A知识发布实现.md"
       ]
     },
     {
@@ -1421,11 +1432,33 @@
       ]
     },
     {
+      "path": "packages/infrastructure/src/agent-run-store.test.ts",
+      "type": "ts",
+      "lines": 481,
+      "bytes": 18587,
+      "sha256": "cee7a93bca8a82adfc471433192c90f33a52a8c83fcc9f4182a6a6d8b6b1a8df",
+      "role": "真实SQLite运行恢复前置、故障回滚、版本凭据与升级回归",
+      "pages": [
+        "wiki/C02c持久运行与写入前置.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/agent-run-store.ts",
+      "type": "ts",
+      "lines": 363,
+      "bytes": 13345,
+      "sha256": "d2b59fbe60550fd068928d81db63aa8eee141b31a11a399b29e677bc66b5305c",
+      "role": "持久运行存储、票据、控制重放与同连接报价原子提交",
+      "pages": [
+        "wiki/C02c持久运行与写入前置.md"
+      ]
+    },
+    {
       "path": "packages/infrastructure/src/agent.test.ts",
       "type": "ts",
       "lines": 443,
-      "bytes": 16607,
-      "sha256": "e3420dacb60402614eeed5799b5124942592a8597671280864087c414c2645a6",
+      "bytes": 16623,
+      "sha256": "67721d8d6f0ba358de4f29ba2973b2c95d65a176a4e44f1b3d40a595eb6558b0",
       "role": "修订幂等冲突事务与迁移验收",
       "pages": [
         "wiki/M4模型与报价修订.md",
@@ -1531,20 +1564,43 @@
     {
       "path": "packages/infrastructure/src/index.ts",
       "type": "ts",
-      "lines": 111,
-      "bytes": 4041,
-      "sha256": "49027c8081f7d07ebc317b07a97c18f08d9c27c7a098d2579b576b23b018a821",
+      "lines": 124,
+      "bytes": 4463,
+      "sha256": "401021c84fce5059617bbbcf3d0b246fa666a2bc63b05878d47a1fc690ba55d5",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md"
       ]
     },
     {
+      "path": "packages/infrastructure/src/knowledge-store.test.ts",
+      "type": "ts",
+      "lines": 343,
+      "bytes": 12643,
+      "sha256": "fee50bad8d8b4c7ca62cd26e7141cb30940bebbb09c1ed74ba2dbd16e72bf5c8",
+      "role": "A01b知识存储回归：发布门禁、幂等、版本、scope与不可变",
+      "pages": [
+        "wiki/A知识发布实现.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/knowledge-store.ts",
+      "type": "ts",
+      "lines": 235,
+      "bytes": 9532,
+      "sha256": "b1911824a09c918e7fab6b26a85de54a3251f7651634a82a9587c6b1ec42cf41",
+      "role": "A01b知识版本SQLite存储：hash绑定、原地发布、幂等与不可变",
+      "pages": [
+        "wiki/A知识发布实现.md"
+      ]
+    },
+    {
       "path": "packages/infrastructure/src/migrations.ts",
       "type": "ts",
-      "lines": 48,
-      "bytes": 3648,
-      "sha256": "60c9638fcdaf75b0dc36197987190af61408794583600b0f42aa501a5dd9618c",
+      "lines": 98,
+      "bytes": 5764,
+      "sha256": "06bdf87529d77251865216aea7c77aa7688d0f3b22ec4af2f038cc6188d8af90",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md"
@@ -1611,9 +1667,9 @@
     {
       "path": "packages/infrastructure/src/storage.test.ts",
       "type": "ts",
-      "lines": 109,
-      "bytes": 4258,
-      "sha256": "e1faa8c74097cda9fdfea54b6259136a6ecbe79fb3aaaa703d1fe19033b338ce",
+      "lines": 125,
+      "bytes": 4836,
+      "sha256": "ba7e4bb41e26c7a77cf0d10a7347c791ee32cb225f6c0e2aeebca5f573a4067c",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md"
@@ -1634,9 +1690,9 @@
     {
       "path": "packages/infrastructure/src/trade-store.ts",
       "type": "ts",
-      "lines": 319,
-      "bytes": 13451,
-      "sha256": "06f6cd2b2cf55e507b2b8e64f9f934eb26fc9cdb122bda68e91f3afbd615d0f8",
+      "lines": 358,
+      "bytes": 15428,
+      "sha256": "16331aa99c17ed064ca9b9287687d746310ea5d6a42d2f18c01521c7fa73d480",
       "role": "Atomic scenario/catalog/immutable quote V1 storage and retries",
       "pages": [
         "wiki/M2真实报价V1.md"
@@ -1838,9 +1894,9 @@
     {
       "path": "tests/e2e/workspace.spec.ts",
       "type": "ts",
-      "lines": 288,
-      "bytes": 12275,
-      "sha256": "9edbb531268609670f5ed79dee9400b1c80b15acd4b92b6b2f58ac93bc337c5e",
+      "lines": 289,
+      "bytes": 12300,
+      "sha256": "0717cad9570bc208c2547f9a6f8e41321a57538a172f2058a2804d4c1c24da15",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md"
@@ -1855,7 +1911,8 @@
       "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
       "pages": [
         "wiki/双参考项目功能对照与C开发路线.md",
-        "wiki/A业务LLMWiki方案.md"
+        "wiki/A业务LLMWiki方案.md",
+        "wiki/A知识发布实现.md"
       ]
     },
     {

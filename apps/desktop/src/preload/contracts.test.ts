@@ -73,6 +73,7 @@ describe("B00 read-only mock and formal preload capability gate", () => {
         method: "agent.cancel",
         payload: { runId: mockAgentRun.runId },
       }),
+      RunCommandSchema.parse({ ...read, method: "agent.list", payload: {} }),
       RunCommandSchema.parse({
         ...write,
         method: "agent.retry",
@@ -100,7 +101,9 @@ describe("B00 read-only mock and formal preload capability gate", () => {
                           ? await client.getAgentRun(command)
                           : command.method === "agent.cancel"
                             ? await client.cancelAgentRun(command)
-                            : await client.retryAgentRun(command);
+                            : command.method === "agent.retry"
+                              ? await client.retryAgentRun(command)
+                              : await client.listAgentRuns(command);
         expect(result).toMatchObject({
           ok: false,
           error: { code: "CAPABILITY_UNAVAILABLE", retryable: false },

@@ -1049,7 +1049,8 @@
       "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
       "pages": [
         "wiki/双参考项目功能对照与C开发路线.md",
-        "wiki/A业务LLMWiki方案.md"
+        "wiki/A业务LLMWiki方案.md",
+        "wiki/A知识发布实现.md"
       ]
     },
     "tests/fixtures/knowledge/sources/src-platform-bottle-capacity.txt": {
@@ -1169,6 +1170,37 @@
       "pages": [
         "wiki/C02b桌面只读助手.md",
         "wiki/M4模型与报价修订.md"
+      ]
+    },
+    "packages/domain/src/knowledge.ts": {
+      "role": "A01b知识审核发布服务：human_ui门禁与方法分发",
+      "pages": [
+        "wiki/A知识发布实现.md"
+      ]
+    },
+    "packages/infrastructure/src/knowledge-store.ts": {
+      "role": "A01b知识版本SQLite存储：hash绑定、原地发布、幂等与不可变",
+      "pages": [
+        "wiki/A知识发布实现.md"
+      ]
+    },
+    "packages/infrastructure/src/knowledge-store.test.ts": {
+      "role": "A01b知识存储回归：发布门禁、幂等、版本、scope与不可变",
+      "pages": [
+        "wiki/A知识发布实现.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "packages/infrastructure/src/agent-run-store.ts": {
+      "role": "持久运行存储、票据、控制重放与同连接报价原子提交",
+      "pages": [
+        "wiki/C02c持久运行与写入前置.md"
+      ]
+    },
+    "packages/infrastructure/src/agent-run-store.test.ts": {
+      "role": "真实SQLite运行恢复前置、故障回滚、版本凭据与升级回归",
+      "pages": [
+        "wiki/C02c持久运行与写入前置.md"
       ]
     }
   }

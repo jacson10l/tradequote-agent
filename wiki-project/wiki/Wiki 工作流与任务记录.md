@@ -132,3 +132,8 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 新增read-tools契约/测试、只读服务/测试、Worker客户端测试、只读页面和Electron用例共7项逐文件映射至 [[C02b桌面只读助手]]/M4。原contracts index/mock、基础设施index、Main/worker/preload及App等继续使用原M1接口/工程/UI映射，实际正文均同步必要的只读协议、凭据/时钟/等待边界和页面行为；不是只改新页面绕过旧责任页。adapter改用共享公共schema，原C02b页明确后续已接正式入口，旧子任务证据保持原样。
 
 本轮维护配置只增加coverage，不改变工具算法；运行36项Wiki工具回归、生成/只读check/lint，固定4324dc8任务基线和be53b98累计PR基线sync。初始截图的右对齐继承问题保留在.runtime初稿图后修正；最终命令与视觉检查记录raw/c02b-desktop-validation.json，任务 [[C02b-Worker与桌面只读入口]]。日志只追加，历史验证JSON按基线逐字节保留；真实供应商/恢复/Windows不冒领。
+
+
+## C02c前置整合与覆盖
+
+本轮合并A01b的真实知识实现/任务/日志，coverage按文件和pages取并集，A/C历史日志均保留；合成fixture两侧解析内容相同，保留当前格式，生成冲突由实际源码重建。新增agent-run-store及真实测试逐文件映射到 [[C02c持久运行与写入前置]]；旧契约、存储/迁移、金额、preload/Electron等文件继续同步原职责知识页。未改维护工具算法，映射变化仍运行36项回归。固定任务基线644c5ed和累计PR基线be53b98，命令及原失败记录见 [[C02c-持久运行与写入前置]]。

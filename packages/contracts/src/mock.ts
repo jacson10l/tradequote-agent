@@ -144,5 +144,6 @@ export const mockAgentRun = {
   updatedAt: mockWorkspace.createdAt,
   baseRevisionId: null,
   committedRevisionId: null,
+  clarification: null,
   error: null,
 } satisfies AgentRun;

@@ -82,10 +82,10 @@ it("migration failure rolls back and future schema refuses downgrade", () => {
     expect(() =>
       migrate(db, [
         ...migrations,
-        { version: 4, sql: "CREATE TABLE partial(id TEXT); INVALID SQL;" },
+        { version: migrations.length + 1, sql: "CREATE TABLE partial(id TEXT); INVALID SQL;" },
       ]),
     ).toThrow();
-    expect(db.pragma("user_version", { simple: true })).toBe(3);
+    expect(db.pragma("user_version", { simple: true })).toBe(migrations.length);
     expect(db.prepare("SELECT name FROM sqlite_master WHERE name='partial'").get()).toBeUndefined();
     db.pragma("user_version=99");
     expect(() => migrate(db)).toThrow("DATABASE_NEWER_THAN_APPLICATION");
@@ -106,4 +106,20 @@ it("stores immutable content hashes and rejects traversal, tampering and symlink
   const other = "a".repeat(64);
   symlinkSync(join(root, id), join(root, other));
   await expect(store.readById(other)).rejects.toThrow("ARTIFACT_NOT_REGULAR");
+});
+
+it("rejects missing or duplicate migration predecessors before creating tables", () => {
+  const db = new Database(":memory:");
+  try {
+    for (const invalid of [
+      [migrations[0]!, migrations[2]!],
+      [migrations[0]!, migrations[0]!],
+    ]) {
+      expect(() => migrate(db, invalid)).toThrow("INVALID_MIGRATION_SEQUENCE");
+      expect(db.pragma("user_version", { simple: true })).toBe(0);
+      expect(db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all()).toEqual([]);
+    }
+  } finally {
+    db.close();
+  }
 });

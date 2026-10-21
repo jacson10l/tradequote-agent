@@ -1,5 +1,7 @@
 # 当前上下文
 
+- 当前候选 [[C02c-持久运行与写入前置]]：独立codex/c02c-run-prerequisites，taskBase644c5ed，整合A01b/0f613b8真实迁移4后新增run5。澄清/list、真实AgentRunStore、控制重放/票据/原子报价提交已实现并在本机验证；具体证据见任务。当前生产Worker仍未接运行调度/恢复，四只读工具保持；完整C01b/C02c与真实模型仍未完成。以下各段为此前切片的历史事实，不将旧“迁移仅1～3”当成本候选现状。
+
 - 最新任务 [[C02b-Worker与桌面只读入口]]，新分支codex/c02b-desktop-read-tools，taskBase=4324dc85bdd00657831f7428496c60e5332bb428（上一轮真实adapter本地检查点），共同/PR基线仍be53b98。
 - 四只读工具已接严格公共agent.read/readAgent、正式Main/Worker/preload与侧栏“只读助手”；宿主workspace/asOf/Main凭据、实际观测/来源/错误与未保存预览。原保存路径兼容，单请求门禁/在途去重，无自动重试/持久化/只读公开取消。说明 [[C02b桌面只读助手]]，验证raw/c02b-desktop-validation.json。
 - 知识/规则继续未注册，完整C02b仍部分；C01b/c、C02c、C03和真实DeepSeek、Windows/最终安装未完成。下列各轮事实保留历史作用域。

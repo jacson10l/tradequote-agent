@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { AgentCommandSchema } from "./agent";
+import { AgentCommandSchema, ClarificationSchema } from "./agent";
 import { RunStatusSchema } from "./events";
 import { PublicErrorSchema, readEnvelope, resultSchema, writeEnvelope } from "./protocol";
 
@@ -20,6 +20,7 @@ export const AgentRunSchema = z
     baseRevisionId: z.uuid().nullable(),
     committedRevisionId: z.uuid().nullable(),
     error: PublicErrorSchema.nullable(),
+    clarification: ClarificationSchema.shape.clarification.nullable(),
   })
   .superRefine((run, context) => {
     const invalid = (message: string) => context.addIssue({ code: "custom", message });
@@ -29,10 +30,18 @@ export const AgentRunSchema = z
     if (Date.parse(run.updatedAt) < Date.parse(run.createdAt)) invalid("更新时间不能早于创建时间");
     if ((run.status === "completed") !== (run.committedRevisionId !== null))
       invalid("提交后的运行必须保留完成事实");
+    if ((run.status === "waiting_input") !== (run.clarification !== null))
+      invalid("等待输入必须保存澄清正文，其他状态须清空正文");
     if (run.status === "failed" && run.error === null) invalid("失败运行须有公开错误");
     if (run.status !== "failed" && run.status !== "interrupted" && run.error !== null)
       invalid("非失败运行不可带失败错误");
   });
+export const RunCursorSchema = z.strictObject({ createdAt: z.iso.datetime(), runId: z.uuid() });
+export const RunListQuerySchema = z.strictObject({
+  limit: z.number().int().min(1).max(100).default(20),
+  status: RunStatusSchema.optional(),
+  cursor: RunCursorSchema.optional(),
+});
 export const RunCommandSchema = z.discriminatedUnion("method", [
   z.strictObject({
     ...writeEnvelope,
@@ -54,13 +63,27 @@ export const RunCommandSchema = z.discriminatedUnion("method", [
     method: z.literal("agent.retry"),
     payload: z.strictObject({ runId: z.uuid() }),
   }),
+  z.strictObject({
+    ...readEnvelope,
+    method: z.literal("agent.list"),
+    payload: RunListQuerySchema,
+  }),
 ]);
+export const RunListResultSchema = resultSchema(
+  z.strictObject({
+    runs: z.array(AgentRunSchema).max(100),
+    nextCursor: RunCursorSchema.nullable(),
+  }),
+);
+export type RunListQuery = z.input<typeof RunListQuerySchema>;
+export type RunListResult = z.infer<typeof RunListResultSchema>;
 export const RunResultSchema = resultSchema(AgentRunSchema);
 export type AgentOperation = z.infer<typeof AgentOperationSchema>;
 export type AgentRun = z.infer<typeof AgentRunSchema>;
 export type RunCommand = z.infer<typeof RunCommandSchema>;
 export type RunResult = z.infer<typeof RunResultSchema>;
 export interface RunClient {
+  listAgentRuns(command: Extract<RunCommand, { method: "agent.list" }>): Promise<RunListResult>;
   startAgentRun(command: Extract<RunCommand, { method: "agent.start" }>): Promise<RunResult>;
   getAgentRun(command: Extract<RunCommand, { method: "agent.get" }>): Promise<RunResult>;
   cancelAgentRun(command: Extract<RunCommand, { method: "agent.cancel" }>): Promise<RunResult>;

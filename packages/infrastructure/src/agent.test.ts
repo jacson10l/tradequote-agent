@@ -277,7 +277,7 @@ it("migration 3 preserves stored V1 bytes", () => {
       original,
     );
     migrate(db);
-    expect(db.pragma("user_version", { simple: true })).toBe(3);
+    expect(db.pragma("user_version", { simple: true })).toBe(migrations.length);
     expect(db.prepare("SELECT data_json,content_hash FROM quote_v1").get()).toEqual({
       data_json: original,
       content_hash: "frozen-hash",

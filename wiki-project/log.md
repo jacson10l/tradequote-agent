@@ -282,3 +282,19 @@ C02b已有业务只读子切片收口：92单元（含13新增）、5项现有El
 桌面接线首次全量回归补记：104单元、36Wiki和工程/生成/check/lint/sync通过，但Electron为5通过/1失败，因旧workspace精确桥接名单遗漏readAgent。保留raw/c02b-desktop-initial-validation.json，增加唯一授权方法并保留原Node/桥接限制，重新运行完整六项。
 
 正式只读入口验收收口：旧桥接精确名单补readAgent后全量6项Electron（含build）通过，104单元、6工程、36Wiki工具与typecheck/生成/只读check/lint、固定4324dc8和be53b98两基线sync均退出0，证据raw/c02b-desktop-validation.json。表单及900px结果截图已重新查看，事实/来源左对齐，初稿与首次失败证据保留。该四工具桌面子任务done；知识/规则、持久恢复/取消、写工具与真实供应商未完成。
+
+## 2026-10-21 A01b知识存储评审修正与Wiki同步
+
+- 在 codex/a01b-knowledge-store 审查 A01b（SqliteKnowledgeStore/createKnowledgeService/迁移4/测试）并修正：findPublished 先按 publishedAt/scope 过滤再按 document 去重（新版本不匹配时回退到旧匹配版本）、空 scope 维度按通用、publish 原地 staged→published 保持 revisionId 稳定、getRevision/findPublished 按 workspace 隔离、写事务 immediate；补 A01-7/A01-8 回归，推送 5551ef3。
+- 同步 [[A知识发布实现]]（新增 module 页）、[[A01-知识发布与来源查询]] 任务页（领取人 ssyyy31、A01a/A01b 记录、status active）与 coverage（knowledge.ts/knowledge-store.ts/knowledge-store.test.ts/knowledge-drafts.a01a.json），索引补导航。
+- 本机未安装 node_modules，typecheck 与知识测试未复跑；Wiki 生成成功（153 文件/5 生成物），build-code-index --check 退出 0，lint 仅剩 4 个 raw/ 归档 CRLF 造成的 ARCHIVE_HASH_MISMATCH（历史遗留，需团队 .gitattributes 决策），无新增失败。
+
+
+## 2026-10-21 C02c持久运行与写入前置
+
+用户明确选择先补持久运行/写工具依赖。独立codex/c02c-run-prerequisites从644c5ed建立，整合A01b/0f613b8真实知识服务/迁移4；保留双方日志、原raw证据与合成来源，coverage并集后重建。新增澄清/list、迁移5及连续前驱、真实AgentRunStore和执行票据/控制重放/澄清恢复/显式中断；同连接原commitAgent保存点与run共同提交，核验精确报价/turn，五处实际SQL失败共同回滚。提交复核场景，并修正A已发布知识异键重发hash校验。
+
+初始类型错误保留raw/c02c-prerequisites-initial-validation.json，修复调用方分发和测试类型后首轮128单元通过；后续加强验证结果以raw/c02c-prerequisites-validation.json为准。知识/任务/0019决定/状态/CONTEXT/覆盖同步，不代签A/B人工复核。生产调度/恢复UI/写工具账本、强杀恢复与真实DeepSeek/Windows仍未完成，不推送或合并共同分支。
+
+
+C02c存储前置验收收口：131单元、6既有真实Electron与build、6工程、36Wiki工具及类型/生成/只读check/lint/双基线sync均退出0，实际证据raw/c02c-prerequisites-validation.json。644c5ed与0f613b8两侧历史raw逐字节、历史log非空行按序保留；核验脚本首次路径转义错误保留后修正。限定依赖子任务done，完整生产恢复/工具账本仍待；无真实供应商或Windows验收、无远端推送。

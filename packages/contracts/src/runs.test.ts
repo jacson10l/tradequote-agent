@@ -4,6 +4,8 @@ import {
   AgentRunSchema,
   failure,
   RunCommandSchema,
+  RunListQuerySchema,
+  RunListResultSchema,
   RunResultSchema,
   RuntimeCommandSchema,
   WorkerRequestSchema,
@@ -65,7 +67,7 @@ describe("B00 run recovery boundary", () => {
     }
   });
   it("rejects incoherent persisted runs and never loses a completed commit", () => {
-    for (const status of ["queued", "running", "waiting_input", "interrupted", "cancelled"])
+    for (const status of ["queued", "running", "interrupted", "cancelled"])
       expect(AgentRunSchema.safeParse({ ...run, status }).success).toBe(true);
     const error = failure("CAPABILITY_UNAVAILABLE", "合成失败").error;
     expect(AgentRunSchema.safeParse({ ...run, status: "failed", error }).success).toBe(true);
@@ -107,4 +109,37 @@ describe("B00 run recovery boundary", () => {
       true,
     );
   });
+});
+
+it("persists clarification only while waiting and bounds discovery without opening IPC", () => {
+  expect(
+    AgentRunSchema.safeParse({ ...run, status: "waiting_input", clarification: "请补充数量" })
+      .success,
+  ).toBe(true);
+  for (const invalid of [
+    { ...run, status: "waiting_input" },
+    { ...run, clarification: "问题" },
+    { ...run, status: "waiting_input", clarification: " " },
+    { ...run, status: "waiting_input", clarification: "字".repeat(2001) },
+  ])
+    expect(AgentRunSchema.safeParse(invalid).success).toBe(false);
+  expect(RunListQuerySchema.parse({})).toEqual({ limit: 20 });
+  for (const invalid of [
+    { limit: 0 },
+    { limit: 101 },
+    { workspaceId: run.runId },
+    { cursor: { createdAt: run.createdAt } },
+  ])
+    expect(RunListQuerySchema.safeParse(invalid).success).toBe(false);
+  const list = { schemaVersion: 1, requestId: run.runId, method: "agent.list", payload: {} };
+  expect(RunCommandSchema.safeParse(list).success).toBe(true);
+  expect(RuntimeCommandSchema.safeParse(list).success).toBe(false);
+  expect(
+    RunListResultSchema.safeParse({
+      ok: true,
+      data: { runs: [run], nextCursor: null },
+      warnings: [],
+      evidenceIds: [],
+    }).success,
+  ).toBe(true);
 });

@@ -101,6 +101,7 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
         "getQuoteChecks",
         "getTrade",
         "getWorkspace",
+        "listAgentRuns",
         "modelSettings",
         "pickCatalogCsv",
         "publishCatalog",
