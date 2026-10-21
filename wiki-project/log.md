@@ -181,3 +181,12 @@ README/AGENTS/CONTRIBUTING、开发步骤、状态与CONTEXT同步。恢复摘�
 - 远端run39571473237 startup_failure，0job/0check/无日志，无法重跑；已登录GitHub摘要Annotations确认近期付款失败或支出限额限制。证据raw/c01a-ci-startup.json，需账户负责人处理Billing & plans。未改workflow/权限/账单，C01a恢复active，PR保持不合并，不以本机验证宣称远端CI通过。
 
 - P2本机收口：typecheck、53项Vitest、含build的5项实际Electron、6项工程、36项Wiki、生成物只读check/lint及b05f2e8/45a9975两套sync全部通过，原红色输出保留。记录raw/c01a-p2-validation.json仅代表本地检查；CI账户门槛未解除，C01a保持active，推送修复到原PR供复审，不合并。
+
+
+## 2026-10-21 用户决定停用Actions改本机验收
+
+- 用户明确不需要GitHub Actions/云端自动测试，由本人macOS与Windows开发者分别本机验收。基线60c4489d458f341adddfd723c103e75751401048，继续C分支/PR#2，不合并。通过REST关闭仓库Actions，回读enabled=false、in_progress运行数0，证据raw/local-verification-actions.json；未改账单/预算/其他权限。
+- 删除engineering.yml/wiki.yml及当前覆盖映射，保留全部本机pnpm/测试/构建/P0门禁。同步AGENTS、贡献/README/PR模板、M1验证/分工/测试交付/交接、Wiki工作流、C任务、状态/CONTEXT与导航，新增 [[0013-本机双平台验收停用Actions]]、[[C01a-本机验收与停用Actions]]。历史CI失败与账单证据保留，改为历史，不记通过。
+- 本次配置/文档门禁实际结果见raw/local-verification-validation.json；业务代码未改，上一提交53项单测/5项Electron等原证据保留，不冒充本轮重跑。Windows本机结果尚未运行/收到，须Windows开发者补验，C01整体未完成。
+
+- 本机策略切片收口：Actions disabled断言、workflow无残留、业务/本地测试与60c4489无差异、pnpm check含6项工程、36项Wiki、生成/只读check/lint及两套sync均通过。配置子任务done，原C01a/C01仍待对应技术/平台工作；推送原PR，不合并，不触发云端测试。

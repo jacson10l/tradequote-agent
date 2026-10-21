@@ -459,19 +459,6 @@
         "wiki/05-三人分工与开发步骤.md"
       ]
     },
-    ".github/workflows/wiki.yml": {
-      "role": "Mandatory Wiki delivery policy and PR/CI enforcement",
-      "pages": [
-        "wiki/Wiki 工作流与任务记录.md",
-        "wiki/05-三人分工与开发步骤.md"
-      ]
-    },
-    ".github/workflows/engineering.yml": {
-      "role": "M1 quality checks, desktop verification and CI",
-      "pages": [
-        "wiki/M1验证与协作.md"
-      ]
-    },
     ".node-version": {
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [

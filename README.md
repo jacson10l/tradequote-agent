@@ -32,7 +32,11 @@ pnpm wiki:test
 
 产品图标已接入 Dock/窗口及打包；重启 `pnpm dev` 后生效。外壳固定到窗口，滚动由 main 主区域承担；≤1000px 显示图标导航。图标源修改后运行 `pnpm icons:generate`，构建会检查 SVG/PNG/ICNS/ICO 同步。当前增量与边界见 [M1 布局图标与契约任务](wiki-project/wiki/tasks/2026-10-21-M1布局图标与契约补齐.md)。
 
-原生测试使用 Electron 的 Node ABI；若重新安装原生依赖后报 ABI 不匹配，运行 `pnpm native:rebuild`。`package:mac`/`package:win` 配置 DMG/NSIS，不自动发布；本轮未做最终安装验收。完整模型评估入口待 T40 实现，不提供假成功命令。CI 与三人职责见 [M1 验证与协作](wiki-project/wiki/M1验证与协作.md)。
+原生测试使用 Electron 的 Node ABI；若重新安装原生依赖后报 ABI 不匹配，运行 `pnpm native:rebuild`。`package:mac`/`package:win` 配置 DMG/NSIS，不自动发布；本轮未做最终安装验收。完整模型评估入口待 T40 实现，不提供假成功命令。本机验收与三人职责见 [M1 验证与协作](wiki-project/wiki/M1验证与协作.md)。
+
+## 本机双平台验收
+
+本项目不使用 GitHub Actions 或云端自动测试；仓库Actions已关闭，本分支移除工程/Wiki两个workflow。上述pnpm本地命令保持：你在macOS、Windows开发者在Windows分别执行并记录实际提交、版本、命令/退出码及结果，PR通过非作者评审。未执行的平台明确写未运行，不以另一平台结果代替。代码与Wiki同步仍是P0完成条件。详见[本机验收决定](wiki-project/wiki/decisions/0013-本机双平台验收停用Actions.md)。
 
 ## 参赛方案与下一步
 

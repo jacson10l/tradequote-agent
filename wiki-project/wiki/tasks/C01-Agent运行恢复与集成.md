@@ -41,7 +41,7 @@ A/B业务端口成熟后才加接线；C不写另一份规则算法或知识查�
 | apps/desktop/src/main/*、preload/index.ts、workers/business.ts（已有） | 生命周期、窄桥接、A/B服务接线、密钥隔离 |
 | renderer/src/features/quote-agent.tsx、model-settings.tsx、App.tsx（已有） | 运行状态/取消/恢复入口、A页面路由；A/B自写业务feature |
 | tests/e2e/quote-agent.spec.ts（已有）、agent-recovery.spec.ts（待创建） | 提交前取消、提交后取消、强杀/重开、显式重试 |
-| scripts/、.github/workflows/、根package与锁文件（按需） | 仅必要工具链/CI修复，先协调依赖与原生ABI |
+| scripts/、根package与锁文件（按需） | 仅必要本机工具链修复，先协调依赖与原生ABI，不新增Actions |
 | wiki-project/wiki/C运行恢复实现.md（C01a已创建）及本任务页 | C自己写运行语义/测试/真实供应商未运行边界 |
 
 迁移序列/index存储导出归A，公共contracts归B；C提出diff并请对应成员复核，不并行覆盖。B owns quotes.tsx，C通过quote-agent组件接入，双反馈挂载由B负责。
@@ -55,7 +55,7 @@ A/B业务端口成熟后才加接线；C不写另一份规则算法或知识查�
 5. 鉴权/限流/超时/非法输出/缺事实分别保持可解释状态；取消/失败不能误报已保存，已保存不能因取消显示被撤销。
 6. 真实Electron强杀/重开/取消流程和现有V1→V2→V3、共享反馈回归通过；A/B真实服务集成完成一次两类规则双反馈演示。
 7. 真实DeepSeek独立记录日期/模型/脱敏输入与预期/实际/失败，不含Key或客户原件；未执行保持待验收，不能用HTTP替身冒充。
-8. 所有代码和Wiki同步，通过本地实际检查；远端CI状态单独核实，未运行不得写通过。
+8. 所有代码和Wiki同步，通过本地实际检查；macOS与Windows分别保留实际执行证据，未运行不得写通过；按用户决定不使用Actions或云端自动测试。
 
 ## 改动
 
@@ -76,3 +76,8 @@ PR#2的P2修复保留Provider超时/取消归因，补实际Provider＋Executor�
 C01b运行记录/控制幂等落库、同事务提交事实、重启中断/显式重试及C01c桌面和A/B联调仍未完成；B00合入与A迁移4/预留5协调、A实际评审仍待确认。超出本批范围的完整市场文化知识、语言产出、审批/PDF、双平台签名安装仍按总计划推进。自己的Wiki知识页、本任务、log、coverage、状态更新属于本人交付，不能转给C收尾。
 
 关联：[[首批并行接口约定]]、[[三人并行开发交接]]、[[05-三人分工与开发步骤]]。
+
+
+## 当前本机验收决定
+
+用户选择macOS负责人/Windows开发者分别本机验收，不再使用Actions，仓库级已关闭、C分支移除workflow。此前P2跟进中的账单恢复/CI重跑不是当前合入前提；技术评审、本机行为测试和P0 Wiki仍必需，Windows未运行保持未验证。详情见 [[C01a-本机验收与停用Actions]]。

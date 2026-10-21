@@ -52,3 +52,8 @@ AgentExecutor.cancel(operationKey) 是 worker 内部可复用原语，未开放 
 评审 b05f2e8 发现 Executor 在catch中先看取消信号，会覆盖真实 Provider 已返回的 MODEL_TIMEOUT。先用实际 Provider＋Executor 的可控deadline/延迟transport拒绝复现：先timeout后cancel的用例失败（期望MODEL_TIMEOUT，实际CANCELLED），先cancel后timeout通过；红色证据保留raw/c01a-p2-red.json。修复仅调整公开错误保留顺序，并新增执行器层两种先后顺序用例，逐层断言Provider和Executor返回相同code、一次请求且报价/对话/幂等记录均未生成。原通用abort异常脱敏/取消回归继续保留。
 
 远端run39571473237以startup_failure结束，jobs/check runs均为0；经已登录GitHub运行摘要的Annotations核对，原因是账户近期付款失败或支出限额限制。需账户负责人处理Billing & plans后重新触发CI，不调整workflow掩盖。API只给BuildFailed且没有日志，CLI泛化重跑提示不能证明YAML有误。证据见raw/c01a-ci-startup.json，后续本地结果见raw/c01a-p2-validation.json；PR保持打开且不合并，C01a恢复active等待远端CI与复审。关联 [[M1验证与协作]]、[[C01a-状态机与取消基础]]。
+
+
+## 当前交付方式
+
+用户随后决定停用Actions/云端测试，仓库Actions已关闭，本切片移除两个workflow；上节远端账单/CI诊断保留为历史，不再要求付款或云端重跑才能交付。当前以适用平台本机证据和非作者复审为准，Mac与Windows分别由实际开发者执行，不改变运行恢复的未完成范围。策略与执行记录见 [[0013-本机双平台验收停用Actions]]、[[C01a-本机验收与停用Actions]]。

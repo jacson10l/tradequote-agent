@@ -1,7 +1,9 @@
 # 当前上下文
 
+- 最新用户决定：不使用GitHub Actions或云端自动测试；macOS由本人、Windows由Windows开发者本机验收。仓库Actions已关闭回读enabled=false，C分支移除engineering/wiki workflow；本机pnpm/Wiki门禁保持，PR#2待技术复审不合并，不再等待账单/云端CI恢复。详见 [[0013-本机双平台验收停用Actions]]、[[C01a-本机验收与停用Actions]]。Windows本机结果尚未执行/收到，不代签。
+
 - C01a PR#2评审P2已复现并修复：Executor保留Provider已归因TradeFault，补实际Provider＋Executor两种顺序测试；本次起点b05f2e8，详见 [[C运行恢复实现]]。原51项本机通过证据保留；新增完整复验53项单测/5项Electron/36项Wiki、type/build/check/lint与两基线sync均通过，见raw/c01a-p2-validation.json。
-- 远端run39571473237为startup_failure/0job/0check；已登录GitHub Annotations确认账户付款失败或支出限额问题，见raw/c01a-ci-startup.json。需负责人处理Billing & plans并重新触发CI，不能用本地通过代替；C01a恢复active、PR保持打开不合并，未改workflow/账户配置。
+- 远端run39571473237为startup_failure/0job/0check；已登录GitHub Annotations确认账户付款失败或支出限额问题，见raw/c01a-ci-startup.json。这是当时导致CI阻塞的事实；随后用户已选择停用Actions，不再要求处理Billing & plans或重跑CI。C01a保持active待技术复审/本机适用平台记录；旧账单证据不改写。
 
 - C01已由用户分配给本次Codex，独立worktree/分支codex/c01-agent-recovery，taskBase45a9975506030170bcb8dc770919b7cb5de89fa6。C01a新增纯状态机、进程内取消/AbortSignal与提交边界；51项单测和5项实际Electron回归通过，工程check/36项Wiki回归/生成只读检查/lint/基线同步通过，证据见 [[C01a-状态机与取消基础]]。该基础子切片初次本机验收曾记done，现因评审/远端CI恢复active；C01整体active，run落库/重启/正式IPC/UI尚未实现。
 - B00已在独立分支推送至4e8c663；C侧技术评审两轴无阻断项，复跑typecheck/55项单测通过，见 [[B00-C接口评审]]。A实际评审与共同分支合入尚未确认，不能把现C分支当已接入新契约。waiting_input澄清文字的保存/重开查询待B/C明确；知识AI候选Markdown另等B00a，不阻塞报价恢复。

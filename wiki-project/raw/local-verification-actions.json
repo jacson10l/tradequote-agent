@@ -1,0 +1,25 @@
+{
+  "status": "observed",
+  "recordedAt": "2026-10-21 09:09:51 UTC",
+  "repository": "jacson10l/tradequote-agent",
+  "changeBase": "60c4489d458f341adddfd723c103e75751401048",
+  "userDecision": "Do not use GitHub Actions or cloud automatic tests; macOS owner and Windows developer verify locally.",
+  "change": {
+    "command": "gh api --method PUT repos/jacson10l/tradequote-agent/actions/permissions -F enabled=false",
+    "exitCode": 0
+  },
+  "readback": {
+    "enabled": false,
+    "inProgressRuns": 0
+  },
+  "localWorkflowChange": "Remove engineering.yml and wiki.yml in the existing PR; preserve all local scripts and tests.",
+  "notChanged": [
+    "Billing/payment/spending settings",
+    "Other repository permissions",
+    "Business code and test implementations"
+  ],
+  "rulesetsInspection": {
+    "httpStatus": 403,
+    "message": "Current GitHub plan does not expose this private repository rulesets feature; no branch protection state asserted."
+  }
+}
