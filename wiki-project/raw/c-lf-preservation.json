@@ -1,0 +1,310 @@
+{
+  "status": "passed",
+  "taskBase": "56c909e21aefa484b6805bf9afc7c94b0e1d4576",
+  "checks": [
+    {
+      "command": "git ls-tree -r --name-only -z taskBase wiki-project/raw; compare all preexisting non-generated raw bytes against git show taskBase:path",
+      "exitCode": 0,
+      "files": 73
+    },
+    {
+      "command": "Compare parsed A01a fixture JSON against taskBase JSON",
+      "exitCode": 0
+    }
+  ],
+  "unchangedRaw": [
+    {
+      "path": "wiki-project/raw/a01-wiki-plan-validation.json",
+      "sha256": "6a447880a666da1f1385b23a7e39f0887bad8498e45ff74a8156c787a68a7df8"
+    },
+    {
+      "path": "wiki-project/raw/agent-initial-validation.json",
+      "sha256": "2efc490bf0b15f03475ba9f71b862efe3d88e3db3a20a74e551cc58d36b2936a"
+    },
+    {
+      "path": "wiki-project/raw/agent-validation.json",
+      "sha256": "8b3b2babadba28b87495bfdfe77266d870c1119e871f2bc15e34bdbd10bbf140"
+    },
+    {
+      "path": "wiki-project/raw/b00-c-reverification.json",
+      "sha256": "ca4cae15f5f994b5d0777d14b6bd674a432e9d4734ae85ea0dbe43eb51e167ba"
+    },
+    {
+      "path": "wiki-project/raw/b00-delivery.json",
+      "sha256": "7f584145dcd806a3dd6fd8f01056b6a85628b0a85842c28993fb1e25bbb8d9d2"
+    },
+    {
+      "path": "wiki-project/raw/b00-e2e-initial-validation.json",
+      "sha256": "670605aac423bd58676da388ba930a12c2d073321122e77d4dca5b5700c6adfc"
+    },
+    {
+      "path": "wiki-project/raw/b00-initial-validation.json",
+      "sha256": "712a55c4ed345bf545076ae31de2faddce0c19ef6a885eab2a21e6484503a9ae"
+    },
+    {
+      "path": "wiki-project/raw/b00-validation.json",
+      "sha256": "3b826a4f1e1bbb7c832dbf1486db2835e15228ef5d291d701aece21e9beda18a"
+    },
+    {
+      "path": "wiki-project/raw/branch-consolidation-delivery.json",
+      "sha256": "d9a3d2a72456e78defcacf9ab416ad2dda8b84c2dd51e703807e2e8ea268ad0b"
+    },
+    {
+      "path": "wiki-project/raw/branch-consolidation-preservation.json",
+      "sha256": "28874664ed19c4283c3184e46efc6195406530e59dd5aba585bac6dc570d1962"
+    },
+    {
+      "path": "wiki-project/raw/branch-consolidation-validation.json",
+      "sha256": "5dcee5dfe10a5622b693b1fa72abad889bc92b791319680ff8640ef1df16d7b0"
+    },
+    {
+      "path": "wiki-project/raw/c01a-b00-review.json",
+      "sha256": "c854a057f46ff522b7249348d97e6538431a45a396990a13865e13116543c319"
+    },
+    {
+      "path": "wiki-project/raw/c01a-ci-startup.json",
+      "sha256": "172f82d2593c4fd0a638564e8e3019cd90c6e514234167d62ddb88eeeb916b14"
+    },
+    {
+      "path": "wiki-project/raw/c01a-initial-validation.json",
+      "sha256": "d1d3a117345ed2849874daa77564dd776daf94be7ff38cdb58523427511df5da"
+    },
+    {
+      "path": "wiki-project/raw/c01a-p2-red.json",
+      "sha256": "f0111c4bad934e7c4280771db3c61a0448dcdb7385a69ba6aaf935b1d7960169"
+    },
+    {
+      "path": "wiki-project/raw/c01a-p2-validation.json",
+      "sha256": "217754d31efb4eaeac286997faaf737653d2b2b7431d960a75bd28d2dab6f474"
+    },
+    {
+      "path": "wiki-project/raw/c01a-reverification.json",
+      "sha256": "46f1230ee0b785ccf6ba4f8992486443359dfe9668f6a289b8e31798fa2be3dc"
+    },
+    {
+      "path": "wiki-project/raw/c01a-validation.json",
+      "sha256": "ea1ca1316b93287afb7b7222e892044b7f53bd5d6df41fabe648812af7943031"
+    },
+    {
+      "path": "wiki-project/raw/c01b-plan-initial-validation.json",
+      "sha256": "bda34d89205b7f88c5183dfda3c65b288268f85c35cad3eeb023f8c481f00abd"
+    },
+    {
+      "path": "wiki-project/raw/c01b-plan-validation.json",
+      "sha256": "20026640c4f69c3c7bf7b6415cc9640347c388cbbd8bdc18ecd76301d663b5ad"
+    },
+    {
+      "path": "wiki-project/raw/compact-layout-initial-validation.json",
+      "sha256": "318ab1fe046f1aff6fb01eaceac65357010ab89894f0d69987c51f8375ec2a4c"
+    },
+    {
+      "path": "wiki-project/raw/compact-layout-validation-attempt.json",
+      "sha256": "dd17024d72d60e9456d7d7b9330ef2018a3ea6276edd8bcedb39aaecd2ef5706"
+    },
+    {
+      "path": "wiki-project/raw/compact-layout-validation.json",
+      "sha256": "4d795342323a82694d62a5473976143274938ff29187b3a35cfd0831b3d4d148"
+    },
+    {
+      "path": "wiki-project/raw/competition-alignment-validation.json",
+      "sha256": "988bbc4f2bd11b9541307c05ecf5753bed6b03275864efcb60baec76d5c60fa5"
+    },
+    {
+      "path": "wiki-project/raw/design/claude-original.md",
+      "sha256": "3d972f34f8d4f33b442fa28220cf3b7ca2f13c0a97c468e3988148f82521f9df"
+    },
+    {
+      "path": "wiki-project/raw/design/mistral-original.md",
+      "sha256": "e56a8eeb44ed6e9522c59cd59ddf1d2ace9e435265cce25f8367b4e4b473f13d"
+    },
+    {
+      "path": "wiki-project/raw/desktop-name-initial-validation.json",
+      "sha256": "9da1183550eb520e9e1260b87d6b0860e80c9c198ecb5415cbd108fe44f4a7c9"
+    },
+    {
+      "path": "wiki-project/raw/desktop-name-validation.json",
+      "sha256": "f655b2f56760dc61a57241db8dd5212cd3c00ae41169ce0c631788202ebaa02c"
+    },
+    {
+      "path": "wiki-project/raw/feedback-final-check.json",
+      "sha256": "a713046b530925a3a85b172c295e4efb9a410f59f2b4b99adba0aba5c855de2a"
+    },
+    {
+      "path": "wiki-project/raw/feedback-validation.json",
+      "sha256": "ef127f718d47416396c9b9cd995876a0842f0c7d64e6acf93cf0f27612791893"
+    },
+    {
+      "path": "wiki-project/raw/file-provenance.json",
+      "sha256": "df2db1749cdb042cb4259e578b50e59e94fd7e03cb8da0f9ecf38b0cb23b898c"
+    },
+    {
+      "path": "wiki-project/raw/ingest-baseline.json",
+      "sha256": "695ab3a90d8d7c63047d3bd37cb6e06219ad28b6b1878bab1a816e22226aceac"
+    },
+    {
+      "path": "wiki-project/raw/inputs/2026-10-21-参赛任务截图.png",
+      "sha256": "e2a36150513fc820e23c7d511c5d9c98af1ecdd0a4a16b502483614897613064"
+    },
+    {
+      "path": "wiki-project/raw/inputs/2026-10-21-参赛任务转录.md",
+      "sha256": "1f3af8fa6550b4f327ff59b62446ed3aab6fa7ac0fb7585a3f53451738d60b2d"
+    },
+    {
+      "path": "wiki-project/raw/inputs/外贸询报价协同 Agent 完整产品与实施方案.md",
+      "sha256": "6726a24f55dabf4261cea0a1d75338c5017129c6f6e903f87df21dda5b340fb6"
+    },
+    {
+      "path": "wiki-project/raw/inputs/项目构建技术栈.md",
+      "sha256": "7a03681da9a90d556542303b6f5b955b0c2248d3e5987f8e084408899b3b8187"
+    },
+    {
+      "path": "wiki-project/raw/local-verification-actions.json",
+      "sha256": "01b7941a1f9a83e800f3623d21fb7842d084c6e88a00df332c4084f1a0cebb4a"
+    },
+    {
+      "path": "wiki-project/raw/local-verification-validation.json",
+      "sha256": "243b19a12275b5539cfe410283b4feacb5fdb6f01f5ca16b3ba0cbdfda49e0d5"
+    },
+    {
+      "path": "wiki-project/raw/m0-platform-wiki-validation.json",
+      "sha256": "ea2be3b8520d8bf293c4dd1d958ef78ff9769c9134a2ab327c804f172aa51dca"
+    },
+    {
+      "path": "wiki-project/raw/m1-final-wiki-validation.json",
+      "sha256": "c400241945b24cfcef702f75319f536e00901a72b82838faf94162e72c5be5d8"
+    },
+    {
+      "path": "wiki-project/raw/m1-initial-validation.json",
+      "sha256": "248f53d2e46164fc3685cec68076106d18dbec3fac98998449737fb5e87d727e"
+    },
+    {
+      "path": "wiki-project/raw/m1-ui-contract-finalization-attempt.json",
+      "sha256": "0e75c600e7d23f910d89a9146584f29c7ee20f9c0d2153695567dc67a5e3c547"
+    },
+    {
+      "path": "wiki-project/raw/m1-ui-contract-initial-validation.json",
+      "sha256": "c6688ded455242ab06664df912d2ae6940aaeae7fbd5f5fad642ff50ba3c865d"
+    },
+    {
+      "path": "wiki-project/raw/m1-ui-contract-validation.json",
+      "sha256": "17585d01b73921d89c9e54fdd873bd2aa29932fc90804c14e881510cffc333dd"
+    },
+    {
+      "path": "wiki-project/raw/m1-validation.json",
+      "sha256": "bd8432d8d6c13debaa7653b30e89c25d9c38bbf3bde1aa4fb3c31d64575f22d3"
+    },
+    {
+      "path": "wiki-project/raw/mac-first-initial-validation.json",
+      "sha256": "6a32268ace833915ee8d887675ff34743abd3a05e49f81c6ddf891848a01df36"
+    },
+    {
+      "path": "wiki-project/raw/mac-first-validation.json",
+      "sha256": "c0cf8d097bb443805cb5be698fbb09d36abbccf02fa10b31f7803bffcb5d4626"
+    },
+    {
+      "path": "wiki-project/raw/market-packaging-preview.png",
+      "sha256": "b736199fa13a8069a0a3c1da7c46e38078b9212fe4634211e48f19eea785d67d"
+    },
+    {
+      "path": "wiki-project/raw/market-packaging-validation.json",
+      "sha256": "e36787394ffc031711911833b69e54ff09792e392f31ffe75238b4c6206f31aa"
+    },
+    {
+      "path": "wiki-project/raw/parallel-handoff-git.json",
+      "sha256": "909ce34662514b4a33f5e8fff0010000239c4510527920ad8da3462769ce78c0"
+    },
+    {
+      "path": "wiki-project/raw/parallel-handoff-validation.json",
+      "sha256": "bd153335f6f40f0216ec8a9a077b93a5da308d62b196956aa6a62664dacc4d5d"
+    },
+    {
+      "path": "wiki-project/raw/planning-checks.json",
+      "sha256": "bd265d188cad153fa2060b68d22dcd156c7c874d24bb11c117c3ba77ae110e96"
+    },
+    {
+      "path": "wiki-project/raw/product-consistency-final.png",
+      "sha256": "9dc41efa20ef9aa068ad96fd6892d6a067a10a3a8f63664189ceb7f5e776fb04"
+    },
+    {
+      "path": "wiki-project/raw/product-consistency-preview.png",
+      "sha256": "187c9347892f3f412459f9b92e6dbb13ecf4e3457e60e6559f0eb94e176752d4"
+    },
+    {
+      "path": "wiki-project/raw/product-consistency-validation.json",
+      "sha256": "1c3c0bbb049f9a086b8bc387b37da0272d1376955c9bbcde95a27734e5895f24"
+    },
+    {
+      "path": "wiki-project/raw/product-manual-integration-validation.json",
+      "sha256": "1c755960e7368438584fffdd2a87c0502f579797e1ebb7527a981a58f2c54a0f"
+    },
+    {
+      "path": "wiki-project/raw/product-walkthrough-alignment-preview.png",
+      "sha256": "3e6ac0f039ba1878f1fd75acf69532c6f9d277b7ec317804548bfb9b67ee361d"
+    },
+    {
+      "path": "wiki-project/raw/product-walkthrough-alignment-validation.json",
+      "sha256": "d2c6e5e3370e1f31f0e020597fc502c402d88e5366b453fdfbfdcceb83a27d99"
+    },
+    {
+      "path": "wiki-project/raw/product-walkthrough-preview.png",
+      "sha256": "13339c77702cfcc365c52d0cfb020f763549367c0c31ceaf75742867303a0b79"
+    },
+    {
+      "path": "wiki-project/raw/product-walkthrough-validation.json",
+      "sha256": "c3f48e2e51fff56aebbff455fca05f0ed404bb50645b612277a1e4271a181ac2"
+    },
+    {
+      "path": "wiki-project/raw/project-manual-validation.json",
+      "sha256": "424bc987925a7094bcea51f1f3e6b0c3f3a86db0806f7709c889ddda617abc2a"
+    },
+    {
+      "path": "wiki-project/raw/quote-v1-initial-validation.json",
+      "sha256": "75cfd9935171f711746201d117ff57a19a4a5aec71f82b1712c905f56dda8fc0"
+    },
+    {
+      "path": "wiki-project/raw/quote-v1-validation-attempt.json",
+      "sha256": "c8b8cb6e9dc34d3762b5a77825123e2dc2981b933a179b554f9eabd084e037c7"
+    },
+    {
+      "path": "wiki-project/raw/quote-v1-validation.json",
+      "sha256": "907eff44773ffd2d281272d4eda2cdbda2dbc8332120fe6b0987c755a163c53a"
+    },
+    {
+      "path": "wiki-project/raw/source-manifest.md",
+      "sha256": "d0a4c86e292c801a3649f4596b308b144cd5cf5d13c695b42c8fd0aab886a081"
+    },
+    {
+      "path": "wiki-project/raw/spec-alignment-inquiry.png",
+      "sha256": "c1100f1e511082530a0c4a1f949201f4f1dccf40b49005f18f0294e9c3aedca9"
+    },
+    {
+      "path": "wiki-project/raw/spec-alignment-validation.json",
+      "sha256": "f16e688d43c568d9b08b12e36c97a0c6a21b51b7a6b5517a8d64fb101c6288eb"
+    },
+    {
+      "path": "wiki-project/raw/tech-stack-review-validation.json",
+      "sha256": "9fba1cd269ef704f6c78491f0759f556dc3ee591e03ea02431fba263c008de43"
+    },
+    {
+      "path": "wiki-project/raw/upstream-audit.json",
+      "sha256": "c2367eb7988808d160eaaa096932b5046f58b2cb7d978bfb307cbb6ff0e1617c"
+    },
+    {
+      "path": "wiki-project/raw/wiki-sync-validation.json",
+      "sha256": "ea0cce069aa9ed615411322f49e1a082f1c5e4ffcd0fbec6eabe80e65292c35f"
+    },
+    {
+      "path": "wiki-project/raw/wiki-tools.tap",
+      "sha256": "5df248bd1e375047031d9afda1b1fe0648894484415d6dd135c6e3a28f286d39"
+    },
+    {
+      "path": "wiki-project/raw/wiki-validation.json",
+      "sha256": "01b79510d1f54fcaf1cdbf0776c2da850ea05149496cfb51d5163a78dfededed"
+    },
+    {
+      "path": "wiki-project/raw/规划期来源核查.md",
+      "sha256": "a632c201124d5c796100df23c2b5be366bda7cdcba91683cbb0ef362d02a259d"
+    }
+  ],
+  "diagnostic": "First ad hoc preservation probe used newline-separated quoted Git paths and stopped on a Chinese path; rerun uses NUL-separated raw paths. No repository files were modified by either probe."
+}

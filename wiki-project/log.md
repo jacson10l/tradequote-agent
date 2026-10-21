@@ -302,3 +302,8 @@ HTML目标对齐本轮收尾：25项逻辑测试通过；Wiki回归首轮GENERAT
 
 
 C 换行修复首次整仓检查：typecheck/build、37项Wiki回归和只读check/lint通过；pnpm check 因共同基线A01a JSON排版失败，固定基线sync因M1工程基线正文遗漏失败，保留 raw/c-lf-initial-validation.json。已仅格式化样本并验证JSON语义与56c909e一致，补关联知识页后复验；未改A01b业务或归档。
+
+
+## 2026-10-21 C 仓库 LF 修复验证完成
+
+实现提交03a7bc4，本机check（12项工程）、typecheck/build、37项Wiki回归、生成/只读check/lint与固定56c909e同步全部通过。旧基线autocrlf=true干净clone复现GENERATED_DRIFT与四个ARCHIVE_HASH_MISMATCH；修复提交true/false两份新clone均通过，重生成无差异、工作树干净、归档与二进制字节一致。73份历史非生成raw与基线一致，样本格式化后JSON语义不变。详见raw/c-lf-validation.json、raw/c-lf-checkouts.json、raw/c-lf-preservation.json；首次失败保留raw/c-lf-initial-validation.json。任务 [[2026-10-21-C仓库换行修复]] 保持active待非作者评审/合入，独立PR目标codex/m1-foundation；Windows实机/完整业务E2E/安装未验证，不将macOS Git模拟当作Windows验收。

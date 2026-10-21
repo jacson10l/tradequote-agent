@@ -56,5 +56,21 @@
       "exitCode": 0,
       "output": ""
     }
-  ]
+  ],
+  "sourceState": "taskBase plus repair before commit 03a7bc4; implementation fingerprints below",
+  "sourceSha256": {
+    ".gitattributes": "f21e5f4e6c9e8c45bf7b420b0eedee0c2ba3094f5cdb9da3db811d152bb10096",
+    "package.json": "6fa1ab007d7acdb5d3b5401191cf3feb4f9ad8abf7c6753a73c5f272823db424",
+    "scripts/check-line-endings.mjs": "43aeccc8a9bef9a99e15cf4df96127b1a6b4044704baf190b36918d91b455dcf",
+    "scripts/check-line-endings.test.mjs": "74e69c048f7f6ecaeea7bfec9dd7c7ebb1687aa217ebfba24eb2052adeac3735",
+    "wiki-project/scripts/check-wiki-sync.mjs": "32fcf8d8177611b7a886d821fcc08c7b0a7dcc7e1559988e4a366c381092c8f4",
+    "wiki-project/scripts/wiki-sync.test.mjs": "a62b5969eb5136dca24462d1495cc184ed452a35fe77de4b1c778aff7a59e382",
+    "wiki-project/scripts/wiki-config.json": "50f56624a02698b3f58c51b336dfb9c8a2d0ec86d1012125a46a5eacd38c6210",
+    "tests/fixtures/knowledge/knowledge-drafts.a01a.json": "a3e4b7e6e7f4b98ce0ad3b22c7fc651d564c89bfa9d5fb61014752c2d87d1c80"
+  },
+  "setup": {
+    "command": "pnpm install --frozen-lockfile",
+    "exitCode": 0,
+    "result": "435 packages; Electron 44.9.2 prepared; native SQLite rebuilt for Electron; electron-winstaller script remains ignored"
+  }
 }

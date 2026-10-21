@@ -1,0 +1,264 @@
+{
+  "status": "passed",
+  "taskBase": "56c909e21aefa484b6805bf9afc7c94b0e1d4576",
+  "testedCommit": "03a7bc4d5c1560b4bb43da8af73d8f6cb9fe0ad2",
+  "host": "macOS arm64; Git autocrlf simulation, not Windows native",
+  "checks": [
+    {
+      "command": "git clone --quiet --no-local --no-checkout -c core.autocrlf=true /Users/jason/.codex/worktrees/c-wiki-lf/tradequote-agent /var/folders/dd/38ttp85s1mg75mh4nv9_vrz80000gn/T/tradequote-lf-clones-llmi3gog/baseline-crlf",
+      "checkout": "tradequote-agent",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "assertionPassed": true,
+      "output": ""
+    },
+    {
+      "command": "git checkout --quiet --detach 56c909e21aefa484b6805bf9afc7c94b0e1d4576",
+      "checkout": "baseline-crlf",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "assertionPassed": true,
+      "output": ""
+    },
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "checkout": "baseline-crlf",
+      "exitCode": 1,
+      "expectedExitCode": 1,
+      "assertionPassed": true,
+      "output": "wiki-project/raw/generated/inventory.json\nwiki-project/raw/generated/代码清单.md\nwiki-project/raw/generated/源码快照.md\nwiki-project/raw/generated/源码覆盖矩阵.md\nwiki-project/raw/generated/命令与运行时清单.md: GENERATED_DRIFT：运行生成器并检查语义页\n"
+    },
+    {
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "checkout": "baseline-crlf",
+      "exitCode": 1,
+      "expectedExitCode": 1,
+      "assertionPassed": true,
+      "output": "wiki-project/raw/design/claude-original.md: ARCHIVE_HASH_MISMATCH\nwiki-project/raw/design/mistral-original.md: ARCHIVE_HASH_MISMATCH\nwiki-project/raw/inputs/外贸询报价协同 Agent 完整产品与实施方案.md: ARCHIVE_HASH_MISMATCH\nwiki-project/raw/inputs/项目构建技术栈.md: ARCHIVE_HASH_MISMATCH\n生成器: wiki-project/raw/generated/inventory.json\nwiki-project/raw/generated/代码清单.md\nwiki-project/raw/generated/源码快照.md\nwiki-project/raw/generated/源码覆盖矩阵.md\nwiki-project/raw/generated/命令与运行时清单.md: GENERATED_DRIFT：运行生成器并检查语义页\n"
+    },
+    {
+      "command": "git clone --quiet --no-local --no-checkout -c core.autocrlf=true /Users/jason/.codex/worktrees/c-wiki-lf/tradequote-agent /var/folders/dd/38ttp85s1mg75mh4nv9_vrz80000gn/T/tradequote-lf-clones-llmi3gog/fixed-true",
+      "checkout": "tradequote-agent",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "assertionPassed": true,
+      "output": ""
+    },
+    {
+      "command": "git checkout --quiet --detach 03a7bc4d5c1560b4bb43da8af73d8f6cb9fe0ad2",
+      "checkout": "fixed-true",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "assertionPassed": true,
+      "output": ""
+    },
+    {
+      "command": "node scripts/check-line-endings.mjs",
+      "checkout": "fixed-true",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "assertionPassed": true,
+      "output": "{\n  \"status\": \"passed\",\n  \"checked\": 338\n}\n"
+    },
+    {
+      "command": "pnpm wiki:check",
+      "checkout": "fixed-true",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "assertionPassed": true,
+      "output": "\n> tradequote-agent@0.1.0 wiki:check /private/var/folders/dd/38ttp85s1mg75mh4nv9_vrz80000gn/T/tradequote-lf-clones-llmi3gog/fixed-true\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 156,\n  \"lines\": 41977,\n  \"generated\": 5,\n  \"excluded\": 13\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 104,\n  \"semantic\": 88,\n  \"reachable\": 104\n}\n"
+    },
+    {
+      "command": "pnpm wiki:generate",
+      "checkout": "fixed-true",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "assertionPassed": true,
+      "output": "\n> tradequote-agent@0.1.0 wiki:generate /private/var/folders/dd/38ttp85s1mg75mh4nv9_vrz80000gn/T/tradequote-lf-clones-llmi3gog/fixed-true\n> node wiki-project/scripts/build-code-index.mjs .\n\n{\n  \"mode\": \"generate\",\n  \"files\": 156,\n  \"lines\": 41977,\n  \"generated\": 5,\n  \"excluded\": 13\n}\n"
+    },
+    {
+      "command": "git status --porcelain=v1",
+      "checkout": "fixed-true",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "assertionPassed": true,
+      "output": ""
+    },
+    {
+      "command": "git clone --quiet --no-local --no-checkout -c core.autocrlf=false /Users/jason/.codex/worktrees/c-wiki-lf/tradequote-agent /var/folders/dd/38ttp85s1mg75mh4nv9_vrz80000gn/T/tradequote-lf-clones-llmi3gog/fixed-false",
+      "checkout": "tradequote-agent",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "assertionPassed": true,
+      "output": ""
+    },
+    {
+      "command": "git checkout --quiet --detach 03a7bc4d5c1560b4bb43da8af73d8f6cb9fe0ad2",
+      "checkout": "fixed-false",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "assertionPassed": true,
+      "output": ""
+    },
+    {
+      "command": "node scripts/check-line-endings.mjs",
+      "checkout": "fixed-false",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "assertionPassed": true,
+      "output": "{\n  \"status\": \"passed\",\n  \"checked\": 338\n}\n"
+    },
+    {
+      "command": "pnpm wiki:check",
+      "checkout": "fixed-false",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "assertionPassed": true,
+      "output": "\n> tradequote-agent@0.1.0 wiki:check /private/var/folders/dd/38ttp85s1mg75mh4nv9_vrz80000gn/T/tradequote-lf-clones-llmi3gog/fixed-false\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 156,\n  \"lines\": 41977,\n  \"generated\": 5,\n  \"excluded\": 13\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 104,\n  \"semantic\": 88,\n  \"reachable\": 104\n}\n"
+    },
+    {
+      "command": "pnpm wiki:generate",
+      "checkout": "fixed-false",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "assertionPassed": true,
+      "output": "\n> tradequote-agent@0.1.0 wiki:generate /private/var/folders/dd/38ttp85s1mg75mh4nv9_vrz80000gn/T/tradequote-lf-clones-llmi3gog/fixed-false\n> node wiki-project/scripts/build-code-index.mjs .\n\n{\n  \"mode\": \"generate\",\n  \"files\": 156,\n  \"lines\": 41977,\n  \"generated\": 5,\n  \"excluded\": 13\n}\n"
+    },
+    {
+      "command": "git status --porcelain=v1",
+      "checkout": "fixed-false",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "assertionPassed": true,
+      "output": ""
+    }
+  ],
+  "preservation": {
+    "fixed-true": {
+      "archives": [
+        {
+          "path": "wiki-project/raw/inputs/项目构建技术栈.md",
+          "sha256": "7a03681da9a90d556542303b6f5b955b0c2248d3e5987f8e084408899b3b8187"
+        },
+        {
+          "path": "wiki-project/raw/inputs/外贸询报价协同 Agent 完整产品与实施方案.md",
+          "sha256": "6726a24f55dabf4261cea0a1d75338c5017129c6f6e903f87df21dda5b340fb6"
+        },
+        {
+          "path": "wiki-project/raw/design/claude-original.md",
+          "sha256": "3d972f34f8d4f33b442fa28220cf3b7ca2f13c0a97c468e3988148f82521f9df"
+        },
+        {
+          "path": "wiki-project/raw/design/mistral-original.md",
+          "sha256": "e56a8eeb44ed6e9522c59cd59ddf1d2ace9e435265cce25f8367b4e4b473f13d"
+        }
+      ],
+      "binaries": [
+        {
+          "path": "apps/desktop/resources/icon.icns",
+          "sha256": "cdda44b5d62778ff492b66e8850874532eae3155f4a72a03f3adc7e85eb22bf2"
+        },
+        {
+          "path": "apps/desktop/resources/icon.ico",
+          "sha256": "fe404e9809fc5dad01dd195de99b2477b9bdff77175fd72aa5405dfe85c157cd"
+        },
+        {
+          "path": "apps/desktop/resources/icon.png",
+          "sha256": "a7bda46fb084a56263883579785af00bac8220cd5407f53978d966c07cf899a7"
+        },
+        {
+          "path": "wiki-project/raw/inputs/2026-10-21-参赛任务截图.png",
+          "sha256": "e2a36150513fc820e23c7d511c5d9c98af1ecdd0a4a16b502483614897613064"
+        },
+        {
+          "path": "wiki-project/raw/market-packaging-preview.png",
+          "sha256": "b736199fa13a8069a0a3c1da7c46e38078b9212fe4634211e48f19eea785d67d"
+        },
+        {
+          "path": "wiki-project/raw/product-consistency-final.png",
+          "sha256": "9dc41efa20ef9aa068ad96fd6892d6a067a10a3a8f63664189ceb7f5e776fb04"
+        },
+        {
+          "path": "wiki-project/raw/product-consistency-preview.png",
+          "sha256": "187c9347892f3f412459f9b92e6dbb13ecf4e3457e60e6559f0eb94e176752d4"
+        },
+        {
+          "path": "wiki-project/raw/product-walkthrough-alignment-preview.png",
+          "sha256": "3e6ac0f039ba1878f1fd75acf69532c6f9d277b7ec317804548bfb9b67ee361d"
+        },
+        {
+          "path": "wiki-project/raw/product-walkthrough-preview.png",
+          "sha256": "13339c77702cfcc365c52d0cfb020f763549367c0c31ceaf75742867303a0b79"
+        },
+        {
+          "path": "wiki-project/raw/spec-alignment-inquiry.png",
+          "sha256": "c1100f1e511082530a0c4a1f949201f4f1dccf40b49005f18f0294e9c3aedca9"
+        }
+      ],
+      "generatedUnchanged": true
+    },
+    "fixed-false": {
+      "archives": [
+        {
+          "path": "wiki-project/raw/inputs/项目构建技术栈.md",
+          "sha256": "7a03681da9a90d556542303b6f5b955b0c2248d3e5987f8e084408899b3b8187"
+        },
+        {
+          "path": "wiki-project/raw/inputs/外贸询报价协同 Agent 完整产品与实施方案.md",
+          "sha256": "6726a24f55dabf4261cea0a1d75338c5017129c6f6e903f87df21dda5b340fb6"
+        },
+        {
+          "path": "wiki-project/raw/design/claude-original.md",
+          "sha256": "3d972f34f8d4f33b442fa28220cf3b7ca2f13c0a97c468e3988148f82521f9df"
+        },
+        {
+          "path": "wiki-project/raw/design/mistral-original.md",
+          "sha256": "e56a8eeb44ed6e9522c59cd59ddf1d2ace9e435265cce25f8367b4e4b473f13d"
+        }
+      ],
+      "binaries": [
+        {
+          "path": "apps/desktop/resources/icon.icns",
+          "sha256": "cdda44b5d62778ff492b66e8850874532eae3155f4a72a03f3adc7e85eb22bf2"
+        },
+        {
+          "path": "apps/desktop/resources/icon.ico",
+          "sha256": "fe404e9809fc5dad01dd195de99b2477b9bdff77175fd72aa5405dfe85c157cd"
+        },
+        {
+          "path": "apps/desktop/resources/icon.png",
+          "sha256": "a7bda46fb084a56263883579785af00bac8220cd5407f53978d966c07cf899a7"
+        },
+        {
+          "path": "wiki-project/raw/inputs/2026-10-21-参赛任务截图.png",
+          "sha256": "e2a36150513fc820e23c7d511c5d9c98af1ecdd0a4a16b502483614897613064"
+        },
+        {
+          "path": "wiki-project/raw/market-packaging-preview.png",
+          "sha256": "b736199fa13a8069a0a3c1da7c46e38078b9212fe4634211e48f19eea785d67d"
+        },
+        {
+          "path": "wiki-project/raw/product-consistency-final.png",
+          "sha256": "9dc41efa20ef9aa068ad96fd6892d6a067a10a3a8f63664189ceb7f5e776fb04"
+        },
+        {
+          "path": "wiki-project/raw/product-consistency-preview.png",
+          "sha256": "187c9347892f3f412459f9b92e6dbb13ecf4e3457e60e6559f0eb94e176752d4"
+        },
+        {
+          "path": "wiki-project/raw/product-walkthrough-alignment-preview.png",
+          "sha256": "3e6ac0f039ba1878f1fd75acf69532c6f9d277b7ec317804548bfb9b67ee361d"
+        },
+        {
+          "path": "wiki-project/raw/product-walkthrough-preview.png",
+          "sha256": "13339c77702cfcc365c52d0cfb020f763549367c0c31ceaf75742867303a0b79"
+        },
+        {
+          "path": "wiki-project/raw/spec-alignment-inquiry.png",
+          "sha256": "c1100f1e511082530a0c4a1f949201f4f1dccf40b49005f18f0294e9c3aedca9"
+        }
+      ],
+      "generatedUnchanged": true
+    }
+  }
+}

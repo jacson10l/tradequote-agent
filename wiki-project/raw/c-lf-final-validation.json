@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "scope": "Final documentation/evidence follow-up to implementation commit 03a7bc4; no code changes",
+  "checks": [
+    {
+      "command": "pnpm wiki:generate",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:generate /Users/jason/.codex/worktrees/c-wiki-lf/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs .\n\n{\n  \"mode\": \"generate\",\n  \"files\": 156,\n  \"lines\": 41977,\n  \"generated\": 5,\n  \"excluded\": 21\n}\n"
+    },
+    {
+      "command": "pnpm wiki:check",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-wiki-lf/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 156,\n  \"lines\": 41977,\n  \"generated\": 5,\n  \"excluded\": 21\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 104,\n  \"semantic\": 88,\n  \"reachable\": 104\n}\n"
+    },
+    {
+      "command": "pnpm wiki:sync --base 56c909e21aefa484b6805bf9afc7c94b0e1d4576",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:sync /Users/jason/.codex/worktrees/c-wiki-lf/tradequote-agent\n> node wiki-project/scripts/check-wiki-sync.mjs . --base 56c909e21aefa484b6805bf9afc7c94b0e1d4576\n\n{\n  \"base\": \"56c909e21aefa484b6805bf9afc7c94b0e1d4576\",\n  \"status\": \"passed\",\n  \"codeFiles\": 8,\n  \"knowledgePages\": 7,\n  \"tasks\": 1,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "pnpm check:line-endings",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 check:line-endings /Users/jason/.codex/worktrees/c-wiki-lf/tradequote-agent\n> node scripts/check-line-endings.mjs\n\n{\n  \"status\": \"passed\",\n  \"checked\": 340\n}\n"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "output": ""
+    }
+  ]
+}
