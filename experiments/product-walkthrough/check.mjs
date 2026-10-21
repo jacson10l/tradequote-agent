@@ -551,3 +551,16 @@ test('old output history remains reachable before the next revision has an artif
  assert.equal(s.run('q.artifacts.length'),1);
  assert.equal(s.run('!!approval(q,a)'),true);
 });
+
+test('overview distinguishes historical approval and sending from current readiness',()=>{
+ const s=sandbox();readyOutput(s);
+ s.run("q.approvals.push({artifactId:a.id,status:'approved',reviewer:'合成主管',sent:false});markArtifactSent(q,a)");
+ const step=(page,index)=>page.match(new RegExp('<button class="step [^>]*data-step="'+index+'"[^>]*>[\\s\\S]*?<\\/button>'))[0];
+ for(const index of [3,4,5]) assert.match(step(s.run('overviewPage()'),index),/class="step done/);
+ s.run("var history=JSON.stringify(q.approvals);state.knowledge[0].status='withdrawn'");
+ const page=s.run('overviewPage()');
+ for(const index of [3,4,5]) assert.doesNotMatch(step(page,index),/class="step done/);
+ assert.match(step(page,4),/曾批准 · 当前需复核/);
+ assert.match(step(page,5),/曾模拟发送 · 当前需复核/);
+ assert.equal(s.run('JSON.stringify(q.approvals)===history'),true);
+});

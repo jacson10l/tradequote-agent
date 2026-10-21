@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "c9033175e4cec9ace2382ecf95d0c6a9852a77638a3dbc8ef3e6610d5b914e0e",
+    "wiki-config.json": "47c115083b845036101672b00b791fdb6c88b72c4afd7fd2a9b51eb4f1ec5367",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -1054,9 +1054,9 @@
     {
       "path": "experiments/product-walkthrough/check.mjs",
       "type": "mjs",
-      "lines": 553,
-      "bytes": 32624,
-      "sha256": "aeabc5998761b0e3ded84f3616ffb280ab6a4ff159992a932b3c731660d70d01",
+      "lines": 566,
+      "bytes": 33513,
+      "sha256": "9d67cda1944219ba0d184b41f0dc5c8cd218cef3106ede8cdf2788ed61d4e8f5",
       "role": "Prototype amount version approval recovery regression checks",
       "pages": [
         "wiki/产品交互演示.md"
@@ -1066,8 +1066,8 @@
       "path": "experiments/product-walkthrough/index.html",
       "type": "html",
       "lines": 353,
-      "bytes": 142566,
-      "sha256": "98546dfadeb3432be4d51cb262432a99683cda6160daa3d76259af2d1be41c46",
+      "bytes": 142718,
+      "sha256": "dc4cd6419dbe202e69455184076c6ad86cfd310afe6638de7b64b8d47a12869e",
       "role": "Standalone synthetic product interaction walkthrough",
       "pages": [
         "wiki/产品交互演示.md"
@@ -1745,6 +1745,17 @@
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/knowledge/knowledge-drafts.a01a.json",
+      "type": "json",
+      "lines": 263,
+      "bytes": 9129,
+      "sha256": "f93bf31d2e86bf260926d3d458c8eee28d25cee1057f849b7cac7826311e2751",
+      "role": "A01合成知识候选样本，非已发布或已验收规则",
+      "pages": [
+        "wiki/A业务LLMWiki方案.md"
       ]
     },
     {

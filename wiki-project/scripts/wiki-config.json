@@ -1040,6 +1040,12 @@
       "pages": [
         "wiki/产品交互演示.md"
       ]
+    },
+    "tests/fixtures/knowledge/knowledge-drafts.a01a.json": {
+      "role": "A01合成知识候选样本，非已发布或已验收规则",
+      "pages": [
+        "wiki/A业务LLMWiki方案.md"
+      ]
     }
   }
 }
