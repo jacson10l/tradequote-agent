@@ -594,13 +594,15 @@
     "packages/contracts/src/index.ts": {
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/B00a知识Wiki公共协议.md"
       ]
     },
     "packages/contracts/src/mock.ts": {
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/B00a知识Wiki公共协议.md"
       ]
     },
     "packages/domain/package.json": {
@@ -690,7 +692,8 @@
     "tests/e2e/workspace.spec.ts": {
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/B00a知识Wiki公共协议.md"
       ]
     },
     "tsconfig.json": {
@@ -983,7 +986,8 @@
     "packages/contracts/src/pending-client.ts": {
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
-        "wiki/首批并行接口约定.md"
+        "wiki/首批并行接口约定.md",
+        "wiki/B00a知识Wiki公共协议.md"
       ]
     },
     "packages/contracts/src/knowledge.test.ts": {
@@ -1008,7 +1012,8 @@
       "role": "B00 preload and mock capability gate without new IPC",
       "pages": [
         "wiki/首批并行接口约定.md",
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/B00a知识Wiki公共协议.md"
       ]
     },
     "packages/domain/src/agent-run.ts": {
@@ -1044,7 +1049,26 @@
     "tests/fixtures/knowledge/knowledge-drafts.a01a.json": {
       "role": "A01合成知识候选样本，非已发布或已验收规则",
       "pages": [
-        "wiki/A业务LLMWiki方案.md"
+        "wiki/A业务LLMWiki方案.md",
+        "wiki/B00a知识Wiki公共协议.md"
+      ]
+    },
+    "packages/contracts/src/knowledge-wiki.ts": {
+      "role": "B00a P0 versioned Markdown, source, review, retrieval, citation and consumption protocols",
+      "pages": [
+        "wiki/B00a知识Wiki公共协议.md"
+      ]
+    },
+    "packages/contracts/src/wiki-integrity.ts": {
+      "role": "B00a exact UTF-8 content, source-set and excerpt integrity verification",
+      "pages": [
+        "wiki/B00a知识Wiki公共协议.md"
+      ]
+    },
+    "packages/contracts/src/knowledge-wiki.test.ts": {
+      "role": "B00a P0 authority, provenance, historical-read, validity and pagination negative regressions",
+      "pages": [
+        "wiki/B00a知识Wiki公共协议.md"
       ]
     }
   }

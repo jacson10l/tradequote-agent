@@ -5,14 +5,17 @@ export * from "./agent";
 import { z } from "zod";
 import type { CheckClient } from "./checks";
 import type { KnowledgeClient } from "./knowledge";
+import type { WikiClient } from "./knowledge-wiki";
 import { IssueSchema } from "./protocol";
 import type { RunClient } from "./runs";
 
 export * from "./checks";
 export * from "./knowledge";
+export * from "./knowledge-wiki";
 export { unavailableFirstBatchClient } from "./pending-client";
 export { FailureSchema, IssueSchema, PublicErrorSchema } from "./protocol";
 export * from "./runs";
+export * from "./wiki-integrity";
 
 import { ErrorCodeSchema } from "./errors";
 import { type TradeClient, TradeCommandSchema, TradeResultSchema } from "./trade";
@@ -85,6 +88,7 @@ export interface DesktopClient
   extends TradeClient,
     AgentClient,
     KnowledgeClient,
+    WikiClient,
     CheckClient,
     RunClient {
   getWorkspace(): Promise<WorkspaceResult>;

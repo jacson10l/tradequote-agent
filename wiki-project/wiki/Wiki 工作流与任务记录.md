@@ -2,7 +2,7 @@
 title: Wiki 工作流与任务记录
 type: meta
 status: active
-updated: 2026-10-21
+updated: 2026-10-22
 sources:
   - wiki-repo:scripts/build-code-index.mjs:1
   - wiki-repo:scripts/lint-wiki.mjs:1
@@ -117,3 +117,8 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 ## 产品HTML交互演示纳管
 
 本轮新增experiments/product-walkthrough/index.html、check.mjs与README.md，逐文件映射至 [[产品交互演示]]，覆盖离线交互行为、关键状态/金额测试和启动说明。同步 [[项目说明书]]、任务、导航、状态和追加日志；生成清单后运行只读check/lint与固定e0f9336基线sync。映射变更运行现有Wiki工具回归，未修改维护工具算法。当前HTML为合成教学样机，不与正式Electron或业务验收混计，实际结果见 [[2026-10-21-产品HTML交互演示]]。
+
+
+## B00a P0 覆盖增量
+
+新增 contracts/knowledge-wiki.ts、wiki-integrity.ts 和 knowledge-wiki.test.ts，逐文件登记版本/来源/审核/检索/引用/消费协议及完整性反向回归；公共 index/mock/pending-client 和 preload 门禁测试追加同一实际知识页映射。没有新增业务存储/IPC，也没有改变维护算法。导航新增 [[B00a知识Wiki公共协议]]，任务 [[B00a-业务Wiki契约补充]] 更新实际 taskBase、A/C 对齐与本机证据；映射变更仍运行 Wiki 工具回归、生成、只读 check/lint 和固定基线 sync。

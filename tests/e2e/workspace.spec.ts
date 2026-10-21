@@ -3,6 +3,7 @@ import { createRequire } from "node:module";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { _electron as electron, expect, test } from "@playwright/test";
+import { mockWikiCommands } from "../../packages/contracts/src/mock";
 
 const require = createRequire(resolve("apps/desktop/package.json"));
 test("development renderer runs with React refresh and the real desktop bridge", async () => {
@@ -96,6 +97,7 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
         "checkQuote",
         "createQuoteV1",
         "createWorkspace",
+        "executeWiki",
         "getAgentRun",
         "getKnowledgeRevision",
         "getQuoteChecks",
@@ -153,6 +155,28 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
         ok: false,
         error: { code: "CAPABILITY_UNAVAILABLE", retryable: false },
       });
+    const wikiResults = await page.evaluate(
+      async (commands) =>
+        Promise.all(commands.map((command) => window.tradequote.executeWiki(command))),
+      mockWikiCommands,
+    );
+    expect(wikiResults).toHaveLength(12);
+    for (const result of wikiResults)
+      expect(result).toMatchObject({
+        ok: false,
+        error: { code: "CAPABILITY_UNAVAILABLE", retryable: false },
+      });
+    const malformedWiki = await page.evaluate(
+      async (command) =>
+        window.tradequote.executeWiki(
+          Object.assign({}, command, { origin: "human_ui", workspaceId: crypto.randomUUID() }),
+        ),
+      mockWikiCommands[0]!,
+    );
+    expect(malformedWiki).toMatchObject({
+      ok: false,
+      error: { code: "VALIDATION_ERROR", retryable: false },
+    });
     // Exercise the same public bridge from a second operation while the form is stale.
     const external = await page.evaluate(async () =>
       window.tradequote.renameWorkspace({
