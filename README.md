@@ -2,6 +2,10 @@
 
 外贸询报价协同桌面 Agent。以企业导入的商品、价格和知识资料为依据，辅助完成跨品类询盘理解、报价、需求变更、复核及多语言对外输出。
 
+**可操作演示：[业务全流程 HTML](experiments/product-walkthrough/index.html)**，用浏览器打开即可体验假数据下的资料、报价、修订、确认、审批和输出；[操作指引](experiments/product-walkthrough/README.md)说明模拟边界。
+
+**新成员先读：[项目说明书](wiki-project/wiki/项目说明书.md)**。从最终产品、业务角色、主要功能和两条业务流程入手，再看完整案例、当前实现边界、源码地图与三人开发分工。
+
 **正式 Electron＋React 工作台已接通手工报价 V1：演示场景、CSV 预览确认、价目表核价、草稿保存与重开；并新增正式 DeepSeek 设置、询盘理解、两轮 V2/V3 与差异；完整报价 MVP 尚未完成。** 首版单机保存数据，优先接入 DeepSeek；最终安装和双平台验收按用户决定暂缓。UI 使用 `getdesign` 的 **mistral.ai** 参考，并适配为浅色单据工作台。
 
 最新结论：[M0 平台验证记录](wiki-project/wiki/M0平台验证记录.md)。Solivio 不整体 Fork，CSV/金额采用 csv-parse 与 decimal.js；Harness 在普通 Node 的历史实验通过，但在 Electron 44.9.2 初始化失败，当前默认改选最小执行器。
