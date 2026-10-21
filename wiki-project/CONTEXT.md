@@ -1,5 +1,7 @@
 # 当前上下文
 
+- 最新独立候选codex/c02c-runtime-lifecycle，taskBase67c69c7，共同祖先be53b98。[[C02c统一运行与写账本]]已实现唯一生产报价协调、OS锁约束Worker生命周期、run IPC/桌面取消与显式retry、迁移6受限草稿调用账本；真实强杀与本机验证见[[C02c-统一调度与强杀恢复]]，尚未推送/合入。agent.read仍四工具只读，完整自由多步C02c/知识规则/C03/真实模型与Windows仍未完成。以下段落均保留此前切片作用域。
+
 - 当前候选 [[C02c-持久运行与写入前置]]：独立codex/c02c-run-prerequisites，taskBase644c5ed，整合A01b/0f613b8真实迁移4后新增run5。澄清/list、真实AgentRunStore、控制重放/票据/原子报价提交已实现并在本机验证；具体证据见任务。当前生产Worker仍未接运行调度/恢复，四只读工具保持；完整C01b/C02c与真实模型仍未完成。以下各段为此前切片的历史事实，不将旧“迁移仅1～3”当成本候选现状。
 
 - 最新任务 [[C02b-Worker与桌面只读入口]]，新分支codex/c02b-desktop-read-tools，taskBase=4324dc85bdd00657831f7428496c60e5332bb428（上一轮真实adapter本地检查点），共同/PR基线仍be53b98。

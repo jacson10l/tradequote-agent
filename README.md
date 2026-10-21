@@ -110,3 +110,7 @@ macOS 开发启动使用本地 TradeQuote.app，Dock 名称与图标一致；重
 ## C02b商品与报价只读工具
 
 [C02b接口与边界](wiki-project/wiki/C02b商品与报价只读工具.md)已把只读循环接到现有SQLite已发布商品、授权历史报价与确定性核价：宿主固定范围/日期，保留来源、真实错误和未保存预览，无报价写入。实现/验证见[C02b任务](wiki-project/wiki/tasks/C02b-商品与报价只读工具.md)。search_knowledge/validate_quote缺正式服务，继续未注册。后续已接正式Worker/Main/preload和侧栏“只读助手”：本分支启动pnpm dev后，配置模型、发布商品，进入只读助手选择报价并输入任务即可使用四工具，见[桌面使用说明](wiki-project/wiki/C02b桌面只读助手.md)。原understand/revise保存路径兼容；未完成持久运行恢复。
+
+## 持久报价运行与恢复
+
+本分支的询盘/修订已进入统一持久运行协调器，“资料与报价”下可刷新模型运行记录、取消、对失败/中断/取消任务显式重试。应用重开不自动调用模型；重试可能再次计费，旧键重送只回读事实。Worker独占锁、迁移6草稿写调用账本及真实强杀验证见 [运行说明](wiki-project/wiki/C02c统一运行与写账本.md) 和 [本轮任务](wiki-project/wiki/tasks/C02c-统一调度与强杀恢复.md)。独立只读助手仍为四工具；完整多步Agent、知识/规则工具、真实DeepSeek、Windows与最终安装未验收。

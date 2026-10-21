@@ -23,7 +23,7 @@ describe("B00 read-only mock and formal preload capability gate", () => {
     vi.resetModules();
     vi.clearAllMocks();
   });
-  it("keeps the ten B00 methods unavailable without sending their IPC or returning fake writes", async () => {
+  it("keeps knowledge/check services unavailable; mock run methods stay unavailable", async () => {
     await import("./index");
     const desktop: DesktopClient = electron.exposeInMainWorld.mock.calls[0]?.[1];
     expect(desktop).toBeDefined();
@@ -73,7 +73,7 @@ describe("B00 read-only mock and formal preload capability gate", () => {
         method: "agent.cancel",
         payload: { runId: mockAgentRun.runId },
       }),
-      RunCommandSchema.parse({ ...read, method: "agent.list", payload: {} }),
+      RunCommandSchema.parse({ ...read, method: "agent.list", payload: { limit: 20 } }),
       RunCommandSchema.parse({
         ...write,
         method: "agent.retry",
@@ -82,6 +82,7 @@ describe("B00 read-only mock and formal preload capability gate", () => {
     ];
     for (const client of [readonlyMockClient, desktop]) {
       for (const command of commands) {
+        if (client === desktop && command.method.startsWith("agent.")) continue;
         const result =
           command.method === "knowledge.stage"
             ? await client.stageKnowledge(command)
@@ -114,6 +115,41 @@ describe("B00 read-only mock and formal preload capability gate", () => {
       ).toMatchObject({ ok: false, error: { code: "VALIDATION_ERROR" } });
     }
     expect(electron.invoke).not.toHaveBeenCalled();
+  });
+  it("validates and forwards durable run methods and rejects malformed replies", async () => {
+    await import("./index");
+    const desktop: DesktopClient = electron.exposeInMainWorld.mock.calls[0]?.[1];
+    electron.invoke.mockResolvedValue({
+      ok: true,
+      data: mockAgentRun,
+      warnings: [],
+      evidenceIds: [],
+    });
+    const command = RunCommandSchema.parse({
+      ...write,
+      method: "agent.start",
+      payload: { method: mockAgentRun.command.method, payload: mockAgentRun.command.payload },
+    });
+    if (command.method !== "agent.start") throw new Error("fixture");
+    expect(await desktop.startAgentRun(command)).toMatchObject({ ok: true });
+    expect(electron.invoke).toHaveBeenCalledWith("agent.start", command);
+    electron.invoke.mockResolvedValue({
+      ok: true,
+      data: { runs: [mockAgentRun], nextCursor: null },
+      warnings: [],
+      evidenceIds: [],
+    });
+    expect(
+      await desktop.listAgentRuns({ ...read, method: "agent.list", payload: { limit: 20 } }),
+    ).toMatchObject({ ok: true });
+    electron.invoke.mockResolvedValue({ ok: true, data: { approved: true } });
+    expect(
+      await desktop.getAgentRun({
+        ...read,
+        method: "agent.get",
+        payload: { runId: mockAgentRun.runId },
+      }),
+    ).toMatchObject({ ok: false });
   });
   it("exposes only the strict agent.read command and validates its reply", async () => {
     await import("./index");

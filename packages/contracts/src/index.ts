@@ -7,7 +7,7 @@ import type { CheckClient } from "./checks";
 import type { KnowledgeClient } from "./knowledge";
 import { IssueSchema } from "./protocol";
 import { AgentReadCommandSchema, AgentReadResultSchema, type ReadAgentClient } from "./read-tools";
-import type { RunClient } from "./runs";
+import { type RunClient, RunCommandSchema, RunListResultSchema, RunResultSchema } from "./runs";
 
 export * from "./checks";
 export * from "./knowledge";
@@ -103,11 +103,14 @@ export const RuntimeCommandSchema = z.union([
   TradeCommandSchema,
   AgentCommandSchema,
   AgentReadCommandSchema,
+  RunCommandSchema,
 ]);
 export const RuntimeResultSchema = z.union([
   ResultSchema,
   TradeResultSchema,
   AgentReadResultSchema,
+  RunResultSchema,
+  RunListResultSchema,
 ]);
 export type RuntimeCommand = z.infer<typeof RuntimeCommandSchema>;
 export type RuntimeResult = z.infer<typeof RuntimeResultSchema>;

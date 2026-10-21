@@ -9,6 +9,9 @@ import {
   ModelResultSchema,
   ModelSettingsCommandSchema,
   ResultSchema,
+  RunCommandSchema,
+  RunListResultSchema,
+  RunResultSchema,
   TradeCommandSchema,
   TradeResultSchema,
   unavailableFirstBatchClient,
@@ -42,8 +45,25 @@ async function invokeAgent(input: unknown) {
     return failure("CAPABILITY_UNAVAILABLE", "连接中断，结果未知；请重新加载或重试同一操作");
   }
 }
+async function invokeRun(input: unknown) {
+  const parsed = RunCommandSchema.safeParse(input);
+  if (!parsed.success) return failure("VALIDATION_ERROR", "运行字段不合法");
+  try {
+    const result = await ipcRenderer.invoke(parsed.data.method, parsed.data);
+    return (parsed.data.method === "agent.list" ? RunListResultSchema : RunResultSchema).parse(
+      result,
+    );
+  } catch {
+    return failure("CAPABILITY_UNAVAILABLE", "运行连接中断，请刷新运行记录；不会自动重发");
+  }
+}
 const client: DesktopClient = {
   ...unavailableFirstBatchClient,
+  startAgentRun: async (command) => RunResultSchema.parse(await invokeRun(command)),
+  getAgentRun: async (command) => RunResultSchema.parse(await invokeRun(command)),
+  cancelAgentRun: async (command) => RunResultSchema.parse(await invokeRun(command)),
+  retryAgentRun: async (command) => RunResultSchema.parse(await invokeRun(command)),
+  listAgentRuns: async (command) => RunListResultSchema.parse(await invokeRun(command)),
   readAgent: async (command) => {
     const parsed = AgentReadCommandSchema.safeParse(command);
     if (!parsed.success) return failure("VALIDATION_ERROR", "只读任务字段不合法");

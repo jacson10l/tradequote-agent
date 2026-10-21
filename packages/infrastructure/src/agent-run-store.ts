@@ -7,11 +7,13 @@ import {
   failure,
   ModelCredentialsSchema,
   type RevisionProposal,
+  RevisionProposalSchema,
   type RunCommand,
   RunCommandSchema,
   type RunListQuery,
   RunListQuerySchema,
   type Understanding,
+  UnderstandingSchema,
 } from "@tradequote/contracts";
 import { TradeFault, transitionAgentRun } from "@tradequote/domain";
 import type Database from "better-sqlite3";
@@ -115,6 +117,12 @@ export class AgentRunStore {
         this.workspaceId(),
         run.runId,
       );
+    if (checked.status !== "running")
+      this.db
+        .prepare(
+          "UPDATE agent_write_call SET status='abandoned' WHERE run_id=? AND status='prepared'",
+        )
+        .run(run.runId);
     this.event(checked);
     return checked;
   }
@@ -259,7 +267,16 @@ export class AgentRunStore {
       return this.save({
         ...current.run,
         status: transitionAgentRun(current.run.status, "fail"),
-        error: failure(code, "运行失败，请检查模型配置、输入和当前报价后显式重试").error,
+        error: failure(
+          code,
+          code === "MODEL_AUTH_FAILED"
+            ? "模型鉴权失败，请检查模型设置后显式重试"
+            : code === "MODEL_INVALID_OUTPUT"
+              ? "模型建议未通过字段校验，请补充要求后显式重试"
+              : code === "REVISION_CONFLICT"
+                ? "报价或场景已有新版本，请加载最新事实并新建任务"
+                : "运行失败，请检查模型配置、输入和当前报价后显式重试",
+        ).error,
         updatedAt: this.now(current.run),
       });
     });
@@ -285,6 +302,123 @@ export class AgentRunStore {
         committedRevisionId,
         updatedAt: this.now(current.run),
       });
+    });
+  }
+  /** Persist host-generated call identity before executing a draft mutation. */
+  prepareWrite(
+    ticket: RunTicket,
+    toolCallId: string,
+    proposal: Understanding | RevisionProposal,
+    model: string,
+  ) {
+    return this.transaction(() => {
+      z.uuid().parse(toolCallId);
+      const current = this.current(ticket);
+      const input = {
+        proposal: (current.run.command.method === "agent.understand"
+          ? UnderstandingSchema
+          : RevisionProposalSchema
+        ).parse(proposal),
+        model: ModelCredentialsSchema.shape.model.parse(model),
+      };
+      const toolName =
+        current.run.command.method === "agent.understand" ? "create_draft" : "apply_patch";
+      const hash = fingerprint({ toolName, input });
+      const prior = this.writeRow(ticket.runId, toolCallId);
+      if (prior) {
+        let storedInput: unknown;
+        try {
+          const persisted = JSON.parse(prior.input_json);
+          storedInput = {
+            proposal: (current.run.command.method === "agent.understand"
+              ? UnderstandingSchema
+              : RevisionProposalSchema
+            ).parse(persisted.proposal),
+            model: ModelCredentialsSchema.shape.model.parse(persisted.model),
+          };
+          if (
+            prior.tool_name !== toolName ||
+            fingerprint({ toolName, input: storedInput }) !== prior.request_hash
+          )
+            throw new Error("mismatch");
+        } catch {
+          throw new TradeFault("STORAGE_ERROR", "写工具调用记录损坏");
+        }
+        if (prior.request_hash !== hash)
+          throw new TradeFault("IDEMPOTENCY_CONFLICT", "写工具调用标识已用于不同参数");
+        if (prior.status === "committed") {
+          if (
+            current.run.status !== "completed" ||
+            current.run.committedRevisionId !== prior.revision_id
+          )
+            throw new TradeFault("STORAGE_ERROR", "写工具提交凭据不一致");
+          return true;
+        }
+        return (
+          current.matches &&
+          prior.status === "prepared" &&
+          prior.execution_id === ticket.executionId &&
+          prior.worker_session_id === ticket.workerSessionId &&
+          prior.attempt === ticket.attempt
+        );
+      }
+      if (!current.matches) return false;
+      this.db
+        .prepare(
+          `INSERT INTO agent_write_call(run_id,tool_call_id,attempt,execution_id,worker_session_id,tool_name,request_hash,input_json,status) VALUES (?,?,?,?,?,?,?,?,'prepared')`,
+        )
+        .run(
+          ticket.runId,
+          toolCallId,
+          ticket.attempt,
+          ticket.executionId,
+          ticket.workerSessionId,
+          toolName,
+          hash,
+          JSON.stringify(input),
+        );
+      return true;
+    });
+  }
+  private writeRow(runId: string, toolCallId: string) {
+    return this.db
+      .prepare("SELECT * FROM agent_write_call WHERE run_id=? AND tool_call_id=?")
+      .get(runId, toolCallId) as
+      | {
+          attempt: number;
+          execution_id: string;
+          worker_session_id: string;
+          request_hash: string;
+          status: "prepared" | "committed" | "abandoned";
+          tool_name: string;
+          revision_id: string | null;
+          input_json: string;
+        }
+      | undefined;
+  }
+  /** Receipt, quote, turn, business idempotency and completed run share one COMMIT. */
+  commitWrite(
+    ticket: RunTicket,
+    toolCallId: string,
+    proposal: Understanding | RevisionProposal,
+    model: string,
+  ): AgentRun {
+    return this.transaction(() => {
+      if (!this.prepareWrite(ticket, toolCallId, proposal, model)) return this.current(ticket).run;
+      const prior = this.writeRow(ticket.runId, toolCallId);
+      if (!prior) throw new TradeFault("STORAGE_ERROR", "写工具调用记录缺失");
+      if (prior.status === "committed") return this.current(ticket).run;
+      // save() retires prepared calls; this receipt is promoted to committed below
+      // in the same outer transaction. No abandoned intermediate state is observable.
+      const done = this.commitQuote(ticket, proposal, model);
+      if (done.status !== "completed" || !done.committedRevisionId)
+        throw new TradeFault("STORAGE_ERROR", "写工具未产生已保存版本");
+      this.db
+        .prepare(
+          "UPDATE agent_write_call SET status='committed',revision_id=? WHERE run_id=? AND tool_call_id=?",
+        )
+        .run(done.committedRevisionId, ticket.runId, toolCallId);
+      return done;
     });
   }
   control(input: Extract<RunCommand, { method: "agent.cancel" | "agent.retry" }>): Effect {

@@ -6,15 +6,19 @@ const mock = vi.hoisted(() => ({
   callbacks: new Map<string, (value?: unknown) => void>(),
   postMessage: vi.fn(),
   kill: vi.fn(),
+  fork: vi.fn(),
 }));
 vi.mock("electron", () => ({
   utilityProcess: {
-    fork: () => ({
-      on: (event: string, callback: (value?: unknown) => void) =>
-        mock.callbacks.set(event, callback),
-      postMessage: mock.postMessage,
-      kill: mock.kill,
-    }),
+    fork: (...args: unknown[]) => {
+      mock.fork(...args);
+      return {
+        on: (event: string, callback: (value?: unknown) => void) =>
+          mock.callbacks.set(event, callback),
+        postMessage: mock.postMessage,
+        kill: mock.kill,
+      };
+    },
   },
 }));
 const command = (): AgentReadCommand => ({
@@ -32,6 +36,7 @@ afterEach(() => vi.useRealTimers());
 
 it("waits longer than the read runtime deadline, validates replies, and resolves a read result", async () => {
   const worker = new BusinessWorker("fixture.js", "synthetic.sqlite");
+  mock.callbacks.get("message")?.({ type: "ready" });
   let settled = false;
   const pending = worker.request(command()).then((result) => {
     settled = true;
@@ -61,6 +66,7 @@ it("waits longer than the read runtime deadline, validates replies, and resolves
 });
 it("does not replay after transport timeout or process exit", async () => {
   const worker = new BusinessWorker("fixture.js", "synthetic.sqlite");
+  mock.callbacks.get("message")?.({ type: "ready" });
   const pending = worker.request(command());
   await vi.advanceTimersByTimeAsync(135000);
   expect(await pending).toMatchObject({
@@ -69,8 +75,33 @@ it("does not replay after transport timeout or process exit", async () => {
   });
   expect(mock.postMessage).toHaveBeenCalledTimes(1);
   const second = worker.request(command());
+  await Promise.resolve();
   mock.callbacks.get("exit")?.();
   expect(await second).toMatchObject({ ok: false, error: { code: "CAPABILITY_UNAVAILABLE" } });
+  expect(mock.fork).toHaveBeenCalledTimes(1);
+  const query = worker.request(command());
+  expect(mock.fork).toHaveBeenCalledTimes(2);
+  mock.callbacks.get("message")?.({ type: "ready" });
+  await Promise.resolve();
+  expect(mock.postMessage).toHaveBeenCalledTimes(3);
+  mock.callbacks.get("exit")?.();
+  expect(await query).toMatchObject({ ok: false });
+});
+
+it("waits for ready and actual exit before allowing restart or completing close", async () => {
+  const worker = new BusinessWorker("fixture.js", "synthetic.sqlite");
+  mock.callbacks.get("message")?.({ type: "ready" });
+  const pending = worker.request(command());
+  await Promise.resolve();
+  let closed = false;
+  const closing = worker.close().then(() => {
+    closed = true;
+  });
+  expect(await pending).toMatchObject({ ok: false });
+  expect(closed).toBe(false);
   expect(await worker.request(command())).toMatchObject({ ok: false });
-  expect(mock.postMessage).toHaveBeenCalledTimes(2);
+  expect(mock.fork).toHaveBeenCalledTimes(1);
+  mock.callbacks.get("exit")?.();
+  await closing;
+  expect(closed).toBe(true);
 });

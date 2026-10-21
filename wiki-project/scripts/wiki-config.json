@@ -494,19 +494,22 @@
     "apps/desktop/src/main/index.ts": {
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     "apps/desktop/src/main/worker-client.ts": {
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     "apps/desktop/src/preload/index.ts": {
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     "apps/desktop/src/renderer/index.html": {
@@ -572,7 +575,8 @@
     "apps/desktop/src/workers/business.ts": {
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     "biome.json": {
@@ -602,7 +606,8 @@
     "packages/contracts/src/index.ts": {
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     "packages/contracts/src/mock.ts": {
@@ -644,13 +649,15 @@
     "packages/infrastructure/src/index.ts": {
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     "packages/infrastructure/src/migrations.ts": {
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     "packages/infrastructure/src/schema.ts": {
@@ -698,7 +705,8 @@
     "tests/e2e/workspace.spec.ts": {
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     "tsconfig.json": {
@@ -906,7 +914,8 @@
       "role": "有界模型执行与提交前版本复核",
       "pages": [
         "wiki/M4模型与报价修订.md",
-        "wiki/C运行恢复实现.md"
+        "wiki/C运行恢复实现.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     "packages/infrastructure/src/deepseek.ts": {
@@ -927,7 +936,8 @@
       "pages": [
         "wiki/M4模型与报价修订.md",
         "wiki/M1验证与协作.md",
-        "wiki/C运行恢复实现.md"
+        "wiki/C运行恢复实现.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     "packages/infrastructure/src/deepseek.test.ts": {
@@ -954,14 +964,16 @@
     "apps/desktop/src/renderer/src/features/quote-agent.tsx": {
       "role": "询盘两轮修订和真实版本差异",
       "pages": [
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     "tests/e2e/quote-agent.spec.ts": {
       "role": "真实Electron加HTTP替身两轮报价验收",
       "pages": [
         "wiki/M4模型与报价修订.md",
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     "packages/contracts/src/knowledge.ts": {
@@ -1009,14 +1021,16 @@
     "packages/contracts/src/runs.test.ts": {
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
-        "wiki/首批并行接口约定.md"
+        "wiki/首批并行接口约定.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     "apps/desktop/src/preload/contracts.test.ts": {
       "role": "B00 preload and mock capability gate without new IPC",
       "pages": [
         "wiki/首批并行接口约定.md",
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     "packages/domain/src/agent-run.ts": {
@@ -1155,7 +1169,8 @@
       "role": "只读传输deadline、结果校验和退出不重发",
       "pages": [
         "wiki/C02b桌面只读助手.md",
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     "apps/desktop/src/renderer/src/features/read-assistant.tsx": {
@@ -1194,13 +1209,70 @@
     "packages/infrastructure/src/agent-run-store.ts": {
       "role": "持久运行存储、票据、控制重放与同连接报价原子提交",
       "pages": [
-        "wiki/C02c持久运行与写入前置.md"
+        "wiki/C02c持久运行与写入前置.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     "packages/infrastructure/src/agent-run-store.test.ts": {
       "role": "真实SQLite运行恢复前置、故障回滚、版本凭据与升级回归",
       "pages": [
-        "wiki/C02c持久运行与写入前置.md"
+        "wiki/C02c持久运行与写入前置.md",
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/agent-runs.tsx": {
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    "packages/infrastructure/src/agent-run-coordinator.test.ts": {
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    "packages/infrastructure/src/agent-run-coordinator.ts": {
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    "packages/infrastructure/src/agent-run-recovery.test.ts": {
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    "packages/infrastructure/src/testing/run-fixture.ts": {
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    "packages/infrastructure/src/worker-ownership.ts": {
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    "tests/e2e/agent-recovery.spec.ts": {
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    "tests/fixtures/run-crash-child.ts": {
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/agent-runs.test.tsx": {
+      "role": "持久运行发现不自动收费、控制丢响应重放与跨页状态刷新回归",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/M1验证与协作.md"
       ]
     }
   }

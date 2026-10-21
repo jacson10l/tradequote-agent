@@ -8,6 +8,7 @@ import {
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../shared/button";
+import { AgentRuns } from "./agent-runs";
 export function QuoteAgent({
   client,
   board,
@@ -154,6 +155,7 @@ export function QuoteAgent({
         </p>
       )}
       {notice && <p role="status">{notice}</p>}
+      <AgentRuns client={client} onSaved={onSaved} refreshToken={busy} />
       {turns.length > 0 && (
         <div className="space-y-4" aria-label="已保存对话记录">
           <h3>已保存的对话</h3>

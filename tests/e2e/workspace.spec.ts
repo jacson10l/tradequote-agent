@@ -136,18 +136,6 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
           method: "quote.check",
           payload: { revisionId: crypto.randomUUID() },
         }),
-        window.tradequote.startAgentRun({
-          ...write,
-          method: "agent.start",
-          payload: {
-            method: "agent.understand",
-            payload: {
-              scenarioId: crypto.randomUUID(),
-              buyer: "合成测试",
-              inquiry: "仅验证未接入门禁",
-            },
-          },
-        }),
       ]);
     });
     for (const result of pendingCapabilities)

@@ -117,8 +117,9 @@ export class SqliteWorkspaceRepository implements WorkspaceRepository {
 }
 
 export { AgentExecutor } from "./agent-executor";
+export { AgentRunCoordinator } from "./agent-run-coordinator";
 export { CatalogQuoteReadService } from "./catalog-quote-read-service";
 export { DeepSeekProvider } from "./deepseek";
 export { SqliteKnowledgeStore } from "./knowledge-store";
-
 export { ModelSettingsStore } from "./model-settings";
+export { WorkerOwnership } from "./worker-ownership";

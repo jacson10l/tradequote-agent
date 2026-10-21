@@ -180,6 +180,11 @@ else {
         "agent.understand",
         "agent.revise",
         "agent.read",
+        "agent.start",
+        "agent.get",
+        "agent.list",
+        "agent.cancel",
+        "agent.retry",
       ] as const) {
         ipcMain.handle(method, (event, input: unknown) => {
           if (
@@ -210,5 +215,16 @@ else {
       app.exit(1);
     });
   app.on("window-all-closed", () => app.quit());
-  app.on("before-quit", () => worker?.close());
+  let quitting = false;
+  let workerStopped = false;
+  app.on("before-quit", (event) => {
+    if (workerStopped || !worker) return;
+    event.preventDefault();
+    if (quitting) return;
+    quitting = true;
+    void worker.close().then(() => {
+      workerStopped = true;
+      app.quit();
+    });
+  });
 }

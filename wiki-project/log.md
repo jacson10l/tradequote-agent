@@ -298,3 +298,12 @@ C02b已有业务只读子切片收口：92单元（含13新增）、5项现有El
 
 
 C02c存储前置验收收口：131单元、6既有真实Electron与build、6工程、36Wiki工具及类型/生成/只读check/lint/双基线sync均退出0，实际证据raw/c02c-prerequisites-validation.json。644c5ed与0f613b8两侧历史raw逐字节、历史log非空行按序保留；核验脚本首次路径转义错误保留后修正。限定依赖子任务done，完整生产恢复/工具账本仍待；无真实供应商或Windows验收、无远端推送。
+
+## 2026-10-21 C02c统一调度、Worker生命周期与草稿调用账本
+
+- 独立codex/c02c-runtime-lifecycle，taskBase67c69c7，共同祖先be53b98。生产understand/revise和run控制共用唯一协调器，OS侧库锁→业务库/恢复→ready；宿主只在实际exit后重建，退出等Worker停止，无自动模型重发。
+- 迁移6新增prepared/committed/abandoned草稿调用账本，宿主调用身份、参数hash、attempt/执行票据；回执与quote/turn/idempotency/run/outbox同事务，旧快照不改。桌面新增持久记录、取消与显式重试，四工具助手仍只读。
+- 最终153项单元（含10点真实SIGKILL、旧V1/V2/V3字节、分页与控制丢响应）与7项真实Electron（正式Worker强杀、重建/重开零自动请求、人工retry与HTTP取消断连）及构建通过；工程/Wiki门禁继续收口。初始失败保留raw/c02c-runtime-initial-validation.json。知识[[C02c统一运行与写账本]]、任务[[C02c-统一调度与强杀恢复]]、决定[[0020-独占Worker与草稿写账本]]。
+- 未推送/合入。完整多步C02c、知识规则、C03事件、真实DeepSeek、Windows/最终安装未验收；非作者与A/B复核不代签。
+
+C02c本轮收口：153单元、7真实Electron含build、6工程、36Wiki回归与typecheck、生成/只读check/lint、67c69c7/be53b98双基线sync、diff检查全部退出0，raw/c02c-runtime-validation.json记录实际环境和测试源码hash。70份历史raw与log完整前缀保留，10强杀点保留旧V1/V2/V3字节。初始失败及生成期间Wiki夹具漂移保留在initial-validation，稳定重跑通过，未修改维护工具。任务done限定受限协调/恢复/写账本；完整C02c和非作者复核仍未关闭，无推送。

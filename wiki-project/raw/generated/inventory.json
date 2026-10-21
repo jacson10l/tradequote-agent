@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "7cede8cbaad98acc5bdb498e72d6f6f29301df0e21a34b3c1b6943fe7094b0d7",
+    "wiki-config.json": "d6e956f174c1366acdf21655cb26e2c0236930d579301645f939f345579b7f5f",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -94,9 +94,9 @@
     {
       "path": "README.md",
       "type": "md",
-      "lines": 112,
-      "bytes": 11232,
-      "sha256": "a8235cc068c2640044796b05421c9b810f80623980f6e4b7dbe25d8023092f53",
+      "lines": 116,
+      "bytes": 11878,
+      "sha256": "a7d861284cd5cc46b5235d01e60c98b8dd99ce75802954eba57082b2f46dd1b8",
       "role": "项目入口与协作约束",
       "pages": [
         "wiki/项目状态.md",
@@ -187,58 +187,63 @@
     {
       "path": "apps/desktop/src/main/index.ts",
       "type": "ts",
-      "lines": 214,
-      "bytes": 8936,
-      "sha256": "0ef93c88eaedce4148a3832f9f49223b46802062f10ca3dc16c26e29a8658753",
+      "lines": 230,
+      "bytes": 9305,
+      "sha256": "b538b9ce53abe45fc6cfbdbce16304b45d07c72672238a33d177f8532eef0864",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     {
       "path": "apps/desktop/src/main/worker-client.test.ts",
       "type": "ts",
-      "lines": 76,
-      "bytes": 2609,
-      "sha256": "a06a729dceb2cea403f601c4a8a77c671ad49958ccaa1c7c718acc6c07affdf5",
+      "lines": 107,
+      "bytes": 3738,
+      "sha256": "ab8d55814bebcbb03528b919d89ae8bb8324dcd8591b47c1c5da467bf02d97e1",
       "role": "只读传输deadline、结果校验和退出不重发",
       "pages": [
         "wiki/C02b桌面只读助手.md",
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     {
       "path": "apps/desktop/src/main/worker-client.ts",
       "type": "ts",
-      "lines": 87,
-      "bytes": 2858,
-      "sha256": "599ced810909eac5aafe963cb4d7eb5ba75805b302049d5f11ee322126fc9d43",
+      "lines": 150,
+      "bytes": 4891,
+      "sha256": "9b8dd1b2d2e99b5379552e09bf6c43415198f1c4bbb18aaa3925413243873666",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     {
       "path": "apps/desktop/src/preload/contracts.test.ts",
       "type": "ts",
-      "lines": 160,
-      "bytes": 6109,
-      "sha256": "3b2b21b2f847d6164b871699f32f9af3e99722ded3ea83488e34481407f9759d",
+      "lines": 196,
+      "bytes": 7519,
+      "sha256": "5b39a3bdd269578ae3574ce70ce0216359eceef872a1df4ed64ae4a2990d1f0e",
       "role": "B00 preload and mock capability gate without new IPC",
       "pages": [
         "wiki/首批并行接口约定.md",
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     {
       "path": "apps/desktop/src/preload/index.ts",
       "type": "ts",
-      "lines": 85,
-      "bytes": 3754,
-      "sha256": "48c4da350b83ab80e465e3bb4345d5a21223ca69ce8454b13e1db259d198d525",
+      "lines": 105,
+      "bytes": 4757,
+      "sha256": "7e26c91c1e228e239294601f519265487041f301868f7b48abb7ea5ea5b126e8",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     {
@@ -275,6 +280,29 @@
       ]
     },
     {
+      "path": "apps/desktop/src/renderer/src/features/agent-runs.test.tsx",
+      "type": "tsx",
+      "lines": 80,
+      "bytes": 3612,
+      "sha256": "9dcdba882bf13472005d1b780f5752d22e12ca0064dedafbd0b1e9cdfbe06e38",
+      "role": "持久运行发现不自动收费、控制丢响应重放与跨页状态刷新回归",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/agent-runs.tsx",
+      "type": "tsx",
+      "lines": 185,
+      "bytes": 6160,
+      "sha256": "cc1cf7b6e8e6c69827443332e3cadc9aff460f1e237162395d6779a9e3de34cf",
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    {
       "path": "apps/desktop/src/renderer/src/features/model-settings.tsx",
       "type": "tsx",
       "lines": 138,
@@ -288,12 +316,13 @@
     {
       "path": "apps/desktop/src/renderer/src/features/quote-agent.tsx",
       "type": "tsx",
-      "lines": 255,
-      "bytes": 9282,
-      "sha256": "d28d6d15e9606b52656b0a8847ad17a23af100c46240ae9d7ba5ee9bf5347a31",
+      "lines": 257,
+      "bytes": 9398,
+      "sha256": "b0649d96743afc29cb8ae38cea9f15356bd97fb5995d1b5dfffb18281adc7ab0",
       "role": "询盘两轮修订和真实版本差异",
       "pages": [
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     {
@@ -432,12 +461,13 @@
     {
       "path": "apps/desktop/src/workers/business.ts",
       "type": "ts",
-      "lines": 45,
-      "bytes": 1836,
-      "sha256": "9a3ad744ee7e7973a20a3b8426a3df1dd26ae2e13cd7b7b509a73bf28c6428a9",
+      "lines": 61,
+      "bytes": 2259,
+      "sha256": "9f66396d792d99b07e03259acd482c436e70c196f9fb7c81f5f466414e757df4",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     {
@@ -1166,12 +1196,13 @@
     {
       "path": "packages/contracts/src/index.ts",
       "type": "ts",
-      "lines": 140,
-      "bytes": 4705,
-      "sha256": "d7243b536a06f2e69f30a3f969b7ee997c62178bce8a6aaa3fa6e7d5c97fc94e",
+      "lines": 143,
+      "bytes": 4823,
+      "sha256": "a1a0275f5272d1a2902a083fe6737b93223db13b61ef148b4ca02db3b4bb5def",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     {
@@ -1268,11 +1299,12 @@
       "path": "packages/contracts/src/runs.test.ts",
       "type": "ts",
       "lines": 145,
-      "bytes": 5676,
-      "sha256": "9b01a3e9b7a4fa2b548ceac4ab6bf92c64f6a23b0a08c48fd80825a84c9cd45a",
+      "bytes": 5659,
+      "sha256": "ef6cb71c0828d701bba43e80cf19990e5305fc7e67b15bb2017ebb319858576f",
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
-        "wiki/首批并行接口约定.md"
+        "wiki/首批并行接口约定.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     {
@@ -1422,48 +1454,85 @@
     {
       "path": "packages/infrastructure/src/agent-executor.ts",
       "type": "ts",
-      "lines": 174,
-      "bytes": 8693,
-      "sha256": "2f2c962e2f17a5ddb62782a88ac37fef4e5e29565f035418c8286e577e8318d2",
+      "lines": 182,
+      "bytes": 8915,
+      "sha256": "2d8aeba21616f4a20400d9f9c1b56361273c80cc0865208169e2af53b05124a4",
       "role": "有界模型执行与提交前版本复核",
       "pages": [
         "wiki/M4模型与报价修订.md",
-        "wiki/C运行恢复实现.md"
+        "wiki/C运行恢复实现.md",
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/agent-run-coordinator.test.ts",
+      "type": "ts",
+      "lines": 227,
+      "bytes": 10058,
+      "sha256": "c0c75db5a910e4c982d79014b85b526b8c8c1f17c58db45293ca71373f4de82b",
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/agent-run-coordinator.ts",
+      "type": "ts",
+      "lines": 187,
+      "bytes": 7993,
+      "sha256": "bdee100a92dde72f6ae00b34c1fc1a36d45630c31769f0b48672ce0b8b8951b9",
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/agent-run-recovery.test.ts",
+      "type": "ts",
+      "lines": 182,
+      "bytes": 6629,
+      "sha256": "f259f695ded21ce2c90d66428e924614b039d76d24bda74786ec473037d9ed06",
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/agent-run-store.test.ts",
       "type": "ts",
       "lines": 481,
-      "bytes": 18587,
-      "sha256": "cee7a93bca8a82adfc471433192c90f33a52a8c83fcc9f4182a6a6d8b6b1a8df",
+      "bytes": 18603,
+      "sha256": "af811a19ed23f5d74b29bec7252cef765a8d30a2f8a1b3321f1c22b514c38976",
       "role": "真实SQLite运行恢复前置、故障回滚、版本凭据与升级回归",
       "pages": [
-        "wiki/C02c持久运行与写入前置.md"
+        "wiki/C02c持久运行与写入前置.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/agent-run-store.ts",
       "type": "ts",
-      "lines": 363,
-      "bytes": 13345,
-      "sha256": "d2b59fbe60550fd068928d81db63aa8eee141b31a11a399b29e677bc66b5305c",
+      "lines": 497,
+      "bytes": 18544,
+      "sha256": "4e8a1405c64d3dfc71b7f2b16f2278f1a83be43546a3a3a96c00add60e30ecfe",
       "role": "持久运行存储、票据、控制重放与同连接报价原子提交",
       "pages": [
-        "wiki/C02c持久运行与写入前置.md"
+        "wiki/C02c持久运行与写入前置.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/agent.test.ts",
       "type": "ts",
       "lines": 443,
-      "bytes": 16623,
-      "sha256": "67721d8d6f0ba358de4f29ba2973b2c95d65a176a4e44f1b3d40a595eb6558b0",
+      "bytes": 16668,
+      "sha256": "b44cb87687b8d6ad5fc377a4edeafd5d33105b30ddd287404fa3cca9ef542773",
       "role": "修订幂等冲突事务与迁移验收",
       "pages": [
         "wiki/M4模型与报价修订.md",
         "wiki/M1验证与协作.md",
-        "wiki/C运行恢复实现.md"
+        "wiki/C运行恢复实现.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     {
@@ -1564,12 +1633,13 @@
     {
       "path": "packages/infrastructure/src/index.ts",
       "type": "ts",
-      "lines": 124,
-      "bytes": 4463,
-      "sha256": "401021c84fce5059617bbbcf3d0b246fa666a2bc63b05878d47a1fc690ba55d5",
+      "lines": 125,
+      "bytes": 4579,
+      "sha256": "a444fa7dce563871740b28ff895df2b5e9fde9034bbb78c6d82000f2e82c3dac",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     {
@@ -1598,12 +1668,13 @@
     {
       "path": "packages/infrastructure/src/migrations.ts",
       "type": "ts",
-      "lines": 98,
-      "bytes": 5764,
-      "sha256": "06bdf87529d77251865216aea7c77aa7688d0f3b22ec4af2f038cc6188d8af90",
+      "lines": 120,
+      "bytes": 6800,
+      "sha256": "bfba8cb5b426904ce6f403dc6e0cb40328fc25161f50b5ab6449fae18a7ffdd3",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     {
@@ -1676,6 +1747,17 @@
       ]
     },
     {
+      "path": "packages/infrastructure/src/testing/run-fixture.ts",
+      "type": "ts",
+      "lines": 126,
+      "bytes": 3480,
+      "sha256": "2e1585537582a5e256982f7219e19a935bad3db5895d6b5920a025d0c63f0193",
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    {
       "path": "packages/infrastructure/src/trade-store.test.ts",
       "type": "ts",
       "lines": 345,
@@ -1696,6 +1778,17 @@
       "role": "Atomic scenario/catalog/immutable quote V1 storage and retries",
       "pages": [
         "wiki/M2真实报价V1.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/worker-ownership.ts",
+      "type": "ts",
+      "lines": 24,
+      "bytes": 927,
+      "sha256": "670f8ba2dc2648b63042936ade3ee7e3351cd81e574ef2bf79737316d996680f",
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     {
@@ -1845,6 +1938,17 @@
       ]
     },
     {
+      "path": "tests/e2e/agent-recovery.spec.ts",
+      "type": "ts",
+      "lines": 195,
+      "bytes": 7784,
+      "sha256": "bbd0011183fc19677d11a3694e396bb9936066c82df5946b10732fce88a06f1f",
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    {
       "path": "tests/e2e/feedback.spec.ts",
       "type": "ts",
       "lines": 105,
@@ -1858,13 +1962,14 @@
     {
       "path": "tests/e2e/quote-agent.spec.ts",
       "type": "ts",
-      "lines": 187,
-      "bytes": 9896,
-      "sha256": "350d7ef57a529cad73e7042b6ea2323fb3c8360c3d74728894c69b5761bc746d",
+      "lines": 191,
+      "bytes": 10065,
+      "sha256": "2f3d08b3910801ab8b4c0489ff06d3730776b01208e6aa1c7594d097d2f5b336",
       "role": "真实Electron加HTTP替身两轮报价验收",
       "pages": [
         "wiki/M4模型与报价修订.md",
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     {
@@ -1894,12 +1999,13 @@
     {
       "path": "tests/e2e/workspace.spec.ts",
       "type": "ts",
-      "lines": 289,
-      "bytes": 12300,
-      "sha256": "0717cad9570bc208c2547f9a6f8e41321a57538a172f2058a2804d4c1c24da15",
+      "lines": 277,
+      "bytes": 11946,
+      "sha256": "8878c58115d4d08c53c4fcb27e153a6f15c289aed2f8fe3cbce86adb77238160",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     {
@@ -2009,6 +2115,17 @@
       "pages": [
         "wiki/双参考项目功能对照与C开发路线.md",
         "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/run-crash-child.ts",
+      "type": "ts",
+      "lines": 69,
+      "bytes": 2700,
+      "sha256": "a8f48802d44815e6f7244a57344949bbe616ab459b9c04858fdaf69d01adc11c",
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     {

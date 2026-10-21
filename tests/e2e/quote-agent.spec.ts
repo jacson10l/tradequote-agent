@@ -149,8 +149,12 @@ test("desktop settings and HTTP adapter support inquiry plus two saved revisions
     await page.getByRole("button", { name: "理解修改并保存 V4" }).click();
     await expect(page.getByRole("alert")).toContainText("模型建议未通过字段校验");
     mode = "auth";
-    await page.getByRole("button", { name: "理解修改并保存 V4" }).click();
-    await expect(page.getByRole("alert")).toContainText("模型鉴权失败");
+    const failedRun = page
+      .getByRole("region", { name: "模型运行记录" })
+      .getByRole("article")
+      .filter({ hasText: "交期改40天" });
+    await failedRun.getByRole("button", { name: "重试此运行（会再次调用模型）" }).click();
+    await expect(failedRun).toContainText("模型鉴权失败");
     const after = await page.evaluate(() => window.tradequote.getTrade());
     expect(after.ok && after.data.quotes.length).toBe(3);
     expect(calls).toBe(6);

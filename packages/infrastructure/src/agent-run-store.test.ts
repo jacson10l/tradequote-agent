@@ -434,7 +434,7 @@ it("R15 upgrades real v3 records through A migration4 and run5 without rewriting
   migrate(old);
   migrate(old);
   expect(JSON.stringify(snapshot())).toBe(before);
-  expect(old.pragma("user_version", { simple: true })).toBe(5);
+  expect(old.pragma("user_version", { simple: true })).toBe(migrations.length);
   expect(
     old
       .prepare(

@@ -80,6 +80,28 @@ CREATE TABLE agent_run_control (
 );
 `,
   },
+  {
+    version: 6,
+    sql: `
+CREATE TABLE agent_write_call (
+  run_id TEXT NOT NULL REFERENCES agent_run(run_id),
+  tool_call_id TEXT NOT NULL,
+  attempt INTEGER NOT NULL CHECK(attempt>0),
+  execution_id TEXT NOT NULL,
+  worker_session_id TEXT NOT NULL,
+  tool_name TEXT NOT NULL CHECK(tool_name IN ('create_draft','apply_patch')),
+  request_hash TEXT NOT NULL,
+  input_json TEXT NOT NULL CHECK(json_valid(input_json)),
+  status TEXT NOT NULL CHECK(status IN ('prepared','committed','abandoned')),
+  revision_id TEXT,
+  PRIMARY KEY(run_id,tool_call_id),
+  CHECK((status='committed') = (revision_id IS NOT NULL))
+);
+CREATE UNIQUE INDEX agent_write_once ON agent_write_call(run_id,attempt) WHERE status IN ('prepared','committed');
+CREATE TRIGGER agent_write_committed_no_update BEFORE UPDATE ON agent_write_call WHEN OLD.status='committed' BEGIN SELECT RAISE(ABORT,'IMMUTABLE_WRITE_RECEIPT'); END;
+CREATE TRIGGER agent_write_no_delete BEFORE DELETE ON agent_write_call BEGIN SELECT RAISE(ABORT,'IMMUTABLE_WRITE_RECEIPT'); END;
+`,
+  },
 ];
 export function migrate(db: Database.Database, steps = migrations) {
   // Validate the complete lineage before touching user_version or executing any DDL.

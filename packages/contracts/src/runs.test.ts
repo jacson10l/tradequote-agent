@@ -35,9 +35,9 @@ describe("B00 run recovery boundary", () => {
       },
     ])
       expect(RunCommandSchema.safeParse(invalid).success).toBe(false);
-    // B00 exports protocols but does not silently enable Main/worker routing.
-    expect(RuntimeCommandSchema.safeParse(start).success).toBe(false);
-    expect(WorkerRequestSchema.safeParse({ id: run.runId, command: start }).success).toBe(false);
+    // C02c routes these strict contracts through Main/worker.
+    expect(RuntimeCommandSchema.safeParse(start).success).toBe(true);
+    expect(WorkerRequestSchema.safeParse({ id: run.runId, command: start }).success).toBe(true);
   });
   it("keeps control action keys separate from the stored business operation key", () => {
     for (const method of ["agent.cancel", "agent.retry"]) {
@@ -111,7 +111,7 @@ describe("B00 run recovery boundary", () => {
   });
 });
 
-it("persists clarification only while waiting and bounds discovery without opening IPC", () => {
+it("persists clarification only while waiting and bounds discovery across executable IPC", () => {
   expect(
     AgentRunSchema.safeParse({ ...run, status: "waiting_input", clarification: "请补充数量" })
       .success,
@@ -133,7 +133,7 @@ it("persists clarification only while waiting and bounds discovery without openi
     expect(RunListQuerySchema.safeParse(invalid).success).toBe(false);
   const list = { schemaVersion: 1, requestId: run.runId, method: "agent.list", payload: {} };
   expect(RunCommandSchema.safeParse(list).success).toBe(true);
-  expect(RuntimeCommandSchema.safeParse(list).success).toBe(false);
+  expect(RuntimeCommandSchema.safeParse(list).success).toBe(true);
   expect(
     RunListResultSchema.safeParse({
       ok: true,
