@@ -11,3 +11,27 @@ export const readonlyMockClient: DesktopClient = {
   createWorkspace: async () => failure("CAPABILITY_UNAVAILABLE", "只读样例不能保存"),
   renameWorkspace: async () => failure("CAPABILITY_UNAVAILABLE", "只读样例不能保存"),
 };
+
+/** Contract fixtures for review and later adapters; never claim a saved quote/run. */
+export const mockRevisionInput = {
+  quoteId: mockWorkspace.id,
+  baseRevisionId: "00000000-0000-4000-8000-000000000002",
+  expectedAggregateVersion: 1,
+  typedPatch: [
+    {
+      op: "setQuantity",
+      lineId: "00000000-0000-4000-8000-000000000003",
+      quantity: { value: "120", unitId: "piece" },
+    },
+  ],
+  reason: "合成契约样例",
+} satisfies import("./index").QuoteRevisionInput;
+export const mockRunEvent = {
+  schemaVersion: 1,
+  eventId: mockWorkspace.id,
+  runId: mockWorkspace.id,
+  seq: 1,
+  timestamp: mockWorkspace.createdAt,
+  type: "run.started",
+  payload: { baseRevisionId: null },
+} satisfies import("./index").RunEvent;

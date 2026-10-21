@@ -48,7 +48,7 @@ const ignoredDirs = new Set(["wiki-project", ".git", "node_modules", ".runtime",
 export const sensitiveName = name => /^\.env(?:\.|$)/i.test(name)
   || /^(?:\.npmrc|\.pypirc|\.netrc|id_rsa|id_ed25519|credentials(?:\..*)?|secrets?(?:\..*)?|tokens?(?:\..*)?|cookies?(?:\..*)?|passwords?(?:\..*)?|auth\.json)$/i.test(name)
   || /\.(?:pem|key|p12|pfx|db|sqlite|sqlite3)(?:-wal|-shm)?$/i.test(name);
-const extensions = new Set([".md", ".json", ".yaml", ".yml", ".toml", ".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".css", ".html", ".sql", ".rs", ".py", ".sh"]);
+const extensions = new Set([".md", ".json", ".yaml", ".yml", ".toml", ".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".css", ".html", ".svg", ".sql", ".rs", ".py", ".sh"]);
 export function scan(root, config) {
   const files = [], excluded = [];
   function visit(dir = "") {

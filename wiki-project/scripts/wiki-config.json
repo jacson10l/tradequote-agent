@@ -737,6 +737,70 @@
         "wiki/M1工程基线.md",
         "wiki/M1验证与协作.md"
       ]
+    },
+    "scripts/generate-icons.cjs": {
+      "role": "Project-owned application icons, reproducible generation and build drift gate",
+      "pages": [
+        "wiki/M1工程基线.md",
+        "wiki/M1工作台.md"
+      ]
+    },
+    "scripts/check-icons.mjs": {
+      "role": "Project-owned application icons, reproducible generation and build drift gate",
+      "pages": [
+        "wiki/M1工程基线.md",
+        "wiki/M1工作台.md"
+      ]
+    },
+    "apps/desktop/resources/icon.svg": {
+      "role": "Project-owned application icons, reproducible generation and build drift gate",
+      "pages": [
+        "wiki/M1工程基线.md",
+        "wiki/M1工作台.md"
+      ]
+    },
+    "apps/desktop/resources/icon-manifest.json": {
+      "role": "Project-owned application icons, reproducible generation and build drift gate",
+      "pages": [
+        "wiki/M1工程基线.md",
+        "wiki/M1工作台.md"
+      ]
+    },
+    "scripts/check-icons.test.mjs": {
+      "role": "M1 icon drift and untrusted shared-contract regression checks",
+      "pages": [
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "packages/contracts/src/foundation.test.ts": {
+      "role": "M1 icon drift and untrusted shared-contract regression checks",
+      "pages": [
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "packages/contracts/src/values.ts": {
+      "role": "Strict shared value, patch, approval and event contract foundation",
+      "pages": [
+        "wiki/M1接口与持久化.md"
+      ]
+    },
+    "packages/contracts/src/quote.ts": {
+      "role": "Strict shared value, patch, approval and event contract foundation",
+      "pages": [
+        "wiki/M1接口与持久化.md"
+      ]
+    },
+    "packages/contracts/src/events.ts": {
+      "role": "Strict shared value, patch, approval and event contract foundation",
+      "pages": [
+        "wiki/M1接口与持久化.md"
+      ]
+    },
+    "packages/contracts/src/errors.ts": {
+      "role": "Strict shared value, patch, approval and event contract foundation",
+      "pages": [
+        "wiki/M1接口与持久化.md"
+      ]
     }
   }
 }

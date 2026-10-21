@@ -2,7 +2,7 @@ import { mkdirSync } from "node:fs";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { CommandSchema, failure } from "@tradequote/contracts";
-import { app, BrowserWindow, ipcMain, session } from "electron";
+import { app, BrowserWindow, ipcMain, nativeImage, session } from "electron";
 import { BusinessWorker } from "./worker-client";
 
 // Test data isolation is only available in unpackaged development builds.
@@ -33,7 +33,12 @@ else {
       const rendererUrl =
         (!app.isPackaged && process.env.ELECTRON_RENDERER_URL) ||
         pathToFileURL(join(__dirname, "../renderer/index.html")).href;
+      const icon = nativeImage.createFromPath(join(__dirname, "../../resources/icon.png"));
+      if (icon.isEmpty()) throw new Error("APPLICATION_ICON_MISSING");
+      app.dock?.setIcon(icon);
+      app.setAppUserModelId("local.tradequote.desktop");
       window = new BrowserWindow({
+        icon,
         width: 1380,
         height: 900,
         minWidth: 800,

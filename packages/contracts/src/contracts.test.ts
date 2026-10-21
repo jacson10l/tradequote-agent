@@ -32,13 +32,19 @@ describe("untrusted boundary contracts", () => {
   });
   it("limits model patches and emits a closed JSON schema independently of provider", () => {
     expect(
-      TypedPatchSchema.safeParse({ op: "setQuantity", lineId: id, quantity: "1.25", unit: "piece" })
-        .success,
+      TypedPatchSchema.safeParse({
+        op: "setQuantity",
+        lineId: id,
+        quantity: { value: "1.25", unitId: "piece" },
+      }).success,
     ).toBe(true);
     for (const quantity of [1, "1,000", "-1", "NaN"])
       expect(
-        TypedPatchSchema.safeParse({ op: "setQuantity", lineId: id, quantity, unit: "piece" })
-          .success,
+        TypedPatchSchema.safeParse({
+          op: "setQuantity",
+          lineId: id,
+          quantity: { value: quantity, unitId: "piece" },
+        }).success,
       ).toBe(false);
     expect(TypedPatchSchema.safeParse({ op: "setTotal", total: "0" }).success).toBe(false);
     const schema = patchToolJsonSchema();

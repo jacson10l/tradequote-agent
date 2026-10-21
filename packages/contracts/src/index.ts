@@ -1,4 +1,7 @@
 import { z } from "zod";
+import { ErrorCodeSchema } from "./errors";
+
+export { ErrorCodeSchema } from "./errors";
 
 export const NameSchema = z.string().trim().min(1, "请输入工作区名称").max(80, "名称最多 80 字");
 export const WorkspaceFormSchema = z.strictObject({ name: NameSchema });
@@ -23,15 +26,6 @@ export const CommandSchema = z.discriminatedUnion("method", [
 export type Command = z.infer<typeof CommandSchema>;
 export type CreateWorkspace = Extract<Command, { method: "workspace.create" }>;
 export type RenameWorkspace = Extract<Command, { method: "workspace.rename" }>;
-export const ErrorCodeSchema = z.enum([
-  "VALIDATION_ERROR",
-  "REVISION_CONFLICT",
-  "IDEMPOTENCY_CONFLICT",
-  "NOT_FOUND",
-  "ACTION_NOT_ALLOWED",
-  "CAPABILITY_UNAVAILABLE",
-  "STORAGE_ERROR",
-]);
 export const IssueSchema = z.strictObject({
   code: z.string(),
   fieldPath: z.string().optional(),
@@ -90,22 +84,23 @@ export interface ExecutionContext {
 export const WorkerRequestSchema = z.strictObject({ id: z.uuid(), command: CommandSchema });
 export const WorkerReplySchema = z.strictObject({ id: z.uuid(), result: ResultSchema });
 
-// Contract seed only: M3 implements calculations and all remaining patch operations.
-export const DecimalSchema = z.string().regex(/^(?:0|[1-9]\d*)(?:\.\d+)?$/);
-export const TypedPatchSchema = z.discriminatedUnion("op", [
-  z.strictObject({
-    op: z.literal("setQuantity"),
-    lineId: z.uuid(),
-    quantity: DecimalSchema,
-    unit: z.string().min(1).max(32),
-  }),
-  z.strictObject({
-    op: z.literal("setCommercialTerm"),
-    key: z.string().min(1).max(64),
-    value: z.string().max(2000),
-  }),
-]);
-export const patchToolJsonSchema = () =>
-  z.toJSONSchema(z.strictObject({ patches: z.array(TypedPatchSchema).min(1).max(50) }), {
-    target: "draft-7",
-  });
+export type { RunEvent } from "./events";
+export { RunEventSchema, RunStatusSchema } from "./events";
+export type { QuoteRevisionInput, TypedPatch } from "./quote";
+export {
+  ApprovalBindingSchema,
+  PatchBatchSchema,
+  patchToolJsonSchema,
+  QuoteRevisionInputSchema,
+  TypedPatchSchema,
+} from "./quote";
+export type { Evidence, Quantity } from "./values";
+export {
+  DecimalSchema,
+  EvidenceSchema,
+  factSchema,
+  LocaleSchema,
+  MoneySchema,
+  QuantitySchema,
+  SourceLocationSchema,
+} from "./values";

@@ -200,3 +200,8 @@ Main 发出文件选择/保存令牌，后台用令牌访问受控路径；原�
 ## M1 首个契约切片
 
 正式 contracts 已落地 workspace.get/create/rename 的严格命令/响应与 DesktopClient；宿主上下文不接受调用方注入。typedPatch 目前仅 setQuantity/setCommercialTerm，JSON Schema 转换测试不代表模型已验收。详细端口、错误、事务与未实现部分见 [[M1接口与持久化]]；上文完整报价/Agent 目录仍是规划。
+
+
+## M1 契约基础补齐
+
+九类 typedPatch、五态 Fact/来源、审批绑定和九种 strict RunEvent 已有正式 executable schema，详见 [[M1接口与持久化]]。setQuantity 现用 Quantity.value/unitId，旧两个补丁的初始形状不作为冻结接口。schema/mock/测试同步，三人 T00 评审仍未发生；完整命令目录与服务并未全部实现，不因此开放额外 IPC/Agent 工具。

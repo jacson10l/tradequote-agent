@@ -55,3 +55,14 @@ test('real Git baseline includes committed, unstaged and untracked sources',t=>{
  write('src/app.ts','unstaged');write('src/next.ts','untracked');assert.equal(check(root,base).status,'failed');
  write(page,'New behavior');write(task,'Actual validation');write(log,'History\nNew entry\n');const result=check(root,base);assert.equal(result.status,'passed');assert.equal(result.codeFiles,2);
 });
+
+test('SVG assets require semantic Wiki, task and append-only log changes',()=>{
+ const file='apps/desktop/resources/icon.svg';
+ assert.equal(codeFile(file),true);
+ const f=fixture({changed:[file],currentCoverage:{[file]:{pages:['wiki/module.md']}}});
+ const result=assess(f);
+ assert.equal(result.status,'failed');
+ assert.ok(result.errors.includes(`${file}: RELATED_WIKI_BODY_UPDATE_REQUIRED`));
+ assert.ok(result.errors.includes('TASK_UPDATE_REQUIRED'));
+ assert.ok(result.errors.includes('APPEND_ONLY_LOG_REQUIRED'));
+});

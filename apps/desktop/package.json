@@ -43,7 +43,8 @@
     "productName": "TradeQuote",
     "files": [
       "out/**/*",
-      "package.json"
+      "package.json",
+      "resources/icon.png"
     ],
     "asar": true,
     "asarUnpack": [
@@ -56,12 +57,14 @@
       "target": [
         "dmg"
       ],
-      "identity": null
+      "identity": null,
+      "icon": "resources/icon.icns"
     },
     "win": {
       "target": [
         "nsis"
-      ]
+      ],
+      "icon": "resources/icon.ico"
     }
   }
 }

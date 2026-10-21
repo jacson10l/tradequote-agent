@@ -14,12 +14,12 @@
   "scope": "project files only; wiki tooling hashes are provenance, not recursively indexed application source",
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
-    "wiki-lib.mjs": "de295b3b85c0b50ad62801f5ed9feb0c824c3e6d8436b86d84b7a6b51e98d464",
-    "wiki-config.json": "f1fe63ba62ff18ad27fbcbca3b5c0d91ec4bc55120b32465bad63b806b426d26",
+    "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
+    "wiki-config.json": "753d730197c258e4d3c4c7994eeb5965cb459e4813574b3d941bcf8761f7eb89",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
-    "check-wiki-sync.mjs": "1218b24ffeafd9648e7f2ddba1e0bb79eba156193606e2b4a9fad197dad28927",
-    "wiki-sync.test.mjs": "9591d0498c958186bad920ed845eb94055565d1b18b8a8beba626c176ee8abed"
+    "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
+    "wiki-sync.test.mjs": "99ac93030102b49a2d580392cb1c98c922406c4b10779ef49a95bc2a10806ebb"
   },
   "files": [
     {
@@ -106,9 +106,9 @@
     {
       "path": "DESIGN.md",
       "type": "md",
-      "lines": 90,
-      "bytes": 7352,
-      "sha256": "98d669755bab782cc3498c993af7dddba400562cad607196fb6229042f74ad8d",
+      "lines": 94,
+      "bytes": 8002,
+      "sha256": "149f94712e7ff749e872732d254cdebea5f02e678c0d14ddb6403a418be9a4ef",
       "role": "当前视觉规范",
       "pages": [
         "wiki/decisions/0001-Mistral工作台风格.md"
@@ -117,9 +117,9 @@
     {
       "path": "README.md",
       "type": "md",
-      "lines": 66,
-      "bytes": 4330,
-      "sha256": "ce4f817e21d6e99ab095fbc37737cefd0562f51d392cf481c5e8d320213f56a8",
+      "lines": 68,
+      "bytes": 4715,
+      "sha256": "793d6c37f604db822eb702a99668363f428c68b5e2f0cd3fd4853a14899f8486",
       "role": "项目入口与协作约束",
       "pages": [
         "wiki/项目状态.md",
@@ -175,20 +175,44 @@
     {
       "path": "apps/desktop/package.json",
       "type": "json",
-      "lines": 67,
-      "bytes": 1615,
-      "sha256": "b65e3e2da09fe1a3596fc2c9e964b26fd0dc4ba89e2cceb0f933e787bb78070b",
+      "lines": 70,
+      "bytes": 1716,
+      "sha256": "4ed0b96c3436875c197fb4d48b94614774d53be166d705323109bb9cd4ef1946",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md"
       ]
     },
     {
+      "path": "apps/desktop/resources/icon-manifest.json",
+      "type": "json",
+      "lines": 6,
+      "bytes": 332,
+      "sha256": "97f03314731ed7abe6d3083f9a16cd347ec4ed33b38d01fdf100959f698dba92",
+      "role": "Project-owned application icons, reproducible generation and build drift gate",
+      "pages": [
+        "wiki/M1工程基线.md",
+        "wiki/M1工作台.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/resources/icon.svg",
+      "type": "svg",
+      "lines": 6,
+      "bytes": 508,
+      "sha256": "9b85cf6c4db85077a00b6111bedd826bb9ef64e31a1e4f665c3f4ec9dbe11530",
+      "role": "Project-owned application icons, reproducible generation and build drift gate",
+      "pages": [
+        "wiki/M1工程基线.md",
+        "wiki/M1工作台.md"
+      ]
+    },
+    {
       "path": "apps/desktop/src/main/index.ts",
       "type": "ts",
-      "lines": 81,
-      "bytes": 3109,
-      "sha256": "7af7f2e44cab493ce1d525857ae02f3030e7f5e510660abdc485996c28d307d9",
+      "lines": 86,
+      "bytes": 3387,
+      "sha256": "85c1cf65237ee9a661433b27627d3dea2e7b5e13dd0da7c7a0379c4a66a347cc",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md"
@@ -230,9 +254,9 @@
     {
       "path": "apps/desktop/src/renderer/src/App.tsx",
       "type": "tsx",
-      "lines": 46,
-      "bytes": 1597,
-      "sha256": "9a30286219c42a0bfbfe5222b0e117aa55437810348c74cfeb105c4368db876b",
+      "lines": 47,
+      "bytes": 1918,
+      "sha256": "e63f7659d4bc8cd88e07f61e2b960247bdb52cf0efb767b4d4b3616db8a6ad73",
       "role": "M1 React workspace form and document layout",
       "pages": [
         "wiki/M1工作台.md"
@@ -318,9 +342,9 @@
     {
       "path": "apps/desktop/src/renderer/src/theme.css",
       "type": "css",
-      "lines": 371,
-      "bytes": 6246,
-      "sha256": "2a4e4c40da480268ac0c9cef9f664729d19c4d63464cdcfd80805062c69a11bb",
+      "lines": 437,
+      "bytes": 7206,
+      "sha256": "e6948b94b3bda4fb04bba906293eefaa99bc303df7f8f100413d922be2b38681",
       "role": "M1 React workspace form and document layout",
       "pages": [
         "wiki/M1工作台.md"
@@ -340,9 +364,9 @@
     {
       "path": "apps/desktop/vite.renderer.config.ts",
       "type": "ts",
-      "lines": 3,
-      "bytes": 191,
-      "sha256": "5ddba6a19e7b22d1695253456a6f2e9c92d4a566b58aa64fb2f720135e90decd",
+      "lines": 7,
+      "bytes": 259,
+      "sha256": "02e944731769f189ce04303d59e35a29c16b11d1f880a37453cdfb08291162dc",
       "role": "Prepare fresh Electron binary and isolate renderer-only test server",
       "pages": [
         "wiki/M1工程基线.md",
@@ -964,9 +988,9 @@
     {
       "path": "package.json",
       "type": "json",
-      "lines": 45,
-      "bytes": 1853,
-      "sha256": "c5b8aff981f56e0a2be320892e4023fcf2489eefeb04dd1c2e7b5c4d5d6966c0",
+      "lines": 46,
+      "bytes": 2020,
+      "sha256": "98ee0fd4bb8bb8d16f307eae1a96fbf08b6f0f37c476d93093874c621d459220",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md"
@@ -986,10 +1010,43 @@
     {
       "path": "packages/contracts/src/contracts.test.ts",
       "type": "ts",
-      "lines": 49,
-      "bytes": 1903,
-      "sha256": "888f71150a9c012bd1119fd1b6ef15ae0da47512b5de6f123c045d490381668f",
+      "lines": 55,
+      "bytes": 1989,
+      "sha256": "bf1004d647ae3fe93a82bb06624f40bc6616ece3a8b0361a1a72f47838e91495",
       "role": "M1 quality checks, desktop verification and CI",
+      "pages": [
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/errors.ts",
+      "type": "ts",
+      "lines": 22,
+      "bytes": 457,
+      "sha256": "d32775cc72c00c252becf483ba5fcd6f89494568d8edf86d003ba4a52a6a6efd",
+      "role": "Strict shared value, patch, approval and event contract foundation",
+      "pages": [
+        "wiki/M1接口与持久化.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/events.ts",
+      "type": "ts",
+      "lines": 60,
+      "bytes": 1710,
+      "sha256": "f1279f0c7732f44d8a0b1b1d2b16225ed91189808042e08f80b9a10ac7764c5a",
+      "role": "Strict shared value, patch, approval and event contract foundation",
+      "pages": [
+        "wiki/M1接口与持久化.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/foundation.test.ts",
+      "type": "ts",
+      "lines": 149,
+      "bytes": 6018,
+      "sha256": "1fa9a6beac36b07ad438fce581d93a1c4f5feff73ec5c7d8e0a94be0c38fbd59",
+      "role": "M1 icon drift and untrusted shared-contract regression checks",
       "pages": [
         "wiki/M1验证与协作.md"
       ]
@@ -997,9 +1054,9 @@
     {
       "path": "packages/contracts/src/index.ts",
       "type": "ts",
-      "lines": 111,
-      "bytes": 3902,
-      "sha256": "550e24f35000229a45b45139255573f86647e9a1f2680b251eb5dc2769b2daad",
+      "lines": 106,
+      "bytes": 3631,
+      "sha256": "b3b712732ee50f79985cc536ec0b74b257581dd9c0630c7a81a237a6e4b45c2c",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md"
@@ -1008,10 +1065,32 @@
     {
       "path": "packages/contracts/src/mock.ts",
       "type": "ts",
-      "lines": 13,
-      "bytes": 624,
-      "sha256": "f206efbca1243e17e463f02641a0aa8b4baab3e418059848825e33e50ab68d93",
+      "lines": 37,
+      "bytes": 1365,
+      "sha256": "6d8ee40e94eebc1731ea24ae3c6c687f31aff67916a870cec915eea210017650",
       "role": "M1 shared contracts, workspace domain and storage adapters",
+      "pages": [
+        "wiki/M1接口与持久化.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/quote.ts",
+      "type": "ts",
+      "lines": 51,
+      "bytes": 2039,
+      "sha256": "2bf774f409a5152597286fba042200403489f244e02a14fc9296ebbbcb54476d",
+      "role": "Strict shared value, patch, approval and event contract foundation",
+      "pages": [
+        "wiki/M1接口与持久化.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/values.ts",
+      "type": "ts",
+      "lines": 99,
+      "bytes": 2940,
+      "sha256": "34717b5a2b80ae973945f17c883404bb76564520e1802c8fb796b7ffa5888664",
+      "role": "Strict shared value, patch, approval and event contract foundation",
       "pages": [
         "wiki/M1接口与持久化.md"
       ]
@@ -1120,7 +1199,7 @@
       "type": "ts",
       "lines": 13,
       "bytes": 367,
-      "sha256": "925e54fcca09fc0b8d57c788cc5f5ba722a49b2646edd36f0c78ea168517af77",
+      "sha256": "0b5e9c9f38c24342ece97060cc823ebade6fd633db1fc27b9684745fe2dabe40",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md"
@@ -1171,6 +1250,41 @@
       ]
     },
     {
+      "path": "scripts/check-icons.mjs",
+      "type": "mjs",
+      "lines": 31,
+      "bytes": 1511,
+      "sha256": "6a6f33a19455a20ad7f4659a0b5365a0b76bbac12da0643d44c277b4f57e0678",
+      "role": "Project-owned application icons, reproducible generation and build drift gate",
+      "pages": [
+        "wiki/M1工程基线.md",
+        "wiki/M1工作台.md"
+      ]
+    },
+    {
+      "path": "scripts/check-icons.test.mjs",
+      "type": "mjs",
+      "lines": 23,
+      "bytes": 1001,
+      "sha256": "deaf14ade5a150ae2362a7f7f7af8046021b437a2d13e4e2a1d5f52fb376d129",
+      "role": "M1 icon drift and untrusted shared-contract regression checks",
+      "pages": [
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    {
+      "path": "scripts/generate-icons.cjs",
+      "type": "cjs",
+      "lines": 83,
+      "bytes": 3198,
+      "sha256": "2c38f7e828c626684481cf5cd784a6a8027a31c3295854a026b8b157ff626a3f",
+      "role": "Project-owned application icons, reproducible generation and build drift gate",
+      "pages": [
+        "wiki/M1工程基线.md",
+        "wiki/M1工作台.md"
+      ]
+    },
+    {
       "path": "scripts/prepare-electron.mjs",
       "type": "mjs",
       "lines": 8,
@@ -1196,9 +1310,9 @@
     {
       "path": "tests/e2e/workspace.spec.ts",
       "type": "ts",
-      "lines": 107,
-      "bytes": 4866,
-      "sha256": "4ad5a4126d751cdc7a911856ee7f2d3c9f366b5cf366071cfc9d11e1bc6f1499",
+      "lines": 191,
+      "bytes": 8753,
+      "sha256": "3a08b6af962db0be512c34253ae16a98204b8ad472327aaa12ca58b20a98b46f",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md"

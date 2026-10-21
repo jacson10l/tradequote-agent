@@ -1,4 +1,4 @@
-import { mkdtemp, rm } from "node:fs/promises";
+import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
@@ -14,7 +14,7 @@ test("development renderer runs with React refresh and the real desktop bridge",
       ...process.env,
       ELECTRON_RUN_AS_NODE: "",
       TRADEQUOTE_TEST_DATA: data,
-      ELECTRON_RENDERER_URL: "http://127.0.0.1:5179/",
+      ELECTRON_RENDERER_URL: "http://127.0.0.1:5189/",
     },
   });
   try {
@@ -90,10 +90,94 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
     await page.getByRole("button", { name: "查看合成样例" }).click();
     await expect(page.getByRole("button", { name: "提交人工审核" })).toBeDisabled();
     await page.screenshot({ path: "output/playwright/m1-workbench.png", fullPage: true });
-    await page.setViewportSize({ width: 900, height: 800 });
+    // macOS may clamp large windows to its work area; record actual native sizes.
+    const nativeMeasurements: { requested: readonly number[]; actual: number[] }[] = [];
+    for (const [width, height] of [
+      [800, 640],
+      [900, 800],
+      [1380, 900],
+      [1920, 1080],
+    ] as const) {
+      const actual = await app.evaluate(
+        ({ BrowserWindow }, size) => {
+          BrowserWindow.getAllWindows()[0]?.webContents.setZoomFactor(1);
+          const window = BrowserWindow.getAllWindows()[0];
+          if (!window) throw new Error("WINDOW_MISSING");
+          window.setContentSize(size.width, size.height);
+          return window.getContentSize();
+        },
+        { width, height },
+      );
+      nativeMeasurements.push({ requested: [width, height], actual });
+      await expect.poll(() => page.evaluate(() => window.innerWidth)).toBe(actual[0]);
+      for (const zoom of [1, 1.25, 1.5]) {
+        await app.evaluate(({ BrowserWindow }, factor) => {
+          BrowserWindow.getAllWindows()[0]?.webContents.setZoomFactor(factor);
+        }, zoom);
+        await expect
+          .poll(() =>
+            page.evaluate(() => {
+              const main = document.querySelector("main");
+              const sidebar = document.querySelector(".sidebar");
+              if (!main || !sidebar) return false;
+              const rect = sidebar.getBoundingClientRect();
+              const root = document.documentElement;
+              const result = {
+                rootFits:
+                  root.scrollWidth === root.clientWidth && root.scrollHeight === root.clientHeight,
+                bodyFits: document.body.scrollHeight === document.body.clientHeight,
+                sidebarFits:
+                  rect.bottom <= window.innerHeight + 1 &&
+                  Math.abs(rect.height - (window.innerHeight - 3)) <= 1,
+                mainScrolls: getComputedStyle(main).overflowY === "auto",
+                metrics: {
+                  rootHeight: root.clientHeight,
+                  rootScroll: root.scrollHeight,
+                  bodyHeight: document.body.scrollHeight,
+                  sidebarHeight: rect.height,
+                  sidebarBottom: rect.bottom,
+                  innerHeight: window.innerHeight,
+                  innerWidth: window.innerWidth,
+                },
+              };
+              return result.rootFits && result.bodyFits && result.sidebarFits && result.mainScrolls
+                ? "fits"
+                : JSON.stringify(result);
+            }),
+          )
+          .toBe("fits");
+        await expect(page.getByRole("link", { name: "工作区设置", exact: true })).toBeInViewport();
+        await expect(page.getByRole("link", { name: "单据工作台", exact: true })).toBeInViewport();
+      }
+    }
+    await writeFile(".runtime/m1-layout-metrics.json", JSON.stringify(nativeMeasurements, null, 2));
+    await app.evaluate(({ BrowserWindow }) => {
+      BrowserWindow.getAllWindows()[0]?.webContents.setZoomFactor(1);
+      BrowserWindow.getAllWindows()[0]?.setContentSize(900, 640);
+    });
+    const main = page.getByRole("main");
+    await main.evaluate((element) => {
+      element.scrollTop = element.scrollHeight;
+    });
+    await expect(page.getByRole("button", { name: "发送给 Agent" })).toBeVisible();
+    expect(await main.evaluate((element) => element.scrollTop)).toBeGreaterThan(0);
     expect(
-      await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth),
-    ).toBe(true);
+      await page.evaluate(() => {
+        const root = document.getElementById("root");
+        if (!root) throw new Error("ROOT_MISSING");
+        root.scrollTop = 100;
+        window.scrollTo(0, 100);
+        return { window: window.scrollY, root: root.scrollTop };
+      }),
+    ).toEqual({ window: 0, root: 0 });
+    await page.screenshot({ path: "output/playwright/m1-layout-narrow.png" });
+    await app.evaluate(({ BrowserWindow }) => {
+      BrowserWindow.getAllWindows()[0]?.setContentSize(1440, 900);
+    });
+    await main.evaluate((element) => {
+      element.scrollTop = 0;
+    });
+    await page.screenshot({ path: "output/playwright/m1-layout-wide.png" });
     await app.close();
     app = await launch();
     const reopened = await app.firstWindow();

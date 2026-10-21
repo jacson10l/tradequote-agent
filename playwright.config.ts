@@ -7,7 +7,7 @@ export default defineConfig({
   reporter: "list",
   webServer: {
     command: "pnpm --filter @tradequote/desktop exec vite --config vite.renderer.config.ts",
-    url: "http://127.0.0.1:5179",
+    url: "http://127.0.0.1:5189",
     reuseExistingServer: false,
   },
 });

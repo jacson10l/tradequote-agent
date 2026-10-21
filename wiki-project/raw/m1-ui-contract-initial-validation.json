@@ -1,0 +1,26 @@
+{
+  "status": "failed",
+  "date": "2026-10-21",
+  "checks": [
+    {
+      "command": "pnpm test:e2e (before initial checkpoint)",
+      "exitCode": 1,
+      "result": "5179 occupied by existing developer service; no tests ran"
+    },
+    {
+      "command": "pnpm typecheck (initial layout-test draft)",
+      "exitCode": 1,
+      "result": "array indices inferred number|undefined; fixed test dimensions to readonly tuple values"
+    },
+    {
+      "command": "pnpm test:e2e (first layout regression)",
+      "exitCode": 1,
+      "result": "small window at application zoom 150%: root clientHeight=426 scrollHeight=456; root/body size assertion failed; main remained scrollable"
+    },
+    {
+      "command": "node .runtime/layout-probe.cjs (temporary diagnostic, removed)",
+      "exitCode": 0,
+      "result": "grid row override did not remove root overflow; fixed viewport root with overflow clip did. Probe removed and full regression re-run passed."
+    }
+  ]
+}

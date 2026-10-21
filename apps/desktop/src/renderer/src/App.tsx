@@ -1,6 +1,7 @@
 import type { DesktopClient } from "@tradequote/contracts";
 import { Folder, LayoutDashboard, Settings } from "lucide-react";
 import { Navigate, NavLink, Route, Routes } from "react-router-dom";
+import brandIcon from "../../../resources/icon.svg";
 import { Workbench } from "./features/workbench";
 import { useWorkspace, WorkspacePage } from "./features/workspace";
 
@@ -10,7 +11,7 @@ export function App({ client }: { client: DesktopClient }) {
     <div className="app-shell">
       <aside className="sidebar">
         <div className="brand">
-          <span className="brand-mark">TQ</span>
+          <img className="brand-mark" src={brandIcon} alt="" />
           <div>
             TradeQuote<small>询报价协同工作台</small>
           </div>
@@ -20,21 +21,21 @@ export function App({ client }: { client: DesktopClient }) {
           <span>{query.data?.name ?? "尚未创建工作区"}</span>
         </div>
         <nav aria-label="主导航">
-          <NavLink to="/" end>
+          <NavLink to="/" end aria-label="单据工作台" title="单据工作台">
             <LayoutDashboard size={18} />
-            单据工作台
+            <span className="nav-label">单据工作台</span>
           </NavLink>
-          <NavLink to="/workspace">
+          <NavLink to="/workspace" aria-label="工作区设置" title="工作区设置">
             <Settings size={18} />
-            工作区设置
+            <span className="nav-label">工作区设置</span>
           </NavLink>
         </nav>
-        <div className="sidebar-footer">
+        <div className="sidebar-footer" title="本地数据 · 人工审核">
           <span className="dot" />
           本地数据 · 人工审核<p>M1 工程基础</p>
         </div>
       </aside>
-      <main>
+      <main tabIndex={-1} aria-label="工作内容">
         <Routes>
           <Route path="/" element={<Workbench client={client} />} />
           <Route path="/workspace" element={<WorkspacePage client={client} />} />

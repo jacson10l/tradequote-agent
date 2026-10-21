@@ -10,10 +10,10 @@
   },
   "scripts": {
     "dev": "pnpm --filter @tradequote/desktop dev",
-    "build": "pnpm --filter @tradequote/desktop build",
+    "build": "node scripts/check-icons.mjs && pnpm --filter @tradequote/desktop build",
     "typecheck": "tsc --noEmit",
     "format": "biome check --write .",
-    "check": "biome check . && node --test scripts/check-boundaries.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check",
+    "check": "biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check",
     "test": "node scripts/test-unit.mjs",
     "test:e2e": "pnpm build && playwright test",
     "package:mac": "pnpm build && pnpm --filter @tradequote/desktop package:mac",
@@ -23,7 +23,8 @@
     "wiki:check": "node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .",
     "wiki:sync": "node wiki-project/scripts/check-wiki-sync.mjs .",
     "wiki:test": "node --test wiki-project/scripts/wiki-tools.test.mjs wiki-project/scripts/wiki-sync.test.mjs",
-    "postinstall": "node scripts/prepare-electron.mjs && pnpm native:rebuild"
+    "postinstall": "node scripts/prepare-electron.mjs && pnpm native:rebuild",
+    "icons:generate": "pnpm --filter @tradequote/desktop exec electron ../../scripts/generate-icons.cjs"
   },
   "devDependencies": {
     "@babel/parser": "7.29.9",
