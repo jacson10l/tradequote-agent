@@ -1,5 +1,9 @@
 # 当前上下文
 
+- 最新任务为 [[C02a-受限只读工具循环]]，分支codex/c-runtime-roadmap，taskBase=be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce。[[双参考项目功能对照与C开发路线]]统一两个上游功能、实际源码、C00～C07任务/依赖/验收和延期条件；C01只是恢复切片。
+- 本轮新增受限只读JSON工具循环内部模块：注册schema/结果校验、默认8工具/120秒/100000字节、取消/晚到防护；SQLite目录与确定性核价实际验证，不新增报价。不接生产IPC/UI、不支持写工具、不冒称完整Agent/真实供应商已通过。验证以raw/c-runtime-validation.json为准。
+- be53b98已合入A合成fixture；早期“未合入/无打开PR”仅属原核查时点。B澄清/list与A迁移前驱/同连接原子提交仍未齐；C01b及R01～R20待实现，C02b可按已有公开读服务继续。Windows/签名安装后置，真实DeepSeek未评估。以下收口记录保留历史背景。
+
 - 当前收口任务：[[2026-10-21-分支收口与集成验收]]、[[分支收口与共同基线]]。用户已明确授权提交推送、完成技术评审、合入符合条件的成果及清理临时分支；整合分支codex/branch-consolidation，taskBase45a9975506030170bcb8dc770919b7cb5de89fa6，共同目标codex/m1-foundation。远端交付与清理结果以任务和Git记录为准。
 - 已推送共同基线a5e04d1并汇合B00/4e8c663、A01方案/1819d9d、C01a/68455a3、独立复核/2db64b4、C01b准备/a0a30a6。B00/C01a两名独立Agent分别完成Standards与Spec复核，两分支各轴均无阻断项；这是用户授权的技术复核，不冒充人类A/C签字，T00团队业务验收仍未完成。
 - 组合代码已重新通过typecheck、66项单元和含构建的5项真实Electron回归；6项工程、36项Wiki工具回归、生成/check/lint/固定基线sync也均通过，见raw/branch-consolidation-validation.json。raw非生成证据与各来源逐文件字节一致，历史日志非空行全部保留，见raw/branch-consolidation-preservation.json。旧单分支失败/通过证据保留原作用域。

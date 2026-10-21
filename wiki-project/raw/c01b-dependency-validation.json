@@ -1,0 +1,44 @@
+{
+  "status": "passed",
+  "recordedAt": "2026-10-21T18:15:22.726226+08:00",
+  "taskBase": "e0f933657c2438642b006fd1a5549fe7dc683ccd",
+  "branch": "codex/c01b-dependency-audit",
+  "scope": "Wiki dependency audit only; C01b implementation is not ready or completed",
+  "checks": [
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs .",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"generate\",\n  \"files\": 149,\n  \"lines\": 40560,\n  \"generated\": 5,\n  \"excluded\": 5\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 149,\n  \"lines\": 40560,\n  \"generated\": 5,\n  \"excluded\": 5\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exitCode": 0,
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 94,\n  \"semantic\": 78,\n  \"reachable\": 94\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base e0f933657c2438642b006fd1a5549fe7dc683ccd",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"e0f933657c2438642b006fd1a5549fe7dc683ccd\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "command": "git diff --cached --check",
+      "exitCode": 0,
+      "output": ""
+    }
+  ],
+  "notRun": [
+    "Application typecheck, unit, build and Electron: no implementation changes",
+    "Wiki tool regression: no tools or mapping changes",
+    "C01b recovery R01-R20, real DeepSeek, Windows and installation"
+  ]
+}

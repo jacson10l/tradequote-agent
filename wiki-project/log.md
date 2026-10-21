@@ -245,3 +245,16 @@ B00代码提交e71442d127edeb9a62a9a0cd5a127ee0ae2898be已推送并核对远端�
 ## 2026-10-21 共同基线交付与临时分支清理
 
 共同分支codex/m1-foundation已非强制推送a5e04d1并在原工作目录快进，PR#1/#2回读MERGED。66单元、5真实Electron、6工程、36Wiki回归及类型/生成/check/lint/固定基线sync全部通过。B00/C01a限定技术切片完成，不代签人类团队验收。祖先与干净核对后删除a01-llm-wiki-plan、c01a-verification、c01b-storage-plan三个本地/远端临时分支，ABC/main/旧名称分支保留。三个工作树归档请求返回queued，先保留detached副本；21个未跟踪截图/指标已另存保留，不宣称异步归档完成。详见raw/branch-consolidation-delivery.json与[[分支收口与共同基线]]。本交付记录仍在独立整合分支提交，推送快进后清理该临时分支。
+
+
+## 2026-10-21 双参考目标补齐与C02a独立实现
+
+用户要求补齐开发文档并继续C不受阻塞的部分。重新fetch后共同基线be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce包含PR#3的A合成fixture；独立codex/c-runtime-roadmap实施，保留先前e0f9336核查raw原字节和时点说明，不再把A未合入当当前事实。新增 [[双参考项目功能对照与C开发路线]]，将Solivio业务/Harness执行目标对应实际源码和已完成/待实现/延期，将C00～C07拆为产物、依赖和逐项验收。
+
+新增read-tool-runtime及13项测试，复用Provider的JSON模式、宿主schema与现有确定性计算；注册查询/计算工具、串行循环、输入/结果校验、上下文与次数预算、整run deadline/取消、失败脱敏；真实SQLite目录和100×9=900.00不新增报价。基础设施明确直接Zod4.6.7依赖，未改公共contracts/迁移/index或生产IPC/UI。新增0016决定，更新总体计划/接口/架构、C任务、能力图、M1/M4、A合成资产说明、状态/CONTEXT/README/导航；9个已合入fixture和新源码补覆盖后重新生成。
+
+实际命令/退出码与作用域见raw/c-runtime-validation.json；初次TS空值与未登记文件检查失败保留raw/c-runtime-initial-validation.json后修复，未放宽门禁。C02a仅内部模块切片，C01b/R01～R20、真实业务工具接线/写账本/事件、真实DeepSeek与Windows/最终安装均未验收。无推送、PR、合并或向A/B发消息。
+
+C02a验收补记：检查并行与构建产生临时配置扫描冲突，且基线A合成JSON格式不符合Biome，旧失败已保留。构建结束后串行重跑工程检查；合成JSON只格式化，解析内容及8份原文字节与be53b98逐一相同；未改规则内容或来源。
+
+本轮限定切片收口：79单元（含13新工具循环）、5真实Electron（含build）、6工程、36Wiki工具回归及typecheck/生成/只读check/lint/固定be53b98同步均退出0；真实DeepSeek、C01b恢复和生产工具接线仍未完成。C02a任务按此限定范围done，验收证据raw/c-runtime-validation.json，旧失败保留。

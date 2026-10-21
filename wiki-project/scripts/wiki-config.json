@@ -6,7 +6,15 @@
     "experiments/m0-reuse/evidence/install-initial.log",
     "experiments/m0-reuse/evidence/install-pinned.log",
     "experiments/m0-reuse/evidence/solivio.tap",
-    ".node-version"
+    ".node-version",
+    "tests/fixtures/knowledge/sources/src-platform-bottle-capacity.txt",
+    "tests/fixtures/knowledge/sources/src-platform-lamp-spec.txt",
+    "tests/fixtures/knowledge/sources/src-platform-listing-style.txt",
+    "tests/fixtures/knowledge/sources/src-platform-rfq-style.txt",
+    "tests/fixtures/knowledge/sources/src-terms-fibre-conflict.txt",
+    "tests/fixtures/knowledge/sources/src-terms-incoterms-scope.txt",
+    "tests/fixtures/knowledge/sources/src-terms-payment-split.txt",
+    "tests/fixtures/knowledge/sources/src-terms-validity.txt"
   ],
   "exclusionPolicy": [
     "Wiki 自身不递归采集为应用源码；维护脚本另存指纹",
@@ -1021,6 +1029,83 @@
       "role": "C01a取消提交顺序、中断、显式重试与澄清状态测试",
       "pages": [
         "wiki/C运行恢复实现.md"
+      ]
+    },
+    "packages/infrastructure/src/read-tool-runtime.ts": {
+      "role": "C02a受限只读工具循环、预算取消与真实业务计算回归",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    "packages/infrastructure/src/read-tool-runtime.test.ts": {
+      "role": "C02a受限只读工具循环、预算取消与真实业务计算回归",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    "tests/fixtures/knowledge/knowledge-drafts.a01a.json": {
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    "tests/fixtures/knowledge/sources/src-platform-bottle-capacity.txt": {
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    "tests/fixtures/knowledge/sources/src-platform-lamp-spec.txt": {
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    "tests/fixtures/knowledge/sources/src-platform-listing-style.txt": {
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    "tests/fixtures/knowledge/sources/src-platform-rfq-style.txt": {
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    "tests/fixtures/knowledge/sources/src-terms-fibre-conflict.txt": {
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    "tests/fixtures/knowledge/sources/src-terms-incoterms-scope.txt": {
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    "tests/fixtures/knowledge/sources/src-terms-payment-split.txt": {
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    "tests/fixtures/knowledge/sources/src-terms-validity.txt": {
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
       ]
     }
   }

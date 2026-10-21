@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "0719dfb577e985ed3c30b44e88854f6210f3f5a2d0b4cef87fd574ea1b8e0d3b",
+    "wiki-config.json": "f6610440553701a64dad2b7a2f444fb51a9f6e34d7047bd4f5d12ec5ed2cc1bf",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -94,9 +94,9 @@
     {
       "path": "README.md",
       "type": "md",
-      "lines": 104,
-      "bytes": 9528,
-      "sha256": "90a64593959f6027855a6ec3d31aa4cffd17e9662916b349e76f6c253246cc0b",
+      "lines": 108,
+      "bytes": 10386,
+      "sha256": "39d25a03d757614e6e268680825bb3ee01cdc2bf842ff5c61b7405a3c30510d6",
       "role": "项目入口与协作约束",
       "pages": [
         "wiki/项目状态.md",
@@ -1352,9 +1352,9 @@
     {
       "path": "packages/infrastructure/package.json",
       "type": "json",
-      "lines": 14,
-      "bytes": 331,
-      "sha256": "e329f7bbdae26b0d7300193fdd3af33596e2ca69d7a94c02d0a59839e1b3fa3c",
+      "lines": 15,
+      "bytes": 351,
+      "sha256": "0e5033d3619e8d746dfcc77db444a8a3ff8b3e04cd5b3cf199523a31cab37347",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md"
@@ -1478,6 +1478,30 @@
       ]
     },
     {
+      "path": "packages/infrastructure/src/read-tool-runtime.test.ts",
+      "type": "ts",
+      "lines": 299,
+      "bytes": 11728,
+      "sha256": "c3464ae2aec1601a75a73d1b1b64580b96ab97933ec4a5e913d09ba2899b4298",
+      "role": "C02a受限只读工具循环、预算取消与真实业务计算回归",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/read-tool-runtime.ts",
+      "type": "ts",
+      "lines": 173,
+      "bytes": 7515,
+      "sha256": "69b71c5198d2be72f411d4debf03ced3c245b3a5280a414bbc3551b681b84ab1",
+      "role": "C02a受限只读工具循环、预算取消与真实业务计算回归",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    {
       "path": "packages/infrastructure/src/schema.ts",
       "type": "ts",
       "lines": 8,
@@ -1536,9 +1560,9 @@
     {
       "path": "pnpm-lock.yaml",
       "type": "yaml",
-      "lines": 4769,
-      "bytes": 152731,
-      "sha256": "6208233795f3aa72b8a4ee9cbf40e4e74e15adc6409f6dc15a4f5b6e7d91262f",
+      "lines": 4772,
+      "bytes": 152790,
+      "sha256": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md"
@@ -1712,6 +1736,114 @@
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/knowledge/knowledge-drafts.a01a.json",
+      "type": "json",
+      "lines": 217,
+      "bytes": 8577,
+      "sha256": "a3e4b7e6e7f4b98ce0ad3b22c7fc651d564c89bfa9d5fb61014752c2d87d1c80",
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/knowledge/sources/src-platform-bottle-capacity.txt",
+      "type": "txt",
+      "lines": 1,
+      "bytes": 90,
+      "sha256": "ca37f967fcd9b63f5e657a775fedb5af4744e5561350a2df45b46b1ce7214b3a",
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/knowledge/sources/src-platform-lamp-spec.txt",
+      "type": "txt",
+      "lines": 1,
+      "bytes": 108,
+      "sha256": "e986d0ad86e63880658eee6ca9d32bb0379d6abf96bee0e132e5bde184528a7b",
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/knowledge/sources/src-platform-listing-style.txt",
+      "type": "txt",
+      "lines": 1,
+      "bytes": 99,
+      "sha256": "898a0151550331875a23918a18ae0f3b7e12dacb25d423502247acfe216290c7",
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/knowledge/sources/src-platform-rfq-style.txt",
+      "type": "txt",
+      "lines": 1,
+      "bytes": 114,
+      "sha256": "ef913e1a5959b96bf29a6e081e3d794f3b86c1af4ac999255763400c4036220e",
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/knowledge/sources/src-terms-fibre-conflict.txt",
+      "type": "txt",
+      "lines": 1,
+      "bytes": 135,
+      "sha256": "72bda78797f240d6f045a0db6a6bfaf7f1ee368821b4302f5ed1c0475d0a061d",
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/knowledge/sources/src-terms-incoterms-scope.txt",
+      "type": "txt",
+      "lines": 1,
+      "bytes": 135,
+      "sha256": "d59841c9134a8107cba2f84a042e8202f7ae3cb47edfaedd8f0cdff26430c9ae",
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/knowledge/sources/src-terms-payment-split.txt",
+      "type": "txt",
+      "lines": 1,
+      "bytes": 127,
+      "sha256": "08c46fb7e3b1294465ad668f458d10e3fed680b93f0073718c31ae07b16a80b1",
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/knowledge/sources/src-terms-validity.txt",
+      "type": "txt",
+      "lines": 1,
+      "bytes": 102,
+      "sha256": "cc4144f499624c24cfc948b9a79ae15fbe8753b5df7f3bb81a5710593713f4a9",
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
       ]
     },
     {

@@ -66,7 +66,11 @@ pnpm wiki:test
 | B | 公共契约、两类规则检查、风险标记＋文本批注 | 先codex/b00-first-batch-contracts，再codex/b01-rules-feedback；[B任务](wiki-project/wiki/tasks/B01-规则检查与双反馈.md) |
 | C | DeepSeek评估、Agent取消/中断/重试、桌面集成 | codex/c01-agent-recovery；[C01任务](wiki-project/wiki/tasks/C01-Agent运行恢复与集成.md) |
 
-开工命令、公共文件边界、依赖和验收见 [交接入口](wiki-project/wiki/三人并行开发交接.md)，新接口定义见 [首批接口约定](wiki-project/wiki/首批并行接口约定.md)。[B00公共契约](wiki-project/wiki/tasks/B00-首批公共契约.md)和C01a进程内状态机已完成独立技术复核并纳入本次收口，A01知识库方案与C01b存储准备一并保留。交付状态见[分支收口记录](wiki-project/wiki/分支收口与共同基线.md)。知识/检查/run正式服务仍待开发，客户端明确返回能力未接入；下一步先补B的澄清内容和运行列表契约、A的迁移及同连接事务入口，再实现C01b持久化恢复。
+开工命令、公共文件边界、依赖和验收见 [交接入口](wiki-project/wiki/三人并行开发交接.md)，新接口定义见 [首批接口约定](wiki-project/wiki/首批并行接口约定.md)。[B00公共契约](wiki-project/wiki/tasks/B00-首批公共契约.md)和C01a进程内状态机已完成独立技术复核并纳入本次收口，A01知识库方案与C01b存储准备一并保留。交付状态见[分支收口记录](wiki-project/wiki/分支收口与共同基线.md)。知识/检查/run正式服务仍待开发，客户端明确返回能力未接入；C01b仍需B的澄清/list与A的迁移/同事务入口。C同时按完整路线推进工具执行层，本轮C02a内部只读循环已验证，C02b生产适配与C02c持久写工具继续分别验收。
+
+## 两个参考项目与 C 的完整任务
+
+Solivio参考业务工作流，Harness参考受控Agent执行；采用自有实现不减少对应功能的验收。当前源码逐项对照、已完成/待实现/延期、C00～C07任务/依赖/清单见[双参考项目与C路线](wiki-project/wiki/双参考项目功能对照与C开发路线.md)。C01只覆盖运行恢复；本轮[C02a](wiki-project/wiki/tasks/C02a-受限只读工具循环.md)新增有界只读工具循环内部模块，已用现有SQLite目录和确定性核价测试，尚未接生产入口或真实模型。完整工具、写入账本、事件、语言/PDF和知识整理继续按账本交付。最新共同基线be53b98已合入A合成fixture，不能据此宣称知识服务、迁移或事务依赖就绪。
 
 ## 从这里开工
 

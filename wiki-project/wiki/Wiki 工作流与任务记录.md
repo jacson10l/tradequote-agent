@@ -112,3 +112,13 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 ## macOS优先阶段的Wiki记录
 
 用户将当前验证顺序调整为先macOS需求开发，Windows后置，不阻塞当前PR。根AGENTS、贡献规范、README和PR模板同步这一阻塞关系；P0本机生成/只读check/lint/真实基线sync保持，Windows仍明写未验证而非通过。此次仅文档调整，不改维护算法、覆盖映射、业务或测试源码，执行适用Wiki检查，记录raw/mac-first-validation.json。详见 [[0014-macOS优先与Windows验收后置]]、[[C01a-状态机与取消基础]]。
+
+## 双参考目标审阅与C02a覆盖
+
+本轮补齐Solivio业务模块/Harness执行能力到有效源码、C00～C07任务/依赖/验收和延期恢复条件的映射，入口 [[双参考项目功能对照与C开发路线]]。新增read-tool-runtime及测试逐文件归属本路线/M4知识页；基础设施Zod依赖与锁文件同步M1工程基线。共同基线be53b98已纳入A的合成fixture但尚无覆盖，本轮读取后登记9项合成资产至路线/A知识页，保持8份原文，合成JSON仅格式归一，不代签业务正确性。
+
+配置变更只增加职责映射，不改维护工具算法；运行完整Wiki工具回归、生成/只读check/lint和固定be53b98基线sync，证据raw/c-runtime-validation.json。保留上一轮C01b核查JSON原样并补任务中的时点说明；新的开发任务不以文档生成替代代码行为验收。关联 [[C02a-受限只读工具循环]]、[[C01b-依赖就绪核查]]。
+
+首次登记A来源文本覆盖后生成报STALE_COVERAGE，因为默认扩展扫描不纳管.txt；已将8份合成原文显式加入extraFiles，既不移除来源映射也不放宽工具算法，随后重跑生成与维护回归。失败记录保留在本轮initial-validation。
+
+本轮pnpm check与Electron构建并行时误扫构建的临时配置，另发现基线合成JSON未符合Biome格式；旧失败保存后等待构建结束再串行check。仅对合成draft JSON布局归一，并实际比较JSON解析值及8份原文字节均与be53b98相同，不加格式例外或弱化检查。
