@@ -1,6 +1,11 @@
 import type { z } from "zod";
 import { type CheckClient, CheckCommandSchema } from "./checks";
 import { type KnowledgeClient, KnowledgeCommandSchema } from "./knowledge";
+import { type KnowledgeBuildClient, KnowledgeBuildCommandSchema } from "./knowledge-build";
+import {
+  type KnowledgeMaintenanceClient,
+  KnowledgeMaintenanceCommandSchema,
+} from "./knowledge-maintenance";
 import { type WikiClient, WikiCommandSchema } from "./knowledge-wiki";
 import type { FailureSchema } from "./protocol";
 import { type RunClient, RunCommandSchema } from "./runs";
@@ -18,7 +23,14 @@ function unavailable(schema: z.ZodType, input: unknown): Promise<z.infer<typeof 
     },
   });
 }
-export const unavailableFirstBatchClient: KnowledgeClient & CheckClient & RunClient & WikiClient = {
+export const unavailableFirstBatchClient: KnowledgeClient &
+  CheckClient &
+  RunClient &
+  WikiClient &
+  KnowledgeBuildClient &
+  KnowledgeMaintenanceClient = {
+  executeKnowledgeBuild: (command) => unavailable(KnowledgeBuildCommandSchema, command),
+  executeWikiMaintenance: (command) => unavailable(KnowledgeMaintenanceCommandSchema, command),
   executeWiki: (command) => unavailable(WikiCommandSchema, command),
   stageKnowledge: (command) => unavailable(KnowledgeCommandSchema.options[0], command),
   publishKnowledge: (command) => unavailable(KnowledgeCommandSchema.options[1], command),
