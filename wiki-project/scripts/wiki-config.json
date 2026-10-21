@@ -1042,9 +1042,28 @@
         "wiki/M1验证与协作.md"
       ]
     },
-    "tests/fixtures/knowledge/knowledge-drafts.a01a.json": {
-      "role": "A01a三品类合成知识草稿fixture",
+    "experiments/product-walkthrough/index.html": {
+      "role": "Standalone synthetic product interaction walkthrough",
       "pages": [
+        "wiki/产品交互演示.md"
+      ]
+    },
+    "experiments/product-walkthrough/check.mjs": {
+      "role": "Prototype amount version approval recovery regression checks",
+      "pages": [
+        "wiki/产品交互演示.md"
+      ]
+    },
+    "experiments/product-walkthrough/README.md": {
+      "role": "Local walkthrough launch scope and operation guide",
+      "pages": [
+        "wiki/产品交互演示.md"
+      ]
+    },
+    "tests/fixtures/knowledge/knowledge-drafts.a01a.json": {
+      "role": "A01a三品类合成知识草稿fixture（候选，未发布/未验收）",
+      "pages": [
+        "wiki/A业务LLMWiki方案.md",
         "wiki/A知识发布实现.md"
       ]
     }

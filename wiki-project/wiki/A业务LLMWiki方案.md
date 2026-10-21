@@ -4,6 +4,7 @@ type: architecture
 status: draft
 updated: 2026-10-21
 sources:
+  - tests/fixtures/knowledge/knowledge-drafts.a01a.json:1
   - conversation:用户提供KARPATHY-LLM-WIKI-BOOTSTRAP.md并要求补齐A01业务知识库
   - wiki-repo:raw/inputs/外贸询报价协同 Agent 完整产品与实施方案.md:280
   - wiki-repo:raw/inputs/项目构建技术栈.md:261
@@ -90,3 +91,12 @@ A提供人工“检查知识库/重建索引”入口，并在工作区打开时
 B先补 [[B00a-业务Wiki契约补充]] 的P0模型/发布/来源/版本和最小检索契约；A可同时做样本与存储设计。A01a来源与Markdown版本→A01b人工审核发布→A01c检索引用→A01d AI增量整理（C协作）→A01e维护与端到端。每步小PR，独立子切片完成不代表完整A01完成。
 
 A维护知识服务、资料/Markdown artifact、审核/检索/维护页面与存储；B维护公共契约、规则语义和报价引用/复核桥接；C提供知识整理执行与取消/重试、模型设置和桌面公共接线。C01原报价恢复无需等A知识库完工，知识整理用单独结果类型，不把Markdown塞进committedRevisionId伪装报价。精确文件与验收见 [[A01-知识发布与来源查询]]、[[C01-Agent运行恢复与集成]]。
+
+
+## 集成分支已有的A01合成样本
+
+2026-10-21合并产品资料前核对：集成分支be53b98（PR #3）已经包含tests/fixtures/knowledge/knowledge-drafts.a01a.json及sources下8份TXT原文。JSON为synthetic=true、6个draft候选，示例覆盖付款、术语、有效期和平台风格；文本保存原始合成证据。两份纤维/灯具规格来源在_pendingB00Extensions中明确尚未接入规则，不能当作检索/规则服务已实现。
+
+这些文件只是上游样本，未运行发布、规则执行或业务语义验收。比如第一条付款比例合计文字使用required条件，required不能实际证明比例和为100%；第六条交期规则引用容量单位原文，不能据此证明供货交期。正式接入前A/B须按原文修正/评审规则绑定并补反例，禁止把结构合法等同依据成立。当前保留上游原文件字节，不替其业务任务标done。此次仅补缺漏的JSON覆盖映射，使整仓机械检查可运行；TXT原件可通过同目录回读，工具仍按既定扩展名策略采集源码。
+
+这组样本与HTML中的固定knowledgeSeed是两套独立教学/测试输入，未自动互相发布或导入。交付验证见 [[2026-10-21-产品资料集成验证]]。
