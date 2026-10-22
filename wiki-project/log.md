@@ -246,6 +246,11 @@ B00代码提交e71442d127edeb9a62a9a0cd5a127ee0ae2898be已推送并核对远端�
 
 共同分支codex/m1-foundation已非强制推送a5e04d1并在原工作目录快进，PR#1/#2回读MERGED。66单元、5真实Electron、6工程、36Wiki回归及类型/生成/check/lint/固定基线sync全部通过。B00/C01a限定技术切片完成，不代签人类团队验收。祖先与干净核对后删除a01-llm-wiki-plan、c01a-verification、c01b-storage-plan三个本地/远端临时分支，ABC/main/旧名称分支保留。三个工作树归档请求返回queued，先保留detached副本；21个未跟踪截图/指标已另存保留，不宣称异步归档完成。详见raw/branch-consolidation-delivery.json与[[分支收口与共同基线]]。本交付记录仍在独立整合分支提交，推送快进后清理该临时分支。
 
+## 2026-10-21 A01b知识存储评审修正与Wiki同步
+
+- 在 codex/a01b-knowledge-store 审查 A01b（SqliteKnowledgeStore/createKnowledgeService/迁移4/测试）并修正：findPublished 先按 publishedAt/scope 过滤再按 document 去重（新版本不匹配时回退到旧匹配版本）、空 scope 维度按通用、publish 原地 staged→published 保持 revisionId 稳定、getRevision/findPublished 按 workspace 隔离、写事务 immediate；补 A01-7/A01-8 回归，推送 5551ef3。
+- 同步 [[A知识发布实现]]（新增 module 页）、[[A01-知识发布与来源查询]] 任务页（领取人 ssyyy31、A01a/A01b 记录、status active）与 coverage（knowledge.ts/knowledge-store.ts/knowledge-store.test.ts/knowledge-drafts.a01a.json），索引补导航。
+- 本机未安装 node_modules，typecheck 与知识测试未复跑；Wiki 生成成功（153 文件/5 生成物），build-code-index --check 退出 0，lint 仅剩 4 个 raw/ 归档 CRLF 造成的 ARCHIVE_HASH_MISMATCH（历史遗留，需团队 .gitattributes 决策），无新增失败。
 
 ## 2026-10-21 项目说明书与开发入门入口
 
@@ -306,3 +311,7 @@ B00a P0 最终 macOS 本机验证：pnpm typecheck、85 项单元、含 build �
 C 范围技术复核完成：空页游标 P2 独立确认修复，相关2文件/20项测试退出0，其余客户端/IPC和宿主接线范围无阻断，记录 raw/b00a-c-review.json；不代替 A 来源/存储/发布/检索评审或 T00 人类签字。A 评审及合入仍待，任务保持 active。
 
 B00a P0 远端交接：代码提交 26421ab5bf93f74b20d5888f0e1ff3b48b9bfc36 已正常推送独立分支，[PR #7](https://github.com/jacson10l/tradequote-agent/pull/7) 目标 codex/m1-foundation，已请求 A/ssyyy31 评审；API 核对 OPEN、尚无 review、未合入，证据 raw/b00a-delivery.json。本次仅追加交付事实，已测源码/config hash 不变；A01c 未解锁，合入后通知仍待。
+
+## 2026-10-22 A01b 同步 B00a P0 共同基线
+
+A 在 codex/a01b-knowledge-store 合并 codex/m1-foundation（654fecc，含 PR#7 B00a P0 知识检索与引用公共协议）。解决 wiki-config.json 的 knowledge-drafts.a01a.json fixture 覆盖映射冲突：该 fixture 现同时服务于 A01b 知识发布实现与 B00a P0 检索引用测试，合并映射到 [[A知识发布实现]] 与 [[B00a知识Wiki公共协议]] 两页；重跑 build-code-index 生成 159 文件/5 生成物。generate/--check/lint 与 check-wiki-sync(基线 c6539e8) 均退出 0。A01b 实现仍为旧 B00 KnowledgeRepository，B00a P0 的 WikiService 由 A01c 实现，本次仅同步基线、未变更 A01b 业务代码。

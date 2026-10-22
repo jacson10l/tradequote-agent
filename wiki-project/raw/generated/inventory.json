@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "549bd6c983688e23a88c3030c989c913e0bcd3a147f113cdaa3e66d5eeeff3f9",
+    "wiki-config.json": "a304a7c84df701379bef63f2c2943535dbcfc63118d568c0a09d5d2415f0e929",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -1377,12 +1377,23 @@
     {
       "path": "packages/domain/src/index.ts",
       "type": "ts",
-      "lines": 65,
-      "bytes": 2315,
-      "sha256": "818a9237921282e9c03e3343d53f926ed5ef2b7c5c8cbe376788ea646ea1c2f8",
+      "lines": 66,
+      "bytes": 2369,
+      "sha256": "357314c4f4e5e7971447b66cffcefd47e09134892d63aa71275750e2b5ddf7cd",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md"
+      ]
+    },
+    {
+      "path": "packages/domain/src/knowledge.ts",
+      "type": "ts",
+      "lines": 54,
+      "bytes": 2155,
+      "sha256": "6abf8959235eaa78318a52769d7ddebea0039d0b99559d5da9037501735e84f1",
+      "role": "A01b知识审核发布服务：human_ui门禁与方法分发",
+      "pages": [
+        "wiki/A知识发布实现.md"
       ]
     },
     {
@@ -1505,20 +1516,43 @@
     {
       "path": "packages/infrastructure/src/index.ts",
       "type": "ts",
-      "lines": 110,
-      "bytes": 3969,
-      "sha256": "9d89016e1c32ef51f2a984329a032c5201be231561d9f0b786e20a8687886495",
+      "lines": 119,
+      "bytes": 4282,
+      "sha256": "550ad7d110b3acb9125ffa782f8be6c4dff184fac5c016fa6499d01368329fd0",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md"
       ]
     },
     {
+      "path": "packages/infrastructure/src/knowledge-store.test.ts",
+      "type": "ts",
+      "lines": 326,
+      "bytes": 12059,
+      "sha256": "e11f07403244d86f99350966f4dcf938a534c1ddf8a33727b253ce70a7731deb",
+      "role": "A01b知识存储回归：发布门禁、幂等、版本、scope与不可变",
+      "pages": [
+        "wiki/A知识发布实现.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/knowledge-store.ts",
+      "type": "ts",
+      "lines": 249,
+      "bytes": 9430,
+      "sha256": "b5676f2b651d622341e05250781ac1f7116f53530d814e4a4d36c6a221863786",
+      "role": "A01b知识版本SQLite存储：hash绑定、原地发布、幂等与不可变",
+      "pages": [
+        "wiki/A知识发布实现.md"
+      ]
+    },
+    {
       "path": "packages/infrastructure/src/migrations.ts",
       "type": "ts",
-      "lines": 48,
-      "bytes": 3648,
-      "sha256": "60c9638fcdaf75b0dc36197987190af61408794583600b0f42aa501a5dd9618c",
+      "lines": 69,
+      "bytes": 4608,
+      "sha256": "c5559424e0e168c27d757c4e223887c2383ceb3bad1b75f407a87bb03c3fca3e",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md"
@@ -1791,9 +1825,10 @@
       "lines": 217,
       "bytes": 8577,
       "sha256": "a3e4b7e6e7f4b98ce0ad3b22c7fc651d564c89bfa9d5fb61014752c2d87d1c80",
-      "role": "A01合成知识候选样本，非已发布或已验收规则",
+      "role": "A01a三品类合成知识草稿fixture（候选，未发布/未验收）",
       "pages": [
         "wiki/A业务LLMWiki方案.md",
+        "wiki/A知识发布实现.md",
         "wiki/B00a知识Wiki公共协议.md"
       ]
     },
