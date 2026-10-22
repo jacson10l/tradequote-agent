@@ -367,3 +367,15 @@ C04正式入口收口：202单元、9真实Electron含build、6工程、36Wiki�
 
 
 本地收敛收口：216单元、9真实Electron含build、48点fixture（186替身/真实0）、6工程、36Wiki、类型、生成/只读check/lint及固定b231181/be53b98同步和diff全部退出0，见raw/c04-convergence-validation.json。新增fixture Markdown首次漏导航导致lint/一项Wiki回归失败已补真实入链，原失败保留initial证据。86份旧raw、57373字节旧log前缀、正式评估样本/期望/schema及锁文件字节保持，真实报告SHA不变。本地任务done仅指重建回归与最小修复，原真实六项及八项依赖仍待显式复测；不自动收费复测、不推送，Windows/安装/非作者复核后置。
+
+
+## 2026-10-22 修复分支用户真实DeepSeek复测核对
+
+从1e9c134沿用独立codex/c04-failure-convergence。确认旧C04无在途评估，正常退出后启动修复分支已构建桌面；Main进程/窗口file URL和受限纠正bundle来源已核对，Flash系统加密配置/旧历史保留，不读取Key或业务库。16:40:56仅旧记录、无自动评估；用户自行点击并明确确认后16:41:11新run开始，16:42:22结束，三项模式均deepseek，Flash真实82请求尝试。run.completed但report.failed：31业务12通过/8失败/11前置跳过，17故障注入fixture_only。
+
+原六失败2本次通过（apparel-de-v1、rule-block/RULE_BLOCKED）/2仍失败/2跳过；原八依赖跳过1执行失败/7仍跳过，无一通过。另五个上次通过点本次失败、两个上次通过点本次跳过；不宣称整体收敛，不拼接不同轮次的通过项。原始动作/参数未留存，现有公开码不足以定位根因，本轮不改代码/期望或擅自收费再测。
+
+新增[[C04修复分支真实复测]]、[[C04-修复分支真实复测核对]]及独立观察和真实JSON/Markdown；正式Main原生双格式下载与strict持久report/markdownReport投影逐字节一致，固定计划/状态计数/82请求与费用未知已核对。90份旧raw和59253字节旧log完整前缀保持，8份源码hash及应用bundle来源记录。后续Wiki门禁收口追加；应用保留打开，Agent没有start/retry/cancel/连接探针或凭据改动，不推送。
+
+
+真实复测审计收口：状态/固定48计划/检查名/模式/计数和双格式实际文件字节核对、生成/只读check/lint、1e9c134/b231181/be53b98同步与diff均退出0，见raw/c04-retest-validation.json。审计passed与真实语义failed分开；本轮无应用源码改动，不重复旧216单元/9Electron/build或fixture，不把旧结果算作本轮新验证。文档日志辅助脚本一次stdin编码失败发生在写入前，补丁方式完成，无应用/报告变动。任务done仅核对完成，真实六失败/八依赖尚未收敛及新增失败如实保留；应用保持打开，本地提交，不推送，不发下一次收费请求。

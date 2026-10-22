@@ -1,0 +1,571 @@
+{
+  "status": "observed",
+  "scope": "Read-only state projections; user explicitly started one real evaluation. No credentials, control keys or raw provider payloads.",
+  "observations": [
+    {
+      "observedAt": "2026-10-22T08:40:56.453Z",
+      "recordCount": 1,
+      "invalidRecords": 0,
+      "launchSourceCommit": "1e9c134a589d97d15f98d4e576ca634766569bd7",
+      "history": [
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [],
+      "reportSummary": null
+    },
+    {
+      "observedAt": "2026-10-22T08:41:21.559Z",
+      "recordCount": 2,
+      "invalidRecords": 0,
+      "launchSourceCommit": "1e9c134a589d97d15f98d4e576ca634766569bd7",
+      "history": [
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "running",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": null,
+          "observedRows": 1,
+          "errorCode": null,
+          "hasReport": false
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "running",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": null,
+          "observedRows": 1,
+          "errorCode": null,
+          "hasReport": false
+        }
+      ],
+      "reportSummary": null
+    },
+    {
+      "observedAt": "2026-10-22T08:42:48.439Z",
+      "recordCount": 2,
+      "invalidRecords": 0,
+      "launchSourceCommit": "1e9c134a589d97d15f98d4e576ca634766569bd7",
+      "history": [
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "reportSummary": {
+        "status": "failed",
+        "providerValidation": "observed",
+        "model": "deepseek-flash",
+        "modelCalls": 82,
+        "realRequests": 82,
+        "usage": {
+          "tokens": null,
+          "cost": null,
+          "reason": "not_exposed_by_adapter"
+        },
+        "caseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496",
+        "business": {
+          "passed": 12,
+          "failed": 8,
+          "not_run": 11,
+          "cancelled": 0
+        },
+        "failureInjection": {
+          "passed": 0,
+          "failed": 0,
+          "not_run": 17,
+          "cancelled": 0
+        },
+        "sixFailures": [
+          {
+            "id": "apparel-de-v1",
+            "previousStatus": "failed",
+            "previousCode": "MODEL_INVALID_OUTPUT",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "failedChecks": []
+          },
+          {
+            "id": "panel-en-v2",
+            "previousStatus": "failed",
+            "previousCode": "MODEL_INVALID_OUTPUT",
+            "previousReason": "observed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-zh-v1",
+            "previousStatus": "failed",
+            "previousCode": "MISSING_FACTS",
+            "previousReason": "observed",
+            "status": "failed",
+            "errorCode": "ACTION_NOT_ALLOWED",
+            "reason": "observed",
+            "failedChecks": [
+              "outcome",
+              "revision_count",
+              "draft_only",
+              "product",
+              "quantity",
+              "unit",
+              "terms",
+              "amount",
+              "sources",
+              "validation"
+            ]
+          },
+          {
+            "id": "fastener-en-v1",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "failed",
+            "errorCode": "ACTION_NOT_ALLOWED",
+            "reason": "observed",
+            "failedChecks": [
+              "outcome",
+              "revision_count",
+              "draft_only",
+              "product",
+              "quantity",
+              "unit",
+              "terms",
+              "amount",
+              "sources",
+              "validation"
+            ]
+          },
+          {
+            "id": "fastener-de-v2",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "rule-block",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": "RULE_BLOCKED",
+            "reason": "observed",
+            "failedChecks": []
+          }
+        ],
+        "eightSkipped": [
+          {
+            "id": "apparel-de-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "failed",
+            "errorCode": "MODEL_INVALID_OUTPUT",
+            "reason": "observed",
+            "failedChecks": [
+              "outcome",
+              "revision_count",
+              "draft_only",
+              "product",
+              "quantity",
+              "unit",
+              "terms",
+              "amount",
+              "sources",
+              "validation"
+            ]
+          },
+          {
+            "id": "apparel-de-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "panel-en-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-zh-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-zh-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-en-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-en-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-de-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          }
+        ]
+      }
+    },
+    {
+      "observedAt": "2026-10-22T08:44:13.632Z",
+      "recordCount": 2,
+      "invalidRecords": 0,
+      "launchSourceCommit": "1e9c134a589d97d15f98d4e576ca634766569bd7",
+      "history": [
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "reportSummary": {
+        "status": "failed",
+        "providerValidation": "observed",
+        "model": "deepseek-flash",
+        "modelCalls": 82,
+        "realRequests": 82,
+        "usage": {
+          "tokens": null,
+          "cost": null,
+          "reason": "not_exposed_by_adapter"
+        },
+        "caseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496",
+        "business": {
+          "passed": 12,
+          "failed": 8,
+          "not_run": 11,
+          "cancelled": 0
+        },
+        "failureInjection": {
+          "passed": 0,
+          "failed": 0,
+          "not_run": 17,
+          "cancelled": 0
+        },
+        "sixFailures": [
+          {
+            "id": "apparel-de-v1",
+            "previousStatus": "failed",
+            "previousCode": "MODEL_INVALID_OUTPUT",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "failedChecks": []
+          },
+          {
+            "id": "panel-en-v2",
+            "previousStatus": "failed",
+            "previousCode": "MODEL_INVALID_OUTPUT",
+            "previousReason": "observed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-zh-v1",
+            "previousStatus": "failed",
+            "previousCode": "MISSING_FACTS",
+            "previousReason": "observed",
+            "status": "failed",
+            "errorCode": "ACTION_NOT_ALLOWED",
+            "reason": "observed",
+            "failedChecks": [
+              "outcome",
+              "revision_count",
+              "draft_only",
+              "product",
+              "quantity",
+              "unit",
+              "terms",
+              "amount",
+              "sources",
+              "validation"
+            ]
+          },
+          {
+            "id": "fastener-en-v1",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "failed",
+            "errorCode": "ACTION_NOT_ALLOWED",
+            "reason": "observed",
+            "failedChecks": [
+              "outcome",
+              "revision_count",
+              "draft_only",
+              "product",
+              "quantity",
+              "unit",
+              "terms",
+              "amount",
+              "sources",
+              "validation"
+            ]
+          },
+          {
+            "id": "fastener-de-v2",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "rule-block",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": "RULE_BLOCKED",
+            "reason": "observed",
+            "failedChecks": []
+          }
+        ],
+        "eightSkipped": [
+          {
+            "id": "apparel-de-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "failed",
+            "errorCode": "MODEL_INVALID_OUTPUT",
+            "reason": "observed",
+            "failedChecks": [
+              "outcome",
+              "revision_count",
+              "draft_only",
+              "product",
+              "quantity",
+              "unit",
+              "terms",
+              "amount",
+              "sources",
+              "validation"
+            ]
+          },
+          {
+            "id": "apparel-de-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "panel-en-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-zh-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-zh-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-en-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-en-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-de-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          }
+        ]
+      }
+    }
+  ]
+}
