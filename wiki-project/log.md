@@ -434,3 +434,14 @@ C04正式入口收口：202单元、9真实Electron含build、6工程、36Wiki�
 
 
 本地收口：35文件260单元、18新回归、9实际Electron含build、48fixture（189替身/真实0）、类型、6工程、36Wiki与生成/只读check/lint、5afc425及be53b98固定同步全部实际退出0，证据raw/c04-action-validation.json。116份旧非生成raw、70751字节旧log完整前缀、四轮真实双格式和原runner/cases/fixture-model/业务运行契约/锁文件保持；strict五报告与Markdown投影逐字节审计通过。首次工程链式格式失败保留initial证据，再格式化后通过。任务done仅本地切片，真实三失败/三依赖仍待用户显式新运行；不采原文/Key，不推送/自动复测，旧用户应用保持。
+
+
+## 2026-10-22 C04动作修复版启动与真实复测准备
+
+沿用独立codex/c04-action-failures，从fd7703c干净状态继续。6份受控源码/测试/配置及4bundle SHA与已验证版本一致；旧窗口无在途评估，strict四旧run/0新/0损坏。正常Quit确认PID退出，20:28:31启动本worktree实际Main，模型设置URL/进程准确，Flash系统加密状态和四轮历史保留，未读Key/凭据文件/业务库。[[C04动作修复真实复测]]与[[C04-动作修复真实复测核对]]记录三失败/三依赖和动作/首次澄清/规则双事件的核对边界；当前active等待用户显式真实开始，无新真实报告，不代点连接测试/开始/重试、不推送。原48fixture与四轮真实分别保持，文档门禁继续收口。
+
+
+用户明确回复“已经点击”，唯一新run20:30:36–20:33:09，Flash168真实尝试，三项模式deepseek，run.completed/report.passed，31业务全通过/0依赖，17故障注入fixture_only。原三失败/三依赖全通过，旧25通过点全部保持；4行8事件，首次澄清3反馈/3停止及规则第6次provider/content_json与validate_quote/rule_block双停止实际可见，动作六细类未触发，不倒推旧原文/修复因果。正式Main原生双格式与strict投影逐字节一致，见[[C04动作修复真实复测]]和新增raw，121份旧证据/72181字节旧log前缀与源码/4bundle保持。没有Agent start/retry/cancel/连接探针，应用保持打开，不推送/自动第二轮；Wiki门禁继续收口。
+
+
+动作修复真实核对收口：strict模式/固定48计划/原检查和期望/三失败三依赖全过/旧25无退化/枚举与原生双格式字节审计、生成/只读check/lint、fd7703c及be53b98固定同步和diff全部退出0，见raw/c04-action-retest-validation.json。121旧raw/72181字节log前缀与源码/4bundle原样；20:37:55末次仍唯一新完成run/168请求。任务done仅本轮核对，31真实业务本轮通过；17真实故障注入、未触发动作纠正、稳定性/Windows/安装/非作者复核未由此全部完成，不采模型原文/Key、不自动复测/重试、不推送，应用保持打开。
