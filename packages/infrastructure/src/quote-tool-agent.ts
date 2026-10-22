@@ -14,7 +14,7 @@ import { TradeFault } from "@tradequote/domain";
 import { z } from "zod";
 import { type AgentRunStore, type RunTicket } from "./agent-run-store";
 import { CatalogQuoteReadAgent } from "./catalog-quote-read-agent";
-import type { DeepSeekProvider } from "./deepseek";
+import { type DeepSeekProvider, ModelOutputFault } from "./deepseek";
 import type { SqliteWorkspaceRepository } from "./index";
 import {
   checkDraft,
@@ -25,6 +25,7 @@ import {
   knowledgeStamp,
 } from "./quote-draft-plan";
 import {
+  BlockedExplanationFault,
   type BusinessTool,
   defineBusinessTool,
   type FailureObserver,
@@ -333,10 +334,20 @@ export class QuoteToolAgent {
     );
     const outcome = await new ToolLoopRuntime(
       {
-        json: (messages, signal) => {
+        json: async (messages, signal) => {
           if (signal?.aborted || !this.store.isCurrentExecution(this.ticket))
             throw new TradeFault("CANCELLED", "当前执行票据已失效");
-          return this.provider.json(messages, signal);
+          try {
+            return await this.provider.json(messages, signal);
+          } catch (error) {
+            if (
+              error instanceof ModelOutputFault &&
+              error.category === "content_json" &&
+              validation?.report.issues.some((issue) => issue.severity === "block")
+            )
+              throw new BlockedExplanationFault(error);
+            throw error;
+          }
         },
       },
       observed,
@@ -361,6 +372,8 @@ export class QuoteToolAgent {
       },
       "draft",
       (kind) => {
+        if (kind === "clarification" && ordinal === 0)
+          return "尚未读取业务资料。若问题是商品标识、目录信息或报价基线，请先用当前读工具核实，再按用户明确事实继续；如果真正缺少用户数量、单位或条款等事实，可以直接再次clarification等待用户。不得猜测，不为避免澄清编造或保存。";
         if (
           kind === "complete" &&
           validation?.report.issues.some((issue) => issue.severity === "block")

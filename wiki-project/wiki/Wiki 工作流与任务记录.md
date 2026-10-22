@@ -168,3 +168,8 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 ## C04三项剩余边界覆盖
 
 新增remaining-regressions.test.ts逐文件映射到[[C04剩余失败证据与收敛]]及原评估页；Provider/运行核/草稿Agent/runner/契约及相关单元/Electron回归追加本页职责映射，原映射保留。只改覆盖配置，不改维护算法，仍运行36项Wiki回归和生成/只读check/lint、b28b702/be53b98固定同步。fixture和三项边界证据独立入raw，旧三轮真实/日志保持；实际验证见[[C04-三项失败回归与最小修复]]。
+
+
+## C04动作与澄清回归覆盖
+
+新增action-regressions.test.ts逐文件映射到[[C04动作与澄清失败收敛]]，C04契约/运行核/QuoteToolAgent/诊断测试追加本页覆盖，旧责任映射全部保留。只改配置、不改维护算法；仍跑36项Wiki回归、生成/只读check/lint及5afc425/be53b98固定同步。新fixture/合成/初始失败证据独立命名，原raw/log字节保留；实际执行和未完成项见[[C04-动作澄清与规则失败收敛]]。

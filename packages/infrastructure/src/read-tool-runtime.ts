@@ -33,6 +33,12 @@ export class ToolOrderFault extends TradeFault {
     super("ACTION_NOT_ALLOWED", message);
   }
 }
+/** A failed model explanation cannot erase an already verified business block. */
+export class BlockedExplanationFault extends TradeFault {
+  constructor(readonly providerFault: ModelOutputFault) {
+    super("RULE_BLOCKED", "当前候选校验存在阻断问题，未保存");
+  }
+}
 class ToolInputFault extends TradeFault {
   constructor(
     readonly repairable: boolean,
@@ -132,6 +138,24 @@ const actionSchema = z.discriminatedUnion("kind", [
     question: z.string().trim().min(1).max(2000),
   }),
 ]);
+function actionCategory(
+  output: unknown,
+  issues: z.core.$ZodIssue[],
+): FailureDiagnostic["category"] {
+  if (!output || typeof output !== "object" || Array.isArray(output)) return "action_shape";
+  if (
+    !("kind" in output) ||
+    typeof output.kind !== "string" ||
+    !["tool", "complete", "clarification"].includes(output.kind)
+  )
+    return "action_kind";
+  if (issues.some((issue) => issue.code === "unrecognized_keys")) return "action_unknown_field";
+  if (issues.every((issue) => issue.code === "invalid_type"))
+    return issues.some((issue) => issue.path.length === 1 && !Object.hasOwn(output, issue.path[0]!))
+      ? "action_missing_field"
+      : "action_field_type";
+  return "action_invalid_value";
+}
 const limitsSchema = z.strictObject({
   maxToolCalls: z.number().int().min(1).max(12).default(8),
   timeoutMs: z.number().int().min(1).max(300000).default(120000),
@@ -314,12 +338,37 @@ ${policy === "draft" ? "仅有当前run草稿写权限，没有发布、审批�
         context.modelCall = modelCalls;
         output = await bounded(() => this.provider.json(messages, signal));
       } catch (error) {
+        if (this.policy === "draft" && error instanceof BlockedExplanationFault) {
+          report(error.providerFault, "stopped");
+          Object.assign(context, {
+            stage: "tool_execution",
+            tool: "validate_quote",
+            category: "rule_block",
+          });
+          throw error;
+        }
         if (error instanceof TradeFault) throw error;
         throw new TradeFault("CAPABILITY_UNAVAILABLE", "模型调用失败，未提交业务变更");
       }
       Object.assign(context, { stage: "action_schema", category: "invalid_action" });
       const parsed = actionSchema.safeParse(output);
-      if (!parsed.success) throw new TradeFault("MODEL_INVALID_OUTPUT", "模型动作格式不合法");
+      if (!parsed.success) {
+        context.category = actionCategory(output, parsed.error.issues);
+        const fault = new TradeFault("MODEL_INVALID_OUTPUT", "模型动作格式不合法");
+        if (
+          ["action_missing_field", "action_field_type"].includes(context.category) &&
+          feedback(
+            fault.code,
+            "动作字段缺失或类型错误，未执行任何工具。请按系统JSON动作格式重新提交一个对象；工具名必须来自清单、input按该工具schema；不猜测事实、ID或金额。",
+            // Never retain or echo an invalid action or its fields in correction context.
+            serialize({ hostRejectedAction: true }),
+          )
+        ) {
+          report(fault, "feedback");
+          continue;
+        }
+        throw fault;
+      }
       const action = parsed.data;
       if (this.policy === "draft" && action.kind !== "tool") {
         Object.assign(context, {
@@ -327,6 +376,8 @@ ${policy === "draft" ? "仅有当前run草稿写权限，没有发布、审批�
           category: action.kind === "complete" ? "premature_complete" : "missing_facts",
         });
         const guidance = this.draftFeedback?.(action.kind);
+        if (action.kind === "clarification" && toolCalls === 0 && guidance)
+          context.category = "clarification_before_read";
         if (
           guidance &&
           feedback(

@@ -27,7 +27,12 @@ it("exports bounded enum-only failure evidence while accepting unchanged legacy 
     });
     expect(row("extra_field")).toMatchObject({
       diagnostics: [
-        { stage: "action_schema", tool: null, category: "invalid_action", disposition: "stopped" },
+        {
+          stage: "action_schema",
+          tool: null,
+          category: "action_unknown_field",
+          disposition: "stopped",
+        },
       ],
     });
     expect(row("tool_budget")).toMatchObject({
