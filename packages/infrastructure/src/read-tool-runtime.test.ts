@@ -166,15 +166,17 @@ it("rejects malformed actions and business parameter injection before running a 
   for (const action of [
     { ...call, status: "completed" },
     { ...call, input: { query: "商品", approval: true } },
+    { ...call, input: {} },
+    { ...call, input: { query: 100 } },
     { ...call, input: { query: "" } },
     { kind: "complete", summary: "" },
     { kind: "clarification", question: "", runId: randomUUID() },
   ]) {
+    const json = vi.fn().mockResolvedValue(action);
     await expect(
-      new ReadToolRuntime({ json: vi.fn().mockResolvedValue(action) }, [makeTool(execute)]).run(
-        "查询",
-      ),
+      new ReadToolRuntime({ json }, [makeTool(execute)]).run("查询"),
     ).rejects.toMatchObject({ code: "MODEL_INVALID_OUTPUT" });
+    expect(json).toHaveBeenCalledTimes(1);
   }
   expect(execute).not.toHaveBeenCalled();
 });

@@ -357,3 +357,13 @@ C04正式入口收口：202单元、9真实Electron含build、6工程、36Wiki�
 
 
 真实报告核对收口：公开schema/固定48计划/模式计数、正式原生JSON/Markdown实际文件字节比较、生成/check/lint、44dcbce/be53b98同步与diff全部退出0，见raw/c04-user-deepseek-validation.json。83份旧raw及log完整前缀保持，应用源码不变；没有新增模型请求、凭据/数据库/原始内容采集。任务done仅指核对完成，report.failed和6失败/8依赖跳过原样保留；旧fixture/CLI未运行报告未改。后续诊断/修复与非作者评审独立，本地提交不推送。
+
+
+## 2026-10-22 C04六项失败本地收敛
+
+用户授权从b231181新建独立codex/c04-failure-convergence及独立worktree，先六类合成重建回归跑红，再对draft同run/attempt加共享一次受限纠正。原真实参数未留存，不称精确重放或真实根因。缺字段/类型错误仍按strict schema由模型重交；未知单价保留null/pending，核价后提前complete引导继续规则/写工具，实际block后的complete归因RULE_BLOCKED，真正澄清仍waiting_input。无DTO/迁移/权限/凭据变更，不接触用户旧桌面工作库、不推送、不自动真实复测。原48点期望、caseSetHash及真实104请求/6失败/8跳过报告不改。
+
+六项定向有效红与绿、八项停止条件通过；初轮全量207通过/1失败发现block归因误伤澄清，限定complete后保持旧测试期望。稳定源码216单元、9真实Electron含build及fixture48/186替身/真实0通过。新增[[C04失败收敛与本地回归]]、[[C04-失败收敛]]、[[0024-同次草稿运行内受限纠正]]及对应知识/状态/覆盖；初始失败和最终本机结果分开记录，剩余工程/Wiki门禁在收口追加，不以本地绿冒充真实供应商通过。
+
+
+本地收敛收口：216单元、9真实Electron含build、48点fixture（186替身/真实0）、6工程、36Wiki、类型、生成/只读check/lint及固定b231181/be53b98同步和diff全部退出0，见raw/c04-convergence-validation.json。新增fixture Markdown首次漏导航导致lint/一项Wiki回归失败已补真实入链，原失败保留initial证据。86份旧raw、57373字节旧log前缀、正式评估样本/期望/schema及锁文件字节保持，真实报告SHA不变。本地任务done仅指重建回归与最小修复，原真实六项及八项依赖仍待显式复测；不自动收费复测、不推送，Windows/安装/非作者复核后置。

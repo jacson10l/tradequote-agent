@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "310580d35927589c2c33c48ded4bf0b77b84cf141902cd701ab1738e5056dd0e",
+    "wiki-config.json": "a0d3adc1c191019e98b1129dd62920e723a3523fd7fd750da28d360c51f51800",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -1753,6 +1753,18 @@
       ]
     },
     {
+      "path": "packages/infrastructure/src/evaluation/failure-regressions.test.ts",
+      "type": "ts",
+      "lines": 328,
+      "bytes": 13047,
+      "sha256": "3878a6e0edba8e876d8f2dd5c8320b1d3a0b4fdfe1477fefe154fb67281f5842",
+      "role": "C04六项失败类合成重建回归及受限纠正停止条件，非真实响应重放",
+      "pages": [
+        "wiki/C04失败收敛与本地回归.md",
+        "wiki/C04模型评估与脱敏报告.md"
+      ]
+    },
+    {
       "path": "packages/infrastructure/src/evaluation/fixture-model.ts",
       "type": "ts",
       "lines": 136,
@@ -1918,38 +1930,41 @@
     {
       "path": "packages/infrastructure/src/quote-tool-agent.ts",
       "type": "ts",
-      "lines": 364,
-      "bytes": 15040,
-      "sha256": "4b309684ee2785418065e77d9a36172f774523167d254240fbc23bced70ad844",
+      "lines": 385,
+      "bytes": 16263,
+      "sha256": "4e5ebb8c36905961474bc186ae26411eb4cd28e39e68262d46e6e92f07c70db7",
       "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
       "pages": [
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C04失败收敛与本地回归.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/read-tool-runtime.test.ts",
       "type": "ts",
-      "lines": 314,
-      "bytes": 12321,
-      "sha256": "33823486e55e3262a44af81a3ab98b703a3635fd6851d975300f117b84c3ba3c",
+      "lines": 316,
+      "bytes": 12432,
+      "sha256": "65af2ad4ea3c72fe69345f3f4c1da5b38e703147f00152f0b16765de65c5b4ef",
       "role": "C02a受限只读工具循环、预算取消与真实业务计算回归",
       "pages": [
         "wiki/双参考项目功能对照与C开发路线.md",
         "wiki/M4模型与报价修订.md",
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C04失败收敛与本地回归.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/read-tool-runtime.ts",
       "type": "ts",
-      "lines": 230,
-      "bytes": 10269,
-      "sha256": "e3cd38ce0079707ece8a859d86a2569e28181d7db1696b813c3e48f880ce2608",
+      "lines": 287,
+      "bytes": 12097,
+      "sha256": "0254bbcb2c14a39efbe473e2767a39ea9a286ea190dc33cf3e4165231ed92e84",
       "role": "C02a受限只读工具循环、预算取消与真实业务计算回归",
       "pages": [
         "wiki/双参考项目功能对照与C开发路线.md",
         "wiki/M4模型与报价修订.md",
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C04失败收敛与本地回归.md"
       ]
     },
     {

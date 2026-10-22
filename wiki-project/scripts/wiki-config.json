@@ -1067,7 +1067,8 @@
       "pages": [
         "wiki/双参考项目功能对照与C开发路线.md",
         "wiki/M4模型与报价修订.md",
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C04失败收敛与本地回归.md"
       ]
     },
     "packages/infrastructure/src/read-tool-runtime.test.ts": {
@@ -1075,7 +1076,8 @@
       "pages": [
         "wiki/双参考项目功能对照与C开发路线.md",
         "wiki/M4模型与报价修订.md",
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C04失败收敛与本地回归.md"
       ]
     },
     "tests/fixtures/knowledge/knowledge-drafts.a01a.json": {
@@ -1329,7 +1331,8 @@
     "packages/infrastructure/src/quote-tool-agent.ts": {
       "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
       "pages": [
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C04失败收敛与本地回归.md"
       ]
     },
     "tests/e2e/multistep-agent.spec.ts": {
@@ -1438,6 +1441,13 @@
       "role": "C04正式评估入口、公开契约与生命周期验证",
       "pages": [
         "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    "packages/infrastructure/src/evaluation/failure-regressions.test.ts": {
+      "role": "C04六项失败类合成重建回归及受限纠正停止条件，非真实响应重放",
+      "pages": [
+        "wiki/C04失败收敛与本地回归.md",
+        "wiki/C04模型评估与脱敏报告.md"
       ]
     }
   }

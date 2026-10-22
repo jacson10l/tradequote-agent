@@ -22,6 +22,12 @@ export interface BusinessTool {
   invoke(input: unknown, signal: AbortSignal): Promise<unknown>;
 }
 
+class ToolInputFault extends TradeFault {
+  constructor(readonly repairable: boolean) {
+    super("MODEL_INVALID_OUTPUT", "工具参数未通过业务校验");
+  }
+}
+
 // Schemas come from the actual business adapter; no second public business DTO.
 export function defineBusinessTool<I extends z.ZodType, O extends z.ZodType>(
   definition: {
@@ -40,7 +46,12 @@ export function defineBusinessTool<I extends z.ZodType, O extends z.ZodType>(
     inputSchema,
     async invoke(input, signal) {
       const parsed = inputSchema.safeParse(input);
-      if (!parsed.success) throw new TradeFault("MODEL_INVALID_OUTPUT", "工具参数未通过业务校验");
+      if (!parsed.success)
+        throw new ToolInputFault(
+          parsed.error.issues.every(
+            (issue) => issue.code === "invalid_type" && issue.path.length > 0,
+          ),
+        );
       let output: unknown;
       try {
         output = await execute(parsed.data, signal);
@@ -96,6 +107,7 @@ export class ToolLoopRuntime {
     limits: z.input<typeof limitsSchema> = {},
     private readonly hostContext?: unknown,
     private readonly policy: "read" | "draft" = "read",
+    private readonly draftFeedback?: (kind: "complete" | "clarification") => string | undefined,
   ) {
     this.limits = limitsSchema.parse(limits);
     for (const tool of tools) {
@@ -167,12 +179,29 @@ ${policy === "draft" ? "仅有当前run草稿写权限，没有发布、审批�
     if (this.hostContext !== undefined)
       messages.push({ role: "user", content: serialize({ hostContext: this.hostContext }) });
     let toolCalls = 0;
+    let modelCalls = 0;
+    let corrections = 0;
+    const feedback = (code: string, guidance: string, action: string) => {
+      if (this.policy !== "draft" || corrections >= 1) return false;
+      const additional: ModelMessage[] = [
+        { role: "assistant", content: action },
+        { role: "user", content: serialize({ hostFeedback: { code, guidance } }) },
+      ];
+      serialize([...messages, ...additional]);
+      messages.push(...additional);
+      corrections++;
+      return true;
+    };
     for (;;) {
-      if (this.policy === "draft" && toolCalls >= this.limits.maxToolCalls)
+      if (
+        this.policy === "draft" &&
+        (toolCalls >= this.limits.maxToolCalls || modelCalls >= this.limits.maxToolCalls)
+      )
         throw new TradeFault("ACTION_NOT_ALLOWED", "已达到工具调用预算，未保存草稿");
       serialize(messages);
       let output: unknown;
       try {
+        modelCalls++;
         output = await bounded(() => this.provider.json(messages, signal));
       } catch (error) {
         if (error instanceof TradeFault) throw error;
@@ -181,6 +210,18 @@ ${policy === "draft" ? "仅有当前run草稿写权限，没有发布、审批�
       const parsed = actionSchema.safeParse(output);
       if (!parsed.success) throw new TradeFault("MODEL_INVALID_OUTPUT", "模型动作格式不合法");
       const action = parsed.data;
+      if (this.policy === "draft" && action.kind !== "tool") {
+        const guidance = this.draftFeedback?.(action.kind);
+        if (
+          guidance &&
+          feedback(
+            action.kind === "complete" ? "ACTION_NOT_ALLOWED" : "MISSING_FACTS",
+            guidance,
+            serialize(action),
+          )
+        )
+          continue;
+      }
       if (action.kind === "complete")
         return { outcome: "completed", summary: action.summary, toolCalls };
       if (action.kind === "clarification")
@@ -192,7 +233,23 @@ ${policy === "draft" ? "仅有当前run草稿写权限，没有发布、审批�
       const serializedAction = serialize(action);
       // Include the proposed action in the context budget before executing any handler.
       serialize([...messages, { role: "assistant", content: serializedAction }]);
-      const result = await bounded(() => tool.invoke(action.input, signal));
+      let result: unknown;
+      try {
+        result = await bounded(() => tool.invoke(action.input, signal));
+      } catch (error) {
+        toolCalls++;
+        if (
+          error instanceof ToolInputFault &&
+          error.repairable &&
+          feedback(
+            error.code,
+            "参数缺失或类型不符，未执行该业务操作。请严格按该工具inputSchema补全字段；数量/金额保持decimal字符串，不增加价格/审批等未声明字段。",
+            serializedAction,
+          )
+        )
+          continue;
+        throw error;
+      }
       toolCalls++;
       if (
         this.policy === "draft" &&
