@@ -151,6 +151,7 @@ export class QuoteToolAgent {
             id,
           );
           candidate = { id, proposal, calculated };
+          knowledge = undefined;
           validation = undefined;
           return ok(
             {
@@ -383,6 +384,31 @@ export class QuoteToolAgent {
         return undefined;
       },
       this.observeFailure,
+      () =>
+        observed
+          .filter((tool) => {
+            switch (tool.name) {
+              case "search_catalog":
+              case "get_product_revisions":
+                return true;
+              case "get_quote":
+                return command.method === "agent.revise";
+              case "calculate_quote":
+                return command.method === "agent.revise" ? sawBase : seenProducts.size > 0;
+              case "search_knowledge":
+                return candidate !== undefined;
+              case "validate_quote":
+                return candidate !== undefined && knowledge !== undefined;
+              case "create_draft":
+              case "apply_patch":
+                return (
+                  candidate !== undefined &&
+                  validation !== undefined &&
+                  !validation.report.issues.some((issue) => issue.severity === "block")
+                );
+            }
+          })
+          .map((tool) => tool.name),
     ).run(
       this.command.method === "agent.understand"
         ? this.command.payload.inquiry

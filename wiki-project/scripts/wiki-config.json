@@ -934,7 +934,8 @@
       "role": "官方DeepSeek JSON网络适配和失败边界",
       "pages": [
         "wiki/M4模型与报价修订.md",
-        "wiki/C运行恢复实现.md"
+        "wiki/C运行恢复实现.md",
+        "wiki/C04剩余失败证据与收敛.md"
       ]
     },
     "packages/infrastructure/src/model-settings.ts": {
@@ -1069,7 +1070,8 @@
         "wiki/M4模型与报价修订.md",
         "wiki/C02c多步报价工具闭环.md",
         "wiki/C04失败收敛与本地回归.md",
-        "wiki/C04失败阶段诊断与二轮收敛.md"
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04剩余失败证据与收敛.md"
       ]
     },
     "packages/infrastructure/src/read-tool-runtime.test.ts": {
@@ -1327,7 +1329,8 @@
     "packages/infrastructure/src/quote-tool-agent.test.ts": {
       "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
       "pages": [
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C04剩余失败证据与收敛.md"
       ]
     },
     "packages/infrastructure/src/quote-tool-agent.ts": {
@@ -1335,7 +1338,8 @@
       "pages": [
         "wiki/C02c多步报价工具闭环.md",
         "wiki/C04失败收敛与本地回归.md",
-        "wiki/C04失败阶段诊断与二轮收敛.md"
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04剩余失败证据与收敛.md"
       ]
     },
     "tests/e2e/multistep-agent.spec.ts": {
@@ -1384,7 +1388,8 @@
       "pages": [
         "wiki/C04模型评估与脱敏报告.md",
         "wiki/C04正式设置评估入口.md",
-        "wiki/C04失败阶段诊断与二轮收敛.md"
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04剩余失败证据与收敛.md"
       ]
     },
     "packages/infrastructure/src/evaluation/workspace.ts": {
@@ -1429,7 +1434,8 @@
       "role": "C04正式评估入口、公开契约与生命周期验证",
       "pages": [
         "wiki/C04正式设置评估入口.md",
-        "wiki/C04失败阶段诊断与二轮收敛.md"
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04剩余失败证据与收敛.md"
       ]
     },
     "packages/infrastructure/src/evaluation/public.ts": {
@@ -1448,7 +1454,8 @@
       "role": "C04正式评估入口、公开契约与生命周期验证",
       "pages": [
         "wiki/C04正式设置评估入口.md",
-        "wiki/C04失败阶段诊断与二轮收敛.md"
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04剩余失败证据与收敛.md"
       ]
     },
     "packages/infrastructure/src/evaluation/failure-regressions.test.ts": {
@@ -1469,6 +1476,13 @@
       "role": "C04枚举诊断隐私与兼容、八失败合成重建和停止边界回归",
       "pages": [
         "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04模型评估与脱敏报告.md"
+      ]
+    },
+    "packages/infrastructure/src/evaluation/remaining-regressions.test.ts": {
+      "role": "C04三项剩余失败边界的合成重建、Provider首错清理和共享一次纠正回归",
+      "pages": [
+        "wiki/C04剩余失败证据与收敛.md",
         "wiki/C04模型评估与脱敏报告.md"
       ]
     }

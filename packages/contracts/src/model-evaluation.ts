@@ -4,6 +4,18 @@ import { ErrorCodeSchema } from "./errors";
 import { readEnvelope, resultSchema, writeEnvelope } from "./protocol";
 import { AgentToolNameSchema } from "./runs";
 
+export const providerOutputCategories = [
+  "empty_response",
+  "response_oversized",
+  "response_encoding",
+  "response_json",
+  "response_envelope",
+  "response_truncated",
+  "empty_content",
+  "content_json",
+] as const;
+export type ProviderOutputCategory = (typeof providerOutputCategories)[number];
+
 // Host-produced enums only. Never accept field paths, input values or model/error text.
 export const FailureDiagnosticSchema = z.strictObject({
   stage: z.enum([
@@ -16,10 +28,14 @@ export const FailureDiagnosticSchema = z.strictObject({
     "clarification",
     "budget",
     "context",
+    "evaluation_check",
   ]),
   tool: AgentToolNameSchema.nullable(),
   category: z.enum([
     "provider_failure",
+    ...providerOutputCategories,
+    "payment_mismatch",
+    "delivery_mismatch",
     "invalid_action",
     "unknown_tool",
     "missing_field",

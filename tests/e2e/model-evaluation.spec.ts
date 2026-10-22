@@ -162,6 +162,16 @@ test("formal model settings explicitly start isolated evaluations, cancel, prese
         { stage: "tool_lookup", tool: null, category: "unknown_tool", disposition: "stopped" },
       ],
     });
+    expect(
+      JSON.parse(downloaded).rows.find((r: { id: string }) => r.id === "failure-invalid_json"),
+    ).toMatchObject({
+      diagnostics: [
+        { stage: "provider", tool: null, category: "response_json", disposition: "stopped" },
+      ],
+    });
+    await expect(panel.getByRole("table", { name: "模型评估检查明细" })).toContainText(
+      "response_json",
+    );
     expect(downloaded).not.toContain("synthetic-desktop-eval-key");
     const trade = await page.evaluate(() => window.tradequote.getTrade());
     expect(trade.ok && trade.data.quotes).toEqual([]);

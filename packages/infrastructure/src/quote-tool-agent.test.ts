@@ -624,3 +624,47 @@ it("uses rule feedback to correct a candidate within the same bounded loop and s
   expect(json).toHaveBeenCalledTimes(9);
   await coordinator.close();
 });
+
+it("stage menus hide stale validation and write tools after a new calculation until knowledge is refreshed", async () => {
+  const f = runFixture(cleanups);
+  published(f);
+  let recalculated = false;
+  const json = vi.fn(async (messages: ModelMessage[]) => {
+    const last = observations(messages).at(-1);
+    const menu: { name: string }[] = JSON.parse(messages[0]!.content.split("工具清单：")[1]!);
+    const names = menu.map((v) => v.name);
+    if (!last) expect(names).not.toContain("calculate_quote");
+    if (last?.name === "calculate_quote") {
+      expect(names).toContain("search_knowledge");
+      expect(names).not.toContain("validate_quote");
+      expect(names).not.toContain("create_draft");
+    }
+    if (last?.name === "search_knowledge") {
+      expect(names).toContain("validate_quote");
+      expect(names).not.toContain("create_draft");
+    }
+    if (last?.name === "validate_quote" && !recalculated) {
+      expect(names).toContain("create_draft");
+      recalculated = true;
+      return {
+        kind: "tool",
+        name: "calculate_quote",
+        input: { proposal: { ...f.proposal, payment: "T/T", delivery: "30天" } },
+      };
+    }
+    return script(f)(messages);
+  });
+  const coordinator = new AgentRunCoordinator(f.repo, () => ({ json }));
+  try {
+    const input = start(f);
+    expect(
+      await coordinator.executeLegacy({ ...input, ...input.payload }, credentials),
+    ).toMatchObject({ ok: true });
+    const steps = f.store.list().runs[0]?.toolSteps!;
+    expect(steps.filter((v) => v.tool === "search_knowledge")).toHaveLength(2);
+    expect(steps.filter((v) => v.tool === "create_draft")).toHaveLength(1);
+    expect(json).toHaveBeenCalledTimes(9);
+  } finally {
+    await coordinator.close();
+  }
+});

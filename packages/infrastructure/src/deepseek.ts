@@ -1,6 +1,29 @@
-import type { ModelCredentials } from "@tradequote/contracts";
+import type { ModelCredentials, ProviderOutputCategory } from "@tradequote/contracts";
 import { TradeFault } from "@tradequote/domain";
+import { z } from "zod";
+
+const responseEnvelope = z.object({
+  choices: z
+    .array(
+      z.object({
+        finish_reason: z.unknown().optional(),
+        message: z
+          .object({
+            content: z.unknown().optional(),
+            tool_calls: z.array(z.unknown()).nullable().optional(),
+          })
+          .optional(),
+      }),
+    )
+    .min(1),
+});
 export type ModelMessage = { role: "system" | "user" | "assistant"; content: string };
+// Internal typed cause only; no response bytes, parser text or credentials are retained.
+export class ModelOutputFault extends TradeFault {
+  constructor(readonly category: ProviderOutputCategory) {
+    super("MODEL_INVALID_OUTPUT", "模型输出未通过格式校验，未保存报价");
+  }
+}
 export class DeepSeekProvider {
   constructor(
     private readonly credentials: ModelCredentials,
@@ -31,7 +54,7 @@ export class DeepSeekProvider {
         }),
       });
       if (!response.ok) {
-        await response.body?.cancel();
+        await response.body?.cancel().catch(() => {});
         if (response.status === 401 || response.status === 403)
           throw new TradeFault("MODEL_AUTH_FAILED", "模型鉴权失败，请检查 API Key");
         if (response.status === 429)
@@ -39,7 +62,7 @@ export class DeepSeekProvider {
         throw new TradeFault("CAPABILITY_UNAVAILABLE", "模型服务暂不可用，请稍后重试");
       }
       const reader = response.body?.getReader();
-      if (!reader) throw new TradeFault("MODEL_INVALID_OUTPUT", "模型响应为空");
+      if (!reader) throw new ModelOutputFault("empty_response");
       const chunks: Uint8Array[] = [];
       let size = 0;
       try {
@@ -47,11 +70,12 @@ export class DeepSeekProvider {
           const part = await reader.read();
           if (part.done) break;
           size += part.value.byteLength;
-          if (size > 131072) throw new TradeFault("MODEL_INVALID_OUTPUT", "模型响应超过大小限制");
+          if (size > 131072) throw new ModelOutputFault("response_oversized");
           chunks.push(part.value);
         }
       } finally {
-        await reader.cancel();
+        // Cleanup is best effort and must never replace the first protocol/HTTP fault.
+        await reader.cancel().catch(() => {});
       }
       const bytes = new Uint8Array(size);
       let offset = 0;
@@ -59,15 +83,35 @@ export class DeepSeekProvider {
         bytes.set(chunk, offset);
         offset += chunk.byteLength;
       }
-      const body = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(bytes));
-      const choice = body?.choices?.[0];
+      let text: string;
+      try {
+        text = new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+      } catch {
+        throw new ModelOutputFault("response_encoding");
+      }
+      let body: unknown;
+      try {
+        body = JSON.parse(text);
+      } catch {
+        throw new ModelOutputFault("response_json");
+      }
+      // Access only the supported envelope fields, without preserving arbitrary upstream data.
+      const envelope = responseEnvelope.safeParse(body);
+      if (!envelope.success) throw new ModelOutputFault("response_envelope");
+      const choice = envelope.data.choices[0];
+      if (choice?.finish_reason === "length") throw new ModelOutputFault("response_truncated");
       if (
         choice?.finish_reason !== "stop" ||
         typeof choice?.message?.content !== "string" ||
         choice.message.tool_calls?.length
       )
-        throw new TradeFault("MODEL_INVALID_OUTPUT", "模型输出不完整或格式不支持，未保存报价");
-      return JSON.parse(choice.message.content);
+        throw new ModelOutputFault("response_envelope");
+      if (!choice.message.content.trim()) throw new ModelOutputFault("empty_content");
+      try {
+        return JSON.parse(choice.message.content);
+      } catch {
+        throw new ModelOutputFault("content_json");
+      }
     } catch (error) {
       if (cancellation?.aborted && signal.reason === cancellation.reason)
         throw new TradeFault("CANCELLED", "模型请求已取消，未提交新版本");

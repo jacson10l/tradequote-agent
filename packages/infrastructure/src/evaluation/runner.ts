@@ -244,6 +244,26 @@ export async function evaluateC04(options: {
               ([id, raw]) => JSON.stringify(current.quotes.find((q) => q.id === id)) === raw,
             ),
           });
+          // Report only the field classification, never expected/actual buyer text.
+          if (quote) {
+            for (const [category, mismatch] of [
+              ["payment_mismatch", quote.payment !== (version === 3 ? t.nextPayment : t.payment)],
+              [
+                "delivery_mismatch",
+                quote.delivery !== (version === 3 ? t.nextDelivery : t.delivery),
+              ],
+            ] as const) {
+              if (mismatch)
+                recordDiagnostic(activeRow, {
+                  stage: "evaluation_check",
+                  tool: null,
+                  category,
+                  disposition: "stopped",
+                  modelCall: activeRow.modelCalls,
+                  errorCode: "VALIDATION_ERROR",
+                });
+            }
+          }
           activeRow.status = activeRow.checks.every((c) => c.passed) ? "passed" : "failed";
           if (options.cancellation?.aborted) {
             activeRow.status = "cancelled";
