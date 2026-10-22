@@ -144,3 +144,142 @@ export const mockAgentRun = {
   committedRevisionId: null,
   error: null,
 } satisfies AgentRun;
+
+/** Synthetic Wiki proposal only. Authority, hashes and saved revisions are supplied by the host. */
+export const mockWikiStageInput = {
+  documentId: "00000000-0000-4000-8000-000000000040",
+  expectedVersion: 0,
+  parentRevisionId: null,
+  content: {
+    kind: "sop",
+    title: "合成 SOP",
+    locale: "pt-BR",
+    scope: { platforms: [], markets: [], categories: [] },
+    markdown: "# 合成流程\n核对资料。",
+    validity: { status: "confirmed", validFrom: null, validUntil: null },
+    sections: [
+      {
+        sectionId: "00000000-0000-4000-8000-000000000041",
+        title: "核对",
+        location: { kind: "text", start: 0, end: 12 },
+        sourceReferenceIds: ["00000000-0000-4000-8000-000000000042"],
+      },
+    ],
+    sourceRefs: [
+      {
+        referenceId: "00000000-0000-4000-8000-000000000042",
+        sourceId: "00000000-0000-4000-8000-000000000043",
+        sourceRevisionId: "00000000-0000-4000-8000-000000000044",
+        sourceVersion: 1,
+        artifactHash: mockKnowledgeRevision.sourceHash,
+        location: { kind: "text", start: 0, end: 13 },
+        excerptHash: mockKnowledgeRevision.sourceHash,
+        assertion: "human_note",
+      },
+    ],
+    relations: [],
+    rules: [],
+  },
+} satisfies import("./knowledge-wiki").WikiCommand["payload"];
+
+export const mockWikiCommands: import("./knowledge-wiki").WikiCommand[] = (() => {
+  const read = { schemaVersion: 1 as const, requestId: mockWorkspace.id };
+  const write = { ...read, idempotencyKey: mockWikiStageInput.documentId };
+  const binding = {
+    revisionId: mockWikiStageInput.documentId,
+    contentHash: mockKnowledgeRevision.sourceHash,
+    sourceSetHash: mockKnowledgeRevision.sourceHash,
+  };
+  const citation = {
+    ...binding,
+    documentId: mockWikiStageInput.documentId,
+    version: 1,
+    sectionId: mockWikiStageInput.content.sections[0]!.sectionId,
+    sourceRefs: mockWikiStageInput.content.sourceRefs,
+  };
+  const consumer = {
+    kind: "quote" as const,
+    entityId: mockWorkspace.id,
+    revisionId: mockWorkspace.id,
+    contentHash: binding.contentHash,
+  };
+  return [
+    {
+      ...write,
+      method: "source.stage",
+      payload: {
+        sourceId: mockWorkspace.id,
+        expectedVersion: 0,
+        label: "合成原文",
+        sourceStatus: "synthetic",
+        mediaType: "text/plain",
+        sourceText: mockKnowledgeRevision.content.sourceText,
+        acquiredAt: mockWorkspace.createdAt,
+        sourceUri: null,
+        permissionNote: "仅供测试",
+        validity: mockWikiStageInput.content.validity,
+      },
+    },
+    { ...read, method: "source.getRevision", payload: { sourceRevisionId: mockWorkspace.id } },
+    { ...write, method: "wiki.stage", payload: mockWikiStageInput },
+    { ...read, method: "wiki.getRevision", payload: { revisionId: binding.revisionId } },
+    {
+      ...read,
+      method: "wiki.listRevisions",
+      payload: { documentId: mockWikiStageInput.documentId, beforeVersion: null, limit: 20 },
+    },
+    {
+      ...write,
+      method: "wiki.review",
+      payload: {
+        ...binding,
+        expectedLifecycleVersion: 1,
+        decision: "approve",
+        note: "合成审核请求，未执行",
+        lintReceiptId: mockWorkspace.id,
+      },
+    },
+    {
+      ...write,
+      method: "wiki.publish",
+      payload: { ...binding, reviewId: mockWorkspace.id, expectedLifecycleVersion: 2 },
+    },
+    {
+      ...write,
+      method: "wiki.withdraw",
+      payload: {
+        revisionId: binding.revisionId,
+        expectedLifecycleVersion: 3,
+        note: "合成撤回请求，未执行",
+      },
+    },
+    {
+      ...read,
+      method: "wiki.search",
+      payload: {
+        keywords: ["流程"],
+        scope: { platform: "RFQ", market: "Brazil", category: "板材" },
+        locale: "pt-BR",
+        kinds: [],
+        limit: 20,
+        cursor: null,
+      },
+    },
+    {
+      ...read,
+      method: "wiki.resolveCitation",
+      payload: {
+        citation,
+        purpose: "history",
+        scope: { platform: "RFQ", market: "Brazil", category: "板材" },
+        locale: "pt-BR",
+      },
+    },
+    { ...write, method: "wiki.registerConsumption", payload: { consumer, citations: [citation] } },
+    {
+      ...read,
+      method: "wiki.getConsumption",
+      payload: { kind: "quote", revisionId: consumer.revisionId },
+    },
+  ];
+})();
