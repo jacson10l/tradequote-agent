@@ -341,3 +341,11 @@ C04正式入口收口：202单元、9真实Electron含build、6工程、36Wiki�
 
 
 模型下拉收口：202单元、9真实Electron含build、6工程、36Wiki、类型、生成/只读check/lint与0ff63cd/be53b98同步均退出0，证据raw/c04-model-select-validation.json。空选择保存门禁、Flash/Pro选择、旧ID/已有Key保留、选择未保存不落盘/不派发通过；已查看合成截图并仅刷新用户分支renderer，配置状态保持，没有由Agent启动真实请求。81份旧raw与log完整前缀不变；哈希采集脚本中文路径转义修正已记录，不放宽应用门禁。任务done限定模型下拉切片，动态发现、真实供应商/Windows/安装及非作者复核未冒领；本地提交，不推送。
+
+
+## 2026-10-22 C04用户真实运行与报告核对
+
+沿用codex/c04-desktop-evaluation，从df74abe只读核对。用户先称已启动真实验证，随后明确澄清只点击“测试已保存的连接”。当前分支窗口刷新后无评估记录，15:27:32只读核验0条/0损坏/无report；连接探针通过不能作31点真实业务通过。当前模式/计费准备由用户操作，不由Agent点start/retry/cancel或改凭据。新增[[C04真实验证状态核对]]、[[C04-真实验证状态与报告核对]]与raw/c04-user-run-observation.json；任务active，真实结果/脱敏报告审核仍待，不生成假report或套用旧fixture。文档门禁收口追加，不推送。
+
+
+只读核对收口：15:29:45与15:30:55再读仍0条运行/无report；连接测试不能替代真实评估/脱敏审核，任务保持active。机械生成/check/lint、df74abe与be53b98同步通过；新任务语义关联不足的初始lint失败保留后修正。82份旧raw/完整log前缀保持，无应用源码改动，未重复单元/Electron/build或发送供应商请求。本地仅提交核对记录与Wiki，继续独立分支不推送。

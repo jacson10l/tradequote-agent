@@ -1,0 +1,109 @@
+{
+  "status": "observed",
+  "recordedAt": "2026-10-22T15:29:29.893343+08:00",
+  "taskBase": "df74abe4d6304925e1c4ab5cf85178e6e026f50f",
+  "branch": "codex/c04-desktop-evaluation",
+  "scope": "Read-only review of user-initiated C04 evaluation status; user clarified only the saved connection test had been clicked. No evaluation start/retry/cancel or credential write was performed.",
+  "userClarification": "Only clicked test saved connection, not the full C04 evaluation start.",
+  "observations": [
+    {
+      "observedAt": "2026-10-22T07:27:32.246Z",
+      "recordCount": 0,
+      "invalidRecords": 0,
+      "history": [],
+      "latest": null,
+      "reportSummary": null
+    },
+    {
+      "observedAt": "2026-10-22T07:29:45.647Z",
+      "recordCount": 0,
+      "invalidRecords": 0,
+      "history": [],
+      "latest": null,
+      "reportSummary": null
+    },
+    {
+      "observedAt": "2026-10-22T07:30:55.353Z",
+      "recordCount": 0,
+      "invalidRecords": 0,
+      "history": [],
+      "latest": null,
+      "reportSummary": null
+    }
+  ],
+  "uiObservation": {
+    "connectionProbe": "UI shows connection and JSON test passed, configured credentials. No key value read or copied.",
+    "evaluationHistory": "After explicit read-only refresh: no evaluation records.",
+    "lastVisibleMode": "deepseek selected; paid checkbox checked by user. Start button visible; no run appeared at snapshot time.",
+    "desktopSource": "Current C04 branch renderer verified by application URL; no unrelated app window or test fixture was used."
+  },
+  "reportAudit": {
+    "reportAvailable": false,
+    "realSemanticValidation": "not_run",
+    "reason": "No persisted evaluation run/report exists in the currently running branch profile. No synthetic report was substituted.",
+    "fixtureEvidence": "Historical fixture results stay fixture_only and realRequests=0; not transferred into a real run.",
+    "redaction": "No report can yet be reviewed. No credential file, database or raw provider output was read/copied. Only status/metadata observations are recorded."
+  },
+  "checks": [
+    {
+      "command": "pnpm wiki:generate",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T15:29:34.097027+08:00",
+      "output": "\n> tradequote-agent@0.1.0 wiki:generate /Users/jason/.codex/worktrees/c04-desktop-evaluation/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs .\n\n{\n  \"mode\": \"generate\",\n  \"files\": 205,\n  \"lines\": 51636,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n"
+    },
+    {
+      "command": "pnpm wiki:check",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T15:30:45.902021+08:00",
+      "output": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c04-desktop-evaluation/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 205,\n  \"lines\": 51636,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 122,\n  \"semantic\": 106,\n  \"reachable\": 122\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base df74abe",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T15:30:07.539494+08:00",
+      "output": "{\n  \"base\": \"df74abe4d6304925e1c4ab5cf85178e6e026f50f\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T15:30:09.665619+08:00",
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 76,\n  \"knowledgePages\": 49,\n  \"tasks\": 14,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "pnpm wiki:check",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T15:31:52.581778+08:00",
+      "output": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c04-desktop-evaluation/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 205,\n  \"lines\": 51636,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 122,\n  \"semantic\": 106,\n  \"reachable\": 122\n}\n"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T15:31:52.797483+08:00",
+      "output": ""
+    }
+  ],
+  "remaining": [
+    "User explicitly starts the full evaluation via the paid start button.",
+    "Read actual mode/transport, completion, counts/failed and skipped rows, strict JSON report and Markdown projection once available.",
+    "Real semantic verdict and report redaction cannot be marked passed without an actual report."
+  ],
+  "initialChecks": [
+    {
+      "command": "pnpm wiki:check",
+      "exitCode": 1,
+      "recordedAt": "2026-10-22T15:30:09.946408+08:00",
+      "output": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c04-desktop-evaluation/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 205,\n  \"lines\": 51636,\n  \"generated\": 5,\n  \"excluded\": 23\n}\nwiki-project/wiki/tasks/C04-真实验证状态与报告核对.md: NEEDS_TWO_RELATED_SEMANTIC_PAGES\n ELIFECYCLE  Command failed with exit code 1.\n"
+    }
+  ],
+  "documentationCorrection": "Wiki linter required two related semantic links in the new task. Added actual interface and model-setting references; no application or runtime change.",
+  "historyPreservation": {
+    "nonGeneratedRawFiles": 82,
+    "allByteEqual": true,
+    "oldLogExactPrefixPreserved": true,
+    "applicationSourceUnchanged": true
+  },
+  "notRunChecks": [
+    "typecheck/unit/Electron/build not repeated: documentation and read-only observations only; application source unchanged.",
+    "No new fixture or actual provider evaluation was initiated."
+  ]
+}
