@@ -389,3 +389,11 @@ C04正式入口收口：202单元、9真实Electron含build、6工程、36Wiki�
 
 
 阶段证据与八项本地收口：类型、230单元、9Electron含build、fixture48/186替身/真实0、6工程、36Wiki、机械生成/只读check/lint、固定3a476a3/be53b98同步及diff全部退出0，见raw/c04-diagnostics-validation.json。旧94份raw、61431字节log前缀、两轮真实报告JSON/Markdown字节和原样本/计划/预期码/核心agent-run DTO/锁文件保持；新诊断仅未来观测，不反填旧真实。新任务done仅指本地实现/验证完成，真实8失败/11跳过仍未收敛，Windows/安装/B等非作者复核仍待。代码与Wiki本地提交，不推送，不自动真实复测，不触及用户旧桌面或凭据。
+
+
+## 2026-10-22 C04阶段证据版桌面与真实复测核对
+
+从885c474沿用独立codex/c04-failure-diagnostics，旧1e9c134无在途评估正常Quit后17:27:01启动当前实际Main。窗口URL/进程路径/Main hash核对，Flash系统加密配置/两旧历史保留，不读Key或业务库。17:27:39及17:28:42只读仍两旧run、0新run/损坏，重开未自动评估。新增[[C04阶段证据真实复测]]和[[C04-阶段证据真实复测核对]]及启动最小观察；等待用户显式开始后核对8失败/11依赖及阶段/工具/分类证据，当前任务active、不生成假报告、不自动重试/推送。
+
+
+启动阶段门禁：机械生成、只读check/lint、885c474/be53b98同步及diff全部退出0，证据raw/c04-diagnostic-retest-prestart-validation.json；99份旧raw与63377字节旧log完整前缀保持，应用源码未变，不重复旧单元/Electron/build。该记录realEvaluationStatus=not_run，任务仍active等待用户显式开始，尚未有新真实报告/诊断，不宣称8失败或11跳过收敛。
