@@ -333,3 +333,11 @@ C04收口：48点fixture通过（186次替身请求/真实0），193单元、8�
 
 
 C04正式入口收口：202单元、9真实Electron含build、6工程、36Wiki回归、类型、生成/只读check/lint与febd14d/be53b98双基线sync和diff均退出0，见raw/c04-desktop-validation.json。48点fixture186替身请求/真实0；CLI真实not_run按约定退出2单列，桌面3次环回HTTP强制fixture、不作为供应商通过。原生保存选择/取消、实际JSON脱敏落盘、应用关闭中断/重开零派发和当前业务库无污染通过。Blob下载未落盘、章节约束及README更新后机械清单漂移保留initial-validation后修正，未放宽旧强杀deadline。79份历史raw与完整log前缀保持，原公共infrastructure index不变。任务done限定本轮显式入口/生命周期/脱敏，真实账户/Windows/安装、非作者及B契约复核仍待；独立分支本地提交，不推送。
+
+
+## 2026-10-22 C04模型下拉选择
+
+用户指出手输模型ID不合理，沿用codex/c04-desktop-evaluation从0ff63cd修正为原生select；官方当前Flash/V4 Pro目录已核对，旧配置ID/Key保持，选择需保存，不自动请求列表或真实评估。既有报价/只读/评估Electron用例改select并补旧ID保留与未保存不落盘/不派发。知识[[M4模型与报价修订]]、[[C04正式设置评估入口]]与任务[[C04-模型下拉选择]]同步；本机验证收口追加，真实账户不由Agent启动，不推送。
+
+
+模型下拉收口：202单元、9真实Electron含build、6工程、36Wiki、类型、生成/只读check/lint与0ff63cd/be53b98同步均退出0，证据raw/c04-model-select-validation.json。空选择保存门禁、Flash/Pro选择、旧ID/已有Key保留、选择未保存不落盘/不派发通过；已查看合成截图并仅刷新用户分支renderer，配置状态保持，没有由Agent启动真实请求。81份旧raw与log完整前缀不变；哈希采集脚本中文路径转义修正已记录，不放宽应用门禁。任务done限定模型下拉切片，动态发现、真实供应商/Windows/安装及非作者复核未冒领；本地提交，不推送。

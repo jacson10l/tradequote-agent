@@ -1,5 +1,7 @@
 # 当前上下文
 
+- 2026-10-22本轮用户已配置模型，要求取消手输ID，改下拉选择。[[C04-模型下拉选择]]沿用codex/c04-desktop-evaluation，从0ff63cd继续：内置Flash/Pro并保留已保存的其他ID，不读取用户Key、不新增列表或评估请求。真实评估仍由用户显式启动；本轮202单元/9Electron含build/6工程/36Wiki及固定同步通过，用户窗口已刷新为下拉。不推送。
+
 - 2026-10-22当前C04正式入口独立codex/c04-desktop-evaluation，taskBasefebd14d。[[C04正式设置评估入口]]新增显式计费确认/宿主凭据快照、独立评估进程与锁/心跳、持久幂等/取消/历史及原生保存报告；不改业务库/迁移/Runtime工具权限。真实DeepSeek账户未运行，HTTP验收仍标fixture。[[C04-正式设置与显式真实评估]]已完成本轮入口，202单元/9Electron含build/6工程/36Wiki与双基线通过；真实账户/Windows/安装及非作者复核仍待。不推送。以下保留历史作用域。
 
 - 2026-10-22当前独立C04候选codex/c04-model-evaluation，taskBase0ccd72f。[[C04模型评估与脱敏报告]]新增48点fixture优先矩阵/失败与显式重试/脱敏JSON和Markdown，复用真实业务链，不改B接口或生产IPC。真实DeepSeek未运行，CLI未配置模式报告not_run/退出2，正式宿主评估接线仍待。[[C04-评估样本与脱敏报告]]记录本轮验证；不推送。以下保留历史作用域。

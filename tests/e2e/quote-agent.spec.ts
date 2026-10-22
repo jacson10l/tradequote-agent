@@ -87,7 +87,7 @@ test("desktop settings and HTTP adapter support inquiry plus two saved revisions
     await expect(page.getByText("已保存至本机 · 版本 1")).toBeVisible();
     await page.getByRole("navigation").getByRole("link", { name: "模型设置", exact: true }).click();
     await page.getByLabel("DeepSeek API Key", { exact: false }).fill("synthetic-e2e-key");
-    await page.getByLabel("模型 ID", { exact: true }).fill("synthetic-model");
+    await page.getByRole("combobox", { name: "模型", exact: true }).selectOption("deepseek-flash");
     await page.getByRole("button", { name: "保存模型设置", exact: true }).click();
     await expect(page.getByLabel("DeepSeek API Key", { exact: false })).toHaveValue("");
     await page.getByRole("button", { name: "测试已保存的连接" }).click();

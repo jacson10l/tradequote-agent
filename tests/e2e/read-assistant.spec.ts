@@ -155,7 +155,7 @@ test("formal desktop read assistant executes four real tools, shows facts, guard
     expect(calls).toBe(0);
     await page.getByRole("navigation").getByRole("link", { name: "模型设置", exact: true }).click();
     await page.getByLabel("DeepSeek API Key", { exact: false }).fill("synthetic-read-key");
-    await page.getByLabel("模型 ID", { exact: true }).fill("synthetic-read-model");
+    await page.getByRole("combobox", { name: "模型", exact: true }).selectOption("deepseek-v4-pro");
     await page.getByRole("button", { name: "保存模型设置", exact: true }).click();
     await expect(page.getByLabel("DeepSeek API Key", { exact: false })).toHaveValue("");
     await page.getByRole("navigation").getByRole("link", { name: "只读助手", exact: true }).click();

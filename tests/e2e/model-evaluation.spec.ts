@@ -51,8 +51,9 @@ test("formal model settings explicitly start isolated evaluations, cancel, prese
       exact: true,
     });
     await expect(startReal).toBeDisabled();
+    await expect(page.getByRole("button", { name: "保存模型设置", exact: true })).toBeDisabled();
     await page.getByLabel("DeepSeek API Key", { exact: false }).fill("synthetic-desktop-eval-key");
-    await page.getByLabel("模型 ID", { exact: true }).fill("synthetic-model");
+    await page.getByRole("combobox", { name: "模型", exact: true }).selectOption("deepseek-flash");
     await expect(startReal).toBeDisabled();
     await page.getByRole("button", { name: "保存模型设置", exact: true }).click();
     await expect(page.getByLabel("DeepSeek API Key", { exact: false })).toHaveValue("");
@@ -197,6 +198,42 @@ test("formal model settings explicitly start isolated evaluations, cancel, prese
     );
     expect(malformed).toMatchObject({ ok: false, error: { code: "VALIDATION_ERROR" } });
     expect(calls).toBe(3);
+    // A previously configured model remains selectable even if it is outside today's built-in list.
+    const legacy = await page.evaluate(() =>
+      window.tradequote.modelSettings({
+        method: "model.save",
+        key: "",
+        model: "legacy-synthetic-model",
+      }),
+    );
+    expect(legacy).toMatchObject({
+      ok: true,
+      data: { hasKey: true, model: "legacy-synthetic-model" },
+    });
+    await page
+      .getByRole("navigation")
+      .getByRole("link", { name: "单据工作台", exact: true })
+      .click();
+    await page.getByRole("navigation").getByRole("link", { name: "模型设置", exact: true }).click();
+    const modelSelect = page.getByRole("combobox", { name: "模型", exact: true });
+    await expect(modelSelect).toHaveValue("legacy-synthetic-model");
+    await expect(
+      modelSelect.getByRole("option", {
+        name: "已保存的模型（legacy-synthetic-model）",
+        exact: true,
+      }),
+    ).toHaveCount(1);
+    await expect(page.getByLabel("DeepSeek API Key", { exact: false })).toHaveValue("");
+    await modelSelect.selectOption("deepseek-v4-pro");
+    expect(calls).toBe(3);
+    const unchanged = await page.evaluate(() =>
+      window.tradequote.modelSettings({ method: "model.status" }),
+    );
+    expect(unchanged).toMatchObject({
+      ok: true,
+      data: { model: "legacy-synthetic-model", hasKey: true },
+    });
+    await page.screenshot({ path: ".runtime/c04-model-select.png" });
   } finally {
     await app.close();
     server.closeAllConnections();

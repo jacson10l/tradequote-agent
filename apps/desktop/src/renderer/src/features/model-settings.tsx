@@ -6,6 +6,12 @@ import {
 import { useEffect, useState } from "react";
 import { Button } from "../shared/button";
 import { ModelEvaluationPanel } from "./model-evaluation";
+
+// Official API model names checked 2026-10-22: https://api-docs.deepseek.com/
+const modelOptions = [
+  { id: "deepseek-flash", label: "DeepSeek Flash" },
+  { id: "deepseek-v4-pro", label: "DeepSeek V4 Pro" },
+];
 export function ModelSettingsPage({ client }: { client: DesktopClient }) {
   const [status, setStatus] = useState<Extract<ModelResult, { ok: true }>["data"] | null>(null);
   const [key, setKey] = useState("");
@@ -96,18 +102,28 @@ export function ModelSettingsPage({ client }: { client: DesktopClient }) {
             disabled={busy}
             onChange={(e) => setKey(e.target.value)}
           />
-          <label htmlFor="model-id">模型 ID</label>
-          <input
+          <label htmlFor="model-id">模型</label>
+          <select
             id="model-id"
             required
-            maxLength={128}
-            placeholder="填写账户可用的模型 ID，例如 deepseek-flash"
             value={model}
             disabled={busy}
             onChange={(e) => setModel(e.target.value)}
-          />
+          >
+            <option value="" disabled>
+              请选择 DeepSeek 模型
+            </option>
+            {status?.model && !modelOptions.some((option) => option.id === status.model) && (
+              <option value={status.model}>已保存的模型（{status.model}）</option>
+            )}
+            {modelOptions.map((option) => (
+              <option key={option.id} value={option.id}>
+                {option.label}
+              </option>
+            ))}
+          </select>
           <div className="flex flex-wrap gap-3">
-            <Button disabled={busy}>保存模型设置</Button>
+            <Button disabled={busy || !model}>保存模型设置</Button>
             <Button
               type="button"
               variant="outline"

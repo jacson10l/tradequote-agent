@@ -344,9 +344,9 @@
     {
       "path": "apps/desktop/src/renderer/src/features/model-settings.tsx",
       "type": "tsx",
-      "lines": 145,
-      "bytes": 5072,
-      "sha256": "f59926049386f4fa3384a8859021a1683e8459bed268698fbf51429a39c8042f",
+      "lines": 161,
+      "bytes": 5677,
+      "sha256": "9d0a172e4d82ec2aaa837a77efb714c0cf69551cd54382b0d2483f69519c7931",
       "role": "正式模型设置交互",
       "pages": [
         "wiki/M4模型与报价修订.md",
@@ -2202,9 +2202,9 @@
     {
       "path": "tests/e2e/model-evaluation.spec.ts",
       "type": "ts",
-      "lines": 206,
-      "bytes": 9528,
-      "sha256": "011b00ba51577a9d6d33a58888b19d70497b9c4a4dbdebb20028cc96f75c55f6",
+      "lines": 243,
+      "bytes": 11117,
+      "sha256": "c561764b0958e10203d84bb1acb5e3a28677543baee54cad2fdd6391d3c1bc23",
       "role": "C04正式评估入口、公开契约与生命周期验证",
       "pages": [
         "wiki/C04正式设置评估入口.md"
@@ -2225,8 +2225,8 @@
       "path": "tests/e2e/quote-agent.spec.ts",
       "type": "ts",
       "lines": 191,
-      "bytes": 10065,
-      "sha256": "2f3d08b3910801ab8b4c0489ff06d3730776b01208e6aa1c7594d097d2f5b336",
+      "bytes": 10086,
+      "sha256": "43f7b90244f352c8efb29fb87423cf818a05c3a42f7bc175eca1eed53fb76e49",
       "role": "真实Electron加HTTP替身两轮报价验收",
       "pages": [
         "wiki/M4模型与报价修订.md",
@@ -2250,8 +2250,8 @@
       "path": "tests/e2e/read-assistant.spec.ts",
       "type": "ts",
       "lines": 244,
-      "bytes": 11684,
-      "sha256": "0bf673427e4f988623f2cc6851f2418f58353363756469e2eb1a2377456cb5d1",
+      "bytes": 11701,
+      "sha256": "7e9c5934d205874d254c791ff3471238402f9644fd67dc0fd3beb9b2035db09b",
       "role": "正式Electron四工具、错误边界、来源/金额/重开验收",
       "pages": [
         "wiki/C02b桌面只读助手.md",
