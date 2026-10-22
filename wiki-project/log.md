@@ -349,3 +349,11 @@ C04正式入口收口：202单元、9真实Electron含build、6工程、36Wiki�
 
 
 只读核对收口：15:29:45与15:30:55再读仍0条运行/无report；连接测试不能替代真实评估/脱敏审核，任务保持active。机械生成/check/lint、df74abe与be53b98同步通过；新任务语义关联不足的初始lint失败保留后修正。82份旧raw/完整log前缀保持，无应用源码改动，未重复单元/Electron/build或发送供应商请求。本地仅提交核对记录与Wiki，继续独立分支不推送。
+
+
+## 2026-10-22 C04用户实际真实运行与脱敏报告
+
+从44dcbce继续同独立分支，只读固定本次run。用户实际15:39点击开始，15:40:46结束；requestedMode/mode/transport均deepseek，Flash真实104请求尝试，run.completed但report.failed。31业务17通过/6失败/8前置跳过，17故障注入fixture_only。新真实report JSON/Markdown独立保存，旧0记录/CLI not_run/fixture48通过证据不改写。strict计划/计数/模式核对与正式原生双格式下载逐字节比较通过；未读取Key/工作库或复制控制键/原始模型日志，无Agent start/retry/cancel或新增费用。[[C04真实验证状态核对]]与任务更新，门禁收口后只完成本核对，真实语义失败仍待独立诊断，不推送。
+
+
+真实报告核对收口：公开schema/固定48计划/模式计数、正式原生JSON/Markdown实际文件字节比较、生成/check/lint、44dcbce/be53b98同步与diff全部退出0，见raw/c04-user-deepseek-validation.json。83份旧raw及log完整前缀保持，应用源码不变；没有新增模型请求、凭据/数据库/原始内容采集。任务done仅指核对完成，report.failed和6失败/8依赖跳过原样保留；旧fixture/CLI未运行报告未改。后续诊断/修复与非作者评审独立，本地提交不推送。
