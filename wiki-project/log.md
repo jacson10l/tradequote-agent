@@ -413,3 +413,16 @@ C04正式入口收口：202单元、9真实Electron含build、6工程、36Wiki�
 
 
 三项本地切片收口：新六项两次红后绿，补边界/停止测试后34文件242单元、9实际Electron含build、48点fixture（186替身/真实0）、6工程、36Wiki、类型、生成/只读check/lint及固定b28b702/be53b98同步和diff均退出0。严格报告审计发现check标签与新fixture报告同名前缀碰撞而被覆盖，失败保留initial；分开命名后实际重跑合成报告并通过strict/Markdown/保留审计，不以lint掩盖语义错误，不涉及真实请求。105份旧raw、66328字节旧log前缀、三轮真实双格式与原计划/预期码/语义检查体/agent-run契约/锁文件保持，见raw/c04-remaining-validation.json。任务done仅本地证据/回归/最小修复，不关闭真实3失败/5跳过或完整C04；用户旧应用/凭据/业务库不动，Windows/安装与非作者复核未执行。保留独立分支，本地提交，不推送、不自动真实复测。
+
+
+## 2026-10-22 C04三项修复版启动与真实复测核对
+
+沿用独立codex/c04-remaining-failures，从28b9f72干净状态继续。确认旧885c474无在途评估，正常Quit后18:41:10启动当前实际Main；九份源码/四bundle哈希与已验证版本一致，窗口URL/进程来源准确，Flash加密配置及旧三历史保持。18:41:51/18:42:23只读仍3旧run、0新run/损坏，重开不自动评估。新增[[C04三项修复真实复测]]、[[C04-三项修复真实复测核对]]及最小启动观察；等待用户显式开始后核对3失败/5依赖、条款/Provider分类与脱敏报告，当前任务active、不造报告、不自动重试/推送，不读取Key/业务库。
+
+
+用户明确回复已点击开始，唯一新run于18:43:55开始，18:44:06/18:45:16只读running为1/18项，18:45:53结束、18:45:54首次终态。三项模式deepseek，Flash136真实尝试，run.completed/report.failed：31业务25通过/3失败/3依赖跳过，17故障注入fixture_only。原3失败/5依赖本轮全部通过，另外三个旧通过点本次失败/三个旧通过点依赖跳过，不拼接多轮通过项。
+
+7行7实际枚举：apparel-en-v2 action_schema/invalid_action第2次、panel-en-v1 clarification/missing_facts第1次、rule-block provider/content_json第6次停止；fastener-zh-v1第3次一次澄清反馈后通过，三语真正缺事实澄清预期通过。没有payment_mismatch/delivery_mismatch，不把未形成目标版本的terms派生false伪造为偏差。正式Main原生JSON/Markdown与同一strict持久report投影逐字节一致，新增观察/报告/审计独立入raw，旧真实/fixture不改；未采模型原文/Key/控制键或业务库，没有Agent start/retry/cancel/连接探针。Wiki门禁继续收口，不自动收费复测/推送。
+
+
+三项修复版真实核对收口：strict状态/固定48计划/原检查名/模式计数/3和5对照/新退化/分类与原生双格式字节审计、生成/只读check/lint、固定28b9f72/be53b98同步及diff全部退出0，见raw/c04-three-retest-validation.json。任务漏两个相关知识链接导致的初始lint失败已保留initial证据，补实现/入口真实入链后通过；无应用/报告/预期变化。110份旧raw和68137字节log完整前缀保持，源码及四构建来源已核对，末次仍唯一新完成run/136请求，无自动第二轮。任务done仅核对完成，原3失败/5依赖本轮全绿但整轮新3失败/3依赖仍未通过，不关闭完整C04。未重复旧242单元/9Electron/build或fixture；应用保持打开，本地提交，不推送、不自动重试。

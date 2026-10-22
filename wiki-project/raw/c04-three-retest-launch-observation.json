@@ -1,0 +1,118 @@
+{
+  "status": "observed",
+  "taskBase": "28b9f726e7f04204976e954bc3f543cb0a944668",
+  "launch": {
+    "sourceCommit": "28b9f726e7f04204976e954bc3f543cb0a944668",
+    "branch": "codex/c04-remaining-failures",
+    "launchedAt": "2026-10-22T10:41:10.910Z",
+    "executable": "/Users/jason/.codex/worktrees/c04-remaining-failures/tradequote-agent/.runtime/desktop/TradeQuote.app/Contents/MacOS/Electron",
+    "main": "/Users/jason/.codex/worktrees/c04-remaining-failures/tradequote-agent/apps/desktop/out/main/index.js",
+    "mainSha256": "b9a20e6bda869703854affe1cbbada6854ea842be3d8f7da7b9e0d844ade0f9a",
+    "sourceHashesMatched": 9,
+    "bundleHashesMatched": 4,
+    "fixtureEnvironment": false,
+    "providerRequestsInitiatedByAgent": 0
+  },
+  "desktopObservation": {
+    "exactWorktreeWindow": true,
+    "model": "deepseek-flash",
+    "credentialStatus": "configured_system_encryption",
+    "initialMode": "fixture",
+    "priorHistoryPreserved": 3,
+    "userStartPending": true
+  },
+  "observations": [
+    {
+      "observedAt": "2026-10-22T10:41:51.818Z",
+      "recordCount": 3,
+      "invalidRecords": 0,
+      "launchSourceCommit": "28b9f726e7f04204976e954bc3f543cb0a944668",
+      "history": [
+        {
+          "runRef": "3bda7468c076",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T09:33:49.764Z",
+          "finishedAt": "2026-10-22T09:35:46.641Z",
+          "observedRows": 26,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [],
+      "reportSummary": null
+    },
+    {
+      "observedAt": "2026-10-22T10:42:23.915Z",
+      "recordCount": 3,
+      "invalidRecords": 0,
+      "launchSourceCommit": "28b9f726e7f04204976e954bc3f543cb0a944668",
+      "history": [
+        {
+          "runRef": "3bda7468c076",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T09:33:49.764Z",
+          "finishedAt": "2026-10-22T09:35:46.641Z",
+          "observedRows": 26,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [],
+      "reportSummary": null
+    }
+  ]
+}
