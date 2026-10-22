@@ -1,0 +1,2338 @@
+{
+  "status": "passed",
+  "realEvaluationStatus": "failed",
+  "recordedAt": "2026-10-22T09:42:21.704Z",
+  "scope": "Read-only audit and native exports only. Exactly one new evaluation explicitly started by user; agent did not start, retry, cancel, probe connection or read credentials.",
+  "taskBase": "885c474724f3578f7588d2184eea93c05a7f5d6d",
+  "branch": "codex/c04-failure-diagnostics",
+  "runRef": "3bda7468c076",
+  "run": {
+    "runRef": "3bda7468c076",
+    "requestedMode": "deepseek",
+    "mode": "deepseek",
+    "transport": "deepseek",
+    "status": "completed",
+    "startedAt": "2026-10-22T09:33:49.764Z",
+    "finishedAt": "2026-10-22T09:35:46.641Z",
+    "observedRows": 26,
+    "errorCode": null,
+    "hasReport": true
+  },
+  "launch": {
+    "sourceCommit": "885c474724f3578f7588d2184eea93c05a7f5d6d",
+    "launchedAt": "2026-10-22T09:27:01.096Z",
+    "executable": "/Users/jason/.codex/worktrees/c04-failure-diagnostics/tradequote-agent/.runtime/desktop/TradeQuote.app/Contents/MacOS/Electron",
+    "main": "/Users/jason/.codex/worktrees/c04-failure-diagnostics/tradequote-agent/apps/desktop/out/main/index.js",
+    "mainSha256": "41c4689e5b38ac3c6df8d08462147d04a2df4b2fbc591ad710704e1c33777abd",
+    "fixtureEnvironment": false
+  },
+  "report": {
+    "mode": "deepseek",
+    "status": "failed",
+    "providerValidation": "observed",
+    "model": "deepseek-flash",
+    "modelCalls": 145,
+    "realRequests": 145,
+    "usage": {
+      "tokens": null,
+      "cost": null,
+      "reason": "not_exposed_by_adapter"
+    },
+    "business": {
+      "passed": 23,
+      "failed": 3,
+      "not_run": 5,
+      "cancelled": 0
+    },
+    "fixtureOnlyNotRun": 17,
+    "caseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496"
+  },
+  "comparison": {
+    "eightFailures": [
+      {
+        "id": "apparel-zh-v3",
+        "previousStatus": "failed",
+        "previousCode": "ACTION_NOT_ALLOWED",
+        "previousReason": "observed",
+        "status": "not_run",
+        "errorCode": null,
+        "reason": "prior_step_failed",
+        "diagnostics": [],
+        "failedChecks": []
+      },
+      {
+        "id": "apparel-de-v2",
+        "previousStatus": "failed",
+        "previousCode": "MODEL_INVALID_OUTPUT",
+        "previousReason": "observed",
+        "status": "passed",
+        "errorCode": null,
+        "reason": "observed",
+        "diagnostics": [],
+        "failedChecks": []
+      },
+      {
+        "id": "panel-zh-v1",
+        "previousStatus": "failed",
+        "previousCode": "ACTION_NOT_ALLOWED",
+        "previousReason": "observed",
+        "status": "passed",
+        "errorCode": null,
+        "reason": "observed",
+        "diagnostics": [],
+        "failedChecks": []
+      },
+      {
+        "id": "panel-en-v1",
+        "previousStatus": "failed",
+        "previousCode": "ACTION_NOT_ALLOWED",
+        "previousReason": "observed",
+        "status": "passed",
+        "errorCode": null,
+        "reason": "observed",
+        "diagnostics": [],
+        "failedChecks": []
+      },
+      {
+        "id": "panel-de-v3",
+        "previousStatus": "failed",
+        "previousCode": "ACTION_NOT_ALLOWED",
+        "previousReason": "observed",
+        "status": "not_run",
+        "errorCode": null,
+        "reason": "prior_step_failed",
+        "diagnostics": [],
+        "failedChecks": []
+      },
+      {
+        "id": "fastener-zh-v1",
+        "previousStatus": "failed",
+        "previousCode": "ACTION_NOT_ALLOWED",
+        "previousReason": "observed",
+        "status": "passed",
+        "errorCode": null,
+        "reason": "observed",
+        "diagnostics": [
+          {
+            "stage": "completion",
+            "tool": null,
+            "category": "premature_complete",
+            "disposition": "feedback",
+            "modelCall": 3,
+            "errorCode": "ACTION_NOT_ALLOWED"
+          }
+        ],
+        "failedChecks": []
+      },
+      {
+        "id": "fastener-en-v1",
+        "previousStatus": "failed",
+        "previousCode": "ACTION_NOT_ALLOWED",
+        "previousReason": "observed",
+        "status": "passed",
+        "errorCode": null,
+        "reason": "observed",
+        "diagnostics": [
+          {
+            "stage": "completion",
+            "tool": null,
+            "category": "premature_complete",
+            "disposition": "feedback",
+            "modelCall": 3,
+            "errorCode": "ACTION_NOT_ALLOWED"
+          }
+        ],
+        "failedChecks": []
+      },
+      {
+        "id": "fastener-de-v1",
+        "previousStatus": "failed",
+        "previousCode": "ACTION_NOT_ALLOWED",
+        "previousReason": "observed",
+        "status": "failed",
+        "errorCode": "ACTION_NOT_ALLOWED",
+        "reason": "observed",
+        "diagnostics": [
+          {
+            "stage": "clarification",
+            "tool": null,
+            "category": "missing_facts",
+            "disposition": "feedback",
+            "modelCall": 3,
+            "errorCode": "MISSING_FACTS"
+          },
+          {
+            "stage": "tool_execution",
+            "tool": "search_knowledge",
+            "category": "calculate_first",
+            "disposition": "stopped",
+            "modelCall": 4,
+            "errorCode": "ACTION_NOT_ALLOWED"
+          }
+        ],
+        "failedChecks": [
+          "outcome",
+          "revision_count",
+          "draft_only",
+          "product",
+          "quantity",
+          "unit",
+          "terms",
+          "amount",
+          "sources",
+          "validation"
+        ]
+      }
+    ],
+    "eightFailureSummary": {
+      "passed": 5,
+      "failed": 1,
+      "not_run": 2,
+      "cancelled": 0
+    },
+    "elevenSkipped": [
+      {
+        "id": "apparel-de-v3",
+        "previousStatus": "not_run",
+        "previousCode": null,
+        "previousReason": "prior_step_failed",
+        "status": "passed",
+        "errorCode": null,
+        "reason": "observed",
+        "diagnostics": [],
+        "failedChecks": []
+      },
+      {
+        "id": "panel-zh-v2",
+        "previousStatus": "not_run",
+        "previousCode": null,
+        "previousReason": "prior_step_failed",
+        "status": "passed",
+        "errorCode": null,
+        "reason": "observed",
+        "diagnostics": [],
+        "failedChecks": []
+      },
+      {
+        "id": "panel-zh-v3",
+        "previousStatus": "not_run",
+        "previousCode": null,
+        "previousReason": "prior_step_failed",
+        "status": "passed",
+        "errorCode": null,
+        "reason": "observed",
+        "diagnostics": [],
+        "failedChecks": []
+      },
+      {
+        "id": "panel-en-v2",
+        "previousStatus": "not_run",
+        "previousCode": null,
+        "previousReason": "prior_step_failed",
+        "status": "passed",
+        "errorCode": null,
+        "reason": "observed",
+        "diagnostics": [
+          {
+            "stage": "tool_execution",
+            "tool": "search_knowledge",
+            "category": "calculate_first",
+            "disposition": "feedback",
+            "modelCall": 3,
+            "errorCode": "ACTION_NOT_ALLOWED"
+          }
+        ],
+        "failedChecks": []
+      },
+      {
+        "id": "panel-en-v3",
+        "previousStatus": "not_run",
+        "previousCode": null,
+        "previousReason": "prior_step_failed",
+        "status": "passed",
+        "errorCode": null,
+        "reason": "observed",
+        "diagnostics": [],
+        "failedChecks": []
+      },
+      {
+        "id": "fastener-zh-v2",
+        "previousStatus": "not_run",
+        "previousCode": null,
+        "previousReason": "prior_step_failed",
+        "status": "passed",
+        "errorCode": null,
+        "reason": "observed",
+        "diagnostics": [
+          {
+            "stage": "tool_execution",
+            "tool": "search_knowledge",
+            "category": "calculate_first",
+            "disposition": "feedback",
+            "modelCall": 3,
+            "errorCode": "ACTION_NOT_ALLOWED"
+          }
+        ],
+        "failedChecks": []
+      },
+      {
+        "id": "fastener-zh-v3",
+        "previousStatus": "not_run",
+        "previousCode": null,
+        "previousReason": "prior_step_failed",
+        "status": "passed",
+        "errorCode": null,
+        "reason": "observed",
+        "diagnostics": [
+          {
+            "stage": "tool_execution",
+            "tool": "search_knowledge",
+            "category": "calculate_first",
+            "disposition": "feedback",
+            "modelCall": 3,
+            "errorCode": "ACTION_NOT_ALLOWED"
+          }
+        ],
+        "failedChecks": []
+      },
+      {
+        "id": "fastener-en-v2",
+        "previousStatus": "not_run",
+        "previousCode": null,
+        "previousReason": "prior_step_failed",
+        "status": "passed",
+        "errorCode": null,
+        "reason": "observed",
+        "diagnostics": [],
+        "failedChecks": []
+      },
+      {
+        "id": "fastener-en-v3",
+        "previousStatus": "not_run",
+        "previousCode": null,
+        "previousReason": "prior_step_failed",
+        "status": "passed",
+        "errorCode": null,
+        "reason": "observed",
+        "diagnostics": [
+          {
+            "stage": "tool_execution",
+            "tool": "search_knowledge",
+            "category": "calculate_first",
+            "disposition": "feedback",
+            "modelCall": 3,
+            "errorCode": "ACTION_NOT_ALLOWED"
+          }
+        ],
+        "failedChecks": []
+      },
+      {
+        "id": "fastener-de-v2",
+        "previousStatus": "not_run",
+        "previousCode": null,
+        "previousReason": "prior_step_failed",
+        "status": "not_run",
+        "errorCode": null,
+        "reason": "prior_step_failed",
+        "diagnostics": [],
+        "failedChecks": []
+      },
+      {
+        "id": "fastener-de-v3",
+        "previousStatus": "not_run",
+        "previousCode": null,
+        "previousReason": "prior_step_failed",
+        "status": "not_run",
+        "errorCode": null,
+        "reason": "prior_step_failed",
+        "diagnostics": [],
+        "failedChecks": []
+      }
+    ],
+    "elevenSkippedSummary": {
+      "passed": 9,
+      "failed": 0,
+      "not_run": 2,
+      "cancelled": 0
+    },
+    "previousPassesNotPassing": [
+      {
+        "id": "apparel-zh-v1",
+        "previousStatus": "passed",
+        "previousCode": null,
+        "previousReason": "observed",
+        "status": "failed",
+        "errorCode": null,
+        "reason": "observed",
+        "diagnostics": [],
+        "failedChecks": [
+          "terms"
+        ]
+      },
+      {
+        "id": "apparel-zh-v2",
+        "previousStatus": "passed",
+        "previousCode": null,
+        "previousReason": "observed",
+        "status": "not_run",
+        "errorCode": null,
+        "reason": "prior_step_failed",
+        "diagnostics": [],
+        "failedChecks": []
+      },
+      {
+        "id": "panel-de-v2",
+        "previousStatus": "passed",
+        "previousCode": null,
+        "previousReason": "observed",
+        "status": "failed",
+        "errorCode": "MODEL_INVALID_OUTPUT",
+        "reason": "observed",
+        "diagnostics": [
+          {
+            "stage": "provider",
+            "tool": null,
+            "category": "provider_failure",
+            "disposition": "stopped",
+            "modelCall": 2,
+            "errorCode": "MODEL_INVALID_OUTPUT"
+          }
+        ],
+        "failedChecks": [
+          "outcome",
+          "revision_count",
+          "draft_only",
+          "product",
+          "quantity",
+          "unit",
+          "terms",
+          "amount",
+          "sources",
+          "validation"
+        ]
+      }
+    ]
+  },
+  "diagnostics": [
+    {
+      "id": "apparel-en-v1",
+      "status": "passed",
+      "errorCode": null,
+      "diagnostics": [
+        {
+          "stage": "tool_execution",
+          "tool": "search_knowledge",
+          "category": "calculate_first",
+          "disposition": "feedback",
+          "modelCall": 3,
+          "errorCode": "ACTION_NOT_ALLOWED"
+        }
+      ]
+    },
+    {
+      "id": "apparel-en-v2",
+      "status": "passed",
+      "errorCode": null,
+      "diagnostics": [
+        {
+          "stage": "tool_execution",
+          "tool": "search_knowledge",
+          "category": "calculate_first",
+          "disposition": "feedback",
+          "modelCall": 3,
+          "errorCode": "ACTION_NOT_ALLOWED"
+        }
+      ]
+    },
+    {
+      "id": "apparel-en-v3",
+      "status": "passed",
+      "errorCode": null,
+      "diagnostics": [
+        {
+          "stage": "tool_execution",
+          "tool": "search_knowledge",
+          "category": "calculate_first",
+          "disposition": "feedback",
+          "modelCall": 3,
+          "errorCode": "ACTION_NOT_ALLOWED"
+        }
+      ]
+    },
+    {
+      "id": "apparel-de-v1",
+      "status": "passed",
+      "errorCode": null,
+      "diagnostics": [
+        {
+          "stage": "tool_execution",
+          "tool": "search_knowledge",
+          "category": "calculate_first",
+          "disposition": "feedback",
+          "modelCall": 3,
+          "errorCode": "ACTION_NOT_ALLOWED"
+        }
+      ]
+    },
+    {
+      "id": "panel-en-v2",
+      "status": "passed",
+      "errorCode": null,
+      "diagnostics": [
+        {
+          "stage": "tool_execution",
+          "tool": "search_knowledge",
+          "category": "calculate_first",
+          "disposition": "feedback",
+          "modelCall": 3,
+          "errorCode": "ACTION_NOT_ALLOWED"
+        }
+      ]
+    },
+    {
+      "id": "panel-de-v2",
+      "status": "failed",
+      "errorCode": "MODEL_INVALID_OUTPUT",
+      "diagnostics": [
+        {
+          "stage": "provider",
+          "tool": null,
+          "category": "provider_failure",
+          "disposition": "stopped",
+          "modelCall": 2,
+          "errorCode": "MODEL_INVALID_OUTPUT"
+        }
+      ]
+    },
+    {
+      "id": "fastener-zh-v1",
+      "status": "passed",
+      "errorCode": null,
+      "diagnostics": [
+        {
+          "stage": "completion",
+          "tool": null,
+          "category": "premature_complete",
+          "disposition": "feedback",
+          "modelCall": 3,
+          "errorCode": "ACTION_NOT_ALLOWED"
+        }
+      ]
+    },
+    {
+      "id": "fastener-zh-v2",
+      "status": "passed",
+      "errorCode": null,
+      "diagnostics": [
+        {
+          "stage": "tool_execution",
+          "tool": "search_knowledge",
+          "category": "calculate_first",
+          "disposition": "feedback",
+          "modelCall": 3,
+          "errorCode": "ACTION_NOT_ALLOWED"
+        }
+      ]
+    },
+    {
+      "id": "fastener-zh-v3",
+      "status": "passed",
+      "errorCode": null,
+      "diagnostics": [
+        {
+          "stage": "tool_execution",
+          "tool": "search_knowledge",
+          "category": "calculate_first",
+          "disposition": "feedback",
+          "modelCall": 3,
+          "errorCode": "ACTION_NOT_ALLOWED"
+        }
+      ]
+    },
+    {
+      "id": "fastener-en-v1",
+      "status": "passed",
+      "errorCode": null,
+      "diagnostics": [
+        {
+          "stage": "completion",
+          "tool": null,
+          "category": "premature_complete",
+          "disposition": "feedback",
+          "modelCall": 3,
+          "errorCode": "ACTION_NOT_ALLOWED"
+        }
+      ]
+    },
+    {
+      "id": "fastener-en-v3",
+      "status": "passed",
+      "errorCode": null,
+      "diagnostics": [
+        {
+          "stage": "tool_execution",
+          "tool": "search_knowledge",
+          "category": "calculate_first",
+          "disposition": "feedback",
+          "modelCall": 3,
+          "errorCode": "ACTION_NOT_ALLOWED"
+        }
+      ]
+    },
+    {
+      "id": "fastener-de-v1",
+      "status": "failed",
+      "errorCode": "ACTION_NOT_ALLOWED",
+      "diagnostics": [
+        {
+          "stage": "clarification",
+          "tool": null,
+          "category": "missing_facts",
+          "disposition": "feedback",
+          "modelCall": 3,
+          "errorCode": "MISSING_FACTS"
+        },
+        {
+          "stage": "tool_execution",
+          "tool": "search_knowledge",
+          "category": "calculate_first",
+          "disposition": "stopped",
+          "modelCall": 4,
+          "errorCode": "ACTION_NOT_ALLOWED"
+        }
+      ]
+    },
+    {
+      "id": "clarification-zh",
+      "status": "passed",
+      "errorCode": "MISSING_FACTS",
+      "diagnostics": [
+        {
+          "stage": "clarification",
+          "tool": null,
+          "category": "missing_facts",
+          "disposition": "stopped",
+          "modelCall": 1,
+          "errorCode": "MISSING_FACTS"
+        }
+      ]
+    },
+    {
+      "id": "clarification-en",
+      "status": "passed",
+      "errorCode": "MISSING_FACTS",
+      "diagnostics": [
+        {
+          "stage": "clarification",
+          "tool": null,
+          "category": "missing_facts",
+          "disposition": "stopped",
+          "modelCall": 1,
+          "errorCode": "MISSING_FACTS"
+        }
+      ]
+    },
+    {
+      "id": "clarification-de",
+      "status": "passed",
+      "errorCode": "MISSING_FACTS",
+      "diagnostics": [
+        {
+          "stage": "clarification",
+          "tool": null,
+          "category": "missing_facts",
+          "disposition": "stopped",
+          "modelCall": 1,
+          "errorCode": "MISSING_FACTS"
+        }
+      ]
+    },
+    {
+      "id": "rule-block",
+      "status": "passed",
+      "errorCode": "RULE_BLOCKED",
+      "diagnostics": [
+        {
+          "stage": "completion",
+          "tool": null,
+          "category": "rule_block",
+          "disposition": "stopped",
+          "modelCall": 6,
+          "errorCode": "RULE_BLOCKED"
+        }
+      ]
+    }
+  ],
+  "nativeExports": {
+    "json": {
+      "bytes": 38942,
+      "sha256": "da63a4c0da81bed026e3c3a55e0fec1e89e7e4e231c01aeb9a31b4dc260271c4",
+      "byteEqual": true
+    },
+    "md": {
+      "bytes": 4812,
+      "sha256": "ceff70facc8b440f0822b6ac5af4a5aba03ea31ac10353bfcc39b60f80f9cb14",
+      "byteEqual": true
+    }
+  },
+  "redaction": {
+    "strictSchema": true,
+    "diagnosticEnumWhitelist": true,
+    "fixedPlan": true,
+    "knownPublicModel": true,
+    "noRawPayloadCollection": true,
+    "noCredentialRead": true,
+    "internalControlKeysExcluded": true
+  },
+  "preservation": {
+    "base": "4d13e475277bb71746088f923aabab8a0920e789",
+    "rawFilesByteIdentical": 101,
+    "oldLogPrefixBytes": 64429,
+    "changedOutsideWiki": [],
+    "sourceSha256": {
+      "apps/desktop/src/main/index.ts": "b476d3159d8e2341c0a958bc1d1fba76d60d7d4297501aa291ea831b34658d4d",
+      "apps/desktop/src/main/evaluation-host.ts": "8c8549f257d6b77b6a94f80328577a3c3135af5b8c7eeb158efc4b82866a4442",
+      "apps/desktop/src/workers/evaluation.ts": "a4104e39bc32a3e1193f50fb42d4f8cc263a08652541d1ade7e718a5b5f99f90",
+      "apps/desktop/src/renderer/src/features/model-evaluation.tsx": "efff886d6251889d97bc494d003562a2634690184a6e6032f85142b49ec5608f",
+      "packages/contracts/src/model-evaluation.ts": "f3abe473f8db7d1b47bae9eb36270076c8529bcda0ada75316e923fe95eba669",
+      "packages/infrastructure/src/evaluation/runner.ts": "86bfeb870dfdc3dad9c87a3dd8de650f404b85bef217d05d921c657463bbebcf",
+      "packages/infrastructure/src/evaluation/report.ts": "43e7eb33799b03e22001c69948a1de84265e5c31c9795b1dd4344b8334e13e9e",
+      "packages/infrastructure/src/read-tool-runtime.ts": "27b02eb58cb0594e0d50deb7d85961344c7eca0f1b9a4eac503feed085fefda2",
+      "packages/infrastructure/src/quote-tool-agent.ts": "d310858cd4863834ef833cf10a21cd1113261beb09d0c15c31481cd8f6582572"
+    }
+  },
+  "bundleSha256": {
+    "apps/desktop/out/main/index.js": "41c4689e5b38ac3c6df8d08462147d04a2df4b2fbc591ad710704e1c33777abd",
+    "apps/desktop/out/main/evaluation.js": "951cdbb8edbe2e631afa715a4042628b0f8336b3e72228782df42617287b733e",
+    "apps/desktop/out/main/chunks/public-vFTr-9qO.js": "bd451f0eb56cf4b9c6c77eee00bab75144656cf2ab2bbf792f1c8f8e77e2b436",
+    "apps/desktop/out/main/chunks/src-C5urotdn.js": "03b4ac4ae07775a1a47d418a482fff25197b59e493be5efdbf5d1b837e4e38af"
+  },
+  "observations": [
+    {
+      "observedAt": "2026-10-22T09:27:39.201Z",
+      "recordCount": 2,
+      "invalidRecords": 0,
+      "launchSourceCommit": "885c474724f3578f7588d2184eea93c05a7f5d6d",
+      "history": [
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [],
+      "reportSummary": null
+    },
+    {
+      "observedAt": "2026-10-22T09:28:42.849Z",
+      "recordCount": 2,
+      "invalidRecords": 0,
+      "launchSourceCommit": "885c474724f3578f7588d2184eea93c05a7f5d6d",
+      "history": [
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [],
+      "reportSummary": null
+    },
+    {
+      "observedAt": "2026-10-22T09:31:11.329Z",
+      "recordCount": 2,
+      "invalidRecords": 0,
+      "launchSourceCommit": "885c474724f3578f7588d2184eea93c05a7f5d6d",
+      "history": [
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [],
+      "reportSummary": null
+    },
+    {
+      "observedAt": "2026-10-22T09:34:01.473Z",
+      "recordCount": 3,
+      "invalidRecords": 0,
+      "launchSourceCommit": "885c474724f3578f7588d2184eea93c05a7f5d6d",
+      "history": [
+        {
+          "runRef": "3bda7468c076",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "running",
+          "startedAt": "2026-10-22T09:33:49.764Z",
+          "finishedAt": null,
+          "observedRows": 2,
+          "errorCode": null,
+          "hasReport": false
+        },
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [
+        {
+          "runRef": "3bda7468c076",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "running",
+          "startedAt": "2026-10-22T09:33:49.764Z",
+          "finishedAt": null,
+          "observedRows": 2,
+          "errorCode": null,
+          "hasReport": false
+        }
+      ],
+      "reportSummary": null
+    },
+    {
+      "observedAt": "2026-10-22T09:34:29.554Z",
+      "recordCount": 3,
+      "invalidRecords": 0,
+      "launchSourceCommit": "885c474724f3578f7588d2184eea93c05a7f5d6d",
+      "history": [
+        {
+          "runRef": "3bda7468c076",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "running",
+          "startedAt": "2026-10-22T09:33:49.764Z",
+          "finishedAt": null,
+          "observedRows": 7,
+          "errorCode": null,
+          "hasReport": false
+        },
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [
+        {
+          "runRef": "3bda7468c076",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "running",
+          "startedAt": "2026-10-22T09:33:49.764Z",
+          "finishedAt": null,
+          "observedRows": 7,
+          "errorCode": null,
+          "hasReport": false
+        }
+      ],
+      "reportSummary": null
+    },
+    {
+      "observedAt": "2026-10-22T09:35:15.343Z",
+      "recordCount": 3,
+      "invalidRecords": 0,
+      "launchSourceCommit": "885c474724f3578f7588d2184eea93c05a7f5d6d",
+      "history": [
+        {
+          "runRef": "3bda7468c076",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "running",
+          "startedAt": "2026-10-22T09:33:49.764Z",
+          "finishedAt": null,
+          "observedRows": 17,
+          "errorCode": null,
+          "hasReport": false
+        },
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [
+        {
+          "runRef": "3bda7468c076",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "running",
+          "startedAt": "2026-10-22T09:33:49.764Z",
+          "finishedAt": null,
+          "observedRows": 17,
+          "errorCode": null,
+          "hasReport": false
+        }
+      ],
+      "reportSummary": null
+    },
+    {
+      "observedAt": "2026-10-22T09:36:04.446Z",
+      "recordCount": 3,
+      "invalidRecords": 0,
+      "launchSourceCommit": "885c474724f3578f7588d2184eea93c05a7f5d6d",
+      "history": [
+        {
+          "runRef": "3bda7468c076",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T09:33:49.764Z",
+          "finishedAt": "2026-10-22T09:35:46.641Z",
+          "observedRows": 26,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [
+        {
+          "runRef": "3bda7468c076",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T09:33:49.764Z",
+          "finishedAt": "2026-10-22T09:35:46.641Z",
+          "observedRows": 26,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "reportSummary": {
+        "status": "failed",
+        "providerValidation": "observed",
+        "model": "deepseek-flash",
+        "modelCalls": 145,
+        "realRequests": 145,
+        "usage": {
+          "tokens": null,
+          "cost": null,
+          "reason": "not_exposed_by_adapter"
+        },
+        "caseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496",
+        "business": {
+          "passed": 23,
+          "failed": 3,
+          "not_run": 5,
+          "cancelled": 0
+        },
+        "diagnosticRows": [
+          {
+            "id": "apparel-en-v1",
+            "status": "passed",
+            "errorCode": null,
+            "diagnostics": [
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ]
+          },
+          {
+            "id": "apparel-en-v2",
+            "status": "passed",
+            "errorCode": null,
+            "diagnostics": [
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ]
+          },
+          {
+            "id": "apparel-en-v3",
+            "status": "passed",
+            "errorCode": null,
+            "diagnostics": [
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ]
+          },
+          {
+            "id": "apparel-de-v1",
+            "status": "passed",
+            "errorCode": null,
+            "diagnostics": [
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ]
+          },
+          {
+            "id": "panel-en-v2",
+            "status": "passed",
+            "errorCode": null,
+            "diagnostics": [
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ]
+          },
+          {
+            "id": "panel-de-v2",
+            "status": "failed",
+            "errorCode": "MODEL_INVALID_OUTPUT",
+            "diagnostics": [
+              {
+                "stage": "provider",
+                "tool": null,
+                "category": "provider_failure",
+                "disposition": "stopped",
+                "modelCall": 2,
+                "errorCode": "MODEL_INVALID_OUTPUT"
+              }
+            ]
+          },
+          {
+            "id": "fastener-zh-v1",
+            "status": "passed",
+            "errorCode": null,
+            "diagnostics": [
+              {
+                "stage": "completion",
+                "tool": null,
+                "category": "premature_complete",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ]
+          },
+          {
+            "id": "fastener-zh-v2",
+            "status": "passed",
+            "errorCode": null,
+            "diagnostics": [
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ]
+          },
+          {
+            "id": "fastener-zh-v3",
+            "status": "passed",
+            "errorCode": null,
+            "diagnostics": [
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ]
+          },
+          {
+            "id": "fastener-en-v1",
+            "status": "passed",
+            "errorCode": null,
+            "diagnostics": [
+              {
+                "stage": "completion",
+                "tool": null,
+                "category": "premature_complete",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ]
+          },
+          {
+            "id": "fastener-en-v3",
+            "status": "passed",
+            "errorCode": null,
+            "diagnostics": [
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ]
+          },
+          {
+            "id": "fastener-de-v1",
+            "status": "failed",
+            "errorCode": "ACTION_NOT_ALLOWED",
+            "diagnostics": [
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "missing_facts",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "MISSING_FACTS"
+              },
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "stopped",
+                "modelCall": 4,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ]
+          },
+          {
+            "id": "clarification-zh",
+            "status": "passed",
+            "errorCode": "MISSING_FACTS",
+            "diagnostics": [
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "missing_facts",
+                "disposition": "stopped",
+                "modelCall": 1,
+                "errorCode": "MISSING_FACTS"
+              }
+            ]
+          },
+          {
+            "id": "clarification-en",
+            "status": "passed",
+            "errorCode": "MISSING_FACTS",
+            "diagnostics": [
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "missing_facts",
+                "disposition": "stopped",
+                "modelCall": 1,
+                "errorCode": "MISSING_FACTS"
+              }
+            ]
+          },
+          {
+            "id": "clarification-de",
+            "status": "passed",
+            "errorCode": "MISSING_FACTS",
+            "diagnostics": [
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "missing_facts",
+                "disposition": "stopped",
+                "modelCall": 1,
+                "errorCode": "MISSING_FACTS"
+              }
+            ]
+          },
+          {
+            "id": "rule-block",
+            "status": "passed",
+            "errorCode": "RULE_BLOCKED",
+            "diagnostics": [
+              {
+                "stage": "completion",
+                "tool": null,
+                "category": "rule_block",
+                "disposition": "stopped",
+                "modelCall": 6,
+                "errorCode": "RULE_BLOCKED"
+              }
+            ]
+          }
+        ],
+        "failureInjection": {
+          "passed": 0,
+          "failed": 0,
+          "not_run": 17,
+          "cancelled": 0
+        },
+        "eightFailures": [
+          {
+            "id": "apparel-zh-v3",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "apparel-de-v2",
+            "previousStatus": "failed",
+            "previousCode": "MODEL_INVALID_OUTPUT",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "panel-zh-v1",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "panel-en-v1",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "panel-de-v3",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-zh-v1",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [
+              {
+                "stage": "completion",
+                "tool": null,
+                "category": "premature_complete",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ],
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-en-v1",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [
+              {
+                "stage": "completion",
+                "tool": null,
+                "category": "premature_complete",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ],
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-de-v1",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "failed",
+            "errorCode": "ACTION_NOT_ALLOWED",
+            "reason": "observed",
+            "diagnostics": [
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "missing_facts",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "MISSING_FACTS"
+              },
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "stopped",
+                "modelCall": 4,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ],
+            "failedChecks": [
+              "outcome",
+              "revision_count",
+              "draft_only",
+              "product",
+              "quantity",
+              "unit",
+              "terms",
+              "amount",
+              "sources",
+              "validation"
+            ]
+          }
+        ],
+        "elevenSkipped": [
+          {
+            "id": "apparel-de-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "panel-zh-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "panel-zh-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "panel-en-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ],
+            "failedChecks": []
+          },
+          {
+            "id": "panel-en-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-zh-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ],
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-zh-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ],
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-en-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-en-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ],
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-de-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-de-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "diagnostics": [],
+            "failedChecks": []
+          }
+        ]
+      }
+    },
+    {
+      "observedAt": "2026-10-22T09:42:20.479Z",
+      "recordCount": 3,
+      "invalidRecords": 0,
+      "launchSourceCommit": "885c474724f3578f7588d2184eea93c05a7f5d6d",
+      "history": [
+        {
+          "runRef": "3bda7468c076",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T09:33:49.764Z",
+          "finishedAt": "2026-10-22T09:35:46.641Z",
+          "observedRows": 26,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [
+        {
+          "runRef": "3bda7468c076",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T09:33:49.764Z",
+          "finishedAt": "2026-10-22T09:35:46.641Z",
+          "observedRows": 26,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "reportSummary": {
+        "status": "failed",
+        "providerValidation": "observed",
+        "model": "deepseek-flash",
+        "modelCalls": 145,
+        "realRequests": 145,
+        "usage": {
+          "tokens": null,
+          "cost": null,
+          "reason": "not_exposed_by_adapter"
+        },
+        "caseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496",
+        "business": {
+          "passed": 23,
+          "failed": 3,
+          "not_run": 5,
+          "cancelled": 0
+        },
+        "diagnosticRows": [
+          {
+            "id": "apparel-en-v1",
+            "status": "passed",
+            "errorCode": null,
+            "diagnostics": [
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ]
+          },
+          {
+            "id": "apparel-en-v2",
+            "status": "passed",
+            "errorCode": null,
+            "diagnostics": [
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ]
+          },
+          {
+            "id": "apparel-en-v3",
+            "status": "passed",
+            "errorCode": null,
+            "diagnostics": [
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ]
+          },
+          {
+            "id": "apparel-de-v1",
+            "status": "passed",
+            "errorCode": null,
+            "diagnostics": [
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ]
+          },
+          {
+            "id": "panel-en-v2",
+            "status": "passed",
+            "errorCode": null,
+            "diagnostics": [
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ]
+          },
+          {
+            "id": "panel-de-v2",
+            "status": "failed",
+            "errorCode": "MODEL_INVALID_OUTPUT",
+            "diagnostics": [
+              {
+                "stage": "provider",
+                "tool": null,
+                "category": "provider_failure",
+                "disposition": "stopped",
+                "modelCall": 2,
+                "errorCode": "MODEL_INVALID_OUTPUT"
+              }
+            ]
+          },
+          {
+            "id": "fastener-zh-v1",
+            "status": "passed",
+            "errorCode": null,
+            "diagnostics": [
+              {
+                "stage": "completion",
+                "tool": null,
+                "category": "premature_complete",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ]
+          },
+          {
+            "id": "fastener-zh-v2",
+            "status": "passed",
+            "errorCode": null,
+            "diagnostics": [
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ]
+          },
+          {
+            "id": "fastener-zh-v3",
+            "status": "passed",
+            "errorCode": null,
+            "diagnostics": [
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ]
+          },
+          {
+            "id": "fastener-en-v1",
+            "status": "passed",
+            "errorCode": null,
+            "diagnostics": [
+              {
+                "stage": "completion",
+                "tool": null,
+                "category": "premature_complete",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ]
+          },
+          {
+            "id": "fastener-en-v3",
+            "status": "passed",
+            "errorCode": null,
+            "diagnostics": [
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ]
+          },
+          {
+            "id": "fastener-de-v1",
+            "status": "failed",
+            "errorCode": "ACTION_NOT_ALLOWED",
+            "diagnostics": [
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "missing_facts",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "MISSING_FACTS"
+              },
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "stopped",
+                "modelCall": 4,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ]
+          },
+          {
+            "id": "clarification-zh",
+            "status": "passed",
+            "errorCode": "MISSING_FACTS",
+            "diagnostics": [
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "missing_facts",
+                "disposition": "stopped",
+                "modelCall": 1,
+                "errorCode": "MISSING_FACTS"
+              }
+            ]
+          },
+          {
+            "id": "clarification-en",
+            "status": "passed",
+            "errorCode": "MISSING_FACTS",
+            "diagnostics": [
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "missing_facts",
+                "disposition": "stopped",
+                "modelCall": 1,
+                "errorCode": "MISSING_FACTS"
+              }
+            ]
+          },
+          {
+            "id": "clarification-de",
+            "status": "passed",
+            "errorCode": "MISSING_FACTS",
+            "diagnostics": [
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "missing_facts",
+                "disposition": "stopped",
+                "modelCall": 1,
+                "errorCode": "MISSING_FACTS"
+              }
+            ]
+          },
+          {
+            "id": "rule-block",
+            "status": "passed",
+            "errorCode": "RULE_BLOCKED",
+            "diagnostics": [
+              {
+                "stage": "completion",
+                "tool": null,
+                "category": "rule_block",
+                "disposition": "stopped",
+                "modelCall": 6,
+                "errorCode": "RULE_BLOCKED"
+              }
+            ]
+          }
+        ],
+        "failureInjection": {
+          "passed": 0,
+          "failed": 0,
+          "not_run": 17,
+          "cancelled": 0
+        },
+        "eightFailures": [
+          {
+            "id": "apparel-zh-v3",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "apparel-de-v2",
+            "previousStatus": "failed",
+            "previousCode": "MODEL_INVALID_OUTPUT",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "panel-zh-v1",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "panel-en-v1",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "panel-de-v3",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-zh-v1",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [
+              {
+                "stage": "completion",
+                "tool": null,
+                "category": "premature_complete",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ],
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-en-v1",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [
+              {
+                "stage": "completion",
+                "tool": null,
+                "category": "premature_complete",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ],
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-de-v1",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "failed",
+            "errorCode": "ACTION_NOT_ALLOWED",
+            "reason": "observed",
+            "diagnostics": [
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "missing_facts",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "MISSING_FACTS"
+              },
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "stopped",
+                "modelCall": 4,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ],
+            "failedChecks": [
+              "outcome",
+              "revision_count",
+              "draft_only",
+              "product",
+              "quantity",
+              "unit",
+              "terms",
+              "amount",
+              "sources",
+              "validation"
+            ]
+          }
+        ],
+        "elevenSkipped": [
+          {
+            "id": "apparel-de-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "panel-zh-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "panel-zh-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "panel-en-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ],
+            "failedChecks": []
+          },
+          {
+            "id": "panel-en-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-zh-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ],
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-zh-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ],
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-en-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-en-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [
+              {
+                "stage": "tool_execution",
+                "tool": "search_knowledge",
+                "category": "calculate_first",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "ACTION_NOT_ALLOWED"
+              }
+            ],
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-de-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-de-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "diagnostics": [],
+            "failedChecks": []
+          }
+        ]
+      }
+    }
+  ],
+  "checks": [
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs .",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T17:41:21.274637+08:00",
+      "output": "{\n  \"mode\": \"generate\",\n  \"files\": 208,\n  \"lines\": 52694,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n"
+    },
+    {
+      "command": "node .runtime/c04-diagnostic-retest-audit.mjs",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T17:42:21.716721+08:00",
+      "output": "{\"status\":\"passed\",\"realEvaluationStatus\":\"failed\",\"realRequests\":145,\"business\":{\"passed\":23,\"failed\":3,\"not_run\":5,\"cancelled\":0},\"eightFailures\":{\"passed\":5,\"failed\":1,\"not_run\":2,\"cancelled\":0},\"elevenSkipped\":{\"passed\":9,\"failed\":0,\"not_run\":2,\"cancelled\":0},\"diagnosticRows\":16,\"previousPassesNotPassing\":[{\"id\":\"apparel-zh-v1\",\"previousStatus\":\"passed\",\"previousCode\":null,\"previousReason\":\"observed\",\"status\":\"failed\",\"errorCode\":null,\"reason\":\"observed\",\"diagnostics\":[],\"failedChecks\":[\"terms\"]},{\"id\":\"apparel-zh-v2\",\"previousStatus\":\"passed\",\"previousCode\":null,\"previousReason\":\"observed\",\"status\":\"not_run\",\"errorCode\":null,\"reason\":\"prior_step_failed\",\"diagnostics\":[],\"failedChecks\":[]},{\"id\":\"panel-de-v2\",\"previousStatus\":\"passed\",\"previousCode\":null,\"previousReason\":\"observed\",\"status\":\"failed\",\"errorCode\":\"MODEL_INVALID_OUTPUT\",\"reason\":\"observed\",\"diagnostics\":[{\"stage\":\"provider\",\"tool\":null,\"category\":\"provider_failure\",\"disposition\":\"stopped\",\"modelCall\":2,\"errorCode\":\"MODEL_INVALID_OUTPUT\"}],\"failedChecks\":[\"outcome\",\"revision_count\",\"draft_only\",\"product\",\"quantity\",\"unit\",\"terms\",\"amount\",\"sources\",\"validation\"]}],\"nativeExports\":{\"json\":{\"bytes\":38942,\"sha256\":\"da63a4c0da81bed026e3c3a55e0fec1e89e7e4e231c01aeb9a31b4dc260271c4\",\"byteEqual\":true},\"md\":{\"bytes\":4812,\"sha256\":\"ceff70facc8b440f0822b6ac5af4a5aba03ea31ac10353bfcc39b60f80f9cb14\",\"byteEqual\":true}},\"preservation\":{\"oldRawFiles\":101,\"logPrefixBytes\":64429}}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T17:41:40.697844+08:00",
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 208,\n  \"lines\": 52694,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T17:41:40.949700+08:00",
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 137,\n  \"semantic\": 116,\n  \"reachable\": 137\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 885c474724f3578f7588d2184eea93c05a7f5d6d",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T17:41:40.561817+08:00",
+      "output": "{\n  \"base\": \"885c474724f3578f7588d2184eea93c05a7f5d6d\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 4d13e475277bb71746088f923aabab8a0920e789",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T17:41:40.561501+08:00",
+      "output": "{\n  \"base\": \"4d13e475277bb71746088f923aabab8a0920e789\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T17:41:41.114916+08:00",
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 79,\n  \"knowledgePages\": 59,\n  \"tasks\": 18,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T17:42:21.766828+08:00",
+      "output": ""
+    },
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T17:42:53.581987+08:00",
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 208,\n  \"lines\": 52694,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T17:42:53.803571+08:00",
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 137,\n  \"semantic\": 116,\n  \"reachable\": 137\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 885c474724f3578f7588d2184eea93c05a7f5d6d",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T17:42:53.449855+08:00",
+      "output": "{\n  \"base\": \"885c474724f3578f7588d2184eea93c05a7f5d6d\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 4d13e475277bb71746088f923aabab8a0920e789",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T17:42:53.449967+08:00",
+      "output": "{\n  \"base\": \"4d13e475277bb71746088f923aabab8a0920e789\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T17:42:53.929975+08:00",
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 79,\n  \"knowledgePages\": 59,\n  \"tasks\": 18,\n  \"errors\": []\n}\n"
+    }
+  ],
+  "desktopObservation": {
+    "worktreeWindowVerified": true,
+    "realLabelAnd145Requests": true,
+    "details48Rows": true,
+    "redactedDiagnosticColumn": true,
+    "termsFailureNoCollectedLoopDiagnostic": true,
+    "providerStoppedAtSecondRequest": true,
+    "clarificationFeedbackThenCalculateFirstStopped": true,
+    "fixtureOnlyRowsNotRun": 17,
+    "nativeJsonAndMarkdownSaved": true
+  }
+}

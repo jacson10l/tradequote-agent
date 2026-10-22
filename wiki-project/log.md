@@ -397,3 +397,11 @@ C04正式入口收口：202单元、9真实Electron含build、6工程、36Wiki�
 
 
 启动阶段门禁：机械生成、只读check/lint、885c474/be53b98同步及diff全部退出0，证据raw/c04-diagnostic-retest-prestart-validation.json；99份旧raw与63377字节旧log完整前缀保持，应用源码未变，不重复旧单元/Electron/build。该记录realEvaluationStatus=not_run，任务仍active等待用户显式开始，尚未有新真实报告/诊断，不宣称8失败或11跳过收敛。
+
+
+用户随后明确已点击开始；唯一新run于17:33:49开始，17:34:01/17:34:29/17:35:15只读running分别2/7/17项，17:35:46结束，17:36:04首次终态。三项模式deepseek，Flash145真实请求尝试，run.completed/report.failed，31业务23通过/3失败/5前置跳过，17故障注入fixture_only。原8失败5本次通过/1失败/2跳过、原11跳过9通过/2仍跳过，另2旧通过点本次失败、1旧通过点本次跳过。新真实报告独立于旧两轮/fixture/八合成重建，不改期望、不拼接通过项。
+
+16行17实际枚举事件；10业务点一次纠正后通过。apparel-zh-v1仅terms断言失败无循环诊断；panel-de-v2 provider/null/provider_failure第2次MODEL_INVALID_OUTPUT停止；fastener-de-v1第3次clarification/missing_facts反馈后第4次search_knowledge/calculate_first停止，未放宽一次额度。桌面48明细与JSON/Markdown证据一致，正式Main原生双格式导出与strict持久report投影逐字节相同；状态观察和三份新证据分别入raw。未采原文/Key/错误栈/控制键或业务库，没有Agent start/retry/cancel/连接测试；Wiki门禁收口后只关闭本核对，不关闭真实失败，不推送。
+
+
+本次真实核对收口：strict状态/固定48计划/原检查名/模式计数/诊断枚举和原生JSON、Markdown字节一致性、机械生成/只读check/lint、固定885c474/4d13e47/be53b98同步及diff均退出0，见raw/c04-diagnostic-retest-validation.json。101份旧raw及64429字节旧log完整前缀保持，九份关键源码与bundle哈希已核对；末次仍同一已完成run/145请求、仅一新运行，未自动再派发。任务done仅指核对收口，realEvaluationStatus=failed及3失败/5跳过不变，完整C04不标通过。无源码改动，不重复旧单元/Electron/build或fixture；应用保持打开，本地提交，不推送、不自动重试。
