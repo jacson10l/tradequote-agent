@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "a304a7c84df701379bef63f2c2943535dbcfc63118d568c0a09d5d2415f0e929",
+    "wiki-config.json": "dabdbb67d5f6b8cfdc4f7aca72f61071a64c06c38df5c1a4c4359ee8a09d29ff",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -1377,12 +1377,13 @@
     {
       "path": "packages/domain/src/index.ts",
       "type": "ts",
-      "lines": 66,
-      "bytes": 2369,
-      "sha256": "357314c4f4e5e7971447b66cffcefd47e09134892d63aa71275750e2b5ddf7cd",
+      "lines": 67,
+      "bytes": 2413,
+      "sha256": "15e8b82812e2f127501bd0fb891928cd0e93b7d6f1616584938f02687eabe3ec",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/A01c检索引用实现.md"
       ]
     },
     {
@@ -1428,6 +1429,17 @@
       "role": "Deterministic tier pricing, unknown amounts and human-only V1 service",
       "pages": [
         "wiki/M2真实报价V1.md"
+      ]
+    },
+    {
+      "path": "packages/domain/src/wiki.ts",
+      "type": "ts",
+      "lines": 92,
+      "bytes": 4222,
+      "sha256": "c53ad78d95b550d8226d274f60d30b22c6114dd785b23a7637ca4d2869227cc6",
+      "role": "A01c检索引用服务：B00a P0来源门禁与方法分发",
+      "pages": [
+        "wiki/A01c检索引用实现.md"
       ]
     },
     {
@@ -1516,12 +1528,13 @@
     {
       "path": "packages/infrastructure/src/index.ts",
       "type": "ts",
-      "lines": 119,
-      "bytes": 4282,
-      "sha256": "550ad7d110b3acb9125ffa782f8be6c4dff184fac5c016fa6499d01368329fd0",
+      "lines": 126,
+      "bytes": 4573,
+      "sha256": "101b05dbce083a88f7b66d04c74acb8b7a5e38c0cbc203e43eb85040633092a8",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/A01c检索引用实现.md"
       ]
     },
     {
@@ -1550,12 +1563,13 @@
     {
       "path": "packages/infrastructure/src/migrations.ts",
       "type": "ts",
-      "lines": 69,
-      "bytes": 4608,
-      "sha256": "c5559424e0e168c27d757c4e223887c2383ceb3bad1b75f407a87bb03c3fca3e",
+      "lines": 124,
+      "bytes": 7251,
+      "sha256": "13c4a45e7b77247500964f6b4ac2ac19e178c4cc16275e46d2af2ac28f6eed9c",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/A01c检索引用实现.md"
       ]
     },
     {
@@ -1624,6 +1638,29 @@
       "role": "Atomic scenario/catalog/immutable quote V1 storage and retries",
       "pages": [
         "wiki/M2真实报价V1.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/wiki-store.test.ts",
+      "type": "ts",
+      "lines": 456,
+      "bytes": 15143,
+      "sha256": "62b138930d7af6e622a052ec6d136e57ebad3f0740c45740d36f70fee353f015",
+      "role": "A01c检索引用回归：不回退、分页、引用闭环与消费事务",
+      "pages": [
+        "wiki/A01c检索引用实现.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/wiki-store.ts",
+      "type": "ts",
+      "lines": 678,
+      "bytes": 27115,
+      "sha256": "f8e3ac1afc6a8a80ee191e379dbc2d86537826aeac91dca891e3050b692cffa5",
+      "role": "A01c检索引用SQLite存储：检索/引用/消费与候选暂存",
+      "pages": [
+        "wiki/A01c检索引用实现.md"
       ]
     },
     {

@@ -620,7 +620,8 @@
     "packages/domain/src/index.ts": {
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/A01c检索引用实现.md"
       ]
     },
     "packages/infrastructure/package.json": {
@@ -638,13 +639,15 @@
     "packages/infrastructure/src/index.ts": {
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/A01c检索引用实现.md"
       ]
     },
     "packages/infrastructure/src/migrations.ts": {
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/A01c检索引用实现.md"
       ]
     },
     "packages/infrastructure/src/schema.ts": {
@@ -1044,6 +1047,25 @@
       "role": "A01b知识存储回归：发布门禁、幂等、版本、scope与不可变",
       "pages": [
         "wiki/A知识发布实现.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "packages/domain/src/wiki.ts": {
+      "role": "A01c检索引用服务：B00a P0来源门禁与方法分发",
+      "pages": [
+        "wiki/A01c检索引用实现.md"
+      ]
+    },
+    "packages/infrastructure/src/wiki-store.ts": {
+      "role": "A01c检索引用SQLite存储：检索/引用/消费与候选暂存",
+      "pages": [
+        "wiki/A01c检索引用实现.md"
+      ]
+    },
+    "packages/infrastructure/src/wiki-store.test.ts": {
+      "role": "A01c检索引用回归：不回退、分页、引用闭环与消费事务",
+      "pages": [
+        "wiki/A01c检索引用实现.md",
         "wiki/M1验证与协作.md"
       ]
     },

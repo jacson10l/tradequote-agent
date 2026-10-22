@@ -54,6 +54,61 @@ CREATE TRIGGER knowledge_revision_no_update BEFORE UPDATE ON knowledge_revision 
 CREATE TRIGGER knowledge_revision_no_delete BEFORE DELETE ON knowledge_revision BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE'); END;
 `,
   },
+  {
+    // A01c: B00a P0 knowledge wiki model (source/wiki/lifecycle/consumption).
+    // Migration 5 stays reserved for C's run tables; A's wiki extension uses 6.
+    version: 6,
+    sql: `
+CREATE TABLE knowledge_source (
+  source_revision_id TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL REFERENCES workspace(id),
+  source_id TEXT NOT NULL,
+  version INTEGER NOT NULL CHECK(version>0),
+  parent_revision_id TEXT,
+  state TEXT NOT NULL CHECK(state IN ('active','withdrawn')),
+  lifecycle_version INTEGER NOT NULL CHECK(lifecycle_version>0),
+  artifact_hash TEXT NOT NULL CHECK(length(artifact_hash)=64),
+  created_at TEXT NOT NULL,
+  data_json TEXT NOT NULL,
+  UNIQUE(source_id, version)
+);
+CREATE INDEX knowledge_source_document ON knowledge_source(source_id, version DESC);
+CREATE TABLE knowledge_wiki (
+  revision_id TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL REFERENCES workspace(id),
+  document_id TEXT NOT NULL,
+  version INTEGER NOT NULL CHECK(version>0),
+  parent_revision_id TEXT,
+  content_hash TEXT NOT NULL CHECK(length(content_hash)=64),
+  source_set_hash TEXT NOT NULL CHECK(length(source_set_hash)=64),
+  created_at TEXT NOT NULL,
+  data_json TEXT NOT NULL,
+  UNIQUE(document_id, version)
+);
+CREATE INDEX knowledge_wiki_document ON knowledge_wiki(document_id, version DESC);
+CREATE TRIGGER knowledge_wiki_no_update BEFORE UPDATE ON knowledge_wiki BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE_WIKI'); END;
+CREATE TRIGGER knowledge_wiki_no_delete BEFORE DELETE ON knowledge_wiki BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE_WIKI'); END;
+CREATE TABLE knowledge_lifecycle (
+  revision_id TEXT PRIMARY KEY REFERENCES knowledge_wiki(revision_id),
+  lifecycle_version INTEGER NOT NULL CHECK(lifecycle_version>0),
+  state TEXT NOT NULL CHECK(state IN ('candidate','approved','rejected','published','withdrawn')),
+  data_json TEXT NOT NULL
+);
+CREATE INDEX knowledge_lifecycle_state ON knowledge_lifecycle(state);
+CREATE TABLE knowledge_consumption (
+  consumption_id TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL REFERENCES workspace(id),
+  consumer_kind TEXT NOT NULL CHECK(consumer_kind IN ('quote','artifact')),
+  consumer_entity_id TEXT NOT NULL,
+  consumer_revision_id TEXT NOT NULL,
+  registered_at TEXT NOT NULL,
+  data_json TEXT NOT NULL,
+  UNIQUE(consumer_kind, consumer_entity_id, consumer_revision_id)
+);
+CREATE TRIGGER knowledge_consumption_no_update BEFORE UPDATE ON knowledge_consumption BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE_CONSUMPTION'); END;
+CREATE TRIGGER knowledge_consumption_no_delete BEFORE DELETE ON knowledge_consumption BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE_CONSUMPTION'); END;
+`,
+  },
 ];
 export function migrate(db: Database.Database, steps = migrations) {
   const current = Number(db.pragma("user_version", { simple: true }));

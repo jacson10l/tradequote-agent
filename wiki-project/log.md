@@ -315,3 +315,7 @@ B00a P0 远端交接：代码提交 26421ab5bf93f74b20d5888f0e1ff3b48b9bfc36 已
 ## 2026-10-22 A01b 同步 B00a P0 共同基线
 
 A 在 codex/a01b-knowledge-store 合并 codex/m1-foundation（654fecc，含 PR#7 B00a P0 知识检索与引用公共协议）。解决 wiki-config.json 的 knowledge-drafts.a01a.json fixture 覆盖映射冲突：该 fixture 现同时服务于 A01b 知识发布实现与 B00a P0 检索引用测试，合并映射到 [[A知识发布实现]] 与 [[B00a知识Wiki公共协议]] 两页；重跑 build-code-index 生成 159 文件/5 生成物。generate/--check/lint 与 check-wiki-sync(基线 c6539e8) 均退出 0。A01b 实现仍为旧 B00 KnowledgeRepository，B00a P0 的 WikiService 由 A01c 实现，本次仅同步基线、未变更 A01b 业务代码。
+
+## 2026-10-23 A01c 检索引用
+
+A 在 codex/a01c-knowledge-search（从 codex/a01b-knowledge-store 4d3b213 分出，已含 B00a P0 654fecc）实现 A01c 检索引用切片：新增 SqliteWikiStore 与 createWikiService，覆盖 B00a P0 的 source/wiki 暂存、search/resolveCitation/registerConsumption/getConsumption；review/publish/withdraw 依赖 P1 lint 回执返回 CAPABILITY_UNAVAILABLE。新增迁移 6（knowledge_source/wiki/lifecycle/consumption 四表，迁移 5 保留给 C run），SqliteWorkspaceRepository 增 executeWiki 并导出 SqliteWikiStore/createWikiService。测试 wiki-store.test.ts 覆盖 A-W06-1/2、A-W07-1/2、A-W08 共 5 项；检索不回退旧版本、分页游标固定、多来源引用闭环、消费事务复核与幂等、来源/知识暂存幂等与来源门禁。Wiki 同步新增 [[A01c检索引用实现]]，更新任务页 A01 改动/验证/未完成、覆盖映射、导航与 log。本机未安装 node_modules（Node v24.14.1 与仓库 engines 22.22.0 不一致），typecheck 与测试未复跑，仅静态审查；generate/check/lint/sync 门禁以实际运行为准，未推送。

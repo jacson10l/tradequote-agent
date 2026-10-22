@@ -7,10 +7,12 @@ import {
   failure,
   ResultSchema,
   type TradeCommand,
+  type WikiHostContext,
   WorkspaceSchema,
 } from "@tradequote/contracts";
 import {
   createKnowledgeService,
+  createWikiService,
   transitionWorkspace,
   type WorkspaceRepository,
 } from "@tradequote/domain";
@@ -18,6 +20,7 @@ import Database from "better-sqlite3";
 import { drizzle } from "drizzle-orm/better-sqlite3";
 import { SqliteKnowledgeStore } from "./knowledge-store";
 import { migrate } from "./migrations";
+import { SqliteWikiStore } from "./wiki-store";
 import { workspace } from "./schema";
 import { TradeStore } from "./trade-store";
 
@@ -95,6 +98,9 @@ export class SqliteWorkspaceRepository implements WorkspaceRepository {
   executeKnowledge(command: unknown, context: ExecutionContext) {
     return createKnowledgeService(new SqliteKnowledgeStore(this.db)).execute(command, context);
   }
+  executeWiki(command: unknown, context: WikiHostContext) {
+    return createWikiService(new SqliteWikiStore(this.db)).execute(command, context);
+  }
   agentReplay(command: import("@tradequote/contracts").AgentCommand) {
     return new TradeStore(this.db).replay(command);
   }
@@ -115,5 +121,6 @@ export class SqliteWorkspaceRepository implements WorkspaceRepository {
 export { AgentExecutor } from "./agent-executor";
 export { DeepSeekProvider } from "./deepseek";
 export { SqliteKnowledgeStore } from "./knowledge-store";
+export { SqliteWikiStore } from "./wiki-store";
 
 export { ModelSettingsStore } from "./model-settings";
