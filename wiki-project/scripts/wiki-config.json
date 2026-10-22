@@ -1068,7 +1068,8 @@
         "wiki/双参考项目功能对照与C开发路线.md",
         "wiki/M4模型与报价修订.md",
         "wiki/C02c多步报价工具闭环.md",
-        "wiki/C04失败收敛与本地回归.md"
+        "wiki/C04失败收敛与本地回归.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md"
       ]
     },
     "packages/infrastructure/src/read-tool-runtime.test.ts": {
@@ -1261,7 +1262,8 @@
       "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
       "pages": [
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md"
       ]
     },
     "packages/infrastructure/src/agent-run-recovery.test.ts": {
@@ -1332,7 +1334,8 @@
       "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
       "pages": [
         "wiki/C02c多步报价工具闭环.md",
-        "wiki/C04失败收敛与本地回归.md"
+        "wiki/C04失败收敛与本地回归.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md"
       ]
     },
     "tests/e2e/multistep-agent.spec.ts": {
@@ -1372,14 +1375,16 @@
       "role": "C04独立模型评估、故障矩阵与脱敏报告",
       "pages": [
         "wiki/C04模型评估与脱敏报告.md",
-        "wiki/C04正式设置评估入口.md"
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md"
       ]
     },
     "packages/infrastructure/src/evaluation/runner.ts": {
       "role": "C04独立模型评估、故障矩阵与脱敏报告",
       "pages": [
         "wiki/C04模型评估与脱敏报告.md",
-        "wiki/C04正式设置评估入口.md"
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md"
       ]
     },
     "packages/infrastructure/src/evaluation/workspace.ts": {
@@ -1416,13 +1421,15 @@
     "apps/desktop/src/renderer/src/features/model-evaluation.tsx": {
       "role": "C04正式评估入口、公开契约与生命周期验证",
       "pages": [
-        "wiki/C04正式设置评估入口.md"
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md"
       ]
     },
     "packages/contracts/src/model-evaluation.ts": {
       "role": "C04正式评估入口、公开契约与生命周期验证",
       "pages": [
-        "wiki/C04正式设置评估入口.md"
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md"
       ]
     },
     "packages/infrastructure/src/evaluation/public.ts": {
@@ -1440,13 +1447,28 @@
     "tests/e2e/model-evaluation.spec.ts": {
       "role": "C04正式评估入口、公开契约与生命周期验证",
       "pages": [
-        "wiki/C04正式设置评估入口.md"
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md"
       ]
     },
     "packages/infrastructure/src/evaluation/failure-regressions.test.ts": {
       "role": "C04六项失败类合成重建回归及受限纠正停止条件，非真实响应重放",
       "pages": [
         "wiki/C04失败收敛与本地回归.md",
+        "wiki/C04模型评估与脱敏报告.md"
+      ]
+    },
+    "packages/infrastructure/src/evaluation/diagnostics.test.ts": {
+      "role": "C04枚举诊断隐私与兼容、八失败合成重建和停止边界回归",
+      "pages": [
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04模型评估与脱敏报告.md"
+      ]
+    },
+    "packages/infrastructure/src/evaluation/retest-regressions.test.ts": {
+      "role": "C04枚举诊断隐私与兼容、八失败合成重建和停止边界回归",
+      "pages": [
+        "wiki/C04失败阶段诊断与二轮收敛.md",
         "wiki/C04模型评估与脱敏报告.md"
       ]
     }

@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "a0d3adc1c191019e98b1129dd62920e723a3523fd7fd750da28d360c51f51800",
+    "wiki-config.json": "069ba70bbd2b346608f25d2dd53735ae3eac2b4081ccdd895adfc54987310b15",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -333,12 +333,13 @@
     {
       "path": "apps/desktop/src/renderer/src/features/model-evaluation.tsx",
       "type": "tsx",
-      "lines": 333,
-      "bytes": 12577,
-      "sha256": "062b7d7e1ff55d76bae675541d014ed9f7d22799ae16ad3e4fbc89cb97a69430",
+      "lines": 342,
+      "bytes": 13168,
+      "sha256": "efff886d6251889d97bc494d003562a2634690184a6e6032f85142b49ec5608f",
       "role": "C04正式评估入口、公开契约与生命周期验证",
       "pages": [
-        "wiki/C04正式设置评估入口.md"
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md"
       ]
     },
     {
@@ -1297,12 +1298,13 @@
     {
       "path": "packages/contracts/src/model-evaluation.ts",
       "type": "ts",
-      "lines": 237,
-      "bytes": 8007,
-      "sha256": "fd41913cb03a8cc80052db48cc5887036b8bc252e02fc5993a8154ff453fff40",
+      "lines": 279,
+      "bytes": 9114,
+      "sha256": "f3abe473f8db7d1b47bae9eb36270076c8529bcda0ada75316e923fe95eba669",
       "role": "C04正式评估入口、公开契约与生命周期验证",
       "pages": [
-        "wiki/C04正式设置评估入口.md"
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md"
       ]
     },
     {
@@ -1571,13 +1573,14 @@
     {
       "path": "packages/infrastructure/src/agent-run-coordinator.ts",
       "type": "ts",
-      "lines": 198,
-      "bytes": 8455,
-      "sha256": "f119709837b2c23b024a6d6d364aefa2de376b4df521f2df51599fa22071861e",
+      "lines": 201,
+      "bytes": 8601,
+      "sha256": "1621fc3caa53a273c23c45c7e2782aebc55a19a8567af921b249b44860ee9df0",
       "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
       "pages": [
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md"
       ]
     },
     {
@@ -1741,6 +1744,18 @@
       ]
     },
     {
+      "path": "packages/infrastructure/src/evaluation/diagnostics.test.ts",
+      "type": "ts",
+      "lines": 81,
+      "bytes": 2802,
+      "sha256": "8b8ed444cfe51106c05842df1e33a8534c52c41898edc55642e074aa6ec5ee64",
+      "role": "C04枚举诊断隐私与兼容、八失败合成重建和停止边界回归",
+      "pages": [
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04模型评估与脱敏报告.md"
+      ]
+    },
+    {
       "path": "packages/infrastructure/src/evaluation/evaluation.test.ts",
       "type": "ts",
       "lines": 178,
@@ -1790,25 +1805,39 @@
     {
       "path": "packages/infrastructure/src/evaluation/report.ts",
       "type": "ts",
-      "lines": 30,
-      "bytes": 1344,
-      "sha256": "01533d97d29db155e5f0fb52badbf5bbbca89419962b3777db01cbd869d6041e",
+      "lines": 43,
+      "bytes": 1853,
+      "sha256": "43e7eb33799b03e22001c69948a1de84265e5c31c9795b1dd4344b8334e13e9e",
       "role": "C04独立模型评估、故障矩阵与脱敏报告",
       "pages": [
         "wiki/C04模型评估与脱敏报告.md",
-        "wiki/C04正式设置评估入口.md"
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/retest-regressions.test.ts",
+      "type": "ts",
+      "lines": 330,
+      "bytes": 12289,
+      "sha256": "e494bdddfed3d2816ffdb10f885ca4e6677bfa384b508491df33c48ea64e0c99",
+      "role": "C04枚举诊断隐私与兼容、八失败合成重建和停止边界回归",
+      "pages": [
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04模型评估与脱敏报告.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/evaluation/runner.ts",
       "type": "ts",
-      "lines": 485,
-      "bytes": 18606,
-      "sha256": "20105c23e1628f98e18a74496e0b572e22d5d11bb802de241223b1201e845a55",
+      "lines": 494,
+      "bytes": 19001,
+      "sha256": "86bfeb870dfdc3dad9c87a3dd8de650f404b85bef217d05d921c657463bbebcf",
       "role": "C04独立模型评估、故障矩阵与脱敏报告",
       "pages": [
         "wiki/C04模型评估与脱敏报告.md",
-        "wiki/C04正式设置评估入口.md"
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md"
       ]
     },
     {
@@ -1930,13 +1959,14 @@
     {
       "path": "packages/infrastructure/src/quote-tool-agent.ts",
       "type": "ts",
-      "lines": 385,
-      "bytes": 16263,
-      "sha256": "4e5ebb8c36905961474bc186ae26411eb4cd28e39e68262d46e6e92f07c70db7",
+      "lines": 397,
+      "bytes": 16875,
+      "sha256": "d310858cd4863834ef833cf10a21cd1113261beb09d0c15c31481cd8f6582572",
       "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
       "pages": [
         "wiki/C02c多步报价工具闭环.md",
-        "wiki/C04失败收敛与本地回归.md"
+        "wiki/C04失败收敛与本地回归.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md"
       ]
     },
     {
@@ -1956,15 +1986,16 @@
     {
       "path": "packages/infrastructure/src/read-tool-runtime.ts",
       "type": "ts",
-      "lines": 287,
-      "bytes": 12097,
-      "sha256": "0254bbcb2c14a39efbe473e2767a39ea9a286ea190dc33cf3e4165231ed92e84",
+      "lines": 425,
+      "bytes": 17776,
+      "sha256": "27b02eb58cb0594e0d50deb7d85961344c7eca0f1b9a4eac503feed085fefda2",
       "role": "C02a受限只读工具循环、预算取消与真实业务计算回归",
       "pages": [
         "wiki/双参考项目功能对照与C开发路线.md",
         "wiki/M4模型与报价修订.md",
         "wiki/C02c多步报价工具闭环.md",
-        "wiki/C04失败收敛与本地回归.md"
+        "wiki/C04失败收敛与本地回归.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md"
       ]
     },
     {
@@ -2217,12 +2248,13 @@
     {
       "path": "tests/e2e/model-evaluation.spec.ts",
       "type": "ts",
-      "lines": 243,
-      "bytes": 11117,
-      "sha256": "c561764b0958e10203d84bb1acb5e3a28677543baee54cad2fdd6391d3c1bc23",
+      "lines": 256,
+      "bytes": 11630,
+      "sha256": "38c5dcf3296580396b973c2bb81cbcf74d8aab2ac5d26276403f6d3cf11ab03f",
       "role": "C04正式评估入口、公开契约与生命周期验证",
       "pages": [
-        "wiki/C04正式设置评估入口.md"
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md"
       ]
     },
     {

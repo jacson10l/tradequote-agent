@@ -21,6 +21,7 @@ import type { DeepSeekProvider } from "./deepseek";
 import { DeepSeekProvider as DefaultProvider } from "./deepseek";
 import type { SqliteWorkspaceRepository } from "./index";
 import { QuoteToolAgent } from "./quote-tool-agent";
+import type { FailureObserver } from "./read-tool-runtime";
 
 const ok = <T>(data: T) => ({ ok: true as const, data, warnings: [], evidenceIds: [] });
 const fault = (error: unknown) =>
@@ -46,6 +47,7 @@ export class AgentRunCoordinator {
   constructor(
     private readonly repository: SqliteWorkspaceRepository,
     private readonly provider?: (credentials: ModelCredentials) => Pick<DeepSeekProvider, "json">,
+    private readonly observeFailure?: FailureObserver,
   ) {
     this.store = repository.runStore();
     this.generator = new AgentExecutor(repository, provider);
@@ -140,6 +142,7 @@ export class AgentRunCoordinator {
           ticket,
           run.command,
           credentials.model,
+          this.observeFailure,
         ).run(cancellation);
       const deadline = AbortSignal.timeout(50000);
       const signal = AbortSignal.any([cancellation, deadline]);

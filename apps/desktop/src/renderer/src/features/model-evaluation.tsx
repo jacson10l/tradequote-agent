@@ -299,6 +299,7 @@ export function ModelEvaluationPanel({
                             <th>结果</th>
                             <th>公开错误码 / 未运行原因</th>
                             <th>不符合项</th>
+                            <th>脱敏失败证据</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -315,6 +316,14 @@ export function ModelEvaluationPanel({
                                   .filter((c) => !c.passed)
                                   .map((c) => checks[c.id])
                                   .join("、") || "—"}
+                              </td>
+                              <td>
+                                {row.diagnostics
+                                  ?.map(
+                                    (d) =>
+                                      `${d.stage} · ${d.tool ?? "—"} · ${d.category} · ${d.disposition === "feedback" ? "已提供纠正反馈" : "已停止"} · 第${d.modelCall}次请求`,
+                                  )
+                                  .join("；") ?? (row.status === "failed" ? "未采集" : "—")}
                               </td>
                             </tr>
                           ))}

@@ -24,7 +24,13 @@ import {
   knowledgeQuery,
   knowledgeStamp,
 } from "./quote-draft-plan";
-import { type BusinessTool, defineBusinessTool, ToolLoopRuntime } from "./read-tool-runtime";
+import {
+  type BusinessTool,
+  defineBusinessTool,
+  type FailureObserver,
+  ToolLoopRuntime,
+  ToolOrderFault,
+} from "./read-tool-runtime";
 
 const ok = <T>(data: T, evidenceIds: string[] = []) => ({ ok: true as const, data, evidenceIds });
 
@@ -37,6 +43,7 @@ export class QuoteToolAgent {
     private readonly ticket: RunTicket,
     private readonly command: AgentCommand,
     private readonly model: string,
+    private readonly observeFailure?: FailureObserver,
   ) {}
   async run(cancellation: AbortSignal): Promise<AgentRun> {
     const workspace = this.repository.read();
@@ -82,7 +89,7 @@ export class QuoteToolAgent {
         outputSchema: KnowledgeListResultSchema,
         execute: async () => {
           if (!candidate)
-            throw new TradeFault("ACTION_NOT_ALLOWED", "请先核价，知识范围由实际候选商品确定");
+            throw new ToolOrderFault("calculate_first", "请先核价，知识范围由实际候选商品确定");
           const result = KnowledgeListResultSchema.parse(
             this.repository.executeKnowledge(
               {
@@ -184,8 +191,10 @@ export class QuoteToolAgent {
           evidenceIds: z.array(z.string()),
         }),
         execute: async ({ candidateId }) => {
-          if (!candidate || candidate.id !== candidateId || !knowledge)
+          if (!candidate || candidate.id !== candidateId)
             throw new TradeFault("ACTION_NOT_ALLOWED", "请先核价并读取适用知识，再校验当前候选");
+          if (!knowledge)
+            throw new ToolOrderFault("knowledge_first", "请先读取适用知识再校验当前候选");
           const report = checkDraft(candidate.calculated, knowledge, new Date().toISOString());
           const id = randomUUID();
           validation = {
@@ -358,6 +367,8 @@ export class QuoteToolAgent {
           throw new TradeFault("RULE_BLOCKED", "当前候选校验存在阻断问题，未保存");
         if (kind === "complete" && candidate)
           return "候选尚未保存。继续search_knowledge、validate_quote及本模式写工具，只使用本次最新candidateId/validationId；未知金额保留null和pending，不能声称已保存或批准。";
+        if (kind === "complete" && (sawBase || seenProducts.size > 0))
+          return "已读取资料但尚未核价或保存。若商品/数量/单位已明确，继续calculate_quote、search_knowledge、validate_quote和本模式写工具；未知价格保持null/pending。真正缺少用户事实时用clarification，禁止猜测或声称已保存。";
         if (
           kind === "clarification" &&
           (candidate?.calculated.lines.some((line) => line.unitPrice === null) ||
@@ -371,6 +382,7 @@ export class QuoteToolAgent {
           return "价目表价格未知不等于零，也不阻止保存未审核草稿。若用户已给商品/数量/单位，继续核价、知识/规则校验和草稿写入，金额保持null及pending；真正缺少买家事实时仍应澄清，禁止猜测。";
         return undefined;
       },
+      this.observeFailure,
     ).run(
       this.command.method === "agent.understand"
         ? this.command.payload.inquiry

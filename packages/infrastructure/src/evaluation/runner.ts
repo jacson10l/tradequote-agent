@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import { performance } from "node:perf_hooks";
+import type { FailureDiagnostic } from "@tradequote/contracts";
 import {
   type AgentCommand,
   ErrorCodeSchema,
@@ -82,6 +83,9 @@ const publicCode = (error: unknown): PublicCode => {
 const checks = (values: Partial<Record<CheckId, boolean>>) =>
   Object.entries(values).map(([id, passed]) => ({ id: id as CheckId, passed: passed! }));
 const human = { actorId: "synthetic-evaluator", origin: "human_ui" as const };
+const recordDiagnostic = (row: EvaluationRow, diagnostic: FailureDiagnostic) => {
+  row.diagnostics = [...(row.diagnostics ?? []), diagnostic].slice(-12);
+};
 
 /** Host-only evaluation. Never loads settings, environment keys or a production workspace.
  * Actual credentials may only be supplied by an explicitly authorized trusted host; the CLI
@@ -168,6 +172,7 @@ export async function evaluateC04(options: {
               },
               options.httpFixture?.endpoint,
             ),
+          (diagnostic) => recordDiagnostic(activeRow, diagnostic),
         );
         unbind = bindCancellation(coordinator, f);
         let baseId = "";
@@ -329,7 +334,11 @@ export async function evaluateC04(options: {
             resultRow.errorCode = publicCode(error);
           }
         } else {
-          coordinator = new AgentRunCoordinator(f.repo, () => provider);
+          coordinator = new AgentRunCoordinator(
+            f.repo,
+            () => provider,
+            (diagnostic) => recordDiagnostic(resultRow, diagnostic),
+          );
           unbind = bindCancellation(coordinator, f);
           const result = await coordinator.executeLegacy(
             {

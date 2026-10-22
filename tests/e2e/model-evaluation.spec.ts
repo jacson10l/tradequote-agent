@@ -125,6 +125,12 @@ test("formal model settings explicitly start isolated evaluations, cancel, prese
     expect(calls).toBe(2);
     await panel.getByText("查看检查明细（48项）").click();
     await expect(panel.getByRole("table", { name: "模型评估检查明细" })).toContainText("服装");
+    await expect(panel.getByRole("table", { name: "模型评估检查明细" })).toContainText(
+      "unknown_field",
+    );
+    await expect(panel.getByRole("table", { name: "模型评估检查明细" })).toContainText(
+      "tool_input",
+    );
     await panel.scrollIntoViewIfNeeded();
     await page.screenshot({ path: ".runtime/c04-desktop-evaluation.png" });
     const completedState = await page.evaluate(() =>
@@ -148,6 +154,13 @@ test("formal model settings explicitly start isolated evaluations, cancel, prese
       mode: "fixture",
       status: "passed",
       realRequests: 0,
+    });
+    expect(
+      JSON.parse(downloaded).rows.find((r: { id: string }) => r.id === "failure-unknown_tool"),
+    ).toMatchObject({
+      diagnostics: [
+        { stage: "tool_lookup", tool: null, category: "unknown_tool", disposition: "stopped" },
+      ],
     });
     expect(downloaded).not.toContain("synthetic-desktop-eval-key");
     const trade = await page.evaluate(() => window.tradequote.getTrade());

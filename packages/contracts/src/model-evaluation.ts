@@ -2,6 +2,47 @@ import { z } from "zod";
 import { ModelCredentialsSchema } from "./agent";
 import { ErrorCodeSchema } from "./errors";
 import { readEnvelope, resultSchema, writeEnvelope } from "./protocol";
+import { AgentToolNameSchema } from "./runs";
+
+// Host-produced enums only. Never accept field paths, input values or model/error text.
+export const FailureDiagnosticSchema = z.strictObject({
+  stage: z.enum([
+    "provider",
+    "action_schema",
+    "tool_lookup",
+    "tool_input",
+    "tool_execution",
+    "completion",
+    "clarification",
+    "budget",
+    "context",
+  ]),
+  tool: AgentToolNameSchema.nullable(),
+  category: z.enum([
+    "provider_failure",
+    "invalid_action",
+    "unknown_tool",
+    "missing_field",
+    "type_mismatch",
+    "unknown_field",
+    "invalid_value",
+    "quantity_format",
+    "calculate_first",
+    "knowledge_first",
+    "business_failure",
+    "premature_complete",
+    "missing_facts",
+    "rule_block",
+    "request_limit",
+    "context_limit",
+    "cancelled",
+    "timeout",
+  ]),
+  disposition: z.enum(["feedback", "stopped"]),
+  modelCall: z.number().int().min(0).max(12),
+  errorCode: ErrorCodeSchema,
+});
+export type FailureDiagnostic = z.infer<typeof FailureDiagnosticSchema>;
 export const evaluationLanguages = ["zh", "en", "de"] as const;
 export const evaluationFailures = [
   "auth",
@@ -91,6 +132,7 @@ export const EvaluationRowSchema = z
     modelCalls: z.number().int().nonnegative(),
     elapsedMs: z.number().int().nonnegative(),
     checks: z.array(z.strictObject({ id: CheckIdSchema, passed: z.boolean() })),
+    diagnostics: z.array(FailureDiagnosticSchema).min(1).max(12).optional(),
   })
   .superRefine((row, ctx) => {
     if (

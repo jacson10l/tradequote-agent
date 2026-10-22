@@ -23,6 +23,19 @@ export function markdownReport(report: EvaluationReport): string {
             .join(", ") || "—"
         } |`,
     ),
+    ...(r.rows.some((row) => row.diagnostics?.length)
+      ? [
+          "",
+          "| Case | Failure stage | Tool | Validation category | Disposition | Model call | Code |",
+          "|---|---|---|---|---|---:|---|",
+          ...r.rows.flatMap((row) =>
+            (row.diagnostics ?? []).map(
+              (d) =>
+                `| ${row.id} | ${d.stage} | ${d.tool ?? "—"} | ${d.category} | ${d.disposition} | ${d.modelCall} | ${d.errorCode} |`,
+            ),
+          ),
+        ]
+      : []),
     "",
     "No keys, headers, prompts, model responses, buyer text, source contents, database paths or raw errors are included.",
     "",

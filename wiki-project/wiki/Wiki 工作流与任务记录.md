@@ -160,4 +160,6 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 
 ## C04失败收敛覆盖与历史保持
 
+后续C04阶段证据切片新增diagnostics.test.ts、retest-regressions.test.ts逐文件映射至[[C04失败阶段诊断与二轮收敛]]和原评估知识页；原C04契约/协调器/runtime/QuoteToolAgent/runner/report/renderer/Electron用例追加相关职责页，保留旧映射。配置只增覆盖，不改维护算法，仍跑36项Wiki回归、生成/只读check/lint及3a476a3/be53b98固定同步。新fixture报告和八项重建证据独立命名并入导航，旧真实报告/旧日志保留，不反填诊断或拼接多轮通过项；实际命令/退出码见[[C04-失败阶段证据与八项回归]]。以下是前轮记录。
+
 新增failure-regressions.test.ts映射至[[C04失败收敛与本地回归]]/原评估知识页，runtime、只读测试及QuoteToolAgent追加受限纠正职责页，旧覆盖保留。配置只加映射，不改采集/lint/sync算法；继续运行36项维护回归与b231181/be53b98固定同步。新增fixture报告使用独立文件名且由知识页链接，初轮遗漏Markdown入链触发lint及复制库维护回归失败，补真实导航后再跑，不降低可达要求。86份旧raw逐字节、57373字节旧log完整前缀及正式评估样本/期望/锁文件均保持；六项合成重建不替代原真实失败报告。实际记录见[[C04-失败收敛]]。

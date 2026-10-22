@@ -1,3 +1,4 @@
+import { type FailureDiagnostic, FailureDiagnosticSchema } from "@tradequote/contracts";
 import { TradeFault } from "@tradequote/domain";
 import { z } from "zod";
 import type { DeepSeekProvider, ModelMessage } from "./deepseek";
@@ -22,8 +23,21 @@ export interface BusinessTool {
   invoke(input: unknown, signal: AbortSignal): Promise<unknown>;
 }
 
+export type FailureObserver = (diagnostic: FailureDiagnostic) => void;
+type FailureContext = Pick<FailureDiagnostic, "stage" | "tool" | "category" | "modelCall">;
+export class ToolOrderFault extends TradeFault {
+  constructor(
+    readonly category: "calculate_first" | "knowledge_first",
+    message: string,
+  ) {
+    super("ACTION_NOT_ALLOWED", message);
+  }
+}
 class ToolInputFault extends TradeFault {
-  constructor(readonly repairable: boolean) {
+  constructor(
+    readonly repairable: boolean,
+    readonly category: FailureDiagnostic["category"],
+  ) {
     super("MODEL_INVALID_OUTPUT", "工具参数未通过业务校验");
   }
 }
@@ -46,12 +60,44 @@ export function defineBusinessTool<I extends z.ZodType, O extends z.ZodType>(
     inputSchema,
     async invoke(input, signal) {
       const parsed = inputSchema.safeParse(input);
-      if (!parsed.success)
+      if (!parsed.success) {
+        const quantityFormat = (issue: z.core.$ZodIssue) =>
+          name === "calculate_quote" &&
+          issue.code === "invalid_format" &&
+          issue.path.length === 4 &&
+          issue.path[0] === "proposal" &&
+          (issue.path[1] === "lines" || issue.path[1] === "patches") &&
+          typeof issue.path[2] === "number" &&
+          issue.path[3] === "quantity";
         throw new ToolInputFault(
           parsed.error.issues.every(
-            (issue) => issue.code === "invalid_type" && issue.path.length > 0,
+            (issue) =>
+              (issue.code === "invalid_type" && issue.path.length > 0) || quantityFormat(issue),
           ),
+          parsed.error.issues.some((issue) => issue.code === "unrecognized_keys")
+            ? "unknown_field"
+            : parsed.error.issues.every(quantityFormat)
+              ? "quantity_format"
+              : parsed.error.issues.every((issue) => issue.code === "invalid_type")
+                ? parsed.error.issues.some((issue) => {
+                    let value = input;
+                    for (const key of issue.path) {
+                      if (
+                        typeof key === "symbol" ||
+                        !value ||
+                        typeof value !== "object" ||
+                        !Object.hasOwn(value, key)
+                      )
+                        return true;
+                      value = Reflect.get(value, key);
+                    }
+                    return value === undefined;
+                  })
+                  ? "missing_field"
+                  : "type_mismatch"
+                : "invalid_value",
         );
+      }
       let output: unknown;
       try {
         output = await execute(parsed.data, signal);
@@ -108,6 +154,7 @@ export class ToolLoopRuntime {
     private readonly hostContext?: unknown,
     private readonly policy: "read" | "draft" = "read",
     private readonly draftFeedback?: (kind: "complete" | "clarification") => string | undefined,
+    private readonly observeFailure?: FailureObserver,
   ) {
     this.limits = limitsSchema.parse(limits);
     for (const tool of tools) {
@@ -134,6 +181,52 @@ ${policy === "draft" ? "仅有当前run草稿写权限，没有发布、审批�
   async run(
     instruction: string,
     cancellation?: AbortSignal,
+  ): Promise<ReadOutcome | { outcome: "committed"; toolCalls: number }> {
+    const context: FailureContext = {
+      stage: "context",
+      category: "invalid_value",
+      tool: null,
+      modelCall: 0,
+    };
+    const report = (error: unknown, disposition: FailureDiagnostic["disposition"]) => {
+      if (!this.observeFailure) return;
+      const code = error instanceof TradeFault ? error.code : "CAPABILITY_UNAVAILABLE";
+      const diagnostic = {
+        ...context,
+        ...(error instanceof ToolInputFault
+          ? { stage: "tool_input" as const, category: error.category }
+          : {}),
+        ...(error instanceof ToolOrderFault ? { category: error.category } : {}),
+        ...(code === "RULE_BLOCKED"
+          ? { category: "rule_block" as const }
+          : code === "CANCELLED"
+            ? { category: "cancelled" as const }
+            : code === "MODEL_TIMEOUT"
+              ? { category: "timeout" as const }
+              : {}),
+        errorCode: code,
+        disposition,
+      };
+      // Evidence is observational: an unavailable consumer cannot change execution or retry it.
+      try {
+        this.observeFailure(FailureDiagnosticSchema.parse(diagnostic));
+      } catch {
+        /* no raw diagnostics */
+      }
+    };
+    try {
+      return await this.executeLoop(instruction, cancellation, context, report);
+    } catch (error) {
+      report(error, "stopped");
+      throw error;
+    }
+  }
+
+  private async executeLoop(
+    instruction: string,
+    cancellation: AbortSignal | undefined,
+    context: FailureContext,
+    report: (error: unknown, disposition: FailureDiagnostic["disposition"]) => void,
   ): Promise<ReadOutcome | { outcome: "committed"; toolCalls: number }> {
     if (!z.string().trim().min(1).max(8000).safeParse(instruction).success)
       throw new TradeFault("VALIDATION_ERROR", "任务文本须为1至8000字符");
@@ -173,6 +266,9 @@ ${policy === "draft" ? "仅有当前run草稿写权限，没有发布、审批�
           throw new Error("size");
         return json;
       } catch {
+        context.stage = "context";
+        context.category = "context_limit";
+        context.tool = null;
         throw new TradeFault("VALIDATION_ERROR", "任务上下文不可序列化或超过大小限制");
       }
     };
@@ -193,6 +289,7 @@ ${policy === "draft" ? "仅有当前run草稿写权限，没有发布、审批�
       return true;
     };
     for (;;) {
+      Object.assign(context, { stage: "budget", category: "request_limit", tool: null });
       if (
         this.policy === "draft" &&
         (toolCalls >= this.limits.maxToolCalls || modelCalls >= this.limits.maxToolCalls)
@@ -200,17 +297,24 @@ ${policy === "draft" ? "仅有当前run草稿写权限，没有发布、审批�
         throw new TradeFault("ACTION_NOT_ALLOWED", "已达到工具调用预算，未保存草稿");
       serialize(messages);
       let output: unknown;
+      Object.assign(context, { stage: "provider", category: "provider_failure", tool: null });
       try {
         modelCalls++;
+        context.modelCall = modelCalls;
         output = await bounded(() => this.provider.json(messages, signal));
       } catch (error) {
         if (error instanceof TradeFault) throw error;
         throw new TradeFault("CAPABILITY_UNAVAILABLE", "模型调用失败，未提交业务变更");
       }
+      Object.assign(context, { stage: "action_schema", category: "invalid_action" });
       const parsed = actionSchema.safeParse(output);
       if (!parsed.success) throw new TradeFault("MODEL_INVALID_OUTPUT", "模型动作格式不合法");
       const action = parsed.data;
       if (this.policy === "draft" && action.kind !== "tool") {
+        Object.assign(context, {
+          stage: action.kind === "complete" ? "completion" : "clarification",
+          category: action.kind === "complete" ? "premature_complete" : "missing_facts",
+        });
         const guidance = this.draftFeedback?.(action.kind);
         if (
           guidance &&
@@ -219,18 +323,37 @@ ${policy === "draft" ? "仅有当前run草稿写权限，没有发布、审批�
             guidance,
             serialize(action),
           )
-        )
+        ) {
+          report(
+            new TradeFault(
+              action.kind === "complete" ? "ACTION_NOT_ALLOWED" : "MISSING_FACTS",
+              "运行引导",
+            ),
+            "feedback",
+          );
           continue;
+        }
       }
-      if (action.kind === "complete")
+      if (action.kind === "complete") {
+        if (this.policy === "draft")
+          report(new TradeFault("ACTION_NOT_ALLOWED", "未保存"), "stopped");
         return { outcome: "completed", summary: action.summary, toolCalls };
-      if (action.kind === "clarification")
+      }
+      if (action.kind === "clarification") {
+        if (this.policy === "draft") report(new TradeFault("MISSING_FACTS", "等待输入"), "stopped");
         return { outcome: "waiting_input", clarification: action.question, toolCalls };
+      }
+      Object.assign(context, { stage: "tool_lookup", category: "unknown_tool", tool: null });
       const tool = this.tools.get(action.name);
       if (!tool) throw new TradeFault("ACTION_NOT_ALLOWED", "模型请求了未注册的工具");
       if (toolCalls >= this.limits.maxToolCalls)
         throw new TradeFault("ACTION_NOT_ALLOWED", "已达到工具调用预算，请缩小任务范围");
       const serializedAction = serialize(action);
+      Object.assign(context, {
+        stage: "tool_execution",
+        category: "business_failure",
+        tool: tool.name,
+      });
       // Include the proposed action in the context budget before executing any handler.
       serialize([...messages, { role: "assistant", content: serializedAction }]);
       let result: unknown;
@@ -239,15 +362,30 @@ ${policy === "draft" ? "仅有当前run草稿写权限，没有发布、审批�
       } catch (error) {
         toolCalls++;
         if (
+          error instanceof ToolOrderFault &&
+          feedback(
+            error.code,
+            error.category === "calculate_first"
+              ? "本次尚无核价候选。先按用户事实读取商品/基线并calculate_quote，再search_knowledge、validate_quote及写工具；缺事实请澄清。"
+              : "当前候选尚未读取适用知识。先search_knowledge，再validate_quote取得本次validationId；不能跳过校验或猜测授权ID。",
+            serializedAction,
+          )
+        ) {
+          report(error, "feedback");
+          continue;
+        }
+        if (
           error instanceof ToolInputFault &&
           error.repairable &&
           feedback(
             error.code,
-            "参数缺失或类型不符，未执行该业务操作。请严格按该工具inputSchema补全字段；数量/金额保持decimal字符串，不增加价格/审批等未声明字段。",
+            "参数缺失、类型或数量格式不符，未执行该业务操作。请严格按该工具inputSchema重交；数量为正decimal字符串，用小数点不使用逗号/单位后缀。仅用用户明确事实，不增加价格/审批等未声明字段。",
             serializedAction,
           )
-        )
+        ) {
+          report(error, "feedback");
           continue;
+        }
         throw error;
       }
       toolCalls++;
