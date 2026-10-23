@@ -598,3 +598,12 @@ C03本地交付收口：39文件275单元、9实际Electron含build、48fixture�
 GitHub连接器404后定向Git取得B对象，未触碰共同/原交接分支。保留B Windows部分失败、首次探针依赖解析失败及最终6组诊断输出，未降低业务预算/修改生产迁移。raw/c-b01-remote-intake.json及raw/c-b01-migration-compatibility-probe.json绑定固定版本/source/SQL hash和实际schema；本轮保存门禁raw/c-b01-remote-validation.json，任务[[C集成-B01固定提交接收核对]]仅覆盖输入核对与诊断，未宣称问题已修复。
 
 最终本轮接收/诊断记录门禁退出0：远端核对、27B源码与6组探针，原C225源码/181旧raw/100228字节log前缀保持，生成225来源、190页只读check/lint与c39b87f/654fecc/be53b98同步及diff；初始探针加载失败与连接器404单独保留。仅接收任务done，迁移compatible=false/方案未解决，非作者/完整macOS/Electron/人员签认待补，未发送/推送/合入或真实复测。
+
+
+## 2026-10-23 AB迁移协调请求草稿
+
+2026-10-23按用户要求基于d99f2b3准备[[C迁移协调请求草稿-AB谱系兼容]]，在独立codex/c-migration-coordination-draft仅存本地未发送草稿：固定C45fa03d/B330bff7与6c76fb9，列明6/7异义及D1～D6原诊断/SQL指纹；兼容建议为已确认谱系识别与追加向前步骤，未知/混合/账本矛盾在修改前安全拒绝，编号/身份登记/支持矩阵由A牵头B/C确认，尚未选择或批准。M1～M8明确原库存在性、识别、登记、旧事实、接口、验证、人工发布与ADR/评审责任和本人回复格式。未改历史迁移/SQL/账本，未重跑探针/套件，无代签/自动发送/推送/合入/真实复测；人员任务active，compatible=false仍未解决。任务[[C集成-AB迁移协调请求草稿]]仅草稿维护。
+
+新增status=draft联合请求及草稿任务，链接原接收诊断/A/B请求/统一入口与依赖任务；原诊断、首次加载失败、Windows部分失败、源码/迁移与日志均保留。备稿只做语义核对及固定引用/保留审计、Wiki生成/只读check/lint、d99f2b3/654fecc/be53b98同步和diff；实际命令/退出码见raw/c-migration-coordination-draft-validation.json，不冒充重跑六组或实现兼容方案。
+
+最终本轮备稿门禁退出0：六组诊断与四个冲突SQL指纹/固定SHA引用核对，225源码/184旧raw/102143字节log前缀及旧待签/草稿内容保留，生成225来源、192页只读check/lint，d99f2b3/654fecc/be53b98同步及diff。备稿任务done，请求仍draft/未发送、M1～M8未决、人员active；历史迁移未改，无新探针/迁移/产品套件/真实模型或外部操作。
