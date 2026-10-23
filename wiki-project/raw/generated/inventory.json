@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "dabdbb67d5f6b8cfdc4f7aca72f61071a64c06c38df5c1a4c4359ee8a09d29ff",
+    "wiki-config.json": "544360d043264a8aef6b9885f6751c789113eed6173034a514eaf6c22a0abae0",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -286,14 +286,48 @@
       ]
     },
     {
+      "path": "apps/desktop/src/renderer/src/features/quote-checks.fixture.ts",
+      "type": "ts",
+      "lines": 131,
+      "bytes": 4264,
+      "sha256": "12b217b6dae7d3dcb37e5e4de300e4e74b08101c527eed46cba76eebe2049dc6",
+      "role": "Explicit synthetic B01 report and quote fixtures for tests and visual preview only",
+      "pages": [
+        "wiki/B规则检查实现.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/quote-checks.test.tsx",
+      "type": "tsx",
+      "lines": 268,
+      "bytes": 11909,
+      "sha256": "06b8d1797fdc8a5d99d02902660a997f7af2783161c9fe12613944f4a82ee790",
+      "role": "B01 component and saved-quote mounting behavior regression",
+      "pages": [
+        "wiki/B规则检查实现.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/quote-checks.tsx",
+      "type": "tsx",
+      "lines": 240,
+      "bytes": 10595,
+      "sha256": "c8b070da782e2beb8f07c62a50e6a065e9c2e3898b85422e58fd58591c85f931",
+      "role": "B01 read-only report UI, shared risks and field annotations, version isolation",
+      "pages": [
+        "wiki/B规则检查实现.md"
+      ]
+    },
+    {
       "path": "apps/desktop/src/renderer/src/features/quotes.tsx",
       "type": "tsx",
-      "lines": 713,
-      "bytes": 25499,
-      "sha256": "47bb4cd1be82dc3d5203b0fbd382200ba978cda85fd43038b122eff2a1092a84",
+      "lines": 712,
+      "bytes": 25501,
+      "sha256": "3ea86fe555610093bc5edee254a2821dac79d21fdcec1960ca3a884e6046c5b1",
       "role": "Scenario form, confirmed CSV import and persisted quote V1 UI",
       "pages": [
-        "wiki/M2真实报价V1.md"
+        "wiki/M2真实报价V1.md",
+        "wiki/B规则检查实现.md"
       ]
     },
     {
@@ -1121,9 +1155,9 @@
     {
       "path": "packages/contracts/src/checks.ts",
       "type": "ts",
-      "lines": 136,
-      "bytes": 5101,
-      "sha256": "245b0d26cb04520502a886c080e0248a01b0c83e5635d47fd5c57cb2bb9ada61",
+      "lines": 192,
+      "bytes": 7831,
+      "sha256": "efce7cb19f9c52bcd16c70da2b6431ed21f2fe9c1113ef9bd912ca74e9d3e5ff",
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
         "wiki/首批并行接口约定.md"
@@ -1177,8 +1211,8 @@
       "path": "packages/contracts/src/index.ts",
       "type": "ts",
       "lines": 136,
-      "bytes": 4632,
-      "sha256": "ab37ce2308e66ac1222eba46a5e9e96289515b59294d3e7a6ab6f9d7b6a97e79",
+      "bytes": 4604,
+      "sha256": "5bb30da5c9e1e8d0f9a3efc3168d2a0023e89d28d12da4b3dff1e489af4f26a2",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
@@ -1199,9 +1233,9 @@
     {
       "path": "packages/contracts/src/knowledge-wiki.ts",
       "type": "ts",
-      "lines": 724,
-      "bytes": 28668,
-      "sha256": "7d9177f877175d18f9fa0df2135dae1d5cec9adf8316bdaa7bcd2c5426e5ff07",
+      "lines": 728,
+      "bytes": 28974,
+      "sha256": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
       "role": "B00a P0 versioned Markdown, source, review, retrieval, citation and consumption protocols",
       "pages": [
         "wiki/B00a知识Wiki公共协议.md"
@@ -1377,24 +1411,47 @@
     {
       "path": "packages/domain/src/index.ts",
       "type": "ts",
-      "lines": 67,
-      "bytes": 2413,
-      "sha256": "15e8b82812e2f127501bd0fb891928cd0e93b7d6f1616584938f02687eabe3ec",
+      "lines": 69,
+      "bytes": 2522,
+      "sha256": "dcbe0f85055d8fbf4a650f83615b0738f817c5f0fdc722fa4cf8f989d48f0bbf",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
-        "wiki/A01c检索引用实现.md"
+        "wiki/A01c检索引用实现.md",
+        "wiki/B规则检查实现.md"
       ]
     },
     {
       "path": "packages/domain/src/knowledge.ts",
       "type": "ts",
-      "lines": 54,
-      "bytes": 2155,
-      "sha256": "6abf8959235eaa78318a52769d7ddebea0039d0b99559d5da9037501735e84f1",
+      "lines": 51,
+      "bytes": 2118,
+      "sha256": "ae52d505e67d3ec6ac388397fe102dec020a8057dbb67bb4bad1770398dd9779",
       "role": "A01b知识审核发布服务：human_ui门禁与方法分发",
       "pages": [
         "wiki/A知识发布实现.md"
+      ]
+    },
+    {
+      "path": "packages/domain/src/quote-checks.test.ts",
+      "type": "ts",
+      "lines": 356,
+      "bytes": 12961,
+      "sha256": "6e4298203c1654ee8a98765a474e0e3f456be56ba3b73dcbc170cad30f4aff23",
+      "role": "B01 pure rule behavior, stable identities and immutable reports regression",
+      "pages": [
+        "wiki/B规则检查实现.md"
+      ]
+    },
+    {
+      "path": "packages/domain/src/quote-checks.ts",
+      "type": "ts",
+      "lines": 105,
+      "bytes": 4171,
+      "sha256": "353ca379a22f7d30464ec9af69b4c6d5d9b2e3a33831d687ba5124a7180dde90",
+      "role": "B01 pure quote rule checks, applicability and fixed evidence",
+      "pages": [
+        "wiki/B规则检查实现.md"
       ]
     },
     {
@@ -1429,6 +1486,17 @@
       "role": "Deterministic tier pricing, unknown amounts and human-only V1 service",
       "pages": [
         "wiki/M2真实报价V1.md"
+      ]
+    },
+    {
+      "path": "packages/domain/src/wiki-quote-checks.ts",
+      "type": "ts",
+      "lines": 104,
+      "bytes": 3924,
+      "sha256": "44ada38a17b563c773858a7513a829b32e67a5d400452be369f4c524b691223c",
+      "role": "B00a完整多来源检查适配与旧规则语义复用",
+      "pages": [
+        "wiki/B规则检查实现.md"
       ]
     },
     {
@@ -1470,7 +1538,7 @@
       "type": "ts",
       "lines": 443,
       "bytes": 16607,
-      "sha256": "e3420dacb60402614eeed5799b5124942592a8597671280864087c414c2645a6",
+      "sha256": "c32376abb222116f329f95968fa9f182223682ec414c4e39338e18cbf85ceb20",
       "role": "修订幂等冲突事务与迁移验收",
       "pages": [
         "wiki/M4模型与报价修订.md",
@@ -1501,6 +1569,40 @@
       ]
     },
     {
+      "path": "packages/infrastructure/src/check-report-schema.ts",
+      "type": "ts",
+      "lines": 29,
+      "bytes": 1451,
+      "sha256": "db3799eddf9aaa73d0fc191023943f2b823537e68108c82d6bec2ed1e10b4bd5",
+      "role": "迁移7不可变检查报告表与版本约束",
+      "pages": [
+        "wiki/B规则检查实现.md",
+        "wiki/M1接口与持久化.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/check-store.test.ts",
+      "type": "ts",
+      "lines": 487,
+      "bytes": 17475,
+      "sha256": "8de9214df2b55c173c88a7dddd19f2abbc83dd3c502e6faaad023c0cde4187f4",
+      "role": "B01 真实 SQLite 历史/故障原子性/不可变性与版本隔离回归",
+      "pages": [
+        "wiki/B规则检查实现.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/check-store.ts",
+      "type": "ts",
+      "lines": 271,
+      "bytes": 10972,
+      "sha256": "0b70b7da426594066e34c4779305a497cfbdf8113ef60b2dd5e12486fc6d74c5",
+      "role": "B01不可变报告存取、完整消费回读校验与同事务幂等",
+      "pages": [
+        "wiki/B规则检查实现.md"
+      ]
+    },
+    {
       "path": "packages/infrastructure/src/deepseek.test.ts",
       "type": "ts",
       "lines": 143,
@@ -1528,9 +1630,9 @@
     {
       "path": "packages/infrastructure/src/index.ts",
       "type": "ts",
-      "lines": 126,
-      "bytes": 4573,
-      "sha256": "101b05dbce083a88f7b66d04c74acb8b7a5e38c0cbc203e43eb85040633092a8",
+      "lines": 130,
+      "bytes": 4842,
+      "sha256": "04c69b0b4a46b0fc4533b489f3e906ac357e9a85202ceacb92fd87c8988618f2",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
@@ -1540,9 +1642,9 @@
     {
       "path": "packages/infrastructure/src/knowledge-store.test.ts",
       "type": "ts",
-      "lines": 326,
-      "bytes": 12059,
-      "sha256": "e11f07403244d86f99350966f4dcf938a534c1ddf8a33727b253ce70a7731deb",
+      "lines": 329,
+      "bytes": 12076,
+      "sha256": "a08c2356890b86899bf61c528c2eed572173866db110ba5c3f9347a43b58f6b8",
       "role": "A01b知识存储回归：发布门禁、幂等、版本、scope与不可变",
       "pages": [
         "wiki/A知识发布实现.md",
@@ -1552,20 +1654,32 @@
     {
       "path": "packages/infrastructure/src/knowledge-store.ts",
       "type": "ts",
-      "lines": 249,
-      "bytes": 9430,
-      "sha256": "b5676f2b651d622341e05250781ac1f7116f53530d814e4a4d36c6a221863786",
+      "lines": 235,
+      "bytes": 9532,
+      "sha256": "6e1abd70c53e95806a70db7aed350910ff0ced853779f9bd51335954def71258",
       "role": "A01b知识版本SQLite存储：hash绑定、原地发布、幂等与不可变",
       "pages": [
         "wiki/A知识发布实现.md"
       ]
     },
     {
+      "path": "packages/infrastructure/src/migrations.test.ts",
+      "type": "ts",
+      "lines": 97,
+      "bytes": 3425,
+      "sha256": "b33acbd176f9216d2174256ec2db463fed83360fac3c6fdb37c9522621a6f6d6",
+      "role": "稀疏迁移账本、迟交5、历史库升级、SQL指纹与原子回滚",
+      "pages": [
+        "wiki/M1接口与持久化.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    {
       "path": "packages/infrastructure/src/migrations.ts",
       "type": "ts",
-      "lines": 124,
-      "bytes": 7251,
-      "sha256": "13c4a45e7b77247500964f6b4ac2ac19e178c4cc16275e46d2af2ac28f6eed9c",
+      "lines": 165,
+      "bytes": 9025,
+      "sha256": "9a40c3f62e54c3ced923d6de03202101af5c0754db4585f4816e24feb7abe8ce",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
@@ -1611,7 +1725,7 @@
       "type": "ts",
       "lines": 109,
       "bytes": 4258,
-      "sha256": "e1faa8c74097cda9fdfea54b6259136a6ecbe79fb3aaaa703d1fe19033b338ce",
+      "sha256": "df3f4a4f80e6e975e7e5a8aaa617843f94d3926a7fd81234a6f66caf4db95ba0",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md"
@@ -1641,11 +1755,35 @@
       ]
     },
     {
+      "path": "packages/infrastructure/src/wiki-check-integration.test.ts",
+      "type": "ts",
+      "lines": 441,
+      "bytes": 16436,
+      "sha256": "fa0d1987634821803d9339c5c87df1644e5fa61f65a4a938ecac48ff41067ef3",
+      "role": "A真实查询到B报告消费的端口联调、故障与历史回归",
+      "pages": [
+        "wiki/B规则检查实现.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/wiki-check-source.ts",
+      "type": "ts",
+      "lines": 142,
+      "bytes": 5515,
+      "sha256": "50204737f18eade9423337f34999bdc3d7047355316fd08dba64f679ece3352a",
+      "role": "同连接搜索解析、多来源hash与提交前复核、报告消费登记",
+      "pages": [
+        "wiki/B规则检查实现.md",
+        "wiki/A01c检索引用实现.md"
+      ]
+    },
+    {
       "path": "packages/infrastructure/src/wiki-store.test.ts",
       "type": "ts",
-      "lines": 456,
-      "bytes": 15143,
-      "sha256": "62b138930d7af6e622a052ec6d136e57ebad3f0740c45740d36f70fee353f015",
+      "lines": 324,
+      "bytes": 10844,
+      "sha256": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
       "role": "A01c检索引用回归：不回退、分页、引用闭环与消费事务",
       "pages": [
         "wiki/A01c检索引用实现.md",
@@ -1655,12 +1793,24 @@
     {
       "path": "packages/infrastructure/src/wiki-store.ts",
       "type": "ts",
-      "lines": 678,
-      "bytes": 27115,
-      "sha256": "f8e3ac1afc6a8a80ee191e379dbc2d86537826aeac91dca891e3050b692cffa5",
+      "lines": 764,
+      "bytes": 30177,
+      "sha256": "b772db86f14535fb0d730724a298f5569fbe6a5efbfe5fdc1e67013675e8abd0",
       "role": "A01c检索引用SQLite存储：检索/引用/消费与候选暂存",
       "pages": [
         "wiki/A01c检索引用实现.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/wiki-test.fixture.ts",
+      "type": "ts",
+      "lines": 250,
+      "bytes": 7294,
+      "sha256": "4d48890a63ae23e426711f8d93cabba1d691ce8e162c3caac6e56f793d793dce",
+      "role": "明确合成A+B来源/候选和测试发布投影，非产品审核入口",
+      "pages": [
+        "wiki/A01c检索引用实现.md",
+        "wiki/M1验证与协作.md"
       ]
     },
     {
@@ -1862,7 +2012,7 @@
       "lines": 217,
       "bytes": 8577,
       "sha256": "a3e4b7e6e7f4b98ce0ad3b22c7fc651d564c89bfa9d5fb61014752c2d87d1c80",
-      "role": "A01a三品类合成知识草稿fixture（候选，未发布/未验收）",
+      "role": "A01合成知识候选样本，非已发布或已验收规则",
       "pages": [
         "wiki/A业务LLMWiki方案.md",
         "wiki/A知识发布实现.md",

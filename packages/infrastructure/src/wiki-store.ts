@@ -1,41 +1,40 @@
 import { createHash, randomUUID } from "node:crypto";
 import {
+  CheckReportSchema,
   failure,
   type KnowledgeCitation,
+  QuoteSnapshotSchema,
   type WikiCitationResolveInput,
   WikiCitationResolveInputSchema,
   type WikiConsumption,
   type WikiConsumptionInput,
   WikiConsumptionInputSchema,
-  WikiEligibilitySchema,
+  WikiConsumptionResultSchema,
+  type WikiEligibility,
   type WikiHostContext,
-  WikiIneligibilityReasonSchema,
+  type WikiIneligibilityReason,
   type WikiLifecycle,
   type WikiResult,
   type WikiRevision,
   type WikiRevisionRecord,
-  WikiSearchHitSchema,
+  type WikiSearchHit,
   type WikiSearchPage,
   type WikiSearchQuery,
   WikiSearchQuerySchema,
   type WikiSourceRevision,
-  type WikiSourceState,
   type WikiSourceStageInput,
   WikiSourceStageInputSchema,
+  type WikiSourceState,
   type WikiStageInput,
   WikiStageInputSchema,
   wikiSourceSetPayload,
 } from "@tradequote/contracts";
 import type Database from "better-sqlite3";
-import { z } from "zod";
 
 const hash = (value: string) => createHash("sha256").update(value).digest("hex");
 const sha256Utf8 = (value: string) => createHash("sha256").update(value, "utf8").digest("hex");
 
 type Row = { data_json: string };
-type WikiEligibility = z.infer<typeof WikiEligibilitySchema>;
-type WikiIneligibilityReason = z.infer<typeof WikiIneligibilityReasonSchema>;
-type WikiSearchHit = z.infer<typeof WikiSearchHitSchema>;
 
 function validityAllows(
   validity: { status: string; validFrom: string | null; validUntil: string | null },
@@ -187,154 +186,179 @@ export class SqliteWikiStore {
 
   // -- source -------------------------------------------------------------
 
-  stageSource(input: WikiSourceStageInput, context: WikiHostContext, idempotencyKey: string): WikiResult {
+  stageSource(
+    input: WikiSourceStageInput,
+    context: WikiHostContext,
+    idempotencyKey: string,
+  ): WikiResult {
     const parsed = WikiSourceStageInputSchema.parse(input);
-    return this.db.transaction(() => {
-      const requestHash = hash(JSON.stringify({ method: "source.stage", payload: parsed, context }));
-      const prior = this.replay(idempotencyKey, requestHash);
-      if (prior === "conflict")
-        return failure("IDEMPOTENCY_CONFLICT", "同一操作标识不能用于不同内容");
-      if (prior) return prior;
-      const workspaceId = this.workspaceId();
-      if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
-      const last = this.db
-        .prepare("SELECT MAX(version) AS version FROM knowledge_source WHERE source_id=?")
-        .get(parsed.sourceId) as { version: number | null };
-      const currentVersion = last.version ?? 0;
-      if (currentVersion !== parsed.expectedVersion)
-        return failure(
-          "REVISION_CONFLICT",
-          `来源当前版本为 v${currentVersion}，与提交的 expectedVersion 不一致`,
+    return this.db
+      .transaction(() => {
+        const requestHash = hash(
+          JSON.stringify({ method: "source.stage", payload: parsed, context }),
         );
-      const parent = this.db
-        .prepare(
-          "SELECT source_revision_id FROM knowledge_source WHERE source_id=? AND version=?",
-        )
-        .get(parsed.sourceId, parsed.expectedVersion) as
-        | { source_revision_id: string }
-        | undefined;
-      if (parsed.expectedVersion > 0 && !parent)
-        return failure("REVISION_CONFLICT", "来源父版本不存在");
-      const artifactHash = sha256Utf8(parsed.sourceText);
-      const sourceRevision: WikiSourceRevision = {
-        workspaceId,
-        sourceId: parsed.sourceId,
-        sourceRevisionId: randomUUID(),
-        version: currentVersion + 1,
-        parentRevisionId: parent?.source_revision_id ?? null,
-        label: parsed.label,
-        sourceStatus: parsed.sourceStatus,
-        mediaType: parsed.mediaType,
-        sourceText: parsed.sourceText,
-        acquiredAt: parsed.acquiredAt,
-        sourceUri: parsed.sourceUri,
-        permissionNote: parsed.permissionNote,
-        validity: parsed.validity,
-        artifactId: artifactHash,
-        artifactHash,
-        createdAt: context.now,
-      };
-      this.db
-        .prepare(
-          "INSERT INTO knowledge_source(source_revision_id,workspace_id,source_id,version,parent_revision_id,state,lifecycle_version,artifact_hash,created_at,data_json) VALUES (?,?,?,?,?,?,?,?,?,?)",
-        )
-        .run(
-          sourceRevision.sourceRevisionId,
+        const prior = this.replay(idempotencyKey, requestHash);
+        if (prior === "conflict")
+          return failure("IDEMPOTENCY_CONFLICT", "同一操作标识不能用于不同内容");
+        if (prior) return prior;
+        const workspaceId = this.workspaceId();
+        if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
+        const last = this.db
+          .prepare("SELECT MAX(version) AS version FROM knowledge_source WHERE source_id=?")
+          .get(parsed.sourceId) as { version: number | null };
+        const currentVersion = last.version ?? 0;
+        if (currentVersion !== parsed.expectedVersion)
+          return failure(
+            "REVISION_CONFLICT",
+            `来源当前版本为 v${currentVersion}，与提交的 expectedVersion 不一致`,
+          );
+        const parent = this.db
+          .prepare(
+            "SELECT source_revision_id FROM knowledge_source WHERE source_id=? AND version=?",
+          )
+          .get(parsed.sourceId, parsed.expectedVersion) as
+          | { source_revision_id: string }
+          | undefined;
+        if (parsed.expectedVersion > 0 && !parent)
+          return failure("REVISION_CONFLICT", "来源父版本不存在");
+        const artifactHash = sha256Utf8(parsed.sourceText);
+        const sourceRevision: WikiSourceRevision = {
           workspaceId,
-          sourceRevision.sourceId,
-          sourceRevision.version,
-          sourceRevision.parentRevisionId,
-          "active",
-          1,
-          sourceRevision.artifactHash,
-          sourceRevision.createdAt,
-          JSON.stringify(sourceRevision),
+          sourceId: parsed.sourceId,
+          sourceRevisionId: randomUUID(),
+          version: currentVersion + 1,
+          parentRevisionId: parent?.source_revision_id ?? null,
+          label: parsed.label,
+          sourceStatus: parsed.sourceStatus,
+          mediaType: parsed.mediaType,
+          sourceText: parsed.sourceText,
+          acquiredAt: parsed.acquiredAt,
+          sourceUri: parsed.sourceUri,
+          permissionNote: parsed.permissionNote,
+          validity: parsed.validity,
+          artifactId: artifactHash,
+          artifactHash,
+          createdAt: context.now,
+        };
+        this.db
+          .prepare(
+            "INSERT INTO knowledge_source(source_revision_id,workspace_id,source_id,version,parent_revision_id,state,lifecycle_version,artifact_hash,created_at,data_json) VALUES (?,?,?,?,?,?,?,?,?,?)",
+          )
+          .run(
+            sourceRevision.sourceRevisionId,
+            workspaceId,
+            sourceRevision.sourceId,
+            sourceRevision.version,
+            sourceRevision.parentRevisionId,
+            "active",
+            1,
+            sourceRevision.artifactHash,
+            sourceRevision.createdAt,
+            JSON.stringify(sourceRevision),
+          );
+        this.emit(
+          workspaceId,
+          "source.stage",
+          { sourceRevisionId: sourceRevision.sourceRevisionId },
+          context,
         );
-      this.emit(workspaceId, "source.stage", { sourceRevisionId: sourceRevision.sourceRevisionId }, context);
-      const result = this.sourceRevisionResult(sourceRevision);
-      this.db
-        .prepare("INSERT INTO idempotency VALUES (?,?,?)")
-        .run(idempotencyKey, requestHash, JSON.stringify(result));
-      return result;
-    }).immediate();
+        const result = this.sourceRevisionResult(sourceRevision);
+        this.db
+          .prepare("INSERT INTO idempotency VALUES (?,?,?)")
+          .run(idempotencyKey, requestHash, JSON.stringify(result));
+        return result;
+      })
+      .immediate();
   }
 
   getSourceRevision(sourceRevisionId: string): WikiResult {
     const revision = this.readSourceRevision(sourceRevisionId);
-    return revision
-      ? this.sourceRevisionResult(revision)
-      : failure("NOT_FOUND", "来源版本不存在");
+    return revision ? this.sourceRevisionResult(revision) : failure("NOT_FOUND", "来源版本不存在");
   }
 
   // -- wiki ---------------------------------------------------------------
 
   stageWiki(input: WikiStageInput, context: WikiHostContext, idempotencyKey: string): WikiResult {
     const parsed = WikiStageInputSchema.parse(input);
-    return this.db.transaction(() => {
-      const requestHash = hash(JSON.stringify({ method: "wiki.stage", payload: parsed, context }));
-      const prior = this.replay(idempotencyKey, requestHash);
-      if (prior === "conflict")
-        return failure("IDEMPOTENCY_CONFLICT", "同一操作标识不能用于不同内容");
-      if (prior) return prior;
-      const workspaceId = this.workspaceId();
-      if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
-      const last = this.db
-        .prepare("SELECT MAX(version) AS version FROM knowledge_wiki WHERE document_id=?")
-        .get(parsed.documentId) as { version: number | null };
-      const currentVersion = last.version ?? 0;
-      if (currentVersion !== parsed.expectedVersion)
-        return failure(
-          "REVISION_CONFLICT",
-          `知识文档当前版本为 v${currentVersion}，与提交的 expectedVersion 不一致`,
+    return this.db
+      .transaction(() => {
+        const requestHash = hash(
+          JSON.stringify({ method: "wiki.stage", payload: parsed, context }),
         );
-      const contentHash = sha256Utf8(parsed.content.markdown);
-      const sourceSetHash = sha256Utf8(wikiSourceSetPayload(parsed.content.sourceRefs));
-      const revision: WikiRevision = {
-        workspaceId,
-        revisionId: randomUUID(),
-        documentId: parsed.documentId,
-        version: currentVersion + 1,
-        parentRevisionId: parsed.parentRevisionId,
-        content: parsed.content,
-        artifactId: contentHash,
-        contentHash,
-        sourceSetHash,
-        createdAt: context.now,
-      };
-      const lifecycle: WikiLifecycle = {
-        revisionId: revision.revisionId,
-        lifecycleVersion: 1,
-        state: "candidate",
-        review: null,
-        publication: null,
-      };
-      this.db
-        .prepare(
-          "INSERT INTO knowledge_wiki(revision_id,workspace_id,document_id,version,parent_revision_id,content_hash,source_set_hash,created_at,data_json) VALUES (?,?,?,?,?,?,?,?,?)",
-        )
-        .run(
-          revision.revisionId,
+        const prior = this.replay(idempotencyKey, requestHash);
+        if (prior === "conflict")
+          return failure("IDEMPOTENCY_CONFLICT", "同一操作标识不能用于不同内容");
+        if (prior) return prior;
+        const workspaceId = this.workspaceId();
+        if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
+        const last = this.db
+          .prepare("SELECT MAX(version) AS version FROM knowledge_wiki WHERE document_id=?")
+          .get(parsed.documentId) as { version: number | null };
+        const currentVersion = last.version ?? 0;
+        if (currentVersion !== parsed.expectedVersion)
+          return failure(
+            "REVISION_CONFLICT",
+            `知识文档当前版本为 v${currentVersion}，与提交的 expectedVersion 不一致`,
+          );
+        const contentHash = sha256Utf8(parsed.content.markdown);
+        const sourceSetHash = sha256Utf8(wikiSourceSetPayload(parsed.content.sourceRefs));
+        const revision: WikiRevision = {
           workspaceId,
-          revision.documentId,
-          revision.version,
-          revision.parentRevisionId,
-          revision.contentHash,
-          revision.sourceSetHash,
-          revision.createdAt,
-          JSON.stringify(revision),
+          revisionId: randomUUID(),
+          documentId: parsed.documentId,
+          version: currentVersion + 1,
+          parentRevisionId: parsed.parentRevisionId,
+          content: parsed.content,
+          artifactId: contentHash,
+          contentHash,
+          sourceSetHash,
+          createdAt: context.now,
+        };
+        const lifecycle: WikiLifecycle = {
+          revisionId: revision.revisionId,
+          lifecycleVersion: 1,
+          state: "candidate",
+          review: null,
+          publication: null,
+        };
+        this.db
+          .prepare(
+            "INSERT INTO knowledge_wiki(revision_id,workspace_id,document_id,version,parent_revision_id,content_hash,source_set_hash,created_at,data_json) VALUES (?,?,?,?,?,?,?,?,?)",
+          )
+          .run(
+            revision.revisionId,
+            workspaceId,
+            revision.documentId,
+            revision.version,
+            revision.parentRevisionId,
+            revision.contentHash,
+            revision.sourceSetHash,
+            revision.createdAt,
+            JSON.stringify(revision),
+          );
+        this.db
+          .prepare(
+            "INSERT INTO knowledge_lifecycle(revision_id,lifecycle_version,state,data_json) VALUES (?,?,?,?)",
+          )
+          .run(
+            revision.revisionId,
+            lifecycle.lifecycleVersion,
+            lifecycle.state,
+            JSON.stringify(lifecycle),
+          );
+        this.emit(
+          workspaceId,
+          "wiki.stage",
+          { revisionId: revision.revisionId, documentId: revision.documentId },
+          context,
         );
-      this.db
-        .prepare(
-          "INSERT INTO knowledge_lifecycle(revision_id,lifecycle_version,state,data_json) VALUES (?,?,?,?)",
-        )
-        .run(revision.revisionId, lifecycle.lifecycleVersion, lifecycle.state, JSON.stringify(lifecycle));
-      this.emit(workspaceId, "wiki.stage", { revisionId: revision.revisionId, documentId: revision.documentId }, context);
-      const result = this.wikiRevisionResult({ revision, lifecycle });
-      this.db
-        .prepare("INSERT INTO idempotency VALUES (?,?,?)")
-        .run(idempotencyKey, requestHash, JSON.stringify(result));
-      return result;
-    }).immediate();
+        const result = this.wikiRevisionResult({ revision, lifecycle });
+        this.db
+          .prepare("INSERT INTO idempotency VALUES (?,?,?)")
+          .run(idempotencyKey, requestHash, JSON.stringify(result));
+        return result;
+      })
+      .immediate();
   }
 
   getWikiRevision(revisionId: string): WikiResult {
@@ -406,7 +430,7 @@ export class SqliteWikiStore {
         `SELECT w.data_json AS wiki, l.data_json AS lifecycle
            FROM knowledge_wiki w
            JOIN knowledge_lifecycle l ON l.revision_id = w.revision_id
-          WHERE w.workspace_id=? AND l.state='published'
+          WHERE w.workspace_id=? AND l.state IN ('published','withdrawn')
           ORDER BY w.document_id ASC, w.version DESC`,
       )
       .all(workspaceId) as { wiki: string; lifecycle: string }[];
@@ -417,17 +441,17 @@ export class SqliteWikiStore {
       const lifecycle = JSON.parse(row.lifecycle) as WikiLifecycle;
       if (seen.has(revision.documentId)) continue;
       seen.add(revision.documentId);
+      if (lifecycle.state !== "published") continue;
       const { scope, locale, kind, title, markdown, sections, sourceRefs } = revision.content;
       if (scope.platforms.length && !scope.platforms.includes(parsed.scope.platform)) continue;
       if (scope.markets.length && !scope.markets.includes(parsed.scope.market)) continue;
       if (scope.categories.length && !scope.categories.includes(parsed.scope.category)) continue;
-      if (Intl.getCanonicalLocales(locale)[0] !== Intl.getCanonicalLocales(parsed.locale)[0]) continue;
+      if (Intl.getCanonicalLocales(locale)[0] !== Intl.getCanonicalLocales(parsed.locale)[0])
+        continue;
       if (parsed.kinds.length && !parsed.kinds.includes(kind)) continue;
       if (!validityAllows(revision.content.validity, checkedAt)) continue;
       const haystack = `${title}\n${markdown}`.toLocaleLowerCase("und");
-      if (
-        parsed.keywords.some((word) => !haystack.includes(word.toLocaleLowerCase("und")))
-      )
+      if (parsed.keywords.some((word) => !haystack.includes(word.toLocaleLowerCase("und"))))
         continue;
       const citations = sections.map<KnowledgeCitation>((section) => ({
         revisionId: revision.revisionId,
@@ -470,7 +494,14 @@ export class SqliteWikiStore {
             afterRevisionId: pageHits.at(-1)!.revision.revisionId,
           }
         : null;
-    const page: WikiSearchPage = { snapshotId, queryHash, snapshotAt, checkedAt, hits: pageHits, nextCursor };
+    const page: WikiSearchPage = {
+      snapshotId,
+      queryHash,
+      snapshotAt,
+      checkedAt,
+      hits: pageHits,
+      nextCursor,
+    };
     return {
       ok: true,
       data: { kind: "searchPage", page },
@@ -490,11 +521,11 @@ export class SqliteWikiStore {
     if (!citationMatches(parsed.citation, revision))
       return failure("MISSING_FACTS", "引用与知识段落或来源不一致");
 
-    const sources = parsed.citation.sourceRefs
-      .map((ref) => this.readSourceRevision(ref.sourceRevisionId))
+    const sourceIds = [...new Set(parsed.citation.sourceRefs.map((ref) => ref.sourceRevisionId))];
+    const sources = sourceIds
+      .map((id) => this.readSourceRevision(id))
       .filter((source): source is WikiSourceRevision => source !== null);
-    if (sources.length !== parsed.citation.sourceRefs.length)
-      return failure("NOT_FOUND", "引用来源缺失");
+    if (sources.length !== sourceIds.length) return failure("NOT_FOUND", "引用来源缺失");
 
     // Verify each referenced source identity, hash and location against the stored revision.
     for (const ref of parsed.citation.sourceRefs) {
@@ -515,7 +546,6 @@ export class SqliteWikiStore {
       revision,
       lifecycle,
       currentPublicationRevisionId,
-      sources,
       states,
       checkedAt,
     );
@@ -546,7 +576,7 @@ export class SqliteWikiStore {
         `SELECT w.revision_id
            FROM knowledge_wiki w
            JOIN knowledge_lifecycle l ON l.revision_id = w.revision_id
-          WHERE w.document_id=? AND l.state='published'
+          WHERE w.document_id=? AND l.state IN ('published','withdrawn')
           ORDER BY w.version DESC LIMIT 1`,
       )
       .get(documentId) as { revision_id: string } | undefined;
@@ -557,7 +587,6 @@ export class SqliteWikiStore {
     revision: WikiRevision,
     lifecycle: WikiLifecycle,
     currentPublicationRevisionId: string | null,
-    sources: WikiSourceRevision[],
     states: WikiSourceState[],
     checkedAt: string,
   ): WikiEligibility {
@@ -598,65 +627,122 @@ export class SqliteWikiStore {
     idempotencyKey: string,
   ): WikiResult {
     const parsed = WikiConsumptionInputSchema.parse(input);
-    return this.db.transaction(() => {
-      const requestHash = hash(
-        JSON.stringify({ method: "wiki.registerConsumption", payload: parsed, context }),
-      );
-      const prior = this.replay(idempotencyKey, requestHash);
-      if (prior === "conflict")
-        return failure("IDEMPOTENCY_CONFLICT", "同一操作标识不能用于不同内容");
-      if (prior) return prior;
-      const workspaceId = this.workspaceId();
-      if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
-      // Re-validate every citation against authoritative lifecycle/source state
-      // within the same transaction.
-      for (const citation of parsed.citations) {
-        const record = this.readRecord(citation.revisionId);
-        if (!record) return failure("NOT_FOUND", "消费引用指向的知识版本不存在");
-        if (record.lifecycle.state !== "published")
-          return failure("MISSING_FACTS", "只能消费已发布知识");
-        if (!citationMatches(citation, record.revision))
-          return failure("MISSING_FACTS", "消费引用与知识段落或来源不一致");
-        for (const ref of citation.sourceRefs) {
-          const row = this.db
-            .prepare("SELECT state FROM knowledge_source WHERE source_revision_id=?")
-            .get(ref.sourceRevisionId) as { state: string } | undefined;
-          if (!row) return failure("NOT_FOUND", "消费引用来源缺失");
-          if (row.state !== "active") return failure("SOURCE_CONFLICT", "来源已撤回，不能登记消费");
-        }
-      }
-      const consumption: WikiConsumption = {
-        ...parsed,
-        workspaceId,
-        consumptionId: randomUUID(),
-        registeredAt: context.now,
-        actorId: context.actorId,
-      };
-      this.db
-        .prepare(
-          "INSERT INTO knowledge_consumption(consumption_id,workspace_id,consumer_kind,consumer_entity_id,consumer_revision_id,registered_at,data_json) VALUES (?,?,?,?,?,?,?)",
-        )
-        .run(
-          consumption.consumptionId,
-          workspaceId,
-          consumption.consumer.kind,
-          consumption.consumer.entityId,
-          consumption.consumer.revisionId,
-          consumption.registeredAt,
-          JSON.stringify(consumption),
+    return this.db
+      .transaction(() => {
+        const requestHash = hash(
+          JSON.stringify({ method: "wiki.registerConsumption", payload: parsed, context }),
         );
-      this.emit(workspaceId, "wiki.registerConsumption", { consumptionId: consumption.consumptionId }, context);
-      const result = {
-        ok: true,
-        data: { kind: "consumption", consumption },
-        warnings: [],
-        evidenceIds: [consumption.consumptionId],
-      } as WikiResult;
-      this.db
-        .prepare("INSERT INTO idempotency VALUES (?,?,?)")
-        .run(idempotencyKey, requestHash, JSON.stringify(result));
-      return result;
-    }).immediate();
+        const prior = this.replay(idempotencyKey, requestHash);
+        if (prior === "conflict")
+          return failure("IDEMPOTENCY_CONFLICT", "同一操作标识不能用于不同内容");
+        if (prior) return prior;
+        const workspaceId = this.workspaceId();
+        if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
+        // Re-validate every citation against authoritative lifecycle/source state
+        // within the same transaction.
+        for (const citation of parsed.citations) {
+          const record = this.readRecord(citation.revisionId);
+          if (!record) return failure("NOT_FOUND", "消费引用指向的知识版本不存在");
+          if (record.lifecycle.state !== "published")
+            return failure("MISSING_FACTS", "只能消费已发布知识");
+          if (!citationMatches(citation, record.revision))
+            return failure("MISSING_FACTS", "消费引用与知识段落或来源不一致");
+          for (const ref of citation.sourceRefs) {
+            const row = this.db
+              .prepare("SELECT state FROM knowledge_source WHERE source_revision_id=?")
+              .get(ref.sourceRevisionId) as { state: string } | undefined;
+            if (!row) return failure("NOT_FOUND", "消费引用来源缺失");
+            if (row.state !== "active")
+              return failure("SOURCE_CONFLICT", "来源已撤回，不能登记消费");
+          }
+        }
+        // A standalone command cannot register fabricated consumers. Check reports
+        // are immutable stored artifacts; quote consumers retain their exact revision.
+        if (context.workspaceId !== workspaceId)
+          return failure("SOURCE_CONFLICT", "消费工作区不一致");
+        const consumer = parsed.consumer;
+        if (consumer.kind === "quote") {
+          const rows = this.db
+            .prepare(`SELECT id,id AS root_id,content_hash,data_json FROM quote_v1 WHERE workspace_id=? AND id=?
+          UNION ALL SELECT id,root_id,content_hash,data_json FROM quote_revision WHERE workspace_id=? AND id=?`)
+            .all(workspaceId, consumer.revisionId, workspaceId, consumer.revisionId) as {
+            id: string;
+            root_id: string;
+            content_hash: string;
+            data_json: string;
+          }[];
+          const row = rows[0];
+          if (
+            rows.length !== 1 ||
+            !row ||
+            row.root_id !== consumer.entityId ||
+            row.content_hash !== consumer.contentHash ||
+            hash(row.data_json) !== consumer.contentHash ||
+            !QuoteSnapshotSchema.safeParse(JSON.parse(row.data_json)).success
+          )
+            return failure("SOURCE_CONFLICT", "消费报价版本或内容不一致");
+        } else {
+          if (
+            !this.db.prepare("SELECT name FROM sqlite_master WHERE name='quote_check_report'").get()
+          )
+            return failure("SOURCE_CONFLICT", "消费产出尚未保存");
+          const row = this.db
+            .prepare(
+              "SELECT content_hash,data_json FROM quote_check_report WHERE workspace_id=? AND report_id=?",
+            )
+            .get(workspaceId, consumer.revisionId) as
+            | { content_hash: string; data_json: string }
+            | undefined;
+          const report = row && CheckReportSchema.safeParse(JSON.parse(row.data_json));
+          if (
+            !row ||
+            consumer.entityId !== consumer.revisionId ||
+            row.content_hash !== consumer.contentHash ||
+            hash(row.data_json) !== consumer.contentHash ||
+            !report ||
+            !report.success ||
+            JSON.stringify(report.data.wikiCitations) !== JSON.stringify(parsed.citations)
+          )
+            return failure("SOURCE_CONFLICT", "消费报告版本或完整引用不一致");
+        }
+        const consumption: WikiConsumption = {
+          ...parsed,
+          workspaceId,
+          consumptionId: randomUUID(),
+          registeredAt: context.now,
+          actorId: context.actorId,
+        };
+        this.db
+          .prepare(
+            "INSERT INTO knowledge_consumption(consumption_id,workspace_id,consumer_kind,consumer_entity_id,consumer_revision_id,registered_at,data_json) VALUES (?,?,?,?,?,?,?)",
+          )
+          .run(
+            consumption.consumptionId,
+            workspaceId,
+            consumption.consumer.kind,
+            consumption.consumer.entityId,
+            consumption.consumer.revisionId,
+            consumption.registeredAt,
+            JSON.stringify(consumption),
+          );
+        this.emit(
+          workspaceId,
+          "wiki.registerConsumption",
+          { consumptionId: consumption.consumptionId },
+          context,
+        );
+        const result = WikiConsumptionResultSchema.parse({
+          ok: true,
+          data: { kind: "consumption", consumption },
+          warnings: [],
+          evidenceIds: [consumption.consumptionId],
+        });
+        this.db
+          .prepare("INSERT INTO idempotency VALUES (?,?,?)")
+          .run(idempotencyKey, requestHash, JSON.stringify(result));
+        return result;
+      })
+      .immediate();
   }
 
   getConsumption(consumer: { kind: "quote" | "artifact"; revisionId: string }): WikiResult {

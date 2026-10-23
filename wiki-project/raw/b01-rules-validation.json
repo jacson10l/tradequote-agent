@@ -1,0 +1,158 @@
+{
+  "status": "partial",
+  "finalWikiChecks": {
+    "commands": [
+      "node wiki-project/scripts/build-code-index.mjs .",
+      "node wiki-project/scripts/build-code-index.mjs . --check",
+      "node wiki-project/scripts/lint-wiki.mjs .",
+      "node wiki-project/scripts/check-wiki-sync.mjs . --base 654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+      "git diff --check",
+      "git diff --cached --check"
+    ],
+    "exitCode": 0,
+    "output": "{\n  \"mode\": \"generate\",\n  \"files\": 158,\n  \"lines\": 43834,\n  \"generated\": 5,\n  \"excluded\": 21\n}\n{\n  \"mode\": \"check\",\n  \"files\": 158,\n  \"lines\": 43834,\n  \"generated\": 5,\n  \"excluded\": 21\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 104,\n  \"semantic\": 88,\n  \"reachable\": 104\n}\n{\n  \"base\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 4,\n  \"knowledgePages\": 5,\n  \"tasks\": 1,\n  \"errors\": []\n}"
+  },
+  "recordedAt": "2026-10-22T08:05:53.813Z",
+  "clientDate": "2026-10-22",
+  "taskBase": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+  "branch": "codex/b01-rules-feedback",
+  "scope": "B01 pure legacy B00 rule evaluator only. No production rule service/IPC, UI, persistence, multi-source Wiki adapter or model execution.",
+  "environment": {
+    "os": "win32",
+    "release": "10.0.19045",
+    "architecture": "x64",
+    "node": "22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2",
+    "modelCalls": 0,
+    "taskLocalTempDirectory": ".runtime/test-temp",
+    "gitCeilingDirectories": ".runtime/test-temp"
+  },
+  "testedSourceSha256": {
+    "packages/domain/src/index.ts": "952a9d129be546d2be105fbc5034de5ae8e6b2fe1b8800bac7d633d9252bb922",
+    "packages/domain/src/quote-checks.ts": "353ca379a22f7d30464ec9af69b4c6d5d9b2e3a33831d687ba5124a7180dde90",
+    "packages/domain/src/quote-checks.test.ts": "6e4298203c1654ee8a98765a474e0e3f456be56ba3b73dcbc170cad30f4aff23"
+  },
+  "testedWikiConfigSha256": "3d453d2951d97731441c361c150cfa638bf572c319c980b75ce63cdf56679adc",
+  "results": {
+    "focusedRuleTests": 23,
+    "pureContractsDomainPreloadTests": 71,
+    "fullUnitPassed": 107,
+    "fullUnitFailed": 1,
+    "electronPassed": 0,
+    "electronFailed": 5,
+    "engineeringPassed": 5,
+    "engineeringSkipped": 1,
+    "engineeringFailed": 0,
+    "wikiRegressionPassed": 34,
+    "wikiRegressionFailed": 2
+  },
+  "checks": [
+    {
+      "command": "pnpm install --frozen-lockfile --ignore-scripts --config.proxy=http://127.0.0.1:7892 --config.https-proxy=http://127.0.0.1:7892",
+      "exitCode": 0,
+      "outputExcerpt": "Lockfile is up to date, resolution step is skipped\nPackages: +434\nDone in 13.5s using pnpm v10.13.1"
+    },
+    {
+      "command": "pnpm exec vitest run packages/domain/src/quote-checks.test.ts",
+      "exitCode": 0,
+      "outputExcerpt": "Test Files  1 passed (1)\nTests  23 passed (23)"
+    },
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "outputExcerpt": "> tsc --noEmit"
+    },
+    {
+      "command": "pnpm exec vitest run packages/contracts packages/domain apps/desktop/src/preload",
+      "exitCode": 0,
+      "outputExcerpt": "Test Files  11 passed (11)\nTests  71 passed (71)"
+    },
+    {
+      "command": "pnpm build",
+      "exitCode": 0,
+      "outputExcerpt": "Application icons passed: SVG/1024 PNG/macOS ICNS/Windows ICO\n247 modules transformed (main)\n111 modules transformed (preload)\n2108 modules transformed (renderer)\nAll three builds completed. Existing chunk >500 kB warning retained."
+    },
+    {
+      "command": "pnpm test",
+      "exitCode": 1,
+      "outputExcerpt": "Test Files  1 failed | 17 passed (18)\nTests  1 failed | 107 passed (108)\nFAIL packages/infrastructure/src/storage.test.ts > stores immutable content hashes and rejects traversal, tampering and symlinks\nError: EPERM: operation not permitted, symlink\npackages/infrastructure/src/storage.test.ts:107:3"
+    },
+    {
+      "command": "pnpm test:e2e",
+      "exitCode": 1,
+      "outputExcerpt": "Build completed. Running 5 tests using 1 worker.\nfeedback.spec.ts / quote-agent.spec.ts / quote-v1.spec.ts / workspace.spec.ts (2 tests): Error: Process failed to launch!\n5 failed"
+    },
+    {
+      "command": "pnpm check",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 check D:\\code\\tradequote-agent-b01\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 94 files in 39ms. No fixes applied.\nTAP version 13\n# Subtest: renderer cannot reach Node, database or desktop internals through import forms\nok 1 - renderer cannot reach Node, database or desktop internals through import forms\n  ---\n  duration_ms: 12.7187\n  type: 'test'\n  ...\n# Subtest: pure modules use public contracts while other platform dependencies are rejected\nok 2 - pure modules use public contracts while other platform dependencies are rejected\n  ---\n  duration_ms: 2.4841\n  type: 'test'\n  ...\n# Subtest: domain permits exact pure decimal dependency without opening contracts or SDK imports\nok 3 - domain permits exact pure decimal dependency without opening contracts or SDK imports\n  ---\n  duration_ms: 0.6552\n  type: 'test'\n  ...\n# Subtest: committed icon resources match their source manifest\nok 4 - committed icon resources match their source manifest\n  ---\n  duration_ms: 2.818\n  type: 'test'\n  ...\n# Subtest: editing either SVG or packaged icon without generation blocks the build\nok 5 - editing either SVG or packaged icon without generation blocks the build\n  ---\n  duration_ms: 18.3078\n  type: 'test'\n  ...\n# Subtest: macOS native process and runtime display TradeQuote while upstream Electron stays intact\nok 6 - macOS native process and runtime display TradeQuote while upstream Electron stays intact # SKIP\n  ---\n  duration_ms: 1.8541\n  type: 'test'\n  ...\n1..6\n# tests 6\n# suites 0\n# pass 5\n# fail 0\n# cancelled 0\n# skipped 1\n# todo 0\n# duration_ms 208.4049\nModule boundaries passed\n\n> tradequote-agent@0.1.0 wiki:check D:\\code\\tradequote-agent-b01\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 158,\n  \"lines\": 43834,\n  \"generated\": 5,\n  \"excluded\": 21\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 104,\n  \"semantic\": 88,\n  \"reachable\": 104\n}\n"
+    },
+    {
+      "command": "pnpm test (task-local TEMP/TMP)",
+      "exitCode": 1,
+      "output": "\n> tradequote-agent@0.1.0 test D:\\code\\tradequote-agent-b01\n> node scripts/test-unit.mjs\n\n\n RUN  v5.0.5 D:/code/tradequote-agent-b01\n\n ❯ packages/infrastructure/src/storage.test.ts (4 tests | 1 failed) 150ms\n   × stores immutable content hashes and rejects traversal, tampering and symlinks 34ms\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/storage.test.ts > stores immutable content hashes and rejects traversal, tampering and symlinks\nError: EPERM: operation not permitted, symlink 'D:\\code\\tradequote-agent-b01\\.runtime\\test-temp\\tradequote-test-05N1Ph\\169e73adeeb9ee2cbf78b5878c95ebef88d580774a6005a367c8e35458658027' -> 'D:\\code\\tradequote-agent-b01\\.runtime\\test-temp\\tradequote-test-05N1Ph\\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'\n ❯ packages/infrastructure/src/storage.test.ts:107:3\n    105|   expect(await store.verifyHash(id)).toBe(false);\n    106|   const other = \"a\".repeat(64);\n    107|   symlinkSync(join(root, id), join(root, other));\n       |   ^\n    108|   await expect(store.readById(other)).rejects.toThrow(\"ARTIFACT_NOT_RE…\n    109| });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n\n Test Files  1 failed | 17 passed (18)\n      Tests  1 failed | 107 passed (108)\n   Start at  16:01:14\n   Duration  3.50s (import 54%, tests 17%, environment 15%, transform 12%, worker 1%)\n\n ELIFECYCLE  Test failed. See above for more details.\n"
+    },
+    {
+      "command": "pnpm wiki:test (task-local TEMP/TMP; GIT_CEILING_DIRECTORIES)",
+      "exitCode": 1,
+      "output": "\n> tradequote-agent@0.1.0 wiki:test D:\\code\\tradequote-agent-b01\n> node --test wiki-project/scripts/wiki-tools.test.mjs wiki-project/scripts/wiki-sync.test.mjs\n\nTAP version 13\n# Subtest: runtime version pin is a mandatory Wiki-synchronized configuration change\nok 1 - runtime version pin is a mandatory Wiki-synchronized configuration change\n  ---\n  duration_ms: 2.1173\n  type: 'test'\n  ...\n# Subtest: code with related knowledge, task and appended log passes\nok 2 - code with related knowledge, task and appended log passes\n  ---\n  duration_ms: 0.3973\n  type: 'test'\n  ...\n# Subtest: generated snapshots alone cannot satisfy knowledge/task/log changes\nok 3 - generated snapshots alone cannot satisfy knowledge/task/log changes\n  ---\n  duration_ms: 0.1712\n  type: 'test'\n  ...\n# Subtest: metadata-only or whitespace-only edits cannot satisfy semantic update\nok 4 - metadata-only or whitespace-only edits cannot satisfy semantic update\n  ---\n  duration_ms: 0.2689\n  type: 'test'\n  ...\n# Subtest: each source needs its own mapped knowledge, unrelated pages do not suffice\nok 5 - each source needs its own mapped knowledge, unrelated pages do not suffice\n  ---\n  duration_ms: 0.2085\n  type: 'test'\n  ...\n# Subtest: deleted source uses baseline mapping; unknown source fails\nok 6 - deleted source uses baseline mapping; unknown source fails\n  ---\n  duration_ms: 0.4338\n  type: 'test'\n  ...\n# Subtest: history rewrite and removed task do not pass\nok 7 - history rewrite and removed task do not pass\n  ---\n  duration_ms: 0.5195\n  type: 'test'\n  ...\n# Subtest: Wiki maintenance code requires workflow knowledge, not generated data\nok 8 - Wiki maintenance code requires workflow knowledge, not generated data\n  ---\n  duration_ms: 0.3913\n  type: 'test'\n  ...\n# Subtest: ordinary documentation-only edits do not trigger code delivery check\nok 9 - ordinary documentation-only edits do not trigger code delivery check\n  ---\n  duration_ms: 0.4442\n  type: 'test'\n  ...\n# Subtest: real Git baseline includes committed, unstaged and untracked sources\nok 10 - real Git baseline includes committed, unstaged and untracked sources\n  ---\n  duration_ms: 2251.969\n  type: 'test'\n  ...\n# Subtest: SVG assets require semantic Wiki, task and append-only log changes\nok 11 - SVG assets require semantic Wiki, task and append-only log changes\n  ---\n  duration_ms: 0.3591\n  type: 'test'\n  ...\n# Subtest: same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\nok 12 - same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\n  ---\n  duration_ms: 3780.6774\n  type: 'test'\n  ...\n# Subtest: source drift fails without writes; generation repairs snapshot while preserving ingest baseline\nok 13 - source drift fails without writes; generation repairs snapshot while preserving ingest baseline\n  ---\n  duration_ms: 1189.1188\n  type: 'test'\n  ...\n# Subtest: explicit ingest records a non-Git project honestly\nok 14 - explicit ingest records a non-Git project honestly\n  ---\n  duration_ms: 1078.7628\n  type: 'test'\n  ...\n# Subtest: tool inventory names come from definitions, not nested headers/output/schema fields\nok 15 - tool inventory names come from definitions, not nested headers/output/schema fields\n  ---\n  duration_ms: 616.4401\n  type: 'test'\n  ...\n# Subtest: new unclassified source fails; missing knowledge target and stale mapping fail\nok 16 - new unclassified source fails; missing knowledge target and stale mapping fail\n  ---\n  duration_ms: 1535.2102\n  type: 'test'\n  ...\n# Subtest: generated coverage tampering is detected by lint and remains untouched\nok 17 - generated coverage tampering is detected by lint and remains untouched\n  ---\n  duration_ms: 1570.8561\n  type: 'test'\n  ...\n# Subtest: sensitive filename is excluded before read; external source symlink is not followed\nnot ok 18 - sensitive filename is excluded before read; external source symlink is not followed\n  ---\n  duration_ms: 340.1083\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b01\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:129:1'\n  failureType: 'testCodeFailure'\n  error: \"EPERM: operation not permitted, symlink 'D:\\\\code\\\\tradequote-agent-b01\\\\.runtime\\\\test-temp\\\\tradequote-private-fixture-kWHjRV\\\\external.ts' -> 'D:\\\\code\\\\tradequote-agent-b01\\\\.runtime\\\\test-temp\\\\tradequote-wiki-test-t8TA8o\\\\linked.ts'\"\n  code: 'EPERM'\n  stack: |-\n    Object.symlinkSync (node:fs:1892:11)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b01/wiki-project/scripts/wiki-tools.test.mjs:137:6)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n    Test.postRun (node:internal/test_runner/test:1173:19)\n    Test.run (node:internal/test_runner/test:1101:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)\n  ...\n# Subtest: Wiki and generated-output symlinks cannot write outside project\nnot ok 19 - Wiki and generated-output symlinks cannot write outside project\n  ---\n  duration_ms: 316.9723\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b01\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:143:1'\n  failureType: 'testCodeFailure'\n  error: \"EPERM: operation not permitted, symlink 'D:\\\\code\\\\tradequote-agent-b01\\\\.runtime\\\\test-temp\\\\tradequote-wiki-outside-OG2BZ1' -> 'D:\\\\code\\\\tradequote-agent-b01\\\\.runtime\\\\test-temp\\\\tradequote-wiki-test-5TsnIB\\\\wiki-project\\\\raw\\\\generated'\"\n  code: 'EPERM'\n  stack: |-\n    Object.symlinkSync (node:fs:1892:11)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b01/wiki-project/scripts/wiki-tools.test.mjs:149:6)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n    Test.postRun (node:internal/test_runner/test:1173:19)\n    Test.run (node:internal/test_runner/test:1101:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)\n  ...\n# Subtest: missing schema field\nok 20 - missing schema field\n  ---\n  duration_ms: 973.9017\n  type: 'test'\n  ...\n# Subtest: bad type\nok 21 - bad type\n  ---\n  duration_ms: 949.0405\n  type: 'test'\n  ...\n# Subtest: bad date\nok 22 - bad date\n  ---\n  duration_ms: 1585.4983\n  type: 'test'\n  ...\n# Subtest: bad status\nok 23 - bad status\n  ---\n  duration_ms: 1174.1124\n  type: 'test'\n  ...\n# Subtest: missing wiki target\nok 24 - missing wiki target\n  ---\n  duration_ms: 973.8246\n  type: 'test'\n  ...\n# Subtest: missing markdown target\nok 25 - missing markdown target\n  ---\n  duration_ms: 940.8289\n  type: 'test'\n  ...\n# Subtest: invalid source line\nok 26 - invalid source line\n  ---\n  duration_ms: 989.7567\n  type: 'test'\n  ...\n# Subtest: verified without code evidence\nok 27 - verified without code evidence\n  ---\n  duration_ms: 937.2479\n  type: 'test'\n  ...\n# Subtest: source escaping project\nok 28 - source escaping project\n  ---\n  duration_ms: 960.2981\n  type: 'test'\n  ...\n# Subtest: unfilled placeholder\nok 29 - unfilled placeholder\n  ---\n  duration_ms: 932.431\n  type: 'test'\n  ...\n# Subtest: all sources are validated even after a valid implementation source\nok 30 - all sources are validated even after a valid implementation source\n  ---\n  duration_ms: 968.5302\n  type: 'test'\n  ...\n# Subtest: orphan pages and duplicate basenames are rejected\nok 31 - orphan pages and duplicate basenames are rejected\n  ---\n  duration_ms: 1593.3934\n  type: 'test'\n  ...\n# Subtest: completed task requires actual verification record\nok 32 - completed task requires actual verification record\n  ---\n  duration_ms: 918.6636\n  type: 'test'\n  ...\n# Subtest: archived source cannot bypass inspection through silent changes\nok 33 - archived source cannot bypass inspection through silent changes\n  ---\n  duration_ms: 1018.4943\n  type: 'test'\n  ...\n# Subtest: source references cannot open excluded runtime data\nok 34 - source references cannot open excluded runtime data\n  ---\n  duration_ms: 1004.9665\n  type: 'test'\n  ...\n# Subtest: new JSON evidence is checked and sensitive Wiki filenames are rejected before read\nok 35 - new JSON evidence is checked and sensitive Wiki filenames are rejected before read\n  ---\n  duration_ms: 1235.4579\n  type: 'test'\n  ...\n# Subtest: secret/JWT/private-key/PII detections redact the value in diagnostics\nok 36 - secret/JWT/private-key/PII detections redact the value in diagnostics\n  ---\n  duration_ms: 2833.9312\n  type: 'test'\n  ...\n1..36\n# tests 36\n# suites 0\n# pass 34\n# fail 2\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 30635.9095\n ELIFECYCLE  Command failed with exit code 1.\n"
+    }
+  ],
+  "attempts": [
+    {
+      "command": "pnpm exec vitest run packages/domain/src/quote-checks.test.ts (initial red)",
+      "exitCode": 1,
+      "outputExcerpt": "TypeError: Cannot read properties of undefined (reading 'evaluate')"
+    },
+    {
+      "command": "pnpm run postinstall",
+      "exitCode": 1,
+      "outputExcerpt": "Electron executable ready\nCould not find any Python installation to use"
+    },
+    {
+      "command": "pnpm native:rebuild (bundled Python selected)",
+      "exitCode": 1,
+      "outputExcerpt": "Could not find any Visual Studio installation to use"
+    },
+    {
+      "phase": "Test development",
+      "notes": "Required, literal, scope, publication-time, stable-order, duplicate-document and missing-root failures were observed before their implementations. A shared test-fixture freeze failure was fixed by cloning fixture rule objects; final focused run passed all 23 tests."
+    },
+    {
+      "command": "pnpm check; pnpm wiki:test (default C: temp directory)",
+      "exitCode": 1,
+      "outputExcerpt": "Icon fixture cpSync: EIO, Access is denied. Wiki fixture cpSync: EIO, Access is denied. Wiki results: 11 passed, 25 failed. Task-local TEMP/TMP fixed cross-volume fixture copying without test-code or system-setting changes."
+    },
+    {
+      "command": "pnpm wiki:test (task-local TEMP/TMP before Git ceiling)",
+      "exitCode": 1,
+      "outputExcerpt": "33 passed, 3 failed. non-Git fixture discovered parent repository HEAD; two symlink EPERM failures. GIT_CEILING_DIRECTORIES isolated fixture Git discovery; symlink failures remain."
+    },
+    {
+      "command": "DEBUG=pw:browser pnpm exec playwright test tests/e2e/feedback.spec.ts",
+      "exitCode": 1,
+      "outputExcerpt": "pw:browser <launching> electron.exe --inspect=0 --remote-debugging-port=0 apps/desktop/out/main/index.js\npw:browser [err] electron.exe: bad option: --remote-debugging-port=0\npw:browser <process did exit: exitCode=9, signal=null>\n1 failed (Process failed to launch!)"
+    }
+  ],
+  "preservation": {
+    "historicalRawCompared": 77,
+    "historicalRawChanged": [],
+    "historicalLogExactPrefixPreserved": true
+  },
+  "notRun": [
+    "macOS validation",
+    "Non-author A/C review",
+    "B01 double feedback UI and rule-service integration (not implemented)",
+    "Real-source validity evaluation",
+    "Windows signed installer"
+  ],
+  "limitations": [
+    "Windows symlink creation EPERM in unchanged storage test",
+    "Windows Electron E2E process launch failed; desktop acceptance not passed",
+    "Native rebuild missing Visual Studio; existing packaged SQLite binding still allowed other storage tests to run",
+    "P1 PR #8 not included or implicitly depended on",
+    "Overall B01 remains active; this record is not a passed full-delivery certificate",
+    "Two unchanged Wiki regression tests require Windows symlink permissions and fail with EPERM; no skip or privilege change applied."
+  ]
+}

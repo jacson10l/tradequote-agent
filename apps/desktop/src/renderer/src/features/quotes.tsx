@@ -19,6 +19,7 @@ import { Button } from "../shared/button";
 import { useMessage } from "../shared/message";
 import { Notification } from "../shared/notification";
 import { QuoteAgent, QuoteDifference } from "./quote-agent";
+import { QuoteChecks } from "./quote-checks";
 import { useWorkspace } from "./workspace";
 
 export function QuotesPage({ client }: { client: DesktopClient }) {
@@ -188,6 +189,7 @@ function QuoteWorkspace({ client }: { client: DesktopClient }) {
             {saved && (
               <>
                 <SavedQuote quote={saved} />
+                <QuoteChecks key={saved.id} quote={saved} client={client} />
                 <QuoteDifference key={saved.id} quote={saved} quotes={board.quotes} />
               </>
             )}
@@ -683,9 +685,6 @@ function SavedQuote({ quote }: { quote: QuoteSnapshot }) {
         </strong>
         <small>不是完整应付总额 · 确定性计算并保存</small>
       </div>
-      <p>
-        付款：{quote.payment || "待确认"}；交期与交货：{quote.delivery || "待确认"}
-      </p>
       <div className="sample-note">
         <h3>待确认事项</h3>
         <ul>

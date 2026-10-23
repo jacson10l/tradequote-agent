@@ -75,7 +75,7 @@ export function failure(
     error: {
       code,
       message,
-      retryable: code === "CAPABILITY_UNAVAILABLE",
+      retryable: false,
       issues: [],
       ...(currentAggregateVersion === undefined ? {} : { currentAggregateVersion }),
     },

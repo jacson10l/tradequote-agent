@@ -55,7 +55,7 @@ export function createWorkspaceService(repository: WorkspaceRepository) {
 
 export { type AgentRunAction, transitionAgentRun } from "./agent-run";
 export { createKnowledgeService } from "./knowledge";
-export { createWikiService } from "./wiki";
+export { quoteCheckService } from "./quote-checks";
 export { reviseQuote } from "./revision";
 export type { TradeRepository } from "./trade";
 export {
@@ -65,3 +65,5 @@ export {
   TradeFault,
   validateCatalogRows,
 } from "./trade";
+export { createWikiService } from "./wiki";
+export { evaluateWikiQuote } from "./wiki-quote-checks";

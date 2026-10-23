@@ -1,4 +1,6 @@
+import { createHash } from "node:crypto";
 import type Database from "better-sqlite3";
+import { checkReportTableSql } from "./check-report-schema";
 
 export const migrations = [
   {
@@ -109,16 +111,55 @@ CREATE TRIGGER knowledge_consumption_no_update BEFORE UPDATE ON knowledge_consum
 CREATE TRIGGER knowledge_consumption_no_delete BEFORE DELETE ON knowledge_consumption BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE_CONSUMPTION'); END;
 `,
   },
+  { version: 7, sql: checkReportTableSql },
 ];
 export function migrate(db: Database.Database, steps = migrations) {
   const current = Number(db.pragma("user_version", { simple: true }));
+  if (
+    steps.some(
+      (step, i) =>
+        !Number.isSafeInteger(step.version) ||
+        step.version < 1 ||
+        (i > 0 && step.version <= steps[i - 1]!.version),
+    )
+  )
+    throw new Error("INVALID_MIGRATION_SEQUENCE");
   const latest = steps.at(-1)?.version ?? 0;
   if (current > latest) throw new Error("DATABASE_NEWER_THAN_APPLICATION");
   db.transaction(() => {
-    for (const step of steps) {
-      if (step.version <= current) continue;
-      db.exec(step.sql);
-      db.pragma(`user_version = ${step.version}`);
+    const hasLedger = db
+      .prepare("SELECT name FROM sqlite_master WHERE name='schema_migration'")
+      .get();
+    if (!hasLedger && ![0, 1, 2, 3, 4, 6].includes(current))
+      throw new Error("UNKNOWN_LEGACY_MIGRATION_SEQUENCE");
+    db.exec(
+      "CREATE TABLE IF NOT EXISTS schema_migration(version INTEGER PRIMARY KEY, sql_hash TEXT NOT NULL)",
+    );
+    const digest = (sql: string) =>
+      createHash("sha256").update(sql.replace(/\r\n/g, "\n")).digest("hex");
+    // Actual pre-ledger versions. A reserved number never implies execution.
+    if (!hasLedger)
+      for (const step of steps) {
+        if ([1, 2, 3, 4, 6].includes(step.version) && step.version <= current)
+          db.prepare("INSERT INTO schema_migration VALUES (?,?)").run(
+            step.version,
+            digest(step.sql),
+          );
+      }
+    const applied = db.prepare("SELECT version,sql_hash FROM schema_migration").all() as {
+      version: number;
+      sql_hash: string;
+    }[];
+    for (const saved of applied) {
+      const step = steps.find((s) => s.version === saved.version);
+      if (!step) throw new Error("DATABASE_NEWER_THAN_APPLICATION");
+      if (digest(step.sql) !== saved.sql_hash) throw new Error("MIGRATION_CHANGED_AFTER_APPLY");
     }
-  })();
+    for (const step of steps) {
+      if (applied.some((saved) => saved.version === step.version)) continue;
+      db.exec(step.sql);
+      db.prepare("INSERT INTO schema_migration VALUES (?,?)").run(step.version, digest(step.sql));
+    }
+    db.pragma(`user_version = ${latest}`);
+  }).immediate();
 }

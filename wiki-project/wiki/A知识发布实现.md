@@ -28,3 +28,7 @@ A01b 在 codex/a01b-knowledge-store 实现 [[首批并行接口约定]] 中 Know
 - 本机未安装 node_modules，store 测试与 typecheck 未在修改后复跑（见 [[A01-知识发布与来源查询]] 验证段）。
 
 关联：[[首批并行接口约定]]、[[A01-知识发布与来源查询]]、[[A业务LLMWiki方案]]。
+
+## 2026-10-23 随 A01c 纳入组合验证
+
+旧B00 SqliteKnowledgeStore/createKnowledgeService与7项原测试随A01c代码纳入联调分支，修正工程Biome格式，不改变其已发布原地锁定、scope兼容查询或公开方法。新B01正式宿主组合使用A01c search/resolve消费协议，旧B00查询不承担新Wiki审核/多来源资格。当前结果见 [[2026-10-23-B01新Wiki存储联调]]；新Wiki人工发布仍待实现，不以旧B00发布路径替代。

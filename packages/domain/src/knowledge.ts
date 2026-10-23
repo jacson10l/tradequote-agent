@@ -23,10 +23,7 @@ export function createKnowledgeService(repository: KnowledgeRepository) {
             ? repository.stage(command.payload, context, command.idempotencyKey)
             : repository.publish(command.payload, context, command.idempotencyKey);
         } catch {
-          return failure(
-            "STORAGE_ERROR",
-            "本地保存失败，请重试；仍失败时保留数据并联系维护者",
-          );
+          return failure("STORAGE_ERROR", "本地保存失败，请重试；仍失败时保留数据并联系维护者");
         }
       }
       try {

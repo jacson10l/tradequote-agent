@@ -621,7 +621,8 @@
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
-        "wiki/A01c检索引用实现.md"
+        "wiki/A01c检索引用实现.md",
+        "wiki/B规则检查实现.md"
       ]
     },
     "packages/infrastructure/package.json": {
@@ -822,7 +823,8 @@
     "apps/desktop/src/renderer/src/features/quotes.tsx": {
       "role": "Scenario form, confirmed CSV import and persisted quote V1 UI",
       "pages": [
-        "wiki/M2真实报价V1.md"
+        "wiki/M2真实报价V1.md",
+        "wiki/B规则检查实现.md"
       ]
     },
     "packages/domain/src/trade.test.ts": {
@@ -1088,7 +1090,7 @@
       ]
     },
     "tests/fixtures/knowledge/knowledge-drafts.a01a.json": {
-      "role": "A01a三品类合成知识草稿fixture（候选，未发布/未验收）",
+      "role": "A01合成知识候选样本，非已发布或已验收规则",
       "pages": [
         "wiki/A业务LLMWiki方案.md",
         "wiki/A知识发布实现.md",
@@ -1111,6 +1113,89 @@
       "role": "B00a P0 authority, provenance, historical-read, validity and pagination negative regressions",
       "pages": [
         "wiki/B00a知识Wiki公共协议.md"
+      ]
+    },
+    "packages/domain/src/quote-checks.ts": {
+      "role": "B01 pure quote rule checks, applicability and fixed evidence",
+      "pages": [
+        "wiki/B规则检查实现.md"
+      ]
+    },
+    "packages/domain/src/quote-checks.test.ts": {
+      "role": "B01 pure rule behavior, stable identities and immutable reports regression",
+      "pages": [
+        "wiki/B规则检查实现.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/quote-checks.tsx": {
+      "role": "B01 read-only report UI, shared risks and field annotations, version isolation",
+      "pages": [
+        "wiki/B规则检查实现.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/quote-checks.test.tsx": {
+      "role": "B01 component and saved-quote mounting behavior regression",
+      "pages": [
+        "wiki/B规则检查实现.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/quote-checks.fixture.ts": {
+      "role": "Explicit synthetic B01 report and quote fixtures for tests and visual preview only",
+      "pages": [
+        "wiki/B规则检查实现.md"
+      ]
+    },
+    "packages/infrastructure/src/check-store.ts": {
+      "role": "B01不可变报告存取、完整消费回读校验与同事务幂等",
+      "pages": [
+        "wiki/B规则检查实现.md"
+      ]
+    },
+    "packages/infrastructure/src/check-store.test.ts": {
+      "role": "B01 真实 SQLite 历史/故障原子性/不可变性与版本隔离回归",
+      "pages": [
+        "wiki/B规则检查实现.md"
+      ]
+    },
+    "packages/domain/src/wiki-quote-checks.ts": {
+      "role": "B00a完整多来源检查适配与旧规则语义复用",
+      "pages": [
+        "wiki/B规则检查实现.md"
+      ]
+    },
+    "packages/infrastructure/src/check-report-schema.ts": {
+      "role": "迁移7不可变检查报告表与版本约束",
+      "pages": [
+        "wiki/B规则检查实现.md",
+        "wiki/M1接口与持久化.md"
+      ]
+    },
+    "packages/infrastructure/src/migrations.test.ts": {
+      "role": "稀疏迁移账本、迟交5、历史库升级、SQL指纹与原子回滚",
+      "pages": [
+        "wiki/M1接口与持久化.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "packages/infrastructure/src/wiki-check-source.ts": {
+      "role": "同连接搜索解析、多来源hash与提交前复核、报告消费登记",
+      "pages": [
+        "wiki/B规则检查实现.md",
+        "wiki/A01c检索引用实现.md"
+      ]
+    },
+    "packages/infrastructure/src/wiki-check-integration.test.ts": {
+      "role": "A真实查询到B报告消费的端口联调、故障与历史回归",
+      "pages": [
+        "wiki/B规则检查实现.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "packages/infrastructure/src/wiki-test.fixture.ts": {
+      "role": "明确合成A+B来源/候选和测试发布投影，非产品审核入口",
+      "pages": [
+        "wiki/A01c检索引用实现.md",
+        "wiki/M1验证与协作.md"
       ]
     }
   }

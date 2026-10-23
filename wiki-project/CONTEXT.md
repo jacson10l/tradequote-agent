@@ -1,5 +1,13 @@
 # 当前上下文
 
+- 2026-10-23：[[2026-10-23-B01新Wiki存储联调]] 在独立codex/b01-wiki-integration、taskBase=dd42b05整合A01c与原B01 WIP；实际SQLite search/resolve→多来源检查→报告/消费同事务、迁移7/账本已实现，52项聚焦与类型/构建通过。C远端仍68455a3，无新run/接线分支；下一步C接Main/worker/preload并配合A人审发布。新IPC/桌面/macOS/非作者复核待，B01仍active，未提交/推送；旧Windows失败与raw保留。
+
+- 2026-10-22：B01 第三切片增加 CheckStore / 未编号 quote_check_report DDL 候选；同连接同步事务提交报告/outbox/共享幂等，同键返回首次报告/时点，不重读知识；验证完整 JSON hash、来源和各级身份，V1～V3 历史隔离、原金额不变。22 项新增 SQLite 测试、类型/构建通过，全量 144/145（旧 Windows symlink EPERM）；实际工程/Wiki 回归与保留检查见 raw/b01-storage-validation.json。共同分支核对仍为 654fecc、迁移1～3，本轮未改 A 的 migrations/index、未开放 C 的正式 IPC/客户端；旧 B00 候选尚不能替代新 Wiki 多来源/消费事务。下一步 A 登记连续迁移及同连接组合、新 Wiki 适配后 C 接线；macOS/非作者评审待，B01 active，未提交/推送。下方历史阶段范围不代替当前状态。
+
+- 2026-10-22：B01 第二切片新增正式报价详情的 QuoteChecks，只读当前版本报告，风险标记与字段批注共用 checkId，支持键盘定位、全部固定来源与历史报告选择；缓存/响应核对根报价/revision/version，拒绝坏报告与重复 ID，旧请求不串新版本。15 项组件及报价页测试、86 项组合测试与类型/构建通过；宽/窄屏及长字段浏览器合成预览截图已保存。真实服务仍返回能力未接入，不把 fixture 注入生产。[[B规则检查实现]]、[[B01-规则检查与双反馈]] 与 raw/b01-ui-validation.json 记录本轮结果；全量单元 122/123，Windows 符号链接和 Electron 启动限制、macOS/非作者复核仍待。旧第一切片记录保留，下一步报告存储/幂等与 A/C 真实接线。
+
+- 2026-10-22：B01 在独立 codex/b01-rules-feedback 工作目录从共同基线 654fecc4d93e4630ed4a0cf42f261d0d432e23d3 开工；P0 PR #7 已经 A 批准并合入，P1 PR #8 已改向共同分支、待正式批准，未纳入本基线。[[B规则检查实现]] 新增纯 quoteCheckService.evaluate 和 23 项测试，支持两类/两字段、缺覆盖 pending、范围/时间/固定来源、稳定问题 ID 与版本不变；无 UI/存储/IPC 或多来源新 Wiki 适配。Windows 的实际验证与失败见 raw/b01-rules-validation.json，macOS 和非作者复核未做；[[B01-规则检查与双反馈]] 保持 active，下一步双反馈组件及真实知识/历史报告联调。下方“P0 待合入”保留为当时交接历史，不代表最新远端状态。
+
 - 2026-10-22：B00a P0 独立分支 codex/b00a-knowledge-wiki-contracts，taskBase=56c909e21aefa484b6805bf9afc7c94b0e1d4576；[[B00a知识Wiki公共协议]] 已记录版本/来源/审核/检索引用/消费事务协议及 A01b 旧兼容差异。专用宿主上下文和 12 方法不可用门禁；C 范围技术复核通过（含空页游标 P2 修复，20项独立测试），A PR #6 接收清单，[PR#7](https://github.com/jacson10l/tradequote-agent/pull/7) 已推送并向 A/ssyyy31 请求评审，A 评审与合入仍待，A01c 未解锁。P1 知识运行/维护另交；真实验证以 [[B00a-业务Wiki契约补充]] 为准。
 
 - 产品资料候选已跟进origin/codex/m1-foundation的be53b98；提交、独立评审与本机证据见 [[2026-10-21-产品资料集成验证]]，远端合并事实以该分支和PR状态为准。PR #3现已带入A01合成样本，仅样本不代表服务实现；本轮补整仓覆盖，原数据不改。
@@ -29,3 +37,5 @@
 - 赛事口径：两种语言或两类角色/场景二选一，不要求两个平台；批量鼓励、多岗位可选；差异表不替代规则反馈。P0要求每位作者同步知识/任务/log/覆盖/真实检查，不把Wiki补写转给其他成员。
 
 - 收口交付已核对：PR#1/#2均MERGED，三个已合入临时方案/复核分支本地和远端均删除，证据raw/branch-consolidation-delivery.json。应用工作树归档请求仅返回queued，detached副本待应用处理；不影响共同代码已合入或分支清理事实。
+
+- 2026-10-23 联调最终结果：52聚焦/类型/构建/工程/Wiki只读/目标merge-base654fecc sync通过；全量181/182、Wiki回归34/36剩余原Windows symlink权限失败。A77份/B83份非生成raw、双方历史日志非空行与旧迁移SQL保留；再次fetch无C新增接线。细节与可调用executeChecks端口见 [[2026-10-23-B01新Wiki存储联调]]，新桌面/macOS/非作者验收待。

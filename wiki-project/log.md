@@ -246,11 +246,6 @@ B00代码提交e71442d127edeb9a62a9a0cd5a127ee0ae2898be已推送并核对远端�
 
 共同分支codex/m1-foundation已非强制推送a5e04d1并在原工作目录快进，PR#1/#2回读MERGED。66单元、5真实Electron、6工程、36Wiki回归及类型/生成/check/lint/固定基线sync全部通过。B00/C01a限定技术切片完成，不代签人类团队验收。祖先与干净核对后删除a01-llm-wiki-plan、c01a-verification、c01b-storage-plan三个本地/远端临时分支，ABC/main/旧名称分支保留。三个工作树归档请求返回queued，先保留detached副本；21个未跟踪截图/指标已另存保留，不宣称异步归档完成。详见raw/branch-consolidation-delivery.json与[[分支收口与共同基线]]。本交付记录仍在独立整合分支提交，推送快进后清理该临时分支。
 
-## 2026-10-21 A01b知识存储评审修正与Wiki同步
-
-- 在 codex/a01b-knowledge-store 审查 A01b（SqliteKnowledgeStore/createKnowledgeService/迁移4/测试）并修正：findPublished 先按 publishedAt/scope 过滤再按 document 去重（新版本不匹配时回退到旧匹配版本）、空 scope 维度按通用、publish 原地 staged→published 保持 revisionId 稳定、getRevision/findPublished 按 workspace 隔离、写事务 immediate；补 A01-7/A01-8 回归，推送 5551ef3。
-- 同步 [[A知识发布实现]]（新增 module 页）、[[A01-知识发布与来源查询]] 任务页（领取人 ssyyy31、A01a/A01b 记录、status active）与 coverage（knowledge.ts/knowledge-store.ts/knowledge-store.test.ts/knowledge-drafts.a01a.json），索引补导航。
-- 本机未安装 node_modules，typecheck 与知识测试未复跑；Wiki 生成成功（153 文件/5 生成物），build-code-index --check 退出 0，lint 仅剩 4 个 raw/ 归档 CRLF 造成的 ARCHIVE_HASH_MISMATCH（历史遗留，需团队 .gitattributes 决策），无新增失败。
 
 ## 2026-10-21 项目说明书与开发入门入口
 
@@ -312,6 +307,12 @@ C 范围技术复核完成：空页游标 P2 独立确认修复，相关2文件/
 
 B00a P0 远端交接：代码提交 26421ab5bf93f74b20d5888f0e1ff3b48b9bfc36 已正常推送独立分支，[PR #7](https://github.com/jacson10l/tradequote-agent/pull/7) 目标 codex/m1-foundation，已请求 A/ssyyy31 评审；API 核对 OPEN、尚无 review、未合入，证据 raw/b00a-delivery.json。本次仅追加交付事实，已测源码/config hash 不变；A01c 未解锁，合入后通知仍待。
 
+## 2026-10-21 A01b知识存储评审修正与Wiki同步
+
+- 在 codex/a01b-knowledge-store 审查 A01b（SqliteKnowledgeStore/createKnowledgeService/迁移4/测试）并修正：findPublished 先按 publishedAt/scope 过滤再按 document 去重（新版本不匹配时回退到旧匹配版本）、空 scope 维度按通用、publish 原地 staged→published 保持 revisionId 稳定、getRevision/findPublished 按 workspace 隔离、写事务 immediate；补 A01-7/A01-8 回归，推送 5551ef3。
+- 同步 [[A知识发布实现]]（新增 module 页）、[[A01-知识发布与来源查询]] 任务页（领取人 ssyyy31、A01a/A01b 记录、status active）与 coverage（knowledge.ts/knowledge-store.ts/knowledge-store.test.ts/knowledge-drafts.a01a.json），索引补导航。
+- 本机未安装 node_modules，typecheck 与知识测试未复跑；Wiki 生成成功（153 文件/5 生成物），build-code-index --check 退出 0，lint 仅剩 4 个 raw/ 归档 CRLF 造成的 ARCHIVE_HASH_MISMATCH（历史遗留，需团队 .gitattributes 决策），无新增失败。
+
 ## 2026-10-22 A01b 同步 B00a P0 共同基线
 
 A 在 codex/a01b-knowledge-store 合并 codex/m1-foundation（654fecc，含 PR#7 B00a P0 知识检索与引用公共协议）。解决 wiki-config.json 的 knowledge-drafts.a01a.json fixture 覆盖映射冲突：该 fixture 现同时服务于 A01b 知识发布实现与 B00a P0 检索引用测试，合并映射到 [[A知识发布实现]] 与 [[B00a知识Wiki公共协议]] 两页；重跑 build-code-index 生成 159 文件/5 生成物。generate/--check/lint 与 check-wiki-sync(基线 c6539e8) 均退出 0。A01b 实现仍为旧 B00 KnowledgeRepository，B00a P0 的 WikiService 由 A01c 实现，本次仅同步基线、未变更 A01b 业务代码。
@@ -319,3 +320,33 @@ A 在 codex/a01b-knowledge-store 合并 codex/m1-foundation（654fecc，含 PR#7
 ## 2026-10-23 A01c 检索引用
 
 A 在 codex/a01c-knowledge-search（从 codex/a01b-knowledge-store 4d3b213 分出，已含 B00a P0 654fecc）实现 A01c 检索引用切片：新增 SqliteWikiStore 与 createWikiService，覆盖 B00a P0 的 source/wiki 暂存、search/resolveCitation/registerConsumption/getConsumption；review/publish/withdraw 依赖 P1 lint 回执返回 CAPABILITY_UNAVAILABLE。新增迁移 6（knowledge_source/wiki/lifecycle/consumption 四表，迁移 5 保留给 C run），SqliteWorkspaceRepository 增 executeWiki 并导出 SqliteWikiStore/createWikiService。测试 wiki-store.test.ts 覆盖 A-W06-1/2、A-W07-1/2、A-W08 共 5 项；检索不回退旧版本、分页游标固定、多来源引用闭环、消费事务复核与幂等、来源/知识暂存幂等与来源门禁。Wiki 同步新增 [[A01c检索引用实现]]，更新任务页 A01 改动/验证/未完成、覆盖映射、导航与 log。本机未安装 node_modules（Node v24.14.1 与仓库 engines 22.22.0 不一致），typecheck 与测试未复跑，仅静态审查；generate/check/lint/sync 门禁以实际运行为准，未推送。
+## 2026-10-22 B01 纯规则检查第一切片
+
+B 从已合入 P0 PR #7 的共同基线 654fecc4d93e4630ed4a0cf42f261d0d432e23d3，在独立 codex/b01-rules-feedback 工作树开发 quoteCheckService.evaluate；两类规则检查 payment/delivery，缺覆盖 pending，精确 scope/显式发布时点、固定来源、稳定标识和版本不变。同步 [[B规则检查实现]]、[[B01-规则检查与双反馈]]、M1 接口、导航/状态/CONTEXT、覆盖及本工作流。P1 PR #8 已改向共同分支，未纳入本基线。
+
+本机 Windows x64、Node 22.22.0、pnpm 10.13.1；23 项新增规则、71 项纯模块/契约/preload、typecheck 和 build 已通过。完整单元 107 通过/1 符号链接 EPERM；5 项 Electron 在进程启动阶段失败。原生 rebuild 的 Python/Visual Studio 失败亦保留，不为通过检查更改系统权限或跳过测试。Wiki 生成/只读校验/映射回归与固定基线 sync 的最终原始输出见 raw/b01-rules-validation.json。只实现纯规则切片，UI/历史存储/多来源消费与非作者/macOS 复验仍待，B01 active。
+
+B01 最终复查：工程 5 passed / 1 macOS-only skipped；Wiki 回归 34 passed / 2 symlink EPERM，单元 107 passed / 1 symlink EPERM，Electron 5 启动失败（诊断为拒绝 --remote-debugging-port=0）。工作树临时目录与 Git ceiling 仅作用于测试进程；保留全部失败，未改系统权限。只读索引/lint/654fecc sync 与 diff-check 通过，测试源码及配置 hash 一致；77 份历史 raw 与原日志前缀未改。当前未提交、未推送、非作者和 macOS 复验待完成。
+
+## 2026-10-22 B01 双反馈界面第二切片
+
+在原独立 B01 工作树继续新增 QuoteChecks、15 项公共组件/报价页测试与显式合成 fixture，并挂载已保存报价详情。风险按钮/字段批注共用 checkId，Enter 可定位并看全部来源，按版本选择历史报告；strict 报告/完整身份/重复 ID 校验，迟到响应及旧缓存不串版本。只读 getQuoteChecks，正式能力未接入时显示待核实，不创建假报告、不调用模型或写入审批。
+
+15 项新 UI 测试与 86 项组合测试、类型/构建通过；全量单元 122 passed / 1 symlink EPERM，5 项 Electron 仍在进程启动阶段失败。合成浏览器预览实测 1280×720、720×900、键盘定位、长字段无横向溢出与缺规则 pending，截图单独保存为 raw/b01-ui-*.png；不算 Electron 或真实知识联调通过。同步 [[B规则检查实现]]、[[B01-规则检查与双反馈]]、M1 接口、Wiki 工作流、状态/CONTEXT、导航和覆盖。最终工程/Wiki/基线 sync 及源码/截图 hash 见 raw/b01-ui-validation.json；第一切片证据不改，B01 active，报告存储/幂等/消费事务和 A/C 接线、macOS/非作者复验继续待做。
+
+B01 第二切片最终工程检查 5 passed / 1 macOS-only skipped、Wiki 回归 34 passed / 2 symlink EPERM；只读清单/lint/654fecc sync 与 diff-check 通过。测试源码/配置/三张截图 hash 保存于 raw/b01-ui-validation.json，77 份历史 raw 和第一切片 JSON 字节未改，旧日志前缀完整。代码仍在独立 B01 工作树，未提交/推送，整体 active。
+
+## 2026-10-22 B01 第三切片：报告存储与幂等候选
+
+在原独立 codex/b01-rules-feedback 工作树继续，taskBase=654fecc4d93e4630ed4a0cf42f261d0d432e23d3；本轮 fetch 核对共同分支仍是该 SHA，未纳入未合入依赖。新增 check-store.ts 与 22 项真实 SQLite 存储/表约束测试，复用冻结报价、B00 知识端口和现有共享幂等/outbox；完整 hash/身份校验、同键首次报告/时点重放、三处故障原子回滚、V1～V3 历史隔离、旧金额/未知金额不变。报告表提案未编号，构造器不安装表/打开连接；A 的迁移/schema/index、C 的生产白名单/IPC 与公共 DTO 均未修改，正式能力未启用。
+
+聚焦 22/22、类型和构建退出0，全量单元144 passed / 1原 storage.test.ts symlink EPERM；不跳测试、不改权限、不复用旧平台通过证据。语义记录在 B规则检查实现/M1接口页/B01任务/状态/CONTEXT/导航，新增两项逐文件覆盖。raw/b01-storage-validation.json 单独保存本轮输出；82份本轮前非生成raw均字节一致，原log是精确前缀，13项公共/锁/迁移文件均与基线一致。工程/Wiki最终门禁将在本条之后追加实际结果。B01仍active；A正式迁移/新Wiki多来源消费、C接线、macOS/非作者复核待，未提交/推送。
+B01 第三切片最终检查：pnpm check退出0（Biome99文件、工程5 passed / 1原macOS-only skipped、边界与Wiki索引/lint通过）；Wiki回归34 passed / 2原Windows symlink EPERM，固定654fecc同步通过（10代码/5知识页/1任务），git diff和cached diff空白检查通过。机械清单163文件/45215行，Wiki104 Markdown/88语义页/104可达。本轮未重复启动未接线的新Electron流程，旧5项launch failed证据保留，不作为本轮通过。最终结果写入独立raw/b01-storage-validation.json，B01仍active。
+
+## 2026-10-23 A+B 新 Wiki 存储联调
+
+按用户确认顺序，在独立codex/b01-wiki-integration从A远端dd42b05开工，带入原B01 WIP且原工作树不改。新增明确多来源适配/完整引用校验、executeChecks同连接组合、不可变报告artifact消费与事务重放；迁移7/逐项账本处理迟交5，不抢写run或空迁移。修复A类型/能力错误、最新撤回不回退、同源多摘录及真实消费者验证，旧B00知识算法仅统一格式。同步A/B知识和任务、协议、M1接口/验证、0016取舍、状态/CONTEXT、导航/覆盖与此追加日志。
+
+聚焦52/52、typecheck/build退出0；已运行全量178 passed/1原Windows symlink EPERM（后续新增3项后需再次记录最终数）；原失败和所有raw不覆盖。当前新Wiki人工发布/文件blob与C正式IPC仍待，未冒充真实模型、Electron/macOS或A/C签字。详细实际命令/退出码与最终门禁记录在raw/b01-wiki-integration-validation.json及 [[2026-10-23-B01新Wiki存储联调]]；分支未提交/推送，任务保持active。
+
+2026-10-23最终联调验证：聚焦52/52、typecheck/build/check退出0（Biome111、工程5通过/1原macOS-only跳过、模块边界及Wiki只读check/lint通过）；全量181 passed / 1原Windows symlink EPERM、Wiki回归34 passed / 2原symlink EPERM。修复ADR必需段落与格式，合并A历史日志时将插入共同基线中间的旧记录改到末尾，保留双方全部非空行后，最终PR merge-base654fecc同步通过（29代码/13知识页/3任务），不改维护检查算法。原A77份/B83份非生成raw全部字节一致，B原源码hash不变、迁移1～4/6 SQL指纹不变，证据raw/b01-wiki-integration-validation.json。再次fetch确认C远端仍68455a3；新Wiki人审发布/文件blob、C桌面接线、macOS与非作者复核待。仅本地独立分支保存，未提交/推送，不标B01整体完成。

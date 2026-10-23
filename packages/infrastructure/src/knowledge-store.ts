@@ -32,10 +32,7 @@ export class SqliteKnowledgeStore implements KnowledgeRepository {
     return row ? row.id : null;
   }
 
-  private replay(
-    key: string,
-    requestHash: string,
-  ): KnowledgeRevisionResult | "conflict" | null {
+  private replay(key: string, requestHash: string): KnowledgeRevisionResult | "conflict" | null {
     const prior = this.db
       .prepare("SELECT request_hash, result_json FROM idempotency WHERE key=?")
       .get(key) as { request_hash: string; result_json: string } | undefined;
@@ -45,12 +42,7 @@ export class SqliteKnowledgeStore implements KnowledgeRepository {
       : "conflict";
   }
 
-  private emit(
-    workspaceId: string,
-    type: string,
-    payload: unknown,
-    context: ExecutionContext,
-  ) {
+  private emit(workspaceId: string, type: string, payload: unknown, context: ExecutionContext) {
     this.db
       .prepare(
         "INSERT INTO outbox(event_id,workspace_id,type,payload_json,context_json,created_at) VALUES (?,?,?,?,?,?)",
@@ -65,10 +57,7 @@ export class SqliteKnowledgeStore implements KnowledgeRepository {
       );
   }
 
-  private revisionRow(
-    revision: KnowledgeRevision,
-    workspaceId: string,
-  ) {
+  private revisionRow(revision: KnowledgeRevision, workspaceId: string) {
     this.db
       .prepare(
         "INSERT INTO knowledge_revision(id,workspace_id,document_id,version,status,source_hash,created_at,published_at,data_json) VALUES (?,?,?,?,?,?,?,?,?)",
@@ -131,62 +120,60 @@ export class SqliteKnowledgeStore implements KnowledgeRepository {
     idempotencyKey: string,
   ): KnowledgeRevisionResult {
     const draft = KnowledgeDraftInputSchema.parse(input);
-    return this.db.transaction(() => {
-      const requestHash = hash(
-        JSON.stringify({ method: "knowledge.stage", payload: draft, context }),
-      );
-      const prior = this.replay(idempotencyKey, requestHash);
-      if (prior === "conflict")
-        return failure("IDEMPOTENCY_CONFLICT", "同一操作标识不能用于不同内容");
-      if (prior) return prior;
-      const workspaceId = this.workspaceId();
-      if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
-      const staged = this.db
-        .prepare(
-          "SELECT version FROM knowledge_revision WHERE document_id=? AND status='staged'",
-        )
-        .get(draft.documentId) as { version: number } | undefined;
-      if (staged)
-        return failure(
-          "REVISION_CONFLICT",
-          `该文档已有待发布版本 v${staged.version}，请先发布或放弃后重新加载`,
+    return this.db
+      .transaction(() => {
+        const requestHash = hash(
+          JSON.stringify({ method: "knowledge.stage", payload: draft, context }),
         );
-      const last = this.db
-        .prepare(
-          "SELECT MAX(version) AS version FROM knowledge_revision WHERE document_id=?",
-        )
-        .get(draft.documentId) as { version: number | null };
-      const currentVersion = last.version ?? 0;
-      if (currentVersion !== draft.expectedVersion)
-        return failure(
-          "REVISION_CONFLICT",
-          `文档当前版本为 v${currentVersion}，与提交的 expectedVersion 不一致，请重新加载`,
+        const prior = this.replay(idempotencyKey, requestHash);
+        if (prior === "conflict")
+          return failure("IDEMPOTENCY_CONFLICT", "同一操作标识不能用于不同内容");
+        if (prior) return prior;
+        const workspaceId = this.workspaceId();
+        if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
+        const staged = this.db
+          .prepare("SELECT version FROM knowledge_revision WHERE document_id=? AND status='staged'")
+          .get(draft.documentId) as { version: number } | undefined;
+        if (staged)
+          return failure(
+            "REVISION_CONFLICT",
+            `该文档已有待发布版本 v${staged.version}，请先发布或放弃后重新加载`,
+          );
+        const last = this.db
+          .prepare("SELECT MAX(version) AS version FROM knowledge_revision WHERE document_id=?")
+          .get(draft.documentId) as { version: number | null };
+        const currentVersion = last.version ?? 0;
+        if (currentVersion !== draft.expectedVersion)
+          return failure(
+            "REVISION_CONFLICT",
+            `文档当前版本为 v${currentVersion}，与提交的 expectedVersion 不一致，请重新加载`,
+          );
+        const now = new Date().toISOString();
+        const { documentId: _documentId, expectedVersion: _expectedVersion, ...content } = draft;
+        const revision: KnowledgeRevision = {
+          revisionId: randomUUID(),
+          documentId: draft.documentId,
+          version: currentVersion + 1,
+          status: "staged",
+          sourceHash: hash(draft.sourceText),
+          createdAt: now,
+          publishedAt: null,
+          content,
+        };
+        this.revisionRow(revision, workspaceId);
+        this.emit(
+          workspaceId,
+          "knowledge.stage",
+          { entityId: revision.revisionId, documentId: revision.documentId },
+          context,
         );
-      const now = new Date().toISOString();
-      const { documentId: _documentId, expectedVersion: _expectedVersion, ...content } = draft;
-      const revision: KnowledgeRevision = {
-        revisionId: randomUUID(),
-        documentId: draft.documentId,
-        version: currentVersion + 1,
-        status: "staged",
-        sourceHash: hash(draft.sourceText),
-        createdAt: now,
-        publishedAt: null,
-        content,
-      };
-      this.revisionRow(revision, workspaceId);
-      this.emit(
-        workspaceId,
-        "knowledge.stage",
-        { entityId: revision.revisionId, documentId: revision.documentId },
-        context,
-      );
-      const result = this.ok(revision, [revision.revisionId]);
-      this.db
-        .prepare("INSERT INTO idempotency VALUES (?,?,?)")
-        .run(idempotencyKey, requestHash, JSON.stringify(result));
-      return result;
-    }).immediate();
+        const result = this.ok(revision, [revision.revisionId]);
+        this.db
+          .prepare("INSERT INTO idempotency VALUES (?,?,?)")
+          .run(idempotencyKey, requestHash, JSON.stringify(result));
+        return result;
+      })
+      .immediate();
   }
 
   publish(
@@ -195,55 +182,54 @@ export class SqliteKnowledgeStore implements KnowledgeRepository {
     idempotencyKey: string,
   ): KnowledgeRevisionResult {
     const parsed = KnowledgePublishInputSchema.parse(input);
-    return this.db.transaction(() => {
-      const requestHash = hash(
-        JSON.stringify({ method: "knowledge.publish", payload: parsed, context }),
-      );
-      const prior = this.replay(idempotencyKey, requestHash);
-      if (prior === "conflict")
-        return failure("IDEMPOTENCY_CONFLICT", "同一操作标识不能用于不同内容");
-      if (prior) return prior;
-      const workspaceId = this.workspaceId();
-      if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
-      const target = this.getRevision(parsed.revisionId);
-      if (!target) return failure("NOT_FOUND", "指定版本不存在");
-      if (target.status === "published") {
-        // Republishing an already-published revision is idempotent across keys.
-        const result = this.ok(target, [target.revisionId]);
+    return this.db
+      .transaction(() => {
+        const requestHash = hash(
+          JSON.stringify({ method: "knowledge.publish", payload: parsed, context }),
+        );
+        const prior = this.replay(idempotencyKey, requestHash);
+        if (prior === "conflict")
+          return failure("IDEMPOTENCY_CONFLICT", "同一操作标识不能用于不同内容");
+        if (prior) return prior;
+        const workspaceId = this.workspaceId();
+        if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
+        const target = this.getRevision(parsed.revisionId);
+        if (!target) return failure("NOT_FOUND", "指定版本不存在");
+        if (target.status === "published") {
+          // Republishing an already-published revision is idempotent across keys.
+          const result = this.ok(target, [target.revisionId]);
+          this.db
+            .prepare("INSERT INTO idempotency VALUES (?,?,?)")
+            .run(idempotencyKey, requestHash, JSON.stringify(result));
+          return result;
+        }
+        if (target.sourceHash !== parsed.sourceHash)
+          return failure("SOURCE_CONFLICT", "来源哈希与暂存内容不一致，请重新核对原文后发布");
+        const now = new Date().toISOString();
+        const published: KnowledgeRevision = {
+          ...target,
+          status: "published",
+          publishedAt: now,
+        };
+        // Publish transitions the staged row in place: revisionId stays stable and
+        // content is untouched; the no-update trigger then locks the published row.
+        this.db
+          .prepare(
+            "UPDATE knowledge_revision SET status='published', published_at=?, data_json=? WHERE id=? AND status='staged'",
+          )
+          .run(now, JSON.stringify(published), target.revisionId);
+        this.emit(
+          workspaceId,
+          "knowledge.publish",
+          { entityId: target.revisionId, documentId: target.documentId },
+          context,
+        );
+        const result = this.ok(published, [target.revisionId]);
         this.db
           .prepare("INSERT INTO idempotency VALUES (?,?,?)")
           .run(idempotencyKey, requestHash, JSON.stringify(result));
         return result;
-      }
-      if (target.sourceHash !== parsed.sourceHash)
-        return failure(
-          "SOURCE_CONFLICT",
-          "来源哈希与暂存内容不一致，请重新核对原文后发布",
-        );
-      const now = new Date().toISOString();
-      const published: KnowledgeRevision = {
-        ...target,
-        status: "published",
-        publishedAt: now,
-      };
-      // Publish transitions the staged row in place: revisionId stays stable and
-      // content is untouched; the no-update trigger then locks the published row.
-      this.db
-        .prepare(
-          "UPDATE knowledge_revision SET status='published', published_at=?, data_json=? WHERE id=? AND status='staged'",
-        )
-        .run(now, JSON.stringify(published), target.revisionId);
-      this.emit(
-        workspaceId,
-        "knowledge.publish",
-        { entityId: target.revisionId, documentId: target.documentId },
-        context,
-      );
-      const result = this.ok(published, [target.revisionId]);
-      this.db
-        .prepare("INSERT INTO idempotency VALUES (?,?,?)")
-        .run(idempotencyKey, requestHash, JSON.stringify(result));
-      return result;
-    }).immediate();
+      })
+      .immediate();
   }
 }

@@ -1,0 +1,158 @@
+{
+  "status": "partial",
+  "clientDate": "2026-10-22",
+  "taskBase": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+  "branch": "codex/b01-rules-feedback",
+  "scope": "Second B01 slice: read-only report UI mounted in saved quote details. Same CheckIssue drives risks and field annotations. No production report persistence, rule execution IPC, new Wiki adapter or model call.",
+  "recordedAt": "2026-10-22T09:08:23.339Z",
+  "environment": {
+    "os": "win32",
+    "release": "10.0.19045",
+    "architecture": "x64",
+    "node": "22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2",
+    "taskLocalTempDirectory": ".runtime/test-temp",
+    "gitCeilingDirectories": ".runtime/test-temp"
+  },
+  "testedSourceSha256": {
+    "apps/desktop/src/renderer/src/features/quote-checks.tsx": "c8b070da782e2beb8f07c62a50e6a065e9c2e3898b85422e58fd58591c85f931",
+    "apps/desktop/src/renderer/src/features/quote-checks.test.tsx": "06b8d1797fdc8a5d99d02902660a997f7af2783161c9fe12613944f4a82ee790",
+    "apps/desktop/src/renderer/src/features/quote-checks.fixture.ts": "12b217b6dae7d3dcb37e5e4de300e4e74b08101c527eed46cba76eebe2049dc6",
+    "apps/desktop/src/renderer/src/features/quotes.tsx": "3ea86fe555610093bc5edee254a2821dac79d21fdcec1960ca3a884e6046c5b1"
+  },
+  "testedWikiConfigSha256": "1155b8330cbc55b28c570722b7c8109c23c31846dce1a1f1fc7b0cf375552131",
+  "screenshots": {
+    "wiki-project/raw/b01-ui-wide.png": {
+      "sha256": "5468e4156096c1bf6002bef7ccfc118ce75477c4e5455bdd919049756899abac",
+      "bytes": 74262
+    },
+    "wiki-project/raw/b01-ui-narrow.png": {
+      "sha256": "910222454a3b63ee54aa79475e46b7c9d9e29603ca43a01496c806e95250622f",
+      "bytes": 72710
+    },
+    "wiki-project/raw/b01-ui-pending.png": {
+      "sha256": "b0f669c2a5f0659de4cb259e7aff3baa234eb001fc56353ece04b7b6b5e9417d",
+      "bytes": 61051
+    }
+  },
+  "protectedFilesUnchanged": [
+    "package.json",
+    "pnpm-lock.yaml",
+    "apps/desktop/src/preload/index.ts",
+    "packages/contracts/src/checks.ts",
+    "packages/contracts/src/pending-client.ts",
+    "packages/infrastructure/src/storage.test.ts"
+  ],
+  "fixtureExcludedFromProductionBundle": true,
+  "previousPhaseEvidenceSha256": "3839877b25f5287c8b022421b812d25a4a19b06c7a89b821f68013889a836298",
+  "results": {
+    "newUiTests": 15,
+    "combinedTestsPassed": 86,
+    "fullUnitPassed": 122,
+    "fullUnitFailed": 1,
+    "electronPassed": 0,
+    "electronFailed": 5,
+    "engineeringPassed": 5,
+    "engineeringSkipped": 1,
+    "engineeringFailed": 0,
+    "wikiRegressionPassed": 34,
+    "wikiRegressionFailed": 2
+  },
+  "checks": [
+    {
+      "command": "pnpm exec vitest run apps/desktop/src/renderer/src/features/quote-checks.test.tsx",
+      "exitCode": 0,
+      "outputExcerpt": "Test Files  1 passed (1)\nTests  15 passed (15)"
+    },
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "outputExcerpt": "> tsc --noEmit"
+    },
+    {
+      "command": "pnpm build",
+      "exitCode": 0,
+      "outputExcerpt": "Application icons passed. Main/preload/renderer built. Renderer: 2109 modules; existing >500 kB chunk warning retained."
+    },
+    {
+      "command": "pnpm exec vitest run packages/contracts packages/domain apps/desktop/src/preload apps/desktop/src/renderer/src/features/quote-checks.test.tsx",
+      "exitCode": 0,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01\n\n\n Test Files  12 passed (12)\n      Tests  86 passed (86)\n   Start at  17:04:03\n   Duration  5.66s (import 53%, tests 19%, environment 17%, transform 10%, worker 1%)\n\n"
+    },
+    {
+      "command": "pnpm test",
+      "exitCode": 1,
+      "output": "\n> tradequote-agent@0.1.0 test D:\\code\\tradequote-agent-b01\n> node scripts/test-unit.mjs\n\n\n RUN  v5.0.5 D:/code/tradequote-agent-b01\n\n ❯ packages/infrastructure/src/storage.test.ts (4 tests | 1 failed) 127ms\n   × stores immutable content hashes and rejects traversal, tampering and symlinks 20ms\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/storage.test.ts > stores immutable content hashes and rejects traversal, tampering and symlinks\nError: EPERM: operation not permitted, symlink 'D:\\code\\tradequote-agent-b01\\.runtime\\test-temp\\tradequote-test-rRzDqY\\169e73adeeb9ee2cbf78b5878c95ebef88d580774a6005a367c8e35458658027' -> 'D:\\code\\tradequote-agent-b01\\.runtime\\test-temp\\tradequote-test-rRzDqY\\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'\n ❯ packages/infrastructure/src/storage.test.ts:107:3\n    105|   expect(await store.verifyHash(id)).toBe(false);\n    106|   const other = \"a\".repeat(64);\n    107|   symlinkSync(join(root, id), join(root, other));\n       |   ^\n    108|   await expect(store.readById(other)).rejects.toThrow(\"ARTIFACT_NOT_RE…\n    109| });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n\n Test Files  1 failed | 18 passed (19)\n      Tests  1 failed | 122 passed (123)\n   Start at  17:04:03\n   Duration  4.87s (import 50%, environment 21%, tests 17%, transform 11%, worker 1%)\n\n    Isolate  19 workers spawned · ~1.08s startup each (spawn + environment, per file)\n             at least ~287ms faster with isolate: false — reuses workers across files instead of one per file\n\n ELIFECYCLE  Test failed. See above for more details.\n"
+    },
+    {
+      "command": "pnpm test:e2e",
+      "exitCode": 1,
+      "output": "(node:17556) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n  x  4 tests\\e2e\\workspace.spec.ts:9:1 › development renderer runs with React refresh and the real desktop bridge (245ms)\n(node:12928) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n  x  5 tests\\e2e\\workspace.spec.ts:34:1 › real desktop persists workspace, validates IPC, handles conflict and reopens (243ms)\n\n\n  1) tests\\e2e\\feedback.spec.ts:8:1 › desktop feedback floats above content and recovers through the notification action \n\n    Error: Process failed to launch!\n\n    Error Context: .runtime\\e2e\\feedback-desktop-feedback--b138f-ugh-the-notification-action\\error-context.md\n\n  2) tests\\e2e\\quote-agent.spec.ts:9:1 › desktop settings and HTTP adapter support inquiry plus two saved revisions, differences, failures and reopen \n\n    Error: Process failed to launch!\n\n    Error Context: .runtime\\e2e\\quote-agent-desktop-settin-d4c95-erences-failures-and-reopen\\error-context.md\n\n  3) tests\\e2e\\quote-v1.spec.ts:11:1 › real desktop imports CSV with confirmation, saves deterministic V1 and reopens frozen evidence \n\n    Error: Process failed to launch!\n\n    Error Context: .runtime\\e2e\\quote-v1-real-desktop-impo-319eb-and-reopens-frozen-evidence\\error-context.md\n\n  4) tests\\e2e\\workspace.spec.ts:9:1 › development renderer runs with React refresh and the real desktop bridge \n\n    Error: Process failed to launch!\n\n    Error Context: .runtime\\e2e\\workspace-development-rend-c456a-and-the-real-desktop-bridge\\error-context.md\n\n  5) tests\\e2e\\workspace.spec.ts:34:1 › real desktop persists workspace, validates IPC, handles conflict and reopens \n\n    Error: Process failed to launch!\n\n    Error Context: .runtime\\e2e\\workspace-real-desktop-per-ee011-andles-conflict-and-reopens\\error-context.md\n\n  5 failed\n    tests\\e2e\\feedback.spec.ts:8:1 › desktop feedback floats above content and recovers through the notification action \n    tests\\e2e\\quote-agent.spec.ts:9:1 › desktop settings and HTTP adapter support inquiry plus two saved revisions, differences, failures and reopen \n    tests\\e2e\\quote-v1.spec.ts:11:1 › real desktop imports CSV with confirmation, saves deterministic V1 and reopens frozen evidence \n    tests\\e2e\\workspace.spec.ts:9:1 › development renderer runs with React refresh and the real desktop bridge \n    tests\\e2e\\workspace.spec.ts:34:1 › real desktop persists workspace, validates IPC, handles conflict and reopens \n ELIFECYCLE  Command failed with exit code 1.\n"
+    },
+    {
+      "command": "pnpm check (task-local TEMP/TMP and Git ceiling)",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 check D:\\code\\tradequote-agent-b01\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 97 files in 45ms. No fixes applied.\nTAP version 13\n# Subtest: renderer cannot reach Node, database or desktop internals through import forms\nok 1 - renderer cannot reach Node, database or desktop internals through import forms\n  ---\n  duration_ms: 12.5053\n  type: 'test'\n  ...\n# Subtest: pure modules use public contracts while other platform dependencies are rejected\nok 2 - pure modules use public contracts while other platform dependencies are rejected\n  ---\n  duration_ms: 2.4748\n  type: 'test'\n  ...\n# Subtest: domain permits exact pure decimal dependency without opening contracts or SDK imports\nok 3 - domain permits exact pure decimal dependency without opening contracts or SDK imports\n  ---\n  duration_ms: 1.4297\n  type: 'test'\n  ...\n# Subtest: committed icon resources match their source manifest\nok 4 - committed icon resources match their source manifest\n  ---\n  duration_ms: 3.0895\n  type: 'test'\n  ...\n# Subtest: editing either SVG or packaged icon without generation blocks the build\nok 5 - editing either SVG or packaged icon without generation blocks the build\n  ---\n  duration_ms: 17.2386\n  type: 'test'\n  ...\n# Subtest: macOS native process and runtime display TradeQuote while upstream Electron stays intact\nok 6 - macOS native process and runtime display TradeQuote while upstream Electron stays intact # SKIP\n  ---\n  duration_ms: 1.789\n  type: 'test'\n  ...\n1..6\n# tests 6\n# suites 0\n# pass 5\n# fail 0\n# cancelled 0\n# skipped 1\n# todo 0\n# duration_ms 231.5698\nModule boundaries passed\n\n> tradequote-agent@0.1.0 wiki:check D:\\code\\tradequote-agent-b01\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 161,\n  \"lines\": 44472,\n  \"generated\": 5,\n  \"excluded\": 21\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 104,\n  \"semantic\": 88,\n  \"reachable\": 104\n}\n"
+    },
+    {
+      "command": "pnpm wiki:test (task-local TEMP/TMP and Git ceiling)",
+      "exitCode": 1,
+      "output": "\n> tradequote-agent@0.1.0 wiki:test D:\\code\\tradequote-agent-b01\n> node --test wiki-project/scripts/wiki-tools.test.mjs wiki-project/scripts/wiki-sync.test.mjs\n\nTAP version 13\n# Subtest: runtime version pin is a mandatory Wiki-synchronized configuration change\nok 1 - runtime version pin is a mandatory Wiki-synchronized configuration change\n  ---\n  duration_ms: 3.3094\n  type: 'test'\n  ...\n# Subtest: code with related knowledge, task and appended log passes\nok 2 - code with related knowledge, task and appended log passes\n  ---\n  duration_ms: 0.7177\n  type: 'test'\n  ...\n# Subtest: generated snapshots alone cannot satisfy knowledge/task/log changes\nok 3 - generated snapshots alone cannot satisfy knowledge/task/log changes\n  ---\n  duration_ms: 0.3661\n  type: 'test'\n  ...\n# Subtest: metadata-only or whitespace-only edits cannot satisfy semantic update\nok 4 - metadata-only or whitespace-only edits cannot satisfy semantic update\n  ---\n  duration_ms: 0.6045\n  type: 'test'\n  ...\n# Subtest: each source needs its own mapped knowledge, unrelated pages do not suffice\nok 5 - each source needs its own mapped knowledge, unrelated pages do not suffice\n  ---\n  duration_ms: 0.5187\n  type: 'test'\n  ...\n# Subtest: deleted source uses baseline mapping; unknown source fails\nok 6 - deleted source uses baseline mapping; unknown source fails\n  ---\n  duration_ms: 0.9213\n  type: 'test'\n  ...\n# Subtest: history rewrite and removed task do not pass\nok 7 - history rewrite and removed task do not pass\n  ---\n  duration_ms: 0.6436\n  type: 'test'\n  ...\n# Subtest: Wiki maintenance code requires workflow knowledge, not generated data\nok 8 - Wiki maintenance code requires workflow knowledge, not generated data\n  ---\n  duration_ms: 2.6604\n  type: 'test'\n  ...\n# Subtest: ordinary documentation-only edits do not trigger code delivery check\nok 9 - ordinary documentation-only edits do not trigger code delivery check\n  ---\n  duration_ms: 1.03\n  type: 'test'\n  ...\n# Subtest: real Git baseline includes committed, unstaged and untracked sources\nok 10 - real Git baseline includes committed, unstaged and untracked sources\n  ---\n  duration_ms: 1335.3958\n  type: 'test'\n  ...\n# Subtest: SVG assets require semantic Wiki, task and append-only log changes\nok 11 - SVG assets require semantic Wiki, task and append-only log changes\n  ---\n  duration_ms: 0.4067\n  type: 'test'\n  ...\n# Subtest: same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\nok 12 - same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\n  ---\n  duration_ms: 2612.5618\n  type: 'test'\n  ...\n# Subtest: source drift fails without writes; generation repairs snapshot while preserving ingest baseline\nok 13 - source drift fails without writes; generation repairs snapshot while preserving ingest baseline\n  ---\n  duration_ms: 1184.4793\n  type: 'test'\n  ...\n# Subtest: explicit ingest records a non-Git project honestly\nok 14 - explicit ingest records a non-Git project honestly\n  ---\n  duration_ms: 1034.634\n  type: 'test'\n  ...\n# Subtest: tool inventory names come from definitions, not nested headers/output/schema fields\nok 15 - tool inventory names come from definitions, not nested headers/output/schema fields\n  ---\n  duration_ms: 583.9683\n  type: 'test'\n  ...\n# Subtest: new unclassified source fails; missing knowledge target and stale mapping fail\nok 16 - new unclassified source fails; missing knowledge target and stale mapping fail\n  ---\n  duration_ms: 842.7002\n  type: 'test'\n  ...\n# Subtest: generated coverage tampering is detected by lint and remains untouched\nok 17 - generated coverage tampering is detected by lint and remains untouched\n  ---\n  duration_ms: 974.7703\n  type: 'test'\n  ...\n# Subtest: sensitive filename is excluded before read; external source symlink is not followed\nnot ok 18 - sensitive filename is excluded before read; external source symlink is not followed\n  ---\n  duration_ms: 339.5468\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b01\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:129:1'\n  failureType: 'testCodeFailure'\n  error: \"EPERM: operation not permitted, symlink 'D:\\\\code\\\\tradequote-agent-b01\\\\.runtime\\\\test-temp\\\\tradequote-private-fixture-RAb3AW\\\\external.ts' -> 'D:\\\\code\\\\tradequote-agent-b01\\\\.runtime\\\\test-temp\\\\tradequote-wiki-test-Dsxuce\\\\linked.ts'\"\n  code: 'EPERM'\n  stack: |-\n    Object.symlinkSync (node:fs:1892:11)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b01/wiki-project/scripts/wiki-tools.test.mjs:137:6)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n    Test.postRun (node:internal/test_runner/test:1173:19)\n    Test.run (node:internal/test_runner/test:1101:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)\n  ...\n# Subtest: Wiki and generated-output symlinks cannot write outside project\nnot ok 19 - Wiki and generated-output symlinks cannot write outside project\n  ---\n  duration_ms: 330.5081\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b01\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:143:1'\n  failureType: 'testCodeFailure'\n  error: \"EPERM: operation not permitted, symlink 'D:\\\\code\\\\tradequote-agent-b01\\\\.runtime\\\\test-temp\\\\tradequote-wiki-outside-zJoZu6' -> 'D:\\\\code\\\\tradequote-agent-b01\\\\.runtime\\\\test-temp\\\\tradequote-wiki-test-w5VUVG\\\\wiki-project\\\\raw\\\\generated'\"\n  code: 'EPERM'\n  stack: |-\n    Object.symlinkSync (node:fs:1892:11)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b01/wiki-project/scripts/wiki-tools.test.mjs:149:6)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n    Test.postRun (node:internal/test_runner/test:1173:19)\n    Test.run (node:internal/test_runner/test:1101:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)\n  ...\n# Subtest: missing schema field\nok 20 - missing schema field\n  ---\n  duration_ms: 910.1518\n  type: 'test'\n  ...\n# Subtest: bad type\nok 21 - bad type\n  ---\n  duration_ms: 919.4747\n  type: 'test'\n  ...\n# Subtest: bad date\nok 22 - bad date\n  ---\n  duration_ms: 906.6969\n  type: 'test'\n  ...\n# Subtest: bad status\nok 23 - bad status\n  ---\n  duration_ms: 905.5528\n  type: 'test'\n  ...\n# Subtest: missing wiki target\nok 24 - missing wiki target\n  ---\n  duration_ms: 936.4801\n  type: 'test'\n  ...\n# Subtest: missing markdown target\nok 25 - missing markdown target\n  ---\n  duration_ms: 897.9691\n  type: 'test'\n  ...\n# Subtest: invalid source line\nok 26 - invalid source line\n  ---\n  duration_ms: 928.9342\n  type: 'test'\n  ...\n# Subtest: verified without code evidence\nok 27 - verified without code evidence\n  ---\n  duration_ms: 901.8284\n  type: 'test'\n  ...\n# Subtest: source escaping project\nok 28 - source escaping project\n  ---\n  duration_ms: 938.9503\n  type: 'test'\n  ...\n# Subtest: unfilled placeholder\nok 29 - unfilled placeholder\n  ---\n  duration_ms: 892.311\n  type: 'test'\n  ...\n# Subtest: all sources are validated even after a valid implementation source\nok 30 - all sources are validated even after a valid implementation source\n  ---\n  duration_ms: 924.1609\n  type: 'test'\n  ...\n# Subtest: orphan pages and duplicate basenames are rejected\nok 31 - orphan pages and duplicate basenames are rejected\n  ---\n  duration_ms: 1478.7068\n  type: 'test'\n  ...\n# Subtest: completed task requires actual verification record\nok 32 - completed task requires actual verification record\n  ---\n  duration_ms: 910.8461\n  type: 'test'\n  ...\n# Subtest: archived source cannot bypass inspection through silent changes\nok 33 - archived source cannot bypass inspection through silent changes\n  ---\n  duration_ms: 929.303\n  type: 'test'\n  ...\n# Subtest: source references cannot open excluded runtime data\nok 34 - source references cannot open excluded runtime data\n  ---\n  duration_ms: 914.5176\n  type: 'test'\n  ...\n# Subtest: new JSON evidence is checked and sensitive Wiki filenames are rejected before read\nok 35 - new JSON evidence is checked and sensitive Wiki filenames are rejected before read\n  ---\n  duration_ms: 1157.6733\n  type: 'test'\n  ...\n# Subtest: secret/JWT/private-key/PII detections redact the value in diagnostics\nok 36 - secret/JWT/private-key/PII detections redact the value in diagnostics\n  ---\n  duration_ms: 2697.2487\n  type: 'test'\n  ...\n1..36\n# tests 36\n# suites 0\n# pass 34\n# fail 2\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 26281.0405\n ELIFECYCLE  Command failed with exit code 1.\n"
+    }
+  ],
+  "visualChecks": {
+    "type": "Browser preview of real React component with explicit synthetic fixture; not Electron acceptance",
+    "wide": {
+      "width": 1280,
+      "height": 720,
+      "keyboardEnterFocusedField": "付款条款"
+    },
+    "narrow": {
+      "width": 720,
+      "height": 900,
+      "clientWidth": 656,
+      "scrollWidth": 656,
+      "singleColumnFields": true,
+      "longTextOverflow": false
+    },
+    "pending": {
+      "commercial_terms": "pending",
+      "platform_guidance": "pending",
+      "issueCount": 2
+    },
+    "browserViewportRestored": true
+  },
+  "attempts": [
+    {
+      "phase": "Red/green",
+      "observed": "Observed failures before implementing the component, quote/version report guards, history selector, coverage labels, duplicate-report guard, risk counts and complete cache identity. Both async and synchronous raw transport exceptions now produce safe UI errors."
+    },
+    {
+      "command": "pnpm typecheck (initial UI fixture)",
+      "exitCode": 1,
+      "outputExcerpt": "Workspace-specific success helper cannot type a check-list result; test fixture import outside workspace package failed resolution. Moved fixture into desktop feature package and used typed CheckListResult factory; final typecheck passed."
+    }
+  ],
+  "notRun": [
+    "macOS validation",
+    "Non-author A/C review",
+    "Production report persistence/quote.check execution/consumption transactions (not implemented)",
+    "New Wiki multi-source contract adapter and A published-service integration (not implemented)",
+    "Windows signed installer"
+  ],
+  "limitations": [
+    "Windows full-unit symlink EPERM remains in unchanged infrastructure storage test",
+    "All five Electron E2E tests fail at process launch; browser previews do not replace them",
+    "No production synthetic success injection; unavailable existing CheckClient gate remains intact",
+    "No commit/push/merge in this slice; B01 remains active",
+    "Two unchanged Wiki regression symlink tests still fail with EPERM; neither permissions nor tests were changed to bypass them."
+  ],
+  "preservation": {
+    "historicalRawCompared": 77,
+    "historicalRawChanged": [],
+    "historicalLogExactPrefixPreserved": true,
+    "previousPhaseEvidenceUnchanged": true,
+    "testedSourceAndConfigHashesUnchanged": true
+  }
+}

@@ -197,7 +197,10 @@ it("A01-3: edits append versions; old stays readable; query returns latest", () 
   expect(oldAgain.ok && oldAgain.data.revision.sourceHash).toBe(hashOf(v1));
 
   const found = KnowledgeListResultSchema.parse(
-    repo.executeKnowledge(queryCmd({ platform: "alibaba_intl_rfq", market: "DE", category: "apparel-tshirt" }), human),
+    repo.executeKnowledge(
+      queryCmd({ platform: "alibaba_intl_rfq", market: "DE", category: "apparel-tshirt" }),
+      human,
+    ),
   );
   expect(found.ok && found.data.revisions).toHaveLength(1);
   expect(found.ok && found.data.revisions[0]?.version).toBe(2);
@@ -261,9 +264,7 @@ it("A01-6: reopen keeps published knowledge; rows are immutable", () => {
   repo.close();
 
   const reopened = new SqliteWorkspaceRepository(file);
-  const found = KnowledgeListResultSchema.parse(
-    reopened.executeKnowledge(queryCmd(SCOPE), human),
-  );
+  const found = KnowledgeListResultSchema.parse(reopened.executeKnowledge(queryCmd(SCOPE), human));
   expect(found.ok && found.data.revisions).toHaveLength(1);
   const db = new Database(file);
   expect(() => db.prepare("UPDATE knowledge_revision SET status='staged' WHERE 1=1").run()).toThrow(
@@ -309,7 +310,9 @@ it("A01-7: query falls back to the newest published version matching scope", () 
 it("A01-8: empty scope dimension is universal across any value", () => {
   const file = join(temp(), "kb.sqlite");
   const repo = openRepo(file);
-  const input = draft({ scope: { platforms: [], markets: ["DE"], categories: ["apparel-tshirt"] } });
+  const input = draft({
+    scope: { platforms: [], markets: ["DE"], categories: ["apparel-tshirt"] },
+  });
   const staged = okRevision(repo, stageCmd(input), human);
   repo.executeKnowledge(
     publishCmd({ revisionId: idOf(staged), sourceHash: hashOf(staged) }),

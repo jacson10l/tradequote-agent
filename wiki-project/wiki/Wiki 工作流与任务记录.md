@@ -11,6 +11,14 @@ sources:
 
 # Wiki 工作流与任务记录
 
+## B01 纯检查覆盖
+
+第三切片新增 infrastructure/check-store.ts 及其测试，逐文件映射到 [[B规则检查实现]]，记录表字段/插入与不可变约束、同连接事务、共享幂等/重放、完整性校验和 A 尚未登记的生产迁移。同步 [[M1接口与持久化]]、B01 任务、状态、CONTEXT、导航和追加日志；raw/b01-storage-validation.json 单独保存本轮实际输出及旧 raw/hash 保留验证，旧两切片证据不重写。映射变动运行 Wiki 回归，生成清单后只读 check/lint/固定 654fecc sync，不改工具实现。
+
+第二切片新增 renderer/features/quote-checks.tsx、组件测试和显式合成 fixture，逐文件映射到 [[B规则检查实现]]；quotes.tsx 保留原 M2 映射并追加该页，记录实际只读挂载。原始第一切片 JSON 保留，新证据 raw/b01-ui-validation.json 和三张合成浏览器截图单独纳管；状态/任务/log/导航同交付。机械清单重新生成后执行 check/lint/固定 654fecc sync 与映射回归，平台失败不改成通过，不以浏览器代替 Electron。
+
+2026-10-22 新增 domain/quote-checks.ts 与 quote-checks.test.ts，逐文件映射到 [[B规则检查实现]]；domain 公共 index 同步本知识页，保留既有 M1 职责映射。新增 [[B01-规则检查与双反馈]] 实际开工/验证、索引导航、状态和追加日志；生成后执行只读 check/lint、654fecc 基线 sync 与映射相关 Wiki 回归，不把平台失败记为通过。原始输入、历史 raw 和旧日志保持；未修改维护算法。
+
 本次分支收口将B00与C01a覆盖映射按有效源码并集合并，保留停用workflow的删除，重新生成清单；日志按来源追加、raw非生成证据逐文件核对字节。CONTEXT仅保留最新状态，旧失败和阶段事实保留在原任务/log/raw。组合验证与清理流程见 [[分支收口与共同基线]]、[[2026-10-21-分支收口与集成验收]]，未修改维护脚本算法。
 
 ## P0 强制交付条件
@@ -126,3 +134,7 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 ## A01c 检索引用覆盖增量
 
 本轮新增 domain/wiki.ts、infrastructure/wiki-store.ts 与 wiki-store.test.ts，逐文件映射至 [[A01c检索引用实现]]；domain/infrastructure 的 index.ts 与 migrations.ts 追加同一知识页，说明 executeWiki 接线与迁移 6。测试同时映射 [[M1验证与协作]]。没有新增业务 IPC，也没有改变维护工具算法；配置变更只登记职责。导航新增 A01c 知识页，任务 [[A01-知识发布与来源查询]] 记录 A01c 改动/验证/未完成，随后生成清单并运行只读 check/lint 与 4d3b213 基线 sync。
+
+## 2026-10-23 A+B 联调并集与覆盖
+
+基于A01c dd42b05复制原B01未提交代码/Wiki/非生成raw并集，原工作树保持。新增wiki-quote-checks、wiki-check-source、check-report-schema、wiki-check-integration.test、migrations.test与wiki-test.fixture的逐文件职责映射；旧报告存储映射更新到实际迁移7。更新受影响A/B知识、任务、M1接口/验证、协议、ADR、CONTEXT与状态，合并日志不删除任一方历史。新证据单独raw/b01-wiki-integration-validation.json，旧raw保持字节。生成清单后执行只读check/lint、真实PR merge-base 654fecc最终sync（dd42b05仅为诊断），映射变化运行Wiki回归；不修改维护工具或放宽门禁。
