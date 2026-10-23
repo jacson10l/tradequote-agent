@@ -1,0 +1,121 @@
+{
+  "status": "passed",
+  "scope": "Final Wiki closeout only; full author/independent behavior checks are linked, no code changed since reviewed fix",
+  "recordedAt": "2026-10-23T13:28:10.947381+08:00",
+  "taskBase": "29f5b94b9ef6d46a9934e366df6022cc1a0f50c3",
+  "reviewedFixCommit": "e6af0b2d0cfe86af3abd45180dd56750db86b214",
+  "checks": [
+    {
+      "phase": "closeout",
+      "command": "pnpm wiki:generate",
+      "argv": [
+        "pnpm",
+        "wiki:generate"
+      ],
+      "startedAt": "2026-10-23T13:26:04.782102+08:00",
+      "finishedAt": "2026-10-23T13:26:05.239342+08:00",
+      "durationSeconds": 0.46,
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:generate /Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs .\n\n{\n  \"mode\": \"generate\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n",
+      "outputSha256": "eab7fbe263dd998bf9cc3794887cfe4f6c11520b68861ce62307ee0780068dba"
+    },
+    {
+      "phase": "closeout",
+      "command": "pnpm wiki:check",
+      "argv": [
+        "pnpm",
+        "wiki:check"
+      ],
+      "startedAt": "2026-10-23T13:27:25.708876+08:00",
+      "finishedAt": "2026-10-23T13:27:26.606481+08:00",
+      "durationSeconds": 0.9,
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 177,\n  \"semantic\": 149,\n  \"reachable\": 177\n}\n",
+      "outputSha256": "2b32acee8e5de797af3b53138419911f62145d9b6a6810f0be51ca45395ca869"
+    },
+    {
+      "phase": "closeout",
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 29f5b94b9ef6d46a9934e366df6022cc1a0f50c3",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "29f5b94b9ef6d46a9934e366df6022cc1a0f50c3"
+      ],
+      "startedAt": "2026-10-23T13:27:26.648659+08:00",
+      "finishedAt": "2026-10-23T13:27:26.821228+08:00",
+      "durationSeconds": 0.17,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"29f5b94b9ef6d46a9934e366df6022cc1a0f50c3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 1,\n  \"knowledgePages\": 8,\n  \"tasks\": 3,\n  \"errors\": []\n}\n",
+      "outputSha256": "17cf4866fe7c3caafd2f985d34ee39e71e71f91d9bbaa8876f97c551f42d399d"
+    },
+    {
+      "phase": "closeout",
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+      ],
+      "startedAt": "2026-10-23T13:27:26.862907+08:00",
+      "finishedAt": "2026-10-23T13:27:27.605889+08:00",
+      "durationSeconds": 0.74,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 91,\n  \"knowledgePages\": 84,\n  \"tasks\": 28,\n  \"errors\": []\n}\n",
+      "outputSha256": "cd0138cd969334a7d6ad484f3a451033b2aa54dbe50c2ff0d29b55aff20cd528"
+    },
+    {
+      "phase": "closeout",
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce"
+      ],
+      "startedAt": "2026-10-23T13:27:27.649351+08:00",
+      "finishedAt": "2026-10-23T13:27:28.529103+08:00",
+      "durationSeconds": 0.88,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 97,\n  \"knowledgePages\": 99,\n  \"tasks\": 36,\n  \"errors\": []\n}\n",
+      "outputSha256": "a27b4a65cd2275a2e8ec3b154e53abdab080bb4725daa7dc1e3a02e9d2159ee3"
+    },
+    {
+      "phase": "closeout",
+      "command": "git diff --check",
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "startedAt": "2026-10-23T13:27:28.568370+08:00",
+      "finishedAt": "2026-10-23T13:27:28.582887+08:00",
+      "durationSeconds": 0.01,
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "independentTechnicalClosure": "STD-001 closed",
+  "reportSha256": {
+    "wiki-project/raw/c-diagnostics-p2-standards-review.json": "4b4df783b13a03a7943714e8477d242d5650c03869c2becf8d763ac916af1be8",
+    "wiki-project/raw/c-diagnostics-p2-spec-review.json": "68e8a6be11051672a7cdbf6f09c108c50cf8cd26e09e3d5c6252a740a1cd9adb"
+  },
+  "frozenFixRawFilesByteIdentical": 167,
+  "sourceHashesEqualReviewedFix": 225,
+  "protectedBranches": {
+    "codex/c-integration-candidate": "9e067bf0114e0d2b27f7b65ea4ecc07042405499",
+    "codex/c-integration-review": "29f5b94b9ef6d46a9934e366df6022cc1a0f50c3",
+    "codex/c03-durable-events": "9e8695b88f3e5d306f6aeeb362d21524818a3d12",
+    "codex/m1-foundation": "56c909e21aefa484b6805bf9afc7c94b0e1d4576"
+  },
+  "humanSignatures": "A/B/business pending_actual_person",
+  "notRun": [
+    "Real provider retest",
+    "Windows/signed installation/upgrade"
+  ]
+}

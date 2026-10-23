@@ -1,8 +1,10 @@
 ---
 title: C集成候选-独立技术评审
 type: task
-status: active
+status: done
 updated: 2026-10-23
+verification:
+  - wiki-repo:raw/c-diagnostics-p2-closure.json:1
 sources:
   - packages/infrastructure/src/evaluation/diagnostics.test.ts:5
   - packages/infrastructure/src/evaluation/evaluation.test.ts:45
@@ -22,7 +24,7 @@ sources:
 
 ## 验收
 
-两轴独立报告、有行号/规则/影响的发现、真实命令/退出码和源码/历史证据审计；失败/偏差/未验/签认区分，原证据不删除。当前评审执行已结束，技术结论changes_required；本任务保留active跟踪P2修复和再复核，不能以评审执行结束宣称候选验收通过。
+两轴独立报告、有行号/规则/影响的发现、真实命令/退出码和源码/历史证据审计；失败/偏差/未验/签认区分，原证据不删除。当前评审执行已结束，技术结论changes_required；原评审时保留active跟踪P2；后续新修复已独立关闭，见补记。done仅表示技术评审闭环，不是原候选或整体交付批准。
 
 ## 改动
 
@@ -34,6 +36,12 @@ sources:
 
 ## 未完成项
 
-STD-001/P2诊断回归需修复、完整pnpm test复验与独立技术关闭；本轮不自动改测试/超时或业务代码。A/B、非作者批准与C04业务人工语义签认保持待办，真实供应商/Windows/安装仍未本轮验证。候选未移动、未推送、未合入或外部通知。
+原评审阶段STD-001/P2曾需修复/全量复验；后续已在e6af0b2实际修复并独立关闭，原9e067bf源码与失败不改。A/B、非作者批准与C04业务人工语义签认保持待办，真实供应商/Windows/安装仍未本轮验证。候选未移动、未推送、未合入或外部通知。
 
 人员签认与R-1技术意见继续见[[C集成候选-依赖与非作者签认]]，本任务不替其关闭。
+
+## 后续修复的独立技术关闭
+
+原9e067bf评审结论与失败不改。用户后续授权的[[C04-诊断回归时限修复]]在e6af0b2完成最小测试预算修复；独立Standards默认全量294通过并关闭STD-001，Spec0新问题。最终Wiki门禁通过后本任务done仅表示评审与P2修复复核闭环，A/B/业务人工以及整体交付批准仍见[[C集成候选-依赖与非作者签认]]，不代填。关闭证明[JSON](../../raw/c-diagnostics-p2-closure.json)。
+
+最终Wiki生成、只读check/lint、29f5b94/654fecc/be53b98同步及diff检查已通过，STD-001技术收口；相关人员签认任务继续active。

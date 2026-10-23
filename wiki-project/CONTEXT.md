@@ -1,5 +1,7 @@
 # 当前上下文
 
+- 2026-10-23固定修复e6af0b2完成[[C04诊断回归时限修复]]的作者完整门禁与独立复核：仅完整诊断fixture测试局部20秒预算，全部回调/断言及业务预算不变；作者294单元/9Electron含build/48fixture189替身真实0/45HTML/6工程/36Wiki和固定基线同步通过。独立Standards默认完整294再次通过（13:21:46～13:22:07、20.929s），Spec0新问题，STD-001技术关闭；最终Wiki收口记录见raw/c-diagnostics-p2-closure.json与任务。163旧raw/91101字节log前缀/原3失败/其余224源码/9bundle保留。原9e067bf失败记录不反填，A/B及业务人工仍待实际人员，无推送/共同分支合入/真实复测。下方待复核/失败为原阶段时点。
+
 - 2026-10-23用户授权独立codex/c-diagnostics-p2-fix，从29f5b94推进[[C04诊断回归时限修复]]。新工作树原版本次294通过，间歇性观察保留；只在完整fixture诊断测试it()增加20秒预算，回调/所有断言字节一致、业务预算/全局并发/源实现不变。[[C04-诊断回归时限修复]]当前active，完整验证后独立子Agent复核才关闭STD-001；原三次失败/raw不反填，A/B及业务人工仍待实际人员，不推送/共同分支合入/真实复测。
 
 - 2026-10-23用户授权三名独立Agent对冻结9e067bf技术评审，见[[C集成候选独立技术评审]]/[[C集成候选-独立技术评审]]。Standards发现1项P2：packages/infrastructure/src/evaluation/diagnostics.test.ts:5完整48点fixture运行受默认5秒时限约束，三次完整pnpm test均293/294通过/1超时，最后独立整套仍失败；Spec无其他已确认问题。9Electron含build、48fixture/189替身/真实0、45HTML、6工程、36Wiki与双基线同步及225源码/9bundle/历史审计通过；不能据此掩盖单元门禁失败。技术结论changes_required，P2待修复复验，A/B及业务人工仍待实际人员；只在独立codex/c-integration-review记录Wiki，不修改/移动候选、不推送/合入/外部消息/真实复测。下方候选准备全绿属于此前实际运行历史。
