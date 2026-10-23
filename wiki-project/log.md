@@ -625,3 +625,14 @@ GitHub连接器404后定向Git取得B对象，未触碰共同/原交接分支。
 [[C迁移协调请求草稿-AB谱系兼容]]及原备稿任务/人员active任务、CONTEXT/状态/索引同步：先A确认谱系、支持/拒绝与登记ADR，再B实现和C新固定组合矩阵/macOS桌面。真实旧库存在性与mkdir/open/WAL拒绝边界未确认；无新号位/历史SQL变更或代码合入。原始接收/外部输出与C门禁分别见raw/c-b-migration-reply-intake.json、raw/c-b-migration-reply-validation.json；本轮不重新跑产品/探针，不推送、消息、合入、代签或真实模型复测。旧raw/log与源码保持核对及生成/只读check/lint、固定任务/目标/累计sync与diff按实际命令留证，任务维护完成不等于迁移问题关闭。
 
 本轮维护最终生成/check/lint及三基线sync/diff全部退出0，228非Wiki/187旧raw/105608字节log前缀保持。首次本地helper空路径错误与done证据running阶段绑定失败均保留于本轮初次/最终验证记录，修正维护时序后重验；未删除原产品失败或批准任何迁移。
+
+
+## 2026-10-23 C迁移后执行材料准备
+
+从b3bc98c2c4149a21ec70978c0dd73eea67e561c6建立独立codex/c-migration-execution-plan与工作树，仅整理[[C迁移后运行与事件不变量]]、[[C迁移后桌面接线清单]]、[[C迁移联合验证用例]]和准备/实施两任务。实际读取C45fa03d现有run/store/协调器/事件/Worker/桥接/桌面/旧测试，B f2dfa5f固定回复及原诊断；16不变量、12接线项、29个not_run用例，明确schema/ledger/旧JSON/事件保持、T1迁移/T2恢复、预写候选与已保存revision检查差异、先A方案→B适配→C迁移/桌面/macOS及各实际人员留证。
+
+无历史SQL/编号/登记或生产/测试/配置/依赖变更，不安装依赖/执行迁移探针/产品全套或真实模型，不推送/共同合入/消息/代签。旧源码/raw/log与原失败保留，准备维护实际审计/生成/check/lint/固定b3bc98c、654fecc、be53b98同步和diff记录分别在raw/c-migration-execution-plan-audit.json、raw/c-migration-execution-plan-validation.json；实施任务与人员任务继续active，材料完成不等于新组合通过。
+
+本轮首次/重试lint因不变量表缩写路径失败，辅助替换又遇frontmatter/中文相邻文字匹配，均未写入源码或改变规则；修正文稿为完整项目相对源码锚点并用inline code隔开，初次/重试文档验证JSON保留，最终门禁另记。
+
+准备收口：225源码与固定C45fa03d/b3bc98c一致，228非Wiki、190旧raw、107324字节log前缀保持，最终生成/198页check/lint与三固定基线sync/diff全退出0。只将材料准备任务标done；实施、人员任务active，新组合用例全not_run。绑定实际通过记录后再次只读校验，不推送。

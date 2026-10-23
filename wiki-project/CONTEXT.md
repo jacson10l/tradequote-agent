@@ -1,5 +1,7 @@
 # 当前上下文
 
+- 2026-10-23用户要求A方案前整理C执行材料。从b3bc98c新建独立codex/c-migration-execution-plan/worktree，[[C迁移后运行与事件不变量]]、[[C迁移后桌面接线清单]]、[[C迁移联合验证用例]]给出16不变量、12接线项、29个not_run迁移/失败/桌面用例；T1迁移/T2恢复分验，预写候选与B已保存revision检查不得互换。[[C集成-迁移后执行准备]]仅文档维护，[[C集成-迁移方案执行与联合验收]]保持active等待A的ADR/支持矩阵/登记/拒绝边界与A/B固定实现。未改历史迁移/源码、不安装依赖或跑产品/模型，不推送/合入/代签/发送；旧证据保留、人工任务继续active。
+
 - 2026-10-23已核对B协调远端f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef及接口父e80d1a25c5ace628df6952a43d98b84d75e418e4。[[C迁移协调请求草稿-AB谱系兼容]]追加M1～M8接收/后续：B开发Agent技术意见非人工签认，原六组Windows重跑与C完整cases/源码/SQL/脚本一致但compatible=false；额外未知v6/缺触发器负向0/2仍红。聚焦53/53与全量183/184、Wiki34/36的EPERM失败分列。先A定谱系/目标/登记ADR和拒绝边界，再B实现留证、C独立组合矩阵及macOS桌面；所有人员项继续active。本轮同一独立协调分支仅本地Wiki接收记录，无B合入/自动推送/消息/真实复测，证据raw/c-b-migration-reply-{intake,validation}.json。
 
 - 2026-10-23用户明确授权推送codex/c-migration-coordination-draft供A/B读取。已普通推送origin并核对原文头fd4b72859e63931986424d6c66ee48fd12d81a60，包含诊断d99f2b32def756b6b4d4cc99fca75dd9511436d5；[[C迁移协调请求草稿-AB谱系兼容]]给出分支/固定原文/六组证据链接。首次HTTP400失败保留，远端未创建后用命令局部HTTP/1.1/postBuffer重试成功，无强推/tag/全局配置修改。任务[[C集成-迁移协调草稿推送交接]]及raw/c-migration-coordination-push-{delivery,validation}.json记录新授权、远端核对及Wiki门禁；后续保存记录只在同一授权分支普通推送，最终远端头在交付回复再次核对。新授权仅共享分支，不合入、不创建PR/消息或代签、不真实复测；compatible=false/M1～M8及人员active保持。下方本地未推送是原阶段事实。

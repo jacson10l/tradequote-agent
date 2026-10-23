@@ -1,0 +1,53 @@
+---
+title: C迁移后桌面接线清单
+type: interface
+status: draft
+updated: 2026-10-23
+sources:
+  - packages/contracts/src/index.ts:93
+  - packages/contracts/src/pending-client.ts:22
+  - packages/infrastructure/src/index.ts:29
+  - apps/desktop/src/workers/business.ts:19
+  - apps/desktop/src/main/index.ts:240
+  - apps/desktop/src/main/worker-client.ts:148
+  - apps/desktop/src/preload/index.ts:53
+  - apps/desktop/src/renderer/src/features/agent-runs.tsx:1
+  - wiki-repo:raw/c-migration-execution-plan-audit.json:1
+---
+
+# C迁移后桌面接线清单
+
+以C b3bc98c和B f2dfa5f为准备输入，全部D项为待执行/待新固定候选验证，不是本轮实现。既有运行/事件生产链已接通；新Wiki/完整B01在当前C仍未接通，pending-client并非真实保存服务。方案前提与角色见[[C迁移协调请求草稿-AB谱系兼容]]；保护条件见[[C迁移后运行与事件不变量]]，用例见[[C迁移联合验证用例]]。
+
+## 开始接线前
+
+| ID | 需要落实的工作与入口 | 完成证据/责任 |
+|---|---|---|
+| D01 | A提供ADR、谱系判据、目标schema、逐输入支持/拒绝矩阵、追加执行登记/编号及回滚边界；A/B提供固定实现、公开出口和原本机记录。先创建独立组合worktree/分支，记录实际merge-base及各来源SHA。 | A决定迁移；B确认公共契约；C记录来源范围。未知项不可用推测替代。仅准备不自动合入。 |
+| D02 | C先执行完整迁移/拒绝矩阵，再构造业务服务。SqliteWorkspaceRepository当前先mkdir/open/WAL再migrate；Worker先Ownership再repository、恢复、ready。A/C确定识别与拒绝位置、WAL/侧库等允许变化，避免未判定旧库已被引导或恢复。 | 对拒绝库证明未ready/未接业务，无隐式空库/建workspace；启动安全错误有可审阅分派，SQL/路径不进UI。B建议STORAGE_ERROR尚非已实施决定。 |
+| D03 | infrastructure/index公开导出取已核对能力的并集：保留runStore/AgentRunCoordinator/WorkerOwnership及旧业务入口，按A公共端口加入executeWiki、按B端口加入executeChecks；同业务数据库/连接，不整文件覆盖、不复制DTO。 | typecheck/边界检查、公开入口调用证据；原run/quote与新source/wiki/report可同时重开。 |
+
+## 公共协议到Worker
+
+| ID | 需要落实的工作与入口 | 完成证据/责任 |
+|---|---|---|
+| D04 | B维护contracts/index.ts的RuntimeCommand/RuntimeResult与WorkerRequest/Reply联合、DesktopClient、mock/pending及调用方；只开放已交付命令。保留run/event/旧同步返回协议；知识运行P1/维护/审批不随P0自动开放。 | 非法字段与未支持方法拒绝；精确白名单/返回schema测试；B确认契约，C同步宿主调用方。 |
+| D05 | 当前C的候选validate_quote是未保存草稿预写授权，B executeChecks严格接已保存revisionId，不能直接互换。由B确认纯校验/适配口径、A提供新Wiki来源读取/消费端口，C保持“预览授权→事务内复核→保存后真实版本报告”的身份区分。 | 新计算使旧授权失效，来源/规则变更拒绝旧写；旧saved_revision/proof/steps能回读。不得伪造revisionId、renderer快照或将旧B00有限规则当完整B01。 |
+| D06 | business.ts在同一repository/可信context分派A/B命令。host确定workspace/actor/origin/时点；Worker输入/输出都严格校验。报告、完整多来源消费、outbox、成功幂等保持B同步同连接IMMEDIATE，无await拆事务。 | B报价/报告/消费夹具及失败整体回滚；同key首次结果不变、异参冲突；旧报告无wikiCitations不补写。 |
+| D07 | WorkerOwnership、ready前不可用、exit后才重建、超时终止不确定writer、shutdown等待exit保持；新存储失败不驱动自动模型/写操作重放。 | 第二writer/迟到回包/丢完成响应/Worker kill及重开用例；I01～I08/I15。 |
+
+## Main、preload与renderer
+
+| ID | 需要落实的工作与入口 | 完成证据/责任 |
+|---|---|---|
+| D08 | Main按命令增量注册handler，保留sender=当前window、mainFrame、renderer URL核对和channel/method一致。只在实际需要模型的既有入口获取凭据，get/list/events/quote检查及Wiki查询不因此读取Key。人工发布身份由宿主可信入口确定，renderer传origin不能获得权限。 | 非主frame/外URL/伪actor/origin/workspace/credentials/金额/已通过报告均拒绝；B公开错误与A授权判定有对应映射。 |
+| D09 | preload覆盖对应pending方法前同时完成请求/结果strict schema；绑定runId/afterSeq等响应范围，报告绑定实际revision。保留run/event正式实现，卸载幂等退订。不得泛化IPC透传或把不可用返回替成空成功。 | preload/contracts.test.ts、contracts负向测试与真实Electron IPC拒绝证据。 |
+| D10 | renderer只调用DesktopClient；接入已保存版本检查/历史报告、风险标记和文本批注/全部来源定位，按revision隔离。明确旧/新报告、预览/保存及synthetic/pending/block；保持未知金额，不自动审批/外发。修改UI前按根DESIGN.md适配。 | B双反馈与A来源资格核对；V1/V2/V3切换/报告重开，不能拿版本差异表代两种反馈。旧成功报告不随新知识现态改写。 |
+| D11 | agent-runs/run-events继续只读发现与seq补页；事件仅唤醒、不能作报告或报价本体。刷新/断线/online/重开不start/retry；控制丢回复复用原键，再get/list回读。 | I11～I16与RunEventFeed/UI/实际Electron重连；HTTP替身请求计数证明重连/迁移零新模型请求。 |
+| D12 | A提供实际review/publish/withdraw入口，实际人员审核并显式发布，留revision/contentHash/sourceSetHash和操作证据。fixture直接变lifecycle不能充当人工发布；C仅按公开授权接线和展示，B验未发布/撤回/过期门禁。 | A人工操作、B消费资格、C真实桌面入口分别留证；不预填人名/通过结论。业务语义由验收人另签，R-1整体非作者另行完成。 |
+
+## 执行顺序和交付
+
+D01落实→D02迁移与安全拒绝先验→D03～D09按小切片同步契约/宿主/测试→D10～D12及原运行/事件回归→macOS完整组合验证。每次源代码修改由该作者同一交付更新Wiki、任务、追加log和覆盖；不能让新接线覆盖旧C04诊断/脱敏断言或把预算放宽来过门禁。
+
+本轮仅形成清单，未扩展任何Runtime/Worker白名单、发布权限、UI或新错误码。未来执行按[[C集成-迁移方案执行与联合验收]]记录固定候选、环境、实际命令/退出码、用例证据和未决项；人员签认与文档准备done分别记录。参考[[C03持久事件与桌面重连]]、[[C02c多步报价工具闭环]]。

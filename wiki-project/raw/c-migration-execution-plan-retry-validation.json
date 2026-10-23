@@ -1,0 +1,90 @@
+{
+  "status": "failed",
+  "scope": "Documentation preparation only; migration cases and desktop integration not executed",
+  "taskBase": "b3bc98c2c4149a21ec70978c0dd73eea67e561c6",
+  "branch": "codex/c-migration-execution-plan",
+  "startedAt": "2026-10-23T13:12:31.108716+00:00",
+  "checks": [
+    {
+      "argv": [
+        "python3",
+        "-c",
+        "import json,pathlib,hashlib,subprocess\nr=pathlib.Path.cwd();h=lambda b:hashlib.sha256(b).hexdigest();d=json.loads((r/'.runtime/c-migration-plan-preservation.json').read_text())\nfor p,v in {**d['nonWikiSha256'],**d['oldRawSha256']}.items():assert h((r/p).read_bytes())==v,p\nassert h((r/'wiki-project/log.md').read_bytes()[:d['logPrefixBytes']])==d['logPrefixSha256']\nassert subprocess.check_output(['git','rev-parse','codex/c-migration-coordination-draft']).decode().strip()=='b3bc98c2c4149a21ec70978c0dd73eea67e561c6'\nfor n in ['C集成候选-依赖与非作者签认','C04-收口签认','C集成-迁移方案执行与联合验收']:assert 'status: active' in (r/'wiki-project/wiki/tasks'/(n+'.md')).read_text()\nx=json.loads((r/'wiki-project/raw/c-migration-execution-plan-audit.json').read_text());assert x['CSourceMatch']['count']==225\nassert all(v['status']=='not_run' for a in x['futureInventory'].values() for v in a)\nprint(json.dumps(dict(status='passed',nonWikiUnchanged=len(d['nonWikiSha256']),oldRawUnchanged=len(d['oldRawSha256']),logPrefixBytes=d['logPrefixBytes'],CSource225Matches45AndB3=True,futureCasesNotRun=29,personAndExecutionTasksActive=True,originalCoordinationBranchUnchanged=True)))\n"
+      ],
+      "startedAt": "2026-10-23T13:12:31.109089+00:00",
+      "finishedAt": "2026-10-23T13:12:31.181314+00:00",
+      "exitCode": 0,
+      "output": "{\"status\": \"passed\", \"nonWikiUnchanged\": 228, \"oldRawUnchanged\": 190, \"logPrefixBytes\": 107324, \"CSource225Matches45AndB3\": true, \"futureCasesNotRun\": 29, \"personAndExecutionTasksActive\": true, \"originalCoordinationBranchUnchanged\": true}\n",
+      "outputSha256": "d4bf986ef274bad425e447adcb6a998b864a5d67e0aa18fd0149d5e6be89ae16"
+    },
+    {
+      "argv": [
+        "node",
+        "-p",
+        "JSON.stringify({version:process.version,platform:process.platform,arch:process.arch})"
+      ],
+      "startedAt": "2026-10-23T13:12:31.181836+00:00",
+      "finishedAt": "2026-10-23T13:12:31.213782+00:00",
+      "exitCode": 0,
+      "output": "{\"version\":\"v22.22.0\",\"platform\":\"darwin\",\"arch\":\"arm64\"}\n",
+      "outputSha256": "69c15ca425a6b7b8d7110b6512d206130ac55c176706f0e5531b7c6a5180c4af"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "--version"
+      ],
+      "startedAt": "2026-10-23T13:12:31.214247+00:00",
+      "finishedAt": "2026-10-23T13:12:31.395124+00:00",
+      "exitCode": 0,
+      "output": "10.13.1\n",
+      "outputSha256": "a732d8657d4605be863422ad9499a6b49b2948d1412475b66bc6e2ecba66414d"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-23T13:12:31.395541+00:00",
+      "finishedAt": "2026-10-23T13:12:31.568114+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"generate\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 6\n}\n",
+      "outputSha256": "6a3e1709991b78e42869a1a8ccb647033396075edd3b7529074b2008dd665be1"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "startedAt": "2026-10-23T13:12:31.568515+00:00",
+      "finishedAt": "2026-10-23T13:12:31.731164+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 6\n}\n",
+      "outputSha256": "989c0d7bed58055cd73ba84f2a1b90acb451c9e9b55e9ade31bacb0278f4dd42"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-23T13:12:31.731689+00:00",
+      "finishedAt": "2026-10-23T13:12:32.239675+00:00",
+      "exitCode": 1,
+      "output": "wiki-project/wiki/C迁移后运行与事件不变量.md: INLINE_SOURCE_REFERENCE_INVALID\n",
+      "outputSha256": "7265dd4fedc494edddef06f6c13bc0058fec30ab28d8ccfedb9afa8946304014"
+    }
+  ],
+  "notRun": [
+    "M01-M14",
+    "F01-F07",
+    "J01-J08",
+    "D01-D12 execution",
+    "new product/typecheck/build/Electron/model suite",
+    "human signoff",
+    "push/merge/messages"
+  ]
+}
