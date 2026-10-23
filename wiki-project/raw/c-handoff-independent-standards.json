@@ -1,0 +1,555 @@
+{
+  "schemaVersion": 1,
+  "axis": "Standards",
+  "reviewer": "/root/handoff_standards",
+  "candidate": "b256dd1d219cbf9f4a4264e19a980e194180dc14",
+  "base": "45fa03d57d6fc405c2438c3b187f87838355a88b",
+  "headBefore": "b256dd1d219cbf9f4a4264e19a980e194180dc14",
+  "scope": "Final handoff Wiki increment; independent read-only checks, no business suite or real model replay",
+  "environment": {
+    "os": "macOS-26.4-arm64-arm-64bit",
+    "node": "v22.22.0",
+    "pnpm": "10.13.1"
+  },
+  "commands": [
+    {
+      "argv": [
+        "pnpm",
+        "wiki:check"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent",
+      "startedAt": "2026-10-23T13:58:27.876966+08:00",
+      "finishedAt": "2026-10-23T13:58:29.288530+08:00",
+      "durationSeconds": 1.411587,
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 179,\n  \"semantic\": 151,\n  \"reachable\": 179\n}\n",
+      "outputSha256": "3f7aaed455b02817155228d90038090bedfa5dcdaea51bf09170163ffa86ae3b"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "45fa03d57d6fc405c2438c3b187f87838355a88b"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent",
+      "startedAt": "2026-10-23T13:58:29.288684+08:00",
+      "finishedAt": "2026-10-23T13:58:29.393502+08:00",
+      "durationSeconds": 0.10487,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"45fa03d57d6fc405c2438c3b187f87838355a88b\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "outputSha256": "9dd83f951af76ecc6786167f4329300bb3016cd3683262b872f4bbc7be49cea4"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent",
+      "startedAt": "2026-10-23T13:58:29.393631+08:00",
+      "finishedAt": "2026-10-23T13:58:30.252150+08:00",
+      "durationSeconds": 0.858577,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 91,\n  \"knowledgePages\": 86,\n  \"tasks\": 29,\n  \"errors\": []\n}\n",
+      "outputSha256": "36f422aeda868f0f696240be164d98b41854b02129045c4016da68843d85568b"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent",
+      "startedAt": "2026-10-23T13:58:30.252338+08:00",
+      "finishedAt": "2026-10-23T13:58:32.159598+08:00",
+      "durationSeconds": 1.907414,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 97,\n  \"knowledgePages\": 101,\n  \"tasks\": 37,\n  \"errors\": []\n}\n",
+      "outputSha256": "21c7c7f026e7b798765fd3b77ea22e09509b70473eb0de4ed04506667bb82759"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check",
+        "45fa03d57d6fc405c2438c3b187f87838355a88b...b256dd1d219cbf9f4a4264e19a980e194180dc14"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent",
+      "startedAt": "2026-10-23T13:58:32.159922+08:00",
+      "finishedAt": "2026-10-23T13:58:32.195589+08:00",
+      "durationSeconds": 0.035725,
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "audit": {
+    "changedPaths": [
+      "wiki-project/CONTEXT.md",
+      "wiki-project/index.md",
+      "wiki-project/log.md",
+      "wiki-project/raw/c-integration-final-manifest.json",
+      "wiki-project/raw/c-integration-final-validation.json",
+      "wiki-project/wiki/C集成候选与依赖收口.md",
+      "wiki-project/wiki/C集成候选评审说明.md",
+      "wiki-project/wiki/C集成最终交接包.md",
+      "wiki-project/wiki/tasks/C04-收口签认.md",
+      "wiki-project/wiki/tasks/C集成-最终交接包整理.md",
+      "wiki-project/wiki/tasks/C集成候选-依赖与非作者签认.md",
+      "wiki-project/wiki/项目状态.md"
+    ],
+    "allWiki": true,
+    "commitList": "b256dd1d219cbf9f4a4264e19a980e194180dc14 docs(c): prepare final integration handoff at 45fa03d\n",
+    "targetToFrozenCommitCount": 29,
+    "targetToFrozenPaths": 279,
+    "nonWikiPaths": 92,
+    "wikiPaths": 187,
+    "sourceHashesCandidateBaseFixEqual": 225,
+    "oldNonGeneratedRawFilesByteIdentical": 171,
+    "oldLogPrefixByteIdentical": 93919,
+    "closureReportHashes": {
+      "wiki-project/raw/c-diagnostics-p2-standards-review.json": "4b4df783b13a03a7943714e8477d242d5650c03869c2becf8d763ac916af1be8",
+      "wiki-project/raw/c-diagnostics-p2-spec-review.json": "68e8a6be11051672a7cdbf6f09c108c50cf8cd26e09e3d5c6252a740a1cd9adb"
+    },
+    "independentHistoricalDefaultReplay": {
+      "argv": [
+        "pnpm",
+        "test"
+      ],
+      "startedAt": "2026-10-23T05:21:46.204402+00:00",
+      "finishedAt": "2026-10-23T05:22:07.131961+00:00",
+      "exitCode": 0,
+      "outputSha256": "65b775fbc6d00bdcd371ffc24ef6d9741a1572820e4e34061c8819c58556c93e"
+    },
+    "embeddedOutputHashesChecked": 41,
+    "embeddedOutputChecks": [
+      {
+        "path": "wiki-project/raw/c-integration-final-validation.json/checks/0",
+        "exitCode": 0,
+        "outputSha256": "bcde20d12d91a05bc25418fdc7f47ec6677f74af35999e6227bcccd714eb73d9"
+      },
+      {
+        "path": "wiki-project/raw/c-integration-final-validation.json/checks/1",
+        "exitCode": 0,
+        "outputSha256": "eab7fbe263dd998bf9cc3794887cfe4f6c11520b68861ce62307ee0780068dba"
+      },
+      {
+        "path": "wiki-project/raw/c-integration-final-validation.json/checks/2",
+        "exitCode": 0,
+        "outputSha256": "f114e0b777330ba3b8e04b3d5055cd3ff66e804bb3890fab378ea3ccfe82de10"
+      },
+      {
+        "path": "wiki-project/raw/c-integration-final-validation.json/checks/3",
+        "exitCode": 0,
+        "outputSha256": "9dd83f951af76ecc6786167f4329300bb3016cd3683262b872f4bbc7be49cea4"
+      },
+      {
+        "path": "wiki-project/raw/c-integration-final-validation.json/checks/4",
+        "exitCode": 0,
+        "outputSha256": "36f422aeda868f0f696240be164d98b41854b02129045c4016da68843d85568b"
+      },
+      {
+        "path": "wiki-project/raw/c-integration-final-validation.json/checks/5",
+        "exitCode": 0,
+        "outputSha256": "21c7c7f026e7b798765fd3b77ea22e09509b70473eb0de4ed04506667bb82759"
+      },
+      {
+        "path": "wiki-project/raw/c-integration-final-validation.json/checks/6",
+        "exitCode": 0,
+        "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "wiki-project/raw/c-integration-final-validation.json/checks/7",
+        "exitCode": 0,
+        "outputSha256": "3f7aaed455b02817155228d90038090bedfa5dcdaea51bf09170163ffa86ae3b"
+      },
+      {
+        "path": "wiki-project/raw/c-integration-final-validation.json/checks/8",
+        "exitCode": 0,
+        "outputSha256": "9dd83f951af76ecc6786167f4329300bb3016cd3683262b872f4bbc7be49cea4"
+      },
+      {
+        "path": "wiki-project/raw/c-integration-final-validation.json/checks/9",
+        "exitCode": 0,
+        "outputSha256": "36f422aeda868f0f696240be164d98b41854b02129045c4016da68843d85568b"
+      },
+      {
+        "path": "wiki-project/raw/c-integration-final-validation.json/checks/10",
+        "exitCode": 0,
+        "outputSha256": "21c7c7f026e7b798765fd3b77ea22e09509b70473eb0de4ed04506667bb82759"
+      },
+      {
+        "path": "wiki-project/raw/c-integration-final-validation.json/checks/11",
+        "exitCode": 0,
+        "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-validation.json/beforeAndSetupChecks/0",
+        "exitCode": 0,
+        "outputSha256": "c54953ee186058af61d7fbd01866fcd0c77f060d4ed4b6bfec54457907bec16b"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-validation.json/beforeAndSetupChecks/1",
+        "exitCode": 0,
+        "outputSha256": "2baf6478ccad7c7a40df1b1b8bbd33be285dfded202fa199580b94b3e5ed63a9"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-validation.json/checks/0",
+        "exitCode": 0,
+        "outputSha256": "fcb3443f17a754f6ac255c356e655310237c8f9892a2b4c2e3b39672585383dc"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-validation.json/checks/1",
+        "exitCode": 0,
+        "outputSha256": "1135f3889529ce55b0f85ff01c86639e3feb0adbab32f59563a17d47c7985a65"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-validation.json/checks/2",
+        "exitCode": 0,
+        "outputSha256": "a022482f2483e772e51e9a58e8518ae7a669faa33283f36a3289993821a09790"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-validation.json/checks/3",
+        "exitCode": 0,
+        "outputSha256": "2076876c017c4b2962f43290a285894359458b24c6f9fe4961381d2fb34c3a57"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-validation.json/checks/4",
+        "exitCode": 0,
+        "outputSha256": "4b6262f41638ebc00ef656909fd03170c8043c08d90128d91f095c9b828e424b"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-validation.json/checks/5",
+        "exitCode": 0,
+        "outputSha256": "8d6cd27abfd8af0c7cbdcb7f848cb82741ef8f24276e436d67da92b7dc0c36b4"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-validation.json/checks/6",
+        "exitCode": 0,
+        "outputSha256": "eab7fbe263dd998bf9cc3794887cfe4f6c11520b68861ce62307ee0780068dba"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-validation.json/checks/7",
+        "exitCode": 0,
+        "outputSha256": "9128d6d48ad86b5a5d22c9c0e825aceeb351f5ffbe134777f963a99d3a7f8598"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-validation.json/checks/8",
+        "exitCode": 0,
+        "outputSha256": "30034405544d0e19b5a04c46dc0f42653c33bfbd708dbdf8983f61dd31756893"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-validation.json/checks/9",
+        "exitCode": 0,
+        "outputSha256": "cd0138cd969334a7d6ad484f3a451033b2aa54dbe50c2ff0d29b55aff20cd528"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-validation.json/checks/10",
+        "exitCode": 0,
+        "outputSha256": "a27b4a65cd2275a2e8ec3b154e53abdab080bb4725daa7dc1e3a02e9d2159ee3"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-validation.json/checks/11",
+        "exitCode": 0,
+        "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-validation.json/checks/12",
+        "exitCode": 0,
+        "outputSha256": "7a451b6bc4e2ce27c66391f2a9b21de3bab9bf825075aedc0669bb437b51e8b6"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-validation.json/checks/13",
+        "exitCode": 0,
+        "outputSha256": "2b32acee8e5de797af3b53138419911f62145d9b6a6810f0be51ca45395ca869"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-standards-review.json/commands/defaultFullReplay",
+        "exitCode": 0,
+        "outputSha256": "65b775fbc6d00bdcd371ffc24ef6d9741a1572820e4e34061c8819c58556c93e"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-standards-review.json/commands/readOnlyChecksAndEnvironment/0",
+        "exitCode": 0,
+        "outputSha256": "2b32acee8e5de797af3b53138419911f62145d9b6a6810f0be51ca45395ca869"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-standards-review.json/commands/readOnlyChecksAndEnvironment/1",
+        "exitCode": 0,
+        "outputSha256": "30034405544d0e19b5a04c46dc0f42653c33bfbd708dbdf8983f61dd31756893"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-standards-review.json/commands/readOnlyChecksAndEnvironment/2",
+        "exitCode": 0,
+        "outputSha256": "c414f17896fa3ddfbd81ec3e6037beef712f6ec9200decd2d47c9c1e1594385a"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-standards-review.json/commands/readOnlyChecksAndEnvironment/3",
+        "exitCode": 0,
+        "outputSha256": "a732d8657d4605be863422ad9499a6b49b2948d1412475b66bc6e2ecba66414d"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-standards-review.json/commands/readOnlyChecksAndEnvironment/4",
+        "exitCode": 0,
+        "outputSha256": "9b7019adf46a4badbcd4400b3d97a2c837ce44c2f31deba6550039ca220633b4"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-standards-review.json/commands/readOnlyChecksAndEnvironment/5",
+        "exitCode": 0,
+        "outputSha256": "e2deba389e19794c5cd424461917cd41d23e3e3590a68cd8d0a27f35f295e34e"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-closeout-validation.json/checks/0",
+        "exitCode": 0,
+        "outputSha256": "eab7fbe263dd998bf9cc3794887cfe4f6c11520b68861ce62307ee0780068dba"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-closeout-validation.json/checks/1",
+        "exitCode": 0,
+        "outputSha256": "2b32acee8e5de797af3b53138419911f62145d9b6a6810f0be51ca45395ca869"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-closeout-validation.json/checks/2",
+        "exitCode": 0,
+        "outputSha256": "17cf4866fe7c3caafd2f985d34ee39e71e71f91d9bbaa8876f97c551f42d399d"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-closeout-validation.json/checks/3",
+        "exitCode": 0,
+        "outputSha256": "cd0138cd969334a7d6ad484f3a451033b2aa54dbe50c2ff0d29b55aff20cd528"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-closeout-validation.json/checks/4",
+        "exitCode": 0,
+        "outputSha256": "a27b4a65cd2275a2e8ec3b154e53abdab080bb4725daa7dc1e3a02e9d2159ee3"
+      },
+      {
+        "path": "wiki-project/raw/c-diagnostics-p2-closeout-validation.json/checks/5",
+        "exitCode": 0,
+        "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "humanTrackingTasks": "both active",
+    "newDoneTaskScope": "handoff material preparation only",
+    "authorPackagingChecksAllExitZero": true
+  },
+  "headAfter": "b256dd1d219cbf9f4a4264e19a980e194180dc14",
+  "statusAfter": "",
+  "checkedFileHashes": {
+    "wiki-project/CONTEXT.md": "6a084f644b7fadad7c08b98be9aa15064c527e0108262cf23e203e3696287cba",
+    "wiki-project/index.md": "fc875a39fd5149658e6a95d86c0a70fc6e03baa9e43f2aeae085c86f91e7532e",
+    "wiki-project/log.md": "02ca1c36e57d5b1903cf05d2704a645d693c74cc8bc40e9e32825d0bebe835af",
+    "wiki-project/raw/c-integration-final-manifest.json": "27eb1d73d6d5c675fbc25dee532ba05bbb848c8495716d1fc0d7f603c79f8503",
+    "wiki-project/raw/c-integration-final-validation.json": "49c3a8b60819974669e3ce12f32f3f70aa70aa9b752755bda37889be5b9b80c3",
+    "wiki-project/wiki/C集成候选与依赖收口.md": "67764639701b7b15f7e2fa78f5feb0bd3abbc016c1081e9cdd7fe92ffa468b41",
+    "wiki-project/wiki/C集成候选评审说明.md": "df7ff19e09d9ade866436c41ca4aabb87a0e7e27627464c5bb41677947e2d52f",
+    "wiki-project/wiki/C集成最终交接包.md": "11e8ddebc003a61068721d5316ca0bca9a2d62347a1ebe7c74f47e8827237b99",
+    "wiki-project/wiki/tasks/C04-收口签认.md": "07bd0fa129499b2a3ed72c89ed41a2f49f270f4f38d97dfd79efddae6f83b76a",
+    "wiki-project/wiki/tasks/C集成-最终交接包整理.md": "bcc4d5853c5cfee2daaa4331980012ac0ef4022cead82d191d127069a94fe899",
+    "wiki-project/wiki/tasks/C集成候选-依赖与非作者签认.md": "0f676a93d487f82bdb621cfd1ba010b50573f9b4c5977d5d2bf890273a2068e6",
+    "wiki-project/wiki/项目状态.md": "068fe60b39bfeef10c35435dcd1ab4dc304a8f38b5334ba6c7361afbc3d08f25",
+    "AGENTS.md": "cd764ff10c866f8e7af2661cf0c051d3c1d6a211704a82df10ae33dd6d5024da",
+    "wiki-project/AGENTS.md": "cbf64166e88ba3b2d1a5ff52d339729ba9068efa9c5e9a18a965618522db016a",
+    "CONTRIBUTING.md": "5b4cf14ceef34cf2470d3aca8dbb4cc9fc62f31a9530d19f2d0f03555ad96153",
+    "wiki-project/wiki/Wiki 工作流与任务记录.md": "3cb0f4d60c57ee7d5643aedf07df82f297d8ed113e6006c81cab0006e18659b5",
+    "wiki-project/raw/c-diagnostics-p2-standards-review.json": "4b4df783b13a03a7943714e8477d242d5650c03869c2becf8d763ac916af1be8",
+    "wiki-project/raw/c-diagnostics-p2-spec-review.json": "68e8a6be11051672a7cdbf6f09c108c50cf8cd26e09e3d5c6252a740a1cd9adb"
+  },
+  "executionDeviation": {
+    "kind": "reviewer audit filename parsing corrected",
+    "initialOutput": "Traceback (most recent call last): File <stdin>, line 11, in <module> AssertionError",
+    "initialExitCode": 1,
+    "cause": "Initial read-only ls-tree used newline format with Git quoted Chinese filenames, misclassifying four generated paths as non-generated. Corrected to -z; no repository defect, edits or business rerun.",
+    "correctedAuditExitCode": 0
+  },
+  "status": "passed",
+  "recordedAt": "2026-10-23T14:00:20.959693+08:00",
+  "diffCommand": "git diff 45fa03d57d6fc405c2438c3b187f87838355a88b...b256dd1d219cbf9f4a4264e19a980e194180dc14",
+  "initialStatusPorcelain": "",
+  "headDeviation": false,
+  "readMode": "HEAD matched candidate before and after; semantic audit read immutable git show blobs",
+  "hardViolations": [],
+  "judgementCalls": [],
+  "findings": [],
+  "standardsSources": [
+    {
+      "file": "/Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent/AGENTS.md",
+      "lines": [
+        11,
+        12,
+        13,
+        14,
+        15,
+        43,
+        53
+      ],
+      "rules": "P0 semantic knowledge/task/state/log/check closure; evidence truth and no Agent substitution for personnel signoff"
+    },
+    {
+      "file": "/Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent/wiki-project/AGENTS.md",
+      "lines": [
+        12,
+        24,
+        25,
+        32
+      ],
+      "rules": "Separate observations from implementation, graph navigation, real passed done verification, read-only checks"
+    },
+    {
+      "file": "/Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent/CONTRIBUTING.md",
+      "lines": [
+        9,
+        10,
+        11,
+        21,
+        29,
+        35,
+        37,
+        47
+      ],
+      "rules": "Relevant semantic documentation, real task baseline/commands/limits, failure history retained, macOS evidence and independent review"
+    },
+    {
+      "file": "/Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent/wiki-project/wiki/Wiki 工作流与任务记录.md",
+      "lines": [
+        18,
+        20,
+        27,
+        45,
+        49,
+        53
+      ],
+      "rules": "P0 closure, fixed-base sync, semantic review beyond tooling and actual task verification"
+    }
+  ],
+  "semanticAssessment": [
+    {
+      "file": "/Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent/wiki-project/wiki/C集成最终交接包.md",
+      "lines": [
+        16,
+        22,
+        26,
+        42,
+        46,
+        69,
+        70,
+        71,
+        73,
+        77,
+        81,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        94,
+        106,
+        108
+      ],
+      "conclusion": "The fixed business delivery45fa03d is distinct from current Wiki packaging b256dd1. Author and historical independent execution scopes are separate. STD-001 technical closure is tied to e6af0b2 and final Wiki gates; old9e067bf failures remain historical. A/B/current human acceptance and excluded A01c/P1 future dependencies remain separate."
+    },
+    {
+      "file": "/Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent/wiki-project/wiki/tasks/C集成-最终交接包整理.md",
+      "lines": [
+        4,
+        6,
+        7,
+        17,
+        21,
+        25,
+        29,
+        33,
+        37,
+        39
+      ],
+      "conclusion": "Done is restricted to documentation packaging with actual passed validation JSON. Source/contract/migration/config changes are excluded; outstanding actual people signoffs, Windows/install and new real model run remain explicit."
+    },
+    {
+      "file": "/Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent/wiki-project/wiki/tasks/C集成候选-依赖与非作者签认.md",
+      "lines": [
+        4,
+        25,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        46,
+        54,
+        59
+      ],
+      "conclusion": "Active; current A-1/A-2/B-1/B-2/R-1/H-1 not signed. A-3 and AB-1 block future excluded integration only. Technical closure does not claim human or shared merge approval."
+    },
+    {
+      "file": "/Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent/wiki-project/wiki/tasks/C04-收口签认.md",
+      "lines": [
+        4,
+        23,
+        35,
+        44
+      ],
+      "conclusion": "Active and no business-person semantic signoff has been fabricated."
+    },
+    {
+      "file": "/Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent/wiki-project/index.md",
+      "lines": [
+        3
+      ],
+      "conclusion": "New semantic and task entry linked. Independent read-only lint found179/179 Markdown reachable."
+    },
+    {
+      "file": "/Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent/wiki-project/log.md",
+      "lines": [
+        558,
+        560,
+        562,
+        564
+      ],
+      "conclusion": "Append-only log contains actual packaging change/check history;93919-byte previous log prefix preserved."
+    }
+  ],
+  "smellBaseline": {
+    "considered": [
+      "Mysterious Name",
+      "Duplicated Code",
+      "Feature Envy",
+      "Data Clumps",
+      "Primitive Obsession",
+      "Repeated Switches",
+      "Shotgun Surgery",
+      "Divergent Change",
+      "Speculative Generality",
+      "Message Chains",
+      "Middle Man",
+      "Refused Bequest"
+    ],
+    "rule": "Heuristics only; repo standards prevail; skip tool-enforced checks as findings. Pure Wiki increment has no actionable code smell. Cross-page status synchronization is required by P0."
+  },
+  "limitations": [
+    "This is Standards review of the single final Wiki packaging commit, not fresh technical approval of all cumulative production code.",
+    "No full business/unit/Electron/build/fixture/real model tests rerun; historical author and independent command outputs/hashes inspected and source identities verified.",
+    "Read-only independent checks only; no wiki generation or maintenance regression rerun because maintenance tools and mapping did not change.",
+    "No remote fetch, current PR-status inquiry, credentials, real databases, external messages, push, merge, sign-on-behalf or sub-agents.",
+    "A/B/business actual-person signoffs and overall merge acceptance remain pending; this reviewer supplies no personnel approval.",
+    "Windows/signed installation/upgrade and excluded A01c/P1/complete B01/approval/export/C05/C06 remain outside scope."
+  ],
+  "humanSignoff": {
+    "A": "pending_actual_person",
+    "B": "pending_actual_person",
+    "businessHuman": "pending_actual_person",
+    "overallMergeApproval": "not_granted_by_this_review"
+  },
+  "conciseText": "Standards:0hard violations,0judgement-call findings. Fixed b256dd1 is Wiki-only and preserves225 source hashes,171 old raw files and93919-byte log prefix. Independent read-only wiki check/lint,45fa03d/654fecc/be53b98 sync and fixed diff check all exited0. Done covers handoff preparation only. STD-001 historical technical closure and pending A/B/business actual-person acceptance remain correctly separated."
+}

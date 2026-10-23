@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "axis": "Spec",
+  "status": "passed_static_review",
+  "recordedAt": "2026-10-23T05:59:53.529242+00:00",
+  "candidate": "b256dd1d219cbf9f4a4264e19a980e194180dc14",
+  "base": "45fa03d57d6fc405c2438c3b187f87838355a88b",
+  "scope": {
+    "diff": "git diff 45fa03d57d6fc405c2438c3b187f87838355a88b...b256dd1d219cbf9f4a4264e19a980e194180dc14",
+    "commits": [
+      {
+        "commit": "b256dd1d219cbf9f4a4264e19a980e194180dc14",
+        "subject": "docs(c): prepare final integration handoff at 45fa03d"
+      }
+    ],
+    "changedPathCount": 12,
+    "changedPaths": [
+      "wiki-project/CONTEXT.md",
+      "wiki-project/index.md",
+      "wiki-project/log.md",
+      "wiki-project/raw/c-integration-final-manifest.json",
+      "wiki-project/raw/c-integration-final-validation.json",
+      "wiki-project/wiki/C集成候选与依赖收口.md",
+      "wiki-project/wiki/C集成候选评审说明.md",
+      "wiki-project/wiki/C集成最终交接包.md",
+      "wiki-project/wiki/tasks/C04-收口签认.md",
+      "wiki-project/wiki/tasks/C集成-最终交接包整理.md",
+      "wiki-project/wiki/tasks/C集成候选-依赖与非作者签认.md",
+      "wiki-project/wiki/项目状态.md"
+    ],
+    "allChangesWiki": true,
+    "initialHead": "b256dd1d219cbf9f4a4264e19a980e194180dc14",
+    "initialTrackedStatus": "",
+    "reviewType": "Independent final-handoff semantic review; no product retest; frozen committed evidence read and compared"
+  },
+  "spec": {
+    "source": "Parent supplied direct human request, not repository-derived instruction",
+    "quotes": [
+      "请基于45fa03d整理最终可审阅的C集成交接包，列出提交范围、完整验证与独立复核证据，以及A/B和业务人工待签清单，同步Wiki；不代签，暂不推送、合入或真实模型复测。",
+      "请安排独立子Agent复核b256dd1最终交接包，确认提交范围、验证与关闭证据、A/B及业务人工待签清单一致且无遗漏；不代签，暂不推送、合入或真实模型复测。"
+    ]
+  },
+  "findings": [],
+  "semanticAssessment": [
+    {
+      "requirement": "列出提交范围",
+      "result": "Satisfied",
+      "evidence": "wiki-project/wiki/C集成最终交接包.md:18-42; independently reconstructed four Git ranges and compared all commits, status/path records and frozen hashes. target654fecc..45fa03d=29 commits/279 paths/92 non-Wiki/187 Wiki; 9e067bf..45fa03d=3/28;29f5b94..45fa03d=2/22;e6af0b2..45fa03d=1/13. b256dd1 adds only12 Wiki paths. A assets and A01b authorship explicitly retained; cannot select C03 alone."
+    },
+    {
+      "requirement": "完整验证与独立复核证据",
+      "result": "Satisfied",
+      "evidence": "wiki-project/wiki/C集成最终交接包.md:44-73 distinguishes author execution from independent Standards full294 and conditional static Spec. Read actual output fields, timestamps and hashes. Author40 files/294 tests,9 Electron including build,48 fixture/189synthetic/0real,45HTML,6engineering,36Wiki agree. e6af0b2 only adds local20000ms to diagnostics test; exact callback prefix remains byte-identical. Spec does not claim to run tests. Standards default pnpm test exit0 and final Wiki closeout exit0 satisfy Spec condition. STD-001 closure scoped to revised technical fix, original9e067bf changes_required and all3 failures retained."
+    },
+    {
+      "requirement": "A/B和业务人工待签清单",
+      "result": "Satisfied",
+      "evidence": "wiki-project/wiki/C集成最终交接包.md:79-94 matches wiki-project/wiki/tasks/C集成候选-依赖与非作者签认.md:29-46 and wiki-project/wiki/tasks/C04-收口签认.md:21-44. All A-1/A-2/A-3/B-1/B-2/AB-1/R-1/H-1 preserved. A-3 only blocks excludedA01c integration;AB-1 excludedP1/C06;currentA-1/A-2/B-1/B-2/R-1/H-1 await actual people. R-1 Agent technical review distinct from actual-person overall acceptance;C04 human semantics remain active."
+    },
+    {
+      "requirement": "同步Wiki；不代签，暂不推送、合入或真实模型复测",
+      "result": "Satisfied within static evidence scope",
+      "evidence": "Task done only for package preparation; dependency/human tasks remain active; CONTEXT,project status,log,index and candidate entry links synchronized. Original real31/31/168 atfd7703c and64f2e2d audit explicitly historical and distinct from newfixture48. No new product/model/network operation performed by this reviewer; git diff contains onlyWiki."
+    }
+  ],
+  "independentMechanicalAudit": {
+    "rangeManifestErrors": [],
+    "sourceSnapshotHashesMatchedFrozenReviewedFixAndWorkingTree": 225,
+    "frozenEvidenceFilesMatchedFrozenAndWorkingTree": 171,
+    "oldLogPrefixBytes": 93919,
+    "oldLogPrefixByteIdentical": true,
+    "diagnosticsChangeOnlyTrailingLocalTimeout": true,
+    "originalUnitFailuresPreserved": 3,
+    "embeddedOutputHashesVerifiedByArtifact": {
+      "c-diagnostics-p2-validation.json": 16,
+      "c-diagnostics-p2-standards-review.json": 7,
+      "c-diagnostics-p2-closeout-validation.json": 6,
+      "c-diagnostics-p2-closure.json": 7,
+      "c-integration-final-validation.json": 12,
+      "c-integration-independent-evidence.json": 20
+    },
+    "handoffClaimed36OutputHashSetVerified": true,
+    "finalManifestSha256": "27eb1d73d6d5c675fbc25dee532ba05bbb848c8495716d1fc0d7f603c79f8503",
+    "finalValidationManifestSha256Matches": true
+  },
+  "reviewedSourcesSha256": {
+    "AGENTS.md": "cd764ff10c866f8e7af2661cf0c051d3c1d6a211704a82df10ae33dd6d5024da",
+    "wiki-project/AGENTS.md": "cbf64166e88ba3b2d1a5ff52d339729ba9068efa9c5e9a18a965618522db016a",
+    "wiki-project/wiki/C集成最终交接包.md": "11e8ddebc003a61068721d5316ca0bca9a2d62347a1ebe7c74f47e8827237b99",
+    "wiki-project/wiki/tasks/C集成-最终交接包整理.md": "bcc4d5853c5cfee2daaa4331980012ac0ef4022cead82d191d127069a94fe899",
+    "wiki-project/CONTEXT.md": "6a084f644b7fadad7c08b98be9aa15064c527e0108262cf23e203e3696287cba",
+    "wiki-project/wiki/项目状态.md": "068fe60b39bfeef10c35435dcd1ab4dc304a8f38b5334ba6c7361afbc3d08f25",
+    "wiki-project/wiki/tasks/C集成候选-依赖与非作者签认.md": "0f676a93d487f82bdb621cfd1ba010b50573f9b4c5977d5d2bf890273a2068e6",
+    "wiki-project/wiki/tasks/C04-收口签认.md": "07bd0fa129499b2a3ed72c89ed41a2f49f270f4f38d97dfd79efddae6f83b76a",
+    "wiki-project/wiki/C集成候选与依赖收口.md": "67764639701b7b15f7e2fa78f5feb0bd3abbc016c1081e9cdd7fe92ffa468b41",
+    "wiki-project/wiki/C集成候选评审说明.md": "df7ff19e09d9ade866436c41ca4aabb87a0e7e27627464c5bb41677947e2d52f",
+    "wiki-project/index.md": "fc875a39fd5149658e6a95d86c0a70fc6e03baa9e43f2aeae085c86f91e7532e",
+    "wiki-project/log.md": "02ca1c36e57d5b1903cf05d2704a645d693c74cc8bc40e9e32825d0bebe835af",
+    "wiki-project/raw/c-integration-final-manifest.json": "27eb1d73d6d5c675fbc25dee532ba05bbb848c8495716d1fc0d7f603c79f8503",
+    "wiki-project/raw/c-integration-final-validation.json": "49c3a8b60819974669e3ce12f32f3f70aa70aa9b752755bda37889be5b9b80c3",
+    "wiki-project/raw/c-diagnostics-p2-validation.json": "0ea3c1e2d0d6a014c8778114b9a9a9ad8ce66771275ff2c7092c1a011f238a32",
+    "wiki-project/raw/c-diagnostics-p2-preservation.json": "a46c004cb9dbad7a693308c10a3ea6acf8d834c71023cf1e8de9ac30e50e237e",
+    "wiki-project/raw/c-diagnostics-p2-fixture-report.json": "2062301c38a59f9d3b0dd3dcc4163c8be3e461057edbd4634a6238b5387dedb3",
+    "wiki-project/raw/c-diagnostics-p2-standards-review.json": "4b4df783b13a03a7943714e8477d242d5650c03869c2becf8d763ac916af1be8",
+    "wiki-project/raw/c-diagnostics-p2-spec-review.json": "68e8a6be11051672a7cdbf6f09c108c50cf8cd26e09e3d5c6252a740a1cd9adb",
+    "wiki-project/raw/c-diagnostics-p2-closure.json": "9bbefa72705e59774576eab32ded4c82e2583bd930f96251091388898e889bcd",
+    "wiki-project/raw/c-diagnostics-p2-closeout-validation.json": "9b5a44518075d3a9371f7e1399f7ade9e40ea1bfd26ffce0cb72bcacd2af9679",
+    "wiki-project/raw/c-integration-independent-evidence.json": "3b0f4a9d08d9c8bab78a5988efe7684fd755dfa8118d756c7bd6b1785d40a720",
+    "wiki-project/raw/c-integration-independent-spec.json": "b5435f3e369c916e6a4f2737c9c52fc5d5f304bdc415f78f47a4bfcf79c8cb1f",
+    "wiki-project/raw/c-integration-independent-standards.json": "eaf06b8e5de4d68ba8133ef98728088f7720786f6d96ca892f2138d67a3bbb74",
+    "wiki-project/raw/c-integration-independent-review.json": "c6112b86547ee07ee17791a62b0748dd9c48c60058a03812810e7e66982f0039",
+    "wiki-project/raw/c-integration-scope.json": "59021da7505851bba843dcaded1ab62e3196fa7d0ffc63f1cd8fb4e7998b8b8d",
+    "wiki-project/raw/c-integration-migration-probe.json": "7c35f9c67c82f0f0aaa563f2f9aacf00f132994f528d27ffcd4773758eb7bc53",
+    "wiki-project/raw/c04-action-retest-validation.json": "674e0c89a097e722553733316585a01e053424c08b4761e9e16143471b311ac5"
+  },
+  "actualExecution": [
+    "Read-only git status/rev-parse/log/diff/show and local file reads",
+    "Read-only Python JSON parsing, range reconstruction, SHA256 comparison and semantic cross-checks",
+    "Write only this allowed .runtime/c-handoff-review/spec.json review artifact"
+  ],
+  "historicalExecutionOnly": [
+    "Author e6af0b2-source full validation; not rerun by this reviewer",
+    "Standards independent default294 replay; not performed by this reviewer",
+    "Spec static conditional closure and final Wiki closeout; read original JSON",
+    "fd7703c user-started historical DeepSeek31/31/168; no new real request"
+  ],
+  "limits": [
+    "No new product suites, build, Electron, real model calls, network, push, merge, PR or human notifications",
+    "No person signed, no overall merge approval granted",
+    "Review assesses documentation increment against supplied spec, not a fresh review of the entire inherited279-path implementation",
+    "Hash consistency validates local immutable evidence consistency, not external provenance beyond saved artifacts"
+  ],
+  "finalHead": "b256dd1d219cbf9f4a4264e19a980e194180dc14",
+  "finalTrackedStatus": "",
+  "conciseText": "Spec0项发现。固定范围、完整作者与独立复核、STD-001条件关闭、旧失败保留及八项人工待签清单相符，交接整理done未越界为人员批准。仅只读审阅与hash核对，未重跑产品/真实模型，未代签、推送或合入。"
+}

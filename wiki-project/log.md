@@ -562,3 +562,12 @@ C03本地交付收口：39文件275单元、9实际Electron含build、48fixture�
 固定范围及原证据只读hash核查记录raw/c-integration-final-manifest.json；本交接文档任务的实际生成/check/lint/固定45fa03d、654fecc、be53b98同步与diff记录raw/c-integration-final-validation.json。完整294单元/9Electron含构建/48fixture189替身真实0/45HTML/6工程/36Wiki引用已执行修复作者证据；独立294与原三次293/294失败分别保持，不在本轮重新运行或冒领。
 
 最终整理门禁全部退出0：225源码/171旧非生成raw/93919字节log前缀/3旧失败/36输出hash核对，生成225来源、pnpm check含6工程及179页只读Wiki检查/lint、固定45fa03d/654fecc/be53b98同步与diff；交接整理任务done，A/B及业务人工待签任务active。最终增量仅Wiki，无新完整业务复跑、独立复审或真实请求。
+
+
+## 2026-10-23 C最终交接包独立复核
+
+2026-10-23固定b256dd1的[[C集成最终交接包]]完成三名独立子Agent复核，见[[C最终交接包独立复核]]与[[C集成-最终交接包独立复核]]：Standards0硬性/0判断性，Spec0，Evidence0。四组范围/29提交279路径、225源码/171旧raw/93919字节log前缀与原3失败一致，原作者完整验证及独立默认294/Spec条件关闭互证，36关闭链/68合计输出hash正确；独立Wiki check/lint与45fa03d/654fecc/be53b98同步全退出0。A-1/A-2/B-1/B-2/R-1/H-1实际人员仍待，A-3/AB-1仅后续被排除整合条件；两个人员任务继续active。本轮独立codex/c-handoff-independent-review只保存复核Wiki，原交接分支保持b256dd1；不代签、不推送/合入/真实复测，不重跑产品全套或刷新远端状态。
+
+三份原始报告及SHA绑定见raw/c-handoff-independent-{standards,spec,evidence,review}.json。当前仅追加独立技术材料复核结论，本轮实际执行与旧作者/独立产品验证作用域分开；最后保存记录的生成/只读check/lint、固定b256dd1/654fecc/be53b98同步与diff见raw/c-handoff-independent-validation.json。旧日志、raw和未签状态保留。
+
+最终复核记录门禁退出0：生成225来源、181页只读check/lint，b256dd1/654fecc/be53b98固定同步及diff；保留b256dd1全部173非生成raw、225源码、两个人员任务原字节/active和原交接/修复/共同分支。独立技术材料复核任务done，人员签认继续待补；无新产品全套/真实模型或外部操作。
