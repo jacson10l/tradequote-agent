@@ -1197,6 +1197,20 @@
         "wiki/A01c检索引用实现.md",
         "wiki/M1验证与协作.md"
       ]
+    },
+    "packages/infrastructure/probes/migration-lineage.probe.ts": {
+      "role": "B迁移协调已知红色合成诊断：未知6和账本/schema漂移，不是真实C谱系",
+      "pages": [
+        "wiki/B01迁移协调回复与接口冻结.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "packages/infrastructure/probes/vitest.config.ts": {
+      "role": "显式运行迁移诊断，和正常unit分别报告，禁止将红色诊断藏为通过",
+      "pages": [
+        "wiki/B01迁移协调回复与接口冻结.md",
+        "wiki/M1验证与协作.md"
+      ]
     }
   }
 }

@@ -1,5 +1,7 @@
 # 当前上下文
 
+- 2026-10-23 最新协调：用户要求A收敛C5/6/7、A6/B7谱系和编号，B固定公开接口，C待方案后组合。B在codex/b01-migration-coordination从6c76fb9准备，修正来源冲突误归STORAGE_ERROR，53项聚焦/typecheck通过；两项合成迁移误接受诊断未修复，0016标draft。d99f2b3/fd4b728原文当前origin/本机不可见，已请求可访问路径；不签原文、不代A批准、不自动推送/合入/真实模型复测。见 [[B01迁移协调回复与接口冻结]]、[[B01-迁移协调与接口冻结]]。
+
 - 2026-10-23 用户明确授权推送后，代码、语义Wiki、机械清单与原始验证证据已提交为 330bff76615147ea9c2729cb144a18873a5251d0，并推送 origin/codex/b01-wiki-integration；git ls-remote 回读与代码提交逐字一致。未合并、未创建PR，A/C非作者评审、macOS与正式桌面/人工发布仍待，任务保持active。交付证据见 raw/b01-wiki-integration-delivery.json；原验证JSON保持其当时未提交快照，不重写历史。 详细交接见 [[2026-10-23-B01新Wiki存储联调]]。
 
 - 2026-10-23：[[2026-10-23-B01新Wiki存储联调]] 在独立codex/b01-wiki-integration、taskBase=dd42b05整合A01c与原B01 WIP；实际SQLite search/resolve→多来源检查→报告/消费同事务、迁移7/账本已实现，52项聚焦与类型/构建通过。C远端仍68455a3，无新run/接线分支；下一步C接Main/worker/preload并配合A人审发布。新IPC/桌面/macOS/非作者复核待，B01仍active，未提交/推送；旧Windows失败与raw保留。
@@ -41,3 +43,5 @@
 - 收口交付已核对：PR#1/#2均MERGED，三个已合入临时方案/复核分支本地和远端均删除，证据raw/branch-consolidation-delivery.json。应用工作树归档请求仅返回queued，detached副本待应用处理；不影响共同代码已合入或分支清理事实。
 
 - 2026-10-23 联调最终结果：52聚焦/类型/构建/工程/Wiki只读/目标merge-base654fecc sync通过；全量181/182、Wiki回归34/36剩余原Windows symlink权限失败。A77份/B83份非生成raw、双方历史日志非空行与旧迁移SQL保留；再次fetch无C新增接线。细节与可调用executeChecks端口见 [[2026-10-23-B01新Wiki存储联调]]，新桌面/macOS/非作者验收待。
+
+- 本轮最终本机结果：聚焦53/53、typecheck/build/check与6c76fb9固定基线Wiki sync通过；全量183 passed / 1原Windows symlink EPERM，Wiki回归34 passed / 2原symlink EPERM。显式合成迁移诊断0/2保持红色，未修复、非实际C库；不得以正常单元结果放行组合。旧非生成raw全部字节保留，原日志为前缀，生产迁移/报告DDL/知识存储/公共契约和桌面文件与6c76fb9一致。 本轮不推送/合入，方案与原文未齐，详见 [[B01-迁移协调与接口冻结]]。

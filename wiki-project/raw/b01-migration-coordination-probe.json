@@ -1,0 +1,65 @@
+{
+  "status": "known_gaps",
+  "scope": "Synthetic negative probes only. Not actual C5/6/7 lineage and not an A-approved matrix.",
+  "fixed": false,
+  "observations": [
+    {
+      "case": "synthetic_unrecognized_6",
+      "expected": "reject_without_writes_pending_A_lineage_policy",
+      "observedError": null,
+      "versionAfter": 7,
+      "schemaUnchanged": false,
+      "hasKnowledgeWiki": false,
+      "hasReportNoDeleteTrigger": true,
+      "ledger": [
+        {
+          "version": 1
+        },
+        {
+          "version": 2
+        },
+        {
+          "version": 3
+        },
+        {
+          "version": 4
+        },
+        {
+          "version": 6
+        },
+        {
+          "version": 7
+        }
+      ]
+    },
+    {
+      "case": "ledger_with_missing_immutable_trigger",
+      "expected": "reject_without_writes_pending_A_lineage_policy",
+      "observedError": null,
+      "versionAfter": 7,
+      "schemaUnchanged": true,
+      "hasKnowledgeWiki": true,
+      "hasReportNoDeleteTrigger": false,
+      "ledger": [
+        {
+          "version": 1
+        },
+        {
+          "version": 2
+        },
+        {
+          "version": 3
+        },
+        {
+          "version": 4
+        },
+        {
+          "version": 6
+        },
+        {
+          "version": 7
+        }
+      ]
+    }
+  ]
+}

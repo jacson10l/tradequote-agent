@@ -138,3 +138,7 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 ## 2026-10-23 A+B 联调并集与覆盖
 
 基于A01c dd42b05复制原B01未提交代码/Wiki/非生成raw并集，原工作树保持。新增wiki-quote-checks、wiki-check-source、check-report-schema、wiki-check-integration.test、migrations.test与wiki-test.fixture的逐文件职责映射；旧报告存储映射更新到实际迁移7。更新受影响A/B知识、任务、M1接口/验证、协议、ADR、CONTEXT与状态，合并日志不删除任一方历史。新证据单独raw/b01-wiki-integration-validation.json，旧raw保持字节。生成清单后执行只读check/lint、真实PR merge-base 654fecc最终sync（dd42b05仅为诊断），映射变化运行Wiki回归；不修改维护工具或放宽门禁。
+
+## 2026-10-23 B迁移协调覆盖
+
+新增B迁移协调回复、任务与两份独立原始证据，新增两个probe源逐文件覆盖到协调/验证知识页；原代码/旧raw不覆盖。0016状态改draft，真实生产迁移与编号不改；状态/CONTEXT明确A审批和C原文缺失，正式组合不可放行。生成清单、只读check/lint、固定6c76fb9及目标merge-base654fecc同步按实际执行，覆盖变化运行Wiki回归，不改门禁算法。

@@ -4,7 +4,6 @@ import {
   type KnowledgeCitation,
   type QuoteSnapshot,
   type WikiCitationResolution,
-  WikiCitationResolutionSchema,
   type WikiHostContext,
   WikiResultSchema,
   WikiSearchExchangeSchema,
@@ -19,6 +18,11 @@ import { SqliteWikiStore } from "./wiki-store";
 const hash = (text: string) => createHash("sha256").update(text, "utf8").digest("hex");
 function conflict(): never {
   throw new TradeFault("SOURCE_CONFLICT", "知识版本或完整来源无法核验");
+}
+function sourceResult(input: unknown) {
+  const parsed = WikiResultSchema.safeParse(input);
+  if (!parsed.success) conflict();
+  return parsed.data;
 }
 
 /** Worker-internal participant: no second connection, async boundary or renderer
@@ -49,9 +53,11 @@ export class SqliteWikiCheckSource implements CheckKnowledgeSource {
           limit: 100,
           cursor,
         };
-        const result = WikiResultSchema.parse(this.wiki.search(query, context));
+        const result = sourceResult(this.wiki.search(query, context));
         if (!result.ok || result.data.kind !== "searchPage") conflict();
-        const { page } = WikiSearchExchangeSchema.parse({ query, page: result.data.page });
+        const exchange = WikiSearchExchangeSchema.safeParse({ query, page: result.data.page });
+        if (!exchange.success) conflict();
+        const { page } = exchange.data;
         for (const hit of page.hits)
           for (const citation of hit.citations) {
             if (!hit.revision.content.rules.some((rule) => rule.sectionId === citation.sectionId))
@@ -82,7 +88,7 @@ export class SqliteWikiCheckSource implements CheckKnowledgeSource {
           if (!prior) conflict();
           this.resolve(citation, scope, prior.revision.content.locale, context);
         }
-        const receipt = WikiResultSchema.parse(
+        const receipt = sourceResult(
           this.wiki.registerConsumption(
             {
               consumer: {
@@ -108,11 +114,11 @@ export class SqliteWikiCheckSource implements CheckKnowledgeSource {
     locale: string,
     context: WikiHostContext,
   ) {
-    const result = WikiResultSchema.parse(
+    const result = sourceResult(
       this.wiki.resolveCitation({ citation, purpose: "new_reference", scope, locale }, context),
     );
     if (!result.ok || result.data.kind !== "citationResolution") conflict();
-    const resolution = WikiCitationResolutionSchema.parse(result.data.resolution);
+    const resolution = result.data.resolution;
     const { revision, sources } = resolution;
     if (
       revision.workspaceId !== context.workspaceId ||

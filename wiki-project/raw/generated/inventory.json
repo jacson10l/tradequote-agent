@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "544360d043264a8aef6b9885f6751c789113eed6173034a514eaf6c22a0abae0",
+    "wiki-config.json": "664a41a3b32f2ac1beaac728081b11a9bacc9fcd50c6f378016ca7fc7f9ab0b3",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -1522,6 +1522,30 @@
       ]
     },
     {
+      "path": "packages/infrastructure/probes/migration-lineage.probe.ts",
+      "type": "ts",
+      "lines": 79,
+      "bytes": 2823,
+      "sha256": "ae5cb2ec16fa84611362dc1e4f59b129124a27680526898fb839c8f8d85cab7b",
+      "role": "B迁移协调已知红色合成诊断：未知6和账本/schema漂移，不是真实C谱系",
+      "pages": [
+        "wiki/B01迁移协调回复与接口冻结.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/probes/vitest.config.ts",
+      "type": "ts",
+      "lines": 8,
+      "bytes": 276,
+      "sha256": "a13f7c6a881de93539eba7897f10359c7e7c14b7c551af5da0790f8998c94415",
+      "role": "显式运行迁移诊断，和正常unit分别报告，禁止将红色诊断藏为通过",
+      "pages": [
+        "wiki/B01迁移协调回复与接口冻结.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    {
       "path": "packages/infrastructure/src/agent-executor.ts",
       "type": "ts",
       "lines": 174,
@@ -1630,9 +1654,9 @@
     {
       "path": "packages/infrastructure/src/index.ts",
       "type": "ts",
-      "lines": 130,
-      "bytes": 4842,
-      "sha256": "04c69b0b4a46b0fc4533b489f3e906ac357e9a85202ceacb92fd87c8988618f2",
+      "lines": 132,
+      "bytes": 4917,
+      "sha256": "8a2736399bd0abd6323f1477ffe90ea1ea767798ff76600a664b12ae53e5be5a",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
@@ -1757,9 +1781,9 @@
     {
       "path": "packages/infrastructure/src/wiki-check-integration.test.ts",
       "type": "ts",
-      "lines": 441,
-      "bytes": 16436,
-      "sha256": "fa0d1987634821803d9339c5c87df1644e5fa61f65a4a938ecac48ff41067ef3",
+      "lines": 474,
+      "bytes": 17727,
+      "sha256": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7",
       "role": "A真实查询到B报告消费的端口联调、故障与历史回归",
       "pages": [
         "wiki/B规则检查实现.md",
@@ -1769,9 +1793,9 @@
     {
       "path": "packages/infrastructure/src/wiki-check-source.ts",
       "type": "ts",
-      "lines": 142,
-      "bytes": 5515,
-      "sha256": "50204737f18eade9423337f34999bdc3d7047355316fd08dba64f679ece3352a",
+      "lines": 148,
+      "bytes": 5655,
+      "sha256": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
       "role": "同连接搜索解析、多来源hash与提交前复核、报告消费登记",
       "pages": [
         "wiki/B规则检查实现.md",

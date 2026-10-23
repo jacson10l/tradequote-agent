@@ -356,3 +356,11 @@ B01 第三切片最终检查：pnpm check退出0（Biome99文件、工程5 passe
 2026-10-23 用户明确授权推送后，代码、语义Wiki、机械清单与原始验证证据已提交为 330bff76615147ea9c2729cb144a18873a5251d0，并推送 origin/codex/b01-wiki-integration；git ls-remote 回读与代码提交逐字一致。未合并、未创建PR，A/C非作者评审、macOS与正式桌面/人工发布仍待，任务保持active。交付证据见 raw/b01-wiki-integration-delivery.json；原验证JSON保持其当时未提交快照，不重写历史。
 
 提交前重新核验27项源码hash与Wiki配置指纹一致，Wiki只读check/lint、真实merge-base654fecc同步及cached空白检查全部退出0。首次提交因本机缺作者身份退出128，随后沿用B既有提交19d60a8身份、只通过git -c用于本次提交，不改全局配置，提交和推送成功。后续交付记录作为独立文档提交沿同一分支推送，不修改已验证源码或合入共同分支。
+
+## 2026-10-23 B迁移协调与接口收敛准备
+
+根据用户转述C反馈，A负责迁移谱系/编号和人审发布，B固定接口/存储语义，C待明确方案后做隔离组合。B从6c76fb9开本地codex/b01-migration-coordination，重新fetch/ls-remote确认d99f2b3与fd4b728不可见，已请求草稿路径，当前仅按用户摘要逐议题回复，不代签原文或A方案。
+
+公开错误回归先复现撤回来源被误归STORAGE_ERROR，修正safeParse分类后53项聚焦通过，真实SQL仍STORAGE_ERROR；typecheck通过。新增显式合成迁移诊断2项保持红色，证明未知版本6和缺触发器账本可被当前B实现误接受；不把它当实际C谱系测试，生产迁移不改。0016标draft，相关接口/规则/任务/状态/CONTEXT/覆盖同步，新证据raw/b01-migration-coordination-validation.json和probe.json独立保留。最终完整检查另追加，当前协调未完成，不自动推送、合入或真实模型复测。
+
+2026-10-23 B迁移协调最终本机记录：本轮最终本机结果：聚焦53/53、typecheck/build/check与6c76fb9固定基线Wiki sync通过；全量183 passed / 1原Windows symlink EPERM，Wiki回归34 passed / 2原symlink EPERM。显式合成迁移诊断0/2保持红色，未修复、非实际C库；不得以正常单元结果放行组合。旧非生成raw全部字节保留，原日志为前缀，生产迁移/报告DDL/知识存储/公共契约和桌面文件与6c76fb9一致。 初次53项公开错误回归有来源分类错误与测试注入外键失败，修复后的原回归通过；诊断0/2单列为未解决阻塞，不纳入绿色宣称。记录raw/b01-migration-coordination-validation.json及probe.json，两个源已纳管可重跑。C原文仍不可见，A方案未确认，当前仅本地WIP，不自动推送、合入或调用真实模型。

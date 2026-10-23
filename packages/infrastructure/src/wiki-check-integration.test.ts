@@ -248,7 +248,10 @@ it.each(["withdrawn", "tampered_source", "tampered_excerpt"])(
         .prepare("UPDATE knowledge_wiki SET data_json=? WHERE revision_id=?")
         .run(JSON.stringify(revision), revision.revisionId);
     }
-    expect(f.check({ ...f.command, idempotencyKey: randomUUID() }).ok).toBe(false);
+    expect(f.check({ ...f.command, idempotencyKey: randomUUID() })).toMatchObject({
+      ok: false,
+      error: { code: "SOURCE_CONFLICT", retryable: false },
+    });
     expect(f.list()).toEqual([first]);
     expect(data(f.check())).toEqual(first);
     expect(f.db.prepare("SELECT COUNT(*) AS n FROM knowledge_consumption").get()).toEqual({ n: 1 });
@@ -438,4 +441,34 @@ it("refuses history/replay when its stored consumption is corrupted, and exposes
     .run(JSON.stringify(corrupted), report.reportId);
   expect(f.check()).toMatchObject({ ok: false, error: { code: "STORAGE_ERROR" } });
   expect(() => f.list()).toThrow();
+});
+
+it("keeps storage failures distinct from source conflicts and never exposes SQLite details", async () => {
+  const f = fixture();
+  await f.seed();
+  f.db.exec("ALTER TABLE knowledge_wiki RENAME TO synthetic_unavailable_wiki");
+  const result = f.check();
+  expect(result).toMatchObject({ ok: false, error: { code: "STORAGE_ERROR", retryable: false } });
+  expect(JSON.stringify(result)).not.toContain("knowledge_wiki");
+  expect(f.list()).toEqual([]);
+});
+
+it("fixes input/not-found/idempotency errors without writing reports or invoking models", async () => {
+  const f = fixture();
+  expect(f.check({ ...f.command, actorId: "forged-actor" })).toMatchObject({
+    ok: false,
+    error: { code: "VALIDATION_ERROR", retryable: false },
+  });
+  expect(f.check({ ...f.command, payload: { revisionId: randomUUID() } })).toMatchObject({
+    ok: false,
+    error: { code: "NOT_FOUND", retryable: false },
+  });
+  expect(f.list()).toEqual([]);
+  await f.seed();
+  const first = data(f.check());
+  expect(f.check({ ...f.command, payload: { revisionId: randomUUID() } })).toMatchObject({
+    ok: false,
+    error: { code: "IDEMPOTENCY_CONFLICT", retryable: false },
+  });
+  expect(f.list()).toEqual([first]);
 });

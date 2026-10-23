@@ -2,6 +2,8 @@ import { createHash, randomUUID } from "node:crypto";
 import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import {
+  type CheckListResult,
+  type CheckResult,
   type Command,
   type ExecutionContext,
   failure,
@@ -103,7 +105,7 @@ export class SqliteWorkspaceRepository implements WorkspaceRepository {
   executeWiki(command: unknown, context: WikiHostContext) {
     return createWikiService(new SqliteWikiStore(this.db)).execute(command, context);
   }
-  executeChecks(command: unknown, context: ExecutionContext) {
+  executeChecks(command: unknown, context: ExecutionContext): CheckResult | CheckListResult {
     return new CheckStore(this.db, new SqliteWikiCheckSource(this.db)).execute(command, context);
   }
   agentReplay(command: import("@tradequote/contracts").AgentCommand) {
