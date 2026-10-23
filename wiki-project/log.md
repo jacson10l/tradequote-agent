@@ -580,3 +580,12 @@ C03本地交付收口：39文件275单元、9实际Electron含build、48fixture�
 新增三份status=draft请求及统一入口、草稿任务，正文区分当前职责/后续依赖及R-1，格式不预选通过；业务样本hash与原脱敏报告一致，历史真实与fixture分列。原raw/失败/源码与日志前缀保留，维护工具/覆盖映射不改；本轮只运行草稿语义/固定引用/保留核查、Wiki生成/只读check/lint、dc0f034/654fecc/be53b98同步与diff，原产品全套和独立技术结论只作历史引用。
 
 最终备稿门禁实际退出0：完整固定SHA/业务caseSetHash与责任分工核对、225源码/178旧raw/97039字节log前缀/原待签任务内容保留，生成225来源、186页只读check/lint、固定dc0f034/654fecc/be53b98同步及diff。草稿整理任务done，三份请求仍draft/本地未发送，人员任务active；没有新真实或产品全套执行、独立Agent复核、外部草稿/发送/推送/合入。
+
+
+## 2026-10-23 B01联调进展同步到C依赖
+
+2026-10-23用户转述B在Windows codex/b01-wiki-integration完成A→B多来源/报告消费同事务/重开/幂等/回滚/版本隔离及迁移记录，聚焦52/52，类型/构建/工程/Wiki同步报告通过；全量181/182、Wiki34/36仍失败，B归因为原Windows符号链接权限，C未读原日志确认。代码/Wiki未提交推送，D盘材料本机不可读；[[B01联调进展与C接线前置]]和raw/b01-windows-integration-reported.json按reported记录。旧45fa03d/b256dd1/dc0f034范围不变，新B代码未纳入/未获macOS验收；AB-1/A-3及B-1/B-2/R-1/H-1不自动签认。下一步先由B冻结本地提交并提供C可读材料，再核对A/B前置、安排C入口和新组合macOS验证；A人工发布仍由本人，Windows失败不扩大成先修Windows门槛。独立codex/c-b01-dependency-update仅同步Wiki/未发送草稿，不推送/合入/真实复测。
+
+只保存用户转述及本轮Wiki检查；源D盘实现/任务/JSON未读取，不把52/52等当C执行。更新A/B未发送请求与统一入口，保留当前/后续范围和全部旧失败/报告/代码；验证记录raw/c-b01-update-validation.json，任务[[C集成-B01依赖进展同步]]仅指进展维护。
+
+最终本轮文档门禁退出0：225源码/179旧raw/98666字节log前缀/原待签内容保持，生成225来源、188页只读check/lint，cfce704/654fecc/be53b98同步及diff；仅进展同步任务done，B代码未取得/未核验、C接线未实施，人员active及三份未发送draft不变。

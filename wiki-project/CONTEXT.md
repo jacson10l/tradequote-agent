@@ -1,5 +1,7 @@
 # 当前上下文
 
+- 2026-10-23用户转述B在Windows codex/b01-wiki-integration完成A→B多来源/报告消费同事务/重开/幂等/回滚/版本隔离及迁移记录，聚焦52/52，类型/构建/工程/Wiki同步报告通过；全量181/182、Wiki34/36仍失败，B归因为原Windows符号链接权限，C未读原日志确认。代码/Wiki未提交推送，D盘材料本机不可读；[[B01联调进展与C接线前置]]和raw/b01-windows-integration-reported.json按reported记录。旧45fa03d/b256dd1/dc0f034范围不变，新B代码未纳入/未获macOS验收；AB-1/A-3及B-1/B-2/R-1/H-1不自动签认。下一步先由B冻结本地提交并提供C可读材料，再核对A/B前置、安排C入口和新组合macOS验证；A人工发布仍由本人，Windows失败不扩大成先修Windows门槛。独立codex/c-b01-dependency-update仅同步Wiki/未发送草稿，不推送/合入/真实复测。
+
 - 2026-10-23根据固定b256dd1交接包及dc0f034复核记录，在独立codex/c-signoff-request-drafts准备[[C签认请求草稿与回填规则]]，分别给A/B/业务验收人本地未发送草稿；三份包含完整固定SHA、审阅入口、具体问题与本人回填格式。A-1/A-2、B-1/B-2及H-1当前范围与A-3/AB-1后续条件分列，R-1实际整体审阅仍须明确承担。未填写真实签名/日期/通过结论，无自动发送/外部草稿，不推送/合入/真实复测；两个人员任务继续active。新文稿未被追认为dc0f034已独立审阅内容，任务[[C集成-签认请求草稿]]及raw/c-signoff-drafts-validation.json单列本轮文档检查。
 
 - 2026-10-23固定b256dd1的[[C集成最终交接包]]完成三名独立子Agent复核，见[[C最终交接包独立复核]]与[[C集成-最终交接包独立复核]]：Standards0硬性/0判断性，Spec0，Evidence0。四组范围/29提交279路径、225源码/171旧raw/93919字节log前缀与原3失败一致，原作者完整验证及独立默认294/Spec条件关闭互证，36关闭链/68合计输出hash正确；独立Wiki check/lint与45fa03d/654fecc/be53b98同步全退出0。A-1/A-2/B-1/B-2/R-1/H-1实际人员仍待，A-3/AB-1仅后续被排除整合条件；两个人员任务继续active。本轮独立codex/c-handoff-independent-review只保存复核Wiki，原交接分支保持b256dd1；不代签、不推送/合入/真实复测，不重跑产品全套或刷新远端状态。
