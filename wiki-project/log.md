@@ -636,3 +636,12 @@ GitHub连接器404后定向Git取得B对象，未触碰共同/原交接分支。
 本轮首次/重试lint因不变量表缩写路径失败，辅助替换又遇frontmatter/中文相邻文字匹配，均未写入源码或改变规则；修正文稿为完整项目相对源码锚点并用inline code隔开，初次/重试文档验证JSON保留，最终门禁另记。
 
 准备收口：225源码与固定C45fa03d/b3bc98c一致，228非Wiki、190旧raw、107324字节log前缀保持，最终生成/198页check/lint与三固定基线sync/diff全退出0。只将材料准备任务标done；实施、人员任务active，新组合用例全not_run。绑定实际通过记录后再次只读校验，不推送。
+
+
+## 2026-10-23 C接收A谱系方案并做独立前置核验
+
+独立codex/c-a-lineage-validation从1f6fbbb，实际定向fetch/ls-remote及祖先核对后执行[[A迁移谱系固定提交接收与前置验证]]。A实现9cdd13a3755b4bd1d0a4ac300785021e47ed4a88、回复a58e97097994491a9e49c085ae9369ef9bd08019及远端头b9a0af76217e57e0ab22ba927de1a1a287b1145f已取得；九SQL指纹一致、原A探针重跑一致。实际A typecheck失败11项（7新增迁移、4未变更A01c），实际生产migrate/repository原生12项7通过5失败。缺必要列、同名无效触发器/非唯一索引及旧账本/schema矛盾仍接受；坏新账本未在只读预检拒绝，真开WAL后才拒绝并改文件。固定A archive安装退出0、174份非Wiki源码安装后与Git blob一致；九生产SQL与C/B原指纹一致。Node22.22.0/pnpm10.13.1、Electron44.9.2内嵌Node24.22.0/SQLite3.53.4 macOS arm64；原探针9指纹/16分类/10追加复现一致，实际入口12项7通过5失败，最终无harnessError。N08首轮漏SQL外键父行导致夹具失败，原报告/命令保留，仅补合成父行后真实未拒绝且可删得到证实；C/A生产源码未修改。
+
+raw/c-a-lineage-intake.json记录实际命令/完整输出/来源hash/环境，native-validation与native-initial-validation记录完整before/after/脚本。结论changes_required：先A修正门禁并补作者验证，B交报告/消费适配与P1 lint回执，C再做完整迁移矩阵→桌面→macOS全套；人工发布/业务语义/实际非作者分别留证。不推送、合入、代签、自动发送或真实模型复测。全29、A全量vitest、Electron UI/新组合全套未运行，技术Agent与原生Node验证不代实际人员或桌面通过。C旧源码/raw/log保留，记录任务与实施/人工任务分开；Wiki检查和固定1f6fbbb/654fecc/be53b98同步另存raw/c-a-lineage-wiki-validation.json，不冒充产品通过。
+
+本轮取证记录门禁收口：225源码/228非Wiki、194旧raw、109073字节log前缀保持，200页check/lint与三固定基线sync/diff通过。只关闭接收与前置核验记录任务；实际A类型/原生失败不改，实施/人员任务active。绑定通过的文档验证后再只读检查；不推送。

@@ -1,5 +1,7 @@
 # 当前上下文
 
+- 2026-10-23独立codex/c-a-lineage-validation从1f6fbbb执行[[A迁移谱系固定提交接收与前置验证]]。A实现9cdd13a3755b4bd1d0a4ac300785021e47ed4a88、回复a58e97097994491a9e49c085ae9369ef9bd08019及远端头b9a0af76217e57e0ab22ba927de1a1a287b1145f已取得；九SQL指纹一致、原A探针重跑一致。实际A typecheck失败11项（7新增迁移、4未变更A01c），实际生产migrate/repository原生12项7通过5失败。缺必要列、同名无效触发器/非唯一索引及旧账本/schema矛盾仍接受；坏新账本未在只读预检拒绝，真开WAL后才拒绝并改文件。结论changes_required：先A修正门禁并补作者验证，B交报告/消费适配与P1 lint回执，C再做完整迁移矩阵→桌面→macOS全套；人工发布/业务语义/实际非作者分别留证。不推送、合入、代签、自动发送或真实模型复测。C生产/历史迁移不改，未导入A/B；忽略目录A固定archive安装/类型/探针及原生聚焦核验不同于完整29用例、A全量vitest或Electron UI/新组合验收。旧失败/原始证据保持。
+
 - 2026-10-23用户要求A方案前整理C执行材料。从b3bc98c新建独立codex/c-migration-execution-plan/worktree，[[C迁移后运行与事件不变量]]、[[C迁移后桌面接线清单]]、[[C迁移联合验证用例]]给出16不变量、12接线项、29个not_run迁移/失败/桌面用例；T1迁移/T2恢复分验，预写候选与B已保存revision检查不得互换。[[C集成-迁移后执行准备]]仅文档维护，[[C集成-迁移方案执行与联合验收]]保持active等待A的ADR/支持矩阵/登记/拒绝边界与A/B固定实现。未改历史迁移/源码、不安装依赖或跑产品/模型，不推送/合入/代签/发送；旧证据保留、人工任务继续active。
 
 - 2026-10-23已核对B协调远端f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef及接口父e80d1a25c5ace628df6952a43d98b84d75e418e4。[[C迁移协调请求草稿-AB谱系兼容]]追加M1～M8接收/后续：B开发Agent技术意见非人工签认，原六组Windows重跑与C完整cases/源码/SQL/脚本一致但compatible=false；额外未知v6/缺触发器负向0/2仍红。聚焦53/53与全量183/184、Wiki34/36的EPERM失败分列。先A定谱系/目标/登记ADR和拒绝边界，再B实现留证、C独立组合矩阵及macOS桌面；所有人员项继续active。本轮同一独立协调分支仅本地Wiki接收记录，无B合入/自动推送/消息/真实复测，证据raw/c-b-migration-reply-{intake,validation}.json。
