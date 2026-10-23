@@ -607,3 +607,12 @@ GitHub连接器404后定向Git取得B对象，未触碰共同/原交接分支。
 新增status=draft联合请求及草稿任务，链接原接收诊断/A/B请求/统一入口与依赖任务；原诊断、首次加载失败、Windows部分失败、源码/迁移与日志均保留。备稿只做语义核对及固定引用/保留审计、Wiki生成/只读check/lint、d99f2b3/654fecc/be53b98同步和diff；实际命令/退出码见raw/c-migration-coordination-draft-validation.json，不冒充重跑六组或实现兼容方案。
 
 最终本轮备稿门禁退出0：六组诊断与四个冲突SQL指纹/固定SHA引用核对，225源码/184旧raw/102143字节log前缀及旧待签/草稿内容保留，生成225来源、192页只读check/lint，d99f2b3/654fecc/be53b98同步及diff。备稿任务done，请求仍draft/未发送、M1～M8未决、人员active；历史迁移未改，无新探针/迁移/产品套件/真实模型或外部操作。
+
+
+## 2026-10-23 迁移协调分支授权推送
+
+2026-10-23用户明确授权推送codex/c-migration-coordination-draft供A/B读取。已普通推送origin并核对原文头fd4b72859e63931986424d6c66ee48fd12d81a60，包含诊断d99f2b32def756b6b4d4cc99fca75dd9511436d5；[[C迁移协调请求草稿-AB谱系兼容]]给出分支/固定原文/六组证据链接。首次HTTP400失败保留，远端未创建后用命令局部HTTP/1.1/postBuffer重试成功，无强推/tag/全局配置修改。任务[[C集成-迁移协调草稿推送交接]]及raw/c-migration-coordination-push-{delivery,validation}.json记录新授权、远端核对及Wiki门禁；后续保存记录只在同一授权分支普通推送，最终远端头在交付回复再次核对。新授权仅共享分支，不合入、不创建PR/消息或代签、不真实复测；compatible=false/M1～M8及人员active保持。下方本地未推送是原阶段事实。
+
+推送前全量范围Wiki门禁已执行，首次网络失败与普通重试均单独留证；固定协调原文与诊断hash保持Git原版本。当前追加的Wiki交接记录与原文发布分开，不冒领迁移修复/非作者/业务通过。最终记录生成/check/lint、fd4b728/654fecc/be53b98同步及diff见本次Wiki验证；未改历史SQL或产品源码。
+
+本轮记录保存门禁退出0：225源码/185旧raw/103848字节log前缀、原人员任务和三份请求字节不变，生成225来源、193页只读check/lint、fd4b728/654fecc/be53b98同步与diff通过。原文已实际推送/核对fd4b728；最后Wiki提交继续同一授权分支普通推送并在交付回复核对完整远端头，未预填未来SHA。人员active、草稿draft及compatible=false保持；不合入/代签/发送/真实复测。

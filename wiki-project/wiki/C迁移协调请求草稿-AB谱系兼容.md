@@ -12,7 +12,7 @@ sources:
 
 # C迁移协调请求草稿-AB谱系兼容
 
-本地未发送请求草稿。基于d99f2b3已保存的固定材料与六组诊断，尚无A/B签认、迁移决定或实施；本文方案均为协调建议，未分配新编号、修改历史SQL/账本或运行新迁移。入口[[B01固定提交接收与迁移兼容诊断]]、[[C签认请求草稿与回填规则]]，本轮备稿任务[[C集成-AB迁移协调请求草稿]]；原[[C集成候选-依赖与非作者签认]]继续active。
+迁移协调请求草稿（所在分支已按用户授权推送，未发送通知或代签）。基于d99f2b3已保存的固定材料与六组诊断，尚无A/B签认、迁移决定或实施；本文方案均为协调建议，未分配新编号、修改历史SQL/账本或运行新迁移。入口[[B01固定提交接收与迁移兼容诊断]]、[[C签认请求草稿与回填规则]]，本轮备稿任务[[C集成-AB迁移协调请求草稿]]；原[[C集成候选-依赖与非作者签认]]继续active。
 
 ## 请求正文与固定版本
 
@@ -127,3 +127,11 @@ M1～M8本人意见：逐项给依据、疑问、需修订或资料不足；其�
 请后续由实际人员将回复追加至[[C集成候选-依赖与非作者签认]]的A-3/AB-1，并关联本草稿；有明确决策后再由责任人形成迁移ADR/任务与新固定实施范围。本页不冒用B现有稀疏迁移决定替A/C同意。当前未发送、未决策、未实施，任何回复也不自动授权推送、共同合入或真实模型复测。
 
 本轮仅保存草稿及导航/状态，实际文档检查见[备稿验证](../raw/c-migration-coordination-draft-validation.json)。草稿整理done不等于上述M1～M8已确认、六组问题已解决或原人员任务已完成。
+
+## 用户授权的远端共享更新（2026-10-23）
+
+用户后续明确授权仅推送codex/c-migration-coordination-draft供A/B读取。已实际普通推送到origin，原文远端头完整核对为fd4b72859e63931986424d6c66ee48fd12d81a60，其祖先包含d99f2b32def756b6b4d4cc99fca75dd9511436d5。原文固定链接：[协调请求fd4b728](https://github.com/jacson10l/tradequote-agent/blob/fd4b72859e63931986424d6c66ee48fd12d81a60/wiki-project/wiki/C迁移协调请求草稿-AB谱系兼容.md)；[六组诊断原证据d99f2b3](https://github.com/jacson10l/tradequote-agent/blob/d99f2b32def756b6b4d4cc99fca75dd9511436d5/wiki-project/raw/c-b01-migration-compatibility-probe.json)；[可读取分支](https://github.com/jacson10l/tradequote-agent/tree/codex/c-migration-coordination-draft)。此前“本地/不推送”是原备稿阶段边界，本次只按新授权开放分支读取。
+
+第一次推送HTTP400中断，核对远端仍无该分支后，以仅本次命令的HTTP/1.1与postBuffer设置普通重试成功；没有强推、推tag或修改全局配置，失败/成功原输出与hash均保留于[推送核对](../raw/c-migration-coordination-push-delivery.json)。Git服务给出的PR建议链接未被执行，没有创建PR、请求评审、评论或消息。
+
+本页追加共享记录仍是Wiki变化，随后随同一授权分支保存/推送；最终文档提交的完整远端头由本次交付回复核对，不在生成该提交前预填其SHA。任务[[C集成-迁移协调草稿推送交接]]区分原文推送与记录保存检查；[本轮Wiki门禁](../raw/c-migration-coordination-push-validation.json)仅覆盖记录维护。草稿仍draft、M1～M8未决、compatible=false及人员active不变，不合入、不代签、不自动发送或真实模型复测。
