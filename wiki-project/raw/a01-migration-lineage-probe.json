@@ -1,7 +1,7 @@
 {
   "status": "passed",
   "scope": "A01c migration lineage identification & append matrix probe; synthetic in-memory only; proves identification classification and capability-append shape, not business acceptance",
-  "recordedAt": "2026-10-23T13:37:39.922Z",
+  "recordedAt": "2026-10-23T15:59:10.386Z",
   "environment": {
     "platform": "win32",
     "arch": "x64",
@@ -300,6 +300,59 @@
       ],
       "partial": [
         "check-report:7"
+      ]
+    },
+    {
+      "name": "tampered-renamed-request-hash-N07",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:6",
+        "c-run:7"
+      ],
+      "partial": [
+        "c-run:5"
+      ]
+    },
+    {
+      "name": "tampered-empty-trigger-N08",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-nonunique-index-N09",
+      "userVersion": 6,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5"
+      ],
+      "partial": [
+        "c-run:6"
       ]
     }
   ],

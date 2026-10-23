@@ -515,7 +515,6 @@ export class SqliteWikiStore {
       revision,
       lifecycle,
       currentPublicationRevisionId,
-      sources,
       states,
       checkedAt,
     );
@@ -557,7 +556,6 @@ export class SqliteWikiStore {
     revision: WikiRevision,
     lifecycle: WikiLifecycle,
     currentPublicationRevisionId: string | null,
-    sources: WikiSourceRevision[],
     states: WikiSourceState[],
     checkedAt: string,
   ): WikiEligibility {

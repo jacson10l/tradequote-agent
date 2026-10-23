@@ -2,7 +2,7 @@
 title: B00a知识Wiki公共协议
 type: interface
 status: observed
-updated: 2026-10-22
+updated: 2026-10-24
 sources:
   - packages/contracts/src/knowledge-wiki.ts:1
   - packages/contracts/src/wiki-integrity.ts:1
@@ -105,3 +105,7 @@ P1 的 KnowledgeBuildRun/Proposal、完整 lint/maintenance/impact/index/rebuild
 ## 本机整仓收口修正
 
 workspace Electron 现有精确桥接列表同步 executeWiki，并直接从真实隔离 Electron 桥接执行全部 12 个合法未接入请求和额外宿主字段反例。A01a 合成 JSON 在共同基线不符合 Biome，本 PR 仅按 Biome 重新排版数组；parsed JSON 与 taskBase 逐值相同，原件/规则/来源 hash 与业务语义不变，不重写 A 的知识样本。Wiki 回归在文件稳定、重新生成机械清单之后执行，避免一边编辑源码一边复制基线导致 GENERATED_DRIFT。
+
+## 迁移谱系收敛附带的类型导出
+
+迁移谱系收敛（codex/a01-migration-lineage）把 `WikiCitationResolveInput` 从 schema-only 推断类型改为显式导出 `export type WikiCitationResolveInput = z.infer<typeof WikiCitationResolveInputSchema>`，供 infrastructure 的 wiki-store resolveCitation 端口按公开契约直接引用，消除 TS2724 类型错误；不改变 schema 语义或 B00a 协议行为。

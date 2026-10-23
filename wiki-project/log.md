@@ -327,3 +327,7 @@ A 在 codex/a01-migration-lineage（基于 dd42b05）主导三方迁移谱系收
 ## 2026-10-23 A 对 C 迁移协调草稿逐项回复
 
 A 按 fd4b728（C 未发送协调草稿 `C迁移协调请求草稿-AB谱系兼容`）与 d99f2b3 六组诊断，新增 [[A对C迁移协调草稿M1-M8回复]]：逐项回复 M1～M8，确认支持范围（11 类升级、mixed/tampered/unknown 拒绝）、`migration_registry(lineage,version,sql_hash,applied_at)` 登记方式与责任分工；选择方案一+方案二组合（即已实现设计）。核对 C 草稿列出的 C6/A6/C7/B7 四个原 SQL 指纹与本方案探针完全一致（9 指纹全匹配）。回复身份由 A 本人另记，不代签、不自动发送/合入/真实模型复测；typecheck/vitest 未复跑，B/C 后续责任见回复页。
+
+## 2026-10-24 A 修正 C 首轮迁移谱系核验失败
+
+A 收到队长转达的 C 独立前置核验结论（6f9287b：12 项 7 通过 5 失败、类型检查 11 错误、changes_required），逐项修正并新增 [[A对C前置验证失败修正回复]]：类型门禁（修复 11 类型错误，`pnpm typecheck` 退出 0）；schema 约束识别（`capabilityStatus` 校验必要列、索引 UNIQUE/partial、触发器 RAISE，封死 N07 列改名/N08 空触发器/N09 非唯一索引）；旧账本与 schema 一致性（`verifyLegacyLedger` 增加登记能力存在性交叉核对，封死 N11）；新账本读写真开前校验（新增 `verifyRegistryLedger` 在只读 `identify` 核对 hash 与能力一致性，封死 N10）。新增定向回归 `migration-ledger.test.ts`（3/3）。探针扩至 19 用例（含 N07/N08/N09 负例）全过。整仓 infrastructure vitest 43 通过/2 既有失败（storage.test.ts symlink EPERM、wiki-store.test.ts A-W08 retryable，非本切片引入）。同步 [[0029-迁移谱系统一与拒绝边界]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-追加迁移设计]]、[[A01-迁移验证计划]]、任务/导航/CONTEXT/项目状态与本 log。保留原失败记录；真实 Electron ABI、B/C 适配、完整迁移矩阵与 macOS 全量待完成，未推送。

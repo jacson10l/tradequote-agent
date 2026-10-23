@@ -2,7 +2,7 @@
 title: Wiki 工作流与任务记录
 type: meta
 status: active
-updated: 2026-10-23
+updated: 2026-10-24
 sources:
   - wiki-repo:scripts/build-code-index.mjs:1
   - wiki-repo:scripts/lint-wiki.mjs:1
@@ -129,4 +129,6 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 
 ## 迁移谱系识别探针
 
-新增 `scripts/a01-migration-lineage-probe.mjs`（纯 Node，仅 `node:sqlite` + 导入真实 `migration-lineage.ts`）作为一次性质证脚本：内联九段迁移 SQL 与 C/B 固定指纹，构造 16 个分类用例与 10 个追加用例，输出 `raw/a01-migration-lineage-probe.json`。该脚本不属于标准维护工具链，不进入 `build-code-index.mjs` 的 toolchain 指纹；但仍受 lint-wiki 的 scripts 目录敏感内容/行尾空白检查。业务代码新增 `migration-lineage.ts` 及 `migrations.ts` 谱系重写按 P0 登记覆盖并映射到 [[0029-迁移谱系统一与拒绝边界]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-追加迁移设计]]、[[A01-迁移验证计划]]，见对应任务与 log。
+新增 `scripts/a01-migration-lineage-probe.mjs`（纯 Node，仅 `node:sqlite` + 导入真实 `migration-lineage.ts`）作为一次性质证脚本：内联九段迁移 SQL 与 C/B 固定指纹，输出 `raw/a01-migration-lineage-probe.json`。该脚本不属于标准维护工具链，不进入 `build-code-index.mjs` 的 toolchain 指纹；但仍受 lint-wiki 的 scripts 目录敏感内容/行尾空白检查。业务代码新增 `migration-lineage.ts` 及 `migrations.ts` 谱系重写按 P0 登记覆盖并映射到 [[0029-迁移谱系统一与拒绝边界]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-追加迁移设计]]、[[A01-迁移验证计划]]，见对应任务与 log。
+
+2026-10-24 修正 C 首轮核验：探针扩至 19 用例（新增 N07 列改名/N08 空触发器/N09 非唯一索引三个负例），`wiki-config.json` 为新增 `migration-ledger.test.ts`（N10/N11 账本一致性定向回归）登记覆盖，映射到 [[A01-迁移验证计划]]、[[M1验证与协作]] 与 [[A对C前置验证失败修正回复]]。配置仅登记职责，未改维护工具算法；本轮 sync 基线为 b9a0af7。

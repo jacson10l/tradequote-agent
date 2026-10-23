@@ -331,6 +331,25 @@ caseRun("tampered-missing-report-trigger", (db) => {
   buildLineage(db, "b-v7");
   db.exec("DROP TRIGGER quote_check_report_no_delete");
 }, "tampered");
+// N07：必要列被改名（agent_run.request_hash）→ 识别须拒绝，不能仍识别为 c-v7
+caseRun("tampered-renamed-request-hash-N07", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("ALTER TABLE agent_run RENAME COLUMN request_hash TO request_hash2");
+}, "tampered");
+// N08：同名空触发器（SELECT 1 无 RAISE）不能充当不可变保护 → tampered
+caseRun("tampered-empty-trigger-N08", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_delete");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_delete BEFORE DELETE ON agent_tool_step BEGIN SELECT 1; END",
+  );
+}, "tampered");
+// N09：一次写保护索引被换成同名普通非唯一索引 → tampered
+caseRun("tampered-nonunique-index-N09", (db) => {
+  buildLineage(db, "c-v6");
+  db.exec("DROP INDEX agent_write_once");
+  db.exec("CREATE INDEX agent_write_once ON agent_write_call(run_id, attempt)");
+}, "tampered");
 
 // 3) 追加：每个可升级谱系定向追加后应达到统一目标（9 能力齐全 + user_version=8）
 function appendToTarget(db, snap) {

@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "4c9472402867140967723490a763def2f11378922ab059489f1c2f8944a8a52d",
+    "wiki-config.json": "753a82845d3dcda17f98e749beec50b18b62a8faedc67101dac9644d88c28b78",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -1199,9 +1199,9 @@
     {
       "path": "packages/contracts/src/knowledge-wiki.ts",
       "type": "ts",
-      "lines": 724,
-      "bytes": 28668,
-      "sha256": "7d9177f877175d18f9fa0df2135dae1d5cec9adf8316bdaa7bcd2c5426e5ff07",
+      "lines": 725,
+      "bytes": 28755,
+      "sha256": "f49edf8887a5bb442f60a88ddca486a9b68c999e3b825e8c32da834ac740eeb8",
       "role": "B00a P0 versioned Markdown, source, review, retrieval, citation and consumption protocols",
       "pages": [
         "wiki/B00a知识Wiki公共协议.md"
@@ -1445,9 +1445,9 @@
     {
       "path": "packages/infrastructure/package.json",
       "type": "json",
-      "lines": 14,
-      "bytes": 331,
-      "sha256": "e329f7bbdae26b0d7300193fdd3af33596e2ca69d7a94c02d0a59839e1b3fa3c",
+      "lines": 15,
+      "bytes": 351,
+      "sha256": "0e5033d3619e8d746dfcc77db444a8a3ff8b3e04cd5b3cf199523a31cab37347",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md"
@@ -1563,11 +1563,24 @@
       ]
     },
     {
+      "path": "packages/infrastructure/src/migration-ledger.test.ts",
+      "type": "ts",
+      "lines": 68,
+      "bytes": 2850,
+      "sha256": "61dce3d32b8a1f6db1ae4b54ec081eaa0bfc36c87e82999fd7a62e623d456a0f",
+      "role": "迁移账本一致性定向回归（N10/N11 拒绝前置）",
+      "pages": [
+        "wiki/A01-迁移验证计划.md",
+        "wiki/M1验证与协作.md",
+        "wiki/A对C前置验证失败修正回复.md"
+      ]
+    },
+    {
       "path": "packages/infrastructure/src/migration-lineage.ts",
       "type": "ts",
-      "lines": 293,
-      "bytes": 9656,
-      "sha256": "4b6a3311c832c0b8582447cc788aeec0051a9fed9dd30501e970dd30945d83e0",
+      "lines": 436,
+      "bytes": 14393,
+      "sha256": "96c4eb43748742bf849fda62cfbb3882286db59bf4343d87105246d560c63d52",
       "role": "迁移谱系识别与拒绝边界（纯函数，只读）",
       "pages": [
         "wiki/decisions/0029-迁移谱系统一与拒绝边界.md",
@@ -1577,9 +1590,9 @@
     {
       "path": "packages/infrastructure/src/migrations.ts",
       "type": "ts",
-      "lines": 394,
-      "bytes": 18115,
-      "sha256": "b6b7b271dfcd4aef6dda8bd9064c02a3bbc9c5244a8427b4d1cf752cca5135a8",
+      "lines": 442,
+      "bytes": 20331,
+      "sha256": "480eaf765fe67c58a85c6c2d34033a39bca5106a3cfcca09bc8ac967fa270b71",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
@@ -1675,9 +1688,9 @@
     {
       "path": "packages/infrastructure/src/wiki-store.ts",
       "type": "ts",
-      "lines": 678,
-      "bytes": 27115,
-      "sha256": "f8e3ac1afc6a8a80ee191e379dbc2d86537826aeac91dca891e3050b692cffa5",
+      "lines": 676,
+      "bytes": 27065,
+      "sha256": "4565185957d1843dec003a10ec50909753712a937c248b53544e9f88f37b485a",
       "role": "A01c检索引用SQLite存储：检索/引用/消费与候选暂存",
       "pages": [
         "wiki/A01c检索引用实现.md"
@@ -1697,9 +1710,9 @@
     {
       "path": "pnpm-lock.yaml",
       "type": "yaml",
-      "lines": 4769,
-      "bytes": 152731,
-      "sha256": "6208233795f3aa72b8a4ee9cbf40e4e74e15adc6409f6dc15a4f5b6e7d91262f",
+      "lines": 4772,
+      "bytes": 152790,
+      "sha256": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md"

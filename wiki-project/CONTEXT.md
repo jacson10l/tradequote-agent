@@ -1,6 +1,8 @@
 # 当前上下文
 
-- 2026-10-23：A 在 codex/a01-migration-lineage（基于 dd42b05）主导三方迁移谱系收敛，见 [[0029-迁移谱系统一与拒绝边界]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-追加迁移设计]]、[[A01-迁移验证计划]]；对 C 未发送协调草稿 fd4b728 与 d99f2b3 六组诊断的逐项回复见 [[A对C迁移协调草稿M1-M8回复]]。识别以 schema 为准、账本 migration_registry(lineage,version,sql_hash,applied_at)、只读预检拒绝零写入、统一目标九能力 user_version=8。纯 Node 探针实际通过（9 指纹全匹配、16 分类、10 追加）；typecheck/vitest 本机未复跑（无 node_modules）。下一步 B 接口/报告/消费适配、C 独立组合验证与 macOS 全量、A 人工发布与业务语义验收分别待完成；不代签、不自动合入/真实模型复测。
+- 2026-10-23：A 在 codex/a01-migration-lineage（基于 dd42b05）主导三方迁移谱系收敛，见 [[0029-迁移谱系统一与拒绝边界]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-追加迁移设计]]、[[A01-迁移验证计划]]；对 C 未发送协调草稿 fd4b728 与 d99f2b3 六组诊断的逐项回复见 [[A对C迁移协调草稿M1-M8回复]]。识别以 schema 为准、账本 migration_registry(lineage,version,sql_hash,applied_at)、只读预检拒绝零写入、统一目标九能力 user_version=8。纯 Node 探针实际通过（9 指纹全匹配、16 分类、10 追加）；typecheck/vitest 本机未复跑（无 node_modules）。
+
+- 2026-10-24：A 修正 C 首轮独立前置核验（6f9287b）的 5 失败与 11 类型错误，见 [[A对C前置验证失败修正回复]]。类型门禁（`pnpm typecheck` 退出 0）、schema 约束识别（N07/N08/N09 必要列/索引 UNIQUE/partial/触发器 RAISE）、旧账本一致性（N11）、新账本读写真开前校验（N10 `verifyRegistryLedger`）均已修复；新增定向回归 `migration-ledger.test.ts` 3/3。本机实跑：typecheck 退出 0、探针 19 用例全过、整仓 infrastructure vitest 43 通过/2 既有失败（storage.test.ts symlink EPERM、wiki-store.test.ts A-W08 retryable，非本切片）。下一步 B 接口/报告/消费适配、C 完整迁移矩阵与桌面接线及 macOS 全量、A 人工发布与业务语义验收分别待完成；不代签、不自动合入/真实模型复测。
 
 - 2026-10-22：B00a P0 独立分支 codex/b00a-knowledge-wiki-contracts，taskBase=56c909e21aefa484b6805bf9afc7c94b0e1d4576；[[B00a知识Wiki公共协议]] 已记录版本/来源/审核/检索引用/消费事务协议及 A01b 旧兼容差异。专用宿主上下文和 12 方法不可用门禁；C 范围技术复核通过（含空页游标 P2 修复，20项独立测试），A PR #6 接收清单，[PR#7](https://github.com/jacson10l/tradequote-agent/pull/7) 已推送并向 A/ssyyy31 请求评审，A 评审与合入仍待，A01c 未解锁。P1 知识运行/维护另交；真实验证以 [[B00a-业务Wiki契约补充]] 为准。
 
