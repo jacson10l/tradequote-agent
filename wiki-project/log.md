@@ -589,3 +589,12 @@ C03本地交付收口：39文件275单元、9实际Electron含build、48fixture�
 只保存用户转述及本轮Wiki检查；源D盘实现/任务/JSON未读取，不把52/52等当C执行。更新A/B未发送请求与统一入口，保留当前/后续范围和全部旧失败/报告/代码；验证记录raw/c-b01-update-validation.json，任务[[C集成-B01依赖进展同步]]仅指进展维护。
 
 最终本轮文档门禁退出0：225源码/179旧raw/98666字节log前缀/原待签内容保持，生成225来源、188页只读check/lint，cfce704/654fecc/be53b98同步及diff；仅进展同步任务done，B代码未取得/未核验、C接线未实施，人员active及三份未发送draft不变。
+
+
+## 2026-10-23 B01固定提交接收与迁移兼容诊断
+
+2026-10-23B已推送固定代码330bff76615147ea9c2729cb144a18873a5251d0及交接头6c76fb991f3135d6a48362c1b242e46af6641817；C通过定向ls-remote/fetch核对父子及远端头，已读取B实现/任务/Windows原证据，27源码hash与原验证精确一致，52/52及181/182、Wiki34/36/EPERM保留。[[B01固定提交接收与迁移兼容诊断]]六组实际内存库诊断确认迁移谱系不兼容：C6/B6和C7/B7异义，C7→B拒绝、B7→C静默缺运行表、C6→B误记B6指纹但缺知识表；compatible=false，未擅改号/SQL。下一步由A维护、B/C共同确认真实旧库谱系兼容/安全拒绝，再做隔离组合接线及macOS全套。旧“未提交/材料不可读”仅原阶段；原C45fa03d/b256dd1/dc0f034范围与人员待签不变。独立codex/c-b01-remote-intake只保存核对/诊断/Wiki，无B代码替换、推送/共同合入、消息、真实模型或完整B macOS验收。
+
+GitHub连接器404后定向Git取得B对象，未触碰共同/原交接分支。保留B Windows部分失败、首次探针依赖解析失败及最终6组诊断输出，未降低业务预算/修改生产迁移。raw/c-b01-remote-intake.json及raw/c-b01-migration-compatibility-probe.json绑定固定版本/source/SQL hash和实际schema；本轮保存门禁raw/c-b01-remote-validation.json，任务[[C集成-B01固定提交接收核对]]仅覆盖输入核对与诊断，未宣称问题已修复。
+
+最终本轮接收/诊断记录门禁退出0：远端核对、27B源码与6组探针，原C225源码/181旧raw/100228字节log前缀保持，生成225来源、190页只读check/lint与c39b87f/654fecc/be53b98同步及diff；初始探针加载失败与连接器404单独保留。仅接收任务done，迁移compatible=false/方案未解决，非作者/完整macOS/Electron/人员签认待补，未发送/推送/合入或真实复测。
