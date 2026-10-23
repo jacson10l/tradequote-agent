@@ -142,3 +142,8 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 ## 2026-10-23 B迁移协调覆盖
 
 新增B迁移协调回复、任务与两份独立原始证据，新增两个probe源逐文件覆盖到协调/验证知识页；原代码/旧raw不覆盖。0016状态改draft，真实生产迁移与编号不改；状态/CONTEXT明确A审批和C原文缺失，正式组合不可放行。生成清单、只读check/lint、固定6c76fb9及目标merge-base654fecc同步按实际执行，覆盖变化运行Wiki回归，不改门禁算法。
+
+
+## 迁移谱系识别探针
+
+新增 `scripts/a01-migration-lineage-probe.mjs`（纯 Node，仅 `node:sqlite` + 导入真实 `migration-lineage.ts`）作为一次性质证脚本：内联九段迁移 SQL 与 C/B 固定指纹，构造 16 个分类用例与 10 个追加用例，输出 `raw/a01-migration-lineage-probe.json`。该脚本不属于标准维护工具链，不进入 `build-code-index.mjs` 的 toolchain 指纹；但仍受 lint-wiki 的 scripts 目录敏感内容/行尾空白检查。业务代码新增 `migration-lineage.ts` 及 `migrations.ts` 谱系重写按 P0 登记覆盖并映射到 [[0029-迁移谱系统一与拒绝边界]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-追加迁移设计]]、[[A01-迁移验证计划]]，见对应任务与 log。

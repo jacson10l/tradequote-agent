@@ -641,14 +641,26 @@
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
-        "wiki/A01c检索引用实现.md"
+        "wiki/A01c检索引用实现.md",
+        "wiki/A01-追加迁移设计.md"
+      ]
+    },
+    "packages/infrastructure/src/migration-lineage.ts": {
+      "role": "迁移谱系识别与拒绝边界（纯函数，只读）",
+      "pages": [
+        "wiki/decisions/0029-迁移谱系统一与拒绝边界.md",
+        "wiki/A01-迁移谱系支持与拒绝矩阵.md"
       ]
     },
     "packages/infrastructure/src/migrations.ts": {
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
-        "wiki/A01c检索引用实现.md"
+        "wiki/A01c检索引用实现.md",
+        "wiki/decisions/0029-迁移谱系统一与拒绝边界.md",
+        "wiki/A01-迁移谱系支持与拒绝矩阵.md",
+        "wiki/A01-追加迁移设计.md",
+        "wiki/A01-迁移验证计划.md"
       ]
     },
     "packages/infrastructure/src/schema.ts": {
@@ -660,7 +672,8 @@
     "packages/infrastructure/src/storage.test.ts": {
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/A01-迁移验证计划.md"
       ]
     },
     "playwright.config.ts": {
@@ -838,7 +851,8 @@
       "role": "Quote V1 amount, source, transaction, migration and real Electron regression evidence",
       "pages": [
         "wiki/M2真实报价V1.md",
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/A01-迁移验证计划.md"
       ]
     },
     "tests/e2e/quote-v1.spec.ts": {
@@ -927,7 +941,8 @@
       "pages": [
         "wiki/M4模型与报价修订.md",
         "wiki/M1验证与协作.md",
-        "wiki/C运行恢复实现.md"
+        "wiki/C运行恢复实现.md",
+        "wiki/A01-迁移验证计划.md"
       ]
     },
     "packages/infrastructure/src/deepseek.test.ts": {

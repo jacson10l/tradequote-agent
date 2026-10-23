@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "664a41a3b32f2ac1beaac728081b11a9bacc9fcd50c6f378016ca7fc7f9ab0b3",
+    "wiki-config.json": "1557a51836f43d857221519beb68c41987645b6080f5005b903d2c7408dd58a5",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -1561,13 +1561,14 @@
       "path": "packages/infrastructure/src/agent.test.ts",
       "type": "ts",
       "lines": 443,
-      "bytes": 16607,
-      "sha256": "c32376abb222116f329f95968fa9f182223682ec414c4e39338e18cbf85ceb20",
+      "bytes": 16611,
+      "sha256": "b090cb3a55c7284d46fb8d6912a0bee3bd5e34b04863dc4c0dca796f1cac249c",
       "role": "修订幂等冲突事务与迁移验收",
       "pages": [
         "wiki/M4模型与报价修订.md",
         "wiki/M1验证与协作.md",
-        "wiki/C运行恢复实现.md"
+        "wiki/C运行恢复实现.md",
+        "wiki/A01-迁移验证计划.md"
       ]
     },
     {
@@ -1654,13 +1655,14 @@
     {
       "path": "packages/infrastructure/src/index.ts",
       "type": "ts",
-      "lines": 132,
-      "bytes": 4917,
-      "sha256": "8a2736399bd0abd6323f1477ffe90ea1ea767798ff76600a664b12ae53e5be5a",
+      "lines": 148,
+      "bytes": 5472,
+      "sha256": "c91c1e95f5c8c357e3e868615ca9f4650be10f05ba1381085cfa03371c043f35",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
-        "wiki/A01c检索引用实现.md"
+        "wiki/A01c检索引用实现.md",
+        "wiki/A01-追加迁移设计.md"
       ]
     },
     {
@@ -1687,6 +1689,18 @@
       ]
     },
     {
+      "path": "packages/infrastructure/src/migration-lineage.ts",
+      "type": "ts",
+      "lines": 293,
+      "bytes": 9656,
+      "sha256": "4b6a3311c832c0b8582447cc788aeec0051a9fed9dd30501e970dd30945d83e0",
+      "role": "迁移谱系识别与拒绝边界（纯函数，只读）",
+      "pages": [
+        "wiki/decisions/0029-迁移谱系统一与拒绝边界.md",
+        "wiki/A01-迁移谱系支持与拒绝矩阵.md"
+      ]
+    },
+    {
       "path": "packages/infrastructure/src/migrations.test.ts",
       "type": "ts",
       "lines": 97,
@@ -1701,13 +1715,17 @@
     {
       "path": "packages/infrastructure/src/migrations.ts",
       "type": "ts",
-      "lines": 165,
-      "bytes": 9025,
-      "sha256": "9a40c3f62e54c3ced923d6de03202101af5c0754db4585f4816e24feb7abe8ce",
+      "lines": 394,
+      "bytes": 18115,
+      "sha256": "b6b7b271dfcd4aef6dda8bd9064c02a3bbc9c5244a8427b4d1cf752cca5135a8",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
-        "wiki/A01c检索引用实现.md"
+        "wiki/A01c检索引用实现.md",
+        "wiki/decisions/0029-迁移谱系统一与拒绝边界.md",
+        "wiki/A01-迁移谱系支持与拒绝矩阵.md",
+        "wiki/A01-追加迁移设计.md",
+        "wiki/A01-迁移验证计划.md"
       ]
     },
     {
@@ -1747,24 +1765,26 @@
     {
       "path": "packages/infrastructure/src/storage.test.ts",
       "type": "ts",
-      "lines": 109,
-      "bytes": 4258,
-      "sha256": "df3f4a4f80e6e975e7e5a8aaa617843f94d3926a7fd81234a6f66caf4db95ba0",
+      "lines": 110,
+      "bytes": 4364,
+      "sha256": "ccb79b7d2beffed23bcc236f44792b6b923ad037352c74a8271e95f9894db453",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/A01-迁移验证计划.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/trade-store.test.ts",
       "type": "ts",
       "lines": 345,
-      "bytes": 11685,
-      "sha256": "f65d67b8d9f648c02dfb4003d3c5fbca80b8d4f35c0d88f7120129525fce3507",
+      "bytes": 11682,
+      "sha256": "5c4d97fc8cf4c11814d5193b7194cf459f4836e7defa579cc27739dd6849f6b6",
       "role": "Quote V1 amount, source, transaction, migration and real Electron regression evidence",
       "pages": [
         "wiki/M2真实报价V1.md",
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/A01-迁移验证计划.md"
       ]
     },
     {

@@ -1,5 +1,5 @@
 import { createHash, randomUUID } from "node:crypto";
-import { mkdirSync } from "node:fs";
+import { existsSync, mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import {
   type CheckListResult,
@@ -22,18 +22,34 @@ import Database from "better-sqlite3";
 import { drizzle } from "drizzle-orm/better-sqlite3";
 import { CheckStore } from "./check-store";
 import { SqliteKnowledgeStore } from "./knowledge-store";
-import { migrate } from "./migrations";
+import { identify, migrate } from "./migrations";
 import { workspace } from "./schema";
 import { TradeStore } from "./trade-store";
 import { SqliteWikiCheckSource } from "./wiki-check-source";
 import { SqliteWikiStore } from "./wiki-store";
 
 export { FileArtifactStore } from "./artifacts";
+
+/**
+ * 迁移谱系只读预检：在打开读写连接（及 WAL）之前识别并拒绝非升级谱系，
+ * 保证“拒绝不改库”——仅创建目录，不产生读写连接、不创建 -wal/-shm、不写任何行。
+ */
+function preflightMigration(file: string): void {
+  if (!existsSync(file)) return; // 全新库：读写打开会创建，migrate() 按 empty 谱系处理
+  const ro = new Database(file, { readonly: true });
+  try {
+    identify(ro);
+  } finally {
+    ro.close();
+  }
+}
+
 export class SqliteWorkspaceRepository implements WorkspaceRepository {
   private readonly db: Database.Database;
   private readonly orm: ReturnType<typeof drizzle>;
   constructor(file: string) {
     mkdirSync(dirname(file), { recursive: true });
+    preflightMigration(file);
     this.db = new Database(file);
     try {
       this.db.pragma("foreign_keys = ON");

@@ -6,7 +6,7 @@ import type { CreateWorkspace, RenameWorkspace } from "@tradequote/contracts";
 import Database from "better-sqlite3";
 import { afterEach, expect, it } from "vitest";
 import { FileArtifactStore, SqliteWorkspaceRepository } from "./index";
-import { migrate, migrations } from "./migrations";
+import { migrate, MigrationLineageError, MIGRATION_STEPS } from "./migrations";
 
 const dirs: string[] = [];
 const temp = () => {
@@ -79,16 +79,17 @@ it("migration failure rolls back and future schema refuses downgrade", () => {
   const db = new Database(join(temp(), "workspace.sqlite"));
   try {
     migrate(db);
+    expect(db.pragma("user_version", { simple: true })).toBe(8);
     expect(() =>
       migrate(db, [
-        ...migrations,
-        { version: 8, sql: "CREATE TABLE partial(id TEXT); INVALID SQL;" },
+        ...MIGRATION_STEPS,
+        { lineage: "common", version: 99, sql: "CREATE TABLE partial(id TEXT); INVALID SQL;" },
       ]),
     ).toThrow();
-    expect(db.pragma("user_version", { simple: true })).toBe(7);
+    expect(db.pragma("user_version", { simple: true })).toBe(8);
     expect(db.prepare("SELECT name FROM sqlite_master WHERE name='partial'").get()).toBeUndefined();
     db.pragma("user_version=99");
-    expect(() => migrate(db)).toThrow("DATABASE_NEWER_THAN_APPLICATION");
+    expect(() => migrate(db)).toThrow(MigrationLineageError);
   } finally {
     db.close();
   }

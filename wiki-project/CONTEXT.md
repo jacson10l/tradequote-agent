@@ -47,3 +47,6 @@
 - 2026-10-23 联调最终结果：52聚焦/类型/构建/工程/Wiki只读/目标merge-base654fecc sync通过；全量181/182、Wiki回归34/36剩余原Windows symlink权限失败。A77份/B83份非生成raw、双方历史日志非空行与旧迁移SQL保留；再次fetch无C新增接线。细节与可调用executeChecks端口见 [[2026-10-23-B01新Wiki存储联调]]，新桌面/macOS/非作者验收待。
 
 - 本轮最终本机结果：聚焦53/53、typecheck/build/check与6c76fb9固定基线Wiki sync通过；全量183 passed / 1原Windows symlink EPERM，Wiki回归34 passed / 2原symlink EPERM。显式合成迁移诊断0/2保持红色，未修复、非实际C库；不得以正常单元结果放行组合。旧非生成raw全部字节保留，原日志为前缀，生产迁移/报告DDL/知识存储/公共契约和桌面文件与6c76fb9一致。 本轮不推送/合入，方案与原文未齐，详见 [[B01-迁移协调与接口冻结]]。
+
+- 2026-10-23：A 在 codex/a01-migration-lineage（基于 dd42b05）主导三方迁移谱系收敛，见 [[0029-迁移谱系统一与拒绝边界]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-追加迁移设计]]、[[A01-迁移验证计划]]；对 C 未发送协调草稿 fd4b728 与 d99f2b3 六组诊断的逐项回复见 [[A对C迁移协调草稿M1-M8回复]]。识别以 schema 为准、账本 migration_registry(lineage,version,sql_hash,applied_at)、只读预检拒绝零写入、统一目标九能力 user_version=8。纯 Node 探针实际通过（9 指纹全匹配、16 分类、10 追加）；typecheck/vitest 本机未复跑（无 node_modules）。下一步 B 接口/报告/消费适配、C 独立组合验证与 macOS 全量、A 人工发布与业务语义验收分别待完成；不代签、不自动合入/真实模型复测。
+
