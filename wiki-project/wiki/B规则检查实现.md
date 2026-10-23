@@ -127,3 +127,10 @@ evaluateWikiQuote使用旧quoteCheckService的required/forbidden_literal条件�
 迁移方案由A确认，本页第四切片的稀疏账本和报告7仅为B已推送试验实现，不是支持C5/6/7的承诺。两项合成负向诊断表明版本号/SQL hash不足以识别实际schema，组合接线保持阻塞，见 [[B01迁移协调回复与接口冻结]]。
 
 B独立修复来源资格被响应schema拒绝时误归STORAGE_ERROR的问题：参与者对来源结果和查询交换safeParse，资格/结构问题返回SOURCE_CONFLICT；真实SQL异常仍由CheckStore返回STORAGE_ERROR，历史报告/消费/幂等损坏不伪装来源冲突。强化撤回/篡改公开码，并新增真实缺表与输入/版本/幂等冲突回归；完整多来源、首次报告重放、历史兼容与报价不变语义不变。原验证JSON保留，新增本轮证据；不声称迁移缺口已修复。
+
+
+## A谱系方案后的B报告适配
+
+B在独立codex/b01-lineage-p1-adaptation整合A b9a0af7的九能力/统一8与P1 19d60a8。executeChecks、报告/消费同事务和公开错误保持；旧B7真实schema、旧账本、已存多来源报告/消费逐表保持，两次重开同键返回首份报告。旧测试改断言8、迁移测试改按lineage/version身份；不再保留“补5即兼容”的假设。新源check-lineage-integration.test.ts以现有服务生成历史事实后升级，fixture仅依赖公开端口。
+
+正常路径已验证，A拒绝边界独立7项探针仍5失败/2通过（四类缺口），不能放行正式组合。旧raw保留，新证据raw/b01-lineage-p1-validation.json与boundary-probe.json，详情[[B谱系账本适配与P1回执交接]]、[[B01-谱系账本适配与P1回执]]。

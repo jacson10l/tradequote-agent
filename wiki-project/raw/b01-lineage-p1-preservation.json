@@ -1,0 +1,99 @@
+{
+  "recordedAt": "2026-10-23T14:35:12.036Z",
+  "taskBase": "f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef",
+  "status": "passed",
+  "parentEvidence": [
+    {
+      "commit": "f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef",
+      "rawCount": 91,
+      "rawMismatches": [],
+      "missingNonemptyLogLines": []
+    },
+    {
+      "commit": "b9a0af76217e57e0ab22ba927de1a1a287b1145f",
+      "rawCount": 78,
+      "rawMismatches": [],
+      "missingNonemptyLogLines": []
+    },
+    {
+      "commit": "19d60a8436fc72faf2780cbe1e5f77aeb043b863",
+      "rawCount": 81,
+      "rawMismatches": [],
+      "missingNonemptyLogLines": []
+    }
+  ],
+  "nineHistoricalSqlUnchanged": true,
+  "sqlFingerprints": [
+    {
+      "lineage": "common",
+      "version": 1,
+      "sqlSha256": "9e95979532306333f9f07037ce7e0841931d6e8c0b3d885208d63f4eb7360cb1"
+    },
+    {
+      "lineage": "common",
+      "version": 2,
+      "sqlSha256": "519f17179c501d08270a48eee562b6593eed6598bd0081692e437fbe7c53b723"
+    },
+    {
+      "lineage": "common",
+      "version": 3,
+      "sqlSha256": "a9fe17a0719962fa3dc4099cc51f35ada314bdbb7a15e6aecde91c58c0cabe42"
+    },
+    {
+      "lineage": "common",
+      "version": 4,
+      "sqlSha256": "b4e559a6acc383d064b04e2f0412c0863d526e94f80c79e25a00de81abb74980"
+    },
+    {
+      "lineage": "c-run",
+      "version": 5,
+      "sqlSha256": "6d511fff5eaa85e1198898d7c5cec392ed18461b110cecaf92553e4ff8ce0493"
+    },
+    {
+      "lineage": "c-run",
+      "version": 6,
+      "sqlSha256": "3d3c9da475f6a11d2d381de54a07396dc6dabaf8d780edebc0657f497bb47dfb"
+    },
+    {
+      "lineage": "c-run",
+      "version": 7,
+      "sqlSha256": "268beab4bd70f403d62877153abf2df0c6f574bde852b77c1cfe7a63808d87fa"
+    },
+    {
+      "lineage": "knowledge-wiki",
+      "version": 6,
+      "sqlSha256": "5184461756e3a389588182c1e9e497f34bfc7442bbf4d7ff8a09cdb458f49f66"
+    },
+    {
+      "lineage": "check-report",
+      "version": 7,
+      "sqlSha256": "927ce55cc67a6ec655cff131a67af33f9fdc7f83372d4247ab65467d91144602"
+    }
+  ],
+  "protectedSourceMismatches": [],
+  "sourceSha256": {
+    "apps/desktop/src/preload/contracts.test.ts": "7a743ce917a2901894cf5828b0dcddf2c600d8f667e379c4ba361b1404017cb9",
+    "packages/contracts/src/index.ts": "c55af11142a65095ecd853da1289ca324e82d127b3c4c5cabf26f3cdf38a84d8",
+    "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+    "packages/contracts/src/knowledge-build.ts": "41c644866d1c337cd35584bbf784210715d864438bf3c00ea40ba729ae580916",
+    "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+    "packages/contracts/src/knowledge-maintenance.ts": "27d02359e3f30a8780b8896c9c1e270f98ade88de374e24f9aecf8ba6d7038cc",
+    "packages/contracts/src/mock.ts": "b9ec4d8f7bc222b1388fd24943d4585c0ba205eaf3cacae0777597b2dd20b35e",
+    "packages/contracts/src/pending-client.ts": "b963bfb0ea79ee590ef3fb58e836d494d3b3207b32b998459d5da08a7cf84284",
+    "packages/infrastructure/probes/migration-lineage.probe.ts": "7c679a3ee3ae1c473abfd1761016224c5e8b344445ca53787b22decbfab9c04f",
+    "packages/infrastructure/src/agent.test.ts": "b090cb3a55c7284d46fb8d6912a0bee3bd5e34b04863dc4c0dca796f1cac249c",
+    "packages/infrastructure/src/check-store.test.ts": "7534a06469f11bec95df8228010a39a690648fb446ba23c51a841629af2eedc3",
+    "packages/infrastructure/src/index.ts": "c91c1e95f5c8c357e3e868615ca9f4650be10f05ba1381085cfa03371c043f35",
+    "packages/infrastructure/src/migration-lineage.ts": "73228d11875493410dc725861eaebdf5efb6822f2bf0b627b8ddaa923236b983",
+    "packages/infrastructure/src/migrations.test.ts": "a506a99d77e77dc5deb8171fa3a8ec013fce2b24b6a059d0580f27dd562ced77",
+    "packages/infrastructure/src/migrations.ts": "64a9b35a925cf73d9372f0868587252a1439854abea330fbc8f30b19143b38b9",
+    "packages/infrastructure/src/storage.test.ts": "daaee891ec6832ead8093b06fee0fb2000ac9e36b2ea7b1675c2525d926958d7",
+    "packages/infrastructure/src/trade-store.test.ts": "5c4d97fc8cf4c11814d5193b7194cf459f4836e7defa579cc27739dd6849f6b6",
+    "packages/infrastructure/src/wiki-test.fixture.ts": "415616706aaa51487477595c148ee6e1f4eb348861c59eb5ea3da994126d5e8e",
+    "tests/e2e/workspace.spec.ts": "67278fd050f1494e44052ecf681f7f4bf399bbffe05fffa0afd5b0f7d3ff6819",
+    "wiki-project/scripts/a01-migration-lineage-probe.mjs": "f0e7f890abeef97f5023396dcd0575f95e2ff519a6bb551d5732bfb112546d2c",
+    "wiki-project/scripts/wiki-config.json": "2857522974cc4fd8ae864a74906f8f2d150a8fe26328ee0193c37ed6efd75238",
+    "packages/contracts/src/knowledge-lint-review.test.ts": "aa060530827d6853802afb23bacd690d238241f38e9b670250c331a2c4ad1345",
+    "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a"
+  }
+}

@@ -383,3 +383,23 @@ A 在 codex/a01-migration-lineage（基于 dd42b05）主导三方迁移谱系收
 ## 2026-10-23 A 对 C 迁移协调草稿逐项回复
 
 A 按 fd4b728（C 未发送协调草稿 `C迁移协调请求草稿-AB谱系兼容`）与 d99f2b3 六组诊断，新增 [[A对C迁移协调草稿M1-M8回复]]：逐项回复 M1～M8，确认支持范围（11 类升级、mixed/tampered/unknown 拒绝）、`migration_registry(lineage,version,sql_hash,applied_at)` 登记方式与责任分工；选择方案一+方案二组合（即已实现设计）。核对 C 草稿列出的 C6/A6/C7/B7 四个原 SQL 指纹与本方案探针完全一致（9 指纹全匹配）。回复身份由 A 本人另记，不代签、不自动发送/合入/真实模型复测；typecheck/vitest 未复跑，B/C 后续责任见回复页。
+
+
+## 2026-10-22 B00a P1 独立契约
+
+用户授权B在A评审P0期间独立推进AI整理运行与维护。分支codex/b00a-p1-knowledge-build-maintenance，taskBase ae1af9d3ab2d560847be6df6bdc6346bb6f27f58，PR比较基线暂P0、最终目标共同分支。新增知识提案/独立运行/候选事务、lint/维护/影响/索引协议及反向测试；公开出口、mock、不可用客户端和真实桥接名单同步，15方法不发IPC。知识/任务为 [[B00a知识整理与维护协议]]、[[B00a-P1知识整理与维护契约]]，同步ADR/状态/CONTEXT/覆盖导航。typecheck及初轮107项、补反例后109项单元实际通过；最终稳定源码验证另记录。P0 PR#7不变，业务执行器/维护引擎和A/C实际评审未完成。
+
+C对P1首轮实现复核发现3个P2（fail转换、未知消费者完整性、首终页隐藏影响），证据raw/b00a-p1-review-findings.json；已补queued/running→failed且终态保护、unknown必须partial、首终页总数一致性反例，并明确索引indexedSeq切换不得倒退。修正后重新验证并请C复核，不用此前109项通过代替修正后的证据。
+
+B00a P1稳定源码最终通过：111单元、含build的5真实Electron、6工程/边界/check、36Wiki回归、typecheck、generate与ae1af9d/56c909e双基线sync均退出0；证据raw/b00a-p1-validation.json含源码/config hash。C独立重放关闭3个P2并复跑28项，raw/b00a-p1-c-review.json；原发现保留。77份历史raw逐字节和log精确前缀保留，PR#7分支头仍ae1af9d。A远程评审/新PR合入待完成，任务active，无运行/维护引擎交付声明。
+
+B00a P1远端交接：[PR #8](https://github.com/jacson10l/tradequote-agent/pull/8)，代码87f05e3c2240c26f9f1884043d83df56f7ad7918已推送独立分支并请求A/ssyyy31评审。当前base=P0分支仅用于隔离增量；不得直接合入P0，待PR#7合入后改向codex/m1-foundation并复核真实基线。P0远端头仍ae1af9d，未混入P1；交付事实raw/b00a-p1-delivery.json。C范围技术通过，A评审/依赖合入及正式接线仍待，任务active。
+
+
+## 2026-10-23 B按A九能力谱系适配报告与P1回执
+
+任务基线f2dfa5f，独立codex/b01-lineage-p1-adaptation。本地整合A b9a0af7与B P1 19d60a8，不合入共同分支；A两项类型兼容和格式修正，历史SQL/号位不改。改B稀疏测试为九能力登记与真实SQLite矩阵，新增旧B7已存多来源报告/消费/旧账本升级8及两次重开保持；新增P1完整lint报告/审核交换schema与反例。旧A/B/P1 raw不覆盖，映射并集与机械清单同步。
+
+首次typecheck与夹具locale/build PATH/格式失败均保留；修正后typecheck、95项相关测试及build通过，全量230/231仅旧Windows symlink EPERM。拒绝探针7项2通过/5失败（四类缺口），实际registry损坏在写开WAL后才抛错且DB字节变化，待A修订；不把正常测试当迁移可合并。raw/b01-lineage-p1-validation.json和boundary-probe.json保存实际命令/观察；最终工程/Wiki/保留验证另追加。[[B谱系账本适配与P1回执交接]]记录A/C接入责任，未推送、合入、发送消息或真实模型调用。
+
+最终验证追加：95/95相关测试、typecheck/build/check通过，工程5通过/1个macOS专用跳过；全量230/231与Wiki34/36只剩原Windows EPERM。初轮contracts测试引node:crypto被工程门禁拦截，改确定性ID并重跑；初轮Wiki运行器Path大小写导致git缺失，修正后回归恢复34/36，失败输出不删。taskBase f2dfa5f与共同merge-base654fecc同步通过，九段SQL完全保持，原B91/A78/P1 81份非生成raw与旧日志非空行保持，生产CheckStore/报告DDL/消费适配/TradeStore算法未改。证据raw/b01-lineage-p1-validation.json、preservation.json；负向探针仍2/7，五项失败/四类A问题待修，不标done、不进入正式组合。

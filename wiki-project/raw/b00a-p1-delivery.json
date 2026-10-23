@@ -1,0 +1,31 @@
+{
+  "status": "awaiting_A_review_and_P0_merge",
+  "recordedAt": "2026-10-22T01:36:51.294821+08:00",
+  "taskBase": "ae1af9d3ab2d560847be6df6bdc6346bb6f27f58",
+  "commonBase": "56c909e21aefa484b6805bf9afc7c94b0e1d4576",
+  "testedCodeCommit": "87f05e3c2240c26f9f1884043d83df56f7ad7918",
+  "pullRequest": {
+    "baseRefName": "codex/b00a-knowledge-wiki-contracts",
+    "headRefName": "codex/b00a-p1-knowledge-build-maintenance",
+    "headRefOid": "87f05e3c2240c26f9f1884043d83df56f7ad7918",
+    "mergeStateStatus": "CLEAN",
+    "number": 8,
+    "reviewRequests": [
+      {
+        "__typename": "User",
+        "login": "ssyyy31"
+      }
+    ],
+    "reviews": [],
+    "state": "OPEN",
+    "url": "https://github.com/jacson10l/tradequote-agent/pull/8"
+  },
+  "requiredFinalBase": "codex/m1-foundation",
+  "mergeConstraint": "Do not merge P1 into the P0 branch. After PR #7 merges, retarget PR #8 to codex/m1-foundation and recheck the actual merge-base.",
+  "p0HeadConfirmedUnchanged": "ae1af9d3ab2d560847be6df6bdc6346bb6f27f58",
+  "cReview": "wiki-project/raw/b00a-p1-c-review.json",
+  "validation": "wiki-project/raw/b00a-p1-validation.json",
+  "mergePerformed": false,
+  "a01cUnlocked": false,
+  "a01deUnlocked": false
+}

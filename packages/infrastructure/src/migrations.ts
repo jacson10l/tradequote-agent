@@ -1,11 +1,10 @@
 import type Database from "better-sqlite3";
 import {
-  CAPABILITIES,
+  type CapabilityLineage,
   capabilityId,
   identifyLineage,
-  sqlFingerprint,
-  type CapabilityLineage,
   type MigrationLineage,
+  sqlFingerprint,
 } from "./migration-lineage";
 
 /**
@@ -283,7 +282,9 @@ interface SchemaSnapshot {
 export function snapshotSchema(db: Database.Database): SchemaSnapshot {
   const userVersion = Number(db.pragma("user_version", { simple: true }));
   const objects = db
-    .prepare("SELECT type,name,tbl_name,sql FROM sqlite_master WHERE type IN ('table','index','trigger')")
+    .prepare(
+      "SELECT type,name,tbl_name,sql FROM sqlite_master WHERE type IN ('table','index','trigger')",
+    )
     .all() as { type: string; name: string; tbl_name: string; sql: string | null }[];
   const columns: Record<string, string[]> = {};
   for (const obj of objects) {
@@ -306,7 +307,14 @@ export function verifyLegacyLedger(db: Database.Database): void {
     .prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='schema_migration'")
     .get();
   if (!hasLegacy) return;
-  const legacyMap: Record<number, string> = { 1: "common", 2: "common", 3: "common", 4: "common", 6: "knowledge-wiki", 7: "check-report" };
+  const legacyMap: Partial<Record<number, CapabilityLineage>> = {
+    1: "common",
+    2: "common",
+    3: "common",
+    4: "common",
+    6: "knowledge-wiki",
+    7: "check-report",
+  };
   const rows = db.prepare("SELECT version, sql_hash FROM schema_migration").all() as {
     version: number;
     sql_hash: string;

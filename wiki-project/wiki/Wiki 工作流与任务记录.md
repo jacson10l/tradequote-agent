@@ -147,3 +147,16 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 ## 迁移谱系识别探针
 
 新增 `scripts/a01-migration-lineage-probe.mjs`（纯 Node，仅 `node:sqlite` + 导入真实 `migration-lineage.ts`）作为一次性质证脚本：内联九段迁移 SQL 与 C/B 固定指纹，构造 16 个分类用例与 10 个追加用例，输出 `raw/a01-migration-lineage-probe.json`。该脚本不属于标准维护工具链，不进入 `build-code-index.mjs` 的 toolchain 指纹；但仍受 lint-wiki 的 scripts 目录敏感内容/行尾空白检查。业务代码新增 `migration-lineage.ts` 及 `migrations.ts` 谱系重写按 P0 登记覆盖并映射到 [[0029-迁移谱系统一与拒绝边界]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-追加迁移设计]]、[[A01-迁移验证计划]]，见对应任务与 log。
+
+
+
+## B00a P1 覆盖与独立基线
+
+新增knowledge-build/knowledge-maintenance两份schema与两组测试逐文件映射到 [[B00a知识整理与维护协议]]；index/mock/pending-client、preload/Electron桥接回归追加相同职责页，维护算法不变。任务 [[B00a-P1知识整理与维护契约]] 使用真实ae1af9d基线，并另以共同56c909e复验；不在PR#7混入P1提交。作者生成清单、运行只读check/lint/sync和映射回归，保留P0既有raw与追加日志，不能借旧P0通过记录代替新协议证据。
+
+
+## B接收统一谱系与P1回执的Wiki闭环
+
+本轮本地依赖整合A b9a0af7与B P1 19d60a8，coverage取并集，历史log/raw保留；新增check-lineage-integration.test.ts与knowledge-lint-review.test.ts分别映射B报告适配和P1协议。migrations/migration-lineage/index及显式负向probe追加[[B谱系账本适配与P1回执交接]]职责来源，机械清单重建。映射与A维护探针纳入本次改动，必须重跑Wiki工具回归并保留Windows EPERM，不修改维护算法或删旧证据。
+
+任务基线f2dfa5f，不能以中途依赖WIP提交2100aa7作为本次sync基线规避已提交代码。新任务[[B01-谱系账本适配与P1回执]]记录正常验证、独立已知红色探针及未完成项，状态active。

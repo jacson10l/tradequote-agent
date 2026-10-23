@@ -1,5 +1,7 @@
 # 当前上下文
 
+2026-10-23 B已接收A b9a0af7九能力/统一8方案与原P1 19d60a8，在独立codex/b01-lineage-p1-adaptation适配并实测旧B7完整报告/消费/旧账本升级保持、两次重开首份幂等；新增P1完整lint报告/审核交换校验。负向7项2通过/5失败，四类A拒绝缺口待修（含registry拒绝前DB字节变化），正式组合仍WIP；不再等待A首次方案或P1类型。见[[B谱系账本适配与P1回执交接]]、[[B01-谱系账本适配与P1回执]]。
+
 - 2026-10-23 C原文已到位：实际fetch核对协调分支7adbc935、原文fd4b728和诊断d99f2b3，B逐项回复M1～M8；用固定C45fa03d/B6c76fb9及原脚本在Windows Electron重跑六组诊断，全部复现但compatible=false。当前等待A确定真实库范围、统一路线/登记/编号及支持矩阵；不以“原文缺失”继续阻塞，也不把回复当联合批准。见 [[B对C迁移协调草稿M1-M8回复]]。
 
 - 2026-10-23 最新协调：用户要求A收敛C5/6/7、A6/B7谱系和编号，B固定公开接口，C待方案后组合。B在codex/b01-migration-coordination从6c76fb9准备，修正来源冲突误归STORAGE_ERROR，53项聚焦/typecheck通过；两项合成迁移误接受诊断未修复，0016标draft。d99f2b3/fd4b728原文当前origin/本机不可见，已请求可访问路径；不签原文、不代A批准、不自动推送/合入/真实模型复测。见 [[B01迁移协调回复与接口冻结]]、[[B01-迁移协调与接口冻结]]。
@@ -50,3 +52,5 @@
 
 - 2026-10-23：A 在 codex/a01-migration-lineage（基于 dd42b05）主导三方迁移谱系收敛，见 [[0029-迁移谱系统一与拒绝边界]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-追加迁移设计]]、[[A01-迁移验证计划]]；对 C 未发送协调草稿 fd4b728 与 d99f2b3 六组诊断的逐项回复见 [[A对C迁移协调草稿M1-M8回复]]。识别以 schema 为准、账本 migration_registry(lineage,version,sql_hash,applied_at)、只读预检拒绝零写入、统一目标九能力 user_version=8。纯 Node 探针实际通过（9 指纹全匹配、16 分类、10 追加）；typecheck/vitest 本机未复跑（无 node_modules）。下一步 B 接口/报告/消费适配、C 独立组合验证与 macOS 全量、A 人工发布与业务语义验收分别待完成；不代签、不自动合入/真实模型复测。
 
+
+- 2026-10-22：[[B00a-P1知识整理与维护契约]] 在独立codex/b00a-p1-knowledge-build-maintenance分支推进，taskBase=ae1af9d3ab2d560847be6df6bdc6346bb6f27f58（P0头）；新PR暂以P0为比较基线，P0合入后改向共同分支。[[B00a知识整理与维护协议]]新增独立知识运行、局部提案/候选事务、lint/问题/影响/索引与15方法不可用门禁，无执行器/维护引擎。P0 PR#7不增加P1提交，A01c仍待P0 A评审及合入；P1最终111单元/5Electron/6工程/36Wiki与双基线通过，C三个P2已修复并独立复核28项通过；[PR#8](https://github.com/jacson10l/tradequote-agent/pull/8)已独立推送并请求A/ssyyy31评审；当前base=P0仅供增量评审，不得直接合入P0，待#7合入后改向共同分支。A评审/合入与接线另验收。

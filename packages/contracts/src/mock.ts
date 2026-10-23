@@ -283,3 +283,121 @@ export const mockWikiCommands: import("./knowledge-wiki").WikiCommand[] = (() =>
     },
   ];
 })();
+
+/** P1 synthetic requests/proposals; none is returned as a successful write by a mock client. */
+export const mockKnowledgeBuildInput = {
+  operation: "create",
+  sources: [
+    {
+      sourceRevisionId: "00000000-0000-4000-8000-000000000044",
+      artifactHash: mockKnowledgeRevision.sourceHash,
+    },
+  ],
+  target: { kind: "sop", locale: "pt-BR", scope: { platforms: [], markets: [], categories: [] } },
+  base: null,
+  relatedRevisionIds: [],
+  instructions: "仅对合成原文整理流程候选，不发布",
+  maxCandidates: 2,
+  budget: { maxModelCalls: 2, timeoutMs: 30000, maxOutputBytes: 32000 },
+} satisfies import("./knowledge-build").KnowledgeBuildInput;
+export const mockKnowledgeBuildProposal = {
+  proposalKey: "proposal_one",
+  title: "合成 SOP 提案",
+  markdown: "核对资料。",
+  validity: { status: "unknown", validFrom: null, validUntil: null },
+  sections: [
+    {
+      sectionKey: "section_one",
+      title: "核对",
+      location: { kind: "text", start: 0, end: 5 },
+      citations: [
+        {
+          sourceRevisionId: mockKnowledgeBuildInput.sources[0]!.sourceRevisionId,
+          location: { kind: "text", start: 0, end: 13 },
+          assertion: "inference",
+        },
+      ],
+    },
+  ],
+  rules: [],
+  relations: [],
+  suggestions: [],
+} satisfies import("./knowledge-build").KnowledgeBuildProposal;
+export const mockKnowledgeBuildCommands: import("./knowledge-build").KnowledgeBuildCommand[] =
+  (() => {
+    const read = { schemaVersion: 1 as const, requestId: mockWorkspace.id };
+    const write = { ...read, idempotencyKey: mockWorkspace.id };
+    const control = { runId: mockWorkspace.id, expectedRunVersion: 1 };
+    return [
+      { ...write, method: "knowledgeBuild.start", payload: mockKnowledgeBuildInput },
+      { ...read, method: "knowledgeBuild.get", payload: { runId: mockWorkspace.id } },
+      { ...read, method: "knowledgeBuild.list", payload: { cursor: null, limit: 20 } },
+      { ...write, method: "knowledgeBuild.cancel", payload: control },
+      { ...write, method: "knowledgeBuild.retry", payload: control },
+    ];
+  })();
+export const mockKnowledgeMaintenanceCommands: import("./knowledge-maintenance").KnowledgeMaintenanceCommand[] =
+  (() => {
+    const read = { schemaVersion: 1 as const, requestId: mockWorkspace.id };
+    const write = { ...read, idempotencyKey: mockWorkspace.id };
+    const binding = {
+      revisionId: mockWikiStageInput.documentId,
+      contentHash: mockKnowledgeRevision.sourceHash,
+      sourceSetHash: mockKnowledgeRevision.sourceHash,
+    };
+    return [
+      { ...write, method: "wiki.lint", payload: { ...binding, expectedLifecycleVersion: 1 } },
+      { ...read, method: "wiki.getLintReport", payload: { reportId: mockWorkspace.id } },
+      {
+        ...read,
+        method: "wiki.getMaintenance",
+        payload: { kinds: [], states: [], limit: 20, cursor: null },
+      },
+      {
+        ...write,
+        method: "wiki.resolveMaintenance",
+        payload: {
+          issueId: mockWorkspace.id,
+          expectedIssueVersion: 1,
+          action: "start_review",
+          note: "合成处理请求，未执行",
+          evidenceIds: [mockWorkspace.id],
+        },
+      },
+      {
+        ...write,
+        method: "wiki.analyzeImpact",
+        payload: {
+          target: {
+            kind: "source",
+            sourceId: mockWorkspace.id,
+            sourceRevisionId: mockWorkspace.id,
+            artifactHash: mockKnowledgeRevision.sourceHash,
+          },
+          reason: "withdrawn",
+          replacementRevisionId: null,
+        },
+      },
+      {
+        ...read,
+        method: "wiki.getImpact",
+        payload: { reportId: mockWorkspace.id, limit: 20, cursor: null },
+      },
+      { ...read, method: "wiki.getIndexStatus", payload: { index: "keyword" } },
+      {
+        ...write,
+        method: "wiki.rebuildIndex",
+        payload: { index: "keyword", expectedGeneration: 0, expectedAuthoritativeSeq: 0 },
+      },
+      { ...read, method: "wiki.getIndexRebuild", payload: { rebuildId: mockWorkspace.id } },
+      {
+        ...write,
+        method: "source.withdraw",
+        payload: {
+          sourceRevisionId: mockWorkspace.id,
+          expectedLifecycleVersion: 1,
+          note: "合成撤回请求，未执行",
+        },
+      },
+    ];
+  })();

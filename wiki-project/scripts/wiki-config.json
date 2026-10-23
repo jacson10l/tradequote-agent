@@ -595,14 +595,16 @@
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md"
       ]
     },
     "packages/contracts/src/mock.ts": {
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md"
       ]
     },
     "packages/domain/package.json": {
@@ -642,14 +644,16 @@
       "pages": [
         "wiki/M1接口与持久化.md",
         "wiki/A01c检索引用实现.md",
-        "wiki/A01-追加迁移设计.md"
+        "wiki/A01-追加迁移设计.md",
+        "wiki/B谱系账本适配与P1回执交接.md"
       ]
     },
     "packages/infrastructure/src/migration-lineage.ts": {
       "role": "迁移谱系识别与拒绝边界（纯函数，只读）",
       "pages": [
         "wiki/decisions/0029-迁移谱系统一与拒绝边界.md",
-        "wiki/A01-迁移谱系支持与拒绝矩阵.md"
+        "wiki/A01-迁移谱系支持与拒绝矩阵.md",
+        "wiki/B谱系账本适配与P1回执交接.md"
       ]
     },
     "packages/infrastructure/src/migrations.ts": {
@@ -660,7 +664,8 @@
         "wiki/decisions/0029-迁移谱系统一与拒绝边界.md",
         "wiki/A01-迁移谱系支持与拒绝矩阵.md",
         "wiki/A01-追加迁移设计.md",
-        "wiki/A01-迁移验证计划.md"
+        "wiki/A01-迁移验证计划.md",
+        "wiki/B谱系账本适配与P1回执交接.md"
       ]
     },
     "packages/infrastructure/src/schema.ts": {
@@ -710,7 +715,8 @@
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md"
       ]
     },
     "tsconfig.json": {
@@ -1007,7 +1013,8 @@
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
         "wiki/首批并行接口约定.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md"
       ]
     },
     "packages/contracts/src/knowledge.test.ts": {
@@ -1033,7 +1040,8 @@
       "pages": [
         "wiki/首批并行接口约定.md",
         "wiki/M1工程基线.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md"
       ]
     },
     "packages/domain/src/agent-run.ts": {
@@ -1189,7 +1197,8 @@
       "role": "稀疏迁移账本、迟交5、历史库升级、SQL指纹与原子回滚",
       "pages": [
         "wiki/M1接口与持久化.md",
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/B谱系账本适配与P1回执交接.md"
       ]
     },
     "packages/infrastructure/src/wiki-check-source.ts": {
@@ -1210,14 +1219,16 @@
       "role": "明确合成A+B来源/候选和测试发布投影，非产品审核入口",
       "pages": [
         "wiki/A01c检索引用实现.md",
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/B谱系账本适配与P1回执交接.md"
       ]
     },
     "packages/infrastructure/probes/migration-lineage.probe.ts": {
       "role": "B迁移协调已知红色合成诊断：未知6和账本/schema漂移，不是真实C谱系",
       "pages": [
         "wiki/B01迁移协调回复与接口冻结.md",
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/B谱系账本适配与P1回执交接.md"
       ]
     },
     "packages/infrastructure/probes/vitest.config.ts": {
@@ -1225,6 +1236,44 @@
       "pages": [
         "wiki/B01迁移协调回复与接口冻结.md",
         "wiki/M1验证与协作.md"
+      ]
+    },
+    "packages/contracts/src/knowledge-build.ts": {
+      "role": "P1 frozen knowledge proposals, separate runs and host candidate transaction contracts",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
+    "packages/contracts/src/knowledge-build.test.ts": {
+      "role": "P1 proposal authority, run receipt, retry fencing and stable pagination negative tests",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
+    "packages/contracts/src/knowledge-maintenance.ts": {
+      "role": "P1 lint, deduplicated maintenance, influence analysis and fenced index reconstruction contracts",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
+    "packages/contracts/src/knowledge-maintenance.test.ts": {
+      "role": "P1 unknown/failure reports, human resolution, paging and stale projection negative tests",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
+    "packages/infrastructure/src/check-lineage-integration.test.ts": {
+      "role": "B historical report and multi-source consumption upgrade/reopen evidence",
+      "pages": [
+        "wiki/B谱系账本适配与P1回执交接.md",
+        "wiki/B规则检查实现.md"
+      ]
+    },
+    "packages/contracts/src/knowledge-lint-review.test.ts": {
+      "role": "P1 persisted lint receipt to P0 review consistency boundary",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md",
+        "wiki/B谱系账本适配与P1回执交接.md"
       ]
     }
   }

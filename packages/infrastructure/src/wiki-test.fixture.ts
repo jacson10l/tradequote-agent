@@ -11,7 +11,7 @@ import {
   type WikiSourceRevision,
 } from "@tradequote/contracts";
 import Database from "better-sqlite3";
-import { SqliteWorkspaceRepository } from "./index";
+import type { SqliteWorkspaceRepository } from "./index";
 
 const NOW = "2026-10-22T00:00:00.000Z";
 const host = (workspaceId: string): WikiHostContext => ({
@@ -58,7 +58,7 @@ interface Seeded {
  *  paths need. */
 export async function seedPublished(
   file: string,
-  repo: SqliteWorkspaceRepository,
+  repo: Pick<SqliteWorkspaceRepository, "executeWiki">,
   workspaceId: string,
   opts: SeedOptions = {},
 ): Promise<Seeded> {
@@ -209,7 +209,7 @@ export async function seedPublished(
   };
 }
 
-export function createSyntheticQuote(repo: SqliteWorkspaceRepository) {
+export function createSyntheticQuote(repo: Pick<SqliteWorkspaceRepository, "executeTrade">) {
   const run = (command: TradeCommand) => {
     const result = repo.executeTrade(command, { actorId: "test-user", origin: "human_ui" });
     if (!result.ok) throw new Error(result.error.message);

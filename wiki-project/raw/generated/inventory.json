@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "1557a51836f43d857221519beb68c41987645b6080f5005b903d2c7408dd58a5",
+    "wiki-config.json": "2857522974cc4fd8ae864a74906f8f2d150a8fe26328ee0193c37ed6efd75238",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -209,14 +209,15 @@
     {
       "path": "apps/desktop/src/preload/contracts.test.ts",
       "type": "ts",
-      "lines": 148,
-      "bytes": 5822,
-      "sha256": "7fa753e7bc0fd54be0b55551059139ca5e6c85360bd4bb429af2f7a003340ba3",
+      "lines": 192,
+      "bytes": 7901,
+      "sha256": "7a743ce917a2901894cf5828b0dcddf2c600d8f667e379c4ba361b1404017cb9",
       "role": "B00 preload and mock capability gate without new IPC",
       "pages": [
         "wiki/首批并行接口约定.md",
         "wiki/M1工程基线.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md"
       ]
     },
     {
@@ -1210,13 +1211,70 @@
     {
       "path": "packages/contracts/src/index.ts",
       "type": "ts",
-      "lines": 136,
-      "bytes": 4604,
-      "sha256": "5bb30da5c9e1e8d0f9a3efc3168d2a0023e89d28d12da4b3dff1e489af4f26a2",
+      "lines": 142,
+      "bytes": 4876,
+      "sha256": "c55af11142a65095ecd853da1289ca324e82d127b3c4c5cabf26f3cdf38a84d8",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/knowledge-build.test.ts",
+      "type": "ts",
+      "lines": 461,
+      "bytes": 16071,
+      "sha256": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+      "role": "P1 proposal authority, run receipt, retry fencing and stable pagination negative tests",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/knowledge-build.ts",
+      "type": "ts",
+      "lines": 584,
+      "bytes": 22838,
+      "sha256": "41c644866d1c337cd35584bbf784210715d864438bf3c00ea40ba729ae580916",
+      "role": "P1 frozen knowledge proposals, separate runs and host candidate transaction contracts",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/knowledge-lint-review.test.ts",
+      "type": "ts",
+      "lines": 101,
+      "bytes": 3067,
+      "sha256": "aa060530827d6853802afb23bacd690d238241f38e9b670250c331a2c4ad1345",
+      "role": "P1 persisted lint receipt to P0 review consistency boundary",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md",
+        "wiki/B谱系账本适配与P1回执交接.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/knowledge-maintenance.test.ts",
+      "type": "ts",
+      "lines": 433,
+      "bytes": 13762,
+      "sha256": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+      "role": "P1 unknown/failure reports, human resolution, paging and stale projection negative tests",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/knowledge-maintenance.ts",
+      "type": "ts",
+      "lines": 543,
+      "bytes": 20896,
+      "sha256": "27d02359e3f30a8780b8896c9c1e270f98ade88de374e24f9aecf8ba6d7038cc",
+      "role": "P1 lint, deduplicated maintenance, influence analysis and fenced index reconstruction contracts",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md"
       ]
     },
     {
@@ -1266,25 +1324,27 @@
     {
       "path": "packages/contracts/src/mock.ts",
       "type": "ts",
-      "lines": 285,
-      "bytes": 9640,
-      "sha256": "2192a814cc876f40ebe96c15b13630c64b32a17d0df7955da5254a2800c7fa5a",
+      "lines": 403,
+      "bytes": 13953,
+      "sha256": "b9ec4d8f7bc222b1388fd24943d4585c0ba205eaf3cacae0777597b2dd20b35e",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md"
       ]
     },
     {
       "path": "packages/contracts/src/pending-client.ts",
       "type": "ts",
-      "lines": 33,
-      "bytes": 1889,
-      "sha256": "77191cf315e337b05d59add688f0185976949f7fcf6eb02ded65a1372eda94b0",
+      "lines": 45,
+      "bytes": 2343,
+      "sha256": "b963bfb0ea79ee590ef3fb58e836d494d3b3207b32b998459d5da08a7cf84284",
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
         "wiki/首批并行接口约定.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md"
       ]
     },
     {
@@ -1524,13 +1584,14 @@
     {
       "path": "packages/infrastructure/probes/migration-lineage.probe.ts",
       "type": "ts",
-      "lines": 79,
-      "bytes": 2823,
-      "sha256": "ae5cb2ec16fa84611362dc1e4f59b129124a27680526898fb839c8f8d85cab7b",
+      "lines": 119,
+      "bytes": 4944,
+      "sha256": "7c679a3ee3ae1c473abfd1761016224c5e8b344445ca53787b22decbfab9c04f",
       "role": "B迁移协调已知红色合成诊断：未知6和账本/schema漂移，不是真实C谱系",
       "pages": [
         "wiki/B01迁移协调回复与接口冻结.md",
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/B谱系账本适配与P1回执交接.md"
       ]
     },
     {
@@ -1594,6 +1655,18 @@
       ]
     },
     {
+      "path": "packages/infrastructure/src/check-lineage-integration.test.ts",
+      "type": "ts",
+      "lines": 170,
+      "bytes": 5878,
+      "sha256": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+      "role": "B historical report and multi-source consumption upgrade/reopen evidence",
+      "pages": [
+        "wiki/B谱系账本适配与P1回执交接.md",
+        "wiki/B规则检查实现.md"
+      ]
+    },
+    {
       "path": "packages/infrastructure/src/check-report-schema.ts",
       "type": "ts",
       "lines": 29,
@@ -1610,7 +1683,7 @@
       "type": "ts",
       "lines": 487,
       "bytes": 17475,
-      "sha256": "8de9214df2b55c173c88a7dddd19f2abbc83dd3c502e6faaad023c0cde4187f4",
+      "sha256": "7534a06469f11bec95df8228010a39a690648fb446ba23c51a841629af2eedc3",
       "role": "B01 真实 SQLite 历史/故障原子性/不可变性与版本隔离回归",
       "pages": [
         "wiki/B规则检查实现.md"
@@ -1662,7 +1735,8 @@
       "pages": [
         "wiki/M1接口与持久化.md",
         "wiki/A01c检索引用实现.md",
-        "wiki/A01-追加迁移设计.md"
+        "wiki/A01-追加迁移设计.md",
+        "wiki/B谱系账本适配与P1回执交接.md"
       ]
     },
     {
@@ -1691,33 +1765,35 @@
     {
       "path": "packages/infrastructure/src/migration-lineage.ts",
       "type": "ts",
-      "lines": 293,
-      "bytes": 9656,
-      "sha256": "4b6a3311c832c0b8582447cc788aeec0051a9fed9dd30501e970dd30945d83e0",
+      "lines": 291,
+      "bytes": 9668,
+      "sha256": "73228d11875493410dc725861eaebdf5efb6822f2bf0b627b8ddaa923236b983",
       "role": "迁移谱系识别与拒绝边界（纯函数，只读）",
       "pages": [
         "wiki/decisions/0029-迁移谱系统一与拒绝边界.md",
-        "wiki/A01-迁移谱系支持与拒绝矩阵.md"
+        "wiki/A01-迁移谱系支持与拒绝矩阵.md",
+        "wiki/B谱系账本适配与P1回执交接.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/migrations.test.ts",
       "type": "ts",
-      "lines": 97,
-      "bytes": 3425,
-      "sha256": "b33acbd176f9216d2174256ec2db463fed83360fac3c6fdb37c9522621a6f6d6",
+      "lines": 121,
+      "bytes": 4547,
+      "sha256": "a506a99d77e77dc5deb8171fa3a8ec013fce2b24b6a059d0580f27dd562ced77",
       "role": "稀疏迁移账本、迟交5、历史库升级、SQL指纹与原子回滚",
       "pages": [
         "wiki/M1接口与持久化.md",
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/B谱系账本适配与P1回执交接.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/migrations.ts",
       "type": "ts",
-      "lines": 394,
-      "bytes": 18115,
-      "sha256": "b6b7b271dfcd4aef6dda8bd9064c02a3bbc9c5244a8427b4d1cf752cca5135a8",
+      "lines": 402,
+      "bytes": 18159,
+      "sha256": "64a9b35a925cf73d9372f0868587252a1439854abea330fbc8f30b19143b38b9",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
@@ -1725,7 +1801,8 @@
         "wiki/decisions/0029-迁移谱系统一与拒绝边界.md",
         "wiki/A01-迁移谱系支持与拒绝矩阵.md",
         "wiki/A01-追加迁移设计.md",
-        "wiki/A01-迁移验证计划.md"
+        "wiki/A01-迁移验证计划.md",
+        "wiki/B谱系账本适配与P1回执交接.md"
       ]
     },
     {
@@ -1767,7 +1844,7 @@
       "type": "ts",
       "lines": 110,
       "bytes": 4364,
-      "sha256": "ccb79b7d2beffed23bcc236f44792b6b923ad037352c74a8271e95f9894db453",
+      "sha256": "daaee891ec6832ead8093b06fee0fb2000ac9e36b2ea7b1675c2525d926958d7",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md",
@@ -1849,12 +1926,13 @@
       "path": "packages/infrastructure/src/wiki-test.fixture.ts",
       "type": "ts",
       "lines": 250,
-      "bytes": 7294,
-      "sha256": "4d48890a63ae23e426711f8d93cabba1d691ce8e162c3caac6e56f793d793dce",
+      "bytes": 7342,
+      "sha256": "415616706aaa51487477595c148ee6e1f4eb348861c59eb5ea3da994126d5e8e",
       "role": "明确合成A+B来源/候选和测试发布投影，非产品审核入口",
       "pages": [
         "wiki/A01c检索引用实现.md",
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/B谱系账本适配与P1回执交接.md"
       ]
     },
     {
@@ -2041,13 +2119,14 @@
     {
       "path": "tests/e2e/workspace.spec.ts",
       "type": "ts",
-      "lines": 311,
-      "bytes": 13133,
-      "sha256": "38d3c2c1b435e818964d83351ee052867b11c013afa293783419662f349398c0",
+      "lines": 337,
+      "bytes": 14180,
+      "sha256": "67278fd050f1494e44052ecf681f7f4bf399bbffe05fffa0afd5b0f7d3ff6819",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md"
       ]
     },
     {

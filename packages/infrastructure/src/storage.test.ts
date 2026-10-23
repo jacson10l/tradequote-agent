@@ -6,7 +6,7 @@ import type { CreateWorkspace, RenameWorkspace } from "@tradequote/contracts";
 import Database from "better-sqlite3";
 import { afterEach, expect, it } from "vitest";
 import { FileArtifactStore, SqliteWorkspaceRepository } from "./index";
-import { migrate, MigrationLineageError, MIGRATION_STEPS } from "./migrations";
+import { MIGRATION_STEPS, MigrationLineageError, migrate } from "./migrations";
 
 const dirs: string[] = [];
 const temp = () => {

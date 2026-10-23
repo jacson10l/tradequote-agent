@@ -3,7 +3,11 @@ import { createRequire } from "node:module";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { _electron as electron, expect, test } from "@playwright/test";
-import { mockWikiCommands } from "../../packages/contracts/src/mock";
+import {
+  mockKnowledgeBuildCommands,
+  mockKnowledgeMaintenanceCommands,
+  mockWikiCommands,
+} from "../../packages/contracts/src/mock";
 
 const require = createRequire(resolve("apps/desktop/package.json"));
 test("development renderer runs with React refresh and the real desktop bridge", async () => {
@@ -97,7 +101,9 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
         "checkQuote",
         "createQuoteV1",
         "createWorkspace",
+        "executeKnowledgeBuild",
         "executeWiki",
+        "executeWikiMaintenance",
         "getAgentRun",
         "getKnowledgeRevision",
         "getQuoteChecks",
@@ -177,6 +183,26 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
       ok: false,
       error: { code: "VALIDATION_ERROR", retryable: false },
     });
+    const p1Results = await page.evaluate(
+      async ({ build, maintenance }) =>
+        Promise.all([
+          ...build.map((command) => window.tradequote.executeKnowledgeBuild(command)),
+          ...maintenance.map((command) => window.tradequote.executeWikiMaintenance(command)),
+        ]),
+      { build: mockKnowledgeBuildCommands, maintenance: mockKnowledgeMaintenanceCommands },
+    );
+    expect(p1Results).toHaveLength(15);
+    for (const result of p1Results)
+      expect(result).toMatchObject({
+        ok: false,
+        error: { code: "CAPABILITY_UNAVAILABLE", retryable: false },
+      });
+    const p1Invalid = await page.evaluate(
+      async (command) =>
+        window.tradequote.executeKnowledgeBuild(Object.assign({}, command, { origin: "human_ui" })),
+      mockKnowledgeBuildCommands[0]!,
+    );
+    expect(p1Invalid).toMatchObject({ ok: false, error: { code: "VALIDATION_ERROR" } });
     // Exercise the same public bridge from a second operation while the form is stale.
     const external = await page.evaluate(async () =>
       window.tradequote.renameWorkspace({

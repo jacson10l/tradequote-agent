@@ -143,7 +143,8 @@ export const CAPABILITIES: CapabilitySpec[] = [
 
 export type CapabilityId = `${CapabilityLineage}:${number}`;
 
-export const capabilityId = (cap: CapabilitySpec): CapabilityId => `${cap.lineage}:${cap.version}`;
+export const capabilityId = (cap: Pick<CapabilitySpec, "lineage" | "version">): CapabilityId =>
+  `${cap.lineage}:${cap.version}`;
 
 /** 每个能力切片的身份；用于账本唯一键，区分 C6 与 A6、C7 与 B7。 */
 export type CapabilityStatus = "absent" | "present" | "partial";
@@ -221,10 +222,7 @@ function classifyPresent(present: CapabilityId[]): MigrationLineage {
     ["c-run:5,c-run:6,common:1,common:2,common:3,common:4", "c-v6"],
     ["c-run:5,c-run:6,c-run:7,common:1,common:2,common:3,common:4", "c-v7"],
     ["common:1,common:2,common:3,common:4,knowledge-wiki:6", "a-v6"],
-    [
-      "check-report:7,common:1,common:2,common:3,common:4,knowledge-wiki:6",
-      "b-v7",
-    ],
+    ["check-report:7,common:1,common:2,common:3,common:4,knowledge-wiki:6", "b-v7"],
     [
       "c-run:5,c-run:6,c-run:7,check-report:7,common:1,common:2,common:3,common:4,knowledge-wiki:6",
       "unified",
