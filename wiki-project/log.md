@@ -319,3 +319,7 @@ A 在 codex/a01b-knowledge-store 合并 codex/m1-foundation（654fecc，含 PR#7
 ## 2026-10-23 A01c 检索引用
 
 A 在 codex/a01c-knowledge-search（从 codex/a01b-knowledge-store 4d3b213 分出，已含 B00a P0 654fecc）实现 A01c 检索引用切片：新增 SqliteWikiStore 与 createWikiService，覆盖 B00a P0 的 source/wiki 暂存、search/resolveCitation/registerConsumption/getConsumption；review/publish/withdraw 依赖 P1 lint 回执返回 CAPABILITY_UNAVAILABLE。新增迁移 6（knowledge_source/wiki/lifecycle/consumption 四表，迁移 5 保留给 C run），SqliteWorkspaceRepository 增 executeWiki 并导出 SqliteWikiStore/createWikiService。测试 wiki-store.test.ts 覆盖 A-W06-1/2、A-W07-1/2、A-W08 共 5 项；检索不回退旧版本、分页游标固定、多来源引用闭环、消费事务复核与幂等、来源/知识暂存幂等与来源门禁。Wiki 同步新增 [[A01c检索引用实现]]，更新任务页 A01 改动/验证/未完成、覆盖映射、导航与 log。本机未安装 node_modules（Node v24.14.1 与仓库 engines 22.22.0 不一致），typecheck 与测试未复跑，仅静态审查；generate/check/lint/sync 门禁以实际运行为准，未推送。
+
+## 2026-10-23 A 迁移谱系统一与拒绝边界
+
+A 在 codex/a01-migration-lineage（基于 dd42b05）主导三方迁移谱系收敛：新增 `migration-lineage.ts` 纯函数识别（schema 为准、user_version 仅交叉核对），重写 `migrations.ts` 为能力切片追加 + `migration_registry(lineage,version,sql_hash,applied_at)` 账本，`index.ts` 构造器前接只读预检 `preflightMigration`。统一目标九能力、user_version=8；拒绝只在只读预检抛 `MIGRATION_LINEAGE_REJECTED:<lineage>`，不进入读写真开、不写 -wal/-shm。修复 D1/D2/D3/D4 与「未知 v6 被误接受」「缺不可变触发器仍被接受」。三个旧迁移测试改走 `seedTo`/`migrate` 断言 user_version=8。Wiki 新增 [[0029-迁移谱系统一与拒绝边界]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-追加迁移设计]]、[[A01-迁移验证计划]]，更新任务/导航/覆盖/工作流与本 log。纯 Node 探针实际运行通过（指纹全匹配、16 分类用例全过、10 追加用例全过），证据 raw/a01-migration-lineage-probe.json。本机无 node_modules，typecheck 与 vitest 未复跑；B 接口/报告/消费适配、C 独立组合验证与 macOS 全量验收待完成，未推送。

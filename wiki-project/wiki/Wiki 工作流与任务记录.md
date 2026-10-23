@@ -126,3 +126,7 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 ## A01c 检索引用覆盖增量
 
 本轮新增 domain/wiki.ts、infrastructure/wiki-store.ts 与 wiki-store.test.ts，逐文件映射至 [[A01c检索引用实现]]；domain/infrastructure 的 index.ts 与 migrations.ts 追加同一知识页，说明 executeWiki 接线与迁移 6。测试同时映射 [[M1验证与协作]]。没有新增业务 IPC，也没有改变维护工具算法；配置变更只登记职责。导航新增 A01c 知识页，任务 [[A01-知识发布与来源查询]] 记录 A01c 改动/验证/未完成，随后生成清单并运行只读 check/lint 与 4d3b213 基线 sync。
+
+## 迁移谱系识别探针
+
+新增 `scripts/a01-migration-lineage-probe.mjs`（纯 Node，仅 `node:sqlite` + 导入真实 `migration-lineage.ts`）作为一次性质证脚本：内联九段迁移 SQL 与 C/B 固定指纹，构造 16 个分类用例与 10 个追加用例，输出 `raw/a01-migration-lineage-probe.json`。该脚本不属于标准维护工具链，不进入 `build-code-index.mjs` 的 toolchain 指纹；但仍受 lint-wiki 的 scripts 目录敏感内容/行尾空白检查。业务代码新增 `migration-lineage.ts` 及 `migrations.ts` 谱系重写按 P0 登记覆盖并映射到 [[0029-迁移谱系统一与拒绝边界]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-追加迁移设计]]、[[A01-迁移验证计划]]，见对应任务与 log。

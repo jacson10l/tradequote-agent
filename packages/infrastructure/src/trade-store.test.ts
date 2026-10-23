@@ -14,7 +14,7 @@ import Database from "better-sqlite3";
 import { afterEach, expect, it } from "vitest";
 import { parseCatalogCsv } from "./catalog-csv";
 import { SqliteWorkspaceRepository } from "./index";
-import { migrate, migrations } from "./migrations";
+import { seedTo } from "./migrations";
 
 const dirs: string[] = [];
 afterEach(() => {
@@ -244,7 +244,7 @@ it("migrates an existing workspace without rewriting its data", () => {
   dirs.push(dir);
   const file = join(dir, "workspace.sqlite");
   const db = new Database(file);
-  migrate(db, migrations.slice(0, 1));
+  seedTo(db, { lineage: "common", version: 1 });
   const id = randomUUID();
   db.prepare("INSERT INTO workspace VALUES (1,?,?,1,?)").run(
     id,
