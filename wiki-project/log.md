@@ -645,3 +645,12 @@ GitHub连接器404后定向Git取得B对象，未触碰共同/原交接分支。
 raw/c-a-lineage-intake.json记录实际命令/完整输出/来源hash/环境，native-validation与native-initial-validation记录完整before/after/脚本。结论changes_required：先A修正门禁并补作者验证，B交报告/消费适配与P1 lint回执，C再做完整迁移矩阵→桌面→macOS全套；人工发布/业务语义/实际非作者分别留证。不推送、合入、代签、自动发送或真实模型复测。全29、A全量vitest、Electron UI/新组合全套未运行，技术Agent与原生Node验证不代实际人员或桌面通过。C旧源码/raw/log保留，记录任务与实施/人工任务分开；Wiki检查和固定1f6fbbb/654fecc/be53b98同步另存raw/c-a-lineage-wiki-validation.json，不冒充产品通过。
 
 本轮取证记录门禁收口：225源码/228非Wiki、194旧raw、109073字节log前缀保持，200页check/lint与三固定基线sync/diff通过。只关闭接收与前置核验记录任务；实际A类型/原生失败不改，实施/人员任务active。绑定通过的文档验证后再只读检查；不推送。
+
+
+## 2026-10-24 C复核A9225526与M13有效约束
+
+从6f9287b新建独立codex/c-a-lineage-revalidation，实际fetch/ls-remote取得92255261e818e6fde0687deee5544755cf9af469；[[A迁移谱系9225526复核与M13约束验证]]：固定A92255261e818e6fde0687deee5544755cf9af469已独立复核：typecheck退出0、原12项12/12（含N07～N11）、新增账本Electron ABI测试3/3，九SQL指纹一致；A原探针9指纹/19分类/10追加重跑一致。M13四个有效约束子样本均失败：WHEN 0使含RAISE触发器失效、WHERE 0使UNIQUE部分索引失效、缺外键/CHECK仍接受升8，且实际写删证明保护丢失；未损坏控制组全部真实拒绝。infrastructure macOS原生44/45，A-W08 retryable分歧仍失败，原Windows symlink EPERM未在本轮复现。固定archive安装后非Wiki源码逐字节匹配Git，生产九段SQL指纹保持；实际命令/完整stdout/stderr/hash见raw/c-a-lineage-recheck-intake.json。原12项完整before/after及只读N10文件hash/DELETE保持见native.json，M13四子样本与有效schema控制组/实际行为/脚本见m13.json；均为明确合成SQL库，无用户库/模型/凭据。
+
+原类型/N07～N11仅在9225526所列样本范围可关闭，旧6f9287b失败原样保留；schema一类未满足完整M13，不批准整体迁移/接线。A补有效定义/行为判据与回归，A/B确认A-W08公共语义及B适配/P1，再由C继续完整矩阵→桌面→macOS全套；人工发布/业务/实际非作者仍待。不推送/合入/代签/发送/真实模型复测。A报告Windows43/45与C实际macOS44/45分别留证，不能反填原平台通过。C生产/历史SQL、198旧raw与log前缀保持，Wiki生成/check/lint/固定6f9287b、654fecc、be53b98同步及diff实际记录于raw/c-a-lineage-recheck-wiki-validation.json；文档收口不替代M13/infrastructure产品门禁或人工签认。
+
+记录门禁收口：225源码/228非Wiki、198旧raw、111322字节log前缀保持，生成/202页check/lint与三固定基线sync/diff通过；只关闭本轮复核记录任务，不关闭M13/实施/人员验收。原12已在9225526通过，旧失败与新M13/A-W08失败完整保留；绑定文档通过记录后再只读检查，不推送。

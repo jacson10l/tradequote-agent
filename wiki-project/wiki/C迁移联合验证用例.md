@@ -2,7 +2,7 @@
 title: C迁移联合验证用例
 type: process
 status: draft
-updated: 2026-10-23
+updated: 2026-10-24
 sources:
   - packages/infrastructure/src/agent-run-store.test.ts:398
   - packages/infrastructure/src/agent-run-recovery.test.ts:82
@@ -17,7 +17,7 @@ sources:
 
 # C迁移联合验证用例
 
-这是待执行规格，全部M/F/J用例状态为not_run，本轮未创建或执行迁移测试实现。A须先逐项定允许升级/已知适配版本保留/安全拒绝及目标schema，B/C核对依赖；没有最终目标提交前不填兼容通过。执行任务[[C集成-迁移方案执行与联合验收]]继续active；准备任务[[C集成-迁移后执行准备]]的文档验证不是这些用例的结果。
+这是1f6fbbb准备的执行规格，当时全部M/F/J为not_run。2026-10-24已对M13执行四个有效约束子样本且失败，原29项尚未整套完成；其他组不因原N复测通过而追填整体通过。A须先逐项定允许升级/已知适配版本保留/安全拒绝及目标schema，B/C核对依赖；没有最终目标提交前不填兼容通过。执行任务[[C集成-迁移方案执行与联合验收]]继续active；准备任务[[C集成-迁移后执行准备]]的文档验证不是这些用例的结果。
 
 固定输入：C源码45fa03d57d6fc405c2438c3b187f87838355a88b、协调b3bc98c2c4149a21ec70978c0dd73eea67e561c6，B回复f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef/接口e80d1a25c5ace628df6952a43d98b84d75e418e4；原B迁移/报告DDL仍来自6c76fb991f3135d6a48362c1b242e46af6641817，A01c原输入dd42b055efd409fa3c332c6cb1997c7a7638ca62。A/B最终实现和组合目标SHA尚待提供，不将它们预填为上述旧提交。
 
@@ -45,7 +45,7 @@ sources:
 | M10 | C6已被旧B误引导为7，账本声称A6但缺知识四表 | 隔离并安全拒绝，另列A鉴别/恢复方案；不改hash/user_version伪修 | not_run；A决定恢复，C核拒绝；D3后态 |
 | M11 | 未知合成v6、部分混合C/B/A同号表 | 在旧账本bootstrap/任何业务写前拒绝，不建立假已执行记录 | not_run；A定判据，C执行；B额外红例1 |
 | M12 | 已有账本但错误SQL hash/原编号含义冲突/未知高版本 | 拒绝并保存原事实，错误公开安全，内部诊断可核验 | not_run；A规则，B/C入口 |
-| M13 | 持有效hash但缺表/列/索引/CHECK/外键/关键触发器的逐一损坏库 | 检测完整结构/约束；含缺quote_check_report_no_delete、agent_write_once/不可变步骤，不能凭hash接受 | not_run；A判据，B/C夹具；B额外红例2 |
+| M13 | 持有效hash但缺表/列/索引/CHECK/外键/关键触发器的逐一损坏库 | 检测完整结构/约束；含缺quote_check_report_no_delete、agent_write_once/不可变步骤，不能凭hash接受 | 部分执行失败：M13-X01～X04，其他变体待验；A判据，B/C夹具 |
 | M14 | 旧C run无agent.run.event.v1；另含已存在的完整日志 | 迁移不补假历史，启动才追加真实中断；原日志字节/ID/两类seq保持 | not_run；A保留规则，C执行 |
 
 M04～M08除空schema，还要有旧业务行。七种run状态按各谱系当时合法schema生成；C5/6不强填C7的optional步骤/授权；多来源新字段不回填到旧报告。每个明确支持的M项都重复执行、关闭重开，并派生相关F用例。原D1～D6仅六个空schema诊断，不能替代本表数据测试。
@@ -108,3 +108,8 @@ node wiki-project/scripts/lint-wiki.mjs .
 ## A固定方案后的首轮核验（2026-10-23）
 
 [[A迁移谱系固定提交接收与前置验证]]：A实现9cdd13a3755b4bd1d0a4ac300785021e47ed4a88、回复a58e97097994491a9e49c085ae9369ef9bd08019及远端头b9a0af76217e57e0ab22ba927de1a1a287b1145f已取得；九SQL指纹一致、原A探针重跑一致。实际A typecheck失败11项（7新增迁移、4未变更A01c），实际生产migrate/repository原生12项7通过5失败。缺必要列、同名无效触发器/非唯一索引及旧账本/schema矛盾仍接受；坏新账本未在只读预检拒绝，真开WAL后才拒绝并改文件。结论changes_required：先A修正门禁并补作者验证，B交报告/消费适配与P1 lint回执，C再做完整迁移矩阵→桌面→macOS全套；人工发布/业务语义/实际非作者分别留证。不推送、合入、代签、自动发送或真实模型复测。本页仍draft/待完整执行，不追填29项或12接线项通过。
+
+
+## 9225526原例通过与M13部分失败（2026-10-24）
+
+[[A迁移谱系9225526复核与M13约束验证]]：固定A92255261e818e6fde0687deee5544755cf9af469已独立复核：typecheck退出0、原12项12/12（含N07～N11）、新增账本Electron ABI测试3/3，九SQL指纹一致；A原探针9指纹/19分类/10追加重跑一致。M13四个有效约束子样本均失败：WHEN 0使含RAISE触发器失效、WHERE 0使UNIQUE部分索引失效、缺外键/CHECK仍接受升8，且实际写删证明保护丢失；未损坏控制组全部真实拒绝。infrastructure macOS原生44/45，A-W08 retryable分歧仍失败，原Windows symlink EPERM未在本轮复现。原类型/N07～N11仅在9225526所列样本范围可关闭，旧6f9287b失败原样保留；schema一类未满足完整M13，不批准整体迁移/接线。A补有效定义/行为判据与回归，A/B确认A-W08公共语义及B适配/P1，再由C继续完整矩阵→桌面→macOS全套；人工发布/业务/实际非作者仍待。不推送/合入/代签/发送/真实模型复测。M13-X01～X04是本页既有有效约束要求的子样本，不是增加业务功能；对应完整schema/行为及控制证据见raw/c-a-lineage-recheck-m13.json。

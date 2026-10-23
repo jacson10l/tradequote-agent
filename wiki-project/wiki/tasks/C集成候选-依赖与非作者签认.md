@@ -2,7 +2,7 @@
 title: C集成候选-依赖与非作者签认
 type: task
 status: active
-updated: 2026-10-23
+updated: 2026-10-24
 sources:
   - wiki-repo:raw/c-integration-dependency-audit.json:1
   - wiki-repo:raw/c-integration-migration-probe.json:1
@@ -92,3 +92,8 @@ B固定f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef（接口父e80d1a25c5ace628df695
 ## A技术方案已收到，前置仍需修订（2026-10-23）
 
 [[A迁移谱系固定提交接收与前置验证]]：A实现9cdd13a3755b4bd1d0a4ac300785021e47ed4a88、回复a58e97097994491a9e49c085ae9369ef9bd08019及远端头b9a0af76217e57e0ab22ba927de1a1a287b1145f已取得；九SQL指纹一致、原A探针重跑一致。实际A typecheck失败11项（7新增迁移、4未变更A01c），实际生产migrate/repository原生12项7通过5失败。缺必要列、同名无效触发器/非唯一索引及旧账本/schema矛盾仍接受；坏新账本未在只读预检拒绝，真开WAL后才拒绝并改文件。A-3/AB-1已有A/B技术输入，仍待修正/适配/完整验证；A-1/A-2/B-1/B-2/R-1/H-1及C04人工项不关闭。A回复的本人签认时间另行记录，本轮未代填。结论changes_required：先A修正门禁并补作者验证，B交报告/消费适配与P1 lint回执，C再做完整迁移矩阵→桌面→macOS全套；人工发布/业务语义/实际非作者分别留证。不推送、合入、代签、自动发送或真实模型复测。
+
+
+## A9225526原例通过，M13部分失败（2026-10-24）
+
+[[A迁移谱系9225526复核与M13约束验证]]：固定A92255261e818e6fde0687deee5544755cf9af469已独立复核：typecheck退出0、原12项12/12（含N07～N11）、新增账本Electron ABI测试3/3，九SQL指纹一致；A原探针9指纹/19分类/10追加重跑一致。M13四个有效约束子样本均失败：WHEN 0使含RAISE触发器失效、WHERE 0使UNIQUE部分索引失效、缺外键/CHECK仍接受升8，且实际写删证明保护丢失；未损坏控制组全部真实拒绝。infrastructure macOS原生44/45，A-W08 retryable分歧仍失败，原Windows symlink EPERM未在本轮复现。原类型/N07～N11仅在9225526所列样本范围可关闭，旧6f9287b失败原样保留；schema一类未满足完整M13，不批准整体迁移/接线。A补有效定义/行为判据与回归，A/B确认A-W08公共语义及B适配/P1，再由C继续完整矩阵→桌面→macOS全套；人工发布/业务/实际非作者仍待。不推送/合入/代签/发送/真实模型复测。A-3/AB-1及A-1/A-2/B-1/B-2/R-1/H-1、C04人工项均未自动签认。

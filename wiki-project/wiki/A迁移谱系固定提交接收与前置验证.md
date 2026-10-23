@@ -2,7 +2,7 @@
 title: A迁移谱系固定提交接收与前置验证
 type: process
 status: observed
-updated: 2026-10-23
+updated: 2026-10-24
 sources:
   - wiki-repo:raw/c-a-lineage-intake.json:1
   - wiki-repo:raw/c-a-lineage-native-validation.json:1
@@ -11,6 +11,8 @@ sources:
 ---
 
 # A迁移谱系固定提交接收与前置验证
+
+2026-10-24后续状态见[[A迁移谱系9225526复核与M13约束验证]]：A9225526已修正原类型/N07～N11样本，原12全过；M13有效约束四个子样本仍失败。下文保留本页原A9cdd13a/b9a0af7与C6f9287b的历史核验，不改写旧失败或扩为新版本结论。
 
 已收到A方案与固定实现，进入过首轮独立前置核验，结论为changes_required；尚不能放行完整组合矩阵或桌面接线。A原探针通过保留，实际生产入口新增核验失败也保留，不把两者合并成“迁移通过”。本轮只在独立codex/c-a-lineage-validation工作树读取固定A快照、执行合成核验并保存Wiki，C生产/历史迁移、A作者分支均未修改。
 
@@ -72,3 +74,8 @@ A选择schema能力识别、migration_registry(lineage,version,sql_hash,applied_
 A提交修正固定范围并补作者侧验证/Wiki→B确认谱系账本与报告/消费适配，P1 lint回执可按依赖并行推进→C复跑上述前置失败、完整M/F迁移矩阵，再接桌面D/J并做macOS完整组合。A01d/A01e人工review/publish仍依赖B P1，由A实现、实际人员操作；业务验收人语义与R-1实际非作者整体接收另留证。
 
 [[C集成-迁移方案执行与联合验收]]继续active；29项用例只增加本轮N样本关联，不追填整项通过。未做完整A vitest、实际桌面或新组合全套，不以旧C294/9Electron或本轮原生Electron Node模式当桌面UI通过。[[C集成候选-依赖与非作者签认]]、[[C04-收口签认]]及A-3/AB-1等人工项不关闭；不推送、合入、创建PR、代签、发送消息或真实模型复测。本轮记录任务[[C集成-A谱系方案接收与前置验证]]仅接收与技术核验材料闭环。
+
+
+## 后续修正复核入口（2026-10-24）
+
+[[A迁移谱系9225526复核与M13约束验证]]：固定A92255261e818e6fde0687deee5544755cf9af469已独立复核：typecheck退出0、原12项12/12（含N07～N11）、新增账本Electron ABI测试3/3，九SQL指纹一致；A原探针9指纹/19分类/10追加重跑一致。M13四个有效约束子样本均失败：WHEN 0使含RAISE触发器失效、WHERE 0使UNIQUE部分索引失效、缺外键/CHECK仍接受升8，且实际写删证明保护丢失；未损坏控制组全部真实拒绝。infrastructure macOS原生44/45，A-W08 retryable分歧仍失败，原Windows symlink EPERM未在本轮复现。原类型/N07～N11仅在9225526所列样本范围可关闭，旧6f9287b失败原样保留；schema一类未满足完整M13，不批准整体迁移/接线。A补有效定义/行为判据与回归，A/B确认A-W08公共语义及B适配/P1，再由C继续完整矩阵→桌面→macOS全套；人工发布/业务/实际非作者仍待。不推送/合入/代签/发送/真实模型复测。
