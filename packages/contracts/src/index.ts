@@ -5,6 +5,7 @@ export * from "./agent";
 import { z } from "zod";
 import type { CheckClient } from "./checks";
 import type { KnowledgeClient } from "./knowledge";
+import type { WikiClient } from "./knowledge-wiki";
 import type { ModelEvaluationClient } from "./model-evaluation";
 import { IssueSchema } from "./protocol";
 import { AgentReadCommandSchema, AgentReadResultSchema, type ReadAgentClient } from "./read-tools";
@@ -12,12 +13,14 @@ import { type RunClient, RunCommandSchema, RunListResultSchema, RunResultSchema 
 
 export * from "./checks";
 export * from "./knowledge";
+export * from "./knowledge-wiki";
 export * from "./model-evaluation";
 export { unavailableFirstBatchClient } from "./pending-client";
 export { FailureSchema, IssueSchema, PublicErrorSchema } from "./protocol";
 export * from "./read-tools";
 export * from "./run-events";
 export * from "./runs";
+export * from "./wiki-integrity";
 
 import { ErrorCodeSchema } from "./errors";
 import { type RunEventsClient, RunEventsCommandSchema, RunEventsResultSchema } from "./run-events";
@@ -91,6 +94,7 @@ export interface DesktopClient
   extends TradeClient,
     AgentClient,
     KnowledgeClient,
+    WikiClient,
     CheckClient,
     RunClient,
     RunEventsClient,

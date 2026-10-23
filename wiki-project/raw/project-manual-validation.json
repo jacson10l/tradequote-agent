@@ -1,0 +1,96 @@
+{
+  "status": "passed",
+  "recordedAt": "2026-10-21T10:57:23.621525+00:00",
+  "base": "e0f933657c2438642b006fd1a5549fe7dc683ccd",
+  "branch": "codex/project-product-manual",
+  "environment": {
+    "os": "Darwin",
+    "arch": "arm64",
+    "node": "v22.22.0",
+    "pnpm": "10.13.1"
+  },
+  "scope": "Documentation only: product manual, navigation, current wording and generated inventory. No product implementation or runtime validation.",
+  "checks": [
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs .",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"generate\",\n  \"files\": 149,\n  \"lines\": 40562,\n  \"generated\": 5,\n  \"excluded\": 5\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 149,\n  \"lines\": 40562,\n  \"generated\": 5,\n  \"excluded\": 5\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exitCode": 0,
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 95,\n  \"semantic\": 79,\n  \"reachable\": 95\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base e0f933657c2438642b006fd1a5549fe7dc683ccd",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"e0f933657c2438642b006fd1a5549fe7dc683ccd\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "phase": "repeat check before successful task and log update",
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 149,\n  \"lines\": 40562,\n  \"generated\": 5,\n  \"excluded\": 5\n}\n"
+    },
+    {
+      "phase": "repeat check before successful task and log update",
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exitCode": 0,
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 95,\n  \"semantic\": 79,\n  \"reachable\": 95\n}\n"
+    },
+    {
+      "phase": "repeat check before successful task and log update",
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base e0f933657c2438642b006fd1a5549fe7dc683ccd",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"e0f933657c2438642b006fd1a5549fe7dc683ccd\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n"
+    },
+    {
+      "phase": "repeat check before successful task and log update",
+      "command": "git diff --check",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "phase": "final after task and log update",
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 149,\n  \"lines\": 40562,\n  \"generated\": 5,\n  \"excluded\": 5\n}\n"
+    },
+    {
+      "phase": "final after task and log update",
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exitCode": 0,
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 95,\n  \"semantic\": 79,\n  \"reachable\": 95\n}\n"
+    },
+    {
+      "phase": "final after task and log update",
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base e0f933657c2438642b006fd1a5549fe7dc683ccd",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"e0f933657c2438642b006fd1a5549fe7dc683ccd\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n"
+    },
+    {
+      "phase": "final after task and log update",
+      "command": "git diff --check",
+      "exitCode": 0,
+      "output": ""
+    }
+  ],
+  "notRun": [
+    "Application typecheck/unit/Electron/build: no application code changes",
+    "Wiki tool regressions: no tool or coverage mapping changes",
+    "Real DeepSeek",
+    "Windows and final installation",
+    "Human business and language acceptance"
+  ],
+  "finalCheckedAt": "2026-10-21T10:58:32.051873+00:00"
+}

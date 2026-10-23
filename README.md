@@ -2,6 +2,10 @@
 
 外贸询报价协同桌面 Agent。以企业导入的商品、价格和知识资料为依据，辅助完成跨品类询盘理解、报价、需求变更、复核及多语言对外输出。
 
+**可操作演示：[业务全流程 HTML](experiments/product-walkthrough/index.html)**，用浏览器打开即可体验假数据下的资料、报价、修订、确认、审批和输出；[操作指引](experiments/product-walkthrough/README.md)说明模拟边界。
+
+**新成员先读：[项目说明书](wiki-project/wiki/项目说明书.md)**。从最终产品、业务角色、主要功能和两条业务流程入手，再看完整案例、当前实现边界、源码地图与三人开发分工。
+
 **正式 Electron＋React 工作台已接通手工报价 V1：演示场景、CSV 预览确认、价目表核价、草稿保存与重开；并新增正式 DeepSeek 设置、询盘理解、两轮 V2/V3 与差异；完整报价 MVP 尚未完成。** 首版单机保存数据，优先接入 DeepSeek；最终安装和双平台验收按用户决定暂缓。UI 使用 `getdesign` 的 **mistral.ai** 参考，并适配为浅色单据工作台。
 
 最新结论：[M0 平台验证记录](wiki-project/wiki/M0平台验证记录.md)。Solivio 不整体 Fork，CSV/金额采用 csv-parse 与 decimal.js；Harness 在普通 Node 的历史实验通过，但在 Electron 44.9.2 初始化失败，当前默认改选最小执行器。
@@ -130,3 +134,7 @@ macOS 开发启动使用本地 TradeQuote.app，Dock 名称与图标一致；重
 ## 在正式设置中显式评估
 
 进入“模型设置”下方评估面板，默认合成fixture，点击后在独立临时工作区验证，不写当前业务报价。真实DeepSeek须先保存Key/模型，切换真实模式并勾选可能计费确认再点击启动；最多372次请求/10分钟，token与费用未知。可取消、重开只读历史、不自动重跑，报告通过本机保存对话框下载JSON/Markdown。清除设置不代替取消在途请求。实际供应商结果只在用户启动后成立；已记录Flash31业务真实通过，自动化继续明确fixture，未签认项保留。详见[正式入口](wiki-project/wiki/C04正式设置评估入口.md)与[任务验证](wiki-project/wiki/tasks/C04-正式设置与显式真实评估.md)。
+
+## C本地集成候选
+
+[集成候选与依赖收口](wiki-project/wiki/C集成候选与依赖收口.md)在独立codex/c-integration-candidate组合C03/9e8695b与共同头654fecc；[评审说明](wiki-project/wiki/C集成候选评审说明.md)给出完整来源范围和组合证据。A01c迁移6不兼容、P1未合入均排除，A/B/非作者及C04人工签认仍待；没有推送、共同分支合入或真实复测。

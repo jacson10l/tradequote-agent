@@ -309,3 +309,36 @@ it("validates event scope, rejects credential injection, and releases notificati
     vi.unstubAllGlobals();
   }
 });
+
+describe("B00a strict Wiki capability gate", () => {
+  it("rejects all 12 valid Wiki methods locally in formal preload and readonly mock", async () => {
+    vi.resetModules();
+    vi.clearAllMocks();
+    const { mockWikiCommands } = await import("@tradequote/contracts/mock");
+    await import("./index");
+    const desktop: DesktopClient = electron.exposeInMainWorld.mock.calls[0]?.[1];
+    for (const client of [readonlyMockClient, desktop]) {
+      for (const command of mockWikiCommands) {
+        expect(await client.executeWiki(command), command.method).toMatchObject({
+          ok: false,
+          error: { code: "CAPABILITY_UNAVAILABLE", retryable: false },
+        });
+        expect(await client.executeWiki(Object.assign({}, command, { payload: {} }))).toMatchObject(
+          {
+            ok: false,
+            error: { code: "VALIDATION_ERROR", retryable: false },
+          },
+        );
+        expect(
+          await client.executeWiki(
+            Object.assign({}, command, { workspaceId: mockAgentRun.runId, origin: "human_ui" }),
+          ),
+        ).toMatchObject({ ok: false, error: { code: "VALIDATION_ERROR" } });
+      }
+      expect(
+        await client.executeWiki(Object.assign({}, mockWikiCommands[0], { method: "wiki.fake" })),
+      ).toMatchObject({ ok: false, error: { code: "VALIDATION_ERROR" } });
+    }
+    expect(electron.invoke).not.toHaveBeenCalled();
+  });
+});

@@ -1,0 +1,204 @@
+{
+  "status": "passed",
+  "scope": "Synthetic in-memory compatibility diagnostic, not approval to integrate A01c or a claim of compatibility",
+  "cases": [
+    {
+      "direction": "A6_to_C7",
+      "outcome": "rejected",
+      "errorCode": "SQLITE_ERROR",
+      "before": {
+        "version": 6,
+        "tables": [
+          "agent_turn",
+          "catalog_batch",
+          "catalog_product",
+          "idempotency",
+          "job",
+          "knowledge_consumption",
+          "knowledge_lifecycle",
+          "knowledge_revision",
+          "knowledge_source",
+          "knowledge_wiki",
+          "outbox",
+          "quote_revision",
+          "quote_v1",
+          "scenario_revision",
+          "source",
+          "sqlite_sequence",
+          "workspace"
+        ]
+      },
+      "after": {
+        "version": 6,
+        "tables": [
+          "agent_turn",
+          "catalog_batch",
+          "catalog_product",
+          "idempotency",
+          "job",
+          "knowledge_consumption",
+          "knowledge_lifecycle",
+          "knowledge_revision",
+          "knowledge_source",
+          "knowledge_wiki",
+          "outbox",
+          "quote_revision",
+          "quote_v1",
+          "scenario_revision",
+          "source",
+          "sqlite_sequence",
+          "workspace"
+        ]
+      },
+      "expectationConfirmed": true
+    },
+    {
+      "direction": "C6_to_A6",
+      "outcome": "returned_success",
+      "errorCode": null,
+      "before": {
+        "version": 6,
+        "tables": [
+          "agent_run",
+          "agent_run_control",
+          "agent_turn",
+          "agent_write_call",
+          "catalog_batch",
+          "catalog_product",
+          "idempotency",
+          "job",
+          "knowledge_revision",
+          "outbox",
+          "quote_revision",
+          "quote_v1",
+          "scenario_revision",
+          "source",
+          "sqlite_sequence",
+          "workspace"
+        ]
+      },
+      "after": {
+        "version": 6,
+        "tables": [
+          "agent_run",
+          "agent_run_control",
+          "agent_turn",
+          "agent_write_call",
+          "catalog_batch",
+          "catalog_product",
+          "idempotency",
+          "job",
+          "knowledge_revision",
+          "outbox",
+          "quote_revision",
+          "quote_v1",
+          "scenario_revision",
+          "source",
+          "sqlite_sequence",
+          "workspace"
+        ]
+      },
+      "expectationConfirmed": true
+    },
+    {
+      "direction": "C7_to_A6",
+      "outcome": "rejected",
+      "errorCode": "DATABASE_NEWER_THAN_APPLICATION",
+      "before": {
+        "version": 7,
+        "tables": [
+          "agent_run",
+          "agent_run_control",
+          "agent_tool_step",
+          "agent_turn",
+          "agent_write_call",
+          "catalog_batch",
+          "catalog_product",
+          "idempotency",
+          "job",
+          "knowledge_revision",
+          "outbox",
+          "quote_revision",
+          "quote_v1",
+          "scenario_revision",
+          "source",
+          "sqlite_sequence",
+          "workspace"
+        ]
+      },
+      "after": {
+        "version": 7,
+        "tables": [
+          "agent_run",
+          "agent_run_control",
+          "agent_tool_step",
+          "agent_turn",
+          "agent_write_call",
+          "catalog_batch",
+          "catalog_product",
+          "idempotency",
+          "job",
+          "knowledge_revision",
+          "outbox",
+          "quote_revision",
+          "quote_v1",
+          "scenario_revision",
+          "source",
+          "sqlite_sequence",
+          "workspace"
+        ]
+      },
+      "expectationConfirmed": true
+    },
+    {
+      "direction": "C7_to_C7",
+      "outcome": "returned_success",
+      "errorCode": null,
+      "before": {
+        "version": 7,
+        "tables": [
+          "agent_run",
+          "agent_run_control",
+          "agent_tool_step",
+          "agent_turn",
+          "agent_write_call",
+          "catalog_batch",
+          "catalog_product",
+          "idempotency",
+          "job",
+          "knowledge_revision",
+          "outbox",
+          "quote_revision",
+          "quote_v1",
+          "scenario_revision",
+          "source",
+          "sqlite_sequence",
+          "workspace"
+        ]
+      },
+      "after": {
+        "version": 7,
+        "tables": [
+          "agent_run",
+          "agent_run_control",
+          "agent_tool_step",
+          "agent_turn",
+          "agent_write_call",
+          "catalog_batch",
+          "catalog_product",
+          "idempotency",
+          "job",
+          "knowledge_revision",
+          "outbox",
+          "quote_revision",
+          "quote_v1",
+          "scenario_revision",
+          "source",
+          "sqlite_sequence",
+          "workspace"
+        ]
+      },
+      "expectationConfirmed": true
+    }
+  ]
+}

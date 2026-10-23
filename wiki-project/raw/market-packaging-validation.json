@@ -1,0 +1,104 @@
+{
+  "status": "passed",
+  "recordedAt": "2026-10-21T12:18:52.738308+00:00",
+  "base": "e0f933657c2438642b006fd1a5549fe7dc683ccd",
+  "environment": {
+    "os": "Darwin",
+    "arch": "arm64",
+    "node": "v22.22.0"
+  },
+  "checks": [
+    {
+      "command": "node --test experiments/product-walkthrough/check.mjs",
+      "exitCode": 0,
+      "output": "TAP version 13\n# Subtest: standalone artifact has no remote executable assets or network calls\nok 1 - standalone artifact has no remote executable assets or network calls\n  ---\n  duration_ms: 6.951084\n  type: 'test'\n  ...\n# Subtest: quantity tiers, line rounding, and explicitly unknown fees\nok 2 - quantity tiers, line rounding, and explicitly unknown fees\n  ---\n  duration_ms: 77.47975\n  type: 'test'\n  ...\n# Subtest: missing prices, expired sources and MOQ stay unknown\nok 3 - missing prices, expired sources and MOQ stay unknown\n  ---\n  duration_ms: 6.302459\n  type: 'test'\n  ...\n# Subtest: cost margin differs from markup and fees add once\nok 4 - cost margin differs from markup and fees add once\n  ---\n  duration_ms: 9.460709\n  type: 'test'\n  ...\n# Subtest: new revisions preserve old facts and frozen market applicability\nok 5 - new revisions preserve old facts and frozen market applicability\n  ---\n  duration_ms: 8.529459\n  type: 'test'\n  ...\n# Subtest: withdrawn newest knowledge does not resurrect an older version\nok 6 - withdrawn newest knowledge does not resurrect an older version\n  ---\n  duration_ms: 4.131375\n  type: 'test'\n  ...\n# Subtest: approval is scoped to output; regeneration and revision do not inherit it\nok 7 - approval is scoped to output; regeneration and revision do not inherit it\n  ---\n  duration_ms: 5.453417\n  type: 'test'\n  ...\n# Subtest: an artifact with superseded source needs review even when rule coverage exists\nok 8 - an artifact with superseded source needs review even when rule coverage exists\n  ---\n  duration_ms: 29.313833\n  type: 'test'\n  ...\n# Subtest: known synthetic clauses have demo translations and unknown clauses stay explicit\nok 9 - known synthetic clauses have demo translations and unknown clauses stay explicit\n  ---\n  duration_ms: 13.704\n  type: 'test'\n  ...\n# Subtest: CSV preview catches headers, duplicate tiers and null price\nok 10 - CSV preview catches headers, duplicate tiers and null price\n  ---\n  duration_ms: 25.323583\n  type: 'test'\n  ...\n# Subtest: unsupported multi-part instructions do not apply a partial quantity update\nok 11 - unsupported multi-part instructions do not apply a partial quantity update\n  ---\n  duration_ms: 29.432583\n  type: 'test'\n  ...\n# Subtest: cancel before response saves nothing; explicit retry commits once\nok 12 - cancel before response saves nothing; explicit retry commits once\n  ---\n  duration_ms: 16.800958\n  type: 'test'\n  ...\n# Subtest: timeout leaves state intact and old-base retry cannot overwrite newer work\nok 13 - timeout leaves state intact and old-base retry cannot overwrite newer work\n  ---\n  duration_ms: 27.973166\n  type: 'test'\n  ...\n# Subtest: backup restores unfinished run as interrupted and rejects invalid identifiers\nok 14 - backup restores unfinished run as interrupted and rejects invalid identifiers\n  ---\n  duration_ms: 13.477708\n  type: 'test'\n  ...\n# Subtest: escaped user text cannot become executable output markup\nok 15 - escaped user text cannot become executable output markup\n  ---\n  duration_ms: 5.404625\n  type: 'test'\n  ...\n# Subtest: new quotes never invent packaging; only the explicit seed contains it\nok 16 - new quotes never invent packaging; only the explicit seed contains it\n  ---\n  duration_ms: 5.837042\n  type: 'test'\n  ...\n# Subtest: revisions and history restore inherit the quote scenario after defaults change\nok 17 - revisions and history restore inherit the quote scenario after defaults change\n  ---\n  duration_ms: 15.554167\n  type: 'test'\n  ...\n# Subtest: inquiry extraction ties fields to exact original spans and published product facts\nok 18 - inquiry extraction ties fields to exact original spans and published product facts\n  ---\n  duration_ms: 14.871541\n  type: 'test'\n  ...\n# Subtest: ambiguous product, invalid units, duplicate clauses and unsupported text require clarification\nok 19 - ambiguous product, invalid units, duplicate clauses and unsupported text require clarification\n  ---\n  duration_ms: 20.84675\n  type: 'test'\n  ...\n# Subtest: confirmed inquiry commits once and captures its original scenario during delay\nok 20 - confirmed inquiry commits once and captures its original scenario during delay\n  ---\n  duration_ms: 14.967917\n  type: 'test'\n  ...\n# Subtest: cancelled or stale inquiry evidence cannot create a quotation\nok 21 - cancelled or stale inquiry evidence cannot create a quotation\n  ---\n  duration_ms: 15.999375\n  type: 'test'\n  ...\n# Subtest: publishing different text in the same knowledge category never grants a passing check\nok 22 - publishing different text in the same knowledge category never grants a passing check\n  ---\n  duration_ms: 7.81975\n  type: 'test'\n  ...\n# Subtest: supported output scenes differ in structure without changing amounts or exposing cost\nok 23 - supported output scenes differ in structure without changing amounts or exposing cost\n  ---\n  duration_ms: 12.844417\n  type: 'test'\n  ...\n# Subtest: unsupported language produces no artifact and unknown platform cannot imply approval readiness\nok 24 - unsupported language produces no artifact and unknown platform cannot imply approval readiness\n  ---\n  duration_ms: 8.418208\n  type: 'test'\n  ...\n# Subtest: German display localizes decimals and unknown values without changing quote facts\nok 25 - German display localizes decimals and unknown values without changing quote facts\n  ---\n  duration_ms: 7.321875\n  type: 'test'\n  ...\n# Subtest: packaging proposal and acceptance never masquerade as procurement confirmation\nok 26 - packaging proposal and acceptance never masquerade as procurement confirmation\n  ---\n  duration_ms: 13.050458\n  type: 'test'\n  ...\n# Subtest: packaging confirmation adds a decimal fee exactly once and is bound to quantity\nok 27 - packaging confirmation adds a decimal fee exactly once and is bound to quantity\n  ---\n  duration_ms: 11.084292\n  type: 'test'\n  ...\n# Subtest: unknown, included and zero packaging costs require distinct evidence\nok 28 - unknown, included and zero packaging costs require distinct evidence\n  ---\n  duration_ms: 17.819541\n  type: 'test'\n  ...\n# Subtest: rejecting proposals preserves requested text; unsupported product has no invented suggestion\nok 29 - rejecting proposals preserves requested text; unsupported product has no invented suggestion\n  ---\n  duration_ms: 12.40825\n  type: 'test'\n  ...\n# Subtest: explicit market changes preserve defaults and history, invalidate confirmations and rerun checks\nok 30 - explicit market changes preserve defaults and history, invalidate confirmations and rerun checks\n  ---\n  duration_ms: 15.620875\n  type: 'test'\n  ...\n# Subtest: stale packaging confirmation and stale suggestions cannot overwrite newer facts\nok 31 - stale packaging confirmation and stale suggestions cannot overwrite newer facts\n  ---\n  duration_ms: 8.985958\n  type: 'test'\n  ...\n# Subtest: legacy packaging stays unconfirmed and malformed packaging backups are rejected\nok 32 - legacy packaging stays unconfirmed and malformed packaging backups are rejected\n  ---\n  duration_ms: 5.979125\n  type: 'test'\n  ...\n# Subtest: editing packaging text cannot retain an earlier procurement confirmation\nok 33 - editing packaging text cannot retain an earlier procurement confirmation\n  ---\n  duration_ms: 4.518708\n  type: 'test'\n  ...\n# Subtest: market intent and procurement prerequisites reject without saving any partial revision\nok 34 - market intent and procurement prerequisites reject without saving any partial revision\n  ---\n  duration_ms: 6.592542\n  type: 'test'\n  ...\n1..34\n# tests 34\n# suites 0\n# pass 34\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 727.964208\n"
+    },
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs .",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"generate\",\n  \"files\": 152,\n  \"lines\": 41421,\n  \"generated\": 5,\n  \"excluded\": 5\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 152,\n  \"lines\": 41421,\n  \"generated\": 5,\n  \"excluded\": 5\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exitCode": 0,
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 100,\n  \"semantic\": 84,\n  \"reachable\": 100\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base e0f933657c2438642b006fd1a5549fe7dc683ccd",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"e0f933657c2438642b006fd1a5549fe7dc683ccd\",\n  \"status\": \"passed\",\n  \"codeFiles\": 3,\n  \"knowledgePages\": 12,\n  \"tasks\": 5,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "node --test wiki-project/scripts/wiki-tools.test.mjs wiki-project/scripts/wiki-sync.test.mjs",
+      "exitCode": 0,
+      "output": "TAP version 13\n# Subtest: runtime version pin is a mandatory Wiki-synchronized configuration change\nok 1 - runtime version pin is a mandatory Wiki-synchronized configuration change\n  ---\n  duration_ms: 3.017125\n  type: 'test'\n  ...\n# Subtest: code with related knowledge, task and appended log passes\nok 2 - code with related knowledge, task and appended log passes\n  ---\n  duration_ms: 0.753875\n  type: 'test'\n  ...\n# Subtest: generated snapshots alone cannot satisfy knowledge/task/log changes\nok 3 - generated snapshots alone cannot satisfy knowledge/task/log changes\n  ---\n  duration_ms: 0.322834\n  type: 'test'\n  ...\n# Subtest: metadata-only or whitespace-only edits cannot satisfy semantic update\nok 4 - metadata-only or whitespace-only edits cannot satisfy semantic update\n  ---\n  duration_ms: 0.359167\n  type: 'test'\n  ...\n# Subtest: each source needs its own mapped knowledge, unrelated pages do not suffice\nok 5 - each source needs its own mapped knowledge, unrelated pages do not suffice\n  ---\n  duration_ms: 0.4115\n  type: 'test'\n  ...\n# Subtest: deleted source uses baseline mapping; unknown source fails\nok 6 - deleted source uses baseline mapping; unknown source fails\n  ---\n  duration_ms: 0.3935\n  type: 'test'\n  ...\n# Subtest: history rewrite and removed task do not pass\nok 7 - history rewrite and removed task do not pass\n  ---\n  duration_ms: 0.401917\n  type: 'test'\n  ...\n# Subtest: Wiki maintenance code requires workflow knowledge, not generated data\nok 8 - Wiki maintenance code requires workflow knowledge, not generated data\n  ---\n  duration_ms: 1.163083\n  type: 'test'\n  ...\n# Subtest: ordinary documentation-only edits do not trigger code delivery check\nok 9 - ordinary documentation-only edits do not trigger code delivery check\n  ---\n  duration_ms: 0.895875\n  type: 'test'\n  ...\n# Subtest: real Git baseline includes committed, unstaged and untracked sources\nok 10 - real Git baseline includes committed, unstaged and untracked sources\n  ---\n  duration_ms: 439.094291\n  type: 'test'\n  ...\n# Subtest: SVG assets require semantic Wiki, task and append-only log changes\nok 11 - SVG assets require semantic Wiki, task and append-only log changes\n  ---\n  duration_ms: 0.266208\n  type: 'test'\n  ...\n# Subtest: same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\nok 12 - same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\n  ---\n  duration_ms: 1592.111292\n  type: 'test'\n  ...\n# Subtest: source drift fails without writes; generation repairs snapshot while preserving ingest baseline\nok 13 - source drift fails without writes; generation repairs snapshot while preserving ingest baseline\n  ---\n  duration_ms: 561.081333\n  type: 'test'\n  ...\n# Subtest: explicit ingest records a non-Git project honestly\nok 14 - explicit ingest records a non-Git project honestly\n  ---\n  duration_ms: 392.104209\n  type: 'test'\n  ...\n# Subtest: tool inventory names come from definitions, not nested headers/output/schema fields\nok 15 - tool inventory names come from definitions, not nested headers/output/schema fields\n  ---\n  duration_ms: 227.016708\n  type: 'test'\n  ...\n# Subtest: new unclassified source fails; missing knowledge target and stale mapping fail\nok 16 - new unclassified source fails; missing knowledge target and stale mapping fail\n  ---\n  duration_ms: 422.536125\n  type: 'test'\n  ...\n# Subtest: generated coverage tampering is detected by lint and remains untouched\nok 17 - generated coverage tampering is detected by lint and remains untouched\n  ---\n  duration_ms: 443.960541\n  type: 'test'\n  ...\n# Subtest: sensitive filename is excluded before read; external source symlink is not followed\nok 18 - sensitive filename is excluded before read; external source symlink is not followed\n  ---\n  duration_ms: 242.392833\n  type: 'test'\n  ...\n# Subtest: Wiki and generated-output symlinks cannot write outside project\nok 19 - Wiki and generated-output symlinks cannot write outside project\n  ---\n  duration_ms: 270.931417\n  type: 'test'\n  ...\n# Subtest: missing schema field\nok 20 - missing schema field\n  ---\n  duration_ms: 408.868667\n  type: 'test'\n  ...\n# Subtest: bad type\nok 21 - bad type\n  ---\n  duration_ms: 753.5955\n  type: 'test'\n  ...\n# Subtest: bad date\nok 22 - bad date\n  ---\n  duration_ms: 638.725416\n  type: 'test'\n  ...\n# Subtest: bad status\nok 23 - bad status\n  ---\n  duration_ms: 591.913333\n  type: 'test'\n  ...\n# Subtest: missing wiki target\nok 24 - missing wiki target\n  ---\n  duration_ms: 495.532292\n  type: 'test'\n  ...\n# Subtest: missing markdown target\nok 25 - missing markdown target\n  ---\n  duration_ms: 466.517792\n  type: 'test'\n  ...\n# Subtest: invalid source line\nok 26 - invalid source line\n  ---\n  duration_ms: 406.285958\n  type: 'test'\n  ...\n# Subtest: verified without code evidence\nok 27 - verified without code evidence\n  ---\n  duration_ms: 427.309791\n  type: 'test'\n  ...\n# Subtest: source escaping project\nok 28 - source escaping project\n  ---\n  duration_ms: 507.611166\n  type: 'test'\n  ...\n# Subtest: unfilled placeholder\nok 29 - unfilled placeholder\n  ---\n  duration_ms: 492.136542\n  type: 'test'\n  ...\n# Subtest: all sources are validated even after a valid implementation source\nok 30 - all sources are validated even after a valid implementation source\n  ---\n  duration_ms: 445.417875\n  type: 'test'\n  ...\n# Subtest: orphan pages and duplicate basenames are rejected\nok 31 - orphan pages and duplicate basenames are rejected\n  ---\n  duration_ms: 935.590583\n  type: 'test'\n  ...\n# Subtest: completed task requires actual verification record\nok 32 - completed task requires actual verification record\n  ---\n  duration_ms: 490.421459\n  type: 'test'\n  ...\n# Subtest: archived source cannot bypass inspection through silent changes\nok 33 - archived source cannot bypass inspection through silent changes\n  ---\n  duration_ms: 464.718542\n  type: 'test'\n  ...\n# Subtest: source references cannot open excluded runtime data\nok 34 - source references cannot open excluded runtime data\n  ---\n  duration_ms: 370.0375\n  type: 'test'\n  ...\n# Subtest: new JSON evidence is checked and sensitive Wiki filenames are rejected before read\nok 35 - new JSON evidence is checked and sensitive Wiki filenames are rejected before read\n  ---\n  duration_ms: 524.398834\n  type: 'test'\n  ...\n# Subtest: secret/JWT/private-key/PII detections redact the value in diagnostics\nok 36 - secret/JWT/private-key/PII detections redact the value in diagnostics\n  ---\n  duration_ms: 1212.6105\n  type: 'test'\n  ...\n1..36\n# tests 36\n# suites 0\n# pass 36\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 13868.856292\n"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "output": ""
+    }
+  ],
+  "sourceHashes": {
+    "experiments/product-walkthrough/index.html": "40203f61bae54c7ec821ef9b0dc70993de5b23bf54b1812fc261a24d6c6ddcb8",
+    "experiments/product-walkthrough/check.mjs": "44a7f5b47ef61d0535ba132edd39dcfc56e06ab61b93e88e38c816783db2f87a",
+    "experiments/product-walkthrough/README.md": "ddbe270040c5f3a1fdfafd7ef1dc3adfac0831734bbf4e71222b063795c73f6a"
+  },
+  "initialAttempt": {
+    "command": "node --test experiments/product-walkthrough/check.mjs",
+    "exitCode": 1,
+    "tests": 25,
+    "passed": 23,
+    "failed": 2,
+    "reason": "Existing rounding/cost fixtures changed quantity/pricing without reconfirming packaging; total now correctly unknown. Kept amount assertions and explicitly confirmed packaging in those fixtures; additional invalidation regressions added."
+  },
+  "browserChecks": {
+    "surface": "Codex in-app browser, localhost:48734, macOS, 1280x720",
+    "passed": [
+      "V1 seed packaging explicitly confirmed with included price reference",
+      "Find proposal creates V2 suggested with published fixture excerpt; no confirmed fee",
+      "Accept creates V3 accepted, procurement task still blocks",
+      "Human confirmation with reviewer/evidence and 12.345 USD creates V4, displays12.35; freight and total still unknown",
+      "Independent market dialog previews Germany to France with reason and impact; explicit confirmation creates V5",
+      "V5 difference shows market, packaging confirmation and cost invalidation; missing French rule remains pending",
+      "Reload preserves V5, source snapshots and difference view"
+    ],
+    "screenshot": "wiki-project/raw/market-packaging-preview.png"
+  },
+  "notRun": [
+    "Formal Electron application tests/typecheck/build: no production changes",
+    "Real DeepSeek, procurement systems, market/legal rules or approval permissions",
+    "Windows and final installation",
+    "Actual OS download/print/file chooser; backup structure covered by logic only",
+    "This round browser did not exercise all rejection/not-applicable/history-conflict combinations; logic regressions cover them"
+  ],
+  "finalChecks": [
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 152,\n  \"lines\": 41421,\n  \"generated\": 5,\n  \"excluded\": 5\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exitCode": 0,
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 100,\n  \"semantic\": 84,\n  \"reachable\": 100\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base e0f933657c2438642b006fd1a5549fe7dc683ccd",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"e0f933657c2438642b006fd1a5549fe7dc683ccd\",\n  \"status\": \"passed\",\n  \"codeFiles\": 3,\n  \"knowledgePages\": 12,\n  \"tasks\": 5,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "output": ""
+    }
+  ],
+  "finalRecordedAt": "2026-10-21T12:19:27.858120+00:00",
+  "sourceHashesUnchanged": true
+}

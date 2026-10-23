@@ -247,6 +247,68 @@ B00代码提交e71442d127edeb9a62a9a0cd5a127ee0ae2898be已推送并核对远端�
 共同分支codex/m1-foundation已非强制推送a5e04d1并在原工作目录快进，PR#1/#2回读MERGED。66单元、5真实Electron、6工程、36Wiki回归及类型/生成/check/lint/固定基线sync全部通过。B00/C01a限定技术切片完成，不代签人类团队验收。祖先与干净核对后删除a01-llm-wiki-plan、c01a-verification、c01b-storage-plan三个本地/远端临时分支，ABC/main/旧名称分支保留。三个工作树归档请求返回queued，先保留detached副本；21个未跟踪截图/指标已另存保留，不宣称异步归档完成。详见raw/branch-consolidation-delivery.json与[[分支收口与共同基线]]。本交付记录仍在独立整合分支提交，推送快进后清理该临时分支。
 
 
+## 2026-10-21 项目说明书与开发入门入口
+
+按用户要求新增 [[项目说明书]]，从产品定位、角色、功能、两条业务流、合成报价案例到金额/版本/AI/业务Wiki边界、实际页面、源码与开发分工形成完整入门说明。以共同基线e0f933657c2438642b006fd1a5549fe7dc683ccd核对，独立分支codex/project-product-manual；README/index/CONTEXT/项目状态同步入口，系统架构和核心业务流程修正旧当前时态并保留历史证据。仅文档变化，不扩大任何产品验收结论；实际检查由 [[2026-10-21-项目说明书编写]] 记录。
+
+本次文档验收：机械生成、只读check、lint、固定e0f9336基线sync和git diff --check均退出0，95篇Markdown/79篇语义页可达、149个纳管文件、codeFiles=0；证据[project-manual-validation.json](raw/project-manual-validation.json)。任务状态与日志更新后再跑最终只读门禁，结果追加到同一证据。未改应用/维护工具/映射，未重跑产品测试、真实模型或Windows；历史组合测试仅引用不冒领。
+
+
+## 2026-10-21 产品HTML交互演示
+
+用户要求在说明书基础上补假数据全交互HTML。独立工作树codex/project-product-manual保留前轮文档，新增experiments/product-walkthrough的单文件HTML、操作说明、逻辑回归；覆盖八页共用模拟状态、资料/知识人工发布、金额/修订/任务、审批产出、取消重试与备份。同步 [[产品交互演示]]、[[2026-10-21-产品HTML交互演示]]、说明书、README、index、CONTEXT与项目状态，登记逐文件覆盖；全部是假数据教学，不改变正式功能状态。验证记录在本轮任务中追加。
+
+本轮验收：15项样机逻辑测试、36项Wiki回归、机械生成/只读check/lint/固定e0f9336基线sync及diff检查均退出0；152纳管文件、97篇Markdown/81篇语义页可达。浏览器实走V1至V4、1130.00总额、审批及新产出重审、CSV发布、知识审核发布、取消/中断和刷新恢复；窄屏网格修正后保存截图。完整命令输出和未验证边界见raw/product-walkthrough-validation.json。任务done只代表本HTML演示完成，不改变正式开发状态；任务收尾后再跑最终检查并追加证据。
+
+
+## 2026-10-21 HTML目标对齐与依据链
+
+继续独立codex/project-product-manual工作树，固定基线e0f933657c2438642b006fd1a5549fe7dc683ccd，保留既有未提交成果及历史证据。修复新报价自动包装、旧报价修订串用默认市场；新增受限询盘识别/澄清/确认及冻结依据、知识内容检查绑定、其他语言请求明确未支持、RFQ摘要与邮件明细及德语数字显示。知识/任务/操作说明/项目说明书/状态/上下文/导航同步；本轮未改正式代码或维护工具。实际验证与剩余项见 [[2026-10-21-HTML目标对齐与依据链]]，最终结果在收尾后追加。
+
+
+## 2026-10-21 说明书详细规格与演示对齐
+
+按用户要求保留说明书14章结构，新增询盘理解、依据链、语言平台适配、包装和场景继承详细规则及23条验收用例，逐项标HTML实际行为与剩余差距。纠正演示Wiki/README旧版预选商品描述，补原文证据、规则绑定、其他语言未支持、RFQ/邮件结构和场景继承说明；同步MVP交叉入口、CONTEXT、状态与导航。未修改正式应用和公共契约，未覆盖当前已有HTML增强实现。实际验证见 [[2026-10-21-说明书详细规格与演示对齐]]；历史证据保留。
+
+HTML目标对齐本轮收尾：25项逻辑测试通过；Wiki回归首轮GENERATED_DRIFT保留失败，避免生成器/复制fixture并发后串行36项通过；生成/check/lint/固定e0f9336同步及diff检查均退出0。macOS浏览器实走询盘澄清/确认建单、包装未知、市场继承、知识正文变更待核实、英德结构与fr/ja未支持及刷新回读，截图/命令见raw/product-walkthrough-alignment-validation.json与 [[2026-10-21-HTML目标对齐与依据链]]。正式代码/真实模型/Windows不在本轮验收，其他并行说明书文档增量保留。
+
+本轮详细规格任务验收：24项HTML逻辑、36项Wiki回归、机械生成/只读check/lint/固定e0f9336基线sync及diff均退出0；浏览器补核对澄清阻止建单和板材原文识别→225.00草稿/未知费用链路，证据raw/spec-alignment-validation.json与raw/spec-alignment-inquiry.png。目标23用例仍按覆盖矩阵逐项验收，未把样机通过扩大为正式功能完成。任务done仅表示规格与当前演示边界对齐，正式实现任务状态不变。
+
+
+## 2026-10-21 HTML显式市场与包装确认
+
+按用户要求实现本单市场/平台/品类预览确认、新版本重检、包装建议与拒绝/接受、采购确认及不适用理由、包装费用未知/另计/已含/零的独立计算。旧报价默认场景不变、修改数量/定价/场景或恢复历史使确认失效；旧缓存不伪造采购记录。同步说明书、演示Wiki、README、任务、导航及状态，保留历史证据。验证见 [[2026-10-21-HTML市场与包装确认]]。
+
+本轮HTML市场/包装验收：34项样机逻辑、36项Wiki回归、机械生成/只读check/lint/固定e0f9336基线sync及diff全部退出0。浏览器实走建议→接受→采购确认12.345舍入12.35→德国显式改法国V5→确认失效/来源待核实→刷新保留。截图和完整记录为raw/market-packaging-preview.png、raw/market-packaging-validation.json。历史失败与其他任务证据保留；未执行正式应用/真实模型/Windows，不宣称产品能力已落地。
+
+## 2026-10-21 产品资料全流程一致性复核
+
+继续独立codex/project-product-manual、固定基线e0f933657c2438642b006fd1a5549fe7dc683ccd，对HTML八页/说明书/MVP与核心流程交叉检查。修正运税费依赖失效、数量单位澄清、显式待译阻送审、术语/来源/旧模板缺项、产出任务定位、RFQ包装限定、历史批准及迟到驳回/发送校验、0汇率；任务 [[2026-10-21-产品资料全流程一致性复核]]。说明书保留14章并补FLOW-01～09与成员开工指引，纠正先生成产出再人工审核的流程顺序。初轮34项29通过5失败的fixture不再符合新确认/待译约束，保留输出并显式修订前置条件；新增9项，当前43/43通过。浏览器实际验证待译→任务→补译另存→送审/驳回/再审批→刷新→数量变化导致费用未知，证据待最终门禁一并归档。正式系统能力不扩大，未提交/推送。
+
+本轮最终验证：HTML 44/44（再补新版无产出时历史入口）、Wiki36/36、generate/check/lint/固定基线sync/diff-check退出0。首次任务标题格式不满足lint导致lint和一项Wiki回归失败，修正后通过；原输出保留在raw/product-consistency-validation.json。最终浏览器确认V3无产出也可回读V2批准历史，RFQ显示包装限定与三项阻断，截图raw/product-consistency-final.png。任务状态done仅指本次样机/资料复核，不代表正式MVP完成。
+
+## 2026-10-21 产品资料提交与集成验证
+
+用户授权提交合并推送；本聊天在独立codex/project-product-manual提交b8f518c，保留六轮文档/HTML/测试/截图原证据；a14d79f无冲突合入远端be53b98（PR #3的9个A01合成fixture）。初次合并树check/lint暴露既有JSON未登记覆盖，本轮补到A业务LLMWiki方案，并说明候选未通过业务语义验收，不改样本或替A标done。按code-review技能执行Standards/Spec独立技术复核，任务 [[2026-10-21-产品资料集成验证]]，最终验证/远端结果后续记录。
+
+独立评审闭环增量：Standards仅发现上述上游覆盖阻断；Spec复现来源撤回后总览审核/发送仍画完成勾。现按当前产出就绪度重算风险/审核/发送步骤并标明历史批准/发送需复核，补总览渲染回归；历史记录不清除。
+
+本轮候选4412c8f完成独立技术复核：Standards覆盖阻断、Spec总览P2均闭环，无剩余阻断。实际HTML45/45、Wiki36/36、generate/check153文件、lint102页、两个固定基线sync与diff-check均通过。72份原raw和9个上游样本逐字节保留。准确记录raw/product-manual-integration-validation.json；集成验证任务done仅表示候选已准备，实际远端合并以PR/Git为准。
+
+## 2026-10-22 B00a P0 公共 Wiki 协议
+
+B 在独立 codex/b00a-knowledge-wiki-contracts 工作树从 56c909e21aefa484b6805bf9afc7c94b0e1d4576 开工；新增 knowledge-wiki/wiki-integrity 与反向测试，覆盖 Markdown/多来源/审核发布/稳定检索引用/消费事务端口，保持旧 B00/Runtime/Agent 白名单，12 方法明确不可用。同步 [[B00a知识Wiki公共协议]]、[[B00a-业务Wiki契约补充]]、0011 决策、M1/首批接口/覆盖映射/导航/CONTEXT/项目状态。C 设计对齐已纳入；A 通过 PR#6 评论收到清单，实际评审/合入待完成，A01c 未解锁，P1 另交。
+
+首次类型检查退出 1（测试夹具类型问题）已修正；完整单元初次 84 项/增加权限反例后 85 项通过。最终完整检查以本轮任务及原始验证 JSON 为准；不把合成协议检查当 A 业务服务或真实模型通过。
+
+B00a P0 最终 macOS 本机验证：pnpm typecheck、85 项单元、含 build 的 5 项真实 Electron、6 项工程/边界/check、36 项 Wiki 回归、generate 与固定 56c909e sync 全部退出 0，证据 raw/b00a-validation.json；初始失败及修正保留 raw/b00a-initial-validation.json。历史 raw 非生成文件逐字节不变、log 精确前缀保留、A01a JSON 解析值一致。C 空页游标 P2 已修复并补反例，仍待复核结论；A 实际评审和共同分支合入待完成，A01c 未解锁。
+
+C 范围技术复核完成：空页游标 P2 独立确认修复，相关2文件/20项测试退出0，其余客户端/IPC和宿主接线范围无阻断，记录 raw/b00a-c-review.json；不代替 A 来源/存储/发布/检索评审或 T00 人类签字。A 评审及合入仍待，任务保持 active。
+
+B00a P0 远端交接：代码提交 26421ab5bf93f74b20d5888f0e1ff3b48b9bfc36 已正常推送独立分支，[PR #7](https://github.com/jacson10l/tradequote-agent/pull/7) 目标 codex/m1-foundation，已请求 A/ssyyy31 评审；API 核对 OPEN、尚无 review、未合入，证据 raw/b00a-delivery.json。本次仅追加交付事实，已测源码/config hash 不变；A01c 未解锁，合入后通知仍待。
+
+
+
 ## 2026-10-21 双参考目标补齐与C02a独立实现
 
 用户要求补齐开发文档并继续C不受阻塞的部分。重新fetch后共同基线be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce包含PR#3的A合成fixture；独立codex/c-runtime-roadmap实施，保留先前e0f9336核查raw原字节和时点说明，不再把A未合入当当前事实。新增 [[双参考项目功能对照与C开发路线]]，将Solivio业务/Harness执行目标对应实际源码和已完成/待实现/延期，将C00～C07拆为产物、依赖和逐项验收。
@@ -453,3 +515,15 @@ C04正式入口收口：202单元、9真实Electron含build、6工程、36Wiki�
 
 
 C03本地交付收口：39文件275单元、9实际Electron含build、48fixture（189替身/真实0）、类型、6工程/模块边界、36Wiki工具回归、生成/只读check/lint及64f2e2d/be53b98固定双基线和diff实际退出0，见raw/c03-validation.json。R20实际挂载桌面SIGKILL后只读重连、reload/进程重开ID保持、seq分页与重复/虚高提示、显式retry才增模型请求通过；断页与新运行提示竞态有本地回归，截图中文进度布局已核对。126份旧raw/74355字节旧log前缀、12受控源码/锁文件和原固定样本/期望不变，七份报告strict/Markdown投影一致；初始失败及生成误映射均保留并修正。任务done仅本地C03实现验证，A/B公共契约/append-only保留策略及A01c迁移冲突仍待协调，C04人工语义/非作者签认任务保持active；未切换用户旧桌面，未读Key/用户业务库，未自动真实评估/重试，暂不推送。
+
+## 2026-10-23 C集成候选准备与组合验证
+
+用户授权本地独立codex/c-integration-candidate，从C03/9e8695b组合共同头654fecc，原共同祖先be53b98。25个C侧来源/8个共同侧提交与16项冲突逐项保留功能、覆盖、raw及历史log，contracts出口/pending门禁保留Wiki与C运行事件并存，运行代码/迁移/锁文件保持C03。A01c迁移6与C6异义，四个临时内存库复现A6→C7失败回滚、C6→A6静默缺Wiki表、C7→A6拒绝回退及C7重开无变；诊断通过不等于兼容通过，未纳入或改号。
+
+实际gh只读核对PR #7 MERGED/APPROVED，PR #8 OPEN/已改向共同分支/无评审，PR #9 OPEN/目标A01b；保留旧P1 C复核不替A签字。294单元、9实际Electron含build、48fixture（189替身/真实0）、45合成HTML已本轮执行；最终工程/Wiki/双基线检查见raw/c-integration-validation.json。知识/任务/评审说明/状态/CONTEXT与索引、生成清单同步，双方旧证据保留审计见raw/c-integration-preservation.json。[[C集成候选-准备与组合验证]]只交本地准备，[[C集成候选-依赖与非作者签认]]/[[C04-收口签认]]保持active。未推送/共同分支合入/PR/消息或真实复测，Windows/安装后置未验。
+
+本轮初次Wiki lint因待签任务节标题不是精确“改动”失败，已修正标题，保留raw/c-integration-initial-validation.json后再检；不弱化门禁。实际Electron恢复/多步截图已核对并保存为明确合成证据，不能代替非作者/人工语义签认。
+
+首次目标654fecc同步因日志保留了C03前缀而触发APPEND_ONLY_LOG_REQUIRED，失败证据保留。本次按贡献规范允许的PR目标基线保留654fecc完整日志前缀，原样追加C侧相对be53b98独有历史，再追加本任务记录；两侧旧非空行顺序与独有历史字节均核对，不删除旧证据或修改检查器。最终sync基线为固定目标654fecc与累计be53b98；9e8695b保留为taskBase、差异/保留审计基线，因两侧日志分叉不再要求同时成立的不可能双前缀。
+
+本地准备收口：294单元、9实际Electron含build、48fixture/189替身/真实0、45合成HTML、6工程、36Wiki及类型/生成/只读check/lint、固定654fecc/be53b98同步均退出0。131份C旧raw/77份共同旧raw、93个受保护C文件、3个P0专用文件及双方独有历史块/非空行顺序保持。准备任务done仅针对本地候选和证据；A/B/非作者/C04人工签认任务保持active，未推送或操作共同分支。

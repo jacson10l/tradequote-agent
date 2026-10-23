@@ -4,6 +4,7 @@ type: architecture
 status: draft
 updated: 2026-10-21
 sources:
+  - tests/fixtures/knowledge/knowledge-drafts.a01a.json:1
   - conversation:用户提供KARPATHY-LLM-WIKI-BOOTSTRAP.md并要求补齐A01业务知识库
   - wiki-repo:raw/inputs/外贸询报价协同 Agent 完整产品与实施方案.md:280
   - wiki-repo:raw/inputs/项目构建技术栈.md:261
@@ -91,6 +92,15 @@ B先补 [[B00a-业务Wiki契约补充]] 的P0模型/发布/来源/版本和最�
 
 A维护知识服务、资料/Markdown artifact、审核/检索/维护页面与存储；B维护公共契约、规则语义和报价引用/复核桥接；C提供知识整理执行与取消/重试、模型设置和桌面公共接线。C01原报价恢复无需等A知识库完工，知识整理用单独结果类型，不把Markdown塞进committedRevisionId伪装报价。精确文件与验收见 [[A01-知识发布与来源查询]]、[[C01-Agent运行恢复与集成]]。
 
-## 共同基线中的合成资产与服务边界
+## be53b98时点的合成资产与服务边界
 
 be53b98已合入tests/fixtures/knowledge中的knowledge-drafts.a01a.json和8份sources文本。本轮功能审阅登记覆盖：6条draft仍是B00规则协议样本，两份原文尚待扩展映射，_pendingB00Extensions明确field枚举缺口。required等条件不能因标题提到比例或容量就被视为已实现数值核验。没有知识Repository、迁移4、审核/检索服务或生产AI整理，且未验证真实商业/平台规则。本段仅记录共同基线资产和C依赖，仅规范化合成draft JSON布局、保持解析值与8份来源文本字节不变，未替A签署业务验收；逐项任务与C06协作边界见 [[双参考项目功能对照与C开发路线]]、[[C02a-受限只读工具循环]]。
+
+
+## 集成分支已有的A01合成样本
+
+2026-10-21合并产品资料前核对：集成分支be53b98（PR #3）已经包含tests/fixtures/knowledge/knowledge-drafts.a01a.json及sources下8份TXT原文。JSON为synthetic=true、6个draft候选，示例覆盖付款、术语、有效期和平台风格；文本保存原始合成证据。两份纤维/灯具规格来源在_pendingB00Extensions中明确尚未接入规则，不能当作检索/规则服务已实现。
+
+这些文件只是上游样本，未运行发布、规则执行或业务语义验收。比如第一条付款比例合计文字使用required条件，required不能实际证明比例和为100%；第六条交期规则引用容量单位原文，不能据此证明供货交期。正式接入前A/B须按原文修正/评审规则绑定并补反例，禁止把结构合法等同依据成立。当前保留上游原文件字节，不替其业务任务标done。此次仅补缺漏的JSON覆盖映射，使整仓机械检查可运行；TXT原件可通过同目录回读，工具仍按既定扩展名策略采集源码。
+
+这组样本与HTML中的固定knowledgeSeed是两套独立教学/测试输入，未自动互相发布或导入。交付验证见 [[2026-10-21-产品资料集成验证]]。

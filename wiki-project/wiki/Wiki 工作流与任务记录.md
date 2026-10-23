@@ -178,3 +178,19 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 ## C03事件覆盖与C04状态同步
 
 新run-events契约/回归、run-event-store与事务回归、桌面feed/回放组件及标签/测试逐文件归[[C03持久事件与桌面重连]]；原RunEvent/公共导出/门禁、运行存储/协调器、Main/Worker/preload/运行列表与两份Electron回归保留原映射并追加本页。README同时关联[[C04收口与验收边界]]，不是用状态文字替代源码说明。只改覆盖配置、不改维护算法，仍跑36项维护回归及机械生成/只读check/lint、64f2e2d/be53b98同步。旧raw/log逐字节保留，C04签认不伪造；实际结果见[[C03-持久事件与桌面重连]]。
+
+
+## 产品HTML交互演示纳管
+
+本轮新增experiments/product-walkthrough/index.html、check.mjs与README.md，逐文件映射至 [[产品交互演示]]，覆盖离线交互行为、关键状态/金额测试和启动说明。同步 [[项目说明书]]、任务、导航、状态和追加日志；生成清单后运行只读check/lint与固定e0f9336基线sync。映射变更运行现有Wiki工具回归，未修改维护工具算法。当前HTML为合成教学样机，不与正式Electron或业务验收混计，实际结果见 [[2026-10-21-产品HTML交互演示]]。
+
+
+## B00a P0 覆盖增量
+
+新增 contracts/knowledge-wiki.ts、wiki-integrity.ts 和 knowledge-wiki.test.ts，逐文件登记版本/来源/审核/检索/引用/消费协议及完整性反向回归；公共 index/mock/pending-client 和 preload 门禁测试追加同一实际知识页映射。没有新增业务存储/IPC，也没有改变维护算法。导航新增 [[B00a知识Wiki公共协议]]，任务 [[B00a-业务Wiki契约补充]] 更新实际 taskBase、A/C 对齐与本机证据；映射变更仍运行 Wiki 工具回归、生成、只读 check/lint 和固定基线 sync。
+
+## C集成候选的两侧覆盖与证据保留
+
+[[C集成候选与依赖收口]]组合9e8695b与654fecc，coverage按源码path及pages取并集，保留C纳管A原文TXT与共享产品HTML/B00a P0映射，不移动旧职责或修改工具算法。16项冲突中的生成物由实际组合源码/配置重新生成；共同目标654fecc log完整前缀及C侧独有历史原字节均保留，双方非生成raw逐文件核对，旧真实/失败证据不反填。
+
+公共index/pending-client变更同时更新M1接口、本协议、B00a页与本候选知识正文；新增任务/评审说明/JSON和fixture Markdown均有导航/入链。运行维护36回归及生成、只读check/lint，固定654fecc/be53b98双基线sync（9e8695b仍为taskBase与增量/保留审计基线）；本次增量与目标完整范围分开。实际检查见[[C集成候选-准备与组合验证]]，签认独立保留active，不用机械汇总代替语义评审。
