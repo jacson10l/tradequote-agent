@@ -323,3 +323,7 @@ A 在 codex/a01c-knowledge-search（从 codex/a01b-knowledge-store 4d3b213 分�
 ## 2026-10-23 A 迁移谱系统一与拒绝边界
 
 A 在 codex/a01-migration-lineage（基于 dd42b05）主导三方迁移谱系收敛：新增 `migration-lineage.ts` 纯函数识别（schema 为准、user_version 仅交叉核对），重写 `migrations.ts` 为能力切片追加 + `migration_registry(lineage,version,sql_hash,applied_at)` 账本，`index.ts` 构造器前接只读预检 `preflightMigration`。统一目标九能力、user_version=8；拒绝只在只读预检抛 `MIGRATION_LINEAGE_REJECTED:<lineage>`，不进入读写真开、不写 -wal/-shm。修复 D1/D2/D3/D4 与「未知 v6 被误接受」「缺不可变触发器仍被接受」。三个旧迁移测试改走 `seedTo`/`migrate` 断言 user_version=8。Wiki 新增 [[0029-迁移谱系统一与拒绝边界]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-追加迁移设计]]、[[A01-迁移验证计划]]，更新任务/导航/覆盖/工作流与本 log。纯 Node 探针实际运行通过（指纹全匹配、16 分类用例全过、10 追加用例全过），证据 raw/a01-migration-lineage-probe.json。本机无 node_modules，typecheck 与 vitest 未复跑；B 接口/报告/消费适配、C 独立组合验证与 macOS 全量验收待完成，未推送。
+
+## 2026-10-23 A 对 C 迁移协调草稿逐项回复
+
+A 按 fd4b728（C 未发送协调草稿 `C迁移协调请求草稿-AB谱系兼容`）与 d99f2b3 六组诊断，新增 [[A对C迁移协调草稿M1-M8回复]]：逐项回复 M1～M8，确认支持范围（11 类升级、mixed/tampered/unknown 拒绝）、`migration_registry(lineage,version,sql_hash,applied_at)` 登记方式与责任分工；选择方案一+方案二组合（即已实现设计）。核对 C 草稿列出的 C6/A6/C7/B7 四个原 SQL 指纹与本方案探针完全一致（9 指纹全匹配）。回复身份由 A 本人另记，不代签、不自动发送/合入/真实模型复测；typecheck/vitest 未复跑，B/C 后续责任见回复页。
