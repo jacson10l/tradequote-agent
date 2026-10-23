@@ -553,3 +553,12 @@ C03本地交付收口：39文件275单元、9实际Electron含build、48fixture�
 独立复核确认仅it()局部20秒预算，其余224源码、所有生产预算、11预算/配置hash、9bundle、163旧raw/91101字节log前缀及原3失败保持。STD-001技术关闭适用于e6af0b2新修复；原9e067bf仍保留其冻结失败结论。最终Wiki通过后两个技术任务收口，人员待签任务仍active；不代签A/B或业务人工，不推送/共同分支合入/真实复测。最终文档门禁另存c-diagnostics-p2-closeout-validation.json。
 
 最终Wiki生成/只读check/lint、29f5b94/654fecc/be53b98同步与diff检查均通过，STD-001独立技术关闭条件满足；两个技术任务done，A/B/业务待签任务active。修复源码225项hash与独立复核固定提交e6af0b2一致，修复提交已有非生成raw逐字节保持；最后提交仅记录关闭Wiki，不推送/合入/真实复测。
+
+
+## 2026-10-23 C最终集成交接包整理
+
+2026-10-23基于固定45fa03d整理[[C集成最终交接包]]，任务[[C集成-最终交接包整理]]。固定目标654fecc至45fa03d共29提交/279路径（92非Wiki、187 Wiki），包含A来源；P2已在e6af0b2技术修复并由独立Standards默认294复跑/Spec核对后于45fa03d记录关闭。完整作者验证、独立复核与旧真实/fixture证据分列，A-1/A-2/B-1/B-2/R-1实际人员整体批准/H-1仍待；A-3/AB-1只约束被排除A01c/P1后续整合。本轮独立codex/c-integration-handoff仅整理Wiki/证据，225源码与已复核修复保持，旧raw/log/三次失败不改；不代签、不推送/合入/真实复测，人员签认任务继续active。
+
+固定范围及原证据只读hash核查记录raw/c-integration-final-manifest.json；本交接文档任务的实际生成/check/lint/固定45fa03d、654fecc、be53b98同步与diff记录raw/c-integration-final-validation.json。完整294单元/9Electron含构建/48fixture189替身真实0/45HTML/6工程/36Wiki引用已执行修复作者证据；独立294与原三次293/294失败分别保持，不在本轮重新运行或冒领。
+
+最终整理门禁全部退出0：225源码/171旧非生成raw/93919字节log前缀/3旧失败/36输出hash核对，生成225来源、pnpm check含6工程及179页只读Wiki检查/lint、固定45fa03d/654fecc/be53b98同步与diff；交接整理任务done，A/B及业务人工待签任务active。最终增量仅Wiki，无新完整业务复跑、独立复审或真实请求。
