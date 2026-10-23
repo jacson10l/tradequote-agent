@@ -1,0 +1,138 @@
+{
+  "status": "passed",
+  "recordedAt": "2026-10-23T13:08:28.330678+08:00",
+  "scope": "Review documentation generation/check/lint/sync only. This is not a passing candidate unit-test result.",
+  "candidateReviewOutcome": "changes_required",
+  "candidate": "9e067bf0114e0d2b27f7b65ea4ecc07042405499",
+  "reviewBranch": "codex/c-integration-review",
+  "checks": [
+    {
+      "command": "pnpm wiki:generate",
+      "argv": [
+        "pnpm",
+        "wiki:generate"
+      ],
+      "startedAt": "2026-10-23T13:06:28.721367+08:00",
+      "finishedAt": "2026-10-23T13:06:29.238334+08:00",
+      "exitCode": 0,
+      "durationSeconds": 0.52,
+      "output": "\n> tradequote-agent@0.1.0 wiki:generate /Users/jason/.codex/worktrees/c-integration-review/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs .\n\n{\n  \"mode\": \"generate\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n"
+    },
+    {
+      "command": "pnpm wiki:check",
+      "argv": [
+        "pnpm",
+        "wiki:check"
+      ],
+      "startedAt": "2026-10-23T13:07:54.522221+08:00",
+      "finishedAt": "2026-10-23T13:07:55.453464+08:00",
+      "exitCode": 0,
+      "durationSeconds": 0.93,
+      "output": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-integration-review/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 174,\n  \"semantic\": 147,\n  \"reachable\": 174\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 9e067bf0114e0d2b27f7b65ea4ecc07042405499",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "9e067bf0114e0d2b27f7b65ea4ecc07042405499"
+      ],
+      "startedAt": "2026-10-23T13:07:55.506731+08:00",
+      "finishedAt": "2026-10-23T13:07:55.644773+08:00",
+      "exitCode": 0,
+      "durationSeconds": 0.14,
+      "output": "{\n  \"base\": \"9e067bf0114e0d2b27f7b65ea4ecc07042405499\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+      ],
+      "startedAt": "2026-10-23T13:07:55.694740+08:00",
+      "finishedAt": "2026-10-23T13:07:56.594868+08:00",
+      "exitCode": 0,
+      "durationSeconds": 0.9,
+      "output": "{\n  \"base\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 91,\n  \"knowledgePages\": 82,\n  \"tasks\": 27,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce"
+      ],
+      "startedAt": "2026-10-23T13:07:56.635466+08:00",
+      "finishedAt": "2026-10-23T13:07:58.018383+08:00",
+      "exitCode": 0,
+      "durationSeconds": 1.38,
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 97,\n  \"knowledgePages\": 97,\n  \"tasks\": 35,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "git diff --check",
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "startedAt": "2026-10-23T13:07:58.055594+08:00",
+      "finishedAt": "2026-10-23T13:07:58.066800+08:00",
+      "exitCode": 0,
+      "durationSeconds": 0.01,
+      "output": ""
+    }
+  ],
+  "initialFailures": [
+    {
+      "command": "pnpm wiki:check",
+      "argv": [
+        "pnpm",
+        "wiki:check"
+      ],
+      "startedAt": "2026-10-23T13:06:29.277803+08:00",
+      "finishedAt": "2026-10-23T13:06:30.153149+08:00",
+      "exitCode": 1,
+      "durationSeconds": 0.88,
+      "output": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-integration-review/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 23\n}\nwiki-project/CONTEXT.md: INLINE_SOURCE_REFERENCE_INVALID\nwiki-project/wiki/tasks/C集成候选-独立技术评审.md: INLINE_SOURCE_REFERENCE_INVALID\nwiki-project/wiki/tasks/C集成候选-独立技术评审.md: NEEDS_TWO_RELATED_SEMANTIC_PAGES\n ELIFECYCLE  Command failed with exit code 1.\n"
+    },
+    {
+      "command": "pnpm wiki:check",
+      "argv": [
+        "pnpm",
+        "wiki:check"
+      ],
+      "startedAt": "2026-10-23T13:07:17.432803+08:00",
+      "finishedAt": "2026-10-23T13:07:19.276822+08:00",
+      "exitCode": 1,
+      "durationSeconds": 1.84,
+      "output": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-integration-review/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 23\n}\nwiki-project/wiki/tasks/C集成候选-独立技术评审.md: SOURCE_REFERENCE_INVALID\n ELIFECYCLE  Command failed with exit code 1.\n"
+    },
+    {
+      "command": "pnpm wiki:check",
+      "argv": [
+        "pnpm",
+        "wiki:check"
+      ],
+      "startedAt": "2026-10-23T13:07:38.780201+08:00",
+      "finishedAt": "2026-10-23T13:07:39.826243+08:00",
+      "exitCode": 1,
+      "durationSeconds": 1.05,
+      "output": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-integration-review/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 23\n}\nwiki-project/wiki/tasks/C集成候选-独立技术评审.md: SOURCE_REFERENCE_INVALID\n ELIFECYCLE  Command failed with exit code 1.\n"
+    }
+  ],
+  "initialFailureFix": "Use full project-relative source references, correct a duplicated source prefix and add actual signoff semantic page link. Checker and candidate unchanged.",
+  "unchangedCandidateSources": 225,
+  "reportSha256": {
+    "wiki-project/raw/c-integration-independent-standards.json": "eaf06b8e5de4d68ba8133ef98728088f7720786f6d96ca892f2138d67a3bbb74",
+    "wiki-project/raw/c-integration-independent-spec.json": "b5435f3e369c916e6a4f2737c9c52fc5d5f304bdc415f78f47a4bfcf79c8cb1f",
+    "wiki-project/raw/c-integration-independent-evidence.json": "3b0f4a9d08d9c8bab78a5988efe7684fd755dfa8118d756c7bd6b1785d40a720"
+  },
+  "pending": "STD-001 P2 full unit gate, A/B and human-business signoff"
+}
