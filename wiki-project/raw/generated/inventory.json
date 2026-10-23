@@ -1925,8 +1925,8 @@
       "path": "packages/infrastructure/src/evaluation/diagnostics.test.ts",
       "type": "ts",
       "lines": 86,
-      "bytes": 2857,
-      "sha256": "dbe425c76a6851315b4bd4f289734c23d016e20c34962dffae17497f84dc0f63",
+      "bytes": 2864,
+      "sha256": "082412c45cd884529a032af0f09092b17b01bc812122792a6b24878299b31bba",
       "role": "C04枚举诊断隐私与兼容、八失败合成重建和停止边界回归",
       "pages": [
         "wiki/C04失败阶段诊断与二轮收敛.md",

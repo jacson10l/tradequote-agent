@@ -537,3 +537,11 @@ C03本地交付收口：39文件275单元、9实际Electron含build、48fixture�
 只在codex/c-integration-review新增评审Wiki/任务/状态/导航/log，候选9e067bf和共同分支不动。结论changes_required，P2待修复全量复验/独立关闭；R-1技术意见已收到但未批准，A/B和C04人工签认不代填。无推送、共同分支合入、外部PR/消息/评论或真实模型复测；Windows/安装未验。文档自身门禁通过不代表候选单元门禁通过，实际记录见raw/c-integration-independent-doc-validation.json。
 
 评审文档首次lint发现两处短文件名:行号不能定位源码、任务缺第二条语义关联；已改为实际项目相对路径并补真实待签任务链接，失败输出保留于独立文档门禁记录，未修改检查规则或候选代码。
+
+## 2026-10-23 STD-001诊断回归局部测试预算修复
+
+用户授权独立codex/c-diagnostics-p2-fix，从29f5b94建立工作树。先原版完整pnpm test294通过，记录间歇性，不冒充新红；前轮同源码三次293/294默认5秒超时和单项通过全部保留。先列完整矩阵预算不足/外部负载/业务网络三项假设，再只将diagnostics.test.ts末尾it()测试框架预算设为20000ms，与相邻完整矩阵已有预算一致。回调及全部断言前缀hash逐字节一致；无新镜像测试、无删矩阵/期望、无业务/模型/工具/上下文/全局Vitest/并发/锁文件变化。
+
+修复后类型与默认完整294单元已通过，后续Electron/fixture/工程/Wiki及固定基线sync以raw/c-diagnostics-p2-validation.json实际执行为准。新知识/任务、原责任页与状态/CONTEXT/导航同步；原raw/log前缀保留审计另存。独立复核前任务active，不自动关闭原P2或代签A/B/业务人工；不推送/共同分支合入/外部消息/真实复测。
+
+作者完整门禁已通过：294单元、9Electron含build、48fixture/189替身/真实0、45HTML、6工程、36Wiki、类型/生成/check/lint与29f5b94/654fecc/be53b98同步均0。163旧raw和91101字节log前缀、旧3失败、断言body、其余224源码及9bundle保持。冻结本修复供独立复核，尚未关闭STD-001或代签人员。

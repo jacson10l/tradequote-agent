@@ -83,4 +83,4 @@ it("exports bounded enum-only failure evidence while accepting unchanged legacy 
   } finally {
     network.mockRestore();
   }
-});
+}, 20000);

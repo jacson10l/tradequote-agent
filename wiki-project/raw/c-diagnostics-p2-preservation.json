@@ -1,0 +1,44 @@
+{
+  "status": "passed",
+  "base": "29f5b94b9ef6d46a9934e366df6022cc1a0f50c3",
+  "oldRawFilesByteIdentical": 163,
+  "oldLogPrefixBytes": 91101,
+  "logExactPrefix": true,
+  "sourceSnapshotFiles": 225,
+  "unchangedSourceFiles": 224,
+  "changedSourceFiles": [
+    "packages/infrastructure/src/evaluation/diagnostics.test.ts"
+  ],
+  "assertionCallbackByteIdentical": true,
+  "bodySha256": "e8e4361531c50fa8b7b73dac8e93f0c48356f0388f1f7e249a2e360c8c0d3ccf",
+  "beforeTestSha256": "dbe425c76a6851315b4bd4f289734c23d016e20c34962dffae17497f84dc0f63",
+  "afterTestSha256": "082412c45cd884529a032af0f09092b17b01bc812122792a6b24878299b31bba",
+  "changedOnlyTrailingTestTimeoutMs": 20000,
+  "protectedBudgetAndConfigHashes": {
+    "vitest.config.ts": "21f58cc356752e31f46ef4142bdb5eb6b3598ac0d19a5dfdc2bf68f944b983ca",
+    "scripts/test-unit.mjs": "979afb12282bdc74a3a6bf3633cd4b6f206e18df23dd5436093c9db23666ec5b",
+    "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe",
+    "package.json": "879a4fc8bc3dd02e1e2af038668f5159dd5b086821f7a2b4831de38d25eb549b",
+    "packages/infrastructure/src/evaluation/runner.ts": "b4e7c3a5b855a10488c391d7ca729327e4032853f0781e5c7a9691498b9214ea",
+    "packages/infrastructure/src/evaluation/fixture-model.ts": "6b8a0244b192cae1010667738ae18e35f8e3054e322c4963878d687ef07f9554",
+    "packages/infrastructure/src/evaluation/cases.ts": "02c65c86806043ae4cce208bd8620cc8057a93aebaaf9b4977ec42c758d8a590",
+    "packages/infrastructure/src/evaluation/report.ts": "43e7eb33799b03e22001c69948a1de84265e5c31c9795b1dd4344b8334e13e9e",
+    "packages/infrastructure/src/quote-tool-agent.ts": "8cb2edf9a8e97fb9952feded3f7c7f8da51f9540ae186373fb4279fad62e1a6d",
+    "packages/infrastructure/src/read-tool-runtime.ts": "8abe7c62a66c6bbd65bb5a7ec8f7cd9a4f138c756f091539d7eb35c560163bc0",
+    "packages/infrastructure/src/deepseek.ts": "3d303dfcce2fb6baf5bb68444076d0220ddec84256cd23a2fb37cf833d8fad95"
+  },
+  "bundleHashesEqualOriginal": {
+    "apps/desktop/out/main/chunks/public-BgrN3gNx.js": "f080ef0f997457a49db3eb2ad13cdfa4d75a11b81776cb440a6591950a84dbde",
+    "apps/desktop/out/main/chunks/src-QFXo1MOf.js": "159ddeb41472109e6e651e623d0265e6bae4acc5d87d51cc0bcc283e0e6e922f",
+    "apps/desktop/out/main/evaluation.js": "47623b00ce75989f946ea997fb80bf6943eca555d980c2a3cb09e681fa64565f",
+    "apps/desktop/out/main/index.js": "375cc961e09d1059001e328ad3cb63fb4fe88af186c91d565d8d1084657195ec",
+    "apps/desktop/out/main/worker.js": "3f3e20fcccfb1879e86cf8aadf39ccb448c97763db67e199886095bdd1f78c02",
+    "apps/desktop/out/preload/index.js": "1145cb78f53f6082d4d3143e7baced815d45f8ddb9ab0f689fed1b0feb63ad45",
+    "apps/desktop/out/renderer/assets/index-BaAuQ3b7.js": "5bb750c36fa8cedaedaa80736b2ef89986fad332da238e858d33ae9f83e7e7c6",
+    "apps/desktop/out/renderer/assets/index-CI5t_4ai.css": "e7bd779530406b4c9b54dad4bb4ae0923b4096fa2093278d6b89fba14e093e68",
+    "apps/desktop/out/renderer/index.html": "6b4d0ac1e5001dd6f8fb4e87ea5a341818826eb672317ac25a3c52afb63adab3"
+  },
+  "previousUnitFailuresUnchanged": 3,
+  "previousFailureEvidenceSha256": "3b0f4a9d08d9c8bab78a5988efe7684fd755dfa8118d756c7bd6b1785d40a720",
+  "errors": []
+}
