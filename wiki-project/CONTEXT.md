@@ -1,5 +1,7 @@
 # 当前上下文
 
+- 2026-10-23 用户明确授权推送后，代码、语义Wiki、机械清单与原始验证证据已提交为 330bff76615147ea9c2729cb144a18873a5251d0，并推送 origin/codex/b01-wiki-integration；git ls-remote 回读与代码提交逐字一致。未合并、未创建PR，A/C非作者评审、macOS与正式桌面/人工发布仍待，任务保持active。交付证据见 raw/b01-wiki-integration-delivery.json；原验证JSON保持其当时未提交快照，不重写历史。 详细交接见 [[2026-10-23-B01新Wiki存储联调]]。
+
 - 2026-10-23：[[2026-10-23-B01新Wiki存储联调]] 在独立codex/b01-wiki-integration、taskBase=dd42b05整合A01c与原B01 WIP；实际SQLite search/resolve→多来源检查→报告/消费同事务、迁移7/账本已实现，52项聚焦与类型/构建通过。C远端仍68455a3，无新run/接线分支；下一步C接Main/worker/preload并配合A人审发布。新IPC/桌面/macOS/非作者复核待，B01仍active，未提交/推送；旧Windows失败与raw保留。
 
 - 2026-10-22：B01 第三切片增加 CheckStore / 未编号 quote_check_report DDL 候选；同连接同步事务提交报告/outbox/共享幂等，同键返回首次报告/时点，不重读知识；验证完整 JSON hash、来源和各级身份，V1～V3 历史隔离、原金额不变。22 项新增 SQLite 测试、类型/构建通过，全量 144/145（旧 Windows symlink EPERM）；实际工程/Wiki 回归与保留检查见 raw/b01-storage-validation.json。共同分支核对仍为 654fecc、迁移1～3，本轮未改 A 的 migrations/index、未开放 C 的正式 IPC/客户端；旧 B00 候选尚不能替代新 Wiki 多来源/消费事务。下一步 A 登记连续迁移及同连接组合、新 Wiki 适配后 C 接线；macOS/非作者评审待，B01 active，未提交/推送。下方历史阶段范围不代替当前状态。

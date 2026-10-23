@@ -350,3 +350,9 @@ B01 第三切片最终检查：pnpm check退出0（Biome99文件、工程5 passe
 聚焦52/52、typecheck/build退出0；已运行全量178 passed/1原Windows symlink EPERM（后续新增3项后需再次记录最终数）；原失败和所有raw不覆盖。当前新Wiki人工发布/文件blob与C正式IPC仍待，未冒充真实模型、Electron/macOS或A/C签字。详细实际命令/退出码与最终门禁记录在raw/b01-wiki-integration-validation.json及 [[2026-10-23-B01新Wiki存储联调]]；分支未提交/推送，任务保持active。
 
 2026-10-23最终联调验证：聚焦52/52、typecheck/build/check退出0（Biome111、工程5通过/1原macOS-only跳过、模块边界及Wiki只读check/lint通过）；全量181 passed / 1原Windows symlink EPERM、Wiki回归34 passed / 2原symlink EPERM。修复ADR必需段落与格式，合并A历史日志时将插入共同基线中间的旧记录改到末尾，保留双方全部非空行后，最终PR merge-base654fecc同步通过（29代码/13知识页/3任务），不改维护检查算法。原A77份/B83份非生成raw全部字节一致，B原源码hash不变、迁移1～4/6 SQL指纹不变，证据raw/b01-wiki-integration-validation.json。再次fetch确认C远端仍68455a3；新Wiki人审发布/文件blob、C桌面接线、macOS与非作者复核待。仅本地独立分支保存，未提交/推送，不标B01整体完成。
+
+## 2026-10-23 B01 联调分支推送
+
+2026-10-23 用户明确授权推送后，代码、语义Wiki、机械清单与原始验证证据已提交为 330bff76615147ea9c2729cb144a18873a5251d0，并推送 origin/codex/b01-wiki-integration；git ls-remote 回读与代码提交逐字一致。未合并、未创建PR，A/C非作者评审、macOS与正式桌面/人工发布仍待，任务保持active。交付证据见 raw/b01-wiki-integration-delivery.json；原验证JSON保持其当时未提交快照，不重写历史。
+
+提交前重新核验27项源码hash与Wiki配置指纹一致，Wiki只读check/lint、真实merge-base654fecc同步及cached空白检查全部退出0。首次提交因本机缺作者身份退出128，随后沿用B既有提交19d60a8身份、只通过git -c用于本次提交，不改全局配置，提交和推送成功。后续交付记录作为独立文档提交沿同一分支推送，不修改已验证源码或合入共同分支。
