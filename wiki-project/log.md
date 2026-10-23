@@ -616,3 +616,12 @@ GitHub连接器404后定向Git取得B对象，未触碰共同/原交接分支。
 推送前全量范围Wiki门禁已执行，首次网络失败与普通重试均单独留证；固定协调原文与诊断hash保持Git原版本。当前追加的Wiki交接记录与原文发布分开，不冒领迁移修复/非作者/业务通过。最终记录生成/check/lint、fd4b728/654fecc/be53b98同步及diff见本次Wiki验证；未改历史SQL或产品源码。
 
 本轮记录保存门禁退出0：225源码/185旧raw/103848字节log前缀、原人员任务和三份请求字节不变，生成225来源、193页只读check/lint、fd4b728/654fecc/be53b98同步与diff通过。原文已实际推送/核对fd4b728；最后Wiki提交继续同一授权分支普通推送并在交付回复核对完整远端头，未预填未来SHA。人员active、草稿draft及compatible=false保持；不合入/代签/发送/真实复测。
+
+
+## 2026-10-23 C接收B迁移协调M1～M8技术回复
+
+本轮基线7adbc935，同一独立codex/c-migration-coordination-draft工作树仅追加Wiki/证据。实际定向fetch/核对B远端完整头f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef，直接父e80d1a25c5ace628df6952a43d98b84d75e418e4；读取源码差异、M1～M8及原测试输出，5源码与映射hash准确，原迁移/DDL/CheckStore/公共契约/桌面未变。B Windows重跑的原六组完整cases、脚本、源码/SQL指纹与C原证据一致，compatible=false；额外未知v6/缺触发器0/2仍红，聚焦53/53和Windows183/184、Wiki34/36 EPERM原失败分列。B回复为开发Agent技术意见非人工签名。
+
+[[C迁移协调请求草稿-AB谱系兼容]]及原备稿任务/人员active任务、CONTEXT/状态/索引同步：先A确认谱系、支持/拒绝与登记ADR，再B实现和C新固定组合矩阵/macOS桌面。真实旧库存在性与mkdir/open/WAL拒绝边界未确认；无新号位/历史SQL变更或代码合入。原始接收/外部输出与C门禁分别见raw/c-b-migration-reply-intake.json、raw/c-b-migration-reply-validation.json；本轮不重新跑产品/探针，不推送、消息、合入、代签或真实模型复测。旧raw/log与源码保持核对及生成/只读check/lint、固定任务/目标/累计sync与diff按实际命令留证，任务维护完成不等于迁移问题关闭。
+
+本轮维护最终生成/check/lint及三基线sync/diff全部退出0，228非Wiki/187旧raw/105608字节log前缀保持。首次本地helper空路径错误与done证据running阶段绑定失败均保留于本轮初次/最终验证记录，修正维护时序后重验；未删除原产品失败或批准任何迁移。

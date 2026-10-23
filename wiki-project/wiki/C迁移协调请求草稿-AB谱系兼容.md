@@ -4,6 +4,8 @@ type: process
 status: draft
 updated: 2026-10-23
 sources:
+  - wiki-repo:raw/c-b-migration-reply-intake.json:1
+  - wiki-repo:raw/c-b-migration-reply-validation.json:1
   - wiki-repo:raw/c-b01-remote-intake.json:1
   - wiki-repo:raw/c-b01-migration-compatibility-probe.json:1
   - wiki-repo:raw/c-b01-remote-validation.json:1
@@ -12,7 +14,7 @@ sources:
 
 # C迁移协调请求草稿-AB谱系兼容
 
-迁移协调请求草稿（所在分支已按用户授权推送，未发送通知或代签）。基于d99f2b3已保存的固定材料与六组诊断，尚无A/B签认、迁移决定或实施；本文方案均为协调建议，未分配新编号、修改历史SQL/账本或运行新迁移。入口[[B01固定提交接收与迁移兼容诊断]]、[[C签认请求草稿与回填规则]]，本轮备稿任务[[C集成-AB迁移协调请求草稿]]；原[[C集成候选-依赖与非作者签认]]继续active。
+迁移协调请求草稿（原文及共享记录已按用户授权推送；本页新增B回复接收记录仅本地保存，未发送通知或代签）。基于d99f2b3已保存的固定材料与六组诊断，现已收到B开发Agent的M1～M8技术回复，尚无A/B人工签认、迁移决定或实施；本文方案均为协调建议，未分配新编号、修改历史SQL/账本或运行新迁移。入口[[B01固定提交接收与迁移兼容诊断]]、[[C签认请求草稿与回填规则]]，本轮备稿任务[[C集成-AB迁移协调请求草稿]]；原[[C集成候选-依赖与非作者签认]]继续active。
 
 ## 请求正文与固定版本
 
@@ -135,3 +137,31 @@ M1～M8本人意见：逐项给依据、疑问、需修订或资料不足；其�
 第一次推送HTTP400中断，核对远端仍无该分支后，以仅本次命令的HTTP/1.1与postBuffer设置普通重试成功；没有强推、推tag或修改全局配置，失败/成功原输出与hash均保留于[推送核对](../raw/c-migration-coordination-push-delivery.json)。Git服务给出的PR建议链接未被执行，没有创建PR、请求评审、评论或消息。
 
 本页追加共享记录仍是Wiki变化，随后随同一授权分支保存/推送；最终文档提交的完整远端头由本次交付回复核对，不在生成该提交前预填其SHA。任务[[C集成-迁移协调草稿推送交接]]区分原文推送与记录保存检查；[本轮Wiki门禁](../raw/c-migration-coordination-push-validation.json)仅覆盖记录维护。草稿仍draft、M1～M8未决、compatible=false及人员active不变，不合入、不代签、不自动发送或真实模型复测。
+
+
+## B固定回复接收与下一步（2026-10-23）
+
+用户提供B已推送的协调WIP。C定向fetch核对远端codex/b01-migration-coordination完整头为f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef，其直接父为接口修正e80d1a25c5ace628df6952a43d98b84d75e418e4，再前为6c76fb991f3135d6a48362c1b242e46af6641817。固定入口：[B逐项回复](https://github.com/jacson10l/tradequote-agent/blob/f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef/wiki-project/wiki/B对C迁移协调草稿M1-M8回复.md)、[接口与已知阻塞](https://github.com/jacson10l/tradequote-agent/blob/f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef/wiki-project/wiki/B01迁移协调回复与接口冻结.md)。回复明确身份为B开发Agent，时间为2026-10-23 19:15:29 Asia/Shanghai，仅B技术意见；不能回填为人类签名或A方案批准。
+
+C已实际阅读两页、源码差异与原始验证输出。B记录的5份源码hash和Wiki映射hash均与固定Git blob一致；本次未将这些源码合入C。e80d1a2对executeChecks显式声明同步CheckResult或CheckListResult，将Wiki结果/交换结构校验失败归SOURCE_CONFLICT，真实SQLite异常仍由CheckStore归STORAGE_ERROR；新增分类、脱敏与无意外写入断言。原migrations.ts、check-report-schema.ts、check-store.ts、公共contracts及desktop文件相对6c76fb9未变，不能把接口修正描述成迁移修复。
+
+| 原编号 | 已取得的B技术意见 | 仍须完成的收敛条件 |
+|---|---|---|
+| M1 | 已知执行只涉及合成测试/内存库，未确认真实部署库；C5～7为已实现能力 | A统筹真实旧库存在性、备份和逐谱系升级/保留/拒绝矩阵；C不凭空声明用户库范围 |
+| M2 | 必须在旧账本引导和业务写入前识别schema，防D2静默缺表、D3误登记 | A确定表/列/索引/触发器/约束及历史证据判据；明确mkdir/open/WAL是否包含在拒绝不改库边界与相应互斥/检测顺序 |
+| M3 | 支持讨论已知谱系定向追加＋未知/矛盾先拒绝，不再以补C5作为完整方案 | A确定目标schema、执行身份/追加映射、号位/依赖和ADR；保留原SQL、账本及业务事实 |
+| M4 | 报价JSON/hash/decimal、报告/全部来源、成功幂等与outbox不可重解释；报告/消费同连接IMMEDIATE同步事务 | 新固定组合验证旧数据、回滚/重开；C补run/attempt/控制/票据/写账本/步骤/事件seq不变量证据 |
+| M5 | 公共executeChecks和executeWiki须与C runStore/协调器共存；建议启动未就绪用既有STORAGE_ERROR安全表达，不新增公开码 | A/C确定启动失败分派与受控诊断；B最终契约、C Main/Worker/preload白名单和可信context接线另行验证，不改run重试权限 |
+| M6 | B在新固定版本负责报价/报告/消费/幂等夹具和事务证据，C负责组合矩阵与macOS桌面验证 | A先给支持/拒绝预期、目标schema和失败注入点；当前尚无统一目标提交 |
+| M7 | lifecycle直接提升仍只是fixture，人工review/publish/withdraw入口未具备 | A交固定实现，由实际人员审核/显式发布；B/C分别验消费门禁和实际桌面入口 |
+| M8 | 可继续由A收敛方案和实施准备，当前新组合需修订，不放行正式接线 | A记录迁移ADR，B/C交新固定实现/证据；实际非作者、业务与人员签认保持独立 |
+
+B在Windows x64的Electron44.9.2/Node24.22.0重跑C原六组诊断，报告sources、三项源码hash、全部SQL指纹、六组完整cases、probeScriptUtf8及compatible字段与C原记录逐项完全一致，compatible=false。C本轮比较B提交的原始JSON，未重新运行探针。原六组诊断结论均未改变；诊断复现成功不代表兼容通过。
+
+B另有两个显式负向探针保持0/2：未知合成v6被误接受并写账本，删除quote_check_report_no_delete触发器后仍被接受。这两个是额外合成缺口，不冒充D1～D6，也没有被普通单元通过所覆盖。e80d1a2最终聚焦53/53；类型/构建/工程/Wiki同步通过；全量183/184与Wiki34/36保留Windows symlink EPERM原失败。最初聚焦51/53、探针装载失败和红色诊断均在B原记录中保留；不得将较早失败删掉后声称全套通过。f2dfa5f仅文档/证据增量，其Wiki门禁通过，不是新组合验收。C还用Git原始路径核对B回复前87份非生成raw字节未变、日志仅追加，原initial-validation路径转义假差异记录保留。
+
+本次接收/哈希/完整相关输出见[接收证据](../raw/c-b-migration-reply-intake.json)，C文档维护实际检查见[本轮门禁](../raw/c-b-migration-reply-validation.json)。未执行B新代码的macOS全套、完整组合/Electron或真实模型复测；旧C45fa03d及b256dd1/dc0f034技术证据仍仅覆盖原范围。
+
+下一步：A先给M1～M3及M6的可审阅ADR/矩阵和追加注册方案；B依该方案修正入口/存储并提交新的固定证据，保留上述红色缺口直至实际关闭；C在独立组合候选上先验完整迁移与拒绝/回滚矩阵，再接桌面并跑macOS完整本机验证。C现在可整理运行不变量和入口清单，不抢占A的号位/执行身份决定，也不覆盖B整文件实现。A-3/AB-1继续active，A-1/A-2/B-1/B-2/R-1/H-1及C04人工签认均不自动关闭。本次新增接收记录不自动推送、发送、合入、创建PR或签认。
+
+本轮C首次Wiki lint因新验证JSON仍处于running而被done任务引用，正确拒绝DONE_VERIFICATION_INVALID；保留[首次维护记录](../raw/c-b-migration-reply-initial-validation.json)，待实际检查全部通过后再绑定本轮完成证据。该维护时序问题未涉及产品/迁移执行。

@@ -4,8 +4,10 @@ type: task
 status: done
 updated: 2026-10-23
 verification:
+  - wiki-repo:raw/c-b-migration-reply-validation.json:1
   - wiki-repo:raw/c-migration-coordination-draft-validation.json:1
 sources:
+  - wiki-repo:raw/c-b-migration-reply-intake.json:1
   - wiki-repo:raw/c-b01-remote-intake.json:1
   - wiki-repo:raw/c-b01-migration-compatibility-probe.json:1
 ---
@@ -42,3 +44,12 @@ A/B/C方案选择、M1～M8实际回复、原库存在性、支持/拒绝矩阵�
 ## 后续用户授权的推送交接
 
 本任务done仅备稿；其后用户明确授权指定协调分支推送。原文fd4b728及其诊断祖先d99f2b3已在origin可读取，远端完整核对与固定链接见[[C集成-迁移协调草稿推送交接]]、[[C迁移协调请求草稿-AB谱系兼容]]。原“不推送”是当时约束，新授权仅开放分支读取，不关闭方案/人员待签或自动发送，历史原文/证据不改。
+
+
+## B回复接收追加（2026-10-23）
+
+继续同一独立协调工作树/分支；本次记录基线taskBase=7adbc93512ce5faad642b5d4fd6bd46f1b9ac0bf。已核对B远端f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef与接口父提交e80d1a25c5ace628df6952a43d98b84d75e418e4，实际阅读M1～M8、源码差异和原验证；5源码及映射hash一致，原六组完整诊断/源码/SQL/脚本比较一致且compatible=false。[[C迁移协调请求草稿-AB谱系兼容]]追加B技术意见、额外0/2负向缺口、53/53与183/184、Wiki34/36的实际边界及A/B/C后续条件；实际证据见[接收JSON](../../raw/c-b-migration-reply-intake.json)。
+
+仅追加Wiki，未合B代码、不改历史迁移，未运行新产品套件/探针；B开发Agent回复不是人员签名，A-3/AB-1及其他人工任务仍active。本次新增记录仅本地保存，不推送/消息/共同合入/真实模型复测。生成、只读check/lint、7adbc935/654fecc/be53b98固定基线sync、旧源码/raw/log保持及diff检查实际执行后记录于[文档验证](../../raw/c-b-migration-reply-validation.json)。本任务done仅覆盖备稿与回复记录维护，不代表方案已定、迁移修复完成或人员已签。
+
+本次维护最终验证：生成/check/lint、7adbc935/654fecc/be53b98同步及diff全部退出0；228份非Wiki文件（含225纳管源码）、187份旧非生成raw与105608字节log前缀保持，人员任务继续active。首次helper空路径和验证证据绑定时序失败均单独保留，未计为产品失败或迁移通过；完成证据绑定后再次只读核验。

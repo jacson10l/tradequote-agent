@@ -1,0 +1,500 @@
+{
+  "status": "observed",
+  "scope": "C technical intake of fixed B coordination response, not independent approval or compatibility acceptance",
+  "recordedAt": "2026-10-23T12:43:13.700766+00:00",
+  "taskBase": "7adbc93512ce5faad642b5d4fd6bd46f1b9ac0bf",
+  "branch": "codex/c-migration-coordination-draft",
+  "verifiedBRemoteHead": "f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef",
+  "fixedCommits": {
+    "BInterface": "e80d1a25c5ace628df6952a43d98b84d75e418e4",
+    "BReply": "f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef",
+    "BPrevious": "6c76fb991f3135d6a48362c1b242e46af6641817"
+  },
+  "checks": [
+    {
+      "argv": [
+        "git",
+        "ls-remote",
+        "--heads",
+        "origin",
+        "refs/heads/codex/b01-migration-coordination"
+      ],
+      "startedAt": "2026-10-23T12:43:04.649483+00:00",
+      "finishedAt": "2026-10-23T12:43:06.742848+00:00",
+      "exitCode": 0,
+      "output": "f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef\trefs/heads/codex/b01-migration-coordination\n",
+      "outputSha256": "167ce97bc168aab2ca3533c025c976a8069a697e195a764652be82e15e556591"
+    },
+    {
+      "argv": [
+        "git",
+        "fetch",
+        "--no-tags",
+        "origin",
+        "refs/heads/codex/b01-migration-coordination:refs/remotes/origin/codex/b01-migration-coordination"
+      ],
+      "startedAt": "2026-10-23T12:43:06.743014+00:00",
+      "finishedAt": "2026-10-23T12:43:08.146123+00:00",
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "git",
+        "merge-base",
+        "--is-ancestor",
+        "6c76fb991f3135d6a48362c1b242e46af6641817",
+        "e80d1a25c5ace628df6952a43d98b84d75e418e4"
+      ],
+      "startedAt": "2026-10-23T12:43:08.146215+00:00",
+      "finishedAt": "2026-10-23T12:43:08.156769+00:00",
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "git",
+        "merge-base",
+        "--is-ancestor",
+        "e80d1a25c5ace628df6952a43d98b84d75e418e4",
+        "f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef"
+      ],
+      "startedAt": "2026-10-23T12:43:08.156821+00:00",
+      "finishedAt": "2026-10-23T12:43:08.167472+00:00",
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "BReplyIdentity": {
+    "role": "B development Agent technical response only",
+    "time": "2026-10-23 19:15:29 Asia/Shanghai (UTC+08:00)",
+    "migrationDecisionApproved": false
+  },
+  "BArtifactHashes": {
+    "wiki-project/raw/b01-c-migration-draft-intake.json": {
+      "commit": "f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef",
+      "sha256": "0d8eca0845049fba7a2b9474dae7cae5c1ad87b9a240c4da1db0dd2d7dcbdf90",
+      "url": "https://github.com/jacson10l/tradequote-agent/blob/f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef/wiki-project/raw/b01-c-migration-draft-intake.json"
+    },
+    "wiki-project/raw/b01-c-migration-original-replay.json": {
+      "commit": "f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef",
+      "sha256": "38eb941b48266f412df2ed73ba6eff31936305098e826c7f962992e58e0c6ea1",
+      "url": "https://github.com/jacson10l/tradequote-agent/blob/f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef/wiki-project/raw/b01-c-migration-original-replay.json"
+    },
+    "wiki-project/raw/b01-c-migration-reply-initial-validation.json": {
+      "commit": "f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef",
+      "sha256": "a7595d8f1f551af3f78e72f7fb4142fedf7ac2132806b998e710913fd3f93fd9",
+      "url": "https://github.com/jacson10l/tradequote-agent/blob/f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef/wiki-project/raw/b01-c-migration-reply-initial-validation.json"
+    },
+    "wiki-project/raw/b01-c-migration-reply-validation.json": {
+      "commit": "f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef",
+      "sha256": "e852d72766fd7c3c04212d55e21760d1c30ed939d397016c5ab3f3dd805caac1",
+      "url": "https://github.com/jacson10l/tradequote-agent/blob/f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef/wiki-project/raw/b01-c-migration-reply-validation.json"
+    },
+    "wiki-project/raw/b01-migration-coordination-probe.json": {
+      "commit": "f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef",
+      "sha256": "a63431ed27783a8514d430f0a114a26d72b0886e4a6bcbf7a7cd95671fd8edca",
+      "url": "https://github.com/jacson10l/tradequote-agent/blob/f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef/wiki-project/raw/b01-migration-coordination-probe.json"
+    },
+    "wiki-project/raw/b01-migration-coordination-validation.json": {
+      "commit": "f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef",
+      "sha256": "de0d733a8f459b827d74813669e2b7bfac9a1bcab54a7fbbdedd2be1c4402cd2",
+      "url": "https://github.com/jacson10l/tradequote-agent/blob/f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef/wiki-project/raw/b01-migration-coordination-validation.json"
+    }
+  },
+  "testedSourceAudit": [
+    {
+      "path": "packages/infrastructure/src/index.ts",
+      "reportedSha256": "8a2736399bd0abd6323f1477ffe90ea1ea767798ff76600a664b12ae53e5be5a",
+      "actualSha256": "8a2736399bd0abd6323f1477ffe90ea1ea767798ff76600a664b12ae53e5be5a"
+    },
+    {
+      "path": "packages/infrastructure/src/wiki-check-source.ts",
+      "reportedSha256": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+      "actualSha256": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c"
+    },
+    {
+      "path": "packages/infrastructure/src/wiki-check-integration.test.ts",
+      "reportedSha256": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7",
+      "actualSha256": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+    },
+    {
+      "path": "packages/infrastructure/probes/migration-lineage.probe.ts",
+      "reportedSha256": "ae5cb2ec16fa84611362dc1e4f59b129124a27680526898fb839c8f8d85cab7b",
+      "actualSha256": "ae5cb2ec16fa84611362dc1e4f59b129124a27680526898fb839c8f8d85cab7b"
+    },
+    {
+      "path": "packages/infrastructure/probes/vitest.config.ts",
+      "reportedSha256": "a13f7c6a881de93539eba7897f10359c7e7c14b7c551af5da0790f8998c94415",
+      "actualSha256": "a13f7c6a881de93539eba7897f10359c7e7c14b7c551af5da0790f8998c94415"
+    }
+  ],
+  "BUnchangedProtectedSource": [
+    "packages/infrastructure/src/migrations.ts",
+    "packages/infrastructure/src/check-report-schema.ts",
+    "packages/infrastructure/src/check-store.ts"
+  ],
+  "BContractsAndDesktopUnchanged": true,
+  "BReplyPreservation": {
+    "previousNonGeneratedRaw": 87,
+    "allBytesUnchanged": true,
+    "logPrefixPreserved": true
+  },
+  "replayComparison": {
+    "originalCReportSha256": "834c091fb66aecb2b4467fd4f599356cee6800f53232f3129f204db044c1932c",
+    "matchingFields": {
+      "sources": true,
+      "sourceSha256": true,
+      "sqlFingerprints": true,
+      "cases": true,
+      "probeScriptUtf8": true,
+      "compatible": true
+    },
+    "environment": {
+      "platform": "win32",
+      "arch": "x64",
+      "node": "v24.22.0",
+      "electron": "44.9.2"
+    },
+    "compatible": false,
+    "executedBy": "B development Agent; C compared supplied evidence, did not rerun probe"
+  },
+  "BOriginalResults": {
+    "focusedPassed": 53,
+    "focusedFailed": 0,
+    "fullUnitPassed": 183,
+    "fullUnitFailed": 1,
+    "wikiRegressionPassed": 34,
+    "wikiRegressionFailed": 2,
+    "migrationDiagnosticPassed": 0,
+    "migrationDiagnosticFailed": 2
+  },
+  "BFinalPhaseChecks": {
+    "focused": {
+      "index": 8,
+      "phase": "focused",
+      "command": "ELECTRON_RUN_AS_NODE=1 electron node_modules/vitest/vitest.mjs run packages/infrastructure/src/wiki-check-integration.test.ts packages/infrastructure/src/check-store.test.ts packages/contracts/src/checks.test.ts packages/infrastructure/src/migrations.test.ts",
+      "startedAt": "2026-10-23T11:01:09.028Z",
+      "finishedAt": "2026-10-23T11:01:11.627Z",
+      "exit_code": 0,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01-integration\n\n\n Test Files  4 passed (4)\n      Tests  53 passed (53)\n   Start at  19:01:09\n   Duration  2.17s (tests 60%, import 34%, transform 5%, worker 1%)\n\n",
+      "outputSha256": "b9e923a65164274c43040f1674591c2e1c388195bcab97f8045efd88518b086e"
+    },
+    "probe": {
+      "index": 5,
+      "phase": "probe",
+      "command": "ELECTRON_RUN_AS_NODE=1 electron node_modules/vitest/vitest.mjs run --config packages/infrastructure/probes/vitest.config.ts",
+      "startedAt": "2026-10-23T10:57:05.344Z",
+      "finishedAt": "2026-10-23T10:57:06.019Z",
+      "exit_code": 1,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01-integration\n\n ❯ packages/infrastructure/probes/migration-lineage.probe.ts (2 tests | 2 failed) 15ms\n   × proposed reject policy: synthetic_unrecognized_6 must not be accepted merely by version/hash 9ms\n   × proposed reject policy: ledger_with_missing_immutable_trigger must not be accepted merely by version/hash 4ms\n\n Test Files  1 failed (1)\n      Tests  2 failed (2)\n   Start at  18:57:05\n   Duration  262ms (transform 45%, import 30%, tests 19%, worker 6%)\n\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/probes/migration-lineage.probe.ts > proposed reject policy: synthetic_unrecognized_6 must not be accepted merely by version/hash\n FAIL  packages/infrastructure/probes/migration-lineage.probe.ts > proposed reject policy: ledger_with_missing_immutable_trigger must not be accepted merely by version/hash\nAssertionError: unrecognized schema must be rejected before stamping current lineage: expected null not to be null\n ❯ packages/infrastructure/probes/migration-lineage.probe.ts:73:13\n     71|         error,\n     72|         \"unrecognized schema must be rejected before stamping current …\n     73|       ).not.toBeNull();\n       |             ^\n     74|       expect(schema()).toBe(before);\n     75|     } finally {\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯\n\n",
+      "outputSha256": "a55c3b67c56c1dcf9ddb2d4cc20d4dab364458583275a3e3bae81da4a46c3513"
+    },
+    "typecheck": {
+      "index": 4,
+      "phase": "typecheck",
+      "command": "pnpm typecheck",
+      "startedAt": "2026-10-23T10:57:03.633Z",
+      "finishedAt": "2026-10-23T10:57:05.253Z",
+      "exit_code": 0,
+      "output": "\n> tradequote-agent@0.1.0 typecheck D:\\code\\tradequote-agent-b01-integration\n> tsc --noEmit\n\n",
+      "outputSha256": "43e102125d3b53befb019f8530c7e01100cb0dab16351f1b7cf74d8b519670fe"
+    },
+    "check": {
+      "index": 12,
+      "phase": "check",
+      "command": "pnpm check",
+      "startedAt": "2026-10-23T11:03:00.593Z",
+      "finishedAt": "2026-10-23T11:03:03.501Z",
+      "exit_code": 0,
+      "output": "\n> tradequote-agent@0.1.0 check D:\\code\\tradequote-agent-b01-integration\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 113 files in 43ms. No fixes applied.\nTAP version 13\n# Subtest: renderer cannot reach Node, database or desktop internals through import forms\nok 1 - renderer cannot reach Node, database or desktop internals through import forms\n  ---\n  duration_ms: 11.9602\n  type: 'test'\n  ...\n# Subtest: pure modules use public contracts while other platform dependencies are rejected\nok 2 - pure modules use public contracts while other platform dependencies are rejected\n  ---\n  duration_ms: 2.3609\n  type: 'test'\n  ...\n# Subtest: domain permits exact pure decimal dependency without opening contracts or SDK imports\nok 3 - domain permits exact pure decimal dependency without opening contracts or SDK imports\n  ---\n  duration_ms: 0.6324\n  type: 'test'\n  ...\n# Subtest: committed icon resources match their source manifest\nok 4 - committed icon resources match their source manifest\n  ---\n  duration_ms: 3.5637\n  type: 'test'\n  ...\n# Subtest: editing either SVG or packaged icon without generation blocks the build\nok 5 - editing either SVG or packaged icon without generation blocks the build\n  ---\n  duration_ms: 17.134\n  type: 'test'\n  ...\n# Subtest: macOS native process and runtime display TradeQuote while upstream Electron stays intact\nok 6 - macOS native process and runtime display TradeQuote while upstream Electron stays intact # SKIP\n  ---\n  duration_ms: 1.4775\n  type: 'test'\n  ...\n1..6\n# tests 6\n# suites 0\n# pass 5\n# fail 0\n# cancelled 0\n# skipped 1\n# todo 0\n# duration_ms 209.5022\nModule boundaries passed\n\n> tradequote-agent@0.1.0 wiki:check D:\\code\\tradequote-agent-b01-integration\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 177,\n  \"lines\": 48416,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 110,\n  \"semantic\": 94,\n  \"reachable\": 110\n}\n",
+      "outputSha256": "b4b63cb72819aba43afdc1dcc6acd036ef005bfb6bb3972c9d7bea133151a715"
+    },
+    "sync": {
+      "index": 13,
+      "phase": "sync",
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 6c76fb991f3135d6a48362c1b242e46af6641817",
+      "startedAt": "2026-10-23T11:03:03.590Z",
+      "finishedAt": "2026-10-23T11:03:04.606Z",
+      "exit_code": 0,
+      "output": "{\n  \"base\": \"6c76fb991f3135d6a48362c1b242e46af6641817\",\n  \"status\": \"passed\",\n  \"codeFiles\": 6,\n  \"knowledgePages\": 9,\n  \"tasks\": 2,\n  \"errors\": []\n}\n",
+      "outputSha256": "0331c8cf6327f4a6c2118b4ed4717a9109692a55e413fbac1474600c070d40c3"
+    },
+    "unit": {
+      "index": 9,
+      "phase": "unit",
+      "command": "pnpm test",
+      "startedAt": "2026-10-23T11:01:11.721Z",
+      "finishedAt": "2026-10-23T11:01:17.507Z",
+      "exit_code": 1,
+      "output": "\n> tradequote-agent@0.1.0 test D:\\code\\tradequote-agent-b01-integration\n> node scripts/test-unit.mjs\n\n\n RUN  v5.0.5 D:/code/tradequote-agent-b01-integration\n\n ❯ packages/infrastructure/src/storage.test.ts (4 tests | 1 failed) 199ms\n   × stores immutable content hashes and rejects traversal, tampering and symlinks 39ms\n\n Test Files  1 failed | 23 passed (24)\n      Tests  1 failed | 183 passed (184)\n   Start at  19:01:12\n   Duration  4.45s (import 53%, tests 27%, environment 14%, transform 4%, worker 1%)\n\n    Isolate  24 workers spawned · ~619ms startup each (spawn + environment, per file)\n             at least ~372ms faster with isolate: false — reuses workers across files instead of one per file\n\n ELIFECYCLE  Test failed. See above for more details.\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/storage.test.ts > stores immutable content hashes and rejects traversal, tampering and symlinks\nError: EPERM: operation not permitted, symlink 'D:\\code\\tradequote-agent-b01-integration\\.runtime\\test-temp\\tradequote-test-wR8L8S\\169e73adeeb9ee2cbf78b5878c95ebef88d580774a6005a367c8e35458658027' -> 'D:\\code\\tradequote-agent-b01-integration\\.runtime\\test-temp\\tradequote-test-wR8L8S\\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'\n ❯ packages/infrastructure/src/storage.test.ts:107:3\n    105|   expect(await store.verifyHash(id)).toBe(false);\n    106|   const other = \"a\".repeat(64);\n    107|   symlinkSync(join(root, id), join(root, other));\n       |   ^\n    108|   await expect(store.readById(other)).rejects.toThrow(\"ARTIFACT_NOT_RE…\n    109| });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n",
+      "outputSha256": "a054fad85ca277c698200dea28c732c1e5f4f76356798055ffba4e32e2e6e426"
+    },
+    "build": {
+      "index": 10,
+      "phase": "build",
+      "command": "pnpm build",
+      "startedAt": "2026-10-23T11:01:17.600Z",
+      "finishedAt": "2026-10-23T11:01:19.962Z",
+      "exit_code": 0,
+      "output": "\n> tradequote-agent@0.1.0 build D:\\code\\tradequote-agent-b01-integration\n> node scripts/check-icons.mjs && pnpm --filter @tradequote/desktop build\n\nApplication icons passed: SVG/1024 PNG/macOS ICNS/Windows ICO\n\n> @tradequote/desktop@0.1.0 build D:\\code\\tradequote-agent-b01-integration\\apps\\desktop\n> electron-vite build\n\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 255 modules transformed.\nrendering chunks...\nout/main/worker.js                 1.26 kB\nout/main/index.js                  9.54 kB\nout/main/chunks/src-CUduJHcE.js  572.16 kB\n\n✓ built in 145ms\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 111 modules transformed.\nrendering chunks...\nout/preload/index.js  232.84 kB\n\n✓ built in 45ms\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 2109 modules transformed.\nrendering chunks...\nout/renderer/index.html                   0.64 kB\nout/renderer/assets/index-ptglloFo.css   15.26 kB\nout/renderer/assets/index-D4fbU389.js   534.88 kB\n\n✓ built in 379ms\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n",
+      "outputSha256": "77447f918c815c90e1ca4e9aeb1834cfcb6ae101e72da7ed89d68e0871e11c3e"
+    },
+    "wiki": {
+      "index": 11,
+      "phase": "wiki",
+      "command": "pnpm wiki:test",
+      "startedAt": "2026-10-23T11:01:20.052Z",
+      "finishedAt": "2026-10-23T11:01:48.960Z",
+      "exit_code": 1,
+      "output": "\n> tradequote-agent@0.1.0 wiki:test D:\\code\\tradequote-agent-b01-integration\n> node --test wiki-project/scripts/wiki-tools.test.mjs wiki-project/scripts/wiki-sync.test.mjs\n\nTAP version 13\n# Subtest: runtime version pin is a mandatory Wiki-synchronized configuration change\nok 1 - runtime version pin is a mandatory Wiki-synchronized configuration change\n  ---\n  duration_ms: 1.9446\n  type: 'test'\n  ...\n# Subtest: code with related knowledge, task and appended log passes\nok 2 - code with related knowledge, task and appended log passes\n  ---\n  duration_ms: 0.3893\n  type: 'test'\n  ...\n# Subtest: generated snapshots alone cannot satisfy knowledge/task/log changes\nok 3 - generated snapshots alone cannot satisfy knowledge/task/log changes\n  ---\n  duration_ms: 0.1799\n  type: 'test'\n  ...\n# Subtest: metadata-only or whitespace-only edits cannot satisfy semantic update\nok 4 - metadata-only or whitespace-only edits cannot satisfy semantic update\n  ---\n  duration_ms: 0.281\n  type: 'test'\n  ...\n# Subtest: each source needs its own mapped knowledge, unrelated pages do not suffice\nok 5 - each source needs its own mapped knowledge, unrelated pages do not suffice\n  ---\n  duration_ms: 0.2201\n  type: 'test'\n  ...\n# Subtest: deleted source uses baseline mapping; unknown source fails\nok 6 - deleted source uses baseline mapping; unknown source fails\n  ---\n  duration_ms: 0.2634\n  type: 'test'\n  ...\n# Subtest: history rewrite and removed task do not pass\nok 7 - history rewrite and removed task do not pass\n  ---\n  duration_ms: 1.1438\n  type: 'test'\n  ...\n# Subtest: Wiki maintenance code requires workflow knowledge, not generated data\nok 8 - Wiki maintenance code requires workflow knowledge, not generated data\n  ---\n  duration_ms: 0.1685\n  type: 'test'\n  ...\n# Subtest: ordinary documentation-only edits do not trigger code delivery check\nok 9 - ordinary documentation-only edits do not trigger code delivery check\n  ---\n  duration_ms: 0.346\n  type: 'test'\n  ...\n# Subtest: real Git baseline includes committed, unstaged and untracked sources\nok 10 - real Git baseline includes committed, unstaged and untracked sources\n  ---\n  duration_ms: 1338.7892\n  type: 'test'\n  ...\n# Subtest: SVG assets require semantic Wiki, task and append-only log changes\nok 11 - SVG assets require semantic Wiki, task and append-only log changes\n  ---\n  duration_ms: 0.3382\n  type: 'test'\n  ...\n# Subtest: same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\nok 12 - same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\n  ---\n  duration_ms: 2578.6749\n  type: 'test'\n  ...\n# Subtest: source drift fails without writes; generation repairs snapshot while preserving ingest baseline\nok 13 - source drift fails without writes; generation repairs snapshot while preserving ingest baseline\n  ---\n  duration_ms: 1256.1305\n  type: 'test'\n  ...\n# Subtest: explicit ingest records a non-Git project honestly\nok 14 - explicit ingest records a non-Git project honestly\n  ---\n  duration_ms: 1140.9721\n  type: 'test'\n  ...\n# Subtest: tool inventory names come from definitions, not nested headers/output/schema fields\nok 15 - tool inventory names come from definitions, not nested headers/output/schema fields\n  ---\n  duration_ms: 649.3836\n  type: 'test'\n  ...\n# Subtest: new unclassified source fails; missing knowledge target and stale mapping fail\nok 16 - new unclassified source fails; missing knowledge target and stale mapping fail\n  ---\n  duration_ms: 867.1536\n  type: 'test'\n  ...\n# Subtest: generated coverage tampering is detected by lint and remains untouched\nok 17 - generated coverage tampering is detected by lint and remains untouched\n  ---\n  duration_ms: 1053.8817\n  type: 'test'\n  ...\n# Subtest: sensitive filename is excluded before read; external source symlink is not followed\nnot ok 18 - sensitive filename is excluded before read; external source symlink is not followed\n  ---\n  duration_ms: 355.976\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:129:1'\n  failureType: 'testCodeFailure'\n  error: \"EPERM: operation not permitted, symlink 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\.runtime\\\\test-temp\\\\tradequote-private-fixture-bQCOlm\\\\external.ts' -> 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\.runtime\\\\test-temp\\\\tradequote-wiki-test-vFlZpF\\\\linked.ts'\"\n  code: 'EPERM'\n  stack: |-\n    Object.symlinkSync (node:fs:1892:11)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b01-integration/wiki-project/scripts/wiki-tools.test.mjs:137:6)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n    Test.postRun (node:internal/test_runner/test:1173:19)\n    Test.run (node:internal/test_runner/test:1101:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)\n  ...\n# Subtest: Wiki and generated-output symlinks cannot write outside project\nnot ok 19 - Wiki and generated-output symlinks cannot write outside project\n  ---\n  duration_ms: 343.5668\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:143:1'\n  failureType: 'testCodeFailure'\n  error: \"EPERM: operation not permitted, symlink 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\.runtime\\\\test-temp\\\\tradequote-wiki-outside-UKUVrg' -> 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\.runtime\\\\test-temp\\\\tradequote-wiki-test-3eYY4N\\\\wiki-project\\\\raw\\\\generated'\"\n  code: 'EPERM'\n  stack: |-\n    Object.symlinkSync (node:fs:1892:11)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b01-integration/wiki-project/scripts/wiki-tools.test.mjs:149:6)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n    Test.postRun (node:internal/test_runner/test:1173:19)\n    Test.run (node:internal/test_runner/test:1101:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)\n  ...\n# Subtest: missing schema field\nok 20 - missing schema field\n  ---\n  duration_ms: 966.2785\n  type: 'test'\n  ...\n# Subtest: bad type\nok 21 - bad type\n  ---\n  duration_ms: 989.6394\n  type: 'test'\n  ...\n# Subtest: bad date\nok 22 - bad date\n  ---\n  duration_ms: 980.1458\n  type: 'test'\n  ...\n# Subtest: bad status\nok 23 - bad status\n  ---\n  duration_ms: 986.241\n  type: 'test'\n  ...\n# Subtest: missing wiki target\nok 24 - missing wiki target\n  ---\n  duration_ms: 971.7717\n  type: 'test'\n  ...\n# Subtest: missing markdown target\nok 25 - missing markdown target\n  ---\n  duration_ms: 988.1934\n  type: 'test'\n  ...\n# Subtest: invalid source line\nok 26 - invalid source line\n  ---\n  duration_ms: 964.3081\n  type: 'test'\n  ...\n# Subtest: verified without code evidence\nok 27 - verified without code evidence\n  ---\n  duration_ms: 997.5353\n  type: 'test'\n  ...\n# Subtest: source escaping project\nok 28 - source escaping project\n  ---\n  duration_ms: 996.616\n  type: 'test'\n  ...\n# Subtest: unfilled placeholder\nok 29 - unfilled placeholder\n  ---\n  duration_ms: 987.6292\n  type: 'test'\n  ...\n# Subtest: all sources are validated even after a valid implementation source\nok 30 - all sources are validated even after a valid implementation source\n  ---\n  duration_ms: 980.8332\n  type: 'test'\n  ...\n# Subtest: orphan pages and duplicate basenames are rejected\nok 31 - orphan pages and duplicate basenames are rejected\n  ---\n  duration_ms: 1627.2786\n  type: 'test'\n  ...\n# Subtest: completed task requires actual verification record\nok 32 - completed task requires actual verification record\n  ---\n  duration_ms: 982.4483\n  type: 'test'\n  ...\n# Subtest: archived source cannot bypass inspection through silent changes\nok 33 - archived source cannot bypass inspection through silent changes\n  ---\n  duration_ms: 986.5457\n  type: 'test'\n  ...\n# Subtest: source references cannot open excluded runtime data\nok 34 - source references cannot open excluded runtime data\n  ---\n  duration_ms: 997.182\n  type: 'test'\n  ...\n# Subtest: new JSON evidence is checked and sensitive Wiki filenames are rejected before read\nok 35 - new JSON evidence is checked and sensitive Wiki filenames are rejected before read\n  ---\n  duration_ms: 1279.1024\n  type: 'test'\n  ...\n# Subtest: secret/JWT/private-key/PII detections redact the value in diagnostics\nok 36 - secret/JWT/private-key/PII detections redact the value in diagnostics\n  ---\n  duration_ms: 2909.0178\n  type: 'test'\n  ...\n1..36\n# tests 36\n# suites 0\n# pass 34\n# fail 2\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 28024.5832\n ELIFECYCLE  Command failed with exit code 1.\n",
+      "outputSha256": "0b712c65a904ff06e04707c056cf3636190fb1bed4b4f22b0e04370fdda975b4"
+    }
+  },
+  "BAllAttemptSummary": [
+    {
+      "index": 0,
+      "phase": "focused",
+      "exit_code": 1,
+      "outputSha256": "49e43adb549a9cf4df39bec389cb6c6a180b3e4197e846b9aa4f50f60d229076"
+    },
+    {
+      "index": 1,
+      "phase": "focused",
+      "exit_code": 0,
+      "outputSha256": "1d6d8b76a0f67177722d5d9b1a1d339cb06af2f30e1ab683295e6e1d010dc399"
+    },
+    {
+      "index": 2,
+      "phase": "probe",
+      "exit_code": 1,
+      "outputSha256": "0b48b189bc21f6dd0c05ea86b82d4aba7343f019ad2af1d978d7c2043fb6b9c1"
+    },
+    {
+      "index": 3,
+      "phase": "probe",
+      "exit_code": 1,
+      "outputSha256": "35e3fac977d8bbdce9f81ac428798842ecdd00867882eba4ff8aa45e42f3c306"
+    },
+    {
+      "index": 4,
+      "phase": "typecheck",
+      "exit_code": 0,
+      "outputSha256": "43e102125d3b53befb019f8530c7e01100cb0dab16351f1b7cf74d8b519670fe"
+    },
+    {
+      "index": 5,
+      "phase": "probe",
+      "exit_code": 1,
+      "outputSha256": "a55c3b67c56c1dcf9ddb2d4cc20d4dab364458583275a3e3bae81da4a46c3513"
+    },
+    {
+      "index": 6,
+      "phase": "check",
+      "exit_code": 0,
+      "outputSha256": "6994e5c66e720cb8ee0527c48b8dc637f2980036c272c324516536378c7e71c6"
+    },
+    {
+      "index": 7,
+      "phase": "sync",
+      "exit_code": 0,
+      "outputSha256": "0331c8cf6327f4a6c2118b4ed4717a9109692a55e413fbac1474600c070d40c3"
+    },
+    {
+      "index": 8,
+      "phase": "focused",
+      "exit_code": 0,
+      "outputSha256": "b9e923a65164274c43040f1674591c2e1c388195bcab97f8045efd88518b086e"
+    },
+    {
+      "index": 9,
+      "phase": "unit",
+      "exit_code": 1,
+      "outputSha256": "a054fad85ca277c698200dea28c732c1e5f4f76356798055ffba4e32e2e6e426"
+    },
+    {
+      "index": 10,
+      "phase": "build",
+      "exit_code": 0,
+      "outputSha256": "77447f918c815c90e1ca4e9aeb1834cfcb6ae101e72da7ed89d68e0871e11c3e"
+    },
+    {
+      "index": 11,
+      "phase": "wiki",
+      "exit_code": 1,
+      "outputSha256": "0b712c65a904ff06e04707c056cf3636190fb1bed4b4f22b0e04370fdda975b4"
+    },
+    {
+      "index": 12,
+      "phase": "check",
+      "exit_code": 0,
+      "outputSha256": "b4b63cb72819aba43afdc1dcc6acd036ef005bfb6bb3972c9d7bea133151a715"
+    },
+    {
+      "index": 13,
+      "phase": "sync",
+      "exit_code": 0,
+      "outputSha256": "0331c8cf6327f4a6c2118b4ed4717a9109692a55e413fbac1474600c070d40c3"
+    }
+  ],
+  "BAdditionalNegativeProbe": {
+    "status": "known_gaps",
+    "scope": "Synthetic negative probes only. Not actual C5/6/7 lineage and not an A-approved matrix.",
+    "fixed": false,
+    "observations": [
+      {
+        "case": "synthetic_unrecognized_6",
+        "expected": "reject_without_writes_pending_A_lineage_policy",
+        "observedError": null,
+        "versionAfter": 7,
+        "schemaUnchanged": false,
+        "hasKnowledgeWiki": false,
+        "hasReportNoDeleteTrigger": true,
+        "ledger": [
+          {
+            "version": 1
+          },
+          {
+            "version": 2
+          },
+          {
+            "version": 3
+          },
+          {
+            "version": 4
+          },
+          {
+            "version": 6
+          },
+          {
+            "version": 7
+          }
+        ]
+      },
+      {
+        "case": "ledger_with_missing_immutable_trigger",
+        "expected": "reject_without_writes_pending_A_lineage_policy",
+        "observedError": null,
+        "versionAfter": 7,
+        "schemaUnchanged": true,
+        "hasKnowledgeWiki": true,
+        "hasReportNoDeleteTrigger": false,
+        "ledger": [
+          {
+            "version": 1
+          },
+          {
+            "version": 2
+          },
+          {
+            "version": 3
+          },
+          {
+            "version": 4
+          },
+          {
+            "version": 6
+          },
+          {
+            "version": 7
+          }
+        ]
+      }
+    ]
+  },
+  "BReplyDocumentChecks": {
+    "recordedAt": "2026-10-23T11:19:55.987Z",
+    "taskBase": "e80d1a25c5ace628df6952a43d98b84d75e418e4",
+    "branch": "codex/b01-migration-coordination",
+    "environment": {
+      "platform": "win32",
+      "arch": "x64",
+      "node": "v22.22.0"
+    },
+    "scope": "C original M1-M8 B technical response and exact diagnostic replay; documentation/evidence only since taskBase",
+    "checks": [
+      {
+        "name": "wiki-generate",
+        "command": "node wiki-project/scripts/build-code-index.mjs .",
+        "exit_code": 0,
+        "output": "{\n  \"mode\": \"generate\",\n  \"files\": 177,\n  \"lines\": 48416,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n"
+      },
+      {
+        "name": "wiki-readonly-check",
+        "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+        "exit_code": 0,
+        "output": "{\n  \"mode\": \"check\",\n  \"files\": 177,\n  \"lines\": 48416,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n"
+      },
+      {
+        "name": "wiki-lint",
+        "command": "node wiki-project/scripts/lint-wiki.mjs .",
+        "exit_code": 0,
+        "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 111,\n  \"semantic\": 95,\n  \"reachable\": 111\n}\n"
+      },
+      {
+        "name": "wiki-sync-phase",
+        "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base e80d1a25c5ace628df6952a43d98b84d75e418e4",
+        "exit_code": 0,
+        "output": "{\n  \"base\": \"e80d1a25c5ace628df6952a43d98b84d75e418e4\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n"
+      },
+      {
+        "name": "wiki-sync-task",
+        "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 6c76fb991f3135d6a48362c1b242e46af6641817",
+        "exit_code": 0,
+        "output": "{\n  \"base\": \"6c76fb991f3135d6a48362c1b242e46af6641817\",\n  \"status\": \"passed\",\n  \"codeFiles\": 6,\n  \"knowledgePages\": 10,\n  \"tasks\": 2,\n  \"errors\": []\n}\n"
+      },
+      {
+        "name": "diff-whitespace",
+        "command": "git diff --check e80d1a25c5ace628df6952a43d98b84d75e418e4",
+        "exit_code": 0,
+        "output": ""
+      }
+    ],
+    "preservation": {
+      "previousRawFileCount": 87,
+      "previousRawMismatches": [],
+      "logAppendOnly": true,
+      "changedProductionOrMaintenanceSource": []
+    },
+    "originalReplay": {
+      "path": "wiki-project/raw/b01-c-migration-original-replay.json",
+      "compatible": false,
+      "meaning": "All six diagnostic assertions reproduced; not six supported upgrades"
+    },
+    "notRun": [
+      "Product typecheck/unit/build not repeated for documentation-only phase; prior e80d1a2 evidence retained",
+      "Wiki tool regression not repeated; maintenance source and coverage mapping unchanged",
+      "No new target migration matrix, user database, macOS desktop, human publish, whole nonauthor or business acceptance",
+      "No push, merge, cross-thread messages or real model calls"
+    ],
+    "migrationPlanApproved": false,
+    "initialPreservationCheck": {
+      "path": "wiki-project/raw/b01-c-migration-reply-initial-validation.json",
+      "exit_code": 1,
+      "reason": "Helper parsed quoted git paths as literal filenames and included generated snapshots. Corrected to ls-tree -z and exclude raw/generated; no historical evidence was modified."
+    }
+  },
+  "BInitialValidationPreserved": {
+    "commit": "f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef",
+    "sha256": "a7595d8f1f551af3f78e72f7fb4142fedf7ac2132806b998e710913fd3f93fd9",
+    "url": "https://github.com/jacson10l/tradequote-agent/blob/f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef/wiki-project/raw/b01-c-migration-reply-initial-validation.json"
+  },
+  "CNotRun": [
+    "new combined migration implementation",
+    "new macOS B or combined full unit/Electron acceptance",
+    "real model retest",
+    "human signatures",
+    "push/merge/PR/messages"
+  ],
+  "remaining": [
+    "A real database inventory and support/refusal matrix",
+    "A schema/lineage preflight and refusal boundary including WAL/open effects",
+    "A append-only execution identity and migration ADR/order",
+    "B implementation and new fixed source evidence after A decision",
+    "C exact migration matrix then desktop/macOS combination",
+    "A manual publish and actual human/non-author/business approval"
+  ]
+}
