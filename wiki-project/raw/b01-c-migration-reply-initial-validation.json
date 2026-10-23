@@ -1,0 +1,77 @@
+{
+  "recordedAt": "2026-10-23T11:18:45.254Z",
+  "taskBase": "e80d1a25c5ace628df6952a43d98b84d75e418e4",
+  "branch": "codex/b01-migration-coordination",
+  "environment": {
+    "platform": "win32",
+    "arch": "x64",
+    "node": "v22.22.0"
+  },
+  "scope": "C original M1-M8 B technical response and exact diagnostic replay; documentation/evidence only since taskBase",
+  "checks": [
+    {
+      "name": "wiki-generate",
+      "command": "node wiki-project/scripts/build-code-index.mjs .",
+      "exit_code": 0,
+      "output": "{\n  \"mode\": \"generate\",\n  \"files\": 177,\n  \"lines\": 48416,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n"
+    },
+    {
+      "name": "wiki-readonly-check",
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "exit_code": 0,
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 177,\n  \"lines\": 48416,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n"
+    },
+    {
+      "name": "wiki-lint",
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exit_code": 0,
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 111,\n  \"semantic\": 95,\n  \"reachable\": 111\n}\n"
+    },
+    {
+      "name": "wiki-sync-phase",
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base e80d1a25c5ace628df6952a43d98b84d75e418e4",
+      "exit_code": 0,
+      "output": "{\n  \"base\": \"e80d1a25c5ace628df6952a43d98b84d75e418e4\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n"
+    },
+    {
+      "name": "wiki-sync-task",
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 6c76fb991f3135d6a48362c1b242e46af6641817",
+      "exit_code": 0,
+      "output": "{\n  \"base\": \"6c76fb991f3135d6a48362c1b242e46af6641817\",\n  \"status\": \"passed\",\n  \"codeFiles\": 6,\n  \"knowledgePages\": 10,\n  \"tasks\": 2,\n  \"errors\": []\n}\n"
+    },
+    {
+      "name": "diff-whitespace",
+      "command": "git diff --check e80d1a25c5ace628df6952a43d98b84d75e418e4",
+      "exit_code": 0,
+      "output": ""
+    }
+  ],
+  "preservation": {
+    "previousRawFileCount": 91,
+    "previousRawMismatches": [
+      "\"wiki-project/raw/generated/\\344\\273\\243\\347\\240\\201\\346\\270\\205\\345\\215\\225.md\"",
+      "\"wiki-project/raw/generated/\\345\\221\\275\\344\\273\\244\\344\\270\\216\\350\\277\\220\\350\\241\\214\\346\\227\\266\\346\\270\\205\\345\\215\\225.md\"",
+      "\"wiki-project/raw/generated/\\346\\272\\220\\347\\240\\201\\345\\277\\253\\347\\205\\247.md\"",
+      "\"wiki-project/raw/generated/\\346\\272\\220\\347\\240\\201\\350\\246\\206\\347\\233\\226\\347\\237\\251\\351\\230\\265.md\"",
+      "\"wiki-project/raw/inputs/2026-10-21-\\345\\217\\202\\350\\265\\233\\344\\273\\273\\345\\212\\241\\346\\210\\252\\345\\233\\276.png\"",
+      "\"wiki-project/raw/inputs/2026-10-21-\\345\\217\\202\\350\\265\\233\\344\\273\\273\\345\\212\\241\\350\\275\\254\\345\\275\\225.md\"",
+      "\"wiki-project/raw/inputs/\\345\\244\\226\\350\\264\\270\\350\\257\\242\\346\\212\\245\\344\\273\\267\\345\\215\\217\\345\\220\\214 Agent \\345\\256\\214\\346\\225\\264\\344\\272\\247\\345\\223\\201\\344\\270\\216\\345\\256\\236\\346\\226\\275\\346\\226\\271\\346\\241\\210.md\"",
+      "\"wiki-project/raw/inputs/\\351\\241\\271\\347\\233\\256\\346\\236\\204\\345\\273\\272\\346\\212\\200\\346\\234\\257\\346\\240\\210.md\"",
+      "\"wiki-project/raw/\\350\\247\\204\\345\\210\\222\\346\\234\\237\\346\\235\\245\\346\\272\\220\\346\\240\\270\\346\\237\\245.md\""
+    ],
+    "logAppendOnly": true,
+    "changedProductionOrMaintenanceSource": []
+  },
+  "originalReplay": {
+    "path": "wiki-project/raw/b01-c-migration-original-replay.json",
+    "compatible": false,
+    "meaning": "All six diagnostic assertions reproduced; not six supported upgrades"
+  },
+  "notRun": [
+    "Product typecheck/unit/build not repeated for documentation-only phase; prior e80d1a2 evidence retained",
+    "Wiki tool regression not repeated; maintenance source and coverage mapping unchanged",
+    "No new target migration matrix, user database, macOS desktop, human publish, whole nonauthor or business acceptance",
+    "No push, merge, cross-thread messages or real model calls"
+  ],
+  "migrationPlanApproved": false
+}

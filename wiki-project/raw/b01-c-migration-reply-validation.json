@@ -1,0 +1,72 @@
+{
+  "recordedAt": "2026-10-23T11:19:55.987Z",
+  "taskBase": "e80d1a25c5ace628df6952a43d98b84d75e418e4",
+  "branch": "codex/b01-migration-coordination",
+  "environment": {
+    "platform": "win32",
+    "arch": "x64",
+    "node": "v22.22.0"
+  },
+  "scope": "C original M1-M8 B technical response and exact diagnostic replay; documentation/evidence only since taskBase",
+  "checks": [
+    {
+      "name": "wiki-generate",
+      "command": "node wiki-project/scripts/build-code-index.mjs .",
+      "exit_code": 0,
+      "output": "{\n  \"mode\": \"generate\",\n  \"files\": 177,\n  \"lines\": 48416,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n"
+    },
+    {
+      "name": "wiki-readonly-check",
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "exit_code": 0,
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 177,\n  \"lines\": 48416,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n"
+    },
+    {
+      "name": "wiki-lint",
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exit_code": 0,
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 111,\n  \"semantic\": 95,\n  \"reachable\": 111\n}\n"
+    },
+    {
+      "name": "wiki-sync-phase",
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base e80d1a25c5ace628df6952a43d98b84d75e418e4",
+      "exit_code": 0,
+      "output": "{\n  \"base\": \"e80d1a25c5ace628df6952a43d98b84d75e418e4\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n"
+    },
+    {
+      "name": "wiki-sync-task",
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 6c76fb991f3135d6a48362c1b242e46af6641817",
+      "exit_code": 0,
+      "output": "{\n  \"base\": \"6c76fb991f3135d6a48362c1b242e46af6641817\",\n  \"status\": \"passed\",\n  \"codeFiles\": 6,\n  \"knowledgePages\": 10,\n  \"tasks\": 2,\n  \"errors\": []\n}\n"
+    },
+    {
+      "name": "diff-whitespace",
+      "command": "git diff --check e80d1a25c5ace628df6952a43d98b84d75e418e4",
+      "exit_code": 0,
+      "output": ""
+    }
+  ],
+  "preservation": {
+    "previousRawFileCount": 87,
+    "previousRawMismatches": [],
+    "logAppendOnly": true,
+    "changedProductionOrMaintenanceSource": []
+  },
+  "originalReplay": {
+    "path": "wiki-project/raw/b01-c-migration-original-replay.json",
+    "compatible": false,
+    "meaning": "All six diagnostic assertions reproduced; not six supported upgrades"
+  },
+  "notRun": [
+    "Product typecheck/unit/build not repeated for documentation-only phase; prior e80d1a2 evidence retained",
+    "Wiki tool regression not repeated; maintenance source and coverage mapping unchanged",
+    "No new target migration matrix, user database, macOS desktop, human publish, whole nonauthor or business acceptance",
+    "No push, merge, cross-thread messages or real model calls"
+  ],
+  "migrationPlanApproved": false,
+  "initialPreservationCheck": {
+    "path": "wiki-project/raw/b01-c-migration-reply-initial-validation.json",
+    "exit_code": 1,
+    "reason": "Helper parsed quoted git paths as literal filenames and included generated snapshots. Corrected to ls-tree -z and exclude raw/generated; no historical evidence was modified."
+  }
+}

@@ -364,3 +364,13 @@ B01 第三切片最终检查：pnpm check退出0（Biome99文件、工程5 passe
 公开错误回归先复现撤回来源被误归STORAGE_ERROR，修正safeParse分类后53项聚焦通过，真实SQL仍STORAGE_ERROR；typecheck通过。新增显式合成迁移诊断2项保持红色，证明未知版本6和缺触发器账本可被当前B实现误接受；不把它当实际C谱系测试，生产迁移不改。0016标draft，相关接口/规则/任务/状态/CONTEXT/覆盖同步，新证据raw/b01-migration-coordination-validation.json和probe.json独立保留。最终完整检查另追加，当前协调未完成，不自动推送、合入或真实模型复测。
 
 2026-10-23 B迁移协调最终本机记录：本轮最终本机结果：聚焦53/53、typecheck/build/check与6c76fb9固定基线Wiki sync通过；全量183 passed / 1原Windows symlink EPERM，Wiki回归34 passed / 2原symlink EPERM。显式合成迁移诊断0/2保持红色，未修复、非实际C库；不得以正常单元结果放行组合。旧非生成raw全部字节保留，原日志为前缀，生产迁移/报告DDL/知识存储/公共契约和桌面文件与6c76fb9一致。 初次53项公开错误回归有来源分类错误与测试注入外键失败，修复后的原回归通过；诊断0/2单列为未解决阻塞，不纳入绿色宣称。记录raw/b01-migration-coordination-validation.json及probe.json，两个源已纳管可重跑。C原文仍不可见，A方案未确认，当前仅本地WIP，不自动推送、合入或调用真实模型。
+
+## 2026-10-23 B取得C原文并回复M1～M8
+
+2026-10-23 C原文已到位：实际fetch核对协调分支7adbc935、原文fd4b728和诊断d99f2b3，B逐项回复M1～M8；用固定C45fa03d/B6c76fb9及原脚本在Windows Electron重跑六组诊断，全部复现但compatible=false。当前等待A确定真实库范围、统一路线/登记/编号及支持矩阵；不以“原文缺失”继续阻塞，也不把回复当联合批准。见 [[B对C迁移协调草稿M1-M8回复]]。
+
+本次仅B职责技术原文回复，不是人类签名。原C JSON hash834c091fb66aecb2b4467fd4f599356cee6800f53232f3129f204db044c1932c与草稿一致；三项原TS blob逐字节hash与C报告一致，Node22.22.0去类型后仅调整提取模块后缀，实际Electron44.9.2内嵌Node24.22.0运行原脚本退出0。D1/D4仍拒绝，D2缺运行表，D3错记知识6，D5/D6仅自身重开对照；没有打开用户库或新方案升级。完整证据分别为raw/b01-c-migration-draft-intake.json和raw/b01-c-migration-original-replay.json。
+
+此阶段baseline=e80d1a2，只改知识/任务/ADR/状态/CONTEXT/导航/追加日志和新证据，旧raw与源码不覆盖；后续文档门禁另按实际追加。原53聚焦/183单元/34Wiki与EPERM仅引用e80作用域，不冒充本轮新产品验证，不自动推送、合入、发送消息或真实模型复测。
+
+原文回复文档门禁实测：生成177文件清单、只读check、lint（111页全可达）、e80d1a2阶段基线与6c76fb9任务基线sync、diff --check全部退出0；87份旧非生成raw逐字节保持，原日志为前缀，生产/维护源码及覆盖映射不变。初次自制保留核验错误处理git转义路径且未排除generated，失败证据保留initial-validation.json；以ls-tree -z正确枚举后零差异，未改旧文件。最终记录raw/b01-c-migration-reply-validation.json；当前仍是B技术回复，A路线和联合验收未完成，未推送。
