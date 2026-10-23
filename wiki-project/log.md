@@ -571,3 +571,12 @@ C03本地交付收口：39文件275单元、9实际Electron含build、48fixture�
 三份原始报告及SHA绑定见raw/c-handoff-independent-{standards,spec,evidence,review}.json。当前仅追加独立技术材料复核结论，本轮实际执行与旧作者/独立产品验证作用域分开；最后保存记录的生成/只读check/lint、固定b256dd1/654fecc/be53b98同步与diff见raw/c-handoff-independent-validation.json。旧日志、raw和未签状态保留。
 
 最终复核记录门禁退出0：生成225来源、181页只读check/lint，b256dd1/654fecc/be53b98固定同步及diff；保留b256dd1全部173非生成raw、225源码、两个人员任务原字节/active和原交接/修复/共同分支。独立技术材料复核任务done，人员签认继续待补；无新产品全套/真实模型或外部操作。
+
+
+## 2026-10-23 C签认请求草稿
+
+2026-10-23根据固定b256dd1交接包及dc0f034复核记录，在独立codex/c-signoff-request-drafts准备[[C签认请求草稿与回填规则]]，分别给A/B/业务验收人本地未发送草稿；三份包含完整固定SHA、审阅入口、具体问题与本人回填格式。A-1/A-2、B-1/B-2及H-1当前范围与A-3/AB-1后续条件分列，R-1实际整体审阅仍须明确承担。未填写真实签名/日期/通过结论，无自动发送/外部草稿，不推送/合入/真实复测；两个人员任务继续active。新文稿未被追认为dc0f034已独立审阅内容，任务[[C集成-签认请求草稿]]及raw/c-signoff-drafts-validation.json单列本轮文档检查。
+
+新增三份status=draft请求及统一入口、草稿任务，正文区分当前职责/后续依赖及R-1，格式不预选通过；业务样本hash与原脱敏报告一致，历史真实与fixture分列。原raw/失败/源码与日志前缀保留，维护工具/覆盖映射不改；本轮只运行草稿语义/固定引用/保留核查、Wiki生成/只读check/lint、dc0f034/654fecc/be53b98同步与diff，原产品全套和独立技术结论只作历史引用。
+
+最终备稿门禁实际退出0：完整固定SHA/业务caseSetHash与责任分工核对、225源码/178旧raw/97039字节log前缀/原待签任务内容保留，生成225来源、186页只读check/lint、固定dc0f034/654fecc/be53b98同步及diff。草稿整理任务done，三份请求仍draft/本地未发送，人员任务active；没有新真实或产品全套执行、独立Agent复核、外部草稿/发送/推送/合入。
