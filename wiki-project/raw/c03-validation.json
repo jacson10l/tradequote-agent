@@ -1,0 +1,389 @@
+{
+  "status": "passed",
+  "recordedAt": "2026-10-23T04:21:01.777Z",
+  "taskBase": "64f2e2decc196395b7e0d6c44c0c9d1fb23eac1e",
+  "cumulativeBase": "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+  "branch": "codex/c03-durable-events",
+  "scope": "Current single-machine quote run events. New evaluations are fixture only; retained C04 real reports are historical user-started evidence. No real user database, credentials or raw model content accessed; no real evaluation started/retried. No push.",
+  "environment": {
+    "os": "macOS 26.4",
+    "arch": "arm64",
+    "node": "22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2"
+  },
+  "reports": [
+    {
+      "stem": "c04-user-deepseek-report",
+      "mode": "deepseek",
+      "status": "failed",
+      "providerValidation": "observed",
+      "modelCalls": 104,
+      "realRequests": 104,
+      "business": {
+        "passed": 17,
+        "failed": 6,
+        "not_run": 8,
+        "cancelled": 0
+      },
+      "faultInjection": {
+        "passed": 0,
+        "failed": 0,
+        "not_run": 17,
+        "cancelled": 0
+      },
+      "sha256": {
+        "json": "64bcb2aab3c257003ac1c43df05ffe0d6724334156e10a0bd4cd524c46518e2b",
+        "markdown": "a849e47833c61fb734548d2c1601aeb11f079d026067bcd809a84207dfd992d2"
+      }
+    },
+    {
+      "stem": "c04-retest-deepseek-report",
+      "mode": "deepseek",
+      "status": "failed",
+      "providerValidation": "observed",
+      "modelCalls": 82,
+      "realRequests": 82,
+      "business": {
+        "passed": 12,
+        "failed": 8,
+        "not_run": 11,
+        "cancelled": 0
+      },
+      "faultInjection": {
+        "passed": 0,
+        "failed": 0,
+        "not_run": 17,
+        "cancelled": 0
+      },
+      "sha256": {
+        "json": "56af5ce7e69bc1629d6db735d73cd7b43519a8b8a6b1c0d057817abc24ae20bf",
+        "markdown": "5119ea2eba8e62ab2b5974c41285fc300bdc86fa1487f2989e5314f74367bcf0"
+      }
+    },
+    {
+      "stem": "c04-diagnostic-retest-deepseek-report",
+      "mode": "deepseek",
+      "status": "failed",
+      "providerValidation": "observed",
+      "modelCalls": 145,
+      "realRequests": 145,
+      "business": {
+        "passed": 23,
+        "failed": 3,
+        "not_run": 5,
+        "cancelled": 0
+      },
+      "faultInjection": {
+        "passed": 0,
+        "failed": 0,
+        "not_run": 17,
+        "cancelled": 0
+      },
+      "sha256": {
+        "json": "da63a4c0da81bed026e3c3a55e0fec1e89e7e4e231c01aeb9a31b4dc260271c4",
+        "markdown": "ceff70facc8b440f0822b6ac5af4a5aba03ea31ac10353bfcc39b60f80f9cb14"
+      }
+    },
+    {
+      "stem": "c04-three-retest-deepseek-report",
+      "mode": "deepseek",
+      "status": "failed",
+      "providerValidation": "observed",
+      "modelCalls": 136,
+      "realRequests": 136,
+      "business": {
+        "passed": 25,
+        "failed": 3,
+        "not_run": 3,
+        "cancelled": 0
+      },
+      "faultInjection": {
+        "passed": 0,
+        "failed": 0,
+        "not_run": 17,
+        "cancelled": 0
+      },
+      "sha256": {
+        "json": "64af39c296857cc0c7b6d50aa30a162f248bb75f48afcdbafc2c638401053f1e",
+        "markdown": "072fb7a8cbdc20d4abbfeca672f6a5da851ee110d208348394467535fa110be1"
+      }
+    },
+    {
+      "stem": "c04-action-retest-deepseek-report",
+      "mode": "deepseek",
+      "status": "passed",
+      "providerValidation": "observed",
+      "modelCalls": 168,
+      "realRequests": 168,
+      "business": {
+        "passed": 31,
+        "failed": 0,
+        "not_run": 0,
+        "cancelled": 0
+      },
+      "faultInjection": {
+        "passed": 0,
+        "failed": 0,
+        "not_run": 17,
+        "cancelled": 0
+      },
+      "sha256": {
+        "json": "db73d5e3ba48a55723e3fbe907f0c4cea7695983828ba9132837004a8f10639e",
+        "markdown": "3404d04cc9988df64fe2c5441cd5e0364de5fae6e77968bb46e2e65357ec52fa"
+      }
+    },
+    {
+      "stem": "c04-action-fixture-report",
+      "mode": "fixture",
+      "status": "passed",
+      "providerValidation": "fixture_only",
+      "modelCalls": 189,
+      "realRequests": 0,
+      "business": {
+        "passed": 31,
+        "failed": 0,
+        "not_run": 0,
+        "cancelled": 0
+      },
+      "faultInjection": {
+        "passed": 17,
+        "failed": 0,
+        "not_run": 0,
+        "cancelled": 0
+      },
+      "sha256": {
+        "json": "cf8108b905edc8c6e5211acc98c004e4604f145558ccdf9a7cfcc5455788b853",
+        "markdown": "19c3d967c190b551ae8918a134fb2e4de4eb43c42b02e1d3c23e76a4dc15458f"
+      }
+    },
+    {
+      "stem": "c03-fixture-report",
+      "mode": "fixture",
+      "status": "passed",
+      "providerValidation": "fixture_only",
+      "modelCalls": 189,
+      "realRequests": 0,
+      "business": {
+        "passed": 31,
+        "failed": 0,
+        "not_run": 0,
+        "cancelled": 0
+      },
+      "faultInjection": {
+        "passed": 17,
+        "failed": 0,
+        "not_run": 0,
+        "cancelled": 0
+      },
+      "sha256": {
+        "json": "722a8bc5471f2cf6e37beb94f6abdbc56ea2ddbf1a98213b2ad2bf44f8ae7813",
+        "markdown": "19c3d967c190b551ae8918a134fb2e4de4eb43c42b02e1d3c23e76a4dc15458f"
+      }
+    }
+  ],
+  "redaction": {
+    "strictSchemas": true,
+    "fixedPlanUnchanged": true,
+    "diagnosticEnumFieldsOnly": true,
+    "markdownProjectionsMatch": true,
+    "c04SignoffPending": true
+  },
+  "preservation": {
+    "base": "64f2e2decc196395b7e0d6c44c0c9d1fb23eac1e",
+    "rawFilesByteIdentical": 126,
+    "oldLogPrefixBytes": 74355,
+    "protectedSourceSha256": {
+      "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe",
+      "packages/infrastructure/src/migrations.ts": "77edfac30380627a201859e5f19b4c2d41a2b9eb5239cd796fd13e735a556775",
+      "packages/contracts/src/model-evaluation.ts": "2668a9de01266516f784ddaa8e1495547a731036150fb1b602ab8d0a76d6c91c",
+      "packages/contracts/src/agent.ts": "866e1eb9ecc12c9fe1e1c8f7bd3f5d48a822b352f9cab810dc2108d6dfc78044",
+      "packages/contracts/src/runs.ts": "2747b9846b42abcd24c1a2b3fd73d21f64fa5e21ffc832b67de73ac2b2fd890f",
+      "packages/infrastructure/src/deepseek.ts": "3d303dfcce2fb6baf5bb68444076d0220ddec84256cd23a2fb37cf833d8fad95",
+      "packages/infrastructure/src/read-tool-runtime.ts": "8abe7c62a66c6bbd65bb5a7ec8f7cd9a4f138c756f091539d7eb35c560163bc0",
+      "packages/infrastructure/src/quote-tool-agent.ts": "8cb2edf9a8e97fb9952feded3f7c7f8da51f9540ae186373fb4279fad62e1a6d",
+      "packages/infrastructure/src/evaluation/cases.ts": "02c65c86806043ae4cce208bd8620cc8057a93aebaaf9b4977ec42c758d8a590",
+      "packages/infrastructure/src/evaluation/fixture-model.ts": "6b8a0244b192cae1010667738ae18e35f8e3054e322c4963878d687ef07f9554",
+      "packages/infrastructure/src/evaluation/runner.ts": "b4e7c3a5b855a10488c391d7ca729327e4032853f0781e5c7a9691498b9214ea",
+      "packages/infrastructure/src/evaluation/report.ts": "43e7eb33799b03e22001c69948a1de84265e5c31c9795b1dd4344b8334e13e9e"
+    }
+  },
+  "sourceSha256": {
+    "AGENTS.md": "cd764ff10c866f8e7af2661cf0c051d3c1d6a211704a82df10ae33dd6d5024da",
+    "README.md": "671a3e4eec280f293e3fe80c51f928a42c6dec8eb3747b34776b40d98dd8f60b",
+    "apps/desktop/src/main/index.ts": "26adab79e1074255a3c3e3431819a53faea445d29f29dfb6a3a8f887247a3104",
+    "apps/desktop/src/main/worker-client.test.ts": "cd65896abdfd09eafdd3d8f081f71fbf6fca1cff7cbfdcd1c486ac23933d3803",
+    "apps/desktop/src/main/worker-client.ts": "d7f8a5b8050a484481ff7bce4a2436d4a310f6cfe2f96e8d62edd6cde3a23515",
+    "apps/desktop/src/preload/contracts.test.ts": "fbcb30b2a1d24d6128287adbba44e6f801f64ca61b7e59efa151992dd9dab37b",
+    "apps/desktop/src/preload/index.ts": "3a3f788d3b10dc08d28531131e0ed76fc47e8fec037b8e4597786a13a93aee19",
+    "apps/desktop/src/renderer/src/features/agent-runs.test.tsx": "4fae96d33d6cbfe7efcb921cdebe79ee3a2b5d6c9879673ca67e6226e6fa3d43",
+    "apps/desktop/src/renderer/src/features/agent-runs.tsx": "0bae8c5f27429266beddb22cbfc0f0ac26dce739fdfcd1ae7595037e7f7c82e6",
+    "apps/desktop/src/renderer/src/features/run-event-feed.test.ts": "1ee5e929b5c8d00f626b7522c67c917bcbf247de4f6e67cb0d5399151e03d805",
+    "apps/desktop/src/renderer/src/features/run-event-feed.ts": "6920131bb773b3cb2e214d6db2b10c03ed21ebbc5bfd7107081840ee80abf973",
+    "apps/desktop/src/renderer/src/features/run-events.test.tsx": "8f6d091394102b05756953c40bddafc4b3e8f006ee176231a54f73d3d9a70e1c",
+    "apps/desktop/src/renderer/src/features/run-events.tsx": "c6a039e0dbe8c4fe08382a51fc72befa9447da06a5d6505c03305275f1003049",
+    "apps/desktop/src/renderer/src/features/run-tool-labels.ts": "95db38681cfe2b036c376bf7a9481ff242c89ed666ec61905ce2e91c8149fd7f",
+    "apps/desktop/src/workers/business.ts": "2732a2c062379f3a43edbc7ca3571253c958261bb0ef8371bdd2eba11ff2bedd",
+    "packages/contracts/src/events.ts": "31750559ec77d7345508aa912557b1a676424b36102337d1d3c77fe4e6c1d8ac",
+    "packages/contracts/src/index.ts": "bbcce111025a8a0867b63244330ddfca0b9f5d53f95bfe642063efcef43c7a6f",
+    "packages/contracts/src/pending-client.ts": "ba36dff2d9101e3ff81afc7ae9d8858d851652fbb721a46b830b890a274a65e1",
+    "packages/contracts/src/run-events.test.ts": "f6c077eaae03f9954f1c9a5af78e82ff075937e97b0b3f2d2009064f79550ba7",
+    "packages/contracts/src/run-events.ts": "df8544c42fd8b49d029dae40e99949024f4f2fdcfb949da96b97e33e48e2cb63",
+    "packages/infrastructure/src/agent-run-coordinator.ts": "17e9c26bffd8f7952e9671bfb6f1f6565e40c9c485997b038c5688dfe97bf93c",
+    "packages/infrastructure/src/agent-run-store.ts": "4915b96095467fc84cc41d60f11948a5d69549b83f9dd467158d43a85de4127a",
+    "packages/infrastructure/src/run-event-store.test.ts": "fc5264e6c20f8d61634b6fa1ecff2f414c7b296635258508a7aca434c7a76abf",
+    "packages/infrastructure/src/run-event-store.ts": "a5a0d22336ad865e3e9ce174d84b56f9ec43de3534af5387544082e35b141b3e",
+    "tests/e2e/agent-recovery.spec.ts": "83c3e222f364bfec45809fc257696b5f7089bc8aa6c17f1f356f7e243d3c55d1",
+    "tests/e2e/workspace.spec.ts": "6e2cbf5c532eb14b5da190cc6ab7c73443084ee59560e8c24a89ac8ea35b0f46",
+    "wiki-project/scripts/wiki-config.json": "bf4986d26052cf1e08504361910b373cc7aa155173bbe9911bb1396db50d4df7"
+  },
+  "bundleSha256": {
+    "apps/desktop/out/main/chunks/public-D-u186Ql.js": "320495e3f16b9b8df0ec2c746a6ae5cdb6f2bdd3935ef204a287b92d159b69d4",
+    "apps/desktop/out/main/chunks/src-DeJj75KV.js": "90c31be977a8425f3b365a8427e73a6c2d6637b65870a3c83c6aa48644b75ffe",
+    "apps/desktop/out/main/evaluation.js": "2aa52633a3af9ed7ae7ab26b01d52abf5dbbf12e5e2511e739f38b28c92a4ccd",
+    "apps/desktop/out/main/index.js": "198c47d7ccc755aeb1bc7ca74ec92a001e5af79eca46a54731a526619d7596b5",
+    "apps/desktop/out/main/worker.js": "043c26161e2954765f2a4c29b8600dc51f8c63b79966dd3015a8581d320f6c9b",
+    "apps/desktop/out/preload/index.js": "d51a11646af46a835ff32753780ca810407caa7365666005b1c0a42dc272d97c",
+    "apps/desktop/out/renderer/assets/index-CI5t_4ai.css": "e7bd779530406b4c9b54dad4bb4ae0923b4096fa2093278d6b89fba14e093e68",
+    "apps/desktop/out/renderer/assets/index-D9zz9NvE.js": "1b3ce5bb34b441c3bcd53aa065249960a3dbf54723fc20821954715a9392ce6c",
+    "apps/desktop/out/renderer/index.html": "e6fa54b44ba467ce568c14db9f60da2e15ee7e55a8d5f77fa82c6c5841e62bf4"
+  },
+  "validationSummary": {
+    "unit": {
+      "files": 39,
+      "passed": 275
+    },
+    "electron": {
+      "passed": 9,
+      "includesBuild": true,
+      "syntheticTransport": true
+    },
+    "fixture": {
+      "passed": 48,
+      "syntheticModelCalls": 189,
+      "realRequests": 0
+    },
+    "engineeringTests": 6,
+    "wikiToolTests": 36,
+    "typecheck": "passed",
+    "engineering": "passed",
+    "taskAndCumulativeWikiSync": "passed",
+    "visualReview": "Actual Electron R20 screenshot: inline Chinese run progress, stable persistent IDs and attempt sequence; no layout defect observed. Screenshot remains ignored runtime evidence."
+  },
+  "initialFailures": "wiki-project/raw/c03-initial-validation.json",
+  "pending": [
+    "A/B public interface and append-only retention review; A01c migration6 coordination",
+    "C04 non-author review and business semantic signoff",
+    "Token delta, knowledge build events, final approval/export, large-history performance, Windows/install/signing are outside this C03 slice"
+  ],
+  "checks": [
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "recordedAt": "2026-10-23T12:09:37.454851+08:00",
+      "output": "\n> tradequote-agent@0.1.0 typecheck /Users/jason/.codex/worktrees/c03-durable-events/tradequote-agent\n> tsc --noEmit\n\n"
+    },
+    {
+      "command": "pnpm test",
+      "exitCode": 0,
+      "recordedAt": "2026-10-23T12:09:35.366855+08:00",
+      "output": "\n> tradequote-agent@0.1.0 test /Users/jason/.codex/worktrees/c03-durable-events/tradequote-agent\n> node scripts/test-unit.mjs\n\n\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c03-durable-events/tradequote-agent\n\n\n Test Files  39 passed (39)\n      Tests  275 passed (275)\n   Start at  12:09:22\n   Duration  12.83s (tests 59%, import 33%, environment 4%, transform 3%, worker 1%)\n\n    Isolate  39 workers spawned · ~411ms startup each (spawn + environment, per file)\n             at least ~1.37s faster with isolate: false — reuses workers across files instead of one per file\n\n"
+    },
+    {
+      "command": "pnpm test:e2e",
+      "exitCode": 0,
+      "recordedAt": "2026-10-23T12:10:21.898197+08:00",
+      "output": "\n> tradequote-agent@0.1.0 test:e2e /Users/jason/.codex/worktrees/c03-durable-events/tradequote-agent\n> pnpm build && playwright test\n\n\n> tradequote-agent@0.1.0 build /Users/jason/.codex/worktrees/c03-durable-events/tradequote-agent\n> node scripts/check-icons.mjs && pnpm --filter @tradequote/desktop build\n\nApplication icons passed: SVG/1024 PNG/macOS ICNS/Windows ICO\n\n> @tradequote/desktop@0.1.0 build /Users/jason/.codex/worktrees/c03-durable-events/tradequote-agent/apps/desktop\n> electron-vite build\n\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 268 modules transformed.\nrendering chunks...\nout/main/evaluation.js                2.41 kB\nout/main/worker.js                    2.80 kB\nout/main/index.js                    26.17 kB\nout/main/chunks/public-D-u186Ql.js   29.90 kB\nout/main/chunks/src-DeJj75KV.js     612.54 kB\n\n✓ built in 78ms\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 112 modules transformed.\nrendering chunks...\nout/preload/index.js  227.53 kB\n\n✓ built in 25ms\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 2115 modules transformed.\nrendering chunks...\nout/renderer/index.html                   0.64 kB\nout/renderer/assets/index-CI5t_4ai.css   14.89 kB\nout/renderer/assets/index-D9zz9NvE.js   549.06 kB\n\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n✓ built in 292ms\n[WebServer] (node:81176) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (node:81177) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:\n[WebServer]   - ESM syntax in a file loaded as CommonJS (vite.renderer.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\n[WebServer]   - ESM syntax in a file loaded as CommonJS (electron.vite.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\n[WebServer] Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.\n\nRunning 9 tests using 1 worker\n\n(node:81190) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n  ✓  1 tests/e2e/agent-recovery.spec.ts:9:1 › R20 real worker SIGKILL, restart discovery, explicit retry, cancellation and immutable saved receipts (6.8s)\n  ✓  2 tests/e2e/feedback.spec.ts:8:1 › desktop feedback floats above content and recovers through the notification action (1.9s)\n  ✓  3 tests/e2e/model-evaluation.spec.ts:9:1 › formal model settings explicitly start isolated evaluations, cancel, preserve redacted fixture reports and never replay on reopen (8.3s)\n  ✓  4 tests/e2e/multistep-agent.spec.ts:13:1 › formal multistep loop saves validated V1/V2/V3, shows blocking sources, survives worker kill and explicitly retries (4.1s)\n  ✓  5 tests/e2e/quote-agent.spec.ts:9:1 › desktop settings and HTTP adapter support inquiry plus two saved revisions, differences, failures and reopen (4.6s)\n  ✓  6 tests/e2e/quote-v1.spec.ts:11:1 › real desktop imports CSV with confirmation, saves deterministic V1 and reopens frozen evidence (3.1s)\n  ✓  7 tests/e2e/read-assistant.spec.ts:9:1 › formal desktop read assistant executes four real tools, shows facts, guards missing tools and never saves (4.5s)\n  ✓  8 tests/e2e/workspace.spec.ts:8:1 › development renderer runs with React refresh and the real desktop bridge (2.2s)\n  ✓  9 tests/e2e/workspace.spec.ts:33:1 › real desktop persists workspace, validates IPC, handles conflict and reopens (4.6s)\n\n  9 passed (42.4s)\n"
+    },
+    {
+      "command": "pnpm eval:model --mode fixture --output .runtime/c03-fixture-report",
+      "exitCode": 0,
+      "recordedAt": "2026-10-23T12:02:41.275744+08:00",
+      "output": "\n> tradequote-agent@0.1.0 eval:model /Users/jason/.codex/worktrees/c03-durable-events/tradequote-agent\n> node scripts/evaluate-model.mjs --mode fixture --output .runtime/c03-fixture-report\n\n{\"mode\":\"fixture\",\"status\":\"passed\",\"cases\":48,\"modelCalls\":189,\"realRequests\":0}\n"
+    },
+    {
+      "command": "node .runtime/test-target.mjs apps/desktop/src/renderer/src/features/agent-runs.test.tsx --maxWorkers=1",
+      "exitCode": 0,
+      "recordedAt": "2026-10-23T12:05:54.455051+08:00",
+      "output": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c03-durable-events/tradequote-agent\n\n\n Test Files  1 passed (1)\n      Tests  3 passed (3)\n   Start at  12:05:53\n   Duration  793ms (environment 40%, import 31%, tests 20%, transform 8%, worker 1%)\n\n"
+    },
+    {
+      "command": "pnpm wiki:generate",
+      "exitCode": 0,
+      "recordedAt": "2026-10-23T12:16:27.095862+08:00",
+      "output": "\n> tradequote-agent@0.1.0 wiki:generate /Users/jason/.codex/worktrees/c03-durable-events/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs .\n\n{\n  \"mode\": \"generate\",\n  \"files\": 219,\n  \"lines\": 54786,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n"
+    },
+    {
+      "command": "pnpm check",
+      "exitCode": 0,
+      "recordedAt": "2026-10-23T12:16:34.199926+08:00",
+      "output": "\n> tradequote-agent@0.1.0 check /Users/jason/.codex/worktrees/c03-durable-events/tradequote-agent\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 150 files in 35ms. No fixes applied.\nTAP version 13\n# Subtest: renderer cannot reach Node, database or desktop internals through import forms\nok 1 - renderer cannot reach Node, database or desktop internals through import forms\n  ---\n  duration_ms: 8.673708\n  type: 'test'\n  ...\n# Subtest: pure modules use public contracts while other platform dependencies are rejected\nok 2 - pure modules use public contracts while other platform dependencies are rejected\n  ---\n  duration_ms: 2.423834\n  type: 'test'\n  ...\n# Subtest: domain permits exact pure decimal dependency without opening contracts or SDK imports\nok 3 - domain permits exact pure decimal dependency without opening contracts or SDK imports\n  ---\n  duration_ms: 0.800917\n  type: 'test'\n  ...\n# Subtest: committed icon resources match their source manifest\nok 4 - committed icon resources match their source manifest\n  ---\n  duration_ms: 1.667625\n  type: 'test'\n  ...\n# Subtest: editing either SVG or packaged icon without generation blocks the build\nok 5 - editing either SVG or packaged icon without generation blocks the build\n  ---\n  duration_ms: 6.933667\n  type: 'test'\n  ...\n# Subtest: macOS native process and runtime display TradeQuote while upstream Electron stays intact\nok 6 - macOS native process and runtime display TradeQuote while upstream Electron stays intact\n  ---\n  duration_ms: 4989.889541\n  type: 'test'\n  ...\n1..6\n# tests 6\n# suites 0\n# pass 6\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 5058.538792\nModule boundaries passed\n\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c03-durable-events/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 219,\n  \"lines\": 54786,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 157,\n  \"semantic\": 131,\n  \"reachable\": 157\n}\n"
+    },
+    {
+      "command": "pnpm wiki:test",
+      "exitCode": 0,
+      "recordedAt": "2026-10-23T12:16:44.009077+08:00",
+      "output": "\n> tradequote-agent@0.1.0 wiki:test /Users/jason/.codex/worktrees/c03-durable-events/tradequote-agent\n> node --test wiki-project/scripts/wiki-tools.test.mjs wiki-project/scripts/wiki-sync.test.mjs\n\nTAP version 13\n# Subtest: runtime version pin is a mandatory Wiki-synchronized configuration change\nok 1 - runtime version pin is a mandatory Wiki-synchronized configuration change\n  ---\n  duration_ms: 2.934\n  type: 'test'\n  ...\n# Subtest: code with related knowledge, task and appended log passes\nok 2 - code with related knowledge, task and appended log passes\n  ---\n  duration_ms: 0.898875\n  type: 'test'\n  ...\n# Subtest: generated snapshots alone cannot satisfy knowledge/task/log changes\nok 3 - generated snapshots alone cannot satisfy knowledge/task/log changes\n  ---\n  duration_ms: 0.327834\n  type: 'test'\n  ...\n# Subtest: metadata-only or whitespace-only edits cannot satisfy semantic update\nok 4 - metadata-only or whitespace-only edits cannot satisfy semantic update\n  ---\n  duration_ms: 0.225875\n  type: 'test'\n  ...\n# Subtest: each source needs its own mapped knowledge, unrelated pages do not suffice\nok 5 - each source needs its own mapped knowledge, unrelated pages do not suffice\n  ---\n  duration_ms: 0.612667\n  type: 'test'\n  ...\n# Subtest: deleted source uses baseline mapping; unknown source fails\nok 6 - deleted source uses baseline mapping; unknown source fails\n  ---\n  duration_ms: 0.720167\n  type: 'test'\n  ...\n# Subtest: history rewrite and removed task do not pass\nok 7 - history rewrite and removed task do not pass\n  ---\n  duration_ms: 0.326666\n  type: 'test'\n  ...\n# Subtest: Wiki maintenance code requires workflow knowledge, not generated data\nok 8 - Wiki maintenance code requires workflow knowledge, not generated data\n  ---\n  duration_ms: 0.348125\n  type: 'test'\n  ...\n# Subtest: ordinary documentation-only edits do not trigger code delivery check\nok 9 - ordinary documentation-only edits do not trigger code delivery check\n  ---\n  duration_ms: 0.771417\n  type: 'test'\n  ...\n# Subtest: real Git baseline includes committed, unstaged and untracked sources\nok 10 - real Git baseline includes committed, unstaged and untracked sources\n  ---\n  duration_ms: 307.442834\n  type: 'test'\n  ...\n# Subtest: SVG assets require semantic Wiki, task and append-only log changes\nok 11 - SVG assets require semantic Wiki, task and append-only log changes\n  ---\n  duration_ms: 0.153\n  type: 'test'\n  ...\n# Subtest: same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\nok 12 - same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\n  ---\n  duration_ms: 1480.435459\n  type: 'test'\n  ...\n# Subtest: source drift fails without writes; generation repairs snapshot while preserving ingest baseline\nok 13 - source drift fails without writes; generation repairs snapshot while preserving ingest baseline\n  ---\n  duration_ms: 629.813708\n  type: 'test'\n  ...\n# Subtest: explicit ingest records a non-Git project honestly\nok 14 - explicit ingest records a non-Git project honestly\n  ---\n  duration_ms: 607.340542\n  type: 'test'\n  ...\n# Subtest: tool inventory names come from definitions, not nested headers/output/schema fields\nok 15 - tool inventory names come from definitions, not nested headers/output/schema fields\n  ---\n  duration_ms: 291.613083\n  type: 'test'\n  ...\n# Subtest: new unclassified source fails; missing knowledge target and stale mapping fail\nok 16 - new unclassified source fails; missing knowledge target and stale mapping fail\n  ---\n  duration_ms: 427.697416\n  type: 'test'\n  ...\n# Subtest: generated coverage tampering is detected by lint and remains untouched\nok 17 - generated coverage tampering is detected by lint and remains untouched\n  ---\n  duration_ms: 541.657125\n  type: 'test'\n  ...\n# Subtest: sensitive filename is excluded before read; external source symlink is not followed\nok 18 - sensitive filename is excluded before read; external source symlink is not followed\n  ---\n  duration_ms: 400.735834\n  type: 'test'\n  ...\n# Subtest: Wiki and generated-output symlinks cannot write outside project\nok 19 - Wiki and generated-output symlinks cannot write outside project\n  ---\n  duration_ms: 652.989958\n  type: 'test'\n  ...\n# Subtest: missing schema field\nok 20 - missing schema field\n  ---\n  duration_ms: 870.709458\n  type: 'test'\n  ...\n# Subtest: bad type\nok 21 - bad type\n  ---\n  duration_ms: 821.456709\n  type: 'test'\n  ...\n# Subtest: bad date\nok 22 - bad date\n  ---\n  duration_ms: 596.884083\n  type: 'test'\n  ...\n# Subtest: bad status\nok 23 - bad status\n  ---\n  duration_ms: 550.37225\n  type: 'test'\n  ...\n# Subtest: missing wiki target\nok 24 - missing wiki target\n  ---\n  duration_ms: 508.579\n  type: 'test'\n  ...\n# Subtest: missing markdown target\nok 25 - missing markdown target\n  ---\n  duration_ms: 512.559209\n  type: 'test'\n  ...\n# Subtest: invalid source line\nok 26 - invalid source line\n  ---\n  duration_ms: 518.446958\n  type: 'test'\n  ...\n# Subtest: verified without code evidence\nok 27 - verified without code evidence\n  ---\n  duration_ms: 520.159\n  type: 'test'\n  ...\n# Subtest: source escaping project\nok 28 - source escaping project\n  ---\n  duration_ms: 502.814209\n  type: 'test'\n  ...\n# Subtest: unfilled placeholder\nok 29 - unfilled placeholder\n  ---\n  duration_ms: 514.4\n  type: 'test'\n  ...\n# Subtest: all sources are validated even after a valid implementation source\nok 30 - all sources are validated even after a valid implementation source\n  ---\n  duration_ms: 513.773375\n  type: 'test'\n  ...\n# Subtest: orphan pages and duplicate basenames are rejected\nok 31 - orphan pages and duplicate basenames are rejected\n  ---\n  duration_ms: 893.936667\n  type: 'test'\n  ...\n# Subtest: completed task requires actual verification record\nok 32 - completed task requires actual verification record\n  ---\n  duration_ms: 513.403542\n  type: 'test'\n  ...\n# Subtest: archived source cannot bypass inspection through silent changes\nok 33 - archived source cannot bypass inspection through silent changes\n  ---\n  duration_ms: 509.641375\n  type: 'test'\n  ...\n# Subtest: source references cannot open excluded runtime data\nok 34 - source references cannot open excluded runtime data\n  ---\n  duration_ms: 514.933\n  type: 'test'\n  ...\n# Subtest: new JSON evidence is checked and sensitive Wiki filenames are rejected before read\nok 35 - new JSON evidence is checked and sensitive Wiki filenames are rejected before read\n  ---\n  duration_ms: 665.517\n  type: 'test'\n  ...\n# Subtest: secret/JWT/private-key/PII detections redact the value in diagnostics\nok 36 - secret/JWT/private-key/PII detections redact the value in diagnostics\n  ---\n  duration_ms: 1715.15125\n  type: 'test'\n  ...\n1..36\n# tests 36\n# suites 0\n# pass 36\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 16393.922708\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 64f2e2decc196395b7e0d6c44c0c9d1fb23eac1e",
+      "exitCode": 0,
+      "recordedAt": "2026-10-23T12:19:58.482995+08:00",
+      "output": "{\n  \"base\": \"64f2e2decc196395b7e0d6c44c0c9d1fb23eac1e\",\n  \"status\": \"passed\",\n  \"codeFiles\": 25,\n  \"knowledgePages\": 12,\n  \"tasks\": 4,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+      "exitCode": 0,
+      "recordedAt": "2026-10-23T12:19:58.931655+08:00",
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 92,\n  \"knowledgePages\": 75,\n  \"tasks\": 24,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "node .runtime/c03-final-audit.mjs",
+      "exitCode": 0,
+      "recordedAt": "2026-10-23T12:21:02.017313+08:00",
+      "output": "{\"status\":\"passed\",\"oldRawFiles\":126,\"oldLogPrefixBytes\":74355,\"newFixture\":{\"passed\":48,\"modelCalls\":189,\"realRequests\":0},\"retainedReal\":{\"passed\":31,\"failed\":0,\"skipped\":0,\"faultInjectionNotRun\":17},\"protectedSources\":12,\"sourceHashes\":27,\"bundleHashes\":9,\"c04SignoffPending\":true}\n"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "recordedAt": "2026-10-23T12:19:58.246737+08:00",
+      "output": ""
+    },
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "exitCode": 0,
+      "recordedAt": "2026-10-23T12:22:12.123607+08:00",
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 219,\n  \"lines\": 54786,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exitCode": 0,
+      "recordedAt": "2026-10-23T12:22:12.382576+08:00",
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 157,\n  \"semantic\": 131,\n  \"reachable\": 157\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 64f2e2decc196395b7e0d6c44c0c9d1fb23eac1e",
+      "exitCode": 0,
+      "recordedAt": "2026-10-23T12:22:12.124147+08:00",
+      "output": "{\n  \"base\": \"64f2e2decc196395b7e0d6c44c0c9d1fb23eac1e\",\n  \"status\": \"passed\",\n  \"codeFiles\": 25,\n  \"knowledgePages\": 12,\n  \"tasks\": 4,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+      "exitCode": 0,
+      "recordedAt": "2026-10-23T12:22:12.596059+08:00",
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 92,\n  \"knowledgePages\": 75,\n  \"tasks\": 24,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "node .runtime/c03-final-audit.mjs",
+      "exitCode": 0,
+      "recordedAt": "2026-10-23T12:22:13.599015+08:00",
+      "output": "{\"status\":\"passed\",\"oldRawFiles\":126,\"oldLogPrefixBytes\":74355,\"newFixture\":{\"passed\":48,\"modelCalls\":189,\"realRequests\":0},\"retainedReal\":{\"passed\":31,\"failed\":0,\"skipped\":0,\"faultInjectionNotRun\":17},\"protectedSources\":12,\"sourceHashes\":27,\"bundleHashes\":9,\"c04SignoffPending\":true}\n"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "recordedAt": "2026-10-23T12:22:11.864245+08:00",
+      "output": ""
+    }
+  ]
+}

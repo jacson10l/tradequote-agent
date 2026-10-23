@@ -9,6 +9,9 @@ import {
   RevisionProposalSchema,
   type RunCommand,
   RunCommandSchema,
+  type RunEventsCommand,
+  RunEventsCommandSchema,
+  type RunEventsResult,
   type RunListResult,
   type RunResult,
   type TradeResult,
@@ -71,6 +74,16 @@ export class AgentRunCoordinator {
       }
       if (effect.dispatch) this.dispatch(effect.dispatch, credentials);
       return ok(effect.run);
+    } catch (error) {
+      return fault(error);
+    }
+  }
+  events(input: RunEventsCommand): RunEventsResult {
+    const parsed = RunEventsCommandSchema.safeParse(input);
+    if (!parsed.success) return failure("VALIDATION_ERROR", "运行事件请求字段不合法");
+    if (this.closed) return failure("CAPABILITY_UNAVAILABLE", "业务进程正在关闭");
+    try {
+      return ok(this.store.events(parsed.data.payload));
     } catch (error) {
       return fault(error);
     }

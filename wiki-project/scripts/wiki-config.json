@@ -72,14 +72,18 @@
       "role": "项目入口与协作约束",
       "pages": [
         "wiki/项目状态.md",
-        "wiki/Wiki 工作流与任务记录.md"
+        "wiki/Wiki 工作流与任务记录.md",
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C04收口与验收边界.md"
       ]
     },
     "AGENTS.md": {
       "role": "项目入口与协作约束",
       "pages": [
         "wiki/项目状态.md",
-        "wiki/Wiki 工作流与任务记录.md"
+        "wiki/Wiki 工作流与任务记录.md",
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C04收口与验收边界.md"
       ]
     },
     "DESIGN.md": {
@@ -497,7 +501,8 @@
       "pages": [
         "wiki/M1工程基线.md",
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C04正式设置评估入口.md"
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     "apps/desktop/src/main/worker-client.ts": {
@@ -505,7 +510,8 @@
       "pages": [
         "wiki/M1工程基线.md",
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     "apps/desktop/src/preload/index.ts": {
@@ -513,7 +519,8 @@
       "pages": [
         "wiki/M1工程基线.md",
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C04正式设置评估入口.md"
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     "apps/desktop/src/renderer/index.html": {
@@ -580,7 +587,8 @@
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     "biome.json": {
@@ -613,7 +621,8 @@
       "pages": [
         "wiki/M1接口与持久化.md",
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C04正式设置评估入口.md"
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     "packages/contracts/src/mock.ts": {
@@ -717,7 +726,8 @@
       "pages": [
         "wiki/M1验证与协作.md",
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C04正式设置评估入口.md"
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     "tsconfig.json": {
@@ -807,7 +817,8 @@
     "packages/contracts/src/events.ts": {
       "role": "Strict shared value, patch, approval and event contract foundation",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     "packages/contracts/src/errors.ts": {
@@ -1019,7 +1030,8 @@
     "packages/contracts/src/pending-client.ts": {
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
-        "wiki/首批并行接口约定.md"
+        "wiki/首批并行接口约定.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     "packages/contracts/src/knowledge.test.ts": {
@@ -1048,7 +1060,8 @@
         "wiki/首批并行接口约定.md",
         "wiki/M1工程基线.md",
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C04正式设置评估入口.md"
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     "packages/domain/src/agent-run.ts": {
@@ -1196,7 +1209,8 @@
       "pages": [
         "wiki/C02b桌面只读助手.md",
         "wiki/M4模型与报价修订.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     "apps/desktop/src/renderer/src/features/read-assistant.tsx": {
@@ -1237,7 +1251,8 @@
       "pages": [
         "wiki/C02c持久运行与写入前置.md",
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     "packages/infrastructure/src/agent-run-store.test.ts": {
@@ -1252,7 +1267,8 @@
       "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
       "pages": [
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     "packages/infrastructure/src/agent-run-coordinator.test.ts": {
@@ -1266,7 +1282,8 @@
       "pages": [
         "wiki/C02c统一运行与写账本.md",
         "wiki/C02c多步报价工具闭环.md",
-        "wiki/C04失败阶段诊断与二轮收敛.md"
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     "packages/infrastructure/src/agent-run-recovery.test.ts": {
@@ -1292,7 +1309,8 @@
     "tests/e2e/agent-recovery.spec.ts": {
       "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
       "pages": [
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     "tests/fixtures/run-crash-child.ts": {
@@ -1306,7 +1324,8 @@
       "role": "持久运行发现不自动收费、控制丢响应重放与跨页状态刷新回归",
       "pages": [
         "wiki/C02c统一运行与写账本.md",
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     "packages/domain/src/quote-checks.test.ts": {
@@ -1494,6 +1513,60 @@
       "role": "C04动作/澄清/规则阻断合成回归",
       "pages": [
         "wiki/C04动作与澄清失败收敛.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/run-event-feed.test.ts": {
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/run-event-feed.ts": {
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/run-events.test.tsx": {
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/run-events.tsx": {
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/run-tool-labels.ts": {
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    "packages/contracts/src/run-events.test.ts": {
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    "packages/contracts/src/run-events.ts": {
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    "packages/infrastructure/src/run-event-store.test.ts": {
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    "packages/infrastructure/src/run-event-store.ts": {
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
       ]
     }
   }

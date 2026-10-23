@@ -2,6 +2,8 @@ import { randomUUID } from "node:crypto";
 import {
   failure,
   type ModelCredentials,
+  type RunEventsSignal,
+  RunEventsSignalSchema,
   type RuntimeCommand,
   type RuntimeResult,
   WorkerReplySchema,
@@ -11,6 +13,8 @@ import { type UtilityProcess, utilityProcess } from "electron";
 export class BusinessWorker {
   private child: UtilityProcess | undefined;
   private closing = false;
+  private connected = false;
+  private readonly eventListeners = new Set<(signal: RunEventsSignal) => void>();
   private ready: Promise<boolean> = Promise.resolve(false);
   private exit: Promise<void> = Promise.resolve();
   private readonly pending = new Map<
@@ -63,7 +67,15 @@ export class BusinessWorker {
         Object.keys(message).length === 1
       ) {
         clearTimeout(startup);
+        this.connected = true;
+        if (this.eventListeners.size) this.watchEvents(true);
+        this.notify({ type: "events.connection", connected: true });
         ready(true);
+        return;
+      }
+      const signal = RunEventsSignalSchema.safeParse(message);
+      if (signal.success && signal.data.type === "events.available") {
+        this.notify(signal.data);
         return;
       }
       const parsed = WorkerReplySchema.safeParse(message);
@@ -79,10 +91,45 @@ export class BusinessWorker {
       ready(false);
       if (this.child === child) {
         this.child = undefined;
+        this.connected = false;
+        this.notify({ type: "events.connection", connected: false });
         this.rejectPending();
       }
       exited();
     });
+  }
+  onRunEvents(listener: (signal: RunEventsSignal) => void) {
+    if (this.closing) return () => {};
+    const first = this.eventListeners.size === 0;
+    this.eventListeners.add(listener);
+    if (this.connected) {
+      if (first) this.watchEvents(true);
+      try {
+        listener({ type: "events.connection", connected: true });
+      } catch {
+        /* observational */
+      }
+    }
+    return () => {
+      if (!this.eventListeners.delete(listener)) return;
+      if (!this.eventListeners.size && this.connected) this.watchEvents(false);
+    };
+  }
+  private watchEvents(enabled: boolean) {
+    try {
+      this.child?.postMessage({ type: "events.watch", enabled });
+    } catch {
+      this.child?.kill();
+    }
+  }
+  private notify(signal: RunEventsSignal) {
+    for (const listener of this.eventListeners) {
+      try {
+        listener(signal);
+      } catch {
+        /* A dead view cannot change worker ownership. */
+      }
+    }
   }
   private rejectPending() {
     for (const pending of this.pending.values()) {
@@ -145,6 +192,8 @@ export class BusinessWorker {
   }
   async close() {
     this.closing = true;
+    if (this.connected && this.eventListeners.size) this.watchEvents(false);
+    this.eventListeners.clear();
     this.rejectPending();
     this.child?.kill();
     await this.exit;

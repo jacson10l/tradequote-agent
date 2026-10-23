@@ -12,6 +12,9 @@ import {
   ModelSettingsCommandSchema,
   ResultSchema,
   RunCommandSchema,
+  RunEventsCommandSchema,
+  RunEventsResultSchema,
+  RunEventsSignalSchema,
   RunListResultSchema,
   RunResultSchema,
   TradeCommandSchema,
@@ -72,6 +75,46 @@ const client: DesktopClient = {
     }
   },
   ...unavailableFirstBatchClient,
+  getAgentRunEvents: async (command) => {
+    const parsed = RunEventsCommandSchema.safeParse(command);
+    if (!parsed.success) return failure("VALIDATION_ERROR", "运行事件字段不合法");
+    try {
+      const result = RunEventsResultSchema.parse(
+        await ipcRenderer.invoke("agent.events", parsed.data),
+      );
+      if (
+        result.ok &&
+        (result.data.run.runId !== parsed.data.payload.runId ||
+          result.data.afterSeq !== parsed.data.payload.afterSeq)
+      )
+        return failure("STORAGE_ERROR", "运行事件与请求范围不一致");
+      return result;
+    } catch {
+      return failure("CAPABILITY_UNAVAILABLE", "事件连接中断，将只读重连；不会重新调用模型");
+    }
+  },
+  onAgentRunEvents: (listener) => {
+    const receive = (_event: unknown, input: unknown) => {
+      const parsed = RunEventsSignalSchema.safeParse(input);
+      if (parsed.success) {
+        try {
+          listener(parsed.data);
+        } catch {
+          /* Notifications are observational. */
+        }
+      }
+    };
+    ipcRenderer.on("agent.events.signal", receive);
+    let active = true;
+    const dispose = () => {
+      if (!active) return;
+      active = false;
+      ipcRenderer.removeListener("agent.events.signal", receive);
+      window.removeEventListener("unload", dispose);
+    };
+    window.addEventListener("unload", dispose, { once: true });
+    return dispose;
+  },
   startAgentRun: async (command) => RunResultSchema.parse(await invokeRun(command)),
   getAgentRun: async (command) => RunResultSchema.parse(await invokeRun(command)),
   cancelAgentRun: async (command) => RunResultSchema.parse(await invokeRun(command)),

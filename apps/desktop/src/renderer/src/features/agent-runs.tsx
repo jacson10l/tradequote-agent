@@ -1,12 +1,13 @@
 import {
   type AgentRun,
-  type AgentToolStep,
   type DesktopClient,
   type RunListQuery,
   type TradeResult,
 } from "@tradequote/contracts";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "../shared/button";
+import { RunEvents } from "./run-events";
+import { toolLabels } from "./run-tool-labels";
 
 const labels: Record<AgentRun["status"], string> = {
   queued: "排队中",
@@ -18,16 +19,6 @@ const labels: Record<AgentRun["status"], string> = {
   interrupted: "已中断",
 };
 
-const toolLabels: Record<AgentToolStep["tool"], string> = {
-  search_catalog: "检索商品",
-  get_product_revisions: "读取商品资料",
-  get_quote: "读取报价",
-  search_knowledge: "读取适用知识",
-  calculate_quote: "核价",
-  validate_quote: "规则校验",
-  create_draft: "保存草稿",
-  apply_patch: "保存修订",
-};
 export function AgentRuns({
   client,
   onSaved,
@@ -41,6 +32,8 @@ export function AgentRuns({
   const [cursor, setCursor] = useState<RunListQuery["cursor"]>();
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [signals, setSignals] = useState<Record<string, number>>({});
+  const [connection, setConnection] = useState(0);
   const locked = useRef(false);
   const visiblePages = useRef(1);
   const keys = useRef(new Map<string, string>());
@@ -82,6 +75,38 @@ export function AgentRuns({
       }
     }
   }
+  useEffect(() => {
+    let reading = false,
+      dirty = false,
+      closed = false;
+    const refresh = async () => {
+      if (reading) {
+        dirty = true;
+        return;
+      }
+      reading = true;
+      try {
+        do {
+          dirty = false;
+          await load();
+        } while (dirty && !closed);
+      } catch {
+        if (!closed) setError("进度连接中断，将只读恢复运行记录");
+      } finally {
+        reading = false;
+      }
+    };
+    const dispose = client.onAgentRunEvents((signal) => {
+      if (closed) return;
+      if (signal.type === "events.connection") setConnection((n) => n + 1);
+      else setSignals((before) => ({ ...before, [signal.runId]: signal.seq }));
+      void refresh();
+    });
+    return () => {
+      closed = true;
+      dispose();
+    };
+  }, [client]);
   // Mount discovers persisted facts. Poll only the visible active page; no start/retry.
   useEffect(() => {
     void load();
@@ -156,6 +181,16 @@ export function AgentRuns({
           {run.clarification && <p>请补充：{run.clarification}</p>}
           {run.error && <p>{run.error.message}</p>}
           {run.committedRevisionId && <p>已保存草稿版本：{run.committedRevisionId}</p>}
+          <RunEvents
+            client={client}
+            runId={run.runId}
+            refreshToken={`${run.updatedAt}:${signals[run.runId] ?? 0}:${connection}`}
+            onRun={(next) => {
+              setRuns((before) => before.map((r) => (r.runId === next.runId ? next : r)));
+              if (next.committedRevisionId && !saved.current.has(next.committedRevisionId))
+                void load();
+            }}
+          />
           {run.toolSteps && run.toolSteps.length > 0 && (
             <details>
               <summary>实际工具步骤（{run.toolSteps.length}）</summary>

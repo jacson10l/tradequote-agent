@@ -252,6 +252,7 @@ else {
         "agent.start",
         "agent.get",
         "agent.list",
+        "agent.events",
         "agent.cancel",
         "agent.retry",
       ] as const) {
@@ -270,12 +271,29 @@ else {
           return (
             worker?.request(
               parsed.data,
-              parsed.data.method.startsWith("agent.") ? settings.getCredentials() : undefined,
+              [
+                "agent.read",
+                "agent.start",
+                "agent.retry",
+                "agent.understand",
+                "agent.revise",
+              ].includes(parsed.data.method)
+                ? settings.getCredentials()
+                : undefined,
             ) ?? failure("CAPABILITY_UNAVAILABLE", "业务进程未启动")
           );
         });
       }
+      const releaseEvents = worker.onRunEvents((signal) => {
+        if (
+          window &&
+          !window.webContents.isDestroyed() &&
+          window.webContents.getURL().split("#")[0] === rendererUrl.split("#")[0]
+        )
+          window.webContents.send("agent.events.signal", signal);
+      });
       window.on("closed", () => {
+        releaseEvents();
         window = undefined;
       });
       void window.loadURL(rendererUrl);

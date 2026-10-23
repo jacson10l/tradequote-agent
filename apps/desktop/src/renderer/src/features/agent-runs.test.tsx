@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import "@testing-library/jest-dom/vitest";
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { act, cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { type AgentRun, failure, type RunCommand } from "@tradequote/contracts";
 import { mockAgentRun, readonlyMockClient } from "@tradequote/contracts/mock";
@@ -77,4 +77,44 @@ it("keeps the active second page visible after refreshing loaded history", async
   await waitFor(() => expect(listAgentRuns).toHaveBeenCalledTimes(4));
   expect(screen.getAllByRole("article")).toHaveLength(21);
   expect(screen.getByRole("button", { name: "取消此运行" })).toBeEnabled();
+});
+
+it("does not lose a new-run hint arriving during an in-flight history read", async () => {
+  let notify: (s: import("@tradequote/contracts").RunEventsSignal) => void = () => {};
+  let release = () => {};
+  const run: AgentRun = {
+    ...mockAgentRun,
+    status: "failed",
+    error: failure("MODEL_AUTH_FAILED", "合成失败").error,
+  };
+  const listAgentRuns = vi.fn(async () => {
+    const index = listAgentRuns.mock.calls.length;
+    if (index === 2)
+      await new Promise<void>((resolve) => {
+        release = resolve;
+      });
+    return ok({ runs: index >= 3 ? [run] : [], nextCursor: null });
+  });
+  const client = {
+    ...readonlyMockClient,
+    listAgentRuns,
+    onAgentRunEvents: (listener: typeof notify) => {
+      notify = listener;
+      return () => {};
+    },
+  };
+  render(<AgentRuns client={client} onSaved={vi.fn()} refreshToken={false} />);
+  await waitFor(() => expect(listAgentRuns).toHaveBeenCalledTimes(1));
+  await act(async () => {
+    notify({ type: "events.available", runId: run.runId, seq: 1 });
+  });
+  await waitFor(() => expect(listAgentRuns).toHaveBeenCalledTimes(2));
+  await act(async () => {
+    notify({ type: "events.available", runId: run.runId, seq: 3 });
+    release();
+  });
+  await waitFor(() => expect(listAgentRuns).toHaveBeenCalledTimes(3));
+  expect(await screen.findByRole("article", { name: `运行 ${run.runId}` })).toHaveTextContent(
+    "失败",
+  );
 });

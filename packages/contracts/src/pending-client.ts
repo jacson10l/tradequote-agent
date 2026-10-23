@@ -2,6 +2,7 @@ import type { z } from "zod";
 import { type CheckClient, CheckCommandSchema } from "./checks";
 import { type KnowledgeClient, KnowledgeCommandSchema } from "./knowledge";
 import type { FailureSchema } from "./protocol";
+import { type RunEventsClient, RunEventsCommandSchema } from "./run-events";
 import { type RunClient, RunCommandSchema } from "./runs";
 
 // Deliberately local: no new IPC route is exposed before the corresponding service ships.
@@ -17,7 +18,12 @@ function unavailable(schema: z.ZodType, input: unknown): Promise<z.infer<typeof 
     },
   });
 }
-export const unavailableFirstBatchClient: KnowledgeClient & CheckClient & RunClient = {
+export const unavailableFirstBatchClient: KnowledgeClient &
+  CheckClient &
+  RunClient &
+  RunEventsClient = {
+  getAgentRunEvents: (command) => unavailable(RunEventsCommandSchema, command),
+  onAgentRunEvents: () => () => {},
   stageKnowledge: (command) => unavailable(KnowledgeCommandSchema.options[0], command),
   publishKnowledge: (command) => unavailable(KnowledgeCommandSchema.options[1], command),
   queryKnowledge: (command) => unavailable(KnowledgeCommandSchema.options[2], command),

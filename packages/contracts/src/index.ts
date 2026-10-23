@@ -16,9 +16,11 @@ export * from "./model-evaluation";
 export { unavailableFirstBatchClient } from "./pending-client";
 export { FailureSchema, IssueSchema, PublicErrorSchema } from "./protocol";
 export * from "./read-tools";
+export * from "./run-events";
 export * from "./runs";
 
 import { ErrorCodeSchema } from "./errors";
+import { type RunEventsClient, RunEventsCommandSchema, RunEventsResultSchema } from "./run-events";
 import { type TradeClient, TradeCommandSchema, TradeResultSchema } from "./trade";
 
 export { ErrorCodeSchema } from "./errors";
@@ -91,6 +93,7 @@ export interface DesktopClient
     KnowledgeClient,
     CheckClient,
     RunClient,
+    RunEventsClient,
     ReadAgentClient,
     ModelEvaluationClient {
   getWorkspace(): Promise<WorkspaceResult>;
@@ -107,6 +110,7 @@ export const RuntimeCommandSchema = z.union([
   AgentCommandSchema,
   AgentReadCommandSchema,
   RunCommandSchema,
+  RunEventsCommandSchema,
 ]);
 export const RuntimeResultSchema = z.union([
   ResultSchema,
@@ -114,6 +118,7 @@ export const RuntimeResultSchema = z.union([
   AgentReadResultSchema,
   RunResultSchema,
   RunListResultSchema,
+  RunEventsResultSchema,
 ]);
 export type RuntimeCommand = z.infer<typeof RuntimeCommandSchema>;
 export type RuntimeResult = z.infer<typeof RuntimeResultSchema>;

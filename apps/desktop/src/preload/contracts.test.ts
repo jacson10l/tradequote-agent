@@ -11,10 +11,19 @@ import {
 } from "@tradequote/contracts/mock";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const electron = vi.hoisted(() => ({ exposeInMainWorld: vi.fn(), invoke: vi.fn() }));
+const electron = vi.hoisted(() => ({
+  exposeInMainWorld: vi.fn(),
+  invoke: vi.fn(),
+  on: vi.fn(),
+  removeListener: vi.fn(),
+}));
 vi.mock("electron", () => ({
   contextBridge: { exposeInMainWorld: electron.exposeInMainWorld },
-  ipcRenderer: { invoke: electron.invoke },
+  ipcRenderer: {
+    invoke: electron.invoke,
+    on: electron.on,
+    removeListener: electron.removeListener,
+  },
 }));
 const read = { schemaVersion: 1 as const, requestId: mockAgentRun.runId };
 const write = { ...read, idempotencyKey: mockAgentRun.operationKey };
@@ -245,4 +254,58 @@ describe("C04 exact desktop evaluation gate", () => {
       error: { code: "CAPABILITY_UNAVAILABLE" },
     });
   });
+});
+
+it("validates event scope, rejects credential injection, and releases notification listeners", async () => {
+  vi.stubGlobal("window", new EventTarget());
+  try {
+    vi.resetModules();
+    vi.clearAllMocks();
+    await import("./index");
+    const desktop: DesktopClient = electron.exposeInMainWorld.mock.calls[0]?.[1];
+    const command = {
+      schemaVersion: 1 as const,
+      requestId: crypto.randomUUID(),
+      method: "agent.events" as const,
+      payload: { runId: mockAgentRun.runId, afterSeq: 0, limit: 20 },
+    };
+    const data = {
+      run: mockAgentRun,
+      events: [],
+      afterSeq: 0,
+      nextSeq: 0,
+      headSeq: 0,
+      hasMore: false,
+    };
+    electron.invoke.mockResolvedValue({ ok: true, data, warnings: [], evidenceIds: [] });
+    expect(await desktop.getAgentRunEvents(command)).toMatchObject({ ok: true });
+    electron.invoke.mockResolvedValue({
+      ok: true,
+      data: { ...data, run: { ...mockAgentRun, runId: crypto.randomUUID() } },
+      warnings: [],
+      evidenceIds: [],
+    });
+    expect(await desktop.getAgentRunEvents(command)).toMatchObject({
+      ok: false,
+      error: { code: "STORAGE_ERROR" },
+    });
+    const calls = electron.invoke.mock.calls.length;
+    const invalid = await Reflect.apply(desktop.getAgentRunEvents, undefined, [
+      { ...command, payload: { ...command.payload, key: "synthetic" } },
+    ]);
+    expect(invalid).toMatchObject({ ok: false, error: { code: "VALIDATION_ERROR" } });
+    expect(electron.invoke).toHaveBeenCalledTimes(calls);
+    const receive = vi.fn(),
+      dispose = desktop.onAgentRunEvents(receive);
+    const callback = electron.on.mock.calls[0]?.[1];
+    callback({}, { type: "events.available", runId: mockAgentRun.runId, seq: 1, raw: "synthetic" });
+    expect(receive).not.toHaveBeenCalled();
+    callback({}, { type: "events.available", runId: mockAgentRun.runId, seq: 1 });
+    expect(receive).toHaveBeenCalledTimes(1);
+    window.dispatchEvent(new Event("unload"));
+    dispose();
+    expect(electron.removeListener).toHaveBeenCalledTimes(1);
+  } finally {
+    vi.unstubAllGlobals();
+  }
 });

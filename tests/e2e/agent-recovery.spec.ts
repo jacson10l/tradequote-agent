@@ -96,6 +96,22 @@ test("R20 real worker SIGKILL, restart discovery, explicit retry, cancellation a
     if (!started.ok) throw new Error(started.error.message);
     const runId = started.data.runId;
     await expect.poll(() => calls).toBe(1);
+    const eventPage = (afterSeq = 0, limit = 2) =>
+      page.evaluate(
+        ({ runId, afterSeq, limit }) =>
+          window.tradequote.getAgentRunEvents({
+            schemaVersion: 1,
+            requestId: crypto.randomUUID(),
+            method: "agent.events",
+            payload: { runId, afterSeq, limit },
+          }),
+        { runId, afterSeq, limit },
+      );
+    const firstEvents = await eventPage(0, 1);
+    expect(firstEvents.ok && firstEvents.data.hasMore).toBe(true);
+    await expect(page.getByRole("article", { name: `运行 ${runId}` })).toContainText(
+      "运行进度已同步",
+    );
     await app.evaluate(({ app }) => {
       const metric = app
         .getAppMetrics()
@@ -104,23 +120,12 @@ test("R20 real worker SIGKILL, restart discovery, explicit retry, cancellation a
       process.kill(metric.pid, "SIGKILL");
     });
     await expect.poll(() => disconnected).toBe(1);
-    const get = () =>
-      page.evaluate(
-        (id) =>
-          window.tradequote.getAgentRun({
-            schemaVersion: 1,
-            requestId: crypto.randomUUID(),
-            method: "agent.get",
-            payload: { runId: id },
-          }),
-        runId,
-      );
-    await expect
-      .poll(async () => {
-        const result = await get();
-        return result.ok && result.data.status;
-      })
-      .toBe("interrupted");
+    // The mounted desktop recovers by read-only event/list queries, with no user retry.
+    await expect(page.getByRole("article", { name: `运行 ${runId}` })).toContainText("已中断");
+    const interrupted = await eventPage(0, 100);
+    expect(interrupted.ok && interrupted.data.events.map((e) => e.seq)).toEqual([1, 2, 3]);
+    await page.reload();
+    await expect(page.getByRole("article", { name: `运行 ${runId}` })).toContainText("已中断");
     expect(calls).toBe(1);
     await app.close();
     app = await launch();
@@ -141,6 +146,38 @@ test("R20 real worker SIGKILL, restart discovery, explicit retry, cancellation a
     await expect(article).toContainText("草稿已保存");
     await expect(article).toContainText("第 2 次尝试");
     await expect(page.getByTestId("goods-total")).toHaveText("900.00 USD");
+    expect(calls).toBe(2);
+    const recovered = await eventPage(0, 100);
+    if (!recovered.ok || !firstEvents.ok || !interrupted.ok) throw Error("synthetic events");
+    expect(recovered.data.events[0]).toEqual(firstEvents.data.events[0]);
+    expect(recovered.data.events.slice(0, 3)).toEqual(interrupted.data.events);
+    expect(recovered.data.headSeq).toBe(6);
+    await expect(article.getByRole("region", { name: "运行事件" })).toHaveAttribute(
+      "data-event-seq",
+      "6",
+    );
+    const allEvents = [];
+    let afterSeq = 0;
+    for (;;) {
+      const part = await eventPage(afterSeq, 2);
+      if (!part.ok) throw Error("synthetic paging");
+      allEvents.push(...part.data.events);
+      afterSeq = part.data.nextSeq;
+      if (!part.data.hasMore) break;
+    }
+    expect(allEvents.map((e) => e.seq)).toEqual([1, 2, 3, 4, 5, 6]);
+    expect(new Set(allEvents.map((e) => e.eventId)).size).toBe(6);
+    await article.getByText("持久运行记录（最近6条）", { exact: true }).click();
+    await app.evaluate(
+      ({ BrowserWindow }, { runId }) => {
+        const win = BrowserWindow.getAllWindows()[0];
+        for (const seq of [6, 6, 100])
+          win?.webContents.send("agent.events.signal", { type: "events.available", runId, seq });
+      },
+      { runId },
+    );
+    await expect(article.getByRole("region", { name: "运行事件" }).locator("li")).toHaveCount(6);
+    expect((await eventPage(6)).ok).toBe(true);
     expect(calls).toBe(2);
     const saved = await page.evaluate(() => window.tradequote.getTrade());
     if (!saved.ok) throw new Error("synthetic board");

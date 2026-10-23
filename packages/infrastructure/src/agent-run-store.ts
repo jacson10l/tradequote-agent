@@ -12,6 +12,7 @@ import {
   RevisionProposalSchema,
   type RunCommand,
   RunCommandSchema,
+  type RunEventsQuery,
   type RunListQuery,
   RunListQuerySchema,
   type Understanding,
@@ -32,6 +33,7 @@ import {
   knowledgeStamp,
   semanticQuote,
 } from "./quote-draft-plan";
+import { RunEventStore } from "./run-event-store";
 import { TradeStore } from "./trade-store";
 
 export interface RunTicket {
@@ -162,6 +164,10 @@ export class AgentRunStore {
         context,
         run.updatedAt,
       );
+    new RunEventStore(this.db, this.workspaceId()).append(
+      run,
+      type === "agent.tool.completed" ? run.toolSteps?.at(-1) : undefined,
+    );
   }
   private save(run: AgentRun, ticket: RunTicket | null = null, eventType?: string): AgentRun {
     const checked = AgentRunSchema.parse(run);
@@ -246,6 +252,15 @@ export class AgentRunStore {
             : null,
       };
     });
+  }
+  events(input: RunEventsQuery) {
+    return this.transaction(() => {
+      const run = this.decode(this.row(z.uuid().parse(input.runId)));
+      return new RunEventStore(this.db, this.workspaceId()).page(input, run);
+    });
+  }
+  eventHints(cursor: number) {
+    return new RunEventStore(this.db, this.workspaceId()).hints(cursor);
   }
   start(input: Extract<RunCommand, { method: "agent.start" }>): Effect {
     const command = RunCommandSchema.options[0].parse(input);

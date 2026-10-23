@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "a52a68d3df38a217cd8f79c2e591172f22c256a7d806adfae161697caf29588b",
+    "wiki-config.json": "bf4986d26052cf1e08504361910b373cc7aa155173bbe9911bb1396db50d4df7",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -60,12 +60,14 @@
       "path": "AGENTS.md",
       "type": "md",
       "lines": 53,
-      "bytes": 6040,
-      "sha256": "75d16847cf761e54462e2f0242cc06db5206eef3b31d158dc452c80519958bba",
+      "bytes": 6169,
+      "sha256": "cd764ff10c866f8e7af2661cf0c051d3c1d6a211704a82df10ae33dd6d5024da",
       "role": "项目入口与协作约束",
       "pages": [
         "wiki/项目状态.md",
-        "wiki/Wiki 工作流与任务记录.md"
+        "wiki/Wiki 工作流与任务记录.md",
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C04收口与验收边界.md"
       ]
     },
     {
@@ -94,13 +96,15 @@
     {
       "path": "README.md",
       "type": "md",
-      "lines": 130,
-      "bytes": 14309,
-      "sha256": "b7f59079c6e9b00308d57200b95055e3b7bb16180e6bfc0ef18587b859ed8376",
+      "lines": 132,
+      "bytes": 15018,
+      "sha256": "671a3e4eec280f293e3fe80c51f928a42c6dec8eb3747b34776b40d98dd8f60b",
       "role": "项目入口与协作约束",
       "pages": [
         "wiki/项目状态.md",
-        "wiki/Wiki 工作流与任务记录.md"
+        "wiki/Wiki 工作流与任务记录.md",
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C04收口与验收边界.md"
       ]
     },
     {
@@ -210,67 +214,72 @@
     {
       "path": "apps/desktop/src/main/index.ts",
       "type": "ts",
-      "lines": 299,
-      "bytes": 12137,
-      "sha256": "b476d3159d8e2341c0a958bc1d1fba76d60d7d4297501aa291ea831b34658d4d",
+      "lines": 317,
+      "bytes": 12694,
+      "sha256": "26adab79e1074255a3c3e3431819a53faea445d29f29dfb6a3a8f887247a3104",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md",
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C04正式设置评估入口.md"
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     {
       "path": "apps/desktop/src/main/worker-client.test.ts",
       "type": "ts",
-      "lines": 107,
-      "bytes": 3738,
-      "sha256": "ab8d55814bebcbb03528b919d89ae8bb8324dcd8591b47c1c5da467bf02d97e1",
+      "lines": 141,
+      "bytes": 5306,
+      "sha256": "cd65896abdfd09eafdd3d8f081f71fbf6fca1cff7cbfdcd1c486ac23933d3803",
       "role": "只读传输deadline、结果校验和退出不重发",
       "pages": [
         "wiki/C02b桌面只读助手.md",
         "wiki/M4模型与报价修订.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     {
       "path": "apps/desktop/src/main/worker-client.ts",
       "type": "ts",
-      "lines": 152,
-      "bytes": 4976,
-      "sha256": "d4e472d3df71629298f3d051d5242ece3a686fb52f85f2c5b82645bf63b0e1fc",
+      "lines": 201,
+      "bytes": 6653,
+      "sha256": "d7f8a5b8050a484481ff7bce4a2436d4a310f6cfe2f96e8d62edd6cde3a23515",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md",
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     {
       "path": "apps/desktop/src/preload/contracts.test.ts",
       "type": "ts",
-      "lines": 248,
-      "bytes": 9405,
-      "sha256": "26d72c12c84dd8ef43c0092d1e42de6f3ce11c6bc5ee3f8c69ecffbf7477c14b",
+      "lines": 311,
+      "bytes": 11633,
+      "sha256": "fbcb30b2a1d24d6128287adbba44e6f801f64ca61b7e59efa151992dd9dab37b",
       "role": "B00 preload and mock capability gate without new IPC",
       "pages": [
         "wiki/首批并行接口约定.md",
         "wiki/M1工程基线.md",
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C04正式设置评估入口.md"
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     {
       "path": "apps/desktop/src/preload/index.ts",
       "type": "ts",
-      "lines": 118,
-      "bytes": 5300,
-      "sha256": "bc981bb7096886229acd54af70bca5631b33511cc09d43c4834544b60fce6151",
+      "lines": 161,
+      "bytes": 6805,
+      "sha256": "3a3f788d3b10dc08d28531131e0ed76fc47e8fec037b8e4597786a13a93aee19",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md",
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C04正式设置评估入口.md"
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     {
@@ -309,25 +318,27 @@
     {
       "path": "apps/desktop/src/renderer/src/features/agent-runs.test.tsx",
       "type": "tsx",
-      "lines": 80,
-      "bytes": 3612,
-      "sha256": "9dcdba882bf13472005d1b780f5752d22e12ca0064dedafbd0b1e9cdfbe06e38",
+      "lines": 120,
+      "bytes": 5037,
+      "sha256": "4fae96d33d6cbfe7efcb921cdebe79ee3a2b5d6c9879673ca67e6226e6fa3d43",
       "role": "持久运行发现不自动收费、控制丢响应重放与跨页状态刷新回归",
       "pages": [
         "wiki/C02c统一运行与写账本.md",
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     {
       "path": "apps/desktop/src/renderer/src/features/agent-runs.tsx",
       "type": "tsx",
-      "lines": 259,
-      "bytes": 9234,
-      "sha256": "f501ffbf3c4481c16f92b9f640df4143d64324b55d6aded0a5e91c33586be1ae",
+      "lines": 294,
+      "bytes": 10347,
+      "sha256": "0bae8c5f27429266beddb22cbfc0f0ac26dce739fdfcd1ae7595037e7f7c82e6",
       "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
       "pages": [
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     {
@@ -388,6 +399,61 @@
       "pages": [
         "wiki/C02b桌面只读助手.md",
         "wiki/M4模型与报价修订.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/run-event-feed.test.ts",
+      "type": "ts",
+      "lines": 70,
+      "bytes": 2569,
+      "sha256": "1ee5e929b5c8d00f626b7522c67c917bcbf247de4f6e67cb0d5399151e03d805",
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/run-event-feed.ts",
+      "type": "ts",
+      "lines": 29,
+      "bytes": 1087,
+      "sha256": "6920131bb773b3cb2e214d6db2b10c03ed21ebbc5bfd7107081840ee80abf973",
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/run-events.test.tsx",
+      "type": "tsx",
+      "lines": 81,
+      "bytes": 2963,
+      "sha256": "8f6d091394102b05756953c40bddafc4b3e8f006ee176231a54f73d3d9a70e1c",
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/run-events.tsx",
+      "type": "tsx",
+      "lines": 125,
+      "bytes": 4110,
+      "sha256": "c6a039e0dbe8c4fe08382a51fc72befa9447da06a5d6505c03305275f1003049",
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/run-tool-labels.ts",
+      "type": "ts",
+      "lines": 11,
+      "bytes": 408,
+      "sha256": "95db38681cfe2b036c376bf7a9481ff242c89ed666ec61905ce2e91c8149fd7f",
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     {
@@ -503,13 +569,14 @@
     {
       "path": "apps/desktop/src/workers/business.ts",
       "type": "ts",
-      "lines": 61,
-      "bytes": 2259,
-      "sha256": "9f66396d792d99b07e03259acd482c436e70c196f9fb7c81f5f466414e757df4",
+      "lines": 91,
+      "bytes": 3244,
+      "sha256": "2732a2c062379f3a43edbc7ca3571253c958261bb0ef8371bdd2eba11ff2bedd",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     {
@@ -1229,12 +1296,13 @@
     {
       "path": "packages/contracts/src/events.ts",
       "type": "ts",
-      "lines": 60,
-      "bytes": 1710,
-      "sha256": "f1279f0c7732f44d8a0b1b1d2b16225ed91189808042e08f80b9a10ac7764c5a",
+      "lines": 69,
+      "bytes": 1940,
+      "sha256": "31750559ec77d7345508aa912557b1a676424b36102337d1d3c77fe4e6c1d8ac",
       "role": "Strict shared value, patch, approval and event contract foundation",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     {
@@ -1251,14 +1319,15 @@
     {
       "path": "packages/contracts/src/index.ts",
       "type": "ts",
-      "lines": 146,
-      "bytes": 4951,
-      "sha256": "6a383decb9ec420de0b66c7743793212de8a6da1837336899d0e74567c227823",
+      "lines": 151,
+      "bytes": 5153,
+      "sha256": "bbcce111025a8a0867b63244330ddfca0b9f5d53f95bfe642063efcef43c7a6f",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C04正式设置评估入口.md"
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     {
@@ -1312,12 +1381,13 @@
     {
       "path": "packages/contracts/src/pending-client.ts",
       "type": "ts",
-      "lines": 32,
-      "bytes": 1817,
-      "sha256": "cdedf515858bf108a45d3123c7af0c6036859a080902229a9236d593af83709a",
+      "lines": 38,
+      "bytes": 2034,
+      "sha256": "ba36dff2d9101e3ff81afc7ae9d8858d851652fbb721a46b830b890a274a65e1",
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
-        "wiki/首批并行接口约定.md"
+        "wiki/首批并行接口约定.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     {
@@ -1364,6 +1434,28 @@
       "pages": [
         "wiki/C02b桌面只读助手.md",
         "wiki/M4模型与报价修订.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/run-events.test.ts",
+      "type": "ts",
+      "lines": 69,
+      "bytes": 2279,
+      "sha256": "f6c077eaae03f9954f1c9a5af78e82ff075937e97b0b3f2d2009064f79550ba7",
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/run-events.ts",
+      "type": "ts",
+      "lines": 55,
+      "bytes": 2341,
+      "sha256": "df8544c42fd8b49d029dae40e99949024f4f2fdcfb949da96b97e33e48e2cb63",
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     {
@@ -1575,14 +1667,15 @@
     {
       "path": "packages/infrastructure/src/agent-run-coordinator.ts",
       "type": "ts",
-      "lines": 201,
-      "bytes": 8601,
-      "sha256": "1621fc3caa53a273c23c45c7e2782aebc55a19a8567af921b249b44860ee9df0",
+      "lines": 214,
+      "bytes": 9104,
+      "sha256": "17e9c26bffd8f7952e9671bfb6f1f6565e40c9c485997b038c5688dfe97bf93c",
       "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
       "pages": [
         "wiki/C02c统一运行与写账本.md",
         "wiki/C02c多步报价工具闭环.md",
-        "wiki/C04失败阶段诊断与二轮收敛.md"
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     {
@@ -1613,14 +1706,15 @@
     {
       "path": "packages/infrastructure/src/agent-run-store.ts",
       "type": "ts",
-      "lines": 709,
-      "bytes": 27278,
-      "sha256": "ab7a066efaaa6e3754bf9a4fa19cf8a6d590145e1afd4b27b1491c911bfe3ac7",
+      "lines": 724,
+      "bytes": 27842,
+      "sha256": "4915b96095467fc84cc41d60f11948a5d69549b83f9dd467158d43a85de4127a",
       "role": "持久运行存储、票据、控制重放与同连接报价原子提交",
       "pages": [
         "wiki/C02c持久运行与写入前置.md",
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     {
@@ -2032,6 +2126,28 @@
       ]
     },
     {
+      "path": "packages/infrastructure/src/run-event-store.test.ts",
+      "type": "ts",
+      "lines": 147,
+      "bytes": 5917,
+      "sha256": "fc5264e6c20f8d61634b6fa1ecff2f414c7b296635258508a7aca434c7a76abf",
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/run-event-store.ts",
+      "type": "ts",
+      "lines": 115,
+      "bytes": 4288,
+      "sha256": "a5a0d22336ad865e3e9ce174d84b56f9ec43de3534af5387544082e35b141b3e",
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
       "path": "packages/infrastructure/src/schema.ts",
       "type": "ts",
       "lines": 8,
@@ -2259,12 +2375,13 @@
     {
       "path": "tests/e2e/agent-recovery.spec.ts",
       "type": "ts",
-      "lines": 195,
-      "bytes": 7784,
-      "sha256": "bbd0011183fc19677d11a3694e396bb9936066c82df5946b10732fce88a06f1f",
+      "lines": 232,
+      "bytes": 9865,
+      "sha256": "83c3e222f364bfec45809fc257696b5f7089bc8aa6c17f1f356f7e243d3c55d1",
       "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
       "pages": [
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     {
@@ -2342,14 +2459,15 @@
     {
       "path": "tests/e2e/workspace.spec.ts",
       "type": "ts",
-      "lines": 278,
-      "bytes": 11973,
-      "sha256": "4492c0d62dfbbaa230f29391eb6d61d7a373c0ee4be46184564d7ae0163eca51",
+      "lines": 280,
+      "bytes": 12030,
+      "sha256": "6e2cbf5c532eb14b5da190cc6ab7c73443084ee59560e8c24a89ac8ea35b0f46",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md",
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C04正式设置评估入口.md"
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     {

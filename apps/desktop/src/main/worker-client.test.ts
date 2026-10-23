@@ -105,3 +105,37 @@ it("waits for ready and actual exit before allowing restart or completing close"
   await closing;
   expect(closed).toBe(true);
 });
+
+it("shares a validated notification subscription, reconnects on a read and releases ownership listeners", async () => {
+  const worker = new BusinessWorker("fixture.js", "synthetic.sqlite");
+  const first = vi.fn(),
+    second = vi.fn();
+  const releaseFirst = worker.onRunEvents(first),
+    releaseSecond = worker.onRunEvents(second);
+  mock.callbacks.get("message")?.({ type: "ready" });
+  expect(mock.postMessage).toHaveBeenCalledWith({ type: "events.watch", enabled: true });
+  const runId = crypto.randomUUID();
+  mock.callbacks.get("message")?.({ type: "events.available", runId, seq: 3, raw: "synthetic" });
+  expect(first).toHaveBeenCalledTimes(1);
+  mock.callbacks.get("message")?.({ type: "events.available", runId, seq: 3 });
+  expect(first).toHaveBeenLastCalledWith({ type: "events.available", runId, seq: 3 });
+  releaseFirst();
+  mock.callbacks.get("exit")?.();
+  expect(second).toHaveBeenLastCalledWith({ type: "events.connection", connected: false });
+  const read = worker.request({
+    schemaVersion: 1,
+    requestId: crypto.randomUUID(),
+    method: "agent.events",
+    payload: { runId, afterSeq: 0, limit: 20 },
+  });
+  expect(mock.fork).toHaveBeenCalledTimes(2);
+  mock.callbacks.get("message")?.({ type: "ready" });
+  await Promise.resolve();
+  expect(second).toHaveBeenLastCalledWith({ type: "events.connection", connected: true });
+  releaseSecond();
+  releaseSecond();
+  expect(mock.postMessage).toHaveBeenLastCalledWith({ type: "events.watch", enabled: false });
+  mock.callbacks.get("exit")?.();
+  await read;
+  await worker.close();
+});
