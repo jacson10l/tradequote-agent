@@ -3,9 +3,11 @@ import { SourceHashSchema } from "./knowledge";
 import {
   WikiConsumptionInputSchema,
   type WikiHostContext,
+  WikiHostContextSchema,
   WikiLintReceiptSchema,
   WikiReviewBindingSchema,
   WikiReviewDecisionSchema,
+  WikiReviewInputSchema,
   WikiSourceStateSchema,
 } from "./knowledge-wiki";
 import { PublicErrorSchema, readEnvelope, resultSchema, writeEnvelope } from "./protocol";
@@ -86,6 +88,27 @@ export const KnowledgeLintReportSchema = z
           : "passed";
     if (v.receipt.outcome !== outcome) fail("不能用未完成、未知或阻断报告生成通过回执");
   });
+/** Host-only preflight for the existing P0 review payload. The report must be
+ * loaded by lintReceiptId inside the authoritative review transaction. */
+export const KnowledgeLintReviewInputExchangeSchema = z
+  .strictObject({
+    report: KnowledgeLintReportSchema,
+    input: WikiReviewInputSchema,
+    context: WikiHostContextSchema,
+  })
+  .refine(
+    ({ report, input, context }) =>
+      context.origin === "human_ui" &&
+      context.workspaceId === report.receipt.workspaceId &&
+      Date.parse(context.now) >= Date.parse(report.receipt.checkedAt) &&
+      input.lintReceiptId === report.reportId &&
+      input.revisionId === report.receipt.revisionId &&
+      input.contentHash === report.receipt.contentHash &&
+      input.sourceSetHash === report.receipt.sourceSetHash &&
+      (input.decision !== "approve" ||
+        (report.status === "completed" && report.receipt.outcome === "passed")),
+    "人工审核请求须在当前工作区绑定已存lint报告，批准要求完整且通过",
+  );
 /** Host-only consistency check after loading the persisted report. Storage,
  * authority, lifecycle OCC and current source eligibility remain host duties. */
 export const KnowledgeLintReviewExchangeSchema = z

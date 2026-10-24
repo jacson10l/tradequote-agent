@@ -5,6 +5,7 @@ import { join } from "node:path";
 import {
   type CheckCommand,
   type CheckListResult,
+  type CheckReport,
   type CheckResult,
   demoCatalogCsv,
   demoScenario,
@@ -12,6 +13,7 @@ import {
   type KnowledgeRevision,
   type TradeResult,
 } from "@tradequote/contracts";
+import { quoteCheckService } from "@tradequote/domain";
 import Database from "better-sqlite3";
 import { afterEach, expect, it } from "vitest";
 import { CheckStore, checkReportTableSql } from "./check-store";
@@ -484,4 +486,67 @@ it("shares the existing command-key namespace without overwriting another comman
     ok: false,
     error: { code: "IDEMPOTENCY_CONFLICT" },
   });
+});
+
+it.each(["reportId", "quoteId", "revisionId", "quoteVersion", "checkedAt"] as const)(
+  "rejects a participant report with substituted %s before registration or any writes",
+  (field) => {
+    const f = fixture();
+    const tables = ["quote_check_report", "knowledge_consumption", "outbox", "idempotency"];
+    const snapshot = () =>
+      tables.map((table) => f.database().prepare(`SELECT * FROM ${table} ORDER BY rowid`).all());
+    const before = snapshot();
+    let registrations = 0;
+    const store = new CheckStore(f.database(), {
+      prepare: (quote, reportId, checkedAt) => {
+        const report: CheckReport = quoteCheckService.evaluate({
+          quote,
+          reportId,
+          checkedAt,
+          knowledge: [],
+        });
+        if (field === "quoteId" || field === "revisionId") {
+          // Keep the V1 report internally valid while substituting another quote.
+          report.quoteId = report.revisionId = randomUUID();
+        } else if (field === "quoteVersion") report.quoteVersion = 2;
+        else if (field === "checkedAt") report.checkedAt = "2026-10-21T00:00:00.000Z";
+        else report.reportId = randomUUID();
+        return {
+          report,
+          register: () => {
+            registrations++;
+          },
+        };
+      },
+    });
+    expect(store.execute(f.command, context)).toMatchObject({
+      ok: false,
+      error: { code: "SOURCE_CONFLICT" },
+    });
+    expect(registrations).toBe(0);
+    expect(snapshot()).toEqual(before);
+  },
+);
+
+it("commits a matching participant report and replays it without preparing or registering twice", () => {
+  const f = fixture();
+  let preparations = 0;
+  let registrations = 0;
+  const store = new CheckStore(f.database(), {
+    prepare: (quote, reportId, checkedAt) => {
+      preparations++;
+      expect(f.database().inTransaction).toBe(true);
+      return {
+        report: quoteCheckService.evaluate({ quote, reportId, checkedAt, knowledge: [] }),
+        register: () => {
+          registrations++;
+        },
+      };
+    },
+  });
+  const first = store.execute(f.command, context);
+  expect(first.ok).toBe(true);
+  expect(store.execute({ ...f.command, requestId: randomUUID() }, context)).toEqual(first);
+  expect(preparations).toBe(1);
+  expect(registrations).toBe(1);
 });

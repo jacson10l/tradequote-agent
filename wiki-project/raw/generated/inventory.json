@@ -1145,9 +1145,9 @@
     {
       "path": "packages/contracts/src/checks.test.ts",
       "type": "ts",
-      "lines": 179,
-      "bytes": 6002,
-      "sha256": "b24404f6158c2bcf6678872dd582048a95f72c4c3cdaada52dc14eddcd34234b",
+      "lines": 210,
+      "bytes": 7203,
+      "sha256": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
         "wiki/首批并行接口约定.md"
@@ -1211,9 +1211,9 @@
     {
       "path": "packages/contracts/src/index.ts",
       "type": "ts",
-      "lines": 142,
-      "bytes": 4876,
-      "sha256": "c55af11142a65095ecd853da1289ca324e82d127b3c4c5cabf26f3cdf38a84d8",
+      "lines": 144,
+      "bytes": 5051,
+      "sha256": "ebe937d120bc987d332853ae5f5fad4099da6c59e8a7f44da679b32aa394786a",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
@@ -1246,9 +1246,9 @@
     {
       "path": "packages/contracts/src/knowledge-lint-review.test.ts",
       "type": "ts",
-      "lines": 101,
-      "bytes": 3067,
-      "sha256": "aa060530827d6853802afb23bacd690d238241f38e9b670250c331a2c4ad1345",
+      "lines": 215,
+      "bytes": 6536,
+      "sha256": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
       "role": "P1 persisted lint receipt to P0 review consistency boundary",
       "pages": [
         "wiki/B00a知识整理与维护协议.md",
@@ -1269,9 +1269,9 @@
     {
       "path": "packages/contracts/src/knowledge-maintenance.ts",
       "type": "ts",
-      "lines": 543,
-      "bytes": 20896,
-      "sha256": "27d02359e3f30a8780b8896c9c1e270f98ade88de374e24f9aecf8ba6d7038cc",
+      "lines": 566,
+      "bytes": 21956,
+      "sha256": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
       "role": "P1 lint, deduplicated maintenance, influence analysis and fenced index reconstruction contracts",
       "pages": [
         "wiki/B00a知识整理与维护协议.md"
@@ -1681,9 +1681,9 @@
     {
       "path": "packages/infrastructure/src/check-store.test.ts",
       "type": "ts",
-      "lines": 487,
-      "bytes": 17475,
-      "sha256": "7534a06469f11bec95df8228010a39a690648fb446ba23c51a841629af2eedc3",
+      "lines": 552,
+      "bytes": 19835,
+      "sha256": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
       "role": "B01 真实 SQLite 历史/故障原子性/不可变性与版本隔离回归",
       "pages": [
         "wiki/B规则检查实现.md"
@@ -1692,9 +1692,9 @@
     {
       "path": "packages/infrastructure/src/check-store.ts",
       "type": "ts",
-      "lines": 271,
-      "bytes": 10972,
-      "sha256": "0b70b7da426594066e34c4779305a497cfbdf8113ef60b2dd5e12486fc6d74c5",
+      "lines": 283,
+      "bytes": 11559,
+      "sha256": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
       "role": "B01不可变报告存取、完整消费回读校验与同事务幂等",
       "pages": [
         "wiki/B规则检查实现.md"

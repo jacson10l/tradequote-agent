@@ -403,3 +403,13 @@ B00a P1远端交接：[PR #8](https://github.com/jacson10l/tradequote-agent/pull
 首次typecheck与夹具locale/build PATH/格式失败均保留；修正后typecheck、95项相关测试及build通过，全量230/231仅旧Windows symlink EPERM。拒绝探针7项2通过/5失败（四类缺口），实际registry损坏在写开WAL后才抛错且DB字节变化，待A修订；不把正常测试当迁移可合并。raw/b01-lineage-p1-validation.json和boundary-probe.json保存实际命令/观察；最终工程/Wiki/保留验证另追加。[[B谱系账本适配与P1回执交接]]记录A/C接入责任，未推送、合入、发送消息或真实模型调用。
 
 最终验证追加：95/95相关测试、typecheck/build/check通过，工程5通过/1个macOS专用跳过；全量230/231与Wiki34/36只剩原Windows EPERM。初轮contracts测试引node:crypto被工程门禁拦截，改确定性ID并重跑；初轮Wiki运行器Path大小写导致git缺失，修正后回归恢复34/36，失败输出不删。taskBase f2dfa5f与共同merge-base654fecc同步通过，九段SQL完全保持，原B91/A78/P1 81份非生成raw与旧日志非空行保持，生产CheckStore/报告DDL/消费适配/TradeStore算法未改。证据raw/b01-lineage-p1-validation.json、preservation.json；负向探针仍2/7，五项失败/四类A问题待修，不标done、不进入正式组合。
+
+## 2026-10-23 B P1审核输入与检查提交绑定
+
+用户要求B可继续P1及接口适配，A人工发布和业务验收分别待完成。独立codex/b01-lineage-p1-adaptation，真实增量基线99ba7de97fd25f0843ccf63acfb8f97c374137f3。新增P1已存lint报告/P0审核input/宿主context交换校验，CheckStore在任何写入/register前核对参与方报告根/版本/ID/时点。初轮实际SQLite五项反例失败已留证，修复后七文件96/96、tsc/build退出0；全量245/246、Wiki34/36仍为原Windows symlink EPERM。本机Node24.21.0/pnpm10.13.1/Electron44.9.2，不代表固定Node22/macOS/桌面通过。知识、任务与接口交接同步，实际完整命令及后续Wiki门禁见raw/b01-p1-interface-validation.json与[[B01-谱系账本适配与P1回执]]。A迁移无新固定修复、四类拒绝缺口/人工发布/C组合/业务验收继续active，未推送合入/调用真实模型；旧raw/log保留。
+
+## 2026-10-24 B A-W08 语义与固定复核接收
+
+接收C20891fb/A9225526；确认A公共failure()保留旧true表达式、B330bff7已有false修正，补公开helper/mock/Wiki门禁回归和注释。A表达式两次受控复现并hash恢复，8文件111项/typecheck/build通过；全量246/247剩旧Windows symlink EPERM，首轮类型反例/清理失败保留，新证据raw/b-aw08-revalidation.json。保留已有P1/CheckStore未提交增量及旧证据，未导入A9225526/改历史迁移。M13/A自身helper同步、C组合/macOS/人工非作者验收待；同步相关知识/任务/ADR/状态/导航，Wiki门禁执行后补实际结果，不推送/合入/代签/发送/真实模型复测。
+
+2026-10-24 B最终门禁：公开入口5/5、相关111项/typecheck/build/check及Wiki只读check/lint/99ba7de与f2dfa5f同步通过；全量246/247、Wiki34/36剩原Windows symlink EPERM。Wiki初轮Git夹具隔离失败已在忽略运行器修正，所有失败输出保留；99原raw与log字节前缀/依赖源码不变。仅本地WIP保存，未推送/合入/代签，A自身A-W08同步及M13/C组合/macOS/人工验收仍待。

@@ -79,6 +79,8 @@ export function failure(
     error: {
       code,
       message,
+      // Missing capability needs implementation/wiring; repeating the request cannot enable it.
+      // Run retry permission is decided separately by the run state machine.
       retryable: false,
       issues: [],
       ...(currentAggregateVersion === undefined ? {} : { currentAggregateVersion }),

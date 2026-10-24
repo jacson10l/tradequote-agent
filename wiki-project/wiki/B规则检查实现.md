@@ -131,6 +131,8 @@ B独立修复来源资格被响应schema拒绝时误归STORAGE_ERROR的问题：
 
 ## A谱系方案后的B报告适配
 
+2026-10-23 追加 B 提交边界：CheckStore 先生成本次 reportId/checkedAt，参与方 prepare 返回后，在任何报告写入及 register 前核对 strict 报告、根 quoteId、revisionId、quoteVersion 和宿主分配的 reportId/checkedAt。内部格式合法但串版本、串身份或串时点也返回 SOURCE_CONFLICT，不等数据库约束报 STORAGE_ERROR，不保存错误报告。相同绑定的参与方继续在同连接事务内提交，同键重放不重复 prepare/register。旧历史报告只读与金额算法不变。实际 SQLite 五项替换反例证明拒绝时报告/消费/outbox/幂等逐行未变，另有正常提交与重放回归；初轮五项失败及修复结果保留 raw/b01-p1-interface-validation.json。本次不修改 A 的迁移识别/SQL，正式组合仍受原拒绝边界阻断；详见 [[B01-谱系账本适配与P1回执]]。
+
 B在独立codex/b01-lineage-p1-adaptation整合A b9a0af7的九能力/统一8与P1 19d60a8。executeChecks、报告/消费同事务和公开错误保持；旧B7真实schema、旧账本、已存多来源报告/消费逐表保持，两次重开同键返回首份报告。旧测试改断言8、迁移测试改按lineage/version身份；不再保留“补5即兼容”的假设。新源check-lineage-integration.test.ts以现有服务生成历史事实后升级，fixture仅依赖公开端口。
 
 正常路径已验证，A拒绝边界独立7项探针仍5失败/2通过（四类缺口），不能放行正式组合。旧raw保留，新证据raw/b01-lineage-p1-validation.json与boundary-probe.json，详情[[B谱系账本适配与P1回执交接]]、[[B01-谱系账本适配与P1回执]]。

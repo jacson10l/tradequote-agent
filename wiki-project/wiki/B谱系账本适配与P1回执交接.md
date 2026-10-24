@@ -2,7 +2,7 @@
 title: B谱系账本适配与P1回执交接
 type: interface
 status: observed
-updated: 2026-10-23
+updated: 2026-10-24
 sources:
   - packages/infrastructure/src/index.ts:1
   - packages/infrastructure/src/migration-lineage.ts:1
@@ -60,6 +60,10 @@ A的接入顺序：宿主执行并保存lint完整报告与幂等/outbox → 按
 
 ## 验证和交付边界
 
+2026-10-23 后续独立推进（本次基线 99ba7de97fd25f0843ccf63acfb8f97c374137f3）：P1 新增 KnowledgeLintReviewInputExchangeSchema，为 A 的已有审核 payload 提供载入报告后的前置一致性校验，最终决定仍用原完整 receipt Exchange；未改旧请求 DTO、mock、preload 或新增 IPC。B 报告端在 prepare 后、写入/register 前绑定宿主 reportId/checkedAt 与当前报价根/版本，错误为 SOURCE_CONFLICT。两项接口适配在原独立 B 工作树继续，不等待人工发布或业务验收，也不将它们标为完成。新增用法与反例见 [[B00a知识整理与维护协议]]、[[B规则检查实现]]。
+
+本次 fetch 观察 A 远端仍 b9a0af7，C 新头 6f9287b 的独立前置验证也报告 changes_required；没有新的 A 固定修复供复验。原七项负向探针仍是上次实测 2/7，不把本次正常回归代替其修复。本次未运行该会写旧证据文件的探针，迁移源码与 99ba7de 字节一致；不复制 C 的代码或代签其验证。
+
 实际命令、退出码、首次失败与修正后输出见raw/b01-lineage-p1-validation.json，所有旧A/B/P1证据逐字节保留。正常聚焦、类型、构建、工程和Wiki按本轮实际执行补记；旧Windows symlink EPERM如实保留。构建成功不代表Electron桌面行为通过，macOS、新组合C运行数据、人审发布、非作者整体接收与业务验收未执行。
 
 原P1 PR#8仅作为协议来源；本分支未合入共同分支、未改PR状态、未代A/C签认、未发送外部消息、未调用真实模型。下一步A修四类边界，B在新固定提交复验，C先迁移后桌面。
@@ -67,3 +71,7 @@ A的接入顺序：宿主执行并保存lint完整报告与幂等/outbox → 按
 本轮最终实测：95/95相关测试，typecheck/build/check通过；全量230/231及Wiki34/36剩余原Windows symlink EPERM，工程中macOS专用项1项跳过。最终显式负向2/7，五项失败仍阻塞接受。f2dfa5f任务基线和真实共同654fecc同步通过。raw/b01-lineage-p1-preservation.json记录B91/A78/P1 81份历史raw字节保持、日志非空行保持、九段SQL指纹一致与已测源码hash；未修改生产报告/消费/报价算法。记录中保留首轮Node测试依赖违规、临时运行器Path错误等失败及修正结果，不归为产品失败或删除。
 
 关联：[[B01-谱系账本适配与P1回执]]、[[B00a知识整理与维护协议]]、[[B规则检查实现]]、[[A01-迁移验证计划]]。
+
+## 2026-10-24 接收 C20891fb 与 A-W08
+
+新固定C20891fb/A9225526已取得，上文“未有新固定A修复”仅为2026-10-23历史状态。C独立报告原12项和N07～N11通过、M13有效约束四项失败；本次只读取证据，未将A9225526导入本B分支，不以旧A b9a0af7正常测试证明新组合。A-W08源于A公共failure()仍把能力不可用设为true，B330bff7已有false修正；新增公共调用方回归，A表达式受控复现后恢复，相关8文件111项及类型/构建通过。报告/消费与P1已有本地适配一并回归，不重复声称尚未开发，也不宣称已被C接收。新证据与最小修正入口见[[B对C20891fb复核与AW08语义回复]]。

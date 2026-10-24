@@ -1,0 +1,192 @@
+{
+  "taskBase": "99ba7de97fd25f0843ccf63acfb8f97c374137f3",
+  "aDependency": "b9a0af7",
+  "p1Dependency": "19d60a8436fc72faf2780cbe1e5f77aeb043b863",
+  "scope": "B P1 review input/host report exchange and CheckStore participant commit binding; synthetic Windows fixtures only",
+  "checks": [
+    {
+      "name": "participant-repro",
+      "command": "electron node_modules/vitest/vitest.mjs run packages/infrastructure/src/check-store.test.ts",
+      "recordedAt": "2026-10-23T15:50:50.333Z",
+      "exit_code": 1,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01-integration\n\n ❯ packages/infrastructure/src/check-store.test.ts (28 tests | 5 failed) 792ms\n   × rejects a participant report with substituted reportId before registration or any writes 32ms\n   × rejects a participant report with substituted quoteId before registration or any writes 25ms\n   × rejects a participant report with substituted revisionId before registration or any writes 25ms\n   × rejects a participant report with substituted quoteVersion before registration or any writes 24ms\n   × rejects a participant report with substituted checkedAt before registration or any writes 25ms\n\n Test Files  1 failed (1)\n      Tests  5 failed | 23 passed (28)\n   Start at  23:50:48\n   Duration  1.58s (tests 57%, import 34%, transform 8%)\n\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/check-store.test.ts > rejects a participant report with substituted reportId before registration or any writes\n FAIL  packages/infrastructure/src/check-store.test.ts > rejects a participant report with substituted checkedAt before registration or any writes\nAssertionError: expected { ok: true, data: { …(8) }, …(2) } to match object { ok: false, …(1) }\n(11 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  {\n-   \"error\": {\n-     \"code\": \"SOURCE_CONFLICT\",\n-   },\n-   \"ok\": false,\n+   \"ok\": true,\n  }\n\n ❯ packages/infrastructure/src/check-store.test.ts:514:47\n    512|       },\n    513|     });\n    514|     expect(store.execute(f.command, context)).toMatchObject({\n       |                                               ^\n    515|       ok: false, error: { code: \"SOURCE_CONFLICT\" },\n    516|     });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯\n\n FAIL  packages/infrastructure/src/check-store.test.ts > rejects a participant report with substituted quoteId before registration or any writes\n FAIL  packages/infrastructure/src/check-store.test.ts > rejects a participant report with substituted revisionId before registration or any writes\n FAIL  packages/infrastructure/src/check-store.test.ts > rejects a participant report with substituted quoteVersion before registration or any writes\nAssertionError: expected { ok: false, error: { …(4) } } to match object { ok: false, …(1) }\n(3 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  {\n    \"error\": {\n-     \"code\": \"SOURCE_CONFLICT\",\n+     \"code\": \"STORAGE_ERROR\",\n    },\n    \"ok\": false,\n  }\n\n ❯ packages/infrastructure/src/check-store.test.ts:514:47\n    512|       },\n    513|     });\n    514|     expect(store.execute(f.command, context)).toMatchObject({\n       |                                               ^\n    515|       ok: false, error: { code: \"SOURCE_CONFLICT\" },\n    516|     });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯\n\n"
+    },
+    {
+      "name": "focused-fix",
+      "command": "electron node_modules/vitest/vitest.mjs run packages/infrastructure/src/check-store.test.ts packages/contracts/src/knowledge-lint-review.test.ts",
+      "recordedAt": "2026-10-23T15:51:31.815Z",
+      "exit_code": 0,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01-integration\n\n\n Test Files  2 passed (2)\n      Tests  46 passed (46)\n   Start at  23:51:30\n   Duration  1.57s (tests 52%, import 38%, transform 9%, worker 1%)\n\n"
+    },
+    {
+      "name": "typecheck",
+      "command": "node node_modules/typescript/bin/tsc --noEmit",
+      "recordedAt": "2026-10-23T15:51:33.107Z",
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "name": "full-unit",
+      "command": "electron node_modules/vitest/vitest.mjs run",
+      "recordedAt": "2026-10-23T15:52:05.040Z",
+      "exit_code": 1,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01-integration\n\n ❯ packages/infrastructure/src/storage.test.ts (4 tests | 1 failed) 231ms\n   × stores immutable content hashes and rejects traversal, tampering and symlinks 32ms\n\n Test Files  1 failed | 27 passed (28)\n      Tests  1 failed | 245 passed (246)\n   Start at  23:52:00\n   Duration  4.95s (import 52%, tests 27%, environment 11%, transform 9%, worker 1%)\n\n    Isolate  28 workers spawned · ~578ms startup each (spawn + environment, per file)\n             at least ~501ms faster with isolate: false — reuses workers across files instead of one per file\n\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/storage.test.ts > stores immutable content hashes and rejects traversal, tampering and symlinks\nError: EPERM: operation not permitted, symlink 'D:\\code\\tradequote-agent-b01-integration\\.runtime\\test-temp\\tradequote-test-9kK64W\\169e73adeeb9ee2cbf78b5878c95ebef88d580774a6005a367c8e35458658027' -> 'D:\\code\\tradequote-agent-b01-integration\\.runtime\\test-temp\\tradequote-test-9kK64W\\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'\n ❯ packages/infrastructure/src/storage.test.ts:108:3\n    106|   expect(await store.verifyHash(id)).toBe(false);\n    107|   const other = \"a\".repeat(64);\n    108|   symlinkSync(join(root, id), join(root, other));\n       |   ^\n    109|   await expect(store.readById(other)).rejects.toThrow(\"ARTIFACT_NOT_RE…\n    110| });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n"
+    },
+    {
+      "name": "build",
+      "command": "pnpm build",
+      "recordedAt": "2026-10-23T15:52:39.666Z",
+      "exit_code": 0,
+      "output": " WARN  Unsupported engine: wanted: {\"node\":\"22.22.0\"} (current: {\"node\":\"v24.21.0\",\"pnpm\":\"10.13.1\"})\n\n> tradequote-agent@0.1.0 build D:\\code\\tradequote-agent-b01-integration\n> node scripts/check-icons.mjs && pnpm --filter @tradequote/desktop build\n\nApplication icons passed: SVG/1024 PNG/macOS ICNS/Windows ICO\n.                                        |  WARN  Unsupported engine: wanted: {\"node\":\"22.22.0\"} (current: {\"node\":\"v24.21.0\",\"pnpm\":\"10.13.1\"})\n\n> @tradequote/desktop@0.1.0 build D:\\code\\tradequote-agent-b01-integration\\apps\\desktop\n> electron-vite build\n\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 258 modules transformed.\nrendering chunks...\nout/main/worker.js                 1.26 kB\nout/main/index.js                  9.54 kB\nout/main/chunks/src-CRe-KloC.js  618.39 kB\n\n✓ built in 129ms\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 113 modules transformed.\nrendering chunks...\nout/preload/index.js  267.38 kB\n\n✓ built in 48ms\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 2111 modules transformed.\nrendering chunks...\nout/renderer/index.html                   0.64 kB\nout/renderer/assets/index-ptglloFo.css   15.26 kB\nout/renderer/assets/index-BzOKxULG.js   558.45 kB\n\n✓ built in 375ms\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
+    },
+    {
+      "name": "wiki-regression",
+      "command": "node --test wiki-project/scripts/wiki-tools.test.mjs wiki-project/scripts/wiki-sync.test.mjs",
+      "recordedAt": "2026-10-23T15:53:09.222Z",
+      "exit_code": 1,
+      "output": "✔ runtime version pin is a mandatory Wiki-synchronized configuration change (2.5039ms)\n✔ code with related knowledge, task and appended log passes (0.3607ms)\n✔ generated snapshots alone cannot satisfy knowledge/task/log changes (0.1479ms)\n✔ metadata-only or whitespace-only edits cannot satisfy semantic update (0.1844ms)\n✔ each source needs its own mapped knowledge, unrelated pages do not suffice (0.2314ms)\n✔ deleted source uses baseline mapping; unknown source fails (0.1881ms)\n✔ history rewrite and removed task do not pass (0.1561ms)\n✔ Wiki maintenance code requires workflow knowledge, not generated data (0.1425ms)\n✔ ordinary documentation-only edits do not trigger code delivery check (0.1835ms)\n✔ real Git baseline includes committed, unstaged and untracked sources (1308.6717ms)\n✔ SVG assets require semantic Wiki, task and append-only log changes (0.2008ms)\n✔ same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline (2526.6064ms)\n✔ source drift fails without writes; generation repairs snapshot while preserving ingest baseline (1212.3283ms)\n✔ explicit ingest records a non-Git project honestly (1086.4666ms)\n✔ tool inventory names come from definitions, not nested headers/output/schema fields (609.9802ms)\n✔ new unclassified source fails; missing knowledge target and stale mapping fail (868.1358ms)\n✔ generated coverage tampering is detected by lint and remains untouched (1040.8942ms)\n✖ sensitive filename is excluded before read; external source symlink is not followed (338.9953ms)\n✖ Wiki and generated-output symlinks cannot write outside project (330.7659ms)\n✔ missing schema field (1044.114ms)\n✔ bad type (1015.9126ms)\n✔ bad date (1329.7857ms)\n✔ bad status (1173.8263ms)\n✔ missing wiki target (1141.1369ms)\n✔ missing markdown target (1148.8509ms)\n✔ invalid source line (993.0394ms)\n✔ verified without code evidence (1003.8951ms)\n✔ source escaping project (983.2095ms)\n✔ unfilled placeholder (999.1817ms)\n✔ all sources are validated even after a valid implementation source (1019.579ms)\n✔ orphan pages and duplicate basenames are rejected (1642.6183ms)\n✔ completed task requires actual verification record (1016.9664ms)\n✔ archived source cannot bypass inspection through silent changes (989.6936ms)\n✔ source references cannot open excluded runtime data (995.695ms)\n✔ new JSON evidence is checked and sensitive Wiki filenames are rejected before read (1246.0122ms)\n✔ secret/JWT/private-key/PII detections redact the value in diagnostics (2941.87ms)\nℹ tests 36\nℹ suites 0\nℹ pass 34\nℹ fail 2\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 28876.8515\n\n✖ failing tests:\n\ntest at wiki-project\\scripts\\wiki-tools.test.mjs:129:1\n✖ sensitive filename is excluded before read; external source symlink is not followed (338.9953ms)\n  Error: EPERM: operation not permitted, symlink 'D:\\code\\tradequote-agent-b01-integration\\.runtime\\test-temp\\tradequote-private-fixture-DGcADX\\external.ts' -> 'D:\\code\\tradequote-agent-b01-integration\\.runtime\\test-temp\\tradequote-wiki-test-whBMG7\\linked.ts'\n      at Object.symlinkSync (node:fs:1937:11)\n      at TestContext.<anonymous> (file:///D:/code/tradequote-agent-b01-integration/wiki-project/scripts/wiki-tools.test.mjs:137:6)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1402:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)\n      at Test.postRun (node:internal/test_runner/test:1542:19)\n      at Test.run (node:internal/test_runner/test:1467:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {\n    errno: -4048,\n    code: 'EPERM',\n    syscall: 'symlink',\n    path: 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\.runtime\\\\test-temp\\\\tradequote-private-fixture-DGcADX\\\\external.ts',\n    dest: 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\.runtime\\\\test-temp\\\\tradequote-wiki-test-whBMG7\\\\linked.ts'\n  }\n\ntest at wiki-project\\scripts\\wiki-tools.test.mjs:143:1\n✖ Wiki and generated-output symlinks cannot write outside project (330.7659ms)\n  Error: EPERM: operation not permitted, symlink 'D:\\code\\tradequote-agent-b01-integration\\.runtime\\test-temp\\tradequote-wiki-outside-YUanVn' -> 'D:\\code\\tradequote-agent-b01-integration\\.runtime\\test-temp\\tradequote-wiki-test-Scu778\\wiki-project\\raw\\generated'\n      at Object.symlinkSync (node:fs:1937:11)\n      at TestContext.<anonymous> (file:///D:/code/tradequote-agent-b01-integration/wiki-project/scripts/wiki-tools.test.mjs:149:6)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1402:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)\n      at Test.postRun (node:internal/test_runner/test:1542:19)\n      at Test.run (node:internal/test_runner/test:1467:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {\n    errno: -4048,\n    code: 'EPERM',\n    syscall: 'symlink',\n    path: 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\.runtime\\\\test-temp\\\\tradequote-wiki-outside-YUanVn',\n    dest: 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\.runtime\\\\test-temp\\\\tradequote-wiki-test-Scu778\\\\wiki-project\\\\raw\\\\generated'\n  }\n"
+    },
+    {
+      "name": "focused-recorded",
+      "command": "electron node_modules/vitest/vitest.mjs run packages/contracts/src/knowledge-build.test.ts packages/contracts/src/knowledge-maintenance.test.ts packages/contracts/src/knowledge-lint-review.test.ts packages/infrastructure/src/check-store.test.ts packages/infrastructure/src/wiki-check-integration.test.ts packages/infrastructure/src/check-lineage-integration.test.ts apps/desktop/src/preload/contracts.test.ts",
+      "recordedAt": "2026-10-23T15:54:42.913Z",
+      "exit_code": 0,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01-integration\n\n\n Test Files  7 passed (7)\n      Tests  96 passed (96)\n   Start at  23:54:40\n   Duration  2.53s (tests 47%, import 46%, transform 6%, worker 1%)\n\n"
+    },
+    {
+      "name": "typecheck-recorded",
+      "command": "node node_modules/typescript/bin/tsc --noEmit",
+      "recordedAt": "2026-10-23T15:54:44.232Z",
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "name": "wiki-generate",
+      "command": "node wiki-project/scripts/build-code-index.mjs .",
+      "recordedAt": "2026-10-23T15:54:44.625Z",
+      "exit_code": 0,
+      "output": "{\n  \"mode\": \"generate\",\n  \"files\": 184,\n  \"lines\": 51737,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n"
+    },
+    {
+      "name": "engineering-check",
+      "command": "pnpm check",
+      "recordedAt": "2026-10-23T15:54:47.471Z",
+      "exit_code": 0,
+      "output": " WARN  Unsupported engine: wanted: {\"node\":\"22.22.0\"} (current: {\"node\":\"v24.21.0\",\"pnpm\":\"10.13.1\"})\n\n> tradequote-agent@0.1.0 check D:\\code\\tradequote-agent-b01-integration\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 120 files in 47ms. No fixes applied.\n✔ renderer cannot reach Node, database or desktop internals through import forms (11.5564ms)\n✔ pure modules use public contracts while other platform dependencies are rejected (2.2373ms)\n✔ domain permits exact pure decimal dependency without opening contracts or SDK imports (0.6205ms)\n✔ committed icon resources match their source manifest (2.4961ms)\n✔ editing either SVG or packaged icon without generation blocks the build (14.6554ms)\n﹣ macOS native process and runtime display TradeQuote while upstream Electron stays intact (1.473ms) # SKIP\nℹ tests 6\nℹ suites 0\nℹ pass 5\nℹ fail 0\nℹ cancelled 0\nℹ skipped 1\nℹ todo 0\nℹ duration_ms 205.7391\nModule boundaries passed\n WARN  Unsupported engine: wanted: {\"node\":\"22.22.0\"} (current: {\"node\":\"v24.21.0\",\"pnpm\":\"10.13.1\"})\n\n> tradequote-agent@0.1.0 wiki:check D:\\code\\tradequote-agent-b01-integration\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 184,\n  \"lines\": 51737,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 120,\n  \"semantic\": 104,\n  \"reachable\": 120\n}\n"
+    },
+    {
+      "name": "incremental-wiki-sync",
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 99ba7de97fd25f0843ccf63acfb8f97c374137f3",
+      "recordedAt": "2026-10-23T15:54:48.513Z",
+      "exit_code": 0,
+      "output": "{\n  \"base\": \"99ba7de97fd25f0843ccf63acfb8f97c374137f3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 4,\n  \"knowledgePages\": 8,\n  \"tasks\": 3,\n  \"errors\": []\n}\n"
+    },
+    {
+      "name": "final-diff-check",
+      "command": "node --input-type=module -e import{execFileSync}from'node:child_process';execFileSync('git',['diff','--check'],{stdio:'inherit'});",
+      "recordedAt": "2026-10-23T15:55:31.551Z",
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "name": "final-wiki-check",
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "recordedAt": "2026-10-23T15:55:31.924Z",
+      "exit_code": 0,
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 184,\n  \"lines\": 51737,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n"
+    },
+    {
+      "name": "final-wiki-lint",
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "recordedAt": "2026-10-23T15:55:32.657Z",
+      "exit_code": 0,
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 120,\n  \"semantic\": 104,\n  \"reachable\": 120\n}\n"
+    },
+    {
+      "name": "final-wiki-sync",
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 99ba7de97fd25f0843ccf63acfb8f97c374137f3",
+      "recordedAt": "2026-10-23T15:55:33.691Z",
+      "exit_code": 0,
+      "output": "{\n  \"base\": \"99ba7de97fd25f0843ccf63acfb8f97c374137f3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 4,\n  \"knowledgePages\": 8,\n  \"tasks\": 3,\n  \"errors\": []\n}\n"
+    },
+    {
+      "name": "final-evidence-lint",
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "recordedAt": "2026-10-23T15:55:53.320Z",
+      "exit_code": 0,
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 120,\n  \"semantic\": 104,\n  \"reachable\": 120\n}\n"
+    },
+    {
+      "name": "final-task-baseline-sync",
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef",
+      "recordedAt": "2026-10-23T15:55:55.232Z",
+      "exit_code": 0,
+      "output": "{\n  \"base\": \"f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef\",\n  \"status\": \"passed\",\n  \"codeFiles\": 24,\n  \"knowledgePages\": 22,\n  \"tasks\": 6,\n  \"errors\": []\n}\n"
+    },
+    {
+      "name": "evidence-final-check",
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "recordedAt": "2026-10-23T15:56:16.338Z",
+      "exit_code": 0,
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 184,\n  \"lines\": 51737,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n"
+    },
+    {
+      "name": "evidence-final-lint",
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "recordedAt": "2026-10-23T15:56:17.084Z",
+      "exit_code": 0,
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 120,\n  \"semantic\": 104,\n  \"reachable\": 120\n}\n"
+    }
+  ],
+  "branch": "codex/b01-lineage-p1-adaptation",
+  "status": "partial",
+  "environment": {
+    "platform": "win32",
+    "arch": "x64",
+    "node": "v24.21.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2",
+    "electronNode": "24.22.0",
+    "projectPinnedNode": "22.22.0",
+    "pinnedNodeVerified": false,
+    "macOSVerified": false,
+    "desktopVerified": false
+  },
+  "dependencies": {
+    "a": "b9a0af76217e57e0ab22ba927de1a1a287b1145f",
+    "cIntake": "6f9287b",
+    "originalP1": "19d60a8436fc72faf2780cbe1e5f77aeb043b863"
+  },
+  "sourceHashes": {
+    "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+    "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+    "packages/infrastructure/src/check-store.ts": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+    "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246"
+  },
+  "preservation": {
+    "historicalRawFiles": 99,
+    "changedHistoricalRaw": [],
+    "oldLogExactPrefix": true,
+    "unchangedDependencySources": [
+      "packages/infrastructure/src/migrations.ts",
+      "packages/infrastructure/src/migration-lineage.ts",
+      "packages/infrastructure/src/wiki-store.ts",
+      "packages/infrastructure/src/wiki-check-source.ts"
+    ]
+  },
+  "summary": {
+    "focused": "7 files / 96 passed",
+    "fullUnit": "245 passed / 1 failed (original Windows symlink EPERM)",
+    "wikiRegression": "34 passed / 2 failed (original Windows symlink EPERM)",
+    "typecheck": 0,
+    "build": 0,
+    "engineeringCheck": 0,
+    "incrementalWikiSync": 0
+  },
+  "remaining": [
+    "A migration rejection fixes (no new fixed A input; previous boundary probe remains 2/7)",
+    "A persisted lint/review/publish implementation and human publishing",
+    "C combination and macOS/pinned Node22/desktop verification",
+    "Non-author review and separate business acceptance"
+  ]
+}

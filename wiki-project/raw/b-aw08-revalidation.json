@@ -1,0 +1,405 @@
+{
+  "status": "partial",
+  "taskBase": "99ba7de97fd25f0843ccf63acfb8f97c374137f3",
+  "branch": "codex/b01-lineage-p1-adaptation",
+  "environment": {
+    "platform": "win32",
+    "arch": "x64",
+    "hostNode": "v24.21.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2",
+    "macOSVerified": false
+  },
+  "dependencies": {
+    "cEvidence": "20891fb8e8af8f05d68016dbc514c17cdf481fec",
+    "aFixed": "92255261e818e6fde0687deee5544755cf9af469",
+    "bExistingFix": "330bff76615147ea9c2729cb144a18873a5251d0",
+    "aImportedIntoB": false
+  },
+  "checks": [
+    {
+      "name": "a-expression-red",
+      "executable": "D:\\code\\tradequote-agent-b01-integration\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "argv": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/contracts/src/checks.test.ts",
+        "packages/infrastructure/src/wiki-store.test.ts",
+        "-t",
+        "A-W08"
+      ],
+      "startedAt": "2026-10-24T05:49:29.809Z",
+      "finishedAt": "2026-10-24T05:49:31.188Z",
+      "exit_code": 1,
+      "expectedExitCode": 1,
+      "expectationMet": true,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01-integration\n\n ❯ packages/contracts/src/checks.test.ts (5 tests | 1 failed | 4 skipped) 12ms\n   ❯ B00 quote checks boundary (5)\n     × A-W08: unavailable failures agree across the public helper, mock and pending Wiki client 10ms\n ❯ packages/infrastructure/src/wiki-store.test.ts (5 tests | 1 failed | 4 skipped) 162ms\n   × A-W08: 来源/知识暂存幂等与来源校验，审核发布撤回保持不可用 161ms\n\n Test Files  2 failed (2)\n      Tests  2 failed | 8 skipped (10)\n   Start at  13:49:30\n   Duration  977ms (import 61%, transform 20%, tests 18%, worker 1%)\n\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/contracts/src/checks.test.ts > B00 quote checks boundary > A-W08: unavailable failures agree across the public helper, mock and pending Wiki client\nAssertionError: expected { ok: false, error: { …(4) } } to match object { ok: false, error: { …(3) } }\n(1 matching property omitted from actual)\n\n- Expected\n+ Received\n\n  {\n    \"error\": {\n      \"code\": \"CAPABILITY_UNAVAILABLE\",\n      \"issues\": [],\n-     \"retryable\": false,\n+     \"retryable\": true,\n    },\n    \"ok\": false,\n  }\n\n ❯ packages/contracts/src/checks.test.ts:77:22\n     75|     ];\n     76|     for (const result of results)\n     77|       expect(result).toMatchObject({\n       |                      ^\n     78|         ok: false,\n     79|         error: { code: \"CAPABILITY_UNAVAILABLE\", retryable: false, iss…\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯\n\n FAIL  packages/infrastructure/src/wiki-store.test.ts > A-W08: 来源/知识暂存幂等与来源校验，审核发布撤回保持不可用\nAssertionError: wiki.review: expected { ok: false, error: { …(4) } } to match object { ok: false, error: { …(2) } }\n(2 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  {\n    \"error\": {\n      \"code\": \"CAPABILITY_UNAVAILABLE\",\n-     \"retryable\": false,\n+     \"retryable\": true,\n    },\n    \"ok\": false,\n  }\n\n ❯ packages/infrastructure/src/wiki-store.test.ts:300:87\n    298|     ],\n    299|   ] as const) {\n    300|     expect(await repo.executeWiki(write(method, payload), host(workspa…\n       |                                                                                       ^\n    301|       {\n    302|         ok: false,\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯\n\n FAIL  packages/infrastructure/src/wiki-store.test.ts > A-W08: 来源/知识暂存幂等与来源校验，审核发布撤回保持不可用\nError: EPERM, Permission denied: 'C:\\Users\\陈宇柠\\AppData\\Local\\Temp\\tradequote-wiki-QgE55v'\n ❯ packages/infrastructure/src/wiki-store.test.ts:20:37\n     18| };\n     19| afterEach(() => {\n     20|   for (const dir of dirs.splice(0)) rmSync(dir, { recursive: true, for…\n       |                                     ^\n     21| });\n     22|\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯\n\n"
+    },
+    {
+      "name": "a-expression-red-repeat",
+      "executable": "D:\\code\\tradequote-agent-b01-integration\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "argv": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/contracts/src/checks.test.ts",
+        "-t",
+        "A-W08"
+      ],
+      "startedAt": "2026-10-24T05:49:51.619Z",
+      "finishedAt": "2026-10-24T05:49:52.401Z",
+      "exit_code": 1,
+      "expectedExitCode": 1,
+      "expectationMet": true,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01-integration\n\n ❯ packages/contracts/src/checks.test.ts (5 tests | 1 failed | 4 skipped) 10ms\n   ❯ B00 quote checks boundary (5)\n     × A-W08: unavailable failures agree across the public helper, mock and pending Wiki client 9ms\n\n Test Files  1 failed (1)\n      Tests  1 failed | 4 skipped (5)\n   Start at  13:49:52\n   Duration  372ms (import 71%, transform 20%, tests 6%, worker 4%)\n\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/contracts/src/checks.test.ts > B00 quote checks boundary > A-W08: unavailable failures agree across the public helper, mock and pending Wiki client\nAssertionError: expected { ok: false, error: { …(4) } } to match object { ok: false, error: { …(3) } }\n(1 matching property omitted from actual)\n\n- Expected\n+ Received\n\n  {\n    \"error\": {\n      \"code\": \"CAPABILITY_UNAVAILABLE\",\n      \"issues\": [],\n-     \"retryable\": false,\n+     \"retryable\": true,\n    },\n    \"ok\": false,\n  }\n\n ❯ packages/contracts/src/checks.test.ts:77:22\n     75|     ];\n     76|     for (const result of results)\n     77|       expect(result).toMatchObject({\n       |                      ^\n     78|         ok: false,\n     79|         error: { code: \"CAPABILITY_UNAVAILABLE\", retryable: false, iss…\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n"
+    },
+    {
+      "name": "focused",
+      "executable": "D:\\code\\tradequote-agent-b01-integration\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "argv": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/contracts/src/checks.test.ts",
+        "packages/contracts/src/knowledge-lint-review.test.ts",
+        "packages/contracts/src/knowledge-maintenance.test.ts",
+        "packages/infrastructure/src/check-store.test.ts",
+        "packages/infrastructure/src/check-wiki-integration.test.ts",
+        "packages/infrastructure/src/check-lineage-integration.test.ts",
+        "packages/infrastructure/src/wiki-store.test.ts"
+      ],
+      "startedAt": "2026-10-24T05:50:07.695Z",
+      "finishedAt": "2026-10-24T05:50:09.975Z",
+      "exit_code": 0,
+      "expectedExitCode": 0,
+      "expectationMet": true,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01-integration\n\n\n Test Files  6 passed (6)\n      Tests  67 passed (67)\n   Start at  13:50:08\n   Duration  1.85s (import 57%, tests 33%, transform 9%, worker 1%)\n\n"
+    },
+    {
+      "name": "typecheck",
+      "executable": "C:\\Users\\陈宇柠\\AppData\\Local\\Programs\\node-v24.21.0-win-x64\\node.exe",
+      "argv": [
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "startedAt": "2026-10-24T05:50:10.535Z",
+      "finishedAt": "2026-10-24T05:50:12.892Z",
+      "exit_code": 1,
+      "expectedExitCode": 0,
+      "expectationMet": false,
+      "output": "packages/contracts/src/checks.test.ts(81,62): error TS2353: Object literal may only specify known properties, and 'unexpected' does not exist in type '{ schemaVersion: 1; requestId: string; idempotencyKey: string; method: \"wiki.review\"; payload: { revisionId: string; contentHash: string; sourceSetHash: string; expectedLifecycleVersion: number; decision: \"approve\" | \"reject\"; note: string; lintReceiptId: string; }; }'.\n"
+    },
+    {
+      "name": "typecheck-final",
+      "executable": "C:\\Users\\陈宇柠\\AppData\\Local\\Programs\\node-v24.21.0-win-x64\\node.exe",
+      "argv": [
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "startedAt": "2026-10-24T05:50:45.794Z",
+      "finishedAt": "2026-10-24T05:50:46.974Z",
+      "exit_code": 0,
+      "expectedExitCode": 0,
+      "expectationMet": true,
+      "output": ""
+    },
+    {
+      "name": "focused-final",
+      "executable": "D:\\code\\tradequote-agent-b01-integration\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "argv": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/contracts/src/checks.test.ts",
+        "packages/contracts/src/knowledge-lint-review.test.ts",
+        "packages/contracts/src/knowledge-maintenance.test.ts",
+        "packages/infrastructure/src/check-store.test.ts",
+        "packages/infrastructure/src/wiki-check-integration.test.ts",
+        "packages/infrastructure/src/check-lineage-integration.test.ts",
+        "packages/infrastructure/src/wiki-store.test.ts",
+        "packages/domain/src/quote-checks.test.ts"
+      ],
+      "startedAt": "2026-10-24T05:50:47.575Z",
+      "finishedAt": "2026-10-24T05:50:50.697Z",
+      "exit_code": 0,
+      "expectedExitCode": 0,
+      "expectationMet": true,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01-integration\n\n\n Test Files  8 passed (8)\n      Tests  111 passed (111)\n   Start at  13:50:47\n   Duration  2.69s (import 50%, tests 42%, transform 7%, worker 1%)\n\n"
+    },
+    {
+      "name": "full-unit",
+      "executable": "D:\\code\\tradequote-agent-b01-integration\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "argv": [
+        "node_modules/vitest/vitest.mjs",
+        "run"
+      ],
+      "startedAt": "2026-10-24T05:50:51.301Z",
+      "finishedAt": "2026-10-24T05:50:56.782Z",
+      "exit_code": 1,
+      "expectedExitCode": 0,
+      "expectationMet": false,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01-integration\n\n ❯ packages/infrastructure/src/storage.test.ts (4 tests | 1 failed) 243ms\n   × stores immutable content hashes and rejects traversal, tampering and symlinks 35ms\n\n Test Files  1 failed | 27 passed (28)\n      Tests  1 failed | 246 passed (247)\n   Start at  13:50:51\n   Duration  5.05s (import 51%, tests 25%, environment 12%, transform 11%, worker 1%)\n\n    Isolate  28 workers spawned · ~615ms startup each (spawn + environment, per file)\n             at least ~533ms faster with isolate: false — reuses workers across files instead of one per file\n\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/storage.test.ts > stores immutable content hashes and rejects traversal, tampering and symlinks\nError: EPERM: operation not permitted, symlink 'D:\\code\\tradequote-agent-b01-integration\\.runtime\\test-temp\\tradequote-test-A0iexL\\169e73adeeb9ee2cbf78b5878c95ebef88d580774a6005a367c8e35458658027' -> 'D:\\code\\tradequote-agent-b01-integration\\.runtime\\test-temp\\tradequote-test-A0iexL\\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'\n ❯ packages/infrastructure/src/storage.test.ts:108:3\n    106|   expect(await store.verifyHash(id)).toBe(false);\n    107|   const other = \"a\".repeat(64);\n    108|   symlinkSync(join(root, id), join(root, other));\n       |   ^\n    109|   await expect(store.readById(other)).rejects.toThrow(\"ARTIFACT_NOT_RE…\n    110| });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n"
+    },
+    {
+      "name": "build",
+      "executable": "C:/Users/陈宇柠/AppData/Local/pnpm/global/v11/82859147b4fec5e788f016e5ca7f0a52c473a92cd2037e4c8bdc7029c86b60f3/node_modules/pnpm/pnpm.exe",
+      "argv": [
+        "build"
+      ],
+      "startedAt": "2026-10-24T05:51:44.937Z",
+      "finishedAt": "2026-10-24T05:51:47.144Z",
+      "exit_code": 0,
+      "expectedExitCode": 0,
+      "expectationMet": true,
+      "output": " WARN  Unsupported engine: wanted: {\"node\":\"22.22.0\"} (current: {\"node\":\"v24.21.0\",\"pnpm\":\"10.13.1\"})\n\n> tradequote-agent@0.1.0 build D:\\code\\tradequote-agent-b01-integration\n> node scripts/check-icons.mjs && pnpm --filter @tradequote/desktop build\n\nApplication icons passed: SVG/1024 PNG/macOS ICNS/Windows ICO\n.                                        |  WARN  Unsupported engine: wanted: {\"node\":\"22.22.0\"} (current: {\"node\":\"v24.21.0\",\"pnpm\":\"10.13.1\"})\n\n> @tradequote/desktop@0.1.0 build D:\\code\\tradequote-agent-b01-integration\\apps\\desktop\n> electron-vite build\n\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 258 modules transformed.\nrendering chunks...\nout/main/worker.js                 1.26 kB\nout/main/index.js                  9.54 kB\nout/main/chunks/src-CRe-KloC.js  618.39 kB\n\n✓ built in 140ms\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 113 modules transformed.\nrendering chunks...\nout/preload/index.js  267.38 kB\n\n✓ built in 46ms\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 2111 modules transformed.\nrendering chunks...\nout/renderer/index.html                   0.64 kB\nout/renderer/assets/index-ptglloFo.css   15.26 kB\nout/renderer/assets/index-BzOKxULG.js   558.45 kB\n\n✓ built in 412ms\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
+    },
+    {
+      "name": "wiki-regression",
+      "executable": "C:\\Users\\陈宇柠\\AppData\\Local\\Programs\\node-v24.21.0-win-x64\\node.exe",
+      "argv": [
+        "--test",
+        "wiki-project/scripts/wiki-tools.test.mjs",
+        "wiki-project/scripts/wiki-sync.test.mjs"
+      ],
+      "startedAt": "2026-10-24T05:51:47.696Z",
+      "finishedAt": "2026-10-24T05:52:15.486Z",
+      "exit_code": 1,
+      "expectedExitCode": 0,
+      "expectationMet": false,
+      "output": "✔ runtime version pin is a mandatory Wiki-synchronized configuration change (2.6461ms)\n✔ code with related knowledge, task and appended log passes (0.4716ms)\n✔ generated snapshots alone cannot satisfy knowledge/task/log changes (0.2305ms)\n✔ metadata-only or whitespace-only edits cannot satisfy semantic update (0.2162ms)\n✔ each source needs its own mapped knowledge, unrelated pages do not suffice (0.2144ms)\n✔ deleted source uses baseline mapping; unknown source fails (0.2109ms)\n✔ history rewrite and removed task do not pass (0.1987ms)\n✔ Wiki maintenance code requires workflow knowledge, not generated data (0.1711ms)\n✔ ordinary documentation-only edits do not trigger code delivery check (0.188ms)\n✔ real Git baseline includes committed, unstaged and untracked sources (1339.2129ms)\n✔ SVG assets require semantic Wiki, task and append-only log changes (0.1967ms)\n✔ same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline (2547.4265ms)\n✔ source drift fails without writes; generation repairs snapshot while preserving ingest baseline (1236.3021ms)\n✖ explicit ingest records a non-Git project honestly (852.679ms)\n✔ tool inventory names come from definitions, not nested headers/output/schema fields (620.7292ms)\n✔ new unclassified source fails; missing knowledge target and stale mapping fail (857.2615ms)\n✔ generated coverage tampering is detected by lint and remains untouched (1055.751ms)\n✖ sensitive filename is excluded before read; external source symlink is not followed (338.8959ms)\n✖ Wiki and generated-output symlinks cannot write outside project (351.2376ms)\n✔ missing schema field (994.3807ms)\n✔ bad type (986.5047ms)\n✔ bad date (979.9554ms)\n✔ bad status (992.3683ms)\n✔ missing wiki target (981.9373ms)\n✔ missing markdown target (991.6639ms)\n✔ invalid source line (981.8908ms)\n✔ verified without code evidence (995.8609ms)\n✔ source escaping project (982.0023ms)\n✔ unfilled placeholder (1000.3173ms)\n✔ all sources are validated even after a valid implementation source (1002.3608ms)\n✔ orphan pages and duplicate basenames are rejected (1625.7799ms)\n✔ completed task requires actual verification record (990.8458ms)\n✔ archived source cannot bypass inspection through silent changes (1008.4794ms)\n✔ source references cannot open excluded runtime data (989.274ms)\n✔ new JSON evidence is checked and sensitive Wiki filenames are rejected before read (1269.0754ms)\n✔ secret/JWT/private-key/PII detections redact the value in diagnostics (2892.4207ms)\nℹ tests 36\nℹ suites 0\nℹ pass 33\nℹ fail 3\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 27691.54\n\n✖ failing tests:\n\ntest at wiki-project\\scripts\\wiki-tools.test.mjs:83:1\n✖ explicit ingest records a non-Git project honestly (852.679ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  + actual - expected\n  \n  + '99ba7de97fd25f0843ccf63acfb8f97c374137f3'\n  - null\n  \n      at TestContext.<anonymous> (file:///D:/code/tradequote-agent-b01-integration/wiki-project/scripts/wiki-tools.test.mjs:88:10)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1402:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)\n      at Test.postRun (node:internal/test_runner/test:1542:19)\n      at Test.run (node:internal/test_runner/test:1467:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: '99ba7de97fd25f0843ccf63acfb8f97c374137f3',\n    expected: null,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at wiki-project\\scripts\\wiki-tools.test.mjs:129:1\n✖ sensitive filename is excluded before read; external source symlink is not followed (338.8959ms)\n  Error: EPERM: operation not permitted, symlink 'D:\\code\\tradequote-agent-b01-integration\\.runtime\\test-temp\\tradequote-private-fixture-W4OdRQ\\external.ts' -> 'D:\\code\\tradequote-agent-b01-integration\\.runtime\\test-temp\\tradequote-wiki-test-xIhcCP\\linked.ts'\n      at Object.symlinkSync (node:fs:1937:11)\n      at TestContext.<anonymous> (file:///D:/code/tradequote-agent-b01-integration/wiki-project/scripts/wiki-tools.test.mjs:137:6)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1402:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)\n      at Test.postRun (node:internal/test_runner/test:1542:19)\n      at Test.run (node:internal/test_runner/test:1467:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {\n    errno: -4048,\n    code: 'EPERM',\n    syscall: 'symlink',\n    path: 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\.runtime\\\\test-temp\\\\tradequote-private-fixture-W4OdRQ\\\\external.ts',\n    dest: 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\.runtime\\\\test-temp\\\\tradequote-wiki-test-xIhcCP\\\\linked.ts'\n  }\n\ntest at wiki-project\\scripts\\wiki-tools.test.mjs:143:1\n✖ Wiki and generated-output symlinks cannot write outside project (351.2376ms)\n  Error: EPERM: operation not permitted, symlink 'D:\\code\\tradequote-agent-b01-integration\\.runtime\\test-temp\\tradequote-wiki-outside-H1M26k' -> 'D:\\code\\tradequote-agent-b01-integration\\.runtime\\test-temp\\tradequote-wiki-test-2WH2ye\\wiki-project\\raw\\generated'\n      at Object.symlinkSync (node:fs:1937:11)\n      at TestContext.<anonymous> (file:///D:/code/tradequote-agent-b01-integration/wiki-project/scripts/wiki-tools.test.mjs:149:6)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1402:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)\n      at Test.postRun (node:internal/test_runner/test:1542:19)\n      at Test.run (node:internal/test_runner/test:1467:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {\n    errno: -4048,\n    code: 'EPERM',\n    syscall: 'symlink',\n    path: 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\.runtime\\\\test-temp\\\\tradequote-wiki-outside-H1M26k',\n    dest: 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\.runtime\\\\test-temp\\\\tradequote-wiki-test-2WH2ye\\\\wiki-project\\\\raw\\\\generated'\n  }\n"
+    },
+    {
+      "name": "wiki-generate",
+      "executable": "C:\\Users\\陈宇柠\\AppData\\Local\\Programs\\node-v24.21.0-win-x64\\node.exe",
+      "argv": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-24T05:53:40.852Z",
+      "finishedAt": "2026-10-24T05:53:41.128Z",
+      "exit_code": 0,
+      "expectedExitCode": 0,
+      "expectationMet": true,
+      "output": "{\n  \"mode\": \"generate\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n"
+    },
+    {
+      "name": "check",
+      "executable": "C:/Users/陈宇柠/AppData/Local/pnpm/global/v11/82859147b4fec5e788f016e5ca7f0a52c473a92cd2037e4c8bdc7029c86b60f3/node_modules/pnpm/pnpm.exe",
+      "argv": [
+        "check"
+      ],
+      "startedAt": "2026-10-24T05:53:41.680Z",
+      "finishedAt": "2026-10-24T05:53:43.142Z",
+      "exit_code": 1,
+      "expectedExitCode": 0,
+      "expectationMet": false,
+      "output": " WARN  Unsupported engine: wanted: {\"node\":\"22.22.0\"} (current: {\"node\":\"v24.21.0\",\"pnpm\":\"10.13.1\"})\n\n> tradequote-agent@0.1.0 check D:\\code\\tradequote-agent-b01-integration\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 120 files in 46ms. No fixes applied.\nFound 1 error.\n ELIFECYCLE  Command failed with exit code 1.\npackages\\contracts\\src\\checks.test.ts:12:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━━━━━━━━\n\n  × Sort the imported names.\n  \n    10 │   type QuoteSnapshot,\n    11 │ } from \"./index\";\n  > 12 │ import {\n       │ ^^^^^^^^\n  > 13 │   mockKnowledgeRevision as knowledge,\n        ...\n  > 17 │   readonlyMockClient,\n  > 18 │ } from \"./mock\";\n       │ ^^^^^^^^^^^^^^^^\n    19 │ \n    20 │ const id = mockWorkspace.id;\n  \n  i Safe fix: Organize imports and exports (Biome)\n  \n     14  14 │     mockWikiCommands,\n     15  15 │     mockWorkspace,\n     16     │ - ··mockCheckReport·as·report,\n     17     │ - ··readonlyMockClient,\n         16 │ + ··readonlyMockClient,\n         17 │ + ··mockCheckReport·as·report,\n     18  18 │   } from \"./mock\";\n     19  19 │   \n  \n\ncheck ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Some errors were emitted while running checks.\n  \n\n"
+    },
+    {
+      "name": "wiki-regression-final",
+      "executable": "C:\\Users\\陈宇柠\\AppData\\Local\\Programs\\node-v24.21.0-win-x64\\node.exe",
+      "argv": [
+        "--test",
+        "wiki-project/scripts/wiki-tools.test.mjs",
+        "wiki-project/scripts/wiki-sync.test.mjs"
+      ],
+      "startedAt": "2026-10-24T05:53:55.446Z",
+      "finishedAt": "2026-10-24T05:54:23.677Z",
+      "exit_code": 1,
+      "expectedExitCode": 0,
+      "expectationMet": false,
+      "output": "✔ runtime version pin is a mandatory Wiki-synchronized configuration change (3.4151ms)\n✔ code with related knowledge, task and appended log passes (0.3672ms)\n✔ generated snapshots alone cannot satisfy knowledge/task/log changes (0.1491ms)\n✔ metadata-only or whitespace-only edits cannot satisfy semantic update (0.1844ms)\n✔ each source needs its own mapped knowledge, unrelated pages do not suffice (0.1816ms)\n✔ deleted source uses baseline mapping; unknown source fails (0.1946ms)\n✔ history rewrite and removed task do not pass (0.164ms)\n✔ Wiki maintenance code requires workflow knowledge, not generated data (0.1408ms)\n✔ ordinary documentation-only edits do not trigger code delivery check (0.1737ms)\n✔ real Git baseline includes committed, unstaged and untracked sources (1336.2411ms)\n✔ SVG assets require semantic Wiki, task and append-only log changes (0.2056ms)\n✔ same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline (2548.7486ms)\n✔ source drift fails without writes; generation repairs snapshot while preserving ingest baseline (1209.89ms)\n✔ explicit ingest records a non-Git project honestly (1119.6604ms)\n✔ tool inventory names come from definitions, not nested headers/output/schema fields (607.8019ms)\n✔ new unclassified source fails; missing knowledge target and stale mapping fail (872.6081ms)\n✔ generated coverage tampering is detected by lint and remains untouched (1064.2416ms)\n✖ sensitive filename is excluded before read; external source symlink is not followed (352.0691ms)\n✖ Wiki and generated-output symlinks cannot write outside project (339.9299ms)\n✔ missing schema field (995.7175ms)\n✔ bad type (994.6765ms)\n✔ bad date (1006.2337ms)\n✔ bad status (1012.3897ms)\n✔ missing wiki target (995.8264ms)\n✔ missing markdown target (986.3337ms)\n✔ invalid source line (1012.1417ms)\n✔ verified without code evidence (982.3609ms)\n✔ source escaping project (1012.5271ms)\n✔ unfilled placeholder (995.9376ms)\n✔ all sources are validated even after a valid implementation source (992.1436ms)\n✔ orphan pages and duplicate basenames are rejected (1648.574ms)\n✔ completed task requires actual verification record (982.5424ms)\n✔ archived source cannot bypass inspection through silent changes (993.1206ms)\n✔ source references cannot open excluded runtime data (987.3256ms)\n✔ new JSON evidence is checked and sensitive Wiki filenames are rejected before read (1288.5973ms)\n✔ secret/JWT/private-key/PII detections redact the value in diagnostics (2963.6488ms)\nℹ tests 36\nℹ suites 0\nℹ pass 34\nℹ fail 2\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 28131.9152\n\n✖ failing tests:\n\ntest at wiki-project\\scripts\\wiki-tools.test.mjs:129:1\n✖ sensitive filename is excluded before read; external source symlink is not followed (352.0691ms)\n  Error: EPERM: operation not permitted, symlink 'D:\\code\\tradequote-agent-b01-integration\\.runtime\\test-temp\\tradequote-private-fixture-Ts0jHo\\external.ts' -> 'D:\\code\\tradequote-agent-b01-integration\\.runtime\\test-temp\\tradequote-wiki-test-YNniky\\linked.ts'\n      at Object.symlinkSync (node:fs:1937:11)\n      at TestContext.<anonymous> (file:///D:/code/tradequote-agent-b01-integration/wiki-project/scripts/wiki-tools.test.mjs:137:6)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1402:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)\n      at Test.postRun (node:internal/test_runner/test:1542:19)\n      at Test.run (node:internal/test_runner/test:1467:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {\n    errno: -4048,\n    code: 'EPERM',\n    syscall: 'symlink',\n    path: 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\.runtime\\\\test-temp\\\\tradequote-private-fixture-Ts0jHo\\\\external.ts',\n    dest: 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\.runtime\\\\test-temp\\\\tradequote-wiki-test-YNniky\\\\linked.ts'\n  }\n\ntest at wiki-project\\scripts\\wiki-tools.test.mjs:143:1\n✖ Wiki and generated-output symlinks cannot write outside project (339.9299ms)\n  Error: EPERM: operation not permitted, symlink 'D:\\code\\tradequote-agent-b01-integration\\.runtime\\test-temp\\tradequote-wiki-outside-sRf165' -> 'D:\\code\\tradequote-agent-b01-integration\\.runtime\\test-temp\\tradequote-wiki-test-HNxqjc\\wiki-project\\raw\\generated'\n      at Object.symlinkSync (node:fs:1937:11)\n      at TestContext.<anonymous> (file:///D:/code/tradequote-agent-b01-integration/wiki-project/scripts/wiki-tools.test.mjs:149:6)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1402:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)\n      at Test.postRun (node:internal/test_runner/test:1542:19)\n      at Test.run (node:internal/test_runner/test:1467:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {\n    errno: -4048,\n    code: 'EPERM',\n    syscall: 'symlink',\n    path: 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\.runtime\\\\test-temp\\\\tradequote-wiki-outside-sRf165',\n    dest: 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\.runtime\\\\test-temp\\\\tradequote-wiki-test-HNxqjc\\\\wiki-project\\\\raw\\\\generated'\n  }\n"
+    },
+    {
+      "name": "wiki-generate-final",
+      "executable": "C:\\Users\\陈宇柠\\AppData\\Local\\Programs\\node-v24.21.0-win-x64\\node.exe",
+      "argv": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-24T05:54:28.995Z",
+      "finishedAt": "2026-10-24T05:54:29.275Z",
+      "exit_code": 0,
+      "expectedExitCode": 0,
+      "expectationMet": true,
+      "output": "{\n  \"mode\": \"generate\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n"
+    },
+    {
+      "name": "check-final",
+      "executable": "C:/Users/陈宇柠/AppData/Local/pnpm/global/v11/82859147b4fec5e788f016e5ca7f0a52c473a92cd2037e4c8bdc7029c86b60f3/node_modules/pnpm/pnpm.exe",
+      "argv": [
+        "check"
+      ],
+      "startedAt": "2026-10-24T05:54:29.865Z",
+      "finishedAt": "2026-10-24T05:54:32.520Z",
+      "exit_code": 0,
+      "expectedExitCode": 0,
+      "expectationMet": true,
+      "output": " WARN  Unsupported engine: wanted: {\"node\":\"22.22.0\"} (current: {\"node\":\"v24.21.0\",\"pnpm\":\"10.13.1\"})\n\n> tradequote-agent@0.1.0 check D:\\code\\tradequote-agent-b01-integration\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 120 files in 47ms. No fixes applied.\n✔ renderer cannot reach Node, database or desktop internals through import forms (10.0681ms)\n✔ pure modules use public contracts while other platform dependencies are rejected (1.889ms)\n✔ domain permits exact pure decimal dependency without opening contracts or SDK imports (0.6644ms)\n✔ committed icon resources match their source manifest (2.2928ms)\n✔ editing either SVG or packaged icon without generation blocks the build (15.9144ms)\n﹣ macOS native process and runtime display TradeQuote while upstream Electron stays intact (1.5098ms) # SKIP\nℹ tests 6\nℹ suites 0\nℹ pass 5\nℹ fail 0\nℹ cancelled 0\nℹ skipped 1\nℹ todo 0\nℹ duration_ms 188.2165\nModule boundaries passed\n WARN  Unsupported engine: wanted: {\"node\":\"22.22.0\"} (current: {\"node\":\"v24.21.0\",\"pnpm\":\"10.13.1\"})\n\n> tradequote-agent@0.1.0 wiki:check D:\\code\\tradequote-agent-b01-integration\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 121,\n  \"semantic\": 105,\n  \"reachable\": 121\n}\n"
+    },
+    {
+      "name": "wiki-sync-incremental",
+      "executable": "C:\\Users\\陈宇柠\\AppData\\Local\\Programs\\node-v24.21.0-win-x64\\node.exe",
+      "argv": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "99ba7de97fd25f0843ccf63acfb8f97c374137f3"
+      ],
+      "startedAt": "2026-10-24T05:54:33.070Z",
+      "finishedAt": "2026-10-24T05:54:34.259Z",
+      "exit_code": 0,
+      "expectedExitCode": 0,
+      "expectationMet": true,
+      "output": "{\n  \"base\": \"99ba7de97fd25f0843ccf63acfb8f97c374137f3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 6,\n  \"knowledgePages\": 12,\n  \"tasks\": 3,\n  \"errors\": []\n}\n"
+    },
+    {
+      "name": "wiki-sync-task",
+      "executable": "C:\\Users\\陈宇柠\\AppData\\Local\\Programs\\node-v24.21.0-win-x64\\node.exe",
+      "argv": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef"
+      ],
+      "startedAt": "2026-10-24T05:54:34.856Z",
+      "finishedAt": "2026-10-24T05:54:36.788Z",
+      "exit_code": 0,
+      "expectedExitCode": 0,
+      "expectationMet": true,
+      "output": "{\n  \"base\": \"f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef\",\n  \"status\": \"passed\",\n  \"codeFiles\": 25,\n  \"knowledgePages\": 24,\n  \"tasks\": 6,\n  \"errors\": []\n}\n"
+    },
+    {
+      "name": "public-regression-final",
+      "executable": "D:\\code\\tradequote-agent-b01-integration\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "argv": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/contracts/src/checks.test.ts"
+      ],
+      "startedAt": "2026-10-24T05:56:08.607Z",
+      "finishedAt": "2026-10-24T05:56:09.387Z",
+      "exit_code": 0,
+      "expectedExitCode": 0,
+      "expectationMet": true,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01-integration\n\n\n Test Files  1 passed (1)\n      Tests  5 passed (5)\n   Start at  13:56:08\n   Duration  373ms (import 59%, transform 26%, tests 10%, worker 5%)\n\n"
+    },
+    {
+      "name": "final-readonly-check",
+      "executable": "C:\\Users\\陈宇柠\\AppData\\Local\\Programs\\node-v24.21.0-win-x64\\node.exe",
+      "argv": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "startedAt": "2026-10-24T05:56:40.803Z",
+      "finishedAt": "2026-10-24T05:56:41.080Z",
+      "exit_code": 0,
+      "expectedExitCode": 0,
+      "expectationMet": true,
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n"
+    },
+    {
+      "name": "final-lint",
+      "executable": "C:\\Users\\陈宇柠\\AppData\\Local\\Programs\\node-v24.21.0-win-x64\\node.exe",
+      "argv": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-24T05:56:41.633Z",
+      "finishedAt": "2026-10-24T05:56:42.276Z",
+      "exit_code": 0,
+      "expectedExitCode": 0,
+      "expectationMet": true,
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 121,\n  \"semantic\": 105,\n  \"reachable\": 121\n}\n"
+    },
+    {
+      "name": "final-sync",
+      "executable": "C:\\Users\\陈宇柠\\AppData\\Local\\Programs\\node-v24.21.0-win-x64\\node.exe",
+      "argv": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "99ba7de97fd25f0843ccf63acfb8f97c374137f3"
+      ],
+      "startedAt": "2026-10-24T05:56:42.850Z",
+      "finishedAt": "2026-10-24T05:56:44.028Z",
+      "exit_code": 0,
+      "expectedExitCode": 0,
+      "expectationMet": true,
+      "output": "{\n  \"base\": \"99ba7de97fd25f0843ccf63acfb8f97c374137f3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 6,\n  \"knowledgePages\": 12,\n  \"tasks\": 3,\n  \"errors\": []\n}\n"
+    }
+  ],
+  "mutation": {
+    "source": "packages/contracts/src/index.ts",
+    "aLine": "retryable: code === \"CAPABILITY_UNAVAILABLE\",",
+    "beforeSha256": "ebe937d120bc987d332853ae5f5fad4099da6c59e8a7f44da679b32aa394786a",
+    "mutatedSha256": "9f80a75815ebae15c2549b04ee918ccd878e92937efae479b1217e05d222141a",
+    "onlyRetryableExpressionChanged": true,
+    "restoredSha256": "ebe937d120bc987d332853ae5f5fad4099da6c59e8a7f44da679b32aa394786a",
+    "restored": true
+  },
+  "sourceHashes": {
+    "packages/contracts/src/index.ts": "ebe937d120bc987d332853ae5f5fad4099da6c59e8a7f44da679b32aa394786a",
+    "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+    "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+    "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+    "packages/infrastructure/src/check-store.ts": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+    "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246"
+  },
+  "publicHelperComparison": [
+    {
+      "commit": "92255261e818e6fde0687deee5544755cf9af469",
+      "file": "packages/contracts/src/index.ts",
+      "sha256": "ab37ce2308e66ac1222eba46a5e9e96289515b59294d3e7a6ab6f9d7b6a97e79",
+      "retryableExpression": "retryable: code === \"CAPABILITY_UNAVAILABLE\","
+    },
+    {
+      "commit": "330bff76615147ea9c2729cb144a18873a5251d0",
+      "file": "packages/contracts/src/index.ts",
+      "sha256": "5bb30da5c9e1e8d0f9a3efc3168d2a0023e89d28d12da4b3dff1e489af4f26a2",
+      "retryableExpression": "retryable: false,"
+    },
+    {
+      "commit": "99ba7de97fd25f0843ccf63acfb8f97c374137f3",
+      "file": "packages/contracts/src/index.ts",
+      "sha256": "c55af11142a65095ecd853da1289ca324e82d127b3c4c5cabf26f3cdf38a84d8",
+      "retryableExpression": "retryable: false,"
+    }
+  ],
+  "domainAndProtocolEqualToFixedA": true,
+  "preservation": {
+    "historicalRawFiles": 99,
+    "changedHistoricalRaw": [],
+    "logExactPrefixPreserved": true,
+    "oldLogBytes": 68788,
+    "changedDependencyFiles": [],
+    "unchangedDependencyFiles": [
+      "packages/infrastructure/src/migrations.ts",
+      "packages/infrastructure/src/migration-lineage.ts",
+      "packages/infrastructure/src/wiki-store.ts",
+      "packages/domain/src/wiki.ts",
+      "packages/contracts/src/protocol.ts"
+    ],
+    "previousUntrackedP1EvidenceSha256": "49c7b72a62217b1611eac2eb02845e05333bf27ab3cf40e1b348d74a20bf84f0"
+  },
+  "driverSource": "const fs = require('node:fs');\nconst cp = require('node:child_process');\nconst crypto = require('node:crypto');\nconst electron = require('../apps/desktop/node_modules/electron');\nconst evidencePath = 'wiki-project/raw/b-aw08-revalidation.json';\nconst sha = value => crypto.createHash('sha256').update(value).digest('hex');\nconst git = (...args) => cp.execFileSync('git', args, { encoding: 'utf8' }).trim();\nconst [label, mode, ...args] = process.argv.slice(2);\nconst record = fs.existsSync(evidencePath) ? JSON.parse(fs.readFileSync(evidencePath, 'utf8')) : {\n  status: 'partial', taskBase: git('rev-parse', 'HEAD'), branch: git('branch', '--show-current'),\n  environment: { platform: process.platform, arch: process.arch, hostNode: process.version, pnpm: '10.13.1', electron: '44.9.2', macOSVerified: false },\n  dependencies: { cEvidence: '20891fb8e8af8f05d68016dbc514c17cdf481fec', aFixed: '92255261e818e6fde0687deee5544755cf9af469', bExistingFix: '330bff76615147ea9c2729cb144a18873a5251d0', aImportedIntoB: false },\n  checks: [],\n};\nfunction run(executable, argv, expectedExitCode = 0) {\n  const startedAt = new Date().toISOString();\n  const env = { ...process.env, ELECTRON_RUN_AS_NODE: '1', TEMP: process.cwd() + '/.runtime/test-temp', TMP: process.cwd() + '/.runtime/test-temp' };\n  env.GIT_CEILING_DIRECTORIES = env.TEMP;\n  const inheritedPath = env.Path ?? env.PATH ?? '';\n  for (const key of Object.keys(env)) if (key.toLowerCase() === 'path') delete env[key];\n  env.Path = require('node:path').dirname(process.execPath) + ';C:/Users/陈宇柠/AppData/Local/pnpm/bin;' + inheritedPath;\n  const result = cp.spawnSync(executable, argv, { encoding: 'utf8', env, maxBuffer: 16 * 1024 * 1024 });\n  const output = (result.stdout ?? '') + (result.stderr ?? '');\n  record.checks.push({ name: label, executable, argv, startedAt, finishedAt: new Date().toISOString(), exit_code: result.status, expectedExitCode, expectationMet: result.status === expectedExitCode, output });\n  fs.writeFileSync(evidencePath, JSON.stringify(record, null, 2) + '\\n');\n  console.log(output);\n  process.exitCode = result.status === expectedExitCode ? 0 : 1;\n}\nif (mode === 'a-mutation') {\n  const source = 'packages/contracts/src/index.ts';\n  const original = fs.readFileSync(source);\n  const aSource = git('show', record.dependencies.aFixed + ':' + source);\n  const aLine = 'retryable: code === \"CAPABILITY_UNAVAILABLE\",';\n  if (!aSource.includes(aLine) || !original.toString().includes('retryable: false,')) throw Error('FIXTURE_PRECONDITION');\n  const mutated = Buffer.from(original.toString().replace('retryable: false,', aLine));\n  record.mutation = { source, aLine, beforeSha256: sha(original), mutatedSha256: sha(mutated), onlyRetryableExpressionChanged: true };\n  try {\n    fs.writeFileSync(source, mutated);\n    run(electron, ['node_modules/vitest/vitest.mjs', 'run', 'packages/contracts/src/checks.test.ts', ...(args.includes('--contract-only') ? [] : ['packages/infrastructure/src/wiki-store.test.ts']), '-t', 'A-W08'], 1);\n  } finally {\n    fs.writeFileSync(source, original);\n    record.mutation.restoredSha256 = sha(fs.readFileSync(source));\n    record.mutation.restored = record.mutation.restoredSha256 === record.mutation.beforeSha256;\n    fs.writeFileSync(evidencePath, JSON.stringify(record, null, 2) + '\\n');\n  }\n} else {\n  const executable = mode === 'electron' ? electron : mode === 'pnpm' ? 'C:/Users/陈宇柠/AppData/Local/pnpm/global/v11/82859147b4fec5e788f016e5ca7f0a52c473a92cd2037e4c8bdc7029c86b60f3/node_modules/pnpm/pnpm.exe' : process.execPath;\n  run(executable, args);\n}\n",
+  "summary": {
+    "aW08Semantic": "CAPABILITY_UNAVAILABLE retryable=false; already present on B330bff7, absent from fixed A9225526",
+    "controlledMutation": "both public and repository A-W08 fail with fixed A expression; public-only repeat isolates same failure; original source restored by hash",
+    "focused": "8 files / 111 passed",
+    "fullUnit": "246 passed / 1 original Windows symlink EPERM",
+    "wikiRegression": "34 passed / 2 original Windows symlink EPERM; initial Git discovery isolation issue fixed in ignored runner",
+    "typecheck": 0,
+    "build": 0,
+    "check": 0,
+    "wikiSyncIncremental": 0,
+    "wikiSyncTask": 0,
+    "formalAcceptance": false
+  },
+  "remaining": [
+    "A adopts existing public helper correction and reruns original A-W08 on a new fixed commit",
+    "A M13 effective constraint repairs; no B algorithm or historical DDL changes",
+    "A9225526 is not imported into this B worktree; C must verify the eventual combination",
+    "A lint execution/persistence and actual human review/publish",
+    "macOS / project pinned Node22 / real Electron desktop / actual non-author and business acceptance",
+    "Windows known symlink test failures remain unchanged; overall task stays active/WIP"
+  ]
+}

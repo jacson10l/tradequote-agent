@@ -186,13 +186,25 @@ export class CheckStore {
             };
           }
           const checkedAt = this.clock();
+          const reportId = randomUUID();
           const prepared =
             "prepare" in this.knowledge
-              ? this.knowledge.prepare(quote, randomUUID(), checkedAt, context)
+              ? this.knowledge.prepare(quote, reportId, checkedAt, context)
               : null;
           let report;
-          if (prepared) report = CheckReportSchema.parse(prepared.report);
-          else {
+          if (prepared) {
+            const parsedReport = CheckReportSchema.safeParse(prepared.report);
+            if (
+              !parsedReport.success ||
+              parsedReport.data.reportId !== reportId ||
+              parsedReport.data.quoteId !== (quote.rootId ?? quote.id) ||
+              parsedReport.data.revisionId !== quote.id ||
+              parsedReport.data.quoteVersion !== quote.version ||
+              parsedReport.data.checkedAt !== checkedAt
+            )
+              throw new TradeFault("SOURCE_CONFLICT", "检查参与方报告与本次报价版本不一致");
+            report = parsedReport.data;
+          } else {
             if (!("findPublished" in this.knowledge)) throw new Error("INVALID_KNOWLEDGE_SOURCE");
             const checkedInput = QuoteCheckInputSchema.safeParse({
               quote,
@@ -204,7 +216,7 @@ export class CheckStore {
                 },
                 at: checkedAt,
               }),
-              reportId: randomUUID(),
+              reportId,
               checkedAt,
             });
             if (
