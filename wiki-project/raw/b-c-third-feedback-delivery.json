@@ -114,6 +114,75 @@
       "exit_code": 0,
       "stdout": "",
       "stderr": ""
+    },
+    {
+      "name": "wiki-generate",
+      "startedAt": "2026-10-24T07:39:22.680Z",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "env": {},
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-readonly-check",
+      "startedAt": "2026-10-24T07:39:22.980Z",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "env": {},
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-lint",
+      "startedAt": "2026-10-24T07:39:23.684Z",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "env": {},
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 122,\n  \"semantic\": 106,\n  \"reachable\": 122\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-sync",
+      "startedAt": "2026-10-24T07:39:24.062Z",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "8043afb84db04697c78bae668d63af19303ced50"
+      ],
+      "env": {},
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"8043afb84db04697c78bae668d63af19303ced50\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "diff-whitespace",
+      "startedAt": "2026-10-24T07:39:24.134Z",
+      "executable": "git",
+      "args": [
+        "diff",
+        "--check",
+        "8043afb84db04697c78bae668d63af19303ced50"
+      ],
+      "env": {},
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
     }
   ],
   "boundaries": {
@@ -175,5 +244,22 @@
     }
   ],
   "sourceUnchangedSinceTaskBase": true,
-  "statusMeaning": "B regression and documentation gates passed; see boundaries, migration acceptance remains withheld"
+  "statusMeaning": "B regression and documentation gates passed; see boundaries, migration acceptance remains withheld",
+  "materialPush": {
+    "commit": "509a234d07116825186949df291b5a0403959253",
+    "command": "git push --set-upstream origin HEAD:refs/heads/codex/b-c-third-feedback",
+    "exit_code": 0,
+    "force": false,
+    "result": "Created origin/codex/b-c-third-feedback and configured upstream",
+    "remoteReadback": {
+      "command": "git ls-remote --heads origin refs/heads/codex/b-c-third-feedback",
+      "exit_code": 0,
+      "stdout": "509a234d07116825186949df291b5a0403959253\trefs/heads/codex/b-c-third-feedback",
+      "localCommand": "git rev-parse HEAD",
+      "localHash": "509a234d07116825186949df291b5a0403959253",
+      "identical": true,
+      "recordedAt": "2026-10-24T07:39:22.283Z"
+    }
+  },
+  "deliveryNote": "This receipt proves the first material commit was ordinarily pushed and read back. A later documentation receipt commit is checked again against origin in final handoff; it is not self-referenced here."
 }

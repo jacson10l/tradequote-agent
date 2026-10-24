@@ -428,3 +428,6 @@ B00a P1远端交接：[PR #8](https://github.com/jacson10l/tradequote-agent/pull
 - 用户明确授权配置作者、提交并普通推送codex/b-c-third-feedback，后续指示使用已登录账户。仓库级作者取当前GitHub连接器实际账户643672091/账户实际邮箱（仅保存在Git配置/提交元数据），传输沿用既有Git登录，不填历史他人身份或占位。
 - 相同原生回归八文件100/100再次退出0；本次Wiki门禁与推送回读证据追加raw/b-c-third-feedback-delivery.json，原始复核JSON及首次未配置作者失败不重写。
 - 仅共享复核材料，A-W08技术确认已给出，M13-X05～X09待A修/C验；无新组合/macOS桌面验收，不合入、不代签、不自动发送或真实模型复测。
+
+
+2026-10-24 材料首次提交/共享实际完成：509a234d07116825186949df291b5a0403959253。`git push --set-upstream origin HEAD:refs/heads/codex/b-c-third-feedback`退出0（普通新分支推送，无force）；`git ls-remote --heads origin refs/heads/codex/b-c-third-feedback`退出0，远端完整hash与`git rev-parse HEAD`一致。回执补记提交另在最终交接核对其自身远端hash，不能将首次材料hash冒充最终分支头。详情raw/b-c-third-feedback-delivery.json；原复核证据不改，整体仍active/WIP。
