@@ -1,7 +1,7 @@
 {
   "status": "passed",
   "scope": "A01c migration lineage identification & append matrix probe; synthetic in-memory only; proves identification classification and capability-append shape, not business acceptance",
-  "recordedAt": "2026-10-24T07:19:27.737Z",
+  "recordedAt": "2026-10-24T08:49:35.702Z",
   "environment": {
     "platform": "win32",
     "arch": "x64",
@@ -511,6 +511,41 @@
       "partial": [
         "c-run:6"
       ]
+    },
+    {
+      "name": "tampered-raise-string-literal-M13-X10",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-predicate-case-M13-X11",
+      "userVersion": 6,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5"
+      ],
+      "partial": [
+        "c-run:6"
+      ]
     }
   ],
   "append": [
@@ -595,12 +630,24 @@
       "pass": true
     }
   ],
+  "enforcement": [
+    {
+      "control": "c-v7 agent_tool_step_no_delete rejects DELETE",
+      "rejected": true
+    },
+    {
+      "control": "c-v6 agent_write_once rejects duplicate prepared",
+      "rejected": true
+    }
+  ],
   "summary": {
     "fingerprintMatch": true,
     "allCasesPass": true,
     "allAppendPass": true,
+    "allEnforcementPass": true,
     "caseFailures": [],
     "appendFailures": [],
+    "enforcementFailures": [],
     "fpFailures": []
   },
   "compatible": false

@@ -11,9 +11,11 @@ import { createHash } from "node:crypto";
  * 绝不单独依据编号判定谱系。除对象名称外，还核对必要列、真实唯一/部分索引和含 RAISE 的
  * 不可变触发器有效定义，以及外键与 CHECK 的真实存在。对“有效定义”按规范参考结构核对而非
  * 常量黑名单：触发器事件必须匹配规范事件（X08）、WHEN 必须匹配规范 WHEN 或必须无 WHEN
- * （X01/X05 永假/加 WHEN）、部分索引列与 WHERE 谓词必须匹配规范（X02/X06/X07）、CHECK 按
- * 去注释后的表原文匹配（X04/X09 注释伪 CHECK）——封死 D2 静默缺表、D3 按 v6 误记知识迁移、
- * “未知 v6 被误接受”、“缺不可变触发器仍被接受”，以及 C 三轮核验的 N07/N08/N09 与 M13-X01～X09。
+ * （X01/X05 永假/加 WHEN）、RAISE 必须是真实 RAISE(...) 调用而非字符串字面量 'RAISE'（X10）、
+ * 部分索引列与 WHERE 谓词必须匹配规范（X02/X06/X07）、归一保留字符串字面量大小写语义（X11）、
+ * CHECK 按去注释/字符串后的表原文匹配（X04/X09 注释伪 CHECK）——封死 D2 静默缺表、D3 按 v6
+ * 误记知识迁移、“未知 v6 被误接受”、“缺不可变触发器仍被接受”，以及 C 四轮核验的 N07/N08/N09
+ * 与 M13-X01～X11。
  */
 
 export type CapabilityLineage = "common" | "c-run" | "knowledge-wiki" | "check-report";
@@ -57,7 +59,7 @@ export interface IndexRequirement {
 /** 触发器要求：名称 + 事件/WHEN + 是否必须含 RAISE 的有效不可变保护（结构核对）。 */
 export interface TriggerRequirement {
   name: string;
-  /** 必须包含 RAISE(ABORT,...) 的有效保护定义；同名 SELECT 1 空触发器不算。 */
+  /** 必须包含真实 RAISE(...) 调用的有效保护定义；同名 SELECT 1 空触发器或 SELECT 'RAISE' 字符串字面量不算（M13-X10）。 */
   raises?: boolean;
   /** 规范事件（DELETE/UPDATE/INSERT）；防 X08 事件篡改。 */
   event: "DELETE" | "UPDATE" | "INSERT";
@@ -73,10 +75,10 @@ export interface ForeignKeyRef {
   to: string; // 父表列
 }
 
-/** CHECK 要求：CREATE TABLE 原文（去注释后）必须命中该正则，证明某 CHECK 约束真实存在（M13-X04/X09）。 */
+/** CHECK 要求：CREATE TABLE 原文（去注释与字符串后）必须命中该正则，证明某 CHECK 约束真实存在（M13-X04/X09）。 */
 export interface CheckRequirement {
   table: string;
-  /** SQLite 无 CHECK 专用 PRAGMA，只能从 sqlite_master 的表原文判定；去注释避免命中注释中的伪 CHECK。 */
+  /** SQLite 无 CHECK 专用 PRAGMA，只能从 sqlite_master 的表原文判定；去注释/字符串避免命中注释或字符串中的伪 CHECK。 */
   pattern: RegExp;
 }
 
@@ -342,13 +344,8 @@ function extractPredicate(sql: string, keyword: "WHEN" | "WHERE"): string | null
   return m ? (m[1] ?? null) : null;
 }
 
-/** 结构归一：小写 + 压缩空白。用于 WHEN/WHERE/索引列与规范参考的精确比对。 */
+/** 结构归一：字符串字面量之外的小写 + 压缩空白；字符串字面量内容原样保留（大小写是语义，防 M13-X11）。 */
 function normalizeSql(sql: string): string {
-  return sql.toLowerCase().replace(/\s+/g, " ").trim();
-}
-
-/** 去 SQL 注释（-- 行注释与块注释），字符串/引号标识符内容原样保留。 */
-function stripComments(sql: string): string {
   let out = "";
   let i = 0;
   const n = sql.length;
@@ -356,16 +353,37 @@ function stripComments(sql: string): string {
     const c = sql[i];
     if (c === "'" || c === '"' || c === "`") {
       const q = c;
-      out += c;
+      out += q;
       i += 1;
       while (i < n && sql[i] !== q) {
         out += sql[i];
         i += 1;
       }
       if (i < n) {
-        out += sql[i];
+        out += q;
         i += 1;
       }
+      continue;
+    }
+    out += c!.toLowerCase(); // 循环界 i < n 保证非空（noUncheckedIndexedAccess）
+    i += 1;
+  }
+  return out.replace(/\s+/g, " ").trim();
+}
+
+/** 去 SQL 注释与字符串字面量（-- 行注释、块注释、'...'/"..."/`...` 内容），用于 RAISE/CHECK 等关键字有效性判定。 */
+function stripTrivia(sql: string): string {
+  let out = "";
+  let i = 0;
+  const n = sql.length;
+  while (i < n) {
+    const c = sql[i];
+    if (c === "'" || c === '"' || c === "`") {
+      const q = c;
+      out += q + q; // 空字面量占位，避免字符串内容中的关键字被误命中（M13-X10）
+      i += 1;
+      while (i < n && sql[i] !== q) i += 1;
+      if (i < n) i += 1;
       continue;
     }
     if (c === "-" && sql[i + 1] === "-") {
@@ -429,7 +447,7 @@ function capabilityStatus(
   const triggersOk = cap.triggers.every((req) => {
     const sql = triggerSql.get(req.name);
     if (sql === undefined) return false;
-    if (req.raises && !/\bRAISE\b/i.test(sql)) return false;
+    if (req.raises && !/\bRAISE\s*\(/i.test(stripTrivia(sql))) return false;
     if (extractTriggerEvent(sql) !== req.event) return false;
     if (req.when === null) {
       // 规范无 WHEN：实际必须无 WHEN（防 X05 永假/加 WHEN）。
@@ -451,8 +469,8 @@ function capabilityStatus(
   );
   const checksOk = (cap.checks ?? []).every((req) => {
     const sql = tableSql.get(req.table);
-    // 去注释后匹配，避免命中注释中的伪 CHECK（M13-X09）。
-    return sql !== undefined && req.pattern.test(stripComments(sql));
+    // 去注释与字符串后匹配，避免命中注释或字符串中的伪 CHECK（M13-X09）。
+    return sql !== undefined && req.pattern.test(stripTrivia(sql));
   });
   return columnsOk && indexesOk && triggersOk && foreignKeysOk && checksOk ? "present" : "partial";
 }

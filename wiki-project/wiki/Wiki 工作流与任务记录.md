@@ -136,3 +136,5 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 2026-10-24 修正 C 二轮 M13 核验：探针再扩至 23 用例（新增 M13-X01 永假 WHEN / M13-X02 永假 WHERE / M13-X03 缺外键 / M13-X04 缺 CHECK 四个负例），`capabilityStatus` 补有效定义判据（谓词非永假 + `PRAGMA foreign_key_list` 外键 + 表原文 CHECK 匹配），`snapshotSchema` 收集外键；`contracts` `failure()` 统一 `CAPABILITY_UNAVAILABLE` 的 `retryable=false`（A-W08）。未新增源码文件，覆盖映射不变；本轮 sync 基线为 9225526。
 
 2026-10-24 修正 C 三轮 M13 核验：探针再扩至 28 用例（新增 M13-X05 `WHEN 1=0` / M13-X06 `WHERE 1=0` / M13-X07 索引增列改谓词 / M13-X08 触发器事件篡改 / M13-X09 注释伪 CHECK 五个负例），`capabilityStatus` 改为按规范参考结构核对有效定义（`TriggerRequirement.event`/`when`、`IndexRequirement.columns`/`where`、`stripComments` 去注释后匹配 CHECK），放弃常量黑名单；`migration-lineage.ts` 未新增文件、覆盖映射不变。本轮 sync 基线为 65885ff。
+
+2026-10-24 修正 C 四轮 M13 核验：探针再扩至 30 用例并新增 2 项有效原 schema 控制组（新增 M13-X10 触发器体 `SELECT 'RAISE'` 字符串字面量 / M13-X11 索引谓词字符串字面量大小写两个负例，以及 c-v7 拒绝 DELETE、c-v6 拒绝重复 prepared 两项控制），`capabilityStatus` 的 RAISE 判据改为 `/\bRAISE\s*\(/i` 命中 `stripTrivia`（去注释与字符串字面量）结果、`normalizeSql` 只小写字符串外内容（字符串字面量大小写保留）、CHECK 判据同步改用 `stripTrivia`；`migration-lineage.ts` 未新增文件、覆盖映射不变。本轮 sync 基线为 cece332。

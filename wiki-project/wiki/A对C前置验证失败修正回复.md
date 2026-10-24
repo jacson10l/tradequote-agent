@@ -58,12 +58,25 @@ A 据此放弃关键词/常量黑名单，改为按规范参考结构精确核�
 
 结构核对的归一规则（明确允许的规范化形式）：触发器事件按 `BEFORE/AFTER/INSTEAD OF` 之后的事件关键字提取并大小写归一；WHEN/WHERE/索引列按「小写 + 压缩空白」归一后与规范原文精确相等；CHECK 先 `stripComments`（`--` 行注释与 `/* */` 块注释，字符串/引号标识符原样保留）再匹配。`quote_check_report_revision` 的复杂校验 WHEN 不逐字编码，只核事件 INSERT + 含 RAISE（其 WHEN 属 B 的业务校验逻辑，非 A 迁移谱系识别范围）。这些判据以 `CAPABILITIES` 中的显式规范字段呈现，可逐行审阅，不再依赖常量黑名单。
 
+## C 四轮复核：M13 字符串字面量与谓词大小写（X10/X11）
+
+C 四轮独立复核（本地 abda94e，未推送）确认 cece332 的 M13-X01～X09 全部通过、正向谱系与原失败记录保留，但补充验证仍发现两项有效定义缺口（X10/X11）。C 要求「核对真实有效的保护定义，不能只匹配 RAISE 字样；规范化须保留字符串字面量的语义」，并增加有效原 schema 控制组。A 逐项修正：
+
+| 项 | C 发现（合成损坏状态） | A 的修正 | 证据 |
+|---|---|---|---|
+| M13-X10 触发器体字符串字面量 | 同名 `agent_tool_step_no_delete` 体仅为 `SELECT 'RAISE';`，含 RAISE 字样但无真实 `RAISE(...)` 调用 | 新增 `stripTrivia` 去注释与字符串字面量（字符串内容替换为 `q+q` 空占位），RAISE 判据改为 `/\bRAISE\s*\(/i` 命中 `stripTrivia` 结果；`SELECT 'RAISE'` 字面量被清空即不命中 | 探针 `tampered-raise-string-literal-M13-X10` |
+| M13-X11 索引谓词字符串大小写 | 同名 `agent_write_once` 的 WHERE 谓词改为 `status IN ('PREPARED','COMMITTED')`，被整体转小写后误认作规范谓词 | `normalizeSql` 改为逐字符归一，仅字符串/引号标识符之外小写，字符串字面量内容原样保留，故 `'PREPARED'` ≠ `'prepared'` | 探针 `tampered-predicate-case-M13-X11` |
+
+CHECK 判据同步改用 `stripTrivia`（去注释与字符串）替换原 `stripComments`，与 RAISE 判定一致；结构判据其余字段（`event`/`when`/`columns`/`where`）不变。
+
+新增有效原 schema 控制组（enforcement）两项，证明原保护真实生效而非仅识别通过：c-v7 上 `agent_tool_step_no_delete` 实际拒绝 `DELETE FROM agent_tool_step`；c-v6 上 `agent_write_once` 实际拒绝第二条 `prepared` 的 `agent_write_call` 插入。二者均以真实 DB 操作抛错验证。
+
 ## 修正后的实际验证证据
 
 本机已实际运行（系统 Node v24.14.1，仓库 engines 22.22.0 不一致，如实标注；vitest 经 `ELECTRON_RUN_AS_NODE` 走 Electron 内嵌 Node ABI，与生产原生 better-sqlite3 一致）：
 
-- `pnpm typecheck`（`tsc --noEmit`）：退出 0（含 M13/A-W08 修正后）。
-- 纯 Node 探针 [a01-migration-lineage-probe.json](../raw/a01-migration-lineage-probe.json)：退出 0，28 用例全过（指纹全匹配、分类/拒绝/追加全过，含 N07/N08/N09 与 M13-X01～X09 共 12 个负例）。
+- `pnpm typecheck`（`tsc --noEmit`）：退出 0（含 M13-X01～X11/A-W08 修正后）。
+- 纯 Node 探针 [a01-migration-lineage-probe.json](../raw/a01-migration-lineage-probe.json)：退出 0，30 分类/拒绝用例全过（指纹全匹配，含 N07/N08/N09 与 M13-X01～X11 共 14 个负例）、10 追加路径全过、2 有效原 schema 控制组全过。
 - 定向回归 `migration-ledger.test.ts`：3/3 通过（N10、N10 一致性、N11）。
 - `wiki-store.test.ts`：5/5 通过（A-W08 retryable=false 已随 `failure()` 修正转绿）。
 - 整仓 infrastructure vitest：44 通过 / 1 既有失败（`storage.test.ts` symlink EPERM，Windows 权限，非本切片引入）。

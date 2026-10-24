@@ -458,6 +458,20 @@ caseRun("tampered-check-in-comment-M13-X09", (db) => {
   db.exec("CREATE TRIGGER agent_write_committed_no_update BEFORE UPDATE ON agent_write_call WHEN OLD.status='committed' BEGIN SELECT RAISE(ABORT,'IMMUTABLE_WRITE_RECEIPT'); END;");
   db.exec("CREATE TRIGGER agent_write_no_delete BEFORE DELETE ON agent_write_call BEGIN SELECT RAISE(ABORT,'IMMUTABLE_WRITE_RECEIPT'); END;");
 }, "tampered");
+// M13-X10：no_delete 触发器体仅为 SELECT 'RAISE';（字符串字面量，非真实 RAISE 调用）→ tampered
+caseRun("tampered-raise-string-literal-M13-X10", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_delete");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_delete BEFORE DELETE ON agent_tool_step BEGIN SELECT 'RAISE'; END",
+  );
+}, "tampered");
+// M13-X11：唯一索引 WHERE 谓词字符串字面量改大写，归一不能把小写 prepared 误判为规范谓词 → tampered
+caseRun("tampered-predicate-case-M13-X11", (db) => {
+  buildLineage(db, "c-v6");
+  db.exec("DROP INDEX agent_write_once");
+  db.exec("CREATE UNIQUE INDEX agent_write_once ON agent_write_call(run_id,attempt) WHERE status IN ('PREPARED','COMMITTED')");
+}, "tampered");
 
 // 3) 追加：每个可升级谱系定向追加后应达到统一目标（9 能力齐全 + user_version=8）
 function appendToTarget(db, snap) {
@@ -489,9 +503,36 @@ for (const lineage of ["empty", "common-v1", "common-v2", "common-v3", "a01b-v4"
   db.close();
 }
 
+// 4) 有效原 schema 控制组：真实 c-v6/c-v7 上保护实际生效（DELETE 被拒、重复 prepared 被拒）。
+//    对应 C 的「有效原 schema 控制」列，证明原保护定义真实拒绝操作，而非仅识别通过。
+const enforcement = [];
+{
+  const db = new DatabaseSync(":memory:");
+  buildLineage(db, "c-v7");
+  db.exec("INSERT INTO workspace(slot,id,name,version,created_at) VALUES (1,'w','w',1,'2026-01-01')");
+  db.exec("INSERT INTO agent_run(run_id,workspace_id,operation_key,request_hash,data_json) VALUES ('r1','w','op','h','{\"runId\":\"r1\",\"operationKey\":\"op\",\"status\":\"pending\"}')");
+  db.exec("INSERT INTO agent_tool_step(run_id,attempt,tool_call_id,ordinal,data_json) VALUES ('r1',1,'tc',1,'{}')");
+  let rejected = false;
+  try { db.exec("DELETE FROM agent_tool_step"); } catch { rejected = true; }
+  enforcement.push({ control: "c-v7 agent_tool_step_no_delete rejects DELETE", rejected });
+  db.close();
+}
+{
+  const db = new DatabaseSync(":memory:");
+  buildLineage(db, "c-v6");
+  db.exec("INSERT INTO workspace(slot,id,name,version,created_at) VALUES (1,'w','w',1,'2026-01-01')");
+  db.exec("INSERT INTO agent_run(run_id,workspace_id,operation_key,request_hash,data_json) VALUES ('r1','w','op','h','{\"runId\":\"r1\",\"operationKey\":\"op\",\"status\":\"pending\"}')");
+  db.exec("INSERT INTO agent_write_call(run_id,tool_call_id,attempt,execution_id,worker_session_id,tool_name,request_hash,input_json,status) VALUES ('r1','tc1',1,'e','w','create_draft','h','{}','prepared')");
+  let rejected = false;
+  try { db.exec("INSERT INTO agent_write_call(run_id,tool_call_id,attempt,execution_id,worker_session_id,tool_name,request_hash,input_json,status) VALUES ('r1','tc2',1,'e','w','create_draft','h','{}','prepared')"); } catch { rejected = true; }
+  enforcement.push({ control: "c-v6 agent_write_once rejects duplicate prepared", rejected });
+  db.close();
+}
+
 const fpFailures = Object.entries(results.fingerprints).filter(([, v]) => !v.match);
 const caseFailures = results.cases.filter((c) => !c.pass);
 const appendFailures = appendResults.filter((c) => !c.pass);
+const enforcementFailures = enforcement.filter((c) => !c.rejected);
 
 const report = {
   status: "passed",
@@ -508,12 +549,15 @@ const report = {
   fingerprints: results.fingerprints,
   cases: results.cases,
   append: appendResults,
+  enforcement,
   summary: {
     fingerprintMatch: Object.values(results.fingerprints).every((v) => v.match),
     allCasesPass: caseFailures.length === 0,
     allAppendPass: appendFailures.length === 0,
+    allEnforcementPass: enforcementFailures.length === 0,
     caseFailures,
     appendFailures,
+    enforcementFailures,
     fpFailures: fpFailures.map(([k]) => k),
   },
   compatible: false, // 诊断复现/识别通过 ≠ 跨谱系兼容；组合接线与数据验收另行
