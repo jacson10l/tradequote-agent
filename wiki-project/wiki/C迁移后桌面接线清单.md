@@ -2,7 +2,7 @@
 title: C迁移后桌面接线清单
 type: interface
 status: draft
-updated: 2026-10-24
+updated: 2026-10-25
 sources:
   - packages/contracts/src/index.ts:93
   - packages/contracts/src/pending-client.ts:22
@@ -16,6 +16,8 @@ sources:
 ---
 
 # C迁移后桌面接线清单
+
+2026-10-25最新独立结果见[[A41f0cdc独立复验与迁移矩阵阻断]]、[[C集成-A41f0cdc复验与矩阵扩展]]：已取得并核对A固定41f0cdc4d2d8db931f00f4c2fc141e4274abf82b，C原X01～X11全部11/11通过（含有效原schema控制），X10/X11在已测样本范围技术关闭；原12生产项/typecheck/macOS存储45项/契约35项通过。随后推进迁移矩阵107个子样本，102通过、5失败：M09旧账本未知登记/重复身份仍接受，M13真实RAISE不可达/触发器挂错表/唯一索引挂错表仍接受升8且实际保护失效。10条升级路线的80个选定异常边界及C7四个真实SIGKILL点通过，但并非完整F矩阵；旧SQL行保留不是领域业务验收。当前M09/M13仍changes_required，完整矩阵/新组合/桌面/macOS联合及实际人员业务签认未完成。B既有材料/A-W08/Windows100证据保留，不重复核验或外推。下方旧“远端仍cece332/X10X11待修”仅为此前时点；本次未推送、合入、发送或真实模型复测。
 
 以C b3bc98c和B f2dfa5f为准备输入，全部D项为待执行/待新固定候选验证，不是本轮实现。既有运行/事件生产链已接通；新Wiki/完整B01在当前C仍未接通，pending-client并非真实保存服务。方案前提与角色见[[C迁移协调请求草稿-AB谱系兼容]]；保护条件见[[C迁移后运行与事件不变量]]，用例见[[C迁移联合验证用例]]。
 

@@ -2,7 +2,7 @@
 title: C迁移后运行与事件不变量
 type: interface
 status: draft
-updated: 2026-10-24
+updated: 2026-10-25
 sources:
   - packages/infrastructure/src/agent-run-store.ts:67
   - packages/infrastructure/src/agent-run-coordinator.ts:35
@@ -14,6 +14,8 @@ sources:
 ---
 
 # C迁移后运行与事件不变量
+
+2026-10-25最新独立结果见[[A41f0cdc独立复验与迁移矩阵阻断]]、[[C集成-A41f0cdc复验与矩阵扩展]]：已取得并核对A固定41f0cdc4d2d8db931f00f4c2fc141e4274abf82b，C原X01～X11全部11/11通过（含有效原schema控制），X10/X11在已测样本范围技术关闭；原12生产项/typecheck/macOS存储45项/契约35项通过。随后推进迁移矩阵107个子样本，102通过、5失败：M09旧账本未知登记/重复身份仍接受，M13真实RAISE不可达/触发器挂错表/唯一索引挂错表仍接受升8且实际保护失效。10条升级路线的80个选定异常边界及C7四个真实SIGKILL点通过，但并非完整F矩阵；旧SQL行保留不是领域业务验收。当前M09/M13仍changes_required，完整矩阵/新组合/桌面/macOS联合及实际人员业务签认未完成。B既有材料/A-W08/Windows100证据保留，不重复核验或外推。下方旧“远端仍cece332/X10X11待修”仅为此前时点；本次未推送、合入、发送或真实模型复测。
 
 供A确定方案后执行的C技术输入，尚未实施或联合验收。固定资料为C协调b3bc98c2c4149a21ec70978c0dd73eea67e561c6、C实现45fa03d57d6fc405c2438c3b187f87838355a88b、B回复f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef；本轮源码与原C实现逐文件核对，不纳入B源码。历史技术证据见[[C集成最终交接包]]；迁移6/7冲突及六组诊断仍按[[C迁移协调请求草稿-AB谱系兼容]]处理，compatible=false。
 

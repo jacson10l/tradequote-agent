@@ -17,6 +17,8 @@ sources:
 
 # C迁移联合验证用例
 
+2026-10-25最新独立结果见[[A41f0cdc独立复验与迁移矩阵阻断]]、[[C集成-A41f0cdc复验与矩阵扩展]]：已取得并核对A固定41f0cdc4d2d8db931f00f4c2fc141e4274abf82b，C原X01～X11全部11/11通过（含有效原schema控制），X10/X11在已测样本范围技术关闭；原12生产项/typecheck/macOS存储45项/契约35项通过。随后推进迁移矩阵107个子样本，102通过、5失败：M09旧账本未知登记/重复身份仍接受，M13真实RAISE不可达/触发器挂错表/唯一索引挂错表仍接受升8且实际保护失效。10条升级路线的80个选定异常边界及C7四个真实SIGKILL点通过，但并非完整F矩阵；旧SQL行保留不是领域业务验收。当前M09/M13仍changes_required，完整矩阵/新组合/桌面/macOS联合及实际人员业务签认未完成。B既有材料/A-W08/Windows100证据保留，不重复核验或外推。下方旧“远端仍cece332/X10X11待修”仅为此前时点；本次未推送、合入、发送或真实模型复测。
+
 2026-10-25 C已实际执行git fetch origin并通过git ls-remote核对所有codex/a*远端头：origin/codex/a01-migration-lineage仍为cece332e41a230ebbeeaee64eb283b49a5d4fb43，相对cece332新增提交数为0，尚未发现已推送的X10/X11修正。本次不把远端查询当作行为复验；X01～X09保留前轮9/9通过，X10/X11保留前轮失败，B固定材料接收完成不重复核验。待A交新固定修正后先复验X01～X11，再通过迁移门禁推进完整M/F/J矩阵。完整迁移、桌面接线、macOS联合验证及实际人员签认/业务验收仍未完成。证据见raw/c-x10-x11-update-check.json，任务[[C集成-X10X11修正远端检查]]。
 
 最新cece332实测见[[Acece332迁移复验与B契约材料接收]]：X01～X09通过，补充X10/X11失败，B固定材料已在后续取得并核对；整体M13保持部分失败。
@@ -39,20 +41,20 @@ sources:
 
 | ID | 输入与预置 | 操作与必须核对 | 当前状态/责任 |
 |---|---|---|---|
-| M01 | 空库v0 | 初始化完整目标；新登记可追溯，重复打开不增记录 | not_run；A定目标，C执行 |
-| M02 | 共同v3真实SQL＋合成V1/V2/V3/turn/idempotency/outbox | 升级或声明拒绝；若升级，旧JSON/hash/版本/报价关系逐字节保持 | not_run；A定路线，B夹具，C执行 |
-| M03 | A01b v4＋staged/published旧知识 | 保留原知识资格/来源hash和历史报价，原发布事实不重新签造 | not_run；A定映射，B/C核对 |
-| M04 | C v5＋全部七种run状态、控制回执、真实成功旧幂等；无新写账本 | 不伪造旧toolCallId/receipt；迁移与启动恢复分验，补足目标或先拒绝 | not_run；A定路线，C夹具/执行 |
-| M05 | C v6＋prepared/abandoned/committed调用及控制 | 不把C6记成知识6；保留已提交input/hash/revision/执行身份，新增列按显式默认值 | not_run；A定路线，C执行；原D3关联 |
-| M06 | C v7＋validation_json/tool_steps/事件，多attempt、交错全局seq | 不覆盖成报告7，保存授权/步骤可回读，公开seq/ID不重置 | not_run；A定路线，C执行；原D1/D6关联 |
-| M07 | A v6真实知识四表＋多来源/lifecycle/消费 | 不误认成C写账本6；目标run/报告能力或明确拒绝，来源事实不丢 | not_run；A夹具/路线，B/C核对 |
-| M08 | B v7＋有效schema_migration＋多来源报告/消费/幂等/outbox | 不能“无步骤”却缺run；旧报告JSON/hash/checkedAt/消费身份保持，新组合目标完整 | not_run；A定路线，B夹具，C执行；D2/D5关联 |
-| M09 | 上述有部署可能的库，分别账本存在/缺失/遗漏/重复登记身份 | 每个变体单列支持/拒绝，不仅按user_version引导；不存在的谱系组合标tampered而非真实历史 | not_run；A逐变体定矩阵，C执行 |
-| M10 | C6已被旧B误引导为7，账本声称A6但缺知识四表 | 隔离并安全拒绝，另列A鉴别/恢复方案；不改hash/user_version伪修 | not_run；A决定恢复，C核拒绝；D3后态 |
-| M11 | 未知合成v6、部分混合C/B/A同号表 | 在旧账本bootstrap/任何业务写前拒绝，不建立假已执行记录 | not_run；A定判据，C执行；B额外红例1 |
-| M12 | 已有账本但错误SQL hash/原编号含义冲突/未知高版本 | 拒绝并保存原事实，错误公开安全，内部诊断可核验 | not_run；A规则，B/C入口 |
-| M13 | 持有效hash但缺表/列/索引/CHECK/外键/关键触发器的逐一损坏库 | 检测完整结构/约束；含缺quote_check_report_no_delete、agent_write_once/不可变步骤，不能凭hash接受 | 部分失败：Acece332 X01～X09通过、X10/X11失败；其他变体待验；A判据，B/C夹具 |
-| M14 | 旧C run无agent.run.event.v1；另含已存在的完整日志 | 迁移不补假历史，启动才追加真实中断；原日志字节/ID/两类seq保持 | not_run；A保留规则，C执行 |
+| M01 | 空库v0 | 初始化完整目标；新登记可追溯，重复打开不增记录 | SQL级空库/两次repository重开通过；新组合待验 |
+| M02 | 共同v3真实SQL＋合成V1/V2/V3/turn/idempotency/outbox | 升级或声明拒绝；若升级，旧JSON/hash/版本/报价关系逐字节保持 | 共同1/2/3 SQL旧行保留通过；领域有效V1/V2/V3回放待验 |
+| M03 | A01b v4＋staged/published旧知识 | 保留原知识资格/来源hash和历史报价，原发布事实不重新签造 | A4 staged/published SQL旧行保留通过；实际服务验收待验 |
+| M04 | C v5＋全部七种run状态、控制回执、真实成功旧幂等；无新写账本 | 不伪造旧toolCallId/receipt；迁移与启动恢复分验，补足目标或先拒绝 | C5七状态/控制SQL行保留通过；领域回放与启动恢复待验 |
+| M05 | C v6＋prepared/abandoned/committed调用及控制 | 不把C6记成知识6；保留已提交input/hash/revision/执行身份，新增列按显式默认值 | C6 prepared/committed/abandoned行保留、新列null通过；业务回放待验 |
+| M06 | C v7＋validation_json/tool_steps/事件，多attempt、交错全局seq | 不覆盖成报告7，保存授权/步骤可回读，公开seq/ID不重置 | C7授权/步骤/事件SQL行保留通过；领域/协调器待验 |
+| M07 | A v6真实知识四表＋多来源/lifecycle/消费 | 不误认成C写账本6；目标run/报告能力或明确拒绝，来源事实不丢 | A6多来源/生命周期/消费SQL行保留通过；真实资格业务待验 |
+| M08 | B v7＋有效schema_migration＋多来源报告/消费/幂等/outbox | 不能“无步骤”却缺run；旧报告JSON/hash/checkedAt/消费身份保持，新组合目标完整 | B7报告/消费/旧账本SQL行保留通过；B真实幂等回放待组合 |
+| M09 | 上述有部署可能的库，分别账本存在/缺失/遗漏/重复登记身份 | 每个变体单列支持/拒绝，不仅按user_version引导；不存在的谱系组合标tampered而非真实历史 | 失败：L01未知旧登记/L02重复身份仍接受；unified重入通过，其余变体待验 |
+| M10 | C6已被旧B误引导为7，账本声称A6但缺知识四表 | 隔离并安全拒绝，另列A鉴别/恢复方案；不改hash/user_version伪修 | C6误导B7/声称A6样本安全拒绝且文件字节不变；其他恢复路线待A决定 |
+| M11 | 未知合成v6、部分混合C/B/A同号表 | 在旧账本bootstrap/任何业务写前拒绝，不建立假已执行记录 | 未知合成v6安全拒绝且文件字节不变；其他混合变体待验 |
+| M12 | 已有账本但错误SQL hash/原编号含义冲突/未知高版本 | 拒绝并保存原事实，错误公开安全，内部诊断可核验 | 高版本/未知新身份与原N10坏hash拒绝通过；其他组合待验 |
+| M13 | 持有效hash但缺表/列/索引/CHECK/外键/关键触发器的逐一损坏库 | 检测完整结构/约束；含缺quote_check_report_no_delete、agent_write_once/不可变步骤，不能凭hash接受 | 部分失败：A41f0cdc X01～X11通过；Y01不可达RAISE/Y02触发器错表/Y03索引错表仍接受 |
+| M14 | 旧C run无agent.run.event.v1；另含已存在的完整日志 | 迁移不补假历史，启动才追加真实中断；原日志字节/ID/两类seq保持 | 迁移不造假日志/不改变run状态通过；协调器T2恢复待验 |
 
 M04～M08除空schema，还要有旧业务行。七种run状态按各谱系当时合法schema生成；C5/6不强填C7的optional步骤/授权；多来源新字段不回填到旧报告。每个明确支持的M项都重复执行、关闭重开，并派生相关F用例。原D1～D6仅六个空schema诊断，不能替代本表数据测试。
 
@@ -60,10 +62,10 @@ M04～M08除空schema，还要有旧业务行。七种run状态按各谱系当�
 
 | ID | 动作/注入点 | 必须证据 | 责任与状态 |
 |---|---|---|---|
-| F01 | A判定前、判定后但DDL前、逐个追加DDL、登记写前/后、version写前/后、COMMIT前/后分别抛错 | 原schema/业务行/旧登记/version整体回滚或符合A明示可恢复阶段；无伪执行/半目标，重试不重装 | A列真实检查点；C合成注入；not_run |
-| F02 | 对F01实际存在的持久检查点用子进程屏障SIGKILL，等待exit后重开 | 独占顺序、WAL恢复/目标完整性、可审阅恢复路径；不能用普通异常代替断进程测试 | A定义边界，C文件库执行；not_run |
+| F01 | A判定前、判定后但DDL前、逐个追加DDL、登记写前/后、version写前/后、COMMIT前/后分别抛错 | 原schema/业务行/旧登记/version整体回滚或符合A明示可恢复阶段；无伪执行/半目标，重试不重装 | 部分80/80：10路线8个选定首DDL/首登记/version/COMMIT边界；逐追加点待验 |
+| F02 | 对F01实际存在的持久检查点用子进程屏障SIGKILL，等待exit后重开 | 独占顺序、WAL恢复/目标完整性、可审阅恢复路径；不能用普通异常代替断进程测试 | 部分4/4：C7四屏障真实SIGKILL/WAL恢复；其余路线/检查点待验 |
 | F03 | 两个Worker争用同一路径/别名路径；旧进程未exit时重建，迁移中并发入口 | 唯一writer/迁移互斥，不误中断活跃run、不重复登记，不声称阻止外部工具 | A锁/识别边界，C宿主；not_run |
-| F04 | 任一不支持输入走真实repository/Worker启动入口 | 拒绝先于账本引导与恢复、无ready/伪空workspace/业务写；公开错误无SQL/路径，物理副作用按A约定记录 | A规则，B公共错误，C桌面；not_run |
+| F04 | 任一不支持输入走真实repository/Worker启动入口 | 拒绝先于账本引导与恢复、无ready/伪空workspace/业务写；公开错误无SQL/路径，物理副作用按A约定记录 | 部分生产repository已验：4拒绝/5异常接受；真实Worker/公开错误/ready待验 |
 | F05 | 完成迁移后首次/重复构造协调器，涵盖queued/running/终态及prepared | T0/T1/T2分离；中断只发生一次、旧控制回执/终态不改、事件仅真实追加、Provider计数0 | C；I02/I05/I06/I16；not_run |
 | F06 | 报价/run/回执/步骤/授权/新事件插入中途失败或SIGKILL，另验COMMIT后丢回复 | 同连接原子事实全有或全无；已提交回放不增版本，失败重试无seq缺口，旧attempt无权写 | C＋B事务夹具；I03/I04/I07/I08/I12；not_run |
 | F07 | B报告/全部消费/事件/成功幂等任一点失败，重复同键/异参/重开 | 完整事务回滚；原报告JSON/首次时点保持，损坏消费不筛掉后假成功 | B先交固定测试/输出，C组合复验；not_run |
