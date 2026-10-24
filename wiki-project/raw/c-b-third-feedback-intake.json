@@ -1,0 +1,581 @@
+{
+  "status": "fixed_material_review_passed",
+  "checkedAt": "2026-10-24T07:37:50.497425+00:00",
+  "branch": "codex/b-c-third-feedback",
+  "remote": "origin",
+  "fixedCommit": "b80ad4329e7a72f4990aea89eced0536d6ebba1d",
+  "rawEvidenceReadable": true,
+  "authorWikiReadable": true,
+  "reportedOnly": {
+    "AW08": "B reports A65885ff CAPABILITY_UNAVAILABLE / retryable=false conforms to public contract",
+    "regression": "B reports report/consumption/P1 related 100/100 and Wiki gates passed",
+    "localBranch": "codex/b-c-third-feedback",
+    "authorWikiPath": "D:/code/tradequote-agent-b01-integration/wiki-project/wiki/B对Ca633c428复核与公共契约确认.md",
+    "authorEvidencePath": "D:/code/tradequote-agent-b01-integration/wiki-project/raw/b-c-third-feedback-validation.json",
+    "reportedScopeExclusions": [
+      "new combined A/B/C source",
+      "macOS desktop acceptance"
+    ]
+  },
+  "remoteChecks": [
+    {
+      "argv": [
+        "git",
+        "ls-remote",
+        "--heads",
+        "origin",
+        "refs/heads/codex/b-c-third-feedback"
+      ],
+      "checkedAt": "2026-10-24T07:35:18.798659+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "ls-remote",
+        "--heads",
+        "origin",
+        "refs/heads/codex/b-c-third-feedback"
+      ],
+      "checkedAt": "2026-10-24T07:40:45.400952+00:00",
+      "exitCode": 0,
+      "stdout": "b80ad4329e7a72f4990aea89eced0536d6ebba1d\trefs/heads/codex/b-c-third-feedback\n",
+      "stderr": ""
+    }
+  ],
+  "conclusion": "B developer Agent technical confirmation and unchanged Windows eight-file 100-test evidence verified against fixed Git material. No human signoff, no C macOS rerun of B100, no combined source acceptance.",
+  "reviewedAt": "2026-10-24T07:42:33.660925+00:00",
+  "codeBase": "8043afb84db04697c78bae668d63af19303ced50",
+  "fixedFiles": [
+    {
+      "path": "wiki-project/wiki/B对Ca633c428复核与公共契约确认.md",
+      "blob": "8f2d175c4e2ee2ce7c79790897bd568c408bd616",
+      "sha256": "845f4a6bc071baacfcd452f8950434ae92adb270f565b826acbdcf6e8c07a555",
+      "fixedUrl": "https://github.com/jacson10l/tradequote-agent/blob/b80ad4329e7a72f4990aea89eced0536d6ebba1d/wiki-project/wiki/B对Ca633c428复核与公共契约确认.md"
+    },
+    {
+      "path": "wiki-project/raw/b-c-third-feedback-validation.json",
+      "blob": "78165f1f072302bd5d31b4b58612d045ca6405c0",
+      "sha256": "d5d5e8881068436c2f623c40b13663ccf259bc05fc11abd1bafe608b04cbfcdf",
+      "fixedUrl": "https://github.com/jacson10l/tradequote-agent/blob/b80ad4329e7a72f4990aea89eced0536d6ebba1d/wiki-project/raw/b-c-third-feedback-validation.json"
+    },
+    {
+      "path": "wiki-project/raw/b-c-third-feedback-delivery.json",
+      "blob": "102a11ac63779a19fa179b140f602d40111e1f0d",
+      "sha256": "e3a8b7fc9fe02b9b4b9b805cf76092afb518946ce10493fa6f6f1be5f6dac2e0",
+      "fixedUrl": "https://github.com/jacson10l/tradequote-agent/blob/b80ad4329e7a72f4990aea89eced0536d6ebba1d/wiki-project/raw/b-c-third-feedback-delivery.json"
+    }
+  ],
+  "sourceScope": {
+    "sourceDiffOutsideWiki": [],
+    "testFiles": [
+      {
+        "path": "packages/contracts/src/checks.test.ts",
+        "sha256": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "unchangedAtRemoteHead": true
+      },
+      {
+        "path": "packages/contracts/src/knowledge-wiki.test.ts",
+        "sha256": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "unchangedAtRemoteHead": true
+      },
+      {
+        "path": "packages/contracts/src/knowledge-build.test.ts",
+        "sha256": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "unchangedAtRemoteHead": true
+      },
+      {
+        "path": "packages/contracts/src/knowledge-maintenance.test.ts",
+        "sha256": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "unchangedAtRemoteHead": true
+      },
+      {
+        "path": "packages/contracts/src/knowledge-lint-review.test.ts",
+        "sha256": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "unchangedAtRemoteHead": true
+      },
+      {
+        "path": "packages/infrastructure/src/wiki-store.test.ts",
+        "sha256": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "unchangedAtRemoteHead": true
+      },
+      {
+        "path": "packages/infrastructure/src/check-store.test.ts",
+        "sha256": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "unchangedAtRemoteHead": true
+      },
+      {
+        "path": "packages/infrastructure/src/check-lineage-integration.test.ts",
+        "sha256": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "unchangedAtRemoteHead": true
+      }
+    ],
+    "ACurrentIndexMatchesConfirmedA65885ff": true
+  },
+  "verifiedBChecks": [
+    {
+      "name": "B targeted public/report/consumption/P1 regression",
+      "executable": "D:\\code\\tradequote-agent-b01-integration\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/contracts/src/checks.test.ts",
+        "packages/contracts/src/knowledge-wiki.test.ts",
+        "packages/contracts/src/knowledge-build.test.ts",
+        "packages/contracts/src/knowledge-maintenance.test.ts",
+        "packages/contracts/src/knowledge-lint-review.test.ts",
+        "packages/infrastructure/src/wiki-store.test.ts",
+        "packages/infrastructure/src/check-store.test.ts",
+        "packages/infrastructure/src/check-lineage-integration.test.ts"
+      ],
+      "exit_code": 0,
+      "stdout": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01-integration\n\n\n Test Files  8 passed (8)\n      Tests  100 passed (100)\n   Start at  15:16:51\n   Duration  2.13s (import 57%, tests 32%, transform 9%, worker 1%)\n\n",
+      "stderr": "",
+      "section": "original",
+      "stdoutSha256": "c9ec01b07ce35f6b081fc051954e981d8486f6cc481381875f19e345a6f94c6e",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "wiki-generate",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": "",
+      "section": "original",
+      "stdoutSha256": "6d3fe4b933916bb01c6880af29d9cc5cf2bc3ad733136bd099c19d288a85a527",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "wiki-readonly-check",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": "",
+      "section": "original",
+      "stdoutSha256": "a1bdb7604e2d8b41a5a23f2b0f7ebf8b11ac12da32a1326a40378eacbefde2d8",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "wiki-lint",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 122,\n  \"semantic\": 106,\n  \"reachable\": 122\n}\n",
+      "stderr": "",
+      "section": "original",
+      "stdoutSha256": "05e94270b697d5a010a208818a41a28bc0820c7ddbcf8cb57a07f187961906b5",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "wiki-sync",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "8043afb84db04697c78bae668d63af19303ced50"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"8043afb84db04697c78bae668d63af19303ced50\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "section": "original",
+      "stdoutSha256": "c2ff6e65d7e4107d924d938c55a0dbe643b26d46a5e0083d199b72f07e3c2c52",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "diff-whitespace",
+      "executable": "git",
+      "args": [
+        "diff",
+        "--check",
+        "8043afb84db04697c78bae668d63af19303ced50"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "section": "original",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "wiki-generate",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": "",
+      "section": "original",
+      "stdoutSha256": "6d3fe4b933916bb01c6880af29d9cc5cf2bc3ad733136bd099c19d288a85a527",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "wiki-readonly-check",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": "",
+      "section": "original",
+      "stdoutSha256": "a1bdb7604e2d8b41a5a23f2b0f7ebf8b11ac12da32a1326a40378eacbefde2d8",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "wiki-lint",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 122,\n  \"semantic\": 106,\n  \"reachable\": 122\n}\n",
+      "stderr": "",
+      "section": "original",
+      "stdoutSha256": "05e94270b697d5a010a208818a41a28bc0820c7ddbcf8cb57a07f187961906b5",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "wiki-sync",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "8043afb84db04697c78bae668d63af19303ced50"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"8043afb84db04697c78bae668d63af19303ced50\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "section": "original",
+      "stdoutSha256": "c2ff6e65d7e4107d924d938c55a0dbe643b26d46a5e0083d199b72f07e3c2c52",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "diff-whitespace",
+      "executable": "git",
+      "args": [
+        "diff",
+        "--check",
+        "8043afb84db04697c78bae668d63af19303ced50"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "section": "original",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "wiki-generate",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": "",
+      "section": "original",
+      "stdoutSha256": "6d3fe4b933916bb01c6880af29d9cc5cf2bc3ad733136bd099c19d288a85a527",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "wiki-readonly-check",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": "",
+      "section": "original",
+      "stdoutSha256": "a1bdb7604e2d8b41a5a23f2b0f7ebf8b11ac12da32a1326a40378eacbefde2d8",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "wiki-lint",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 122,\n  \"semantic\": 106,\n  \"reachable\": 122\n}\n",
+      "stderr": "",
+      "section": "original",
+      "stdoutSha256": "05e94270b697d5a010a208818a41a28bc0820c7ddbcf8cb57a07f187961906b5",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "wiki-sync",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "8043afb84db04697c78bae668d63af19303ced50"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"8043afb84db04697c78bae668d63af19303ced50\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "section": "original",
+      "stdoutSha256": "c2ff6e65d7e4107d924d938c55a0dbe643b26d46a5e0083d199b72f07e3c2c52",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "diff-whitespace",
+      "executable": "git",
+      "args": [
+        "diff",
+        "--check",
+        "8043afb84db04697c78bae668d63af19303ced50"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "section": "original",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "100-test B regression rerun",
+      "executable": "D:\\code\\tradequote-agent-b01-integration\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/contracts/src/checks.test.ts",
+        "packages/contracts/src/knowledge-wiki.test.ts",
+        "packages/contracts/src/knowledge-build.test.ts",
+        "packages/contracts/src/knowledge-maintenance.test.ts",
+        "packages/contracts/src/knowledge-lint-review.test.ts",
+        "packages/infrastructure/src/wiki-store.test.ts",
+        "packages/infrastructure/src/check-store.test.ts",
+        "packages/infrastructure/src/check-lineage-integration.test.ts"
+      ],
+      "exit_code": 0,
+      "stdout": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01-integration\n\n\n Test Files  8 passed (8)\n      Tests  100 passed (100)\n   Start at  15:37:02\n   Duration  2.15s (import 57%, tests 33%, transform 9%, worker 1%)\n\n",
+      "stderr": "",
+      "section": "delivery",
+      "stdoutSha256": "ab309c363c7930baf368c9ee582d606988900c204df9152ae626f4051f88d286",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "wiki-generate",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": "",
+      "section": "delivery",
+      "stdoutSha256": "6d3fe4b933916bb01c6880af29d9cc5cf2bc3ad733136bd099c19d288a85a527",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "wiki-readonly-check",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": "",
+      "section": "delivery",
+      "stdoutSha256": "a1bdb7604e2d8b41a5a23f2b0f7ebf8b11ac12da32a1326a40378eacbefde2d8",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "wiki-lint",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 122,\n  \"semantic\": 106,\n  \"reachable\": 122\n}\n",
+      "stderr": "",
+      "section": "delivery",
+      "stdoutSha256": "05e94270b697d5a010a208818a41a28bc0820c7ddbcf8cb57a07f187961906b5",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "wiki-sync",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "8043afb84db04697c78bae668d63af19303ced50"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"8043afb84db04697c78bae668d63af19303ced50\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "section": "delivery",
+      "stdoutSha256": "c2ff6e65d7e4107d924d938c55a0dbe643b26d46a5e0083d199b72f07e3c2c52",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "diff-whitespace",
+      "executable": "git",
+      "args": [
+        "diff",
+        "--check",
+        "8043afb84db04697c78bae668d63af19303ced50"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "section": "delivery",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "wiki-generate",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": "",
+      "section": "delivery",
+      "stdoutSha256": "6d3fe4b933916bb01c6880af29d9cc5cf2bc3ad733136bd099c19d288a85a527",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "wiki-readonly-check",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": "",
+      "section": "delivery",
+      "stdoutSha256": "a1bdb7604e2d8b41a5a23f2b0f7ebf8b11ac12da32a1326a40378eacbefde2d8",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "wiki-lint",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 122,\n  \"semantic\": 106,\n  \"reachable\": 122\n}\n",
+      "stderr": "",
+      "section": "delivery",
+      "stdoutSha256": "05e94270b697d5a010a208818a41a28bc0820c7ddbcf8cb57a07f187961906b5",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "wiki-sync",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "8043afb84db04697c78bae668d63af19303ced50"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"8043afb84db04697c78bae668d63af19303ced50\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "section": "delivery",
+      "stdoutSha256": "c2ff6e65d7e4107d924d938c55a0dbe643b26d46a5e0083d199b72f07e3c2c52",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "diff-whitespace",
+      "executable": "git",
+      "args": [
+        "diff",
+        "--check",
+        "8043afb84db04697c78bae668d63af19303ced50"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "section": "delivery",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "provenance": {
+    "BOriginalValidationBytesPreservedAcrossDelivery": true,
+    "BHistoricalEvidenceSha256Matches": true,
+    "CReferencedBlobShaAndEmbeddedScriptHashMatch": true,
+    "CVariantsFiveCasesMatch": true,
+    "helperFunctionBytesAndIndexHashesMatch": true,
+    "positiveAndNegativeScopePreserved": true
+  },
+  "publicContract": {
+    "code": "CAPABILITY_UNAVAILABLE",
+    "retryable": false,
+    "approvalKind": "B developer Agent technical confirmation; actual maintainer/human/non-author overall signoff remains pending"
+  },
+  "boundaries": {
+    "aw08": "B public contract technical confirmation already given: CAPABILITY_UNAVAILABLE / retryable=false",
+    "m13": "X05-X09 await A fix and C revalidation",
+    "newCompositionTested": false,
+    "macOSDesktopTested": false,
+    "merged": false,
+    "humanSignoffProvided": false,
+    "automaticMessagesSent": false,
+    "realModelRetested": false
+  },
+  "historicalDiagnostics": {
+    "BOriginalAuthorCommitFailurePreserved": true,
+    "BPublicationInitialWikiLintFailurePreserved": true,
+    "BFinalWikiGatesExitZero": true
+  },
+  "notRunByC": [
+    "B Windows100 rerun on macOS",
+    "B full build/e2e",
+    "new A/B/C composition",
+    "human signoff"
+  ],
+  "CIndependentHelperReplay": {
+    "argv": [
+      "node",
+      ".runtime/b-helper-check.mjs"
+    ],
+    "startedAt": "2026-10-24T07:42:33.753260+00:00",
+    "finishedAt": "2026-10-24T07:42:33.975066+00:00",
+    "exitCode": 0,
+    "stdout": "{\"status\":\"passed\",\"scope\":\"C independent fixed A/B helper-only three concrete cases; not B100 rerun, not full module or desktop\",\"cases\":[{\"args\":[\"CAPABILITY_UNAVAILABLE\",\"SYNTHETIC_UNAVAILABLE\"],\"a\":{\"ok\":false,\"error\":{\"code\":\"CAPABILITY_UNAVAILABLE\",\"message\":\"SYNTHETIC_UNAVAILABLE\",\"retryable\":false,\"issues\":[]}},\"b\":{\"ok\":false,\"error\":{\"code\":\"CAPABILITY_UNAVAILABLE\",\"message\":\"SYNTHETIC_UNAVAILABLE\",\"retryable\":false,\"issues\":[]}}},{\"args\":[\"VALIDATION_ERROR\",\"SYNTHETIC_VALIDATION\"],\"a\":{\"ok\":false,\"error\":{\"code\":\"VALIDATION_ERROR\",\"message\":\"SYNTHETIC_VALIDATION\",\"retryable\":false,\"issues\":[]}},\"b\":{\"ok\":false,\"error\":{\"code\":\"VALIDATION_ERROR\",\"message\":\"SYNTHETIC_VALIDATION\",\"retryable\":false,\"issues\":[]}}},{\"args\":[\"REVISION_CONFLICT\",\"SYNTHETIC_CONFLICT\",7],\"a\":{\"ok\":false,\"error\":{\"code\":\"REVISION_CONFLICT\",\"message\":\"SYNTHETIC_CONFLICT\",\"retryable\":false,\"issues\":[],\"currentAggregateVersion\":7}},\"b\":{\"ok\":false,\"error\":{\"code\":\"REVISION_CONFLICT\",\"message\":\"SYNTHETIC_CONFLICT\",\"retryable\":false,\"issues\":[],\"currentAggregateVersion\":7}}}]}\n",
+    "stderr": "(node:16406) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+    "stdoutSha256": "9d30ebc749e1687377156e5e3d9ca91bb4cafda2ef0cdf5d57348d4caaba5fd5",
+    "stderrSha256": "cd81c999aa9ca952ab8a490a25fd0b4f0a7c0c9c9de242e7b7080f6766b31df2",
+    "scriptUtf8": "import {stripTypeScriptTypes} from 'node:module';\nimport fs from 'node:fs';\nconst A=await import('data:text/javascript,'+encodeURIComponent(stripTypeScriptTypes(fs.readFileSync('.runtime/b-evidence/a-failure.ts','utf8'))));\nconst B=await import('data:text/javascript,'+encodeURIComponent(stripTypeScriptTypes(fs.readFileSync('.runtime/b-evidence/b-failure.ts','utf8'))));\nconst cases=[['CAPABILITY_UNAVAILABLE','SYNTHETIC_UNAVAILABLE'],['VALIDATION_ERROR','SYNTHETIC_VALIDATION'],['REVISION_CONFLICT','SYNTHETIC_CONFLICT',7]].map(args=>({args,a:A.failure(...args),b:B.failure(...args)}));\nif(!cases.every(x=>JSON.stringify(x.a)===JSON.stringify(x.b)&&x.a.error.retryable===false))throw Error('public helper output mismatch');\nconsole.log(JSON.stringify({status:'passed',scope:'C independent fixed A/B helper-only three concrete cases; not B100 rerun, not full module or desktop',cases}));\n"
+  }
+}

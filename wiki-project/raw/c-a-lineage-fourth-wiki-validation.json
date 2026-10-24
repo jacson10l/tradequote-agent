@@ -1,0 +1,247 @@
+{
+  "status": "passed",
+  "taskBase": "a633c4285f240e7ab4f8d3fa554efeed802e44e8",
+  "branch": "codex/c-a-lineage-fourth-validation",
+  "scope": "Wiki/evidence closure only: requested nine and fixed B material reviewed; product M13 extra two fail and all actual human signoff pending",
+  "checks": [
+    {
+      "argv": [
+        "python3",
+        "-c",
+        "from pathlib import Path\nimport json,hashlib,subprocess\nr=Path.cwd();h=lambda b:hashlib.sha256(b).hexdigest();s=json.loads((r/'.runtime/preservation.json').read_text());raw=r/'wiki-project/raw'\nfor p,v in {**s['nonWikiSha256'],**s['oldRawSha256']}.items():assert h((r/p).read_bytes())==v,p\nassert h((r/'wiki-project/log.md').read_bytes()[:s['logPrefixBytes']])==s['logPrefixSha256']\nfor name in ['C集成-迁移方案执行与联合验收','C集成候选-依赖与非作者签认','C04-收口签认']:assert 'status: active' in (r/'wiki-project/wiki/tasks'/(name+'.md')).read_text()\na=json.loads((raw/'c-a-lineage-fourth-intake.json').read_text());n=json.loads((raw/'c-a-lineage-fourth-native.json').read_text());m=json.loads((raw/'c-a-lineage-fourth-m13.json').read_text());x=json.loads((raw/'c-a-lineage-fourth-m13-extra.json').read_text());b=json.loads((raw/'c-b-third-feedback-intake.json').read_text())\nassert a['ACommit']=='cece332e41a230ebbeeaee64eb283b49a5d4fb43' and a['sourceAuditSummary']=={'nonWikiFiles':175,'allMatchFixedGitBlob':True}\nassert n['summary']['passed']==12 and m['summary']=={'total':9,'passed':9,'failed':[]} and x['summary']=={'total':2,'passed':0,'failed':['M13-X10','M13-X11']}\nfor c in m['originalFour']['cases']+m['previousFiveVariants']['cases']:assert c['expectationMet'] and c['control']['guardRejectedOperation'] and c['migrationError'] and c['identifyError'] and c['before']==c['after']\nfor c in x['cases']:assert c['control']['guardRejectedOperation'] and c['identifyError'] is None and c['migrationError'] is None and c['behaviorError'] is None and c['after']['version']==8 and not c['expectationMet']\nassert x['cases'][0]['behavior']['deleted'] and x['cases'][1]['behavior']['sameAttemptPreparedRows']==2\nfor key,cmd in a['actualCommands'].items():\n assert cmd['exitCode']==(1 if key=='M13Extra' else 0),key\n for k in ['stdout','stderr','output']:\n  if k in cmd:assert h(cmd[k].encode())==cmd[k+'Sha256'],key\nassert '45 passed (45)' in a['actualCommands']['infrastructure']['stdout'] and '35 passed (35)' in a['actualCommands']['contracts']['stdout']\nassert a['sqlFingerprintsMatchPriorFixedCAndB'] and a['authorProbeComparison']['structuredResultsMatchFixedAuthorRecord']\nassert b['fixedCommit']=='b80ad4329e7a72f4990aea89eced0536d6ebba1d' and b['status']=='fixed_material_review_passed' and b['rawEvidenceReadable'] and b['authorWikiReadable']\nassert all(b['provenance'].values()) and b['sourceScope']['sourceDiffOutsideWiki']==[] and all(x['unchangedAtRemoteHead'] for x in b['sourceScope']['testFiles'])\nassert len(b['sourceScope']['testFiles'])==8 and all(not b['boundaries'][k] for k in ['newCompositionTested','macOSDesktopTested','humanSignoffProvided','merged','automaticMessagesSent','realModelRetested'])\nfor c in b['verifiedBChecks']:\n assert c['exit_code']==0\n for k in ['stdout','stderr']:assert h(c[k].encode())==c[k+'Sha256']\nc=b['CIndependentHelperReplay'];assert c['exitCode']==0 and len(json.loads(c['stdout'])['cases'])==3\nfor k in ['stdout','stderr']:assert h(c[k].encode())==c[k+'Sha256']\nfor f in b['fixedFiles']:assert h(subprocess.check_output(['git','show',b['fixedCommit']+':'+f['path']]))==f['sha256']\nassert subprocess.check_output(['git','rev-parse','codex/c-a-lineage-third-validation']).decode().strip()=='a633c4285f240e7ab4f8d3fa554efeed802e44e8'\nassert 'X10/X11失败' in (r/'wiki-project/wiki/C迁移联合验证用例.md').read_text()\nprint(json.dumps({'status':'passed','nonWikiPreserved':len(s['nonWikiSha256']),'oldRawPreserved':len(s['oldRawSha256']),'logPrefixBytes':s['logPrefixBytes'],'requestedNinePassed':True,'extraTwoFailuresPreserved':True,'BFixedWikiEvidenceVerified':True,'B100RemainsWindowsEvidence':True,'CHelper3Passed':True,'humanTasksActive':True,'priorCBranchUnchanged':True}))\n"
+      ],
+      "startedAt": "2026-10-24T07:44:44.684483+00:00",
+      "finishedAt": "2026-10-24T07:44:45.044893+00:00",
+      "exitCode": 0,
+      "output": "{\"status\": \"passed\", \"nonWikiPreserved\": 228, \"oldRawPreserved\": 206, \"logPrefixBytes\": 115432, \"requestedNinePassed\": true, \"extraTwoFailuresPreserved\": true, \"BFixedWikiEvidenceVerified\": true, \"B100RemainsWindowsEvidence\": true, \"CHelper3Passed\": true, \"humanTasksActive\": true, \"priorCBranchUnchanged\": true}\n",
+      "outputSha256": "d3f8491329d1f7730f989e5b8536e1f88be3d447718cfbdb20c45a5a8cf488ad"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-24T07:44:45.045813+00:00",
+      "finishedAt": "2026-10-24T07:44:45.871433+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"generate\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 6\n}\n",
+      "outputSha256": "6a3e1709991b78e42869a1a8ccb647033396075edd3b7529074b2008dd665be1"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "startedAt": "2026-10-24T07:44:45.872814+00:00",
+      "finishedAt": "2026-10-24T07:44:46.198220+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 6\n}\n",
+      "outputSha256": "989c0d7bed58055cd73ba84f2a1b90acb451c9e9b55e9ade31bacb0278f4dd42"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-24T07:44:46.199238+00:00",
+      "finishedAt": "2026-10-24T07:44:47.212149+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 206,\n  \"semantic\": 178,\n  \"reachable\": 206\n}\n",
+      "outputSha256": "e03bdb50a74062c2acf44d35a60635151cb6a24e50ceef4c97f7ec316a80cc7d"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "a633c4285f240e7ab4f8d3fa554efeed802e44e8"
+      ],
+      "startedAt": "2026-10-24T07:44:47.212727+00:00",
+      "finishedAt": "2026-10-24T07:44:47.330609+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"a633c4285f240e7ab4f8d3fa554efeed802e44e8\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "outputSha256": "94acd35aa12c5d3b21a5df13f7716167d88084e4855e1c52fe358fabca993753"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+      ],
+      "startedAt": "2026-10-24T07:44:47.331131+00:00",
+      "finishedAt": "2026-10-24T07:44:48.695822+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 91,\n  \"knowledgePages\": 113,\n  \"tasks\": 41,\n  \"errors\": []\n}\n",
+      "outputSha256": "d451d2d2ae3d04e5ded97b2f5ea3226b21949c02204285d38e399a9facf0f80a"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce"
+      ],
+      "startedAt": "2026-10-24T07:44:48.696350+00:00",
+      "finishedAt": "2026-10-24T07:44:50.388073+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 97,\n  \"knowledgePages\": 128,\n  \"tasks\": 49,\n  \"errors\": []\n}\n",
+      "outputSha256": "1f7ff410fc8cc9a2e98d72a492757c8d77f00b52dcf00e0242f82479dd3d9e63"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check",
+        "a633c4285f240e7ab4f8d3fa554efeed802e44e8"
+      ],
+      "startedAt": "2026-10-24T07:44:50.388903+00:00",
+      "finishedAt": "2026-10-24T07:44:50.413180+00:00",
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "startedAt": "2026-10-24T07:44:50.414008+00:00",
+      "finishedAt": "2026-10-24T07:44:50.426866+00:00",
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "python3",
+        "-c",
+        "from pathlib import Path\nimport json,hashlib,subprocess\nr=Path.cwd();h=lambda b:hashlib.sha256(b).hexdigest();s=json.loads((r/'.runtime/preservation.json').read_text());raw=r/'wiki-project/raw'\nfor p,v in {**s['nonWikiSha256'],**s['oldRawSha256']}.items():assert h((r/p).read_bytes())==v,p\nassert h((r/'wiki-project/log.md').read_bytes()[:s['logPrefixBytes']])==s['logPrefixSha256']\nfor name in ['C集成-迁移方案执行与联合验收','C集成候选-依赖与非作者签认','C04-收口签认']:assert 'status: active' in (r/'wiki-project/wiki/tasks'/(name+'.md')).read_text()\na=json.loads((raw/'c-a-lineage-fourth-intake.json').read_text());n=json.loads((raw/'c-a-lineage-fourth-native.json').read_text());m=json.loads((raw/'c-a-lineage-fourth-m13.json').read_text());x=json.loads((raw/'c-a-lineage-fourth-m13-extra.json').read_text());b=json.loads((raw/'c-b-third-feedback-intake.json').read_text())\nassert a['ACommit']=='cece332e41a230ebbeeaee64eb283b49a5d4fb43' and a['sourceAuditSummary']=={'nonWikiFiles':175,'allMatchFixedGitBlob':True}\nassert n['summary']['passed']==12 and m['summary']=={'total':9,'passed':9,'failed':[]} and x['summary']=={'total':2,'passed':0,'failed':['M13-X10','M13-X11']}\nfor c in m['originalFour']['cases']+m['previousFiveVariants']['cases']:assert c['expectationMet'] and c['control']['guardRejectedOperation'] and c['migrationError'] and c['identifyError'] and c['before']==c['after']\nfor c in x['cases']:assert c['control']['guardRejectedOperation'] and c['identifyError'] is None and c['migrationError'] is None and c['behaviorError'] is None and c['after']['version']==8 and not c['expectationMet']\nassert x['cases'][0]['behavior']['deleted'] and x['cases'][1]['behavior']['sameAttemptPreparedRows']==2\nfor key,cmd in a['actualCommands'].items():\n assert cmd['exitCode']==(1 if key=='M13Extra' else 0),key\n for k in ['stdout','stderr','output']:\n  if k in cmd:assert h(cmd[k].encode())==cmd[k+'Sha256'],key\nassert '45 passed (45)' in a['actualCommands']['infrastructure']['stdout'] and '35 passed (35)' in a['actualCommands']['contracts']['stdout']\nassert a['sqlFingerprintsMatchPriorFixedCAndB'] and a['authorProbeComparison']['structuredResultsMatchFixedAuthorRecord']\nassert b['fixedCommit']=='b80ad4329e7a72f4990aea89eced0536d6ebba1d' and b['status']=='fixed_material_review_passed' and b['rawEvidenceReadable'] and b['authorWikiReadable']\nassert all(b['provenance'].values()) and b['sourceScope']['sourceDiffOutsideWiki']==[] and all(x['unchangedAtRemoteHead'] for x in b['sourceScope']['testFiles'])\nassert len(b['sourceScope']['testFiles'])==8 and all(not b['boundaries'][k] for k in ['newCompositionTested','macOSDesktopTested','humanSignoffProvided','merged','automaticMessagesSent','realModelRetested'])\nfor c in b['verifiedBChecks']:\n assert c['exit_code']==0\n for k in ['stdout','stderr']:assert h(c[k].encode())==c[k+'Sha256']\nc=b['CIndependentHelperReplay'];assert c['exitCode']==0 and len(json.loads(c['stdout'])['cases'])==3\nfor k in ['stdout','stderr']:assert h(c[k].encode())==c[k+'Sha256']\nfor f in b['fixedFiles']:assert h(subprocess.check_output(['git','show',b['fixedCommit']+':'+f['path']]))==f['sha256']\nassert subprocess.check_output(['git','rev-parse','codex/c-a-lineage-third-validation']).decode().strip()=='a633c4285f240e7ab4f8d3fa554efeed802e44e8'\nassert 'X10/X11失败' in (r/'wiki-project/wiki/C迁移联合验证用例.md').read_text()\nprint(json.dumps({'status':'passed','nonWikiPreserved':len(s['nonWikiSha256']),'oldRawPreserved':len(s['oldRawSha256']),'logPrefixBytes':s['logPrefixBytes'],'requestedNinePassed':True,'extraTwoFailuresPreserved':True,'BFixedWikiEvidenceVerified':True,'B100RemainsWindowsEvidence':True,'CHelper3Passed':True,'humanTasksActive':True,'priorCBranchUnchanged':True}))\n"
+      ],
+      "startedAt": "2026-10-24T07:45:17.770013+00:00",
+      "finishedAt": "2026-10-24T07:45:18.685997+00:00",
+      "exitCode": 0,
+      "output": "{\"status\": \"passed\", \"nonWikiPreserved\": 228, \"oldRawPreserved\": 206, \"logPrefixBytes\": 115432, \"requestedNinePassed\": true, \"extraTwoFailuresPreserved\": true, \"BFixedWikiEvidenceVerified\": true, \"B100RemainsWindowsEvidence\": true, \"CHelper3Passed\": true, \"humanTasksActive\": true, \"priorCBranchUnchanged\": true}\n",
+      "outputSha256": "d3f8491329d1f7730f989e5b8536e1f88be3d447718cfbdb20c45a5a8cf488ad"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-24T07:45:18.687246+00:00",
+      "finishedAt": "2026-10-24T07:45:19.124537+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"generate\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 6\n}\n",
+      "outputSha256": "6a3e1709991b78e42869a1a8ccb647033396075edd3b7529074b2008dd665be1"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "startedAt": "2026-10-24T07:45:19.126133+00:00",
+      "finishedAt": "2026-10-24T07:45:19.508583+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 6\n}\n",
+      "outputSha256": "989c0d7bed58055cd73ba84f2a1b90acb451c9e9b55e9ade31bacb0278f4dd42"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-24T07:45:19.511174+00:00",
+      "finishedAt": "2026-10-24T07:45:20.668592+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 206,\n  \"semantic\": 178,\n  \"reachable\": 206\n}\n",
+      "outputSha256": "e03bdb50a74062c2acf44d35a60635151cb6a24e50ceef4c97f7ec316a80cc7d"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "a633c4285f240e7ab4f8d3fa554efeed802e44e8"
+      ],
+      "startedAt": "2026-10-24T07:45:20.670214+00:00",
+      "finishedAt": "2026-10-24T07:45:20.807530+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"a633c4285f240e7ab4f8d3fa554efeed802e44e8\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "outputSha256": "94acd35aa12c5d3b21a5df13f7716167d88084e4855e1c52fe358fabca993753"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+      ],
+      "startedAt": "2026-10-24T07:45:20.808930+00:00",
+      "finishedAt": "2026-10-24T07:45:23.228243+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 91,\n  \"knowledgePages\": 113,\n  \"tasks\": 41,\n  \"errors\": []\n}\n",
+      "outputSha256": "d451d2d2ae3d04e5ded97b2f5ea3226b21949c02204285d38e399a9facf0f80a"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce"
+      ],
+      "startedAt": "2026-10-24T07:45:23.229636+00:00",
+      "finishedAt": "2026-10-24T07:45:27.728944+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 97,\n  \"knowledgePages\": 128,\n  \"tasks\": 49,\n  \"errors\": []\n}\n",
+      "outputSha256": "1f7ff410fc8cc9a2e98d72a492757c8d77f00b52dcf00e0242f82479dd3d9e63"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check",
+        "a633c4285f240e7ab4f8d3fa554efeed802e44e8"
+      ],
+      "startedAt": "2026-10-24T07:45:27.738492+00:00",
+      "finishedAt": "2026-10-24T07:45:27.776579+00:00",
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "startedAt": "2026-10-24T07:45:27.777538+00:00",
+      "finishedAt": "2026-10-24T07:45:27.827282+00:00",
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "clientDate": "2026-10-24",
+  "productConclusion": "requested_X01_X09_passed_B_fixed_evidence_verified_M13_X10_X11_changes_required",
+  "humanApproval": "pending",
+  "startedAt": "2026-10-24T07:44:44.682095+00:00",
+  "finishedAt": "2026-10-24T07:45:27.828539+00:00"
+}

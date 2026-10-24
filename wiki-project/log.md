@@ -661,3 +661,15 @@ raw/c-a-lineage-intake.json记录实际命令/完整输出/来源hash/环境，n
 从20891fb8e8af8f05d68016dbc514c17cdf481fec新建独立codex/c-a-lineage-third-validation；[[A迁移谱系65885ff复核与有效定义剩余问题]]：固定A65885ff472acee4cedb3b0c17e7c850f30f98d91已独立取得并核对远端；原12项12/12、原M13-X01～X04 4/4、typecheck通过，A原探针9指纹/23分类/10追加与固定报告一致。macOS infrastructure45/45、contracts35/35，A-W08原行为失败已消失，B公共契约确认仍待。M13-X05～X09五个有效定义变体0/5：WHEN/WHERE 1=0、索引列集合错误、触发器事件错误、CHECK仅注释仍接受升8，实际写删证明保护失效；原schema控制组全部真实拒绝。A安装--frozen-lockfile后175份非Wiki文件与固定Git blob一致，真实生产migrate/repository及Electron44.9.2原生SQLite合成库执行，未导入A/B源码或改历史DDL。实际命令/输出/hash与无效archive Git范围诊断分别保存在raw/c-a-lineage-third-intake.json，原N/原M13/新变体及可重跑源码分别在third-native/third-m13-original/third-m13-variants.json；旧失败不反填。聚焦ledger3+wiki5属于infrastructure45子集，不重复计数；原Windows EPERM保留，macOS未复现。
 
 整体changes_required；A补已知有效定义识别/回归，避免仅关键词或常量黑名单；B确认公共failure语义、账本/报告/消费适配及P1，再由C继续完整矩阵→桌面→macOS联合全套。原四例在新A版本技术关闭不追改旧失败，M13整体仍未关闭；A人工发布/业务/实际非作者仍待，不代签、不推送/合入/发送或真实模型复测。C文档保留核验、生成/check/lint、固定20891fb/654fecc/be53b98同步及diff执行见raw/c-a-lineage-third-wiki-validation.json；仅本轮取证记录任务可闭环，不把产品失败或人工待签标完成。
+
+
+## 2026-10-24 C复验Acece332与B远端接收核对
+
+用户要求核对A cece332及B codex/b-c-third-feedback，固定可读材料后复验九例/核对B契约与证据。从a633c4285f240e7ab4f8d3fa554efeed802e44e8新建独立codex/c-a-lineage-fourth-validation；[[Acece332迁移复验与B契约材料接收]]：已取得并核对A远端固定cece332e41a230ebbeeaee64eb283b49a5d4fb43；请求的M13-X01～X09九例全部通过，原生产12项12/12，typecheck、macOS infrastructure45/45、contracts35/35通过，A原探针9指纹/28分类/10追加一致。补充X10/X11两个有效定义缺口仍失败：触发器仅含字符串RAISE仍接受、大写WHERE字符串被整体小写归一误判，接受升8后可实际删除步骤/重复prepared；有效原schema控制组均拒绝。原九例通过与补充两例失败分列，没有放宽原断言；实际argv/时间/退出码/输出hash/175份固定源码匹配与SQL指纹见raw/c-a-lineage-fourth-intake.json，原N及schema/控制组/脚本见fourth-native/m13/m13-extra.json。全部为忽略目录未修改A源码及合成库，无用户库/模型/凭据；ledger3+wiki5属于45项子集，Windows原EPERM记录不改。
+
+M13整体仍changes_required，A修有效触发器体与保留字面量语义的结构核对；B已报告A-W08公共契约符合与100/100，但本次origin未找到codex/b-c-third-feedback，固定Wiki/证据不可读，接收核对未完成；不代签或把转述当已核实交付。取得新A修正/B固定材料后C再复核，完整29项、新组合接线/macOS联合未执行。人工发布/业务/整体非作者仍待，不推送/合入/发送/真实模型复测。B接收时点及reported范围记录raw/c-b-third-feedback-intake.json；本任务active，B原文核对不能标done。C文档保留审计/生成/check/lint/固定a633c42、654fecc与be53b98同步/diff见raw/c-a-lineage-fourth-wiki-validation.json；C生产/历史SQL、206旧raw与115432字节旧log前缀保持。
+
+
+### 同轮后续：B远端出现并完成固定材料核对
+
+[[Acece332迁移复验与B契约材料接收]]：本轮后续复查已取得并核对B远端b80ad4329e7a72f4990aea89eced0536d6ebba1d（材料509a234，代码基线8043afb），原Wiki与原始/重复两次八文件100/100、Wiki门禁证据已逐项核对；C引用blob/SHA/脚本hash、B源码未变、A/B helper原文hash一致，C独立重放3个helper结果一致。B确认CAPABILITY_UNAVAILABLE / retryable=false为开发Agent技术确认，实际人员签认仍待。100项为B Windows原执行，未据此宣称C复跑或新A/B/C组合/macOS桌面通过。B8043afb依赖旧A b9a0af7，新组合仍须保留A迁移修正/C运行导出/B检查与P1公开出口。初查B无头及随后出现的时点命令均保留在raw/c-b-third-feedback-intake.json，未把早期缺失写成当前阻塞；B固定原文/原及重复100项/源码和引用hash已核实，C只实跑helper3，B Windows100未在C重跑。原作者配置/邮箱lint历史失败及最终门禁各保留，不追改B证据。当前仍有X10/X11真实保护缺口，原九例与本次接收任务闭环不代替完整矩阵、新组合/macOS桌面或人员签认。
