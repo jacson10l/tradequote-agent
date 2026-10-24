@@ -17,7 +17,7 @@ sources:
 
 # B 谱系账本适配与 P1 回执交接
 
-当前迁移进度以[[B对Ca633c428复核与公共契约确认]]顶部为准：据用户转述C本地abda94e，A cece332的X01～X09已全部通过，现阻断X10/X11；本页以下初轮失败保留为历史。B后续继续负责同事务、旧库升级重开及P1回执，新组合/macOS与实际人员签认另待。
+当前迁移进度以[[B对Ca633c428复核与公共契约确认]]顶部为准：已读取C固定abda94e90bf54786937510b802eb5d2479e01412，A cece332e41a230ebbeeaee64eb283b49a5d4fb43的X01～X09已由C全部复验通过，现阻断X10/X11；本页以下初轮失败保留为历史。B后续继续负责同事务、旧库升级重开及P1回执，新组合/macOS与实际人员签认另待。
 
 ## 历史：初轮固定输入与结论
 
@@ -84,8 +84,15 @@ A的接入顺序：宿主执行并保存lint完整报告与幂等/outbox → 按
 C固定a633c428/A65885ff已接收，B确认A-W08公共语义正确，并在既有8043afb源码上复跑报告/消费/P1等八文件100项。此本地适配仍依赖旧A b9a0af7，未与新A/C组合，不把回归解释为联合矩阵通过。C原M13四例关闭、五个变体X05～X09仍失败；A修复及C新组合/macOS验收保持待完成。详见[[B对Ca633c428复核与公共契约确认]]。
 
 
-## 当前进度更新：C本地abda94e
+## 历史进度同步：当时C本地abda94e
 
 2026-10-24 最新迁移进度（用户转述C本地abda94e，尚未推送）：C已接收并核对B固定b80ad4329e7a72f4990aea89eced0536d6ebba1d的Wiki、两次Windows八文件100/100、门禁、源码范围与引用hash，A-W08的CAPABILITY_UNAVAILABLE/retryable=false技术确认已登记，实际人员签认另待。M13-X01～X09已在A cece332上由C独立复验全部通过；当前阻断为X10（字符串RAISE误认保护函数）和X11（WHERE字符串大小写归一化误判），由A修正后C复验。B的100/100仅覆盖8043afb代码基线上的Windows回归，本轮不重跑，不外推新A/B/C组合或macOS桌面验收。B后续负责报告/消费同事务、旧库升级重开与P1回执边界，保留A迁移修正、C运行/桌面和B检查/P1公共出口。详情[[B对Ca633c428复核与公共契约确认]]、[[B01-谱系账本适配与P1回执]]；整体保持active/WIP，不合入、不代签、不自动发送或真实模型复测。
 
 本次仅据用户转述更新，C本地记录未推送，B未读取新原始证据；历轮X05～X09失败保留为历史。B后续在新组合核对同事务提交/回滚、旧库升级重开/首份重放及P1报告到审核的完整回执边界，不以8043afb的Windows100项代替。参见[[B对Ca633c428复核与公共契约确认]]。
+
+
+## 当前固定来源：C abda94e90bf54786937510b802eb5d2479e01412
+
+来源已核对：B通过git fetch取得完整C提交abda94e90bf54786937510b802eb5d2479e01412并实际读取其[复核Wiki](https://github.com/jacson10l/tradequote-agent/blob/abda94e90bf54786937510b802eb5d2479e01412/wiki-project/wiki/Acece332迁移复验与B契约材料接收.md)、[X10/X11失败证据](https://github.com/jacson10l/tradequote-agent/blob/abda94e90bf54786937510b802eb5d2479e01412/wiki-project/raw/c-a-lineage-fourth-m13-extra.json)和[B材料接收记录](https://github.com/jacson10l/tradequote-agent/blob/abda94e90bf54786937510b802eb5d2479e01412/wiki-project/raw/c-b-third-feedback-intake.json)；另读取[九例复验原证据](https://github.com/jacson10l/tradequote-agent/blob/abda94e90bf54786937510b802eb5d2479e01412/wiki-project/raw/c-a-lineage-fourth-m13.json)，确认A完整基线cece332e41a230ebbeeaee64eb283b49a5d4fb43、X01～X09的9/9通过与X10/X11的0/2失败。读取固定C材料不等于B重跑C脚本，也不等于新组合或整体通过。原3256c74中“用户转述/未推送/未取得对象”是更新前的历史状态，原始状态同步JSON、旧raw和追加日志保留。
+
+B已比对C所列B材料及八份源码/两次Windows100项输出hash；X10/X11待A修/C验，后续同事务/旧库重开/P1回执责任保持。新核对证据见raw/b-c-abda94e-fixed-source-validation.json，原状态与失败证据不改；详见[[B对Ca633c428复核与公共契约确认]]。

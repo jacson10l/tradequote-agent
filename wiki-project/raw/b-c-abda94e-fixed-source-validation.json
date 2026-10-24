@@ -1,0 +1,518 @@
+{
+  "status": "passed",
+  "scope": "B fixed C source intake and documentation gates only; no B migration/B100/composition/macOS rerun",
+  "taskBase": "3256c744614d312ecf38026f63f644455a01ce7e",
+  "deliveryBase": "b80ad4329e7a72f4990aea89eced0536d6ebba1d",
+  "branch": "codex/b-c-m13-progress-sync",
+  "recordedAt": "2026-10-24T08:19:39.732Z",
+  "environment": {
+    "node": "v22.22.0",
+    "platform": "win32",
+    "arch": "x64"
+  },
+  "fixed": {
+    "c": "abda94e90bf54786937510b802eb5d2479e01412",
+    "a": "cece332e41a230ebbeeaee64eb283b49a5d4fb43",
+    "bMaterial": "b80ad4329e7a72f4990aea89eced0536d6ebba1d",
+    "bCode": "8043afb84db04697c78bae668d63af19303ced50",
+    "includedPriorStatusCommit": "3256c744614d312ecf38026f63f644455a01ce7e"
+  },
+  "sources": [
+    {
+      "path": "wiki-project/wiki/Acece332迁移复验与B契约材料接收.md",
+      "url": "https://github.com/jacson10l/tradequote-agent/blob/abda94e90bf54786937510b802eb5d2479e01412/wiki-project/wiki/Acece332迁移复验与B契约材料接收.md",
+      "gitBlob": "eb65ec2305ddf4d5d0ede1ef555f766a025f5209",
+      "sha256": "4f89bd64aa2d985d1e6d1f8eab5c9efea47937fbbc292812aaedbda3e6f16a01",
+      "readFromFixedGitObject": true
+    },
+    {
+      "path": "wiki-project/raw/c-a-lineage-fourth-m13-extra.json",
+      "url": "https://github.com/jacson10l/tradequote-agent/blob/abda94e90bf54786937510b802eb5d2479e01412/wiki-project/raw/c-a-lineage-fourth-m13-extra.json",
+      "gitBlob": "05204bf0d073e0a6a87fd4726ebc00d10576f8d2",
+      "sha256": "fa1bf7d41f6e5e6b8ede35364b1ec28e86339d305e98009dcf5ae4bf15929a9b",
+      "readFromFixedGitObject": true
+    },
+    {
+      "path": "wiki-project/raw/c-b-third-feedback-intake.json",
+      "url": "https://github.com/jacson10l/tradequote-agent/blob/abda94e90bf54786937510b802eb5d2479e01412/wiki-project/raw/c-b-third-feedback-intake.json",
+      "gitBlob": "83f8e86768ea030be2b277a3da4f82cf2d36b35d",
+      "sha256": "5ec905bf134c449c7513d2525a4937ff4ebc0ca2fa8dcc4ef1e55357ef54d601",
+      "readFromFixedGitObject": true
+    },
+    {
+      "path": "wiki-project/raw/c-a-lineage-fourth-m13.json",
+      "url": "https://github.com/jacson10l/tradequote-agent/blob/abda94e90bf54786937510b802eb5d2479e01412/wiki-project/raw/c-a-lineage-fourth-m13.json",
+      "gitBlob": "aac7accedee9b73e23cbe6e325f7afcba50b7c83",
+      "sha256": "0f4c8280d25776b6f6aa5c1cdd164874a5a4bdf078e798a168b30502a70c1751",
+      "readFromFixedGitObject": true
+    }
+  ],
+  "cResult": {
+    "nineSummary": {
+      "total": 9,
+      "passed": 9,
+      "failed": []
+    },
+    "remainingSummary": {
+      "total": 2,
+      "passed": 0,
+      "failed": [
+        "M13-X10",
+        "M13-X11"
+      ]
+    },
+    "embeddedScriptSha256": "0dcf6e06fa572d1c45aab686cf073d48eebf233a4ca74e352a969b1e0c78bf7f",
+    "embeddedScriptHashVerified": true,
+    "cases": [
+      {
+        "id": "M13-X10",
+        "mutationSQL": "DROP TRIGGER agent_tool_step_no_delete; CREATE TRIGGER agent_tool_step_no_delete BEFORE DELETE ON agent_tool_step BEGIN SELECT 'RAISE'; END;",
+        "controlRejected": true,
+        "identifyError": null,
+        "migrationError": null,
+        "behavior": {
+          "deleted": true,
+          "remaining": 0
+        },
+        "behaviorError": null,
+        "expectationMet": false
+      },
+      {
+        "id": "M13-X11",
+        "mutationSQL": "DROP INDEX agent_write_once; CREATE UNIQUE INDEX agent_write_once ON agent_write_call(run_id,attempt) WHERE status IN ('PREPARED','COMMITTED')",
+        "controlRejected": true,
+        "identifyError": null,
+        "migrationError": null,
+        "behavior": {
+          "sameAttemptPreparedRows": 2
+        },
+        "behaviorError": null,
+        "expectationMet": false
+      }
+    ]
+  },
+  "bMaterialIntake": {
+    "status": "fixed_material_review_passed",
+    "conclusion": "B developer Agent technical confirmation and unchanged Windows eight-file 100-test evidence verified against fixed Git material. No human signoff, no C macOS rerun of B100, no combined source acceptance.",
+    "publicContract": {
+      "code": "CAPABILITY_UNAVAILABLE",
+      "retryable": false,
+      "approvalKind": "B developer Agent technical confirmation; actual maintainer/human/non-author overall signoff remains pending"
+    },
+    "fixedFiles": [
+      {
+        "path": "wiki-project/wiki/B对Ca633c428复核与公共契约确认.md",
+        "blob": "8f2d175c4e2ee2ce7c79790897bd568c408bd616",
+        "sha256": "845f4a6bc071baacfcd452f8950434ae92adb270f565b826acbdcf6e8c07a555",
+        "verified": true
+      },
+      {
+        "path": "wiki-project/raw/b-c-third-feedback-validation.json",
+        "blob": "78165f1f072302bd5d31b4b58612d045ca6405c0",
+        "sha256": "d5d5e8881068436c2f623c40b13663ccf259bc05fc11abd1bafe608b04cbfcdf",
+        "verified": true
+      },
+      {
+        "path": "wiki-project/raw/b-c-third-feedback-delivery.json",
+        "blob": "102a11ac63779a19fa179b140f602d40111e1f0d",
+        "sha256": "e3a8b7fc9fe02b9b4b9b805cf76092afb518946ce10493fa6f6f1be5f6dac2e0",
+        "verified": true
+      }
+    ],
+    "eightTests": [
+      {
+        "path": "packages/contracts/src/checks.test.ts",
+        "sha256": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "baselineAndSharedBytesMatch": true
+      },
+      {
+        "path": "packages/contracts/src/knowledge-wiki.test.ts",
+        "sha256": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "baselineAndSharedBytesMatch": true
+      },
+      {
+        "path": "packages/contracts/src/knowledge-build.test.ts",
+        "sha256": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "baselineAndSharedBytesMatch": true
+      },
+      {
+        "path": "packages/contracts/src/knowledge-maintenance.test.ts",
+        "sha256": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "baselineAndSharedBytesMatch": true
+      },
+      {
+        "path": "packages/contracts/src/knowledge-lint-review.test.ts",
+        "sha256": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "baselineAndSharedBytesMatch": true
+      },
+      {
+        "path": "packages/infrastructure/src/wiki-store.test.ts",
+        "sha256": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "baselineAndSharedBytesMatch": true
+      },
+      {
+        "path": "packages/infrastructure/src/check-store.test.ts",
+        "sha256": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "baselineAndSharedBytesMatch": true
+      },
+      {
+        "path": "packages/infrastructure/src/check-lineage-integration.test.ts",
+        "sha256": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "baselineAndSharedBytesMatch": true
+      }
+    ],
+    "verifiedStdoutChecks": [
+      {
+        "name": "B targeted public/report/consumption/P1 regression",
+        "section": "original",
+        "exit_code": 0,
+        "stdoutSha256": "c9ec01b07ce35f6b081fc051954e981d8486f6cc481381875f19e345a6f94c6e",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "wiki-generate",
+        "section": "original",
+        "exit_code": 0,
+        "stdoutSha256": "6d3fe4b933916bb01c6880af29d9cc5cf2bc3ad733136bd099c19d288a85a527",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "wiki-readonly-check",
+        "section": "original",
+        "exit_code": 0,
+        "stdoutSha256": "a1bdb7604e2d8b41a5a23f2b0f7ebf8b11ac12da32a1326a40378eacbefde2d8",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "wiki-lint",
+        "section": "original",
+        "exit_code": 0,
+        "stdoutSha256": "05e94270b697d5a010a208818a41a28bc0820c7ddbcf8cb57a07f187961906b5",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "wiki-sync",
+        "section": "original",
+        "exit_code": 0,
+        "stdoutSha256": "c2ff6e65d7e4107d924d938c55a0dbe643b26d46a5e0083d199b72f07e3c2c52",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "diff-whitespace",
+        "section": "original",
+        "exit_code": 0,
+        "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "wiki-generate",
+        "section": "original",
+        "exit_code": 0,
+        "stdoutSha256": "6d3fe4b933916bb01c6880af29d9cc5cf2bc3ad733136bd099c19d288a85a527",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "wiki-readonly-check",
+        "section": "original",
+        "exit_code": 0,
+        "stdoutSha256": "a1bdb7604e2d8b41a5a23f2b0f7ebf8b11ac12da32a1326a40378eacbefde2d8",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "wiki-lint",
+        "section": "original",
+        "exit_code": 0,
+        "stdoutSha256": "05e94270b697d5a010a208818a41a28bc0820c7ddbcf8cb57a07f187961906b5",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "wiki-sync",
+        "section": "original",
+        "exit_code": 0,
+        "stdoutSha256": "c2ff6e65d7e4107d924d938c55a0dbe643b26d46a5e0083d199b72f07e3c2c52",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "diff-whitespace",
+        "section": "original",
+        "exit_code": 0,
+        "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "wiki-generate",
+        "section": "original",
+        "exit_code": 0,
+        "stdoutSha256": "6d3fe4b933916bb01c6880af29d9cc5cf2bc3ad733136bd099c19d288a85a527",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "wiki-readonly-check",
+        "section": "original",
+        "exit_code": 0,
+        "stdoutSha256": "a1bdb7604e2d8b41a5a23f2b0f7ebf8b11ac12da32a1326a40378eacbefde2d8",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "wiki-lint",
+        "section": "original",
+        "exit_code": 0,
+        "stdoutSha256": "05e94270b697d5a010a208818a41a28bc0820c7ddbcf8cb57a07f187961906b5",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "wiki-sync",
+        "section": "original",
+        "exit_code": 0,
+        "stdoutSha256": "c2ff6e65d7e4107d924d938c55a0dbe643b26d46a5e0083d199b72f07e3c2c52",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "diff-whitespace",
+        "section": "original",
+        "exit_code": 0,
+        "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "100-test B regression rerun",
+        "section": "delivery",
+        "exit_code": 0,
+        "stdoutSha256": "ab309c363c7930baf368c9ee582d606988900c204df9152ae626f4051f88d286",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "wiki-generate",
+        "section": "delivery",
+        "exit_code": 0,
+        "stdoutSha256": "6d3fe4b933916bb01c6880af29d9cc5cf2bc3ad733136bd099c19d288a85a527",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "wiki-readonly-check",
+        "section": "delivery",
+        "exit_code": 0,
+        "stdoutSha256": "a1bdb7604e2d8b41a5a23f2b0f7ebf8b11ac12da32a1326a40378eacbefde2d8",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "wiki-lint",
+        "section": "delivery",
+        "exit_code": 0,
+        "stdoutSha256": "05e94270b697d5a010a208818a41a28bc0820c7ddbcf8cb57a07f187961906b5",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "wiki-sync",
+        "section": "delivery",
+        "exit_code": 0,
+        "stdoutSha256": "c2ff6e65d7e4107d924d938c55a0dbe643b26d46a5e0083d199b72f07e3c2c52",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "diff-whitespace",
+        "section": "delivery",
+        "exit_code": 0,
+        "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "wiki-generate",
+        "section": "delivery",
+        "exit_code": 0,
+        "stdoutSha256": "6d3fe4b933916bb01c6880af29d9cc5cf2bc3ad733136bd099c19d288a85a527",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "wiki-readonly-check",
+        "section": "delivery",
+        "exit_code": 0,
+        "stdoutSha256": "a1bdb7604e2d8b41a5a23f2b0f7ebf8b11ac12da32a1326a40378eacbefde2d8",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "wiki-lint",
+        "section": "delivery",
+        "exit_code": 0,
+        "stdoutSha256": "05e94270b697d5a010a208818a41a28bc0820c7ddbcf8cb57a07f187961906b5",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "wiki-sync",
+        "section": "delivery",
+        "exit_code": 0,
+        "stdoutSha256": "c2ff6e65d7e4107d924d938c55a0dbe643b26d46a5e0083d199b72f07e3c2c52",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "diff-whitespace",
+        "section": "delivery",
+        "exit_code": 0,
+        "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "windows100RunsRecorded": 2
+  },
+  "sourceInterpretation": "C B-intake JSON boundaries.m13 preserves older B X05-X09 status. Current migration status comes from C fourth-round Wiki and nine/extra M13 evidence, not that historical copied field.",
+  "checks": [
+    {
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "recordedAt": "2026-10-24T08:20:20.749Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": ""
+    },
+    {
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "recordedAt": "2026-10-24T08:20:21.047Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": ""
+    },
+    {
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "recordedAt": "2026-10-24T08:20:21.754Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 122,\n  \"semantic\": 106,\n  \"reachable\": 122\n}\n",
+      "stderr": ""
+    },
+    {
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "3256c744614d312ecf38026f63f644455a01ce7e"
+      ],
+      "recordedAt": "2026-10-24T08:20:22.128Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"3256c744614d312ecf38026f63f644455a01ce7e\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "b80ad4329e7a72f4990aea89eced0536d6ebba1d"
+      ],
+      "recordedAt": "2026-10-24T08:20:22.486Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"b80ad4329e7a72f4990aea89eced0536d6ebba1d\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "executable": "git",
+      "args": [
+        "diff",
+        "--check",
+        "3256c744614d312ecf38026f63f644455a01ce7e"
+      ],
+      "recordedAt": "2026-10-24T08:20:22.563Z",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "recordedAt": "2026-10-24T08:21:54.120Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": ""
+    },
+    {
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "recordedAt": "2026-10-24T08:21:54.420Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": ""
+    },
+    {
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "recordedAt": "2026-10-24T08:21:55.112Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 122,\n  \"semantic\": 106,\n  \"reachable\": 122\n}\n",
+      "stderr": ""
+    },
+    {
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "3256c744614d312ecf38026f63f644455a01ce7e"
+      ],
+      "recordedAt": "2026-10-24T08:21:55.494Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"3256c744614d312ecf38026f63f644455a01ce7e\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "b80ad4329e7a72f4990aea89eced0536d6ebba1d"
+      ],
+      "recordedAt": "2026-10-24T08:21:55.855Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"b80ad4329e7a72f4990aea89eced0536d6ebba1d\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "executable": "git",
+      "args": [
+        "diff",
+        "--check",
+        "3256c744614d312ecf38026f63f644455a01ce7e"
+      ],
+      "recordedAt": "2026-10-24T08:21:55.934Z",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "notRun": [
+    "Windows 100-test suite not repeated; baseline remains B8043afb",
+    "C migration scripts not executed by B; read and hash-checked fixed C evidence",
+    "No new A/B/C composition, macOS desktop/build/e2e or full matrix",
+    "No maintenance regression: tools and mapping unchanged",
+    "No merge, human signoff, automatic messages or real-model retest"
+  ],
+  "migrationOverallApproved": false,
+  "preservation": {
+    "historicalRawCount": 104,
+    "mismatches": [],
+    "logBytePrefixPreserved": true,
+    "sourceChangesSinceB80ad432": ""
+  }
+}

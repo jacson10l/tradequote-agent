@@ -439,3 +439,13 @@ B00a P1远端交接：[PR #8](https://github.com/jacson10l/tradequote-agent/pull
 - M13-X01～X09在A cece332上由C独立复验通过；当前阻断X10字符串RAISE误认、X11 WHERE字符串大小写归一化误判，A修正后C复验。来源C本地abda94e尚未推送，本地无该对象，B本轮不声称原始材料固定接收或独立复验。
 - 保留100/100为8043afb Windows证据及所有旧raw；本轮只更新Wiki/任务/CONTEXT/状态和责任，不重跑100项、不改生产/接口/测试/迁移/维护工具。B后续负责报告消费同事务、旧库升级重开和P1回执，保留A/C/B公共出口。
 - 基线b80ad4329e7a72f4990aea89eced0536d6ebba1d；Wiki生成/只读check/lint/基线sync及字节保留核对见raw/b-c-m13-x10-x11-status-sync.json。不合入、不代签、不自动发送或真实模型复测，active/WIP。
+
+
+## 2026-10-24 B实际接收C固定abda94e来源
+
+- git fetch取得abda94e90bf54786937510b802eb5d2479e01412；实际读取用户指定Wiki、X10/X11 extra JSON、B接收JSON及九例原结果，记录每份Git blob/SHA/固定URL。
+- 核对C在A cece332e41a230ebbeeaee64eb283b49a5d4fb43上九例9/9、extra两例0/2；B材料3文件/8源码与两次Windows100项输出hash匹配，非B新跑100或迁移。旧B接收边界字段按历史解释，当前阻断仍X10/X11。
+- 更新相关Wiki、任务、CONTEXT/状态的当前来源，保留原3256c74/旧raw/log。授权共享包括3256c74及本次来源更新，仅普通推送同名分支。
+- 新证据raw/b-c-abda94e-fixed-source-validation.json记录Wiki生成/check/lint、3256c74增量及b80ad432累计sync与字节保留。B后续事务/升级重开/P1责任与三方公共出口保留，不合入、代签、自动发送或真实模型复测；整体active/WIP。
+
+本次固定来源核对最终门禁实际全退出0：generate/check/lint、3256c74增量与b80ad432累计sync、diff检查；104份历史raw/log字节前缀保持，无生产源码变更。精确argv/输出及blob/hash核对在raw/b-c-abda94e-fixed-source-validation.json，未重复100项或新组合/macOS验收。
