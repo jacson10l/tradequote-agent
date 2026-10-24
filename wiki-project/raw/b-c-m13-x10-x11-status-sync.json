@@ -1,0 +1,158 @@
+{
+  "status": "passed",
+  "scope": "Documentation-only progress sync from user-relayed unpublished C report; no new test/composition/acceptance claims",
+  "taskBase": "b80ad4329e7a72f4990aea89eced0536d6ebba1d",
+  "branch": "codex/b-c-m13-progress-sync",
+  "recordedAt": "2026-10-24T07:50:32.659Z",
+  "source": {
+    "kind": "user_message",
+    "cLocalShortCommit": "abda94e",
+    "cPushed": false,
+    "aShortCommit": "cece332",
+    "fullHashesUnavailableLocally": true,
+    "independentBRevalidation": false
+  },
+  "reportedProgress": {
+    "cAcceptedBCommit": "b80ad4329e7a72f4990aea89eced0536d6ebba1d",
+    "aw08": "Technical confirmation registered; actual personnel signoff pending",
+    "m13X01ThroughX09": "C independently passed all on A cece332 (user-relayed)",
+    "currentBlockers": [
+      "X10: string RAISE mistaken for protection function",
+      "X11: WHERE string case normalization causes false recognition"
+    ],
+    "owners": "A fixes; C revalidates"
+  },
+  "bResponsibilities": [
+    "Report/consumption/outbox/idempotency same-transaction commit and rollback",
+    "Old DB upgrade/reopen and original-result idempotent replay",
+    "P1 stored lint report, review input/context and full receipt binding",
+    "Preserve A migration fixes, C run/desktop and B checks/P1 public exports"
+  ],
+  "notRun": [
+    "Unchanged Windows 100 tests not repeated at user instruction; existing evidence belongs to 8043afb",
+    "No A/B/C composition or macOS desktop validation",
+    "No maintenance regression; tools and mappings unchanged",
+    "No merge/human signoff/automatic messaging/real-model call"
+  ],
+  "checks": [
+    {
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": ""
+    },
+    {
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": ""
+    },
+    {
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 122,\n  \"semantic\": 106,\n  \"reachable\": 122\n}\n",
+      "stderr": ""
+    },
+    {
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "b80ad4329e7a72f4990aea89eced0536d6ebba1d"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"b80ad4329e7a72f4990aea89eced0536d6ebba1d\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "executable": "git",
+      "args": [
+        "diff",
+        "--check",
+        "b80ad4329e7a72f4990aea89eced0536d6ebba1d"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": ""
+    },
+    {
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": ""
+    },
+    {
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 122,\n  \"semantic\": 106,\n  \"reachable\": 122\n}\n",
+      "stderr": ""
+    },
+    {
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "b80ad4329e7a72f4990aea89eced0536d6ebba1d"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"b80ad4329e7a72f4990aea89eced0536d6ebba1d\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "executable": "git",
+      "args": [
+        "diff",
+        "--check",
+        "b80ad4329e7a72f4990aea89eced0536d6ebba1d"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "preservation": {
+    "historicalRawCount": 103,
+    "mismatches": [],
+    "logBytePrefixPreserved": true,
+    "sourceChanges": ""
+  },
+  "environment": {
+    "node": "v22.22.0",
+    "platform": "win32",
+    "arch": "x64"
+  }
+}

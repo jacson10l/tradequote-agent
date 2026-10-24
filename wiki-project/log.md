@@ -431,3 +431,11 @@ B00a P1远端交接：[PR #8](https://github.com/jacson10l/tradequote-agent/pull
 
 
 2026-10-24 材料首次提交/共享实际完成：509a234d07116825186949df291b5a0403959253。`git push --set-upstream origin HEAD:refs/heads/codex/b-c-third-feedback`退出0（普通新分支推送，无force）；`git ls-remote --heads origin refs/heads/codex/b-c-third-feedback`退出0，远端完整hash与`git rev-parse HEAD`一致。回执补记提交另在最终交接核对其自身远端hash，不能将首次材料hash冒充最终分支头。详情raw/b-c-third-feedback-delivery.json；原复核证据不改，整体仍active/WIP。
+
+
+## 2026-10-24 B同步C未推送迁移进度
+
+- 用户转述C已核对B b80ad432的Wiki/两次Windows100项/门禁/范围/hash，A-W08技术确认已登记；实际人员签认独立待补。
+- M13-X01～X09在A cece332上由C独立复验通过；当前阻断X10字符串RAISE误认、X11 WHERE字符串大小写归一化误判，A修正后C复验。来源C本地abda94e尚未推送，本地无该对象，B本轮不声称原始材料固定接收或独立复验。
+- 保留100/100为8043afb Windows证据及所有旧raw；本轮只更新Wiki/任务/CONTEXT/状态和责任，不重跑100项、不改生产/接口/测试/迁移/维护工具。B后续负责报告消费同事务、旧库升级重开和P1回执，保留A/C/B公共出口。
+- 基线b80ad4329e7a72f4990aea89eced0536d6ebba1d；Wiki生成/只读check/lint/基线sync及字节保留核对见raw/b-c-m13-x10-x11-status-sync.json。不合入、不代签、不自动发送或真实模型复测，active/WIP。
