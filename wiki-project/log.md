@@ -673,3 +673,11 @@ M13整体仍changes_required，A修有效触发器体与保留字面量语义的
 ### 同轮后续：B远端出现并完成固定材料核对
 
 [[Acece332迁移复验与B契约材料接收]]：本轮后续复查已取得并核对B远端b80ad4329e7a72f4990aea89eced0536d6ebba1d（材料509a234，代码基线8043afb），原Wiki与原始/重复两次八文件100/100、Wiki门禁证据已逐项核对；C引用blob/SHA/脚本hash、B源码未变、A/B helper原文hash一致，C独立重放3个helper结果一致。B确认CAPABILITY_UNAVAILABLE / retryable=false为开发Agent技术确认，实际人员签认仍待。100项为B Windows原执行，未据此宣称C复跑或新A/B/C组合/macOS桌面通过。B8043afb依赖旧A b9a0af7，新组合仍须保留A迁移修正/C运行导出/B检查与P1公开出口。初查B无头及随后出现的时点命令均保留在raw/c-b-third-feedback-intake.json，未把早期缺失写成当前阻塞；B固定原文/原及重复100项/源码和引用hash已核实，C只实跑helper3，B Windows100未在C重跑。原作者配置/邮箱lint历史失败及最终门禁各保留，不追改B证据。当前仍有X10/X11真实保护缺口，原九例与本次接收任务闭环不代替完整矩阵、新组合/macOS桌面或人员签认。
+
+## 2026-10-25 C检查X10/X11新修正
+
+2026-10-25 C已实际执行git fetch origin并通过git ls-remote核对所有codex/a*远端头：origin/codex/a01-migration-lineage仍为cece332e41a230ebbeeaee64eb283b49a5d4fb43，相对cece332新增提交数为0，尚未发现已推送的X10/X11修正。本次不把远端查询当作行为复验；X01～X09保留前轮9/9通过，X10/X11保留前轮失败，B固定材料接收完成不重复核验。待A交新固定修正后先复验X01～X11，再通过迁移门禁推进完整M/F/J矩阵。完整迁移、桌面接线、macOS联合验证及实际人员签认/业务验收仍未完成。证据见raw/c-x10-x11-update-check.json，任务[[C集成-X10X11修正远端检查]]。
+
+独立分支codex/c-x10-x11-update-check，taskBase=abda94e90bf54786937510b802eb5d2479e01412；macOS26.4 arm64/Node22.22.0/pnpm10.13.1。远端查询命令均退出0，未发现新提交。仅更新文档与查询证据；机械生成/只读check/lint/固定基线sync/diff与213份旧raw及log字节前缀保留检查见raw/c-x10-x11-update-check-wiki-validation.json。没有新实现，未重跑行为测试或完整矩阵；整体保持active。
+
+本轮生成/check/lint/固定abda94e同步/diff均退出0；最终保留检查确认213份旧非生成raw和旧log精确字节前缀不变。首次追加导致末尾空白变化，保留检查失败后已恢复原字节前缀；失败记录保留在本轮文档验证JSON。无生产源码变化，未执行行为复验。

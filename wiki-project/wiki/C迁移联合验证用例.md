@@ -2,7 +2,7 @@
 title: C迁移联合验证用例
 type: process
 status: draft
-updated: 2026-10-24
+updated: 2026-10-25
 sources:
   - packages/infrastructure/src/agent-run-store.test.ts:398
   - packages/infrastructure/src/agent-run-recovery.test.ts:82
@@ -16,6 +16,8 @@ sources:
 ---
 
 # C迁移联合验证用例
+
+2026-10-25 C已实际执行git fetch origin并通过git ls-remote核对所有codex/a*远端头：origin/codex/a01-migration-lineage仍为cece332e41a230ebbeeaee64eb283b49a5d4fb43，相对cece332新增提交数为0，尚未发现已推送的X10/X11修正。本次不把远端查询当作行为复验；X01～X09保留前轮9/9通过，X10/X11保留前轮失败，B固定材料接收完成不重复核验。待A交新固定修正后先复验X01～X11，再通过迁移门禁推进完整M/F/J矩阵。完整迁移、桌面接线、macOS联合验证及实际人员签认/业务验收仍未完成。证据见raw/c-x10-x11-update-check.json，任务[[C集成-X10X11修正远端检查]]。
 
 最新cece332实测见[[Acece332迁移复验与B契约材料接收]]：X01～X09通过，补充X10/X11失败，B固定材料已在后续取得并核对；整体M13保持部分失败。
 
