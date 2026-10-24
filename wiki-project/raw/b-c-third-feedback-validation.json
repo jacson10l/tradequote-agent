@@ -1,0 +1,352 @@
+{
+  "status": "passed",
+  "recordedAt": "2026-10-24T07:16:50.318Z",
+  "taskBase": "8043afb84db04697c78bae668d63af19303ced50",
+  "branch": "codex/b-c-third-feedback",
+  "fixed": {
+    "c": "a633c4285f240e7ab4f8d3fa554efeed802e44e8",
+    "a": "65885ff472acee4cedb3b0c17e7c850f30f98d91",
+    "b": "8043afb84db04697c78bae668d63af19303ced50"
+  },
+  "environment": {
+    "platform": "win32",
+    "arch": "x64",
+    "node": "v22.22.0",
+    "electron": "44.9.2",
+    "nativeNode": "24.22.0"
+  },
+  "intake": {
+    "cResolved": "a633c4285f240e7ab4f8d3fa554efeed802e44e8",
+    "aResolved": "65885ff472acee4cedb3b0c17e7c850f30f98d91",
+    "variantsBlob": "e70573bb66dedc1ebe79ac684c0e5b0c1b51afab",
+    "variantsSha256": "bb038e415d11bde0d309f09a6725a0787e1f7111b8d546db4576e5a1909a2378",
+    "embeddedScriptHashVerified": true,
+    "originalSummary": {
+      "total": 4,
+      "passed": 4,
+      "failed": []
+    },
+    "variantsSummary": {
+      "total": 5,
+      "passed": 0,
+      "failed": [
+        "M13-X05",
+        "M13-X06",
+        "M13-X07",
+        "M13-X08",
+        "M13-X09"
+      ]
+    },
+    "cases": [
+      {
+        "id": "M13-X05",
+        "mutationSQL": "DROP TRIGGER agent_tool_step_no_delete; CREATE TRIGGER agent_tool_step_no_delete BEFORE DELETE ON agent_tool_step WHEN 1=0 BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END;",
+        "controlRejected": true,
+        "identifyError": null,
+        "migrationError": null,
+        "behavior": {
+          "deleted": true,
+          "remaining": 0
+        },
+        "expectationMet": false
+      },
+      {
+        "id": "M13-X06",
+        "mutationSQL": "DROP INDEX agent_write_once; CREATE UNIQUE INDEX agent_write_once ON agent_write_call(run_id,attempt) WHERE 1=0",
+        "controlRejected": true,
+        "identifyError": null,
+        "migrationError": null,
+        "behavior": {
+          "sameAttemptPreparedRows": 2
+        },
+        "expectationMet": false
+      },
+      {
+        "id": "M13-X07",
+        "mutationSQL": "DROP INDEX agent_write_once; CREATE UNIQUE INDEX agent_write_once ON agent_write_call(run_id,attempt,tool_call_id) WHERE status='prepared'",
+        "controlRejected": true,
+        "identifyError": null,
+        "migrationError": null,
+        "behavior": {
+          "sameAttemptPreparedRows": 2
+        },
+        "expectationMet": false
+      },
+      {
+        "id": "M13-X08",
+        "mutationSQL": "DROP TRIGGER agent_tool_step_no_delete; CREATE TRIGGER agent_tool_step_no_delete BEFORE UPDATE ON agent_tool_step BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END;",
+        "controlRejected": true,
+        "identifyError": null,
+        "migrationError": null,
+        "behavior": {
+          "deleted": true,
+          "remaining": 0
+        },
+        "expectationMet": false
+      },
+      {
+        "id": "M13-X09",
+        "controlRejected": true,
+        "identifyError": null,
+        "migrationError": null,
+        "behavior": {
+          "zeroAttemptRows": 1
+        },
+        "expectationMet": false
+      }
+    ]
+  },
+  "publicHelper": {
+    "method": "Extract only actual fixed A/B failure function and erase types using Node stripTypeScriptTypes; compare concrete outputs for unavailable/validation/conflict. This does not execute A repository callers.",
+    "aIndexSha256": "e057f4a2ba23d549721f34741c7336819c4895d3b05e31be5a5c7cd380f414fc",
+    "bIndexSha256": "ebe937d120bc987d332853ae5f5fad4099da6c59e8a7f44da679b32aa394786a",
+    "aFunction": "export function failure(\n  code: z.infer<typeof ErrorCodeSchema>,\n  message: string,\n  currentAggregateVersion?: number,\n): Extract<WorkspaceResult, { ok: false }> {\n  return {\n    ok: false,\n    error: {\n      code,\n      message,\n      // CAPABILITY_UNAVAILABLE 是\"能力尚未接入\"而非瞬时故障，重试同一请求不会成功（A-W08）。\n      // 与 pending-client.ts 及 B00a 协议（retryable=false）一致。\n      retryable: false,\n      issues: [],\n      ...(currentAggregateVersion === undefined ? {} : { currentAggregateVersion }),\n    },\n  };\n}\n",
+    "bFunction": "export function failure(\n  code: z.infer<typeof ErrorCodeSchema>,\n  message: string,\n  currentAggregateVersion?: number,\n): Extract<WorkspaceResult, { ok: false }> {\n  return {\n    ok: false,\n    error: {\n      code,\n      message,\n      // Missing capability needs implementation/wiring; repeating the request cannot enable it.\n      // Run retry permission is decided separately by the run state machine.\n      retryable: false,\n      issues: [],\n      ...(currentAggregateVersion === undefined ? {} : { currentAggregateVersion }),\n    },\n  };\n}\n",
+    "casesPassed": 3
+  },
+  "checks": [
+    {
+      "name": "B targeted public/report/consumption/P1 regression",
+      "executable": "D:\\code\\tradequote-agent-b01-integration\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/contracts/src/checks.test.ts",
+        "packages/contracts/src/knowledge-wiki.test.ts",
+        "packages/contracts/src/knowledge-build.test.ts",
+        "packages/contracts/src/knowledge-maintenance.test.ts",
+        "packages/contracts/src/knowledge-lint-review.test.ts",
+        "packages/infrastructure/src/wiki-store.test.ts",
+        "packages/infrastructure/src/check-store.test.ts",
+        "packages/infrastructure/src/check-lineage-integration.test.ts"
+      ],
+      "startedAt": "2026-10-24T07:16:50.620Z",
+      "exit_code": 0,
+      "stdout": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01-integration\n\n\n Test Files  8 passed (8)\n      Tests  100 passed (100)\n   Start at  15:16:51\n   Duration  2.13s (import 57%, tests 32%, transform 9%, worker 1%)\n\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-generate",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-24T07:18:18.774Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-readonly-check",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "startedAt": "2026-10-24T07:18:19.090Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-lint",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-24T07:18:19.419Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 122,\n  \"semantic\": 106,\n  \"reachable\": 122\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-sync",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "8043afb84db04697c78bae668d63af19303ced50"
+      ],
+      "startedAt": "2026-10-24T07:18:20.115Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"8043afb84db04697c78bae668d63af19303ced50\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "diff-whitespace",
+      "executable": "git",
+      "args": [
+        "diff",
+        "--check",
+        "8043afb84db04697c78bae668d63af19303ced50"
+      ],
+      "startedAt": "2026-10-24T07:18:20.481Z",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-generate",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-24T07:19:18.107Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-readonly-check",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "startedAt": "2026-10-24T07:19:18.429Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-lint",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-24T07:19:18.728Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 122,\n  \"semantic\": 106,\n  \"reachable\": 122\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-sync",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "8043afb84db04697c78bae668d63af19303ced50"
+      ],
+      "startedAt": "2026-10-24T07:19:19.432Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"8043afb84db04697c78bae668d63af19303ced50\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "diff-whitespace",
+      "executable": "git",
+      "args": [
+        "diff",
+        "--check",
+        "8043afb84db04697c78bae668d63af19303ced50"
+      ],
+      "startedAt": "2026-10-24T07:19:19.825Z",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-generate",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-24T07:20:16.389Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-readonly-check",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "startedAt": "2026-10-24T07:20:16.706Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-lint",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-24T07:20:17.022Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 122,\n  \"semantic\": 106,\n  \"reachable\": 122\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-sync",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "8043afb84db04697c78bae668d63af19303ced50"
+      ],
+      "startedAt": "2026-10-24T07:20:17.777Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"8043afb84db04697c78bae668d63af19303ced50\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "diff-whitespace",
+      "executable": "git",
+      "args": [
+        "diff",
+        "--check",
+        "8043afb84db04697c78bae668d63af19303ced50"
+      ],
+      "startedAt": "2026-10-24T07:20:18.174Z",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "notRun": [
+    "A M13 scripts not replayed locally; C results are attributed to C fixed artifacts",
+    "No A merge/cherry-pick or new A+B+C production composition",
+    "No full build/desktop/e2e/macOS/human publish/business or nonauthor overall acceptance",
+    "No maintenance regression: maintenance source and coverage unchanged",
+    "No push/merge/automatic messaging/real model calls"
+  ],
+  "overallMigrationApproved": false,
+  "harnessDiagnostics": [
+    {
+      "exit_code": 1,
+      "scope": "Initial helper-only intake before tests",
+      "reason": "TypeScript7 runtime package does not expose ScriptTarget/transpileModule used by the initial runner. Replaced with Node22 built-in stripTypeScriptTypes; no production/test changes.",
+      "observedError": "TypeError: Cannot read properties of undefined (reading 'ES2022')",
+      "correctedRunExitCode": 0
+    }
+  ],
+  "preservation": {
+    "previousRawCount": 101,
+    "mismatches": [],
+    "logBytePrefixPreserved": true,
+    "changedSource": ""
+  },
+  "scope": "B documentation intake, public failure semantics and unchanged B targeted regressions only; M13 remains changes_required",
+  "localDelivery": {
+    "commitCreated": false,
+    "attemptedCommand": "git commit -m docs(b): confirm C third review and A-W08 public semantics",
+    "exit_code": 128,
+    "reason": "Git author identity not configured: Author identity unknown; unable to auto-detect email address. No identity was invented and no Git configuration changed.",
+    "pushed": false
+  }
+}

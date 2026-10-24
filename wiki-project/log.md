@@ -413,3 +413,18 @@ B00a P1远端交接：[PR #8](https://github.com/jacson10l/tradequote-agent/pull
 接收C20891fb/A9225526；确认A公共failure()保留旧true表达式、B330bff7已有false修正，补公开helper/mock/Wiki门禁回归和注释。A表达式两次受控复现并hash恢复，8文件111项/typecheck/build通过；全量246/247剩旧Windows symlink EPERM，首轮类型反例/清理失败保留，新证据raw/b-aw08-revalidation.json。保留已有P1/CheckStore未提交增量及旧证据，未导入A9225526/改历史迁移。M13/A自身helper同步、C组合/macOS/人工非作者验收待；同步相关知识/任务/ADR/状态/导航，Wiki门禁执行后补实际结果，不推送/合入/代签/发送/真实模型复测。
 
 2026-10-24 B最终门禁：公开入口5/5、相关111项/typecheck/build/check及Wiki只读check/lint/99ba7de与f2dfa5f同步通过；全量246/247、Wiki34/36剩原Windows symlink EPERM。Wiki初轮Git夹具隔离失败已在忽略运行器修正，所有失败输出保留；99原raw与log字节前缀/依赖源码不变。仅本地WIP保存，未推送/合入/代签，A自身A-W08同步及M13/C组合/macOS/人工验收仍待。
+
+
+## 2026-10-24 B接收C a633c428第三轮复核
+
+- 独立B任务分支codex/b-c-third-feedback，基线8043afb84db04697c78bae668d63af19303ced50；取得固定C a633c428/A65885ff，读取原JSON并核对blob/hash及内嵌脚本hash。
+- B确认A-W08为CAPABILITY_UNAVAILABLE/retryable=false，固定A/B helper三组输出一致；原生八文件100项通过。C原M13四例通过按C证据记录，X05～X09仍失败，迁移整体changes_required。
+- 本轮仅Wiki/取证，无生产/测试/迁移/维护工具/覆盖改动；Wiki生成/只读check/lint/8043afb同步、diff空白及历史raw/log/源码保留核对记录raw/b-c-third-feedback-validation.json。初次取证运行器TypeScript API失败已说明，未放宽产品断言。
+- 公共接口、知识页、任务、状态/CONTEXT/导航同步。新A+B+C组合、完整矩阵/macOS/桌面、A人工发布与非作者业务验收仍待；无推送/合入/自动发送/真实模型调用，不代签、不标整体完成。
+
+
+## 2026-10-24 B复核材料授权共享
+
+- 用户明确授权配置作者、提交并普通推送codex/b-c-third-feedback，后续指示使用已登录账户。仓库级作者取当前GitHub连接器实际账户643672091/账户实际邮箱（仅保存在Git配置/提交元数据），传输沿用既有Git登录，不填历史他人身份或占位。
+- 相同原生回归八文件100/100再次退出0；本次Wiki门禁与推送回读证据追加raw/b-c-third-feedback-delivery.json，原始复核JSON及首次未配置作者失败不重写。
+- 仅共享复核材料，A-W08技术确认已给出，M13-X05～X09待A修/C验；无新组合/macOS桌面验收，不合入、不代签、不自动发送或真实模型复测。

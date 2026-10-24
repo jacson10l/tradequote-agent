@@ -1,0 +1,179 @@
+{
+  "status": "passed",
+  "scope": "Authorized commit and ordinary push of B review materials only; no migration or overall acceptance",
+  "recordedAt": "2026-10-24T07:37:01.708Z",
+  "taskBase": "8043afb84db04697c78bae668d63af19303ced50",
+  "branch": "codex/b-c-third-feedback",
+  "identity": {
+    "name": "643672091",
+    "email": "Account-returned email stored only in local Git config and commit metadata; omitted here to satisfy Wiki PERSONAL_EMAIL rule",
+    "source": "Current authenticated GitHub connector profile id 186553159, nickname 643672091 and returned account email; user instructed to use signed-in account. Configured repository-local user.name/user.email, not inferred from historical commit authors.",
+    "transportAccount": "jacson10l (existing Git Credential Manager account; transport authentication is separate from commit author identity)"
+  },
+  "environment": {
+    "platform": "win32",
+    "arch": "x64",
+    "node": "v22.22.0",
+    "electron": "44.9.2",
+    "nativeNode": "24.22.0"
+  },
+  "historicalEvidence": {
+    "path": "wiki-project/raw/b-c-third-feedback-validation.json",
+    "sha256": "d5d5e8881068436c2f623c40b13663ccf259bc05fc11abd1bafe608b04cbfcdf",
+    "note": "Original test results and original failed author-identity commit attempt are retained as historical facts without rewriting."
+  },
+  "checks": [
+    {
+      "name": "100-test B regression rerun",
+      "startedAt": "2026-10-24T07:37:04.290Z",
+      "executable": "D:\\code\\tradequote-agent-b01-integration\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/contracts/src/checks.test.ts",
+        "packages/contracts/src/knowledge-wiki.test.ts",
+        "packages/contracts/src/knowledge-build.test.ts",
+        "packages/contracts/src/knowledge-maintenance.test.ts",
+        "packages/contracts/src/knowledge-lint-review.test.ts",
+        "packages/infrastructure/src/wiki-store.test.ts",
+        "packages/infrastructure/src/check-store.test.ts",
+        "packages/infrastructure/src/check-lineage-integration.test.ts"
+      ],
+      "env": {
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "exit_code": 0,
+      "stdout": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01-integration\n\n\n Test Files  8 passed (8)\n      Tests  100 passed (100)\n   Start at  15:37:02\n   Duration  2.15s (import 57%, tests 33%, transform 9%, worker 1%)\n\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-generate",
+      "startedAt": "2026-10-24T07:38:08.865Z",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "env": {},
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-readonly-check",
+      "startedAt": "2026-10-24T07:38:09.166Z",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "env": {},
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-lint",
+      "startedAt": "2026-10-24T07:38:09.865Z",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "env": {},
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 122,\n  \"semantic\": 106,\n  \"reachable\": 122\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-sync",
+      "startedAt": "2026-10-24T07:38:10.256Z",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "8043afb84db04697c78bae668d63af19303ced50"
+      ],
+      "env": {},
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"8043afb84db04697c78bae668d63af19303ced50\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "diff-whitespace",
+      "startedAt": "2026-10-24T07:38:10.330Z",
+      "executable": "git",
+      "args": [
+        "diff",
+        "--check",
+        "8043afb84db04697c78bae668d63af19303ced50"
+      ],
+      "env": {},
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "boundaries": {
+    "aw08": "B public contract technical confirmation already given: CAPABILITY_UNAVAILABLE / retryable=false",
+    "m13": "X05-X09 await A fix and C revalidation",
+    "newCompositionTested": false,
+    "macOSDesktopTested": false,
+    "merged": false,
+    "humanSignoffProvided": false,
+    "automaticMessagesSent": false,
+    "realModelRetested": false
+  },
+  "initialChecks": [
+    {
+      "name": "wiki-generate",
+      "startedAt": "2026-10-24T07:37:38.471Z",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "env": {},
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-readonly-check",
+      "startedAt": "2026-10-24T07:37:38.767Z",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "env": {},
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-lint",
+      "startedAt": "2026-10-24T07:37:39.489Z",
+      "executable": "D:/code/tradequote-agent-b01/.runtime/node22/node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "env": {},
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "wiki-project/log.md: PERSONAL_EMAIL\nwiki-project/raw/b-c-third-feedback-delivery.json: PERSONAL_EMAIL\nwiki-project/wiki/B对Ca633c428复核与公共契约确认.md: PERSONAL_EMAIL\nwiki-project/wiki/tasks/B01-谱系账本适配与P1回执.md: PERSONAL_EMAIL\n"
+    }
+  ],
+  "harnessDiagnostics": [
+    {
+      "reason": "First publication lint rejected personal email copied into Wiki/evidence. Removed its literal value from documentation/evidence; retained real author only in Git configuration/commit metadata. Lint rules unchanged.",
+      "initialExitCode": 1
+    }
+  ],
+  "sourceUnchangedSinceTaskBase": true,
+  "statusMeaning": "B regression and documentation gates passed; see boundaries, migration acceptance remains withheld"
+}
