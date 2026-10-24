@@ -9,9 +9,10 @@ import { createHash } from "node:crypto";
  *
  * 因此识别只以实际 schema（表/索引/触发器/列及其有效定义）为准，user_version 仅作交叉核对，
  * 绝不单独依据编号判定谱系。除对象名称外，还核对必要列、真实唯一/部分索引和含 RAISE 的
- * 不可变触发器有效定义——封死 D2 静默缺表、D3 按 v6 误记知识迁移、“未知 v6 被误接受”、
- * “缺不可变触发器仍被接受”，以及 C 首轮核验发现的列改名（N07）、同名空触发器（N08）与
- * 非唯一索引（N09）三类缺陷。
+ * 不可变触发器有效定义，以及外键与 CHECK 的真实存在、WHEN/WHERE 谓词非永假——
+ * 封死 D2 静默缺表、D3 按 v6 误记知识迁移、“未知 v6 被误接受”、“缺不可变触发器仍被接受”，
+ * C 首轮核验的列改名（N07）/同名空触发器（N08）/非唯一索引（N09），以及 C 二轮核验的
+ * 永假 WHEN（M13-X01）/永假 WHERE（M13-X02）/缺外键（M13-X03）/缺 CHECK（M13-X04）。
  */
 
 export type CapabilityLineage = "common" | "c-run" | "knowledge-wiki" | "check-report";
@@ -55,6 +56,21 @@ export interface TriggerRequirement {
   raises?: boolean;
 }
 
+/** 外键引用：子表列 -> 父表列。收集自 PRAGMA foreign_key_list，证明参照完整性真实存在。 */
+export interface ForeignKeyRef {
+  table: string; // 子表
+  from: string; // 子表列
+  toTable: string; // 父表
+  to: string; // 父表列
+}
+
+/** CHECK 要求：CREATE TABLE 原文必须命中该正则，证明某 CHECK 约束存在且有效（M13-X04）。 */
+export interface CheckRequirement {
+  table: string;
+  /** SQLite 无 CHECK 专用 PRAGMA，只能从 sqlite_master 的表原文判定约束是否存在。 */
+  pattern: RegExp;
+}
+
 /** 一个能力切片对 schema 对象的最低要求。 */
 export interface CapabilitySpec {
   lineage: CapabilityLineage;
@@ -67,6 +83,10 @@ export interface CapabilitySpec {
   triggers: TriggerRequirement[];
   /** 必须存在的必要列：table -> column[]（防改名/缺失，如 N07 request_hash）。 */
   columns: Record<string, string[]>;
+  /** 必须存在的外键（防 M13-X03 静默删除 run_id 参照）。 */
+  foreignKeys?: ForeignKeyRef[];
+  /** 必须存在的 CHECK 约束（防 M13-X04 静默删除 attempt>0）。 */
+  checks?: CheckRequirement[];
 }
 
 /** 统一目标 = 共同 1~4 + C run 5/6/7 + 知识四表 + 检查报告。 */
@@ -182,6 +202,10 @@ export const CAPABILITIES: CapabilitySpec[] = [
         "revision_id",
       ],
     },
+    foreignKeys: [
+      { table: "agent_write_call", from: "run_id", toTable: "agent_run", to: "run_id" },
+    ],
+    checks: [{ table: "agent_write_call", pattern: /CHECK\s*\(\s*attempt\s*>\s*0\s*\)/i }],
   },
   {
     lineage: "c-run",
@@ -196,6 +220,9 @@ export const CAPABILITIES: CapabilitySpec[] = [
       agent_tool_step: ["run_id", "attempt", "tool_call_id", "ordinal", "data_json"],
       agent_write_call: ["validation_json"],
     },
+    foreignKeys: [
+      { table: "agent_tool_step", from: "run_id", toTable: "agent_run", to: "run_id" },
+    ],
   },
   {
     lineage: "knowledge-wiki",
@@ -298,12 +325,29 @@ const hasTable = (name: string, tables: Set<string>) => tables.has(name);
 const hasColumn = (table: string, column: string, columns: Record<string, string[]>) =>
   (columns[table] ?? []).includes(column);
 
+/** 提取 WHEN/WHERE 之后到 BEGIN（触发器）或串尾（索引）的谓词原文；无该子句返回 null。 */
+function extractPredicate(sql: string, keyword: "WHEN" | "WHERE"): string | null {
+  const re =
+    keyword === "WHEN" ? /\bWHEN\b([\s\S]*?)\bBEGIN\b/i : /\bWHERE\b([\s\S]*)$/i;
+  const m = sql.match(re);
+  return m ? (m[1] ?? null) : null;
+}
+
+/** 常量假判据：去掉括号/空白后为 0/false/null 的 WHEN/WHERE 永假，保护形同虚设（M13-X01/X02）。 */
+function isConstantFalse(expr: string | null): boolean {
+  if (expr === null) return false;
+  const norm = expr.replace(/[()\s]/g, "").toLowerCase();
+  return norm === "0" || norm === "false" || norm === "null";
+}
+
 function capabilityStatus(
   cap: CapabilitySpec,
   tables: Set<string>,
+  tableSql: Map<string, string>,
   indexSql: Map<string, string>,
   triggerSql: Map<string, string>,
   columns: Record<string, string[]>,
+  foreignKeys: ForeignKeyRef[],
 ): CapabilityStatus {
   const tablesOk = cap.tables.every((t) => hasTable(t, tables));
   if (!tablesOk) return "absent";
@@ -314,16 +358,35 @@ function capabilityStatus(
     const sql = indexSql.get(req.name);
     if (sql === undefined) return false;
     if (req.unique && !/\bUNIQUE\b/i.test(sql)) return false;
-    if (req.partial && !/\bWHERE\b/i.test(sql)) return false;
+    if (req.partial) {
+      if (!/\bWHERE\b/i.test(sql)) return false;
+      if (isConstantFalse(extractPredicate(sql, "WHERE"))) return false;
+    }
     return true;
   });
   const triggersOk = cap.triggers.every((req) => {
     const sql = triggerSql.get(req.name);
     if (sql === undefined) return false;
-    if (req.raises && !/\bRAISE\b/i.test(sql)) return false;
+    if (req.raises) {
+      if (!/\bRAISE\b/i.test(sql)) return false;
+      if (isConstantFalse(extractPredicate(sql, "WHEN"))) return false;
+    }
     return true;
   });
-  return columnsOk && indexesOk && triggersOk ? "present" : "partial";
+  const foreignKeysOk = (cap.foreignKeys ?? []).every((req) =>
+    foreignKeys.some(
+      (fk) =>
+        fk.table === req.table &&
+        fk.from === req.from &&
+        fk.toTable === req.toTable &&
+        fk.to === req.to,
+    ),
+  );
+  const checksOk = (cap.checks ?? []).every((req) => {
+    const sql = tableSql.get(req.table);
+    return sql !== undefined && req.pattern.test(sql);
+  });
+  return columnsOk && indexesOk && triggersOk && foreignKeysOk && checksOk ? "present" : "partial";
 }
 
 /** 归一 CRLF→LF 后的 SQL 指纹；与 C/B 固定诊断一致。 */
@@ -388,22 +451,27 @@ export function identifyLineage(input: {
   userVersion: number;
   objects: SchemaObject[];
   columns: Record<string, string[]>;
+  foreignKeys?: ForeignKeyRef[];
 }): Identification {
   const tables = new Set<string>();
+  const tableSql = new Map<string, string>();
   const indexSql = new Map<string, string>();
   const triggerSql = new Map<string, string>();
   for (const obj of input.objects) {
-    if (obj.type === "table") tables.add(obj.name);
-    else if (obj.type === "index") indexSql.set(obj.name, obj.sql ?? "");
+    if (obj.type === "table") {
+      tables.add(obj.name);
+      tableSql.set(obj.name, obj.sql ?? "");
+    } else if (obj.type === "index") indexSql.set(obj.name, obj.sql ?? "");
     else if (obj.type === "trigger") triggerSql.set(obj.name, obj.sql ?? "");
   }
+  const foreignKeys = input.foreignKeys ?? [];
 
   const statuses = {} as Record<CapabilityId, CapabilityStatus>;
   const present: CapabilityId[] = [];
   const partial: CapabilityId[] = [];
   for (const cap of CAPABILITIES) {
     const id = capabilityId(cap);
-    const status = capabilityStatus(cap, tables, indexSql, triggerSql, input.columns);
+    const status = capabilityStatus(cap, tables, tableSql, indexSql, triggerSql, input.columns, foreignKeys);
     statuses[id] = status;
     if (status === "present") present.push(id);
     else if (status === "partial") partial.push(id);

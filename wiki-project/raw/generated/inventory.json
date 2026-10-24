@@ -1176,9 +1176,9 @@
     {
       "path": "packages/contracts/src/index.ts",
       "type": "ts",
-      "lines": 136,
-      "bytes": 4632,
-      "sha256": "ab37ce2308e66ac1222eba46a5e9e96289515b59294d3e7a6ab6f9d7b6a97e79",
+      "lines": 138,
+      "bytes": 4802,
+      "sha256": "e057f4a2ba23d549721f34741c7336819c4895d3b05e31be5a5c7cd380f414fc",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
@@ -1578,9 +1578,9 @@
     {
       "path": "packages/infrastructure/src/migration-lineage.ts",
       "type": "ts",
-      "lines": 436,
-      "bytes": 14393,
-      "sha256": "96c4eb43748742bf849fda62cfbb3882286db59bf4343d87105246d560c63d52",
+      "lines": 504,
+      "bytes": 17252,
+      "sha256": "4e2c94cc228c23ee02a093bfdce8d4cfcfd045ae6449cdec0b11ebd613b97899",
       "role": "迁移谱系识别与拒绝边界（纯函数，只读）",
       "pages": [
         "wiki/decisions/0029-迁移谱系统一与拒绝边界.md",
@@ -1590,9 +1590,9 @@
     {
       "path": "packages/infrastructure/src/migrations.ts",
       "type": "ts",
-      "lines": 442,
-      "bytes": 20331,
-      "sha256": "480eaf765fe67c58a85c6c2d34033a39bca5106a3cfcca09bc8ac967fa270b71",
+      "lines": 452,
+      "bytes": 20676,
+      "sha256": "dd95b1b4d94d1bc04ed078170e617d4b791dcae2c077e554b48e7477456c1c63",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",

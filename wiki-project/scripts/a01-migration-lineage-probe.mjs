@@ -219,11 +219,15 @@ function snapshot(db) {
     .all()
     .map((r) => ({ type: r.type, name: r.name, tbl_name: r.tbl_name, sql: r.sql }));
   const columns = {};
+  const foreignKeys = [];
   for (const o of objects) {
     if (o.type !== "table" || o.name.startsWith("sqlite_")) continue;
     columns[o.name] = db.prepare(`PRAGMA table_info(${o.name})`).all().map((c) => c.name);
+    for (const fk of db.prepare(`PRAGMA foreign_key_list(${o.name})`).all()) {
+      foreignKeys.push({ table: o.name, from: fk.from, toTable: fk.table, to: fk.to });
+    }
   }
-  return { userVersion: uv, objects, columns };
+  return { userVersion: uv, objects, columns, foreignKeys };
 }
 
 function build(db, upToId) {
@@ -349,6 +353,59 @@ caseRun("tampered-nonunique-index-N09", (db) => {
   buildLineage(db, "c-v6");
   db.exec("DROP INDEX agent_write_once");
   db.exec("CREATE INDEX agent_write_once ON agent_write_call(run_id, attempt)");
+}, "tampered");
+
+// M13-X01：RAISE 触发器加 WHEN 0 永假，保护永不触发 → tampered
+caseRun("tampered-constant-when-M13-X01", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_delete");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_delete BEFORE DELETE ON agent_tool_step WHEN 0 BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END",
+  );
+}, "tampered");
+// M13-X02：部分唯一索引 WHERE 0 不索引任何行 → tampered
+caseRun("tampered-constant-where-M13-X02", (db) => {
+  buildLineage(db, "c-v6");
+  db.exec("DROP INDEX agent_write_once");
+  db.exec("CREATE UNIQUE INDEX agent_write_once ON agent_write_call(run_id,attempt) WHERE 0");
+}, "tampered");
+// M13-X03：agent_tool_step 删除 run_id 外键 → tampered
+caseRun("tampered-missing-fk-M13-X03", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TABLE agent_tool_step");
+  db.exec(`CREATE TABLE agent_tool_step (
+  run_id TEXT NOT NULL,
+  attempt INTEGER NOT NULL,
+  tool_call_id TEXT NOT NULL,
+  ordinal INTEGER NOT NULL,
+  data_json TEXT NOT NULL CHECK(json_valid(data_json)),
+  PRIMARY KEY(run_id,attempt,tool_call_id),
+  UNIQUE(run_id,attempt,ordinal)
+)`);
+  db.exec("CREATE TRIGGER agent_tool_step_no_update BEFORE UPDATE ON agent_tool_step BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END;");
+  db.exec("CREATE TRIGGER agent_tool_step_no_delete BEFORE DELETE ON agent_tool_step BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END;");
+}, "tampered");
+// M13-X04：agent_write_call 删除 attempt>0 CHECK → tampered
+caseRun("tampered-missing-check-M13-X04", (db) => {
+  buildLineage(db, "c-v6");
+  db.exec("DROP TABLE agent_write_call");
+  db.exec(`CREATE TABLE agent_write_call (
+  run_id TEXT NOT NULL REFERENCES agent_run(run_id),
+  tool_call_id TEXT NOT NULL,
+  attempt INTEGER NOT NULL,
+  execution_id TEXT NOT NULL,
+  worker_session_id TEXT NOT NULL,
+  tool_name TEXT NOT NULL CHECK(tool_name IN ('create_draft','apply_patch')),
+  request_hash TEXT NOT NULL,
+  input_json TEXT NOT NULL CHECK(json_valid(input_json)),
+  status TEXT NOT NULL CHECK(status IN ('prepared','committed','abandoned')),
+  revision_id TEXT,
+  PRIMARY KEY(run_id,tool_call_id),
+  CHECK((status='committed') = (revision_id IS NOT NULL))
+)`);
+  db.exec("CREATE UNIQUE INDEX agent_write_once ON agent_write_call(run_id,attempt) WHERE status IN ('prepared','committed')");
+  db.exec("CREATE TRIGGER agent_write_committed_no_update BEFORE UPDATE ON agent_write_call WHEN OLD.status='committed' BEGIN SELECT RAISE(ABORT,'IMMUTABLE_WRITE_RECEIPT'); END;");
+  db.exec("CREATE TRIGGER agent_write_no_delete BEFORE DELETE ON agent_write_call BEGIN SELECT RAISE(ABORT,'IMMUTABLE_WRITE_RECEIPT'); END;");
 }, "tampered");
 
 // 3) 追加：每个可升级谱系定向追加后应达到统一目标（9 能力齐全 + user_version=8）

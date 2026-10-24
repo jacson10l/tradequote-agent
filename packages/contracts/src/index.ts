@@ -75,7 +75,9 @@ export function failure(
     error: {
       code,
       message,
-      retryable: code === "CAPABILITY_UNAVAILABLE",
+      // CAPABILITY_UNAVAILABLE 是"能力尚未接入"而非瞬时故障，重试同一请求不会成功（A-W08）。
+      // 与 pending-client.ts 及 B00a 协议（retryable=false）一致。
+      retryable: false,
       issues: [],
       ...(currentAggregateVersion === undefined ? {} : { currentAggregateVersion }),
     },

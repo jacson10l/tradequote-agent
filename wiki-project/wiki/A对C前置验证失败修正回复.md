@@ -8,6 +8,7 @@ sources:
   - packages/infrastructure/src/migrations.ts:1
   - packages/infrastructure/src/migration-ledger.test.ts:1
   - packages/contracts/src/knowledge-wiki.ts:1
+  - packages/contracts/src/index.ts:1
   - wiki-repo:scripts/a01-migration-lineage-probe.mjs:1
   - wiki-repo:wiki/decisions/0029-迁移谱系统一与拒绝边界.md:1
   - wiki-repo:wiki/A01-迁移验证计划.md:1
@@ -28,22 +29,35 @@ sources:
 | 旧账本与 schema 一致性（N11） | 旧 `schema_migration` 声称已执行 knowledge:6，但 schema 实际是 c-v7，未先拒绝 | `verifyLegacyLedger` 增加 `id.statuses[idKey] !== "present"` 交叉核对，登记能力在当前 schema 中确存在才通过 | `migration-ledger.test.ts` N11 用例通过 |
 | 新账本在读写真开前的校验（N10） | `migration_registry` hash 被改时拒绝太晚（读写真开/WAL 之后才拒） | 新增 `verifyRegistryLedger`，在只读 `identify` 预检核对 hash 与登记能力存在性，拒绝不进入读写真开、不产生 -wal/-shm | `migration-ledger.test.ts` N10 + N10 一致性用例通过 |
 
+## C 二轮复核：M13 有效约束与 A-W08
+
+C 二轮独立复核（20891fb，`codex/c-a-lineage-revalidation`）确认 11 项类型错误已修正、原 N07～N11 样本在固定 9225526 关闭，但新增 M13 四项有效约束校验失败、A-W08 仍失败。C 要求「按固定原 DDL 和允许谱系补足有效定义判据与作者回归，拒绝发生在任何升级/登记写入前」。A 逐项修正：
+
+| 项 | C 发现（合成损坏状态） | A 的修正 | 证据 |
+|---|---|---|---|
+| M13-X01 永假 WHEN | 同名 `agent_tool_step_no_delete` 含 RAISE 但 `WHEN 0` 永不触发 | `capabilityStatus` 对 raises 触发器校验 WHEN 谓词非永假（去括号/空白后为 `0`/`false`/`null` 即 tampered） | 探针 `tampered-constant-when-M13-X01` |
+| M13-X02 永假 WHERE | 同名 `agent_write_once` 仍 UNIQUE 且含 WHERE，但 `WHERE 0` 不索引任何行 | 对 partial 索引校验 WHERE 谓词非永假 | 探针 `tampered-constant-where-M13-X02` |
+| M13-X03 缺外键 | `agent_tool_step` 删除 run_id 外键仍被识别为 c-v7 并升级 | `CapabilitySpec` 新增 `foreignKeys`；`snapshotSchema` 收集 `PRAGMA foreign_key_list`，缺失即 partial/tampered | 探针 `tampered-missing-fk-M13-X03` |
+| M13-X04 缺 CHECK | `agent_write_call` 删除 `attempt>0` CHECK 仍被接受 | `CapabilitySpec` 新增 `checks`（SQLite 无 CHECK 专用 PRAGMA，按表原文匹配谓词） | 探针 `tampered-missing-check-M13-X04` |
+
+A-W08：`CAPABILITY_UNAVAILABLE` 的 `retryable` 语义统一为 `false`——能力尚未接入是确定状态而非瞬时故障，重试同一请求不会成功；与 [[B00a知识Wiki公共协议]]（retryable=false）、`pending-client.ts` 及 e2e/preload 测试一致。修正 `contracts` `failure()` 中唯一一处 `retryable: code === "CAPABILITY_UNAVAILABLE"` 特例。属公共契约单行修正，由 B 评审确认。
+
 ## 修正后的实际验证证据
 
-本机已实际运行（系统 Node v24.14.1，仓库 engines 22.22.0 不一致，如实标注；纯 Node vitest 用 Node ABI better-sqlite3）：
+本机已实际运行（系统 Node v24.14.1，仓库 engines 22.22.0 不一致，如实标注；vitest 经 `ELECTRON_RUN_AS_NODE` 走 Electron 内嵌 Node ABI，与生产原生 better-sqlite3 一致）：
 
-- `pnpm typecheck`：退出 0（11 类型错误全部修复）。
-- 纯 Node 探针 [a01-migration-lineage-probe.json](../raw/a01-migration-lineage-probe.json)：退出 0，19 用例全过（指纹全匹配、分类/拒绝/追加全过，含 N07/N08/N09 负例）。
+- `pnpm typecheck`（`tsc --noEmit`）：退出 0（含 M13/A-W08 修正后）。
+- 纯 Node 探针 [a01-migration-lineage-probe.json](../raw/a01-migration-lineage-probe.json)：退出 0，23 用例全过（指纹全匹配、分类/拒绝/追加全过，含 N07/N08/N09 与 M13-X01～X04 共 7 个负例）。
 - 定向回归 `migration-ledger.test.ts`：3/3 通过（N10、N10 一致性、N11）。
-- 整仓 infrastructure vitest：43 通过 / 2 既有失败，均非本切片引入（见下）。
+- `wiki-store.test.ts`：5/5 通过（A-W08 retryable=false 已随 `failure()` 修正转绿）。
+- 整仓 infrastructure vitest：44 通过 / 1 既有失败（`storage.test.ts` symlink EPERM，Windows 权限，非本切片引入）。
 
 ## 保留的既有失败（非本切片引入）
 
-- `storage.test.ts` symlink 断言在 Windows 因创建符号链接需管理员权限而 EPERM，属 Windows 权限问题。
-- `wiki-store.test.ts` A-W08 断言 `CAPABILITY_UNAVAILABLE` 的 `retryable=false`，而 contracts `failure()` 实际置 `true`，属 A01c/B 契约语义（`failure()` 按 `code === "CAPABILITY_UNAVAILABLE"` 置 retryable）。由 A01c/B 协调处理，不在此迁移谱系切片范围。
+- `storage.test.ts` symlink 断言在 Windows 因创建符号链接需管理员权限而 EPERM，属 Windows 权限问题，与迁移谱系识别无关，保留原失败记录。
 
 ## 未完成与后续责任
 
-真实 Electron ABI 测试（`scripts/test-unit.mjs`）、B 接口/报告/消费适配与事务证据、C 完整迁移矩阵、桌面接线与 macOS 全量验收分别待完成；A 人工发布与业务验收仍待完成。本回复不替代 A 本人签认、非作者整体接收或业务验收。
+真实 Electron ABI 全量测试（`scripts/test-unit.mjs`，含 contracts/e2e）、B 接口/报告/消费适配与事务证据、C 完整迁移矩阵、桌面接线与 macOS 全量验收分别待完成；A-W08 的 `failure()` 公共契约修正需 B 评审确认。A 人工发布与业务验收仍待完成。本回复不替代 A 本人签认、非作者整体接收或业务验收。
 
 关联：[[0029-迁移谱系统一与拒绝边界]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-追加迁移设计]]、[[A01-迁移验证计划]]、[[A对C迁移协调草稿M1-M8回复]]。

@@ -5,6 +5,7 @@ import {
   sqlFingerprint,
   type CapabilityId,
   type CapabilityLineage,
+  type ForeignKeyRef,
   type Identification,
   type MigrationLineage,
 } from "./migration-lineage";
@@ -278,6 +279,7 @@ interface SchemaSnapshot {
   userVersion: number;
   objects: { type: string; name: string; tbl_name: string; sql: string | null }[];
   columns: Record<string, string[]>;
+  foreignKeys: ForeignKeyRef[];
 }
 
 /** 读取 schema 快照（只读，供识别用）。 */
@@ -287,14 +289,22 @@ export function snapshotSchema(db: Database.Database): SchemaSnapshot {
     .prepare("SELECT type,name,tbl_name,sql FROM sqlite_master WHERE type IN ('table','index','trigger')")
     .all() as { type: string; name: string; tbl_name: string; sql: string | null }[];
   const columns: Record<string, string[]> = {};
+  const foreignKeys: ForeignKeyRef[] = [];
   for (const obj of objects) {
     if (obj.type !== "table") continue;
     if (obj.name.startsWith("sqlite_")) continue;
     columns[obj.name] = (db.pragma(`table_info(${obj.name})`) as { name: string }[]).map(
       (c) => c.name,
     );
+    for (const fk of db.pragma(`foreign_key_list(${obj.name})`) as {
+      table: string;
+      from: string;
+      to: string;
+    }[]) {
+      foreignKeys.push({ table: obj.name, from: fk.from, toTable: fk.table, to: fk.to });
+    }
   }
-  return { userVersion, objects, columns };
+  return { userVersion, objects, columns, foreignKeys };
 }
 
 /** 已知能力步骤，按 (lineage, version) 唯一键索引，供账本交叉核对使用。 */

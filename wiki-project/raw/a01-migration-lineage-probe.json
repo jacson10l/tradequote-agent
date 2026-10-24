@@ -1,7 +1,7 @@
 {
   "status": "passed",
   "scope": "A01c migration lineage identification & append matrix probe; synthetic in-memory only; proves identification classification and capability-append shape, not business acceptance",
-  "recordedAt": "2026-10-23T15:59:10.386Z",
+  "recordedAt": "2026-10-24T06:18:38.521Z",
   "environment": {
     "platform": "win32",
     "arch": "x64",
@@ -340,6 +340,76 @@
     },
     {
       "name": "tampered-nonunique-index-N09",
+      "userVersion": 6,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5"
+      ],
+      "partial": [
+        "c-run:6"
+      ]
+    },
+    {
+      "name": "tampered-constant-when-M13-X01",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-constant-where-M13-X02",
+      "userVersion": 6,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5"
+      ],
+      "partial": [
+        "c-run:6"
+      ]
+    },
+    {
+      "name": "tampered-missing-fk-M13-X03",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-missing-check-M13-X04",
       "userVersion": 6,
       "lineage": "tampered",
       "expect": "tampered",
