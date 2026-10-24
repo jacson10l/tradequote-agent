@@ -9,10 +9,11 @@ import { createHash } from "node:crypto";
  *
  * 因此识别只以实际 schema（表/索引/触发器/列及其有效定义）为准，user_version 仅作交叉核对，
  * 绝不单独依据编号判定谱系。除对象名称外，还核对必要列、真实唯一/部分索引和含 RAISE 的
- * 不可变触发器有效定义，以及外键与 CHECK 的真实存在、WHEN/WHERE 谓词非永假——
- * 封死 D2 静默缺表、D3 按 v6 误记知识迁移、“未知 v6 被误接受”、“缺不可变触发器仍被接受”，
- * C 首轮核验的列改名（N07）/同名空触发器（N08）/非唯一索引（N09），以及 C 二轮核验的
- * 永假 WHEN（M13-X01）/永假 WHERE（M13-X02）/缺外键（M13-X03）/缺 CHECK（M13-X04）。
+ * 不可变触发器有效定义，以及外键与 CHECK 的真实存在。对“有效定义”按规范参考结构核对而非
+ * 常量黑名单：触发器事件必须匹配规范事件（X08）、WHEN 必须匹配规范 WHEN 或必须无 WHEN
+ * （X01/X05 永假/加 WHEN）、部分索引列与 WHERE 谓词必须匹配规范（X02/X06/X07）、CHECK 按
+ * 去注释后的表原文匹配（X04/X09 注释伪 CHECK）——封死 D2 静默缺表、D3 按 v6 误记知识迁移、
+ * “未知 v6 被误接受”、“缺不可变触发器仍被接受”，以及 C 三轮核验的 N07/N08/N09 与 M13-X01～X09。
  */
 
 export type CapabilityLineage = "common" | "c-run" | "knowledge-wiki" | "check-report";
@@ -40,20 +41,28 @@ export interface SchemaObject {
   sql: string | null;
 }
 
-/** 索引要求：名称 + 是否必须唯一/部分。 */
+/** 索引要求：名称 + 是否必须唯一/部分 + 规范列与谓词（结构核对，非关键词黑名单）。 */
 export interface IndexRequirement {
   name: string;
   /** 必须是唯一索引（如 agent_write_once 的一次写保护）。 */
   unique?: boolean;
   /** 必须是部分索引（CREATE INDEX 含 WHERE 子句）。 */
   partial?: boolean;
+  /** 规范索引列（空白归一后精确匹配，如 "run_id,attempt"）；防 X07 增列。 */
+  columns?: string;
+  /** 规范 WHERE 谓词（空白归一后精确匹配）；仅 partial 索引需要，防 X06 永假/改写。 */
+  where?: string;
 }
 
-/** 触发器要求：名称 + 是否必须含 RAISE 的有效不可变保护。 */
+/** 触发器要求：名称 + 事件/WHEN + 是否必须含 RAISE 的有效不可变保护（结构核对）。 */
 export interface TriggerRequirement {
   name: string;
   /** 必须包含 RAISE(ABORT,...) 的有效保护定义；同名 SELECT 1 空触发器不算。 */
   raises?: boolean;
+  /** 规范事件（DELETE/UPDATE/INSERT）；防 X08 事件篡改。 */
+  event: "DELETE" | "UPDATE" | "INSERT";
+  /** 规范 WHEN 条件（空白归一后精确匹配）；`null`=必须无 WHEN（防 X05 永假/加 WHEN）；省略=不核对 WHEN（复杂校验触发器）。 */
+  when?: string | null;
 }
 
 /** 外键引用：子表列 -> 父表列。收集自 PRAGMA foreign_key_list，证明参照完整性真实存在。 */
@@ -64,10 +73,10 @@ export interface ForeignKeyRef {
   to: string; // 父表列
 }
 
-/** CHECK 要求：CREATE TABLE 原文必须命中该正则，证明某 CHECK 约束存在且有效（M13-X04）。 */
+/** CHECK 要求：CREATE TABLE 原文（去注释后）必须命中该正则，证明某 CHECK 约束真实存在（M13-X04/X09）。 */
 export interface CheckRequirement {
   table: string;
-  /** SQLite 无 CHECK 专用 PRAGMA，只能从 sqlite_master 的表原文判定约束是否存在。 */
+  /** SQLite 无 CHECK 专用 PRAGMA，只能从 sqlite_master 的表原文判定；去注释避免命中注释中的伪 CHECK。 */
   pattern: RegExp;
 }
 
@@ -111,8 +120,8 @@ export const CAPABILITIES: CapabilitySpec[] = [
     tables: ["scenario_revision", "catalog_batch", "catalog_product", "quote_v1"],
     indexes: [],
     triggers: [
-      { name: "quote_v1_no_update", raises: true },
-      { name: "quote_v1_no_delete", raises: true },
+      { name: "quote_v1_no_update", raises: true, event: "UPDATE", when: null },
+      { name: "quote_v1_no_delete", raises: true, event: "DELETE", when: null },
     ],
     columns: {
       scenario_revision: ["id", "workspace_id", "version", "data_json"],
@@ -127,10 +136,10 @@ export const CAPABILITIES: CapabilitySpec[] = [
     tables: ["quote_revision", "agent_turn"],
     indexes: [],
     triggers: [
-      { name: "quote_revision_no_update", raises: true },
-      { name: "quote_revision_no_delete", raises: true },
-      { name: "agent_turn_no_update", raises: true },
-      { name: "agent_turn_no_delete", raises: true },
+      { name: "quote_revision_no_update", raises: true, event: "UPDATE", when: null },
+      { name: "quote_revision_no_delete", raises: true, event: "DELETE", when: null },
+      { name: "agent_turn_no_update", raises: true, event: "UPDATE", when: null },
+      { name: "agent_turn_no_delete", raises: true, event: "DELETE", when: null },
     ],
     columns: {
       quote_revision: ["id", "workspace_id", "root_id", "parent_id", "version", "content_hash", "data_json"],
@@ -143,8 +152,8 @@ export const CAPABILITIES: CapabilitySpec[] = [
     tables: ["knowledge_revision"],
     indexes: [{ name: "knowledge_revision_document" }],
     triggers: [
-      { name: "knowledge_revision_no_update", raises: true },
-      { name: "knowledge_revision_no_delete", raises: true },
+      { name: "knowledge_revision_no_update", raises: true, event: "UPDATE", when: "OLD.status='published'" },
+      { name: "knowledge_revision_no_delete", raises: true, event: "DELETE", when: null },
     ],
     columns: {
       knowledge_revision: [
@@ -183,10 +192,10 @@ export const CAPABILITIES: CapabilitySpec[] = [
     lineage: "c-run",
     version: 6,
     tables: ["agent_write_call"],
-    indexes: [{ name: "agent_write_once", unique: true, partial: true }],
+    indexes: [{ name: "agent_write_once", unique: true, partial: true, columns: "run_id,attempt", where: "status IN ('prepared','committed')" }],
     triggers: [
-      { name: "agent_write_committed_no_update", raises: true },
-      { name: "agent_write_no_delete", raises: true },
+      { name: "agent_write_committed_no_update", raises: true, event: "UPDATE", when: "OLD.status='committed'" },
+      { name: "agent_write_no_delete", raises: true, event: "DELETE", when: null },
     ],
     columns: {
       agent_write_call: [
@@ -213,8 +222,8 @@ export const CAPABILITIES: CapabilitySpec[] = [
     tables: ["agent_tool_step"],
     indexes: [],
     triggers: [
-      { name: "agent_tool_step_no_update", raises: true },
-      { name: "agent_tool_step_no_delete", raises: true },
+      { name: "agent_tool_step_no_update", raises: true, event: "UPDATE", when: null },
+      { name: "agent_tool_step_no_delete", raises: true, event: "DELETE", when: null },
     ],
     columns: {
       agent_tool_step: ["run_id", "attempt", "tool_call_id", "ordinal", "data_json"],
@@ -234,10 +243,10 @@ export const CAPABILITIES: CapabilitySpec[] = [
       { name: "knowledge_lifecycle_state" },
     ],
     triggers: [
-      { name: "knowledge_wiki_no_update", raises: true },
-      { name: "knowledge_wiki_no_delete", raises: true },
-      { name: "knowledge_consumption_no_update", raises: true },
-      { name: "knowledge_consumption_no_delete", raises: true },
+      { name: "knowledge_wiki_no_update", raises: true, event: "UPDATE", when: null },
+      { name: "knowledge_wiki_no_delete", raises: true, event: "DELETE", when: null },
+      { name: "knowledge_consumption_no_update", raises: true, event: "UPDATE", when: null },
+      { name: "knowledge_consumption_no_delete", raises: true, event: "DELETE", when: null },
     ],
     columns: {
       knowledge_source: [
@@ -281,9 +290,9 @@ export const CAPABILITIES: CapabilitySpec[] = [
     tables: ["quote_check_report"],
     indexes: [{ name: "quote_check_report_history" }],
     triggers: [
-      { name: "quote_check_report_revision", raises: true },
-      { name: "quote_check_report_no_update", raises: true },
-      { name: "quote_check_report_no_delete", raises: true },
+      { name: "quote_check_report_revision", raises: true, event: "INSERT" },
+      { name: "quote_check_report_no_update", raises: true, event: "UPDATE", when: null },
+      { name: "quote_check_report_no_delete", raises: true, event: "DELETE", when: null },
     ],
     columns: {
       quote_check_report: [
@@ -333,11 +342,58 @@ function extractPredicate(sql: string, keyword: "WHEN" | "WHERE"): string | null
   return m ? (m[1] ?? null) : null;
 }
 
-/** 常量假判据：去掉括号/空白后为 0/false/null 的 WHEN/WHERE 永假，保护形同虚设（M13-X01/X02）。 */
-function isConstantFalse(expr: string | null): boolean {
-  if (expr === null) return false;
-  const norm = expr.replace(/[()\s]/g, "").toLowerCase();
-  return norm === "0" || norm === "false" || norm === "null";
+/** 结构归一：小写 + 压缩空白。用于 WHEN/WHERE/索引列与规范参考的精确比对。 */
+function normalizeSql(sql: string): string {
+  return sql.toLowerCase().replace(/\s+/g, " ").trim();
+}
+
+/** 去 SQL 注释（-- 行注释与块注释），字符串/引号标识符内容原样保留。 */
+function stripComments(sql: string): string {
+  let out = "";
+  let i = 0;
+  const n = sql.length;
+  while (i < n) {
+    const c = sql[i];
+    if (c === "'" || c === '"' || c === "`") {
+      const q = c;
+      out += c;
+      i += 1;
+      while (i < n && sql[i] !== q) {
+        out += sql[i];
+        i += 1;
+      }
+      if (i < n) {
+        out += sql[i];
+        i += 1;
+      }
+      continue;
+    }
+    if (c === "-" && sql[i + 1] === "-") {
+      while (i < n && sql[i] !== "\n") i += 1;
+      continue;
+    }
+    if (c === "/" && sql[i + 1] === "*") {
+      i += 2;
+      while (i < n && !(sql[i] === "*" && sql[i + 1] === "/")) i += 1;
+      i += 2;
+      continue;
+    }
+    out += c;
+    i += 1;
+  }
+  return out;
+}
+
+/** 提取触发器事件（BEFORE/AFTER/INSTEAD OF 之后的 DELETE/UPDATE/INSERT）；无则 null。 */
+function extractTriggerEvent(sql: string): "DELETE" | "UPDATE" | "INSERT" | null {
+  const m = sql.match(/\b(?:BEFORE|AFTER|INSTEAD\s+OF)\s+(DELETE|UPDATE|INSERT)\b/i);
+  return m && m[1] ? (m[1].toUpperCase() as "DELETE" | "UPDATE" | "INSERT") : null;
+}
+
+/** 提取索引列清单（ON <table> 之后的括号内容，无嵌套括号）；无则 null。 */
+function extractIndexColumns(sql: string): string | null {
+  const m = sql.match(/\bON\b\s+\S+\s*\(\s*([^()]*?)\s*\)/i);
+  return m ? (m[1] ?? null) : null;
 }
 
 function capabilityStatus(
@@ -358,18 +414,29 @@ function capabilityStatus(
     const sql = indexSql.get(req.name);
     if (sql === undefined) return false;
     if (req.unique && !/\bUNIQUE\b/i.test(sql)) return false;
+    if (req.columns !== undefined) {
+      const actual = extractIndexColumns(sql);
+      if (actual === null || normalizeSql(actual) !== normalizeSql(req.columns)) return false;
+    }
     if (req.partial) {
-      if (!/\bWHERE\b/i.test(sql)) return false;
-      if (isConstantFalse(extractPredicate(sql, "WHERE"))) return false;
+      const where = extractPredicate(sql, "WHERE");
+      if (where === null) return false;
+      // 规范 WHERE 谓词必须精确匹配（防 X06 永假/改写；X02 谓词由规范 where 一并封死）。
+      if (req.where !== undefined && normalizeSql(where) !== normalizeSql(req.where)) return false;
     }
     return true;
   });
   const triggersOk = cap.triggers.every((req) => {
     const sql = triggerSql.get(req.name);
     if (sql === undefined) return false;
-    if (req.raises) {
-      if (!/\bRAISE\b/i.test(sql)) return false;
-      if (isConstantFalse(extractPredicate(sql, "WHEN"))) return false;
+    if (req.raises && !/\bRAISE\b/i.test(sql)) return false;
+    if (extractTriggerEvent(sql) !== req.event) return false;
+    if (req.when === null) {
+      // 规范无 WHEN：实际必须无 WHEN（防 X05 永假/加 WHEN）。
+      if (extractPredicate(sql, "WHEN") !== null) return false;
+    } else if (req.when !== undefined) {
+      const actual = extractPredicate(sql, "WHEN");
+      if (actual === null || normalizeSql(actual) !== normalizeSql(req.when)) return false;
     }
     return true;
   });
@@ -384,7 +451,8 @@ function capabilityStatus(
   );
   const checksOk = (cap.checks ?? []).every((req) => {
     const sql = tableSql.get(req.table);
-    return sql !== undefined && req.pattern.test(sql);
+    // 去注释后匹配，避免命中注释中的伪 CHECK（M13-X09）。
+    return sql !== undefined && req.pattern.test(stripComments(sql));
   });
   return columnsOk && indexesOk && triggersOk && foreignKeysOk && checksOk ? "present" : "partial";
 }

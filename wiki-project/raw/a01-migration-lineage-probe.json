@@ -1,7 +1,7 @@
 {
   "status": "passed",
   "scope": "A01c migration lineage identification & append matrix probe; synthetic in-memory only; proves identification classification and capability-append shape, not business acceptance",
-  "recordedAt": "2026-10-24T06:18:38.521Z",
+  "recordedAt": "2026-10-24T07:19:27.737Z",
   "environment": {
     "platform": "win32",
     "arch": "x64",
@@ -410,6 +410,93 @@
     },
     {
       "name": "tampered-missing-check-M13-X04",
+      "userVersion": 6,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5"
+      ],
+      "partial": [
+        "c-run:6"
+      ]
+    },
+    {
+      "name": "tampered-constant-when-comparison-M13-X05",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-constant-where-comparison-M13-X06",
+      "userVersion": 6,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5"
+      ],
+      "partial": [
+        "c-run:6"
+      ]
+    },
+    {
+      "name": "tampered-index-extra-column-M13-X07",
+      "userVersion": 6,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5"
+      ],
+      "partial": [
+        "c-run:6"
+      ]
+    },
+    {
+      "name": "tampered-trigger-event-M13-X08",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-check-in-comment-M13-X09",
       "userVersion": 6,
       "lineage": "tampered",
       "expect": "tampered",

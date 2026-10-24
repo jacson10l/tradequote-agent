@@ -408,6 +408,57 @@ caseRun("tampered-missing-check-M13-X04", (db) => {
   db.exec("CREATE TRIGGER agent_write_no_delete BEFORE DELETE ON agent_write_call BEGIN SELECT RAISE(ABORT,'IMMUTABLE_WRITE_RECEIPT'); END;");
 }, "tampered");
 
+// M13-X05：RAISE 触发器加 WHEN 1=0 比较永假（非字面量 0）→ tampered
+caseRun("tampered-constant-when-comparison-M13-X05", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_delete");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_delete BEFORE DELETE ON agent_tool_step WHEN 1=0 BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END",
+  );
+}, "tampered");
+// M13-X06：部分唯一索引 WHERE 1=0 比较永假 → tampered
+caseRun("tampered-constant-where-comparison-M13-X06", (db) => {
+  buildLineage(db, "c-v6");
+  db.exec("DROP INDEX agent_write_once");
+  db.exec("CREATE UNIQUE INDEX agent_write_once ON agent_write_call(run_id,attempt) WHERE 1=0");
+}, "tampered");
+// M13-X07：同名唯一索引增列 tool_call_id 且 WHERE 谓词被改写 → tampered
+caseRun("tampered-index-extra-column-M13-X07", (db) => {
+  buildLineage(db, "c-v6");
+  db.exec("DROP INDEX agent_write_once");
+  db.exec("CREATE UNIQUE INDEX agent_write_once ON agent_write_call(run_id,attempt,tool_call_id) WHERE status='prepared'");
+}, "tampered");
+// M13-X08：同名 no_delete 触发器事件被改为 BEFORE UPDATE → tampered
+caseRun("tampered-trigger-event-M13-X08", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_delete");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_delete BEFORE UPDATE ON agent_tool_step BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END",
+  );
+}, "tampered");
+// M13-X09：attempt>0 CHECK 只存在于 SQL 注释，非真实约束 → tampered
+caseRun("tampered-check-in-comment-M13-X09", (db) => {
+  buildLineage(db, "c-v6");
+  db.exec("DROP TABLE agent_write_call");
+  db.exec(`CREATE TABLE agent_write_call (
+  run_id TEXT NOT NULL REFERENCES agent_run(run_id),
+  tool_call_id TEXT NOT NULL,
+  attempt INTEGER NOT NULL, /* CHECK(attempt>0) */
+  execution_id TEXT NOT NULL,
+  worker_session_id TEXT NOT NULL,
+  tool_name TEXT NOT NULL CHECK(tool_name IN ('create_draft','apply_patch')),
+  request_hash TEXT NOT NULL,
+  input_json TEXT NOT NULL CHECK(json_valid(input_json)),
+  status TEXT NOT NULL CHECK(status IN ('prepared','committed','abandoned')),
+  revision_id TEXT,
+  PRIMARY KEY(run_id,tool_call_id),
+  CHECK((status='committed') = (revision_id IS NOT NULL))
+)`);
+  db.exec("CREATE UNIQUE INDEX agent_write_once ON agent_write_call(run_id,attempt) WHERE status IN ('prepared','committed')");
+  db.exec("CREATE TRIGGER agent_write_committed_no_update BEFORE UPDATE ON agent_write_call WHEN OLD.status='committed' BEGIN SELECT RAISE(ABORT,'IMMUTABLE_WRITE_RECEIPT'); END;");
+  db.exec("CREATE TRIGGER agent_write_no_delete BEFORE DELETE ON agent_write_call BEGIN SELECT RAISE(ABORT,'IMMUTABLE_WRITE_RECEIPT'); END;");
+}, "tampered");
+
 // 3) 追加：每个可升级谱系定向追加后应达到统一目标（9 能力齐全 + user_version=8）
 function appendToTarget(db, snap) {
   const present = new Set(snap.present);
