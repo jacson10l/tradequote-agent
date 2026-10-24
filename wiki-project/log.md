@@ -449,3 +449,12 @@ B00a P1远端交接：[PR #8](https://github.com/jacson10l/tradequote-agent/pull
 - 新证据raw/b-c-abda94e-fixed-source-validation.json记录Wiki生成/check/lint、3256c74增量及b80ad432累计sync与字节保留。B后续事务/升级重开/P1责任与三方公共出口保留，不合入、代签、自动发送或真实模型复测；整体active/WIP。
 
 本次固定来源核对最终门禁实际全退出0：generate/check/lint、3256c74增量与b80ad432累计sync、diff检查；104份历史raw/log字节前缀保持，无生产源码变更。精确argv/输出及blob/hash核对在raw/b-c-abda94e-fixed-source-validation.json，未重复100项或新组合/macOS验收。
+
+
+## 2026-10-25 B接收C fd2fa252与组合回归准备
+
+B从067afc2在独立codex/b-combination-regression-ready准备新组合验证；读取C固定任务/远端检查JSON，回读确认A仍cece332，无X10/X11新固定修复。新增[[B组合验证准备与固定输入]]与raw/b-combination-regression-ready.json，更新[[B01-谱系账本适配与P1回执]]、交接/状态/CONTEXT和导航。原A-W08确认、两次100项及旧raw/log保持，不修改源码、SQL、测试或公共出口。
+
+实际Windows x64，固定Node22.22.0运行器与Electron44.9.2/Node24.22.0执行九文件121/121通过，包含真实消费四处故障回滚、旧库升级两次重开及P1绑定；依赖准备宿主Node24.21.0 engine警告如实记录。Wiki生成/只读check/lint/固定067afc2同步/diff及保留检查的实际结果见新JSON。九文件是旧B基线准备回归，不能称新A/B/C组合、X矩阵、M/F/J、macOS或桌面通过。整体active/WIP；A修复、C独立矩阵、B新组合、人签/人审发布/业务验收分别待；未推送、合入、自动发送或调用真实模型。
+
+最终门禁均退出0：生成184文件、只读check、lint 123页/107语义页、固定067afc283dd3026e21b5a443d90e00e9acdbbbc7同步（0源码变化）、diff；105份旧raw和旧log字节前缀保持。首次lint缩写路径失败已修，原输出保留在新JSON的历史执行记录。没有把准备回归计作新组合通过。
