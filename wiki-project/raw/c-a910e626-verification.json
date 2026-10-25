@@ -1,0 +1,327 @@
+{
+  "status": "passed",
+  "scope": "Fixed A Y10 independent verification and all prior specified regression suites only; overall migration/combined runtime/desktop acceptance NOT completed",
+  "ACommit": "910e6260af0c4d84471e665da7656dbf8133aae7",
+  "taskBase": "97a8fd9b98317f4592bd234e52a6615a7736dec7",
+  "checks": [
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/a01-migration-lineage-probe.mjs"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source",
+      "environmentOverrides": {},
+      "startedAt": "2026-10-25T09:23:36.591416+00:00",
+      "finishedAt": "2026-10-25T09:23:36.758249+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"scope\": \"A01c migration lineage identification & append matrix probe; synthetic in-memory only; proves identification classification and capability-append shape, not business acceptance\",\n  \"recordedAt\": \"2026-10-25T09:23:36.751Z\",\n  \"environment\": {\n    \"platform\": \"darwin\",\n    \"arch\": \"arm64\",\n    \"node\": \"v22.22.0\",\n    \"db\": \"node:sqlite (:memory:)\"\n  },\n  \"sources\": {\n    \"identification\": \"packages/infrastructure/src/migration-lineage.ts\",\n    \"sqlMirroredFrom\": \"packages/infrastructure/src/migrations.ts (MIGRATION_STEPS)\",\n    \"originalEvidence\": \"d99f2b32def756b6b4d4cc99fca75dd9511436d5\"\n  },\n  \"fingerprints\": {\n    \"common:1\": {\n      \"got\": \"9e95979532306333f9f07037ce7e0841931d6e8c0b3d885208d63f4eb7360cb1\",\n      \"known\": \"9e95979532306333f9f07037ce7e0841931d6e8c0b3d885208d63f4eb7360cb1\",\n      \"match\": true\n    },\n    \"common:2\": {\n      \"got\": \"519f17179c501d08270a48eee562b6593eed6598bd0081692e437fbe7c53b723\",\n      \"known\": \"519f17179c501d08270a48eee562b6593eed6598bd0081692e437fbe7c53b723\",\n      \"match\": true\n    },\n    \"common:3\": {\n      \"got\": \"a9fe17a0719962fa3dc4099cc51f35ada314bdbb7a15e6aecde91c58c0cabe42\",\n      \"known\": \"a9fe17a0719962fa3dc4099cc51f35ada314bdbb7a15e6aecde91c58c0cabe42\",\n      \"match\": true\n    },\n    \"common:4\": {\n      \"got\": \"b4e559a6acc383d064b04e2f0412c0863d526e94f80c79e25a00de81abb74980\",\n      \"known\": \"b4e559a6acc383d064b04e2f0412c0863d526e94f80c79e25a00de81abb74980\",\n      \"match\": true\n    },\n    \"c-run:5\": {\n      \"got\": \"6d511fff5eaa85e1198898d7c5cec392ed18461b110cecaf92553e4ff8ce0493\",\n      \"known\": \"6d511fff5eaa85e1198898d7c5cec392ed18461b110cecaf92553e4ff8ce0493\",\n      \"match\": true\n    },\n    \"c-run:6\": {\n      \"got\": \"3d3c9da475f6a11d2d381de54a07396dc6dabaf8d780edebc0657f497bb47dfb\",\n      \"known\": \"3d3c9da475f6a11d2d381de54a07396dc6dabaf8d780edebc0657f497bb47dfb\",\n      \"match\": true\n    },\n    \"c-run:7\": {\n      \"got\": \"268beab4bd70f403d62877153abf2df0c6f574bde852b77c1cfe7a63808d87fa\",\n      \"known\": \"268beab4bd70f403d62877153abf2df0c6f574bde852b77c1cfe7a63808d87fa\",\n      \"match\": true\n    },\n    \"knowledge-wiki:6\": {\n      \"got\": \"5184461756e3a389588182c1e9e497f34bfc7442bbf4d7ff8a09cdb458f49f66\",\n      \"known\": \"5184461756e3a389588182c1e9e497f34bfc7442bbf4d7ff8a09cdb458f49f66\",\n      \"match\": true\n    },\n    \"check-report:7\": {\n      \"got\": \"927ce55cc67a6ec655cff131a67af33f9fdc7f83372d4247ab65467d91144602\",\n      \"known\": \"927ce55cc67a6ec655cff131a67af33f9fdc7f83372d4247ab65467d91144602\",\n      \"match\": true\n    }\n  },\n  \"cases\": [\n    {\n      \"name\": \"empty\",\n      \"userVersion\": 0,\n      \"lineage\": \"empty\",\n      \"expect\": \"empty\",\n      \"pass\": true,\n      \"present\": [],\n      \"partial\": []\n    },\n    {\n      \"name\": \"common-v1\",\n      \"userVersion\": 1,\n      \"lineage\": \"common-v1\",\n      \"expect\": \"common-v1\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\"\n      ],\n      \"partial\": []\n    },\n    {\n      \"name\": \"common-v2\",\n      \"userVersion\": 2,\n      \"lineage\": \"common-v2\",\n      \"expect\": \"common-v2\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\"\n      ],\n      \"partial\": []\n    },\n    {\n      \"name\": \"common-v3\",\n      \"userVersion\": 3,\n      \"lineage\": \"common-v3\",\n      \"expect\": \"common-v3\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\"\n      ],\n      \"partial\": []\n    },\n    {\n      \"name\": \"a01b-v4\",\n      \"userVersion\": 4,\n      \"lineage\": \"a01b-v4\",\n      \"expect\": \"a01b-v4\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\"\n      ],\n      \"partial\": []\n    },\n    {\n      \"name\": \"c-v5\",\n      \"userVersion\": 5,\n      \"lineage\": \"c-v5\",\n      \"expect\": \"c-v5\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\"\n      ],\n      \"partial\": []\n    },\n    {\n      \"name\": \"c-v6\",\n      \"userVersion\": 6,\n      \"lineage\": \"c-v6\",\n      \"expect\": \"c-v6\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\",\n        \"c-run:6\"\n      ],\n      \"partial\": []\n    },\n    {\n      \"name\": \"c-v7\",\n      \"userVersion\": 7,\n      \"lineage\": \"c-v7\",\n      \"expect\": \"c-v7\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\",\n        \"c-run:6\",\n        \"c-run:7\"\n      ],\n      \"partial\": []\n    },\n    {\n      \"name\": \"a-v6\",\n      \"userVersion\": 6,\n      \"lineage\": \"a-v6\",\n      \"expect\": \"a-v6\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"knowledge-wiki:6\"\n      ],\n      \"partial\": []\n    },\n    {\n      \"name\": \"b-v7\",\n      \"userVersion\": 7,\n      \"lineage\": \"b-v7\",\n      \"expect\": \"b-v7\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"knowledge-wiki:6\",\n        \"check-report:7\"\n      ],\n      \"partial\": []\n    },\n    {\n      \"name\": \"unified\",\n      \"userVersion\": 8,\n      \"lineage\": \"unified\",\n      \"expect\": \"unified\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\",\n        \"c-run:6\",\n        \"c-run:7\",\n        \"knowledge-wiki:6\",\n        \"check-report:7\"\n      ],\n      \"partial\": []\n    },\n    {\n      \"name\": \"mixed-crun+report\",\n      \"userVersion\": 7,\n      \"lineage\": \"mixed\",\n      \"expect\": \"mixed\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\",\n        \"c-run:6\",\n        \"c-run:7\",\n        \"check-report:7\"\n      ],\n      \"partial\": []\n    },\n    {\n      \"name\": \"tampered-missing-trigger\",\n      \"userVersion\": 6,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\"\n      ],\n      \"partial\": [\n        \"knowledge-wiki:6\"\n      ]\n    },\n    {\n      \"name\": \"unknown-v6\",\n      \"userVersion\": 6,\n      \"lineage\": \"unknown\",\n      \"expect\": \"unknown\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\"\n      ],\n      \"partial\": []\n    },\n    {\n      \"name\": \"unknown-newer\",\n      \"userVersion\": 9,\n      \"lineage\": \"unknown\",\n      \"expect\": \"unknown\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\",\n        \"c-run:6\",\n        \"c-run:7\",\n        \"knowledge-wiki:6\",\n        \"check-report:7\"\n      ],\n      \"partial\": []\n    },\n    {\n      \"name\": \"tampered-missing-report-trigger\",\n      \"userVersion\": 7,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"knowledge-wiki:6\"\n      ],\n      \"partial\": [\n        \"check-report:7\"\n      ]\n    },\n    {\n      \"name\": \"tampered-renamed-request-hash-N07\",\n      \"userVersion\": 7,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:6\",\n        \"c-run:7\"\n      ],\n      \"partial\": [\n        \"c-run:5\"\n      ]\n    },\n    {\n      \"name\": \"tampered-empty-trigger-N08\",\n      \"userVersion\": 7,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\",\n        \"c-run:6\"\n      ],\n      \"partial\": [\n        \"c-run:7\"\n      ]\n    },\n    {\n      \"name\": \"tampered-nonunique-index-N09\",\n      \"userVersion\": 6,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\"\n      ],\n      \"partial\": [\n        \"c-run:6\"\n      ]\n    },\n    {\n      \"name\": \"tampered-constant-when-M13-X01\",\n      \"userVersion\": 7,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\",\n        \"c-run:6\"\n      ],\n      \"partial\": [\n        \"c-run:7\"\n      ]\n    },\n    {\n      \"name\": \"tampered-constant-where-M13-X02\",\n      \"userVersion\": 6,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\"\n      ],\n      \"partial\": [\n        \"c-run:6\"\n      ]\n    },\n    {\n      \"name\": \"tampered-missing-fk-M13-X03\",\n      \"userVersion\": 7,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\",\n        \"c-run:6\"\n      ],\n      \"partial\": [\n        \"c-run:7\"\n      ]\n    },\n    {\n      \"name\": \"tampered-missing-check-M13-X04\",\n      \"userVersion\": 6,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\"\n      ],\n      \"partial\": [\n        \"c-run:6\"\n      ]\n    },\n    {\n      \"name\": \"tampered-constant-when-comparison-M13-X05\",\n      \"userVersion\": 7,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\",\n        \"c-run:6\"\n      ],\n      \"partial\": [\n        \"c-run:7\"\n      ]\n    },\n    {\n      \"name\": \"tampered-constant-where-comparison-M13-X06\",\n      \"userVersion\": 6,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\"\n      ],\n      \"partial\": [\n        \"c-run:6\"\n      ]\n    },\n    {\n      \"name\": \"tampered-index-extra-column-M13-X07\",\n      \"userVersion\": 6,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\"\n      ],\n      \"partial\": [\n        \"c-run:6\"\n      ]\n    },\n    {\n      \"name\": \"tampered-trigger-event-M13-X08\",\n      \"userVersion\": 7,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\",\n        \"c-run:6\"\n      ],\n      \"partial\": [\n        \"c-run:7\"\n      ]\n    },\n    {\n      \"name\": \"tampered-check-in-comment-M13-X09\",\n      \"userVersion\": 6,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\"\n      ],\n      \"partial\": [\n        \"c-run:6\"\n      ]\n    },\n    {\n      \"name\": \"tampered-raise-string-literal-M13-X10\",\n      \"userVersion\": 7,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\",\n        \"c-run:6\"\n      ],\n      \"partial\": [\n        \"c-run:7\"\n      ]\n    },\n    {\n      \"name\": \"tampered-predicate-case-M13-X11\",\n      \"userVersion\": 6,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\"\n      ],\n      \"partial\": [\n        \"c-run:6\"\n      ]\n    },\n    {\n      \"name\": \"tampered-unreachable-raise-M13-Y01\",\n      \"userVersion\": 7,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\",\n        \"c-run:6\"\n      ],\n      \"partial\": [\n        \"c-run:7\"\n      ]\n    },\n    {\n      \"name\": \"tampered-wrong-table-trigger-M13-Y02\",\n      \"userVersion\": 7,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\",\n        \"c-run:6\"\n      ],\n      \"partial\": [\n        \"c-run:7\"\n      ]\n    },\n    {\n      \"name\": \"tampered-wrong-table-index-M13-Y03\",\n      \"userVersion\": 6,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\"\n      ],\n      \"partial\": [\n        \"c-run:6\"\n      ]\n    },\n    {\n      \"name\": \"tampered-raise-where-suppressed-M13-Y04a\",\n      \"userVersion\": 7,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\",\n        \"c-run:6\"\n      ],\n      \"partial\": [\n        \"c-run:7\"\n      ]\n    },\n    {\n      \"name\": \"tampered-raise-limit-suppressed-M13-Y04b\",\n      \"userVersion\": 7,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\",\n        \"c-run:6\"\n      ],\n      \"partial\": [\n        \"c-run:7\"\n      ]\n    },\n    {\n      \"name\": \"tampered-update-of-column-M13-Y05\",\n      \"userVersion\": 7,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\",\n        \"c-run:6\"\n      ],\n      \"partial\": [\n        \"c-run:7\"\n      ]\n    },\n    {\n      \"name\": \"tampered-after-ignore-raise-M13-Y06\",\n      \"userVersion\": 7,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\",\n        \"c-run:6\"\n      ],\n      \"partial\": [\n        \"c-run:7\"\n      ]\n    },\n    {\n      \"name\": \"tampered-comment-forged-body-M13-Y07\",\n      \"userVersion\": 7,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\",\n        \"c-run:6\"\n      ],\n      \"partial\": [\n        \"c-run:7\"\n      ]\n    },\n    {\n      \"name\": \"tampered-comment-split-update-of-M13-Y08\",\n      \"userVersion\": 7,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\",\n        \"c-run:6\"\n      ],\n      \"partial\": [\n        \"c-run:7\"\n      ]\n    },\n    {\n      \"name\": \"tampered-comment-forged-event-M13-Y09\",\n      \"userVersion\": 7,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\",\n        \"c-run:6\"\n      ],\n      \"partial\": [\n        \"c-run:7\"\n      ]\n    },\n    {\n      \"name\": \"tampered-bracket-identifier-check-M13-Y10\",\n      \"userVersion\": 6,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\"\n      ],\n      \"partial\": [\n        \"c-run:6\"\n      ]\n    },\n    {\n      \"name\": \"valid-extra-bracket-column-with-real-check\",\n      \"userVersion\": 7,\n      \"lineage\": \"c-v7\",\n      \"expect\": \"c-v7\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\",\n        \"c-run:6\",\n        \"c-run:7\"\n      ],\n      \"partial\": []\n    }\n  ],\n  \"append\": [\n    {\n      \"lineage\": \"empty\",\n      \"before\": \"empty\",\n      \"after\": \"unified\",\n      \"allCapabilitiesPresent\": true,\n      \"userVersion\": 8,\n      \"pass\": true\n    },\n    {\n      \"lineage\": \"common-v1\",\n      \"before\": \"common-v1\",\n      \"after\": \"unified\",\n      \"allCapabilitiesPresent\": true,\n      \"userVersion\": 8,\n      \"pass\": true\n    },\n    {\n      \"lineage\": \"common-v2\",\n      \"before\": \"common-v2\",\n      \"after\": \"unified\",\n      \"allCapabilitiesPresent\": true,\n      \"userVersion\": 8,\n      \"pass\": true\n    },\n    {\n      \"lineage\": \"common-v3\",\n      \"before\": \"common-v3\",\n      \"after\": \"unified\",\n      \"allCapabilitiesPresent\": true,\n      \"userVersion\": 8,\n      \"pass\": true\n    },\n    {\n      \"lineage\": \"a01b-v4\",\n      \"before\": \"a01b-v4\",\n      \"after\": \"unified\",\n      \"allCapabilitiesPresent\": true,\n      \"userVersion\": 8,\n      \"pass\": true\n    },\n    {\n      \"lineage\": \"c-v5\",\n      \"before\": \"c-v5\",\n      \"after\": \"unified\",\n      \"allCapabilitiesPresent\": true,\n      \"userVersion\": 8,\n      \"pass\": true\n    },\n    {\n      \"lineage\": \"c-v6\",\n      \"before\": \"c-v6\",\n      \"after\": \"unified\",\n      \"allCapabilitiesPresent\": true,\n      \"userVersion\": 8,\n      \"pass\": true\n    },\n    {\n      \"lineage\": \"c-v7\",\n      \"before\": \"c-v7\",\n      \"after\": \"unified\",\n      \"allCapabilitiesPresent\": true,\n      \"userVersion\": 8,\n      \"pass\": true\n    },\n    {\n      \"lineage\": \"a-v6\",\n      \"before\": \"a-v6\",\n      \"after\": \"unified\",\n      \"allCapabilitiesPresent\": true,\n      \"userVersion\": 8,\n      \"pass\": true\n    },\n    {\n      \"lineage\": \"b-v7\",\n      \"before\": \"b-v7\",\n      \"after\": \"unified\",\n      \"allCapabilitiesPresent\": true,\n      \"userVersion\": 8,\n      \"pass\": true\n    }\n  ],\n  \"enforcement\": [\n    {\n      \"control\": \"c-v7 agent_tool_step_no_delete rejects DELETE\",\n      \"rejected\": true\n    },\n    {\n      \"control\": \"c-v6 agent_write_once rejects duplicate prepared\",\n      \"rejected\": true\n    }\n  ],\n  \"summary\": {\n    \"fingerprintMatch\": true,\n    \"allCasesPass\": true,\n    \"allAppendPass\": true,\n    \"allEnforcementPass\": true,\n    \"caseFailures\": [],\n    \"appendFailures\": [],\n    \"enforcementFailures\": [],\n    \"fpFailures\": []\n  },\n  \"compatible\": false\n}\n",
+      "stderr": "(node:75782) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+      "stdoutSha256": "f2d02861108790da6b4b4bb14acd8a1ef52acd66d7308fd2a6dcb238f4fd1d4d",
+      "stderrSha256": "2a463c02f6ecb3ea49c254f9d042551ef03c2ab9ba525f0d9d955e8e091c1a3d"
+    },
+    {
+      "argv": [
+        "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source/node_modules/.pnpm/electron@44.9.2/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/contracts/src"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source",
+      "startedAt": "2026-10-25T09:23:56.208886+00:00",
+      "finishedAt": "2026-10-25T09:23:57.181841+00:00",
+      "environmentOverrides": {
+        "ELECTRON_RUN_AS_NODE": "1",
+        "NODE_PATH": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source/packages/infrastructure/node_modules"
+      },
+      "exitCode": 0,
+      "stdout": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source\n\n\n Test Files  6 passed (6)\n      Tests  35 passed (35)\n   Start at  17:23:56\n   Duration  552ms (import 44%, transform 42%, tests 13%, worker 1%)\n\n",
+      "stderr": "",
+      "stdoutSha256": "7dcfb7f76f2c81ceec4a5bb2a15c8135c0a23c2f86d12ff5425f21d0760571fe",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "../build-a.mjs"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source",
+      "environmentOverrides": {},
+      "startedAt": "2026-10-25T09:23:36.591346+00:00",
+      "finishedAt": "2026-10-25T09:23:38.473011+00:00",
+      "exitCode": 0,
+      "stdout": "Bundled unmodified fixed A infrastructure entry for direct native verification\n",
+      "stderr": "",
+      "stdoutSha256": "b0e284662bb2f0ea49ce3d41a9ca2f80692cd4109049f46b21580a1d38952fc4",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source/node_modules/.pnpm/electron@44.9.2/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/infrastructure/src"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source",
+      "startedAt": "2026-10-25T09:23:52.208317+00:00",
+      "finishedAt": "2026-10-25T09:23:56.066185+00:00",
+      "environmentOverrides": {
+        "ELECTRON_RUN_AS_NODE": "1",
+        "NODE_PATH": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source/packages/infrastructure/node_modules"
+      },
+      "exitCode": 0,
+      "stdout": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source\n\n\n Test Files  8 passed (8)\n      Tests  47 passed (47)\n   Start at  17:23:54\n   Duration  1.97s (import 58%, transform 26%, tests 16%)\n\n",
+      "stderr": "",
+      "stdoutSha256": "bcc0fae9622146dc6a25da58e6034fe050fda4d0c64b70975e874c9d4401774b",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "install",
+        "--frozen-lockfile"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source",
+      "environmentOverrides": {},
+      "startedAt": "2026-10-25T09:21:51.680051+00:00",
+      "finishedAt": "2026-10-25T09:22:00.329421+00:00",
+      "exitCode": 0,
+      "stdout": "Scope: all 5 workspace projects\nLockfile is up to date, resolution step is skipped\nProgress: resolved 1, reused 0, downloaded 0, added 0\nPackages: +435\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\nProgress: resolved 435, reused 435, downloaded 0, added 139\nProgress: resolved 435, reused 435, downloaded 0, added 331\nProgress: resolved 435, reused 435, downloaded 0, added 433\nProgress: resolved 435, reused 435, downloaded 0, added 435, done\n\ndevDependencies:\n+ @babel/parser 7.29.9\n+ @biomejs/biome 2.5.15\n+ @playwright/test 1.64.1\n+ @testing-library/dom 10.4.1\n+ @testing-library/jest-dom 7.0.1\n+ @testing-library/react 16.3.3\n+ @testing-library/user-event 14.6.8\n+ @types/better-sqlite3 9.6.0\n+ @types/node 24.19.2\n+ @types/react 19.3.0\n+ @types/react-dom 19.3.0\n+ jsdom 26.1.0\n+ typescript 7.0.2\n+ vite 8.3.4\n+ vitest 5.0.5\n\n╭ Warning ─────────────────────────────────────────────────────────────────────╮\n│                                                                              │\n│   Ignored build scripts: electron-winstaller.                                │\n│   Run \"pnpm approve-builds\" to pick which dependencies should be allowed     │\n│   to run scripts.                                                            │\n│                                                                              │\n╰──────────────────────────────────────────────────────────────────────────────╯\n\n. postinstall$ node scripts/prepare-electron.mjs && pnpm native:rebuild\n. postinstall: Downloading Electron binary...\n. postinstall: Electron executable ready\n. postinstall: > tradequote-agent@0.1.0 native:rebuild /Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source\n. postinstall: > pnpm --filter @tradequote/desktop exec electron-builder install-app-deps\n. postinstall:   • electron-builder  version=26.15.3\n. postinstall:   • loaded configuration  file=package.json (\"build\" field)\n. postinstall:   • packageManager not detected by file, falling back to environment detection  resolvedPackageManager=pnpm detected=/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source\n. postinstall:   • detected workspace root for project using packageManager field  pm=pnpm config=pnpm@10.13.1 resolved=/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source projectDir=/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source/apps/desktop\n. postinstall:   • executing @electron/rebuild  electronVersion=44.9.2 arch=arm64 buildFromSource=false workspaceRoot=/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source projectDir=./ appDir=./\n. postinstall:   • installing native dependencies  arch=arm64\n. postinstall:   • preparing       moduleName=better-sqlite3 arch=arm64\n. postinstall:   • finished        moduleName=better-sqlite3 arch=arm64\n. postinstall:   • completed installing native dependencies\n. postinstall: Done\nDone in 8.6s using pnpm v10.13.1\n",
+      "stderr": "",
+      "stdoutSha256": "60f4aeb121fb165bb5626b3483c3c84e77495913a96346455e98208f67cc367b",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source/node_modules/.pnpm/electron@44.9.2/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron",
+        "../a-probe/m13-boundary.cjs"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source",
+      "startedAt": "2026-10-25T09:23:56.670471+00:00",
+      "finishedAt": "2026-10-25T09:23:57.269359+00:00",
+      "environmentOverrides": {
+        "ELECTRON_RUN_AS_NODE": "1",
+        "NODE_PATH": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source/packages/infrastructure/node_modules"
+      },
+      "exitCode": 0,
+      "stdout": "{\"status\":\"partial_matrix_passed\",\"summary\":{\"total\":7,\"passed\":7,\"failed\":[]},\"cases\":[{\"id\":\"M13-Y04a-raise-where-zero\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M13-Y04b-raise-limit-zero\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M13-Y05-update-of-nonexistent-column\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M13-Y06-after-delete-raise-ignore\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M13-control-genuine-trigger-update\",\"expectationMet\":true},{\"id\":\"M13-control-genuine-trigger-delete\",\"expectationMet\":true},{\"id\":\"M13-control-genuine-write-unique\",\"expectationMet\":true}]}\n",
+      "stderr": "",
+      "stdoutSha256": "99af3d509b08b71f5d9134c9e1ac37538cbccd1534456462930d94d06be52f46",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source/node_modules/.pnpm/electron@44.9.2/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron",
+        "../a-probe/m13-extra.cjs"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source",
+      "startedAt": "2026-10-25T09:23:56.373409+00:00",
+      "finishedAt": "2026-10-25T09:23:56.534756+00:00",
+      "environmentOverrides": {
+        "ELECTRON_RUN_AS_NODE": "1",
+        "NODE_PATH": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source/packages/infrastructure/node_modules"
+      },
+      "exitCode": 0,
+      "stdout": "{\"status\":\"passed\",\"summary\":{\"total\":2,\"passed\":2,\"failed\":[]},\"cases\":[{\"id\":\"M13-X10\",\"control\":{\"guardRejectedOperation\":true,\"error\":{\"name\":\"SqliteError\",\"message\":\"IMMUTABLE_TOOL_STEP\",\"lineage\":null},\"behavior\":null},\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"migrationError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"behavior\":null,\"behaviorError\":null,\"expectationMet\":true},{\"id\":\"M13-X11\",\"control\":{\"guardRejectedOperation\":true,\"error\":{\"name\":\"SqliteError\",\"message\":\"UNIQUE constraint failed: agent_write_call.run_id, agent_write_call.attempt\",\"lineage\":null},\"behavior\":null},\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"migrationError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"behavior\":null,\"behaviorError\":null,\"expectationMet\":true}]}\n",
+      "stderr": "",
+      "stdoutSha256": "f2e0ce6f50bda6e86993b1406497cad9e9ab93b09c01a6002dc87ec329c46a78",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source/node_modules/.pnpm/electron@44.9.2/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron",
+        "../a-probe/m13-identifier.cjs"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source",
+      "startedAt": "2026-10-25T09:23:51.043108+00:00",
+      "finishedAt": "2026-10-25T09:23:54.474381+00:00",
+      "environmentOverrides": {
+        "ELECTRON_RUN_AS_NODE": "1",
+        "NODE_PATH": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source/packages/infrastructure/node_modules"
+      },
+      "exitCode": 0,
+      "stdout": "{\"status\":\"partial_matrix_passed\",\"summary\":{\"total\":3,\"passed\":3,\"failed\":[]},\"cases\":[{\"id\":\"M13-Y10-bracket-identifier-fake-check\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M13-control-genuine-real-check\",\"expectationMet\":true},{\"id\":\"M13-control-bracket-extra-real-check\",\"expectationMet\":true}]}\n",
+      "stderr": "",
+      "stdoutSha256": "d649f3137a0e06e75bdfff785dc825fe5007da1269aafd5c5fa93e91e4d5dabb",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source/node_modules/.pnpm/electron@44.9.2/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron",
+        "../a-probe/m13-lexical.cjs"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source",
+      "startedAt": "2026-10-25T09:23:57.426999+00:00",
+      "finishedAt": "2026-10-25T09:23:57.732770+00:00",
+      "environmentOverrides": {
+        "ELECTRON_RUN_AS_NODE": "1",
+        "NODE_PATH": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source/packages/infrastructure/node_modules"
+      },
+      "exitCode": 0,
+      "stdout": "{\"status\":\"partial_matrix_passed\",\"summary\":{\"total\":6,\"passed\":6,\"failed\":[]},\"cases\":[{\"id\":\"M13-Y07-comment-spoofed-body\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M13-Y08-comment-separated-update-of\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M13-Y09-comment-spoofed-event\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M13-control-genuine-trigger-update\",\"expectationMet\":true},{\"id\":\"M13-control-genuine-trigger-delete\",\"expectationMet\":true},{\"id\":\"M13-control-genuine-write-unique\",\"expectationMet\":true}]}\n",
+      "stderr": "",
+      "stdoutSha256": "061d7fb87a597ed74437be13e74538cb64a46e5eded3beb52d5537e9c057f96a",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source/node_modules/.pnpm/electron@44.9.2/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron",
+        "../a-probe/m13.cjs"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source",
+      "startedAt": "2026-10-25T09:23:55.559088+00:00",
+      "finishedAt": "2026-10-25T09:23:55.860628+00:00",
+      "environmentOverrides": {
+        "ELECTRON_RUN_AS_NODE": "1",
+        "NODE_PATH": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source/packages/infrastructure/node_modules"
+      },
+      "exitCode": 0,
+      "stdout": "{\"status\":\"passed\",\"summary\":{\"total\":4,\"passed\":4,\"failed\":[]},\"cases\":[{\"id\":\"M13-X01\",\"control\":{\"guardRejectedOperation\":true,\"error\":{\"name\":\"SqliteError\",\"message\":\"IMMUTABLE_TOOL_STEP\",\"lineage\":null},\"behavior\":null},\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"migrationError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"behavior\":null,\"behaviorError\":null,\"expectationMet\":true},{\"id\":\"M13-X02\",\"control\":{\"guardRejectedOperation\":true,\"error\":{\"name\":\"SqliteError\",\"message\":\"UNIQUE constraint failed: agent_write_call.run_id, agent_write_call.attempt\",\"lineage\":null},\"behavior\":null},\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"migrationError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"behavior\":null,\"behaviorError\":null,\"expectationMet\":true},{\"id\":\"M13-X03\",\"control\":{\"guardRejectedOperation\":true,\"error\":{\"name\":\"SqliteError\",\"message\":\"FOREIGN KEY constraint failed\",\"lineage\":null},\"behavior\":null},\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"migrationError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"behavior\":null,\"behaviorError\":null,\"expectationMet\":true},{\"id\":\"M13-X04\",\"control\":{\"guardRejectedOperation\":true,\"error\":{\"name\":\"SqliteError\",\"message\":\"CHECK constraint failed: attempt>0\",\"lineage\":null},\"behavior\":null},\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"migrationError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"behavior\":null,\"behaviorError\":null,\"expectationMet\":true}]}\n",
+      "stderr": "",
+      "stdoutSha256": "6fcf6ec5f38da5e11f2c09c5676e3340e1ea196da5bbf528e23ec9a55c12706b",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source/node_modules/.pnpm/electron@44.9.2/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron",
+        "../a-probe/m13-variants.cjs"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source",
+      "startedAt": "2026-10-25T09:23:56.035441+00:00",
+      "finishedAt": "2026-10-25T09:23:56.227770+00:00",
+      "environmentOverrides": {
+        "ELECTRON_RUN_AS_NODE": "1",
+        "NODE_PATH": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source/packages/infrastructure/node_modules"
+      },
+      "exitCode": 0,
+      "stdout": "{\"status\":\"passed\",\"summary\":{\"total\":5,\"passed\":5,\"failed\":[]},\"cases\":[{\"id\":\"M13-X05\",\"control\":{\"guardRejectedOperation\":true,\"error\":{\"name\":\"SqliteError\",\"message\":\"IMMUTABLE_TOOL_STEP\",\"lineage\":null},\"behavior\":null},\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"migrationError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"behavior\":null,\"behaviorError\":null,\"expectationMet\":true},{\"id\":\"M13-X06\",\"control\":{\"guardRejectedOperation\":true,\"error\":{\"name\":\"SqliteError\",\"message\":\"UNIQUE constraint failed: agent_write_call.run_id, agent_write_call.attempt\",\"lineage\":null},\"behavior\":null},\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"migrationError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"behavior\":null,\"behaviorError\":null,\"expectationMet\":true},{\"id\":\"M13-X07\",\"control\":{\"guardRejectedOperation\":true,\"error\":{\"name\":\"SqliteError\",\"message\":\"UNIQUE constraint failed: agent_write_call.run_id, agent_write_call.attempt\",\"lineage\":null},\"behavior\":null},\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"migrationError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"behavior\":null,\"behaviorError\":null,\"expectationMet\":true},{\"id\":\"M13-X08\",\"control\":{\"guardRejectedOperation\":true,\"error\":{\"name\":\"SqliteError\",\"message\":\"IMMUTABLE_TOOL_STEP\",\"lineage\":null},\"behavior\":null},\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"migrationError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"behavior\":null,\"behaviorError\":null,\"expectationMet\":true},{\"id\":\"M13-X09\",\"control\":{\"guardRejectedOperation\":true,\"error\":{\"name\":\"SqliteError\",\"message\":\"CHECK constraint failed: attempt>0\",\"lineage\":null},\"behavior\":null},\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"migrationError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"behavior\":null,\"behaviorError\":null,\"expectationMet\":true}]}\n",
+      "stderr": "",
+      "stdoutSha256": "63426f74cba450657971b1f185b0a8b593471373f5cec9b7773bf7abac25f617",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source/node_modules/.pnpm/electron@44.9.2/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron",
+        "../a-probe/matrix.cjs"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source",
+      "startedAt": "2026-10-25T09:23:57.847476+00:00",
+      "finishedAt": "2026-10-25T09:24:00.600586+00:00",
+      "environmentOverrides": {
+        "ELECTRON_RUN_AS_NODE": "1",
+        "NODE_PATH": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source/packages/infrastructure/node_modules"
+      },
+      "exitCode": 0,
+      "stdout": "{\"status\":\"partial_matrix_passed\",\"summary\":{\"total\":107,\"passed\":107,\"failed\":[]},\"cases\":[{\"id\":\"M01-empty\",\"expectationMet\":true},{\"id\":\"M02-common1\",\"expectationMet\":true},{\"id\":\"M02-common2\",\"expectationMet\":true},{\"id\":\"M02-common3\",\"expectationMet\":true},{\"id\":\"M03-a4\",\"expectationMet\":true},{\"id\":\"M04-c5\",\"expectationMet\":true},{\"id\":\"M05-c6\",\"expectationMet\":true},{\"id\":\"M06-c7\",\"expectationMet\":true},{\"id\":\"M07-a6\",\"expectationMet\":true},{\"id\":\"M08-b7\",\"expectationMet\":true},{\"id\":\"M09-unified\",\"expectationMet\":true},{\"id\":\"M09-L01-unknown-legacy-row\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M09-L02-duplicate-legacy-identity\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M10-C6-mislabelled-B7\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:unknown\",\"lineage\":\"unknown\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:unknown\",\"lineage\":\"unknown\"},\"actualBehavior\":null},{\"id\":\"M11-unknown-v6\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:unknown\",\"lineage\":\"unknown\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:unknown\",\"lineage\":\"unknown\"},\"actualBehavior\":null},{\"id\":\"M12-new-ledger-unknown-identity\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M12-high-version\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:unknown\",\"lineage\":\"unknown\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:unknown\",\"lineage\":\"unknown\"},\"actualBehavior\":null},{\"id\":\"M13-Y01-unreachable-real-RAISE\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M13-Y02-trigger-wrong-target-table\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M13-Y03-index-wrong-target-table\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M13-control-genuine-trigger-delete\",\"expectationMet\":true},{\"id\":\"M13-control-genuine-write-unique\",\"expectationMet\":true},{\"id\":\"M14-migration-no-invented-events\",\"expectationMet\":true},{\"id\":\"F01-empty-before_registry_ddl\",\"expectationMet\":true},{\"id\":\"F01-empty-after_ddl\",\"expectationMet\":true},{\"id\":\"F01-empty-before_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-empty-after_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-empty-before_version\",\"expectationMet\":true},{\"id\":\"F01-empty-after_version\",\"expectationMet\":true},{\"id\":\"F01-empty-before_commit\",\"expectationMet\":true},{\"id\":\"F01-empty-after_commit\",\"expectationMet\":true},{\"id\":\"F01-common1-before_registry_ddl\",\"expectationMet\":true},{\"id\":\"F01-common1-after_ddl\",\"expectationMet\":true},{\"id\":\"F01-common1-before_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-common1-after_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-common1-before_version\",\"expectationMet\":true},{\"id\":\"F01-common1-after_version\",\"expectationMet\":true},{\"id\":\"F01-common1-before_commit\",\"expectationMet\":true},{\"id\":\"F01-common1-after_commit\",\"expectationMet\":true},{\"id\":\"F01-common2-before_registry_ddl\",\"expectationMet\":true},{\"id\":\"F01-common2-after_ddl\",\"expectationMet\":true},{\"id\":\"F01-common2-before_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-common2-after_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-common2-before_version\",\"expectationMet\":true},{\"id\":\"F01-common2-after_version\",\"expectationMet\":true},{\"id\":\"F01-common2-before_commit\",\"expectationMet\":true},{\"id\":\"F01-common2-after_commit\",\"expectationMet\":true},{\"id\":\"F01-common3-before_registry_ddl\",\"expectationMet\":true},{\"id\":\"F01-common3-after_ddl\",\"expectationMet\":true},{\"id\":\"F01-common3-before_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-common3-after_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-common3-before_version\",\"expectationMet\":true},{\"id\":\"F01-common3-after_version\",\"expectationMet\":true},{\"id\":\"F01-common3-before_commit\",\"expectationMet\":true},{\"id\":\"F01-common3-after_commit\",\"expectationMet\":true},{\"id\":\"F01-a4-before_registry_ddl\",\"expectationMet\":true},{\"id\":\"F01-a4-after_ddl\",\"expectationMet\":true},{\"id\":\"F01-a4-before_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-a4-after_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-a4-before_version\",\"expectationMet\":true},{\"id\":\"F01-a4-after_version\",\"expectationMet\":true},{\"id\":\"F01-a4-before_commit\",\"expectationMet\":true},{\"id\":\"F01-a4-after_commit\",\"expectationMet\":true},{\"id\":\"F01-c5-before_registry_ddl\",\"expectationMet\":true},{\"id\":\"F01-c5-after_ddl\",\"expectationMet\":true},{\"id\":\"F01-c5-before_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-c5-after_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-c5-before_version\",\"expectationMet\":true},{\"id\":\"F01-c5-after_version\",\"expectationMet\":true},{\"id\":\"F01-c5-before_commit\",\"expectationMet\":true},{\"id\":\"F01-c5-after_commit\",\"expectationMet\":true},{\"id\":\"F01-c6-before_registry_ddl\",\"expectationMet\":true},{\"id\":\"F01-c6-after_ddl\",\"expectationMet\":true},{\"id\":\"F01-c6-before_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-c6-after_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-c6-before_version\",\"expectationMet\":true},{\"id\":\"F01-c6-after_version\",\"expectationMet\":true},{\"id\":\"F01-c6-before_commit\",\"expectationMet\":true},{\"id\":\"F01-c6-after_commit\",\"expectationMet\":true},{\"id\":\"F01-c7-before_registry_ddl\",\"expectationMet\":true},{\"id\":\"F01-c7-after_ddl\",\"expectationMet\":true},{\"id\":\"F01-c7-before_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-c7-after_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-c7-before_version\",\"expectationMet\":true},{\"id\":\"F01-c7-after_version\",\"expectationMet\":true},{\"id\":\"F01-c7-before_commit\",\"expectationMet\":true},{\"id\":\"F01-c7-after_commit\",\"expectationMet\":true},{\"id\":\"F01-a6-before_registry_ddl\",\"expectationMet\":true},{\"id\":\"F01-a6-after_ddl\",\"expectationMet\":true},{\"id\":\"F01-a6-before_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-a6-after_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-a6-before_version\",\"expectationMet\":true},{\"id\":\"F01-a6-after_version\",\"expectationMet\":true},{\"id\":\"F01-a6-before_commit\",\"expectationMet\":true},{\"id\":\"F01-a6-after_commit\",\"expectationMet\":true},{\"id\":\"F01-b7-before_registry_ddl\",\"expectationMet\":true},{\"id\":\"F01-b7-after_ddl\",\"expectationMet\":true},{\"id\":\"F01-b7-before_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-b7-after_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-b7-before_version\",\"expectationMet\":true},{\"id\":\"F01-b7-after_version\",\"expectationMet\":true},{\"id\":\"F01-b7-before_commit\",\"expectationMet\":true},{\"id\":\"F01-b7-after_commit\",\"expectationMet\":true},{\"id\":\"F02-C7-after_ddl\",\"expectationMet\":true},{\"id\":\"F02-C7-after_ledger_insert\",\"expectationMet\":true},{\"id\":\"F02-C7-before_commit\",\"expectationMet\":true},{\"id\":\"F02-C7-after_commit\",\"expectationMet\":true}]}\n",
+      "stderr": "",
+      "stdoutSha256": "77fcbb29f93a43971a2b0b223d52505f14003260faaf8ac4a40bfa57876ccb40",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source/node_modules/.pnpm/electron@44.9.2/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron",
+        "../a-probe/native.cjs"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source",
+      "startedAt": "2026-10-25T09:23:54.663145+00:00",
+      "finishedAt": "2026-10-25T09:23:55.240486+00:00",
+      "environmentOverrides": {
+        "ELECTRON_RUN_AS_NODE": "1",
+        "NODE_PATH": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source/packages/infrastructure/node_modules"
+      },
+      "exitCode": 0,
+      "stdout": "{\"status\":\"passed\",\"environment\":{\"platform\":\"darwin\",\"arch\":\"arm64\",\"node\":\"v24.22.0\",\"electron\":\"44.9.2\",\"sqlite\":\"3.53.4\"},\"summary\":{\"total\":12,\"passed\":12,\"failed\":[]},\"cases\":[{\"id\":\"N01_C0_upgrade\",\"expectationMet\":true,\"error\":null,\"harnessError\":null},{\"id\":\"N02_C5_upgrade\",\"expectationMet\":true,\"error\":null,\"harnessError\":null},{\"id\":\"N03_C6_upgrade\",\"expectationMet\":true,\"error\":null,\"harnessError\":null},{\"id\":\"N04_C7_upgrade\",\"expectationMet\":true,\"error\":null,\"harnessError\":null},{\"id\":\"N05_B7_upgrade\",\"expectationMet\":true,\"error\":null,\"harnessError\":null},{\"id\":\"N06_missing_report_trigger\",\"expectationMet\":true,\"error\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"harnessError\":null},{\"id\":\"N07_missing_run_required_column\",\"expectationMet\":true,\"error\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"harnessError\":null},{\"id\":\"N08_noop_immutable_trigger\",\"expectationMet\":true,\"error\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"harnessError\":null},{\"id\":\"N09_nonunique_write_index\",\"expectationMet\":true,\"error\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"harnessError\":null},{\"id\":\"N10_corrupt_registry_preflight\",\"expectationMet\":true,\"error\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"harnessError\":null},{\"id\":\"N11_legacy_ledger_schema_contradiction\",\"expectationMet\":true,\"error\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"harnessError\":null},{\"id\":\"N12_bad_sql_rollback\",\"expectationMet\":true,\"error\":{\"name\":\"SqliteError\",\"message\":\"near \\\"INVALID\\\": syntax error\",\"lineage\":null},\"harnessError\":null}]}\n",
+      "stderr": "",
+      "stdoutSha256": "7288319060a6a3fe0b432b96b0a88f22f4cb4486420a6e0f2e3ebd2dfd98701b",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "typecheck"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source",
+      "environmentOverrides": {},
+      "startedAt": "2026-10-25T09:23:36.591356+00:00",
+      "finishedAt": "2026-10-25T09:23:40.946208+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 typecheck /Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source\n> tsc --noEmit\n\n",
+      "stderr": "",
+      "stdoutSha256": "ab185eef021f4e41b904a8df108214d235a5f709eb2da5b5ac78a60e6f26b300",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source",
+      "environmentOverrides": {},
+      "startedAt": "2026-10-25T09:23:52.172818+00:00",
+      "finishedAt": "2026-10-25T09:23:52.327780+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 164,\n  \"lines\": 46491,\n  \"generated\": 5,\n  \"excluded\": 18\n}\n",
+      "stderr": "",
+      "stdoutSha256": "a3db7b6d0ad1961e350386b1afa17df1bc3307229bc78b3645fe00360d6397d0",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source",
+      "environmentOverrides": {},
+      "startedAt": "2026-10-25T09:23:52.368516+00:00",
+      "finishedAt": "2026-10-25T09:23:52.685188+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 111,\n  \"semantic\": 95,\n  \"reachable\": 111\n}\n",
+      "stderr": "",
+      "stdoutSha256": "2b24c9d14129569983d85a7c0c5fd736bf6a37eb7e7017eb540a81fd547ead6d",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "1c890dc77ecba2cfb949c5e69908dc81bdacc692"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent/.runtime/a-source",
+      "environmentOverrides": {},
+      "startedAt": "2026-10-25T09:23:52.723856+00:00",
+      "finishedAt": "2026-10-25T09:23:52.992187+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"1c890dc77ecba2cfb949c5e69908dc81bdacc692\",\n  \"status\": \"passed\",\n  \"codeFiles\": 2,\n  \"knowledgePages\": 7,\n  \"tasks\": 1,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "stdoutSha256": "09b62a2d12f33a0aa33f679c7851cabadc7d1d0a9a26666324cd5eed5392fb1d",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "summary": {
+    "Y10": "safely rejected by readonly identify and real repository before upgrade/writes; logical/file boundary preserved",
+    "Y10Controls": "2/2 valid controls accepted and actual CHECK rejects attempt=0; full suite 3/3",
+    "previousFiveBlockers": "5/5 passed",
+    "previousFourBlockers": "Y04a/Y04b/Y05/Y06 passed; suite 7/7",
+    "previousThreeBlockers": "Y07/Y08/Y09 passed; suite 6/6",
+    "X01_X11": "11/11 passed",
+    "originalNative": "12/12 passed",
+    "previousMatrix": "107/107 passed",
+    "authorProbe": "42 classifications / 10 appends / 2 enforcement controls matched fixed author record",
+    "typecheck": 0,
+    "infrastructureVitest": "47/47",
+    "contractsVitest": "35/35",
+    "A_Wiki": "check/lint/sync --base 1c890dc all exit 0"
+  },
+  "notRun": [
+    "Complete domain-valid M02-M08 business replay",
+    "Complete F01/F02 checkpoints, F03-F07, M14 coordinator recovery",
+    "Integrated A/B/C code, desktop D01-D12 and J01-J08, macOS joint build/e2e",
+    "Human review/publish/signoff/business acceptance",
+    "Windows independent rerun",
+    "Push, merge or external messages"
+  ]
+}
