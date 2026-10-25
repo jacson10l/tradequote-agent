@@ -2,7 +2,7 @@
 title: A对C前置验证失败修正回复
 type: process
 status: draft
-updated: 2026-10-24
+updated: 2026-10-25
 sources:
   - packages/infrastructure/src/migration-lineage.ts:1
   - packages/infrastructure/src/migrations.ts:1
@@ -71,15 +71,29 @@ CHECK 判据同步改用 `stripTrivia`（去注释与字符串）替换原 `stri
 
 新增有效原 schema 控制组（enforcement）两项，证明原保护真实生效而非仅识别通过：c-v7 上 `agent_tool_step_no_delete` 实际拒绝 `DELETE FROM agent_tool_step`；c-v6 上 `agent_write_once` 实际拒绝第二条 `prepared` 的 `agent_write_call` 插入。二者均以真实 DB 操作抛错验证。
 
+## C 五轮复核：M13 错表/不可达 RAISE 与旧账本未知/重复登记（Y01～Y03、M09-L01/L02）
+
+C 在固定提交 41f0cdc 上独立复核，确认 X01～X11 11/11 通过、有效原 schema 控制组真实拒绝，但 107 样本扩展矩阵发现 5 项新失败。C 要求「拒绝必须发生在升级和写入前」，并保留 X01～X11、九段历史 SQL 指纹、正向升级及旧证据。A 逐项修正：
+
+| 项 | C 发现（合成损坏状态） | A 的修正 | 证据 |
+|---|---|---|---|
+| M13-Y01 不可达 RAISE | 同名 `agent_tool_step_no_delete` 体为 `SELECT CASE WHEN 0 THEN RAISE(ABORT,'…') ELSE 1 END`，RAISE 永不执行仍被接受 | RAISE 判据收紧为 `/\bSELECT\s+RAISE\s*\(/` 命中 `stripTrivia`；`SELECT CASE` 前缀不命中即 partial/tampered | 探针 `tampered-unreachable-raise-M13-Y01` |
+| M13-Y02 错表触发器 | 同名 `no_delete` 触发器 `BEFORE DELETE` 挂到 agent_run（非 agent_tool_step）仍被接受 | `TriggerRequirement` 新增 `table`，`triggerTable.get(name)!==table` 即 partial/tampered | 探针 `tampered-wrong-table-trigger-M13-Y02` |
+| M13-Y03 旁表索引 | 同名 `agent_write_once` UNIQUE 索引建在 synthetic_index_target（非 agent_write_call）仍被接受 | `IndexRequirement` 新增 `table`，`indexTable.get(name)!==table` 即 partial/tampered | 探针 `tampered-wrong-table-index-M13-Y03` |
+| M09-L01 旧账本未知登记 | 旧 `schema_migration` 出现 version=99，映射之外被静默忽略 | `verifyLegacyLedger` 对 `legacyMap` 无映射 version 抛 tampered，不再 `continue` | `migration-ledger.test.ts` M09-L01 |
+| M09-L02 旧账本重复登记 | 无唯一约束 `schema_migration` 重复插入同一 version 被接受 | `verifyLegacyLedger` 用 `seenVersions` 拒绝重复 version，不静默去重/改写 | `migration-ledger.test.ts` M09-L02 |
+
+新增有效原 schema 控制组（enforcement）两项保持不变（X10/X11 轮已加入），正向升级与九段历史 SQL 指纹均保留，旧失败记录不删除。
+
 ## 修正后的实际验证证据
 
 本机已实际运行（系统 Node v24.14.1，仓库 engines 22.22.0 不一致，如实标注；vitest 经 `ELECTRON_RUN_AS_NODE` 走 Electron 内嵌 Node ABI，与生产原生 better-sqlite3 一致）：
 
-- `pnpm typecheck`（`tsc --noEmit`）：退出 0（含 M13-X01～X11/A-W08 修正后）。
-- 纯 Node 探针 [a01-migration-lineage-probe.json](../raw/a01-migration-lineage-probe.json)：退出 0，30 分类/拒绝用例全过（指纹全匹配，含 N07/N08/N09 与 M13-X01～X11 共 14 个负例）、10 追加路径全过、2 有效原 schema 控制组全过。
-- 定向回归 `migration-ledger.test.ts`：3/3 通过（N10、N10 一致性、N11）。
+- `pnpm typecheck`（`tsc --noEmit`）：退出 0（含 M13-X01～X11、M13-Y01～Y03、M09-L01/L02 与 A-W08 修正后）。
+- 纯 Node 探针 [a01-migration-lineage-probe.json](../raw/a01-migration-lineage-probe.json)：退出 0，33 分类/拒绝用例全过（指纹全匹配，含 N07/N08/N09 与 M13-X01～X11、M13-Y01～Y03 共 17 个负例）、10 追加路径全过、2 有效原 schema 控制组全过。
+- 定向回归 `migration-ledger.test.ts`：5/5 通过（N10、N10 一致性、N11、M09-L01、M09-L02）。
 - `wiki-store.test.ts`：5/5 通过（A-W08 retryable=false 已随 `failure()` 修正转绿）。
-- 整仓 infrastructure vitest：44 通过 / 1 既有失败（`storage.test.ts` symlink EPERM，Windows 权限，非本切片引入）。
+- 整仓 infrastructure vitest：46 通过 / 1 既有失败（`storage.test.ts` symlink EPERM，Windows 权限，非本切片引入）。
 
 ## 保留的既有失败（非本切片引入）
 

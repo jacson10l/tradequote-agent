@@ -1565,9 +1565,9 @@
     {
       "path": "packages/infrastructure/src/migration-ledger.test.ts",
       "type": "ts",
-      "lines": 68,
-      "bytes": 2850,
-      "sha256": "61dce3d32b8a1f6db1ae4b54ec081eaa0bfc36c87e82999fd7a62e623d456a0f",
+      "lines": 96,
+      "bytes": 4093,
+      "sha256": "91cc431730b3ac9ff89e912e9f8ed66dcb3d9968326a58d6a3f978f0b71ca162",
       "role": "迁移账本一致性定向回归（N10/N11 拒绝前置）",
       "pages": [
         "wiki/A01-迁移验证计划.md",
@@ -1578,9 +1578,9 @@
     {
       "path": "packages/infrastructure/src/migration-lineage.ts",
       "type": "ts",
-      "lines": 590,
-      "bytes": 21728,
-      "sha256": "35c24cff1a46748d101baaa951f69bcecc0b05649e1106aa749509edbec94903",
+      "lines": 619,
+      "bytes": 23708,
+      "sha256": "fdb7cb7937c72264f853979fa16a76cae94bf821cb8af04448b097ad9429c0f6",
       "role": "迁移谱系识别与拒绝边界（纯函数，只读）",
       "pages": [
         "wiki/decisions/0029-迁移谱系统一与拒绝边界.md",
@@ -1590,9 +1590,9 @@
     {
       "path": "packages/infrastructure/src/migrations.ts",
       "type": "ts",
-      "lines": 452,
-      "bytes": 20676,
-      "sha256": "dd95b1b4d94d1bc04ed078170e617d4b791dcae2c077e554b48e7477456c1c63",
+      "lines": 460,
+      "bytes": 21286,
+      "sha256": "d4b135275c277920fadfb6520a3a9590372e2d479e1a1fe49bb768922a9efb8c",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",

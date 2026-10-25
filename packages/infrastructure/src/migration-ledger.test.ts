@@ -66,3 +66,31 @@ it("rejects legacy ledger claiming knowledge:6 on a c-v7 schema (N11)", () => {
     db.close();
   }
 });
+
+// M09-L01：旧账本出现无法解释的未知登记（version=99），不得忽略，必须安全拒绝。
+it("rejects unknown legacy version (M09-L01)", () => {
+  const db = new Database(":memory:");
+  try {
+    seedTo(db, { lineage: "c-run", version: 7 });
+    db.exec("CREATE TABLE schema_migration(version INTEGER, sql_hash TEXT)");
+    db.prepare("INSERT INTO schema_migration(version,sql_hash) VALUES (99,?)").run("0".repeat(64));
+    expect(() => identify(db)).toThrow(MigrationLineageError);
+  } finally {
+    db.close();
+  }
+});
+
+// M09-L02：旧账本被重建为无唯一约束并重复插入同一 version，须按重复身份拒绝而非静默去重。
+it("rejects duplicate legacy version in non-unique ledger (M09-L02)", () => {
+  const db = new Database(":memory:");
+  try {
+    seedTo(db, { lineage: "knowledge-wiki", version: 6 }); // a-v6：知识四表确实存在
+    db.exec("CREATE TABLE schema_migration(version INTEGER, sql_hash TEXT)");
+    const insert = db.prepare("INSERT INTO schema_migration(version,sql_hash) VALUES (6,?)");
+    insert.run(knowledgeFingerprint());
+    insert.run(knowledgeFingerprint());
+    expect(() => identify(db)).toThrow(MigrationLineageError);
+  } finally {
+    db.close();
+  }
+});

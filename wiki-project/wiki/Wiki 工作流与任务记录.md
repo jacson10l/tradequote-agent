@@ -2,7 +2,7 @@
 title: Wiki 工作流与任务记录
 type: meta
 status: active
-updated: 2026-10-24
+updated: 2026-10-25
 sources:
   - wiki-repo:scripts/build-code-index.mjs:1
   - wiki-repo:scripts/lint-wiki.mjs:1
@@ -138,3 +138,5 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 2026-10-24 修正 C 三轮 M13 核验：探针再扩至 28 用例（新增 M13-X05 `WHEN 1=0` / M13-X06 `WHERE 1=0` / M13-X07 索引增列改谓词 / M13-X08 触发器事件篡改 / M13-X09 注释伪 CHECK 五个负例），`capabilityStatus` 改为按规范参考结构核对有效定义（`TriggerRequirement.event`/`when`、`IndexRequirement.columns`/`where`、`stripComments` 去注释后匹配 CHECK），放弃常量黑名单；`migration-lineage.ts` 未新增文件、覆盖映射不变。本轮 sync 基线为 65885ff。
 
 2026-10-24 修正 C 四轮 M13 核验：探针再扩至 30 用例并新增 2 项有效原 schema 控制组（新增 M13-X10 触发器体 `SELECT 'RAISE'` 字符串字面量 / M13-X11 索引谓词字符串字面量大小写两个负例，以及 c-v7 拒绝 DELETE、c-v6 拒绝重复 prepared 两项控制），`capabilityStatus` 的 RAISE 判据改为 `/\bRAISE\s*\(/i` 命中 `stripTrivia`（去注释与字符串字面量）结果、`normalizeSql` 只小写字符串外内容（字符串字面量大小写保留）、CHECK 判据同步改用 `stripTrivia`；`migration-lineage.ts` 未新增文件、覆盖映射不变。本轮 sync 基线为 cece332。
+
+2026-10-25 修正 C 五轮 M13/账本核验：探针再扩至 33 用例（新增 M13-Y01 `CASE WHEN 0 THEN RAISE(...)` 不可达 RAISE / M13-Y02 同名触发器挂错表 agent_run / M13-Y03 同名唯一索引建旁表 synthetic_index_target 三个负例），`capabilityStatus` 的 RAISE 判据收紧为 `/\bSELECT\s+RAISE\s*\(/` 直接保护体（`SELECT CASE` 不命中）、`TriggerRequirement`/`IndexRequirement` 各新增 `table` 并从 sqlite_master `tbl_name` 核对目标表；`migrations.ts` 的 `verifyLegacyLedger` 对映射外 version（M09-L01）与重复 version（M09-L02）一律拒绝；`migration-ledger.test.ts` 增至 5 用例（新增 M09-L01/L02）。未新增源码文件，覆盖映射不变；本轮 sync 基线为 41f0cdc。

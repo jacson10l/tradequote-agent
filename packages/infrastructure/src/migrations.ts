@@ -313,11 +313,12 @@ const STEP_BY_ID = new Map<CapabilityId, MigrationStep>(
 );
 
 /**
- * B 旧账本 schema_migration(version, sql_hash) 的 hash 交叉核对（N11）。
+ * B 旧账本 schema_migration(version, sql_hash) 的 hash 交叉核对（N11、M09-L01/L02）。
  * 旧账本只可能来自 B 谱系（C 无账本），version 到 lineage 的映射固定。
  * 除校验 hash 与已知能力原文一致外，还核对每条“已执行”声明对应的能力确实
- * 存在于当前 schema：旧账本声称执行了知识 6、但 schema 没有知识四表（如 C7 库），
- * 属账本与能力矛盾，先拒绝而非静默改写。
+ * 存在于当前 schema（N11）。M09-L01：无法解释的未知登记（如 version=99）不得忽略，
+ * 必须安全拒绝；M09-L02：账本身份（version）必须唯一，重复登记属账本被重建为无唯一
+ * 约束并重复插入，拒绝而非静默去重或改写历史账本。
  */
 export function verifyLegacyLedger(db: Database.Database, id: Identification): void {
   const hasLegacy = db
@@ -336,9 +337,16 @@ export function verifyLegacyLedger(db: Database.Database, id: Identification): v
     version: number;
     sql_hash: string;
   }[];
+  const seenVersions = new Set<number>();
   for (const row of rows) {
+    // M09-L02：账本身份（version）必须唯一；重复 version 说明账本被重建为无唯一约束并重复插入，
+    // 属异常，拒绝而非静默去重或改写历史账本。
+    if (seenVersions.has(row.version))
+      throw new MigrationLineageError("tampered", id.expectedUserVersion);
+    seenVersions.add(row.version);
     const lineage = legacyMap[row.version];
-    if (!lineage) continue; // 旧账本可能出现未知版本（如 C 的 5），交给 schema 识别判定
+    // M09-L01：无法解释的未知登记（如 version=99）不得忽略，必须安全拒绝。
+    if (!lineage) throw new MigrationLineageError("tampered", id.expectedUserVersion);
     const idKey = capabilityId({ lineage, version: row.version });
     const step = STEP_BY_ID.get(idKey);
     if (!step) throw new MigrationLineageError("tampered", id.expectedUserVersion);

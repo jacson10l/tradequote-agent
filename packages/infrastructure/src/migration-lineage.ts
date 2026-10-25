@@ -10,12 +10,13 @@ import { createHash } from "node:crypto";
  * 因此识别只以实际 schema（表/索引/触发器/列及其有效定义）为准，user_version 仅作交叉核对，
  * 绝不单独依据编号判定谱系。除对象名称外，还核对必要列、真实唯一/部分索引和含 RAISE 的
  * 不可变触发器有效定义，以及外键与 CHECK 的真实存在。对“有效定义”按规范参考结构核对而非
- * 常量黑名单：触发器事件必须匹配规范事件（X08）、WHEN 必须匹配规范 WHEN 或必须无 WHEN
- * （X01/X05 永假/加 WHEN）、RAISE 必须是真实 RAISE(...) 调用而非字符串字面量 'RAISE'（X10）、
+ * 常量黑名单：触发器事件必须匹配规范事件（X08）、触发器/索引必须挂在规范目标表（Y02/Y03）、
+ * WHEN 必须匹配规范 WHEN 或必须无 WHEN（X01/X05 永假/加 WHEN）、保护体必须是真实
+ * `SELECT RAISE(...)` 调用而非字符串字面量 'RAISE' 或 CASE 包裹的不可达 RAISE（X10/Y01）、
  * 部分索引列与 WHERE 谓词必须匹配规范（X02/X06/X07）、归一保留字符串字面量大小写语义（X11）、
  * CHECK 按去注释/字符串后的表原文匹配（X04/X09 注释伪 CHECK）——封死 D2 静默缺表、D3 按 v6
- * 误记知识迁移、“未知 v6 被误接受”、“缺不可变触发器仍被接受”，以及 C 四轮核验的 N07/N08/N09
- * 与 M13-X01～X11。
+ * 误记知识迁移、“未知 v6 被误接受”、“缺不可变触发器仍被接受”，以及 C 四轮/五轮核验的
+ * N07/N08/N09 与 M13-X01～X11、M13-Y01～Y03（旧账本 M09-L01/L02 见 migrations.ts）。
  */
 
 export type CapabilityLineage = "common" | "c-run" | "knowledge-wiki" | "check-report";
@@ -43,9 +44,11 @@ export interface SchemaObject {
   sql: string | null;
 }
 
-/** 索引要求：名称 + 是否必须唯一/部分 + 规范列与谓词（结构核对，非关键词黑名单）。 */
+/** 索引要求：名称 + 目标表 + 是否必须唯一/部分 + 规范列与谓词（结构核对，非关键词黑名单）。 */
 export interface IndexRequirement {
   name: string;
+  /** 索引必须建在的规范目标表（防 M13-Y03 旁表同名索引）。 */
+  table: string;
   /** 必须是唯一索引（如 agent_write_once 的一次写保护）。 */
   unique?: boolean;
   /** 必须是部分索引（CREATE INDEX 含 WHERE 子句）。 */
@@ -56,10 +59,12 @@ export interface IndexRequirement {
   where?: string;
 }
 
-/** 触发器要求：名称 + 事件/WHEN + 是否必须含 RAISE 的有效不可变保护（结构核对）。 */
+/** 触发器要求：名称 + 目标表 + 事件/WHEN + 是否必须含 RAISE 的有效不可变保护（结构核对）。 */
 export interface TriggerRequirement {
   name: string;
-  /** 必须包含真实 RAISE(...) 调用的有效保护定义；同名 SELECT 1 空触发器或 SELECT 'RAISE' 字符串字面量不算（M13-X10）。 */
+  /** 触发器必须挂在的规范目标表（防 M13-Y02 错表触发器）。 */
+  table: string;
+  /** 必须包含真实有效的 `SELECT RAISE(...)` 保护体；同名 SELECT 1 空触发器、SELECT 'RAISE' 字符串字面量或 CASE 包裹的不可达 RAISE 不算（M13-X10/Y01）。 */
   raises?: boolean;
   /** 规范事件（DELETE/UPDATE/INSERT）；防 X08 事件篡改。 */
   event: "DELETE" | "UPDATE" | "INSERT";
@@ -122,8 +127,8 @@ export const CAPABILITIES: CapabilitySpec[] = [
     tables: ["scenario_revision", "catalog_batch", "catalog_product", "quote_v1"],
     indexes: [],
     triggers: [
-      { name: "quote_v1_no_update", raises: true, event: "UPDATE", when: null },
-      { name: "quote_v1_no_delete", raises: true, event: "DELETE", when: null },
+      { name: "quote_v1_no_update", table: "quote_v1", raises: true, event: "UPDATE", when: null },
+      { name: "quote_v1_no_delete", table: "quote_v1", raises: true, event: "DELETE", when: null },
     ],
     columns: {
       scenario_revision: ["id", "workspace_id", "version", "data_json"],
@@ -138,10 +143,10 @@ export const CAPABILITIES: CapabilitySpec[] = [
     tables: ["quote_revision", "agent_turn"],
     indexes: [],
     triggers: [
-      { name: "quote_revision_no_update", raises: true, event: "UPDATE", when: null },
-      { name: "quote_revision_no_delete", raises: true, event: "DELETE", when: null },
-      { name: "agent_turn_no_update", raises: true, event: "UPDATE", when: null },
-      { name: "agent_turn_no_delete", raises: true, event: "DELETE", when: null },
+      { name: "quote_revision_no_update", table: "quote_revision", raises: true, event: "UPDATE", when: null },
+      { name: "quote_revision_no_delete", table: "quote_revision", raises: true, event: "DELETE", when: null },
+      { name: "agent_turn_no_update", table: "agent_turn", raises: true, event: "UPDATE", when: null },
+      { name: "agent_turn_no_delete", table: "agent_turn", raises: true, event: "DELETE", when: null },
     ],
     columns: {
       quote_revision: ["id", "workspace_id", "root_id", "parent_id", "version", "content_hash", "data_json"],
@@ -152,10 +157,10 @@ export const CAPABILITIES: CapabilitySpec[] = [
     lineage: "common",
     version: 4,
     tables: ["knowledge_revision"],
-    indexes: [{ name: "knowledge_revision_document" }],
+    indexes: [{ name: "knowledge_revision_document", table: "knowledge_revision" }],
     triggers: [
-      { name: "knowledge_revision_no_update", raises: true, event: "UPDATE", when: "OLD.status='published'" },
-      { name: "knowledge_revision_no_delete", raises: true, event: "DELETE", when: null },
+      { name: "knowledge_revision_no_update", table: "knowledge_revision", raises: true, event: "UPDATE", when: "OLD.status='published'" },
+      { name: "knowledge_revision_no_delete", table: "knowledge_revision", raises: true, event: "DELETE", when: null },
     ],
     columns: {
       knowledge_revision: [
@@ -175,7 +180,7 @@ export const CAPABILITIES: CapabilitySpec[] = [
     lineage: "c-run",
     version: 5,
     tables: ["agent_run", "agent_run_control"],
-    indexes: [{ name: "agent_run_discovery" }],
+    indexes: [{ name: "agent_run_discovery", table: "agent_run" }],
     triggers: [],
     columns: {
       agent_run: [
@@ -194,10 +199,10 @@ export const CAPABILITIES: CapabilitySpec[] = [
     lineage: "c-run",
     version: 6,
     tables: ["agent_write_call"],
-    indexes: [{ name: "agent_write_once", unique: true, partial: true, columns: "run_id,attempt", where: "status IN ('prepared','committed')" }],
+    indexes: [{ name: "agent_write_once", table: "agent_write_call", unique: true, partial: true, columns: "run_id,attempt", where: "status IN ('prepared','committed')" }],
     triggers: [
-      { name: "agent_write_committed_no_update", raises: true, event: "UPDATE", when: "OLD.status='committed'" },
-      { name: "agent_write_no_delete", raises: true, event: "DELETE", when: null },
+      { name: "agent_write_committed_no_update", table: "agent_write_call", raises: true, event: "UPDATE", when: "OLD.status='committed'" },
+      { name: "agent_write_no_delete", table: "agent_write_call", raises: true, event: "DELETE", when: null },
     ],
     columns: {
       agent_write_call: [
@@ -224,8 +229,8 @@ export const CAPABILITIES: CapabilitySpec[] = [
     tables: ["agent_tool_step"],
     indexes: [],
     triggers: [
-      { name: "agent_tool_step_no_update", raises: true, event: "UPDATE", when: null },
-      { name: "agent_tool_step_no_delete", raises: true, event: "DELETE", when: null },
+      { name: "agent_tool_step_no_update", table: "agent_tool_step", raises: true, event: "UPDATE", when: null },
+      { name: "agent_tool_step_no_delete", table: "agent_tool_step", raises: true, event: "DELETE", when: null },
     ],
     columns: {
       agent_tool_step: ["run_id", "attempt", "tool_call_id", "ordinal", "data_json"],
@@ -240,15 +245,15 @@ export const CAPABILITIES: CapabilitySpec[] = [
     version: 6,
     tables: ["knowledge_source", "knowledge_wiki", "knowledge_lifecycle", "knowledge_consumption"],
     indexes: [
-      { name: "knowledge_source_document" },
-      { name: "knowledge_wiki_document" },
-      { name: "knowledge_lifecycle_state" },
+      { name: "knowledge_source_document", table: "knowledge_source" },
+      { name: "knowledge_wiki_document", table: "knowledge_wiki" },
+      { name: "knowledge_lifecycle_state", table: "knowledge_lifecycle" },
     ],
     triggers: [
-      { name: "knowledge_wiki_no_update", raises: true, event: "UPDATE", when: null },
-      { name: "knowledge_wiki_no_delete", raises: true, event: "DELETE", when: null },
-      { name: "knowledge_consumption_no_update", raises: true, event: "UPDATE", when: null },
-      { name: "knowledge_consumption_no_delete", raises: true, event: "DELETE", when: null },
+      { name: "knowledge_wiki_no_update", table: "knowledge_wiki", raises: true, event: "UPDATE", when: null },
+      { name: "knowledge_wiki_no_delete", table: "knowledge_wiki", raises: true, event: "DELETE", when: null },
+      { name: "knowledge_consumption_no_update", table: "knowledge_consumption", raises: true, event: "UPDATE", when: null },
+      { name: "knowledge_consumption_no_delete", table: "knowledge_consumption", raises: true, event: "DELETE", when: null },
     ],
     columns: {
       knowledge_source: [
@@ -290,11 +295,11 @@ export const CAPABILITIES: CapabilitySpec[] = [
     lineage: "check-report",
     version: 7,
     tables: ["quote_check_report"],
-    indexes: [{ name: "quote_check_report_history" }],
+    indexes: [{ name: "quote_check_report_history", table: "quote_check_report" }],
     triggers: [
-      { name: "quote_check_report_revision", raises: true, event: "INSERT" },
-      { name: "quote_check_report_no_update", raises: true, event: "UPDATE", when: null },
-      { name: "quote_check_report_no_delete", raises: true, event: "DELETE", when: null },
+      { name: "quote_check_report_revision", table: "quote_check_report", raises: true, event: "INSERT" },
+      { name: "quote_check_report_no_update", table: "quote_check_report", raises: true, event: "UPDATE", when: null },
+      { name: "quote_check_report_no_delete", table: "quote_check_report", raises: true, event: "DELETE", when: null },
     ],
     columns: {
       quote_check_report: [
@@ -419,7 +424,9 @@ function capabilityStatus(
   tables: Set<string>,
   tableSql: Map<string, string>,
   indexSql: Map<string, string>,
+  indexTable: Map<string, string>,
   triggerSql: Map<string, string>,
+  triggerTable: Map<string, string>,
   columns: Record<string, string[]>,
   foreignKeys: ForeignKeyRef[],
 ): CapabilityStatus {
@@ -431,6 +438,8 @@ function capabilityStatus(
   const indexesOk = cap.indexes.every((req) => {
     const sql = indexSql.get(req.name);
     if (sql === undefined) return false;
+    // 索引实际所属表必须匹配规范目标表（防 M13-Y03 旁表同名索引）。
+    if (indexTable.get(req.name) !== req.table) return false;
     if (req.unique && !/\bUNIQUE\b/i.test(sql)) return false;
     if (req.columns !== undefined) {
       const actual = extractIndexColumns(sql);
@@ -447,7 +456,10 @@ function capabilityStatus(
   const triggersOk = cap.triggers.every((req) => {
     const sql = triggerSql.get(req.name);
     if (sql === undefined) return false;
-    if (req.raises && !/\bRAISE\s*\(/i.test(stripTrivia(sql))) return false;
+    // 触发器实际目标表必须匹配规范目标表（防 M13-Y02 错表触发器）。
+    if (triggerTable.get(req.name) !== req.table) return false;
+    // 有效保护体必须是真实的 `SELECT RAISE(...)`：字符串字面量 'RAISE'（X10）或 CASE 包裹的不可达 RAISE（Y01）均不算。
+    if (req.raises && !/\bSELECT\s+RAISE\s*\(/i.test(stripTrivia(sql))) return false;
     if (extractTriggerEvent(sql) !== req.event) return false;
     if (req.when === null) {
       // 规范无 WHEN：实际必须无 WHEN（防 X05 永假/加 WHEN）。
@@ -542,13 +554,20 @@ export function identifyLineage(input: {
   const tables = new Set<string>();
   const tableSql = new Map<string, string>();
   const indexSql = new Map<string, string>();
+  const indexTable = new Map<string, string>();
   const triggerSql = new Map<string, string>();
+  const triggerTable = new Map<string, string>();
   for (const obj of input.objects) {
     if (obj.type === "table") {
       tables.add(obj.name);
       tableSql.set(obj.name, obj.sql ?? "");
-    } else if (obj.type === "index") indexSql.set(obj.name, obj.sql ?? "");
-    else if (obj.type === "trigger") triggerSql.set(obj.name, obj.sql ?? "");
+    } else if (obj.type === "index") {
+      indexSql.set(obj.name, obj.sql ?? "");
+      indexTable.set(obj.name, obj.tbl_name);
+    } else if (obj.type === "trigger") {
+      triggerSql.set(obj.name, obj.sql ?? "");
+      triggerTable.set(obj.name, obj.tbl_name);
+    }
   }
   const foreignKeys = input.foreignKeys ?? [];
 
@@ -557,7 +576,17 @@ export function identifyLineage(input: {
   const partial: CapabilityId[] = [];
   for (const cap of CAPABILITIES) {
     const id = capabilityId(cap);
-    const status = capabilityStatus(cap, tables, tableSql, indexSql, triggerSql, input.columns, foreignKeys);
+    const status = capabilityStatus(
+      cap,
+      tables,
+      tableSql,
+      indexSql,
+      indexTable,
+      triggerSql,
+      triggerTable,
+      input.columns,
+      foreignKeys,
+    );
     statuses[id] = status;
     if (status === "present") present.push(id);
     else if (status === "partial") partial.push(id);

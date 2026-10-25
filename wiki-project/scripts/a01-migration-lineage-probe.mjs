@@ -472,6 +472,31 @@ caseRun("tampered-predicate-case-M13-X11", (db) => {
   db.exec("DROP INDEX agent_write_once");
   db.exec("CREATE UNIQUE INDEX agent_write_once ON agent_write_call(run_id,attempt) WHERE status IN ('PREPARED','COMMITTED')");
 }, "tampered");
+// M13-Y01：触发器体为 CASE WHEN 0 THEN RAISE(...) ELSE 1 END，RAISE 不可达 → tampered
+caseRun("tampered-unreachable-raise-M13-Y01", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_delete");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_delete BEFORE DELETE ON agent_tool_step BEGIN SELECT CASE WHEN 0 THEN RAISE(ABORT,'IMMUTABLE_TOOL_STEP') ELSE 1 END; END",
+  );
+}, "tampered");
+// M13-Y02：同名、同 DELETE 事件、含真实 RAISE 的触发器挂到 agent_run（错表）→ tampered
+caseRun("tampered-wrong-table-trigger-M13-Y02", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_delete");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_delete BEFORE DELETE ON agent_run BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END",
+  );
+}, "tampered");
+// M13-Y03：删除 agent_write_once，在旁表 synthetic_index_target 上创建同名 UNIQUE 索引（列/谓词同规范）→ tampered
+caseRun("tampered-wrong-table-index-M13-Y03", (db) => {
+  buildLineage(db, "c-v6");
+  db.exec("DROP INDEX agent_write_once");
+  db.exec("CREATE TABLE synthetic_index_target(run_id TEXT, attempt INTEGER, status TEXT)");
+  db.exec(
+    "CREATE UNIQUE INDEX agent_write_once ON synthetic_index_target(run_id,attempt) WHERE status IN ('prepared','committed')",
+  );
+}, "tampered");
 
 // 3) 追加：每个可升级谱系定向追加后应达到统一目标（9 能力齐全 + user_version=8）
 function appendToTarget(db, snap) {
