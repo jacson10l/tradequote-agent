@@ -10,11 +10,26 @@ sources:
   - packages/contracts/src/knowledge-lint-review.test.ts:1
   - wiki-repo:raw/b-combination-regression-ready.json:1
   - conversation:用户转交C固定fd2fa252并要求B准备新组合验证
+  - wiki-repo:raw/b-combination-fixed-handoff-validation.json:1
+  - https://github.com/jacson10l/tradequote-agent/blob/356e4ca7557a3bef67a6898007504e657175655b/wiki-project/wiki/A41f0cdc独立复验与迁移矩阵阻断.md
 ---
 
 # B组合验证准备与固定输入
 
-## 固定输入与当前结论
+## 当前固定材料与阻断
+
+2026-10-25 当前固定进度：A 41f0cdc4d2d8db931f00f4c2fc141e4274abf82b已推送，C固定356e4ca7557a3bef67a6898007504e657175655b独立验证X01～X11为11/11通过；当前阻断为M09-L01/L02、M13-Y01/Y02/Y03（扩展矩阵107项中102通过/5失败）。A本地163f7a4修复五项仅为用户转述，尚待取得推送后的固定实现及C复验。B保留5cdb2b15ddb267f9eea8d169a0dbe0c55c56f465、A-W08技术确认、原两次100/100和本轮121/121；121项仅登记为B作者自验，实际代码067afc283dd3026e21b5a443d90e00e9acdbbbc7，A依赖b9a0af76217e57e0ab22ba927de1a1a287b1145f，并非41f0cdc组合。本轮纯状态/材料更正不重跑121项，普通推送独立B分支供C接收，不合入。新A修正到位后在明确固定的新组合验证报告消费事务、旧库重开/幂等与P1回执，另记结果；迁移整体、新组合、macOS联合及人员/业务验收均未完成。详见[[B组合验证准备与固定输入]]及raw/b-combination-fixed-handoff-validation.json。
+
+C固定[复验原文](https://github.com/jacson10l/tradequote-agent/blob/356e4ca7557a3bef67a6898007504e657175655b/wiki-project/wiki/A41f0cdc独立复验与迁移矩阵阻断.md)及其m13/matrix两个原始JSON已实际读取并核对blob/SHA-256，矩阵内嵌脚本hash也已核验。其11/11与102/107均归属C对固定A的独立复验，不是B复验或新组合。五项分别为未知旧账本登记、重复旧身份、不可达真实RAISE、触发器挂错表、索引挂错表。
+
+## 121项作者自验的精确归属
+
+- 实际执行时完整HEAD：067afc283dd3026e21b5a443d90e00e9acdbbbc7；保存材料提交：5cdb2b15ddb267f9eea8d169a0dbe0c55c56f465。二者packages/apps/scripts/tests及配置无差异，与8043afb84db04697c78bae668d63af19303ced50的对应源码也相同；九份测试的证据hash已逐份与测试时Git blob及当前文件核对。
+- A依赖：b9a0af76217e57e0ab22ba927de1a1a287b1145f（迁移实现9cdd13a3755b4bd1d0a4ac300785021e47ed4a88），经2100aa7253c2e0285d71cc879e60e3001f3cc82d组合，B在99ba7de97fd25f0843ccf63acfb8f97c374137f3保留类型/公开接口适配；未导入A cece332或41f0cdc，不能称原样A快照或新A/B/C组合。
+- 环境：Windows x64，运行器Node22.22.0，pnpm10.13.1，Electron44.9.2/原生Node24.22.0。执行时间为北京时间2026-10-25 00:48:36～00:48:39，ELECTRON_RUN_AS_NODE=1；下文九文件命令的实际executable、argv、开始/结束时点、stdout/stderr和退出0均在原raw/b-combination-regression-ready.json，并原样引用到新raw/b-combination-fixed-handoff-validation.json。结果9文件121/121，仅B作者自验，非C接收或非作者批准。
+- 依赖准备使用宿主Node24.21.0的engine警告及首次Wiki lint失败记录保留。本轮只更正状态/交接，不重跑不变化的121项，不覆盖原证据。
+
+## 历史：5cdb2b1准备时的固定输入与结论
 
 2026-10-25，B实际取得C fd2fa2529d2ebc919ca669b16486b0bc87484c89，读取其任务及raw/c-x10-x11-update-check.json，并保存原JSON的blob与SHA-256。本轮再次git ls-remote确认A远端仍cece332e41a230ebbeeaee64eb283b49a5d4fb43，C远端与用户给定完整SHA一致；尚无新推送的X10/X11修复供组合。C文件中的未推送措辞是该提交前的历史状态，本轮以实际远端回读为准。
 
@@ -36,7 +51,7 @@ B在独立工作树D:/code/tradequote-agent-b-combination、新分支codex/b-com
 
 ## 新固定组合的执行顺序
 
-1. 收到A新固定SHA与X10/X11修复证据后取得对象，保留X01～X09回归；C独立复验X01～X11。未满足时不推进正式迁移接受。
+1. A 41f0cdc上的X01～X11已由C固定356e4ca独立通过，原证据保留。取得A修正M09-L01/L02、M13-Y01/Y02/Y03的推送后完整SHA、同步Wiki与回归证据，由C复验这五项并保留X01～X11回归；163f7a4当前仅为用户转述的本地修复。全部满足前不推进正式迁移接受。
 2. 在独立组合分支记录A/B/C完整SHA、merge-base、工作树状态、OS/CPU、Node/pnpm/Electron与原生ABI。按各方增量合并公开出口，保留A迁移/存储、B executeChecks/P1及C运行/桌面入口；禁止整文件覆盖index.ts或复制DTO。运行typecheck检查调用方、mock和公共导出。
 3. 通过Electron的Node ABI执行下列九文件命令，再运行新组合适用的迁移测试与C矩阵。记录实际命令、退出码、完整非敏感输出、测试数量和源码hash；失败照实保留，修复后另记结果，不能复用本次121项作组合证据。
 4. 若新组合加入真实lint存储/审核服务，补该服务加载真实已存报告后的事务路径验证；目前P1校验测试只证明协议绑定。人工签认、发布和业务验收仍需分别完成，macOS联合桌面结果由实际执行者记录。
@@ -47,7 +62,7 @@ B在独立工作树D:/code/tradequote-agent-b-combination、新分支codex/b-com
 electron node_modules/vitest/vitest.mjs run packages/contracts/src/checks.test.ts packages/contracts/src/knowledge-wiki.test.ts packages/contracts/src/knowledge-build.test.ts packages/contracts/src/knowledge-maintenance.test.ts packages/contracts/src/knowledge-lint-review.test.ts packages/infrastructure/src/wiki-store.test.ts packages/infrastructure/src/check-store.test.ts packages/infrastructure/src/check-lineage-integration.test.ts packages/infrastructure/src/wiki-check-integration.test.ts
 ```
 
-## 本轮实际执行与限制
+## 历史：5cdb2b1作者自验实际执行与限制
 
 宿主Windows x64，依赖准备使用Node24.21.0/pnpm10.13.1执行pnpm install --frozen-lockfile --offline --ignore-scripts退出0，保留engine警告；随后运行器使用项目固定Node22.22.0，实际SQLite测试使用Electron44.9.2/内嵌Node24.22.0。九文件121/121、原生运行时身份查询与远端头查询均退出0。新证据raw/b-combination-regression-ready.json包含argv、时点、输出、退出码和九份测试源码hash；本轮仅文档改动，不新增依赖或更改锁文件。
 

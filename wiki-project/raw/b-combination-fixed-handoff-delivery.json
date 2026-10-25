@@ -1,0 +1,11 @@
+{
+  "status": "pending_push",
+  "taskBase": "5cdb2b15ddb267f9eea8d169a0dbe0c55c56f465",
+  "branch": "codex/b-combination-regression-ready",
+  "authorization": "User authorized ordinary push of preserved 5cdb2b1 and status correction; no force push or merge",
+  "checks": [],
+  "validation": "wiki-project/raw/b-combination-fixed-handoff-validation.json",
+  "wiki": "wiki-project/wiki/B组合验证准备与固定输入.md",
+  "task": "wiki-project/wiki/tasks/B01-谱系账本适配与P1回执.md",
+  "overallMigrationApproved": false
+}

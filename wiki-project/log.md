@@ -458,3 +458,12 @@ B从067afc2在独立codex/b-combination-regression-ready准备新组合验证；
 实际Windows x64，固定Node22.22.0运行器与Electron44.9.2/Node24.22.0执行九文件121/121通过，包含真实消费四处故障回滚、旧库升级两次重开及P1绑定；依赖准备宿主Node24.21.0 engine警告如实记录。Wiki生成/只读check/lint/固定067afc2同步/diff及保留检查的实际结果见新JSON。九文件是旧B基线准备回归，不能称新A/B/C组合、X矩阵、M/F/J、macOS或桌面通过。整体active/WIP；A修复、C独立矩阵、B新组合、人签/人审发布/业务验收分别待；未推送、合入、自动发送或调用真实模型。
 
 最终门禁均退出0：生成184文件、只读check、lint 123页/107语义页、固定067afc283dd3026e21b5a443d90e00e9acdbbbc7同步（0源码变化）、diff；105份旧raw和旧log字节前缀保持。首次lint缩写路径失败已修，原输出保留在新JSON的历史执行记录。没有把准备回归计作新组合通过。
+
+
+## 2026-10-25 B固定材料交接与C356e4ca状态更正
+
+2026-10-25 当前固定进度：A 41f0cdc4d2d8db931f00f4c2fc141e4274abf82b已推送，C固定356e4ca7557a3bef67a6898007504e657175655b独立验证X01～X11为11/11通过；当前阻断为M09-L01/L02、M13-Y01/Y02/Y03（扩展矩阵107项中102通过/5失败）。A本地163f7a4修复五项仅为用户转述，尚待取得推送后的固定实现及C复验。B保留5cdb2b15ddb267f9eea8d169a0dbe0c55c56f465、A-W08技术确认、原两次100/100和本轮121/121；121项仅登记为B作者自验，实际代码067afc283dd3026e21b5a443d90e00e9acdbbbc7，A依赖b9a0af76217e57e0ab22ba927de1a1a287b1145f，并非41f0cdc组合。本轮纯状态/材料更正不重跑121项，普通推送独立B分支供C接收，不合入。新A修正到位后在明确固定的新组合验证报告消费事务、旧库重开/幂等与P1回执，另记结果；迁移整体、新组合、macOS联合及人员/业务验收均未完成。详见[[B组合验证准备与固定输入]]及raw/b-combination-fixed-handoff-validation.json。
+
+实际增量基线5cdb2b15ddb267f9eea8d169a0dbe0c55c56f465；保留原材料提交、A-W08、两次100项与121项原证据。已核对固定C原文/JSON blob与SHA及脚本hash，九份测试hash与实际执行HEAD/当前字节一致；只同步Wiki、归属及交接信息，不重跑121项。运行生成/只读check/lint、增量与累计基线sync、diff/保留检查，结果在raw/b-combination-fixed-handoff-validation.json；普通推送与回读另存raw/b-combination-fixed-handoff-delivery.json。旧记录保留为历史，未改A/B/C代码或工具，不强推、不合入。
+
+状态更正实际门禁：Node22.22.0生成184文件、只读check、lint（123页/107语义页）、以5cdb2b1增量及067afc2累计基线sync、diff均退出0。106份旧raw与旧log字节前缀保持，0源码改动，121项未重跑。结果属于状态/固定材料校验，迁移整体仍未完成。
