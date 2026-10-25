@@ -2,7 +2,7 @@
 title: Wiki 工作流与任务记录
 type: meta
 status: active
-updated: 2026-10-23
+updated: 2026-10-25
 sources:
   - wiki-repo:scripts/build-code-index.mjs:1
   - wiki-repo:scripts/lint-wiki.mjs:1
@@ -160,3 +160,21 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 本轮本地依赖整合A b9a0af7与B P1 19d60a8，coverage取并集，历史log/raw保留；新增check-lineage-integration.test.ts与knowledge-lint-review.test.ts分别映射B报告适配和P1协议。migrations/migration-lineage/index及显式负向probe追加[[B谱系账本适配与P1回执交接]]职责来源，机械清单重建。映射与A维护探针纳入本次改动，必须重跑Wiki工具回归并保留Windows EPERM，不修改维护算法或删旧证据。
 
 任务基线f2dfa5f，不能以中途依赖WIP提交2100aa7作为本次sync基线规避已提交代码。新任务[[B01-谱系账本适配与P1回执]]记录正常验证、独立已知红色探针及未完成项，状态active。
+
+新增 `scripts/a01-migration-lineage-probe.mjs`（纯 Node，仅 `node:sqlite` + 导入真实 `migration-lineage.ts`）作为一次性质证脚本：内联九段迁移 SQL 与 C/B 固定指纹，输出 `raw/a01-migration-lineage-probe.json`。该脚本不属于标准维护工具链，不进入 `build-code-index.mjs` 的 toolchain 指纹；但仍受 lint-wiki 的 scripts 目录敏感内容/行尾空白检查。业务代码新增 `migration-lineage.ts` 及 `migrations.ts` 谱系重写按 P0 登记覆盖并映射到 [[0029-迁移谱系统一与拒绝边界]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-追加迁移设计]]、[[A01-迁移验证计划]]，见对应任务与 log。
+
+2026-10-24 修正 C 首轮核验：探针扩至 19 用例（新增 N07 列改名/N08 空触发器/N09 非唯一索引三个负例），`wiki-config.json` 为新增 `migration-ledger.test.ts`（N10/N11 账本一致性定向回归）登记覆盖，映射到 [[A01-迁移验证计划]]、[[M1验证与协作]] 与 [[A对C前置验证失败修正回复]]。配置仅登记职责，未改维护工具算法；本轮 sync 基线为 b9a0af7。
+
+2026-10-24 修正 C 二轮 M13 核验：探针再扩至 23 用例（新增 M13-X01 永假 WHEN / M13-X02 永假 WHERE / M13-X03 缺外键 / M13-X04 缺 CHECK 四个负例），`capabilityStatus` 补有效定义判据（谓词非永假 + `PRAGMA foreign_key_list` 外键 + 表原文 CHECK 匹配），`snapshotSchema` 收集外键；`contracts` `failure()` 统一 `CAPABILITY_UNAVAILABLE` 的 `retryable=false`（A-W08）。未新增源码文件，覆盖映射不变；本轮 sync 基线为 9225526。
+
+2026-10-24 修正 C 三轮 M13 核验：探针再扩至 28 用例（新增 M13-X05 `WHEN 1=0` / M13-X06 `WHERE 1=0` / M13-X07 索引增列改谓词 / M13-X08 触发器事件篡改 / M13-X09 注释伪 CHECK 五个负例），`capabilityStatus` 改为按规范参考结构核对有效定义（`TriggerRequirement.event`/`when`、`IndexRequirement.columns`/`where`、`stripComments` 去注释后匹配 CHECK），放弃常量黑名单；`migration-lineage.ts` 未新增文件、覆盖映射不变。本轮 sync 基线为 65885ff。
+
+2026-10-24 修正 C 四轮 M13 核验：探针再扩至 30 用例并新增 2 项有效原 schema 控制组（新增 M13-X10 触发器体 `SELECT 'RAISE'` 字符串字面量 / M13-X11 索引谓词字符串字面量大小写两个负例，以及 c-v7 拒绝 DELETE、c-v6 拒绝重复 prepared 两项控制），`capabilityStatus` 的 RAISE 判据改为 `/\bRAISE\s*\(/i` 命中 `stripTrivia`（去注释与字符串字面量）结果、`normalizeSql` 只小写字符串外内容（字符串字面量大小写保留）、CHECK 判据同步改用 `stripTrivia`；`migration-lineage.ts` 未新增文件、覆盖映射不变。本轮 sync 基线为 cece332。
+
+2026-10-25 修正 C 五轮 M13/账本核验：探针再扩至 33 用例（新增 M13-Y01 `CASE WHEN 0 THEN RAISE(...)` 不可达 RAISE / M13-Y02 同名触发器挂错表 agent_run / M13-Y03 同名唯一索引建旁表 synthetic_index_target 三个负例），`capabilityStatus` 的 RAISE 判据收紧为 `/\bSELECT\s+RAISE\s*\(/` 直接保护体（`SELECT CASE` 不命中）、`TriggerRequirement`/`IndexRequirement` 各新增 `table` 并从 sqlite_master `tbl_name` 核对目标表；`migrations.ts` 的 `verifyLegacyLedger` 对映射外 version（M09-L01）与重复 version（M09-L02）一律拒绝；`migration-ledger.test.ts` 增至 5 用例（新增 M09-L01/L02）。未新增源码文件，覆盖映射不变；本轮 sync 基线为 41f0cdc。
+
+2026-10-25 修正 C 六轮 M13 保护体核验：探针再扩至 37 用例（新增 M13-Y04a `SELECT RAISE(...) WHERE 0` / M13-Y04b `LIMIT 0` / M13-Y05 `UPDATE OF` 列范围 / M13-Y06 AFTER 时机 + `RAISE(IGNORE)` 四个负例），`capabilityStatus` 新增 `extractTriggerBody`/`hasBareAbortRaise`（保护体须为裸 `SELECT RAISE(ABORT,'')`，取代关键词命中）、`extractTriggerTiming`（时机必须 BEFORE）并对 UPDATE 触发器拒绝 `UPDATE OF <列>`；`migration-lineage.ts` 未新增文件、覆盖映射不变。本轮 sync 基线为 163f7a4。
+
+2026-10-25 修正 C 七轮 M13 注释词法核验：探针再扩至 40 用例（新增 M13-Y07 注释伪造保护体 / M13-Y08 注释分隔 `UPDATE OF` / M13-Y09 注释伪造事件三个负例），`capabilityStatus` 新增 `stripComments`（去 `--` 行注释/块注释，字符串/引号标识符原样保留，注释补空格保持词法边界），触发器与索引的结构识别（保护体/事件/时机/`UPDATE OF`/`UNIQUE`/列/谓词）一律先剥离注释再匹配；`migration-lineage.ts` 未新增文件、覆盖映射不变。本轮 sync 基线为 e73d177。
+
+2026-10-25 修正 C 八轮 M13 方括号标识符核验：探针再扩至 42 用例（新增 M13-Y10 方括号列名 `[CHECK(attempt>0)] TEXT` 伪造 CHECK 负例，及「额外方括号列 + 真实 CHECK 并存」有效控制组），`stripTrivia` 新增方括号引号标识符 `[name]` 剥离（内容去除、占位 `[]`）、`stripComments` 同步识别 `[name]`（内容原样保留），CHECK 判据按去注释/字符串/方括号标识符后的表原文匹配，方括号列名中的 `CHECK(attempt>0)` 文本不再被误认作真实约束，额外方括号列与真实 CHECK 并存的合法库仍识别为原谱系（不禁止所有额外列）；`migration-lineage.ts` 未新增文件、覆盖映射不变。本轮 sync 基线为 1c890dc。

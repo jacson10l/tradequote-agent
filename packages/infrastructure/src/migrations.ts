@@ -1,10 +1,13 @@
 import type Database from "better-sqlite3";
 import {
-  type CapabilityLineage,
   capabilityId,
   identifyLineage,
-  type MigrationLineage,
   sqlFingerprint,
+  type CapabilityId,
+  type CapabilityLineage,
+  type ForeignKeyRef,
+  type Identification,
+  type MigrationLineage,
 } from "./migration-lineage";
 
 /**
@@ -276,38 +279,53 @@ interface SchemaSnapshot {
   userVersion: number;
   objects: { type: string; name: string; tbl_name: string; sql: string | null }[];
   columns: Record<string, string[]>;
+  foreignKeys: ForeignKeyRef[];
 }
 
 /** 读取 schema 快照（只读，供识别用）。 */
 export function snapshotSchema(db: Database.Database): SchemaSnapshot {
   const userVersion = Number(db.pragma("user_version", { simple: true }));
   const objects = db
-    .prepare(
-      "SELECT type,name,tbl_name,sql FROM sqlite_master WHERE type IN ('table','index','trigger')",
-    )
+    .prepare("SELECT type,name,tbl_name,sql FROM sqlite_master WHERE type IN ('table','index','trigger')")
     .all() as { type: string; name: string; tbl_name: string; sql: string | null }[];
   const columns: Record<string, string[]> = {};
+  const foreignKeys: ForeignKeyRef[] = [];
   for (const obj of objects) {
     if (obj.type !== "table") continue;
     if (obj.name.startsWith("sqlite_")) continue;
     columns[obj.name] = (db.pragma(`table_info(${obj.name})`) as { name: string }[]).map(
       (c) => c.name,
     );
+    for (const fk of db.pragma(`foreign_key_list(${obj.name})`) as {
+      table: string;
+      from: string;
+      to: string;
+    }[]) {
+      foreignKeys.push({ table: obj.name, from: fk.from, toTable: fk.table, to: fk.to });
+    }
   }
-  return { userVersion, objects, columns };
+  return { userVersion, objects, columns, foreignKeys };
 }
 
+/** 已知能力步骤，按 (lineage, version) 唯一键索引，供账本交叉核对使用。 */
+const STEP_BY_ID = new Map<CapabilityId, MigrationStep>(
+  MIGRATION_STEPS.map((s) => [capabilityId(s), s]),
+);
+
 /**
- * B 旧账本 schema_migration(version, sql_hash) 的 hash 交叉核对。
- * 旧账本只可能来自 B 谱系（C 无账本），version 到 lineage 的映射固定；
- * 任何 hash 与已知能力原文不一致即视为被篡改/矛盾，拒绝而非静默改写。
+ * B 旧账本 schema_migration(version, sql_hash) 的 hash 交叉核对（N11、M09-L01/L02）。
+ * 旧账本只可能来自 B 谱系（C 无账本），version 到 lineage 的映射固定。
+ * 除校验 hash 与已知能力原文一致外，还核对每条“已执行”声明对应的能力确实
+ * 存在于当前 schema（N11）。M09-L01：无法解释的未知登记（如 version=99）不得忽略，
+ * 必须安全拒绝；M09-L02：账本身份（version）必须唯一，重复登记属账本被重建为无唯一
+ * 约束并重复插入，拒绝而非静默去重或改写历史账本。
  */
-export function verifyLegacyLedger(db: Database.Database): void {
+export function verifyLegacyLedger(db: Database.Database, id: Identification): void {
   const hasLegacy = db
     .prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='schema_migration'")
     .get();
   if (!hasLegacy) return;
-  const legacyMap: Partial<Record<number, CapabilityLineage>> = {
+  const legacyMap: Record<number, CapabilityLineage> = {
     1: "common",
     2: "common",
     3: "common",
@@ -319,24 +337,64 @@ export function verifyLegacyLedger(db: Database.Database): void {
     version: number;
     sql_hash: string;
   }[];
-  const byId = new Map(MIGRATION_STEPS.map((s) => [capabilityId(s), s]));
+  const seenVersions = new Set<number>();
   for (const row of rows) {
+    // M09-L02：账本身份（version）必须唯一；重复 version 说明账本被重建为无唯一约束并重复插入，
+    // 属异常，拒绝而非静默去重或改写历史账本。
+    if (seenVersions.has(row.version))
+      throw new MigrationLineageError("tampered", id.expectedUserVersion);
+    seenVersions.add(row.version);
     const lineage = legacyMap[row.version];
-    if (!lineage) continue; // 旧账本可能出现未知版本，交给 schema 识别判定
-    const step = byId.get(`${lineage}:${row.version}`);
-    if (!step) throw new MigrationLineageError("tampered", 0);
-    if (row.sql_hash !== sqlFingerprint(step.sql)) throw new MigrationLineageError("tampered", 0);
+    // M09-L01：无法解释的未知登记（如 version=99）不得忽略，必须安全拒绝。
+    if (!lineage) throw new MigrationLineageError("tampered", id.expectedUserVersion);
+    const idKey = capabilityId({ lineage, version: row.version });
+    const step = STEP_BY_ID.get(idKey);
+    if (!step) throw new MigrationLineageError("tampered", id.expectedUserVersion);
+    if (row.sql_hash !== sqlFingerprint(step.sql))
+      throw new MigrationLineageError("tampered", id.expectedUserVersion);
+    // 执行声明必须与真实 schema 能力一致，否则旧账本被篡改/张冠李戴（N11）。
+    if (id.statuses[idKey] !== "present")
+      throw new MigrationLineageError("tampered", id.expectedUserVersion);
   }
 }
 
-/** 识别谱系并在非升级谱系/账本矛盾上安全拒绝（只读，不写任何内容）。 */
+/**
+ * 新账本 migration_registry(lineage, version, sql_hash, applied_at) 的前置只读校验（N10）。
+ * 在读写真开/WAL 之前判定：每条登记的身份必须是已知能力、hash 必须与原文指纹一致、
+ * 且对应能力确实存在于当前 schema。任何不一致先拒绝，不产生读写连接、不改 journal。
+ */
+export function verifyRegistryLedger(db: Database.Database, id: Identification): void {
+  const hasRegistry = db
+    .prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='migration_registry'")
+    .get();
+  if (!hasRegistry) return;
+  const rows = db
+    .prepare("SELECT lineage, version, sql_hash FROM migration_registry")
+    .all() as { lineage: string; version: number; sql_hash: string }[];
+  for (const row of rows) {
+    const idKey = capabilityId({ lineage: row.lineage as CapabilityLineage, version: row.version });
+    const step = STEP_BY_ID.get(idKey);
+    if (!step) throw new MigrationLineageError("tampered", id.expectedUserVersion);
+    if (row.sql_hash !== sqlFingerprint(step.sql))
+      throw new MigrationLineageError("tampered", id.expectedUserVersion);
+    if (id.statuses[idKey] !== "present")
+      throw new MigrationLineageError("tampered", id.expectedUserVersion);
+  }
+}
+
+/**
+ * 识别谱系并在非升级谱系/账本矛盾上安全拒绝（只读，不写任何内容）。
+ * 旧账本与能力一致性、新账本身份/hash/能力一致性都在此只读阶段判定，
+ * 晚于 repository 的 WAL 设置前即被拒绝。
+ */
 export function identify(db: Database.Database) {
   const snapshot = snapshotSchema(db);
   const id = identifyLineage(snapshot);
   if (!UPGRADEABLE_LINEAGES.has(id.lineage)) {
     throw new MigrationLineageError(id.lineage, snapshot.userVersion);
   }
-  verifyLegacyLedger(db);
+  verifyLegacyLedger(db, id);
+  verifyRegistryLedger(db, id);
   return { ...id, userVersion: snapshot.userVersion };
 }
 

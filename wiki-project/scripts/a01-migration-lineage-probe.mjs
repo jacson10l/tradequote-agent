@@ -219,11 +219,15 @@ function snapshot(db) {
     .all()
     .map((r) => ({ type: r.type, name: r.name, tbl_name: r.tbl_name, sql: r.sql }));
   const columns = {};
+  const foreignKeys = [];
   for (const o of objects) {
     if (o.type !== "table" || o.name.startsWith("sqlite_")) continue;
     columns[o.name] = db.prepare(`PRAGMA table_info(${o.name})`).all().map((c) => c.name);
+    for (const fk of db.prepare(`PRAGMA foreign_key_list(${o.name})`).all()) {
+      foreignKeys.push({ table: o.name, from: fk.from, toTable: fk.table, to: fk.to });
+    }
   }
-  return { userVersion: uv, objects, columns };
+  return { userVersion: uv, objects, columns, foreignKeys };
 }
 
 function build(db, upToId) {
@@ -331,6 +335,252 @@ caseRun("tampered-missing-report-trigger", (db) => {
   buildLineage(db, "b-v7");
   db.exec("DROP TRIGGER quote_check_report_no_delete");
 }, "tampered");
+// N07：必要列被改名（agent_run.request_hash）→ 识别须拒绝，不能仍识别为 c-v7
+caseRun("tampered-renamed-request-hash-N07", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("ALTER TABLE agent_run RENAME COLUMN request_hash TO request_hash2");
+}, "tampered");
+// N08：同名空触发器（SELECT 1 无 RAISE）不能充当不可变保护 → tampered
+caseRun("tampered-empty-trigger-N08", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_delete");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_delete BEFORE DELETE ON agent_tool_step BEGIN SELECT 1; END",
+  );
+}, "tampered");
+// N09：一次写保护索引被换成同名普通非唯一索引 → tampered
+caseRun("tampered-nonunique-index-N09", (db) => {
+  buildLineage(db, "c-v6");
+  db.exec("DROP INDEX agent_write_once");
+  db.exec("CREATE INDEX agent_write_once ON agent_write_call(run_id, attempt)");
+}, "tampered");
+
+// M13-X01：RAISE 触发器加 WHEN 0 永假，保护永不触发 → tampered
+caseRun("tampered-constant-when-M13-X01", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_delete");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_delete BEFORE DELETE ON agent_tool_step WHEN 0 BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END",
+  );
+}, "tampered");
+// M13-X02：部分唯一索引 WHERE 0 不索引任何行 → tampered
+caseRun("tampered-constant-where-M13-X02", (db) => {
+  buildLineage(db, "c-v6");
+  db.exec("DROP INDEX agent_write_once");
+  db.exec("CREATE UNIQUE INDEX agent_write_once ON agent_write_call(run_id,attempt) WHERE 0");
+}, "tampered");
+// M13-X03：agent_tool_step 删除 run_id 外键 → tampered
+caseRun("tampered-missing-fk-M13-X03", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TABLE agent_tool_step");
+  db.exec(`CREATE TABLE agent_tool_step (
+  run_id TEXT NOT NULL,
+  attempt INTEGER NOT NULL,
+  tool_call_id TEXT NOT NULL,
+  ordinal INTEGER NOT NULL,
+  data_json TEXT NOT NULL CHECK(json_valid(data_json)),
+  PRIMARY KEY(run_id,attempt,tool_call_id),
+  UNIQUE(run_id,attempt,ordinal)
+)`);
+  db.exec("CREATE TRIGGER agent_tool_step_no_update BEFORE UPDATE ON agent_tool_step BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END;");
+  db.exec("CREATE TRIGGER agent_tool_step_no_delete BEFORE DELETE ON agent_tool_step BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END;");
+}, "tampered");
+// M13-X04：agent_write_call 删除 attempt>0 CHECK → tampered
+caseRun("tampered-missing-check-M13-X04", (db) => {
+  buildLineage(db, "c-v6");
+  db.exec("DROP TABLE agent_write_call");
+  db.exec(`CREATE TABLE agent_write_call (
+  run_id TEXT NOT NULL REFERENCES agent_run(run_id),
+  tool_call_id TEXT NOT NULL,
+  attempt INTEGER NOT NULL,
+  execution_id TEXT NOT NULL,
+  worker_session_id TEXT NOT NULL,
+  tool_name TEXT NOT NULL CHECK(tool_name IN ('create_draft','apply_patch')),
+  request_hash TEXT NOT NULL,
+  input_json TEXT NOT NULL CHECK(json_valid(input_json)),
+  status TEXT NOT NULL CHECK(status IN ('prepared','committed','abandoned')),
+  revision_id TEXT,
+  PRIMARY KEY(run_id,tool_call_id),
+  CHECK((status='committed') = (revision_id IS NOT NULL))
+)`);
+  db.exec("CREATE UNIQUE INDEX agent_write_once ON agent_write_call(run_id,attempt) WHERE status IN ('prepared','committed')");
+  db.exec("CREATE TRIGGER agent_write_committed_no_update BEFORE UPDATE ON agent_write_call WHEN OLD.status='committed' BEGIN SELECT RAISE(ABORT,'IMMUTABLE_WRITE_RECEIPT'); END;");
+  db.exec("CREATE TRIGGER agent_write_no_delete BEFORE DELETE ON agent_write_call BEGIN SELECT RAISE(ABORT,'IMMUTABLE_WRITE_RECEIPT'); END;");
+}, "tampered");
+
+// M13-X05：RAISE 触发器加 WHEN 1=0 比较永假（非字面量 0）→ tampered
+caseRun("tampered-constant-when-comparison-M13-X05", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_delete");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_delete BEFORE DELETE ON agent_tool_step WHEN 1=0 BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END",
+  );
+}, "tampered");
+// M13-X06：部分唯一索引 WHERE 1=0 比较永假 → tampered
+caseRun("tampered-constant-where-comparison-M13-X06", (db) => {
+  buildLineage(db, "c-v6");
+  db.exec("DROP INDEX agent_write_once");
+  db.exec("CREATE UNIQUE INDEX agent_write_once ON agent_write_call(run_id,attempt) WHERE 1=0");
+}, "tampered");
+// M13-X07：同名唯一索引增列 tool_call_id 且 WHERE 谓词被改写 → tampered
+caseRun("tampered-index-extra-column-M13-X07", (db) => {
+  buildLineage(db, "c-v6");
+  db.exec("DROP INDEX agent_write_once");
+  db.exec("CREATE UNIQUE INDEX agent_write_once ON agent_write_call(run_id,attempt,tool_call_id) WHERE status='prepared'");
+}, "tampered");
+// M13-X08：同名 no_delete 触发器事件被改为 BEFORE UPDATE → tampered
+caseRun("tampered-trigger-event-M13-X08", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_delete");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_delete BEFORE UPDATE ON agent_tool_step BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END",
+  );
+}, "tampered");
+// M13-X09：attempt>0 CHECK 只存在于 SQL 注释，非真实约束 → tampered
+caseRun("tampered-check-in-comment-M13-X09", (db) => {
+  buildLineage(db, "c-v6");
+  db.exec("DROP TABLE agent_write_call");
+  db.exec(`CREATE TABLE agent_write_call (
+  run_id TEXT NOT NULL REFERENCES agent_run(run_id),
+  tool_call_id TEXT NOT NULL,
+  attempt INTEGER NOT NULL, /* CHECK(attempt>0) */
+  execution_id TEXT NOT NULL,
+  worker_session_id TEXT NOT NULL,
+  tool_name TEXT NOT NULL CHECK(tool_name IN ('create_draft','apply_patch')),
+  request_hash TEXT NOT NULL,
+  input_json TEXT NOT NULL CHECK(json_valid(input_json)),
+  status TEXT NOT NULL CHECK(status IN ('prepared','committed','abandoned')),
+  revision_id TEXT,
+  PRIMARY KEY(run_id,tool_call_id),
+  CHECK((status='committed') = (revision_id IS NOT NULL))
+)`);
+  db.exec("CREATE UNIQUE INDEX agent_write_once ON agent_write_call(run_id,attempt) WHERE status IN ('prepared','committed')");
+  db.exec("CREATE TRIGGER agent_write_committed_no_update BEFORE UPDATE ON agent_write_call WHEN OLD.status='committed' BEGIN SELECT RAISE(ABORT,'IMMUTABLE_WRITE_RECEIPT'); END;");
+  db.exec("CREATE TRIGGER agent_write_no_delete BEFORE DELETE ON agent_write_call BEGIN SELECT RAISE(ABORT,'IMMUTABLE_WRITE_RECEIPT'); END;");
+}, "tampered");
+// M13-X10：no_delete 触发器体仅为 SELECT 'RAISE';（字符串字面量，非真实 RAISE 调用）→ tampered
+caseRun("tampered-raise-string-literal-M13-X10", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_delete");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_delete BEFORE DELETE ON agent_tool_step BEGIN SELECT 'RAISE'; END",
+  );
+}, "tampered");
+// M13-X11：唯一索引 WHERE 谓词字符串字面量改大写，归一不能把小写 prepared 误判为规范谓词 → tampered
+caseRun("tampered-predicate-case-M13-X11", (db) => {
+  buildLineage(db, "c-v6");
+  db.exec("DROP INDEX agent_write_once");
+  db.exec("CREATE UNIQUE INDEX agent_write_once ON agent_write_call(run_id,attempt) WHERE status IN ('PREPARED','COMMITTED')");
+}, "tampered");
+// M13-Y01：触发器体为 CASE WHEN 0 THEN RAISE(...) ELSE 1 END，RAISE 不可达 → tampered
+caseRun("tampered-unreachable-raise-M13-Y01", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_delete");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_delete BEFORE DELETE ON agent_tool_step BEGIN SELECT CASE WHEN 0 THEN RAISE(ABORT,'IMMUTABLE_TOOL_STEP') ELSE 1 END; END",
+  );
+}, "tampered");
+// M13-Y02：同名、同 DELETE 事件、含真实 RAISE 的触发器挂到 agent_run（错表）→ tampered
+caseRun("tampered-wrong-table-trigger-M13-Y02", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_delete");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_delete BEFORE DELETE ON agent_run BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END",
+  );
+}, "tampered");
+// M13-Y03：删除 agent_write_once，在旁表 synthetic_index_target 上创建同名 UNIQUE 索引（列/谓词同规范）→ tampered
+caseRun("tampered-wrong-table-index-M13-Y03", (db) => {
+  buildLineage(db, "c-v6");
+  db.exec("DROP INDEX agent_write_once");
+  db.exec("CREATE TABLE synthetic_index_target(run_id TEXT, attempt INTEGER, status TEXT)");
+  db.exec(
+    "CREATE UNIQUE INDEX agent_write_once ON synthetic_index_target(run_id,attempt) WHERE status IN ('prepared','committed')",
+  );
+}, "tampered");
+// M13-Y04a：no_delete 保护体 SELECT RAISE(ABORT,...) WHERE 0（RAISE 永不执行）→ tampered
+caseRun("tampered-raise-where-suppressed-M13-Y04a", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_delete");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_delete BEFORE DELETE ON agent_tool_step BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP') WHERE 0; END",
+  );
+}, "tampered");
+// M13-Y04b：no_delete 保护体 SELECT RAISE(ABORT,...) LIMIT 0（RAISE 永不执行）→ tampered
+caseRun("tampered-raise-limit-suppressed-M13-Y04b", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_delete");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_delete BEFORE DELETE ON agent_tool_step BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP') LIMIT 0; END",
+  );
+}, "tampered");
+// M13-Y05：no_update 改为 BEFORE UPDATE OF 不存在列（更新 data_json 不触发保护）→ tampered
+caseRun("tampered-update-of-column-M13-Y05", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_update");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_update BEFORE UPDATE OF synthetic_nonexistent_column ON agent_tool_step BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END",
+  );
+}, "tampered");
+// M13-Y06：no_delete 改为 AFTER DELETE + SELECT RAISE(IGNORE)（时机后置且不中止）→ tampered
+caseRun("tampered-after-ignore-raise-M13-Y06", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_delete");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_delete AFTER DELETE ON agent_tool_step BEGIN SELECT RAISE(IGNORE); END",
+  );
+}, "tampered");
+// M13-Y07：no_delete 真实体为 SELECT 1，前置注释伪造 BEGIN SELECT RAISE(ABORT,...) END → tampered
+caseRun("tampered-comment-forged-body-M13-Y07", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_delete");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_delete BEFORE DELETE ON agent_tool_step /* BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END */ BEGIN SELECT 1; END",
+  );
+}, "tampered");
+// M13-Y08：no_update 用注释分隔 UPDATE 与 OF 列范围（保护实际收窄到不存在列）→ tampered
+caseRun("tampered-comment-split-update-of-M13-Y08", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_update");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_update BEFORE UPDATE /* synthetic gap */ OF synthetic_nonexistent_column ON agent_tool_step BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END",
+  );
+}, "tampered");
+// M13-Y09：no_delete 真实事件改为 BEFORE UPDATE，前置注释伪造 BEFORE DELETE → tampered
+caseRun("tampered-comment-forged-event-M13-Y09", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_delete");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_delete /* BEFORE DELETE */ BEFORE UPDATE ON agent_tool_step BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END",
+  );
+}, "tampered");
+// M13-Y10：真实 attempt>0 CHECK 被方括号列名 [CHECK(attempt>0)] TEXT 伪造（列名文本被误认作约束）→ tampered
+caseRun("tampered-bracket-identifier-check-M13-Y10", (db) => {
+  buildLineage(db, "c-v6");
+  db.exec("DROP TABLE agent_write_call");
+  db.exec(`CREATE TABLE agent_write_call (
+  run_id TEXT NOT NULL REFERENCES agent_run(run_id),
+  tool_call_id TEXT NOT NULL,
+  attempt INTEGER NOT NULL,
+  [CHECK(attempt>0)] TEXT,
+  execution_id TEXT NOT NULL,
+  worker_session_id TEXT NOT NULL,
+  tool_name TEXT NOT NULL CHECK(tool_name IN ('create_draft','apply_patch')),
+  request_hash TEXT NOT NULL,
+  input_json TEXT NOT NULL CHECK(json_valid(input_json)),
+  status TEXT NOT NULL CHECK(status IN ('prepared','committed','abandoned')),
+  revision_id TEXT,
+  PRIMARY KEY(run_id,tool_call_id),
+  CHECK((status='committed') = (revision_id IS NOT NULL))
+)`);
+  db.exec("CREATE UNIQUE INDEX agent_write_once ON agent_write_call(run_id,attempt) WHERE status IN ('prepared','committed')");
+  db.exec("CREATE TRIGGER agent_write_committed_no_update BEFORE UPDATE ON agent_write_call WHEN OLD.status='committed' BEGIN SELECT RAISE(ABORT,'IMMUTABLE_WRITE_RECEIPT'); END;");
+  db.exec("CREATE TRIGGER agent_write_no_delete BEFORE DELETE ON agent_write_call BEGIN SELECT RAISE(ABORT,'IMMUTABLE_WRITE_RECEIPT'); END;");
+}, "tampered");
+// 有效控制：额外方括号列 [CHECK(attempt>0)] TEXT 与真实 attempt>0 CHECK 并存 → 仍识别为 c-v7（不禁止所有额外列）
+caseRun("valid-extra-bracket-column-with-real-check", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("ALTER TABLE agent_write_call ADD COLUMN [CHECK(attempt>0)] TEXT");
+}, "c-v7");
 
 // 3) 追加：每个可升级谱系定向追加后应达到统一目标（9 能力齐全 + user_version=8）
 function appendToTarget(db, snap) {
@@ -362,9 +612,36 @@ for (const lineage of ["empty", "common-v1", "common-v2", "common-v3", "a01b-v4"
   db.close();
 }
 
+// 4) 有效原 schema 控制组：真实 c-v6/c-v7 上保护实际生效（DELETE 被拒、重复 prepared 被拒）。
+//    对应 C 的「有效原 schema 控制」列，证明原保护定义真实拒绝操作，而非仅识别通过。
+const enforcement = [];
+{
+  const db = new DatabaseSync(":memory:");
+  buildLineage(db, "c-v7");
+  db.exec("INSERT INTO workspace(slot,id,name,version,created_at) VALUES (1,'w','w',1,'2026-01-01')");
+  db.exec("INSERT INTO agent_run(run_id,workspace_id,operation_key,request_hash,data_json) VALUES ('r1','w','op','h','{\"runId\":\"r1\",\"operationKey\":\"op\",\"status\":\"pending\"}')");
+  db.exec("INSERT INTO agent_tool_step(run_id,attempt,tool_call_id,ordinal,data_json) VALUES ('r1',1,'tc',1,'{}')");
+  let rejected = false;
+  try { db.exec("DELETE FROM agent_tool_step"); } catch { rejected = true; }
+  enforcement.push({ control: "c-v7 agent_tool_step_no_delete rejects DELETE", rejected });
+  db.close();
+}
+{
+  const db = new DatabaseSync(":memory:");
+  buildLineage(db, "c-v6");
+  db.exec("INSERT INTO workspace(slot,id,name,version,created_at) VALUES (1,'w','w',1,'2026-01-01')");
+  db.exec("INSERT INTO agent_run(run_id,workspace_id,operation_key,request_hash,data_json) VALUES ('r1','w','op','h','{\"runId\":\"r1\",\"operationKey\":\"op\",\"status\":\"pending\"}')");
+  db.exec("INSERT INTO agent_write_call(run_id,tool_call_id,attempt,execution_id,worker_session_id,tool_name,request_hash,input_json,status) VALUES ('r1','tc1',1,'e','w','create_draft','h','{}','prepared')");
+  let rejected = false;
+  try { db.exec("INSERT INTO agent_write_call(run_id,tool_call_id,attempt,execution_id,worker_session_id,tool_name,request_hash,input_json,status) VALUES ('r1','tc2',1,'e','w','create_draft','h','{}','prepared')"); } catch { rejected = true; }
+  enforcement.push({ control: "c-v6 agent_write_once rejects duplicate prepared", rejected });
+  db.close();
+}
+
 const fpFailures = Object.entries(results.fingerprints).filter(([, v]) => !v.match);
 const caseFailures = results.cases.filter((c) => !c.pass);
 const appendFailures = appendResults.filter((c) => !c.pass);
+const enforcementFailures = enforcement.filter((c) => !c.rejected);
 
 const report = {
   status: "passed",
@@ -381,12 +658,15 @@ const report = {
   fingerprints: results.fingerprints,
   cases: results.cases,
   append: appendResults,
+  enforcement,
   summary: {
     fingerprintMatch: Object.values(results.fingerprints).every((v) => v.match),
     allCasesPass: caseFailures.length === 0,
     allAppendPass: appendFailures.length === 0,
+    allEnforcementPass: enforcementFailures.length === 0,
     caseFailures,
     appendFailures,
+    enforcementFailures,
     fpFailures: fpFailures.map(([k]) => k),
   },
   compatible: false, // 诊断复现/识别通过 ≠ 跨谱系兼容；组合接线与数据验收另行

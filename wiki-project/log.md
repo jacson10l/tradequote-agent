@@ -469,3 +469,124 @@ B从067afc2在独立codex/b-combination-regression-ready准备新组合验证；
 状态更正实际门禁：Node22.22.0生成184文件、只读check、lint（123页/107语义页）、以5cdb2b1增量及067afc2累计基线sync、diff均退出0。106份旧raw与旧log字节前缀保持，0源码改动，121项未重跑。结果属于状态/固定材料校验，迁移整体仍未完成。
 
 固定材料0a716a4822eb3c7c3f5ca176a8c5949d4564891a已普通推送origin/codex/b-combination-regression-ready，push及ls-remote退出0、完整SHA一致，5cdb2b1祖先关系验证退出0。本回执与任务补记后另作普通提交并回读最终头；原材料SHA和最终分支头分别报告，原验证证据保留。详情raw/b-combination-fixed-handoff-delivery.json，未强推、合入或发送外部消息。
+
+
+## A固定a2b050e历史追加记录
+
+## 2026-10-21 A01b知识存储评审修正与Wiki同步
+
+- 在 codex/a01b-knowledge-store 审查 A01b（SqliteKnowledgeStore/createKnowledgeService/迁移4/测试）并修正：findPublished 先按 publishedAt/scope 过滤再按 document 去重（新版本不匹配时回退到旧匹配版本）、空 scope 维度按通用、publish 原地 staged→published 保持 revisionId 稳定、getRevision/findPublished 按 workspace 隔离、写事务 immediate；补 A01-7/A01-8 回归，推送 5551ef3。
+- 同步 [[A知识发布实现]]（新增 module 页）、[[A01-知识发布与来源查询]] 任务页（领取人 ssyyy31、A01a/A01b 记录、status active）与 coverage（knowledge.ts/knowledge-store.ts/knowledge-store.test.ts/knowledge-drafts.a01a.json），索引补导航。
+- 本机未安装 node_modules，typecheck 与知识测试未复跑；Wiki 生成成功（153 文件/5 生成物），build-code-index --check 退出 0，lint 仅剩 4 个 raw/ 归档 CRLF 造成的 ARCHIVE_HASH_MISMATCH（历史遗留，需团队 .gitattributes 决策），无新增失败。
+
+## 2026-10-21 项目说明书与开发入门入口
+
+按用户要求新增 [[项目说明书]]，从产品定位、角色、功能、两条业务流、合成报价案例到金额/版本/AI/业务Wiki边界、实际页面、源码与开发分工形成完整入门说明。以共同基线e0f933657c2438642b006fd1a5549fe7dc683ccd核对，独立分支codex/project-product-manual；README/index/CONTEXT/项目状态同步入口，系统架构和核心业务流程修正旧当前时态并保留历史证据。仅文档变化，不扩大任何产品验收结论；实际检查由 [[2026-10-21-项目说明书编写]] 记录。
+
+本次文档验收：机械生成、只读check、lint、固定e0f9336基线sync和git diff --check均退出0，95篇Markdown/79篇语义页可达、149个纳管文件、codeFiles=0；证据[project-manual-validation.json](raw/project-manual-validation.json)。任务状态与日志更新后再跑最终只读门禁，结果追加到同一证据。未改应用/维护工具/映射，未重跑产品测试、真实模型或Windows；历史组合测试仅引用不冒领。
+
+
+## 2026-10-21 产品HTML交互演示
+
+用户要求在说明书基础上补假数据全交互HTML。独立工作树codex/project-product-manual保留前轮文档，新增experiments/product-walkthrough的单文件HTML、操作说明、逻辑回归；覆盖八页共用模拟状态、资料/知识人工发布、金额/修订/任务、审批产出、取消重试与备份。同步 [[产品交互演示]]、[[2026-10-21-产品HTML交互演示]]、说明书、README、index、CONTEXT与项目状态，登记逐文件覆盖；全部是假数据教学，不改变正式功能状态。验证记录在本轮任务中追加。
+
+本轮验收：15项样机逻辑测试、36项Wiki回归、机械生成/只读check/lint/固定e0f9336基线sync及diff检查均退出0；152纳管文件、97篇Markdown/81篇语义页可达。浏览器实走V1至V4、1130.00总额、审批及新产出重审、CSV发布、知识审核发布、取消/中断和刷新恢复；窄屏网格修正后保存截图。完整命令输出和未验证边界见raw/product-walkthrough-validation.json。任务done只代表本HTML演示完成，不改变正式开发状态；任务收尾后再跑最终检查并追加证据。
+
+
+## 2026-10-21 HTML目标对齐与依据链
+
+继续独立codex/project-product-manual工作树，固定基线e0f933657c2438642b006fd1a5549fe7dc683ccd，保留既有未提交成果及历史证据。修复新报价自动包装、旧报价修订串用默认市场；新增受限询盘识别/澄清/确认及冻结依据、知识内容检查绑定、其他语言请求明确未支持、RFQ摘要与邮件明细及德语数字显示。知识/任务/操作说明/项目说明书/状态/上下文/导航同步；本轮未改正式代码或维护工具。实际验证与剩余项见 [[2026-10-21-HTML目标对齐与依据链]]，最终结果在收尾后追加。
+
+
+## 2026-10-21 说明书详细规格与演示对齐
+
+按用户要求保留说明书14章结构，新增询盘理解、依据链、语言平台适配、包装和场景继承详细规则及23条验收用例，逐项标HTML实际行为与剩余差距。纠正演示Wiki/README旧版预选商品描述，补原文证据、规则绑定、其他语言未支持、RFQ/邮件结构和场景继承说明；同步MVP交叉入口、CONTEXT、状态与导航。未修改正式应用和公共契约，未覆盖当前已有HTML增强实现。实际验证见 [[2026-10-21-说明书详细规格与演示对齐]]；历史证据保留。
+
+HTML目标对齐本轮收尾：25项逻辑测试通过；Wiki回归首轮GENERATED_DRIFT保留失败，避免生成器/复制fixture并发后串行36项通过；生成/check/lint/固定e0f9336同步及diff检查均退出0。macOS浏览器实走询盘澄清/确认建单、包装未知、市场继承、知识正文变更待核实、英德结构与fr/ja未支持及刷新回读，截图/命令见raw/product-walkthrough-alignment-validation.json与 [[2026-10-21-HTML目标对齐与依据链]]。正式代码/真实模型/Windows不在本轮验收，其他并行说明书文档增量保留。
+
+本轮详细规格任务验收：24项HTML逻辑、36项Wiki回归、机械生成/只读check/lint/固定e0f9336基线sync及diff均退出0；浏览器补核对澄清阻止建单和板材原文识别→225.00草稿/未知费用链路，证据raw/spec-alignment-validation.json与raw/spec-alignment-inquiry.png。目标23用例仍按覆盖矩阵逐项验收，未把样机通过扩大为正式功能完成。任务done仅表示规格与当前演示边界对齐，正式实现任务状态不变。
+
+
+## 2026-10-21 HTML显式市场与包装确认
+
+按用户要求实现本单市场/平台/品类预览确认、新版本重检、包装建议与拒绝/接受、采购确认及不适用理由、包装费用未知/另计/已含/零的独立计算。旧报价默认场景不变、修改数量/定价/场景或恢复历史使确认失效；旧缓存不伪造采购记录。同步说明书、演示Wiki、README、任务、导航及状态，保留历史证据。验证见 [[2026-10-21-HTML市场与包装确认]]。
+
+本轮HTML市场/包装验收：34项样机逻辑、36项Wiki回归、机械生成/只读check/lint/固定e0f9336基线sync及diff全部退出0。浏览器实走建议→接受→采购确认12.345舍入12.35→德国显式改法国V5→确认失效/来源待核实→刷新保留。截图和完整记录为raw/market-packaging-preview.png、raw/market-packaging-validation.json。历史失败与其他任务证据保留；未执行正式应用/真实模型/Windows，不宣称产品能力已落地。
+
+## 2026-10-21 产品资料全流程一致性复核
+
+继续独立codex/project-product-manual、固定基线e0f933657c2438642b006fd1a5549fe7dc683ccd，对HTML八页/说明书/MVP与核心流程交叉检查。修正运税费依赖失效、数量单位澄清、显式待译阻送审、术语/来源/旧模板缺项、产出任务定位、RFQ包装限定、历史批准及迟到驳回/发送校验、0汇率；任务 [[2026-10-21-产品资料全流程一致性复核]]。说明书保留14章并补FLOW-01～09与成员开工指引，纠正先生成产出再人工审核的流程顺序。初轮34项29通过5失败的fixture不再符合新确认/待译约束，保留输出并显式修订前置条件；新增9项，当前43/43通过。浏览器实际验证待译→任务→补译另存→送审/驳回/再审批→刷新→数量变化导致费用未知，证据待最终门禁一并归档。正式系统能力不扩大，未提交/推送。
+
+本轮最终验证：HTML 44/44（再补新版无产出时历史入口）、Wiki36/36、generate/check/lint/固定基线sync/diff-check退出0。首次任务标题格式不满足lint导致lint和一项Wiki回归失败，修正后通过；原输出保留在raw/product-consistency-validation.json。最终浏览器确认V3无产出也可回读V2批准历史，RFQ显示包装限定与三项阻断，截图raw/product-consistency-final.png。任务状态done仅指本次样机/资料复核，不代表正式MVP完成。
+
+## 2026-10-21 产品资料提交与集成验证
+
+用户授权提交合并推送；本聊天在独立codex/project-product-manual提交b8f518c，保留六轮文档/HTML/测试/截图原证据；a14d79f无冲突合入远端be53b98（PR #3的9个A01合成fixture）。初次合并树check/lint暴露既有JSON未登记覆盖，本轮补到A业务LLMWiki方案，并说明候选未通过业务语义验收，不改样本或替A标done。按code-review技能执行Standards/Spec独立技术复核，任务 [[2026-10-21-产品资料集成验证]]，最终验证/远端结果后续记录。
+
+独立评审闭环增量：Standards仅发现上述上游覆盖阻断；Spec复现来源撤回后总览审核/发送仍画完成勾。现按当前产出就绪度重算风险/审核/发送步骤并标明历史批准/发送需复核，补总览渲染回归；历史记录不清除。
+
+本轮候选4412c8f完成独立技术复核：Standards覆盖阻断、Spec总览P2均闭环，无剩余阻断。实际HTML45/45、Wiki36/36、generate/check153文件、lint102页、两个固定基线sync与diff-check均通过。72份原raw和9个上游样本逐字节保留。准确记录raw/product-manual-integration-validation.json；集成验证任务done仅表示候选已准备，实际远端合并以PR/Git为准。
+
+## 2026-10-22 B00a P0 公共 Wiki 协议
+
+B 在独立 codex/b00a-knowledge-wiki-contracts 工作树从 56c909e21aefa484b6805bf9afc7c94b0e1d4576 开工；新增 knowledge-wiki/wiki-integrity 与反向测试，覆盖 Markdown/多来源/审核发布/稳定检索引用/消费事务端口，保持旧 B00/Runtime/Agent 白名单，12 方法明确不可用。同步 [[B00a知识Wiki公共协议]]、[[B00a-业务Wiki契约补充]]、0011 决策、M1/首批接口/覆盖映射/导航/CONTEXT/项目状态。C 设计对齐已纳入；A 通过 PR#6 评论收到清单，实际评审/合入待完成，A01c 未解锁，P1 另交。
+
+首次类型检查退出 1（测试夹具类型问题）已修正；完整单元初次 84 项/增加权限反例后 85 项通过。最终完整检查以本轮任务及原始验证 JSON 为准；不把合成协议检查当 A 业务服务或真实模型通过。
+
+B00a P0 最终 macOS 本机验证：pnpm typecheck、85 项单元、含 build 的 5 项真实 Electron、6 项工程/边界/check、36 项 Wiki 回归、generate 与固定 56c909e sync 全部退出 0，证据 raw/b00a-validation.json；初始失败及修正保留 raw/b00a-initial-validation.json。历史 raw 非生成文件逐字节不变、log 精确前缀保留、A01a JSON 解析值一致。C 空页游标 P2 已修复并补反例，仍待复核结论；A 实际评审和共同分支合入待完成，A01c 未解锁。
+
+C 范围技术复核完成：空页游标 P2 独立确认修复，相关2文件/20项测试退出0，其余客户端/IPC和宿主接线范围无阻断，记录 raw/b00a-c-review.json；不代替 A 来源/存储/发布/检索评审或 T00 人类签字。A 评审及合入仍待，任务保持 active。
+
+B00a P0 远端交接：代码提交 26421ab5bf93f74b20d5888f0e1ff3b48b9bfc36 已正常推送独立分支，[PR #7](https://github.com/jacson10l/tradequote-agent/pull/7) 目标 codex/m1-foundation，已请求 A/ssyyy31 评审；API 核对 OPEN、尚无 review、未合入，证据 raw/b00a-delivery.json。本次仅追加交付事实，已测源码/config hash 不变；A01c 未解锁，合入后通知仍待。
+
+## 2026-10-22 A01b 同步 B00a P0 共同基线
+
+A 在 codex/a01b-knowledge-store 合并 codex/m1-foundation（654fecc，含 PR#7 B00a P0 知识检索与引用公共协议）。解决 wiki-config.json 的 knowledge-drafts.a01a.json fixture 覆盖映射冲突：该 fixture 现同时服务于 A01b 知识发布实现与 B00a P0 检索引用测试，合并映射到 [[A知识发布实现]] 与 [[B00a知识Wiki公共协议]] 两页；重跑 build-code-index 生成 159 文件/5 生成物。generate/--check/lint 与 check-wiki-sync(基线 c6539e8) 均退出 0。A01b 实现仍为旧 B00 KnowledgeRepository，B00a P0 的 WikiService 由 A01c 实现，本次仅同步基线、未变更 A01b 业务代码。
+
+## 2026-10-23 A01c 检索引用
+
+A 在 codex/a01c-knowledge-search（从 codex/a01b-knowledge-store 4d3b213 分出，已含 B00a P0 654fecc）实现 A01c 检索引用切片：新增 SqliteWikiStore 与 createWikiService，覆盖 B00a P0 的 source/wiki 暂存、search/resolveCitation/registerConsumption/getConsumption；review/publish/withdraw 依赖 P1 lint 回执返回 CAPABILITY_UNAVAILABLE。新增迁移 6（knowledge_source/wiki/lifecycle/consumption 四表，迁移 5 保留给 C run），SqliteWorkspaceRepository 增 executeWiki 并导出 SqliteWikiStore/createWikiService。测试 wiki-store.test.ts 覆盖 A-W06-1/2、A-W07-1/2、A-W08 共 5 项；检索不回退旧版本、分页游标固定、多来源引用闭环、消费事务复核与幂等、来源/知识暂存幂等与来源门禁。Wiki 同步新增 [[A01c检索引用实现]]，更新任务页 A01 改动/验证/未完成、覆盖映射、导航与 log。本机未安装 node_modules（Node v24.14.1 与仓库 engines 22.22.0 不一致），typecheck 与测试未复跑，仅静态审查；generate/check/lint/sync 门禁以实际运行为准，未推送。
+
+## 2026-10-23 A 迁移谱系统一与拒绝边界
+
+A 在 codex/a01-migration-lineage（基于 dd42b05）主导三方迁移谱系收敛：新增 `migration-lineage.ts` 纯函数识别（schema 为准、user_version 仅交叉核对），重写 `migrations.ts` 为能力切片追加 + `migration_registry(lineage,version,sql_hash,applied_at)` 账本，`index.ts` 构造器前接只读预检 `preflightMigration`。统一目标九能力、user_version=8；拒绝只在只读预检抛 `MIGRATION_LINEAGE_REJECTED:<lineage>`，不进入读写真开、不写 -wal/-shm。修复 D1/D2/D3/D4 与「未知 v6 被误接受」「缺不可变触发器仍被接受」。三个旧迁移测试改走 `seedTo`/`migrate` 断言 user_version=8。Wiki 新增 [[0029-迁移谱系统一与拒绝边界]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-追加迁移设计]]、[[A01-迁移验证计划]]，更新任务/导航/覆盖/工作流与本 log。纯 Node 探针实际运行通过（指纹全匹配、16 分类用例全过、10 追加用例全过），证据 raw/a01-migration-lineage-probe.json。本机无 node_modules，typecheck 与 vitest 未复跑；B 接口/报告/消费适配、C 独立组合验证与 macOS 全量验收待完成，未推送。
+
+## 2026-10-23 A 对 C 迁移协调草稿逐项回复
+
+A 按 fd4b728（C 未发送协调草稿 `C迁移协调请求草稿-AB谱系兼容`）与 d99f2b3 六组诊断，新增 [[A对C迁移协调草稿M1-M8回复]]：逐项回复 M1～M8，确认支持范围（11 类升级、mixed/tampered/unknown 拒绝）、`migration_registry(lineage,version,sql_hash,applied_at)` 登记方式与责任分工；选择方案一+方案二组合（即已实现设计）。核对 C 草稿列出的 C6/A6/C7/B7 四个原 SQL 指纹与本方案探针完全一致（9 指纹全匹配）。回复身份由 A 本人另记，不代签、不自动发送/合入/真实模型复测；typecheck/vitest 未复跑，B/C 后续责任见回复页。
+
+## 2026-10-24 A 修正 C 首轮迁移谱系核验失败
+
+A 收到队长转达的 C 独立前置核验结论（6f9287b：12 项 7 通过 5 失败、类型检查 11 错误、changes_required），逐项修正并新增 [[A对C前置验证失败修正回复]]：类型门禁（修复 11 类型错误，`pnpm typecheck` 退出 0）；schema 约束识别（`capabilityStatus` 校验必要列、索引 UNIQUE/partial、触发器 RAISE，封死 N07 列改名/N08 空触发器/N09 非唯一索引）；旧账本与 schema 一致性（`verifyLegacyLedger` 增加登记能力存在性交叉核对，封死 N11）；新账本读写真开前校验（新增 `verifyRegistryLedger` 在只读 `identify` 核对 hash 与能力一致性，封死 N10）。新增定向回归 `migration-ledger.test.ts`（3/3）。探针扩至 19 用例（含 N07/N08/N09 负例）全过。整仓 infrastructure vitest 43 通过/2 既有失败（storage.test.ts symlink EPERM、wiki-store.test.ts A-W08 retryable，非本切片引入）。同步 [[0029-迁移谱系统一与拒绝边界]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-追加迁移设计]]、[[A01-迁移验证计划]]、任务/导航/CONTEXT/项目状态与本 log。保留原失败记录；真实 Electron ABI、B/C 适配、完整迁移矩阵与 macOS 全量待完成，未推送。
+
+## 2026-10-24 A 修正 C 二轮 M13 约束核验
+
+A 收到队长转达的 C 二轮独立复核结论（20891fb：原 N07～N11 与 11 类型错误已关闭，但新增 M13 四项有效约束失败与 A-W08 待处理），逐项修正并更新 [[A对C前置验证失败修正回复]]：`capabilityStatus` 补有效定义判据——raises 触发器/partial 索引的 WHEN/WHERE 谓词非永假（M13-X01/X02，`extractPredicate`+`isConstantFalse`）、`CapabilitySpec.foreignKeys` + `snapshotSchema` 的 `PRAGMA foreign_key_list` 核实外键（M13-X03）、`CapabilitySpec.checks` 按 sqlite_master 表原文匹配 CHECK（M13-X04）；`contracts` `failure()` 统一 `CAPABILITY_UNAVAILABLE` 的 `retryable=false`（A-W08，公共契约单行修正待 B 确认）。探针扩至 23 用例（新增 M13-X01～X04 四个负例）全过。本机实跑 `pnpm typecheck` 退出 0、`migration-ledger.test.ts` 3/3、`wiki-store.test.ts` 5/5、整仓 infrastructure vitest 44 通过/1 既有失败（storage.test.ts symlink EPERM，Windows 权限，非本切片引入）。同步 [[0029-迁移谱系统一与拒绝边界]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-迁移验证计划]]、[[A01c检索引用实现]]、[[M1接口与持久化]]、任务/工作流/CONTEXT/项目状态与本 log；未新增源码文件，覆盖映射不变。保留原失败记录；真实 Electron 全量（scripts/test-unit.mjs）、B 接口/报告/消费适配与 A-W08 确认、C 完整迁移矩阵与 macOS 全量待完成，未推送。
+
+## 2026-10-24 A 修正 C 三轮 M13 有效定义变体核验
+
+A 收到队长转达的 C 三轮独立复核结论（a633c42，`codex/c-a-lineage-third-validation`：原 M13-X01～X04 通过、A-W08 已关闭，但新增 M13-X05～X09 五个有效定义变体仍失败，整体 changes_required），逐项修正并更新 [[A对C前置验证失败修正回复]]。C 诊断当前 `isConstantFalse` 只识别 `0`/`false`/`null`、索引只核 UNIQUE/WHERE、触发器未核事件/WHEN、CHECK 正则可命中注释，建议复用规范参考 schema/可审阅结构判据。A 放弃关键词/常量黑名单，改为按规范参考结构核对有效定义：`TriggerRequirement` 增规范 `event`（DELETE/UPDATE/INSERT）与 `when`（`null`=必须无 WHEN，字符串=「小写+压缩空白」归一后精确匹配）；`IndexRequirement` 增规范 `columns` 与 `where`；CHECK 经 `stripComments`（`--` 行注释与 `/* */` 块注释，字符串/引号标识符原样保留）去注释后匹配；`quote_check_report_revision` 复杂 WHEN 不逐字编码，只核事件 INSERT + 含 RAISE。新增 `normalizeSql`/`stripComments`/`extractTriggerEvent`/`extractIndexColumns`，删除 `isConstantFalse`。探针扩至 28 用例（新增 M13-X05 `WHEN 1=0`/X06 `WHERE 1=0`/X07 索引增列改谓词/X08 触发器事件篡改/X09 注释伪 CHECK 五个负例，保留 X01～X09 与正向支持谱系）全过，证据 raw/a01-migration-lineage-probe.json 重生成。本机实跑 `pnpm typecheck` 退出 0、`migration-ledger.test.ts` 3/3、`wiki-store.test.ts` 5/5、整仓 infrastructure vitest 44 通过/1 既有失败（storage.test.ts symlink EPERM，Windows 权限，非本切片引入）。同步 [[0029-迁移谱系统一与拒绝边界]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-迁移验证计划]]、任务/工作流/CONTEXT/项目状态与本 log；未新增源码文件，覆盖映射不变。保留原失败记录；真实 Electron 全量（scripts/test-unit.mjs）、B 接口/报告/消费适配与 A-W08 确认、C 完整迁移矩阵与 macOS 全量待完成，未推送。
+
+## 2026-10-24 A 修正 C 四轮 M13 字符串字面量与谓词大小写核验
+
+A 收到队长转达的 C 四轮独立复核结论（本地 abda94e，未推送：cece332 的 M13-X01～X09 全部通过、正向谱系与原失败记录保留，但补充验证仍发现两项有效定义缺口，整体 changes_required），逐项修正并更新 [[A对C前置验证失败修正回复]]。C 指出 M13-X10 同名 `BEFORE DELETE` 触发器体仅为 `SELECT 'RAISE';`（字符串字面量，非真实 RAISE 调用）被接受，M13-X11 唯一索引谓词改为 `status IN ('PREPARED','COMMITTED')` 被整体转小写后误认作规范谓词；要求核对真实有效保护定义、保留字符串字面量语义，并增加有效原 schema 控制组。A 修正：新增 `stripTrivia` 去 SQL 注释与字符串字面量（字符串内容替换为 `q+q` 空占位），RAISE 判据改为 `/\bRAISE\s*\(/i` 命中 `stripTrivia` 结果（`SELECT 'RAISE'` 字面量被清空即不命中，X10）；`normalizeSql` 改为逐字符归一、仅字符串/引号标识符之外小写、字符串字面量内容原样保留（`'PREPARED'` ≠ `'prepared'`，X11）；CHECK 判据同步改用 `stripTrivia` 替代原 `stripComments`。探针扩至 30 分类/拒绝用例（新增 X10/X11 两个负例，保留 X01～X09 与正向支持谱系）+ 10 追加路径 + 2 项有效原 schema 控制组（c-v7 上 `agent_tool_step_no_delete` 实际拒绝 DELETE、c-v6 上 `agent_write_once` 实际拒绝重复 `prepared` 插入）全过，证据 raw/a01-migration-lineage-probe.json 重生成。本机实跑 `pnpm typecheck` 退出 0、`migration-ledger.test.ts` 3/3、`wiki-store.test.ts` 5/5、整仓 infrastructure vitest 44 通过/1 既有失败（storage.test.ts symlink EPERM，Windows 权限，非本切片引入）。同步 [[0029-迁移谱系统一与拒绝边界]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-迁移验证计划]]、任务/工作流/CONTEXT/项目状态与本 log；未新增源码文件，覆盖映射不变。保留原失败记录（含 Windows symlink EPERM 原平台记录）；真实 Electron 全量（scripts/test-unit.mjs）、B 接口/报告/消费适配与 A-W08 确认、C 完整迁移矩阵与 macOS 全量待完成，未推送。
+
+## 2026-10-25 A 修正 C 五轮 M13 错表/不可达 RAISE 与旧账本未知/重复登记核验
+
+A 收到队长转达的 C 五轮独立复核结论（固定提交 41f0cdc：X01～X11 11/11 通过、有效原 schema 控制组真实拒绝，但 107 样本扩展矩阵 102 通过/5 失败，整体 changes_required），逐项修正并更新 [[A对C前置验证失败修正回复]]。五项新失败：M09-L01 旧 `schema_migration` 未知 version=99 被静默忽略；M09-L02 无唯一约束旧账本重复 version 被接受；M13-Y01 同名 `no_delete` 触发器体为 `SELECT CASE WHEN 0 THEN RAISE(ABORT,'…') ELSE 1 END`（RAISE 不可达）被接受；M13-Y02 同名触发器 `BEFORE DELETE` 挂到错表 agent_run 被接受；M13-Y03 同名唯一索引建在旁表 synthetic_index_target 被接受。C 要求拒绝必须发生在升级和写入前，并保留 X01～X11、九段历史 SQL 指纹、正向升级及旧证据。A 修正：RAISE 判据从 `/\bRAISE\s*\(/i` 收紧为 `/\bSELECT\s+RAISE\s*\(/i` 命中 `stripTrivia`（`SELECT CASE` 前缀不命中，封死 Y01）；`TriggerRequirement`/`IndexRequirement` 各新增 `table`，`identifyLineage` 从 sqlite_master `tbl_name` 收集 `triggerTable`/`indexTable`，`capabilityStatus` 核对目标表一致（封死 Y02/Y03）；`verifyLegacyLedger` 对 `legacyMap` 无映射 version 直接抛 tampered（不再 `continue`，封死 M09-L01）并以 `seenVersions` 拒绝重复 version（不静默去重，封死 M09-L02）。探针扩至 33 分类/拒绝用例（新增 Y01～Y03 三个负例）+ 10 追加 + 2 项有效原 schema 控制组全过，证据 raw/a01-migration-lineage-probe.json 重生成；`migration-ledger.test.ts` 增至 5/5（新增 M09-L01/L02）。本机实跑 `pnpm typecheck` 退出 0、`migration-ledger.test.ts` 5/5、`wiki-store.test.ts` 5/5、整仓 infrastructure vitest 46 通过/1 既有失败（storage.test.ts symlink EPERM，Windows 权限，非本切片引入）。同步 [[0029-迁移谱系统一与拒绝边界]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-迁移验证计划]]、任务/工作流/CONTEXT/项目状态与本 log；未新增源码文件，覆盖映射不变。保留 X01～X11、九段历史 SQL 指纹、正向升级、有效控制组与旧失败记录（含 Windows symlink EPERM 原平台记录）。本轮待 C 独立复验五轮 5 项后关闭；真实 Electron 全量（scripts/test-unit.mjs）、B 接口/报告/消费适配与 A-W08 确认、C 完整迁移矩阵与 macOS 全量待完成，未推送。
+
+## 2026-10-25 A 修正 C 六轮 M13 裸保护体动作/触发时机/UPDATE 列范围核验
+
+A 收到队长转达的 C 六轮独立复核结论（固定提交 163f7a4：原五项 M09-L01/L02、M13-Y01/Y02/Y03 通过、X01～X11 保持 11/11、原矩阵 107/107，扩展发现的四例新阻断，整体 changes_required），逐项修正并更新 [[A对C前置验证失败修正回复]]。四例新失败（三类）：M13-Y04a 同名 `no_delete` 触发器体 `SELECT RAISE(ABORT,'…') WHERE 0`（RAISE 永不执行）；M13-Y04b 同名体 `SELECT RAISE(ABORT,'…') LIMIT 0`；M13-Y05 同名 `no_update` 改 `BEFORE UPDATE OF 不存在列`（更新 data_json 不触发保护）；M13-Y06 同名 `no_delete` 改 `AFTER DELETE` 且体 `SELECT RAISE(IGNORE)`。C 要求核对完整保护体、UPDATE 列范围、触发时机及 RAISE 动作，不能只匹配 `SELECT RAISE`。A 修正：`capabilityStatus` 新增 `extractTriggerBody`（取 BEGIN/END 之间保护体）与 `hasBareAbortRaise`（保护体经 `stripTrivia` 去注释/字符串、`normalizeSql` 小写并压缩空白后，须恰为裸 `SELECT RAISE(ABORT,'')`，封死 Y04a 尾随 WHERE、Y04b 尾随 LIMIT、Y06 的 `RAISE(IGNORE)` 非 ABORT 动作）；新增 `extractTriggerTiming`（须为 `BEFORE`，封死 Y06 的 AFTER）；`event==="UPDATE"` 时拒绝 `/\bUPDATE\s+OF\b/i`（封死 Y05 的列范围收窄）。探针扩至 37 分类/拒绝用例（新增 Y04a/Y04b/Y05/Y06 四个负例）+ 10 追加 + 2 项有效原 schema 控制组全过，证据 raw/a01-migration-lineage-probe.json 重生成。本机实跑 `pnpm typecheck` 退出 0、`migration-ledger.test.ts` 5/5、`wiki-store.test.ts` 5/5、整仓 infrastructure vitest 46 通过/1 既有失败（storage.test.ts symlink EPERM，Windows 权限，非本切片引入）。同步 [[0029-迁移谱系统一与拒绝边界]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-迁移验证计划]]、任务/工作流/CONTEXT/项目状态与本 log；未新增源码文件，覆盖映射不变。保留 X01～X11、原五项、九段历史 SQL 指纹、正向升级、有效控制组与旧失败记录（含 Windows symlink EPERM 原平台记录）。本轮待 C 独立复验六轮四例后关闭；真实 Electron 全量（scripts/test-unit.mjs）、B 接口/报告/消费适配与 A-W08 确认、C 完整迁移矩阵与 macOS 全量待完成，未推送。
+
+## 2026-10-25 A 修正 C 七轮 M13 注释词法伪造核验
+
+A 收到队长转达的 C 七轮独立复核结论（固定提交 e73d177：原五项、六轮四例 Y04a/Y04b/Y05/Y06、X01～X11 均保持通过、原矩阵 107/107，统一复现发现三例新阻断，整体 changes_required），逐项修正并更新 [[A对C前置验证失败修正回复]]。三例新失败（注释词法伪造）：M13-Y07 同名 `no_delete` 真实体 `SELECT 1`、前置注释 `/* BEGIN SELECT RAISE(ABORT,'…'); END */` 被当作保护体，打开后 DELETE 仍删四条旧步骤；M13-Y08 同名 `no_update` 用注释分隔 `BEFORE UPDATE /* gap */ OF 不存在列`，更新 data_json 仍被改写；M13-Y09 同名 `no_delete` 真实事件改为 `BEFORE UPDATE`、前置注释 `/* BEFORE DELETE */` 被当作事件，打开后 DELETE 仍删。C 要求统一 SQL 词法与结构识别，正确区分注释/字符串/标识符/关键字，再核对真实保护体、事件、时机与 UPDATE 列范围。A 修正：新增 `stripComments`（`--` 行注释、块注释，字符串/引号标识符原样保留，每段注释替换为一个空格保持词法边界），`capabilityStatus` 对触发器与索引的结构识别（`extractTriggerBody`/`hasBareAbortRaise`、`extractTriggerEvent`、`extractTriggerTiming`、`UPDATE OF` 拒绝、索引 `UNIQUE`/列/谓词）一律先经 `stripComments` 剥离注释再匹配，注释不再能伪造结构（Y07 伪造保护体、Y09 伪造事件）或打断 `UPDATE OF` 邻接（Y08）。探针扩至 40 分类/拒绝用例（新增 Y07/Y08/Y09 三个负例）+ 10 追加 + 2 项有效原 schema 控制组全过，证据 raw/a01-migration-lineage-probe.json 重生成。本机实跑 `pnpm typecheck` 退出 0、`migration-ledger.test.ts` 5/5、`wiki-store.test.ts` 5/5、整仓 infrastructure vitest 46 通过/1 既有失败（storage.test.ts symlink EPERM，Windows 权限，非本切片引入）。同步 [[0029-迁移谱系统一与拒绝边界]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-迁移验证计划]]、任务/工作流/CONTEXT/项目状态与本 log；未新增源码文件，覆盖映射不变。保留 X01～X11、原五项、六轮四例、九段历史 SQL 指纹、正向升级、有效控制组与旧失败记录（含 Windows symlink EPERM 原平台记录）。本轮待 C 独立复验七轮三例后关闭；真实 Electron 全量（scripts/test-unit.mjs）、B 接口/报告/消费适配与 A-W08 确认、C 完整迁移矩阵与 macOS 全量待完成，未推送。
+
+## 2026-10-25 A 修正 C 八轮 M13 方括号标识符核验
+
+A 收到队长转达的 C 对 A `1c890dc` 的独立复验结论（Y07～Y09 全部安全拒绝、含三个有效控制组共 6/6，原五项、六轮四例、X01～X11、原 12/107 回归及九段 SQL 指纹保持通过，但统一复现发现新阻断 M13-Y10，整体 changes_required），逐项修正并更新 [[A对C前置验证失败修正回复]]。Y10 复现：重建 `agent_write_call` 时把真实约束 `attempt INTEGER NOT NULL CHECK(attempt>0)` 替换为 `attempt INTEGER NOT NULL, [CHECK(attempt>0)] TEXT`（以方括号引号列名伪造 CHECK 文本），两入口（只读 `identify` 与 `SqliteWorkspaceRepository`）均接受并升 8，随后成功插入 `attempt=0`。C 要求统一 SQL 词法与结构识别，区分注释/字符串/引号标识符（含方括号）与关键字，CHECK 必须来自真实约束结构，不能只补文本黑名单或禁止所有额外列；拒绝发生在升级/写入前。A 修正：`stripTrivia` 新增方括号引号标识符 `[name]` 剥离（内容去除、占位为 `[]`），`stripComments` 同步识别 `[name]`（内容原样保留，与其他引号标识符一致，不当作关键字），CHECK 判据按去注释/字符串/方括号标识符后的表原文匹配，`[CHECK(attempt>0)]` 列名中的 `CHECK(attempt>0)` 文本不再被误认作真实约束；额外方括号列与真实 CHECK 并存的合法库仍识别为原谱系（不禁止所有额外列）。探针扩至 42 分类/拒绝用例（新增 Y10 负例与「额外方括号列 + 真实 CHECK 并存」有效控制组）+ 10 追加 + 2 项有效原 schema 控制组全过，证据 raw/a01-migration-lineage-probe.json 重生成。本机实跑 `pnpm typecheck` 退出 0、`migration-ledger.test.ts` 5/5、`wiki-store.test.ts` 5/5、整仓 infrastructure vitest 46 通过/1 既有失败（storage.test.ts symlink EPERM，Windows 权限，非本切片引入）。同步 [[0029-迁移谱系统一与拒绝边界]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-迁移验证计划]]、任务/工作流/CONTEXT/项目状态与本 log；未新增源码文件，覆盖映射不变。保留 X01～X11、原五项、六轮四例、七轮三例、九段历史 SQL 指纹、正向升级、有效控制组与旧失败记录（含 Windows symlink EPERM 原平台记录）。本轮待 C 独立复验八轮 Y10 后关闭；真实 Electron 全量（scripts/test-unit.mjs）、B 接口/报告/消费适配与 A-W08 确认、C 完整迁移矩阵与 macOS 全量待完成，未推送。
+
+## 2026-10-25 C 独立复验确认 M13-Y10 技术关闭
+
+C 对固定 A 提交 910e626 完成独立复验（复验提交 c4e109f），确认 M13-Y10 在已测范围技术关闭：损坏库被只读 `identify` 与真实 `SqliteWorkspaceRepository` 在升级/写入前拒绝，原 schema、数据、版本7、账本、数据库字节及目录列表保持；两个有效控制组均通过迁移入口并由真实 CHECK 拒绝 `attempt=0`（套件 3/3，无运行器错误）；原五项、六轮四例、七轮三例、X01～X11、原 12/12、107/107 及九段 SQL 指纹保持，八份旧探针断言未改。本轮未发现新阻断，Y10 无需继续作为待修项。A 同步记录本状态（无新增代码改动）；M13 整体、完整迁移矩阵、新 A/B/C 组合、桌面/macOS 联合验证、实际人员签认与业务验收仍未完成。

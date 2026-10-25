@@ -656,6 +656,14 @@
         "wiki/B谱系账本适配与P1回执交接.md"
       ]
     },
+    "packages/infrastructure/src/migration-ledger.test.ts": {
+      "role": "迁移账本一致性定向回归（N10/N11 拒绝前置）",
+      "pages": [
+        "wiki/A01-迁移验证计划.md",
+        "wiki/M1验证与协作.md",
+        "wiki/A对C前置验证失败修正回复.md"
+      ]
+    },
     "packages/infrastructure/src/migrations.ts": {
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [

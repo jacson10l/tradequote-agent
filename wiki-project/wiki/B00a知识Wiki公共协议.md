@@ -2,7 +2,7 @@
 title: B00a知识Wiki公共协议
 type: interface
 status: observed
-updated: 2026-10-22
+updated: 2026-10-24
 sources:
   - packages/contracts/src/knowledge-wiki.ts:1
   - packages/contracts/src/wiki-integrity.ts:1
@@ -111,3 +111,7 @@ workspace Electron 现有精确桥接列表同步 executeWiki，并直接从真�
 补导出WikiCitationResolveInput、WikiEligibility、WikiIneligibilityReason及WikiSearchHit，基础设施使用公共类型而不新增zod依赖。原schemaVersion/KnowledgeCitation身份语义不变；检查结果通过可选wikiCitations和逐原件evidence完整传递这些协议，旧报告不强制迁移。
 
 本地检查报告按不可变artifact登记消费，entity/revision均为reportId，contentHash绑定已保存报告；A登记入口验证真实报价或报告的版本/hash，拒绝虚构消费。报告与消费同连接事务，而不是异步executeWiki之后补写。此artifact是SQLite报告，不表示PDF/最终批准或blob导出完成。接口取舍及待A/C复核见 [[0016-检查报告消费与稀疏迁移]]；实际52项聚焦及平台边界见 [[2026-10-23-B01新Wiki存储联调]]。
+
+## 迁移谱系收敛附带的类型导出
+
+迁移谱系收敛（codex/a01-migration-lineage）把 `WikiCitationResolveInput` 从 schema-only 推断类型改为显式导出 `export type WikiCitationResolveInput = z.infer<typeof WikiCitationResolveInputSchema>`，供 infrastructure 的 wiki-store resolveCitation 端口按公开契约直接引用，消除 TS2724 类型错误；不改变 schema 语义或 B00a 协议行为。
