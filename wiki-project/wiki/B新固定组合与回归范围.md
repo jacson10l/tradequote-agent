@@ -47,4 +47,11 @@ C固定03b16b76ceb336d9f37692ee8b51046e90f328a0已接收B7f8afe6材料，按原�
 
 最终代码提交、实际命令/退出码、测试数量、stdout/stderr、源码hash、工程/Wiki结果见同一raw和[[B01-新固定组合回归]]。新结果归属B对独立候选的作者验证，非C复跑或人员/业务批准。后续C继续完整迁移矩阵与桌面/macOS联合，A实际人工发布、人员签认和业务验收分别完成。
 
+本次代码已固定ceec0ee4e329d891aad1855a42414256762e367c（父72c7c42与C03b16b7；72c7c42包含A a2b050e及B7f8afe6）。在该提交上重新执行九文件121/121、typecheck、build均退出0；全量51文件454/455，唯一失败为原Windows symlink EPERM，未跳过或改断言。构建有chunk size警告，不能视为实际桌面验收。后续仅Wiki/证据变化，代码树不变；兼容修正前的失败与首轮未固定源码验证保留原作用域。
+
+来源保留审计见raw/b-a910-c03-combination-preservation.json：A78/B108/C254份非生成raw均按原字节保留，B日志完整字节前缀及A/C旧日志非空行顺序保持。唯一同名不同版本的a01-migration-lineage-probe.json恢复B原路径；A a2b050e的新探针逐字节另存raw/a01-migration-lineage-probe-a2b050e.json，不能把旧根路径当本轮42项证据。迁移core两文件及ledger测试只发生格式/import排序变化，规范化AST一致、九段SQL值逐项相同。
+
 关联：[[B组合验证准备与固定输入]]、[[B规则检查实现]]、[[M1接口与持久化]]、[[B01-新固定组合回归]]。
+
+
+最终工程与Wiki：pnpm check退出0（工程5通过/1 macOS专用跳过，模块边界通过）；生成250文件、只读check、lint（241页/213语义页）、以7f8afe6a0849da3f198bf5bf3be32180053f082d为真实基线sync（91源码/139知识页/50任务）和diff均退出0。维护回归34/36，仅两项Windows symlink EPERM，未修改工具或跳过测试；首次跨盘cpSync EIO已通过运行器同盘TMP/TEMP与Git发现上限修正，失败原输出保留。当前仅本地独立候选，源码树自ceec0ee固定后不变，整体active/WIP、未推送、未合入。

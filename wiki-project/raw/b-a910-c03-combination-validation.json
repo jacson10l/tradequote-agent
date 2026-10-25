@@ -1,5 +1,5 @@
 {
-  "status": "in_progress",
+  "status": "targeted_passed_with_windows_validation_gaps",
   "scope": "B author validation on independent fixed A+B+C combination; not joint/macOS or migration matrix acceptance",
   "taskBase": "7f8afe6a0849da3f198bf5bf3be32180053f082d",
   "branch": "codex/b-a910-c03-combination",
@@ -27,7 +27,9 @@
     "platform": "win32",
     "arch": "x64",
     "runnerNode": "v22.22.0",
-    "pnpm": "10.13.1"
+    "pnpm": "10.13.1",
+    "dependencyPreparation": "pnpm install --frozen-lockfile --offline --ignore-scripts exited 0 under host Node24.21.0/pnpm10.13.1; engine warning retained; subsequent recorded checks use Node22.22.0 runner and recorded native Electron identity",
+    "testTempNote": "Initial cross-drive Node22 cpSync EIO fixed in ignored verification runner with same-drive TMP/TEMP and GIT_CEILING_DIRECTORIES; initial failure output retained. Windows file symlink privilege remains unavailable."
   },
   "checks": [
     {
@@ -311,6 +313,558 @@
         "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
       },
       "nonWikiWorkingChanges": "apps/desktop/electron.vite.config.ts\napps/desktop/src/main/evaluation-host.test.ts\napps/desktop/src/main/evaluation-host.ts\napps/desktop/src/main/index.ts\napps/desktop/src/main/worker-client.test.ts\napps/desktop/src/main/worker-client.ts\napps/desktop/src/preload/contracts.test.ts\napps/desktop/src/preload/index.ts\napps/desktop/src/renderer/src/App.tsx\napps/desktop/src/renderer/src/features/agent-runs.test.tsx\napps/desktop/src/renderer/src/features/agent-runs.tsx\napps/desktop/src/renderer/src/features/model-evaluation.tsx\napps/desktop/src/renderer/src/features/model-settings.tsx\napps/desktop/src/renderer/src/features/quote-agent.tsx\napps/desktop/src/renderer/src/features/read-assistant.tsx\napps/desktop/src/renderer/src/features/run-event-feed.test.ts\napps/desktop/src/renderer/src/features/run-event-feed.ts\napps/desktop/src/renderer/src/features/run-events.test.tsx\napps/desktop/src/renderer/src/features/run-events.tsx\napps/desktop/src/renderer/src/features/run-tool-labels.ts\napps/desktop/src/workers/business.ts\napps/desktop/src/workers/evaluation.ts\npackage.json\npackages/contracts/src/agent.ts\npackages/contracts/src/events.ts\npackages/contracts/src/index.ts\npackages/contracts/src/knowledge-wiki.ts\npackages/contracts/src/mock.ts\npackages/contracts/src/model-evaluation.ts\npackages/contracts/src/pending-client.ts\npackages/contracts/src/read-tools.test.ts\npackages/contracts/src/read-tools.ts\npackages/contracts/src/run-events.test.ts\npackages/contracts/src/run-events.ts\npackages/contracts/src/runs.test.ts\npackages/contracts/src/runs.ts\npackages/domain/src/quote-checks-runtime-compat.test.ts\npackages/infrastructure/package.json\npackages/infrastructure/src/agent-executor.ts\npackages/infrastructure/src/agent-run-coordinator.test.ts\npackages/infrastructure/src/agent-run-coordinator.ts\npackages/infrastructure/src/agent-run-recovery.test.ts\npackages/infrastructure/src/agent-run-store.test.ts\npackages/infrastructure/src/agent-run-store.ts\npackages/infrastructure/src/agent.test.ts\npackages/infrastructure/src/catalog-quote-read-agent.test.ts\npackages/infrastructure/src/catalog-quote-read-agent.ts\npackages/infrastructure/src/catalog-quote-read-service.test.ts\npackages/infrastructure/src/catalog-quote-read-service.ts\npackages/infrastructure/src/deepseek.ts\npackages/infrastructure/src/evaluation/action-regressions.test.ts\npackages/infrastructure/src/evaluation/cases.ts\npackages/infrastructure/src/evaluation/diagnostics.test.ts\npackages/infrastructure/src/evaluation/evaluation.test.ts\npackages/infrastructure/src/evaluation/failure-regressions.test.ts\npackages/infrastructure/src/evaluation/fixture-model.ts\npackages/infrastructure/src/evaluation/public.ts\npackages/infrastructure/src/evaluation/remaining-regressions.test.ts\npackages/infrastructure/src/evaluation/report.ts\npackages/infrastructure/src/evaluation/retest-regressions.test.ts\npackages/infrastructure/src/evaluation/runner.ts\npackages/infrastructure/src/evaluation/worker-protocol.ts\npackages/infrastructure/src/evaluation/workspace.ts\npackages/infrastructure/src/index.ts\npackages/infrastructure/src/knowledge-store.test.ts\npackages/infrastructure/src/knowledge-store.ts\npackages/infrastructure/src/migration-ledger.test.ts\npackages/infrastructure/src/migration-lineage.ts\npackages/infrastructure/src/migrations.ts\npackages/infrastructure/src/quote-draft-plan.ts\npackages/infrastructure/src/quote-tool-agent.test.ts\npackages/infrastructure/src/quote-tool-agent.ts\npackages/infrastructure/src/read-tool-runtime.test.ts\npackages/infrastructure/src/read-tool-runtime.ts\npackages/infrastructure/src/run-event-store.test.ts\npackages/infrastructure/src/run-event-store.ts\npackages/infrastructure/src/storage.test.ts\npackages/infrastructure/src/testing/run-fixture.ts\npackages/infrastructure/src/trade-store.ts\npackages/infrastructure/src/worker-ownership.ts\nscripts/evaluate-model.mjs\ntests/e2e/agent-recovery.spec.ts\ntests/e2e/model-evaluation.spec.ts\ntests/e2e/multistep-agent.spec.ts\ntests/e2e/quote-agent.spec.ts\ntests/e2e/read-assistant.spec.ts\ntests/e2e/workspace.spec.ts\ntests/fixtures/multistep-seed.ts\ntests/fixtures/run-crash-child.ts"
+    },
+    {
+      "name": "typecheck",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "environment": {},
+      "startedAt": "2026-10-25T11:03:45.220Z",
+      "finishedAt": "2026-10-25T11:03:46.617Z",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "head": "ceec0ee4e329d891aad1855a42414256762e367c",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": ""
+    },
+    {
+      "name": "native identity",
+      "executable": "D:\\code\\tradequote-agent-b-new-combination\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "-e",
+        "console.log(JSON.stringify({electron:process.versions.electron,node:process.version,sqlite:process.versions.sqlite,platform:process.platform,arch:process.arch}))"
+      ],
+      "environment": {
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "startedAt": "2026-10-25T11:03:46.846Z",
+      "finishedAt": "2026-10-25T11:03:46.943Z",
+      "exit_code": 0,
+      "stdout": "{\"electron\":\"44.9.2\",\"node\":\"v24.22.0\",\"sqlite\":\"3.53.4\",\"platform\":\"win32\",\"arch\":\"x64\"}\n",
+      "stderr": "",
+      "head": "ceec0ee4e329d891aad1855a42414256762e367c",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": ""
+    },
+    {
+      "name": "fixed combination nine-file regression",
+      "executable": "D:\\code\\tradequote-agent-b-new-combination\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/contracts/src/checks.test.ts",
+        "packages/contracts/src/knowledge-wiki.test.ts",
+        "packages/contracts/src/knowledge-build.test.ts",
+        "packages/contracts/src/knowledge-maintenance.test.ts",
+        "packages/contracts/src/knowledge-lint-review.test.ts",
+        "packages/infrastructure/src/wiki-store.test.ts",
+        "packages/infrastructure/src/check-store.test.ts",
+        "packages/infrastructure/src/check-lineage-integration.test.ts",
+        "packages/infrastructure/src/wiki-check-integration.test.ts"
+      ],
+      "environment": {
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "startedAt": "2026-10-25T11:03:47.092Z",
+      "finishedAt": "2026-10-25T11:03:50.444Z",
+      "exit_code": 0,
+      "stdout": "\n RUN  v5.0.5 D:/code/tradequote-agent-b-new-combination\n\n\n Test Files  9 passed (9)\n      Tests  121 passed (121)\n   Start at  19:03:47\n   Duration  2.94s (import 50%, tests 39%, transform 10%, worker 1%)\n\n",
+      "stderr": "",
+      "head": "ceec0ee4e329d891aad1855a42414256762e367c",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": ""
+    },
+    {
+      "name": "full unit suite",
+      "executable": "D:\\code\\tradequote-agent-b-new-combination\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run"
+      ],
+      "environment": {
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "startedAt": "2026-10-25T11:03:50.677Z",
+      "finishedAt": "2026-10-25T11:04:07.746Z",
+      "exit_code": 1,
+      "stdout": "\n RUN  v5.0.5 D:/code/tradequote-agent-b-new-combination\n\n ❯ packages/infrastructure/src/storage.test.ts (6 tests | 1 failed) 376ms\n   × stores immutable content hashes and rejects traversal, tampering and symlinks 75ms\n\n Test Files  1 failed | 50 passed (51)\n      Tests  1 failed | 454 passed (455)\n   Start at  19:03:51\n   Duration  16.63s (tests 52%, import 35%, transform 7%, environment 6%)\n\n    Isolate  51 workers spawned · ~608ms startup each (spawn + environment, per file)\n             at least ~1.46s faster with isolate: false — reuses workers across files instead of one per file\n\n",
+      "stderr": "\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/storage.test.ts > stores immutable content hashes and rejects traversal, tampering and symlinks\nError: EPERM: operation not permitted, symlink 'C:\\Users\\陈宇柠\\AppData\\Local\\Temp\\tradequote-test-sNtLd7\\169e73adeeb9ee2cbf78b5878c95ebef88d580774a6005a367c8e35458658027' -> 'C:\\Users\\陈宇柠\\AppData\\Local\\Temp\\tradequote-test-sNtLd7\\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'\n ❯ packages/infrastructure/src/storage.test.ts:109:3\n    107|   expect(await store.verifyHash(id)).toBe(false);\n    108|   const other = \"a\".repeat(64);\n    109|   symlinkSync(join(root, id), join(root, other));\n       |   ^\n    110|   await expect(store.readById(other)).rejects.toThrow(\"ARTIFACT_NOT_RE…\n    111| });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n",
+      "head": "ceec0ee4e329d891aad1855a42414256762e367c",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": ""
+    },
+    {
+      "name": "build",
+      "executable": "cmd.exe",
+      "args": [
+        "/d",
+        "/s",
+        "/c",
+        "pnpm build"
+      ],
+      "environment": {},
+      "startedAt": "2026-10-25T11:04:07.971Z",
+      "finishedAt": "2026-10-25T11:04:10.667Z",
+      "exit_code": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 build D:\\code\\tradequote-agent-b-new-combination\n> node scripts/check-icons.mjs && pnpm --filter @tradequote/desktop build\n\nApplication icons passed: SVG/1024 PNG/macOS ICNS/Windows ICO\n\n> @tradequote/desktop@0.1.0 build D:\\code\\tradequote-agent-b-new-combination\\apps\\desktop\n> electron-vite build\n\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 279 modules transformed.\nrendering chunks...\nout/main/evaluation.js                2.41 kB\nout/main/worker.js                    2.80 kB\nout/main/index.js                    26.17 kB\nout/main/chunks/public-BtKp0rYA.js   29.90 kB\nout/main/chunks/src-BhkUyuXC.js     739.77 kB\n\n✓ built in 168ms\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 116 modules transformed.\nrendering chunks...\nout/preload/index.js  285.02 kB\n\n✓ built in 55ms\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 2120 modules transformed.\nrendering chunks...\nout/renderer/index.html                   0.64 kB\nout/renderer/assets/index-CKwX_z5s.css   15.94 kB\nout/renderer/assets/index-Cri8MQtj.js   594.44 kB\n\n✓ built in 557ms\n",
+      "stderr": "[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n",
+      "head": "ceec0ee4e329d891aad1855a42414256762e367c",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": ""
+    },
+    {
+      "name": "wiki generate",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "environment": {},
+      "startedAt": "2026-10-25T11:05:40.143Z",
+      "finishedAt": "2026-10-25T11:05:40.547Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 250,\n  \"lines\": 65704,\n  \"generated\": 5,\n  \"excluded\": 12\n}\n",
+      "stderr": "",
+      "head": "ceec0ee4e329d891aad1855a42414256762e367c",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": ""
+    },
+    {
+      "name": "wiki readonly",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "environment": {},
+      "startedAt": "2026-10-25T11:05:40.683Z",
+      "finishedAt": "2026-10-25T11:05:41.069Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 250,\n  \"lines\": 65704,\n  \"generated\": 5,\n  \"excluded\": 12\n}\n",
+      "stderr": "",
+      "head": "ceec0ee4e329d891aad1855a42414256762e367c",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": ""
+    },
+    {
+      "name": "wiki lint",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "environment": {},
+      "startedAt": "2026-10-25T11:05:41.201Z",
+      "finishedAt": "2026-10-25T11:05:42.792Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 241,\n  \"semantic\": 213,\n  \"reachable\": 241\n}\n",
+      "stderr": "",
+      "head": "ceec0ee4e329d891aad1855a42414256762e367c",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": ""
+    },
+    {
+      "name": "wiki sync",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "7f8afe6a0849da3f198bf5bf3be32180053f082d"
+      ],
+      "environment": {},
+      "startedAt": "2026-10-25T11:05:42.926Z",
+      "finishedAt": "2026-10-25T11:05:52.126Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"7f8afe6a0849da3f198bf5bf3be32180053f082d\",\n  \"status\": \"passed\",\n  \"codeFiles\": 91,\n  \"knowledgePages\": 139,\n  \"tasks\": 50,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "head": "ceec0ee4e329d891aad1855a42414256762e367c",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": ""
+    },
+    {
+      "name": "wiki regression",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "--test",
+        "wiki-project/scripts/wiki-tools.test.mjs",
+        "wiki-project/scripts/wiki-sync.test.mjs"
+      ],
+      "environment": {},
+      "startedAt": "2026-10-25T11:05:52.256Z",
+      "finishedAt": "2026-10-25T11:05:53.843Z",
+      "exit_code": 1,
+      "stdout": "TAP version 13\n# Subtest: runtime version pin is a mandatory Wiki-synchronized configuration change\nok 1 - runtime version pin is a mandatory Wiki-synchronized configuration change\n  ---\n  duration_ms: 1.9887\n  type: 'test'\n  ...\n# Subtest: code with related knowledge, task and appended log passes\nok 2 - code with related knowledge, task and appended log passes\n  ---\n  duration_ms: 0.3802\n  type: 'test'\n  ...\n# Subtest: generated snapshots alone cannot satisfy knowledge/task/log changes\nok 3 - generated snapshots alone cannot satisfy knowledge/task/log changes\n  ---\n  duration_ms: 0.1636\n  type: 'test'\n  ...\n# Subtest: metadata-only or whitespace-only edits cannot satisfy semantic update\nok 4 - metadata-only or whitespace-only edits cannot satisfy semantic update\n  ---\n  duration_ms: 0.273\n  type: 'test'\n  ...\n# Subtest: each source needs its own mapped knowledge, unrelated pages do not suffice\nok 5 - each source needs its own mapped knowledge, unrelated pages do not suffice\n  ---\n  duration_ms: 0.1994\n  type: 'test'\n  ...\n# Subtest: deleted source uses baseline mapping; unknown source fails\nok 6 - deleted source uses baseline mapping; unknown source fails\n  ---\n  duration_ms: 0.2398\n  type: 'test'\n  ...\n# Subtest: history rewrite and removed task do not pass\nok 7 - history rewrite and removed task do not pass\n  ---\n  duration_ms: 1.2261\n  type: 'test'\n  ...\n# Subtest: Wiki maintenance code requires workflow knowledge, not generated data\nok 8 - Wiki maintenance code requires workflow knowledge, not generated data\n  ---\n  duration_ms: 0.4133\n  type: 'test'\n  ...\n# Subtest: ordinary documentation-only edits do not trigger code delivery check\nok 9 - ordinary documentation-only edits do not trigger code delivery check\n  ---\n  duration_ms: 0.5826\n  type: 'test'\n  ...\n# Subtest: real Git baseline includes committed, unstaged and untracked sources\nok 10 - real Git baseline includes committed, unstaged and untracked sources\n  ---\n  duration_ms: 1346.2873\n  type: 'test'\n  ...\n# Subtest: SVG assets require semantic Wiki, task and append-only log changes\nok 11 - SVG assets require semantic Wiki, task and append-only log changes\n  ---\n  duration_ms: 0.2263\n  type: 'test'\n  ...\n# Subtest: same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\nnot ok 12 - same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\n  ---\n  duration_ms: 5.0764\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:52:1'\n  failureType: 'testCodeFailure'\n  error: \"EIO, Access is denied. '\\\\\\\\?\\\\C:\\\\Users\\\\陈宇柠\\\\AppData\\\\Local\\\\Temp\\\\tradequote-wiki-test-cXLVAh\\\\wiki-project'\"\n  code: 'EIO'\n  stack: |-\n    copyDir (node:internal/fs/cp/cp-sync:145:22)\n    onDir (node:internal/fs/cp/cp-sync:136:25)\n    getStats (node:internal/fs/cp/cp-sync:68:12)\n    cpSyncFn (node:internal/fs/cp/cp-sync:58:10)\n    Object.cpSync (node:fs:3139:3)\n    fixture (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:15:6)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:53:16)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.start (node:internal/test_runner/test:944:17)\n  ...\n# Subtest: source drift fails without writes; generation repairs snapshot while preserving ingest baseline\nnot ok 13 - source drift fails without writes; generation repairs snapshot while preserving ingest baseline\n  ---\n  duration_ms: 2.5746\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:71:1'\n  failureType: 'testCodeFailure'\n  error: \"EIO, Access is denied. '\\\\\\\\?\\\\C:\\\\Users\\\\陈宇柠\\\\AppData\\\\Local\\\\Temp\\\\tradequote-wiki-test-yzTaoj\\\\wiki-project'\"\n  code: 'EIO'\n  stack: |-\n    copyDir (node:internal/fs/cp/cp-sync:145:22)\n    onDir (node:internal/fs/cp/cp-sync:136:25)\n    getStats (node:internal/fs/cp/cp-sync:68:12)\n    cpSyncFn (node:internal/fs/cp/cp-sync:58:10)\n    Object.cpSync (node:fs:3139:3)\n    fixture (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:15:6)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:72:16)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n  ...\n# Subtest: explicit ingest records a non-Git project honestly\nnot ok 14 - explicit ingest records a non-Git project honestly\n  ---\n  duration_ms: 2.4086\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:83:1'\n  failureType: 'testCodeFailure'\n  error: \"EIO, Access is denied. '\\\\\\\\?\\\\C:\\\\Users\\\\陈宇柠\\\\AppData\\\\Local\\\\Temp\\\\tradequote-wiki-test-nnuFlS\\\\wiki-project'\"\n  code: 'EIO'\n  stack: |-\n    copyDir (node:internal/fs/cp/cp-sync:145:22)\n    onDir (node:internal/fs/cp/cp-sync:136:25)\n    getStats (node:internal/fs/cp/cp-sync:68:12)\n    cpSyncFn (node:internal/fs/cp/cp-sync:58:10)\n    Object.cpSync (node:fs:3139:3)\n    fixture (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:15:6)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:84:16)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n  ...\n# Subtest: tool inventory names come from definitions, not nested headers/output/schema fields\nnot ok 15 - tool inventory names come from definitions, not nested headers/output/schema fields\n  ---\n  duration_ms: 2.2336\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:94:1'\n  failureType: 'testCodeFailure'\n  error: \"EIO, Access is denied. '\\\\\\\\?\\\\C:\\\\Users\\\\陈宇柠\\\\AppData\\\\Local\\\\Temp\\\\tradequote-wiki-test-42QWPy\\\\wiki-project'\"\n  code: 'EIO'\n  stack: |-\n    copyDir (node:internal/fs/cp/cp-sync:145:22)\n    onDir (node:internal/fs/cp/cp-sync:136:25)\n    getStats (node:internal/fs/cp/cp-sync:68:12)\n    cpSyncFn (node:internal/fs/cp/cp-sync:58:10)\n    Object.cpSync (node:fs:3139:3)\n    fixture (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:15:6)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:95:16)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n  ...\n# Subtest: new unclassified source fails; missing knowledge target and stale mapping fail\nnot ok 16 - new unclassified source fails; missing knowledge target and stale mapping fail\n  ---\n  duration_ms: 3.1489\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:108:1'\n  failureType: 'testCodeFailure'\n  error: \"EIO, Access is denied. '\\\\\\\\?\\\\C:\\\\Users\\\\陈宇柠\\\\AppData\\\\Local\\\\Temp\\\\tradequote-wiki-test-4XW4KY\\\\wiki-project'\"\n  code: 'EIO'\n  stack: |-\n    copyDir (node:internal/fs/cp/cp-sync:145:22)\n    onDir (node:internal/fs/cp/cp-sync:136:25)\n    getStats (node:internal/fs/cp/cp-sync:68:12)\n    cpSyncFn (node:internal/fs/cp/cp-sync:58:10)\n    Object.cpSync (node:fs:3139:3)\n    fixture (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:15:6)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:109:16)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n  ...\n# Subtest: generated coverage tampering is detected by lint and remains untouched\nnot ok 17 - generated coverage tampering is detected by lint and remains untouched\n  ---\n  duration_ms: 2.6965\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:121:1'\n  failureType: 'testCodeFailure'\n  error: \"EIO, Access is denied. '\\\\\\\\?\\\\C:\\\\Users\\\\陈宇柠\\\\AppData\\\\Local\\\\Temp\\\\tradequote-wiki-test-46ZNmM\\\\wiki-project'\"\n  code: 'EIO'\n  stack: |-\n    copyDir (node:internal/fs/cp/cp-sync:145:22)\n    onDir (node:internal/fs/cp/cp-sync:136:25)\n    getStats (node:internal/fs/cp/cp-sync:68:12)\n    cpSyncFn (node:internal/fs/cp/cp-sync:58:10)\n    Object.cpSync (node:fs:3139:3)\n    fixture (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:15:6)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:122:16)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n  ...\n# Subtest: sensitive filename is excluded before read; external source symlink is not followed\nnot ok 18 - sensitive filename is excluded before read; external source symlink is not followed\n  ---\n  duration_ms: 2.2995\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:129:1'\n  failureType: 'testCodeFailure'\n  error: \"EIO, Access is denied. '\\\\\\\\?\\\\C:\\\\Users\\\\陈宇柠\\\\AppData\\\\Local\\\\Temp\\\\tradequote-wiki-test-Iv7QEk\\\\wiki-project'\"\n  code: 'EIO'\n  stack: |-\n    copyDir (node:internal/fs/cp/cp-sync:145:22)\n    onDir (node:internal/fs/cp/cp-sync:136:25)\n    getStats (node:internal/fs/cp/cp-sync:68:12)\n    cpSyncFn (node:internal/fs/cp/cp-sync:58:10)\n    Object.cpSync (node:fs:3139:3)\n    fixture (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:15:6)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:130:16)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n  ...\n# Subtest: Wiki and generated-output symlinks cannot write outside project\nnot ok 19 - Wiki and generated-output symlinks cannot write outside project\n  ---\n  duration_ms: 2.3641\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:143:1'\n  failureType: 'testCodeFailure'\n  error: \"EIO, Access is denied. '\\\\\\\\?\\\\C:\\\\Users\\\\陈宇柠\\\\AppData\\\\Local\\\\Temp\\\\tradequote-wiki-test-502XM6\\\\wiki-project'\"\n  code: 'EIO'\n  stack: |-\n    copyDir (node:internal/fs/cp/cp-sync:145:22)\n    onDir (node:internal/fs/cp/cp-sync:136:25)\n    getStats (node:internal/fs/cp/cp-sync:68:12)\n    cpSyncFn (node:internal/fs/cp/cp-sync:58:10)\n    Object.cpSync (node:fs:3139:3)\n    fixture (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:15:6)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:144:16)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n  ...\n# Subtest: missing schema field\nnot ok 20 - missing schema field\n  ---\n  duration_ms: 2.7643\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:173:3'\n  failureType: 'testCodeFailure'\n  error: \"EIO, Access is denied. '\\\\\\\\?\\\\C:\\\\Users\\\\陈宇柠\\\\AppData\\\\Local\\\\Temp\\\\tradequote-wiki-test-XHPWOz\\\\wiki-project'\"\n  code: 'EIO'\n  stack: |-\n    copyDir (node:internal/fs/cp/cp-sync:145:22)\n    onDir (node:internal/fs/cp/cp-sync:136:25)\n    getStats (node:internal/fs/cp/cp-sync:68:12)\n    cpSyncFn (node:internal/fs/cp/cp-sync:58:10)\n    Object.cpSync (node:fs:3139:3)\n    fixture (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:15:6)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:174:18)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n  ...\n# Subtest: bad type\nnot ok 21 - bad type\n  ---\n  duration_ms: 4.389\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:173:3'\n  failureType: 'testCodeFailure'\n  error: \"EIO, Access is denied. '\\\\\\\\?\\\\C:\\\\Users\\\\陈宇柠\\\\AppData\\\\Local\\\\Temp\\\\tradequote-wiki-test-qc7vUD\\\\wiki-project'\"\n  code: 'EIO'\n  stack: |-\n    copyDir (node:internal/fs/cp/cp-sync:145:22)\n    onDir (node:internal/fs/cp/cp-sync:136:25)\n    getStats (node:internal/fs/cp/cp-sync:68:12)\n    cpSyncFn (node:internal/fs/cp/cp-sync:58:10)\n    Object.cpSync (node:fs:3139:3)\n    fixture (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:15:6)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:174:18)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n  ...\n# Subtest: bad date\nnot ok 22 - bad date\n  ---\n  duration_ms: 2.778\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:173:3'\n  failureType: 'testCodeFailure'\n  error: \"EIO, Access is denied. '\\\\\\\\?\\\\C:\\\\Users\\\\陈宇柠\\\\AppData\\\\Local\\\\Temp\\\\tradequote-wiki-test-pWR8qI\\\\wiki-project'\"\n  code: 'EIO'\n  stack: |-\n    copyDir (node:internal/fs/cp/cp-sync:145:22)\n    onDir (node:internal/fs/cp/cp-sync:136:25)\n    getStats (node:internal/fs/cp/cp-sync:68:12)\n    cpSyncFn (node:internal/fs/cp/cp-sync:58:10)\n    Object.cpSync (node:fs:3139:3)\n    fixture (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:15:6)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:174:18)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n  ...\n# Subtest: bad status\nnot ok 23 - bad status\n  ---\n  duration_ms: 2.3141\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:173:3'\n  failureType: 'testCodeFailure'\n  error: \"EIO, Access is denied. '\\\\\\\\?\\\\C:\\\\Users\\\\陈宇柠\\\\AppData\\\\Local\\\\Temp\\\\tradequote-wiki-test-JmkMMj\\\\wiki-project'\"\n  code: 'EIO'\n  stack: |-\n    copyDir (node:internal/fs/cp/cp-sync:145:22)\n    onDir (node:internal/fs/cp/cp-sync:136:25)\n    getStats (node:internal/fs/cp/cp-sync:68:12)\n    cpSyncFn (node:internal/fs/cp/cp-sync:58:10)\n    Object.cpSync (node:fs:3139:3)\n    fixture (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:15:6)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:174:18)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n  ...\n# Subtest: missing wiki target\nnot ok 24 - missing wiki target\n  ---\n  duration_ms: 2.0562\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:173:3'\n  failureType: 'testCodeFailure'\n  error: \"EIO, Access is denied. '\\\\\\\\?\\\\C:\\\\Users\\\\陈宇柠\\\\AppData\\\\Local\\\\Temp\\\\tradequote-wiki-test-SOvOWI\\\\wiki-project'\"\n  code: 'EIO'\n  stack: |-\n    copyDir (node:internal/fs/cp/cp-sync:145:22)\n    onDir (node:internal/fs/cp/cp-sync:136:25)\n    getStats (node:internal/fs/cp/cp-sync:68:12)\n    cpSyncFn (node:internal/fs/cp/cp-sync:58:10)\n    Object.cpSync (node:fs:3139:3)\n    fixture (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:15:6)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:174:18)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n  ...\n# Subtest: missing markdown target\nnot ok 25 - missing markdown target\n  ---\n  duration_ms: 2.309\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:173:3'\n  failureType: 'testCodeFailure'\n  error: \"EIO, Access is denied. '\\\\\\\\?\\\\C:\\\\Users\\\\陈宇柠\\\\AppData\\\\Local\\\\Temp\\\\tradequote-wiki-test-bKI76x\\\\wiki-project'\"\n  code: 'EIO'\n  stack: |-\n    copyDir (node:internal/fs/cp/cp-sync:145:22)\n    onDir (node:internal/fs/cp/cp-sync:136:25)\n    getStats (node:internal/fs/cp/cp-sync:68:12)\n    cpSyncFn (node:internal/fs/cp/cp-sync:58:10)\n    Object.cpSync (node:fs:3139:3)\n    fixture (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:15:6)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:174:18)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n  ...\n# Subtest: invalid source line\nnot ok 26 - invalid source line\n  ---\n  duration_ms: 1.8181\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:173:3'\n  failureType: 'testCodeFailure'\n  error: \"EIO, Access is denied. '\\\\\\\\?\\\\C:\\\\Users\\\\陈宇柠\\\\AppData\\\\Local\\\\Temp\\\\tradequote-wiki-test-CjCXKD\\\\wiki-project'\"\n  code: 'EIO'\n  stack: |-\n    copyDir (node:internal/fs/cp/cp-sync:145:22)\n    onDir (node:internal/fs/cp/cp-sync:136:25)\n    getStats (node:internal/fs/cp/cp-sync:68:12)\n    cpSyncFn (node:internal/fs/cp/cp-sync:58:10)\n    Object.cpSync (node:fs:3139:3)\n    fixture (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:15:6)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:174:18)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n  ...\n# Subtest: verified without code evidence\nnot ok 27 - verified without code evidence\n  ---\n  duration_ms: 1.8458\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:173:3'\n  failureType: 'testCodeFailure'\n  error: \"EIO, Access is denied. '\\\\\\\\?\\\\C:\\\\Users\\\\陈宇柠\\\\AppData\\\\Local\\\\Temp\\\\tradequote-wiki-test-or2P3r\\\\wiki-project'\"\n  code: 'EIO'\n  stack: |-\n    copyDir (node:internal/fs/cp/cp-sync:145:22)\n    onDir (node:internal/fs/cp/cp-sync:136:25)\n    getStats (node:internal/fs/cp/cp-sync:68:12)\n    cpSyncFn (node:internal/fs/cp/cp-sync:58:10)\n    Object.cpSync (node:fs:3139:3)\n    fixture (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:15:6)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:174:18)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n  ...\n# Subtest: source escaping project\nnot ok 28 - source escaping project\n  ---\n  duration_ms: 2.0068\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:173:3'\n  failureType: 'testCodeFailure'\n  error: \"EIO, Access is denied. '\\\\\\\\?\\\\C:\\\\Users\\\\陈宇柠\\\\AppData\\\\Local\\\\Temp\\\\tradequote-wiki-test-T6kzk4\\\\wiki-project'\"\n  code: 'EIO'\n  stack: |-\n    copyDir (node:internal/fs/cp/cp-sync:145:22)\n    onDir (node:internal/fs/cp/cp-sync:136:25)\n    getStats (node:internal/fs/cp/cp-sync:68:12)\n    cpSyncFn (node:internal/fs/cp/cp-sync:58:10)\n    Object.cpSync (node:fs:3139:3)\n    fixture (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:15:6)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:174:18)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n  ...\n# Subtest: unfilled placeholder\nnot ok 29 - unfilled placeholder\n  ---\n  duration_ms: 2.1669\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:173:3'\n  failureType: 'testCodeFailure'\n  error: \"EIO, Access is denied. '\\\\\\\\?\\\\C:\\\\Users\\\\陈宇柠\\\\AppData\\\\Local\\\\Temp\\\\tradequote-wiki-test-vPz9pC\\\\wiki-project'\"\n  code: 'EIO'\n  stack: |-\n    copyDir (node:internal/fs/cp/cp-sync:145:22)\n    onDir (node:internal/fs/cp/cp-sync:136:25)\n    getStats (node:internal/fs/cp/cp-sync:68:12)\n    cpSyncFn (node:internal/fs/cp/cp-sync:58:10)\n    Object.cpSync (node:fs:3139:3)\n    fixture (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:15:6)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:174:18)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n  ...\n# Subtest: all sources are validated even after a valid implementation source\nnot ok 30 - all sources are validated even after a valid implementation source\n  ---\n  duration_ms: 2.0267\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:178:1'\n  failureType: 'testCodeFailure'\n  error: \"EIO, Access is denied. '\\\\\\\\?\\\\C:\\\\Users\\\\陈宇柠\\\\AppData\\\\Local\\\\Temp\\\\tradequote-wiki-test-ryJq33\\\\wiki-project'\"\n  code: 'EIO'\n  stack: |-\n    copyDir (node:internal/fs/cp/cp-sync:145:22)\n    onDir (node:internal/fs/cp/cp-sync:136:25)\n    getStats (node:internal/fs/cp/cp-sync:68:12)\n    cpSyncFn (node:internal/fs/cp/cp-sync:58:10)\n    Object.cpSync (node:fs:3139:3)\n    fixture (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:15:6)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:179:16)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n  ...\n# Subtest: orphan pages and duplicate basenames are rejected\nnot ok 31 - orphan pages and duplicate basenames are rejected\n  ---\n  duration_ms: 2.0361\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:184:1'\n  failureType: 'testCodeFailure'\n  error: \"EIO, Access is denied. '\\\\\\\\?\\\\C:\\\\Users\\\\陈宇柠\\\\AppData\\\\Local\\\\Temp\\\\tradequote-wiki-test-fjF1Qq\\\\wiki-project'\"\n  code: 'EIO'\n  stack: |-\n    copyDir (node:internal/fs/cp/cp-sync:145:22)\n    onDir (node:internal/fs/cp/cp-sync:136:25)\n    getStats (node:internal/fs/cp/cp-sync:68:12)\n    cpSyncFn (node:internal/fs/cp/cp-sync:58:10)\n    Object.cpSync (node:fs:3139:3)\n    fixture (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:15:6)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:185:16)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n  ...\n# Subtest: completed task requires actual verification record\nnot ok 32 - completed task requires actual verification record\n  ---\n  duration_ms: 1.9181\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:194:1'\n  failureType: 'testCodeFailure'\n  error: \"EIO, Access is denied. '\\\\\\\\?\\\\C:\\\\Users\\\\陈宇柠\\\\AppData\\\\Local\\\\Temp\\\\tradequote-wiki-test-4brYF5\\\\wiki-project'\"\n  code: 'EIO'\n  stack: |-\n    copyDir (node:internal/fs/cp/cp-sync:145:22)\n    onDir (node:internal/fs/cp/cp-sync:136:25)\n    getStats (node:internal/fs/cp/cp-sync:68:12)\n    cpSyncFn (node:internal/fs/cp/cp-sync:58:10)\n    Object.cpSync (node:fs:3139:3)\n    fixture (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:15:6)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:195:16)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n  ...\n# Subtest: archived source cannot bypass inspection through silent changes\nnot ok 33 - archived source cannot bypass inspection through silent changes\n  ---\n  duration_ms: 1.9262\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:200:1'\n  failureType: 'testCodeFailure'\n  error: \"EIO, Access is denied. '\\\\\\\\?\\\\C:\\\\Users\\\\陈宇柠\\\\AppData\\\\Local\\\\Temp\\\\tradequote-wiki-test-DXFxqq\\\\wiki-project'\"\n  code: 'EIO'\n  stack: |-\n    copyDir (node:internal/fs/cp/cp-sync:145:22)\n    onDir (node:internal/fs/cp/cp-sync:136:25)\n    getStats (node:internal/fs/cp/cp-sync:68:12)\n    cpSyncFn (node:internal/fs/cp/cp-sync:58:10)\n    Object.cpSync (node:fs:3139:3)\n    fixture (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:15:6)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:201:16)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n  ...\n# Subtest: source references cannot open excluded runtime data\nnot ok 34 - source references cannot open excluded runtime data\n  ---\n  duration_ms: 2.7268\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:206:1'\n  failureType: 'testCodeFailure'\n  error: \"EIO, Access is denied. '\\\\\\\\?\\\\C:\\\\Users\\\\陈宇柠\\\\AppData\\\\Local\\\\Temp\\\\tradequote-wiki-test-NNVPHH\\\\wiki-project'\"\n  code: 'EIO'\n  stack: |-\n    copyDir (node:internal/fs/cp/cp-sync:145:22)\n    onDir (node:internal/fs/cp/cp-sync:136:25)\n    getStats (node:internal/fs/cp/cp-sync:68:12)\n    cpSyncFn (node:internal/fs/cp/cp-sync:58:10)\n    Object.cpSync (node:fs:3139:3)\n    fixture (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:15:6)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:207:16)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n  ...\n# Subtest: new JSON evidence is checked and sensitive Wiki filenames are rejected before read\nnot ok 35 - new JSON evidence is checked and sensitive Wiki filenames are rejected before read\n  ---\n  duration_ms: 3.8305\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:214:1'\n  failureType: 'testCodeFailure'\n  error: \"EIO, Access is denied. '\\\\\\\\?\\\\C:\\\\Users\\\\陈宇柠\\\\AppData\\\\Local\\\\Temp\\\\tradequote-wiki-test-tu53eM\\\\wiki-project'\"\n  code: 'EIO'\n  stack: |-\n    copyDir (node:internal/fs/cp/cp-sync:145:22)\n    onDir (node:internal/fs/cp/cp-sync:136:25)\n    getStats (node:internal/fs/cp/cp-sync:68:12)\n    cpSyncFn (node:internal/fs/cp/cp-sync:58:10)\n    Object.cpSync (node:fs:3139:3)\n    fixture (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:15:6)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:215:16)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n  ...\n# Subtest: secret/JWT/private-key/PII detections redact the value in diagnostics\nnot ok 36 - secret/JWT/private-key/PII detections redact the value in diagnostics\n  ---\n  duration_ms: 3.3368\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:226:1'\n  failureType: 'testCodeFailure'\n  error: \"EIO, Access is denied. '\\\\\\\\?\\\\C:\\\\Users\\\\陈宇柠\\\\AppData\\\\Local\\\\Temp\\\\tradequote-wiki-test-BLtMJr\\\\wiki-project'\"\n  code: 'EIO'\n  stack: |-\n    copyDir (node:internal/fs/cp/cp-sync:145:22)\n    onDir (node:internal/fs/cp/cp-sync:136:25)\n    getStats (node:internal/fs/cp/cp-sync:68:12)\n    cpSyncFn (node:internal/fs/cp/cp-sync:58:10)\n    Object.cpSync (node:fs:3139:3)\n    fixture (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:15:6)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:227:16)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n  ...\n1..36\n# tests 36\n# suites 0\n# pass 11\n# fail 25\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 1492.2578\n",
+      "stderr": "",
+      "head": "ceec0ee4e329d891aad1855a42414256762e367c",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": ""
+    },
+    {
+      "name": "diff whitespace",
+      "executable": "git",
+      "args": [
+        "diff",
+        "--check",
+        "7f8afe6a0849da3f198bf5bf3be32180053f082d"
+      ],
+      "environment": {},
+      "startedAt": "2026-10-25T11:05:53.971Z",
+      "finishedAt": "2026-10-25T11:05:54.178Z",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "head": "ceec0ee4e329d891aad1855a42414256762e367c",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": ""
+    },
+    {
+      "name": "engineering check",
+      "executable": "cmd.exe",
+      "args": [
+        "/d",
+        "/s",
+        "/c",
+        "pnpm check"
+      ],
+      "environment": {},
+      "startedAt": "2026-10-25T11:05:54.390Z",
+      "finishedAt": "2026-10-25T11:05:55.790Z",
+      "exit_code": 1,
+      "stdout": "\n> tradequote-agent@0.1.0 check D:\\code\\tradequote-agent-b-new-combination\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 178 files in 80ms. No fixes applied.\nTAP version 13\n# Subtest: renderer cannot reach Node, database or desktop internals through import forms\nok 1 - renderer cannot reach Node, database or desktop internals through import forms\n  ---\n  duration_ms: 12.4386\n  type: 'test'\n  ...\n# Subtest: pure modules use public contracts while other platform dependencies are rejected\nok 2 - pure modules use public contracts while other platform dependencies are rejected\n  ---\n  duration_ms: 2.4099\n  type: 'test'\n  ...\n# Subtest: domain permits exact pure decimal dependency without opening contracts or SDK imports\nok 3 - domain permits exact pure decimal dependency without opening contracts or SDK imports\n  ---\n  duration_ms: 0.7963\n  type: 'test'\n  ...\n# Subtest: committed icon resources match their source manifest\nok 4 - committed icon resources match their source manifest\n  ---\n  duration_ms: 2.7979\n  type: 'test'\n  ...\n# Subtest: editing either SVG or packaged icon without generation blocks the build\nnot ok 5 - editing either SVG or packaged icon without generation blocks the build\n  ---\n  duration_ms: 4.6455\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\scripts\\\\check-icons.test.mjs:11:1'\n  failureType: 'testCodeFailure'\n  error: \"EIO, Access is denied. '\\\\\\\\?\\\\C:\\\\Users\\\\陈宇柠\\\\AppData\\\\Local\\\\Temp\\\\tradequote-icon-test-q9q5gB'\"\n  code: 'EIO'\n  stack: |-\n    copyDir (node:internal/fs/cp/cp-sync:145:22)\n    onDir (node:internal/fs/cp/cp-sync:137:10)\n    getStats (node:internal/fs/cp/cp-sync:68:12)\n    cpSyncFn (node:internal/fs/cp/cp-sync:58:10)\n    cpSync (node:fs:3139:3)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/scripts/check-icons.test.mjs:14:3)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n    Test.postRun (node:internal/test_runner/test:1173:19)\n  ...\n# Subtest: macOS native process and runtime display TradeQuote while upstream Electron stays intact\nok 6 - macOS native process and runtime display TradeQuote while upstream Electron stays intact # SKIP\n  ---\n  duration_ms: 1.5922\n  type: 'test'\n  ...\n1..6\n# tests 6\n# suites 0\n# pass 4\n# fail 1\n# cancelled 0\n# skipped 1\n# todo 0\n# duration_ms 211.4522\n ELIFECYCLE  Command failed with exit code 1.\n",
+      "stderr": "",
+      "head": "ceec0ee4e329d891aad1855a42414256762e367c",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": ""
+    },
+    {
+      "name": "wiki regression",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "--test",
+        "wiki-project/scripts/wiki-tools.test.mjs",
+        "wiki-project/scripts/wiki-sync.test.mjs"
+      ],
+      "environment": {
+        "TMP": "D:\\code\\tradequote-agent-b-new-combination\\.runtime\\test-temp",
+        "TEMP": "D:\\code\\tradequote-agent-b-new-combination\\.runtime\\test-temp",
+        "GIT_CEILING_DIRECTORIES": "D:\\code\\tradequote-agent-b-new-combination\\.runtime\\test-temp"
+      },
+      "startedAt": "2026-10-25T11:07:25.553Z",
+      "finishedAt": "2026-10-25T11:08:25.305Z",
+      "exit_code": 1,
+      "stdout": "TAP version 13\n# Subtest: runtime version pin is a mandatory Wiki-synchronized configuration change\nok 1 - runtime version pin is a mandatory Wiki-synchronized configuration change\n  ---\n  duration_ms: 2.1494\n  type: 'test'\n  ...\n# Subtest: code with related knowledge, task and appended log passes\nok 2 - code with related knowledge, task and appended log passes\n  ---\n  duration_ms: 0.4689\n  type: 'test'\n  ...\n# Subtest: generated snapshots alone cannot satisfy knowledge/task/log changes\nok 3 - generated snapshots alone cannot satisfy knowledge/task/log changes\n  ---\n  duration_ms: 0.173\n  type: 'test'\n  ...\n# Subtest: metadata-only or whitespace-only edits cannot satisfy semantic update\nok 4 - metadata-only or whitespace-only edits cannot satisfy semantic update\n  ---\n  duration_ms: 0.2741\n  type: 'test'\n  ...\n# Subtest: each source needs its own mapped knowledge, unrelated pages do not suffice\nok 5 - each source needs its own mapped knowledge, unrelated pages do not suffice\n  ---\n  duration_ms: 0.2017\n  type: 'test'\n  ...\n# Subtest: deleted source uses baseline mapping; unknown source fails\nok 6 - deleted source uses baseline mapping; unknown source fails\n  ---\n  duration_ms: 0.2435\n  type: 'test'\n  ...\n# Subtest: history rewrite and removed task do not pass\nok 7 - history rewrite and removed task do not pass\n  ---\n  duration_ms: 1.038\n  type: 'test'\n  ...\n# Subtest: Wiki maintenance code requires workflow knowledge, not generated data\nok 8 - Wiki maintenance code requires workflow knowledge, not generated data\n  ---\n  duration_ms: 0.2699\n  type: 'test'\n  ...\n# Subtest: ordinary documentation-only edits do not trigger code delivery check\nok 9 - ordinary documentation-only edits do not trigger code delivery check\n  ---\n  duration_ms: 0.4223\n  type: 'test'\n  ...\n# Subtest: real Git baseline includes committed, unstaged and untracked sources\nok 10 - real Git baseline includes committed, unstaged and untracked sources\n  ---\n  duration_ms: 1346.0439\n  type: 'test'\n  ...\n# Subtest: SVG assets require semantic Wiki, task and append-only log changes\nok 11 - SVG assets require semantic Wiki, task and append-only log changes\n  ---\n  duration_ms: 0.2663\n  type: 'test'\n  ...\n# Subtest: same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\nok 12 - same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\n  ---\n  duration_ms: 4492.7299\n  type: 'test'\n  ...\n# Subtest: source drift fails without writes; generation repairs snapshot while preserving ingest baseline\nok 13 - source drift fails without writes; generation repairs snapshot while preserving ingest baseline\n  ---\n  duration_ms: 2005.5823\n  type: 'test'\n  ...\n# Subtest: explicit ingest records a non-Git project honestly\nok 14 - explicit ingest records a non-Git project honestly\n  ---\n  duration_ms: 1674.9216\n  type: 'test'\n  ...\n# Subtest: tool inventory names come from definitions, not nested headers/output/schema fields\nok 15 - tool inventory names come from definitions, not nested headers/output/schema fields\n  ---\n  duration_ms: 1073.3464\n  type: 'test'\n  ...\n# Subtest: new unclassified source fails; missing knowledge target and stale mapping fail\nok 16 - new unclassified source fails; missing knowledge target and stale mapping fail\n  ---\n  duration_ms: 1312.609\n  type: 'test'\n  ...\n# Subtest: generated coverage tampering is detected by lint and remains untouched\nok 17 - generated coverage tampering is detected by lint and remains untouched\n  ---\n  duration_ms: 2455.6506\n  type: 'test'\n  ...\n# Subtest: sensitive filename is excluded before read; external source symlink is not followed\nnot ok 18 - sensitive filename is excluded before read; external source symlink is not followed\n  ---\n  duration_ms: 654.3374\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:129:1'\n  failureType: 'testCodeFailure'\n  error: \"EPERM: operation not permitted, symlink 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\.runtime\\\\test-temp\\\\tradequote-private-fixture-H7sjus\\\\external.ts' -> 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\.runtime\\\\test-temp\\\\tradequote-wiki-test-axWrbo\\\\linked.ts'\"\n  code: 'EPERM'\n  stack: |-\n    Object.symlinkSync (node:fs:1892:11)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:137:6)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n    Test.postRun (node:internal/test_runner/test:1173:19)\n    Test.run (node:internal/test_runner/test:1101:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)\n  ...\n# Subtest: Wiki and generated-output symlinks cannot write outside project\nnot ok 19 - Wiki and generated-output symlinks cannot write outside project\n  ---\n  duration_ms: 669.5065\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:143:1'\n  failureType: 'testCodeFailure'\n  error: \"EPERM: operation not permitted, symlink 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\.runtime\\\\test-temp\\\\tradequote-wiki-outside-DXRjtQ' -> 'D:\\\\code\\\\tradequote-agent-b-new-combination\\\\.runtime\\\\test-temp\\\\tradequote-wiki-test-4zki1z\\\\wiki-project\\\\raw\\\\generated'\"\n  code: 'EPERM'\n  stack: |-\n    Object.symlinkSync (node:fs:1892:11)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b-new-combination/wiki-project/scripts/wiki-tools.test.mjs:149:6)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n    Test.postRun (node:internal/test_runner/test:1173:19)\n    Test.run (node:internal/test_runner/test:1101:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)\n  ...\n# Subtest: missing schema field\nok 20 - missing schema field\n  ---\n  duration_ms: 2241.2151\n  type: 'test'\n  ...\n# Subtest: bad type\nok 21 - bad type\n  ---\n  duration_ms: 2281.9266\n  type: 'test'\n  ...\n# Subtest: bad date\nok 22 - bad date\n  ---\n  duration_ms: 2288.0829\n  type: 'test'\n  ...\n# Subtest: bad status\nok 23 - bad status\n  ---\n  duration_ms: 2267.6248\n  type: 'test'\n  ...\n# Subtest: missing wiki target\nok 24 - missing wiki target\n  ---\n  duration_ms: 2269.7095\n  type: 'test'\n  ...\n# Subtest: missing markdown target\nok 25 - missing markdown target\n  ---\n  duration_ms: 2281.8427\n  type: 'test'\n  ...\n# Subtest: invalid source line\nok 26 - invalid source line\n  ---\n  duration_ms: 2321.178\n  type: 'test'\n  ...\n# Subtest: verified without code evidence\nok 27 - verified without code evidence\n  ---\n  duration_ms: 2266.9942\n  type: 'test'\n  ...\n# Subtest: source escaping project\nok 28 - source escaping project\n  ---\n  duration_ms: 2220.3733\n  type: 'test'\n  ...\n# Subtest: unfilled placeholder\nok 29 - unfilled placeholder\n  ---\n  duration_ms: 2295.9109\n  type: 'test'\n  ...\n# Subtest: all sources are validated even after a valid implementation source\nok 30 - all sources are validated even after a valid implementation source\n  ---\n  duration_ms: 2241.0719\n  type: 'test'\n  ...\n# Subtest: orphan pages and duplicate basenames are rejected\nok 31 - orphan pages and duplicate basenames are rejected\n  ---\n  duration_ms: 3826.5248\n  type: 'test'\n  ...\n# Subtest: completed task requires actual verification record\nok 32 - completed task requires actual verification record\n  ---\n  duration_ms: 2258.4485\n  type: 'test'\n  ...\n# Subtest: archived source cannot bypass inspection through silent changes\nok 33 - archived source cannot bypass inspection through silent changes\n  ---\n  duration_ms: 2217.3525\n  type: 'test'\n  ...\n# Subtest: source references cannot open excluded runtime data\nok 34 - source references cannot open excluded runtime data\n  ---\n  duration_ms: 2249.4395\n  type: 'test'\n  ...\n# Subtest: new JSON evidence is checked and sensitive Wiki filenames are rejected before read\nok 35 - new JSON evidence is checked and sensitive Wiki filenames are rejected before read\n  ---\n  duration_ms: 2629.5251\n  type: 'test'\n  ...\n# Subtest: secret/JWT/private-key/PII detections redact the value in diagnostics\nok 36 - secret/JWT/private-key/PII detections redact the value in diagnostics\n  ---\n  duration_ms: 6968.6656\n  type: 'test'\n  ...\n1..36\n# tests 36\n# suites 0\n# pass 34\n# fail 2\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 59657.5726\n",
+      "stderr": "",
+      "head": "ceec0ee4e329d891aad1855a42414256762e367c",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": ""
+    },
+    {
+      "name": "engineering check",
+      "executable": "cmd.exe",
+      "args": [
+        "/d",
+        "/s",
+        "/c",
+        "pnpm check"
+      ],
+      "environment": {
+        "TMP": "D:\\code\\tradequote-agent-b-new-combination\\.runtime\\test-temp",
+        "TEMP": "D:\\code\\tradequote-agent-b-new-combination\\.runtime\\test-temp",
+        "GIT_CEILING_DIRECTORIES": "D:\\code\\tradequote-agent-b-new-combination\\.runtime\\test-temp"
+      },
+      "startedAt": "2026-10-25T11:08:25.529Z",
+      "finishedAt": "2026-10-25T11:08:29.716Z",
+      "exit_code": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 check D:\\code\\tradequote-agent-b-new-combination\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 178 files in 77ms. No fixes applied.\nTAP version 13\n# Subtest: renderer cannot reach Node, database or desktop internals through import forms\nok 1 - renderer cannot reach Node, database or desktop internals through import forms\n  ---\n  duration_ms: 12.4119\n  type: 'test'\n  ...\n# Subtest: pure modules use public contracts while other platform dependencies are rejected\nok 2 - pure modules use public contracts while other platform dependencies are rejected\n  ---\n  duration_ms: 2.4164\n  type: 'test'\n  ...\n# Subtest: domain permits exact pure decimal dependency without opening contracts or SDK imports\nok 3 - domain permits exact pure decimal dependency without opening contracts or SDK imports\n  ---\n  duration_ms: 0.6322\n  type: 'test'\n  ...\n# Subtest: committed icon resources match their source manifest\nok 4 - committed icon resources match their source manifest\n  ---\n  duration_ms: 2.6035\n  type: 'test'\n  ...\n# Subtest: editing either SVG or packaged icon without generation blocks the build\nok 5 - editing either SVG or packaged icon without generation blocks the build\n  ---\n  duration_ms: 18.1366\n  type: 'test'\n  ...\n# Subtest: macOS native process and runtime display TradeQuote while upstream Electron stays intact\nok 6 - macOS native process and runtime display TradeQuote while upstream Electron stays intact # SKIP\n  ---\n  duration_ms: 1.793\n  type: 'test'\n  ...\n1..6\n# tests 6\n# suites 0\n# pass 5\n# fail 0\n# cancelled 0\n# skipped 1\n# todo 0\n# duration_ms 207.3509\nModule boundaries passed\n\n> tradequote-agent@0.1.0 wiki:check D:\\code\\tradequote-agent-b-new-combination\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 250,\n  \"lines\": 65704,\n  \"generated\": 5,\n  \"excluded\": 12\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 241,\n  \"semantic\": 213,\n  \"reachable\": 241\n}\n",
+      "stderr": "",
+      "head": "ceec0ee4e329d891aad1855a42414256762e367c",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": ""
+    },
+    {
+      "name": "wiki generate",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "environment": {},
+      "startedAt": "2026-10-25T11:10:40.263Z",
+      "finishedAt": "2026-10-25T11:10:40.659Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 250,\n  \"lines\": 65704,\n  \"generated\": 5,\n  \"excluded\": 12\n}\n",
+      "stderr": "",
+      "head": "ceec0ee4e329d891aad1855a42414256762e367c",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": ""
+    },
+    {
+      "name": "wiki readonly",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "environment": {},
+      "startedAt": "2026-10-25T11:10:40.798Z",
+      "finishedAt": "2026-10-25T11:10:41.189Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 250,\n  \"lines\": 65704,\n  \"generated\": 5,\n  \"excluded\": 12\n}\n",
+      "stderr": "",
+      "head": "ceec0ee4e329d891aad1855a42414256762e367c",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": ""
+    },
+    {
+      "name": "wiki lint",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "environment": {},
+      "startedAt": "2026-10-25T11:10:41.323Z",
+      "finishedAt": "2026-10-25T11:10:42.859Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 241,\n  \"semantic\": 213,\n  \"reachable\": 241\n}\n",
+      "stderr": "",
+      "head": "ceec0ee4e329d891aad1855a42414256762e367c",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": ""
+    },
+    {
+      "name": "wiki sync",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "7f8afe6a0849da3f198bf5bf3be32180053f082d"
+      ],
+      "environment": {},
+      "startedAt": "2026-10-25T11:10:42.997Z",
+      "finishedAt": "2026-10-25T11:10:52.094Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"7f8afe6a0849da3f198bf5bf3be32180053f082d\",\n  \"status\": \"passed\",\n  \"codeFiles\": 91,\n  \"knowledgePages\": 139,\n  \"tasks\": 50,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "head": "ceec0ee4e329d891aad1855a42414256762e367c",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": ""
+    },
+    {
+      "name": "diff whitespace",
+      "executable": "git",
+      "args": [
+        "diff",
+        "--check",
+        "7f8afe6a0849da3f198bf5bf3be32180053f082d"
+      ],
+      "environment": {},
+      "startedAt": "2026-10-25T11:10:52.227Z",
+      "finishedAt": "2026-10-25T11:10:52.430Z",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "head": "ceec0ee4e329d891aad1855a42414256762e367c",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": ""
     }
   ],
   "old121NotRerunAsOldBaseline": true,
@@ -321,5 +875,70 @@
     "human publication, personnel signoff or business acceptance",
     "real lint persistence/review service: not implemented",
     "real model calls/force push/merge into integration branch"
+  ],
+  "finalResults": {
+    "classification": "B author validation on fixed new combination only",
+    "fixedCombinationCodeCommit": "ceec0ee4e329d891aad1855a42414256762e367c",
+    "sourceTreeIds": {
+      "packages": "c42c4faf3ed85f315c9c69eeffe59c1ebd14de33",
+      "apps": "4979eb6ee9cbd22d451ca28ba600f9ca9c8dfbf0",
+      "scripts": "54ada764a3e3e509a6b47007cd2aa9793e62b722",
+      "tests": "92e1be677db262196c5ecf168df8c90195b1c5ff",
+      "package.json": "969dfca2fef8c7cf4a4d61f656d869fc922dece9",
+      "pnpm-lock.yaml": "f4320f8b1fa66202c9d26917de4523f5a25c546f"
+    },
+    "sourceChangesAfterFixedCode": "",
+    "typecheck": {
+      "exit_code": 0
+    },
+    "nineFile": {
+      "passed": 121,
+      "total": 121,
+      "exit_code": 0
+    },
+    "fullUnit": {
+      "passed": 454,
+      "total": 455,
+      "exit_code": 1,
+      "remaining": "Windows file symlink EPERM in storage.test.ts; assertion unchanged"
+    },
+    "build": {
+      "exit_code": 0,
+      "warning": "renderer chunk >500kB; no desktop acceptance"
+    },
+    "engineering": {
+      "exit_code": 0,
+      "passed": 5,
+      "skipped": 1,
+      "skippedScope": "macOS native executable test"
+    },
+    "wiki": {
+      "generate": 0,
+      "readonly": 0,
+      "lint": 0,
+      "sync": 0,
+      "codeFiles": 91,
+      "taskBase": "7f8afe6a0849da3f198bf5bf3be32180053f082d"
+    },
+    "wikiRegression": {
+      "passed": 34,
+      "total": 36,
+      "exit_code": 1,
+      "remaining": "two existing Windows symlink EPERM cases; no skip or product test weakening"
+    },
+    "preservation": "wiki-project/raw/b-a910-c03-combination-preservation.json",
+    "overallMigrationApproved": false
+  },
+  "auditRunnerHistory": [
+    {
+      "command": "node .runtime/audit-combination.cjs",
+      "exit_code": 1,
+      "issue": "Initial AST normalization ignored import specifier ordering but not whole import declaration ordering in A ledger test; comparison harness corrected."
+    },
+    {
+      "command": "node .runtime/audit-combination.cjs",
+      "exit_code": 1,
+      "issue": "Detected overlapping a01-migration-lineage-probe.json from A and old B; restored B original path and preserved exact A artifact at explicit A-SHA archive path before final audit."
+    }
   ]
 }

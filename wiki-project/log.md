@@ -1025,3 +1025,10 @@ taskBase=97a8fd9b98317f4592bd234e52a6615a7736dec7；八份原探针仅换A标识
 2026-10-25 最新固定状态：已实际读取C 03b16b76ceb336d9f37692ee8b51046e90f328a0的B接收原文、来源审计及A910e626矩阵。M09-L01/L02、M13-Y01/Y02/Y03在后续C复验已关闭，固定A910e626保持107/107，X01～X11及Y10也在已测范围通过；不再等待163f7a4或要求A重修这些已关闭样本。C按原范围接收B121作者自验（HEAD067afc2、A依赖b9a0af7、证据5cdb2b1），本轮C未复跑；原A-W08技术确认与两次100项接收保持。B现于独立codex/b-a910-c03-combination组合A a2b050e（实现910e626）、B7f8afe6、C03b16b7，保留A迁移/B检查与P1/C运行及桌面出口；新九文件及兼容验证另存raw/b-a910-c03-combination-validation.json，不沿用原121作为新结果。完整迁移M/F/J、新组合独立接收、桌面/macOS联合、真实lint存储/人工发布、人员签认和业务验收仍未完成。详见[[B新固定组合与回归范围]]、[[B01-新固定组合回归]]。
 
 在独立D:/code/tradequote-agent-b-new-combination、本次任务基线7f8afe6构建本地候选，临时72c7c42仅保存A依赖WIP，不是集成分支合入。保留原121、A-W08及两次100证据；C新材料与矩阵引用按固定blob/hash核对。修正重复类型导出、公开出口并集及C顺序迁移夹具/唯一知识版本接口兼容，保留首次类型/兼容失败；迁移核心仅格式化，AST/SQL值与固定A核对。新九文件首轮121/121、最终源码固定后再记新结果，不能用旧自验顶替；扩展兼容中的Windows symlink EPERM照实保留。知识、任务、覆盖并集、生成及实际检查同行，不强推、不合入、不代签。
+
+代码固定ceec0ee4e329d891aad1855a42414256762e367c后，typecheck、新九文件121/121及build退出0；全量454/455，仅storage Windows symlink EPERM，未跳过/放宽。保留审计确认A78/B108/C254份旧非生成raw字节、B原log完整前缀、A/C旧日志行顺序保持，A核心AST/九SQL值一致。A同名新探针另存raw/a01-migration-lineage-probe-a2b050e.json，B原路径保留；修正了审计运行器最初未归一import声明顺序与同名raw映射的问题，最终审计另存raw/b-a910-c03-combination-preservation.json。新组合独立接收、macOS及实际业务验收仍待。
+
+
+B新组合作者验证已在完整代码提交ceec0ee4e329d891aad1855a42414256762e367c执行：九文件121/121、typecheck、build、pnpm check与Wiki生成/只读check/lint/真实7f8afe6基线sync均通过。全量454/455、维护回归34/36仍有Windows symlink EPERM，保留真实失败，不宣称全绿或联合批准；同盘临时目录修正前的cpSync EIO也保留。新结果与原067afc2上的121分开，最终证据raw/b-a910-c03-combination-validation.json，来源/AST/九SQL及旧证据保留审计见raw/b-a910-c03-combination-preservation.json。
+
+最终工程与Wiki：pnpm check退出0（工程5通过/1 macOS专用跳过，模块边界通过）；生成250文件、只读check、lint（241页/213语义页）、以7f8afe6a0849da3f198bf5bf3be32180053f082d为真实基线sync（91源码/139知识页/50任务）和diff均退出0。维护回归34/36，仅两项Windows symlink EPERM，未修改工具或跳过测试；首次跨盘cpSync EIO已通过运行器同盘TMP/TEMP与Git发现上限修正，失败原输出保留。当前仅本地独立候选，源码树自ceec0ee固定后不变，整体active/WIP、未推送、未合入。

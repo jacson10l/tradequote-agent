@@ -256,4 +256,6 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 
 本次独立候选合并A/B/C覆盖映射时，对同路径pages取并集、保留两方公共模块职责；新增quote-checks-runtime-compat.test.ts逐文件映射B规则检查及C02c多步闭环。raw/generated由最终组合源码重生成，旧非生成raw保留，log以原B7f8afe6完整字节前缀加各来源历史增量追加。映射有变运行维护回归，工具算法不变；新状态/任务/日志和真实B7f8afe6基线sync必须同行，不能以临时WIP merge提交作任务基线。
 
+来源审计发现A/B同名探针JSON版本不同：恢复B原a01-migration-lineage-probe.json字节，A a2b050e新原件另存a01-migration-lineage-probe-a2b050e.json并记录原blob/hash；不以同路径覆盖删除B旧证据。原raw与旧日志保留检查覆盖A78/B108/C254份，映射与工具测试结果各按实际退出码登记。
+
 详见[[B新固定组合与回归范围]]、[[B01-新固定组合回归]]及raw/b-a910-c03-combination-validation.json。
