@@ -529,6 +529,30 @@ caseRun("tampered-after-ignore-raise-M13-Y06", (db) => {
     "CREATE TRIGGER agent_tool_step_no_delete AFTER DELETE ON agent_tool_step BEGIN SELECT RAISE(IGNORE); END",
   );
 }, "tampered");
+// M13-Y07：no_delete 真实体为 SELECT 1，前置注释伪造 BEGIN SELECT RAISE(ABORT,...) END → tampered
+caseRun("tampered-comment-forged-body-M13-Y07", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_delete");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_delete BEFORE DELETE ON agent_tool_step /* BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END */ BEGIN SELECT 1; END",
+  );
+}, "tampered");
+// M13-Y08：no_update 用注释分隔 UPDATE 与 OF 列范围（保护实际收窄到不存在列）→ tampered
+caseRun("tampered-comment-split-update-of-M13-Y08", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_update");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_update BEFORE UPDATE /* synthetic gap */ OF synthetic_nonexistent_column ON agent_tool_step BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END",
+  );
+}, "tampered");
+// M13-Y09：no_delete 真实事件改为 BEFORE UPDATE，前置注释伪造 BEFORE DELETE → tampered
+caseRun("tampered-comment-forged-event-M13-Y09", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_delete");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_delete /* BEFORE DELETE */ BEFORE UPDATE ON agent_tool_step BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END",
+  );
+}, "tampered");
 
 // 3) 追加：每个可升级谱系定向追加后应达到统一目标（9 能力齐全 + user_version=8）
 function appendToTarget(db, snap) {

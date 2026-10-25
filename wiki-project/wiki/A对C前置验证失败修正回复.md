@@ -98,12 +98,24 @@ C 在固定提交 163f7a4 上独立复验：原五项 M09-L01/L02、M13-Y01/Y02/
 
 新增有效原 schema 控制组、正向升级、九段历史 SQL 指纹、X01～X11、原五项及 12/107 回归均保留，旧失败记录不删除。
 
+## C 七轮复核：M13 注释词法伪造（Y07～Y09）
+
+C 在固定提交 e73d177 上独立复验：原五项、六轮四例 Y04a/Y04b/Y05/Y06、X01～X11 均保持通过，原矩阵 107/107；统一复现发现三例新阻断（注释词法伪造，三类）。C 要求统一 SQL 词法与结构识别，正确区分注释/字符串/标识符/关键字，再核对真实保护体、事件、时机与 UPDATE 列范围。A 逐项修正：
+
+| 项 | C 发现（合成损坏状态） | A 的修正 | 证据 |
+|---|---|---|---|
+| M13-Y07 注释伪造保护体 | 同名 `no_delete` 真实体 `SELECT 1`，前置注释 `/* BEGIN SELECT RAISE(ABORT,'…'); END */` 被当作保护体 | 新增 `stripComments` 剥离注释后按真实体 `SELECT 1` 判定，非裸 ABORT 即拒 | 探针 `tampered-comment-forged-body-M13-Y07` |
+| M13-Y08 注释分隔 UPDATE OF | 同名 `no_update` `BEFORE UPDATE /* gap */ OF 不存在列`，`UPDATE OF` 未命中 | `stripComments` 补空格后 `/\bUPDATE\s+OF\b/` 命中即拒 | 探针 `tampered-comment-split-update-of-M13-Y08` |
+| M13-Y09 注释伪造事件 | 同名 `no_delete` 真实事件 `BEFORE UPDATE`，前置注释 `/* BEFORE DELETE */` 被当作事件 | `stripComments` 剥离后按真实事件 `UPDATE` 判定，与规范 `DELETE` 不符即拒 | 探针 `tampered-comment-forged-event-M13-Y09` |
+
+新增有效原 schema 控制组、正向升级、九段历史 SQL 指纹、X01～X11、原五项、六轮四例及 12/107 回归均保留，旧失败记录不删除。
+
 ## 修正后的实际验证证据
 
 本机已实际运行（系统 Node v24.14.1，仓库 engines 22.22.0 不一致，如实标注；vitest 经 `ELECTRON_RUN_AS_NODE` 走 Electron 内嵌 Node ABI，与生产原生 better-sqlite3 一致）：
 
 - `pnpm typecheck`（`tsc --noEmit`）：退出 0（含 M13-X01～X11、M13-Y01～Y03、M09-L01/L02 与 A-W08 修正后）。
-- 纯 Node 探针 [a01-migration-lineage-probe.json](../raw/a01-migration-lineage-probe.json)：退出 0，37 分类/拒绝用例全过（指纹全匹配，含 N07/N08/N09 与 M13-X01～X11、M13-Y01～Y06 共 21 个负例）、10 追加路径全过、2 有效原 schema 控制组全过。
+- 纯 Node 探针 [a01-migration-lineage-probe.json](../raw/a01-migration-lineage-probe.json)：退出 0，40 分类/拒绝用例全过（指纹全匹配，含 N07/N08/N09 与 M13-X01～X11、M13-Y01～Y09 共 24 个负例）、10 追加路径全过、2 有效原 schema 控制组全过。
 - 定向回归 `migration-ledger.test.ts`：5/5 通过（N10、N10 一致性、N11、M09-L01、M09-L02）。
 - `wiki-store.test.ts`：5/5 通过（A-W08 retryable=false 已随 `failure()` 修正转绿）。
 - 整仓 infrastructure vitest：46 通过 / 1 既有失败（`storage.test.ts` symlink EPERM，Windows 权限，非本切片引入）。

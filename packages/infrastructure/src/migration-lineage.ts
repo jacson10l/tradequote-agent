@@ -10,15 +10,17 @@ import { createHash } from "node:crypto";
  * 因此识别只以实际 schema（表/索引/触发器/列及其有效定义）为准，user_version 仅作交叉核对，
  * 绝不单独依据编号判定谱系。除对象名称外，还核对必要列、真实唯一/部分索引和含 RAISE 的
  * 不可变触发器有效定义，以及外键与 CHECK 的真实存在。对“有效定义”按规范参考结构核对而非
- * 常量黑名单：触发器事件必须匹配规范事件（X08）、触发器/索引必须挂在规范目标表（Y02/Y03）、
+ * 常量黑名单：触发器事件必须匹配规范事件（X08/Y09 注释伪造事件）、触发器/索引必须挂在规范目标表（Y02/Y03）、
  * WHEN 必须匹配规范 WHEN 或必须无 WHEN（X01/X05 永假/加 WHEN）、保护体必须是裸
  * `SELECT RAISE(ABORT, ...)`（动作 ABORT、无 WHERE/LIMIT/CASE 等可抑制执行的尾随子句）而非字符串
  * 字面量 'RAISE'（X10）、CASE 包裹的不可达 RAISE（Y01）、WHERE/LIMIT 0 抑制（Y04）或 IGNORE 不中止（Y06）、
- * 触发时机必须 BEFORE（Y06）、UPDATE 触发器不得限定 OF 列（Y05）、部分索引列与 WHERE 谓词必须匹配规范
+ * 触发时机必须 BEFORE（Y06/Y09）、UPDATE 触发器不得限定 OF 列范围（Y05/Y08）——以上结构识别先经
+ * `stripComments` 剥离注释（注释补空格保持词法边界）再匹配，防 Y07 注释伪造保护体、Y08 注释分隔
+ * UPDATE OF、Y09 注释伪造事件；部分索引列与 WHERE 谓词必须匹配规范
  * （X02/X06/X07）、归一保留字符串字面量大小写语义（X11）、CHECK 按去注释/字符串后的表原文匹配
  * （X04/X09 注释伪 CHECK）——封死 D2 静默缺表、D3 按 v6 误记知识迁移、“未知 v6 被误接受”、
- * “缺不可变触发器仍被接受”，以及 C 四轮/五轮/六轮核验的 N07/N08/N09 与 M13-X01～X11、
- * M13-Y01～Y06（旧账本 M09-L01/L02 见 migrations.ts）。
+ * “缺不可变触发器仍被接受”，以及 C 四轮/五轮/六轮/七轮核验的 N07/N08/N09 与 M13-X01～X11、
+ * M13-Y01～Y09（旧账本 M09-L01/L02 见 migrations.ts）。
  */
 
 export type CapabilityLineage = "common" | "c-run" | "knowledge-wiki" | "check-report";
@@ -409,6 +411,45 @@ function stripTrivia(sql: string): string {
   return out;
 }
 
+/** 去 SQL 注释（-- 行注释、块注释），字符串/引号标识符原样保留；每段注释替换为一个空格以保持词法边界（防 Y07/Y08/Y09 注释伪造结构）。 */
+function stripComments(sql: string): string {
+  let out = "";
+  let i = 0;
+  const n = sql.length;
+  while (i < n) {
+    const c = sql[i];
+    if (c === "'" || c === '"' || c === "`") {
+      const q = c;
+      out += q;
+      i += 1;
+      while (i < n && sql[i] !== q) {
+        out += sql[i];
+        i += 1;
+      }
+      if (i < n) {
+        out += q;
+        i += 1;
+      }
+      continue;
+    }
+    if (c === "-" && sql[i + 1] === "-") {
+      out += " ";
+      while (i < n && sql[i] !== "\n") i += 1;
+      continue;
+    }
+    if (c === "/" && sql[i + 1] === "*") {
+      out += " ";
+      i += 2;
+      while (i < n && !(sql[i] === "*" && sql[i + 1] === "/")) i += 1;
+      i += 2;
+      continue;
+    }
+    out += c;
+    i += 1;
+  }
+  return out;
+}
+
 /** 提取触发器事件（BEFORE/AFTER/INSTEAD OF 之后的 DELETE/UPDATE/INSERT）；无则 null。 */
 function extractTriggerEvent(sql: string): "DELETE" | "UPDATE" | "INSERT" | null {
   const m = sql.match(/\b(?:BEFORE|AFTER|INSTEAD\s+OF)\s+(DELETE|UPDATE|INSERT)\b/i);
@@ -466,13 +507,15 @@ function capabilityStatus(
     if (sql === undefined) return false;
     // 索引实际所属表必须匹配规范目标表（防 M13-Y03 旁表同名索引）。
     if (indexTable.get(req.name) !== req.table) return false;
-    if (req.unique && !/\bUNIQUE\b/i.test(sql)) return false;
+    // 先剥离注释再结构识别（防注释伪造 UNIQUE/列/谓词等关键字）。
+    const lexical = stripComments(sql);
+    if (req.unique && !/\bUNIQUE\b/i.test(lexical)) return false;
     if (req.columns !== undefined) {
-      const actual = extractIndexColumns(sql);
+      const actual = extractIndexColumns(lexical);
       if (actual === null || normalizeSql(actual) !== normalizeSql(req.columns)) return false;
     }
     if (req.partial) {
-      const where = extractPredicate(sql, "WHERE");
+      const where = extractPredicate(lexical, "WHERE");
       if (where === null) return false;
       // 规范 WHERE 谓词必须精确匹配（防 X06 永假/改写；X02 谓词由规范 where 一并封死）。
       if (req.where !== undefined && normalizeSql(where) !== normalizeSql(req.where)) return false;
@@ -484,18 +527,20 @@ function capabilityStatus(
     if (sql === undefined) return false;
     // 触发器实际目标表必须匹配规范目标表（防 M13-Y02 错表触发器）。
     if (triggerTable.get(req.name) !== req.table) return false;
-    // 有效保护体 = 裸 SELECT RAISE(ABORT,...)（防 X10 字符串字面量、Y01 CASE 不可达、Y04 WHERE/LIMIT 抑制、Y06 IGNORE 不中止）。
-    if (req.raises && !hasBareAbortRaise(sql)) return false;
-    // 触发时机必须是 BEFORE（防 Y06 改 AFTER 时机）。
-    if (extractTriggerTiming(sql) !== "BEFORE") return false;
-    if (extractTriggerEvent(sql) !== req.event) return false;
-    // UPDATE 触发器不得限定 OF 列范围（防 Y05 UPDATE OF 不存在的列使保护失效）。
-    if (req.event === "UPDATE" && /\bUPDATE\s+OF\b/i.test(sql)) return false;
+    // 统一词法：先剥离注释（字符串原样保留）再结构识别，防 Y07 注释伪造保护体、Y08 注释分隔 UPDATE OF、Y09 注释伪造事件。
+    const lexical = stripComments(sql);
+    // 有效保护体 = 裸 SELECT RAISE(ABORT,...)（防 X10 字符串字面量、Y01 CASE 不可达、Y04 WHERE/LIMIT 抑制、Y06 IGNORE 不中止、Y07 注释伪造保护体）。
+    if (req.raises && !hasBareAbortRaise(lexical)) return false;
+    // 触发时机必须是 BEFORE（防 Y06 改 AFTER 时机、Y09 注释伪造时机）。
+    if (extractTriggerTiming(lexical) !== "BEFORE") return false;
+    if (extractTriggerEvent(lexical) !== req.event) return false;
+    // UPDATE 触发器不得限定 OF 列范围（防 Y05 UPDATE OF 不存在的列、Y08 注释分隔 UPDATE OF 使保护失效）。
+    if (req.event === "UPDATE" && /\bUPDATE\s+OF\b/i.test(lexical)) return false;
     if (req.when === null) {
       // 规范无 WHEN：实际必须无 WHEN（防 X05 永假/加 WHEN）。
-      if (extractPredicate(sql, "WHEN") !== null) return false;
+      if (extractPredicate(lexical, "WHEN") !== null) return false;
     } else if (req.when !== undefined) {
-      const actual = extractPredicate(sql, "WHEN");
+      const actual = extractPredicate(lexical, "WHEN");
       if (actual === null || normalizeSql(actual) !== normalizeSql(req.when)) return false;
     }
     return true;

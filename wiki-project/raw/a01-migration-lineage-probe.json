@@ -1,7 +1,7 @@
 {
   "status": "passed",
   "scope": "A01c migration lineage identification & append matrix probe; synthetic in-memory only; proves identification classification and capability-append shape, not business acceptance",
-  "recordedAt": "2026-10-25T05:34:57.388Z",
+  "recordedAt": "2026-10-25T06:16:40.866Z",
   "environment": {
     "platform": "win32",
     "arch": "x64",
@@ -656,6 +656,60 @@
     },
     {
       "name": "tampered-after-ignore-raise-M13-Y06",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-comment-forged-body-M13-Y07",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-comment-split-update-of-M13-Y08",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-comment-forged-event-M13-Y09",
       "userVersion": 7,
       "lineage": "tampered",
       "expect": "tampered",
