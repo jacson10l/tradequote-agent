@@ -1,7 +1,7 @@
 {
   "status": "passed",
   "scope": "A01c migration lineage identification & append matrix probe; synthetic in-memory only; proves identification classification and capability-append shape, not business acceptance",
-  "recordedAt": "2026-10-25T06:16:40.866Z",
+  "recordedAt": "2026-10-25T08:52:17.403Z",
   "environment": {
     "platform": "win32",
     "arch": "x64",
@@ -725,6 +725,40 @@
       "partial": [
         "c-run:7"
       ]
+    },
+    {
+      "name": "tampered-bracket-identifier-check-M13-Y10",
+      "userVersion": 6,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5"
+      ],
+      "partial": [
+        "c-run:6"
+      ]
+    },
+    {
+      "name": "valid-extra-bracket-column-with-real-check",
+      "userVersion": 7,
+      "lineage": "c-v7",
+      "expect": "c-v7",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6",
+        "c-run:7"
+      ],
+      "partial": []
     }
   ],
   "append": [

@@ -110,12 +110,22 @@ C 在固定提交 e73d177 上独立复验：原五项、六轮四例 Y04a/Y04b/Y
 
 新增有效原 schema 控制组、正向升级、九段历史 SQL 指纹、X01～X11、原五项、六轮四例及 12/107 回归均保留，旧失败记录不删除。
 
+## C 八轮复核：M13 方括号标识符伪造 CHECK（Y10）
+
+C 在固定提交 1c890dc 上独立复验：Y07～Y09 全部安全拒绝、含三个有效控制组共 6/6，原五项、六轮四例 Y04a/Y04b/Y05/Y06、X01～X11、原 12/107 回归及九段 SQL 指纹保持通过；但统一复现发现一例新阻断（方括号标识符伪造 CHECK）。C 要求统一 SQL 词法与结构识别，区分注释/字符串/引号标识符（含方括号）与关键字，CHECK 必须来自真实约束结构，不能只补文本黑名单或禁止所有额外列。A 逐项修正：
+
+| 项 | C 发现（合成损坏状态） | A 的修正 | 证据 |
+|---|---|---|---|
+| M13-Y10 方括号列名伪造 CHECK | 重建 `agent_write_call` 把 `attempt INTEGER NOT NULL CHECK(attempt>0)` 替换为 `attempt INTEGER NOT NULL, [CHECK(attempt>0)] TEXT`，两入口（只读 `identify` 与 `SqliteWorkspaceRepository`）均接受升 8，随后插入 `attempt=0` 成功 | `stripTrivia` 新增方括号引号标识符 `[name]` 剥离（内容去除、占位 `[]`），`stripComments` 同步识别 `[name]`（内容原样保留，与其他引号标识符一致），CHECK 判据按去注释/字符串/方括号标识符后的表原文匹配，`[CHECK(attempt>0)]` 列名中的文本不再命中 CHECK 正则 | 探针 `tampered-bracket-identifier-check-M13-Y10` |
+
+有效控制：额外方括号列 `[CHECK(attempt>0)] TEXT` 与真实 `CHECK(attempt>0)` 并存 → 仍识别为 c-v7（探针 `valid-extra-bracket-column-with-real-check`），证明修复来自真实约束结构识别而非「禁止所有额外列」。新增有效原 schema 控制组、正向升级、九段历史 SQL 指纹、X01～X11、原五项、六轮四例、七轮三例及 12/107 回归均保留，旧失败记录不删除。
+
 ## 修正后的实际验证证据
 
 本机已实际运行（系统 Node v24.14.1，仓库 engines 22.22.0 不一致，如实标注；vitest 经 `ELECTRON_RUN_AS_NODE` 走 Electron 内嵌 Node ABI，与生产原生 better-sqlite3 一致）：
 
-- `pnpm typecheck`（`tsc --noEmit`）：退出 0（含 M13-X01～X11、M13-Y01～Y03、M09-L01/L02 与 A-W08 修正后）。
-- 纯 Node 探针 [a01-migration-lineage-probe.json](../raw/a01-migration-lineage-probe.json)：退出 0，40 分类/拒绝用例全过（指纹全匹配，含 N07/N08/N09 与 M13-X01～X11、M13-Y01～Y09 共 24 个负例）、10 追加路径全过、2 有效原 schema 控制组全过。
+- `pnpm typecheck`（`tsc --noEmit`）：退出 0（含 M13-X01～X11、M13-Y01～Y10、M09-L01/L02 与 A-W08 修正后）。
+- 纯 Node 探针 [a01-migration-lineage-probe.json](../raw/a01-migration-lineage-probe.json)：退出 0，42 分类/拒绝用例全过（指纹全匹配，含 N07/N08/N09 与 M13-X01～X11、M13-Y01～Y10 共 25 个负例，另新增「额外方括号列 + 真实 CHECK 并存」有效控制组识别为 c-v7）、10 追加路径全过、2 有效原 schema 控制组全过。
 - 定向回归 `migration-ledger.test.ts`：5/5 通过（N10、N10 一致性、N11、M09-L01、M09-L02）。
 - `wiki-store.test.ts`：5/5 通过（A-W08 retryable=false 已随 `failure()` 修正转绿）。
 - 整仓 infrastructure vitest：46 通过 / 1 既有失败（`storage.test.ts` symlink EPERM，Windows 权限，非本切片引入）。

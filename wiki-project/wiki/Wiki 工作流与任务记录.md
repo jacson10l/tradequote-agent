@@ -144,3 +144,5 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 2026-10-25 修正 C 六轮 M13 保护体核验：探针再扩至 37 用例（新增 M13-Y04a `SELECT RAISE(...) WHERE 0` / M13-Y04b `LIMIT 0` / M13-Y05 `UPDATE OF` 列范围 / M13-Y06 AFTER 时机 + `RAISE(IGNORE)` 四个负例），`capabilityStatus` 新增 `extractTriggerBody`/`hasBareAbortRaise`（保护体须为裸 `SELECT RAISE(ABORT,'')`，取代关键词命中）、`extractTriggerTiming`（时机必须 BEFORE）并对 UPDATE 触发器拒绝 `UPDATE OF <列>`；`migration-lineage.ts` 未新增文件、覆盖映射不变。本轮 sync 基线为 163f7a4。
 
 2026-10-25 修正 C 七轮 M13 注释词法核验：探针再扩至 40 用例（新增 M13-Y07 注释伪造保护体 / M13-Y08 注释分隔 `UPDATE OF` / M13-Y09 注释伪造事件三个负例），`capabilityStatus` 新增 `stripComments`（去 `--` 行注释/块注释，字符串/引号标识符原样保留，注释补空格保持词法边界），触发器与索引的结构识别（保护体/事件/时机/`UPDATE OF`/`UNIQUE`/列/谓词）一律先剥离注释再匹配；`migration-lineage.ts` 未新增文件、覆盖映射不变。本轮 sync 基线为 e73d177。
+
+2026-10-25 修正 C 八轮 M13 方括号标识符核验：探针再扩至 42 用例（新增 M13-Y10 方括号列名 `[CHECK(attempt>0)] TEXT` 伪造 CHECK 负例，及「额外方括号列 + 真实 CHECK 并存」有效控制组），`stripTrivia` 新增方括号引号标识符 `[name]` 剥离（内容去除、占位 `[]`）、`stripComments` 同步识别 `[name]`（内容原样保留），CHECK 判据按去注释/字符串/方括号标识符后的表原文匹配，方括号列名中的 `CHECK(attempt>0)` 文本不再被误认作真实约束，额外方括号列与真实 CHECK 并存的合法库仍识别为原谱系（不禁止所有额外列）；`migration-lineage.ts` 未新增文件、覆盖映射不变。本轮 sync 基线为 1c890dc。

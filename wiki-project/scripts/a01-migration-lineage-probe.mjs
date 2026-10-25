@@ -553,6 +553,34 @@ caseRun("tampered-comment-forged-event-M13-Y09", (db) => {
     "CREATE TRIGGER agent_tool_step_no_delete /* BEFORE DELETE */ BEFORE UPDATE ON agent_tool_step BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END",
   );
 }, "tampered");
+// M13-Y10：真实 attempt>0 CHECK 被方括号列名 [CHECK(attempt>0)] TEXT 伪造（列名文本被误认作约束）→ tampered
+caseRun("tampered-bracket-identifier-check-M13-Y10", (db) => {
+  buildLineage(db, "c-v6");
+  db.exec("DROP TABLE agent_write_call");
+  db.exec(`CREATE TABLE agent_write_call (
+  run_id TEXT NOT NULL REFERENCES agent_run(run_id),
+  tool_call_id TEXT NOT NULL,
+  attempt INTEGER NOT NULL,
+  [CHECK(attempt>0)] TEXT,
+  execution_id TEXT NOT NULL,
+  worker_session_id TEXT NOT NULL,
+  tool_name TEXT NOT NULL CHECK(tool_name IN ('create_draft','apply_patch')),
+  request_hash TEXT NOT NULL,
+  input_json TEXT NOT NULL CHECK(json_valid(input_json)),
+  status TEXT NOT NULL CHECK(status IN ('prepared','committed','abandoned')),
+  revision_id TEXT,
+  PRIMARY KEY(run_id,tool_call_id),
+  CHECK((status='committed') = (revision_id IS NOT NULL))
+)`);
+  db.exec("CREATE UNIQUE INDEX agent_write_once ON agent_write_call(run_id,attempt) WHERE status IN ('prepared','committed')");
+  db.exec("CREATE TRIGGER agent_write_committed_no_update BEFORE UPDATE ON agent_write_call WHEN OLD.status='committed' BEGIN SELECT RAISE(ABORT,'IMMUTABLE_WRITE_RECEIPT'); END;");
+  db.exec("CREATE TRIGGER agent_write_no_delete BEFORE DELETE ON agent_write_call BEGIN SELECT RAISE(ABORT,'IMMUTABLE_WRITE_RECEIPT'); END;");
+}, "tampered");
+// 有效控制：额外方括号列 [CHECK(attempt>0)] TEXT 与真实 attempt>0 CHECK 并存 → 仍识别为 c-v7（不禁止所有额外列）
+caseRun("valid-extra-bracket-column-with-real-check", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("ALTER TABLE agent_write_call ADD COLUMN [CHECK(attempt>0)] TEXT");
+}, "c-v7");
 
 // 3) 追加：每个可升级谱系定向追加后应达到统一目标（9 能力齐全 + user_version=8）
 function appendToTarget(db, snap) {

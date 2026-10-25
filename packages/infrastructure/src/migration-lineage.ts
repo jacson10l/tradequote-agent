@@ -17,10 +17,10 @@ import { createHash } from "node:crypto";
  * 触发时机必须 BEFORE（Y06/Y09）、UPDATE 触发器不得限定 OF 列范围（Y05/Y08）——以上结构识别先经
  * `stripComments` 剥离注释（注释补空格保持词法边界）再匹配，防 Y07 注释伪造保护体、Y08 注释分隔
  * UPDATE OF、Y09 注释伪造事件；部分索引列与 WHERE 谓词必须匹配规范
- * （X02/X06/X07）、归一保留字符串字面量大小写语义（X11）、CHECK 按去注释/字符串后的表原文匹配
- * （X04/X09 注释伪 CHECK）——封死 D2 静默缺表、D3 按 v6 误记知识迁移、“未知 v6 被误接受”、
- * “缺不可变触发器仍被接受”，以及 C 四轮/五轮/六轮/七轮核验的 N07/N08/N09 与 M13-X01～X11、
- * M13-Y01～Y09（旧账本 M09-L01/L02 见 migrations.ts）。
+ * （X02/X06/X07）、归一保留字符串字面量大小写语义（X11）、CHECK 按去注释/字符串/方括号引号标识符后的
+ * 表原文匹配（X04/X09 注释伪 CHECK、Y10 方括号列名伪 CHECK）——封死 D2 静默缺表、D3 按 v6 误记知识迁移、
+ * “未知 v6 被误接受”、“缺不可变触发器仍被接受”，以及 C 四轮/五轮/六轮/七轮/八轮核验的
+ * N07/N08/N09 与 M13-X01～X11、M13-Y01～Y10（旧账本 M09-L01/L02 见 migrations.ts）。
  */
 
 export type CapabilityLineage = "common" | "c-run" | "knowledge-wiki" | "check-report";
@@ -84,10 +84,10 @@ export interface ForeignKeyRef {
   to: string; // 父表列
 }
 
-/** CHECK 要求：CREATE TABLE 原文（去注释与字符串后）必须命中该正则，证明某 CHECK 约束真实存在（M13-X04/X09）。 */
+/** CHECK 要求：CREATE TABLE 原文（去注释/字符串/方括号引号标识符后）必须命中该正则，证明某 CHECK 约束真实存在（M13-X04/X09/Y10）。 */
 export interface CheckRequirement {
   table: string;
-  /** SQLite 无 CHECK 专用 PRAGMA，只能从 sqlite_master 的表原文判定；去注释/字符串避免命中注释或字符串中的伪 CHECK。 */
+  /** SQLite 无 CHECK 专用 PRAGMA，只能从 sqlite_master 的表原文判定；去注释/字符串/方括号标识符避免命中注释、字符串或 `[CHECK(...)]` 列名中的伪 CHECK。 */
   pattern: RegExp;
 }
 
@@ -380,7 +380,7 @@ function normalizeSql(sql: string): string {
   return out.replace(/\s+/g, " ").trim();
 }
 
-/** 去 SQL 注释与字符串字面量（-- 行注释、块注释、'...'/"..."/`...` 内容），用于 RAISE/CHECK 等关键字有效性判定。 */
+/** 去 SQL 注释、字符串字面量与方括号引号标识符（-- 行注释、块注释、'...'/"..."/`...`/[name] 内容），用于 RAISE/CHECK 等关键字有效性判定。 */
 function stripTrivia(sql: string): string {
   let out = "";
   let i = 0;
@@ -392,6 +392,14 @@ function stripTrivia(sql: string): string {
       out += q + q; // 空字面量占位，避免字符串内容中的关键字被误命中（M13-X10）
       i += 1;
       while (i < n && sql[i] !== q) i += 1;
+      if (i < n) i += 1;
+      continue;
+    }
+    if (c === "[") {
+      // 方括号引号标识符（SQLite 支持 [name]）：去除内容，防 M13-Y10 以列名 [CHECK(attempt>0)] 伪造 CHECK。
+      out += "[]";
+      i += 1;
+      while (i < n && sql[i] !== "]") i += 1;
       if (i < n) i += 1;
       continue;
     }
@@ -411,7 +419,7 @@ function stripTrivia(sql: string): string {
   return out;
 }
 
-/** 去 SQL 注释（-- 行注释、块注释），字符串/引号标识符原样保留；每段注释替换为一个空格以保持词法边界（防 Y07/Y08/Y09 注释伪造结构）。 */
+/** 去 SQL 注释（-- 行注释、块注释），字符串/引号标识符（含 [name]）原样保留；每段注释替换为一个空格以保持词法边界（防 Y07/Y08/Y09 注释伪造结构）。 */
 function stripComments(sql: string): string {
   let out = "";
   let i = 0;
@@ -428,6 +436,20 @@ function stripComments(sql: string): string {
       }
       if (i < n) {
         out += q;
+        i += 1;
+      }
+      continue;
+    }
+    if (c === "[") {
+      // 方括号引号标识符（SQLite 支持 [name]）：内容原样保留，与其他引号标识符一致，不当作关键字。
+      out += "[";
+      i += 1;
+      while (i < n && sql[i] !== "]") {
+        out += sql[i];
+        i += 1;
+      }
+      if (i < n) {
+        out += "]";
         i += 1;
       }
       continue;
@@ -556,7 +578,7 @@ function capabilityStatus(
   );
   const checksOk = (cap.checks ?? []).every((req) => {
     const sql = tableSql.get(req.table);
-    // 去注释与字符串后匹配，避免命中注释或字符串中的伪 CHECK（M13-X09）。
+    // 去注释/字符串/方括号标识符后匹配，避免命中注释、字符串或 [CHECK(...)] 列名中的伪 CHECK（M13-X09/Y10）。
     return sql !== undefined && req.pattern.test(stripTrivia(sql));
   });
   return columnsOk && indexesOk && triggersOk && foreignKeysOk && checksOk ? "present" : "partial";

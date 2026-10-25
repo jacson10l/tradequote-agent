@@ -1578,9 +1578,9 @@
     {
       "path": "packages/infrastructure/src/migration-lineage.ts",
       "type": "ts",
-      "lines": 694,
-      "bytes": 27179,
-      "sha256": "705c2980f4640f8e9f32d2191d5c125a91870ffba6a82f0e99a89311d6b976cf",
+      "lines": 716,
+      "bytes": 28050,
+      "sha256": "29ff1c4cdad66155cd0f36c4c9cb97f617be943ad05705c7a541fa2f1369d7bd",
       "role": "迁移谱系识别与拒绝边界（纯函数，只读）",
       "pages": [
         "wiki/decisions/0029-迁移谱系统一与拒绝边界.md",
