@@ -1,0 +1,145 @@
+{
+  "status": "passed",
+  "scope": "A Y10 closure receipt documentation delta only",
+  "taskBase": "c4e109f753aa6f404c92f04d1590b41eb557c1aa",
+  "sharedMergeBase": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+  "checks": [
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent",
+      "startedAt": "2026-10-25T10:28:55.291261+00:00",
+      "finishedAt": "2026-10-25T10:28:55.460596+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 6\n}\n",
+      "stderr": "",
+      "stdoutSha256": "6a3e1709991b78e42869a1a8ccb647033396075edd3b7529074b2008dd665be1",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent",
+      "startedAt": "2026-10-25T10:28:55.460951+00:00",
+      "finishedAt": "2026-10-25T10:28:55.619598+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 6\n}\n",
+      "stderr": "",
+      "stdoutSha256": "989c0d7bed58055cd73ba84f2a1b90acb451c9e9b55e9ade31bacb0278f4dd42",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent",
+      "startedAt": "2026-10-25T10:28:55.620043+00:00",
+      "finishedAt": "2026-10-25T10:28:56.455577+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 217,\n  \"semantic\": 189,\n  \"reachable\": 217\n}\n",
+      "stderr": "",
+      "stdoutSha256": "23e56cbe3980255024e7279399eff99df1f9b8dbfbda2ccb3ad3d5ee70e4f58c",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "c4e109f753aa6f404c92f04d1590b41eb557c1aa"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent",
+      "startedAt": "2026-10-25T10:28:56.456008+00:00",
+      "finishedAt": "2026-10-25T10:28:56.536858+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"c4e109f753aa6f404c92f04d1590b41eb557c1aa\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "stdoutSha256": "7d15949089d2843ef9ca7c1aa25b587859d725d98d40d564b21803aa0aa34b53",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent",
+      "startedAt": "2026-10-25T10:28:56.537279+00:00",
+      "finishedAt": "2026-10-25T10:28:57.489510+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 91,\n  \"knowledgePages\": 124,\n  \"tasks\": 47,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "stdoutSha256": "6295c01b9580d336fb0a6a7180bd4efd8380cf5cf8b3bcffccf57935734ea6b1",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "be53b98"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent",
+      "startedAt": "2026-10-25T10:28:57.489928+00:00",
+      "finishedAt": "2026-10-25T10:28:58.547061+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 97,\n  \"knowledgePages\": 139,\n  \"tasks\": 55,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "stdoutSha256": "b091a406f925be6ee6b0baaad3d64e8c53379927840a86f5c5349c0391ded4e8",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent",
+      "startedAt": "2026-10-25T10:28:58.547734+00:00",
+      "finishedAt": "2026-10-25T10:28:58.560366+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a910e626-validation/tradequote-agent",
+      "startedAt": "2026-10-25T10:28:58.561017+00:00",
+      "finishedAt": "2026-10-25T10:28:58.569753+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "preservation": {
+    "nonWikiCount": 228,
+    "nonWikiChanged": [],
+    "oldRawCount": 250,
+    "oldRawChanged": [],
+    "oldLogBytes": 127849,
+    "oldLogFullBytePrefixPreserved": true
+  },
+  "finishedAt": "2026-10-25T10:28:58.610822+00:00"
+}

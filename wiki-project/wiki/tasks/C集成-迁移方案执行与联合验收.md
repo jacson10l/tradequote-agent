@@ -12,6 +12,8 @@ sources:
 
 # C集成-迁移方案执行与联合验收
 
+2026-10-25 关闭回执已接收：A远端固定a2b050eb74f52dc10916645bcc7a2dead02f9a72已核对，相对910e626仅CONTEXT/项目状态/A任务/log四份Wiki变更，代码与Y10验证输入未变；A/C均记录Y10在已测范围技术关闭。C独立重跑A文档generate/check/lint/sync(--base 1c890dc)全退出0，不重复产品测试。B先前b80ad43的A-W08开发Agent技术确认及两次Windows100/100材料已接收；尚待新固定组合的报告/消费/P1/macOS验证与实际人员签认，不能笼统把既有技术确认重新标待办。详见[[A910e626独立复验与Y10关闭回执]]；整体迁移任务保持active。
+
 2026-10-25 最新C独立复验：固定A 910e6260af0c4d84471e665da7656dbf8133aae7的Y10安全拒绝，identify与真实repository均在升级/写入前报tampered，原schema/数据/版本7/账本、DB字节和目录列表保持。两个有效CHECK控制均正常通过迁移入口并实际拒绝attempt=0，套件3/3。此前全部指定回归保持：原五项、六轮四例、七轮三例、X01～X11、原12/107及九段SQL指纹；macOS infrastructure47/47、contracts35/35。Y10仅在已测范围技术关闭，本轮未发现新的阻断；M13完整矩阵、新组合、桌面/macOS联合及实际人员/业务验收仍未完成。详见[[A910e626独立复验与Y10关闭回执]]、[[C集成-A910e626与Y10独立复验]]；旧版本失败记录保留原作用域。
 
 2026-10-25 最新C独立复验：A远端固定1c890dc77ecba2cfb949c5e69908dc81bdacc692已核对，Y07/Y08/Y09全部安全拒绝且逻辑/物理边界保持，含三个控制6/6；原五项、六轮四例、X01～X11、原12/107与九段SQL指纹保持通过。新增M13-Y10：agent_write_call移除真实CHECK(attempt>0)、增加普通方括号列[CHECK(attempt>0)]后，identify/repository均接受升8并成功写入attempt=0；两个真实CHECK控制均拒绝。M13仍changes_required。详见[[A1c890dc独立复验与方括号标识符边界回执]]、[[C集成-A1c890dc复验与CHECK边界]]。完整迁移、新A/B/C组合、桌面/macOS联合及实际人员/业务验收未完成；下方旧版本记录保留原作用域。
