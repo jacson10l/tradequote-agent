@@ -1,0 +1,149 @@
+{
+  "status": "passed",
+  "scope": "C evidence/Wiki delivery gates only; product M13 remains changes_required",
+  "taskBase": "7b9104f8ce43ef5d80d6ad4b20ec660063a15869",
+  "sharedMergeBase": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+  "productConclusion": "Y07-Y09 closed in tested cases; Y10 changes_required; overall migration incomplete",
+  "checks": [
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a1c890dc-validation/tradequote-agent",
+      "startedAt": "2026-10-25T08:05:14.125797+00:00",
+      "finishedAt": "2026-10-25T08:05:14.295726+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 6\n}\n",
+      "stderr": "",
+      "stdoutSha256": "6a3e1709991b78e42869a1a8ccb647033396075edd3b7529074b2008dd665be1",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a1c890dc-validation/tradequote-agent",
+      "startedAt": "2026-10-25T08:05:14.296283+00:00",
+      "finishedAt": "2026-10-25T08:05:14.457795+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 6\n}\n",
+      "stderr": "",
+      "stdoutSha256": "989c0d7bed58055cd73ba84f2a1b90acb451c9e9b55e9ade31bacb0278f4dd42",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a1c890dc-validation/tradequote-agent",
+      "startedAt": "2026-10-25T08:05:14.458276+00:00",
+      "finishedAt": "2026-10-25T08:05:15.255811+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 215,\n  \"semantic\": 187,\n  \"reachable\": 215\n}\n",
+      "stderr": "",
+      "stdoutSha256": "89703a370e9b8aedd458e1876da4640e22eb8c928a804df5c67bb6776f16e2e8",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "7b9104f8ce43ef5d80d6ad4b20ec660063a15869"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a1c890dc-validation/tradequote-agent",
+      "startedAt": "2026-10-25T08:05:15.256305+00:00",
+      "finishedAt": "2026-10-25T08:05:15.342448+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"7b9104f8ce43ef5d80d6ad4b20ec660063a15869\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "stdoutSha256": "fb62c6415a95d5e91d1e2ce2842bbeb1dbf0e1f47565a692274f513b855b7a0f",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a1c890dc-validation/tradequote-agent",
+      "startedAt": "2026-10-25T08:05:15.343096+00:00",
+      "finishedAt": "2026-10-25T08:05:16.370746+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 91,\n  \"knowledgePages\": 122,\n  \"tasks\": 46,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "stdoutSha256": "6c447094a53e8eaa114c6d67e10fcfcb263f2561465841157925ec03a01cfbc3",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "be53b98"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a1c890dc-validation/tradequote-agent",
+      "startedAt": "2026-10-25T08:05:16.371289+00:00",
+      "finishedAt": "2026-10-25T08:05:17.507474+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 97,\n  \"knowledgePages\": 137,\n  \"tasks\": 54,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "stdoutSha256": "da1d3e9456693b76893bdf9d06be7af21b5d074ce4d80e73de39762b78250c07",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a1c890dc-validation/tradequote-agent",
+      "startedAt": "2026-10-25T08:05:17.508231+00:00",
+      "finishedAt": "2026-10-25T08:05:17.521372+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a1c890dc-validation/tradequote-agent",
+      "startedAt": "2026-10-25T08:05:17.521918+00:00",
+      "finishedAt": "2026-10-25T08:05:17.530596+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "preservation": {
+    "nonWikiCount": 228,
+    "nonWikiChanged": [],
+    "oldRawCount": 233,
+    "oldRawChanged": [],
+    "oldLogBytes": 124997,
+    "oldLogFullBytePrefixPreserved": true,
+    "originalLogPrefixSha256": "5ae38840cc0e15efca9f8f6c61a4a6344723fb0ee90f4948576e603b3352d38d",
+    "fixedANonWikiCount": 175,
+    "fixedASourceChanged": []
+  },
+  "finishedAt": "2026-10-25T08:05:17.589472+00:00"
+}

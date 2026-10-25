@@ -15,6 +15,8 @@ sources:
 
 # Ae73d177独立复验与SQL注释边界回执
 
+后续复验：2026-10-25 最新C独立复验：A远端固定1c890dc77ecba2cfb949c5e69908dc81bdacc692已核对，Y07/Y08/Y09全部安全拒绝且逻辑/物理边界保持，含三个控制6/6；原五项、六轮四例、X01～X11、原12/107与九段SQL指纹保持通过。新增M13-Y10：agent_write_call移除真实CHECK(attempt>0)、增加普通方括号列[CHECK(attempt>0)]后，identify/repository均接受升8并成功写入attempt=0；两个真实CHECK控制均拒绝。M13仍changes_required。详见[[A1c890dc独立复验与方括号标识符边界回执]]、[[C集成-A1c890dc复验与CHECK边界]]。完整迁移、新A/B/C组合、桌面/macOS联合及实际人员/业务验收未完成；下方旧版本记录保留原作用域。
+
 ## 固定输入与结论
 
 A六轮四例M13-Y04a/Y04b/Y05/Y06在C独立复验中全部通过，异常库在只读identify及真实SqliteWorkspaceRepository入口均拒绝，原schema/rows/version/文件字节/目录列表保持；带三个有效控制组的旧边界套件7/7通过。原五项M09-L01/L02、M13-Y01/Y02/Y03、X01～X11、原12项及107矩阵全部保持通过。

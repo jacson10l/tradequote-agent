@@ -703,3 +703,10 @@ M13整体仍changes_required，A修有效触发器体与保留字面量语义的
 2026-10-25 当前独立复验：A远端固定e73d17790abf03517060bac4cd78736dfae78232已核对。六轮四例Y04a/Y04b/Y05/Y06全部拒绝且状态/文件保持，含控制组7/7；原五项、X01～X11（11/11）、原12及107矩阵全部保持通过。扩展M13新增Y07假注释保护体、Y08注释分隔UPDATE OF、Y09假注释事件三例，均误接受升8且旧步骤实际可删改；M13仍changes_required。详见[[Ae73d177独立复验与SQL注释边界回执]]、[[C集成-Ae73d177复验与注释边界]]。完整迁移矩阵、新组合、桌面/macOS联合、实际人员签认及业务验收未完成；B已接收材料/A-W08/两次100证据保留。下方旧版本状态是各自历史时点，不覆盖本轮结论。
 
 taskBase1c5a5b1；A175非Wiki与九段SQL指纹保持。typecheck0、基础设施47/47、契约35/35、作者37+10+2、A Wiki基于163f7a4全通过。新增注释套件内部Electron退出1，三失败/三控制通过，无harnessError；六轮四例7/7含控制组已通过。完整脚本/快照/源manifest/真实命令在raw/c-ae73d177-*；修正验收见新回执。226旧raw/228非Wiki和本log原字节前缀保持；Wiki生成/check/lint/三基线sync及审计见wiki-validation。产品仍changes_required，不合入、不推送，不代实际人员签认。
+
+
+## 2026-10-25 C独立复验A1c890dc与CHECK标识符边界
+
+2026-10-25 最新C独立复验：A远端固定1c890dc77ecba2cfb949c5e69908dc81bdacc692已核对，Y07/Y08/Y09全部安全拒绝且逻辑/物理边界保持，含三个控制6/6；原五项、六轮四例、X01～X11、原12/107与九段SQL指纹保持通过。新增M13-Y10：agent_write_call移除真实CHECK(attempt>0)、增加普通方括号列[CHECK(attempt>0)]后，identify/repository均接受升8并成功写入attempt=0；两个真实CHECK控制均拒绝。M13仍changes_required。详见[[A1c890dc独立复验与方括号标识符边界回执]]、[[C集成-A1c890dc复验与CHECK边界]]。完整迁移、新A/B/C组合、桌面/macOS联合及实际人员/业务验收未完成；下方旧版本记录保留原作用域。
+
+taskBase=7b9104f8ce43ef5d80d6ad4b20ec660063a15869；A175非Wiki、九段SQL指纹保持；旧七探针仅换A标识。typecheck0、macOS infrastructure47/47、contracts35/35、作者40+10+2、A Wiki基于e73d177全通过。Y10内部Electron退出1，两个CHECK控制通过，无harnessError；源码审计初次路径转义运行器问题保留后修正。新增完整脚本/快照/真实命令见raw/c-a1c890dc-*，修正验收见新回执。233旧raw/228非Wiki/本log原前缀保持，生成/check/lint/真实taskBase/共同merge-base/累计be53b98 sync与审计见wiki-validation。未推送或合入，不代人员签认。
