@@ -1,7 +1,7 @@
 {
   "status": "passed",
   "scope": "A01c migration lineage identification & append matrix probe; synthetic in-memory only; proves identification classification and capability-append shape, not business acceptance",
-  "recordedAt": "2026-10-25T03:33:25.633Z",
+  "recordedAt": "2026-10-25T05:34:57.388Z",
   "environment": {
     "platform": "win32",
     "arch": "x64",
@@ -598,6 +598,78 @@
       ],
       "partial": [
         "c-run:6"
+      ]
+    },
+    {
+      "name": "tampered-raise-where-suppressed-M13-Y04a",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-raise-limit-suppressed-M13-Y04b",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-update-of-column-M13-Y05",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-after-ignore-raise-M13-Y06",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
       ]
     }
   ],

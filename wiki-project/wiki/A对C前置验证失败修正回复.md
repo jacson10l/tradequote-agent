@@ -85,12 +85,25 @@ C 在固定提交 41f0cdc 上独立复核，确认 X01～X11 11/11 通过、有�
 
 新增有效原 schema 控制组（enforcement）两项保持不变（X10/X11 轮已加入），正向升级与九段历史 SQL 指纹均保留，旧失败记录不删除。
 
+## C 六轮复核：M13 裸保护体动作/触发时机/UPDATE 列范围（Y04～Y06）
+
+C 在固定提交 163f7a4 上独立复验：原五项 M09-L01/L02、M13-Y01/Y02/Y03 通过，X01～X11 保持 11/11，原矩阵 107/107；扩展发现四例新阻断（三类）。C 要求核对完整保护体、UPDATE 列范围、触发时机及 RAISE 动作，不能只匹配 `SELECT RAISE`。A 逐项修正：
+
+| 项 | C 发现（合成损坏状态） | A 的修正 | 证据 |
+|---|---|---|---|
+| M13-Y04a 保护体 WHERE 抑制 | 同名 `no_delete` 体 `SELECT RAISE(ABORT,'…') WHERE 0`，RAISE 永不执行仍被接受 | 新增 `hasBareAbortRaise`，保护体须为裸 `SELECT RAISE(ABORT,'')`，尾随 WHERE 即拒 | 探针 `tampered-raise-where-suppressed-M13-Y04a` |
+| M13-Y04b 保护体 LIMIT 抑制 | 同名 `no_delete` 体 `SELECT RAISE(ABORT,'…') LIMIT 0` | `hasBareAbortRaise` 拒绝尾随 LIMIT | 探针 `tampered-raise-limit-suppressed-M13-Y04b` |
+| M13-Y05 UPDATE 列范围 | 同名 `no_update` 改为 `BEFORE UPDATE OF 不存在列`，更新 data_json 不触发保护 | `event==="UPDATE"` 时拒绝 `UPDATE OF <列>` | 探针 `tampered-update-of-column-M13-Y05` |
+| M13-Y06 时机与动作 | 同名 `no_delete` 改为 `AFTER DELETE` 且体 `SELECT RAISE(IGNORE)` | 新增 `extractTriggerTiming` 必须 `BEFORE`；`hasBareAbortRaise` 要求动作 ABORT 非 IGNORE | 探针 `tampered-after-ignore-raise-M13-Y06` |
+
+新增有效原 schema 控制组、正向升级、九段历史 SQL 指纹、X01～X11、原五项及 12/107 回归均保留，旧失败记录不删除。
+
 ## 修正后的实际验证证据
 
 本机已实际运行（系统 Node v24.14.1，仓库 engines 22.22.0 不一致，如实标注；vitest 经 `ELECTRON_RUN_AS_NODE` 走 Electron 内嵌 Node ABI，与生产原生 better-sqlite3 一致）：
 
 - `pnpm typecheck`（`tsc --noEmit`）：退出 0（含 M13-X01～X11、M13-Y01～Y03、M09-L01/L02 与 A-W08 修正后）。
-- 纯 Node 探针 [a01-migration-lineage-probe.json](../raw/a01-migration-lineage-probe.json)：退出 0，33 分类/拒绝用例全过（指纹全匹配，含 N07/N08/N09 与 M13-X01～X11、M13-Y01～Y03 共 17 个负例）、10 追加路径全过、2 有效原 schema 控制组全过。
+- 纯 Node 探针 [a01-migration-lineage-probe.json](../raw/a01-migration-lineage-probe.json)：退出 0，37 分类/拒绝用例全过（指纹全匹配，含 N07/N08/N09 与 M13-X01～X11、M13-Y01～Y06 共 21 个负例）、10 追加路径全过、2 有效原 schema 控制组全过。
 - 定向回归 `migration-ledger.test.ts`：5/5 通过（N10、N10 一致性、N11、M09-L01、M09-L02）。
 - `wiki-store.test.ts`：5/5 通过（A-W08 retryable=false 已随 `failure()` 修正转绿）。
 - 整仓 infrastructure vitest：46 通过 / 1 既有失败（`storage.test.ts` symlink EPERM，Windows 权限，非本切片引入）。

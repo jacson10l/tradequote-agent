@@ -11,12 +11,14 @@ import { createHash } from "node:crypto";
  * 绝不单独依据编号判定谱系。除对象名称外，还核对必要列、真实唯一/部分索引和含 RAISE 的
  * 不可变触发器有效定义，以及外键与 CHECK 的真实存在。对“有效定义”按规范参考结构核对而非
  * 常量黑名单：触发器事件必须匹配规范事件（X08）、触发器/索引必须挂在规范目标表（Y02/Y03）、
- * WHEN 必须匹配规范 WHEN 或必须无 WHEN（X01/X05 永假/加 WHEN）、保护体必须是真实
- * `SELECT RAISE(...)` 调用而非字符串字面量 'RAISE' 或 CASE 包裹的不可达 RAISE（X10/Y01）、
- * 部分索引列与 WHERE 谓词必须匹配规范（X02/X06/X07）、归一保留字符串字面量大小写语义（X11）、
- * CHECK 按去注释/字符串后的表原文匹配（X04/X09 注释伪 CHECK）——封死 D2 静默缺表、D3 按 v6
- * 误记知识迁移、“未知 v6 被误接受”、“缺不可变触发器仍被接受”，以及 C 四轮/五轮核验的
- * N07/N08/N09 与 M13-X01～X11、M13-Y01～Y03（旧账本 M09-L01/L02 见 migrations.ts）。
+ * WHEN 必须匹配规范 WHEN 或必须无 WHEN（X01/X05 永假/加 WHEN）、保护体必须是裸
+ * `SELECT RAISE(ABORT, ...)`（动作 ABORT、无 WHERE/LIMIT/CASE 等可抑制执行的尾随子句）而非字符串
+ * 字面量 'RAISE'（X10）、CASE 包裹的不可达 RAISE（Y01）、WHERE/LIMIT 0 抑制（Y04）或 IGNORE 不中止（Y06）、
+ * 触发时机必须 BEFORE（Y06）、UPDATE 触发器不得限定 OF 列（Y05）、部分索引列与 WHERE 谓词必须匹配规范
+ * （X02/X06/X07）、归一保留字符串字面量大小写语义（X11）、CHECK 按去注释/字符串后的表原文匹配
+ * （X04/X09 注释伪 CHECK）——封死 D2 静默缺表、D3 按 v6 误记知识迁移、“未知 v6 被误接受”、
+ * “缺不可变触发器仍被接受”，以及 C 四轮/五轮/六轮核验的 N07/N08/N09 与 M13-X01～X11、
+ * M13-Y01～Y06（旧账本 M09-L01/L02 见 migrations.ts）。
  */
 
 export type CapabilityLineage = "common" | "c-run" | "knowledge-wiki" | "check-report";
@@ -64,7 +66,7 @@ export interface TriggerRequirement {
   name: string;
   /** 触发器必须挂在的规范目标表（防 M13-Y02 错表触发器）。 */
   table: string;
-  /** 必须包含真实有效的 `SELECT RAISE(...)` 保护体；同名 SELECT 1 空触发器、SELECT 'RAISE' 字符串字面量或 CASE 包裹的不可达 RAISE 不算（M13-X10/Y01）。 */
+  /** 必须包含裸 `SELECT RAISE(ABORT, ...)` 有效不可变保护体（动作 ABORT、无 WHERE/LIMIT/CASE 抑制；同名 SELECT 1 空触发器、SELECT 'RAISE' 字符串字面量、CASE 包裹不可达 RAISE、WHERE/LIMIT 0 抑制或 RAISE(IGNORE) 不算，M13-X10/Y01/Y04/Y06）。 */
   raises?: boolean;
   /** 规范事件（DELETE/UPDATE/INSERT）；防 X08 事件篡改。 */
   event: "DELETE" | "UPDATE" | "INSERT";
@@ -413,6 +415,30 @@ function extractTriggerEvent(sql: string): "DELETE" | "UPDATE" | "INSERT" | null
   return m && m[1] ? (m[1].toUpperCase() as "DELETE" | "UPDATE" | "INSERT") : null;
 }
 
+/** 提取触发器时机（BEFORE/AFTER/INSTEAD OF）；无则 null（防 Y06 改 AFTER 时机）。 */
+function extractTriggerTiming(sql: string): "BEFORE" | "AFTER" | "INSTEAD OF" | null {
+  const m = sql.match(/\b(BEFORE|AFTER|INSTEAD\s+OF)\s+(?:DELETE|UPDATE|INSERT)\b/i);
+  return m && m[1] ? (m[1].toUpperCase() as "BEFORE" | "AFTER" | "INSTEAD OF") : null;
+}
+
+/** 提取触发器保护体（BEGIN 与首个 END 之间）；无 BEGIN 则 null。 */
+function extractTriggerBody(sql: string): string | null {
+  const m = sql.match(/\bBEGIN\b([\s\S]*?)\bEND\b/i);
+  return m ? (m[1] ?? null) : null;
+}
+
+/**
+ * 有效不可变保护体 = 裸 `SELECT RAISE(ABORT, ...)`：动作必须 ABORT（非 IGNORE），且不得有
+ * WHERE/LIMIT/CASE 等可抑制 RAISE 执行的尾随子句。封 X10 字符串字面量、Y01 CASE 不可达、
+ * Y04 WHERE/LIMIT 0 抑制、Y06 IGNORE 不中止。
+ */
+function hasBareAbortRaise(sql: string): boolean {
+  const body = extractTriggerBody(sql);
+  if (body === null) return false;
+  const stripped = stripTrivia(body).toLowerCase().replace(/\s+/g, " ").trim();
+  return /^select\s+raise\s*\(\s*abort\s*,\s*''\s*\)\s*;?\s*$/.test(stripped);
+}
+
 /** 提取索引列清单（ON <table> 之后的括号内容，无嵌套括号）；无则 null。 */
 function extractIndexColumns(sql: string): string | null {
   const m = sql.match(/\bON\b\s+\S+\s*\(\s*([^()]*?)\s*\)/i);
@@ -458,9 +484,13 @@ function capabilityStatus(
     if (sql === undefined) return false;
     // 触发器实际目标表必须匹配规范目标表（防 M13-Y02 错表触发器）。
     if (triggerTable.get(req.name) !== req.table) return false;
-    // 有效保护体必须是真实的 `SELECT RAISE(...)`：字符串字面量 'RAISE'（X10）或 CASE 包裹的不可达 RAISE（Y01）均不算。
-    if (req.raises && !/\bSELECT\s+RAISE\s*\(/i.test(stripTrivia(sql))) return false;
+    // 有效保护体 = 裸 SELECT RAISE(ABORT,...)（防 X10 字符串字面量、Y01 CASE 不可达、Y04 WHERE/LIMIT 抑制、Y06 IGNORE 不中止）。
+    if (req.raises && !hasBareAbortRaise(sql)) return false;
+    // 触发时机必须是 BEFORE（防 Y06 改 AFTER 时机）。
+    if (extractTriggerTiming(sql) !== "BEFORE") return false;
     if (extractTriggerEvent(sql) !== req.event) return false;
+    // UPDATE 触发器不得限定 OF 列范围（防 Y05 UPDATE OF 不存在的列使保护失效）。
+    if (req.event === "UPDATE" && /\bUPDATE\s+OF\b/i.test(sql)) return false;
     if (req.when === null) {
       // 规范无 WHEN：实际必须无 WHEN（防 X05 永假/加 WHEN）。
       if (extractPredicate(sql, "WHEN") !== null) return false;

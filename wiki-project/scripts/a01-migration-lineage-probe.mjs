@@ -497,6 +497,38 @@ caseRun("tampered-wrong-table-index-M13-Y03", (db) => {
     "CREATE UNIQUE INDEX agent_write_once ON synthetic_index_target(run_id,attempt) WHERE status IN ('prepared','committed')",
   );
 }, "tampered");
+// M13-Y04a：no_delete 保护体 SELECT RAISE(ABORT,...) WHERE 0（RAISE 永不执行）→ tampered
+caseRun("tampered-raise-where-suppressed-M13-Y04a", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_delete");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_delete BEFORE DELETE ON agent_tool_step BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP') WHERE 0; END",
+  );
+}, "tampered");
+// M13-Y04b：no_delete 保护体 SELECT RAISE(ABORT,...) LIMIT 0（RAISE 永不执行）→ tampered
+caseRun("tampered-raise-limit-suppressed-M13-Y04b", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_delete");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_delete BEFORE DELETE ON agent_tool_step BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP') LIMIT 0; END",
+  );
+}, "tampered");
+// M13-Y05：no_update 改为 BEFORE UPDATE OF 不存在列（更新 data_json 不触发保护）→ tampered
+caseRun("tampered-update-of-column-M13-Y05", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_update");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_update BEFORE UPDATE OF synthetic_nonexistent_column ON agent_tool_step BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END",
+  );
+}, "tampered");
+// M13-Y06：no_delete 改为 AFTER DELETE + SELECT RAISE(IGNORE)（时机后置且不中止）→ tampered
+caseRun("tampered-after-ignore-raise-M13-Y06", (db) => {
+  buildLineage(db, "c-v7");
+  db.exec("DROP TRIGGER agent_tool_step_no_delete");
+  db.exec(
+    "CREATE TRIGGER agent_tool_step_no_delete AFTER DELETE ON agent_tool_step BEGIN SELECT RAISE(IGNORE); END",
+  );
+}, "tampered");
 
 // 3) 追加：每个可升级谱系定向追加后应达到统一目标（9 能力齐全 + user_version=8）
 function appendToTarget(db, snap) {
