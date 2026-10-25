@@ -190,8 +190,8 @@
         "wiki-project/scripts/build-code-index.mjs",
         "."
       ],
-      "startedAt": "2026-10-25T05:02:14.654Z",
-      "finishedAt": "2026-10-25T05:02:14.967Z",
+      "startedAt": "2026-10-25T05:03:10.136Z",
+      "finishedAt": "2026-10-25T05:03:10.454Z",
       "exit_code": 0,
       "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 19\n}\n",
       "stderr": ""
@@ -204,8 +204,8 @@
         ".",
         "--check"
       ],
-      "startedAt": "2026-10-25T05:02:14.968Z",
-      "finishedAt": "2026-10-25T05:02:15.252Z",
+      "startedAt": "2026-10-25T05:03:10.455Z",
+      "finishedAt": "2026-10-25T05:03:10.737Z",
       "exit_code": 0,
       "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 19\n}\n",
       "stderr": ""
@@ -217,8 +217,8 @@
         "wiki-project/scripts/lint-wiki.mjs",
         "."
       ],
-      "startedAt": "2026-10-25T05:02:15.252Z",
-      "finishedAt": "2026-10-25T05:02:15.970Z",
+      "startedAt": "2026-10-25T05:03:10.737Z",
+      "finishedAt": "2026-10-25T05:03:11.456Z",
       "exit_code": 0,
       "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 123,\n  \"semantic\": 107,\n  \"reachable\": 123\n}\n",
       "stderr": ""
@@ -232,8 +232,8 @@
         "--base",
         "5cdb2b15ddb267f9eea8d169a0dbe0c55c56f465"
       ],
-      "startedAt": "2026-10-25T05:02:15.971Z",
-      "finishedAt": "2026-10-25T05:02:16.345Z",
+      "startedAt": "2026-10-25T05:03:11.457Z",
+      "finishedAt": "2026-10-25T05:03:11.829Z",
       "exit_code": 0,
       "stdout": "{\n  \"base\": \"5cdb2b15ddb267f9eea8d169a0dbe0c55c56f465\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
       "stderr": ""
@@ -247,8 +247,8 @@
         "--base",
         "067afc283dd3026e21b5a443d90e00e9acdbbbc7"
       ],
-      "startedAt": "2026-10-25T05:02:16.345Z",
-      "finishedAt": "2026-10-25T05:02:16.703Z",
+      "startedAt": "2026-10-25T05:03:11.829Z",
+      "finishedAt": "2026-10-25T05:03:12.190Z",
       "exit_code": 0,
       "stdout": "{\n  \"base\": \"067afc283dd3026e21b5a443d90e00e9acdbbbc7\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
       "stderr": ""
@@ -261,8 +261,8 @@
         "--check",
         "5cdb2b15ddb267f9eea8d169a0dbe0c55c56f465"
       ],
-      "startedAt": "2026-10-25T05:02:16.703Z",
-      "finishedAt": "2026-10-25T05:02:16.784Z",
+      "startedAt": "2026-10-25T05:03:12.190Z",
+      "finishedAt": "2026-10-25T05:03:12.270Z",
       "exit_code": 0,
       "stdout": "",
       "stderr": ""
@@ -363,6 +363,90 @@
       ],
       "startedAt": "2026-10-25T05:01:47.365Z",
       "finishedAt": "2026-10-25T05:01:47.442Z",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-generate",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-25T05:02:14.654Z",
+      "finishedAt": "2026-10-25T05:02:14.967Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 19\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-readonly-check",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "startedAt": "2026-10-25T05:02:14.968Z",
+      "finishedAt": "2026-10-25T05:02:15.252Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 184,\n  \"lines\": 51770,\n  \"generated\": 5,\n  \"excluded\": 19\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-lint",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-25T05:02:15.252Z",
+      "finishedAt": "2026-10-25T05:02:15.970Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 123,\n  \"semantic\": 107,\n  \"reachable\": 123\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-sync-increment",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "5cdb2b15ddb267f9eea8d169a0dbe0c55c56f465"
+      ],
+      "startedAt": "2026-10-25T05:02:15.971Z",
+      "finishedAt": "2026-10-25T05:02:16.345Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"5cdb2b15ddb267f9eea8d169a0dbe0c55c56f465\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-sync-cumulative",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "067afc283dd3026e21b5a443d90e00e9acdbbbc7"
+      ],
+      "startedAt": "2026-10-25T05:02:16.345Z",
+      "finishedAt": "2026-10-25T05:02:16.703Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"067afc283dd3026e21b5a443d90e00e9acdbbbc7\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "diff-whitespace",
+      "executable": "git",
+      "args": [
+        "diff",
+        "--check",
+        "5cdb2b15ddb267f9eea8d169a0dbe0c55c56f465"
+      ],
+      "startedAt": "2026-10-25T05:02:16.703Z",
+      "finishedAt": "2026-10-25T05:02:16.784Z",
       "exit_code": 0,
       "stdout": "",
       "stderr": ""

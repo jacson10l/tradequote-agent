@@ -467,3 +467,5 @@ B从067afc2在独立codex/b-combination-regression-ready准备新组合验证；
 实际增量基线5cdb2b15ddb267f9eea8d169a0dbe0c55c56f465；保留原材料提交、A-W08、两次100项与121项原证据。已核对固定C原文/JSON blob与SHA及脚本hash，九份测试hash与实际执行HEAD/当前字节一致；只同步Wiki、归属及交接信息，不重跑121项。运行生成/只读check/lint、增量与累计基线sync、diff/保留检查，结果在raw/b-combination-fixed-handoff-validation.json；普通推送与回读另存raw/b-combination-fixed-handoff-delivery.json。旧记录保留为历史，未改A/B/C代码或工具，不强推、不合入。
 
 状态更正实际门禁：Node22.22.0生成184文件、只读check、lint（123页/107语义页）、以5cdb2b1增量及067afc2累计基线sync、diff均退出0。106份旧raw与旧log字节前缀保持，0源码改动，121项未重跑。结果属于状态/固定材料校验，迁移整体仍未完成。
+
+固定材料0a716a4822eb3c7c3f5ca176a8c5949d4564891a已普通推送origin/codex/b-combination-regression-ready，push及ls-remote退出0、完整SHA一致，5cdb2b1祖先关系验证退出0。本回执与任务补记后另作普通提交并回读最终头；原材料SHA和最终分支头分别报告，原验证证据保留。详情raw/b-combination-fixed-handoff-delivery.json，未强推、合入或发送外部消息。
