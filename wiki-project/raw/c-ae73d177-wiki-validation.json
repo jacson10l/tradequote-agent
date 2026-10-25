@@ -1,0 +1,140 @@
+{
+  "status": "passed",
+  "scope": "C Wiki and evidence quality; overall migration remains changes_required",
+  "taskBase": "1c5a5b11821195dd8d1d5e4c46d39b8547ec6a39",
+  "sharedMergeBase": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+  "productConclusion": "previous_five_four_and_X01_X11_passed_new_Y07_Y08_Y09_failed",
+  "checks": [
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-25T05:53:26.695979+00:00",
+      "finishedAt": "2026-10-25T05:53:26.956967+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 6\n}\n",
+      "stderr": "",
+      "stdoutSha256": "6a3e1709991b78e42869a1a8ccb647033396075edd3b7529074b2008dd665be1",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "startedAt": "2026-10-25T05:53:26.957811+00:00",
+      "finishedAt": "2026-10-25T05:53:27.328852+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 6\n}\n",
+      "stderr": "",
+      "stdoutSha256": "989c0d7bed58055cd73ba84f2a1b90acb451c9e9b55e9ade31bacb0278f4dd42",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-25T05:53:27.330030+00:00",
+      "finishedAt": "2026-10-25T05:53:28.705855+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 213,\n  \"semantic\": 185,\n  \"reachable\": 213\n}\n",
+      "stderr": "",
+      "stdoutSha256": "c9980f9bacc83d5adfc0207c0e8862fed6e7efc004cf145a4c8ae4c35a2f1e87",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "1c5a5b11821195dd8d1d5e4c46d39b8547ec6a39"
+      ],
+      "startedAt": "2026-10-25T05:53:28.706773+00:00",
+      "finishedAt": "2026-10-25T05:53:28.914152+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"1c5a5b11821195dd8d1d5e4c46d39b8547ec6a39\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "stdoutSha256": "5f37f883a6e45da2d9afaddcb5f7ebe419dcb509c38a288ae38b1a85cb2dbdb8",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+      ],
+      "startedAt": "2026-10-25T05:53:28.914938+00:00",
+      "finishedAt": "2026-10-25T05:53:31.555169+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 91,\n  \"knowledgePages\": 120,\n  \"tasks\": 45,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "stdoutSha256": "9baaa2ab998aaae40367284de6e8a1b1c7fc017335555d8c1b999162dece6deb",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce"
+      ],
+      "startedAt": "2026-10-25T05:53:31.556192+00:00",
+      "finishedAt": "2026-10-25T05:53:33.804316+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 97,\n  \"knowledgePages\": 135,\n  \"tasks\": 53,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "stdoutSha256": "1b1d57821db6ffc81464daefd96bc15021d02a5ed59550fb76a0df6df6d0dda5",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check",
+        "1c5a5b11821195dd8d1d5e4c46d39b8547ec6a39"
+      ],
+      "startedAt": "2026-10-25T05:53:33.804895+00:00",
+      "finishedAt": "2026-10-25T05:53:33.823133+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "startedAt": "2026-10-25T05:53:33.823993+00:00",
+      "finishedAt": "2026-10-25T05:53:33.835512+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "preservation": {
+    "nonWikiFilesUnchanged": 228,
+    "oldRawFilesUnchanged": 226,
+    "logPrefixBytesUnchanged": 123639,
+    "onlyWikiChanged": true,
+    "evidenceAssertionsPassed": true,
+    "humanTasksRemainActive": true,
+    "exitCode": 0
+  },
+  "finishedAt": "2026-10-25T05:53:33.836087+00:00"
+}
