@@ -327,3 +327,17 @@ it("A01-8: empty scope dimension is universal across any value", () => {
   expect(found.ok && found.data.revisions).toHaveLength(1);
   repo.close();
 });
+
+it("published revisions still require the supplied source hash to match", () => {
+  const repo = openRepo(join(temp(), "kb.sqlite"));
+  try {
+    const staged = okRevision(repo, stageCmd(draft()), human);
+    const payload = { revisionId: idOf(staged), sourceHash: hashOf(staged) };
+    expect(okRevision(repo, publishCmd(payload), human).ok).toBe(true);
+    expect(
+      okRevision(repo, publishCmd({ ...payload, sourceHash: "0".repeat(64) }), human),
+    ).toMatchObject({ ok: false, error: { code: "SOURCE_CONFLICT" } });
+  } finally {
+    repo.close();
+  }
+});

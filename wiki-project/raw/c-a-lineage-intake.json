@@ -1,0 +1,1095 @@
+{
+  "status": "observed",
+  "scope": "Fixed A technical intake and focused pre-integration gates; changes_required, no desktop/combined acceptance or human signoff",
+  "taskBase": "1f6fbbbfd0e7ba8076f8d3a924779efa03818ed4",
+  "branch": "codex/c-a-lineage-validation",
+  "recordedAt": "2026-10-23T14:23:23.433038+00:00",
+  "worktree": "/Users/jason/.codex/worktrees/c-a-lineage-validation/tradequote-agent",
+  "fixed": {
+    "AImplementation": "9cdd13a3755b4bd1d0a4ac300785021e47ed4a88",
+    "AReply": "a58e97097994491a9e49c085ae9369ef9bd08019",
+    "ARemoteHead": "b9a0af76217e57e0ab22ba927de1a1a287b1145f",
+    "ABase": "dd42b055efd409fa3c332c6cb1997c7a7638ca62",
+    "CPlanBase": "1f6fbbbfd0e7ba8076f8d3a924779efa03818ed4",
+    "BReply": "f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef"
+  },
+  "remoteAndAncestorChecks": [
+    {
+      "argv": [
+        "git",
+        "ls-remote",
+        "--heads",
+        "origin",
+        "refs/heads/codex/a01-migration-lineage"
+      ],
+      "startedAt": "2026-10-23T14:23:20.598164+00:00",
+      "finishedAt": "2026-10-23T14:23:21.975779+00:00",
+      "exitCode": 0,
+      "output": "b9a0af76217e57e0ab22ba927de1a1a287b1145f\trefs/heads/codex/a01-migration-lineage\n",
+      "outputSha256": "f7bee2494341d48d0231ee174bb247ec6f77ae38af0e04e43b9f9b347960b5e1"
+    },
+    {
+      "argv": [
+        "git",
+        "merge-base",
+        "--is-ancestor",
+        "dd42b055efd409fa3c332c6cb1997c7a7638ca62",
+        "9cdd13a3755b4bd1d0a4ac300785021e47ed4a88"
+      ],
+      "startedAt": "2026-10-23T14:23:21.975872+00:00",
+      "finishedAt": "2026-10-23T14:23:21.991097+00:00",
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "git",
+        "merge-base",
+        "--is-ancestor",
+        "9cdd13a3755b4bd1d0a4ac300785021e47ed4a88",
+        "a58e97097994491a9e49c085ae9369ef9bd08019"
+      ],
+      "startedAt": "2026-10-23T14:23:21.991152+00:00",
+      "finishedAt": "2026-10-23T14:23:22.000352+00:00",
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "git",
+        "merge-base",
+        "--is-ancestor",
+        "a58e97097994491a9e49c085ae9369ef9bd08019",
+        "b9a0af76217e57e0ab22ba927de1a1a287b1145f"
+      ],
+      "startedAt": "2026-10-23T14:23:22.000391+00:00",
+      "finishedAt": "2026-10-23T14:23:22.008446+00:00",
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "environment": {
+    "os": "Darwin",
+    "osVersion": "26.4",
+    "arch": "arm64",
+    "hostNode": "v22.22.0",
+    "pnpm": "10.13.1",
+    "native": {
+      "platform": "darwin",
+      "arch": "arm64",
+      "node": "v24.22.0",
+      "electron": "44.9.2",
+      "sqlite": "3.53.4"
+    }
+  },
+  "AFixedNonWikiSourceManifest": [
+    {
+      "path": ".github/pull_request_template.md",
+      "sha256": "3b70de6244c0b2ef06f6e5fc4cbd10985555606c455873a61f8907c2dac24c38"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "c19d57dbb9108a728a095f298fe55a34a36158b3f02ebc7f6269c8aa05e21f3c"
+    },
+    {
+      "path": ".node-version",
+      "sha256": "4137094e7792cb49fe1afddc3f87208f0ef4adfef7d3acd1def0198786d393c2"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "75d16847cf761e54462e2f0242cc06db5206eef3b31d158dc452c80519958bba"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "sha256": "5b4cf14ceef34cf2470d3aca8dbb4cc9fc62f31a9530d19f2d0f03555ad96153"
+    },
+    {
+      "path": "DESIGN.md",
+      "sha256": "fa95a1042cb0ef40751fb640d67927a2c5f072321eb4b69b60844f236a4480a8"
+    },
+    {
+      "path": "README.md",
+      "sha256": "553a9eab45b80b59dfdd6ebae5c5b69db5dc0a88b40af39611491c551ad09425"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "sha256": "d3a2ed0cf6e3d4708f0911ea19c4818381aae8ff874ae1c560260690690cb906"
+    },
+    {
+      "path": "UPSTREAM.md",
+      "sha256": "48bc39fff11f7b9cda06b09cc26d182c42c0d75edaeff43b9a4804c63e9e3435"
+    },
+    {
+      "path": "apps/desktop/components.json",
+      "sha256": "f305dbf36301bc8c6446996238b6ae89efa30212d59c13e7c138a1f9c39e033a"
+    },
+    {
+      "path": "apps/desktop/electron.vite.config.ts",
+      "sha256": "90b5a825722635b7a774fe3e4714f2ec946ae143c3d621058273d921c6da4f14"
+    },
+    {
+      "path": "apps/desktop/package.json",
+      "sha256": "6231b8f8abad4467c39a4feb5ffa55b71d3b8d185ba4cf99f70cf40521072d90"
+    },
+    {
+      "path": "apps/desktop/resources/icon-manifest.json",
+      "sha256": "97f03314731ed7abe6d3083f9a16cd347ec4ed33b38d01fdf100959f698dba92"
+    },
+    {
+      "path": "apps/desktop/resources/icon.icns",
+      "sha256": "cdda44b5d62778ff492b66e8850874532eae3155f4a72a03f3adc7e85eb22bf2"
+    },
+    {
+      "path": "apps/desktop/resources/icon.ico",
+      "sha256": "fe404e9809fc5dad01dd195de99b2477b9bdff77175fd72aa5405dfe85c157cd"
+    },
+    {
+      "path": "apps/desktop/resources/icon.png",
+      "sha256": "a7bda46fb084a56263883579785af00bac8220cd5407f53978d966c07cf899a7"
+    },
+    {
+      "path": "apps/desktop/resources/icon.svg",
+      "sha256": "9b85cf6c4db85077a00b6111bedd826bb9ef64e31a1e4f665c3f4ec9dbe11530"
+    },
+    {
+      "path": "apps/desktop/src/main/index.ts",
+      "sha256": "83ffa5d5e72a2b2c0eb44e682ba27f3055c1d5f6f82961eef3a3666f22e9a3ea"
+    },
+    {
+      "path": "apps/desktop/src/main/worker-client.ts",
+      "sha256": "33dff4597a9395f02eaf778ca4291c1d1d70f779e88a41572da2eac5a52f5229"
+    },
+    {
+      "path": "apps/desktop/src/preload/contracts.test.ts",
+      "sha256": "7fa753e7bc0fd54be0b55551059139ca5e6c85360bd4bb429af2f7a003340ba3"
+    },
+    {
+      "path": "apps/desktop/src/preload/index.ts",
+      "sha256": "c0b1eb4e4d0f2623d44cfe13b582e9623526089b6ef6cd7ecadd6112d9baa234"
+    },
+    {
+      "path": "apps/desktop/src/renderer/index.html",
+      "sha256": "24207e5b44efc06b3910caf75174aa62591e07b66c9ae3f72e9b0b7818517e68"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/App.tsx",
+      "sha256": "7861bbd63c7a688263d14d931a68ea9aae85e50281d3ae7f92358ae031286c89"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/env.d.ts",
+      "sha256": "7344c4297c0d02600bcfc6a685c1606f0ca8e98156b1ac11b7fa03d3fc5cf554"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/model-settings.tsx",
+      "sha256": "0d0bb8b70d58f7f9fdb18fd4b2d49a10bb176904d004f94d2ef553d8e0f3bab6"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/quote-agent.tsx",
+      "sha256": "d28d6d15e9606b52656b0a8847ad17a23af100c46240ae9d7ba5ee9bf5347a31"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/quotes.tsx",
+      "sha256": "47bb4cd1be82dc3d5203b0fbd382200ba978cda85fd43038b122eff2a1092a84"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/workbench.tsx",
+      "sha256": "2fe17e9ab2597dbf4fce4e636b471316c4f72ea9a42a05cff27af2e791dbd607"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/workspace.test.tsx",
+      "sha256": "88694a0d278d9226bedd2558c548afc44e093da3b71629795f5b0e7953b447f3"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/workspace.tsx",
+      "sha256": "67ab0007c81cc45fb98679eec59be77f6eb71ecce9eb50229391c6771b3379b1"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/main.tsx",
+      "sha256": "848356834679a4834d66ffd94a1811ea06d29a86242d08f9fdd75ee159229ff2"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/shared/button.tsx",
+      "sha256": "ecd13d6eef74a2e8fe57afb46913f3b4d76e343459fe100dd5a58ef7443de1ec"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/shared/feedback.test.tsx",
+      "sha256": "b9090059b97707b52f59ef4c190fd3218a3e5ab6baac7bd1ac52e94c6e57370c"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/shared/message.tsx",
+      "sha256": "a6a6629c917ef65b9fce08a1891c828e14aad6eb954a8ec54328d12917676314"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/shared/notification.tsx",
+      "sha256": "8d69a14807c96e7f8c0f0beedb6f7cf294fa8e601eca5fb81ac78a12b4eba59f"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/shared/utils.ts",
+      "sha256": "e5deb74f072d9ebd9efe7f8c50b8bbac1fc5fc023493cde0d4262c1bf22e2ea3"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/theme.css",
+      "sha256": "f93d301988f7b32871c32394526ea4634cc46be292d189a27970e53e9a053e74"
+    },
+    {
+      "path": "apps/desktop/src/workers/business.ts",
+      "sha256": "d0f3218e631e2c997d26d523c3b687662d7f62947c5dc5fc411d8672778fb7ec"
+    },
+    {
+      "path": "apps/desktop/vite.renderer.config.ts",
+      "sha256": "02e944731769f189ce04303d59e35a29c16b11d1f880a37453cdfb08291162dc"
+    },
+    {
+      "path": "biome.json",
+      "sha256": "5bf6f342a42c8624062bbc96815738428032425483bcd95790a4977565adae75"
+    },
+    {
+      "path": "experiments/m0-platform/README.md",
+      "sha256": "022b9a290b938799107d3c2946a4e9d42579385da7539bddf21aac477f5da8ed"
+    },
+    {
+      "path": "experiments/m0-platform/business-tools.mjs",
+      "sha256": "407a158b43e1e41ec1914b5268959585b6780c262b56df6160310c617af215b0"
+    },
+    {
+      "path": "experiments/m0-platform/contracts.test.ts",
+      "sha256": "22b51e6acdb740c7bbe1e072f69138dadcbfa0562247764f2a49c53840ca2433"
+    },
+    {
+      "path": "experiments/m0-platform/contracts.ts",
+      "sha256": "7fa0a23cde8085475be9fc6e1e66e59adb9554c5a7df6d64b6b36ffdcd74f770"
+    },
+    {
+      "path": "experiments/m0-platform/evidence/dependencies.json",
+      "sha256": "01c706cb33b9073ea7952094446113cac6046de4044cfd23621d6daf526f0c2d"
+    },
+    {
+      "path": "experiments/m0-platform/evidence/desktop.json",
+      "sha256": "81aa166a686ae15f1db168317409a809a602993d937090308e1d4bdc0b9c3dbe"
+    },
+    {
+      "path": "experiments/m0-platform/evidence/initial-desktop.json",
+      "sha256": "f19d2417476ee2d2bbf1c5ca16c6c3888f40fa65dac88c861dabf0944397c8de"
+    },
+    {
+      "path": "experiments/m0-platform/evidence/initial-packaged.json",
+      "sha256": "0665419886221aa49adeb9206760bb0bb47c7ddf1aee412774599a26eaaa68d2"
+    },
+    {
+      "path": "experiments/m0-platform/evidence/package-initial.json",
+      "sha256": "3ef5f9a54a5ff8e93d107b9ac2353e78fc4f4fedc54213281c774c8376b698d7"
+    },
+    {
+      "path": "experiments/m0-platform/evidence/packaged.json",
+      "sha256": "aab8acec34726c7973e0d33554f8c007596376380cc3b222b26fc386891f53d0"
+    },
+    {
+      "path": "experiments/m0-platform/evidence/validation.json",
+      "sha256": "dcf3a7309244823ec354c40ec6316973721d9df85f70016473b877450ecaed3c"
+    },
+    {
+      "path": "experiments/m0-platform/executor-probe.mjs",
+      "sha256": "6175ccde3aabd34da5466dbba4241e1d5042ba6d544135ebbb93be4c7e8d5ab4"
+    },
+    {
+      "path": "experiments/m0-platform/executor.mjs",
+      "sha256": "10815cef982b0280c798c349014090dd0505bd3c59cf4fec13ad321401506a66"
+    },
+    {
+      "path": "experiments/m0-platform/harness-desktop.mjs",
+      "sha256": "cb94cc67c8a9dbfa0c4192576c07614179aa5345525d288f36af971e7a94151b"
+    },
+    {
+      "path": "experiments/m0-platform/main.cjs",
+      "sha256": "e747590410376486886b08529fc78f4a1aca25b7cd9ad5305b447798a5f07e34"
+    },
+    {
+      "path": "experiments/m0-platform/model-provider.mjs",
+      "sha256": "288187f70b6d7306ce89dbfcd4283cdf0a4318dd5c528223ec70ed080bb8188b"
+    },
+    {
+      "path": "experiments/m0-platform/package.json",
+      "sha256": "6077e544417a8ba673b4e24221819e45662965e56a531a157e75a0ab015c84eb"
+    },
+    {
+      "path": "experiments/m0-platform/parsers.mjs",
+      "sha256": "9c90634d76eab91ab614a990aff65a09463794cee97adec072fd264c48d1dba5"
+    },
+    {
+      "path": "experiments/m0-platform/pdf-probe.mjs",
+      "sha256": "4f88f2bb2c894bc4ba2d60dbff4ad56a997db2a88e66dd0e587645046ee46d19"
+    },
+    {
+      "path": "experiments/m0-platform/pnpm-lock.yaml",
+      "sha256": "b5c5a459b7d5e01f9d25d92872049e7622701318c06dda40f9029afecdada048"
+    },
+    {
+      "path": "experiments/m0-platform/settings-preload.cjs",
+      "sha256": "95419aa4293adb8d1ffd30d04c92c0fde14d049f426e853b463c7111d1528dbf"
+    },
+    {
+      "path": "experiments/m0-platform/settings.cjs",
+      "sha256": "8a13345e217ff71eddf05b3ff3331044ea56cbf1f0ef9c7dbbca6c64011bd401"
+    },
+    {
+      "path": "experiments/m0-platform/settings.css",
+      "sha256": "b168919cf42e60c40249779c9b6141399b9c82f8045338fde69b8daf3298f55c"
+    },
+    {
+      "path": "experiments/m0-platform/settings.html",
+      "sha256": "1e42ecf1a4c463f66637e978a73de69f96cbf29d1b7b0789e9a3d28d5cae385f"
+    },
+    {
+      "path": "experiments/m0-platform/settings.js",
+      "sha256": "aef6c794c47ee32b19ea6d283a73c5e2b22bfa18d2e3152f4347ff8e86042f3e"
+    },
+    {
+      "path": "experiments/m0-platform/storage.mjs",
+      "sha256": "fc28e40cc2efcc771265e9072471438bbefa7186e0c68336d66f0b2a0262d7e6"
+    },
+    {
+      "path": "experiments/m0-platform/tsconfig.json",
+      "sha256": "915e1147936c2efedd51f453904dc746d3f5a60136fcb84cb6968b03a97c961a"
+    },
+    {
+      "path": "experiments/m0-platform/verify.mjs",
+      "sha256": "9cc2a0843a0c2d23d53357a34958134285ef0b1c80728396f90791ffa19d2edf"
+    },
+    {
+      "path": "experiments/m0-platform/worker.mjs",
+      "sha256": "8c6e23f2e29cc970b99facdfabd4f734c5ef09bf51f06a4b0365cabbde4f22dd"
+    },
+    {
+      "path": "experiments/m0-reuse/README.md",
+      "sha256": "b57776814c4e95a1f2f255a6669dabd43622fe05c36a1af66a9cf387472a34bb"
+    },
+    {
+      "path": "experiments/m0-reuse/business-tools.mjs",
+      "sha256": "407a158b43e1e41ec1914b5268959585b6780c262b56df6160310c617af215b0"
+    },
+    {
+      "path": "experiments/m0-reuse/collect-evidence.mjs",
+      "sha256": "bd7a527e11b2e11ba7db6dd7ded2ca219518ee74d4448a1fb67c9a16a4f6a172"
+    },
+    {
+      "path": "experiments/m0-reuse/evidence/docs-check.json",
+      "sha256": "7391e6c8c94e1b38b5ca8bd169a6b167a681e510e104f7de7f7018d9ed0b43fb"
+    },
+    {
+      "path": "experiments/m0-reuse/evidence/harness.json",
+      "sha256": "fea07a9daef630042bf5db4cd0cd99cb7d227ca4e31d532ca18ced18fb4d66b2"
+    },
+    {
+      "path": "experiments/m0-reuse/evidence/harness.stdout.log",
+      "sha256": "fea07a9daef630042bf5db4cd0cd99cb7d227ca4e31d532ca18ced18fb4d66b2"
+    },
+    {
+      "path": "experiments/m0-reuse/evidence/install-frozen.log",
+      "sha256": "c0c17af0f79cc264a42dab2cc3edbb1a156ad6e484128f962f1867611696d1b8"
+    },
+    {
+      "path": "experiments/m0-reuse/evidence/install-initial.log",
+      "sha256": "9aeb5be10c9dcf99ede3deb243383c869ff0221ff65a223853dc7da97f7bb136"
+    },
+    {
+      "path": "experiments/m0-reuse/evidence/install-pinned.log",
+      "sha256": "b840b1e85d922de1d16425aa0a8440b293cdb06adb9f64d211133cc6ca01df1c"
+    },
+    {
+      "path": "experiments/m0-reuse/evidence/solivio.tap",
+      "sha256": "d46738c494c53e0c9f2646045a01c1369727a1a8248ea59b0d86024b86ed7b6e"
+    },
+    {
+      "path": "experiments/m0-reuse/evidence/source-audit.json",
+      "sha256": "ab9ce7fec1d88295c25a6de01d3b60760b48ddc7bd272ea2b4d2506dfe987fe0"
+    },
+    {
+      "path": "experiments/m0-reuse/evidence/summary.json",
+      "sha256": "5b3f59ac7cbb4fcd742100bb6594af7e0df18f8d05ac372bef18f8bdb5e84177"
+    },
+    {
+      "path": "experiments/m0-reuse/harness-probe.mjs",
+      "sha256": "26ab53f7229aa7fbea3bf9ca5ddfa048f7217c6422259e0161e2f9725e1debf0"
+    },
+    {
+      "path": "experiments/m0-reuse/package.json",
+      "sha256": "240ae732f9f7230c362ce97ece60091d691169f6a8b9215e6244331796848ab4"
+    },
+    {
+      "path": "experiments/m0-reuse/pnpm-lock.yaml",
+      "sha256": "b77283095fb0744e995a5d04ee4e0b266cc2dd93711ac22640cc780d4278d873"
+    },
+    {
+      "path": "experiments/m0-reuse/solivio.test.ts",
+      "sha256": "aefcb6885bfcccd3874309619973609c9a85e0e6fe01fca08a03fa32330f606d"
+    },
+    {
+      "path": "experiments/m0-reuse/vendor/harness/LICENSE",
+      "sha256": "ebb4f09972aee8608be255debaf78451a68e95c290f55c240dec2ecfa16ea6be"
+    },
+    {
+      "path": "experiments/m0-reuse/vendor/solivio/LICENSE",
+      "sha256": "f31d38ecceaeb198007ae8641b3b3f37a522946abc11b9ca544afa33e5ef86d6"
+    },
+    {
+      "path": "experiments/m0-reuse/vendor/solivio/offerTotals.ts",
+      "sha256": "8bb05eeff51c438ee8f8efa05fa25d3eac5e67ed37de85532f581785286f9b27"
+    },
+    {
+      "path": "experiments/m0-reuse/vendor/solivio/productParser.ts",
+      "sha256": "2ccb2e11e62463ba4c3f538d747ed8ce84a9ae23f1a493bf3407fa0b7079f80c"
+    },
+    {
+      "path": "experiments/m0-reuse/vendor/solivio/provenance.json",
+      "sha256": "b171a002d573643cde2e4f3d511b97dbec1af22c1b9870fd6e0908985514be56"
+    },
+    {
+      "path": "experiments/product-walkthrough/README.md",
+      "sha256": "331d13be97813c934e40562fdfde8cefe8af6ef67672ddb09a4371e8808d04a0"
+    },
+    {
+      "path": "experiments/product-walkthrough/check.mjs",
+      "sha256": "9d67cda1944219ba0d184b41f0dc5c8cd218cef3106ede8cdf2788ed61d4e8f5"
+    },
+    {
+      "path": "experiments/product-walkthrough/index.html",
+      "sha256": "dc4cd6419dbe202e69455184076c6ad86cfd310afe6638de7b64b8d47a12869e"
+    },
+    {
+      "path": "package.json",
+      "sha256": "681da811b57a6fd125b406705da03da07bc204886587137fd9a6030cfbd7b8a1"
+    },
+    {
+      "path": "packages/contracts/package.json",
+      "sha256": "41ca23b0867b7585eb3856e98a3b0f7065ab9359b785e643aa441fae2f495992"
+    },
+    {
+      "path": "packages/contracts/src/agent.ts",
+      "sha256": "4736b53e37965fc4248643227edce063ea74dd6da1b2c38a428b96e884ca2384"
+    },
+    {
+      "path": "packages/contracts/src/checks.test.ts",
+      "sha256": "b24404f6158c2bcf6678872dd582048a95f72c4c3cdaada52dc14eddcd34234b"
+    },
+    {
+      "path": "packages/contracts/src/checks.ts",
+      "sha256": "245b0d26cb04520502a886c080e0248a01b0c83e5635d47fd5c57cb2bb9ada61"
+    },
+    {
+      "path": "packages/contracts/src/contracts.test.ts",
+      "sha256": "bf1004d647ae3fe93a82bb06624f40bc6616ece3a8b0361a1a72f47838e91495"
+    },
+    {
+      "path": "packages/contracts/src/errors.ts",
+      "sha256": "d32775cc72c00c252becf483ba5fcd6f89494568d8edf86d003ba4a52a6a6efd"
+    },
+    {
+      "path": "packages/contracts/src/events.ts",
+      "sha256": "f1279f0c7732f44d8a0b1b1d2b16225ed91189808042e08f80b9a10ac7764c5a"
+    },
+    {
+      "path": "packages/contracts/src/foundation.test.ts",
+      "sha256": "1fa9a6beac36b07ad438fce581d93a1c4f5feff73ec5c7d8e0a94be0c38fbd59"
+    },
+    {
+      "path": "packages/contracts/src/index.ts",
+      "sha256": "ab37ce2308e66ac1222eba46a5e9e96289515b59294d3e7a6ab6f9d7b6a97e79"
+    },
+    {
+      "path": "packages/contracts/src/knowledge-wiki.test.ts",
+      "sha256": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f"
+    },
+    {
+      "path": "packages/contracts/src/knowledge-wiki.ts",
+      "sha256": "7d9177f877175d18f9fa0df2135dae1d5cec9adf8316bdaa7bcd2c5426e5ff07"
+    },
+    {
+      "path": "packages/contracts/src/knowledge.test.ts",
+      "sha256": "f72bec14d85e47b55bf3e5417bf564c16e3a3b109563383b65762d4efcb3d232"
+    },
+    {
+      "path": "packages/contracts/src/knowledge.ts",
+      "sha256": "be970620289068a323502ad19e6cc25c753273d951c7e590b2d07097254ff169"
+    },
+    {
+      "path": "packages/contracts/src/mock.ts",
+      "sha256": "2192a814cc876f40ebe96c15b13630c64b32a17d0df7955da5254a2800c7fa5a"
+    },
+    {
+      "path": "packages/contracts/src/pending-client.ts",
+      "sha256": "77191cf315e337b05d59add688f0185976949f7fcf6eb02ded65a1372eda94b0"
+    },
+    {
+      "path": "packages/contracts/src/protocol.ts",
+      "sha256": "fbc109ab817d98fc5f3a0d91340b06889d5bf996399e2bf1abe34e831fa4091b"
+    },
+    {
+      "path": "packages/contracts/src/quote.ts",
+      "sha256": "2bf774f409a5152597286fba042200403489f244e02a14fc9296ebbbcb54476d"
+    },
+    {
+      "path": "packages/contracts/src/runs.test.ts",
+      "sha256": "c677e714c750675855c7443af9aa7a4183eec1f44ce8097256ac11f23502925c"
+    },
+    {
+      "path": "packages/contracts/src/runs.ts",
+      "sha256": "2ce637912077f4a3cafa8e36eab059b214d053666e00e69b832044bf32265f51"
+    },
+    {
+      "path": "packages/contracts/src/trade.ts",
+      "sha256": "0db1014867a220b8c14b24f1dc8d18a03f06fdfeb7a0e5f6d6f811a8d730db19"
+    },
+    {
+      "path": "packages/contracts/src/values.ts",
+      "sha256": "34717b5a2b80ae973945f17c883404bb76564520e1802c8fb796b7ffa5888664"
+    },
+    {
+      "path": "packages/contracts/src/wiki-integrity.ts",
+      "sha256": "c18f3d7a1aa73d56ff5b77dc9af73d53b60e8d2717e92bc135a42ed391c2ab31"
+    },
+    {
+      "path": "packages/domain/package.json",
+      "sha256": "f47fa235c78a1376fd27c75a5aeccc534771b654a4850fa901ce1e9a544780ed"
+    },
+    {
+      "path": "packages/domain/src/agent-run.test.ts",
+      "sha256": "cd167c7dfde6113e6e58275a59660eaf7fb64468255b2054beadf4e8a0686838"
+    },
+    {
+      "path": "packages/domain/src/agent-run.ts",
+      "sha256": "b6b7b7629e523c0636d5c4a5841409b20ce420a111bb4fec006db7d2ca43e8ed"
+    },
+    {
+      "path": "packages/domain/src/domain.test.ts",
+      "sha256": "0dc4f1f113ff0f2feadf7d7b772a5e840d2b4938ccbed6315c2b59b9284a7d0b"
+    },
+    {
+      "path": "packages/domain/src/index.ts",
+      "sha256": "15e8b82812e2f127501bd0fb891928cd0e93b7d6f1616584938f02687eabe3ec"
+    },
+    {
+      "path": "packages/domain/src/knowledge.ts",
+      "sha256": "6abf8959235eaa78318a52769d7ddebea0039d0b99559d5da9037501735e84f1"
+    },
+    {
+      "path": "packages/domain/src/revision.ts",
+      "sha256": "7053d2fa8daac80f4a0bd1c90990cd09dfb804e8e76284e4a35fda9d8738f57f"
+    },
+    {
+      "path": "packages/domain/src/trade.test.ts",
+      "sha256": "c5eee9865b335cafff5ac4bf3b0544ecb48fdf0bf88275ad8aead51ef4c626dc"
+    },
+    {
+      "path": "packages/domain/src/trade.ts",
+      "sha256": "004c559d3ce9da2a5ad65d0ffa7fa26889f5402da7156d7bbd83b267035a4581"
+    },
+    {
+      "path": "packages/domain/src/wiki.ts",
+      "sha256": "c53ad78d95b550d8226d274f60d30b22c6114dd785b23a7637ca4d2869227cc6"
+    },
+    {
+      "path": "packages/infrastructure/package.json",
+      "sha256": "e329f7bbdae26b0d7300193fdd3af33596e2ca69d7a94c02d0a59839e1b3fa3c"
+    },
+    {
+      "path": "packages/infrastructure/src/agent-executor.ts",
+      "sha256": "2f2c962e2f17a5ddb62782a88ac37fef4e5e29565f035418c8286e577e8318d2"
+    },
+    {
+      "path": "packages/infrastructure/src/agent.test.ts",
+      "sha256": "b090cb3a55c7284d46fb8d6912a0bee3bd5e34b04863dc4c0dca796f1cac249c"
+    },
+    {
+      "path": "packages/infrastructure/src/artifacts.ts",
+      "sha256": "d6851af2499345a59022d90d229866293f18f2d881a1ae9e1d22c29299a66a5f"
+    },
+    {
+      "path": "packages/infrastructure/src/catalog-csv.ts",
+      "sha256": "5de70b0f38da41b9fcf226cee6a669cce2d3b484b89d9075f817bbecfb5eac2c"
+    },
+    {
+      "path": "packages/infrastructure/src/deepseek.test.ts",
+      "sha256": "c9e794cec9f77f8b03ac75fb6a6555dc665ac65771915c243f71b2668c27fe7b"
+    },
+    {
+      "path": "packages/infrastructure/src/deepseek.ts",
+      "sha256": "1064655c57bdef24fdabccdf9fe27bd31fec821f3491990b1ec3bfa994f340ee"
+    },
+    {
+      "path": "packages/infrastructure/src/index.ts",
+      "sha256": "330ecc31a8219934aaefe684d95d45089ecb6aef1743f3cca562af7220f4c657"
+    },
+    {
+      "path": "packages/infrastructure/src/knowledge-store.test.ts",
+      "sha256": "e11f07403244d86f99350966f4dcf938a534c1ddf8a33727b253ce70a7731deb"
+    },
+    {
+      "path": "packages/infrastructure/src/knowledge-store.ts",
+      "sha256": "b5676f2b651d622341e05250781ac1f7116f53530d814e4a4d36c6a221863786"
+    },
+    {
+      "path": "packages/infrastructure/src/migration-lineage.ts",
+      "sha256": "4b6a3311c832c0b8582447cc788aeec0051a9fed9dd30501e970dd30945d83e0"
+    },
+    {
+      "path": "packages/infrastructure/src/migrations.ts",
+      "sha256": "b6b7b271dfcd4aef6dda8bd9064c02a3bbc9c5244a8427b4d1cf752cca5135a8"
+    },
+    {
+      "path": "packages/infrastructure/src/model-settings.test.ts",
+      "sha256": "e4c474d20076fa974209d6d90f793b3e6599db8953fa782574cd4c797a80707d"
+    },
+    {
+      "path": "packages/infrastructure/src/model-settings.ts",
+      "sha256": "58e744665a869d56b99bde97174c8b643fe46bb0dfd49d0cf4bdd12df39f85f5"
+    },
+    {
+      "path": "packages/infrastructure/src/schema.ts",
+      "sha256": "6f85244e7724211edf94a80329b31253ccc6318f4c81579b3d5fbc7e7e8b8ec5"
+    },
+    {
+      "path": "packages/infrastructure/src/storage.test.ts",
+      "sha256": "ccb79b7d2beffed23bcc236f44792b6b923ad037352c74a8271e95f9894db453"
+    },
+    {
+      "path": "packages/infrastructure/src/trade-store.test.ts",
+      "sha256": "5c4d97fc8cf4c11814d5193b7194cf459f4836e7defa579cc27739dd6849f6b6"
+    },
+    {
+      "path": "packages/infrastructure/src/trade-store.ts",
+      "sha256": "06f6cd2b2cf55e507b2b8e64f9f934eb26fc9cdb122bda68e91f3afbd615d0f8"
+    },
+    {
+      "path": "packages/infrastructure/src/wiki-store.test.ts",
+      "sha256": "62b138930d7af6e622a052ec6d136e57ebad3f0740c45740d36f70fee353f015"
+    },
+    {
+      "path": "packages/infrastructure/src/wiki-store.ts",
+      "sha256": "f8e3ac1afc6a8a80ee191e379dbc2d86537826aeac91dca891e3050b692cffa5"
+    },
+    {
+      "path": "playwright.config.ts",
+      "sha256": "0b5e9c9f38c24342ece97060cc823ebade6fd633db1fc27b9684745fe2dabe40"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "sha256": "6208233795f3aa72b8a4ee9cbf40e4e74e15adc6409f6dc15a4f5b6e7d91262f"
+    },
+    {
+      "path": "pnpm-workspace.yaml",
+      "sha256": "51e1598cb46ee6a4ab77051208999ea3c6001a4d28a0c5a9a5476aa25dd3232e"
+    },
+    {
+      "path": "scripts/check-boundaries.mjs",
+      "sha256": "f982a24b257df398957dc0e1ad75f620461875f30966acc9ba4055f65173d79f"
+    },
+    {
+      "path": "scripts/check-boundaries.test.mjs",
+      "sha256": "314267b4fdf20a8ef7b8b3ce3f3f4cbdd76e892c08f4a4b41e37b1c68f01b93d"
+    },
+    {
+      "path": "scripts/check-icons.mjs",
+      "sha256": "6a6f33a19455a20ad7f4659a0b5365a0b76bbac12da0643d44c277b4f57e0678"
+    },
+    {
+      "path": "scripts/check-icons.test.mjs",
+      "sha256": "deaf14ade5a150ae2362a7f7f7af8046021b437a2d13e4e2a1d5f52fb376d129"
+    },
+    {
+      "path": "scripts/desktop-executable.mjs",
+      "sha256": "6574fd8f9c7e9fee0e18a632f02ea58f19b1fc7c8f97c529da9b5baf02e5257c"
+    },
+    {
+      "path": "scripts/desktop-executable.test.mjs",
+      "sha256": "aa01d73351c783c8025868eb8dfc6cb64c7e203ae81b80af7464547fa77fabd6"
+    },
+    {
+      "path": "scripts/dev-desktop.mjs",
+      "sha256": "1e6972206c183db47bba889ebe064c5f365850245afc637202cc209ae7bb28f5"
+    },
+    {
+      "path": "scripts/generate-icons.cjs",
+      "sha256": "2c38f7e828c626684481cf5cd784a6a8027a31c3295854a026b8b157ff626a3f"
+    },
+    {
+      "path": "scripts/prepare-electron.mjs",
+      "sha256": "118a68821ebb8187e711d8f1eb2abbb33cd35411b26a66e124f5c1815925817d"
+    },
+    {
+      "path": "scripts/test-unit.mjs",
+      "sha256": "979afb12282bdc74a3a6bf3633cd4b6f206e18df23dd5436093c9db23666ec5b"
+    },
+    {
+      "path": "tests/e2e/feedback.spec.ts",
+      "sha256": "4f0f6659c8455ffd38b44df740b79dcfb7e2380f413c4a635243b5f39e6746b2"
+    },
+    {
+      "path": "tests/e2e/quote-agent.spec.ts",
+      "sha256": "350d7ef57a529cad73e7042b6ea2323fb3c8360c3d74728894c69b5761bc746d"
+    },
+    {
+      "path": "tests/e2e/quote-v1.spec.ts",
+      "sha256": "be9154201599813a45f3d6c643cf2e483b2b52a840cc24cbb675ee24116df4e4"
+    },
+    {
+      "path": "tests/e2e/workspace.spec.ts",
+      "sha256": "38d3c2c1b435e818964d83351ee052867b11c013afa293783419662f349398c0"
+    },
+    {
+      "path": "tests/fixtures/knowledge/knowledge-drafts.a01a.json",
+      "sha256": "a3e4b7e6e7f4b98ce0ad3b22c7fc651d564c89bfa9d5fb61014752c2d87d1c80"
+    },
+    {
+      "path": "tests/fixtures/knowledge/sources/src-platform-bottle-capacity.txt",
+      "sha256": "ca37f967fcd9b63f5e657a775fedb5af4744e5561350a2df45b46b1ce7214b3a"
+    },
+    {
+      "path": "tests/fixtures/knowledge/sources/src-platform-lamp-spec.txt",
+      "sha256": "e986d0ad86e63880658eee6ca9d32bb0379d6abf96bee0e132e5bde184528a7b"
+    },
+    {
+      "path": "tests/fixtures/knowledge/sources/src-platform-listing-style.txt",
+      "sha256": "898a0151550331875a23918a18ae0f3b7e12dacb25d423502247acfe216290c7"
+    },
+    {
+      "path": "tests/fixtures/knowledge/sources/src-platform-rfq-style.txt",
+      "sha256": "ef913e1a5959b96bf29a6e081e3d794f3b86c1af4ac999255763400c4036220e"
+    },
+    {
+      "path": "tests/fixtures/knowledge/sources/src-terms-fibre-conflict.txt",
+      "sha256": "72bda78797f240d6f045a0db6a6bfaf7f1ee368821b4302f5ed1c0475d0a061d"
+    },
+    {
+      "path": "tests/fixtures/knowledge/sources/src-terms-incoterms-scope.txt",
+      "sha256": "d59841c9134a8107cba2f84a042e8202f7ae3cb47edfaedd8f0cdff26430c9ae"
+    },
+    {
+      "path": "tests/fixtures/knowledge/sources/src-terms-payment-split.txt",
+      "sha256": "08c46fb7e3b1294465ad668f458d10e3fed680b93f0073718c31ae07b16a80b1"
+    },
+    {
+      "path": "tests/fixtures/knowledge/sources/src-terms-validity.txt",
+      "sha256": "cc4144f499624c24cfc948b9a79ae15fbe8753b5df7f3bb81a5710593713f4a9"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "47469018f139e3558effd6f5fd9646216d7dfed51db00c3cc9d6a1ded15dd4d9"
+    },
+    {
+      "path": "vitest.config.ts",
+      "sha256": "21f58cc356752e31f46ef4142bdb5eb6b3598ac0d19a5dfdc2bf68f944b983ca"
+    }
+  ],
+  "AFixedDocs": [
+    {
+      "commit": "b9a0af76217e57e0ab22ba927de1a1a287b1145f",
+      "path": "wiki-project/wiki/decisions/0029-迁移谱系统一与拒绝边界.md",
+      "sha256": "3b97db1a74be992a0b9c8f344eee32b9d66d656ba3be9755235ab4d01914e58c",
+      "url": "https://github.com/jacson10l/tradequote-agent/blob/b9a0af76217e57e0ab22ba927de1a1a287b1145f/wiki-project/wiki/decisions/0029-迁移谱系统一与拒绝边界.md"
+    },
+    {
+      "commit": "b9a0af76217e57e0ab22ba927de1a1a287b1145f",
+      "path": "wiki-project/wiki/A01-迁移谱系支持与拒绝矩阵.md",
+      "sha256": "6b35c9bc9f197c244d2e3a660365fa31f80d60156e39504afddfe74069a7bfea",
+      "url": "https://github.com/jacson10l/tradequote-agent/blob/b9a0af76217e57e0ab22ba927de1a1a287b1145f/wiki-project/wiki/A01-迁移谱系支持与拒绝矩阵.md"
+    },
+    {
+      "commit": "b9a0af76217e57e0ab22ba927de1a1a287b1145f",
+      "path": "wiki-project/wiki/A01-追加迁移设计.md",
+      "sha256": "e5c40900fa3f2599a61d971683fd50136b1d401676bbe1991832ab0ad9b3e07e",
+      "url": "https://github.com/jacson10l/tradequote-agent/blob/b9a0af76217e57e0ab22ba927de1a1a287b1145f/wiki-project/wiki/A01-追加迁移设计.md"
+    },
+    {
+      "commit": "b9a0af76217e57e0ab22ba927de1a1a287b1145f",
+      "path": "wiki-project/wiki/A01-迁移验证计划.md",
+      "sha256": "1da1d1c9253ef325dfc6d76a55929149e1d4f251377312e8f6c1e5f655d806f2",
+      "url": "https://github.com/jacson10l/tradequote-agent/blob/b9a0af76217e57e0ab22ba927de1a1a287b1145f/wiki-project/wiki/A01-迁移验证计划.md"
+    },
+    {
+      "commit": "b9a0af76217e57e0ab22ba927de1a1a287b1145f",
+      "path": "wiki-project/wiki/A对C迁移协调草稿M1-M8回复.md",
+      "sha256": "573df6e87acdab9cc8c780d2a70d77a7498114178eadcc7fe9dc474efeecf655",
+      "url": "https://github.com/jacson10l/tradequote-agent/blob/b9a0af76217e57e0ab22ba927de1a1a287b1145f/wiki-project/wiki/A对C迁移协调草稿M1-M8回复.md"
+    },
+    {
+      "commit": "b9a0af76217e57e0ab22ba927de1a1a287b1145f",
+      "path": "wiki-project/raw/a01-migration-lineage-probe.json",
+      "sha256": "391c93f4157461c8a48715b932cecf2d3d133515ad18819809cf737beba6424f",
+      "url": "https://github.com/jacson10l/tradequote-agent/blob/b9a0af76217e57e0ab22ba927de1a1a287b1145f/wiki-project/raw/a01-migration-lineage-probe.json"
+    },
+    {
+      "commit": "b9a0af76217e57e0ab22ba927de1a1a287b1145f",
+      "path": "wiki-project/scripts/a01-migration-lineage-probe.mjs",
+      "sha256": "f0e7f890abeef97f5023396dcd0575f95e2ff519a6bb551d5732bfb112546d2c",
+      "url": "https://github.com/jacson10l/tradequote-agent/blob/b9a0af76217e57e0ab22ba927de1a1a287b1145f/wiki-project/scripts/a01-migration-lineage-probe.mjs"
+    }
+  ],
+  "fingerprintAudit": [
+    {
+      "id": "common:1",
+      "sha256": "9e95979532306333f9f07037ce7e0841931d6e8c0b3d885208d63f4eb7360cb1",
+      "expectedFromCOriginal": "9e95979532306333f9f07037ce7e0841931d6e8c0b3d885208d63f4eb7360cb1",
+      "match": true
+    },
+    {
+      "id": "common:2",
+      "sha256": "519f17179c501d08270a48eee562b6593eed6598bd0081692e437fbe7c53b723",
+      "expectedFromCOriginal": "519f17179c501d08270a48eee562b6593eed6598bd0081692e437fbe7c53b723",
+      "match": true
+    },
+    {
+      "id": "common:3",
+      "sha256": "a9fe17a0719962fa3dc4099cc51f35ada314bdbb7a15e6aecde91c58c0cabe42",
+      "expectedFromCOriginal": "a9fe17a0719962fa3dc4099cc51f35ada314bdbb7a15e6aecde91c58c0cabe42",
+      "match": true
+    },
+    {
+      "id": "common:4",
+      "sha256": "b4e559a6acc383d064b04e2f0412c0863d526e94f80c79e25a00de81abb74980",
+      "expectedFromCOriginal": "b4e559a6acc383d064b04e2f0412c0863d526e94f80c79e25a00de81abb74980",
+      "match": true
+    },
+    {
+      "id": "c-run:5",
+      "sha256": "6d511fff5eaa85e1198898d7c5cec392ed18461b110cecaf92553e4ff8ce0493",
+      "expectedFromCOriginal": "6d511fff5eaa85e1198898d7c5cec392ed18461b110cecaf92553e4ff8ce0493",
+      "match": true
+    },
+    {
+      "id": "c-run:6",
+      "sha256": "3d3c9da475f6a11d2d381de54a07396dc6dabaf8d780edebc0657f497bb47dfb",
+      "expectedFromCOriginal": "3d3c9da475f6a11d2d381de54a07396dc6dabaf8d780edebc0657f497bb47dfb",
+      "match": true
+    },
+    {
+      "id": "c-run:7",
+      "sha256": "268beab4bd70f403d62877153abf2df0c6f574bde852b77c1cfe7a63808d87fa",
+      "expectedFromCOriginal": "268beab4bd70f403d62877153abf2df0c6f574bde852b77c1cfe7a63808d87fa",
+      "match": true
+    },
+    {
+      "id": "knowledge-wiki:6",
+      "sha256": "5184461756e3a389588182c1e9e497f34bfc7442bbf4d7ff8a09cdb458f49f66",
+      "expectedFromCOriginal": "5184461756e3a389588182c1e9e497f34bfc7442bbf4d7ff8a09cdb458f49f66",
+      "match": true
+    },
+    {
+      "id": "check-report:7",
+      "sha256": "927ce55cc67a6ec655cff131a67af33f9fdc7f83372d4247ab65467d91144602",
+      "expectedFromCOriginal": "927ce55cc67a6ec655cff131a67af33f9fdc7f83372d4247ab65467d91144602",
+      "match": true
+    }
+  ],
+  "authorProbeReplay": {
+    "matchesOriginalFields": {
+      "fingerprints": true,
+      "cases": true,
+      "append": true,
+      "summary": true
+    },
+    "scope": "Actual identifyLineage plus duplicated appendToTarget, not production migrate/repository",
+    "compatible": false
+  },
+  "actualCommands": {
+    "install": {
+      "argv": [
+        "pnpm",
+        "install",
+        "--frozen-lockfile"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a-lineage-validation/tradequote-agent/.runtime/a-source",
+      "startedAt": "2026-10-23T14:14:33.819582+00:00",
+      "finishedAt": "2026-10-23T14:14:45.121826+00:00",
+      "exitCode": 0,
+      "output": "Scope: all 5 workspace projects\nLockfile is up to date, resolution step is skipped\nProgress: resolved 1, reused 0, downloaded 0, added 0\nPackages: +435\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n   ╭──────────────────────────────────────────╮\n   │                                          │\n   │   Update available! 10.13.1 → 12.15.0.   │\n   │   Changelog: https://pnpm.io/v/12.15.0   │\n   │     To update, run: pnpm self-update     │\n   │                                          │\n   ╰──────────────────────────────────────────╯\n\nProgress: resolved 435, reused 433, downloaded 0, added 55\nProgress: resolved 435, reused 435, downloaded 0, added 226\nProgress: resolved 435, reused 435, downloaded 0, added 427\nProgress: resolved 435, reused 435, downloaded 0, added 433\nProgress: resolved 435, reused 435, downloaded 0, added 435, done\n\ndevDependencies:\n+ @babel/parser 7.29.9\n+ @biomejs/biome 2.5.15\n+ @playwright/test 1.64.1\n+ @testing-library/dom 10.4.1\n+ @testing-library/jest-dom 7.0.1\n+ @testing-library/react 16.3.3\n+ @testing-library/user-event 14.6.8\n+ @types/better-sqlite3 9.6.0\n+ @types/node 24.19.2\n+ @types/react 19.3.0\n+ @types/react-dom 19.3.0\n+ jsdom 26.1.0\n+ typescript 7.0.2\n+ vite 8.3.4\n+ vitest 5.0.5\n\n╭ Warning ─────────────────────────────────────────────────────────────────────╮\n│                                                                              │\n│   Ignored build scripts: electron-winstaller.                                │\n│   Run \"pnpm approve-builds\" to pick which dependencies should be allowed     │\n│   to run scripts.                                                            │\n│                                                                              │\n╰──────────────────────────────────────────────────────────────────────────────╯\n\n. postinstall$ node scripts/prepare-electron.mjs && pnpm native:rebuild\n. postinstall: Downloading Electron binary...\n. postinstall: Electron executable ready\n. postinstall: > tradequote-agent@0.1.0 native:rebuild /Users/jason/.codex/worktrees/c-a-lineage-validation/tradequote-agent/.runtime/a-source\n. postinstall: > pnpm --filter @tradequote/desktop exec electron-builder install-app-deps\n. postinstall:   • electron-builder  version=26.15.3\n. postinstall:   • loaded configuration  file=package.json (\"build\" field)\n. postinstall:   • packageManager not detected by file, falling back to environment detection  resolvedPackageManager=pnpm detected=/Users/jason/.codex/worktrees/c-a-lineage-validation/tradequote-agent/.runtime/a-source\n. postinstall:   • detected workspace root for project using packageManager field  pm=pnpm config=pnpm@10.13.1 resolved=/Users/jason/.codex/worktrees/c-a-lineage-validation/tradequote-agent/.runtime/a-source projectDir=/Users/jason/.codex/worktrees/c-a-lineage-validation/tradequote-agent/.runtime/a-source/apps/desktop\n. postinstall:   • executing @electron/rebuild  electronVersion=44.9.2 arch=arm64 buildFromSource=false workspaceRoot=/Users/jason/.codex/worktrees/c-a-lineage-validation/tradequote-agent/.runtime/a-source projectDir=./ appDir=./\n. postinstall:   • installing native dependencies  arch=arm64\n. postinstall:   • preparing       moduleName=better-sqlite3 arch=arm64\n. postinstall:   • finished        moduleName=better-sqlite3 arch=arm64\n. postinstall:   • completed installing native dependencies\n. postinstall: Done\nDone in 11.2s using pnpm v10.13.1\n",
+      "outputSha256": "80936b14ac7177223bb1df3866c10b150469dbd269a62eaa76b23aa99514eff2"
+    },
+    "typecheck": {
+      "argv": [
+        "pnpm",
+        "typecheck"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a-lineage-validation/tradequote-agent/.runtime/a-source",
+      "environmentOverrides": {},
+      "startedAt": "2026-10-23T14:15:35.012649+00:00",
+      "finishedAt": "2026-10-23T14:15:40.459806+00:00",
+      "exitCode": 1,
+      "stdout": "\n> tradequote-agent@0.1.0 typecheck /Users/jason/.codex/worktrees/c-a-lineage-validation/tradequote-agent/.runtime/a-source\n> tsc --noEmit\n\npackages/domain/src/wiki.ts(3,8): error TS2724: '\"@tradequote/contracts\"' has no exported member named 'WikiCitationResolveInput'. Did you mean 'WikiCitationResolveInputSchema'?\npackages/infrastructure/src/migrations.ts(3,3): error TS6133: 'CAPABILITIES' is declared but its value is never read.\npackages/infrastructure/src/migrations.ts(314,65): error TS2739: Type 'MigrationStep' is missing the following properties from type 'CapabilitySpec': tables, indexes, triggers, columns\npackages/infrastructure/src/migrations.ts(318,27): error TS2345: Argument of type '`${string}:${number}`' is not assignable to parameter of type '`c-run:${number}` | `check-report:${number}` | `common:${number}` | `knowledge-wiki:${number}`'.\npackages/infrastructure/src/migrations.ts(343,29): error TS2739: Type '{ lineage: CapabilityLineage; version: number; }' is missing the following properties from type 'CapabilitySpec': tables, indexes, triggers, columns\npackages/infrastructure/src/migrations.ts(347,24): error TS2739: Type 'MigrationStep' is missing the following properties from type 'CapabilitySpec': tables, indexes, triggers, columns\npackages/infrastructure/src/migrations.ts(376,40): error TS2739: Type 'MigrationStep' is missing the following properties from type 'CapabilitySpec': tables, indexes, triggers, columns\npackages/infrastructure/src/migrations.ts(387,39): error TS2739: Type 'MigrationStep' is missing the following properties from type 'CapabilitySpec': tables, indexes, triggers, columns\npackages/infrastructure/src/wiki-store.ts(5,8): error TS2724: '\"@tradequote/contracts\"' has no exported member named 'WikiCitationResolveInput'. Did you mean 'WikiCitationResolveInputSchema'?\npackages/infrastructure/src/wiki-store.ts(30,19): error TS2307: Cannot find module 'zod' or its corresponding type declarations.\npackages/infrastructure/src/wiki-store.ts(560,5): error TS6133: 'sources' is declared but its value is never read.\n ELIFECYCLE  Command failed with exit code 1.\n",
+      "stderr": "",
+      "stdoutSha256": "f25eeb476f0bc5634d674cf89861faf282940c9ca3c2f3cb9fe45e51f962e980",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "authorProbe": {
+      "argv": [
+        "node",
+        "wiki-project/scripts/a01-migration-lineage-probe.mjs"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a-lineage-validation/tradequote-agent/.runtime/a-source",
+      "environmentOverrides": {},
+      "startedAt": "2026-10-23T14:15:35.012614+00:00",
+      "finishedAt": "2026-10-23T14:15:35.192576+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"scope\": \"A01c migration lineage identification & append matrix probe; synthetic in-memory only; proves identification classification and capability-append shape, not business acceptance\",\n  \"recordedAt\": \"2026-10-23T14:15:35.182Z\",\n  \"environment\": {\n    \"platform\": \"darwin\",\n    \"arch\": \"arm64\",\n    \"node\": \"v22.22.0\",\n    \"db\": \"node:sqlite (:memory:)\"\n  },\n  \"sources\": {\n    \"identification\": \"packages/infrastructure/src/migration-lineage.ts\",\n    \"sqlMirroredFrom\": \"packages/infrastructure/src/migrations.ts (MIGRATION_STEPS)\",\n    \"originalEvidence\": \"d99f2b32def756b6b4d4cc99fca75dd9511436d5\"\n  },\n  \"fingerprints\": {\n    \"common:1\": {\n      \"got\": \"9e95979532306333f9f07037ce7e0841931d6e8c0b3d885208d63f4eb7360cb1\",\n      \"known\": \"9e95979532306333f9f07037ce7e0841931d6e8c0b3d885208d63f4eb7360cb1\",\n      \"match\": true\n    },\n    \"common:2\": {\n      \"got\": \"519f17179c501d08270a48eee562b6593eed6598bd0081692e437fbe7c53b723\",\n      \"known\": \"519f17179c501d08270a48eee562b6593eed6598bd0081692e437fbe7c53b723\",\n      \"match\": true\n    },\n    \"common:3\": {\n      \"got\": \"a9fe17a0719962fa3dc4099cc51f35ada314bdbb7a15e6aecde91c58c0cabe42\",\n      \"known\": \"a9fe17a0719962fa3dc4099cc51f35ada314bdbb7a15e6aecde91c58c0cabe42\",\n      \"match\": true\n    },\n    \"common:4\": {\n      \"got\": \"b4e559a6acc383d064b04e2f0412c0863d526e94f80c79e25a00de81abb74980\",\n      \"known\": \"b4e559a6acc383d064b04e2f0412c0863d526e94f80c79e25a00de81abb74980\",\n      \"match\": true\n    },\n    \"c-run:5\": {\n      \"got\": \"6d511fff5eaa85e1198898d7c5cec392ed18461b110cecaf92553e4ff8ce0493\",\n      \"known\": \"6d511fff5eaa85e1198898d7c5cec392ed18461b110cecaf92553e4ff8ce0493\",\n      \"match\": true\n    },\n    \"c-run:6\": {\n      \"got\": \"3d3c9da475f6a11d2d381de54a07396dc6dabaf8d780edebc0657f497bb47dfb\",\n      \"known\": \"3d3c9da475f6a11d2d381de54a07396dc6dabaf8d780edebc0657f497bb47dfb\",\n      \"match\": true\n    },\n    \"c-run:7\": {\n      \"got\": \"268beab4bd70f403d62877153abf2df0c6f574bde852b77c1cfe7a63808d87fa\",\n      \"known\": \"268beab4bd70f403d62877153abf2df0c6f574bde852b77c1cfe7a63808d87fa\",\n      \"match\": true\n    },\n    \"knowledge-wiki:6\": {\n      \"got\": \"5184461756e3a389588182c1e9e497f34bfc7442bbf4d7ff8a09cdb458f49f66\",\n      \"known\": \"5184461756e3a389588182c1e9e497f34bfc7442bbf4d7ff8a09cdb458f49f66\",\n      \"match\": true\n    },\n    \"check-report:7\": {\n      \"got\": \"927ce55cc67a6ec655cff131a67af33f9fdc7f83372d4247ab65467d91144602\",\n      \"known\": \"927ce55cc67a6ec655cff131a67af33f9fdc7f83372d4247ab65467d91144602\",\n      \"match\": true\n    }\n  },\n  \"cases\": [\n    {\n      \"name\": \"empty\",\n      \"userVersion\": 0,\n      \"lineage\": \"empty\",\n      \"expect\": \"empty\",\n      \"pass\": true,\n      \"present\": [],\n      \"partial\": []\n    },\n    {\n      \"name\": \"common-v1\",\n      \"userVersion\": 1,\n      \"lineage\": \"common-v1\",\n      \"expect\": \"common-v1\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\"\n      ],\n      \"partial\": []\n    },\n    {\n      \"name\": \"common-v2\",\n      \"userVersion\": 2,\n      \"lineage\": \"common-v2\",\n      \"expect\": \"common-v2\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\"\n      ],\n      \"partial\": []\n    },\n    {\n      \"name\": \"common-v3\",\n      \"userVersion\": 3,\n      \"lineage\": \"common-v3\",\n      \"expect\": \"common-v3\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\"\n      ],\n      \"partial\": []\n    },\n    {\n      \"name\": \"a01b-v4\",\n      \"userVersion\": 4,\n      \"lineage\": \"a01b-v4\",\n      \"expect\": \"a01b-v4\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\"\n      ],\n      \"partial\": []\n    },\n    {\n      \"name\": \"c-v5\",\n      \"userVersion\": 5,\n      \"lineage\": \"c-v5\",\n      \"expect\": \"c-v5\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\"\n      ],\n      \"partial\": []\n    },\n    {\n      \"name\": \"c-v6\",\n      \"userVersion\": 6,\n      \"lineage\": \"c-v6\",\n      \"expect\": \"c-v6\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\",\n        \"c-run:6\"\n      ],\n      \"partial\": []\n    },\n    {\n      \"name\": \"c-v7\",\n      \"userVersion\": 7,\n      \"lineage\": \"c-v7\",\n      \"expect\": \"c-v7\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\",\n        \"c-run:6\",\n        \"c-run:7\"\n      ],\n      \"partial\": []\n    },\n    {\n      \"name\": \"a-v6\",\n      \"userVersion\": 6,\n      \"lineage\": \"a-v6\",\n      \"expect\": \"a-v6\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"knowledge-wiki:6\"\n      ],\n      \"partial\": []\n    },\n    {\n      \"name\": \"b-v7\",\n      \"userVersion\": 7,\n      \"lineage\": \"b-v7\",\n      \"expect\": \"b-v7\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"knowledge-wiki:6\",\n        \"check-report:7\"\n      ],\n      \"partial\": []\n    },\n    {\n      \"name\": \"unified\",\n      \"userVersion\": 8,\n      \"lineage\": \"unified\",\n      \"expect\": \"unified\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\",\n        \"c-run:6\",\n        \"c-run:7\",\n        \"knowledge-wiki:6\",\n        \"check-report:7\"\n      ],\n      \"partial\": []\n    },\n    {\n      \"name\": \"mixed-crun+report\",\n      \"userVersion\": 7,\n      \"lineage\": \"mixed\",\n      \"expect\": \"mixed\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\",\n        \"c-run:6\",\n        \"c-run:7\",\n        \"check-report:7\"\n      ],\n      \"partial\": []\n    },\n    {\n      \"name\": \"tampered-missing-trigger\",\n      \"userVersion\": 6,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\"\n      ],\n      \"partial\": [\n        \"knowledge-wiki:6\"\n      ]\n    },\n    {\n      \"name\": \"unknown-v6\",\n      \"userVersion\": 6,\n      \"lineage\": \"unknown\",\n      \"expect\": \"unknown\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\"\n      ],\n      \"partial\": []\n    },\n    {\n      \"name\": \"unknown-newer\",\n      \"userVersion\": 9,\n      \"lineage\": \"unknown\",\n      \"expect\": \"unknown\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"c-run:5\",\n        \"c-run:6\",\n        \"c-run:7\",\n        \"knowledge-wiki:6\",\n        \"check-report:7\"\n      ],\n      \"partial\": []\n    },\n    {\n      \"name\": \"tampered-missing-report-trigger\",\n      \"userVersion\": 7,\n      \"lineage\": \"tampered\",\n      \"expect\": \"tampered\",\n      \"pass\": true,\n      \"present\": [\n        \"common:1\",\n        \"common:2\",\n        \"common:3\",\n        \"common:4\",\n        \"knowledge-wiki:6\"\n      ],\n      \"partial\": [\n        \"check-report:7\"\n      ]\n    }\n  ],\n  \"append\": [\n    {\n      \"lineage\": \"empty\",\n      \"before\": \"empty\",\n      \"after\": \"unified\",\n      \"allCapabilitiesPresent\": true,\n      \"userVersion\": 8,\n      \"pass\": true\n    },\n    {\n      \"lineage\": \"common-v1\",\n      \"before\": \"common-v1\",\n      \"after\": \"unified\",\n      \"allCapabilitiesPresent\": true,\n      \"userVersion\": 8,\n      \"pass\": true\n    },\n    {\n      \"lineage\": \"common-v2\",\n      \"before\": \"common-v2\",\n      \"after\": \"unified\",\n      \"allCapabilitiesPresent\": true,\n      \"userVersion\": 8,\n      \"pass\": true\n    },\n    {\n      \"lineage\": \"common-v3\",\n      \"before\": \"common-v3\",\n      \"after\": \"unified\",\n      \"allCapabilitiesPresent\": true,\n      \"userVersion\": 8,\n      \"pass\": true\n    },\n    {\n      \"lineage\": \"a01b-v4\",\n      \"before\": \"a01b-v4\",\n      \"after\": \"unified\",\n      \"allCapabilitiesPresent\": true,\n      \"userVersion\": 8,\n      \"pass\": true\n    },\n    {\n      \"lineage\": \"c-v5\",\n      \"before\": \"c-v5\",\n      \"after\": \"unified\",\n      \"allCapabilitiesPresent\": true,\n      \"userVersion\": 8,\n      \"pass\": true\n    },\n    {\n      \"lineage\": \"c-v6\",\n      \"before\": \"c-v6\",\n      \"after\": \"unified\",\n      \"allCapabilitiesPresent\": true,\n      \"userVersion\": 8,\n      \"pass\": true\n    },\n    {\n      \"lineage\": \"c-v7\",\n      \"before\": \"c-v7\",\n      \"after\": \"unified\",\n      \"allCapabilitiesPresent\": true,\n      \"userVersion\": 8,\n      \"pass\": true\n    },\n    {\n      \"lineage\": \"a-v6\",\n      \"before\": \"a-v6\",\n      \"after\": \"unified\",\n      \"allCapabilitiesPresent\": true,\n      \"userVersion\": 8,\n      \"pass\": true\n    },\n    {\n      \"lineage\": \"b-v7\",\n      \"before\": \"b-v7\",\n      \"after\": \"unified\",\n      \"allCapabilitiesPresent\": true,\n      \"userVersion\": 8,\n      \"pass\": true\n    }\n  ],\n  \"summary\": {\n    \"fingerprintMatch\": true,\n    \"allCasesPass\": true,\n    \"allAppendPass\": true,\n    \"caseFailures\": [],\n    \"appendFailures\": [],\n    \"fpFailures\": []\n  },\n  \"compatible\": false\n}\n",
+      "stderr": "(node:22086) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+      "stdoutSha256": "ec4bade93cae76bd6a686cb57fbbb30ebd50d48bbead1ba4657240ec25b0b0ee",
+      "stderrSha256": "3261ac6036dfa17e135230ae9c33c890b84f7018019c9986e5d5369e03dca166"
+    },
+    "bundleForNative": {
+      "argv": [
+        "node",
+        "../build-a.mjs"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a-lineage-validation/tradequote-agent/.runtime/a-source",
+      "environmentOverrides": {},
+      "startedAt": "2026-10-23T14:15:35.012636+00:00",
+      "finishedAt": "2026-10-23T14:15:37.400549+00:00",
+      "exitCode": 0,
+      "stdout": "Bundled unmodified fixed A infrastructure entry for direct native verification\n",
+      "stderr": "",
+      "stdoutSha256": "b0e284662bb2f0ea49ce3d41a9ca2f80692cd4109049f46b21580a1d38952fc4",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "nativeInitial": {
+      "argv": [
+        "/Users/jason/.codex/worktrees/c-a-lineage-validation/tradequote-agent/.runtime/a-source/node_modules/.pnpm/electron@44.9.2/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron",
+        "/Users/jason/.codex/worktrees/c-a-lineage-validation/tradequote-agent/.runtime/a-probe/native.cjs"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a-lineage-validation/tradequote-agent/.runtime/a-source",
+      "startedAt": "2026-10-23T14:19:10.392548+00:00",
+      "finishedAt": "2026-10-23T14:19:14.319819+00:00",
+      "environmentOverrides": {
+        "ELECTRON_RUN_AS_NODE": "1",
+        "NODE_PATH": "/Users/jason/.codex/worktrees/c-a-lineage-validation/tradequote-agent/.runtime/a-source/packages/infrastructure/node_modules"
+      },
+      "exitCode": 1,
+      "stdout": "{\"status\":\"failed\",\"environment\":{\"platform\":\"darwin\",\"arch\":\"arm64\",\"node\":\"v24.22.0\",\"electron\":\"44.9.2\",\"sqlite\":\"3.53.4\"},\"summary\":{\"total\":12,\"passed\":7,\"failed\":[\"N07_missing_run_required_column\",\"N08_noop_immutable_trigger\",\"N09_nonunique_write_index\",\"N10_corrupt_registry_preflight\",\"N11_legacy_ledger_schema_contradiction\"]},\"cases\":[{\"id\":\"N01_C0_upgrade\",\"expectationMet\":true,\"error\":null,\"harnessError\":null},{\"id\":\"N02_C5_upgrade\",\"expectationMet\":true,\"error\":null,\"harnessError\":null},{\"id\":\"N03_C6_upgrade\",\"expectationMet\":true,\"error\":null,\"harnessError\":null},{\"id\":\"N04_C7_upgrade\",\"expectationMet\":true,\"error\":null,\"harnessError\":null},{\"id\":\"N05_B7_upgrade\",\"expectationMet\":true,\"error\":null,\"harnessError\":null},{\"id\":\"N06_missing_report_trigger\",\"expectationMet\":true,\"error\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"harnessError\":null},{\"id\":\"N07_missing_run_required_column\",\"expectationMet\":false,\"error\":null,\"harnessError\":null},{\"id\":\"N08_noop_immutable_trigger\",\"expectationMet\":false,\"error\":null,\"harnessError\":{\"name\":\"SqliteError\",\"message\":\"FOREIGN KEY constraint failed\",\"lineage\":null}},{\"id\":\"N09_nonunique_write_index\",\"expectationMet\":false,\"error\":null,\"harnessError\":null},{\"id\":\"N10_corrupt_registry_preflight\",\"expectationMet\":false,\"error\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"harnessError\":null},{\"id\":\"N11_legacy_ledger_schema_contradiction\",\"expectationMet\":false,\"error\":null,\"harnessError\":null},{\"id\":\"N12_bad_sql_rollback\",\"expectationMet\":true,\"error\":{\"name\":\"SqliteError\",\"message\":\"near \\\"INVALID\\\": syntax error\",\"lineage\":null},\"harnessError\":null}]}\n",
+      "stderr": "",
+      "stdoutSha256": "8367e38568ff78b2607e3c71c65c5dd4933a45cb929b90f5d9f807d0ad492f87",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "nativeFinal": {
+      "argv": [
+        "/Users/jason/.codex/worktrees/c-a-lineage-validation/tradequote-agent/.runtime/a-source/node_modules/.pnpm/electron@44.9.2/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron",
+        "/Users/jason/.codex/worktrees/c-a-lineage-validation/tradequote-agent/.runtime/a-probe/native.cjs"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a-lineage-validation/tradequote-agent/.runtime/a-source",
+      "startedAt": "2026-10-23T14:21:17.839924+00:00",
+      "finishedAt": "2026-10-23T14:21:18.157983+00:00",
+      "environmentOverrides": {
+        "ELECTRON_RUN_AS_NODE": "1",
+        "NODE_PATH": "/Users/jason/.codex/worktrees/c-a-lineage-validation/tradequote-agent/.runtime/a-source/packages/infrastructure/node_modules"
+      },
+      "exitCode": 1,
+      "stdout": "{\"status\":\"failed\",\"environment\":{\"platform\":\"darwin\",\"arch\":\"arm64\",\"node\":\"v24.22.0\",\"electron\":\"44.9.2\",\"sqlite\":\"3.53.4\"},\"summary\":{\"total\":12,\"passed\":7,\"failed\":[\"N07_missing_run_required_column\",\"N08_noop_immutable_trigger\",\"N09_nonunique_write_index\",\"N10_corrupt_registry_preflight\",\"N11_legacy_ledger_schema_contradiction\"]},\"cases\":[{\"id\":\"N01_C0_upgrade\",\"expectationMet\":true,\"error\":null,\"harnessError\":null},{\"id\":\"N02_C5_upgrade\",\"expectationMet\":true,\"error\":null,\"harnessError\":null},{\"id\":\"N03_C6_upgrade\",\"expectationMet\":true,\"error\":null,\"harnessError\":null},{\"id\":\"N04_C7_upgrade\",\"expectationMet\":true,\"error\":null,\"harnessError\":null},{\"id\":\"N05_B7_upgrade\",\"expectationMet\":true,\"error\":null,\"harnessError\":null},{\"id\":\"N06_missing_report_trigger\",\"expectationMet\":true,\"error\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"harnessError\":null},{\"id\":\"N07_missing_run_required_column\",\"expectationMet\":false,\"error\":null,\"harnessError\":null},{\"id\":\"N08_noop_immutable_trigger\",\"expectationMet\":false,\"error\":null,\"harnessError\":null},{\"id\":\"N09_nonunique_write_index\",\"expectationMet\":false,\"error\":null,\"harnessError\":null},{\"id\":\"N10_corrupt_registry_preflight\",\"expectationMet\":false,\"error\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"harnessError\":null},{\"id\":\"N11_legacy_ledger_schema_contradiction\",\"expectationMet\":false,\"error\":null,\"harnessError\":null},{\"id\":\"N12_bad_sql_rollback\",\"expectationMet\":true,\"error\":{\"name\":\"SqliteError\",\"message\":\"near \\\"INVALID\\\": syntax error\",\"lineage\":null},\"harnessError\":null}]}\n",
+      "stderr": "",
+      "stdoutSha256": "afa3ef3f9db065438584dd354c1a77f3d7e3da1b99711d67aa269256f825a663",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "typecheck": {
+    "status": "failed",
+    "errorCount": 11,
+    "newMigrationErrors": 7,
+    "unchangedA01cErrors": 4,
+    "unchangedComparedToDD42": [
+      "packages/domain/src/wiki.ts",
+      "packages/infrastructure/src/wiki-store.ts"
+    ],
+    "errors": [
+      {
+        "location": "packages/domain/src/wiki.ts(3,8)",
+        "code": "TS2724",
+        "message": "'\"@tradequote/contracts\"' has no exported member named 'WikiCitationResolveInput'. Did you mean 'WikiCitationResolveInputSchema'?"
+      },
+      {
+        "location": "packages/infrastructure/src/migrations.ts(3,3)",
+        "code": "TS6133",
+        "message": "'CAPABILITIES' is declared but its value is never read."
+      },
+      {
+        "location": "packages/infrastructure/src/migrations.ts(314,65)",
+        "code": "TS2739",
+        "message": "Type 'MigrationStep' is missing the following properties from type 'CapabilitySpec': tables, indexes, triggers, columns"
+      },
+      {
+        "location": "packages/infrastructure/src/migrations.ts(318,27)",
+        "code": "TS2345",
+        "message": "Argument of type '`${string}:${number}`' is not assignable to parameter of type '`c-run:${number}` | `check-report:${number}` | `common:${number}` | `knowledge-wiki:${number}`'."
+      },
+      {
+        "location": "packages/infrastructure/src/migrations.ts(343,29)",
+        "code": "TS2739",
+        "message": "Type '{ lineage: CapabilityLineage; version: number; }' is missing the following properties from type 'CapabilitySpec': tables, indexes, triggers, columns"
+      },
+      {
+        "location": "packages/infrastructure/src/migrations.ts(347,24)",
+        "code": "TS2739",
+        "message": "Type 'MigrationStep' is missing the following properties from type 'CapabilitySpec': tables, indexes, triggers, columns"
+      },
+      {
+        "location": "packages/infrastructure/src/migrations.ts(376,40)",
+        "code": "TS2739",
+        "message": "Type 'MigrationStep' is missing the following properties from type 'CapabilitySpec': tables, indexes, triggers, columns"
+      },
+      {
+        "location": "packages/infrastructure/src/migrations.ts(387,39)",
+        "code": "TS2739",
+        "message": "Type 'MigrationStep' is missing the following properties from type 'CapabilitySpec': tables, indexes, triggers, columns"
+      },
+      {
+        "location": "packages/infrastructure/src/wiki-store.ts(5,8)",
+        "code": "TS2724",
+        "message": "'\"@tradequote/contracts\"' has no exported member named 'WikiCitationResolveInput'. Did you mean 'WikiCitationResolveInputSchema'?"
+      },
+      {
+        "location": "packages/infrastructure/src/wiki-store.ts(30,19)",
+        "code": "TS2307",
+        "message": "Cannot find module 'zod' or its corresponding type declarations."
+      },
+      {
+        "location": "packages/infrastructure/src/wiki-store.ts(560,5)",
+        "code": "TS6133",
+        "message": "'sources' is declared but its value is never read."
+      }
+    ]
+  },
+  "native": {
+    "status": "failed",
+    "total": 12,
+    "passed": 7,
+    "failed": [
+      "N07_missing_run_required_column",
+      "N08_noop_immutable_trigger",
+      "N09_nonunique_write_index",
+      "N10_corrupt_registry_preflight",
+      "N11_legacy_ledger_schema_contradiction"
+    ],
+    "report": "wiki-project/raw/c-a-lineage-native-validation.json",
+    "initialReport": "wiki-project/raw/c-a-lineage-native-initial-validation.json",
+    "initialFixtureCorrection": "N08 originally omitted SQL FK parents; first harness failure preserved, added synthetic workspace/run parents, reran with no harness errors. No production source changes."
+  },
+  "transformations": {
+    "AArchive": "git archive exact fixed b9a0af7; all non-Wiki source bytes reverified after install",
+    "nativeMigration": "Node22 stripTypeScriptTypes mode=strip, extracted module suffix changes only; original SQL unchanged",
+    "repositoryBundle": "Vite bundles fixed A infrastructure index, native better-sqlite3 external",
+    "bundleScriptUtf8": "import { build } from './a-source/node_modules/vite/dist/node/index.js';\nimport { resolve } from 'node:path';\nconst root=resolve('.');\nawait build({configFile:false,root,logLevel:'silent',build:{outDir:resolve(root,'../a-built'),emptyOutDir:false,minify:false,target:'node24',lib:{entry:resolve(root,'packages/infrastructure/src/index.ts'),formats:['cjs'],fileName:()=> 'a-index.cjs'},rollupOptions:{external:(id)=>id.startsWith('node:')||id==='better-sqlite3'}}});\nconsole.log('Bundled unmodified fixed A infrastructure entry for direct native verification');\n"
+  },
+  "preservation": {
+    "CNonWiki": 228,
+    "oldCRaw": 194,
+    "logPrefixBytes": 109073
+  },
+  "conclusion": "changes_required before further migration matrix or desktop wiring",
+  "notRun": [
+    "full 29-case C plan",
+    "A full vitest/product/e2e acceptance",
+    "B final adaptation/P1",
+    "new combined macOS full suite",
+    "real model request",
+    "A/B/actual human or business signoff",
+    "push/merge/PR/messages"
+  ]
+}

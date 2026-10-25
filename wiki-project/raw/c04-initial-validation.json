@@ -1,0 +1,51 @@
+{
+  "status": "failed-then-corrected",
+  "recordedAt": "2026-10-22T02:06:14.559456+08:00",
+  "taskBase": "0ccd72f8720479e2b689aeee521532bf585fc8bf",
+  "observations": [
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 1,
+      "cause": "Root tests/evaluation had no workspace dependency resolution; relocated the standalone harness under infrastructure, without adding dependencies or weakening boundaries."
+    },
+    {
+      "command": "pnpm eval:model --mode fixture",
+      "exitCode": 1,
+      "cause": "First parser pass exposed unresolved root imports; silent Vite loader and hmr/ws disabled. Initial row ID validation omitted underscore and was corrected."
+    },
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 1,
+      "cause": "QuoteLine unit belongs to product.unit, not line.unit; ES2022 findLast replaced with reverse/find."
+    },
+    {
+      "command": "pnpm eval:model --mode fixture",
+      "exitCode": 1,
+      "cause": "First assertion run used the wrong unit field and stopped dependent revisions; corrected against the actual public snapshot."
+    },
+    {
+      "command": "pnpm test",
+      "exitCode": 1,
+      "cause": "Full integration matrix exceeded the default 5 second unit timeout under concurrent local checks; bounded 20 seconds only for the two multi-case evaluation integration tests."
+    },
+    {
+      "command": "pnpm eval:model --mode fixture",
+      "exitCode": 1,
+      "cause": "New explicit retry expectation counted eight requests; actual bounded sequence is one rate-limit plus six tool calls = seven. Corrected expectation, retained original failed observation."
+    }
+  ],
+  "checks": [
+    {
+      "command": "pnpm test",
+      "exitCode": 1,
+      "recordedAt": "2026-10-22T02:03:08.983398+08:00",
+      "output": "\n> tradequote-agent@0.1.0 test /Users/jason/.codex/worktrees/c04-model-evaluation/tradequote-agent\n> node scripts/test-unit.mjs\n\n\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c04-model-evaluation/tradequote-agent\n\n ❯ packages/infrastructure/src/evaluation/evaluation.test.ts (4 tests | 1 failed) 5692ms\n   ❯ C04 evaluations against isolated real business services (4)\n     × evaluates three categories in three languages through V1/V2/V3, clarification, blocking and all failure probes 5139ms\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/evaluation/evaluation.test.ts > C04 evaluations against isolated real business services > evaluates three categories in three languages through V1/V2/V3, clarification, blocking and all failure probes\nError: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".\n ❯ packages/infrastructure/src/evaluation/evaluation.test.ts:9:3\n      7|\n      8| describe(\"C04 evaluations against isolated real business services\", ()…\n      9|   it(\"evaluates three categories in three languages through V1/V2/V3, …\n       |   ^\n     10|     const network = vi\n     11|       .spyOn(globalThis, \"fetch\")\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n\n Test Files  1 failed | 28 passed (29)\n      Tests  1 failed | 191 passed (192)\n   Start at  02:02:58\n   Duration  10.63s (import 52%, tests 38%, environment 7%, transform 3%, worker 1%)\n\n    Isolate  29 workers spawned · ~641ms startup each (spawn + environment, per file)\n             at least ~1.43s faster with isolate: false — reuses workers across files instead of one per file\n\n ELIFECYCLE  Test failed. See above for more details.\n"
+    },
+    {
+      "command": "pnpm eval:model --mode fixture",
+      "exitCode": 1,
+      "recordedAt": "2026-10-22T02:03:07.211634+08:00",
+      "output": "\n> tradequote-agent@0.1.0 eval:model /Users/jason/.codex/worktrees/c04-model-evaluation/tradequote-agent\n> node scripts/evaluate-model.mjs --mode fixture\n\n{\"mode\":\"fixture\",\"status\":\"failed\",\"cases\":48,\"modelCalls\":186,\"realRequests\":0}\n ELIFECYCLE  Command failed with exit code 1.\n"
+    }
+  ]
+}

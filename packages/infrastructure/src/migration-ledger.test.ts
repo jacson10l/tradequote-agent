@@ -3,9 +3,9 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import Database from "better-sqlite3";
 import { afterEach, expect, it } from "vitest";
-import { sqlFingerprint } from "./migration-lineage";
-import { identify, migrate, MIGRATION_STEPS, MigrationLineageError, seedTo } from "./migrations";
 import { SqliteWorkspaceRepository } from "./index";
+import { sqlFingerprint } from "./migration-lineage";
+import { identify, MIGRATION_STEPS, MigrationLineageError, migrate, seedTo } from "./migrations";
 
 const dirs: string[] = [];
 const temp = () => {
@@ -28,7 +28,9 @@ it("rejects corrupted registry before read-write open (N10)", () => {
   const db = new Database(file);
   try {
     migrate(db); // unified，user_version=8，registry 记录正确 hash
-    db.prepare("UPDATE migration_registry SET sql_hash='wrong' WHERE lineage='common' AND version=1").run();
+    db.prepare(
+      "UPDATE migration_registry SET sql_hash='wrong' WHERE lineage='common' AND version=1",
+    ).run();
   } finally {
     db.close();
   }
@@ -60,7 +62,9 @@ it("rejects legacy ledger claiming knowledge:6 on a c-v7 schema (N11)", () => {
   try {
     seedTo(db, { lineage: "c-run", version: 7 });
     db.exec("CREATE TABLE schema_migration(version INTEGER, sql_hash TEXT)");
-    db.prepare("INSERT INTO schema_migration(version,sql_hash) VALUES (6,?)").run(knowledgeFingerprint());
+    db.prepare("INSERT INTO schema_migration(version,sql_hash) VALUES (6,?)").run(
+      knowledgeFingerprint(),
+    );
     expect(() => identify(db)).toThrow(MigrationLineageError);
   } finally {
     db.close();

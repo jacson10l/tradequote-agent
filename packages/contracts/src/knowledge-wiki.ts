@@ -458,7 +458,6 @@ export const WikiCitationResolveInputSchema = z.strictObject({
   scope: scopeQuery,
   locale: LocaleSchema,
 });
-export type WikiCitationResolveInput = z.infer<typeof WikiCitationResolveInputSchema>;
 export const WikiSourceStateSchema = z.strictObject({
   sourceRevisionId: z.uuid(),
   lifecycleVersion: version,

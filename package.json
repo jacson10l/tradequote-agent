@@ -15,6 +15,7 @@
     "format": "biome check --write .",
     "check": "biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check",
     "test": "node scripts/test-unit.mjs",
+    "eval:model": "node scripts/evaluate-model.mjs",
     "test:e2e": "pnpm build && playwright test",
     "package:mac": "pnpm build && pnpm --filter @tradequote/desktop package:mac",
     "package:win": "pnpm build && pnpm --filter @tradequote/desktop package:win",

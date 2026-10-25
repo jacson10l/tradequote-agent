@@ -1,0 +1,293 @@
+{
+  "status": "passed",
+  "recordedAt": "2026-10-21T19:26:30.983823+08:00",
+  "taskBase": "4324dc85bdd00657831f7428496c60e5332bb428",
+  "integrationBase": "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+  "branch": "codex/c02b-desktop-read-tools",
+  "environment": {
+    "os": "Darwin",
+    "architecture": "arm64",
+    "node": "22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2"
+  },
+  "scope": "Formal agent.read contract/Main/Worker/preload/UI for four real read-only catalog/quote/calculation tools; no knowledge/rule registration or durable run/write tools. Synthetic model actions over isolated loopback HTTP; real Electron/SQLite/pricing.",
+  "checks": [
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 typecheck /Users/jason/.codex/worktrees/c-runtime-roadmap/tradequote-agent\n> tsc --noEmit\n\n"
+    },
+    {
+      "command": "pnpm test",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 test /Users/jason/.codex/worktrees/c-runtime-roadmap/tradequote-agent\n> node scripts/test-unit.mjs\n\n\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-runtime-roadmap/tradequote-agent\n\n\n Test Files  21 passed (21)\n      Tests  104 passed (104)\n   Start at  19:19:08\n   Duration  2.57s (import 64%, tests 19%, environment 11%, transform 6%, worker 1%)\n\n    Isolate  21 workers spawned · ~357ms startup each (spawn + environment, per file)\n             at least ~477ms faster with isolate: false — reuses workers across files instead of one per file\n\n"
+    },
+    {
+      "command": "pnpm wiki:test",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:test /Users/jason/.codex/worktrees/c-runtime-roadmap/tradequote-agent\n> node --test wiki-project/scripts/wiki-tools.test.mjs wiki-project/scripts/wiki-sync.test.mjs\n\nTAP version 13\n# Subtest: runtime version pin is a mandatory Wiki-synchronized configuration change\nok 1 - runtime version pin is a mandatory Wiki-synchronized configuration change\n  ---\n  duration_ms: 1.550916\n  type: 'test'\n  ...\n# Subtest: code with related knowledge, task and appended log passes\nok 2 - code with related knowledge, task and appended log passes\n  ---\n  duration_ms: 0.338458\n  type: 'test'\n  ...\n# Subtest: generated snapshots alone cannot satisfy knowledge/task/log changes\nok 3 - generated snapshots alone cannot satisfy knowledge/task/log changes\n  ---\n  duration_ms: 0.097041\n  type: 'test'\n  ...\n# Subtest: metadata-only or whitespace-only edits cannot satisfy semantic update\nok 4 - metadata-only or whitespace-only edits cannot satisfy semantic update\n  ---\n  duration_ms: 0.110584\n  type: 'test'\n  ...\n# Subtest: each source needs its own mapped knowledge, unrelated pages do not suffice\nok 5 - each source needs its own mapped knowledge, unrelated pages do not suffice\n  ---\n  duration_ms: 0.186167\n  type: 'test'\n  ...\n# Subtest: deleted source uses baseline mapping; unknown source fails\nok 6 - deleted source uses baseline mapping; unknown source fails\n  ---\n  duration_ms: 0.288125\n  type: 'test'\n  ...\n# Subtest: history rewrite and removed task do not pass\nok 7 - history rewrite and removed task do not pass\n  ---\n  duration_ms: 0.172167\n  type: 'test'\n  ...\n# Subtest: Wiki maintenance code requires workflow knowledge, not generated data\nok 8 - Wiki maintenance code requires workflow knowledge, not generated data\n  ---\n  duration_ms: 0.779209\n  type: 'test'\n  ...\n# Subtest: ordinary documentation-only edits do not trigger code delivery check\nok 9 - ordinary documentation-only edits do not trigger code delivery check\n  ---\n  duration_ms: 0.377125\n  type: 'test'\n  ...\n# Subtest: real Git baseline includes committed, unstaged and untracked sources\nok 10 - real Git baseline includes committed, unstaged and untracked sources\n  ---\n  duration_ms: 489.554333\n  type: 'test'\n  ...\n# Subtest: SVG assets require semantic Wiki, task and append-only log changes\nok 11 - SVG assets require semantic Wiki, task and append-only log changes\n  ---\n  duration_ms: 0.2525\n  type: 'test'\n  ...\n# Subtest: same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\nok 12 - same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\n  ---\n  duration_ms: 2571.484541\n  type: 'test'\n  ...\n# Subtest: source drift fails without writes; generation repairs snapshot while preserving ingest baseline\nok 13 - source drift fails without writes; generation repairs snapshot while preserving ingest baseline\n  ---\n  duration_ms: 1038.765958\n  type: 'test'\n  ...\n# Subtest: explicit ingest records a non-Git project honestly\nok 14 - explicit ingest records a non-Git project honestly\n  ---\n  duration_ms: 556.53275\n  type: 'test'\n  ...\n# Subtest: tool inventory names come from definitions, not nested headers/output/schema fields\nok 15 - tool inventory names come from definitions, not nested headers/output/schema fields\n  ---\n  duration_ms: 342.045375\n  type: 'test'\n  ...\n# Subtest: new unclassified source fails; missing knowledge target and stale mapping fail\nok 16 - new unclassified source fails; missing knowledge target and stale mapping fail\n  ---\n  duration_ms: 432.081916\n  type: 'test'\n  ...\n# Subtest: generated coverage tampering is detected by lint and remains untouched\nok 17 - generated coverage tampering is detected by lint and remains untouched\n  ---\n  duration_ms: 485.7985\n  type: 'test'\n  ...\n# Subtest: sensitive filename is excluded before read; external source symlink is not followed\nok 18 - sensitive filename is excluded before read; external source symlink is not followed\n  ---\n  duration_ms: 266.213583\n  type: 'test'\n  ...\n# Subtest: Wiki and generated-output symlinks cannot write outside project\nok 19 - Wiki and generated-output symlinks cannot write outside project\n  ---\n  duration_ms: 307.32825\n  type: 'test'\n  ...\n# Subtest: missing schema field\nok 20 - missing schema field\n  ---\n  duration_ms: 556.805292\n  type: 'test'\n  ...\n# Subtest: bad type\nok 21 - bad type\n  ---\n  duration_ms: 398.670333\n  type: 'test'\n  ...\n# Subtest: bad date\nok 22 - bad date\n  ---\n  duration_ms: 571.726167\n  type: 'test'\n  ...\n# Subtest: bad status\nok 23 - bad status\n  ---\n  duration_ms: 1316.853959\n  type: 'test'\n  ...\n# Subtest: missing wiki target\nok 24 - missing wiki target\n  ---\n  duration_ms: 820.90525\n  type: 'test'\n  ...\n# Subtest: missing markdown target\nok 25 - missing markdown target\n  ---\n  duration_ms: 891.385541\n  type: 'test'\n  ...\n# Subtest: invalid source line\nok 26 - invalid source line\n  ---\n  duration_ms: 1087.43425\n  type: 'test'\n  ...\n# Subtest: verified without code evidence\nok 27 - verified without code evidence\n  ---\n  duration_ms: 542.362333\n  type: 'test'\n  ...\n# Subtest: source escaping project\nok 28 - source escaping project\n  ---\n  duration_ms: 594.986584\n  type: 'test'\n  ...\n# Subtest: unfilled placeholder\nok 29 - unfilled placeholder\n  ---\n  duration_ms: 597.984167\n  type: 'test'\n  ...\n# Subtest: all sources are validated even after a valid implementation source\nok 30 - all sources are validated even after a valid implementation source\n  ---\n  duration_ms: 1014.016417\n  type: 'test'\n  ...\n# Subtest: orphan pages and duplicate basenames are rejected\nok 31 - orphan pages and duplicate basenames are rejected\n  ---\n  duration_ms: 1626.546458\n  type: 'test'\n  ...\n# Subtest: completed task requires actual verification record\nok 32 - completed task requires actual verification record\n  ---\n  duration_ms: 481.89225\n  type: 'test'\n  ...\n# Subtest: archived source cannot bypass inspection through silent changes\nok 33 - archived source cannot bypass inspection through silent changes\n  ---\n  duration_ms: 532.643417\n  type: 'test'\n  ...\n# Subtest: source references cannot open excluded runtime data\nok 34 - source references cannot open excluded runtime data\n  ---\n  duration_ms: 547.128625\n  type: 'test'\n  ...\n# Subtest: new JSON evidence is checked and sensitive Wiki filenames are rejected before read\nok 35 - new JSON evidence is checked and sensitive Wiki filenames are rejected before read\n  ---\n  duration_ms: 1152.520625\n  type: 'test'\n  ...\n# Subtest: secret/JWT/private-key/PII detections redact the value in diagnostics\nok 36 - secret/JWT/private-key/PII detections redact the value in diagnostics\n  ---\n  duration_ms: 2152.523584\n  type: 'test'\n  ...\n1..36\n# tests 36\n# suites 0\n# pass 36\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 20973.850584\n"
+    },
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs .",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"generate\",\n  \"files\": 169,\n  \"lines\": 43211,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n"
+    },
+    {
+      "command": "pnpm check",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 check /Users/jason/.codex/worktrees/c-runtime-roadmap/tradequote-agent\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 100 files in 60ms. No fixes applied.\nTAP version 13\n# Subtest: renderer cannot reach Node, database or desktop internals through import forms\nok 1 - renderer cannot reach Node, database or desktop internals through import forms\n  ---\n  duration_ms: 13.100334\n  type: 'test'\n  ...\n# Subtest: pure modules use public contracts while other platform dependencies are rejected\nok 2 - pure modules use public contracts while other platform dependencies are rejected\n  ---\n  duration_ms: 5.76925\n  type: 'test'\n  ...\n# Subtest: domain permits exact pure decimal dependency without opening contracts or SDK imports\nok 3 - domain permits exact pure decimal dependency without opening contracts or SDK imports\n  ---\n  duration_ms: 1.143042\n  type: 'test'\n  ...\n# Subtest: committed icon resources match their source manifest\nok 4 - committed icon resources match their source manifest\n  ---\n  duration_ms: 4.4585\n  type: 'test'\n  ...\n# Subtest: editing either SVG or packaged icon without generation blocks the build\nok 5 - editing either SVG or packaged icon without generation blocks the build\n  ---\n  duration_ms: 22.131\n  type: 'test'\n  ...\n# Subtest: macOS native process and runtime display TradeQuote while upstream Electron stays intact\nok 6 - macOS native process and runtime display TradeQuote while upstream Electron stays intact\n  ---\n  duration_ms: 854.987541\n  type: 'test'\n  ...\n1..6\n# tests 6\n# suites 0\n# pass 6\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 1101.583875\nModule boundaries passed\n\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-runtime-roadmap/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 169,\n  \"lines\": 43211,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 103,\n  \"semantic\": 87,\n  \"reachable\": 103\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 4324dc85bdd00657831f7428496c60e5332bb428",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"4324dc85bdd00657831f7428496c60e5332bb428\",\n  \"status\": \"passed\",\n  \"codeFiles\": 18,\n  \"knowledgePages\": 16,\n  \"tasks\": 2,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 24,\n  \"knowledgePages\": 26,\n  \"tasks\": 5,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "command": "git diff --cached --check",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "command": "pnpm test:e2e",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 test:e2e /Users/jason/.codex/worktrees/c-runtime-roadmap/tradequote-agent\n> pnpm build && playwright test\n\n\n> tradequote-agent@0.1.0 build /Users/jason/.codex/worktrees/c-runtime-roadmap/tradequote-agent\n> node scripts/check-icons.mjs && pnpm --filter @tradequote/desktop build\n\nApplication icons passed: SVG/1024 PNG/macOS ICNS/Windows ICO\n\n> @tradequote/desktop@0.1.0 build /Users/jason/.codex/worktrees/c-runtime-roadmap/tradequote-agent/apps/desktop\n> electron-vite build\n\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 248 modules transformed.\nrendering chunks...\nout/main/worker.js                 1.65 kB\nout/main/index.js                  9.87 kB\nout/main/chunks/src-Ct8HARnr.js  517.97 kB\n\n✓ built in 181ms\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 110 modules transformed.\nrendering chunks...\nout/preload/index.js  212.60 kB\n\n✓ built in 31ms\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 2108 modules transformed.\nrendering chunks...\nout/renderer/index.html                   0.64 kB\nout/renderer/assets/index-CwRFx4ey.css   14.34 kB\nout/renderer/assets/index-ChkPJuht.js   523.66 kB\n\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n✓ built in 361ms\n[WebServer] (node:19169) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (node:19184) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:\n[WebServer]   - ESM syntax in a file loaded as CommonJS (vite.renderer.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\n[WebServer]   - ESM syntax in a file loaded as CommonJS (electron.vite.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\n[WebServer] Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.\n\nRunning 6 tests using 1 worker\n\n(node:19204) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n  ✓  1 tests/e2e/feedback.spec.ts:8:1 › desktop feedback floats above content and recovers through the notification action (2.3s)\n  ✓  2 tests/e2e/quote-agent.spec.ts:9:1 › desktop settings and HTTP adapter support inquiry plus two saved revisions, differences, failures and reopen (5.1s)\n  ✓  3 tests/e2e/quote-v1.spec.ts:11:1 › real desktop imports CSV with confirmation, saves deterministic V1 and reopens frozen evidence (4.0s)\n  ✓  4 tests/e2e/read-assistant.spec.ts:9:1 › formal desktop read assistant executes four real tools, shows facts, guards missing tools and never saves (4.4s)\n  ✓  5 tests/e2e/workspace.spec.ts:8:1 › development renderer runs with React refresh and the real desktop bridge (2.3s)\n  ✓  6 tests/e2e/workspace.spec.ts:33:1 › real desktop persists workspace, validates IPC, handles conflict and reopens (4.5s)\n\n  6 passed (24.3s)\n"
+    },
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 typecheck /Users/jason/.codex/worktrees/c-runtime-roadmap/tradequote-agent\n> tsc --noEmit\n\n"
+    },
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs .",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"generate\",\n  \"files\": 169,\n  \"lines\": 43212,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n"
+    },
+    {
+      "command": "pnpm check",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 check /Users/jason/.codex/worktrees/c-runtime-roadmap/tradequote-agent\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 100 files in 88ms. No fixes applied.\nTAP version 13\n# Subtest: renderer cannot reach Node, database or desktop internals through import forms\nok 1 - renderer cannot reach Node, database or desktop internals through import forms\n  ---\n  duration_ms: 15.828042\n  type: 'test'\n  ...\n# Subtest: pure modules use public contracts while other platform dependencies are rejected\nok 2 - pure modules use public contracts while other platform dependencies are rejected\n  ---\n  duration_ms: 3.195166\n  type: 'test'\n  ...\n# Subtest: domain permits exact pure decimal dependency without opening contracts or SDK imports\nok 3 - domain permits exact pure decimal dependency without opening contracts or SDK imports\n  ---\n  duration_ms: 0.71575\n  type: 'test'\n  ...\n# Subtest: committed icon resources match their source manifest\nok 4 - committed icon resources match their source manifest\n  ---\n  duration_ms: 2.870292\n  type: 'test'\n  ...\n# Subtest: editing either SVG or packaged icon without generation blocks the build\nok 5 - editing either SVG or packaged icon without generation blocks the build\n  ---\n  duration_ms: 9.365\n  type: 'test'\n  ...\n# Subtest: macOS native process and runtime display TradeQuote while upstream Electron stays intact\nok 6 - macOS native process and runtime display TradeQuote while upstream Electron stays intact\n  ---\n  duration_ms: 567.655375\n  type: 'test'\n  ...\n1..6\n# tests 6\n# suites 0\n# pass 6\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 641.588708\nModule boundaries passed\n\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-runtime-roadmap/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 169,\n  \"lines\": 43212,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 103,\n  \"semantic\": 87,\n  \"reachable\": 103\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 4324dc85bdd00657831f7428496c60e5332bb428",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"4324dc85bdd00657831f7428496c60e5332bb428\",\n  \"status\": \"passed\",\n  \"codeFiles\": 19,\n  \"knowledgePages\": 16,\n  \"tasks\": 2,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 25,\n  \"knowledgePages\": 26,\n  \"tasks\": 5,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "command": "git diff --cached --check",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "phase": "final-document-state",
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 169,\n  \"lines\": 43212,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n"
+    },
+    {
+      "phase": "final-document-state",
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exitCode": 0,
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 103,\n  \"semantic\": 87,\n  \"reachable\": 103\n}\n"
+    },
+    {
+      "phase": "final-document-state",
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 4324dc85bdd00657831f7428496c60e5332bb428",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"4324dc85bdd00657831f7428496c60e5332bb428\",\n  \"status\": \"passed\",\n  \"codeFiles\": 19,\n  \"knowledgePages\": 16,\n  \"tasks\": 2,\n  \"errors\": []\n}\n"
+    },
+    {
+      "phase": "final-document-state",
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 25,\n  \"knowledgePages\": 26,\n  \"tasks\": 5,\n  \"errors\": []\n}\n"
+    },
+    {
+      "phase": "final-document-state",
+      "command": "git diff --check",
+      "exitCode": 0,
+      "output": ""
+    }
+  ],
+  "notRun": [
+    "Real DeepSeek account/model semantics: no actual account credentials read or used",
+    "Knowledge/rule services: search_knowledge and validate_quote remain unregistered",
+    "C01b R01-R20 recovery, public cancellation/events and C02c write ledger: not implemented",
+    "Windows, signed installers and installation/upgrade acceptance: postponed"
+  ],
+  "visualReview": {
+    "initialFinding": "Existing basis style right-aligned facts/source text; replaced with independent left-aligned result sections and numeric amount cells.",
+    "initialScreenshotsPreserved": [
+      ".runtime/c02b-read-desktop-initial.png",
+      ".runtime/c02b-read-narrow-initial.png"
+    ],
+    "finalScreenshotsPendingReview": false,
+    "reviewed": true,
+    "finalFindings": "Task form and 900px result view inspected: facts/sources left aligned, numeric cells right aligned; navigation accessible and source text readable.",
+    "screenshots": [
+      {
+        "path": ".runtime/c02b-read-form.png",
+        "width": 2760,
+        "height": 1624,
+        "sha256": "796bc833089011dc89690bcdb516c4fdc4f1648123e4dea73f27623fd7ae8659"
+      },
+      {
+        "path": ".runtime/c02b-read-desktop.png",
+        "width": 2760,
+        "height": 1624,
+        "sha256": "fd86f03148c24018c2b0815d1591f8f2341656cb7cc583cae84f5fcf9c1cc6e9"
+      },
+      {
+        "path": ".runtime/c02b-read-narrow.png",
+        "width": 1800,
+        "height": 1280,
+        "sha256": "6934f582cb9f953e8e5f6e322d30172a40173f42b47020f5563f162d7bf7e514"
+      },
+      {
+        "path": ".runtime/c02b-read-desktop-initial.png",
+        "width": 2760,
+        "height": 1624,
+        "sha256": "2bf4e40b2ac6653b20db1e17d35811e2701c7b0e5f25d74de2652616ae69b5f0"
+      },
+      {
+        "path": ".runtime/c02b-read-narrow-initial.png",
+        "width": 1800,
+        "height": 1280,
+        "sha256": "26d935ba718f117f45b3316434a1735ec9e1b4a53facca0aff03a3d3b3b1f9bf"
+      }
+    ]
+  },
+  "summary": {
+    "unitTests": 104,
+    "newUnitTests": 12,
+    "electronTests": 6,
+    "newElectronTests": 1,
+    "engineeringTests": 6,
+    "wikiToolTests": 36,
+    "formalReadEntryWired": true,
+    "businessWritesByReadEntry": false,
+    "registeredReadTools": [
+      "search_catalog",
+      "get_product_revisions",
+      "get_quote",
+      "calculate_quote (only with saved scenario)"
+    ],
+    "unregisteredTools": [
+      "search_knowledge",
+      "validate_quote"
+    ]
+  },
+  "initialEvidence": "raw/c02b-desktop-initial-validation.json",
+  "historyPreservation": {
+    "logBaselinePrefixUnchanged": true,
+    "unchangedRawFiles": [
+      "wiki-project/raw/a01-wiki-plan-validation.json",
+      "wiki-project/raw/agent-initial-validation.json",
+      "wiki-project/raw/agent-validation.json",
+      "wiki-project/raw/b00-c-reverification.json",
+      "wiki-project/raw/b00-delivery.json",
+      "wiki-project/raw/b00-e2e-initial-validation.json",
+      "wiki-project/raw/b00-initial-validation.json",
+      "wiki-project/raw/b00-validation.json",
+      "wiki-project/raw/branch-consolidation-delivery.json",
+      "wiki-project/raw/branch-consolidation-preservation.json",
+      "wiki-project/raw/branch-consolidation-validation.json",
+      "wiki-project/raw/c-runtime-initial-validation.json",
+      "wiki-project/raw/c-runtime-validation.json",
+      "wiki-project/raw/c01a-b00-review.json",
+      "wiki-project/raw/c01a-ci-startup.json",
+      "wiki-project/raw/c01a-initial-validation.json",
+      "wiki-project/raw/c01a-p2-red.json",
+      "wiki-project/raw/c01a-p2-validation.json",
+      "wiki-project/raw/c01a-reverification.json",
+      "wiki-project/raw/c01a-validation.json",
+      "wiki-project/raw/c01b-dependency-audit.json",
+      "wiki-project/raw/c01b-dependency-validation.json",
+      "wiki-project/raw/c01b-plan-initial-validation.json",
+      "wiki-project/raw/c01b-plan-validation.json",
+      "wiki-project/raw/c02b-initial-validation.json",
+      "wiki-project/raw/c02b-validation.json",
+      "wiki-project/raw/compact-layout-initial-validation.json",
+      "wiki-project/raw/compact-layout-validation-attempt.json",
+      "wiki-project/raw/compact-layout-validation.json",
+      "wiki-project/raw/competition-alignment-validation.json",
+      "wiki-project/raw/design/claude-original.md",
+      "wiki-project/raw/design/mistral-original.md",
+      "wiki-project/raw/desktop-name-initial-validation.json",
+      "wiki-project/raw/desktop-name-validation.json",
+      "wiki-project/raw/feedback-final-check.json",
+      "wiki-project/raw/feedback-validation.json",
+      "wiki-project/raw/file-provenance.json",
+      "wiki-project/raw/ingest-baseline.json",
+      "wiki-project/raw/inputs/2026-10-21-参赛任务截图.png",
+      "wiki-project/raw/inputs/2026-10-21-参赛任务转录.md",
+      "wiki-project/raw/inputs/外贸询报价协同 Agent 完整产品与实施方案.md",
+      "wiki-project/raw/inputs/项目构建技术栈.md",
+      "wiki-project/raw/local-verification-actions.json",
+      "wiki-project/raw/local-verification-validation.json",
+      "wiki-project/raw/m0-platform-wiki-validation.json",
+      "wiki-project/raw/m1-final-wiki-validation.json",
+      "wiki-project/raw/m1-initial-validation.json",
+      "wiki-project/raw/m1-ui-contract-finalization-attempt.json",
+      "wiki-project/raw/m1-ui-contract-initial-validation.json",
+      "wiki-project/raw/m1-ui-contract-validation.json",
+      "wiki-project/raw/m1-validation.json",
+      "wiki-project/raw/mac-first-initial-validation.json",
+      "wiki-project/raw/mac-first-validation.json",
+      "wiki-project/raw/parallel-handoff-git.json",
+      "wiki-project/raw/parallel-handoff-validation.json",
+      "wiki-project/raw/planning-checks.json",
+      "wiki-project/raw/quote-v1-initial-validation.json",
+      "wiki-project/raw/quote-v1-validation-attempt.json",
+      "wiki-project/raw/quote-v1-validation.json",
+      "wiki-project/raw/source-manifest.md",
+      "wiki-project/raw/tech-stack-review-validation.json",
+      "wiki-project/raw/upstream-audit.json",
+      "wiki-project/raw/wiki-sync-validation.json",
+      "wiki-project/raw/wiki-tools.tap",
+      "wiki-project/raw/wiki-validation.json",
+      "wiki-project/raw/规划期来源核查.md"
+    ],
+    "initialFailureEvidenceSha256": "fdf4fd8cfec473cedcd43f92b15b0494deae75f0f30c414523c37d6f23705a95"
+  },
+  "sourceHashes": {
+    "apps/desktop/src/main/index.ts": "0ef93c88eaedce4148a3832f9f49223b46802062f10ca3dc16c26e29a8658753",
+    "apps/desktop/src/main/worker-client.test.ts": "a06a729dceb2cea403f601c4a8a77c671ad49958ccaa1c7c718acc6c07affdf5",
+    "apps/desktop/src/main/worker-client.ts": "599ced810909eac5aafe963cb4d7eb5ba75805b302049d5f11ee322126fc9d43",
+    "apps/desktop/src/preload/contracts.test.ts": "96ab392432858fcab2aba58cc31b14ce967784144e34339b447bdf16970a6536",
+    "apps/desktop/src/preload/index.ts": "48c4da350b83ab80e465e3bb4345d5a21223ca69ce8454b13e1db259d198d525",
+    "apps/desktop/src/renderer/src/App.tsx": "56fbf1a39cbfd9ab4e252bd00a9e6f5f5c9c896715167c263e4b410b6088d500",
+    "apps/desktop/src/renderer/src/features/read-assistant.tsx": "bcd9eebdccbb2b3597de1208930947145b8a69d5a76744e445612890757181da",
+    "apps/desktop/src/workers/business.ts": "9a3ad744ee7e7973a20a3b8426a3df1dd26ae2e13cd7b7b509a73bf28c6428a9",
+    "packages/contracts/src/index.ts": "d7243b536a06f2e69f30a3f969b7ee997c62178bce8a6aaa3fa6e7d5c97fc94e",
+    "packages/contracts/src/mock.ts": "19b37b5946974a51f42c28e0b63630c5c9d1abe3119c9af07bdd129fcb254ca2",
+    "packages/contracts/src/read-tools.test.ts": "089bf3010b35975441ef54ae8e7bef5684865825db6dbdd41efaf7513057b20f",
+    "packages/contracts/src/read-tools.ts": "d6321c746a53ee483b433dd1d7dad01524424632ede1f01d289c148c42825569",
+    "packages/infrastructure/src/catalog-quote-read-agent.ts": "a69822d8e3019ea9144eebe5cc84a30985b613f2bad60bc7c1b4b0e20e3517d5",
+    "packages/infrastructure/src/catalog-quote-read-service.test.ts": "8d2e9441f9d7493efe7e1c9bd86b913fe2f5ec3003246b45b7b2990da996f34e",
+    "packages/infrastructure/src/catalog-quote-read-service.ts": "a369c9744d7e375d55afb8c330fff224ad0f4b317360b4adeb2ab029b2a8cfc2",
+    "packages/infrastructure/src/index.ts": "49027c8081f7d07ebc317b07a97c18f08d9c27c7a098d2579b576b23b018a821",
+    "tests/e2e/read-assistant.spec.ts": "0bf673427e4f988623f2cc6851f2418f58353363756469e2eb1a2377456cb5d1",
+    "tests/e2e/workspace.spec.ts": "9edbb531268609670f5ed79dee9400b1c80b15acd4b92b6b2f58ac93bc337c5e"
+  }
+}

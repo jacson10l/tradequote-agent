@@ -4,6 +4,7 @@ import {
   type DesktopClient,
   failure,
   type KnowledgeRevision,
+  ModelEvaluationCommandSchema,
   success,
   unavailableFirstBatchClient,
   type Workspace,
@@ -16,7 +17,20 @@ export const mockWorkspace: Workspace = {
 };
 /** Read-only UI fixture. No persistence or successful fake writes. */
 export const readonlyMockClient: DesktopClient = {
+  modelEvaluation: async (command) => ({
+    ok: false,
+    error: {
+      code: ModelEvaluationCommandSchema.safeParse(command).success
+        ? "CAPABILITY_UNAVAILABLE"
+        : "VALIDATION_ERROR",
+      message: "请在正式桌面模型设置中运行评估",
+      retryable: false,
+      issues: [],
+    },
+  }),
   ...unavailableFirstBatchClient,
+  readAgent: async () =>
+    failure("CAPABILITY_UNAVAILABLE", "只读样例不能调用模型，请在桌面应用使用只读助手"),
   understandInquiry: async () => failure("CAPABILITY_UNAVAILABLE", "只读样例不能调用模型"),
   reviseQuote: async () => failure("CAPABILITY_UNAVAILABLE", "只读样例不能调用模型"),
   modelSettings: async () => failure("CAPABILITY_UNAVAILABLE", "请在桌面应用中配置模型"),
@@ -142,6 +156,7 @@ export const mockAgentRun = {
   updatedAt: mockWorkspace.createdAt,
   baseRevisionId: null,
   committedRevisionId: null,
+  clarification: null,
   error: null,
 } satisfies AgentRun;
 

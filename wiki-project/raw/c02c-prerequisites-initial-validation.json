@@ -1,0 +1,26 @@
+{
+  "status": "failed",
+  "checks": [
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 1,
+      "result": "新增 agent.list 后 preload 联合分发测试缺少列表分支；补齐调用方后复验。"
+    },
+    {
+      "command": "pnpm typecheck && pnpm test",
+      "exitCode": 1,
+      "result": "测试夹具 start 返回联合类型导致修改 buyer 时无法收窄；改为保留字面量类型。test 未执行。"
+    },
+    {
+      "command": "python3 .runtime/verify-preservation.py",
+      "exitCode": 1,
+      "output": "fatal: path '\"wiki-project/raw/inputs/2026-10-21-\\345\\217\\202\\350\\265\\233\\344\\273\\273\\345\\212\\241\\346\\210\\252\\345\\233\\276.png\"' does not exist in '644c5ed'\nTraceback (most recent call last):\n  File \"/Users/jason/.codex/worktrees/c02c-run-prerequisites/tradequote-agent/.runtime/verify-preservation.py\", line 7, in <module>\n    prior=subprocess.check_output(['git','show',ref+':'+f])\n  File \"/opt/homebrew/Cellar/python@3.9/3.9.12/Frameworks/Python.framework/Versions/3.9/lib/python3.9/subprocess.py\", line 424, in check_output\n    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,\n  File \"/opt/homebrew/Cellar/python@3.9/3.9.12/Frameworks/Python.framework/Versions/3.9/lib/python3.9/subprocess.py\", line 528, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['git', 'show', '644c5ed:\"wiki-project/raw/inputs/2026-10-21-\\\\345\\\\217\\\\202\\\\350\\\\265\\\\233\\\\344\\\\273\\\\273\\\\345\\\\212\\\\241\\\\346\\\\210\\\\252\\\\345\\\\233\\\\276.png\"']' returned non-zero exit status 128.\n",
+      "recordedAt": "2026-10-21T21:33:30.315245+08:00"
+    },
+    {
+      "command": "pnpm exec biome check wiki-project/raw/c02c-prerequisites-validation.json wiki-project/raw/c02c-prerequisites-initial-validation.json",
+      "exitCode": 1,
+      "result": "No files processed: raw evidence is intentionally excluded by existing Biome configuration. No exclusions changed. Use the project wiki lint for JSON evidence; pnpm check already passed."
+    }
+  ]
+}

@@ -2,6 +2,8 @@ import { randomUUID } from "node:crypto";
 import {
   failure,
   type ModelCredentials,
+  type RunEventsSignal,
+  RunEventsSignalSchema,
   type RuntimeCommand,
   type RuntimeResult,
   WorkerReplySchema,
@@ -9,18 +11,73 @@ import {
 import { type UtilityProcess, utilityProcess } from "electron";
 
 export class BusinessWorker {
-  private readonly child: UtilityProcess;
-  private exited = false;
+  private child: UtilityProcess | undefined;
+  private closing = false;
+  private connected = false;
+  private readonly eventListeners = new Set<(signal: RunEventsSignal) => void>();
+  private ready: Promise<boolean> = Promise.resolve(false);
+  private exit: Promise<void> = Promise.resolve();
   private readonly pending = new Map<
     string,
-    { resolve: (result: RuntimeResult) => void; timer: ReturnType<typeof setTimeout> }
+    {
+      resolve: (result: RuntimeResult) => void;
+      timer: ReturnType<typeof setTimeout>;
+      readOnly: boolean;
+    }
   >();
-  constructor(entry: string, database: string, fixture?: string) {
-    this.child = utilityProcess.fork(entry, [database, ...(fixture ? [fixture] : [])], {
-      serviceName: "TradeQuote Business",
-      stdio: "ignore",
+  constructor(
+    private readonly entry: string,
+    private readonly database: string,
+    private readonly fixture?: string,
+  ) {
+    this.start();
+  }
+  private start() {
+    if (this.child || this.closing) return;
+    const child = utilityProcess.fork(
+      this.entry,
+      [this.database, ...(this.fixture ? [this.fixture] : [])],
+      {
+        serviceName: "TradeQuote Business",
+        stdio: "ignore",
+      },
+    );
+    this.child = child;
+    let ready = (value: boolean) => {
+      void value;
+    };
+    let exited = () => {};
+    this.ready = new Promise<boolean>((resolve) => {
+      ready = resolve;
     });
-    this.child.on("message", (message: unknown) => {
+    this.exit = new Promise<void>((resolve) => {
+      exited = resolve;
+    });
+    const startup = setTimeout(() => {
+      ready(false);
+      child.kill();
+    }, 15000);
+    child.on("message", (message: unknown) => {
+      if (this.child !== child) return;
+      if (
+        typeof message === "object" &&
+        message !== null &&
+        "type" in message &&
+        message.type === "ready" &&
+        Object.keys(message).length === 1
+      ) {
+        clearTimeout(startup);
+        this.connected = true;
+        if (this.eventListeners.size) this.watchEvents(true);
+        this.notify({ type: "events.connection", connected: true });
+        ready(true);
+        return;
+      }
+      const signal = RunEventsSignalSchema.safeParse(message);
+      if (signal.success && signal.data.type === "events.available") {
+        this.notify(signal.data);
+        return;
+      }
       const parsed = WorkerReplySchema.safeParse(message);
       if (!parsed.success) return;
       const pending = this.pending.get(parsed.data.id);
@@ -29,39 +86,116 @@ export class BusinessWorker {
       this.pending.delete(parsed.data.id);
       pending.resolve(parsed.data.result);
     });
-    this.child.on("exit", () => {
-      this.exited = true;
-      this.rejectPending();
+    child.on("exit", () => {
+      clearTimeout(startup);
+      ready(false);
+      if (this.child === child) {
+        this.child = undefined;
+        this.connected = false;
+        this.notify({ type: "events.connection", connected: false });
+        this.rejectPending();
+      }
+      exited();
     });
+  }
+  onRunEvents(listener: (signal: RunEventsSignal) => void) {
+    if (this.closing) return () => {};
+    const first = this.eventListeners.size === 0;
+    this.eventListeners.add(listener);
+    if (this.connected) {
+      if (first) this.watchEvents(true);
+      try {
+        listener({ type: "events.connection", connected: true });
+      } catch {
+        /* observational */
+      }
+    }
+    return () => {
+      if (!this.eventListeners.delete(listener)) return;
+      if (!this.eventListeners.size && this.connected) this.watchEvents(false);
+    };
+  }
+  private watchEvents(enabled: boolean) {
+    try {
+      this.child?.postMessage({ type: "events.watch", enabled });
+    } catch {
+      this.child?.kill();
+    }
+  }
+  private notify(signal: RunEventsSignal) {
+    for (const listener of this.eventListeners) {
+      try {
+        listener(signal);
+      } catch {
+        /* A dead view cannot change worker ownership. */
+      }
+    }
   }
   private rejectPending() {
     for (const pending of this.pending.values()) {
       clearTimeout(pending.timer);
       pending.resolve(
-        failure("CAPABILITY_UNAVAILABLE", "业务进程不可用，请重启应用；重试将复用操作标识"),
+        failure(
+          "CAPABILITY_UNAVAILABLE",
+          pending.readOnly
+            ? "只读任务连接中断，未保存报价；重新运行会再次调用模型"
+            : "业务进程已退出，请刷新运行记录；中断任务须显式重试",
+        ),
       );
     }
     this.pending.clear();
   }
-  request(command: RuntimeCommand, credentials?: ModelCredentials): Promise<RuntimeResult> {
-    if (this.exited || this.pending.size >= 50)
-      return Promise.resolve(failure("CAPABILITY_UNAVAILABLE", "业务进程暂不可用，请重试"));
+  async request(command: RuntimeCommand, credentials?: ModelCredentials): Promise<RuntimeResult> {
+    if (this.closing || this.pending.size >= 50)
+      return failure("CAPABILITY_UNAVAILABLE", "业务进程暂不可用，请重试");
+    // An exit event is the only place that clears child. No overlapping writers and
+    // no request replay: a later user query may create a fresh, recovery-only worker.
+    if (!this.child) this.start();
+    const child = this.child;
+    if (!(await this.ready) || !child || child !== this.child || this.closing)
+      return failure("CAPABILITY_UNAVAILABLE", "业务进程尚未就绪，请刷新运行记录");
+    if (this.pending.size >= 50) return failure("CAPABILITY_UNAVAILABLE", "业务进程请求过多");
     return new Promise((resolve) => {
       const id = randomUUID();
       const timer = setTimeout(
         () => {
           this.pending.delete(id);
-          resolve(failure("CAPABILITY_UNAVAILABLE", "保存结果未知，请重试同一操作或重新加载"));
+          resolve(
+            failure(
+              "CAPABILITY_UNAVAILABLE",
+              command.method === "agent.read"
+                ? "只读任务等待超时，未保存报价；重新运行会再次调用模型"
+                : "保存结果未知，请刷新运行记录；中断任务须显式重试",
+            ),
+          );
+          // Terminate the uncertain writer; do not spawn until its exit is observed.
+          child.kill();
         },
-        command.method.startsWith("agent.") ? 60000 : 15000,
+        command.method === "agent.read"
+          ? 135000
+          : command.method === "agent.understand" || command.method === "agent.revise"
+            ? command.payload.executionMode === "tool_loop"
+              ? 135000
+              : 60000
+            : 15000,
       );
-      this.pending.set(id, { resolve, timer });
-      this.child.postMessage({ id, command, ...(credentials ? { credentials } : {}) });
+      this.pending.set(id, { resolve, timer, readOnly: command.method === "agent.read" });
+      try {
+        child.postMessage({ id, command, ...(credentials ? { credentials } : {}) });
+      } catch {
+        child.kill();
+        clearTimeout(timer);
+        this.pending.delete(id);
+        resolve(failure("CAPABILITY_UNAVAILABLE", "业务连接中断，请刷新运行记录"));
+      }
     });
   }
-  close() {
-    this.exited = true;
+  async close() {
+    this.closing = true;
+    if (this.connected && this.eventListeners.size) this.watchEvents(false);
+    this.eventListeners.clear();
     this.rejectPending();
-    this.child.kill();
+    this.child?.kill();
+    await this.exit;
   }
 }

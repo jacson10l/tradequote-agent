@@ -1,8 +1,13 @@
 import { mkdirSync } from "node:fs";
-import { open } from "node:fs/promises";
+import { open, writeFile } from "node:fs/promises";
 import { basename, extname, join } from "node:path";
 import { pathToFileURL } from "node:url";
-import { failure, ModelSettingsCommandSchema, RuntimeCommandSchema } from "@tradequote/contracts";
+import {
+  failure,
+  ModelEvaluationCommandSchema,
+  ModelSettingsCommandSchema,
+  RuntimeCommandSchema,
+} from "@tradequote/contracts";
 import { TradeFault } from "@tradequote/domain";
 import { DeepSeekProvider, ModelSettingsStore } from "@tradequote/infrastructure";
 import {
@@ -14,7 +19,9 @@ import {
   nativeImage,
   safeStorage,
   session,
+  utilityProcess,
 } from "electron";
+import { ModelEvaluationHost } from "./evaluation-host";
 import { BusinessWorker } from "./worker-client";
 
 // Preserve the existing data directory when setting the runtime display name.
@@ -29,6 +36,7 @@ if (!app.isPackaged && process.env.TRADEQUOTE_TEST_DATA) {
 }
 const locked = app.requestSingleInstanceLock();
 let worker: BusinessWorker | undefined;
+let evaluation: ModelEvaluationHost | undefined;
 let window: BrowserWindow | undefined;
 if (!locked) app.quit();
 else {
@@ -62,6 +70,16 @@ else {
         },
       );
       await settings.init();
+      evaluation = new ModelEvaluationHost(
+        join(app.getPath("userData"), "model-evaluations"),
+        () =>
+          utilityProcess.fork(join(__dirname, "evaluation.js"), [], {
+            serviceName: "TradeQuote Model Evaluation",
+            stdio: "ignore",
+          }),
+        () => settings.getCredentials(),
+        fixture,
+      );
       let settingsBusy = false;
       worker = new BusinessWorker(
         join(__dirname, "worker.js"),
@@ -98,6 +116,57 @@ else {
         event.sender === window.webContents &&
         event.senderFrame === window.webContents.mainFrame &&
         event.senderFrame.url.split("#")[0] === rendererUrl.split("#")[0];
+      for (const method of [
+        "modelEvaluation.start",
+        "modelEvaluation.list",
+        "modelEvaluation.cancel",
+        "modelEvaluation.export",
+      ] as const) {
+        ipcMain.handle(method, async (event, input: unknown) => {
+          if (!trusted(event)) return failure("ACTION_NOT_ALLOWED", "调用来源不允许");
+          const parsed = ModelEvaluationCommandSchema.safeParse(input);
+          if (!parsed.success || parsed.data.method !== method)
+            return failure("VALIDATION_ERROR", "评估请求字段不合法");
+          if (method === "modelEvaluation.start" && settingsBusy)
+            return failure("CAPABILITY_UNAVAILABLE", "请等待模型设置保存完成后再启动评估");
+          const result =
+            evaluation?.execute(parsed.data) ?? failure("CAPABILITY_UNAVAILABLE", "评估宿主未就绪");
+          if (!result.ok || result.data.kind !== "export") return result;
+          if (!window) return failure("ACTION_NOT_ALLOWED", "窗口已关闭");
+          try {
+            const selected = await dialog.showSaveDialog(window, {
+              title: "保存脱敏评估报告",
+              defaultPath: result.data.filename,
+              filters: [
+                {
+                  name:
+                    parsed.data.method === "modelEvaluation.export" &&
+                    parsed.data.payload.format === "json"
+                      ? "JSON"
+                      : "Markdown",
+                  extensions: [result.data.filename.endsWith(".json") ? "json" : "md"],
+                },
+              ],
+            });
+            if (selected.canceled || !selected.filePath)
+              return {
+                ok: true,
+                data: { kind: "saved", saved: false },
+                warnings: [],
+                evidenceIds: [],
+              };
+            await writeFile(selected.filePath, result.data.content, { mode: 0o600 });
+            return {
+              ok: true,
+              data: { kind: "saved", saved: true },
+              warnings: [],
+              evidenceIds: [],
+            };
+          } catch {
+            return failure("STORAGE_ERROR", "脱敏报告保存失败，请重新选择位置");
+          }
+        });
+      }
       for (const method of ["model.status", "model.save", "model.clear", "model.test"] as const) {
         ipcMain.handle(method, async (event, input: unknown) => {
           if (!trusted(event)) return failure("ACTION_NOT_ALLOWED", "调用来源不允许");
@@ -179,6 +248,13 @@ else {
         "quote.createV1",
         "agent.understand",
         "agent.revise",
+        "agent.read",
+        "agent.start",
+        "agent.get",
+        "agent.list",
+        "agent.events",
+        "agent.cancel",
+        "agent.retry",
       ] as const) {
         ipcMain.handle(method, (event, input: unknown) => {
           if (
@@ -195,12 +271,29 @@ else {
           return (
             worker?.request(
               parsed.data,
-              parsed.data.method.startsWith("agent.") ? settings.getCredentials() : undefined,
+              [
+                "agent.read",
+                "agent.start",
+                "agent.retry",
+                "agent.understand",
+                "agent.revise",
+              ].includes(parsed.data.method)
+                ? settings.getCredentials()
+                : undefined,
             ) ?? failure("CAPABILITY_UNAVAILABLE", "业务进程未启动")
           );
         });
       }
+      const releaseEvents = worker.onRunEvents((signal) => {
+        if (
+          window &&
+          !window.webContents.isDestroyed() &&
+          window.webContents.getURL().split("#")[0] === rendererUrl.split("#")[0]
+        )
+          window.webContents.send("agent.events.signal", signal);
+      });
       window.on("closed", () => {
+        releaseEvents();
         window = undefined;
       });
       void window.loadURL(rendererUrl);
@@ -209,5 +302,16 @@ else {
       app.exit(1);
     });
   app.on("window-all-closed", () => app.quit());
-  app.on("before-quit", () => worker?.close());
+  let quitting = false;
+  let workerStopped = false;
+  app.on("before-quit", (event) => {
+    if (workerStopped || (!worker && !evaluation)) return;
+    event.preventDefault();
+    if (quitting) return;
+    quitting = true;
+    void Promise.all([worker?.close(), evaluation?.close()]).then(() => {
+      workerStopped = true;
+      app.quit();
+    });
+  });
 }

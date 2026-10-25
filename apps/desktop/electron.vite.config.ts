@@ -7,7 +7,11 @@ export default defineConfig({
   main: {
     build: {
       rollupOptions: {
-        input: { index: resolve("src/main/index.ts"), worker: resolve("src/workers/business.ts") },
+        input: {
+          index: resolve("src/main/index.ts"),
+          worker: resolve("src/workers/business.ts"),
+          evaluation: resolve("src/workers/evaluation.ts"),
+        },
       },
     },
   },

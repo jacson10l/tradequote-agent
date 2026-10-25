@@ -1,13 +1,13 @@
 import type Database from "better-sqlite3";
 import {
-  capabilityId,
-  identifyLineage,
-  sqlFingerprint,
   type CapabilityId,
   type CapabilityLineage,
+  capabilityId,
   type ForeignKeyRef,
   type Identification,
+  identifyLineage,
   type MigrationLineage,
+  sqlFingerprint,
 } from "./migration-lineage";
 
 /**
@@ -286,7 +286,9 @@ interface SchemaSnapshot {
 export function snapshotSchema(db: Database.Database): SchemaSnapshot {
   const userVersion = Number(db.pragma("user_version", { simple: true }));
   const objects = db
-    .prepare("SELECT type,name,tbl_name,sql FROM sqlite_master WHERE type IN ('table','index','trigger')")
+    .prepare(
+      "SELECT type,name,tbl_name,sql FROM sqlite_master WHERE type IN ('table','index','trigger')",
+    )
     .all() as { type: string; name: string; tbl_name: string; sql: string | null }[];
   const columns: Record<string, string[]> = {};
   const foreignKeys: ForeignKeyRef[] = [];
@@ -368,9 +370,11 @@ export function verifyRegistryLedger(db: Database.Database, id: Identification):
     .prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='migration_registry'")
     .get();
   if (!hasRegistry) return;
-  const rows = db
-    .prepare("SELECT lineage, version, sql_hash FROM migration_registry")
-    .all() as { lineage: string; version: number; sql_hash: string }[];
+  const rows = db.prepare("SELECT lineage, version, sql_hash FROM migration_registry").all() as {
+    lineage: string;
+    version: number;
+    sql_hash: string;
+  }[];
   for (const row of rows) {
     const idKey = capabilityId({ lineage: row.lineage as CapabilityLineage, version: row.version });
     const step = STEP_BY_ID.get(idKey);

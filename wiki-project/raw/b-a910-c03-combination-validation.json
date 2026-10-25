@@ -1,0 +1,325 @@
+{
+  "status": "in_progress",
+  "scope": "B author validation on independent fixed A+B+C combination; not joint/macOS or migration matrix acceptance",
+  "taskBase": "7f8afe6a0849da3f198bf5bf3be32180053f082d",
+  "branch": "codex/b-a910-c03-combination",
+  "fixed": {
+    "a": "a2b050eb74f52dc10916645bcc7a2dead02f9a72",
+    "aImplementation": "910e6260af0c4d84471e665da7656dbf8133aae7",
+    "b": "7f8afe6a0849da3f198bf5bf3be32180053f082d",
+    "c": "03b16b76ceb336d9f37692ee8b51046e90f328a0"
+  },
+  "mergeBases": {
+    "ab": [
+      "b9a0af76217e57e0ab22ba927de1a1a287b1145f"
+    ],
+    "bc": [
+      "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+      "0f613b823a42d03c524e69b4fef459be9b998f44"
+    ],
+    "ac": [
+      "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+      "0f613b823a42d03c524e69b4fef459be9b998f44"
+    ]
+  },
+  "environment": {
+    "os": "Windows",
+    "platform": "win32",
+    "arch": "x64",
+    "runnerNode": "v22.22.0",
+    "pnpm": "10.13.1"
+  },
+  "checks": [
+    {
+      "name": "typecheck",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "environment": {},
+      "startedAt": "2026-10-25T10:53:37.685Z",
+      "finishedAt": "2026-10-25T10:53:39.121Z",
+      "exit_code": 1,
+      "stdout": "packages/contracts/src/knowledge-wiki.ts(461,13): error TS2300: Duplicate identifier 'WikiCitationResolveInput'.\npackages/contracts/src/knowledge-wiki.ts(682,13): error TS2300: Duplicate identifier 'WikiCitationResolveInput'.\npackages/infrastructure/src/agent-run-store.test.ts(16,19): error TS2724: '\"./migrations\"' has no exported member named 'migrations'. Did you mean 'MigrationStep'?\npackages/infrastructure/src/storage.test.ts(116,8): error TS2304: Cannot find name 'migrations'.\npackages/infrastructure/src/storage.test.ts(116,24): error TS2304: Cannot find name 'migrations'.\npackages/infrastructure/src/storage.test.ts(117,8): error TS2304: Cannot find name 'migrations'.\npackages/infrastructure/src/storage.test.ts(117,24): error TS2304: Cannot find name 'migrations'.\n",
+      "stderr": "",
+      "head": "72c7c422af610d9a934f93336277ed1ee26534c3",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": "apps/desktop/electron.vite.config.ts\napps/desktop/src/main/evaluation-host.test.ts\napps/desktop/src/main/evaluation-host.ts\napps/desktop/src/main/index.ts\napps/desktop/src/main/worker-client.test.ts\napps/desktop/src/main/worker-client.ts\napps/desktop/src/preload/contracts.test.ts\napps/desktop/src/preload/index.ts\napps/desktop/src/renderer/src/App.tsx\napps/desktop/src/renderer/src/features/agent-runs.test.tsx\napps/desktop/src/renderer/src/features/agent-runs.tsx\napps/desktop/src/renderer/src/features/model-evaluation.tsx\napps/desktop/src/renderer/src/features/model-settings.tsx\napps/desktop/src/renderer/src/features/quote-agent.tsx\napps/desktop/src/renderer/src/features/read-assistant.tsx\napps/desktop/src/renderer/src/features/run-event-feed.test.ts\napps/desktop/src/renderer/src/features/run-event-feed.ts\napps/desktop/src/renderer/src/features/run-events.test.tsx\napps/desktop/src/renderer/src/features/run-events.tsx\napps/desktop/src/renderer/src/features/run-tool-labels.ts\napps/desktop/src/workers/business.ts\napps/desktop/src/workers/evaluation.ts\npackage.json\npackages/contracts/src/agent.ts\npackages/contracts/src/events.ts\npackages/contracts/src/index.ts\npackages/contracts/src/mock.ts\npackages/contracts/src/model-evaluation.ts\npackages/contracts/src/pending-client.ts\npackages/contracts/src/read-tools.test.ts\npackages/contracts/src/read-tools.ts\npackages/contracts/src/run-events.test.ts\npackages/contracts/src/run-events.ts\npackages/contracts/src/runs.test.ts\npackages/contracts/src/runs.ts\npackages/domain/src/quote-checks-runtime-compat.test.ts\npackages/infrastructure/package.json\npackages/infrastructure/src/agent-executor.ts\npackages/infrastructure/src/agent-run-coordinator.test.ts\npackages/infrastructure/src/agent-run-coordinator.ts\npackages/infrastructure/src/agent-run-recovery.test.ts\npackages/infrastructure/src/agent-run-store.test.ts\npackages/infrastructure/src/agent-run-store.ts\npackages/infrastructure/src/agent.test.ts\npackages/infrastructure/src/catalog-quote-read-agent.test.ts\npackages/infrastructure/src/catalog-quote-read-agent.ts\npackages/infrastructure/src/catalog-quote-read-service.test.ts\npackages/infrastructure/src/catalog-quote-read-service.ts\npackages/infrastructure/src/deepseek.ts\npackages/infrastructure/src/evaluation/action-regressions.test.ts\npackages/infrastructure/src/evaluation/cases.ts\npackages/infrastructure/src/evaluation/diagnostics.test.ts\npackages/infrastructure/src/evaluation/evaluation.test.ts\npackages/infrastructure/src/evaluation/failure-regressions.test.ts\npackages/infrastructure/src/evaluation/fixture-model.ts\npackages/infrastructure/src/evaluation/public.ts\npackages/infrastructure/src/evaluation/remaining-regressions.test.ts\npackages/infrastructure/src/evaluation/report.ts\npackages/infrastructure/src/evaluation/retest-regressions.test.ts\npackages/infrastructure/src/evaluation/runner.ts\npackages/infrastructure/src/evaluation/worker-protocol.ts\npackages/infrastructure/src/evaluation/workspace.ts\npackages/infrastructure/src/index.ts\npackages/infrastructure/src/knowledge-store.test.ts\npackages/infrastructure/src/knowledge-store.ts\npackages/infrastructure/src/quote-draft-plan.ts\npackages/infrastructure/src/quote-tool-agent.test.ts\npackages/infrastructure/src/quote-tool-agent.ts\npackages/infrastructure/src/read-tool-runtime.test.ts\npackages/infrastructure/src/read-tool-runtime.ts\npackages/infrastructure/src/run-event-store.test.ts\npackages/infrastructure/src/run-event-store.ts\npackages/infrastructure/src/storage.test.ts\npackages/infrastructure/src/testing/run-fixture.ts\npackages/infrastructure/src/trade-store.ts\npackages/infrastructure/src/worker-ownership.ts\nscripts/evaluate-model.mjs\ntests/e2e/agent-recovery.spec.ts\ntests/e2e/model-evaluation.spec.ts\ntests/e2e/multistep-agent.spec.ts\ntests/e2e/quote-agent.spec.ts\ntests/e2e/read-assistant.spec.ts\ntests/e2e/workspace.spec.ts\ntests/fixtures/multistep-seed.ts\ntests/fixtures/run-crash-child.ts"
+    },
+    {
+      "name": "typecheck",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "environment": {},
+      "startedAt": "2026-10-25T10:54:08.113Z",
+      "finishedAt": "2026-10-25T10:54:09.533Z",
+      "exit_code": 1,
+      "stdout": "packages/infrastructure/src/agent-run-store.test.ts(405,15): error TS2345: Argument of type 'number' is not assignable to parameter of type '{ lineage: CapabilityLineage; version: number; }'.\npackages/infrastructure/src/agent-run-store.test.ts(495,16): error TS2304: Cannot find name 'migrations'.\n",
+      "stderr": "",
+      "head": "72c7c422af610d9a934f93336277ed1ee26534c3",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": "apps/desktop/electron.vite.config.ts\napps/desktop/src/main/evaluation-host.test.ts\napps/desktop/src/main/evaluation-host.ts\napps/desktop/src/main/index.ts\napps/desktop/src/main/worker-client.test.ts\napps/desktop/src/main/worker-client.ts\napps/desktop/src/preload/contracts.test.ts\napps/desktop/src/preload/index.ts\napps/desktop/src/renderer/src/App.tsx\napps/desktop/src/renderer/src/features/agent-runs.test.tsx\napps/desktop/src/renderer/src/features/agent-runs.tsx\napps/desktop/src/renderer/src/features/model-evaluation.tsx\napps/desktop/src/renderer/src/features/model-settings.tsx\napps/desktop/src/renderer/src/features/quote-agent.tsx\napps/desktop/src/renderer/src/features/read-assistant.tsx\napps/desktop/src/renderer/src/features/run-event-feed.test.ts\napps/desktop/src/renderer/src/features/run-event-feed.ts\napps/desktop/src/renderer/src/features/run-events.test.tsx\napps/desktop/src/renderer/src/features/run-events.tsx\napps/desktop/src/renderer/src/features/run-tool-labels.ts\napps/desktop/src/workers/business.ts\napps/desktop/src/workers/evaluation.ts\npackage.json\npackages/contracts/src/agent.ts\npackages/contracts/src/events.ts\npackages/contracts/src/index.ts\npackages/contracts/src/knowledge-wiki.ts\npackages/contracts/src/mock.ts\npackages/contracts/src/model-evaluation.ts\npackages/contracts/src/pending-client.ts\npackages/contracts/src/read-tools.test.ts\npackages/contracts/src/read-tools.ts\npackages/contracts/src/run-events.test.ts\npackages/contracts/src/run-events.ts\npackages/contracts/src/runs.test.ts\npackages/contracts/src/runs.ts\npackages/domain/src/quote-checks-runtime-compat.test.ts\npackages/infrastructure/package.json\npackages/infrastructure/src/agent-executor.ts\npackages/infrastructure/src/agent-run-coordinator.test.ts\npackages/infrastructure/src/agent-run-coordinator.ts\npackages/infrastructure/src/agent-run-recovery.test.ts\npackages/infrastructure/src/agent-run-store.test.ts\npackages/infrastructure/src/agent-run-store.ts\npackages/infrastructure/src/agent.test.ts\npackages/infrastructure/src/catalog-quote-read-agent.test.ts\npackages/infrastructure/src/catalog-quote-read-agent.ts\npackages/infrastructure/src/catalog-quote-read-service.test.ts\npackages/infrastructure/src/catalog-quote-read-service.ts\npackages/infrastructure/src/deepseek.ts\npackages/infrastructure/src/evaluation/action-regressions.test.ts\npackages/infrastructure/src/evaluation/cases.ts\npackages/infrastructure/src/evaluation/diagnostics.test.ts\npackages/infrastructure/src/evaluation/evaluation.test.ts\npackages/infrastructure/src/evaluation/failure-regressions.test.ts\npackages/infrastructure/src/evaluation/fixture-model.ts\npackages/infrastructure/src/evaluation/public.ts\npackages/infrastructure/src/evaluation/remaining-regressions.test.ts\npackages/infrastructure/src/evaluation/report.ts\npackages/infrastructure/src/evaluation/retest-regressions.test.ts\npackages/infrastructure/src/evaluation/runner.ts\npackages/infrastructure/src/evaluation/worker-protocol.ts\npackages/infrastructure/src/evaluation/workspace.ts\npackages/infrastructure/src/index.ts\npackages/infrastructure/src/knowledge-store.test.ts\npackages/infrastructure/src/knowledge-store.ts\npackages/infrastructure/src/quote-draft-plan.ts\npackages/infrastructure/src/quote-tool-agent.test.ts\npackages/infrastructure/src/quote-tool-agent.ts\npackages/infrastructure/src/read-tool-runtime.test.ts\npackages/infrastructure/src/read-tool-runtime.ts\npackages/infrastructure/src/run-event-store.test.ts\npackages/infrastructure/src/run-event-store.ts\npackages/infrastructure/src/storage.test.ts\npackages/infrastructure/src/testing/run-fixture.ts\npackages/infrastructure/src/trade-store.ts\npackages/infrastructure/src/worker-ownership.ts\nscripts/evaluate-model.mjs\ntests/e2e/agent-recovery.spec.ts\ntests/e2e/model-evaluation.spec.ts\ntests/e2e/multistep-agent.spec.ts\ntests/e2e/quote-agent.spec.ts\ntests/e2e/read-assistant.spec.ts\ntests/e2e/workspace.spec.ts\ntests/fixtures/multistep-seed.ts\ntests/fixtures/run-crash-child.ts"
+    },
+    {
+      "name": "native identity",
+      "executable": "D:\\code\\tradequote-agent-b-new-combination\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "-e",
+        "console.log(JSON.stringify({electron:process.versions.electron,node:process.version,sqlite:process.versions.sqlite,platform:process.platform,arch:process.arch}))"
+      ],
+      "environment": {
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "startedAt": "2026-10-25T10:54:11.725Z",
+      "finishedAt": "2026-10-25T10:54:13.838Z",
+      "exit_code": 0,
+      "stdout": "{\"electron\":\"44.9.2\",\"node\":\"v24.22.0\",\"sqlite\":\"3.53.4\",\"platform\":\"win32\",\"arch\":\"x64\"}\n",
+      "stderr": "",
+      "head": "72c7c422af610d9a934f93336277ed1ee26534c3",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": "apps/desktop/electron.vite.config.ts\napps/desktop/src/main/evaluation-host.test.ts\napps/desktop/src/main/evaluation-host.ts\napps/desktop/src/main/index.ts\napps/desktop/src/main/worker-client.test.ts\napps/desktop/src/main/worker-client.ts\napps/desktop/src/preload/contracts.test.ts\napps/desktop/src/preload/index.ts\napps/desktop/src/renderer/src/App.tsx\napps/desktop/src/renderer/src/features/agent-runs.test.tsx\napps/desktop/src/renderer/src/features/agent-runs.tsx\napps/desktop/src/renderer/src/features/model-evaluation.tsx\napps/desktop/src/renderer/src/features/model-settings.tsx\napps/desktop/src/renderer/src/features/quote-agent.tsx\napps/desktop/src/renderer/src/features/read-assistant.tsx\napps/desktop/src/renderer/src/features/run-event-feed.test.ts\napps/desktop/src/renderer/src/features/run-event-feed.ts\napps/desktop/src/renderer/src/features/run-events.test.tsx\napps/desktop/src/renderer/src/features/run-events.tsx\napps/desktop/src/renderer/src/features/run-tool-labels.ts\napps/desktop/src/workers/business.ts\napps/desktop/src/workers/evaluation.ts\npackage.json\npackages/contracts/src/agent.ts\npackages/contracts/src/events.ts\npackages/contracts/src/index.ts\npackages/contracts/src/knowledge-wiki.ts\npackages/contracts/src/mock.ts\npackages/contracts/src/model-evaluation.ts\npackages/contracts/src/pending-client.ts\npackages/contracts/src/read-tools.test.ts\npackages/contracts/src/read-tools.ts\npackages/contracts/src/run-events.test.ts\npackages/contracts/src/run-events.ts\npackages/contracts/src/runs.test.ts\npackages/contracts/src/runs.ts\npackages/domain/src/quote-checks-runtime-compat.test.ts\npackages/infrastructure/package.json\npackages/infrastructure/src/agent-executor.ts\npackages/infrastructure/src/agent-run-coordinator.test.ts\npackages/infrastructure/src/agent-run-coordinator.ts\npackages/infrastructure/src/agent-run-recovery.test.ts\npackages/infrastructure/src/agent-run-store.test.ts\npackages/infrastructure/src/agent-run-store.ts\npackages/infrastructure/src/agent.test.ts\npackages/infrastructure/src/catalog-quote-read-agent.test.ts\npackages/infrastructure/src/catalog-quote-read-agent.ts\npackages/infrastructure/src/catalog-quote-read-service.test.ts\npackages/infrastructure/src/catalog-quote-read-service.ts\npackages/infrastructure/src/deepseek.ts\npackages/infrastructure/src/evaluation/action-regressions.test.ts\npackages/infrastructure/src/evaluation/cases.ts\npackages/infrastructure/src/evaluation/diagnostics.test.ts\npackages/infrastructure/src/evaluation/evaluation.test.ts\npackages/infrastructure/src/evaluation/failure-regressions.test.ts\npackages/infrastructure/src/evaluation/fixture-model.ts\npackages/infrastructure/src/evaluation/public.ts\npackages/infrastructure/src/evaluation/remaining-regressions.test.ts\npackages/infrastructure/src/evaluation/report.ts\npackages/infrastructure/src/evaluation/retest-regressions.test.ts\npackages/infrastructure/src/evaluation/runner.ts\npackages/infrastructure/src/evaluation/worker-protocol.ts\npackages/infrastructure/src/evaluation/workspace.ts\npackages/infrastructure/src/index.ts\npackages/infrastructure/src/knowledge-store.test.ts\npackages/infrastructure/src/knowledge-store.ts\npackages/infrastructure/src/quote-draft-plan.ts\npackages/infrastructure/src/quote-tool-agent.test.ts\npackages/infrastructure/src/quote-tool-agent.ts\npackages/infrastructure/src/read-tool-runtime.test.ts\npackages/infrastructure/src/read-tool-runtime.ts\npackages/infrastructure/src/run-event-store.test.ts\npackages/infrastructure/src/run-event-store.ts\npackages/infrastructure/src/storage.test.ts\npackages/infrastructure/src/testing/run-fixture.ts\npackages/infrastructure/src/trade-store.ts\npackages/infrastructure/src/worker-ownership.ts\nscripts/evaluate-model.mjs\ntests/e2e/agent-recovery.spec.ts\ntests/e2e/model-evaluation.spec.ts\ntests/e2e/multistep-agent.spec.ts\ntests/e2e/quote-agent.spec.ts\ntests/e2e/read-assistant.spec.ts\ntests/e2e/workspace.spec.ts\ntests/fixtures/multistep-seed.ts\ntests/fixtures/run-crash-child.ts"
+    },
+    {
+      "name": "fixed combination nine-file regression",
+      "executable": "D:\\code\\tradequote-agent-b-new-combination\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/contracts/src/checks.test.ts",
+        "packages/contracts/src/knowledge-wiki.test.ts",
+        "packages/contracts/src/knowledge-build.test.ts",
+        "packages/contracts/src/knowledge-maintenance.test.ts",
+        "packages/contracts/src/knowledge-lint-review.test.ts",
+        "packages/infrastructure/src/wiki-store.test.ts",
+        "packages/infrastructure/src/check-store.test.ts",
+        "packages/infrastructure/src/check-lineage-integration.test.ts",
+        "packages/infrastructure/src/wiki-check-integration.test.ts"
+      ],
+      "environment": {
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "startedAt": "2026-10-25T10:54:13.975Z",
+      "finishedAt": "2026-10-25T10:54:18.894Z",
+      "exit_code": 0,
+      "stdout": "\n RUN  v5.0.5 D:/code/tradequote-agent-b-new-combination\n\n\n Test Files  9 passed (9)\n      Tests  121 passed (121)\n   Start at  18:54:15\n   Duration  3.66s (tests 39%, import 35%, transform 25%, worker 1%)\n\n",
+      "stderr": "",
+      "head": "72c7c422af610d9a934f93336277ed1ee26534c3",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": "apps/desktop/electron.vite.config.ts\napps/desktop/src/main/evaluation-host.test.ts\napps/desktop/src/main/evaluation-host.ts\napps/desktop/src/main/index.ts\napps/desktop/src/main/worker-client.test.ts\napps/desktop/src/main/worker-client.ts\napps/desktop/src/preload/contracts.test.ts\napps/desktop/src/preload/index.ts\napps/desktop/src/renderer/src/App.tsx\napps/desktop/src/renderer/src/features/agent-runs.test.tsx\napps/desktop/src/renderer/src/features/agent-runs.tsx\napps/desktop/src/renderer/src/features/model-evaluation.tsx\napps/desktop/src/renderer/src/features/model-settings.tsx\napps/desktop/src/renderer/src/features/quote-agent.tsx\napps/desktop/src/renderer/src/features/read-assistant.tsx\napps/desktop/src/renderer/src/features/run-event-feed.test.ts\napps/desktop/src/renderer/src/features/run-event-feed.ts\napps/desktop/src/renderer/src/features/run-events.test.tsx\napps/desktop/src/renderer/src/features/run-events.tsx\napps/desktop/src/renderer/src/features/run-tool-labels.ts\napps/desktop/src/workers/business.ts\napps/desktop/src/workers/evaluation.ts\npackage.json\npackages/contracts/src/agent.ts\npackages/contracts/src/events.ts\npackages/contracts/src/index.ts\npackages/contracts/src/knowledge-wiki.ts\npackages/contracts/src/mock.ts\npackages/contracts/src/model-evaluation.ts\npackages/contracts/src/pending-client.ts\npackages/contracts/src/read-tools.test.ts\npackages/contracts/src/read-tools.ts\npackages/contracts/src/run-events.test.ts\npackages/contracts/src/run-events.ts\npackages/contracts/src/runs.test.ts\npackages/contracts/src/runs.ts\npackages/domain/src/quote-checks-runtime-compat.test.ts\npackages/infrastructure/package.json\npackages/infrastructure/src/agent-executor.ts\npackages/infrastructure/src/agent-run-coordinator.test.ts\npackages/infrastructure/src/agent-run-coordinator.ts\npackages/infrastructure/src/agent-run-recovery.test.ts\npackages/infrastructure/src/agent-run-store.test.ts\npackages/infrastructure/src/agent-run-store.ts\npackages/infrastructure/src/agent.test.ts\npackages/infrastructure/src/catalog-quote-read-agent.test.ts\npackages/infrastructure/src/catalog-quote-read-agent.ts\npackages/infrastructure/src/catalog-quote-read-service.test.ts\npackages/infrastructure/src/catalog-quote-read-service.ts\npackages/infrastructure/src/deepseek.ts\npackages/infrastructure/src/evaluation/action-regressions.test.ts\npackages/infrastructure/src/evaluation/cases.ts\npackages/infrastructure/src/evaluation/diagnostics.test.ts\npackages/infrastructure/src/evaluation/evaluation.test.ts\npackages/infrastructure/src/evaluation/failure-regressions.test.ts\npackages/infrastructure/src/evaluation/fixture-model.ts\npackages/infrastructure/src/evaluation/public.ts\npackages/infrastructure/src/evaluation/remaining-regressions.test.ts\npackages/infrastructure/src/evaluation/report.ts\npackages/infrastructure/src/evaluation/retest-regressions.test.ts\npackages/infrastructure/src/evaluation/runner.ts\npackages/infrastructure/src/evaluation/worker-protocol.ts\npackages/infrastructure/src/evaluation/workspace.ts\npackages/infrastructure/src/index.ts\npackages/infrastructure/src/knowledge-store.test.ts\npackages/infrastructure/src/knowledge-store.ts\npackages/infrastructure/src/quote-draft-plan.ts\npackages/infrastructure/src/quote-tool-agent.test.ts\npackages/infrastructure/src/quote-tool-agent.ts\npackages/infrastructure/src/read-tool-runtime.test.ts\npackages/infrastructure/src/read-tool-runtime.ts\npackages/infrastructure/src/run-event-store.test.ts\npackages/infrastructure/src/run-event-store.ts\npackages/infrastructure/src/storage.test.ts\npackages/infrastructure/src/testing/run-fixture.ts\npackages/infrastructure/src/trade-store.ts\npackages/infrastructure/src/worker-ownership.ts\nscripts/evaluate-model.mjs\ntests/e2e/agent-recovery.spec.ts\ntests/e2e/model-evaluation.spec.ts\ntests/e2e/multistep-agent.spec.ts\ntests/e2e/quote-agent.spec.ts\ntests/e2e/read-assistant.spec.ts\ntests/e2e/workspace.spec.ts\ntests/fixtures/multistep-seed.ts\ntests/fixtures/run-crash-child.ts"
+    },
+    {
+      "name": "typecheck",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "environment": {},
+      "startedAt": "2026-10-25T10:54:38.894Z",
+      "finishedAt": "2026-10-25T10:54:40.386Z",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "head": "72c7c422af610d9a934f93336277ed1ee26534c3",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": "apps/desktop/electron.vite.config.ts\napps/desktop/src/main/evaluation-host.test.ts\napps/desktop/src/main/evaluation-host.ts\napps/desktop/src/main/index.ts\napps/desktop/src/main/worker-client.test.ts\napps/desktop/src/main/worker-client.ts\napps/desktop/src/preload/contracts.test.ts\napps/desktop/src/preload/index.ts\napps/desktop/src/renderer/src/App.tsx\napps/desktop/src/renderer/src/features/agent-runs.test.tsx\napps/desktop/src/renderer/src/features/agent-runs.tsx\napps/desktop/src/renderer/src/features/model-evaluation.tsx\napps/desktop/src/renderer/src/features/model-settings.tsx\napps/desktop/src/renderer/src/features/quote-agent.tsx\napps/desktop/src/renderer/src/features/read-assistant.tsx\napps/desktop/src/renderer/src/features/run-event-feed.test.ts\napps/desktop/src/renderer/src/features/run-event-feed.ts\napps/desktop/src/renderer/src/features/run-events.test.tsx\napps/desktop/src/renderer/src/features/run-events.tsx\napps/desktop/src/renderer/src/features/run-tool-labels.ts\napps/desktop/src/workers/business.ts\napps/desktop/src/workers/evaluation.ts\npackage.json\npackages/contracts/src/agent.ts\npackages/contracts/src/events.ts\npackages/contracts/src/index.ts\npackages/contracts/src/knowledge-wiki.ts\npackages/contracts/src/mock.ts\npackages/contracts/src/model-evaluation.ts\npackages/contracts/src/pending-client.ts\npackages/contracts/src/read-tools.test.ts\npackages/contracts/src/read-tools.ts\npackages/contracts/src/run-events.test.ts\npackages/contracts/src/run-events.ts\npackages/contracts/src/runs.test.ts\npackages/contracts/src/runs.ts\npackages/domain/src/quote-checks-runtime-compat.test.ts\npackages/infrastructure/package.json\npackages/infrastructure/src/agent-executor.ts\npackages/infrastructure/src/agent-run-coordinator.test.ts\npackages/infrastructure/src/agent-run-coordinator.ts\npackages/infrastructure/src/agent-run-recovery.test.ts\npackages/infrastructure/src/agent-run-store.test.ts\npackages/infrastructure/src/agent-run-store.ts\npackages/infrastructure/src/agent.test.ts\npackages/infrastructure/src/catalog-quote-read-agent.test.ts\npackages/infrastructure/src/catalog-quote-read-agent.ts\npackages/infrastructure/src/catalog-quote-read-service.test.ts\npackages/infrastructure/src/catalog-quote-read-service.ts\npackages/infrastructure/src/deepseek.ts\npackages/infrastructure/src/evaluation/action-regressions.test.ts\npackages/infrastructure/src/evaluation/cases.ts\npackages/infrastructure/src/evaluation/diagnostics.test.ts\npackages/infrastructure/src/evaluation/evaluation.test.ts\npackages/infrastructure/src/evaluation/failure-regressions.test.ts\npackages/infrastructure/src/evaluation/fixture-model.ts\npackages/infrastructure/src/evaluation/public.ts\npackages/infrastructure/src/evaluation/remaining-regressions.test.ts\npackages/infrastructure/src/evaluation/report.ts\npackages/infrastructure/src/evaluation/retest-regressions.test.ts\npackages/infrastructure/src/evaluation/runner.ts\npackages/infrastructure/src/evaluation/worker-protocol.ts\npackages/infrastructure/src/evaluation/workspace.ts\npackages/infrastructure/src/index.ts\npackages/infrastructure/src/knowledge-store.test.ts\npackages/infrastructure/src/knowledge-store.ts\npackages/infrastructure/src/quote-draft-plan.ts\npackages/infrastructure/src/quote-tool-agent.test.ts\npackages/infrastructure/src/quote-tool-agent.ts\npackages/infrastructure/src/read-tool-runtime.test.ts\npackages/infrastructure/src/read-tool-runtime.ts\npackages/infrastructure/src/run-event-store.test.ts\npackages/infrastructure/src/run-event-store.ts\npackages/infrastructure/src/storage.test.ts\npackages/infrastructure/src/testing/run-fixture.ts\npackages/infrastructure/src/trade-store.ts\npackages/infrastructure/src/worker-ownership.ts\nscripts/evaluate-model.mjs\ntests/e2e/agent-recovery.spec.ts\ntests/e2e/model-evaluation.spec.ts\ntests/e2e/multistep-agent.spec.ts\ntests/e2e/quote-agent.spec.ts\ntests/e2e/read-assistant.spec.ts\ntests/e2e/workspace.spec.ts\ntests/fixtures/multistep-seed.ts\ntests/fixtures/run-crash-child.ts"
+    },
+    {
+      "name": "A migration and C runtime compatibility",
+      "executable": "D:\\code\\tradequote-agent-b-new-combination\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/domain/src/quote-checks.test.ts",
+        "packages/domain/src/quote-checks-runtime-compat.test.ts",
+        "packages/infrastructure/src/migrations.test.ts",
+        "packages/infrastructure/src/migration-ledger.test.ts",
+        "packages/infrastructure/src/agent-run-store.test.ts",
+        "packages/infrastructure/src/agent-run-coordinator.test.ts",
+        "packages/infrastructure/src/agent-run-recovery.test.ts",
+        "packages/infrastructure/src/quote-tool-agent.test.ts",
+        "packages/infrastructure/src/knowledge-store.test.ts",
+        "packages/infrastructure/src/storage.test.ts"
+      ],
+      "environment": {
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "startedAt": "2026-10-25T10:54:40.624Z",
+      "finishedAt": "2026-10-25T10:54:46.855Z",
+      "exit_code": 1,
+      "stdout": "\n RUN  v5.0.5 D:/code/tradequote-agent-b-new-combination\n\n ❯ packages/domain/src/quote-checks-runtime-compat.test.ts (5 tests | 1 failed) 45ms\n   × scope and publication time are rechecked before per-document newest matching revision selection 7ms\n ❯ packages/infrastructure/src/storage.test.ts (5 tests | 2 failed) 149ms\n   × stores immutable content hashes and rejects traversal, tampering and symlinks 20ms\n   × rejects missing or duplicate migration predecessors before creating tables 4ms\n ❯ packages/infrastructure/src/agent-run-store.test.ts (18 tests | 1 failed) 1094ms\n   × upgrades a real v6 run/control/write-receipt database to v7 without rewriting old business or run bytes 172ms\n\n Test Files  3 failed | 7 passed (10)\n      Tests  4 failed | 122 passed (126)\n   Start at  18:54:41\n   Duration  5.78s (tests 47%, import 44%, transform 9%)\n\n",
+      "stderr": "\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/domain/src/quote-checks-runtime-compat.test.ts > scope and publication time are rechecked before per-document newest matching revision selection\nZodError: [\n  {\n    \"code\": \"custom\",\n    \"path\": [],\n    \"message\": \"检查须由宿主为每份文档提供唯一知识版本\"\n  }\n]\n ❯ Object.evaluate packages/domain/src/quote-checks.ts:28:67\n     26| export const quoteCheckService: QuoteCheckService = {\n     27|   evaluate(raw) {\n     28|     const { quote, knowledge, reportId, checkedAt } = inputSchema.pars…\n       |                                                                   ^\n     29|     const applicable = knowledge\n     30|       .filter(\n ❯ evaluate packages/domain/src/quote-checks-runtime-compat.test.ts:73:21\n ❯ packages/domain/src/quote-checks-runtime-compat.test.ts:137:18\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯\n\n FAIL  packages/infrastructure/src/agent-run-store.test.ts > upgrades a real v6 run/control/write-receipt database to v7 without rewriting old business or run bytes\nAssertionError: expected 8 to be 7 // Object.is equality\n\n- Expected\n+ Received\n\n- 7\n+ 8\n\n ❯ packages/infrastructure/src/agent-run-store.test.ts:539:56\n    537|   migrate(old);\n    538|   migrate(old);\n    539|   expect(old.pragma(\"user_version\", { simple: true })).toBe(7);\n       |                                                        ^\n    540|   expect(snapshot()).toBe(before);\n    541|   const upgraded = new SqliteWorkspaceRepository(path);\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯\n\n FAIL  packages/infrastructure/src/storage.test.ts > stores immutable content hashes and rejects traversal, tampering and symlinks\nError: EPERM: operation not permitted, symlink 'C:\\Users\\陈宇柠\\AppData\\Local\\Temp\\tradequote-test-kqxeig\\169e73adeeb9ee2cbf78b5878c95ebef88d580774a6005a367c8e35458658027' -> 'C:\\Users\\陈宇柠\\AppData\\Local\\Temp\\tradequote-test-kqxeig\\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'\n ❯ packages/infrastructure/src/storage.test.ts:108:3\n    106|   expect(await store.verifyHash(id)).toBe(false);\n    107|   const other = \"a\".repeat(64);\n    108|   symlinkSync(join(root, id), join(root, other));\n       |   ^\n    109|   await expect(store.readById(other)).rejects.toThrow(\"ARTIFACT_NOT_RE…\n    110| });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯\n\n FAIL  packages/infrastructure/src/storage.test.ts > rejects missing or duplicate migration predecessors before creating tables\nAssertionError: expected [Function] to throw an error\n\n- Expected:\nnull\n\n+ Received:\nundefined\n\n ❯ packages/infrastructure/src/storage.test.ts:119:42\n    117|       [MIGRATION_STEPS[0]!, MIGRATION_STEPS[0]!],\n    118|     ]) {\n    119|       expect(() => migrate(db, invalid)).toThrow(\"INVALID_MIGRATION_SE…\n       |                                          ^\n    120|       expect(db.pragma(\"user_version\", { simple: true })).toBe(0);\n    121|       expect(db.prepare(\"SELECT name FROM sqlite_master WHERE type='ta…\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯\n\n",
+      "head": "72c7c422af610d9a934f93336277ed1ee26534c3",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": "apps/desktop/electron.vite.config.ts\napps/desktop/src/main/evaluation-host.test.ts\napps/desktop/src/main/evaluation-host.ts\napps/desktop/src/main/index.ts\napps/desktop/src/main/worker-client.test.ts\napps/desktop/src/main/worker-client.ts\napps/desktop/src/preload/contracts.test.ts\napps/desktop/src/preload/index.ts\napps/desktop/src/renderer/src/App.tsx\napps/desktop/src/renderer/src/features/agent-runs.test.tsx\napps/desktop/src/renderer/src/features/agent-runs.tsx\napps/desktop/src/renderer/src/features/model-evaluation.tsx\napps/desktop/src/renderer/src/features/model-settings.tsx\napps/desktop/src/renderer/src/features/quote-agent.tsx\napps/desktop/src/renderer/src/features/read-assistant.tsx\napps/desktop/src/renderer/src/features/run-event-feed.test.ts\napps/desktop/src/renderer/src/features/run-event-feed.ts\napps/desktop/src/renderer/src/features/run-events.test.tsx\napps/desktop/src/renderer/src/features/run-events.tsx\napps/desktop/src/renderer/src/features/run-tool-labels.ts\napps/desktop/src/workers/business.ts\napps/desktop/src/workers/evaluation.ts\npackage.json\npackages/contracts/src/agent.ts\npackages/contracts/src/events.ts\npackages/contracts/src/index.ts\npackages/contracts/src/knowledge-wiki.ts\npackages/contracts/src/mock.ts\npackages/contracts/src/model-evaluation.ts\npackages/contracts/src/pending-client.ts\npackages/contracts/src/read-tools.test.ts\npackages/contracts/src/read-tools.ts\npackages/contracts/src/run-events.test.ts\npackages/contracts/src/run-events.ts\npackages/contracts/src/runs.test.ts\npackages/contracts/src/runs.ts\npackages/domain/src/quote-checks-runtime-compat.test.ts\npackages/infrastructure/package.json\npackages/infrastructure/src/agent-executor.ts\npackages/infrastructure/src/agent-run-coordinator.test.ts\npackages/infrastructure/src/agent-run-coordinator.ts\npackages/infrastructure/src/agent-run-recovery.test.ts\npackages/infrastructure/src/agent-run-store.test.ts\npackages/infrastructure/src/agent-run-store.ts\npackages/infrastructure/src/agent.test.ts\npackages/infrastructure/src/catalog-quote-read-agent.test.ts\npackages/infrastructure/src/catalog-quote-read-agent.ts\npackages/infrastructure/src/catalog-quote-read-service.test.ts\npackages/infrastructure/src/catalog-quote-read-service.ts\npackages/infrastructure/src/deepseek.ts\npackages/infrastructure/src/evaluation/action-regressions.test.ts\npackages/infrastructure/src/evaluation/cases.ts\npackages/infrastructure/src/evaluation/diagnostics.test.ts\npackages/infrastructure/src/evaluation/evaluation.test.ts\npackages/infrastructure/src/evaluation/failure-regressions.test.ts\npackages/infrastructure/src/evaluation/fixture-model.ts\npackages/infrastructure/src/evaluation/public.ts\npackages/infrastructure/src/evaluation/remaining-regressions.test.ts\npackages/infrastructure/src/evaluation/report.ts\npackages/infrastructure/src/evaluation/retest-regressions.test.ts\npackages/infrastructure/src/evaluation/runner.ts\npackages/infrastructure/src/evaluation/worker-protocol.ts\npackages/infrastructure/src/evaluation/workspace.ts\npackages/infrastructure/src/index.ts\npackages/infrastructure/src/knowledge-store.test.ts\npackages/infrastructure/src/knowledge-store.ts\npackages/infrastructure/src/quote-draft-plan.ts\npackages/infrastructure/src/quote-tool-agent.test.ts\npackages/infrastructure/src/quote-tool-agent.ts\npackages/infrastructure/src/read-tool-runtime.test.ts\npackages/infrastructure/src/read-tool-runtime.ts\npackages/infrastructure/src/run-event-store.test.ts\npackages/infrastructure/src/run-event-store.ts\npackages/infrastructure/src/storage.test.ts\npackages/infrastructure/src/testing/run-fixture.ts\npackages/infrastructure/src/trade-store.ts\npackages/infrastructure/src/worker-ownership.ts\nscripts/evaluate-model.mjs\ntests/e2e/agent-recovery.spec.ts\ntests/e2e/model-evaluation.spec.ts\ntests/e2e/multistep-agent.spec.ts\ntests/e2e/quote-agent.spec.ts\ntests/e2e/read-assistant.spec.ts\ntests/e2e/workspace.spec.ts\ntests/fixtures/multistep-seed.ts\ntests/fixtures/run-crash-child.ts"
+    },
+    {
+      "name": "typecheck",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "environment": {},
+      "startedAt": "2026-10-25T10:56:04.601Z",
+      "finishedAt": "2026-10-25T10:56:06.041Z",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "head": "72c7c422af610d9a934f93336277ed1ee26534c3",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": "apps/desktop/electron.vite.config.ts\napps/desktop/src/main/evaluation-host.test.ts\napps/desktop/src/main/evaluation-host.ts\napps/desktop/src/main/index.ts\napps/desktop/src/main/worker-client.test.ts\napps/desktop/src/main/worker-client.ts\napps/desktop/src/preload/contracts.test.ts\napps/desktop/src/preload/index.ts\napps/desktop/src/renderer/src/App.tsx\napps/desktop/src/renderer/src/features/agent-runs.test.tsx\napps/desktop/src/renderer/src/features/agent-runs.tsx\napps/desktop/src/renderer/src/features/model-evaluation.tsx\napps/desktop/src/renderer/src/features/model-settings.tsx\napps/desktop/src/renderer/src/features/quote-agent.tsx\napps/desktop/src/renderer/src/features/read-assistant.tsx\napps/desktop/src/renderer/src/features/run-event-feed.test.ts\napps/desktop/src/renderer/src/features/run-event-feed.ts\napps/desktop/src/renderer/src/features/run-events.test.tsx\napps/desktop/src/renderer/src/features/run-events.tsx\napps/desktop/src/renderer/src/features/run-tool-labels.ts\napps/desktop/src/workers/business.ts\napps/desktop/src/workers/evaluation.ts\npackage.json\npackages/contracts/src/agent.ts\npackages/contracts/src/events.ts\npackages/contracts/src/index.ts\npackages/contracts/src/knowledge-wiki.ts\npackages/contracts/src/mock.ts\npackages/contracts/src/model-evaluation.ts\npackages/contracts/src/pending-client.ts\npackages/contracts/src/read-tools.test.ts\npackages/contracts/src/read-tools.ts\npackages/contracts/src/run-events.test.ts\npackages/contracts/src/run-events.ts\npackages/contracts/src/runs.test.ts\npackages/contracts/src/runs.ts\npackages/domain/src/quote-checks-runtime-compat.test.ts\npackages/infrastructure/package.json\npackages/infrastructure/src/agent-executor.ts\npackages/infrastructure/src/agent-run-coordinator.test.ts\npackages/infrastructure/src/agent-run-coordinator.ts\npackages/infrastructure/src/agent-run-recovery.test.ts\npackages/infrastructure/src/agent-run-store.test.ts\npackages/infrastructure/src/agent-run-store.ts\npackages/infrastructure/src/agent.test.ts\npackages/infrastructure/src/catalog-quote-read-agent.test.ts\npackages/infrastructure/src/catalog-quote-read-agent.ts\npackages/infrastructure/src/catalog-quote-read-service.test.ts\npackages/infrastructure/src/catalog-quote-read-service.ts\npackages/infrastructure/src/deepseek.ts\npackages/infrastructure/src/evaluation/action-regressions.test.ts\npackages/infrastructure/src/evaluation/cases.ts\npackages/infrastructure/src/evaluation/diagnostics.test.ts\npackages/infrastructure/src/evaluation/evaluation.test.ts\npackages/infrastructure/src/evaluation/failure-regressions.test.ts\npackages/infrastructure/src/evaluation/fixture-model.ts\npackages/infrastructure/src/evaluation/public.ts\npackages/infrastructure/src/evaluation/remaining-regressions.test.ts\npackages/infrastructure/src/evaluation/report.ts\npackages/infrastructure/src/evaluation/retest-regressions.test.ts\npackages/infrastructure/src/evaluation/runner.ts\npackages/infrastructure/src/evaluation/worker-protocol.ts\npackages/infrastructure/src/evaluation/workspace.ts\npackages/infrastructure/src/index.ts\npackages/infrastructure/src/knowledge-store.test.ts\npackages/infrastructure/src/knowledge-store.ts\npackages/infrastructure/src/quote-draft-plan.ts\npackages/infrastructure/src/quote-tool-agent.test.ts\npackages/infrastructure/src/quote-tool-agent.ts\npackages/infrastructure/src/read-tool-runtime.test.ts\npackages/infrastructure/src/read-tool-runtime.ts\npackages/infrastructure/src/run-event-store.test.ts\npackages/infrastructure/src/run-event-store.ts\npackages/infrastructure/src/storage.test.ts\npackages/infrastructure/src/testing/run-fixture.ts\npackages/infrastructure/src/trade-store.ts\npackages/infrastructure/src/worker-ownership.ts\nscripts/evaluate-model.mjs\ntests/e2e/agent-recovery.spec.ts\ntests/e2e/model-evaluation.spec.ts\ntests/e2e/multistep-agent.spec.ts\ntests/e2e/quote-agent.spec.ts\ntests/e2e/read-assistant.spec.ts\ntests/e2e/workspace.spec.ts\ntests/fixtures/multistep-seed.ts\ntests/fixtures/run-crash-child.ts"
+    },
+    {
+      "name": "A migration and C runtime compatibility",
+      "executable": "D:\\code\\tradequote-agent-b-new-combination\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/domain/src/quote-checks.test.ts",
+        "packages/domain/src/quote-checks-runtime-compat.test.ts",
+        "packages/infrastructure/src/migrations.test.ts",
+        "packages/infrastructure/src/migration-ledger.test.ts",
+        "packages/infrastructure/src/agent-run-store.test.ts",
+        "packages/infrastructure/src/agent-run-coordinator.test.ts",
+        "packages/infrastructure/src/agent-run-recovery.test.ts",
+        "packages/infrastructure/src/quote-tool-agent.test.ts",
+        "packages/infrastructure/src/knowledge-store.test.ts",
+        "packages/infrastructure/src/storage.test.ts"
+      ],
+      "environment": {
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "startedAt": "2026-10-25T10:56:06.276Z",
+      "finishedAt": "2026-10-25T10:56:12.460Z",
+      "exit_code": 1,
+      "stdout": "\n RUN  v5.0.5 D:/code/tradequote-agent-b-new-combination\n\n ❯ packages/infrastructure/src/storage.test.ts (6 tests | 1 failed) 157ms\n   × stores immutable content hashes and rejects traversal, tampering and symlinks 25ms\n\n Test Files  1 failed | 9 passed (10)\n      Tests  1 failed | 126 passed (127)\n   Start at  18:56:06\n   Duration  5.75s (tests 48%, import 46%, transform 6%)\n\n",
+      "stderr": "\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/storage.test.ts > stores immutable content hashes and rejects traversal, tampering and symlinks\nError: EPERM: operation not permitted, symlink 'C:\\Users\\陈宇柠\\AppData\\Local\\Temp\\tradequote-test-ng5Efn\\169e73adeeb9ee2cbf78b5878c95ebef88d580774a6005a367c8e35458658027' -> 'C:\\Users\\陈宇柠\\AppData\\Local\\Temp\\tradequote-test-ng5Efn\\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'\n ❯ packages/infrastructure/src/storage.test.ts:109:3\n    107|   expect(await store.verifyHash(id)).toBe(false);\n    108|   const other = \"a\".repeat(64);\n    109|   symlinkSync(join(root, id), join(root, other));\n       |   ^\n    110|   await expect(store.readById(other)).rejects.toThrow(\"ARTIFACT_NOT_RE…\n    111| });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n",
+      "head": "72c7c422af610d9a934f93336277ed1ee26534c3",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": "apps/desktop/electron.vite.config.ts\napps/desktop/src/main/evaluation-host.test.ts\napps/desktop/src/main/evaluation-host.ts\napps/desktop/src/main/index.ts\napps/desktop/src/main/worker-client.test.ts\napps/desktop/src/main/worker-client.ts\napps/desktop/src/preload/contracts.test.ts\napps/desktop/src/preload/index.ts\napps/desktop/src/renderer/src/App.tsx\napps/desktop/src/renderer/src/features/agent-runs.test.tsx\napps/desktop/src/renderer/src/features/agent-runs.tsx\napps/desktop/src/renderer/src/features/model-evaluation.tsx\napps/desktop/src/renderer/src/features/model-settings.tsx\napps/desktop/src/renderer/src/features/quote-agent.tsx\napps/desktop/src/renderer/src/features/read-assistant.tsx\napps/desktop/src/renderer/src/features/run-event-feed.test.ts\napps/desktop/src/renderer/src/features/run-event-feed.ts\napps/desktop/src/renderer/src/features/run-events.test.tsx\napps/desktop/src/renderer/src/features/run-events.tsx\napps/desktop/src/renderer/src/features/run-tool-labels.ts\napps/desktop/src/workers/business.ts\napps/desktop/src/workers/evaluation.ts\npackage.json\npackages/contracts/src/agent.ts\npackages/contracts/src/events.ts\npackages/contracts/src/index.ts\npackages/contracts/src/knowledge-wiki.ts\npackages/contracts/src/mock.ts\npackages/contracts/src/model-evaluation.ts\npackages/contracts/src/pending-client.ts\npackages/contracts/src/read-tools.test.ts\npackages/contracts/src/read-tools.ts\npackages/contracts/src/run-events.test.ts\npackages/contracts/src/run-events.ts\npackages/contracts/src/runs.test.ts\npackages/contracts/src/runs.ts\npackages/domain/src/quote-checks-runtime-compat.test.ts\npackages/infrastructure/package.json\npackages/infrastructure/src/agent-executor.ts\npackages/infrastructure/src/agent-run-coordinator.test.ts\npackages/infrastructure/src/agent-run-coordinator.ts\npackages/infrastructure/src/agent-run-recovery.test.ts\npackages/infrastructure/src/agent-run-store.test.ts\npackages/infrastructure/src/agent-run-store.ts\npackages/infrastructure/src/agent.test.ts\npackages/infrastructure/src/catalog-quote-read-agent.test.ts\npackages/infrastructure/src/catalog-quote-read-agent.ts\npackages/infrastructure/src/catalog-quote-read-service.test.ts\npackages/infrastructure/src/catalog-quote-read-service.ts\npackages/infrastructure/src/deepseek.ts\npackages/infrastructure/src/evaluation/action-regressions.test.ts\npackages/infrastructure/src/evaluation/cases.ts\npackages/infrastructure/src/evaluation/diagnostics.test.ts\npackages/infrastructure/src/evaluation/evaluation.test.ts\npackages/infrastructure/src/evaluation/failure-regressions.test.ts\npackages/infrastructure/src/evaluation/fixture-model.ts\npackages/infrastructure/src/evaluation/public.ts\npackages/infrastructure/src/evaluation/remaining-regressions.test.ts\npackages/infrastructure/src/evaluation/report.ts\npackages/infrastructure/src/evaluation/retest-regressions.test.ts\npackages/infrastructure/src/evaluation/runner.ts\npackages/infrastructure/src/evaluation/worker-protocol.ts\npackages/infrastructure/src/evaluation/workspace.ts\npackages/infrastructure/src/index.ts\npackages/infrastructure/src/knowledge-store.test.ts\npackages/infrastructure/src/knowledge-store.ts\npackages/infrastructure/src/quote-draft-plan.ts\npackages/infrastructure/src/quote-tool-agent.test.ts\npackages/infrastructure/src/quote-tool-agent.ts\npackages/infrastructure/src/read-tool-runtime.test.ts\npackages/infrastructure/src/read-tool-runtime.ts\npackages/infrastructure/src/run-event-store.test.ts\npackages/infrastructure/src/run-event-store.ts\npackages/infrastructure/src/storage.test.ts\npackages/infrastructure/src/testing/run-fixture.ts\npackages/infrastructure/src/trade-store.ts\npackages/infrastructure/src/worker-ownership.ts\nscripts/evaluate-model.mjs\ntests/e2e/agent-recovery.spec.ts\ntests/e2e/model-evaluation.spec.ts\ntests/e2e/multistep-agent.spec.ts\ntests/e2e/quote-agent.spec.ts\ntests/e2e/read-assistant.spec.ts\ntests/e2e/workspace.spec.ts\ntests/fixtures/multistep-seed.ts\ntests/fixtures/run-crash-child.ts"
+    },
+    {
+      "name": "format A imports and layout only",
+      "executable": "cmd.exe",
+      "args": [
+        "/d",
+        "/s",
+        "/c",
+        "pnpm exec biome check --write packages/infrastructure/src/migration-lineage.ts packages/infrastructure/src/migrations.ts packages/infrastructure/src/migration-ledger.test.ts"
+      ],
+      "environment": {},
+      "startedAt": "2026-10-25T10:57:33.078Z",
+      "finishedAt": "2026-10-25T10:57:33.703Z",
+      "exit_code": 0,
+      "stdout": "Checked 3 files in 13ms. Fixed 3 files.\n",
+      "stderr": "",
+      "head": "72c7c422af610d9a934f93336277ed1ee26534c3",
+      "sourceHashes": {
+        "packages/contracts/src/checks.test.ts": "588fdec1c6f650133c8ff09a6b2e8a0fc5b3b07bf021a450df8314ffa31bfd97",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/contracts/src/knowledge-build.test.ts": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7"
+      },
+      "nonWikiWorkingChanges": "apps/desktop/electron.vite.config.ts\napps/desktop/src/main/evaluation-host.test.ts\napps/desktop/src/main/evaluation-host.ts\napps/desktop/src/main/index.ts\napps/desktop/src/main/worker-client.test.ts\napps/desktop/src/main/worker-client.ts\napps/desktop/src/preload/contracts.test.ts\napps/desktop/src/preload/index.ts\napps/desktop/src/renderer/src/App.tsx\napps/desktop/src/renderer/src/features/agent-runs.test.tsx\napps/desktop/src/renderer/src/features/agent-runs.tsx\napps/desktop/src/renderer/src/features/model-evaluation.tsx\napps/desktop/src/renderer/src/features/model-settings.tsx\napps/desktop/src/renderer/src/features/quote-agent.tsx\napps/desktop/src/renderer/src/features/read-assistant.tsx\napps/desktop/src/renderer/src/features/run-event-feed.test.ts\napps/desktop/src/renderer/src/features/run-event-feed.ts\napps/desktop/src/renderer/src/features/run-events.test.tsx\napps/desktop/src/renderer/src/features/run-events.tsx\napps/desktop/src/renderer/src/features/run-tool-labels.ts\napps/desktop/src/workers/business.ts\napps/desktop/src/workers/evaluation.ts\npackage.json\npackages/contracts/src/agent.ts\npackages/contracts/src/events.ts\npackages/contracts/src/index.ts\npackages/contracts/src/knowledge-wiki.ts\npackages/contracts/src/mock.ts\npackages/contracts/src/model-evaluation.ts\npackages/contracts/src/pending-client.ts\npackages/contracts/src/read-tools.test.ts\npackages/contracts/src/read-tools.ts\npackages/contracts/src/run-events.test.ts\npackages/contracts/src/run-events.ts\npackages/contracts/src/runs.test.ts\npackages/contracts/src/runs.ts\npackages/domain/src/quote-checks-runtime-compat.test.ts\npackages/infrastructure/package.json\npackages/infrastructure/src/agent-executor.ts\npackages/infrastructure/src/agent-run-coordinator.test.ts\npackages/infrastructure/src/agent-run-coordinator.ts\npackages/infrastructure/src/agent-run-recovery.test.ts\npackages/infrastructure/src/agent-run-store.test.ts\npackages/infrastructure/src/agent-run-store.ts\npackages/infrastructure/src/agent.test.ts\npackages/infrastructure/src/catalog-quote-read-agent.test.ts\npackages/infrastructure/src/catalog-quote-read-agent.ts\npackages/infrastructure/src/catalog-quote-read-service.test.ts\npackages/infrastructure/src/catalog-quote-read-service.ts\npackages/infrastructure/src/deepseek.ts\npackages/infrastructure/src/evaluation/action-regressions.test.ts\npackages/infrastructure/src/evaluation/cases.ts\npackages/infrastructure/src/evaluation/diagnostics.test.ts\npackages/infrastructure/src/evaluation/evaluation.test.ts\npackages/infrastructure/src/evaluation/failure-regressions.test.ts\npackages/infrastructure/src/evaluation/fixture-model.ts\npackages/infrastructure/src/evaluation/public.ts\npackages/infrastructure/src/evaluation/remaining-regressions.test.ts\npackages/infrastructure/src/evaluation/report.ts\npackages/infrastructure/src/evaluation/retest-regressions.test.ts\npackages/infrastructure/src/evaluation/runner.ts\npackages/infrastructure/src/evaluation/worker-protocol.ts\npackages/infrastructure/src/evaluation/workspace.ts\npackages/infrastructure/src/index.ts\npackages/infrastructure/src/knowledge-store.test.ts\npackages/infrastructure/src/knowledge-store.ts\npackages/infrastructure/src/migration-ledger.test.ts\npackages/infrastructure/src/migration-lineage.ts\npackages/infrastructure/src/migrations.ts\npackages/infrastructure/src/quote-draft-plan.ts\npackages/infrastructure/src/quote-tool-agent.test.ts\npackages/infrastructure/src/quote-tool-agent.ts\npackages/infrastructure/src/read-tool-runtime.test.ts\npackages/infrastructure/src/read-tool-runtime.ts\npackages/infrastructure/src/run-event-store.test.ts\npackages/infrastructure/src/run-event-store.ts\npackages/infrastructure/src/storage.test.ts\npackages/infrastructure/src/testing/run-fixture.ts\npackages/infrastructure/src/trade-store.ts\npackages/infrastructure/src/worker-ownership.ts\nscripts/evaluate-model.mjs\ntests/e2e/agent-recovery.spec.ts\ntests/e2e/model-evaluation.spec.ts\ntests/e2e/multistep-agent.spec.ts\ntests/e2e/quote-agent.spec.ts\ntests/e2e/read-assistant.spec.ts\ntests/e2e/workspace.spec.ts\ntests/fixtures/multistep-seed.ts\ntests/fixtures/run-crash-child.ts"
+    }
+  ],
+  "old121NotRerunAsOldBaseline": true,
+  "overallMigrationApproved": false,
+  "notRun": [
+    "complete C M/F/J migration matrix",
+    "actual desktop/e2e/macOS joint validation",
+    "human publication, personnel signoff or business acceptance",
+    "real lint persistence/review service: not implemented",
+    "real model calls/force push/merge into integration branch"
+  ]
+}

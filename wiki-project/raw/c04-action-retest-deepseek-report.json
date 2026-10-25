@@ -1,0 +1,1984 @@
+{
+  "schemaVersion": 1,
+  "suite": "c04-v1",
+  "mode": "deepseek",
+  "status": "passed",
+  "providerValidation": "observed",
+  "syntheticData": true,
+  "caseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496",
+  "startedAt": "2026-10-22T12:30:40.338Z",
+  "finishedAt": "2026-10-22T12:33:09.622Z",
+  "model": "deepseek-flash",
+  "modelCalls": 168,
+  "realRequests": 168,
+  "usage": {
+    "tokens": null,
+    "cost": null,
+    "reason": "not_exposed_by_adapter"
+  },
+  "rows": [
+    {
+      "id": "apparel-zh-v1",
+      "kind": "semantic",
+      "category": "apparel",
+      "language": "zh",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 6,
+      "elapsedMs": 5469,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "apparel-zh-v2",
+      "kind": "semantic",
+      "category": "apparel",
+      "language": "zh",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 6,
+      "elapsedMs": 5689,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "apparel-zh-v3",
+      "kind": "semantic",
+      "category": "apparel",
+      "language": "zh",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 5,
+      "elapsedMs": 4418,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "apparel-en-v1",
+      "kind": "semantic",
+      "category": "apparel",
+      "language": "en",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 7,
+      "elapsedMs": 5549,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "apparel-en-v2",
+      "kind": "semantic",
+      "category": "apparel",
+      "language": "en",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 6,
+      "elapsedMs": 5289,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "apparel-en-v3",
+      "kind": "semantic",
+      "category": "apparel",
+      "language": "en",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 5,
+      "elapsedMs": 4909,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "apparel-de-v1",
+      "kind": "semantic",
+      "category": "apparel",
+      "language": "de",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 6,
+      "elapsedMs": 5112,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "apparel-de-v2",
+      "kind": "semantic",
+      "category": "apparel",
+      "language": "de",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 5,
+      "elapsedMs": 4691,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "apparel-de-v3",
+      "kind": "semantic",
+      "category": "apparel",
+      "language": "de",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 5,
+      "elapsedMs": 4496,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "panel-zh-v1",
+      "kind": "semantic",
+      "category": "panel",
+      "language": "zh",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 6,
+      "elapsedMs": 4816,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "panel-zh-v2",
+      "kind": "semantic",
+      "category": "panel",
+      "language": "zh",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 5,
+      "elapsedMs": 4942,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "panel-zh-v3",
+      "kind": "semantic",
+      "category": "panel",
+      "language": "zh",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 5,
+      "elapsedMs": 4627,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "panel-en-v1",
+      "kind": "semantic",
+      "category": "panel",
+      "language": "en",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 6,
+      "elapsedMs": 5120,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "panel-en-v2",
+      "kind": "semantic",
+      "category": "panel",
+      "language": "en",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 6,
+      "elapsedMs": 4719,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "panel-en-v3",
+      "kind": "semantic",
+      "category": "panel",
+      "language": "en",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 5,
+      "elapsedMs": 3965,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "panel-de-v1",
+      "kind": "semantic",
+      "category": "panel",
+      "language": "de",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 6,
+      "elapsedMs": 5562,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "panel-de-v2",
+      "kind": "semantic",
+      "category": "panel",
+      "language": "de",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 6,
+      "elapsedMs": 5751,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "panel-de-v3",
+      "kind": "semantic",
+      "category": "panel",
+      "language": "de",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 5,
+      "elapsedMs": 4122,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "fastener-zh-v1",
+      "kind": "semantic",
+      "category": "fastener",
+      "language": "zh",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 6,
+      "elapsedMs": 6326,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "fastener-zh-v2",
+      "kind": "semantic",
+      "category": "fastener",
+      "language": "zh",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 6,
+      "elapsedMs": 4241,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "fastener-zh-v3",
+      "kind": "semantic",
+      "category": "fastener",
+      "language": "zh",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 6,
+      "elapsedMs": 5057,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "fastener-en-v1",
+      "kind": "semantic",
+      "category": "fastener",
+      "language": "en",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 6,
+      "elapsedMs": 5178,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "fastener-en-v2",
+      "kind": "semantic",
+      "category": "fastener",
+      "language": "en",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 6,
+      "elapsedMs": 4835,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "fastener-en-v3",
+      "kind": "semantic",
+      "category": "fastener",
+      "language": "en",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 6,
+      "elapsedMs": 4991,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "fastener-de-v1",
+      "kind": "semantic",
+      "category": "fastener",
+      "language": "de",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 6,
+      "elapsedMs": 5073,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "fastener-de-v2",
+      "kind": "semantic",
+      "category": "fastener",
+      "language": "de",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 6,
+      "elapsedMs": 5750,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "fastener-de-v3",
+      "kind": "semantic",
+      "category": "fastener",
+      "language": "de",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 6,
+      "elapsedMs": 5790,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "clarification-zh",
+      "kind": "clarification",
+      "category": null,
+      "language": "zh",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": "MISSING_FACTS",
+      "expectedErrorCode": null,
+      "modelCalls": 3,
+      "elapsedMs": 2457,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "no_late_write",
+          "passed": true
+        }
+      ],
+      "diagnostics": [
+        {
+          "stage": "clarification",
+          "tool": null,
+          "category": "clarification_before_read",
+          "disposition": "feedback",
+          "modelCall": 1,
+          "errorCode": "MISSING_FACTS"
+        },
+        {
+          "stage": "clarification",
+          "tool": null,
+          "category": "missing_facts",
+          "disposition": "stopped",
+          "modelCall": 3,
+          "errorCode": "MISSING_FACTS"
+        }
+      ]
+    },
+    {
+      "id": "clarification-en",
+      "kind": "clarification",
+      "category": null,
+      "language": "en",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": "MISSING_FACTS",
+      "expectedErrorCode": null,
+      "modelCalls": 2,
+      "elapsedMs": 2189,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "no_late_write",
+          "passed": true
+        }
+      ],
+      "diagnostics": [
+        {
+          "stage": "clarification",
+          "tool": null,
+          "category": "clarification_before_read",
+          "disposition": "feedback",
+          "modelCall": 1,
+          "errorCode": "MISSING_FACTS"
+        },
+        {
+          "stage": "clarification",
+          "tool": null,
+          "category": "clarification_before_read",
+          "disposition": "stopped",
+          "modelCall": 2,
+          "errorCode": "MISSING_FACTS"
+        }
+      ]
+    },
+    {
+      "id": "clarification-de",
+      "kind": "clarification",
+      "category": null,
+      "language": "de",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": "MISSING_FACTS",
+      "expectedErrorCode": null,
+      "modelCalls": 2,
+      "elapsedMs": 2496,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "no_late_write",
+          "passed": true
+        }
+      ],
+      "diagnostics": [
+        {
+          "stage": "clarification",
+          "tool": null,
+          "category": "clarification_before_read",
+          "disposition": "feedback",
+          "modelCall": 1,
+          "errorCode": "MISSING_FACTS"
+        },
+        {
+          "stage": "clarification",
+          "tool": null,
+          "category": "clarification_before_read",
+          "disposition": "stopped",
+          "modelCall": 2,
+          "errorCode": "MISSING_FACTS"
+        }
+      ]
+    },
+    {
+      "id": "rule-block",
+      "kind": "rule_block",
+      "category": "apparel",
+      "language": "en",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": "RULE_BLOCKED",
+      "expectedErrorCode": "RULE_BLOCKED",
+      "modelCalls": 6,
+      "elapsedMs": 5200,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "no_late_write",
+          "passed": true
+        }
+      ],
+      "diagnostics": [
+        {
+          "stage": "provider",
+          "tool": null,
+          "category": "content_json",
+          "disposition": "stopped",
+          "modelCall": 6,
+          "errorCode": "MODEL_INVALID_OUTPUT"
+        },
+        {
+          "stage": "tool_execution",
+          "tool": "validate_quote",
+          "category": "rule_block",
+          "disposition": "stopped",
+          "modelCall": 6,
+          "errorCode": "RULE_BLOCKED"
+        }
+      ]
+    },
+    {
+      "id": "failure-auth",
+      "kind": "failure",
+      "category": null,
+      "language": null,
+      "status": "not_run",
+      "reason": "fixture_only",
+      "errorCode": null,
+      "expectedErrorCode": "MODEL_AUTH_FAILED",
+      "modelCalls": 0,
+      "elapsedMs": 0,
+      "checks": []
+    },
+    {
+      "id": "failure-rate_limit",
+      "kind": "failure",
+      "category": null,
+      "language": null,
+      "status": "not_run",
+      "reason": "fixture_only",
+      "errorCode": null,
+      "expectedErrorCode": "MODEL_RATE_LIMITED",
+      "modelCalls": 0,
+      "elapsedMs": 0,
+      "checks": []
+    },
+    {
+      "id": "failure-server",
+      "kind": "failure",
+      "category": null,
+      "language": null,
+      "status": "not_run",
+      "reason": "fixture_only",
+      "errorCode": null,
+      "expectedErrorCode": "CAPABILITY_UNAVAILABLE",
+      "modelCalls": 0,
+      "elapsedMs": 0,
+      "checks": []
+    },
+    {
+      "id": "failure-network",
+      "kind": "failure",
+      "category": null,
+      "language": null,
+      "status": "not_run",
+      "reason": "fixture_only",
+      "errorCode": null,
+      "expectedErrorCode": "CAPABILITY_UNAVAILABLE",
+      "modelCalls": 0,
+      "elapsedMs": 0,
+      "checks": []
+    },
+    {
+      "id": "failure-invalid_json",
+      "kind": "failure",
+      "category": null,
+      "language": null,
+      "status": "not_run",
+      "reason": "fixture_only",
+      "errorCode": null,
+      "expectedErrorCode": "MODEL_INVALID_OUTPUT",
+      "modelCalls": 0,
+      "elapsedMs": 0,
+      "checks": []
+    },
+    {
+      "id": "failure-truncated",
+      "kind": "failure",
+      "category": null,
+      "language": null,
+      "status": "not_run",
+      "reason": "fixture_only",
+      "errorCode": null,
+      "expectedErrorCode": "MODEL_INVALID_OUTPUT",
+      "modelCalls": 0,
+      "elapsedMs": 0,
+      "checks": []
+    },
+    {
+      "id": "failure-oversized",
+      "kind": "failure",
+      "category": null,
+      "language": null,
+      "status": "not_run",
+      "reason": "fixture_only",
+      "errorCode": null,
+      "expectedErrorCode": "MODEL_INVALID_OUTPUT",
+      "modelCalls": 0,
+      "elapsedMs": 0,
+      "checks": []
+    },
+    {
+      "id": "failure-empty",
+      "kind": "failure",
+      "category": null,
+      "language": null,
+      "status": "not_run",
+      "reason": "fixture_only",
+      "errorCode": null,
+      "expectedErrorCode": "MODEL_INVALID_OUTPUT",
+      "modelCalls": 0,
+      "elapsedMs": 0,
+      "checks": []
+    },
+    {
+      "id": "failure-extra_field",
+      "kind": "failure",
+      "category": null,
+      "language": null,
+      "status": "not_run",
+      "reason": "fixture_only",
+      "errorCode": null,
+      "expectedErrorCode": "MODEL_INVALID_OUTPUT",
+      "modelCalls": 0,
+      "elapsedMs": 0,
+      "checks": []
+    },
+    {
+      "id": "failure-amount_injection",
+      "kind": "failure",
+      "category": null,
+      "language": null,
+      "status": "not_run",
+      "reason": "fixture_only",
+      "errorCode": null,
+      "expectedErrorCode": "MODEL_INVALID_OUTPUT",
+      "modelCalls": 0,
+      "elapsedMs": 0,
+      "checks": []
+    },
+    {
+      "id": "failure-unknown_tool",
+      "kind": "failure",
+      "category": null,
+      "language": null,
+      "status": "not_run",
+      "reason": "fixture_only",
+      "errorCode": null,
+      "expectedErrorCode": "ACTION_NOT_ALLOWED",
+      "modelCalls": 0,
+      "elapsedMs": 0,
+      "checks": []
+    },
+    {
+      "id": "failure-false_complete",
+      "kind": "failure",
+      "category": null,
+      "language": null,
+      "status": "not_run",
+      "reason": "fixture_only",
+      "errorCode": null,
+      "expectedErrorCode": "ACTION_NOT_ALLOWED",
+      "modelCalls": 0,
+      "elapsedMs": 0,
+      "checks": []
+    },
+    {
+      "id": "failure-tool_budget",
+      "kind": "failure",
+      "category": null,
+      "language": null,
+      "status": "not_run",
+      "reason": "fixture_only",
+      "errorCode": null,
+      "expectedErrorCode": "ACTION_NOT_ALLOWED",
+      "modelCalls": 0,
+      "elapsedMs": 0,
+      "checks": []
+    },
+    {
+      "id": "failure-timeout",
+      "kind": "failure",
+      "category": null,
+      "language": null,
+      "status": "not_run",
+      "reason": "fixture_only",
+      "errorCode": null,
+      "expectedErrorCode": "MODEL_TIMEOUT",
+      "modelCalls": 0,
+      "elapsedMs": 0,
+      "checks": []
+    },
+    {
+      "id": "failure-cancel_late",
+      "kind": "failure",
+      "category": null,
+      "language": null,
+      "status": "not_run",
+      "reason": "fixture_only",
+      "errorCode": null,
+      "expectedErrorCode": "CANCELLED",
+      "modelCalls": 0,
+      "elapsedMs": 0,
+      "checks": []
+    },
+    {
+      "id": "failure-pre_cancel",
+      "kind": "failure",
+      "category": null,
+      "language": null,
+      "status": "not_run",
+      "reason": "fixture_only",
+      "errorCode": null,
+      "expectedErrorCode": "CANCELLED",
+      "modelCalls": 0,
+      "elapsedMs": 0,
+      "checks": []
+    },
+    {
+      "id": "failure-explicit_retry",
+      "kind": "failure",
+      "category": null,
+      "language": null,
+      "status": "not_run",
+      "reason": "fixture_only",
+      "errorCode": null,
+      "expectedErrorCode": "MODEL_RATE_LIMITED",
+      "modelCalls": 0,
+      "elapsedMs": 0,
+      "checks": []
+    }
+  ]
+}

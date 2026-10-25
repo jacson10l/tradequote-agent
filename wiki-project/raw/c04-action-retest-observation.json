@@ -1,0 +1,863 @@
+{
+  "scope": "Read-only strict run projections; no raw payload, credentials, internal run ID, control key or fingerprint",
+  "observations": [
+    {
+      "observedAt": "2026-10-22T12:28:07.370Z",
+      "recordCount": 4,
+      "invalidRecords": 0,
+      "launchSourceCommit": "fd7703c60ac67740989a08492e2b8c7fb0be12a0",
+      "history": [
+        {
+          "runRef": "7c303d2e01b4",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T10:43:55.319Z",
+          "finishedAt": "2026-10-22T10:45:53.244Z",
+          "observedRows": 28,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "3bda7468c076",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T09:33:49.764Z",
+          "finishedAt": "2026-10-22T09:35:46.641Z",
+          "observedRows": 26,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [],
+      "reportSummary": null
+    },
+    {
+      "observedAt": "2026-10-22T12:29:12.180Z",
+      "recordCount": 4,
+      "invalidRecords": 0,
+      "launchSourceCommit": "fd7703c60ac67740989a08492e2b8c7fb0be12a0",
+      "history": [
+        {
+          "runRef": "7c303d2e01b4",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T10:43:55.319Z",
+          "finishedAt": "2026-10-22T10:45:53.244Z",
+          "observedRows": 28,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "3bda7468c076",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T09:33:49.764Z",
+          "finishedAt": "2026-10-22T09:35:46.641Z",
+          "observedRows": 26,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [],
+      "reportSummary": null
+    },
+    {
+      "observedAt": "2026-10-22T12:31:00.886Z",
+      "recordCount": 5,
+      "invalidRecords": 0,
+      "launchSourceCommit": "fd7703c60ac67740989a08492e2b8c7fb0be12a0",
+      "history": [
+        {
+          "runRef": "f16517675d1d",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "running",
+          "startedAt": "2026-10-22T12:30:36.387Z",
+          "finishedAt": null,
+          "observedRows": 3,
+          "errorCode": null,
+          "hasReport": false
+        },
+        {
+          "runRef": "7c303d2e01b4",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T10:43:55.319Z",
+          "finishedAt": "2026-10-22T10:45:53.244Z",
+          "observedRows": 28,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "3bda7468c076",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T09:33:49.764Z",
+          "finishedAt": "2026-10-22T09:35:46.641Z",
+          "observedRows": 26,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [
+        {
+          "runRef": "f16517675d1d",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "running",
+          "startedAt": "2026-10-22T12:30:36.387Z",
+          "finishedAt": null,
+          "observedRows": 3,
+          "errorCode": null,
+          "hasReport": false
+        }
+      ],
+      "reportSummary": null
+    },
+    {
+      "observedAt": "2026-10-22T12:32:18.227Z",
+      "recordCount": 5,
+      "invalidRecords": 0,
+      "launchSourceCommit": "fd7703c60ac67740989a08492e2b8c7fb0be12a0",
+      "history": [
+        {
+          "runRef": "f16517675d1d",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "running",
+          "startedAt": "2026-10-22T12:30:36.387Z",
+          "finishedAt": null,
+          "observedRows": 19,
+          "errorCode": null,
+          "hasReport": false
+        },
+        {
+          "runRef": "7c303d2e01b4",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T10:43:55.319Z",
+          "finishedAt": "2026-10-22T10:45:53.244Z",
+          "observedRows": 28,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "3bda7468c076",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T09:33:49.764Z",
+          "finishedAt": "2026-10-22T09:35:46.641Z",
+          "observedRows": 26,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [
+        {
+          "runRef": "f16517675d1d",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "running",
+          "startedAt": "2026-10-22T12:30:36.387Z",
+          "finishedAt": null,
+          "observedRows": 19,
+          "errorCode": null,
+          "hasReport": false
+        }
+      ],
+      "reportSummary": null
+    },
+    {
+      "observedAt": "2026-10-22T12:33:24.745Z",
+      "recordCount": 5,
+      "invalidRecords": 0,
+      "launchSourceCommit": "fd7703c60ac67740989a08492e2b8c7fb0be12a0",
+      "history": [
+        {
+          "runRef": "f16517675d1d",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T12:30:36.387Z",
+          "finishedAt": "2026-10-22T12:33:09.632Z",
+          "observedRows": 31,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "7c303d2e01b4",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T10:43:55.319Z",
+          "finishedAt": "2026-10-22T10:45:53.244Z",
+          "observedRows": 28,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "3bda7468c076",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T09:33:49.764Z",
+          "finishedAt": "2026-10-22T09:35:46.641Z",
+          "observedRows": 26,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [
+        {
+          "runRef": "f16517675d1d",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T12:30:36.387Z",
+          "finishedAt": "2026-10-22T12:33:09.632Z",
+          "observedRows": 31,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "reportSummary": {
+        "status": "passed",
+        "providerValidation": "observed",
+        "model": "deepseek-flash",
+        "modelCalls": 168,
+        "realRequests": 168,
+        "usage": {
+          "tokens": null,
+          "cost": null,
+          "reason": "not_exposed_by_adapter"
+        },
+        "caseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496",
+        "business": {
+          "passed": 31,
+          "failed": 0,
+          "not_run": 0,
+          "cancelled": 0
+        },
+        "diagnosticRows": [
+          {
+            "id": "clarification-zh",
+            "status": "passed",
+            "errorCode": "MISSING_FACTS",
+            "diagnostics": [
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "clarification_before_read",
+                "disposition": "feedback",
+                "modelCall": 1,
+                "errorCode": "MISSING_FACTS"
+              },
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "missing_facts",
+                "disposition": "stopped",
+                "modelCall": 3,
+                "errorCode": "MISSING_FACTS"
+              }
+            ]
+          },
+          {
+            "id": "clarification-en",
+            "status": "passed",
+            "errorCode": "MISSING_FACTS",
+            "diagnostics": [
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "clarification_before_read",
+                "disposition": "feedback",
+                "modelCall": 1,
+                "errorCode": "MISSING_FACTS"
+              },
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "clarification_before_read",
+                "disposition": "stopped",
+                "modelCall": 2,
+                "errorCode": "MISSING_FACTS"
+              }
+            ]
+          },
+          {
+            "id": "clarification-de",
+            "status": "passed",
+            "errorCode": "MISSING_FACTS",
+            "diagnostics": [
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "clarification_before_read",
+                "disposition": "feedback",
+                "modelCall": 1,
+                "errorCode": "MISSING_FACTS"
+              },
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "clarification_before_read",
+                "disposition": "stopped",
+                "modelCall": 2,
+                "errorCode": "MISSING_FACTS"
+              }
+            ]
+          },
+          {
+            "id": "rule-block",
+            "status": "passed",
+            "errorCode": "RULE_BLOCKED",
+            "diagnostics": [
+              {
+                "stage": "provider",
+                "tool": null,
+                "category": "content_json",
+                "disposition": "stopped",
+                "modelCall": 6,
+                "errorCode": "MODEL_INVALID_OUTPUT"
+              },
+              {
+                "stage": "tool_execution",
+                "tool": "validate_quote",
+                "category": "rule_block",
+                "disposition": "stopped",
+                "modelCall": 6,
+                "errorCode": "RULE_BLOCKED"
+              }
+            ]
+          }
+        ],
+        "failureInjection": {
+          "passed": 0,
+          "failed": 0,
+          "not_run": 17,
+          "cancelled": 0
+        },
+        "threeFailures": [
+          {
+            "id": "apparel-en-v2",
+            "previousStatus": "failed",
+            "previousCode": "MODEL_INVALID_OUTPUT",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "panel-en-v1",
+            "previousStatus": "failed",
+            "previousCode": "MISSING_FACTS",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "rule-block",
+            "previousStatus": "failed",
+            "previousCode": "MODEL_INVALID_OUTPUT",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": "RULE_BLOCKED",
+            "reason": "observed",
+            "diagnostics": [
+              {
+                "stage": "provider",
+                "tool": null,
+                "category": "content_json",
+                "disposition": "stopped",
+                "modelCall": 6,
+                "errorCode": "MODEL_INVALID_OUTPUT"
+              },
+              {
+                "stage": "tool_execution",
+                "tool": "validate_quote",
+                "category": "rule_block",
+                "disposition": "stopped",
+                "modelCall": 6,
+                "errorCode": "RULE_BLOCKED"
+              }
+            ],
+            "failedChecks": []
+          }
+        ],
+        "threeSkipped": [
+          {
+            "id": "apparel-en-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "panel-en-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "panel-en-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          }
+        ]
+      }
+    },
+    {
+      "observedAt": "2026-10-22T12:37:55.271Z",
+      "recordCount": 5,
+      "invalidRecords": 0,
+      "launchSourceCommit": "fd7703c60ac67740989a08492e2b8c7fb0be12a0",
+      "history": [
+        {
+          "runRef": "f16517675d1d",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T12:30:36.387Z",
+          "finishedAt": "2026-10-22T12:33:09.632Z",
+          "observedRows": 31,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "7c303d2e01b4",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T10:43:55.319Z",
+          "finishedAt": "2026-10-22T10:45:53.244Z",
+          "observedRows": 28,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "3bda7468c076",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T09:33:49.764Z",
+          "finishedAt": "2026-10-22T09:35:46.641Z",
+          "observedRows": 26,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [
+        {
+          "runRef": "f16517675d1d",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T12:30:36.387Z",
+          "finishedAt": "2026-10-22T12:33:09.632Z",
+          "observedRows": 31,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "reportSummary": {
+        "status": "passed",
+        "providerValidation": "observed",
+        "model": "deepseek-flash",
+        "modelCalls": 168,
+        "realRequests": 168,
+        "usage": {
+          "tokens": null,
+          "cost": null,
+          "reason": "not_exposed_by_adapter"
+        },
+        "caseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496",
+        "business": {
+          "passed": 31,
+          "failed": 0,
+          "not_run": 0,
+          "cancelled": 0
+        },
+        "diagnosticRows": [
+          {
+            "id": "clarification-zh",
+            "status": "passed",
+            "errorCode": "MISSING_FACTS",
+            "diagnostics": [
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "clarification_before_read",
+                "disposition": "feedback",
+                "modelCall": 1,
+                "errorCode": "MISSING_FACTS"
+              },
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "missing_facts",
+                "disposition": "stopped",
+                "modelCall": 3,
+                "errorCode": "MISSING_FACTS"
+              }
+            ]
+          },
+          {
+            "id": "clarification-en",
+            "status": "passed",
+            "errorCode": "MISSING_FACTS",
+            "diagnostics": [
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "clarification_before_read",
+                "disposition": "feedback",
+                "modelCall": 1,
+                "errorCode": "MISSING_FACTS"
+              },
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "clarification_before_read",
+                "disposition": "stopped",
+                "modelCall": 2,
+                "errorCode": "MISSING_FACTS"
+              }
+            ]
+          },
+          {
+            "id": "clarification-de",
+            "status": "passed",
+            "errorCode": "MISSING_FACTS",
+            "diagnostics": [
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "clarification_before_read",
+                "disposition": "feedback",
+                "modelCall": 1,
+                "errorCode": "MISSING_FACTS"
+              },
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "clarification_before_read",
+                "disposition": "stopped",
+                "modelCall": 2,
+                "errorCode": "MISSING_FACTS"
+              }
+            ]
+          },
+          {
+            "id": "rule-block",
+            "status": "passed",
+            "errorCode": "RULE_BLOCKED",
+            "diagnostics": [
+              {
+                "stage": "provider",
+                "tool": null,
+                "category": "content_json",
+                "disposition": "stopped",
+                "modelCall": 6,
+                "errorCode": "MODEL_INVALID_OUTPUT"
+              },
+              {
+                "stage": "tool_execution",
+                "tool": "validate_quote",
+                "category": "rule_block",
+                "disposition": "stopped",
+                "modelCall": 6,
+                "errorCode": "RULE_BLOCKED"
+              }
+            ]
+          }
+        ],
+        "failureInjection": {
+          "passed": 0,
+          "failed": 0,
+          "not_run": 17,
+          "cancelled": 0
+        },
+        "threeFailures": [
+          {
+            "id": "apparel-en-v2",
+            "previousStatus": "failed",
+            "previousCode": "MODEL_INVALID_OUTPUT",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "panel-en-v1",
+            "previousStatus": "failed",
+            "previousCode": "MISSING_FACTS",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "rule-block",
+            "previousStatus": "failed",
+            "previousCode": "MODEL_INVALID_OUTPUT",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": "RULE_BLOCKED",
+            "reason": "observed",
+            "diagnostics": [
+              {
+                "stage": "provider",
+                "tool": null,
+                "category": "content_json",
+                "disposition": "stopped",
+                "modelCall": 6,
+                "errorCode": "MODEL_INVALID_OUTPUT"
+              },
+              {
+                "stage": "tool_execution",
+                "tool": "validate_quote",
+                "category": "rule_block",
+                "disposition": "stopped",
+                "modelCall": 6,
+                "errorCode": "RULE_BLOCKED"
+              }
+            ],
+            "failedChecks": []
+          }
+        ],
+        "threeSkipped": [
+          {
+            "id": "apparel-en-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "panel-en-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "panel-en-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          }
+        ]
+      }
+    }
+  ]
+}

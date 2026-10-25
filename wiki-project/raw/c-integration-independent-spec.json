@@ -1,0 +1,144 @@
+{
+  "axis": "Spec",
+  "candidate": "9e067bf0114e0d2b27f7b65ea4ecc07042405499",
+  "base": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+  "integrationDeltaBase": "9e8695b88f3e5d306f6aeeb362d21524818a3d12",
+  "worktree": "/Users/jason/.codex/worktrees/c-integration-candidate/tradequote-agent",
+  "reviewedAt": "2026-10-23T04:56:33.609237+00:00",
+  "reviewedFiles": [
+    "AGENTS.md",
+    "CONTRIBUTING.md",
+    "packages/contracts/src/index.ts",
+    "packages/contracts/src/pending-client.ts",
+    "packages/contracts/src/runs.ts",
+    "packages/contracts/src/run-events.ts",
+    "packages/contracts/src/events.ts",
+    "packages/contracts/src/knowledge.ts",
+    "packages/contracts/src/checks.ts",
+    "packages/domain/src/quote-checks.ts",
+    "packages/infrastructure/src/agent-run-coordinator.ts",
+    "packages/infrastructure/src/agent-run-store.ts",
+    "packages/infrastructure/src/run-event-store.ts",
+    "packages/infrastructure/src/read-tool-runtime.ts",
+    "packages/infrastructure/src/quote-tool-agent.ts",
+    "packages/infrastructure/src/quote-draft-plan.ts",
+    "packages/infrastructure/src/catalog-quote-read-agent.ts",
+    "packages/infrastructure/src/catalog-quote-read-service.ts",
+    "packages/infrastructure/src/knowledge-store.ts",
+    "packages/infrastructure/src/worker-ownership.ts",
+    "packages/infrastructure/src/migrations.ts",
+    "packages/infrastructure/src/agent-executor.ts",
+    "packages/infrastructure/src/trade-store.ts",
+    "packages/infrastructure/src/deepseek.ts",
+    "packages/infrastructure/src/evaluation/runner.ts",
+    "packages/infrastructure/src/quote-tool-agent.test.ts",
+    "packages/infrastructure/src/agent-run-store.test.ts",
+    "packages/infrastructure/src/agent-run-coordinator.test.ts",
+    "packages/infrastructure/src/run-event-store.test.ts",
+    "apps/desktop/src/main/evaluation-host.ts",
+    "apps/desktop/src/main/worker-client.ts",
+    "apps/desktop/src/main/index.ts",
+    "apps/desktop/src/preload/index.ts",
+    "apps/desktop/src/preload/contracts.test.ts",
+    "apps/desktop/src/workers/business.ts",
+    "apps/desktop/src/workers/evaluation.ts",
+    "apps/desktop/src/renderer/src/features/agent-runs.tsx",
+    "apps/desktop/src/renderer/src/features/run-events.tsx",
+    "apps/desktop/src/renderer/src/features/run-event-feed.ts",
+    "wiki-project/wiki/C集成候选与依赖收口.md",
+    "wiki-project/wiki/C集成候选评审说明.md",
+    "wiki-project/wiki/tasks/C集成候选-准备与组合验证.md",
+    "wiki-project/wiki/tasks/C集成候选-依赖与非作者签认.md",
+    "wiki-project/wiki/C02c持久运行与写入前置.md",
+    "wiki-project/wiki/C02c统一运行与写账本.md",
+    "wiki-project/wiki/C02c多步报价工具闭环.md",
+    "wiki-project/wiki/C03持久事件与桌面重连.md",
+    "wiki-project/wiki/C04收口与验收边界.md",
+    "wiki-project/raw/c-integration-validation.json",
+    "wiki-project/raw/c-integration-scope.json",
+    "wiki-project/raw/c-integration-preservation.json",
+    "wiki-project/wiki/decisions/0019-运行存储前置与同连接保存点.md",
+    "wiki-project/wiki/decisions/0020-独占Worker与草稿写账本.md",
+    "wiki-project/wiki/decisions/0021-多步候选授权与规则校验.md",
+    "wiki-project/wiki/decisions/0022-评估隔离与结果脱敏.md",
+    "wiki-project/wiki/decisions/0023-显式评估宿主与独立进程.md",
+    "wiki-project/wiki/decisions/0024-同次草稿运行内受限纠正.md",
+    "wiki-project/wiki/decisions/0025-枚举失败证据与前置步骤纠正.md",
+    "wiki-project/wiki/decisions/0026-阶段工具提示与细粒度失败分类.md",
+    "wiki-project/wiki/decisions/0027-动作纠正与阻断解释故障归因.md",
+    "wiki-project/wiki/decisions/0028-事务事件日志与只读重连.md"
+  ],
+  "findings": [],
+  "missingOrPartialRequirements": [],
+  "unintendedScope": [],
+  "implementedLookingButIncorrectBehavior": [],
+  "evidenceChecks": [
+    {
+      "check": "Pin exact candidate and clean tracked state",
+      "method": "git rev-parse HEAD; git status --short",
+      "result": "Exact candidate; empty status"
+    },
+    {
+      "check": "Inspect full review range and integration-only delta",
+      "method": "git diff 654fecc...9e067bf; git log 654fecc..9e067bf --oneline; git diff 9e8695b..9e067bf",
+      "result": "26 commits including integration merge and 25 C-side provenance commits; integration public exports/pending gate preserve both contracts"
+    },
+    {
+      "check": "Recorded source provenance against actual local files",
+      "method": "Independently SHA-256 every sourceSnapshotSha256 file in raw/c-integration-validation.json",
+      "filesChecked": 225,
+      "mismatches": [],
+      "result": "All 225 exact matches"
+    },
+    {
+      "check": "Fencing, cancellation and explicit retry",
+      "method": "Trace coordinator execute/dispatch/run and store current/control/save/recoverOnStartup",
+      "result": "Control commits before abort; executionId/session/attempt checked before write; replay controls have no side effects; startup interrupts without dispatch; retry is explicit"
+    },
+    {
+      "check": "Atomic writes and preserved versions",
+      "method": "Trace commitValidatedWrite -> commitWrite -> commitQuote -> TradeStore.commitAgent on same SQLite connection and inspect relevant SQL-failure tests",
+      "result": "Nested transactions are same-connection savepoints under immediate outer transaction; quote/turn/idempotency/run/receipt/steps/events roll back together; semantic candidate and actual saved quote are compared"
+    },
+    {
+      "check": "Rule authority and sources",
+      "method": "Trace candidate/read prerequisites, checkedKnowledge, ruleCategory, checkDraft and transaction-time findPublished",
+      "result": "Strict host IDs and latest candidate/validation gate; actual unique product category used for rule query; source hash and knowledge stamp checked; block prohibits write; pending/warning remain draft-only"
+    },
+    {
+      "check": "Context and correction budgets",
+      "method": "Trace ToolLoopRuntime draft policy and QuoteToolAgent callbacks; compare ADR0024-0027",
+      "result": "One shared correction; max 12 model/tool calls; context checked before model and handler; total deadline/cancellation bounded; invalid authorizations/unknown fields remain hard failures; no read-policy correction"
+    },
+    {
+      "check": "Event pagination/identity and reconnect",
+      "method": "Trace RunEventStore append/page/hints, strict page schema, RunEventFeed, worker/main/preload and renderer",
+      "result": "Run-local contiguous seq across attempts; outbox seq internal only; event+business transaction; complete page validation before cursor advancement; notifications prompt readonly queries; no start/retry on reconnect"
+    },
+    {
+      "check": "Evaluation isolation and paid retry boundary",
+      "method": "Trace ModelEvaluationHost, evaluation worker and runner; compare ADR0022-0023/C04 boundary page",
+      "result": "Explicit paid-confirmed schema and captured saved model; independent process/workspace; active identity held until exit; cancel persisted before abort; reports allowlisted; no credentials read or real provider request performed in review"
+    },
+    {
+      "check": "Dependency exclusions and evidence semantic scope",
+      "method": "Compare current integration/task/signoff pages and raw validation claims with implementation",
+      "result": "A01c/P1 excluded; migration incompatibility diagnostic is not claimed as successful upgrade; fixture and historical real results remain distinguished; A/B/human approvals explicitly pending"
+    }
+  ],
+  "validationPerformedByThisReviewer": {
+    "broadSuitesReplayed": false,
+    "syntheticRuntimeReproduction": false,
+    "realProviderRequests": 0,
+    "customerDatabasesOpened": 0,
+    "trackedMutations": false,
+    "reason": "Independent static implementation/spec review plus local SHA-256 provenance check; separate review agent owns suite replay"
+  },
+  "limits": [
+    "This is technical review evidence, not actual A/B or human business approval.",
+    "No fresh DeepSeek semantic claim; historical reports were assessed for disclosed scope only.",
+    "No new finding for disclosed A01c/P1/B01/approval/token/Windows/installation or large-scale-retention exclusions.",
+    "Static trace and provenance verification cannot prove absence of all runtime races; broad local replay belongs to separate review evidence."
+  ],
+  "conciseText": "No actionable Spec finding identified for exact candidate 9e067bf. Reviewed implementation and current Wiki for transactional writes, execution fencing, cancellation/explicit retries, bounded correction, rule authority and source preservation, durable events/reconnect, IPC and isolated evaluation. Independently verified 225 recorded source SHA-256 entries: all match. No code/Wiki edits, provider requests or customer database access. Broad suites were not replayed by this reviewer. A/B and human business signoff remain pending."
+}

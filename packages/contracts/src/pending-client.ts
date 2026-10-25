@@ -8,6 +8,7 @@ import {
 } from "./knowledge-maintenance";
 import { type WikiClient, WikiCommandSchema } from "./knowledge-wiki";
 import type { FailureSchema } from "./protocol";
+import { type RunEventsClient, RunEventsCommandSchema } from "./run-events";
 import { type RunClient, RunCommandSchema } from "./runs";
 
 // Deliberately local: no new IPC route is exposed before the corresponding service ships.
@@ -28,9 +29,12 @@ export const unavailableFirstBatchClient: KnowledgeClient &
   RunClient &
   WikiClient &
   KnowledgeBuildClient &
+  RunEventsClient &
   KnowledgeMaintenanceClient = {
   executeKnowledgeBuild: (command) => unavailable(KnowledgeBuildCommandSchema, command),
   executeWikiMaintenance: (command) => unavailable(KnowledgeMaintenanceCommandSchema, command),
+  getAgentRunEvents: (command) => unavailable(RunEventsCommandSchema, command),
+  onAgentRunEvents: () => () => {},
   executeWiki: (command) => unavailable(WikiCommandSchema, command),
   stageKnowledge: (command) => unavailable(KnowledgeCommandSchema.options[0], command),
   publishKnowledge: (command) => unavailable(KnowledgeCommandSchema.options[1], command),
@@ -38,6 +42,7 @@ export const unavailableFirstBatchClient: KnowledgeClient &
   getKnowledgeRevision: (command) => unavailable(KnowledgeCommandSchema.options[3], command),
   checkQuote: (command) => unavailable(CheckCommandSchema.options[0], command),
   getQuoteChecks: (command) => unavailable(CheckCommandSchema.options[1], command),
+  listAgentRuns: (command) => unavailable(RunCommandSchema.options[4], command),
   startAgentRun: (command) => unavailable(RunCommandSchema.options[0], command),
   getAgentRun: (command) => unavailable(RunCommandSchema.options[1], command),
   cancelAgentRun: (command) => unavailable(RunCommandSchema.options[2], command),

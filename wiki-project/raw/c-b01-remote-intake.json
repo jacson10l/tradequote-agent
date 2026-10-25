@@ -1,0 +1,580 @@
+{
+  "status": "observed",
+  "recordedAt": "2026-10-23T15:42:39.852564+08:00",
+  "scope": "Pinned B remote artifact intake and synthetic migration diagnosis; not full independent review, personnel signoff or macOS product acceptance",
+  "taskBase": "c39b87f51590d8c40c938de52434340735022343",
+  "branch": "codex/c-b01-remote-intake",
+  "B": {
+    "branch": "codex/b01-wiki-integration",
+    "observedRemoteHead": "6c76fb991f3135d6a48362c1b242e46af6641817",
+    "codeCommit": "330bff76615147ea9c2729cb144a18873a5251d0",
+    "headDirectParentIsCodeCommit": true,
+    "codeToDelivery": "6 Wiki paths only",
+    "baseA": "dd42b055efd409fa3c332c6cb1997c7a7638ca62",
+    "commonBase": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+    "overCommon": {
+      "commitCount": 9,
+      "commits": [
+        {
+          "commit": "5621db0debc183e3112f084fd0bb3b6eff865ab8",
+          "parents": [
+            "e0f933657c2438642b006fd1a5549fe7dc683ccd"
+          ],
+          "author": "ssyyy31",
+          "subject": "test(knowledge): add A01a synthetic fixtures aligned to B00 contract"
+        },
+        {
+          "commit": "268eb3f3672d30fc7dcf1944e0bb04f826bd4e7e",
+          "parents": [
+            "5621db0debc183e3112f084fd0bb3b6eff865ab8"
+          ],
+          "author": "ssyyy31",
+          "subject": "feat(knowledge): A01b store, service and tests against B00 contract"
+        },
+        {
+          "commit": "5551ef333520b295aefb23f7c7bd5dd6a73068eb",
+          "parents": [
+            "268eb3f3672d30fc7dcf1944e0bb04f826bd4e7e"
+          ],
+          "author": "ssyyy31",
+          "subject": "fix(knowledge): query fallback, stable revisionId and workspace scoping"
+        },
+        {
+          "commit": "0f613b823a42d03c524e69b4fef459be9b998f44",
+          "parents": [
+            "5551ef333520b295aefb23f7c7bd5dd6a73068eb"
+          ],
+          "author": "ssyyy31",
+          "subject": "docs(wiki): A01b 知识发布实现 P0 Wiki 同步"
+        },
+        {
+          "commit": "c6539e82534aa8c5afa0e812885870e253410eb5",
+          "parents": [
+            "0f613b823a42d03c524e69b4fef459be9b998f44",
+            "56c909e21aefa484b6805bf9afc7c94b0e1d4576"
+          ],
+          "author": "ssyyy31",
+          "subject": "Merge remote-tracking branch 'origin/codex/m1-foundation' into codex/a01b-knowledge-store"
+        },
+        {
+          "commit": "4d3b213c13984f8fb70fab38113d69b7eaceda0f",
+          "parents": [
+            "c6539e82534aa8c5afa0e812885870e253410eb5",
+            "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+          ],
+          "author": "ssyyy31",
+          "subject": "Merge remote-tracking branch 'origin/codex/m1-foundation' into codex/a01b-knowledge-store"
+        },
+        {
+          "commit": "dd42b055efd409fa3c332c6cb1997c7a7638ca62",
+          "parents": [
+            "4d3b213c13984f8fb70fab38113d69b7eaceda0f"
+          ],
+          "author": "ssyyy31",
+          "subject": "feat(infrastructure): implement A01c knowledge wiki retrieval and citation store"
+        },
+        {
+          "commit": "330bff76615147ea9c2729cb144a18873a5251d0",
+          "parents": [
+            "dd42b055efd409fa3c332c6cb1997c7a7638ca62"
+          ],
+          "author": "Jacson",
+          "subject": "feat: integrate B01 reports with knowledge wiki storage"
+        },
+        {
+          "commit": "6c76fb991f3135d6a48362c1b242e46af6641817",
+          "parents": [
+            "330bff76615147ea9c2729cb144a18873a5251d0"
+          ],
+          "author": "Jacson",
+          "subject": "docs: record B01 integration push and validation handoff"
+        }
+      ],
+      "pathCount": 57,
+      "nonWikiPathCount": 28,
+      "paths": [
+        "apps/desktop/src/renderer/src/features/quote-checks.fixture.ts",
+        "apps/desktop/src/renderer/src/features/quote-checks.test.tsx",
+        "apps/desktop/src/renderer/src/features/quote-checks.tsx",
+        "apps/desktop/src/renderer/src/features/quotes.tsx",
+        "packages/contracts/src/checks.ts",
+        "packages/contracts/src/index.ts",
+        "packages/contracts/src/knowledge-wiki.ts",
+        "packages/domain/src/index.ts",
+        "packages/domain/src/knowledge.ts",
+        "packages/domain/src/quote-checks.test.ts",
+        "packages/domain/src/quote-checks.ts",
+        "packages/domain/src/wiki-quote-checks.ts",
+        "packages/domain/src/wiki.ts",
+        "packages/infrastructure/src/agent.test.ts",
+        "packages/infrastructure/src/check-report-schema.ts",
+        "packages/infrastructure/src/check-store.test.ts",
+        "packages/infrastructure/src/check-store.ts",
+        "packages/infrastructure/src/index.ts",
+        "packages/infrastructure/src/knowledge-store.test.ts",
+        "packages/infrastructure/src/knowledge-store.ts",
+        "packages/infrastructure/src/migrations.test.ts",
+        "packages/infrastructure/src/migrations.ts",
+        "packages/infrastructure/src/storage.test.ts",
+        "packages/infrastructure/src/wiki-check-integration.test.ts",
+        "packages/infrastructure/src/wiki-check-source.ts",
+        "packages/infrastructure/src/wiki-store.test.ts",
+        "packages/infrastructure/src/wiki-store.ts",
+        "packages/infrastructure/src/wiki-test.fixture.ts",
+        "wiki-project/CONTEXT.md",
+        "wiki-project/index.md",
+        "wiki-project/log.md",
+        "wiki-project/raw/b01-rules-validation.json",
+        "wiki-project/raw/b01-storage-validation.json",
+        "wiki-project/raw/b01-ui-narrow.png",
+        "wiki-project/raw/b01-ui-pending.png",
+        "wiki-project/raw/b01-ui-validation.json",
+        "wiki-project/raw/b01-ui-wide.png",
+        "wiki-project/raw/b01-wiki-integration-delivery.json",
+        "wiki-project/raw/b01-wiki-integration-validation.json",
+        "wiki-project/raw/generated/inventory.json",
+        "wiki-project/raw/generated/代码清单.md",
+        "wiki-project/raw/generated/源码快照.md",
+        "wiki-project/raw/generated/源码覆盖矩阵.md",
+        "wiki-project/scripts/wiki-config.json",
+        "wiki-project/wiki/A01c检索引用实现.md",
+        "wiki-project/wiki/A知识发布实现.md",
+        "wiki-project/wiki/B00a知识Wiki公共协议.md",
+        "wiki-project/wiki/B规则检查实现.md",
+        "wiki-project/wiki/M1接口与持久化.md",
+        "wiki-project/wiki/M1验证与协作.md",
+        "wiki-project/wiki/Wiki 工作流与任务记录.md",
+        "wiki-project/wiki/decisions/0016-检查报告消费与稀疏迁移.md",
+        "wiki-project/wiki/tasks/2026-10-23-B01新Wiki存储联调.md",
+        "wiki-project/wiki/tasks/A01-知识发布与来源查询.md",
+        "wiki-project/wiki/tasks/B01-规则检查与双反馈.md",
+        "wiki-project/wiki/项目状态.md",
+        "wiki-project/wiki/首批并行接口约定.md"
+      ]
+    },
+    "originalRecords": {
+      "wiki-project/raw/b01-wiki-integration-validation.json": {
+        "commit": "6c76fb991f3135d6a48362c1b242e46af6641817",
+        "sha256": "70a30b9abb93170c2827387c94fe3f0872ab473df508ccf20b48074e4e101f33",
+        "url": "https://github.com/jacson10l/tradequote-agent/blob/6c76fb991f3135d6a48362c1b242e46af6641817/wiki-project/raw/b01-wiki-integration-validation.json"
+      },
+      "wiki-project/raw/b01-wiki-integration-delivery.json": {
+        "commit": "6c76fb991f3135d6a48362c1b242e46af6641817",
+        "sha256": "939a5ed6e1ab559cdbdda215be63b4908f31daedbaa281c8d8f4e9b4306b2289",
+        "url": "https://github.com/jacson10l/tradequote-agent/blob/6c76fb991f3135d6a48362c1b242e46af6641817/wiki-project/raw/b01-wiki-integration-delivery.json"
+      },
+      "wiki-project/wiki/B规则检查实现.md": {
+        "commit": "6c76fb991f3135d6a48362c1b242e46af6641817",
+        "sha256": "f87dc932b6ac0440b13a70c018bf0ac6622e2ea6b73a855004e9a9cac34159c1",
+        "url": "https://github.com/jacson10l/tradequote-agent/blob/6c76fb991f3135d6a48362c1b242e46af6641817/wiki-project/wiki/B规则检查实现.md"
+      },
+      "wiki-project/wiki/tasks/2026-10-23-B01新Wiki存储联调.md": {
+        "commit": "6c76fb991f3135d6a48362c1b242e46af6641817",
+        "sha256": "a15f1c274e42f78ea5c937c960db5443ec1a64ea3daaf46ff3f34f57b3fe5b7b",
+        "url": "https://github.com/jacson10l/tradequote-agent/blob/6c76fb991f3135d6a48362c1b242e46af6641817/wiki-project/wiki/tasks/2026-10-23-B01新Wiki存储联调.md"
+      },
+      "wiki-project/wiki/decisions/0016-检查报告消费与稀疏迁移.md": {
+        "commit": "6c76fb991f3135d6a48362c1b242e46af6641817",
+        "sha256": "6bcd262c62b19804f834f32b21649623e216061bf669d6f67ca2e1b97882bc3c",
+        "url": "https://github.com/jacson10l/tradequote-agent/blob/6c76fb991f3135d6a48362c1b242e46af6641817/wiki-project/wiki/decisions/0016-检查报告消费与稀疏迁移.md"
+      }
+    },
+    "sourceHashAudit": [
+      {
+        "path": "apps/desktop/src/renderer/src/features/quotes.tsx",
+        "recordedSha256": "3ea86fe555610093bc5edee254a2821dac79d21fdcec1960ca3a884e6046c5b1",
+        "gitBlobSha256": "3ea86fe555610093bc5edee254a2821dac79d21fdcec1960ca3a884e6046c5b1",
+        "match": "exact"
+      },
+      {
+        "path": "packages/contracts/src/checks.ts",
+        "recordedSha256": "efce7cb19f9c52bcd16c70da2b6431ed21f2fe9c1113ef9bd912ca74e9d3e5ff",
+        "gitBlobSha256": "efce7cb19f9c52bcd16c70da2b6431ed21f2fe9c1113ef9bd912ca74e9d3e5ff",
+        "match": "exact"
+      },
+      {
+        "path": "packages/contracts/src/index.ts",
+        "recordedSha256": "5bb30da5c9e1e8d0f9a3efc3168d2a0023e89d28d12da4b3dff1e489af4f26a2",
+        "gitBlobSha256": "5bb30da5c9e1e8d0f9a3efc3168d2a0023e89d28d12da4b3dff1e489af4f26a2",
+        "match": "exact"
+      },
+      {
+        "path": "packages/contracts/src/knowledge-wiki.ts",
+        "recordedSha256": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
+        "gitBlobSha256": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
+        "match": "exact"
+      },
+      {
+        "path": "packages/domain/src/index.ts",
+        "recordedSha256": "dcbe0f85055d8fbf4a650f83615b0738f817c5f0fdc722fa4cf8f989d48f0bbf",
+        "gitBlobSha256": "dcbe0f85055d8fbf4a650f83615b0738f817c5f0fdc722fa4cf8f989d48f0bbf",
+        "match": "exact"
+      },
+      {
+        "path": "packages/domain/src/knowledge.ts",
+        "recordedSha256": "ae52d505e67d3ec6ac388397fe102dec020a8057dbb67bb4bad1770398dd9779",
+        "gitBlobSha256": "ae52d505e67d3ec6ac388397fe102dec020a8057dbb67bb4bad1770398dd9779",
+        "match": "exact"
+      },
+      {
+        "path": "packages/infrastructure/src/agent.test.ts",
+        "recordedSha256": "c32376abb222116f329f95968fa9f182223682ec414c4e39338e18cbf85ceb20",
+        "gitBlobSha256": "c32376abb222116f329f95968fa9f182223682ec414c4e39338e18cbf85ceb20",
+        "match": "exact"
+      },
+      {
+        "path": "packages/infrastructure/src/index.ts",
+        "recordedSha256": "04c69b0b4a46b0fc4533b489f3e906ac357e9a85202ceacb92fd87c8988618f2",
+        "gitBlobSha256": "04c69b0b4a46b0fc4533b489f3e906ac357e9a85202ceacb92fd87c8988618f2",
+        "match": "exact"
+      },
+      {
+        "path": "packages/infrastructure/src/knowledge-store.test.ts",
+        "recordedSha256": "a08c2356890b86899bf61c528c2eed572173866db110ba5c3f9347a43b58f6b8",
+        "gitBlobSha256": "a08c2356890b86899bf61c528c2eed572173866db110ba5c3f9347a43b58f6b8",
+        "match": "exact"
+      },
+      {
+        "path": "packages/infrastructure/src/knowledge-store.ts",
+        "recordedSha256": "6e1abd70c53e95806a70db7aed350910ff0ced853779f9bd51335954def71258",
+        "gitBlobSha256": "6e1abd70c53e95806a70db7aed350910ff0ced853779f9bd51335954def71258",
+        "match": "exact"
+      },
+      {
+        "path": "packages/infrastructure/src/migrations.ts",
+        "recordedSha256": "9a40c3f62e54c3ced923d6de03202101af5c0754db4585f4816e24feb7abe8ce",
+        "gitBlobSha256": "9a40c3f62e54c3ced923d6de03202101af5c0754db4585f4816e24feb7abe8ce",
+        "match": "exact"
+      },
+      {
+        "path": "packages/infrastructure/src/storage.test.ts",
+        "recordedSha256": "df3f4a4f80e6e975e7e5a8aaa617843f94d3926a7fd81234a6f66caf4db95ba0",
+        "gitBlobSha256": "df3f4a4f80e6e975e7e5a8aaa617843f94d3926a7fd81234a6f66caf4db95ba0",
+        "match": "exact"
+      },
+      {
+        "path": "packages/infrastructure/src/wiki-store.test.ts",
+        "recordedSha256": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "gitBlobSha256": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "match": "exact"
+      },
+      {
+        "path": "packages/infrastructure/src/wiki-store.ts",
+        "recordedSha256": "b772db86f14535fb0d730724a298f5569fbe6a5efbfe5fdc1e67013675e8abd0",
+        "gitBlobSha256": "b772db86f14535fb0d730724a298f5569fbe6a5efbfe5fdc1e67013675e8abd0",
+        "match": "exact"
+      },
+      {
+        "path": "apps/desktop/src/renderer/src/features/quote-checks.fixture.ts",
+        "recordedSha256": "12b217b6dae7d3dcb37e5e4de300e4e74b08101c527eed46cba76eebe2049dc6",
+        "gitBlobSha256": "12b217b6dae7d3dcb37e5e4de300e4e74b08101c527eed46cba76eebe2049dc6",
+        "match": "exact"
+      },
+      {
+        "path": "apps/desktop/src/renderer/src/features/quote-checks.test.tsx",
+        "recordedSha256": "06b8d1797fdc8a5d99d02902660a997f7af2783161c9fe12613944f4a82ee790",
+        "gitBlobSha256": "06b8d1797fdc8a5d99d02902660a997f7af2783161c9fe12613944f4a82ee790",
+        "match": "exact"
+      },
+      {
+        "path": "apps/desktop/src/renderer/src/features/quote-checks.tsx",
+        "recordedSha256": "c8b070da782e2beb8f07c62a50e6a065e9c2e3898b85422e58fd58591c85f931",
+        "gitBlobSha256": "c8b070da782e2beb8f07c62a50e6a065e9c2e3898b85422e58fd58591c85f931",
+        "match": "exact"
+      },
+      {
+        "path": "packages/domain/src/quote-checks.test.ts",
+        "recordedSha256": "6e4298203c1654ee8a98765a474e0e3f456be56ba3b73dcbc170cad30f4aff23",
+        "gitBlobSha256": "6e4298203c1654ee8a98765a474e0e3f456be56ba3b73dcbc170cad30f4aff23",
+        "match": "exact"
+      },
+      {
+        "path": "packages/domain/src/quote-checks.ts",
+        "recordedSha256": "353ca379a22f7d30464ec9af69b4c6d5d9b2e3a33831d687ba5124a7180dde90",
+        "gitBlobSha256": "353ca379a22f7d30464ec9af69b4c6d5d9b2e3a33831d687ba5124a7180dde90",
+        "match": "exact"
+      },
+      {
+        "path": "packages/domain/src/wiki-quote-checks.ts",
+        "recordedSha256": "44ada38a17b563c773858a7513a829b32e67a5d400452be369f4c524b691223c",
+        "gitBlobSha256": "44ada38a17b563c773858a7513a829b32e67a5d400452be369f4c524b691223c",
+        "match": "exact"
+      },
+      {
+        "path": "packages/infrastructure/src/check-report-schema.ts",
+        "recordedSha256": "db3799eddf9aaa73d0fc191023943f2b823537e68108c82d6bec2ed1e10b4bd5",
+        "gitBlobSha256": "db3799eddf9aaa73d0fc191023943f2b823537e68108c82d6bec2ed1e10b4bd5",
+        "match": "exact"
+      },
+      {
+        "path": "packages/infrastructure/src/check-store.test.ts",
+        "recordedSha256": "8de9214df2b55c173c88a7dddd19f2abbc83dd3c502e6faaad023c0cde4187f4",
+        "gitBlobSha256": "8de9214df2b55c173c88a7dddd19f2abbc83dd3c502e6faaad023c0cde4187f4",
+        "match": "exact"
+      },
+      {
+        "path": "packages/infrastructure/src/check-store.ts",
+        "recordedSha256": "0b70b7da426594066e34c4779305a497cfbdf8113ef60b2dd5e12486fc6d74c5",
+        "gitBlobSha256": "0b70b7da426594066e34c4779305a497cfbdf8113ef60b2dd5e12486fc6d74c5",
+        "match": "exact"
+      },
+      {
+        "path": "packages/infrastructure/src/migrations.test.ts",
+        "recordedSha256": "b33acbd176f9216d2174256ec2db463fed83360fac3c6fdb37c9522621a6f6d6",
+        "gitBlobSha256": "b33acbd176f9216d2174256ec2db463fed83360fac3c6fdb37c9522621a6f6d6",
+        "match": "exact"
+      },
+      {
+        "path": "packages/infrastructure/src/wiki-check-integration.test.ts",
+        "recordedSha256": "fa0d1987634821803d9339c5c87df1644e5fa61f65a4a938ecac48ff41067ef3",
+        "gitBlobSha256": "fa0d1987634821803d9339c5c87df1644e5fa61f65a4a938ecac48ff41067ef3",
+        "match": "exact"
+      },
+      {
+        "path": "packages/infrastructure/src/wiki-check-source.ts",
+        "recordedSha256": "50204737f18eade9423337f34999bdc3d7047355316fd08dba64f679ece3352a",
+        "gitBlobSha256": "50204737f18eade9423337f34999bdc3d7047355316fd08dba64f679ece3352a",
+        "match": "exact"
+      },
+      {
+        "path": "packages/infrastructure/src/wiki-test.fixture.ts",
+        "recordedSha256": "4d48890a63ae23e426711f8d93cabba1d691ce8e162c3caac6e56f793d793dce",
+        "gitBlobSha256": "4d48890a63ae23e426711f8d93cabba1d691ce8e162c3caac6e56f793d793dce",
+        "match": "exact"
+      }
+    ],
+    "WindowsOriginalStatus": "partial",
+    "WindowsOriginalResults": {
+      "focusedPassed": 52,
+      "focusedFailed": 0,
+      "integrationPassed": 19,
+      "migrationPassed": 6,
+      "fullUnitPassed": 181,
+      "fullUnitFailed": 1,
+      "wikiRegressionPassed": 34,
+      "wikiRegressionFailed": 2,
+      "engineeringPassed": 5,
+      "engineeringSkipped": 1,
+      "engineeringFailed": 0
+    },
+    "WindowsFinalChecks": {
+      "typecheck": {
+        "exit_code": 0,
+        "finishedAt": "2026-10-23T04:27:05.005Z"
+      },
+      "focused": {
+        "exit_code": 0,
+        "finishedAt": "2026-10-23T04:18:20.418Z"
+      },
+      "unit": {
+        "exit_code": 1,
+        "finishedAt": "2026-10-23T04:27:10.794Z"
+      },
+      "wiki": {
+        "exit_code": 1,
+        "finishedAt": "2026-10-23T04:27:39.064Z"
+      },
+      "build": {
+        "exit_code": 0,
+        "finishedAt": "2026-10-23T04:27:41.320Z"
+      },
+      "check": {
+        "exit_code": 0,
+        "finishedAt": "2026-10-23T04:30:13.682Z"
+      },
+      "commonSync": {
+        "exit_code": 0,
+        "finishedAt": "2026-10-23T04:30:14.883Z"
+      }
+    },
+    "WindowsLatestActualOutputs": {
+      "focused": {
+        "phase": "focused",
+        "command": "ELECTRON_RUN_AS_NODE=1 electron node_modules/vitest/vitest.mjs run packages/infrastructure/src/wiki-store.test.ts packages/infrastructure/src/check-store.test.ts packages/infrastructure/src/wiki-check-integration.test.ts packages/infrastructure/src/migrations.test.ts",
+        "startedAt": "2026-10-23T04:18:17.732Z",
+        "finishedAt": "2026-10-23T04:18:20.418Z",
+        "exit_code": 0,
+        "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01-integration\n\n\n Test Files  4 passed (4)\n      Tests  52 passed (52)\n   Start at  12:18:18\n   Duration  2.27s (tests 54%, import 37%, transform 9%)\n\n"
+      },
+      "unit": {
+        "phase": "unit",
+        "command": "pnpm test",
+        "startedAt": "2026-10-23T04:27:05.100Z",
+        "finishedAt": "2026-10-23T04:27:10.794Z",
+        "exit_code": 1,
+        "output": "\n> tradequote-agent@0.1.0 test D:\\code\\tradequote-agent-b01-integration\n> node scripts/test-unit.mjs\n\n\n RUN  v5.0.5 D:/code/tradequote-agent-b01-integration\n\n ❯ packages/infrastructure/src/storage.test.ts (4 tests | 1 failed) 180ms\n   × stores immutable content hashes and rejects traversal, tampering and symlinks 48ms\n\n Test Files  1 failed | 23 passed (24)\n      Tests  1 failed | 181 passed (182)\n   Start at  12:27:06\n   Duration  4.37s (import 52%, tests 26%, environment 14%, transform 7%, worker 1%)\n\n    Isolate  24 workers spawned · ~591ms startup each (spawn + environment, per file)\n             at least ~355ms faster with isolate: false — reuses workers across files instead of one per file\n\n ELIFECYCLE  Test failed. See above for more details.\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/storage.test.ts > stores immutable content hashes and rejects traversal, tampering and symlinks\nError: EPERM: operation not permitted, symlink 'D:\\code\\tradequote-agent-b01-integration\\.runtime\\test-temp\\tradequote-test-vGFlGf\\169e73adeeb9ee2cbf78b5878c95ebef88d580774a6005a367c8e35458658027' -> 'D:\\code\\tradequote-agent-b01-integration\\.runtime\\test-temp\\tradequote-test-vGFlGf\\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'\n ❯ packages/infrastructure/src/storage.test.ts:107:3\n    105|   expect(await store.verifyHash(id)).toBe(false);\n    106|   const other = \"a\".repeat(64);\n    107|   symlinkSync(join(root, id), join(root, other));\n       |   ^\n    108|   await expect(store.readById(other)).rejects.toThrow(\"ARTIFACT_NOT_RE…\n    109| });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n"
+      },
+      "wiki": {
+        "phase": "wiki",
+        "command": "pnpm wiki:test",
+        "startedAt": "2026-10-23T04:27:10.896Z",
+        "finishedAt": "2026-10-23T04:27:39.064Z",
+        "exit_code": 1,
+        "output": "\n> tradequote-agent@0.1.0 wiki:test D:\\code\\tradequote-agent-b01-integration\n> node --test wiki-project/scripts/wiki-tools.test.mjs wiki-project/scripts/wiki-sync.test.mjs\n\nTAP version 13\n# Subtest: runtime version pin is a mandatory Wiki-synchronized configuration change\nok 1 - runtime version pin is a mandatory Wiki-synchronized configuration change\n  ---\n  duration_ms: 1.9425\n  type: 'test'\n  ...\n# Subtest: code with related knowledge, task and appended log passes\nok 2 - code with related knowledge, task and appended log passes\n  ---\n  duration_ms: 0.4086\n  type: 'test'\n  ...\n# Subtest: generated snapshots alone cannot satisfy knowledge/task/log changes\nok 3 - generated snapshots alone cannot satisfy knowledge/task/log changes\n  ---\n  duration_ms: 0.1679\n  type: 'test'\n  ...\n# Subtest: metadata-only or whitespace-only edits cannot satisfy semantic update\nok 4 - metadata-only or whitespace-only edits cannot satisfy semantic update\n  ---\n  duration_ms: 0.2769\n  type: 'test'\n  ...\n# Subtest: each source needs its own mapped knowledge, unrelated pages do not suffice\nok 5 - each source needs its own mapped knowledge, unrelated pages do not suffice\n  ---\n  duration_ms: 0.191\n  type: 'test'\n  ...\n# Subtest: deleted source uses baseline mapping; unknown source fails\nok 6 - deleted source uses baseline mapping; unknown source fails\n  ---\n  duration_ms: 0.2575\n  type: 'test'\n  ...\n# Subtest: history rewrite and removed task do not pass\nok 7 - history rewrite and removed task do not pass\n  ---\n  duration_ms: 1.0671\n  type: 'test'\n  ...\n# Subtest: Wiki maintenance code requires workflow knowledge, not generated data\nok 8 - Wiki maintenance code requires workflow knowledge, not generated data\n  ---\n  duration_ms: 0.2754\n  type: 'test'\n  ...\n# Subtest: ordinary documentation-only edits do not trigger code delivery check\nok 9 - ordinary documentation-only edits do not trigger code delivery check\n  ---\n  duration_ms: 0.3805\n  type: 'test'\n  ...\n# Subtest: real Git baseline includes committed, unstaged and untracked sources\nok 10 - real Git baseline includes committed, unstaged and untracked sources\n  ---\n  duration_ms: 1195.0987\n  type: 'test'\n  ...\n# Subtest: SVG assets require semantic Wiki, task and append-only log changes\nok 11 - SVG assets require semantic Wiki, task and append-only log changes\n  ---\n  duration_ms: 0.23\n  type: 'test'\n  ...\n# Subtest: same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\nok 12 - same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\n  ---\n  duration_ms: 2529.321\n  type: 'test'\n  ...\n# Subtest: source drift fails without writes; generation repairs snapshot while preserving ingest baseline\nok 13 - source drift fails without writes; generation repairs snapshot while preserving ingest baseline\n  ---\n  duration_ms: 1236.7258\n  type: 'test'\n  ...\n# Subtest: explicit ingest records a non-Git project honestly\nok 14 - explicit ingest records a non-Git project honestly\n  ---\n  duration_ms: 1097.5696\n  type: 'test'\n  ...\n# Subtest: tool inventory names come from definitions, not nested headers/output/schema fields\nok 15 - tool inventory names come from definitions, not nested headers/output/schema fields\n  ---\n  duration_ms: 632.3734\n  type: 'test'\n  ...\n# Subtest: new unclassified source fails; missing knowledge target and stale mapping fail\nok 16 - new unclassified source fails; missing knowledge target and stale mapping fail\n  ---\n  duration_ms: 872.8889\n  type: 'test'\n  ...\n# Subtest: generated coverage tampering is detected by lint and remains untouched\nok 17 - generated coverage tampering is detected by lint and remains untouched\n  ---\n  duration_ms: 1016.7956\n  type: 'test'\n  ...\n# Subtest: sensitive filename is excluded before read; external source symlink is not followed\nnot ok 18 - sensitive filename is excluded before read; external source symlink is not followed\n  ---\n  duration_ms: 322.424\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:129:1'\n  failureType: 'testCodeFailure'\n  error: \"EPERM: operation not permitted, symlink 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\.runtime\\\\test-temp\\\\tradequote-private-fixture-bp8EaE\\\\external.ts' -> 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\.runtime\\\\test-temp\\\\tradequote-wiki-test-Sk2zgK\\\\linked.ts'\"\n  code: 'EPERM'\n  stack: |-\n    Object.symlinkSync (node:fs:1892:11)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b01-integration/wiki-project/scripts/wiki-tools.test.mjs:137:6)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n    Test.postRun (node:internal/test_runner/test:1173:19)\n    Test.run (node:internal/test_runner/test:1101:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)\n  ...\n# Subtest: Wiki and generated-output symlinks cannot write outside project\nnot ok 19 - Wiki and generated-output symlinks cannot write outside project\n  ---\n  duration_ms: 330.1742\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:143:1'\n  failureType: 'testCodeFailure'\n  error: \"EPERM: operation not permitted, symlink 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\.runtime\\\\test-temp\\\\tradequote-wiki-outside-WK6XvY' -> 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\.runtime\\\\test-temp\\\\tradequote-wiki-test-whp0ng\\\\wiki-project\\\\raw\\\\generated'\"\n  code: 'EPERM'\n  stack: |-\n    Object.symlinkSync (node:fs:1892:11)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b01-integration/wiki-project/scripts/wiki-tools.test.mjs:149:6)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n    Test.postRun (node:internal/test_runner/test:1173:19)\n    Test.run (node:internal/test_runner/test:1101:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)\n  ...\n# Subtest: missing schema field\nok 20 - missing schema field\n  ---\n  duration_ms: 976.063\n  type: 'test'\n  ...\n# Subtest: bad type\nok 21 - bad type\n  ---\n  duration_ms: 975.6737\n  type: 'test'\n  ...\n# Subtest: bad date\nok 22 - bad date\n  ---\n  duration_ms: 950.6669\n  type: 'test'\n  ...\n# Subtest: bad status\nok 23 - bad status\n  ---\n  duration_ms: 957.2784\n  type: 'test'\n  ...\n# Subtest: missing wiki target\nok 24 - missing wiki target\n  ---\n  duration_ms: 964.099\n  type: 'test'\n  ...\n# Subtest: missing markdown target\nok 25 - missing markdown target\n  ---\n  duration_ms: 954.1364\n  type: 'test'\n  ...\n# Subtest: invalid source line\nok 26 - invalid source line\n  ---\n  duration_ms: 973.6946\n  type: 'test'\n  ...\n# Subtest: verified without code evidence\nok 27 - verified without code evidence\n  ---\n  duration_ms: 957.3913\n  type: 'test'\n  ...\n# Subtest: source escaping project\nok 28 - source escaping project\n  ---\n  duration_ms: 940.2998\n  type: 'test'\n  ...\n# Subtest: unfilled placeholder\nok 29 - unfilled placeholder\n  ---\n  duration_ms: 953.5379\n  type: 'test'\n  ...\n# Subtest: all sources are validated even after a valid implementation source\nok 30 - all sources are validated even after a valid implementation source\n  ---\n  duration_ms: 957.8459\n  type: 'test'\n  ...\n# Subtest: orphan pages and duplicate basenames are rejected\nok 31 - orphan pages and duplicate basenames are rejected\n  ---\n  duration_ms: 1587.6449\n  type: 'test'\n  ...\n# Subtest: completed task requires actual verification record\nok 32 - completed task requires actual verification record\n  ---\n  duration_ms: 954.2399\n  type: 'test'\n  ...\n# Subtest: archived source cannot bypass inspection through silent changes\nok 33 - archived source cannot bypass inspection through silent changes\n  ---\n  duration_ms: 956.4547\n  type: 'test'\n  ...\n# Subtest: source references cannot open excluded runtime data\nok 34 - source references cannot open excluded runtime data\n  ---\n  duration_ms: 947.7246\n  type: 'test'\n  ...\n# Subtest: new JSON evidence is checked and sensitive Wiki filenames are rejected before read\nok 35 - new JSON evidence is checked and sensitive Wiki filenames are rejected before read\n  ---\n  duration_ms: 1246.1467\n  type: 'test'\n  ...\n# Subtest: secret/JWT/private-key/PII detections redact the value in diagnostics\nok 36 - secret/JWT/private-key/PII detections redact the value in diagnostics\n  ---\n  duration_ms: 2844.774\n  type: 'test'\n  ...\n1..36\n# tests 36\n# suites 0\n# pass 34\n# fail 2\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 27316.9213\n ELIFECYCLE  Command failed with exit code 1.\n"
+      },
+      "typecheck": {
+        "phase": "typecheck",
+        "command": "pnpm typecheck",
+        "startedAt": "2026-10-23T04:27:03.400Z",
+        "finishedAt": "2026-10-23T04:27:05.005Z",
+        "exit_code": 0,
+        "output": "\n> tradequote-agent@0.1.0 typecheck D:\\code\\tradequote-agent-b01-integration\n> tsc --noEmit\n\n"
+      },
+      "build": {
+        "phase": "build",
+        "command": "pnpm build",
+        "startedAt": "2026-10-23T04:27:39.143Z",
+        "finishedAt": "2026-10-23T04:27:41.320Z",
+        "exit_code": 0,
+        "output": "\n> tradequote-agent@0.1.0 build D:\\code\\tradequote-agent-b01-integration\n> node scripts/check-icons.mjs && pnpm --filter @tradequote/desktop build\n\nApplication icons passed: SVG/1024 PNG/macOS ICNS/Windows ICO\n\n> @tradequote/desktop@0.1.0 build D:\\code\\tradequote-agent-b01-integration\\apps\\desktop\n> electron-vite build\n\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 255 modules transformed.\nrendering chunks...\nout/main/worker.js                 1.26 kB\nout/main/index.js                  9.54 kB\nout/main/chunks/src-CwmRYMFl.js  572.01 kB\n\n✓ built in 137ms\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 111 modules transformed.\nrendering chunks...\nout/preload/index.js  232.84 kB\n\n✓ built in 48ms\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 2109 modules transformed.\nrendering chunks...\nout/renderer/index.html                   0.64 kB\nout/renderer/assets/index-ptglloFo.css   15.26 kB\nout/renderer/assets/index-D4fbU389.js   534.88 kB\n\n✓ built in 366ms\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
+      },
+      "check": {
+        "phase": "check",
+        "command": "pnpm check",
+        "startedAt": "2026-10-23T04:30:11.077Z",
+        "finishedAt": "2026-10-23T04:30:13.682Z",
+        "exit_code": 0,
+        "output": "\n> tradequote-agent@0.1.0 check D:\\code\\tradequote-agent-b01-integration\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 111 files in 44ms. No fixes applied.\nTAP version 13\n# Subtest: renderer cannot reach Node, database or desktop internals through import forms\nok 1 - renderer cannot reach Node, database or desktop internals through import forms\n  ---\n  duration_ms: 12.0046\n  type: 'test'\n  ...\n# Subtest: pure modules use public contracts while other platform dependencies are rejected\nok 2 - pure modules use public contracts while other platform dependencies are rejected\n  ---\n  duration_ms: 2.4896\n  type: 'test'\n  ...\n# Subtest: domain permits exact pure decimal dependency without opening contracts or SDK imports\nok 3 - domain permits exact pure decimal dependency without opening contracts or SDK imports\n  ---\n  duration_ms: 0.661\n  type: 'test'\n  ...\n# Subtest: committed icon resources match their source manifest\nok 4 - committed icon resources match their source manifest\n  ---\n  duration_ms: 2.7372\n  type: 'test'\n  ...\n# Subtest: editing either SVG or packaged icon without generation blocks the build\nok 5 - editing either SVG or packaged icon without generation blocks the build\n  ---\n  duration_ms: 16.7355\n  type: 'test'\n  ...\n# Subtest: macOS native process and runtime display TradeQuote while upstream Electron stays intact\nok 6 - macOS native process and runtime display TradeQuote while upstream Electron stays intact # SKIP\n  ---\n  duration_ms: 1.5472\n  type: 'test'\n  ...\n1..6\n# tests 6\n# suites 0\n# pass 5\n# fail 0\n# cancelled 0\n# skipped 1\n# todo 0\n# duration_ms 186.1601\nModule boundaries passed\n\n> tradequote-agent@0.1.0 wiki:check D:\\code\\tradequote-agent-b01-integration\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 175,\n  \"lines\": 48288,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 108,\n  \"semantic\": 92,\n  \"reachable\": 108\n}\n"
+      },
+      "commonSync": {
+        "phase": "commonSync",
+        "command": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe wiki-project/scripts/check-wiki-sync.mjs . --base 654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+        "startedAt": "2026-10-23T04:30:13.768Z",
+        "finishedAt": "2026-10-23T04:30:14.883Z",
+        "exit_code": 0,
+        "output": "{\n  \"base\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 29,\n  \"knowledgePages\": 13,\n  \"tasks\": 3,\n  \"errors\": []\n}\n"
+      }
+    },
+    "remainingOriginalWindowsFailures": "Read final unit/wiki outputs: storage.test.ts symlinkSync EPERM; wiki-tools symlink exclusion and output containment EPERM; no fresh Windows rerun",
+    "remainingUnrun": [
+      "new production Electron integration",
+      "macOS verification",
+      "real provider/model calls",
+      "A/C non-author review"
+    ],
+    "merged": "user_reports_unmerged; no server PR/target ancestry refresh performed",
+    "publicationFixture": "synthetic fixture directly changes lifecycle; actual human review/publish remains unavailable in pinned B source"
+  },
+  "connectorFallback": {
+    "pluginCommitCalls": {
+      "330bff7": "404_NOT_FOUND",
+      "6c76fb9": "404_NOT_FOUND"
+    },
+    "interpretation": "Connector404 did not establish commit absence; scoped local Git fetch verified actual remote objects",
+    "gitCommands": [
+      {
+        "argv": [
+          "git",
+          "ls-remote",
+          "--heads",
+          "origin",
+          "refs/heads/codex/b01-wiki-integration"
+        ],
+        "startedAt": "2026-10-23T15:35:34.764572+08:00",
+        "finishedAt": "2026-10-23T15:35:36.135389+08:00",
+        "durationSeconds": 1.37,
+        "exitCode": 0,
+        "output": "6c76fb991f3135d6a48362c1b242e46af6641817\trefs/heads/codex/b01-wiki-integration\n",
+        "outputSha256": "002ec06e02ec4726abbd167e6e40a1bd272f133d711463bd55938e6fc89f09b6"
+      },
+      {
+        "argv": [
+          "git",
+          "fetch",
+          "--no-tags",
+          "origin",
+          "refs/heads/codex/b01-wiki-integration:refs/remotes/origin/codex/b01-wiki-integration"
+        ],
+        "startedAt": "2026-10-23T15:35:36.136402+08:00",
+        "finishedAt": "2026-10-23T15:35:38.173395+08:00",
+        "durationSeconds": 2.037,
+        "exitCode": 0,
+        "output": "From https://github.com/jacson10l/tradequote-agent\n * [new branch]      codex/b01-wiki-integration -> origin/codex/b01-wiki-integration\n",
+        "outputSha256": "34e6f9ae33fefeea91ef18d126b5cd8a34cf2b8d8c558fcec067dd4a37b9e7c0"
+      }
+    ]
+  },
+  "C": {
+    "fixedImplementation": "45fa03d57d6fc405c2438c3b187f87838355a88b",
+    "handoff": "b256dd1d219cbf9f4a4264e19a980e194180dc14",
+    "priorIndependentReview": "dc0f034216e51b0da3dc22c910b27938aeef2f46",
+    "sourceReplacementOrMerge": false,
+    "macOSBFullSuite": "not_run",
+    "newDesktopWiring": "not_implemented",
+    "priorRemoteCObservation": "B documentation observed68455a3 remote; current C durable run/event code exists in local unpublished candidate; do not interpret B branch absence as no local C implementation"
+  },
+  "migrationCompatibility": {
+    "compatible": false,
+    "diagnosticCases": 6,
+    "report": "wiki-project/raw/c-b01-migration-compatibility-probe.json",
+    "reportSha256": "834c091fb66aecb2b4467fd4f599356cee6800f53232f3129f204db044c1932c",
+    "productionSteps": {
+      "C": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "B": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7
+      ]
+    },
+    "conflictingMeanings": {
+      "6": {
+        "C": "agent_write_call",
+        "B": "knowledge_source/wiki/lifecycle/consumption"
+      },
+      "7": {
+        "C": "agent_write_call.validation_json and agent_tool_step",
+        "B": "quote_check_report"
+      }
+    },
+    "resolutionOwner": "A migration sequence with B/C actual lineage and storage contract review; no automatic renumbering or schema merge"
+  },
+  "initialProbeSetupFailure": {
+    "command": "ELECTRON_RUN_AS_NODE=1 electron .runtime/c-b01-remote-intake/migration-probe.mjs",
+    "argv": [
+      ".runtime/c-b01-remote-intake/migration-probe.mjs"
+    ],
+    "environmentOverride": {
+      "ELECTRON_RUN_AS_NODE": "1"
+    },
+    "startedAt": "2026-10-23T07:39:54.349Z",
+    "finishedAt": "2026-10-23T07:39:54.577Z",
+    "durationSeconds": 0.223,
+    "exitCode": 1,
+    "output": "node:internal/modules/package_json_reader:331\n  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);\n        ^\n\nError [ERR_MODULE_NOT_FOUND]: Cannot find package 'better-sqlite3' imported from /Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent/.runtime/c-b01-remote-intake/migration-probe.mjs\n    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)\n    at packageResolve (node:internal/modules/esm/resolve:797:25)\n    at moduleResolve (node:internal/modules/esm/resolve:886:18)\n    at defaultResolve (node:internal/modules/esm/resolve:1019:11)\n    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)\n    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)\n    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)\n    at #resolve (node:internal/modules/esm/loader:687:17)\n    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)\n    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {\n  code: 'ERR_MODULE_NOT_FOUND'\n}\n\nNode.js v24.22.0\n",
+    "outputSha256": "ba28f2d235b556e07f098e7aeca8309e9b59ac3b2f9730a07590e2aeae2efc29"
+  },
+  "successfulProbeCommand": {
+    "command": "ELECTRON_RUN_AS_NODE=1 electron .runtime/c-b01-remote-intake/migration-probe.mjs",
+    "argv": [
+      ".runtime/c-b01-remote-intake/migration-probe.mjs"
+    ],
+    "environmentOverride": {
+      "ELECTRON_RUN_AS_NODE": "1"
+    },
+    "startedAt": "2026-10-23T07:40:18.429Z",
+    "finishedAt": "2026-10-23T07:40:18.830Z",
+    "durationSeconds": 0.4,
+    "exitCode": 0,
+    "output": "{\"status\":\"passed\",\"compatible\":false,\"cases\":[{\"name\":\"C_v7_to_B_v7\",\"error\":{\"code\":null,\"message\":\"UNKNOWN_LEGACY_MIGRATION_SEQUENCE\"},\"schemaUnchanged\":true,\"version\":7},{\"name\":\"B_v7_to_C_v7\",\"error\":null,\"schemaUnchanged\":true,\"version\":7},{\"name\":\"C_v6_to_B_v7\",\"error\":null,\"schemaUnchanged\":false,\"version\":7},{\"name\":\"C_v5_to_B_v7\",\"error\":{\"code\":null,\"message\":\"UNKNOWN_LEGACY_MIGRATION_SEQUENCE\"},\"schemaUnchanged\":true,\"version\":5},{\"name\":\"B_v7_to_B_v7_control\",\"error\":null,\"schemaUnchanged\":true,\"version\":7},{\"name\":\"C_v7_to_C_v7_control\",\"error\":null,\"schemaUnchanged\":true,\"version\":7}]}\n",
+    "outputSha256": "10efb00d095c73114abc7ce6fb60697056dd53de7a6261632487639d58cc4555"
+  },
+  "notRun": [
+    "Full B macOS unit/build/Electron/Wiki regression",
+    "Non-author Standards/Spec review of B implementation",
+    "Human publication or business signoff",
+    "New real provider tests",
+    "Push/shared merge/PR/external messages"
+  ],
+  "personnelStatus": "all pending items remain unchanged; source intake is not a signature"
+}

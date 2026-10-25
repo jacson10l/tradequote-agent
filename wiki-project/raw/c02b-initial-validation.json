@@ -1,0 +1,17 @@
+{
+  "status": "failed",
+  "taskBase": "4a56a42ceae83ec44783d9046ae7d4d3696bbda4",
+  "checks": [
+    {
+      "command": "python3 documentation update heredoc",
+      "exitCode": 1,
+      "output": "SyntaxError: Non-UTF-8 code starting with 0xe5 on line 10; update was not applied."
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 4a56a42ceae83ec44783d9046ae7d4d3696bbda4",
+      "exitCode": 1,
+      "output": "APPEND_ONLY_LOG_REQUIRED; read-tool-runtime.ts RELATED_WIKI_BODY_UPDATE_REQUIRED; wiki-config.json RELATED_WIKI_BODY_UPDATE_REQUIRED"
+    }
+  ],
+  "resolution": "Reapply documentation updates in smaller UTF-8 chunks, preserving all history; rerun sync without changing the gate."
+}

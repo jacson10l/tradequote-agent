@@ -60,6 +60,43 @@ export class TradeStore {
       ? TradeResultSchema.parse(JSON.parse(prior.result_json))
       : failure("IDEMPOTENCY_CONFLICT", "同一操作标识不能用于不同内容");
   }
+  // Used by the run transaction to adopt old successes and obtain an exact receipt.
+  // Never infer a revision from board order or an unvalidated evidence id alone.
+  committedAgentRevision(command: AgentCommand): string | null {
+    const replay = this.replay(command);
+    if (!replay) return null;
+    if (!replay.ok) throw new TradeFault(replay.error.code, replay.error.message);
+    const workspace = this.db.prepare("SELECT id FROM workspace WHERE slot=1").get() as
+      | { id: string }
+      | undefined;
+    if (!workspace) throw new TradeFault("NOT_FOUND", "请先创建工作区");
+    const [quoteId, turnId] = replay.evidenceIds;
+    const savedQuote = replay.data.quotes.find((q) => q.id === quoteId);
+    const savedTurn = replay.data.turns.find((t) => t.id === turnId);
+    const board = this.board(workspace.id);
+    const quote = board.quotes.find((q) => q.id === quoteId);
+    const turn = board.turns.find((t) => t.id === turnId);
+    const baseId = command.method === "agent.revise" ? command.payload.baseId : null;
+    const instruction =
+      command.method === "agent.revise" ? command.payload.instruction : command.payload.inquiry;
+    if (
+      replay.evidenceIds.length !== 2 ||
+      !quote ||
+      !turn ||
+      !savedQuote ||
+      !savedTurn ||
+      quote.workspaceId !== workspace.id ||
+      turn.quoteId !== quote.id ||
+      turn.baseId !== baseId ||
+      turn.instruction !== instruction ||
+      turn.rootId !== (quote.rootId ?? quote.id) ||
+      (baseId === null ? quote.version !== 1 : quote.parentId !== baseId) ||
+      JSON.stringify(quote) !== JSON.stringify(savedQuote) ||
+      JSON.stringify(turn) !== JSON.stringify(savedTurn)
+    )
+      throw new TradeFault("STORAGE_ERROR", "已保存报价的提交凭据不一致，未重新执行");
+    return quote.id;
+  }
   private agentHash(command: AgentCommand) {
     return hash(
       JSON.stringify({ method: command.method, payload: command.payload, origin: "agent_tool" }),
@@ -87,6 +124,8 @@ export class TradeStore {
         let quote;
         if (command.method === "agent.understand" && "lines" in proposal) {
           if (!board.scenario) throw new TradeFault("NOT_FOUND", "请先保存场景");
+          if (board.scenario.id !== command.payload.scenarioId)
+            throw new TradeFault("REVISION_CONFLICT", "场景已变化，请重新加载");
           quote = calculateQuoteV1(
             { ...command.payload, ...proposal },
             board.scenario,

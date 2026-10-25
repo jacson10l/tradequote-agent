@@ -1,0 +1,110 @@
+{
+  "status": "changes_required",
+  "recordedAt": "2026-10-23T13:06:00.657236+08:00",
+  "candidate": "9e067bf0114e0d2b27f7b65ea4ecc07042405499",
+  "base": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+  "integrationDeltaBase": "9e8695b88f3e5d306f6aeeb362d21524818a3d12",
+  "reviewBranch": "codex/c-integration-review",
+  "fullDiff": "git diff 654fecc...9e067bf",
+  "commitCount": 26,
+  "changedFilesAtCandidate": 262,
+  "axes": {
+    "Standards": {
+      "reviewer": "/root/standards_review",
+      "findings": 1,
+      "worstPriority": "P2",
+      "report": "wiki-project/raw/c-integration-independent-standards.json"
+    },
+    "Spec": {
+      "reviewer": "/root/spec_review",
+      "findings": 0,
+      "report": "wiki-project/raw/c-integration-independent-spec.json"
+    }
+  },
+  "evidenceReviewer": "/root/evidence_review",
+  "evidenceReport": "wiki-project/raw/c-integration-independent-evidence.json",
+  "reportSha256": {
+    "wiki-project/raw/c-integration-independent-standards.json": "eaf06b8e5de4d68ba8133ef98728088f7720786f6d96ca892f2138d67a3bbb74",
+    "wiki-project/raw/c-integration-independent-spec.json": "b5435f3e369c916e6a4f2737c9c52fc5d5f304bdc415f78f47a4bfcf79c8cb1f",
+    "wiki-project/raw/c-integration-independent-evidence.json": "3b0f4a9d08d9c8bab78a5988efe7684fd755dfa8118d756c7bd6b1785d40a720"
+  },
+  "unitRuns": [
+    {
+      "startedAt": "2026-10-23T04:54:35.290Z",
+      "finishedAt": "2026-10-23T04:55:02.878Z",
+      "exitCode": 0,
+      "durationSeconds": 27.588,
+      "scope": "Initial overlap; noncanonical"
+    },
+    {
+      "startedAt": "2026-10-23T04:56:14.997Z",
+      "finishedAt": "2026-10-23T04:56:41.673Z",
+      "exitCode": 1,
+      "durationSeconds": 26.676,
+      "scope": "Full default suite; 293/294, diagnostics default 5s timeout"
+    },
+    {
+      "startedAt": "2026-10-23T04:57:02.064Z",
+      "finishedAt": "2026-10-23T04:57:23.546Z",
+      "exitCode": 1,
+      "durationSeconds": 21.482,
+      "scope": "Full default suite; 293/294, diagnostics default 5s timeout"
+    },
+    {
+      "startedAt": "2026-10-23T04:59:35.212Z",
+      "finishedAt": "2026-10-23T05:00:00.785Z",
+      "exitCode": 1,
+      "durationSeconds": 25.573,
+      "scope": "Full default suite; 293/294, diagnostics default 5s timeout"
+    }
+  ],
+  "finding": {
+    "id": "STD-001",
+    "priority": "P2",
+    "file": "packages/infrastructure/src/evaluation/diagnostics.test.ts",
+    "start": 5,
+    "end": 10,
+    "title": "Full fixture diagnostics test exceeds default full-suite timeout",
+    "confirmed": "3 full-suite reruns fail unchanged test at 5000ms; last full run alone observed11022ms,293/294 pass",
+    "notEstablished": "No proven quotation/business-logic defect or exact runtime root cause",
+    "nextStep": "Resolve full-suite test reliability, preserve all failed evidence and rerun full pnpm test at revised commit. No test, timeout or production change performed in this review."
+  },
+  "validationSummary": {
+    "typecheck": "passed",
+    "strictUnitGate": "failed",
+    "focusedDiagnostic": "passed1/1; not replacement for full suite",
+    "electronIncludingBuild": 9,
+    "fixtureCases": 48,
+    "fixtureModelCalls": 189,
+    "realRequests": 0,
+    "syntheticHTMLTests": 45,
+    "engineeringTests": 6,
+    "wikiRegressionTests": 36,
+    "fixedBaselineSyncs": "passed654fecc/be53b98",
+    "sourceHashesMatched": 225,
+    "bundleHashesMatched": 9,
+    "protectedCHashesMatched": 93,
+    "migrationDiagnostic": "4 cases reproduce incompatibility; not compatibility approval"
+  },
+  "reviewScopeLimits": [
+    "Static Standards/Spec axes plus actual local replay; does not prove absence of all runtime defects",
+    "No A01c/P1 integration, Windows or signed installation validation",
+    "Old real C04 evidence is historical; no new provider/semantic acceptance"
+  ],
+  "signatures": {
+    "A": "pending_actual_person",
+    "B": "pending_actual_person",
+    "businessHuman": "pending_actual_person",
+    "independentAgentTechnical": "completed_changes_required",
+    "approvalToPushOrMerge": false
+  },
+  "mutationPolicy": {
+    "candidateCodeChanged": false,
+    "candidateBranchMoved": false,
+    "reviewChanges": "Wiki review records only in a separate worktree/branch",
+    "push": false,
+    "sharedMerge": false,
+    "realModelRetest": false,
+    "externalMessagesOrReviews": false
+  }
+}

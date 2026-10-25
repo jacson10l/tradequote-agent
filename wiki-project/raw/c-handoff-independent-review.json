@@ -1,0 +1,170 @@
+{
+  "status": "passed",
+  "scope": "Independent review of final handoff documentation at b256dd1, not new product or provider validation",
+  "recordedAt": "2026-10-23T14:03:20.539840+08:00",
+  "candidate": "b256dd1d219cbf9f4a4264e19a980e194180dc14",
+  "base": "45fa03d57d6fc405c2438c3b187f87838355a88b",
+  "diffCommand": "git diff 45fa03d57d6fc405c2438c3b187f87838355a88b...b256dd1d219cbf9f4a4264e19a980e194180dc14",
+  "commits": [
+    {
+      "commit": "b256dd1d219cbf9f4a4264e19a980e194180dc14",
+      "subject": "docs(c): prepare final integration handoff at 45fa03d"
+    }
+  ],
+  "reviewBranch": "codex/c-handoff-independent-review",
+  "axes": {
+    "Standards": {
+      "reviewer": "/root/handoff_standards",
+      "findings": 0,
+      "hardViolations": 0,
+      "judgementCalls": 0,
+      "report": "wiki-project/raw/c-handoff-independent-standards.json"
+    },
+    "Spec": {
+      "reviewer": "/root/handoff_spec",
+      "findings": 0,
+      "report": "wiki-project/raw/c-handoff-independent-spec.json"
+    }
+  },
+  "evidence": {
+    "reviewer": "/root/handoff_evidence",
+    "findings": 0,
+    "report": "wiki-project/raw/c-handoff-independent-evidence.json",
+    "rangesIndependentlyRecomputed": 4,
+    "deliveryCommitCount": 29,
+    "deliveryPathCount": 279,
+    "nonWikiDeliveryPaths": 92,
+    "wikiDeliveryPaths": 187,
+    "packagingWikiPaths": 12,
+    "sourceHashesCompared": 225,
+    "oldRawFilesAt45Preserved": 171,
+    "oldLogPrefixBytesAt45": 93919,
+    "closureChainEmbeddedOutputHashesVerified": 36,
+    "totalEmbeddedOutputHashesVerified": 68,
+    "oldFailedFullUnitRunsRetained": 3
+  },
+  "checks": [
+    {
+      "argv": [
+        "pnpm",
+        "wiki:check"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent",
+      "startedAt": "2026-10-23T13:58:27.876966+08:00",
+      "finishedAt": "2026-10-23T13:58:29.288530+08:00",
+      "durationSeconds": 1.411587,
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 179,\n  \"semantic\": 151,\n  \"reachable\": 179\n}\n",
+      "outputSha256": "3f7aaed455b02817155228d90038090bedfa5dcdaea51bf09170163ffa86ae3b"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "45fa03d57d6fc405c2438c3b187f87838355a88b"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent",
+      "startedAt": "2026-10-23T13:58:29.288684+08:00",
+      "finishedAt": "2026-10-23T13:58:29.393502+08:00",
+      "durationSeconds": 0.10487,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"45fa03d57d6fc405c2438c3b187f87838355a88b\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "outputSha256": "9dd83f951af76ecc6786167f4329300bb3016cd3683262b872f4bbc7be49cea4"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent",
+      "startedAt": "2026-10-23T13:58:29.393631+08:00",
+      "finishedAt": "2026-10-23T13:58:30.252150+08:00",
+      "durationSeconds": 0.858577,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 91,\n  \"knowledgePages\": 86,\n  \"tasks\": 29,\n  \"errors\": []\n}\n",
+      "outputSha256": "36f422aeda868f0f696240be164d98b41854b02129045c4016da68843d85568b"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent",
+      "startedAt": "2026-10-23T13:58:30.252338+08:00",
+      "finishedAt": "2026-10-23T13:58:32.159598+08:00",
+      "durationSeconds": 1.907414,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 97,\n  \"knowledgePages\": 101,\n  \"tasks\": 37,\n  \"errors\": []\n}\n",
+      "outputSha256": "21c7c7f026e7b798765fd3b77ea22e09509b70473eb0de4ed04506667bb82759"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check",
+        "45fa03d57d6fc405c2438c3b187f87838355a88b...b256dd1d219cbf9f4a4264e19a980e194180dc14"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent",
+      "startedAt": "2026-10-23T13:58:32.159922+08:00",
+      "finishedAt": "2026-10-23T13:58:32.195589+08:00",
+      "durationSeconds": 0.035725,
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "reportSha256": {
+    "wiki-project/raw/c-handoff-independent-standards.json": "99adbe75721d39464d73cdfeca90a20f726f5ecd83e033a2cb40582ea572cfbc",
+    "wiki-project/raw/c-handoff-independent-spec.json": "a92edae495c5304311252e2694a32b74bbcd7b3e281a7169fb49eb4230e96e6e",
+    "wiki-project/raw/c-handoff-independent-evidence.json": "360059023e16f5f785a508dd5c5c86d2bcb45f317c46b7eeb6aef2afcdd32d38"
+  },
+  "requirements": {
+    "commitScope": "consistent",
+    "fullHistoricalValidationAndIndependentClosure": "consistent",
+    "A_B_businessPendingList": "complete_and_consistent"
+  },
+  "technicalConclusion": "No actionable omission or inconsistency found in frozen handoff package; not personnel acceptance or merge approval",
+  "humanSignoff": {
+    "pendingIds": [
+      "A-1",
+      "A-2",
+      "A-3",
+      "B-1",
+      "B-2",
+      "AB-1",
+      "R-1",
+      "H-1"
+    ],
+    "currentScopePending": [
+      "A-1",
+      "A-2",
+      "B-1",
+      "B-2",
+      "R-1",
+      "H-1"
+    ],
+    "excludedFutureDependencyConditions": [
+      "A-3",
+      "AB-1"
+    ],
+    "dependencyTask": "active",
+    "C04HumanTask": "active",
+    "signedByAgent": false
+  },
+  "notRun": [
+    "New full product test suite",
+    "New real provider retest",
+    "Network/PR status refresh",
+    "Windows/signed installation/upgrade"
+  ],
+  "pushMergeOrExternalMessages": false,
+  "recordValidation": "wiki-project/raw/c-handoff-independent-validation.json"
+}

@@ -1,0 +1,843 @@
+{
+  "status": "observed",
+  "taskBase": "28b9f726e7f04204976e954bc3f543cb0a944668",
+  "runRef": "7c303d2e01b4",
+  "observations": [
+    {
+      "observedAt": "2026-10-22T10:41:51.818Z",
+      "recordCount": 3,
+      "invalidRecords": 0,
+      "launchSourceCommit": "28b9f726e7f04204976e954bc3f543cb0a944668",
+      "history": [
+        {
+          "runRef": "3bda7468c076",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T09:33:49.764Z",
+          "finishedAt": "2026-10-22T09:35:46.641Z",
+          "observedRows": 26,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [],
+      "reportSummary": null
+    },
+    {
+      "observedAt": "2026-10-22T10:42:23.915Z",
+      "recordCount": 3,
+      "invalidRecords": 0,
+      "launchSourceCommit": "28b9f726e7f04204976e954bc3f543cb0a944668",
+      "history": [
+        {
+          "runRef": "3bda7468c076",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T09:33:49.764Z",
+          "finishedAt": "2026-10-22T09:35:46.641Z",
+          "observedRows": 26,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [],
+      "reportSummary": null
+    },
+    {
+      "observedAt": "2026-10-22T10:44:06.201Z",
+      "recordCount": 4,
+      "invalidRecords": 0,
+      "launchSourceCommit": "28b9f726e7f04204976e954bc3f543cb0a944668",
+      "history": [
+        {
+          "runRef": "7c303d2e01b4",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "running",
+          "startedAt": "2026-10-22T10:43:55.319Z",
+          "finishedAt": null,
+          "observedRows": 1,
+          "errorCode": null,
+          "hasReport": false
+        },
+        {
+          "runRef": "3bda7468c076",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T09:33:49.764Z",
+          "finishedAt": "2026-10-22T09:35:46.641Z",
+          "observedRows": 26,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [
+        {
+          "runRef": "7c303d2e01b4",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "running",
+          "startedAt": "2026-10-22T10:43:55.319Z",
+          "finishedAt": null,
+          "observedRows": 1,
+          "errorCode": null,
+          "hasReport": false
+        }
+      ],
+      "reportSummary": null
+    },
+    {
+      "observedAt": "2026-10-22T10:45:16.694Z",
+      "recordCount": 4,
+      "invalidRecords": 0,
+      "launchSourceCommit": "28b9f726e7f04204976e954bc3f543cb0a944668",
+      "history": [
+        {
+          "runRef": "7c303d2e01b4",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "running",
+          "startedAt": "2026-10-22T10:43:55.319Z",
+          "finishedAt": null,
+          "observedRows": 18,
+          "errorCode": null,
+          "hasReport": false
+        },
+        {
+          "runRef": "3bda7468c076",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T09:33:49.764Z",
+          "finishedAt": "2026-10-22T09:35:46.641Z",
+          "observedRows": 26,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [
+        {
+          "runRef": "7c303d2e01b4",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "running",
+          "startedAt": "2026-10-22T10:43:55.319Z",
+          "finishedAt": null,
+          "observedRows": 18,
+          "errorCode": null,
+          "hasReport": false
+        }
+      ],
+      "reportSummary": null
+    },
+    {
+      "observedAt": "2026-10-22T10:45:54.235Z",
+      "recordCount": 4,
+      "invalidRecords": 0,
+      "launchSourceCommit": "28b9f726e7f04204976e954bc3f543cb0a944668",
+      "history": [
+        {
+          "runRef": "7c303d2e01b4",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T10:43:55.319Z",
+          "finishedAt": "2026-10-22T10:45:53.244Z",
+          "observedRows": 28,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "3bda7468c076",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T09:33:49.764Z",
+          "finishedAt": "2026-10-22T09:35:46.641Z",
+          "observedRows": 26,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [
+        {
+          "runRef": "7c303d2e01b4",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T10:43:55.319Z",
+          "finishedAt": "2026-10-22T10:45:53.244Z",
+          "observedRows": 28,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "reportSummary": {
+        "status": "failed",
+        "providerValidation": "observed",
+        "model": "deepseek-flash",
+        "modelCalls": 136,
+        "realRequests": 136,
+        "usage": {
+          "tokens": null,
+          "cost": null,
+          "reason": "not_exposed_by_adapter"
+        },
+        "caseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496",
+        "business": {
+          "passed": 25,
+          "failed": 3,
+          "not_run": 3,
+          "cancelled": 0
+        },
+        "diagnosticRows": [
+          {
+            "id": "apparel-en-v2",
+            "status": "failed",
+            "errorCode": "MODEL_INVALID_OUTPUT",
+            "diagnostics": [
+              {
+                "stage": "action_schema",
+                "tool": null,
+                "category": "invalid_action",
+                "disposition": "stopped",
+                "modelCall": 2,
+                "errorCode": "MODEL_INVALID_OUTPUT"
+              }
+            ]
+          },
+          {
+            "id": "panel-en-v1",
+            "status": "failed",
+            "errorCode": "MISSING_FACTS",
+            "diagnostics": [
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "missing_facts",
+                "disposition": "stopped",
+                "modelCall": 1,
+                "errorCode": "MISSING_FACTS"
+              }
+            ]
+          },
+          {
+            "id": "fastener-zh-v1",
+            "status": "passed",
+            "errorCode": null,
+            "diagnostics": [
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "missing_facts",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "MISSING_FACTS"
+              }
+            ]
+          },
+          {
+            "id": "clarification-zh",
+            "status": "passed",
+            "errorCode": "MISSING_FACTS",
+            "diagnostics": [
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "missing_facts",
+                "disposition": "stopped",
+                "modelCall": 1,
+                "errorCode": "MISSING_FACTS"
+              }
+            ]
+          },
+          {
+            "id": "clarification-en",
+            "status": "passed",
+            "errorCode": "MISSING_FACTS",
+            "diagnostics": [
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "missing_facts",
+                "disposition": "stopped",
+                "modelCall": 1,
+                "errorCode": "MISSING_FACTS"
+              }
+            ]
+          },
+          {
+            "id": "clarification-de",
+            "status": "passed",
+            "errorCode": "MISSING_FACTS",
+            "diagnostics": [
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "missing_facts",
+                "disposition": "stopped",
+                "modelCall": 1,
+                "errorCode": "MISSING_FACTS"
+              }
+            ]
+          },
+          {
+            "id": "rule-block",
+            "status": "failed",
+            "errorCode": "MODEL_INVALID_OUTPUT",
+            "diagnostics": [
+              {
+                "stage": "provider",
+                "tool": null,
+                "category": "content_json",
+                "disposition": "stopped",
+                "modelCall": 6,
+                "errorCode": "MODEL_INVALID_OUTPUT"
+              }
+            ]
+          }
+        ],
+        "failureInjection": {
+          "passed": 0,
+          "failed": 0,
+          "not_run": 17,
+          "cancelled": 0
+        },
+        "threeFailures": [
+          {
+            "id": "apparel-zh-v1",
+            "previousStatus": "failed",
+            "previousCode": null,
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "panel-de-v2",
+            "previousStatus": "failed",
+            "previousCode": "MODEL_INVALID_OUTPUT",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-de-v1",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          }
+        ],
+        "fiveSkipped": [
+          {
+            "id": "apparel-zh-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "apparel-zh-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "panel-de-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-de-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-de-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          }
+        ]
+      }
+    },
+    {
+      "observedAt": "2026-10-22T10:50:55.061Z",
+      "recordCount": 4,
+      "invalidRecords": 0,
+      "launchSourceCommit": "28b9f726e7f04204976e954bc3f543cb0a944668",
+      "history": [
+        {
+          "runRef": "7c303d2e01b4",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T10:43:55.319Z",
+          "finishedAt": "2026-10-22T10:45:53.244Z",
+          "observedRows": 28,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "3bda7468c076",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T09:33:49.764Z",
+          "finishedAt": "2026-10-22T09:35:46.641Z",
+          "observedRows": 26,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [
+        {
+          "runRef": "7c303d2e01b4",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T10:43:55.319Z",
+          "finishedAt": "2026-10-22T10:45:53.244Z",
+          "observedRows": 28,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "reportSummary": {
+        "status": "failed",
+        "providerValidation": "observed",
+        "model": "deepseek-flash",
+        "modelCalls": 136,
+        "realRequests": 136,
+        "usage": {
+          "tokens": null,
+          "cost": null,
+          "reason": "not_exposed_by_adapter"
+        },
+        "caseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496",
+        "business": {
+          "passed": 25,
+          "failed": 3,
+          "not_run": 3,
+          "cancelled": 0
+        },
+        "diagnosticRows": [
+          {
+            "id": "apparel-en-v2",
+            "status": "failed",
+            "errorCode": "MODEL_INVALID_OUTPUT",
+            "diagnostics": [
+              {
+                "stage": "action_schema",
+                "tool": null,
+                "category": "invalid_action",
+                "disposition": "stopped",
+                "modelCall": 2,
+                "errorCode": "MODEL_INVALID_OUTPUT"
+              }
+            ]
+          },
+          {
+            "id": "panel-en-v1",
+            "status": "failed",
+            "errorCode": "MISSING_FACTS",
+            "diagnostics": [
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "missing_facts",
+                "disposition": "stopped",
+                "modelCall": 1,
+                "errorCode": "MISSING_FACTS"
+              }
+            ]
+          },
+          {
+            "id": "fastener-zh-v1",
+            "status": "passed",
+            "errorCode": null,
+            "diagnostics": [
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "missing_facts",
+                "disposition": "feedback",
+                "modelCall": 3,
+                "errorCode": "MISSING_FACTS"
+              }
+            ]
+          },
+          {
+            "id": "clarification-zh",
+            "status": "passed",
+            "errorCode": "MISSING_FACTS",
+            "diagnostics": [
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "missing_facts",
+                "disposition": "stopped",
+                "modelCall": 1,
+                "errorCode": "MISSING_FACTS"
+              }
+            ]
+          },
+          {
+            "id": "clarification-en",
+            "status": "passed",
+            "errorCode": "MISSING_FACTS",
+            "diagnostics": [
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "missing_facts",
+                "disposition": "stopped",
+                "modelCall": 1,
+                "errorCode": "MISSING_FACTS"
+              }
+            ]
+          },
+          {
+            "id": "clarification-de",
+            "status": "passed",
+            "errorCode": "MISSING_FACTS",
+            "diagnostics": [
+              {
+                "stage": "clarification",
+                "tool": null,
+                "category": "missing_facts",
+                "disposition": "stopped",
+                "modelCall": 1,
+                "errorCode": "MISSING_FACTS"
+              }
+            ]
+          },
+          {
+            "id": "rule-block",
+            "status": "failed",
+            "errorCode": "MODEL_INVALID_OUTPUT",
+            "diagnostics": [
+              {
+                "stage": "provider",
+                "tool": null,
+                "category": "content_json",
+                "disposition": "stopped",
+                "modelCall": 6,
+                "errorCode": "MODEL_INVALID_OUTPUT"
+              }
+            ]
+          }
+        ],
+        "failureInjection": {
+          "passed": 0,
+          "failed": 0,
+          "not_run": 17,
+          "cancelled": 0
+        },
+        "threeFailures": [
+          {
+            "id": "apparel-zh-v1",
+            "previousStatus": "failed",
+            "previousCode": null,
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "panel-de-v2",
+            "previousStatus": "failed",
+            "previousCode": "MODEL_INVALID_OUTPUT",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-de-v1",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          }
+        ],
+        "fiveSkipped": [
+          {
+            "id": "apparel-zh-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "apparel-zh-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "panel-de-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-de-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-de-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "diagnostics": [],
+            "failedChecks": []
+          }
+        ]
+      }
+    }
+  ],
+  "desktopObservation": {
+    "worktreeWindowVerified": true,
+    "model": "deepseek-flash",
+    "completedFailedAnd136RealRequests": true,
+    "details48Rows": true,
+    "originalThreeFailuresAndFiveSkippedNowPassed": true,
+    "invalidActionAtSecondRequest": true,
+    "missingFactsStoppedAtFirstRequest": true,
+    "providerContentJsonAtSixthRequest": true,
+    "termsMismatchNotObserved": true,
+    "fixtureOnlyNotRun": 17,
+    "nativeJsonAndMarkdownSaved": true
+  },
+  "providerRequestsInitiatedByAgent": 0
+}

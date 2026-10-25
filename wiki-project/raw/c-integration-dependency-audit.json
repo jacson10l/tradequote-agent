@@ -1,0 +1,642 @@
+{
+  "status": "observed",
+  "recordedAt": "2026-10-23T12:35:27.389650+08:00",
+  "branch": "codex/c-integration-candidate",
+  "taskBase": "9e8695b88f3e5d306f6aeeb362d21524818a3d12",
+  "target": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+  "preIntegrationCommonBase": "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+  "proposedPullRequestTarget": "codex/m1-foundation",
+  "authorization": "Local candidate preparation and commits, A/B dependency audit, synthetic combination validation and synchronized Wiki only. No push, shared-branch merge, PR creation, messages or real-provider retest.",
+  "refs": {
+    "origin/codex/m1-foundation": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+    "origin/codex/a01b-knowledge-store": "4d3b213c13984f8fb70fab38113d69b7eaceda0f",
+    "origin/codex/a01c-knowledge-search": "dd42b055efd409fa3c332c6cb1997c7a7638ca62",
+    "origin/codex/b00-first-batch-contracts": "4e8c66366c05468ee133134dc4399aeb5971d1e3",
+    "origin/codex/b00a-knowledge-wiki-contracts": "ae1af9d3ab2d560847be6df6bdc6346bb6f27f58",
+    "origin/codex/b00a-p1-knowledge-build-maintenance": "19d60a8436fc72faf2780cbe1e5f77aeb043b863"
+  },
+  "sourceCommitsNotInTarget": [
+    {
+      "commit": "4a56a42ceae83ec44783d9046ae7d4d3696bbda4",
+      "parents": [
+        "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce"
+      ],
+      "subject": "feat(agent): add bounded read tool runtime and complete C roadmap"
+    },
+    {
+      "commit": "4324dc85bdd00657831f7428496c60e5332bb428",
+      "parents": [
+        "4a56a42ceae83ec44783d9046ae7d4d3696bbda4"
+      ],
+      "subject": "feat(agent): connect catalog and quote read adapters"
+    },
+    {
+      "commit": "644c5ed87b8afbfdd61f5e7d76e621473b0935db",
+      "parents": [
+        "4324dc85bdd00657831f7428496c60e5332bb428"
+      ],
+      "subject": "feat(desktop): connect C02b read tools through Worker and assistant UI"
+    },
+    {
+      "commit": "5621db0debc183e3112f084fd0bb3b6eff865ab8",
+      "parents": [
+        "e0f933657c2438642b006fd1a5549fe7dc683ccd"
+      ],
+      "subject": "test(knowledge): add A01a synthetic fixtures aligned to B00 contract"
+    },
+    {
+      "commit": "268eb3f3672d30fc7dcf1944e0bb04f826bd4e7e",
+      "parents": [
+        "5621db0debc183e3112f084fd0bb3b6eff865ab8"
+      ],
+      "subject": "feat(knowledge): A01b store, service and tests against B00 contract"
+    },
+    {
+      "commit": "5551ef333520b295aefb23f7c7bd5dd6a73068eb",
+      "parents": [
+        "268eb3f3672d30fc7dcf1944e0bb04f826bd4e7e"
+      ],
+      "subject": "fix(knowledge): query fallback, stable revisionId and workspace scoping"
+    },
+    {
+      "commit": "0f613b823a42d03c524e69b4fef459be9b998f44",
+      "parents": [
+        "5551ef333520b295aefb23f7c7bd5dd6a73068eb"
+      ],
+      "subject": "docs(wiki): A01b 知识发布实现 P0 Wiki 同步"
+    },
+    {
+      "commit": "67c69c75af0883d21a876d79f05c560dc5bd52ac",
+      "parents": [
+        "644c5ed87b8afbfdd61f5e7d76e621473b0935db",
+        "0f613b823a42d03c524e69b4fef459be9b998f44"
+      ],
+      "subject": "feat(agent): add durable run storage prerequisites for C02c"
+    },
+    {
+      "commit": "4c0978556007217c84aa7e6e7d65a234c7b20d3c",
+      "parents": [
+        "67c69c75af0883d21a876d79f05c560dc5bd52ac"
+      ],
+      "subject": "feat(agent): coordinate durable runs and fence worker lifecycle"
+    },
+    {
+      "commit": "0ccd72f8720479e2b689aeee521532bf585fc8bf",
+      "parents": [
+        "4c0978556007217c84aa7e6e7d65a234c7b20d3c"
+      ],
+      "subject": "feat(agent): execute validated multistep quotation tools"
+    },
+    {
+      "commit": "febd14db7748cc41455cbd31ee3d6ada58e644ef",
+      "parents": [
+        "0ccd72f8720479e2b689aeee521532bf585fc8bf"
+      ],
+      "subject": "feat(eval): add isolated C04 fixtures and redacted reports"
+    },
+    {
+      "commit": "0ff63cd09423bc446c5a7d00564d585aa1b8c123",
+      "parents": [
+        "febd14db7748cc41455cbd31ee3d6ada58e644ef"
+      ],
+      "subject": "feat(desktop): run C04 evaluations from saved model settings"
+    },
+    {
+      "commit": "df74abe4d6304925e1c4ab5cf85178e6e026f50f",
+      "parents": [
+        "0ff63cd09423bc446c5a7d00564d585aa1b8c123"
+      ],
+      "subject": "fix(desktop): select DeepSeek models from dropdown"
+    },
+    {
+      "commit": "44dcbceb3d9f6355dbafd5091b9053369ce56317",
+      "parents": [
+        "df74abe4d6304925e1c4ab5cf85178e6e026f50f"
+      ],
+      "subject": "docs(c04): distinguish connection probe from real evaluation"
+    },
+    {
+      "commit": "b231181d2f284236fc2f6dc4d14c064ff4b6bd68",
+      "parents": [
+        "44dcbceb3d9f6355dbafd5091b9053369ce56317"
+      ],
+      "subject": "docs(c04): audit user-started DeepSeek evaluation and redacted reports"
+    },
+    {
+      "commit": "1e9c134a589d97d15f98d4e576ca634766569bd7",
+      "parents": [
+        "b231181d2f284236fc2f6dc4d14c064ff4b6bd68"
+      ],
+      "subject": "fix(agent): bound C04 draft failure correction"
+    },
+    {
+      "commit": "3a476a396ade45e7592a2a147cc571baeb715d54",
+      "parents": [
+        "1e9c134a589d97d15f98d4e576ca634766569bd7"
+      ],
+      "subject": "docs(c04): audit user-started DeepSeek repair retest"
+    },
+    {
+      "commit": "885c474724f3578f7588d2184eea93c05a7f5d6d",
+      "parents": [
+        "3a476a396ade45e7592a2a147cc571baeb715d54"
+      ],
+      "subject": "fix(c04): add enum failure evidence and bounded prerequisite correction"
+    },
+    {
+      "commit": "4d13e475277bb71746088f923aabab8a0920e789",
+      "parents": [
+        "885c474724f3578f7588d2184eea93c05a7f5d6d"
+      ],
+      "subject": "docs(c04): record diagnostics desktop launch awaiting explicit retest"
+    },
+    {
+      "commit": "b28b702abf8874e962b71bfcd5ede45485d9b6e6",
+      "parents": [
+        "4d13e475277bb71746088f923aabab8a0920e789"
+      ],
+      "subject": "docs(c04): audit explicit diagnostics DeepSeek retest and remaining failures"
+    },
+    {
+      "commit": "28b9f726e7f04204976e954bc3f543cb0a944668",
+      "parents": [
+        "b28b702abf8874e962b71bfcd5ede45485d9b6e6"
+      ],
+      "subject": "fix(c04): narrow step menus and retain precise failure evidence"
+    },
+    {
+      "commit": "5afc425a0a9e54ed696bdd79ab5e2f974344c0bf",
+      "parents": [
+        "28b9f726e7f04204976e954bc3f543cb0a944668"
+      ],
+      "subject": "docs(c04): audit explicit three-failure retest and new regressions"
+    },
+    {
+      "commit": "fd7703c60ac67740989a08492e2b8c7fb0be12a0",
+      "parents": [
+        "5afc425a0a9e54ed696bdd79ab5e2f974344c0bf"
+      ],
+      "subject": "fix(c04): bound action correction and retain verified rule blocks"
+    },
+    {
+      "commit": "64f2e2decc196395b7e0d6c44c0c9d1fb23eac1e",
+      "parents": [
+        "fd7703c60ac67740989a08492e2b8c7fb0be12a0"
+      ],
+      "subject": "docs(c04): verify user-started fd7703c DeepSeek retest"
+    },
+    {
+      "commit": "9e8695b88f3e5d306f6aeeb362d21524818a3d12",
+      "parents": [
+        "64f2e2decc196395b7e0d6c44c0c9d1fb23eac1e"
+      ],
+      "subject": "feat(c03): persist run events and recover desktop subscriptions"
+    }
+  ],
+  "targetCommitsNotInSource": [
+    {
+      "commit": "b8f518c1edb3924079ba36d906e391294b222c0f",
+      "parents": [
+        "e0f933657c2438642b006fd1a5549fe7dc683ccd"
+      ],
+      "subject": "feat: add product manual and interactive quotation walkthrough"
+    },
+    {
+      "commit": "a14d79f6248162a1b72e44f0548020dd9099e117",
+      "parents": [
+        "b8f518c1edb3924079ba36d906e391294b222c0f",
+        "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce"
+      ],
+      "subject": "Merge remote-tracking branch 'origin/codex/m1-foundation' into codex/project-product-manual"
+    },
+    {
+      "commit": "4412c8fb4cc50dbcff5112ee0774f901342a9edb",
+      "parents": [
+        "a14d79f6248162a1b72e44f0548020dd9099e117"
+      ],
+      "subject": "fix: align overview readiness and integration wiki coverage"
+    },
+    {
+      "commit": "8f7c7d9dab1dd5abddd9c1fd1bc12b58ff4e7277",
+      "parents": [
+        "4412c8fb4cc50dbcff5112ee0774f901342a9edb"
+      ],
+      "subject": "docs: preserve integration validation and independent review evidence"
+    },
+    {
+      "commit": "56c909e21aefa484b6805bf9afc7c94b0e1d4576",
+      "parents": [
+        "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+        "8f7c7d9dab1dd5abddd9c1fd1bc12b58ff4e7277"
+      ],
+      "subject": "Merge pull request #4 from jacson10l/codex/project-product-manual"
+    },
+    {
+      "commit": "26421ab5bf93f74b20d5888f0e1ff3b48b9bfc36",
+      "parents": [
+        "56c909e21aefa484b6805bf9afc7c94b0e1d4576"
+      ],
+      "subject": "feat(contracts): define B00a P0 knowledge wiki retrieval and citations"
+    },
+    {
+      "commit": "ae1af9d3ab2d560847be6df6bdc6346bb6f27f58",
+      "parents": [
+        "26421ab5bf93f74b20d5888f0e1ff3b48b9bfc36"
+      ],
+      "subject": "docs(wiki): record B00a PR handoff and pending A review"
+    },
+    {
+      "commit": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+      "parents": [
+        "56c909e21aefa484b6805bf9afc7c94b0e1d4576",
+        "ae1af9d3ab2d560847be6df6bdc6346bb6f27f58"
+      ],
+      "subject": "Merge pull request #7 from jacson10l/codex/b00a-knowledge-wiki-contracts"
+    }
+  ],
+  "combination": {
+    "localCandidateOnly": true,
+    "inputs": [
+      "9e8695b88f3e5d306f6aeeb362d21524818a3d12",
+      "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+    ],
+    "conflicts": [
+      "packages/contracts/src/index.ts",
+      "packages/contracts/src/pending-client.ts",
+      "wiki-project/CONTEXT.md",
+      "wiki-project/index.md",
+      "wiki-project/log.md",
+      "wiki-project/raw/generated/inventory.json",
+      "wiki-project/raw/generated/代码清单.md",
+      "wiki-project/raw/generated/源码快照.md",
+      "wiki-project/raw/generated/源码覆盖矩阵.md",
+      "wiki-project/scripts/wiki-config.json",
+      "wiki-project/wiki/A业务LLMWiki方案.md",
+      "wiki-project/wiki/M1接口与持久化.md",
+      "wiki-project/wiki/Wiki 工作流与任务记录.md",
+      "wiki-project/wiki/tasks/A01-知识发布与来源查询.md",
+      "wiki-project/wiki/项目状态.md",
+      "wiki-project/wiki/首批并行接口约定.md"
+    ],
+    "resolution": "Union public exports and capability gates; keep C03 runtime/event behavior; union Wiki coverage/navigation; preserve target log prefix and append exact C-only history block, then new task record. Rebuild generated evidence. A01c and P1 remain excluded."
+  },
+  "migrationLineages": {
+    "candidateC03": [
+      {
+        "version": 1,
+        "sqlSha256": "9e95979532306333f9f07037ce7e0841931d6e8c0b3d885208d63f4eb7360cb1",
+        "tablesCreated": [
+          "workspace",
+          "source",
+          "job",
+          "idempotency",
+          "outbox"
+        ],
+        "alters": []
+      },
+      {
+        "version": 2,
+        "sqlSha256": "519f17179c501d08270a48eee562b6593eed6598bd0081692e437fbe7c53b723",
+        "tablesCreated": [
+          "scenario_revision",
+          "catalog_batch",
+          "catalog_product",
+          "quote_v1"
+        ],
+        "alters": []
+      },
+      {
+        "version": 3,
+        "sqlSha256": "a9fe17a0719962fa3dc4099cc51f35ada314bdbb7a15e6aecde91c58c0cabe42",
+        "tablesCreated": [
+          "quote_revision",
+          "agent_turn"
+        ],
+        "alters": []
+      },
+      {
+        "version": 4,
+        "sqlSha256": "b4e559a6acc383d064b04e2f0412c0863d526e94f80c79e25a00de81abb74980",
+        "tablesCreated": [
+          "knowledge_revision"
+        ],
+        "alters": []
+      },
+      {
+        "version": 5,
+        "sqlSha256": "6d511fff5eaa85e1198898d7c5cec392ed18461b110cecaf92553e4ff8ce0493",
+        "tablesCreated": [
+          "agent_run",
+          "agent_run_control"
+        ],
+        "alters": []
+      },
+      {
+        "version": 6,
+        "sqlSha256": "3d3c9da475f6a11d2d381de54a07396dc6dabaf8d780edebc0657f497bb47dfb",
+        "tablesCreated": [
+          "agent_write_call"
+        ],
+        "alters": []
+      },
+      {
+        "version": 7,
+        "sqlSha256": "268beab4bd70f403d62877153abf2df0c6f574bde852b77c1cfe7a63808d87fa",
+        "tablesCreated": [
+          "agent_tool_step"
+        ],
+        "alters": [
+          "agent_write_call"
+        ]
+      }
+    ],
+    "target": [
+      {
+        "version": 1,
+        "sqlSha256": "9e95979532306333f9f07037ce7e0841931d6e8c0b3d885208d63f4eb7360cb1",
+        "tablesCreated": [
+          "workspace",
+          "source",
+          "job",
+          "idempotency",
+          "outbox"
+        ],
+        "alters": []
+      },
+      {
+        "version": 2,
+        "sqlSha256": "519f17179c501d08270a48eee562b6593eed6598bd0081692e437fbe7c53b723",
+        "tablesCreated": [
+          "scenario_revision",
+          "catalog_batch",
+          "catalog_product",
+          "quote_v1"
+        ],
+        "alters": []
+      },
+      {
+        "version": 3,
+        "sqlSha256": "a9fe17a0719962fa3dc4099cc51f35ada314bdbb7a15e6aecde91c58c0cabe42",
+        "tablesCreated": [
+          "quote_revision",
+          "agent_turn"
+        ],
+        "alters": []
+      }
+    ],
+    "a01b": [
+      {
+        "version": 1,
+        "sqlSha256": "9e95979532306333f9f07037ce7e0841931d6e8c0b3d885208d63f4eb7360cb1",
+        "tablesCreated": [
+          "workspace",
+          "source",
+          "job",
+          "idempotency",
+          "outbox"
+        ],
+        "alters": []
+      },
+      {
+        "version": 2,
+        "sqlSha256": "519f17179c501d08270a48eee562b6593eed6598bd0081692e437fbe7c53b723",
+        "tablesCreated": [
+          "scenario_revision",
+          "catalog_batch",
+          "catalog_product",
+          "quote_v1"
+        ],
+        "alters": []
+      },
+      {
+        "version": 3,
+        "sqlSha256": "a9fe17a0719962fa3dc4099cc51f35ada314bdbb7a15e6aecde91c58c0cabe42",
+        "tablesCreated": [
+          "quote_revision",
+          "agent_turn"
+        ],
+        "alters": []
+      },
+      {
+        "version": 4,
+        "sqlSha256": "b4e559a6acc383d064b04e2f0412c0863d526e94f80c79e25a00de81abb74980",
+        "tablesCreated": [
+          "knowledge_revision"
+        ],
+        "alters": []
+      }
+    ],
+    "a01c": [
+      {
+        "version": 1,
+        "sqlSha256": "9e95979532306333f9f07037ce7e0841931d6e8c0b3d885208d63f4eb7360cb1",
+        "tablesCreated": [
+          "workspace",
+          "source",
+          "job",
+          "idempotency",
+          "outbox"
+        ],
+        "alters": []
+      },
+      {
+        "version": 2,
+        "sqlSha256": "519f17179c501d08270a48eee562b6593eed6598bd0081692e437fbe7c53b723",
+        "tablesCreated": [
+          "scenario_revision",
+          "catalog_batch",
+          "catalog_product",
+          "quote_v1"
+        ],
+        "alters": []
+      },
+      {
+        "version": 3,
+        "sqlSha256": "a9fe17a0719962fa3dc4099cc51f35ada314bdbb7a15e6aecde91c58c0cabe42",
+        "tablesCreated": [
+          "quote_revision",
+          "agent_turn"
+        ],
+        "alters": []
+      },
+      {
+        "version": 4,
+        "sqlSha256": "b4e559a6acc383d064b04e2f0412c0863d526e94f80c79e25a00de81abb74980",
+        "tablesCreated": [
+          "knowledge_revision"
+        ],
+        "alters": []
+      },
+      {
+        "version": 6,
+        "sqlSha256": "5184461756e3a389588182c1e9e497f34bfc7442bbf4d7ff8a09cdb458f49f66",
+        "tablesCreated": [
+          "knowledge_source",
+          "knowledge_wiki",
+          "knowledge_lifecycle",
+          "knowledge_consumption"
+        ],
+        "alters": []
+      }
+    ]
+  },
+  "a01bDifferencesRetained": [
+    {
+      "path": "packages/domain/src/knowledge.ts",
+      "a01bSha256": "6abf8959235eaa78318a52769d7ddebea0039d0b99559d5da9037501735e84f1",
+      "candidateSha256": "ae52d505e67d3ec6ac388397fe102dec020a8057dbb67bb4bad1770398dd9779",
+      "difference": "Formatting only"
+    },
+    {
+      "path": "packages/infrastructure/src/knowledge-store.ts",
+      "a01bSha256": "b5676f2b651d622341e05250781ac1f7116f53530d814e4a4d36c6a221863786",
+      "candidateSha256": "b1911824a09c918e7fab6b26a85de54a3251f7651634a82a9587c6b1ec42cf41",
+      "difference": "Retained C02c source-hash guard and regression plus formatting; requires A review"
+    },
+    {
+      "path": "packages/infrastructure/src/knowledge-store.test.ts",
+      "a01bSha256": "e11f07403244d86f99350966f4dcf938a534c1ddf8a33727b253ce70a7731deb",
+      "candidateSha256": "fee50bad8d8b4c7ca62cd26e7141cb30940bebbb09c1ed74ba2dbd16e72bf5c8",
+      "difference": "Retained C02c source-hash guard and regression plus formatting; requires A review"
+    }
+  ],
+  "pullRequests": {
+    "8": {
+      "baseRefName": "codex/m1-foundation",
+      "headRefName": "codex/b00a-p1-knowledge-build-maintenance",
+      "headRefOid": "19d60a8436fc72faf2780cbe1e5f77aeb043b863",
+      "mergedAt": null,
+      "number": 8,
+      "reviewDecision": "",
+      "reviewRequests": [
+        {
+          "__typename": "User",
+          "login": "ssyyy31"
+        }
+      ],
+      "reviews": [],
+      "state": "OPEN",
+      "url": "https://github.com/jacson10l/tradequote-agent/pull/8"
+    },
+    "7": {
+      "baseRefName": "codex/m1-foundation",
+      "headRefName": "codex/b00a-knowledge-wiki-contracts",
+      "headRefOid": "ae1af9d3ab2d560847be6df6bdc6346bb6f27f58",
+      "mergedAt": "2026-10-21T18:32:33Z",
+      "number": 7,
+      "reviewDecision": "APPROVED",
+      "state": "MERGED",
+      "url": "https://github.com/jacson10l/tradequote-agent/pull/7"
+    },
+    "9": {
+      "baseRefName": "codex/a01b-knowledge-store",
+      "headRefName": "codex/a01c-knowledge-search",
+      "headRefOid": "dd42b055efd409fa3c332c6cb1997c7a7638ca62",
+      "mergedAt": null,
+      "number": 9,
+      "reviewDecision": "",
+      "reviewRequests": [],
+      "reviews": [],
+      "state": "OPEN",
+      "url": "https://github.com/jacson10l/tradequote-agent/pull/9"
+    }
+  },
+  "githubReadFallback": {
+    "pluginFetchPR7AndPR8": "HTTP 404, no conclusion about PR existence",
+    "fallback": "Read-only gh pr view/list with existing authentication; no review or messaging actions"
+  },
+  "priorP1CReview": {
+    "sourceRef": "19d60a8436fc72faf2780cbe1e5f77aeb043b863",
+    "path": "wiki-project/raw/b00a-p1-c-review.json",
+    "status": "passed_in_C_scope",
+    "closedP2": [
+      "Ordinary queued/running fail transition",
+      "Unknown consumer cannot be reported complete",
+      "Initial terminal impact page cannot hide known items"
+    ],
+    "remainingInScopeBlockers": [],
+    "note": "Historical reported C-scope review, not a new review or A approval; P1 not installed, integrated or tested in this candidate."
+  },
+  "excludedDependencies": [
+    {
+      "name": "A01c",
+      "ref": "dd42b055efd409fa3c332c6cb1997c7a7638ca62",
+      "reasons": [
+        "Incompatible meaning of migration 6; synthetic probe confirms rejection/silent skip risk",
+        "A source page reports no local typecheck/test execution",
+        "review/publish/withdraw remain CAPABILITY_UNAVAILABLE; tests promote lifecycle directly"
+      ],
+      "requiredOwner": "A: approve migration lineage and compatibility plan, execute verification and complete storage/source review"
+    },
+    {
+      "name": "B00a P1",
+      "ref": "19d60a8436fc72faf2780cbe1e5f77aeb043b863",
+      "reasons": [
+        "PR #8 open, A requested review not yet submitted",
+        "Protocols and capability gates only; no execution/storage service"
+      ],
+      "requiredOwner": "A storage/source review and B final contract approval before integration"
+    },
+    {
+      "name": "Full B01/output/approval",
+      "ref": null,
+      "reasons": [
+        "No origin/codex/b01-rules-feedback ref in fetched branch inventory",
+        "Current C02c required/forbidden_literal engine is a bounded dependency implementation; not full B01 approval or UI"
+      ],
+      "requiredOwner": "B: review current rules and output/approval contracts"
+    }
+  ],
+  "migrationProposalPendingA": {
+    "proposal": "Preserve installed C migrations 1-7. Coordinate any new knowledge migration after the current tail; identify databases by actual table lineage, not user_version alone. Any A01c-v6 data migration requires a separately reviewed path with disposable DB fixtures. No migration is changed here.",
+    "acceptanceCases": [
+      "fresh database",
+      "existing common v3",
+      "A01b v4",
+      "C v5/v6/v7 with old quote/run/receipts unchanged",
+      "A01c v6 recognized and migrated or safely rejected before mutation",
+      "interruption/rollback/reopen and idempotency"
+    ]
+  },
+  "pendingApprovals": [
+    {
+      "owner": "A",
+      "scope": "A01b imported implementation plus retained published-sourceHash guard; same-connection transactions; knowledge migration lineage; append-only event namespace retention",
+      "status": "pending"
+    },
+    {
+      "owner": "B",
+      "scope": "Run clarification/list/control/events DTOs and consumers; C02c required/forbidden_literal rule implementation and check report semantics",
+      "status": "pending"
+    },
+    {
+      "owner": "Non-author reviewer",
+      "scope": "Combined candidate implementation, semantic Wiki and actual machine evidence",
+      "status": "pending"
+    },
+    {
+      "owner": "Business acceptance owner",
+      "scope": "C04 fixed-sample semantic acceptance with explicit assertion/evidence scope",
+      "status": "pending"
+    }
+  ],
+  "syntheticMigrationProbe": {
+    "result": "wiki-project/raw/c-integration-migration-probe.json",
+    "statusMeaning": "passed means all predicted incompatibility behaviors were reproduced, not that A01c is compatible",
+    "scriptUtf8": "import { createRequire } from 'node:module';\nimport { fileURLToPath } from 'node:url';\nimport { spawnSync } from 'node:child_process';\nimport { writeFile } from 'node:fs/promises';\nconst desktop = createRequire(new URL('../../apps/desktop/package.json',import.meta.url));\nif (!process.versions.electron) {\n const r = spawnSync(desktop('electron'), [fileURLToPath(import.meta.url)], {stdio:'inherit',env:{...process.env,ELECTRON_RUN_AS_NODE:'1'}});\n process.exit(r.status ?? 1);\n}\nconst infra = createRequire(new URL('../../packages/infrastructure/package.json',import.meta.url));\nconst Database = infra('better-sqlite3');\nconst {createServer} = await import('vite');\nconst server = await createServer({configFile:false,logLevel:'silent',server:{middlewareMode:true,hmr:false,ws:false}});\ntry {\n const c = await server.ssrLoadModule('/packages/infrastructure/src/migrations.ts');\n const a = await server.ssrLoadModule('/.runtime/c-integration/a01c-migrations.ts');\n const tables = db => db.prepare(\"SELECT name FROM sqlite_master WHERE type='table' ORDER BY name\").all().map(x=>x.name);\n const version = db => db.pragma('user_version',{simple:true});\n const cases=[];\n for (const direction of ['A6_to_C7','C6_to_A6','C7_to_A6','C7_to_C7']) {\n  const db = new Database(':memory:');\n  try {\n   if (direction.startsWith('A')) a.migrate(db); else c.migrate(db,direction.startsWith('C6')?c.migrations.slice(0,6):c.migrations);\n   const before={version:version(db),tables:tables(db)};\n   let outcome='returned_success',errorCode=null;\n   try { if(direction.endsWith('A6'))a.migrate(db);else c.migrate(db); } catch(e){outcome='rejected';errorCode=e.code ?? e.message;}\n   const after={version:version(db),tables:tables(db)};\n   const expected = direction==='A6_to_C7'? outcome==='rejected' && after.version===6 && !after.tables.includes('agent_run') && JSON.stringify(before)===JSON.stringify(after)\n    :direction==='C6_to_A6'?outcome==='returned_success' && after.version===6 && !after.tables.includes('knowledge_wiki') && after.tables.includes('agent_write_call')\n    :direction==='C7_to_A6'?outcome==='rejected' && errorCode==='DATABASE_NEWER_THAN_APPLICATION' && JSON.stringify(before)===JSON.stringify(after)\n    :outcome==='returned_success' && JSON.stringify(before)===JSON.stringify(after);\n   cases.push({direction,outcome,errorCode,before,after,expectationConfirmed:expected});\n  } finally {db.close();}\n }\n const report={status:cases.every(x=>x.expectationConfirmed)?'passed':'failed',scope:'Synthetic in-memory compatibility diagnostic, not approval to integrate A01c or a claim of compatibility',cases};\n await writeFile('wiki-project/raw/c-integration-migration-probe.json',JSON.stringify(report,null,2)+'\\n');\n console.log(JSON.stringify({status:report.status,cases:cases.map(({direction,outcome,errorCode,expectationConfirmed})=>({direction,outcome,errorCode,expectationConfirmed}))}));\n if(report.status!=='passed')process.exitCode=1;\n} finally {await server.close();}\n",
+    "scriptSha256": "92f641246daf29cf8ed2f6c18381925d33d976e069396ef95649457df718ed3f",
+    "a01cMigrationSourceSha256": "13c4a45e7b77247500964f6b4ac2ac19e178c4cc16275e46d2af2ac28f6eed9c"
+  },
+  "notRun": [
+    "A01c/P1 runtime integration tests",
+    "Real model/provider requests",
+    "Windows, signed installers and upgrades",
+    "Human semantic acceptance or non-author/A/B signoff"
+  ],
+  "syncBaselines": {
+    "fixedPullRequestTarget": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+    "cumulativeCommonAncestor": "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+    "taskBaseRetainedFor": "Delta and protected source/history audit; divergent logs cannot both be prefixes. CONTRIBUTING permits the actual PR baseline.",
+    "historyPolicy": "Keep full target prefix, then append exact C-only history block, then this task record. Both histories are preserved."
+  }
+}

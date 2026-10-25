@@ -428,8 +428,8 @@ it("does not accept cancellation after commit and replays a lost response withou
   const agent = new AgentExecutor(f.repo, () => ({ json }));
   const pending = agent.execute(f.command, creds);
   resolve(f.understanding);
-  // The commit continuation executes first, before pending-map cleanup.
-  await Promise.resolve();
+  // Wait for the shared proposal continuation and actual synchronous commit.
+  await vi.waitFor(() => expect(f.read().quotes).toHaveLength(1));
   expect(f.read().quotes).toHaveLength(1);
   expect(agent.cancel(f.command.idempotencyKey)).toBe(false);
   const saved = await pending;

@@ -1,0 +1,145 @@
+{
+  "status": "passed",
+  "scope": "B fixed material intake and stale migration-status documentation only",
+  "taskBase": "12507aa7c93e3f83f4f942044684079ac4214c73",
+  "sharedMergeBase": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+  "checks": [
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-combination-intake/tradequote-agent",
+      "startedAt": "2026-10-25T10:41:09.605434+00:00",
+      "finishedAt": "2026-10-25T10:41:09.808454+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 6\n}\n",
+      "stderr": "",
+      "stdoutSha256": "6a3e1709991b78e42869a1a8ccb647033396075edd3b7529074b2008dd665be1",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-combination-intake/tradequote-agent",
+      "startedAt": "2026-10-25T10:41:09.808868+00:00",
+      "finishedAt": "2026-10-25T10:41:09.978397+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 6\n}\n",
+      "stderr": "",
+      "stdoutSha256": "989c0d7bed58055cd73ba84f2a1b90acb451c9e9b55e9ade31bacb0278f4dd42",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-combination-intake/tradequote-agent",
+      "startedAt": "2026-10-25T10:41:09.978794+00:00",
+      "finishedAt": "2026-10-25T10:41:10.918608+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 219,\n  \"semantic\": 191,\n  \"reachable\": 219\n}\n",
+      "stderr": "",
+      "stdoutSha256": "30654355c5fa954d738521be98ed91a03ad5d300c7a760da714f5acaf1fa2a25",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "12507aa7c93e3f83f4f942044684079ac4214c73"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-combination-intake/tradequote-agent",
+      "startedAt": "2026-10-25T10:41:10.919061+00:00",
+      "finishedAt": "2026-10-25T10:41:11.104619+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"12507aa7c93e3f83f4f942044684079ac4214c73\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "stdoutSha256": "6e382f23a9c8eca1b152cb19b5b1d6b6bf75ef9a8e5d1ec8d44793307ae347d6",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-combination-intake/tradequote-agent",
+      "startedAt": "2026-10-25T10:41:11.105194+00:00",
+      "finishedAt": "2026-10-25T10:41:12.144943+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 91,\n  \"knowledgePages\": 126,\n  \"tasks\": 48,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "stdoutSha256": "518c7880577a8d6eeb951a5a167e27e428b8170b49233d8e031dfb28de6cfb8f",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "be53b98"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-combination-intake/tradequote-agent",
+      "startedAt": "2026-10-25T10:41:12.145478+00:00",
+      "finishedAt": "2026-10-25T10:41:13.302940+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 97,\n  \"knowledgePages\": 141,\n  \"tasks\": 56,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "stdoutSha256": "115f4bbcedd2c95fc937e43c23c0a4b4ded66c9ca857171372ff196ec0d871f4",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-combination-intake/tradequote-agent",
+      "startedAt": "2026-10-25T10:41:13.303697+00:00",
+      "finishedAt": "2026-10-25T10:41:13.317190+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-combination-intake/tradequote-agent",
+      "startedAt": "2026-10-25T10:41:13.317939+00:00",
+      "finishedAt": "2026-10-25T10:41:13.326965+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "preservation": {
+    "nonWikiCount": 228,
+    "nonWikiChanged": [],
+    "oldRawCount": 252,
+    "oldRawChanged": [],
+    "oldLogBytes": 128924,
+    "oldLogFullBytePrefixPreserved": true
+  },
+  "finishedAt": "2026-10-25T10:41:13.362603+00:00"
+}

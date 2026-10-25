@@ -1,0 +1,284 @@
+{
+  "status": "passed",
+  "taskBase": "dc0f034216e51b0da3dc22c910b27938aeef2f46",
+  "scope": "Local signoff request drafting and Wiki checks only; no signatures, sends or new business/model validation",
+  "checks": [
+    {
+      "command": "python3 .runtime/c-signoff-drafts/audit.py",
+      "argv": [
+        "python3",
+        ".runtime/c-signoff-drafts/audit.py"
+      ],
+      "startedAt": "2026-10-23T14:10:40.290315+08:00",
+      "finishedAt": "2026-10-23T14:10:43.158445+08:00",
+      "durationSeconds": 2.868,
+      "exitCode": 0,
+      "output": "{\"status\": \"passed\", \"scope\": \"Draft reference and preservation audit, not personnel signoff or a new test of product behavior\", \"taskBase\": \"dc0f034216e51b0da3dc22c910b27938aeef2f46\", \"sourceHashesPreserved\": 225, \"frozenNonGeneratedRawFilesByteIdentical\": 178, \"oldLogPrefixBytes\": 97039, \"oldPendingTaskContentPreservedAsPrefix\": true, \"twoPendingTasksRemainActive\": true, \"protectedRefsUnchanged\": {\"codex/c-handoff-independent-review\": \"dc0f034216e51b0da3dc22c910b27938aeef2f46\", \"codex/c-integration-handoff\": \"b256dd1d219cbf9f4a4264e19a980e194180dc14\", \"codex/c-diagnostics-p2-fix\": \"45fa03d57d6fc405c2438c3b187f87838355a88b\", \"codex/c-integration-candidate\": \"9e067bf0114e0d2b27f7b65ea4ecc07042405499\", \"codex/c-integration-review\": \"29f5b94b9ef6d46a9934e366df6022cc1a0f50c3\", \"codex/c03-durable-events\": \"9e8695b88f3e5d306f6aeeb362d21524818a3d12\", \"codex/m1-foundation\": \"56c909e21aefa484b6805bf9afc7c94b0e1d4576\", \"origin/codex/m1-foundation\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\"}, \"drafts\": {\"A\": {\"path\": \"wiki-project/wiki/C签认请求草稿-A数据与存储.md\", \"sha256\": \"f82eab3f7a6a853422de69817d732a553cfb312344a1058eccb6ff7da34bab15\", \"coveredIds\": [\"A-1\", \"A-2\", \"A-3\", \"AB-1\", \"R-1\"], \"state\": \"local_unsent_draft\", \"signatureFilled\": false}, \"B\": {\"path\": \"wiki-project/wiki/C签认请求草稿-B公共契约与规则.md\", \"sha256\": \"f8202f659b037055c37438f299b123fcdaa55a8036b901074c24f770e4198458\", \"coveredIds\": [\"B-1\", \"B-2\", \"AB-1\", \"R-1\"], \"state\": \"local_unsent_draft\", \"signatureFilled\": false}, \"business\": {\"path\": \"wiki-project/wiki/C签认请求草稿-业务人工验收.md\", \"sha256\": \"5c3ef3bafe319a034c9363ba3782b77ed79dccc244f03d4f99697d91693128e4\", \"coveredIds\": [\"H-1\"], \"state\": \"local_unsent_draft\", \"signatureFilled\": false}}, \"fullCommitRefsResolved\": [\"45fa03d57d6fc405c2438c3b187f87838355a88b\", \"64f2e2decc196395b7e0d6c44c0c9d1fb23eac1e\", \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\", \"b256dd1d219cbf9f4a4264e19a980e194180dc14\", \"dc0f034216e51b0da3dc22c910b27938aeef2f46\", \"fd7703c60ac67740989a08492e2b8c7fb0be12a0\"], \"historicalRealCaseSetHash\": \"75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496\", \"reviewMethod\": \"Read drafts against fixed handoff/review and existing pending tables; machine assertions check references and retention only\", \"operationsPerformed\": [\"local_Wiki_drafting\", \"read_only_Git_and_synthetic_redacted_evidence_audit\"], \"operationsNotPerformed\": [\"personnel_signature\", \"send_or_external_draft\", \"push\", \"shared_merge\", \"new_real_provider_retest\", \"new_full_product_suite\", \"new_independent_agent_review\"]}\n",
+      "outputSha256": "b5a2b19902ae5b49927c52731f9bcd37f343df1ae4c619b9168b0e12b1821926"
+    },
+    {
+      "command": "pnpm wiki:generate",
+      "argv": [
+        "pnpm",
+        "wiki:generate"
+      ],
+      "startedAt": "2026-10-23T14:10:43.199935+08:00",
+      "finishedAt": "2026-10-23T14:10:43.587790+08:00",
+      "durationSeconds": 0.388,
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:generate /Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs .\n\n{\n  \"mode\": \"generate\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n",
+      "outputSha256": "eab7fbe263dd998bf9cc3794887cfe4f6c11520b68861ce62307ee0780068dba"
+    },
+    {
+      "command": "pnpm wiki:check",
+      "argv": [
+        "pnpm",
+        "wiki:check"
+      ],
+      "startedAt": "2026-10-23T14:10:43.628760+08:00",
+      "finishedAt": "2026-10-23T14:10:44.623950+08:00",
+      "durationSeconds": 0.995,
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 186,\n  \"semantic\": 158,\n  \"reachable\": 186\n}\n",
+      "outputSha256": "ff58c0d04330a0532366c856decb28728f36049a7c388c4620bafd3960361779"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base dc0f034216e51b0da3dc22c910b27938aeef2f46",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "dc0f034216e51b0da3dc22c910b27938aeef2f46"
+      ],
+      "startedAt": "2026-10-23T14:10:44.711108+08:00",
+      "finishedAt": "2026-10-23T14:10:44.828710+08:00",
+      "durationSeconds": 0.117,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"dc0f034216e51b0da3dc22c910b27938aeef2f46\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "outputSha256": "57da7f28e3fad23e81f0f3f19594eb8dcfc3bb2fef23cb38829830b64aea662e"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+      ],
+      "startedAt": "2026-10-23T14:10:44.899407+08:00",
+      "finishedAt": "2026-10-23T14:10:46.080332+08:00",
+      "durationSeconds": 1.181,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 91,\n  \"knowledgePages\": 93,\n  \"tasks\": 31,\n  \"errors\": []\n}\n",
+      "outputSha256": "141575a528c048e10d72602ef3d4f54e72c6d79979ca3c1ce04e82693e644b9b"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce"
+      ],
+      "startedAt": "2026-10-23T14:10:46.126386+08:00",
+      "finishedAt": "2026-10-23T14:10:47.148118+08:00",
+      "durationSeconds": 1.022,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 97,\n  \"knowledgePages\": 108,\n  \"tasks\": 39,\n  \"errors\": []\n}\n",
+      "outputSha256": "7c4ce1432be33855c635166cde0da9b8ffb1c79b93235a052575370e9f46d79d"
+    },
+    {
+      "command": "git diff --check",
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "startedAt": "2026-10-23T14:10:47.186013+08:00",
+      "finishedAt": "2026-10-23T14:10:47.197844+08:00",
+      "durationSeconds": 0.012,
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "python3 .runtime/c-signoff-drafts/audit.py",
+      "argv": [
+        "python3",
+        ".runtime/c-signoff-drafts/audit.py"
+      ],
+      "startedAt": "2026-10-23T14:11:22.493335+08:00",
+      "finishedAt": "2026-10-23T14:11:25.648686+08:00",
+      "durationSeconds": 3.155,
+      "exitCode": 0,
+      "output": "{\"status\": \"passed\", \"scope\": \"Draft reference and preservation audit, not personnel signoff or a new test of product behavior\", \"taskBase\": \"dc0f034216e51b0da3dc22c910b27938aeef2f46\", \"sourceHashesPreserved\": 225, \"frozenNonGeneratedRawFilesByteIdentical\": 178, \"oldLogPrefixBytes\": 97039, \"oldPendingTaskContentPreservedAsPrefix\": true, \"twoPendingTasksRemainActive\": true, \"protectedRefsUnchanged\": {\"codex/c-handoff-independent-review\": \"dc0f034216e51b0da3dc22c910b27938aeef2f46\", \"codex/c-integration-handoff\": \"b256dd1d219cbf9f4a4264e19a980e194180dc14\", \"codex/c-diagnostics-p2-fix\": \"45fa03d57d6fc405c2438c3b187f87838355a88b\", \"codex/c-integration-candidate\": \"9e067bf0114e0d2b27f7b65ea4ecc07042405499\", \"codex/c-integration-review\": \"29f5b94b9ef6d46a9934e366df6022cc1a0f50c3\", \"codex/c03-durable-events\": \"9e8695b88f3e5d306f6aeeb362d21524818a3d12\", \"codex/m1-foundation\": \"56c909e21aefa484b6805bf9afc7c94b0e1d4576\", \"origin/codex/m1-foundation\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\"}, \"drafts\": {\"A\": {\"path\": \"wiki-project/wiki/C签认请求草稿-A数据与存储.md\", \"sha256\": \"f82eab3f7a6a853422de69817d732a553cfb312344a1058eccb6ff7da34bab15\", \"coveredIds\": [\"A-1\", \"A-2\", \"A-3\", \"AB-1\", \"R-1\"], \"state\": \"local_unsent_draft\", \"signatureFilled\": false}, \"B\": {\"path\": \"wiki-project/wiki/C签认请求草稿-B公共契约与规则.md\", \"sha256\": \"f8202f659b037055c37438f299b123fcdaa55a8036b901074c24f770e4198458\", \"coveredIds\": [\"B-1\", \"B-2\", \"AB-1\", \"R-1\"], \"state\": \"local_unsent_draft\", \"signatureFilled\": false}, \"business\": {\"path\": \"wiki-project/wiki/C签认请求草稿-业务人工验收.md\", \"sha256\": \"5c3ef3bafe319a034c9363ba3782b77ed79dccc244f03d4f99697d91693128e4\", \"coveredIds\": [\"H-1\"], \"state\": \"local_unsent_draft\", \"signatureFilled\": false}}, \"fullCommitRefsResolved\": [\"45fa03d57d6fc405c2438c3b187f87838355a88b\", \"64f2e2decc196395b7e0d6c44c0c9d1fb23eac1e\", \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\", \"b256dd1d219cbf9f4a4264e19a980e194180dc14\", \"dc0f034216e51b0da3dc22c910b27938aeef2f46\", \"e6af0b2d0cfe86af3abd45180dd56750db86b214\", \"fd7703c60ac67740989a08492e2b8c7fb0be12a0\"], \"historicalRealCaseSetHash\": \"75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496\", \"reviewMethod\": \"Read drafts against fixed handoff/review and existing pending tables; machine assertions check references and retention only\", \"operationsPerformed\": [\"local_Wiki_drafting\", \"read_only_Git_and_synthetic_redacted_evidence_audit\"], \"operationsNotPerformed\": [\"personnel_signature\", \"send_or_external_draft\", \"push\", \"shared_merge\", \"new_real_provider_retest\", \"new_full_product_suite\", \"new_independent_agent_review\"]}\n",
+      "outputSha256": "fda66d7fcef5d5c7b90db1e9f256f6f63092d08d9a81d63c0af987c12d5d1b0c"
+    },
+    {
+      "command": "pnpm wiki:check",
+      "argv": [
+        "pnpm",
+        "wiki:check"
+      ],
+      "startedAt": "2026-10-23T14:11:50.003569+08:00",
+      "finishedAt": "2026-10-23T14:11:51.011184+08:00",
+      "durationSeconds": 1.007,
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 186,\n  \"semantic\": 158,\n  \"reachable\": 186\n}\n",
+      "outputSha256": "ff58c0d04330a0532366c856decb28728f36049a7c388c4620bafd3960361779"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base dc0f034216e51b0da3dc22c910b27938aeef2f46",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "dc0f034216e51b0da3dc22c910b27938aeef2f46"
+      ],
+      "startedAt": "2026-10-23T14:11:51.060356+08:00",
+      "finishedAt": "2026-10-23T14:11:51.151452+08:00",
+      "durationSeconds": 0.091,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"dc0f034216e51b0da3dc22c910b27938aeef2f46\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "outputSha256": "57da7f28e3fad23e81f0f3f19594eb8dcfc3bb2fef23cb38829830b64aea662e"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+      ],
+      "startedAt": "2026-10-23T14:11:51.194233+08:00",
+      "finishedAt": "2026-10-23T14:11:51.980776+08:00",
+      "durationSeconds": 0.786,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 91,\n  \"knowledgePages\": 93,\n  \"tasks\": 31,\n  \"errors\": []\n}\n",
+      "outputSha256": "141575a528c048e10d72602ef3d4f54e72c6d79979ca3c1ce04e82693e644b9b"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce"
+      ],
+      "startedAt": "2026-10-23T14:11:52.022003+08:00",
+      "finishedAt": "2026-10-23T14:11:52.910640+08:00",
+      "durationSeconds": 0.888,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 97,\n  \"knowledgePages\": 108,\n  \"tasks\": 39,\n  \"errors\": []\n}\n",
+      "outputSha256": "7c4ce1432be33855c635166cde0da9b8ffb1c79b93235a052575370e9f46d79d"
+    },
+    {
+      "command": "git diff --check",
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "startedAt": "2026-10-23T14:11:52.950464+08:00",
+      "finishedAt": "2026-10-23T14:11:52.962298+08:00",
+      "durationSeconds": 0.012,
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "recordedAt": "2026-10-23T14:11:52.962329+08:00",
+  "branch": "codex/c-signoff-request-drafts",
+  "handoffPackage": "b256dd1d219cbf9f4a4264e19a980e194180dc14",
+  "independentReviewRecord": "dc0f034216e51b0da3dc22c910b27938aeef2f46",
+  "draftAuditAndPreservation": {
+    "status": "passed",
+    "scope": "Draft reference and preservation audit, not personnel signoff or a new test of product behavior",
+    "taskBase": "dc0f034216e51b0da3dc22c910b27938aeef2f46",
+    "sourceHashesPreserved": 225,
+    "frozenNonGeneratedRawFilesByteIdentical": 178,
+    "oldLogPrefixBytes": 97039,
+    "oldPendingTaskContentPreservedAsPrefix": true,
+    "twoPendingTasksRemainActive": true,
+    "protectedRefsUnchanged": {
+      "codex/c-handoff-independent-review": "dc0f034216e51b0da3dc22c910b27938aeef2f46",
+      "codex/c-integration-handoff": "b256dd1d219cbf9f4a4264e19a980e194180dc14",
+      "codex/c-diagnostics-p2-fix": "45fa03d57d6fc405c2438c3b187f87838355a88b",
+      "codex/c-integration-candidate": "9e067bf0114e0d2b27f7b65ea4ecc07042405499",
+      "codex/c-integration-review": "29f5b94b9ef6d46a9934e366df6022cc1a0f50c3",
+      "codex/c03-durable-events": "9e8695b88f3e5d306f6aeeb362d21524818a3d12",
+      "codex/m1-foundation": "56c909e21aefa484b6805bf9afc7c94b0e1d4576",
+      "origin/codex/m1-foundation": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+    },
+    "drafts": {
+      "A": {
+        "path": "wiki-project/wiki/C签认请求草稿-A数据与存储.md",
+        "sha256": "f82eab3f7a6a853422de69817d732a553cfb312344a1058eccb6ff7da34bab15",
+        "coveredIds": [
+          "A-1",
+          "A-2",
+          "A-3",
+          "AB-1",
+          "R-1"
+        ],
+        "state": "local_unsent_draft",
+        "signatureFilled": false
+      },
+      "B": {
+        "path": "wiki-project/wiki/C签认请求草稿-B公共契约与规则.md",
+        "sha256": "f8202f659b037055c37438f299b123fcdaa55a8036b901074c24f770e4198458",
+        "coveredIds": [
+          "B-1",
+          "B-2",
+          "AB-1",
+          "R-1"
+        ],
+        "state": "local_unsent_draft",
+        "signatureFilled": false
+      },
+      "business": {
+        "path": "wiki-project/wiki/C签认请求草稿-业务人工验收.md",
+        "sha256": "5c3ef3bafe319a034c9363ba3782b77ed79dccc244f03d4f99697d91693128e4",
+        "coveredIds": [
+          "H-1"
+        ],
+        "state": "local_unsent_draft",
+        "signatureFilled": false
+      }
+    },
+    "fullCommitRefsResolved": [
+      "45fa03d57d6fc405c2438c3b187f87838355a88b",
+      "64f2e2decc196395b7e0d6c44c0c9d1fb23eac1e",
+      "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+      "b256dd1d219cbf9f4a4264e19a980e194180dc14",
+      "dc0f034216e51b0da3dc22c910b27938aeef2f46",
+      "e6af0b2d0cfe86af3abd45180dd56750db86b214",
+      "fd7703c60ac67740989a08492e2b8c7fb0be12a0"
+    ],
+    "historicalRealCaseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496",
+    "reviewMethod": "Read drafts against fixed handoff/review and existing pending tables; machine assertions check references and retention only",
+    "operationsPerformed": [
+      "local_Wiki_drafting",
+      "read_only_Git_and_synthetic_redacted_evidence_audit"
+    ],
+    "operationsNotPerformed": [
+      "personnel_signature",
+      "send_or_external_draft",
+      "push",
+      "shared_merge",
+      "new_real_provider_retest",
+      "new_full_product_suite",
+      "new_independent_agent_review"
+    ]
+  },
+  "semanticReview": "Role-specific questions and reply formats checked against fixed handoff/review and original pending tables; no new independent agent review",
+  "humanSignoffs": "all_original_items_pending_no_signature_filled",
+  "outboundOperations": [],
+  "newFullProductOrRealModelTests": false
+}

@@ -122,7 +122,15 @@ export const CAPABILITIES: CapabilitySpec[] = [
       source: ["id", "workspace_id", "artifact_id", "status"],
       job: ["id", "workspace_id", "kind", "status", "attempts", "next_attempt_at"],
       idempotency: ["key", "request_hash", "result_json"],
-      outbox: ["seq", "event_id", "workspace_id", "type", "payload_json", "context_json", "created_at"],
+      outbox: [
+        "seq",
+        "event_id",
+        "workspace_id",
+        "type",
+        "payload_json",
+        "context_json",
+        "created_at",
+      ],
     },
   },
   {
@@ -147,13 +155,45 @@ export const CAPABILITIES: CapabilitySpec[] = [
     tables: ["quote_revision", "agent_turn"],
     indexes: [],
     triggers: [
-      { name: "quote_revision_no_update", table: "quote_revision", raises: true, event: "UPDATE", when: null },
-      { name: "quote_revision_no_delete", table: "quote_revision", raises: true, event: "DELETE", when: null },
-      { name: "agent_turn_no_update", table: "agent_turn", raises: true, event: "UPDATE", when: null },
-      { name: "agent_turn_no_delete", table: "agent_turn", raises: true, event: "DELETE", when: null },
+      {
+        name: "quote_revision_no_update",
+        table: "quote_revision",
+        raises: true,
+        event: "UPDATE",
+        when: null,
+      },
+      {
+        name: "quote_revision_no_delete",
+        table: "quote_revision",
+        raises: true,
+        event: "DELETE",
+        when: null,
+      },
+      {
+        name: "agent_turn_no_update",
+        table: "agent_turn",
+        raises: true,
+        event: "UPDATE",
+        when: null,
+      },
+      {
+        name: "agent_turn_no_delete",
+        table: "agent_turn",
+        raises: true,
+        event: "DELETE",
+        when: null,
+      },
     ],
     columns: {
-      quote_revision: ["id", "workspace_id", "root_id", "parent_id", "version", "content_hash", "data_json"],
+      quote_revision: [
+        "id",
+        "workspace_id",
+        "root_id",
+        "parent_id",
+        "version",
+        "content_hash",
+        "data_json",
+      ],
       agent_turn: ["id", "workspace_id", "data_json"],
     },
   },
@@ -163,8 +203,20 @@ export const CAPABILITIES: CapabilitySpec[] = [
     tables: ["knowledge_revision"],
     indexes: [{ name: "knowledge_revision_document", table: "knowledge_revision" }],
     triggers: [
-      { name: "knowledge_revision_no_update", table: "knowledge_revision", raises: true, event: "UPDATE", when: "OLD.status='published'" },
-      { name: "knowledge_revision_no_delete", table: "knowledge_revision", raises: true, event: "DELETE", when: null },
+      {
+        name: "knowledge_revision_no_update",
+        table: "knowledge_revision",
+        raises: true,
+        event: "UPDATE",
+        when: "OLD.status='published'",
+      },
+      {
+        name: "knowledge_revision_no_delete",
+        table: "knowledge_revision",
+        raises: true,
+        event: "DELETE",
+        when: null,
+      },
     ],
     columns: {
       knowledge_revision: [
@@ -203,10 +255,31 @@ export const CAPABILITIES: CapabilitySpec[] = [
     lineage: "c-run",
     version: 6,
     tables: ["agent_write_call"],
-    indexes: [{ name: "agent_write_once", table: "agent_write_call", unique: true, partial: true, columns: "run_id,attempt", where: "status IN ('prepared','committed')" }],
+    indexes: [
+      {
+        name: "agent_write_once",
+        table: "agent_write_call",
+        unique: true,
+        partial: true,
+        columns: "run_id,attempt",
+        where: "status IN ('prepared','committed')",
+      },
+    ],
     triggers: [
-      { name: "agent_write_committed_no_update", table: "agent_write_call", raises: true, event: "UPDATE", when: "OLD.status='committed'" },
-      { name: "agent_write_no_delete", table: "agent_write_call", raises: true, event: "DELETE", when: null },
+      {
+        name: "agent_write_committed_no_update",
+        table: "agent_write_call",
+        raises: true,
+        event: "UPDATE",
+        when: "OLD.status='committed'",
+      },
+      {
+        name: "agent_write_no_delete",
+        table: "agent_write_call",
+        raises: true,
+        event: "DELETE",
+        when: null,
+      },
     ],
     columns: {
       agent_write_call: [
@@ -233,16 +306,26 @@ export const CAPABILITIES: CapabilitySpec[] = [
     tables: ["agent_tool_step"],
     indexes: [],
     triggers: [
-      { name: "agent_tool_step_no_update", table: "agent_tool_step", raises: true, event: "UPDATE", when: null },
-      { name: "agent_tool_step_no_delete", table: "agent_tool_step", raises: true, event: "DELETE", when: null },
+      {
+        name: "agent_tool_step_no_update",
+        table: "agent_tool_step",
+        raises: true,
+        event: "UPDATE",
+        when: null,
+      },
+      {
+        name: "agent_tool_step_no_delete",
+        table: "agent_tool_step",
+        raises: true,
+        event: "DELETE",
+        when: null,
+      },
     ],
     columns: {
       agent_tool_step: ["run_id", "attempt", "tool_call_id", "ordinal", "data_json"],
       agent_write_call: ["validation_json"],
     },
-    foreignKeys: [
-      { table: "agent_tool_step", from: "run_id", toTable: "agent_run", to: "run_id" },
-    ],
+    foreignKeys: [{ table: "agent_tool_step", from: "run_id", toTable: "agent_run", to: "run_id" }],
   },
   {
     lineage: "knowledge-wiki",
@@ -254,10 +337,34 @@ export const CAPABILITIES: CapabilitySpec[] = [
       { name: "knowledge_lifecycle_state", table: "knowledge_lifecycle" },
     ],
     triggers: [
-      { name: "knowledge_wiki_no_update", table: "knowledge_wiki", raises: true, event: "UPDATE", when: null },
-      { name: "knowledge_wiki_no_delete", table: "knowledge_wiki", raises: true, event: "DELETE", when: null },
-      { name: "knowledge_consumption_no_update", table: "knowledge_consumption", raises: true, event: "UPDATE", when: null },
-      { name: "knowledge_consumption_no_delete", table: "knowledge_consumption", raises: true, event: "DELETE", when: null },
+      {
+        name: "knowledge_wiki_no_update",
+        table: "knowledge_wiki",
+        raises: true,
+        event: "UPDATE",
+        when: null,
+      },
+      {
+        name: "knowledge_wiki_no_delete",
+        table: "knowledge_wiki",
+        raises: true,
+        event: "DELETE",
+        when: null,
+      },
+      {
+        name: "knowledge_consumption_no_update",
+        table: "knowledge_consumption",
+        raises: true,
+        event: "UPDATE",
+        when: null,
+      },
+      {
+        name: "knowledge_consumption_no_delete",
+        table: "knowledge_consumption",
+        raises: true,
+        event: "DELETE",
+        when: null,
+      },
     ],
     columns: {
       knowledge_source: [
@@ -301,9 +408,26 @@ export const CAPABILITIES: CapabilitySpec[] = [
     tables: ["quote_check_report"],
     indexes: [{ name: "quote_check_report_history", table: "quote_check_report" }],
     triggers: [
-      { name: "quote_check_report_revision", table: "quote_check_report", raises: true, event: "INSERT" },
-      { name: "quote_check_report_no_update", table: "quote_check_report", raises: true, event: "UPDATE", when: null },
-      { name: "quote_check_report_no_delete", table: "quote_check_report", raises: true, event: "DELETE", when: null },
+      {
+        name: "quote_check_report_revision",
+        table: "quote_check_report",
+        raises: true,
+        event: "INSERT",
+      },
+      {
+        name: "quote_check_report_no_update",
+        table: "quote_check_report",
+        raises: true,
+        event: "UPDATE",
+        when: null,
+      },
+      {
+        name: "quote_check_report_no_delete",
+        table: "quote_check_report",
+        raises: true,
+        event: "DELETE",
+        when: null,
+      },
     ],
     columns: {
       quote_check_report: [
@@ -347,8 +471,7 @@ const hasColumn = (table: string, column: string, columns: Record<string, string
 
 /** 提取 WHEN/WHERE 之后到 BEGIN（触发器）或串尾（索引）的谓词原文；无该子句返回 null。 */
 function extractPredicate(sql: string, keyword: "WHEN" | "WHERE"): string | null {
-  const re =
-    keyword === "WHEN" ? /\bWHEN\b([\s\S]*?)\bBEGIN\b/i : /\bWHERE\b([\s\S]*)$/i;
+  const re = keyword === "WHEN" ? /\bWHEN\b([\s\S]*?)\bBEGIN\b/i : /\bWHERE\b([\s\S]*)$/i;
   const m = sql.match(re);
   return m ? (m[1] ?? null) : null;
 }
@@ -622,10 +745,7 @@ function classifyPresent(present: CapabilityId[]): MigrationLineage {
     ["c-run:5,c-run:6,common:1,common:2,common:3,common:4", "c-v6"],
     ["c-run:5,c-run:6,c-run:7,common:1,common:2,common:3,common:4", "c-v7"],
     ["common:1,common:2,common:3,common:4,knowledge-wiki:6", "a-v6"],
-    [
-      "check-report:7,common:1,common:2,common:3,common:4,knowledge-wiki:6",
-      "b-v7",
-    ],
+    ["check-report:7,common:1,common:2,common:3,common:4,knowledge-wiki:6", "b-v7"],
     [
       "c-run:5,c-run:6,c-run:7,check-report:7,common:1,common:2,common:3,common:4,knowledge-wiki:6",
       "unified",

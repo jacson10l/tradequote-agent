@@ -6,7 +6,8 @@ import type { CreateWorkspace, RenameWorkspace } from "@tradequote/contracts";
 import Database from "better-sqlite3";
 import { afterEach, expect, it } from "vitest";
 import { FileArtifactStore, SqliteWorkspaceRepository } from "./index";
-import { MIGRATION_STEPS, MigrationLineageError, migrate } from "./migrations";
+import { sqlFingerprint } from "./migration-lineage";
+import { MIGRATION_STEPS, MigrationLineageError, migrate, seedTo } from "./migrations";
 
 const dirs: string[] = [];
 const temp = () => {
@@ -108,3 +109,39 @@ it("stores immutable content hashes and rejects traversal, tampering and symlink
   symlinkSync(join(root, id), join(root, other));
   await expect(store.readById(other)).rejects.toThrow("ARTIFACT_NOT_REGULAR");
 });
+
+it.each(["missing_predecessor", "duplicate_legacy_identity"])(
+  "rejects %s in a persisted legacy database before creating a registry or changing facts",
+  (kind) => {
+    const db = new Database(":memory:");
+    try {
+      if (kind === "missing_predecessor") {
+        db.exec(MIGRATION_STEPS[0]!.sql);
+        db.exec(MIGRATION_STEPS[2]!.sql);
+        db.pragma("user_version=3");
+      } else {
+        seedTo(db, { lineage: "common", version: 3 });
+        db.exec("CREATE TABLE schema_migration(version INTEGER, sql_hash TEXT)");
+        const insert = db.prepare("INSERT INTO schema_migration VALUES (?,?)");
+        insert.run(1, sqlFingerprint(MIGRATION_STEPS[0]!.sql));
+        insert.run(1, sqlFingerprint(MIGRATION_STEPS[0]!.sql));
+      }
+      const snapshot = () => ({
+        schema: db.prepare("SELECT * FROM sqlite_master ORDER BY name").all(),
+        version: db.pragma("user_version", { simple: true }),
+        ledger:
+          kind === "duplicate_legacy_identity"
+            ? db.prepare("SELECT * FROM schema_migration ORDER BY rowid").all()
+            : [],
+      });
+      const before = snapshot();
+      expect(() => migrate(db)).toThrow(MigrationLineageError);
+      expect(snapshot()).toEqual(before);
+      expect(
+        db.prepare("SELECT name FROM sqlite_master WHERE name='migration_registry'").get(),
+      ).toBeUndefined();
+    } finally {
+      db.close();
+    }
+  },
+);

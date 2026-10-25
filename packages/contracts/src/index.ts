@@ -8,20 +8,26 @@ import type { KnowledgeClient } from "./knowledge";
 import type { KnowledgeBuildClient } from "./knowledge-build";
 import type { KnowledgeMaintenanceClient } from "./knowledge-maintenance";
 import type { WikiClient } from "./knowledge-wiki";
+import type { ModelEvaluationClient } from "./model-evaluation";
 import { IssueSchema } from "./protocol";
-import type { RunClient } from "./runs";
+import { AgentReadCommandSchema, AgentReadResultSchema, type ReadAgentClient } from "./read-tools";
+import { type RunClient, RunCommandSchema, RunListResultSchema, RunResultSchema } from "./runs";
 
 export * from "./checks";
 export * from "./knowledge";
 export * from "./knowledge-build";
 export * from "./knowledge-maintenance";
 export * from "./knowledge-wiki";
+export * from "./model-evaluation";
 export { unavailableFirstBatchClient } from "./pending-client";
 export { FailureSchema, IssueSchema, PublicErrorSchema } from "./protocol";
+export * from "./read-tools";
+export * from "./run-events";
 export * from "./runs";
 export * from "./wiki-integrity";
 
 import { ErrorCodeSchema } from "./errors";
+import { type RunEventsClient, RunEventsCommandSchema, RunEventsResultSchema } from "./run-events";
 import { type TradeClient, TradeCommandSchema, TradeResultSchema } from "./trade";
 
 export { ErrorCodeSchema } from "./errors";
@@ -101,7 +107,10 @@ export interface DesktopClient
     KnowledgeBuildClient,
     KnowledgeMaintenanceClient,
     CheckClient,
-    RunClient {
+    RunClient,
+    RunEventsClient,
+    ReadAgentClient,
+    ModelEvaluationClient {
   getWorkspace(): Promise<WorkspaceResult>;
   createWorkspace(command: CreateWorkspace): Promise<WorkspaceResult>;
   renameWorkspace(command: RenameWorkspace): Promise<WorkspaceResult>;
@@ -114,8 +123,18 @@ export const RuntimeCommandSchema = z.union([
   CommandSchema,
   TradeCommandSchema,
   AgentCommandSchema,
+  AgentReadCommandSchema,
+  RunCommandSchema,
+  RunEventsCommandSchema,
 ]);
-export const RuntimeResultSchema = z.union([ResultSchema, TradeResultSchema]);
+export const RuntimeResultSchema = z.union([
+  ResultSchema,
+  TradeResultSchema,
+  AgentReadResultSchema,
+  RunResultSchema,
+  RunListResultSchema,
+  RunEventsResultSchema,
+]);
 export type RuntimeCommand = z.infer<typeof RuntimeCommandSchema>;
 export type RuntimeResult = z.infer<typeof RuntimeResultSchema>;
 export const WorkerRequestSchema = z.strictObject({

@@ -20,6 +20,15 @@ const envelope = {
 const event = <T extends string, S extends z.ZodType>(type: T, payload: S) =>
   z.strictObject({ ...envelope, type: z.literal(type), payload });
 export const RunEventSchema = z.discriminatedUnion("type", [
+  event(
+    "run.updated",
+    z.strictObject({
+      status: RunStatusSchema,
+      attempt: z.number().int().positive(),
+      committedRevisionId: z.uuid().nullable(),
+      errorCode: ErrorCodeSchema.nullable(),
+    }),
+  ),
   event("run.started", z.strictObject({ baseRevisionId: z.uuid().nullable() })),
   event("step.started", z.strictObject({ stepId: z.uuid(), label: z.string().min(1).max(200) })),
   event(

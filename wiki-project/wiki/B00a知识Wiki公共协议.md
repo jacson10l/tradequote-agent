@@ -115,3 +115,14 @@ workspace Electron 现有精确桥接列表同步 executeWiki，并直接从真�
 ## 迁移谱系收敛附带的类型导出
 
 迁移谱系收敛（codex/a01-migration-lineage）把 `WikiCitationResolveInput` 从 schema-only 推断类型改为显式导出 `export type WikiCitationResolveInput = z.infer<typeof WikiCitationResolveInputSchema>`，供 infrastructure 的 wiki-store resolveCitation 端口按公开契约直接引用，消除 TS2724 类型错误；不改变 schema 语义或 B00a 协议行为。
+
+## C集成候选中的P0并存核对
+
+2026-10-23实际fetch/gh核对共同头654fecc已纳入P0 PR #7，[[C集成候选与依赖收口]]仅在独立候选组合其契约。knowledge-wiki.ts、wiki-integrity.ts、knowledge-wiki.test.ts保持共同头字节，公共index/pending-client同时保留C运行事件/评估与WikiClient.executeWiki不可用门禁；mock及preload/真实Electron保留12个方法的合法不可用/非法拒绝。Runtime/Worker没有开放Wiki新命令；旧A01b范围不能因此冒充P0通用知识服务。P1 PR #8现已改向共同分支但未合入，本候选未测试P1，历史C技术复核和A待签分开，见[[C集成候选-依赖与非作者签认]]。
+
+
+## 2026-10-25 B固定新组合适配
+
+本次组合去掉A/B自动合并形成的重复WikiCitationResolveInput类型声明，保持单一schema推断导出，DTO无新增字段。contracts/index与pending-client保留B P0/P1及C run/event/read/evaluation方法并集；P1/新Wiki未接正式Worker白名单，合法未实现仍能力不可用，不伪造lint/review已保存。
+
+详见[[B新固定组合与回归范围]]、[[B01-新固定组合回归]]及raw/b-a910-c03-combination-validation.json。

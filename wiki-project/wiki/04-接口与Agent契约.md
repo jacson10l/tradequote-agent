@@ -11,6 +11,8 @@ sources:
 
 # 接口与 Agent 契约
 
+本页完整协议目录是目标设计，已实现子集、后续取舍及C任务以 [[双参考项目功能对照与C开发路线]] 为准。正式understand/revise仍为单次JSON提取后提交；本轮C02a只读循环是未接IPC的内部模块，不是完整AgentRuntime已上线。
+
 v1 先冻结命令、查询、事件及错误语义，再生成 TypeScript/Zod/mock。桌面 IPC 与未来 HTTP 都映射到这些用例，业务代码不感知传输方式。下述为待实现契约。
 
 ## 请求、响应和上下文
@@ -137,7 +139,7 @@ A 提供存储实现不代表可以绕过 B 的报价状态约束；B 调用 Uni
 
 不注册最终审批、知识发布、直接写数据库、任意路径读写、shell、自动外发工具。模型在对话中写“已批准”不会改变审批记录。外部文档内的指令只作为待处理文本，不能改变工具集。
 
-Harness 当前有条件采用，使用专用 profile、独立数据目录与固定版本；正式 adapter 须在启动时核对注册工具 allowlist，模型请求处再次断言。M0 已通过专用 profile 对每次实际模型请求核对工具集，见 [验证记录](技术验证记录.md)。上游 `sdk-minimal` 默认携带 shell，不能仅靠提示词完成隔离。其参数根对象默认开放，桥接必须拒绝未知字段并使用严格 DTO；身份与幂等由宿主提供。
+以下Harness约束保留给候选适配器：生产当前改用自有最小执行器，见 [[0004-M0平台与执行器选型]]；候选使用专用 profile、独立数据目录与固定版本；正式 adapter 须在启动时核对注册工具 allowlist，模型请求处再次断言。M0 已通过专用 profile 对每次实际模型请求核对工具集，见 [验证记录](技术验证记录.md)。上游 `sdk-minimal` 默认携带 shell，不能仅靠提示词完成隔离。其参数根对象默认开放，桥接必须拒绝未知字段并使用严格 DTO；身份与幂等由宿主提供。
 
 `ModelProvider` 是本项目端口，不是 Harness SDK 可直接接收的 JS 实例。当前官方 adapter 走 Messages API；接入其他供应商需可信 provider 插件或独立执行器实现。SDK 没有单会话 cancel，`AgentRuntime.cancel` 由关闭 run 独占的 runtime 进程实现；超时也须执行回收。多活动 run 不能共享这一进程。
 
@@ -181,9 +183,9 @@ interface RunEvent {
 
 持久化事件先提交后发布，至少一次投递；renderer 按 eventId 去重，按 seq 发现缺口后 `run.events(afterSeq)` 补齐。实时 token delta 是临时展示，不承担恢复事实；完整消息提交后才进入历史。API Key、原始错误栈和模型内部推理不作为业务事件传输。
 
-Run 状态：`queued → running → waiting_input|completed|failed|cancelled`；应用启动将残留 running 标为 interrupted，用户恢复创建派生 run，继承已提交结果并重新检查版本。禁止重放完成的写工具。
+Run 状态目标：`queued → running → waiting_input|completed|failed|cancelled`。原方案提出派生run恢复；后续 [[C01b存储接口与事务方案]] 改为同runId、显式retry递增attempt，启动将遗留queued/running标interrupted，不自动重发。公共契约仍待B确认，未实现resume入口；禁止重放完成的写工具。
 
-初始可调预算建议：每 run 最多 12 次工具调用、单模型请求 90 秒超时、总 run 5 分钟；限流/暂时网络错误最多 2 次指数退避重试，鉴权/参数错误不重试。数字是测试起点，在 M0 实测调整；费用只有配置有效价格表才计算，缺价格时显示 token 用量与“成本未配置”。
+初始可调预算建议：每 run 最多 12 次工具调用、单模型请求 90 秒超时、总 run 5 分钟；限流/暂时网络错误最多 2 次指数退避重试，鉴权/参数错误不重试。这是规划期建议，非现有收费重试策略；生产与C02a均不自动重试模型。C02a默认8次工具/120秒、最多12次/300秒，与45秒Provider单请求限制分别作用；完整写入runtime预算在C02c评审冻结。数字是测试起点，在 M0 实测调整；费用只有配置有效价格表才计算，缺价格时显示 token 用量与“成本未配置”。
 
 同一次工具提交重试必须复用业务幂等键；不能每次网络重试生成新 key。tool call ID 记录提供方原值，业务幂等键由应用生成并跨恢复保留。
 
@@ -201,7 +203,7 @@ Main 发出文件选择/保存令牌，后台用令牌访问受控路径；原�
 
 ## M0 本轮实现状态
 
-本轮默认执行器已切为最小工具循环，见 [[0004-M0平台与执行器选型]]；前述 Harness 约束仅适用于保留候选。T00 部分 strict schema/测试与评审清单见 [[M0契约评审准备]]。正式端口及完整公共契约仍需 M1 实现。
+默认选型已切为自有最小执行器；正式报价链路仍是一次JSON理解/修改后提交，新增只读循环内部切片见 [[C02a-受限只读工具循环]]，生产接入待C02b。选型依据见 [[0004-M0平台与执行器选型]]；前述 Harness 约束仅适用于保留候选。T00 部分 strict schema/测试与评审清单见 [[M0契约评审准备]]。正式端口及完整公共契约仍需 M1 实现。
 
 ## M1 首个契约切片
 
@@ -228,3 +230,9 @@ Main 发出文件选择/保存令牌，后台用令牌访问受控路径；原�
 [[A业务LLMWiki方案]]要求AI只能创建候选；知识审核、发布、撤回由human_ui入口执行，模型/原文不能自报审核人和权限。B00现有agent.start只可启动询盘/报价修订，其completed必须有committedRevisionId；知识整理需独立KnowledgeBuildCommand/Run，不扩用旧报价命令偷渡Markdown。
 
 [[B00a-业务Wiki契约补充]]将补来源、wiki候选/审核/发布、search/resolveCitation及lint/impact/重建接口。ArtifactStore现为async，WikiService先异步验证artifact再提交SQLite引用事务/outbox，知识Repository事务可同步。正式搜索只返回适用的已发布有效版本，历史引用解析与候选管理是独立入口；renderer始终不访问文件/数据库。变更清单与旧协议兼容见 [[B00知识契约差距与补充]]。
+
+## 已实现的独立只读agent.read
+
+完整AgentRuntime仍为目标设计；当前新增可实际使用的agent.read/readAgent仅处理本机用户发起的四工具只读任务，公共strict输入/观测/结果见contracts/read-tools.ts，使用与失败边界见 [[C02b桌面只读助手]]。命令无写幂等键、无客户端workspace/asOf/credentials/工具注入；Main凭据和Worker宿主范围分开产生。四工具输入/结果统一导出，原adapter改为共用，不另建DTO。
+
+该读结果可返回模型说明或澄清及实际查询/预览/失败/来源，不携committedRevisionId，也不触发运行表或报价提交。当前同请求仅在途去重，传输与Provider不自动重试，重开不重发；不能将其当作agent.start/resume或跨重启计费恰好一次。知识/规则保持未注册，旧understand/revise保存行为不变。验收见 [[C02b-Worker与桌面只读入口]]。

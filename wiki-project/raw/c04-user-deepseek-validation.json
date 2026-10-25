@@ -1,0 +1,596 @@
+{
+  "status": "passed",
+  "realEvaluationStatus": "failed",
+  "scope": "The user explicitly started one actual DeepSeek evaluation. Report/state/redaction/native export audit passed; the actual 31-point business evaluation did not pass. No start/retry/cancel or credential operation was performed by the agent.",
+  "recordedAt": "2026-10-22T15:48:57.116613+08:00",
+  "taskBase": "44dcbceb3d9f6355dbafd5091b9053369ce56317",
+  "initialAuditBase": "df74abe4d6304925e1c4ab5cf85178e6e026f50f",
+  "branch": "codex/c04-desktop-evaluation",
+  "integrationBase": "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+  "observations": [
+    {
+      "observedAt": "2026-10-22T07:39:01.182Z",
+      "recordCount": 1,
+      "invalidRecords": 0,
+      "history": [
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "running",
+          "observedRows": 0,
+          "errorCode": null,
+          "hasReport": false
+        }
+      ],
+      "latest": {
+        "runRef": "ed4a5f242c9c",
+        "requestedMode": "deepseek",
+        "mode": "deepseek",
+        "transport": "deepseek",
+        "status": "running",
+        "observedRows": 0,
+        "errorCode": null,
+        "hasReport": false
+      },
+      "reportSummary": null
+    },
+    {
+      "observedAt": "2026-10-22T07:40:22.659Z",
+      "recordCount": 1,
+      "invalidRecords": 0,
+      "history": [
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "running",
+          "observedRows": 14,
+          "errorCode": null,
+          "hasReport": false
+        }
+      ],
+      "latest": {
+        "runRef": "ed4a5f242c9c",
+        "requestedMode": "deepseek",
+        "mode": "deepseek",
+        "transport": "deepseek",
+        "status": "running",
+        "observedRows": 14,
+        "errorCode": null,
+        "hasReport": false
+      },
+      "reportSummary": null
+    },
+    {
+      "observedAt": "2026-10-22T07:42:12.285Z",
+      "recordCount": 1,
+      "invalidRecords": 0,
+      "history": [
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "latest": {
+        "runRef": "ed4a5f242c9c",
+        "requestedMode": "deepseek",
+        "mode": "deepseek",
+        "transport": "deepseek",
+        "status": "completed",
+        "observedRows": 23,
+        "errorCode": null,
+        "hasReport": true
+      },
+      "reportSummary": {
+        "mode": "deepseek",
+        "status": "failed",
+        "providerValidation": "observed",
+        "model": "deepseek-flash",
+        "modelCalls": 104,
+        "realRequests": 104,
+        "usage": {
+          "tokens": null,
+          "cost": null,
+          "reason": "not_exposed_by_adapter"
+        },
+        "rows": 48,
+        "all": {
+          "passed": 17,
+          "failed": 6,
+          "not_run": 25,
+          "cancelled": 0
+        },
+        "business": {
+          "passed": 17,
+          "failed": 6,
+          "not_run": 8,
+          "cancelled": 0
+        },
+        "faultInjection": {
+          "passed": 0,
+          "failed": 0,
+          "not_run": 17,
+          "cancelled": 0
+        },
+        "failures": [
+          {
+            "id": "apparel-de-v1",
+            "status": "failed",
+            "reason": "observed",
+            "errorCode": "MODEL_INVALID_OUTPUT",
+            "modelCalls": 2,
+            "failedChecks": [
+              "outcome",
+              "revision_count",
+              "draft_only",
+              "product",
+              "quantity",
+              "unit",
+              "terms",
+              "amount",
+              "sources",
+              "validation"
+            ]
+          },
+          {
+            "id": "panel-en-v2",
+            "status": "failed",
+            "reason": "observed",
+            "errorCode": "MODEL_INVALID_OUTPUT",
+            "modelCalls": 2,
+            "failedChecks": [
+              "outcome",
+              "revision_count",
+              "draft_only",
+              "product",
+              "quantity",
+              "unit",
+              "terms",
+              "amount",
+              "sources",
+              "validation"
+            ]
+          },
+          {
+            "id": "fastener-zh-v1",
+            "status": "failed",
+            "reason": "observed",
+            "errorCode": "MISSING_FACTS",
+            "modelCalls": 3,
+            "failedChecks": [
+              "outcome",
+              "revision_count",
+              "draft_only",
+              "product",
+              "quantity",
+              "unit",
+              "terms",
+              "amount",
+              "sources",
+              "validation"
+            ]
+          },
+          {
+            "id": "fastener-en-v1",
+            "status": "failed",
+            "reason": "observed",
+            "errorCode": "ACTION_NOT_ALLOWED",
+            "modelCalls": 3,
+            "failedChecks": [
+              "outcome",
+              "revision_count",
+              "draft_only",
+              "product",
+              "quantity",
+              "unit",
+              "terms",
+              "amount",
+              "sources",
+              "validation"
+            ]
+          },
+          {
+            "id": "fastener-de-v2",
+            "status": "failed",
+            "reason": "observed",
+            "errorCode": "ACTION_NOT_ALLOWED",
+            "modelCalls": 3,
+            "failedChecks": [
+              "outcome",
+              "revision_count",
+              "draft_only",
+              "product",
+              "quantity",
+              "unit",
+              "terms",
+              "amount",
+              "sources",
+              "validation"
+            ]
+          },
+          {
+            "id": "rule-block",
+            "status": "failed",
+            "reason": "observed",
+            "errorCode": "ACTION_NOT_ALLOWED",
+            "modelCalls": 4,
+            "failedChecks": [
+              "outcome"
+            ]
+          }
+        ],
+        "notRunReasons": {
+          "prior_step_failed": 8,
+          "fixture_only": 17
+        }
+      }
+    }
+  ],
+  "terminal": {
+    "observedAt": "2026-10-22T07:42:12.285Z",
+    "recordCount": 1,
+    "invalidRecords": 0,
+    "history": [
+      {
+        "runRef": "ed4a5f242c9c",
+        "requestedMode": "deepseek",
+        "mode": "deepseek",
+        "transport": "deepseek",
+        "status": "completed",
+        "observedRows": 23,
+        "errorCode": null,
+        "hasReport": true
+      }
+    ],
+    "latest": {
+      "runRef": "ed4a5f242c9c",
+      "requestedMode": "deepseek",
+      "mode": "deepseek",
+      "transport": "deepseek",
+      "status": "completed",
+      "observedRows": 23,
+      "errorCode": null,
+      "hasReport": true
+    },
+    "reportSummary": {
+      "mode": "deepseek",
+      "status": "failed",
+      "providerValidation": "observed",
+      "model": "deepseek-flash",
+      "modelCalls": 104,
+      "realRequests": 104,
+      "usage": {
+        "tokens": null,
+        "cost": null,
+        "reason": "not_exposed_by_adapter"
+      },
+      "rows": 48,
+      "all": {
+        "passed": 17,
+        "failed": 6,
+        "not_run": 25,
+        "cancelled": 0
+      },
+      "business": {
+        "passed": 17,
+        "failed": 6,
+        "not_run": 8,
+        "cancelled": 0
+      },
+      "faultInjection": {
+        "passed": 0,
+        "failed": 0,
+        "not_run": 17,
+        "cancelled": 0
+      },
+      "failures": [
+        {
+          "id": "apparel-de-v1",
+          "status": "failed",
+          "reason": "observed",
+          "errorCode": "MODEL_INVALID_OUTPUT",
+          "modelCalls": 2,
+          "failedChecks": [
+            "outcome",
+            "revision_count",
+            "draft_only",
+            "product",
+            "quantity",
+            "unit",
+            "terms",
+            "amount",
+            "sources",
+            "validation"
+          ]
+        },
+        {
+          "id": "panel-en-v2",
+          "status": "failed",
+          "reason": "observed",
+          "errorCode": "MODEL_INVALID_OUTPUT",
+          "modelCalls": 2,
+          "failedChecks": [
+            "outcome",
+            "revision_count",
+            "draft_only",
+            "product",
+            "quantity",
+            "unit",
+            "terms",
+            "amount",
+            "sources",
+            "validation"
+          ]
+        },
+        {
+          "id": "fastener-zh-v1",
+          "status": "failed",
+          "reason": "observed",
+          "errorCode": "MISSING_FACTS",
+          "modelCalls": 3,
+          "failedChecks": [
+            "outcome",
+            "revision_count",
+            "draft_only",
+            "product",
+            "quantity",
+            "unit",
+            "terms",
+            "amount",
+            "sources",
+            "validation"
+          ]
+        },
+        {
+          "id": "fastener-en-v1",
+          "status": "failed",
+          "reason": "observed",
+          "errorCode": "ACTION_NOT_ALLOWED",
+          "modelCalls": 3,
+          "failedChecks": [
+            "outcome",
+            "revision_count",
+            "draft_only",
+            "product",
+            "quantity",
+            "unit",
+            "terms",
+            "amount",
+            "sources",
+            "validation"
+          ]
+        },
+        {
+          "id": "fastener-de-v2",
+          "status": "failed",
+          "reason": "observed",
+          "errorCode": "ACTION_NOT_ALLOWED",
+          "modelCalls": 3,
+          "failedChecks": [
+            "outcome",
+            "revision_count",
+            "draft_only",
+            "product",
+            "quantity",
+            "unit",
+            "terms",
+            "amount",
+            "sources",
+            "validation"
+          ]
+        },
+        {
+          "id": "rule-block",
+          "status": "failed",
+          "reason": "observed",
+          "errorCode": "ACTION_NOT_ALLOWED",
+          "modelCalls": 4,
+          "failedChecks": [
+            "outcome"
+          ]
+        }
+      ],
+      "notRunReasons": {
+        "prior_step_failed": 8,
+        "fixture_only": 17
+      }
+    }
+  },
+  "audit": {
+    "status": "passed",
+    "observedAt": "2026-10-22T07:48:15.751Z",
+    "runRef": "ed4a5f242c9c",
+    "semanticVerdict": "failed",
+    "realBusiness": {
+      "passed": 17,
+      "failed": 6,
+      "not_run": 8,
+      "cancelled": 0
+    },
+    "realFaultInjection": {
+      "passed": 0,
+      "failed": 0,
+      "not_run": 17,
+      "cancelled": 0
+    },
+    "byCategory": {
+      "apparel": {
+        "passed": 6,
+        "failed": 1,
+        "not_run": 2,
+        "cancelled": 0
+      },
+      "panel": {
+        "passed": 7,
+        "failed": 1,
+        "not_run": 1,
+        "cancelled": 0
+      },
+      "fastener": {
+        "passed": 1,
+        "failed": 3,
+        "not_run": 5,
+        "cancelled": 0
+      }
+    },
+    "byLanguage": {
+      "zh": {
+        "passed": 6,
+        "failed": 1,
+        "not_run": 2,
+        "cancelled": 0
+      },
+      "en": {
+        "passed": 4,
+        "failed": 2,
+        "not_run": 3,
+        "cancelled": 0
+      },
+      "de": {
+        "passed": 4,
+        "failed": 2,
+        "not_run": 3,
+        "cancelled": 0
+      }
+    },
+    "fixture": {
+      "passed": 48,
+      "failed": 0,
+      "not_run": 0,
+      "cancelled": 0
+    },
+    "realRequests": 104,
+    "fixtureRequests": 186,
+    "reportSha256": "64bcb2aab3c257003ac1c43df05ffe0d6724334156e10a0bd4cd524c46518e2b",
+    "markdownSha256": "a849e47833c61fb734548d2c1601aeb11f079d026067bcd809a84207dfd992d2",
+    "fixtureSha256": "654b1d273dd9bad8f7fab247a5bf5b6759534f60207e4532dc25e083af4729dc",
+    "caseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496",
+    "privacy": {
+      "strictSchema": true,
+      "knownPublicModelOnly": true,
+      "canonicalFixedCaseIdentifiers": true,
+      "rawFieldsRejected": true,
+      "noBearerOrPrivateKeyMarkers": true,
+      "credentialsNotRead": true,
+      "operationalKeysNotCopied": true,
+      "markdownExactValidatedProjection": true
+    },
+    "scope": "Audit and redaction checks passed; semanticVerdict is independent and may be failed. Request counts are attempts, not proof each upstream response succeeded. No new provider call was made."
+  },
+  "nativeExport": {
+    "status": "passed",
+    "nativeJsonEqualsPersistedReport": true,
+    "nativeMarkdownEqualsValidatedProjection": true,
+    "jsonSha256": "64bcb2aab3c257003ac1c43df05ffe0d6724334156e10a0bd4cd524c46518e2b",
+    "markdownSha256": "a849e47833c61fb734548d2c1601aeb11f079d026067bcd809a84207dfd992d2",
+    "providerCallsAdded": 0
+  },
+  "reports": {
+    "realJson": "wiki-project/raw/c04-user-deepseek-report.json",
+    "realMarkdown": "wiki-project/raw/c04-user-deepseek-report.md",
+    "fixtureJson": "wiki-project/raw/c04-fixture-report.json",
+    "priorNoRunObservation": "wiki-project/raw/c04-user-run-observation.json"
+  },
+  "checks": [
+    {
+      "command": "node .runtime/c04-validate-user-report.mjs",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T15:48:15.825051+08:00",
+      "output": "{\"status\":\"passed\",\"observedAt\":\"2026-10-22T07:48:15.751Z\",\"runRef\":\"ed4a5f242c9c\",\"semanticVerdict\":\"failed\",\"realBusiness\":{\"passed\":17,\"failed\":6,\"not_run\":8,\"cancelled\":0},\"realFaultInjection\":{\"passed\":0,\"failed\":0,\"not_run\":17,\"cancelled\":0},\"byCategory\":{\"apparel\":{\"passed\":6,\"failed\":1,\"not_run\":2,\"cancelled\":0},\"panel\":{\"passed\":7,\"failed\":1,\"not_run\":1,\"cancelled\":0},\"fastener\":{\"passed\":1,\"failed\":3,\"not_run\":5,\"cancelled\":0}},\"byLanguage\":{\"zh\":{\"passed\":6,\"failed\":1,\"not_run\":2,\"cancelled\":0},\"en\":{\"passed\":4,\"failed\":2,\"not_run\":3,\"cancelled\":0},\"de\":{\"passed\":4,\"failed\":2,\"not_run\":3,\"cancelled\":0}},\"fixture\":{\"passed\":48,\"failed\":0,\"not_run\":0,\"cancelled\":0},\"realRequests\":104,\"fixtureRequests\":186,\"reportSha256\":\"64bcb2aab3c257003ac1c43df05ffe0d6724334156e10a0bd4cd524c46518e2b\",\"markdownSha256\":\"a849e47833c61fb734548d2c1601aeb11f079d026067bcd809a84207dfd992d2\",\"fixtureSha256\":\"654b1d273dd9bad8f7fab247a5bf5b6759534f60207e4532dc25e083af4729dc\",\"caseSetHash\":\"75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496\",\"privacy\":{\"strictSchema\":true,\"knownPublicModelOnly\":true,\"canonicalFixedCaseIdentifiers\":true,\"rawFieldsRejected\":true,\"noBearerOrPrivateKeyMarkers\":true,\"credentialsNotRead\":true,\"operationalKeysNotCopied\":true,\"markdownExactValidatedProjection\":true},\"scope\":\"Audit and redaction checks passed; semanticVerdict is independent and may be failed. Request counts are attempts, not proof each upstream response succeeded. No new provider call was made.\"}\n"
+    },
+    {
+      "command": "python3 .runtime/c04-native-export-check.py",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T15:48:11.875917+08:00",
+      "output": "{\"status\": \"passed\", \"nativeJsonEqualsPersistedReport\": true, \"nativeMarkdownEqualsValidatedProjection\": true, \"jsonSha256\": \"64bcb2aab3c257003ac1c43df05ffe0d6724334156e10a0bd4cd524c46518e2b\", \"markdownSha256\": \"a849e47833c61fb734548d2c1601aeb11f079d026067bcd809a84207dfd992d2\", \"providerCallsAdded\": 0}\n"
+    },
+    {
+      "command": "pnpm wiki:generate",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T15:50:56.895719+08:00",
+      "output": "\n> tradequote-agent@0.1.0 wiki:generate /Users/jason/.codex/worktrees/c04-desktop-evaluation/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs .\n\n{\n  \"mode\": \"generate\",\n  \"files\": 205,\n  \"lines\": 51636,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n"
+    },
+    {
+      "command": "pnpm wiki:check",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T15:51:59.054883+08:00",
+      "output": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c04-desktop-evaluation/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 205,\n  \"lines\": 51636,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 123,\n  \"semantic\": 106,\n  \"reachable\": 123\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 44dcbce",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T15:51:42.949985+08:00",
+      "output": "{\n  \"base\": \"44dcbceb3d9f6355dbafd5091b9053369ce56317\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T15:51:58.489990+08:00",
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 76,\n  \"knowledgePages\": 49,\n  \"tasks\": 14,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T15:51:39.175330+08:00",
+      "output": ""
+    },
+    {
+      "command": "pnpm wiki:check",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T15:54:13.008467+08:00",
+      "output": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c04-desktop-evaluation/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 205,\n  \"lines\": 51636,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 123,\n  \"semantic\": 106,\n  \"reachable\": 123\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 44dcbce",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T15:55:28.213884+08:00",
+      "output": "{\n  \"base\": \"44dcbceb3d9f6355dbafd5091b9053369ce56317\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T15:55:33.212067+08:00",
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 76,\n  \"knowledgePages\": 49,\n  \"tasks\": 14,\n  \"errors\": []\n}\n"
+    }
+  ],
+  "sourceUnchanged": true,
+  "redactionLimit": "Strict public schema, fixed case plan/hash, public model allowlist and enum/check-only rows were verified; bearer/private-key markers absent. No credentials were read for exact-value comparison, no internal operation keys or database/raw model payload copied.",
+  "diagnosticLimit": "Public error codes and failed checks establish outcomes. Five semantic failures produced no target revision; derived quantity/amount/source failures are not independent proof of five calculation defects. Exact rejected model fields and action order cannot be reconstructed from this redacted report.",
+  "remaining": [
+    "Actual semantic failures require separate diagnosis/fix; no paid retry was initiated.",
+    "31 real business points are 17 passed, 6 failed, 8 skipped; full C04 supplier acceptance remains open.",
+    "17 fault injection cases remain fixture-only; tokens/cost unknown.",
+    "Windows/final installer and non-author review remain pending."
+  ],
+  "push": "Not performed.",
+  "historyPreservation": {
+    "status": "passed",
+    "base": "44dcbceb3d9f6355dbafd5091b9053369ce56317",
+    "nonGeneratedRawFiles": 83,
+    "allByteEqual": true,
+    "oldLogExactPrefixPreserved": true,
+    "applicationSourceUnchanged": true,
+    "sourceSha256": {
+      "apps/desktop/src/main/evaluation-host.ts": "8c8549f257d6b77b6a94f80328577a3c3135af5b8c7eeb158efc4b82866a4442",
+      "apps/desktop/src/main/index.ts": "b476d3159d8e2341c0a958bc1d1fba76d60d7d4297501aa291ea831b34658d4d",
+      "apps/desktop/src/workers/evaluation.ts": "a4104e39bc32a3e1193f50fb42d4f8cc263a08652541d1ade7e718a5b5f99f90",
+      "packages/contracts/src/model-evaluation.ts": "fd41913cb03a8cc80052db48cc5887036b8bc252e02fc5993a8154ff453fff40",
+      "packages/infrastructure/src/evaluation/runner.ts": "20105c23e1628f98e18a74496e0b572e22d5d11bb802de241223b1201e845a55",
+      "packages/infrastructure/src/evaluation/report.ts": "01533d97d29db155e5f0fb52badbf5bbbca89419962b3777db01cbd869d6041e",
+      "packages/infrastructure/src/deepseek.ts": "1064655c57bdef24fdabccdf9fe27bd31fec821f3491990b1ec3bfa994f340ee",
+      "packages/infrastructure/src/quote-tool-agent.ts": "4b309684ee2785418065e77d9a36172f774523167d254240fbc23bced70ad844"
+    }
+  },
+  "notRunChecks": [
+    "Unit/Electron/build not repeated because application source is unchanged. No fixture or paid real-provider retry initiated."
+  ]
+}

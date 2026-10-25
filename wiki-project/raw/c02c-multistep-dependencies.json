@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "recordedAt": "2026-10-22T00:28:20.203094+08:00",
+  "taskBase": "4c0978556007217c84aa7e6e7d65a234c7b20d3c",
+  "remoteHeads": {
+    "A01b": "c6539e82534aa8c5afa0e812885870e253410eb5",
+    "A01bBusinessCodeBase": "0f613b823a42d03c524e69b4fef459be9b998f44",
+    "B00": "4e8c66366c05468ee133134dc4399aeb5971d1e3",
+    "integration": "56c909e21aefa484b6805bf9afc7c94b0e1d4576"
+  },
+  "observations": [
+    "A advanced during this task to a merge of the integration docs/walkthrough; packages are byte-identical to 0f613b8. No new service/migration dependency to import.",
+    "A published-rule storage/query and migration4 are already integrated in taskBase, with prior C sourceHash replay fix.",
+    "B remote contains QuoteCheckService contract only; no quote-checks implementation or check-store. B01/B00a branches are not published in the observed remote heads.",
+    "Current checks.ts and knowledge.ts are byte-identical to B00. This task supplies a pure interface-compatible evaluator for the authorized C loop, subject to B non-author review."
+  ],
+  "checks": [
+    {
+      "command": "git ls-remote --heads origin codex/a01b-knowledge-store codex/b00-first-batch-contracts codex/m1-foundation",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T00:21:06.265921+08:00",
+      "output": "c6539e82534aa8c5afa0e812885870e253410eb5\trefs/heads/codex/a01b-knowledge-store\n4e8c66366c05468ee133134dc4399aeb5971d1e3\trefs/heads/codex/b00-first-batch-contracts\n56c909e21aefa484b6805bf9afc7c94b0e1d4576\trefs/heads/codex/m1-foundation\n"
+    },
+    {
+      "command": "git diff --exit-code origin/codex/b00-first-batch-contracts -- packages/contracts/src/checks.ts packages/contracts/src/knowledge.ts",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T00:21:04.226788+08:00",
+      "output": ""
+    },
+    {
+      "command": "git diff --exit-code 0f613b8 origin/codex/a01b-knowledge-store -- packages",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T00:25:34.436748+08:00",
+      "output": ""
+    },
+    {
+      "command": "git ls-remote --heads origin",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T00:29:50.778912+08:00",
+      "output": "544ea51fab3d980baf1401bd6ad2a90f56373f4b\trefs/heads/codex/a01-knowledge-publish\nc6539e82534aa8c5afa0e812885870e253410eb5\trefs/heads/codex/a01b-knowledge-store\n4e8c66366c05468ee133134dc4399aeb5971d1e3\trefs/heads/codex/b00-first-batch-contracts\n89f0fc6e0c1ffc3b86bb19c29f7d040b34f0024b\trefs/heads/codex/c-wiki-lf\n68455a35e21aa7563f12102b337f15f6f799a4aa\trefs/heads/codex/c01-agent-recovery\n56c909e21aefa484b6805bf9afc7c94b0e1d4576\trefs/heads/codex/m1-foundation\n8f7c7d9dab1dd5abddd9c1fd1bc12b58ff4e7277\trefs/heads/codex/project-product-manual\nef14fc3c1838f3b605956dd00922a2517f9144a6\trefs/heads/main\n"
+    }
+  ]
+}

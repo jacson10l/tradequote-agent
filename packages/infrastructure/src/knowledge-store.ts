@@ -195,6 +195,8 @@ export class SqliteKnowledgeStore implements KnowledgeRepository {
         if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
         const target = this.getRevision(parsed.revisionId);
         if (!target) return failure("NOT_FOUND", "指定版本不存在");
+        if (target.sourceHash !== parsed.sourceHash)
+          return failure("SOURCE_CONFLICT", "来源哈希与暂存内容不一致，请重新核对原文后发布");
         if (target.status === "published") {
           // Republishing an already-published revision is idempotent across keys.
           const result = this.ok(target, [target.revisionId]);
@@ -203,8 +205,6 @@ export class SqliteKnowledgeStore implements KnowledgeRepository {
             .run(idempotencyKey, requestHash, JSON.stringify(result));
           return result;
         }
-        if (target.sourceHash !== parsed.sourceHash)
-          return failure("SOURCE_CONFLICT", "来源哈希与暂存内容不一致，请重新核对原文后发布");
         const now = new Date().toISOString();
         const published: KnowledgeRevision = {
           ...target,

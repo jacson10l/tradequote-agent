@@ -590,3 +590,438 @@ A 收到队长转达的 C 对 A `1c890dc` 的独立复验结论（Y07～Y09 全�
 ## 2026-10-25 C 独立复验确认 M13-Y10 技术关闭
 
 C 对固定 A 提交 910e626 完成独立复验（复验提交 c4e109f），确认 M13-Y10 在已测范围技术关闭：损坏库被只读 `identify` 与真实 `SqliteWorkspaceRepository` 在升级/写入前拒绝，原 schema、数据、版本7、账本、数据库字节及目录列表保持；两个有效控制组均通过迁移入口并由真实 CHECK 拒绝 `attempt=0`（套件 3/3，无运行器错误）；原五项、六轮四例、七轮三例、X01～X11、原 12/12、107/107 及九段 SQL 指纹保持，八份旧探针断言未改。本轮未发现新阻断，Y10 无需继续作为待修项。A 同步记录本状态（无新增代码改动）；M13 整体、完整迁移矩阵、新 A/B/C 组合、桌面/macOS 联合验证、实际人员签认与业务验收仍未完成。
+
+
+## C固定03b16b7历史追加记录
+
+
+
+## 2026-10-21 双参考目标补齐与C02a独立实现
+
+用户要求补齐开发文档并继续C不受阻塞的部分。重新fetch后共同基线be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce包含PR#3的A合成fixture；独立codex/c-runtime-roadmap实施，保留先前e0f9336核查raw原字节和时点说明，不再把A未合入当当前事实。新增 [[双参考项目功能对照与C开发路线]]，将Solivio业务/Harness执行目标对应实际源码和已完成/待实现/延期，将C00～C07拆为产物、依赖和逐项验收。
+
+新增read-tool-runtime及13项测试，复用Provider的JSON模式、宿主schema与现有确定性计算；注册查询/计算工具、串行循环、输入/结果校验、上下文与次数预算、整run deadline/取消、失败脱敏；真实SQLite目录和100×9=900.00不新增报价。基础设施明确直接Zod4.6.7依赖，未改公共contracts/迁移/index或生产IPC/UI。新增0016决定，更新总体计划/接口/架构、C任务、能力图、M1/M4、A合成资产说明、状态/CONTEXT/README/导航；9个已合入fixture和新源码补覆盖后重新生成。
+
+实际命令/退出码与作用域见raw/c-runtime-validation.json；初次TS空值与未登记文件检查失败保留raw/c-runtime-initial-validation.json后修复，未放宽门禁。C02a仅内部模块切片，C01b/R01～R20、真实业务工具接线/写账本/事件、真实DeepSeek与Windows/最终安装均未验收。无推送、PR、合并或向A/B发消息。
+
+C02a验收补记：检查并行与构建产生临时配置扫描冲突，且基线A合成JSON格式不符合Biome，旧失败已保留。构建结束后串行重跑工程检查；合成JSON只格式化，解析内容及8份原文字节与be53b98逐一相同；未改规则内容或来源。
+
+本轮限定切片收口：79单元（含13新工具循环）、5真实Electron（含build）、6工程、36Wiki工具回归及typecheck/生成/只读check/lint/固定be53b98同步均退出0；真实DeepSeek、C01b恢复和生产工具接线仍未完成。C02a任务按此限定范围done，验收证据raw/c-runtime-validation.json，旧失败保留。
+
+
+## 2026-10-21 C02b已有商品报价真实只读工具
+
+按用户要求继续C02b，先把已验证C02a代码/测试/Wiki保存为本地提交4a56a42ceae83ec44783d9046ae7d4d3696bbda4，再在同一独立C工作树开codex/c02b-catalog-quote-tools；本任务基线即4a56a42，共同/PR基线be53b98，未推送/合并。新增CatalogQuoteReadAgent，把search_catalog/get_product_revisions/get_quote和有场景时calculate_quote接到现有read/trade.get与domain.calculateQuoteV1。宿主scope/asOf、快照冻结/分页、精确历史、来源hash/价格行、FailureSchema与实际observations、预览去临时身份均有具体接口，见 [[C02b商品与报价只读工具]]、[[C02b-商品与报价只读工具]] 和 [[0017-只读业务快照与核价预览]]。
+
+13项新增测试用真实临时SQLite工作区/CSV人工发布/历史报价和本地HTTP Provider动作，验证原确定性金额与未知/零/MOQ/过期、范围/参数拒绝、稳定快照、错误脱敏和九组业务表无写入。首轮typecheck与92项单元通过，最终结果raw/c02b-validation.json。同步M2/M4、完整路线（C02b整体部分）、C主任务、能力图、README、状态/CONTEXT/导航和两文件覆盖，生成并执行本机与Wiki门禁。search_knowledge缺B00a/A检索引用、validate_quote缺B01/A适用规则，均未注册；原Worker/UI不接新adapter，无新公共DTO/迁移/存储导出/依赖或收费调用。真实DeepSeek、C01b R01～R20、Windows/安装未运行。
+
+首次文档批量更新因stdin编码错误未执行，随后sync正确拒绝缺正文与log。保留raw/c02b-initial-validation.json，分批UTF-8重做文档后重跑，未放宽检查或覆盖历史证据。
+
+C02b已有业务只读子切片收口：92单元（含13新增）、5项现有Electron＋build、6工程、36Wiki工具、typecheck及生成/check/lint、固定4a56a42和be53b98两套sync/差异检查全部退出0，证据raw/c02b-validation.json。该子任务done，完整C02b仍部分；知识/规则、生产接线、写工具/恢复与真实供应商未完成。
+
+
+## 2026-10-21 C02b正式Worker与桌面只读入口
+
+用户明确要求四工具在正式应用实际可用。先把前轮adapter保存为本地4324dc85bdd00657831f7428496c60e5332bb428，再建独立codex/c02b-desktop-read-tools；本任务基线4324dc8，共同/PR基线be53b98。新增独立agent.read与严格四工具/结果公共schema，旧adapter复用并删除重复内部投影；Main白名单与凭据注入、Worker宿主scope/日期/只读并发服务、preload/readAgent/mock和公共导出同批接好，原报价保存路径兼容。只读等待135秒覆盖运行120秒，失败/断线不重发或误报保存。
+
+新增侧栏只读助手、报价授权选择、任务输入和模型说明/真实结果/来源/错误/未保存预览展示。新增12项单测，首轮104项通过；新定向Electron流程通过四工具、900.00原报价与1080.00预览、来源行/hash、缺Key零请求、知识/规则拒绝、业务失败/澄清/401、忙态/键盘/900px和重开不重发，业务板面不变。截图审阅发现basis右对齐继承，保留初图后修正事实正文左对齐、金额右对齐，最终全量复验记录raw/c02b-desktop-validation.json。
+
+新增 [[C02b桌面只读助手]]、[[C02b-Worker与桌面只读入口]]、[[0018-独立只读命令与桌面接线]]，同步旧C02b/完整路线、M1接口/工程/工作台/验证、M4、公共接口、能力图、状态/CONTEXT/README/导航与覆盖。知识/规则保持未注册，C01b/c恢复/取消、C02c写工具、C03事件、真实DeepSeek、Windows/安装仍未完成。无新依赖、迁移或业务写入，无推送/PR/合并，也不替A/B签署人工评审。
+
+桌面接线首次全量回归补记：104单元、36Wiki和工程/生成/check/lint/sync通过，但Electron为5通过/1失败，因旧workspace精确桥接名单遗漏readAgent。保留raw/c02b-desktop-initial-validation.json，增加唯一授权方法并保留原Node/桥接限制，重新运行完整六项。
+
+正式只读入口验收收口：旧桥接精确名单补readAgent后全量6项Electron（含build）通过，104单元、6工程、36Wiki工具与typecheck/生成/只读check/lint、固定4324dc8和be53b98两基线sync均退出0，证据raw/c02b-desktop-validation.json。表单及900px结果截图已重新查看，事实/来源左对齐，初稿与首次失败证据保留。该四工具桌面子任务done；知识/规则、持久恢复/取消、写工具与真实供应商未完成。
+
+## 2026-10-21 A01b知识存储评审修正与Wiki同步
+
+- 在 codex/a01b-knowledge-store 审查 A01b（SqliteKnowledgeStore/createKnowledgeService/迁移4/测试）并修正：findPublished 先按 publishedAt/scope 过滤再按 document 去重（新版本不匹配时回退到旧匹配版本）、空 scope 维度按通用、publish 原地 staged→published 保持 revisionId 稳定、getRevision/findPublished 按 workspace 隔离、写事务 immediate；补 A01-7/A01-8 回归，推送 5551ef3。
+- 同步 [[A知识发布实现]]（新增 module 页）、[[A01-知识发布与来源查询]] 任务页（领取人 ssyyy31、A01a/A01b 记录、status active）与 coverage（knowledge.ts/knowledge-store.ts/knowledge-store.test.ts/knowledge-drafts.a01a.json），索引补导航。
+- 本机未安装 node_modules，typecheck 与知识测试未复跑；Wiki 生成成功（153 文件/5 生成物），build-code-index --check 退出 0，lint 仅剩 4 个 raw/ 归档 CRLF 造成的 ARCHIVE_HASH_MISMATCH（历史遗留，需团队 .gitattributes 决策），无新增失败。
+
+
+## 2026-10-21 C02c持久运行与写入前置
+
+用户明确选择先补持久运行/写工具依赖。独立codex/c02c-run-prerequisites从644c5ed建立，整合A01b/0f613b8真实知识服务/迁移4；保留双方日志、原raw证据与合成来源，coverage并集后重建。新增澄清/list、迁移5及连续前驱、真实AgentRunStore和执行票据/控制重放/澄清恢复/显式中断；同连接原commitAgent保存点与run共同提交，核验精确报价/turn，五处实际SQL失败共同回滚。提交复核场景，并修正A已发布知识异键重发hash校验。
+
+初始类型错误保留raw/c02c-prerequisites-initial-validation.json，修复调用方分发和测试类型后首轮128单元通过；后续加强验证结果以raw/c02c-prerequisites-validation.json为准。知识/任务/0019决定/状态/CONTEXT/覆盖同步，不代签A/B人工复核。生产调度/恢复UI/写工具账本、强杀恢复与真实DeepSeek/Windows仍未完成，不推送或合并共同分支。
+
+
+C02c存储前置验收收口：131单元、6既有真实Electron与build、6工程、36Wiki工具及类型/生成/只读check/lint/双基线sync均退出0，实际证据raw/c02c-prerequisites-validation.json。644c5ed与0f613b8两侧历史raw逐字节、历史log非空行按序保留；核验脚本首次路径转义错误保留后修正。限定依赖子任务done，完整生产恢复/工具账本仍待；无真实供应商或Windows验收、无远端推送。
+
+## 2026-10-21 C02c统一调度、Worker生命周期与草稿调用账本
+
+- 独立codex/c02c-runtime-lifecycle，taskBase67c69c7，共同祖先be53b98。生产understand/revise和run控制共用唯一协调器，OS侧库锁→业务库/恢复→ready；宿主只在实际exit后重建，退出等Worker停止，无自动模型重发。
+- 迁移6新增prepared/committed/abandoned草稿调用账本，宿主调用身份、参数hash、attempt/执行票据；回执与quote/turn/idempotency/run/outbox同事务，旧快照不改。桌面新增持久记录、取消与显式重试，四工具助手仍只读。
+- 最终153项单元（含10点真实SIGKILL、旧V1/V2/V3字节、分页与控制丢响应）与7项真实Electron（正式Worker强杀、重建/重开零自动请求、人工retry与HTTP取消断连）及构建通过；工程/Wiki门禁继续收口。初始失败保留raw/c02c-runtime-initial-validation.json。知识[[C02c统一运行与写账本]]、任务[[C02c-统一调度与强杀恢复]]、决定[[0020-独占Worker与草稿写账本]]。
+- 未推送/合入。完整多步C02c、知识规则、C03事件、真实DeepSeek、Windows/最终安装未验收；非作者与A/B复核不代签。
+
+C02c本轮收口：153单元、7真实Electron含build、6工程、36Wiki回归与typecheck、生成/只读check/lint、67c69c7/be53b98双基线sync、diff检查全部退出0，raw/c02c-runtime-validation.json记录实际环境和测试源码hash。70份历史raw与log完整前缀保留，10强杀点保留旧V1/V2/V3字节。初始失败及生成期间Wiki夹具漂移保留在initial-validation，稳定重跑通过，未修改维护工具。任务done限定受限协调/恢复/写账本；完整C02c和非作者复核仍未关闭，无推送。
+
+## 2026-10-22 C02c多步报价闭环
+
+- 独立codex/c02c-multistep-tools，taskBase4c09785、共同祖先be53b98。开工A=0f613b8，期间更新c6539e8，已fetch核对仅合并共同分支文档/演示，packages业务/迁移无变化；B仍4e8c663且只有检查契约。证据raw/c02c-multistep-dependencies.json，本轮补循环所需纯QuoteCheckService实现待B复核，不代签B01。
+- 接通真实商品/报价→确定性核价→A已发布适用规则→B00纯规则→候选修正→原子草稿写；宿主候选/校验ID与旧票据隔离，写事务重查资料/报价/来源。迁移7保存不可变步骤、写授权和真实revision报告；旧单次及只读四工具兼容，每run一版，无自动收费恢复。
+- 最初直接要求场景自由文本品类等于商品品类，误挡现有演示；修正为商品唯一实际品类的宿主查询/校验视图，保留原保存场景、拒绝混合实际品类。其余类型/fixture/严格预览投影失败保留raw/c02c-multistep-initial-validation.json。
+- 已通过188单元（含三品类两轮/未知金额、候选修正、旧授权/假金额/篡改、15个真实SIGKILL点和v6→v7字节保持）、8项真实Electron含build（多步V1/V2/V3、阻断来源、强杀重开零自动请求、显式retry）。Wiki与工程门禁继续收口，最终记录以新任务/raw为准。
+- 知识[[C02c多步报价工具闭环]]、任务[[C02c-多步报价工具闭环]]、决定[[0021-多步候选授权与规则校验]]已同步。未推送/合入；真实DeepSeek、Windows/安装、B01/B00a扩展、C03与非作者复核仍待。
+
+C02c多步闭环收口：188单元、8真实Electron含build、6工程、36Wiki回归、类型、生成/只读check/lint及4c09785/be53b98双基线同步全部退出0，见raw/c02c-multistep-validation.json。72份旧raw字节与log完整前缀保持。工程边界首次拒绝domain测试导入mock子路径，改本地纯夹具后复跑通过，不放宽门禁；失败记录保留。A最新c6539e8/B最新4e8c663已复核，A新头不含新packages接口/迁移；B01/B00a与人工复核不冒领完成。任务done仅限当前公开契约内的真实多步报价闭环，继续独立分支、无推送。
+
+
+## 2026-10-22 C04评估样本与脱敏报告
+
+从0ccd72f建立独立codex/c04-model-evaluation；新增真实业务链上的48点合成样本与故障/取消/显式重试，strict白名单JSON/Markdown报告，模式明确区分fixture和未运行DeepSeek。原公开服务/IPC/迁移/B协议不改，未读取真实Key或数据库、不推送。知识[[C04模型评估与脱敏报告]]、任务[[C04-评估样本与脱敏报告]]、取舍[[0022-评估隔离与结果脱敏]]。初始根tests依赖解析、ES2022 findLast及单位字段检查失败已修正；真实验证收口追加在本条后，不删除旧证据。
+
+
+C04收口：48点fixture通过（186次替身请求/真实0），193单元、8真实Electron含build、6工程、36Wiki、类型和机械生成/只读check/lint、0ccd72f/be53b98双基线sync均退出0。真实模式not_run按约定退出2，单独保留报告；tokens/cost未知。结构合法语义错误会失败并跳过依赖修订，显式retry保持操作键/attempt且控制重放不派发。证据raw/c04-validation.json、c04-fixture-report.json、c04-deepseek-report.json与c04-initial-validation.json；75份历史raw及旧log前缀保留。任务done限本切片，真实供应商/正式评估UI/Windows/安装/非作者评审未完成。
+
+
+## 2026-10-22 C04正式设置与显式真实评估
+
+从febd14d独立codex/c04-desktop-evaluation接入模型设置显式评估：宿主快照/新四IPC、独立进程/临时库/OS锁和心跳、取消/幂等/恢复、共享报告契约与原生保存。未知/未确认/凭据端点注入拒绝，HTTP测试强制fixture，真实账户未调用、不推送。知识[[C04正式设置评估入口]]、任务[[C04-正式设置与显式真实评估]]、取舍[[0023-显式评估宿主与独立进程]]。早期类型/字段同步与Blob下载验收失败如实保留，改原生保存后重验，最终证据收口后追加。
+
+
+C04正式入口收口：202单元、9真实Electron含build、6工程、36Wiki回归、类型、生成/只读check/lint与febd14d/be53b98双基线sync和diff均退出0，见raw/c04-desktop-validation.json。48点fixture186替身请求/真实0；CLI真实not_run按约定退出2单列，桌面3次环回HTTP强制fixture、不作为供应商通过。原生保存选择/取消、实际JSON脱敏落盘、应用关闭中断/重开零派发和当前业务库无污染通过。Blob下载未落盘、章节约束及README更新后机械清单漂移保留initial-validation后修正，未放宽旧强杀deadline。79份历史raw与完整log前缀保持，原公共infrastructure index不变。任务done限定本轮显式入口/生命周期/脱敏，真实账户/Windows/安装、非作者及B契约复核仍待；独立分支本地提交，不推送。
+
+
+## 2026-10-22 C04模型下拉选择
+
+用户指出手输模型ID不合理，沿用codex/c04-desktop-evaluation从0ff63cd修正为原生select；官方当前Flash/V4 Pro目录已核对，旧配置ID/Key保持，选择需保存，不自动请求列表或真实评估。既有报价/只读/评估Electron用例改select并补旧ID保留与未保存不落盘/不派发。知识[[M4模型与报价修订]]、[[C04正式设置评估入口]]与任务[[C04-模型下拉选择]]同步；本机验证收口追加，真实账户不由Agent启动，不推送。
+
+
+模型下拉收口：202单元、9真实Electron含build、6工程、36Wiki、类型、生成/只读check/lint与0ff63cd/be53b98同步均退出0，证据raw/c04-model-select-validation.json。空选择保存门禁、Flash/Pro选择、旧ID/已有Key保留、选择未保存不落盘/不派发通过；已查看合成截图并仅刷新用户分支renderer，配置状态保持，没有由Agent启动真实请求。81份旧raw与log完整前缀不变；哈希采集脚本中文路径转义修正已记录，不放宽应用门禁。任务done限定模型下拉切片，动态发现、真实供应商/Windows/安装及非作者复核未冒领；本地提交，不推送。
+
+
+## 2026-10-22 C04用户真实运行与报告核对
+
+沿用codex/c04-desktop-evaluation，从df74abe只读核对。用户先称已启动真实验证，随后明确澄清只点击“测试已保存的连接”。当前分支窗口刷新后无评估记录，15:27:32只读核验0条/0损坏/无report；连接探针通过不能作31点真实业务通过。当前模式/计费准备由用户操作，不由Agent点start/retry/cancel或改凭据。新增[[C04真实验证状态核对]]、[[C04-真实验证状态与报告核对]]与raw/c04-user-run-observation.json；任务active，真实结果/脱敏报告审核仍待，不生成假report或套用旧fixture。文档门禁收口追加，不推送。
+
+
+只读核对收口：15:29:45与15:30:55再读仍0条运行/无report；连接测试不能替代真实评估/脱敏审核，任务保持active。机械生成/check/lint、df74abe与be53b98同步通过；新任务语义关联不足的初始lint失败保留后修正。82份旧raw/完整log前缀保持，无应用源码改动，未重复单元/Electron/build或发送供应商请求。本地仅提交核对记录与Wiki，继续独立分支不推送。
+
+
+## 2026-10-22 C04用户实际真实运行与脱敏报告
+
+从44dcbce继续同独立分支，只读固定本次run。用户实际15:39点击开始，15:40:46结束；requestedMode/mode/transport均deepseek，Flash真实104请求尝试，run.completed但report.failed。31业务17通过/6失败/8前置跳过，17故障注入fixture_only。新真实report JSON/Markdown独立保存，旧0记录/CLI not_run/fixture48通过证据不改写。strict计划/计数/模式核对与正式原生双格式下载逐字节比较通过；未读取Key/工作库或复制控制键/原始模型日志，无Agent start/retry/cancel或新增费用。[[C04真实验证状态核对]]与任务更新，门禁收口后只完成本核对，真实语义失败仍待独立诊断，不推送。
+
+
+真实报告核对收口：公开schema/固定48计划/模式计数、正式原生JSON/Markdown实际文件字节比较、生成/check/lint、44dcbce/be53b98同步与diff全部退出0，见raw/c04-user-deepseek-validation.json。83份旧raw及log完整前缀保持，应用源码不变；没有新增模型请求、凭据/数据库/原始内容采集。任务done仅指核对完成，report.failed和6失败/8依赖跳过原样保留；旧fixture/CLI未运行报告未改。后续诊断/修复与非作者评审独立，本地提交不推送。
+
+
+## 2026-10-22 C04六项失败本地收敛
+
+用户授权从b231181新建独立codex/c04-failure-convergence及独立worktree，先六类合成重建回归跑红，再对draft同run/attempt加共享一次受限纠正。原真实参数未留存，不称精确重放或真实根因。缺字段/类型错误仍按strict schema由模型重交；未知单价保留null/pending，核价后提前complete引导继续规则/写工具，实际block后的complete归因RULE_BLOCKED，真正澄清仍waiting_input。无DTO/迁移/权限/凭据变更，不接触用户旧桌面工作库、不推送、不自动真实复测。原48点期望、caseSetHash及真实104请求/6失败/8跳过报告不改。
+
+六项定向有效红与绿、八项停止条件通过；初轮全量207通过/1失败发现block归因误伤澄清，限定complete后保持旧测试期望。稳定源码216单元、9真实Electron含build及fixture48/186替身/真实0通过。新增[[C04失败收敛与本地回归]]、[[C04-失败收敛]]、[[0024-同次草稿运行内受限纠正]]及对应知识/状态/覆盖；初始失败和最终本机结果分开记录，剩余工程/Wiki门禁在收口追加，不以本地绿冒充真实供应商通过。
+
+
+本地收敛收口：216单元、9真实Electron含build、48点fixture（186替身/真实0）、6工程、36Wiki、类型、生成/只读check/lint及固定b231181/be53b98同步和diff全部退出0，见raw/c04-convergence-validation.json。新增fixture Markdown首次漏导航导致lint/一项Wiki回归失败已补真实入链，原失败保留initial证据。86份旧raw、57373字节旧log前缀、正式评估样本/期望/schema及锁文件字节保持，真实报告SHA不变。本地任务done仅指重建回归与最小修复，原真实六项及八项依赖仍待显式复测；不自动收费复测、不推送，Windows/安装/非作者复核后置。
+
+
+## 2026-10-22 修复分支用户真实DeepSeek复测核对
+
+从1e9c134沿用独立codex/c04-failure-convergence。确认旧C04无在途评估，正常退出后启动修复分支已构建桌面；Main进程/窗口file URL和受限纠正bundle来源已核对，Flash系统加密配置/旧历史保留，不读取Key或业务库。16:40:56仅旧记录、无自动评估；用户自行点击并明确确认后16:41:11新run开始，16:42:22结束，三项模式均deepseek，Flash真实82请求尝试。run.completed但report.failed：31业务12通过/8失败/11前置跳过，17故障注入fixture_only。
+
+原六失败2本次通过（apparel-de-v1、rule-block/RULE_BLOCKED）/2仍失败/2跳过；原八依赖跳过1执行失败/7仍跳过，无一通过。另五个上次通过点本次失败、两个上次通过点本次跳过；不宣称整体收敛，不拼接不同轮次的通过项。原始动作/参数未留存，现有公开码不足以定位根因，本轮不改代码/期望或擅自收费再测。
+
+新增[[C04修复分支真实复测]]、[[C04-修复分支真实复测核对]]及独立观察和真实JSON/Markdown；正式Main原生双格式下载与strict持久report/markdownReport投影逐字节一致，固定计划/状态计数/82请求与费用未知已核对。90份旧raw和59253字节旧log完整前缀保持，8份源码hash及应用bundle来源记录。后续Wiki门禁收口追加；应用保留打开，Agent没有start/retry/cancel/连接探针或凭据改动，不推送。
+
+
+真实复测审计收口：状态/固定48计划/检查名/模式/计数和双格式实际文件字节核对、生成/只读check/lint、1e9c134/b231181/be53b98同步与diff均退出0，见raw/c04-retest-validation.json。审计passed与真实语义failed分开；本轮无应用源码改动，不重复旧216单元/9Electron/build或fixture，不把旧结果算作本轮新验证。文档日志辅助脚本一次stdin编码失败发生在写入前，补丁方式完成，无应用/报告变动。任务done仅核对完成，真实六失败/八依赖尚未收敛及新增失败如实保留；应用保持打开，本地提交，不推送，不发下一次收费请求。
+
+
+## 2026-10-22 C04枚举失败阶段与八项合成回归
+
+从3a476a3新建独立codex/c04-failure-diagnostics及独立worktree，先实现C04可选strict枚举诊断，再八个真实失败ID合成重建回归和最小修复。诊断只含真实宿主阶段、白名单工具或null、固定校验分类、feedback/stopped、请求序号/公开码；无原文/Key/任意字段名值/错误栈，不反填旧报告。观察器异常隔离，仅C04最终报告沿原路径保存和桌面/JSON/Markdown展示，不改AgentRun/迁移/模型权限或代启真实评估。
+
+诊断测试先红后绿；八合成类先全红（7 ACTION_NOT_ALLOWED、1 MODEL_INVALID_OUTPUT），再逐项验证已读取后提前结束5绿、缺核价/知识前置2绿、quantity格式1绿，保留原业务断言。沿原一次额度/12请求/整run预算提示模型重交，错误ID/额外字段/金额/零数量/Provider首错等仍硬失败；五项新停止条件及观察器异常/不泄漏、旧回归保持。稳定源码230单元、9真实Electron含build、fixture48/186替身/真实0通过，初红/绿与独立重建证据分别入raw，不放宽正式计划/期望或拼接真实通过项。Wiki/工程门禁继续收口，不推送、不自动真实复测，用户旧桌面不切换。
+
+
+阶段证据与八项本地收口：类型、230单元、9Electron含build、fixture48/186替身/真实0、6工程、36Wiki、机械生成/只读check/lint、固定3a476a3/be53b98同步及diff全部退出0，见raw/c04-diagnostics-validation.json。旧94份raw、61431字节log前缀、两轮真实报告JSON/Markdown字节和原样本/计划/预期码/核心agent-run DTO/锁文件保持；新诊断仅未来观测，不反填旧真实。新任务done仅指本地实现/验证完成，真实8失败/11跳过仍未收敛，Windows/安装/B等非作者复核仍待。代码与Wiki本地提交，不推送，不自动真实复测，不触及用户旧桌面或凭据。
+
+
+## 2026-10-22 C04阶段证据版桌面与真实复测核对
+
+从885c474沿用独立codex/c04-failure-diagnostics，旧1e9c134无在途评估正常Quit后17:27:01启动当前实际Main。窗口URL/进程路径/Main hash核对，Flash系统加密配置/两旧历史保留，不读Key或业务库。17:27:39及17:28:42只读仍两旧run、0新run/损坏，重开未自动评估。新增[[C04阶段证据真实复测]]和[[C04-阶段证据真实复测核对]]及启动最小观察；等待用户显式开始后核对8失败/11依赖及阶段/工具/分类证据，当前任务active、不生成假报告、不自动重试/推送。
+
+
+启动阶段门禁：机械生成、只读check/lint、885c474/be53b98同步及diff全部退出0，证据raw/c04-diagnostic-retest-prestart-validation.json；99份旧raw与63377字节旧log完整前缀保持，应用源码未变，不重复旧单元/Electron/build。该记录realEvaluationStatus=not_run，任务仍active等待用户显式开始，尚未有新真实报告/诊断，不宣称8失败或11跳过收敛。
+
+
+用户随后明确已点击开始；唯一新run于17:33:49开始，17:34:01/17:34:29/17:35:15只读running分别2/7/17项，17:35:46结束，17:36:04首次终态。三项模式deepseek，Flash145真实请求尝试，run.completed/report.failed，31业务23通过/3失败/5前置跳过，17故障注入fixture_only。原8失败5本次通过/1失败/2跳过、原11跳过9通过/2仍跳过，另2旧通过点本次失败、1旧通过点本次跳过。新真实报告独立于旧两轮/fixture/八合成重建，不改期望、不拼接通过项。
+
+16行17实际枚举事件；10业务点一次纠正后通过。apparel-zh-v1仅terms断言失败无循环诊断；panel-de-v2 provider/null/provider_failure第2次MODEL_INVALID_OUTPUT停止；fastener-de-v1第3次clarification/missing_facts反馈后第4次search_knowledge/calculate_first停止，未放宽一次额度。桌面48明细与JSON/Markdown证据一致，正式Main原生双格式导出与strict持久report投影逐字节相同；状态观察和三份新证据分别入raw。未采原文/Key/错误栈/控制键或业务库，没有Agent start/retry/cancel/连接测试；Wiki门禁收口后只关闭本核对，不关闭真实失败，不推送。
+
+
+本次真实核对收口：strict状态/固定48计划/原检查名/模式计数/诊断枚举和原生JSON、Markdown字节一致性、机械生成/只读check/lint、固定885c474/4d13e47/be53b98同步及diff均退出0，见raw/c04-diagnostic-retest-validation.json。101份旧raw及64429字节旧log完整前缀保持，九份关键源码与bundle哈希已核对；末次仍同一已完成run/145请求、仅一新运行，未自动再派发。任务done仅指核对收口，realEvaluationStatus=failed及3失败/5跳过不变，完整C04不标通过。无源码改动，不重复旧单元/Electron/build或fixture；应用保持打开，本地提交，不推送、不自动重试。
+
+
+## 2026-10-22 C04三项剩余失败本地证据与最小修复
+
+从b28b702独立worktree/分支codex/c04-remaining-failures，先6项真实边界合成重建连续两次全部跑红；第一次launcher目录错误无测试保留且不计有效红。实现付款/交期偏差及Provider八类枚举、清理首错保持、宿主阶段工具菜单和重新核价重取知识后6项绿，补输出/停止/菜单失效回归。原strict/一次额度/12请求/120秒和全部C04检查期望不变，故意条款漂移仍应failed，Provider仍首错停止，不采原文/Key，不倒推旧真实细类。知识[[C04剩余失败证据与收敛]]、任务[[C04-三项失败回归与最小修复]]及决定[[0026-阶段工具提示与细粒度失败分类]]同步；原用户桌面/凭据/业务库不动，不自动真实复测/推送。本机门禁收口后追加实际结果。
+
+
+三项本地切片收口：新六项两次红后绿，补边界/停止测试后34文件242单元、9实际Electron含build、48点fixture（186替身/真实0）、6工程、36Wiki、类型、生成/只读check/lint及固定b28b702/be53b98同步和diff均退出0。严格报告审计发现check标签与新fixture报告同名前缀碰撞而被覆盖，失败保留initial；分开命名后实际重跑合成报告并通过strict/Markdown/保留审计，不以lint掩盖语义错误，不涉及真实请求。105份旧raw、66328字节旧log前缀、三轮真实双格式与原计划/预期码/语义检查体/agent-run契约/锁文件保持，见raw/c04-remaining-validation.json。任务done仅本地证据/回归/最小修复，不关闭真实3失败/5跳过或完整C04；用户旧应用/凭据/业务库不动，Windows/安装与非作者复核未执行。保留独立分支，本地提交，不推送、不自动真实复测。
+
+
+## 2026-10-22 C04三项修复版启动与真实复测核对
+
+沿用独立codex/c04-remaining-failures，从28b9f72干净状态继续。确认旧885c474无在途评估，正常Quit后18:41:10启动当前实际Main；九份源码/四bundle哈希与已验证版本一致，窗口URL/进程来源准确，Flash加密配置及旧三历史保持。18:41:51/18:42:23只读仍3旧run、0新run/损坏，重开不自动评估。新增[[C04三项修复真实复测]]、[[C04-三项修复真实复测核对]]及最小启动观察；等待用户显式开始后核对3失败/5依赖、条款/Provider分类与脱敏报告，当前任务active、不造报告、不自动重试/推送，不读取Key/业务库。
+
+
+用户明确回复已点击开始，唯一新run于18:43:55开始，18:44:06/18:45:16只读running为1/18项，18:45:53结束、18:45:54首次终态。三项模式deepseek，Flash136真实尝试，run.completed/report.failed：31业务25通过/3失败/3依赖跳过，17故障注入fixture_only。原3失败/5依赖本轮全部通过，另外三个旧通过点本次失败/三个旧通过点依赖跳过，不拼接多轮通过项。
+
+7行7实际枚举：apparel-en-v2 action_schema/invalid_action第2次、panel-en-v1 clarification/missing_facts第1次、rule-block provider/content_json第6次停止；fastener-zh-v1第3次一次澄清反馈后通过，三语真正缺事实澄清预期通过。没有payment_mismatch/delivery_mismatch，不把未形成目标版本的terms派生false伪造为偏差。正式Main原生JSON/Markdown与同一strict持久report投影逐字节一致，新增观察/报告/审计独立入raw，旧真实/fixture不改；未采模型原文/Key/控制键或业务库，没有Agent start/retry/cancel/连接探针。Wiki门禁继续收口，不自动收费复测/推送。
+
+
+三项修复版真实核对收口：strict状态/固定48计划/原检查名/模式计数/3和5对照/新退化/分类与原生双格式字节审计、生成/只读check/lint、固定28b9f72/be53b98同步及diff全部退出0，见raw/c04-three-retest-validation.json。任务漏两个相关知识链接导致的初始lint失败已保留initial证据，补实现/入口真实入链后通过；无应用/报告/预期变化。110份旧raw和68137字节log完整前缀保持，源码及四构建来源已核对，末次仍唯一新完成run/136请求，无自动第二轮。任务done仅核对完成，原3失败/5依赖本轮全绿但整轮新3失败/3依赖仍未通过，不关闭完整C04。未重复旧242单元/9Electron/build或fixture；应用保持打开，本地提交，不推送、不自动重试。
+
+
+## 2026-10-22 C04动作澄清与规则三失败收敛
+
+从5afc425独立worktree/codex/c04-action-failures，先三项公开停止边界及七分类缺口连续两次红，再按[[C04动作与澄清失败收敛]]补动作固定类别/原一次纠正、首次澄清指引和有效block后content_json双事件；旧规则候选修正/澄清及原48断言保持。立即block探针被旧测试否定已撤回，非2xx注入器问题和初次定向超时保留initial记录。新18项和全量260单元/类型已通过，其余本机门禁继续收口；[[C04-动作澄清与规则失败收敛]]当前active。旧四轮真实与fixture分开，不采原文/Key、不读业务库，不切换用户旧桌面，不推送、不自动真实复测。
+
+
+本地收口：35文件260单元、18新回归、9实际Electron含build、48fixture（189替身/真实0）、类型、6工程、36Wiki与生成/只读check/lint、5afc425及be53b98固定同步全部实际退出0，证据raw/c04-action-validation.json。116份旧非生成raw、70751字节旧log完整前缀、四轮真实双格式和原runner/cases/fixture-model/业务运行契约/锁文件保持；strict五报告与Markdown投影逐字节审计通过。首次工程链式格式失败保留initial证据，再格式化后通过。任务done仅本地切片，真实三失败/三依赖仍待用户显式新运行；不采原文/Key，不推送/自动复测，旧用户应用保持。
+
+
+## 2026-10-22 C04动作修复版启动与真实复测准备
+
+沿用独立codex/c04-action-failures，从fd7703c干净状态继续。6份受控源码/测试/配置及4bundle SHA与已验证版本一致；旧窗口无在途评估，strict四旧run/0新/0损坏。正常Quit确认PID退出，20:28:31启动本worktree实际Main，模型设置URL/进程准确，Flash系统加密状态和四轮历史保留，未读Key/凭据文件/业务库。[[C04动作修复真实复测]]与[[C04-动作修复真实复测核对]]记录三失败/三依赖和动作/首次澄清/规则双事件的核对边界；当前active等待用户显式真实开始，无新真实报告，不代点连接测试/开始/重试、不推送。原48fixture与四轮真实分别保持，文档门禁继续收口。
+
+
+用户明确回复“已经点击”，唯一新run20:30:36–20:33:09，Flash168真实尝试，三项模式deepseek，run.completed/report.passed，31业务全通过/0依赖，17故障注入fixture_only。原三失败/三依赖全通过，旧25通过点全部保持；4行8事件，首次澄清3反馈/3停止及规则第6次provider/content_json与validate_quote/rule_block双停止实际可见，动作六细类未触发，不倒推旧原文/修复因果。正式Main原生双格式与strict投影逐字节一致，见[[C04动作修复真实复测]]和新增raw，121份旧证据/72181字节旧log前缀与源码/4bundle保持。没有Agent start/retry/cancel/连接探针，应用保持打开，不推送/自动第二轮；Wiki门禁继续收口。
+
+
+动作修复真实核对收口：strict模式/固定48计划/原检查和期望/三失败三依赖全过/旧25无退化/枚举与原生双格式字节审计、生成/只读check/lint、fd7703c及be53b98固定同步和diff全部退出0，见raw/c04-action-retest-validation.json。121旧raw/72181字节log前缀与源码/4bundle原样；20:37:55末次仍唯一新完成run/168请求。任务done仅本轮核对，31真实业务本轮通过；17真实故障注入、未触发动作纠正、稳定性/Windows/安装/非作者复核未由此全部完成，不采模型原文/Key、不自动复测/重试、不推送，应用保持打开。
+
+
+## 2026-10-23 C03持久事件与桌面重连
+
+从64f2e2d独立worktree/codex/c03-durable-events，frozen安装成功。实际fetch核对A01b4d3b213/A01cdd42b05与B00aP0ae1af9d/P119d60a8；B无新运行事件页端口，A01c6与当前C02c6冲突未合入/改号。[[C03持久事件与桌面重连]]复用同事务outbox保存run内seq/ID日志，补严格只读分页、commit后提示、Main/preload及桌面补页/去重/重连/释放订阅，不重发模型。旧运行不伪造历史，事件保留策略/公共接口仍待A/B非作者复核；[[0028-事务事件日志与只读重连]]记录选择。[[C04收口与验收边界]]同步C04技术验证通过，[[C04-收口签认]]保留非作者/人工语义签认，不代填批准。初始readonly测试写键、桥接名单、通知竞态红/绿、资源争用超时均保留initial记录，最终本机检查在[[C03-持久事件与桌面重连]]收口；不推送、不自动真实复测，不切换用户旧桌面。
+
+
+C03本地交付收口：39文件275单元、9实际Electron含build、48fixture（189替身/真实0）、类型、6工程/模块边界、36Wiki工具回归、生成/只读check/lint及64f2e2d/be53b98固定双基线和diff实际退出0，见raw/c03-validation.json。R20实际挂载桌面SIGKILL后只读重连、reload/进程重开ID保持、seq分页与重复/虚高提示、显式retry才增模型请求通过；断页与新运行提示竞态有本地回归，截图中文进度布局已核对。126份旧raw/74355字节旧log前缀、12受控源码/锁文件和原固定样本/期望不变，七份报告strict/Markdown投影一致；初始失败及生成误映射均保留并修正。任务done仅本地C03实现验证，A/B公共契约/append-only保留策略及A01c迁移冲突仍待协调，C04人工语义/非作者签认任务保持active；未切换用户旧桌面，未读Key/用户业务库，未自动真实评估/重试，暂不推送。
+
+## 2026-10-23 C集成候选准备与组合验证
+
+用户授权本地独立codex/c-integration-candidate，从C03/9e8695b组合共同头654fecc，原共同祖先be53b98。25个C侧来源/8个共同侧提交与16项冲突逐项保留功能、覆盖、raw及历史log，contracts出口/pending门禁保留Wiki与C运行事件并存，运行代码/迁移/锁文件保持C03。A01c迁移6与C6异义，四个临时内存库复现A6→C7失败回滚、C6→A6静默缺Wiki表、C7→A6拒绝回退及C7重开无变；诊断通过不等于兼容通过，未纳入或改号。
+
+实际gh只读核对PR #7 MERGED/APPROVED，PR #8 OPEN/已改向共同分支/无评审，PR #9 OPEN/目标A01b；保留旧P1 C复核不替A签字。294单元、9实际Electron含build、48fixture（189替身/真实0）、45合成HTML已本轮执行；最终工程/Wiki/双基线检查见raw/c-integration-validation.json。知识/任务/评审说明/状态/CONTEXT与索引、生成清单同步，双方旧证据保留审计见raw/c-integration-preservation.json。[[C集成候选-准备与组合验证]]只交本地准备，[[C集成候选-依赖与非作者签认]]/[[C04-收口签认]]保持active。未推送/共同分支合入/PR/消息或真实复测，Windows/安装后置未验。
+
+本轮初次Wiki lint因待签任务节标题不是精确“改动”失败，已修正标题，保留raw/c-integration-initial-validation.json后再检；不弱化门禁。实际Electron恢复/多步截图已核对并保存为明确合成证据，不能代替非作者/人工语义签认。
+
+首次目标654fecc同步因日志保留了C03前缀而触发APPEND_ONLY_LOG_REQUIRED，失败证据保留。本次按贡献规范允许的PR目标基线保留654fecc完整日志前缀，原样追加C侧相对be53b98独有历史，再追加本任务记录；两侧旧非空行顺序与独有历史字节均核对，不删除旧证据或修改检查器。最终sync基线为固定目标654fecc与累计be53b98；9e8695b保留为taskBase、差异/保留审计基线，因两侧日志分叉不再要求同时成立的不可能双前缀。
+
+本地准备收口：294单元、9实际Electron含build、48fixture/189替身/真实0、45合成HTML、6工程、36Wiki及类型/生成/只读check/lint、固定654fecc/be53b98同步均退出0。131份C旧raw/77份共同旧raw、93个受保护C文件、3个P0专用文件及双方独有历史块/非空行顺序保持。准备任务done仅针对本地候选和证据；A/B/非作者/C04人工签认任务保持active，未推送或操作共同分支。
+
+## 2026-10-23 9e067bf独立技术评审
+
+用户授权独立子Agent复核冻结9e067bf。独立Standards/Spec按654fecc...9e067bf完整26提交/262文件及9e8695b集成增量审阅；Standards 1 P2、Spec 0，证据Agent确认同一单元门禁不稳定。诊断测试重跑完整48点fixture受默认5秒限制，三次完整pnpm test均293/294通过/1超时，最后整套无其他复跑/审计命令并发仍失败；单项1/1、早期重叠294通过另列。未编辑测试/时限/生产预算，不将其诊断成已证实业务缺陷。
+
+其余本轮独立串行9Electron含build、48fixture/189替身/真实0、45HTML、6工程、36Wiki、固定654fecc/be53b98同步通过；225源码/9bundle/93受保护文件、25/8提交、262文件范围、131/77旧raw/日志/覆盖保留一致，四组内存库不兼容诊断匹配。原始输出/失败/执行重叠与记录竞态已保留于raw/c-integration-independent-evidence.json；两轴原报告与hash、汇总均独立留证。
+
+只在codex/c-integration-review新增评审Wiki/任务/状态/导航/log，候选9e067bf和共同分支不动。结论changes_required，P2待修复全量复验/独立关闭；R-1技术意见已收到但未批准，A/B和C04人工签认不代填。无推送、共同分支合入、外部PR/消息/评论或真实模型复测；Windows/安装未验。文档自身门禁通过不代表候选单元门禁通过，实际记录见raw/c-integration-independent-doc-validation.json。
+
+评审文档首次lint发现两处短文件名:行号不能定位源码、任务缺第二条语义关联；已改为实际项目相对路径并补真实待签任务链接，失败输出保留于独立文档门禁记录，未修改检查规则或候选代码。
+
+## 2026-10-23 STD-001诊断回归局部测试预算修复
+
+用户授权独立codex/c-diagnostics-p2-fix，从29f5b94建立工作树。先原版完整pnpm test294通过，记录间歇性，不冒充新红；前轮同源码三次293/294默认5秒超时和单项通过全部保留。先列完整矩阵预算不足/外部负载/业务网络三项假设，再只将diagnostics.test.ts末尾it()测试框架预算设为20000ms，与相邻完整矩阵已有预算一致。回调及全部断言前缀hash逐字节一致；无新镜像测试、无删矩阵/期望、无业务/模型/工具/上下文/全局Vitest/并发/锁文件变化。
+
+修复后类型与默认完整294单元已通过，后续Electron/fixture/工程/Wiki及固定基线sync以raw/c-diagnostics-p2-validation.json实际执行为准。新知识/任务、原责任页与状态/CONTEXT/导航同步；原raw/log前缀保留审计另存。独立复核前任务active，不自动关闭原P2或代签A/B/业务人工；不推送/共同分支合入/外部消息/真实复测。
+
+作者完整门禁已通过：294单元、9Electron含build、48fixture/189替身/真实0、45HTML、6工程、36Wiki、类型/生成/check/lint与29f5b94/654fecc/be53b98同步均0。163旧raw和91101字节log前缀、旧3失败、断言body、其余224源码及9bundle保持。冻结本修复供独立复核，尚未关闭STD-001或代签人员。
+
+## 2026-10-23 STD-001独立复核关闭
+
+作者修复冻结e6af0b2后，独立Standards/Spec两轴复核无新发现。Standards于北京时间13:21:46～13:22:07原样运行默认完整pnpm test：退出0、40/40文件、294/294项、20.929秒，无标志/环境/并发覆盖，前后固定HEAD/干净；并独立通过只读Wiki与29f5b94同步。Spec未运行测试，核对完整断言/业务预算/48点结果及Markdown一致，关闭的全量复跑条件由Standards实际满足。两原报告逐字节入raw并在closure记录SHA；原三次失败与作者阶段记录不反填。
+
+独立复核确认仅it()局部20秒预算，其余224源码、所有生产预算、11预算/配置hash、9bundle、163旧raw/91101字节log前缀及原3失败保持。STD-001技术关闭适用于e6af0b2新修复；原9e067bf仍保留其冻结失败结论。最终Wiki通过后两个技术任务收口，人员待签任务仍active；不代签A/B或业务人工，不推送/共同分支合入/真实复测。最终文档门禁另存c-diagnostics-p2-closeout-validation.json。
+
+最终Wiki生成/只读check/lint、29f5b94/654fecc/be53b98同步与diff检查均通过，STD-001独立技术关闭条件满足；两个技术任务done，A/B/业务待签任务active。修复源码225项hash与独立复核固定提交e6af0b2一致，修复提交已有非生成raw逐字节保持；最后提交仅记录关闭Wiki，不推送/合入/真实复测。
+
+
+## 2026-10-23 C最终集成交接包整理
+
+2026-10-23基于固定45fa03d整理[[C集成最终交接包]]，任务[[C集成-最终交接包整理]]。固定目标654fecc至45fa03d共29提交/279路径（92非Wiki、187 Wiki），包含A来源；P2已在e6af0b2技术修复并由独立Standards默认294复跑/Spec核对后于45fa03d记录关闭。完整作者验证、独立复核与旧真实/fixture证据分列，A-1/A-2/B-1/B-2/R-1实际人员整体批准/H-1仍待；A-3/AB-1只约束被排除A01c/P1后续整合。本轮独立codex/c-integration-handoff仅整理Wiki/证据，225源码与已复核修复保持，旧raw/log/三次失败不改；不代签、不推送/合入/真实复测，人员签认任务继续active。
+
+固定范围及原证据只读hash核查记录raw/c-integration-final-manifest.json；本交接文档任务的实际生成/check/lint/固定45fa03d、654fecc、be53b98同步与diff记录raw/c-integration-final-validation.json。完整294单元/9Electron含构建/48fixture189替身真实0/45HTML/6工程/36Wiki引用已执行修复作者证据；独立294与原三次293/294失败分别保持，不在本轮重新运行或冒领。
+
+最终整理门禁全部退出0：225源码/171旧非生成raw/93919字节log前缀/3旧失败/36输出hash核对，生成225来源、pnpm check含6工程及179页只读Wiki检查/lint、固定45fa03d/654fecc/be53b98同步与diff；交接整理任务done，A/B及业务人工待签任务active。最终增量仅Wiki，无新完整业务复跑、独立复审或真实请求。
+
+
+## 2026-10-23 C最终交接包独立复核
+
+2026-10-23固定b256dd1的[[C集成最终交接包]]完成三名独立子Agent复核，见[[C最终交接包独立复核]]与[[C集成-最终交接包独立复核]]：Standards0硬性/0判断性，Spec0，Evidence0。四组范围/29提交279路径、225源码/171旧raw/93919字节log前缀与原3失败一致，原作者完整验证及独立默认294/Spec条件关闭互证，36关闭链/68合计输出hash正确；独立Wiki check/lint与45fa03d/654fecc/be53b98同步全退出0。A-1/A-2/B-1/B-2/R-1/H-1实际人员仍待，A-3/AB-1仅后续被排除整合条件；两个人员任务继续active。本轮独立codex/c-handoff-independent-review只保存复核Wiki，原交接分支保持b256dd1；不代签、不推送/合入/真实复测，不重跑产品全套或刷新远端状态。
+
+三份原始报告及SHA绑定见raw/c-handoff-independent-{standards,spec,evidence,review}.json。当前仅追加独立技术材料复核结论，本轮实际执行与旧作者/独立产品验证作用域分开；最后保存记录的生成/只读check/lint、固定b256dd1/654fecc/be53b98同步与diff见raw/c-handoff-independent-validation.json。旧日志、raw和未签状态保留。
+
+最终复核记录门禁退出0：生成225来源、181页只读check/lint，b256dd1/654fecc/be53b98固定同步及diff；保留b256dd1全部173非生成raw、225源码、两个人员任务原字节/active和原交接/修复/共同分支。独立技术材料复核任务done，人员签认继续待补；无新产品全套/真实模型或外部操作。
+
+
+## 2026-10-23 C签认请求草稿
+
+2026-10-23根据固定b256dd1交接包及dc0f034复核记录，在独立codex/c-signoff-request-drafts准备[[C签认请求草稿与回填规则]]，分别给A/B/业务验收人本地未发送草稿；三份包含完整固定SHA、审阅入口、具体问题与本人回填格式。A-1/A-2、B-1/B-2及H-1当前范围与A-3/AB-1后续条件分列，R-1实际整体审阅仍须明确承担。未填写真实签名/日期/通过结论，无自动发送/外部草稿，不推送/合入/真实复测；两个人员任务继续active。新文稿未被追认为dc0f034已独立审阅内容，任务[[C集成-签认请求草稿]]及raw/c-signoff-drafts-validation.json单列本轮文档检查。
+
+新增三份status=draft请求及统一入口、草稿任务，正文区分当前职责/后续依赖及R-1，格式不预选通过；业务样本hash与原脱敏报告一致，历史真实与fixture分列。原raw/失败/源码与日志前缀保留，维护工具/覆盖映射不改；本轮只运行草稿语义/固定引用/保留核查、Wiki生成/只读check/lint、dc0f034/654fecc/be53b98同步与diff，原产品全套和独立技术结论只作历史引用。
+
+最终备稿门禁实际退出0：完整固定SHA/业务caseSetHash与责任分工核对、225源码/178旧raw/97039字节log前缀/原待签任务内容保留，生成225来源、186页只读check/lint、固定dc0f034/654fecc/be53b98同步及diff。草稿整理任务done，三份请求仍draft/本地未发送，人员任务active；没有新真实或产品全套执行、独立Agent复核、外部草稿/发送/推送/合入。
+
+
+## 2026-10-23 B01联调进展同步到C依赖
+
+2026-10-23用户转述B在Windows codex/b01-wiki-integration完成A→B多来源/报告消费同事务/重开/幂等/回滚/版本隔离及迁移记录，聚焦52/52，类型/构建/工程/Wiki同步报告通过；全量181/182、Wiki34/36仍失败，B归因为原Windows符号链接权限，C未读原日志确认。代码/Wiki未提交推送，D盘材料本机不可读；[[B01联调进展与C接线前置]]和raw/b01-windows-integration-reported.json按reported记录。旧45fa03d/b256dd1/dc0f034范围不变，新B代码未纳入/未获macOS验收；AB-1/A-3及B-1/B-2/R-1/H-1不自动签认。下一步先由B冻结本地提交并提供C可读材料，再核对A/B前置、安排C入口和新组合macOS验证；A人工发布仍由本人，Windows失败不扩大成先修Windows门槛。独立codex/c-b01-dependency-update仅同步Wiki/未发送草稿，不推送/合入/真实复测。
+
+只保存用户转述及本轮Wiki检查；源D盘实现/任务/JSON未读取，不把52/52等当C执行。更新A/B未发送请求与统一入口，保留当前/后续范围和全部旧失败/报告/代码；验证记录raw/c-b01-update-validation.json，任务[[C集成-B01依赖进展同步]]仅指进展维护。
+
+最终本轮文档门禁退出0：225源码/179旧raw/98666字节log前缀/原待签内容保持，生成225来源、188页只读check/lint，cfce704/654fecc/be53b98同步及diff；仅进展同步任务done，B代码未取得/未核验、C接线未实施，人员active及三份未发送draft不变。
+
+
+## 2026-10-23 B01固定提交接收与迁移兼容诊断
+
+2026-10-23B已推送固定代码330bff76615147ea9c2729cb144a18873a5251d0及交接头6c76fb991f3135d6a48362c1b242e46af6641817；C通过定向ls-remote/fetch核对父子及远端头，已读取B实现/任务/Windows原证据，27源码hash与原验证精确一致，52/52及181/182、Wiki34/36/EPERM保留。[[B01固定提交接收与迁移兼容诊断]]六组实际内存库诊断确认迁移谱系不兼容：C6/B6和C7/B7异义，C7→B拒绝、B7→C静默缺运行表、C6→B误记B6指纹但缺知识表；compatible=false，未擅改号/SQL。下一步由A维护、B/C共同确认真实旧库谱系兼容/安全拒绝，再做隔离组合接线及macOS全套。旧“未提交/材料不可读”仅原阶段；原C45fa03d/b256dd1/dc0f034范围与人员待签不变。独立codex/c-b01-remote-intake只保存核对/诊断/Wiki，无B代码替换、推送/共同合入、消息、真实模型或完整B macOS验收。
+
+GitHub连接器404后定向Git取得B对象，未触碰共同/原交接分支。保留B Windows部分失败、首次探针依赖解析失败及最终6组诊断输出，未降低业务预算/修改生产迁移。raw/c-b01-remote-intake.json及raw/c-b01-migration-compatibility-probe.json绑定固定版本/source/SQL hash和实际schema；本轮保存门禁raw/c-b01-remote-validation.json，任务[[C集成-B01固定提交接收核对]]仅覆盖输入核对与诊断，未宣称问题已修复。
+
+最终本轮接收/诊断记录门禁退出0：远端核对、27B源码与6组探针，原C225源码/181旧raw/100228字节log前缀保持，生成225来源、190页只读check/lint与c39b87f/654fecc/be53b98同步及diff；初始探针加载失败与连接器404单独保留。仅接收任务done，迁移compatible=false/方案未解决，非作者/完整macOS/Electron/人员签认待补，未发送/推送/合入或真实复测。
+
+
+## 2026-10-23 AB迁移协调请求草稿
+
+2026-10-23按用户要求基于d99f2b3准备[[C迁移协调请求草稿-AB谱系兼容]]，在独立codex/c-migration-coordination-draft仅存本地未发送草稿：固定C45fa03d/B330bff7与6c76fb9，列明6/7异义及D1～D6原诊断/SQL指纹；兼容建议为已确认谱系识别与追加向前步骤，未知/混合/账本矛盾在修改前安全拒绝，编号/身份登记/支持矩阵由A牵头B/C确认，尚未选择或批准。M1～M8明确原库存在性、识别、登记、旧事实、接口、验证、人工发布与ADR/评审责任和本人回复格式。未改历史迁移/SQL/账本，未重跑探针/套件，无代签/自动发送/推送/合入/真实复测；人员任务active，compatible=false仍未解决。任务[[C集成-AB迁移协调请求草稿]]仅草稿维护。
+
+新增status=draft联合请求及草稿任务，链接原接收诊断/A/B请求/统一入口与依赖任务；原诊断、首次加载失败、Windows部分失败、源码/迁移与日志均保留。备稿只做语义核对及固定引用/保留审计、Wiki生成/只读check/lint、d99f2b3/654fecc/be53b98同步和diff；实际命令/退出码见raw/c-migration-coordination-draft-validation.json，不冒充重跑六组或实现兼容方案。
+
+最终本轮备稿门禁退出0：六组诊断与四个冲突SQL指纹/固定SHA引用核对，225源码/184旧raw/102143字节log前缀及旧待签/草稿内容保留，生成225来源、192页只读check/lint，d99f2b3/654fecc/be53b98同步及diff。备稿任务done，请求仍draft/未发送、M1～M8未决、人员active；历史迁移未改，无新探针/迁移/产品套件/真实模型或外部操作。
+
+
+## 2026-10-23 迁移协调分支授权推送
+
+2026-10-23用户明确授权推送codex/c-migration-coordination-draft供A/B读取。已普通推送origin并核对原文头fd4b72859e63931986424d6c66ee48fd12d81a60，包含诊断d99f2b32def756b6b4d4cc99fca75dd9511436d5；[[C迁移协调请求草稿-AB谱系兼容]]给出分支/固定原文/六组证据链接。首次HTTP400失败保留，远端未创建后用命令局部HTTP/1.1/postBuffer重试成功，无强推/tag/全局配置修改。任务[[C集成-迁移协调草稿推送交接]]及raw/c-migration-coordination-push-{delivery,validation}.json记录新授权、远端核对及Wiki门禁；后续保存记录只在同一授权分支普通推送，最终远端头在交付回复再次核对。新授权仅共享分支，不合入、不创建PR/消息或代签、不真实复测；compatible=false/M1～M8及人员active保持。下方本地未推送是原阶段事实。
+
+推送前全量范围Wiki门禁已执行，首次网络失败与普通重试均单独留证；固定协调原文与诊断hash保持Git原版本。当前追加的Wiki交接记录与原文发布分开，不冒领迁移修复/非作者/业务通过。最终记录生成/check/lint、fd4b728/654fecc/be53b98同步及diff见本次Wiki验证；未改历史SQL或产品源码。
+
+本轮记录保存门禁退出0：225源码/185旧raw/103848字节log前缀、原人员任务和三份请求字节不变，生成225来源、193页只读check/lint、fd4b728/654fecc/be53b98同步与diff通过。原文已实际推送/核对fd4b728；最后Wiki提交继续同一授权分支普通推送并在交付回复核对完整远端头，未预填未来SHA。人员active、草稿draft及compatible=false保持；不合入/代签/发送/真实复测。
+
+
+## 2026-10-23 C接收B迁移协调M1～M8技术回复
+
+本轮基线7adbc935，同一独立codex/c-migration-coordination-draft工作树仅追加Wiki/证据。实际定向fetch/核对B远端完整头f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef，直接父e80d1a25c5ace628df6952a43d98b84d75e418e4；读取源码差异、M1～M8及原测试输出，5源码与映射hash准确，原迁移/DDL/CheckStore/公共契约/桌面未变。B Windows重跑的原六组完整cases、脚本、源码/SQL指纹与C原证据一致，compatible=false；额外未知v6/缺触发器0/2仍红，聚焦53/53和Windows183/184、Wiki34/36 EPERM原失败分列。B回复为开发Agent技术意见非人工签名。
+
+[[C迁移协调请求草稿-AB谱系兼容]]及原备稿任务/人员active任务、CONTEXT/状态/索引同步：先A确认谱系、支持/拒绝与登记ADR，再B实现和C新固定组合矩阵/macOS桌面。真实旧库存在性与mkdir/open/WAL拒绝边界未确认；无新号位/历史SQL变更或代码合入。原始接收/外部输出与C门禁分别见raw/c-b-migration-reply-intake.json、raw/c-b-migration-reply-validation.json；本轮不重新跑产品/探针，不推送、消息、合入、代签或真实模型复测。旧raw/log与源码保持核对及生成/只读check/lint、固定任务/目标/累计sync与diff按实际命令留证，任务维护完成不等于迁移问题关闭。
+
+本轮维护最终生成/check/lint及三基线sync/diff全部退出0，228非Wiki/187旧raw/105608字节log前缀保持。首次本地helper空路径错误与done证据running阶段绑定失败均保留于本轮初次/最终验证记录，修正维护时序后重验；未删除原产品失败或批准任何迁移。
+
+
+## 2026-10-23 C迁移后执行材料准备
+
+从b3bc98c2c4149a21ec70978c0dd73eea67e561c6建立独立codex/c-migration-execution-plan与工作树，仅整理[[C迁移后运行与事件不变量]]、[[C迁移后桌面接线清单]]、[[C迁移联合验证用例]]和准备/实施两任务。实际读取C45fa03d现有run/store/协调器/事件/Worker/桥接/桌面/旧测试，B f2dfa5f固定回复及原诊断；16不变量、12接线项、29个not_run用例，明确schema/ledger/旧JSON/事件保持、T1迁移/T2恢复、预写候选与已保存revision检查差异、先A方案→B适配→C迁移/桌面/macOS及各实际人员留证。
+
+无历史SQL/编号/登记或生产/测试/配置/依赖变更，不安装依赖/执行迁移探针/产品全套或真实模型，不推送/共同合入/消息/代签。旧源码/raw/log与原失败保留，准备维护实际审计/生成/check/lint/固定b3bc98c、654fecc、be53b98同步和diff记录分别在raw/c-migration-execution-plan-audit.json、raw/c-migration-execution-plan-validation.json；实施任务与人员任务继续active，材料完成不等于新组合通过。
+
+本轮首次/重试lint因不变量表缩写路径失败，辅助替换又遇frontmatter/中文相邻文字匹配，均未写入源码或改变规则；修正文稿为完整项目相对源码锚点并用inline code隔开，初次/重试文档验证JSON保留，最终门禁另记。
+
+准备收口：225源码与固定C45fa03d/b3bc98c一致，228非Wiki、190旧raw、107324字节log前缀保持，最终生成/198页check/lint与三固定基线sync/diff全退出0。只将材料准备任务标done；实施、人员任务active，新组合用例全not_run。绑定实际通过记录后再次只读校验，不推送。
+
+
+## 2026-10-23 C接收A谱系方案并做独立前置核验
+
+独立codex/c-a-lineage-validation从1f6fbbb，实际定向fetch/ls-remote及祖先核对后执行[[A迁移谱系固定提交接收与前置验证]]。A实现9cdd13a3755b4bd1d0a4ac300785021e47ed4a88、回复a58e97097994491a9e49c085ae9369ef9bd08019及远端头b9a0af76217e57e0ab22ba927de1a1a287b1145f已取得；九SQL指纹一致、原A探针重跑一致。实际A typecheck失败11项（7新增迁移、4未变更A01c），实际生产migrate/repository原生12项7通过5失败。缺必要列、同名无效触发器/非唯一索引及旧账本/schema矛盾仍接受；坏新账本未在只读预检拒绝，真开WAL后才拒绝并改文件。固定A archive安装退出0、174份非Wiki源码安装后与Git blob一致；九生产SQL与C/B原指纹一致。Node22.22.0/pnpm10.13.1、Electron44.9.2内嵌Node24.22.0/SQLite3.53.4 macOS arm64；原探针9指纹/16分类/10追加复现一致，实际入口12项7通过5失败，最终无harnessError。N08首轮漏SQL外键父行导致夹具失败，原报告/命令保留，仅补合成父行后真实未拒绝且可删得到证实；C/A生产源码未修改。
+
+raw/c-a-lineage-intake.json记录实际命令/完整输出/来源hash/环境，native-validation与native-initial-validation记录完整before/after/脚本。结论changes_required：先A修正门禁并补作者验证，B交报告/消费适配与P1 lint回执，C再做完整迁移矩阵→桌面→macOS全套；人工发布/业务语义/实际非作者分别留证。不推送、合入、代签、自动发送或真实模型复测。全29、A全量vitest、Electron UI/新组合全套未运行，技术Agent与原生Node验证不代实际人员或桌面通过。C旧源码/raw/log保留，记录任务与实施/人工任务分开；Wiki检查和固定1f6fbbb/654fecc/be53b98同步另存raw/c-a-lineage-wiki-validation.json，不冒充产品通过。
+
+本轮取证记录门禁收口：225源码/228非Wiki、194旧raw、109073字节log前缀保持，200页check/lint与三固定基线sync/diff通过。只关闭接收与前置核验记录任务；实际A类型/原生失败不改，实施/人员任务active。绑定通过的文档验证后再只读检查；不推送。
+
+
+## 2026-10-24 C复核A9225526与M13有效约束
+
+从6f9287b新建独立codex/c-a-lineage-revalidation，实际fetch/ls-remote取得92255261e818e6fde0687deee5544755cf9af469；[[A迁移谱系9225526复核与M13约束验证]]：固定A92255261e818e6fde0687deee5544755cf9af469已独立复核：typecheck退出0、原12项12/12（含N07～N11）、新增账本Electron ABI测试3/3，九SQL指纹一致；A原探针9指纹/19分类/10追加重跑一致。M13四个有效约束子样本均失败：WHEN 0使含RAISE触发器失效、WHERE 0使UNIQUE部分索引失效、缺外键/CHECK仍接受升8，且实际写删证明保护丢失；未损坏控制组全部真实拒绝。infrastructure macOS原生44/45，A-W08 retryable分歧仍失败，原Windows symlink EPERM未在本轮复现。固定archive安装后非Wiki源码逐字节匹配Git，生产九段SQL指纹保持；实际命令/完整stdout/stderr/hash见raw/c-a-lineage-recheck-intake.json。原12项完整before/after及只读N10文件hash/DELETE保持见native.json，M13四子样本与有效schema控制组/实际行为/脚本见m13.json；均为明确合成SQL库，无用户库/模型/凭据。
+
+原类型/N07～N11仅在9225526所列样本范围可关闭，旧6f9287b失败原样保留；schema一类未满足完整M13，不批准整体迁移/接线。A补有效定义/行为判据与回归，A/B确认A-W08公共语义及B适配/P1，再由C继续完整矩阵→桌面→macOS全套；人工发布/业务/实际非作者仍待。不推送/合入/代签/发送/真实模型复测。A报告Windows43/45与C实际macOS44/45分别留证，不能反填原平台通过。C生产/历史SQL、198旧raw与log前缀保持，Wiki生成/check/lint/固定6f9287b、654fecc、be53b98同步及diff实际记录于raw/c-a-lineage-recheck-wiki-validation.json；文档收口不替代M13/infrastructure产品门禁或人工签认。
+
+记录门禁收口：225源码/228非Wiki、198旧raw、111322字节log前缀保持，生成/202页check/lint与三固定基线sync/diff通过；只关闭本轮复核记录任务，不关闭M13/实施/人员验收。原12已在9225526通过，旧失败与新M13/A-W08失败完整保留；绑定文档通过记录后再只读检查，不推送。
+
+
+## 2026-10-24 C独立复核A65885ff与M13有效定义变体
+
+从20891fb8e8af8f05d68016dbc514c17cdf481fec新建独立codex/c-a-lineage-third-validation；[[A迁移谱系65885ff复核与有效定义剩余问题]]：固定A65885ff472acee4cedb3b0c17e7c850f30f98d91已独立取得并核对远端；原12项12/12、原M13-X01～X04 4/4、typecheck通过，A原探针9指纹/23分类/10追加与固定报告一致。macOS infrastructure45/45、contracts35/35，A-W08原行为失败已消失，B公共契约确认仍待。M13-X05～X09五个有效定义变体0/5：WHEN/WHERE 1=0、索引列集合错误、触发器事件错误、CHECK仅注释仍接受升8，实际写删证明保护失效；原schema控制组全部真实拒绝。A安装--frozen-lockfile后175份非Wiki文件与固定Git blob一致，真实生产migrate/repository及Electron44.9.2原生SQLite合成库执行，未导入A/B源码或改历史DDL。实际命令/输出/hash与无效archive Git范围诊断分别保存在raw/c-a-lineage-third-intake.json，原N/原M13/新变体及可重跑源码分别在third-native/third-m13-original/third-m13-variants.json；旧失败不反填。聚焦ledger3+wiki5属于infrastructure45子集，不重复计数；原Windows EPERM保留，macOS未复现。
+
+整体changes_required；A补已知有效定义识别/回归，避免仅关键词或常量黑名单；B确认公共failure语义、账本/报告/消费适配及P1，再由C继续完整矩阵→桌面→macOS联合全套。原四例在新A版本技术关闭不追改旧失败，M13整体仍未关闭；A人工发布/业务/实际非作者仍待，不代签、不推送/合入/发送或真实模型复测。C文档保留核验、生成/check/lint、固定20891fb/654fecc/be53b98同步及diff执行见raw/c-a-lineage-third-wiki-validation.json；仅本轮取证记录任务可闭环，不把产品失败或人工待签标完成。
+
+
+## 2026-10-24 C复验Acece332与B远端接收核对
+
+用户要求核对A cece332及B codex/b-c-third-feedback，固定可读材料后复验九例/核对B契约与证据。从a633c4285f240e7ab4f8d3fa554efeed802e44e8新建独立codex/c-a-lineage-fourth-validation；[[Acece332迁移复验与B契约材料接收]]：已取得并核对A远端固定cece332e41a230ebbeeaee64eb283b49a5d4fb43；请求的M13-X01～X09九例全部通过，原生产12项12/12，typecheck、macOS infrastructure45/45、contracts35/35通过，A原探针9指纹/28分类/10追加一致。补充X10/X11两个有效定义缺口仍失败：触发器仅含字符串RAISE仍接受、大写WHERE字符串被整体小写归一误判，接受升8后可实际删除步骤/重复prepared；有效原schema控制组均拒绝。原九例通过与补充两例失败分列，没有放宽原断言；实际argv/时间/退出码/输出hash/175份固定源码匹配与SQL指纹见raw/c-a-lineage-fourth-intake.json，原N及schema/控制组/脚本见fourth-native/m13/m13-extra.json。全部为忽略目录未修改A源码及合成库，无用户库/模型/凭据；ledger3+wiki5属于45项子集，Windows原EPERM记录不改。
+
+M13整体仍changes_required，A修有效触发器体与保留字面量语义的结构核对；B已报告A-W08公共契约符合与100/100，但本次origin未找到codex/b-c-third-feedback，固定Wiki/证据不可读，接收核对未完成；不代签或把转述当已核实交付。取得新A修正/B固定材料后C再复核，完整29项、新组合接线/macOS联合未执行。人工发布/业务/整体非作者仍待，不推送/合入/发送/真实模型复测。B接收时点及reported范围记录raw/c-b-third-feedback-intake.json；本任务active，B原文核对不能标done。C文档保留审计/生成/check/lint/固定a633c42、654fecc与be53b98同步/diff见raw/c-a-lineage-fourth-wiki-validation.json；C生产/历史SQL、206旧raw与115432字节旧log前缀保持。
+
+
+### 同轮后续：B远端出现并完成固定材料核对
+
+[[Acece332迁移复验与B契约材料接收]]：本轮后续复查已取得并核对B远端b80ad4329e7a72f4990aea89eced0536d6ebba1d（材料509a234，代码基线8043afb），原Wiki与原始/重复两次八文件100/100、Wiki门禁证据已逐项核对；C引用blob/SHA/脚本hash、B源码未变、A/B helper原文hash一致，C独立重放3个helper结果一致。B确认CAPABILITY_UNAVAILABLE / retryable=false为开发Agent技术确认，实际人员签认仍待。100项为B Windows原执行，未据此宣称C复跑或新A/B/C组合/macOS桌面通过。B8043afb依赖旧A b9a0af7，新组合仍须保留A迁移修正/C运行导出/B检查与P1公开出口。初查B无头及随后出现的时点命令均保留在raw/c-b-third-feedback-intake.json，未把早期缺失写成当前阻塞；B固定原文/原及重复100项/源码和引用hash已核实，C只实跑helper3，B Windows100未在C重跑。原作者配置/邮箱lint历史失败及最终门禁各保留，不追改B证据。当前仍有X10/X11真实保护缺口，原九例与本次接收任务闭环不代替完整矩阵、新组合/macOS桌面或人员签认。
+
+## 2026-10-25 C检查X10/X11新修正
+
+2026-10-25 C已实际执行git fetch origin并通过git ls-remote核对所有codex/a*远端头：origin/codex/a01-migration-lineage仍为cece332e41a230ebbeeaee64eb283b49a5d4fb43，相对cece332新增提交数为0，尚未发现已推送的X10/X11修正。本次不把远端查询当作行为复验；X01～X09保留前轮9/9通过，X10/X11保留前轮失败，B固定材料接收完成不重复核验。待A交新固定修正后先复验X01～X11，再通过迁移门禁推进完整M/F/J矩阵。完整迁移、桌面接线、macOS联合验证及实际人员签认/业务验收仍未完成。证据见raw/c-x10-x11-update-check.json，任务[[C集成-X10X11修正远端检查]]。
+
+独立分支codex/c-x10-x11-update-check，taskBase=abda94e90bf54786937510b802eb5d2479e01412；macOS26.4 arm64/Node22.22.0/pnpm10.13.1。远端查询命令均退出0，未发现新提交。仅更新文档与查询证据；机械生成/只读check/lint/固定基线sync/diff与213份旧raw及log字节前缀保留检查见raw/c-x10-x11-update-check-wiki-validation.json。没有新实现，未重跑行为测试或完整矩阵；整体保持active。
+
+本轮生成/check/lint/固定abda94e同步/diff均退出0；最终保留检查确认213份旧非生成raw和旧log精确字节前缀不变。首次追加导致末尾空白变化，保留检查失败后已恢复原字节前缀；失败记录保留在本轮文档验证JSON。无生产源码变化，未执行行为复验。
+
+## 2026-10-25 A41f0cdc独立复验与矩阵扩展
+
+2026-10-25最新独立结果见[[A41f0cdc独立复验与迁移矩阵阻断]]、[[C集成-A41f0cdc复验与矩阵扩展]]：已取得并核对A固定41f0cdc4d2d8db931f00f4c2fc141e4274abf82b，C原X01～X11全部11/11通过（含有效原schema控制），X10/X11在已测样本范围技术关闭；原12生产项/typecheck/macOS存储45项/契约35项通过。随后推进迁移矩阵107个子样本，102通过、5失败：M09旧账本未知登记/重复身份仍接受，M13真实RAISE不可达/触发器挂错表/唯一索引挂错表仍接受升8且实际保护失效。10条升级路线的80个选定异常边界及C7四个真实SIGKILL点通过，但并非完整F矩阵；旧SQL行保留不是领域业务验收。当前M09/M13仍changes_required，完整矩阵/新组合/桌面/macOS联合及实际人员业务签认未完成。B既有材料/A-W08/Windows100证据保留，不重复核验或外推。下方旧“远端仍cece332/X10X11待修”仅为此前时点；本次未推送、合入、发送或真实模型复测。
+
+证据raw/c-a41f0cdc-{intake,native,m13,matrix}.json保留固定源码/九SQL指纹、实际命令退出码和完整合成脚本/快照。X01～X11通过仅关闭原两修正范围；M09/M13五项新失败不隐去。F01的80个选定异常点、C7四个真实SIGKILL点通过；全矩阵、业务回放、桌面/联合与人员仍待。机械生成/check/lint/三套真实基线sync/diff及215旧raw/228非Wiki/旧log前缀保留检查见raw/c-a41f0cdc-wiki-validation.json。
+
+最终文档门禁实跑通过：生成225文件、只读check、lint（209 Markdown/181语义页）、固定fd2fa25/真实共同merge-base654fecc/累计be53b98三套sync、diff均退出0。215份旧raw、228份非Wiki和120107字节旧log前缀保持。复核后为提交后丢回复/重试/强杀重开补显式原列值比较，最终矩阵重跑仍107项102通过/5失败（前次命令输出保留）。产品与人员任务保持active；文档门禁通过不代表联合迁移通过。
+
+
+## 2026-10-25 C独立复验A163f7a4与M13边界扩展
+
+2026-10-25 当前独立复验：A远端固定163f7a4d2954237d5c88ca909451509b720c0117已核对。前轮五项M09-L01/L02、M13-Y01/Y02/Y03均通过，X01～X11保持11/11，原矩阵107/107。继续扩展M13发现三类四样本Y04a/Y04b（SELECT RAISE后WHERE 0/LIMIT 0）、Y05（UPDATE OF不存在列）、Y06（AFTER DELETE + RAISE IGNORE）仍被接受升8且旧步骤可删改，当前M13仍changes_required。详见[[A163f7a4独立复验与触发器边界回执]]、[[C集成-A163f7a4复验与边界扩展]]。原五项仅在已测范围技术关闭，不撤销其旧失败记录；完整迁移矩阵、新组合、桌面/macOS联合、实际人员签认与业务验收未完成。B既有A-W08与两次100/100材料保留，不外推为新组合通过。下方旧版本结论为历史时点。
+
+固定taskBase356e4ca；A175非Wiki及九段SQL指纹保持。typecheck0、macOS infrastructure47/47、contracts35/35、作者探针33+10+2、A Wiki基于41f0cdc全通过。新边界内部Electron退出1，4失败/3控制通过，无harnessError；原107脚本仅替换A来源，全部通过。完整复现/验收要求见新知识回执，原始命令与脚本见raw/c-a163f7a4-*。保留220旧raw、228非Wiki与本日志原字节前缀；文档generate/check/lint及taskBase/共同merge-base/累计be53b98 sync与审计见wiki-validation。仅Wiki/证据本地交付，不推送/合入，不代实际人员签认。
+
+
+## 2026-10-25 C独立复验Ae73d177与注释边界
+
+2026-10-25 当前独立复验：A远端固定e73d17790abf03517060bac4cd78736dfae78232已核对。六轮四例Y04a/Y04b/Y05/Y06全部拒绝且状态/文件保持，含控制组7/7；原五项、X01～X11（11/11）、原12及107矩阵全部保持通过。扩展M13新增Y07假注释保护体、Y08注释分隔UPDATE OF、Y09假注释事件三例，均误接受升8且旧步骤实际可删改；M13仍changes_required。详见[[Ae73d177独立复验与SQL注释边界回执]]、[[C集成-Ae73d177复验与注释边界]]。完整迁移矩阵、新组合、桌面/macOS联合、实际人员签认及业务验收未完成；B已接收材料/A-W08/两次100证据保留。下方旧版本状态是各自历史时点，不覆盖本轮结论。
+
+taskBase1c5a5b1；A175非Wiki与九段SQL指纹保持。typecheck0、基础设施47/47、契约35/35、作者37+10+2、A Wiki基于163f7a4全通过。新增注释套件内部Electron退出1，三失败/三控制通过，无harnessError；六轮四例7/7含控制组已通过。完整脚本/快照/源manifest/真实命令在raw/c-ae73d177-*；修正验收见新回执。226旧raw/228非Wiki和本log原字节前缀保持；Wiki生成/check/lint/三基线sync及审计见wiki-validation。产品仍changes_required，不合入、不推送，不代实际人员签认。
+
+
+## 2026-10-25 C独立复验A1c890dc与CHECK标识符边界
+
+2026-10-25 最新C独立复验：A远端固定1c890dc77ecba2cfb949c5e69908dc81bdacc692已核对，Y07/Y08/Y09全部安全拒绝且逻辑/物理边界保持，含三个控制6/6；原五项、六轮四例、X01～X11、原12/107与九段SQL指纹保持通过。新增M13-Y10：agent_write_call移除真实CHECK(attempt>0)、增加普通方括号列[CHECK(attempt>0)]后，identify/repository均接受升8并成功写入attempt=0；两个真实CHECK控制均拒绝。M13仍changes_required。详见[[A1c890dc独立复验与方括号标识符边界回执]]、[[C集成-A1c890dc复验与CHECK边界]]。完整迁移、新A/B/C组合、桌面/macOS联合及实际人员/业务验收未完成；下方旧版本记录保留原作用域。
+
+taskBase=7b9104f8ce43ef5d80d6ad4b20ec660063a15869；A175非Wiki、九段SQL指纹保持；旧七探针仅换A标识。typecheck0、macOS infrastructure47/47、contracts35/35、作者40+10+2、A Wiki基于e73d177全通过。Y10内部Electron退出1，两个CHECK控制通过，无harnessError；源码审计初次路径转义运行器问题保留后修正。新增完整脚本/快照/真实命令见raw/c-a1c890dc-*，修正验收见新回执。233旧raw/228非Wiki/本log原前缀保持，生成/check/lint/真实taskBase/共同merge-base/累计be53b98 sync与审计见wiki-validation。未推送或合入，不代人员签认。
+
+
+## 2026-10-25 C独立复验A910e626与Y10技术关闭
+
+2026-10-25 最新C独立复验：固定A 910e6260af0c4d84471e665da7656dbf8133aae7的Y10安全拒绝，identify与真实repository均在升级/写入前报tampered，原schema/数据/版本7/账本、DB字节和目录列表保持。两个有效CHECK控制均正常通过迁移入口并实际拒绝attempt=0，套件3/3。此前全部指定回归保持：原五项、六轮四例、七轮三例、X01～X11、原12/107及九段SQL指纹；macOS infrastructure47/47、contracts35/35。Y10仅在已测范围技术关闭，本轮未发现新的阻断；M13完整矩阵、新组合、桌面/macOS联合及实际人员/业务验收仍未完成。详见[[A910e626独立复验与Y10关闭回执]]、[[C集成-A910e626与Y10独立复验]]；旧版本失败记录保留原作用域。
+
+taskBase=97a8fd9b98317f4592bd234e52a6615a7736dec7；八份原探针仅换A标识，断言保持；A175非Wiki与九段指纹一致。17命令内部退出0：Y10+两控制3/3，原12/107、X01～X11、原五项、六轮四例/七轮三例均保持；typecheck0、基础设施47/47、契约35/35、作者42+10+2、A Wiki基于1c890dc全通过。241旧raw/228非Wiki/本log原字节前缀保留；最终C生成/check/lint/三基线sync/diff与执行后A源码审计见raw/c-a910e626-wiki-validation.json。指定复验任务done，不将M13/整体实施/人员标done；暂不推送、不合入。
+
+
+## 2026-10-25 接收A侧Y10关闭回执
+
+2026-10-25 关闭回执已接收：A远端固定a2b050eb74f52dc10916645bcc7a2dead02f9a72已核对，相对910e626仅CONTEXT/项目状态/A任务/log四份Wiki变更，代码与Y10验证输入未变；A/C均记录Y10在已测范围技术关闭。C独立重跑A文档generate/check/lint/sync(--base 1c890dc)全退出0，不重复产品测试。B先前b80ad43的A-W08开发Agent技术确认及两次Windows100/100材料已接收；尚待新固定组合的报告/消费/P1/macOS验证与实际人员签认，不能笼统把既有技术确认重新标待办。详见[[A910e626独立复验与Y10关闭回执]]；整体迁移任务保持active。
+
+本次增量taskBase=c4e109f753aa6f404c92f04d1590b41eb557c1aa，沿用Y10独立任务分支。原验证数据/失败/log保持；完整四文件原文与五条A文档门禁见raw/c-a-y10-closure-intake.json，C最终门禁及保留审计见raw/c-a-y10-closure-wiki-validation.json。仅文档状态接收，无新产品/组合/人员结论；不推送、不合入、不发送外部消息。
+
+
+## 2026-10-25 接收B组合准备固定材料并核对状态滞后
+
+2026-10-25 B组合准备材料已接收：固定7f8afe6a0849da3f198bf5bf3be32180053f082d远端回读一致，121/121的原命令/运行环境/九份测试hash及旧A依赖归属已核对，仅为B作者旧基线自验，C未复跑或认可新组合。B把M09-L01/L02、M13-Y01/Y02/Y03继续写为当前阻断，实为A41f0cdc的历史102/107状态；五项在后续C复验已通过，在A910e626亦保持，Y10已关闭。需B更新当前状态与组合执行顺序，保留历史失败和121原范围。详见[[B组合固定材料接收与状态滞后]]、[[C集成-B组合材料接收与状态核对]]；完整迁移、新组合、桌面/macOS联合及实际人员验收仍未完成。
+
+实际taskBase=12507aa7c93e3f83f4f942044684079ac4214c73；来源检查见raw/c-b-combination-intake.json，C文档门禁与保留审计见raw/c-b-combination-wiki-validation.json。121旧作者自验只接收不重跑，B原A依赖b9a0af7与当前A910e626分开。无生产/测试/维护工具变更、不代B改分支、不推送/合入/外发消息；新组合/人员仍待。
+
+
+## 2026-10-25 B接收C03b16b7并构建新固定组合
+
+2026-10-25 最新固定状态：已实际读取C 03b16b76ceb336d9f37692ee8b51046e90f328a0的B接收原文、来源审计及A910e626矩阵。M09-L01/L02、M13-Y01/Y02/Y03在后续C复验已关闭，固定A910e626保持107/107，X01～X11及Y10也在已测范围通过；不再等待163f7a4或要求A重修这些已关闭样本。C按原范围接收B121作者自验（HEAD067afc2、A依赖b9a0af7、证据5cdb2b1），本轮C未复跑；原A-W08技术确认与两次100项接收保持。B现于独立codex/b-a910-c03-combination组合A a2b050e（实现910e626）、B7f8afe6、C03b16b7，保留A迁移/B检查与P1/C运行及桌面出口；新九文件及兼容验证另存raw/b-a910-c03-combination-validation.json，不沿用原121作为新结果。完整迁移M/F/J、新组合独立接收、桌面/macOS联合、真实lint存储/人工发布、人员签认和业务验收仍未完成。详见[[B新固定组合与回归范围]]、[[B01-新固定组合回归]]。
+
+在独立D:/code/tradequote-agent-b-new-combination、本次任务基线7f8afe6构建本地候选，临时72c7c42仅保存A依赖WIP，不是集成分支合入。保留原121、A-W08及两次100证据；C新材料与矩阵引用按固定blob/hash核对。修正重复类型导出、公开出口并集及C顺序迁移夹具/唯一知识版本接口兼容，保留首次类型/兼容失败；迁移核心仅格式化，AST/SQL值与固定A核对。新九文件首轮121/121、最终源码固定后再记新结果，不能用旧自验顶替；扩展兼容中的Windows symlink EPERM照实保留。知识、任务、覆盖并集、生成及实际检查同行，不强推、不合入、不代签。

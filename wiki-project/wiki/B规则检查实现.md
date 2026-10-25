@@ -136,3 +136,10 @@ B独立修复来源资格被响应schema拒绝时误归STORAGE_ERROR的问题：
 B在独立codex/b01-lineage-p1-adaptation整合A b9a0af7的九能力/统一8与P1 19d60a8。executeChecks、报告/消费同事务和公开错误保持；旧B7真实schema、旧账本、已存多来源报告/消费逐表保持，两次重开同键返回首份报告。旧测试改断言8、迁移测试改按lineage/version身份；不再保留“补5即兼容”的假设。新源check-lineage-integration.test.ts以现有服务生成历史事实后升级，fixture仅依赖公开端口。
 
 正常路径已验证，A拒绝边界独立7项探针仍5失败/2通过（四类缺口），不能放行正式组合。旧raw保留，新证据raw/b01-lineage-p1-validation.json与boundary-probe.json，详情[[B谱系账本适配与P1回执交接]]、[[B01-谱系账本适配与P1回执]]。
+
+
+## 2026-10-25 B固定新组合适配
+
+组合保留B的quoteCheckService/evaluateWikiQuote/CheckStore及executeChecks；C quote-draft-plan经同一公共quoteCheckService做预保存检查，仍不能把预览授权或临时ID当已保存版本报告。该纯检查接口要求宿主每份文档提供唯一版本，重复历史版本显式拒绝，不由检查器回退选旧。C原五项纯检查回归保存在新增quote-checks-runtime-compat.test.ts，scope/时间测试调整为宿主已选唯一版本，并明确断言重复同文档输入拒绝；其他原覆盖保留。新九文件结果与原作者121分别归档。
+
+详见[[B新固定组合与回归范围]]、[[B01-新固定组合回归]]及raw/b-a910-c03-combination-validation.json。

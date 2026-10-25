@@ -1,0 +1,146 @@
+---
+title: C迁移联合验证用例
+type: process
+status: draft
+updated: 2026-10-25
+sources:
+  - packages/infrastructure/src/agent-run-store.test.ts:398
+  - packages/infrastructure/src/agent-run-recovery.test.ts:82
+  - packages/infrastructure/src/run-event-store.test.ts:11
+  - apps/desktop/src/renderer/src/features/run-events.test.tsx:18
+  - tests/e2e/agent-recovery.spec.ts:9
+  - scripts/test-unit.mjs:1
+  - package.json:12
+  - wiki-repo:raw/c-b01-migration-compatibility-probe.json:1
+  - wiki-repo:raw/c-b-migration-reply-intake.json:1
+---
+
+# C迁移联合验证用例
+
+2026-10-25 最新C独立复验：固定A 910e6260af0c4d84471e665da7656dbf8133aae7的Y10安全拒绝，identify与真实repository均在升级/写入前报tampered，原schema/数据/版本7/账本、DB字节和目录列表保持。两个有效CHECK控制均正常通过迁移入口并实际拒绝attempt=0，套件3/3。此前全部指定回归保持：原五项、六轮四例、七轮三例、X01～X11、原12/107及九段SQL指纹；macOS infrastructure47/47、contracts35/35。Y10仅在已测范围技术关闭，本轮未发现新的阻断；M13完整矩阵、新组合、桌面/macOS联合及实际人员/业务验收仍未完成。详见[[A910e626独立复验与Y10关闭回执]]、[[C集成-A910e626与Y10独立复验]]；旧版本失败记录保留原作用域。
+
+2026-10-25 最新C独立复验：A远端固定1c890dc77ecba2cfb949c5e69908dc81bdacc692已核对，Y07/Y08/Y09全部安全拒绝且逻辑/物理边界保持，含三个控制6/6；原五项、六轮四例、X01～X11、原12/107与九段SQL指纹保持通过。新增M13-Y10：agent_write_call移除真实CHECK(attempt>0)、增加普通方括号列[CHECK(attempt>0)]后，identify/repository均接受升8并成功写入attempt=0；两个真实CHECK控制均拒绝。M13仍changes_required。详见[[A1c890dc独立复验与方括号标识符边界回执]]、[[C集成-A1c890dc复验与CHECK边界]]。完整迁移、新A/B/C组合、桌面/macOS联合及实际人员/业务验收未完成；下方旧版本记录保留原作用域。
+
+2026-10-25 当前独立复验：A远端固定e73d17790abf03517060bac4cd78736dfae78232已核对。六轮四例Y04a/Y04b/Y05/Y06全部拒绝且状态/文件保持，含控制组7/7；原五项、X01～X11（11/11）、原12及107矩阵全部保持通过。扩展M13新增Y07假注释保护体、Y08注释分隔UPDATE OF、Y09假注释事件三例，均误接受升8且旧步骤实际可删改；M13仍changes_required。详见[[Ae73d177独立复验与SQL注释边界回执]]、[[C集成-Ae73d177复验与注释边界]]。完整迁移矩阵、新组合、桌面/macOS联合、实际人员签认及业务验收未完成；B已接收材料/A-W08/两次100证据保留。下方旧版本状态是各自历史时点，不覆盖本轮结论。
+
+2026-10-25 当前独立复验：A远端固定163f7a4d2954237d5c88ca909451509b720c0117已核对。前轮五项M09-L01/L02、M13-Y01/Y02/Y03均通过，X01～X11保持11/11，原矩阵107/107。继续扩展M13发现三类四样本Y04a/Y04b（SELECT RAISE后WHERE 0/LIMIT 0）、Y05（UPDATE OF不存在列）、Y06（AFTER DELETE + RAISE IGNORE）仍被接受升8且旧步骤可删改，当前M13仍changes_required。详见[[A163f7a4独立复验与触发器边界回执]]、[[C集成-A163f7a4复验与边界扩展]]。原五项仅在已测范围技术关闭，不撤销其旧失败记录；完整迁移矩阵、新组合、桌面/macOS联合、实际人员签认与业务验收未完成。B既有A-W08与两次100/100材料保留，不外推为新组合通过。下方旧版本结论为历史时点。
+
+2026-10-25最新独立结果见[[A41f0cdc独立复验与迁移矩阵阻断]]、[[C集成-A41f0cdc复验与矩阵扩展]]：已取得并核对A固定41f0cdc4d2d8db931f00f4c2fc141e4274abf82b，C原X01～X11全部11/11通过（含有效原schema控制），X10/X11在已测样本范围技术关闭；原12生产项/typecheck/macOS存储45项/契约35项通过。随后推进迁移矩阵107个子样本，102通过、5失败：M09旧账本未知登记/重复身份仍接受，M13真实RAISE不可达/触发器挂错表/唯一索引挂错表仍接受升8且实际保护失效。10条升级路线的80个选定异常边界及C7四个真实SIGKILL点通过，但并非完整F矩阵；旧SQL行保留不是领域业务验收。当前M09/M13仍changes_required，完整矩阵/新组合/桌面/macOS联合及实际人员业务签认未完成。B既有材料/A-W08/Windows100证据保留，不重复核验或外推。下方旧“远端仍cece332/X10X11待修”仅为此前时点；本次未推送、合入、发送或真实模型复测。
+
+2026-10-25 C已实际执行git fetch origin并通过git ls-remote核对所有codex/a*远端头：origin/codex/a01-migration-lineage仍为cece332e41a230ebbeeaee64eb283b49a5d4fb43，相对cece332新增提交数为0，尚未发现已推送的X10/X11修正。本次不把远端查询当作行为复验；X01～X09保留前轮9/9通过，X10/X11保留前轮失败，B固定材料接收完成不重复核验。待A交新固定修正后先复验X01～X11，再通过迁移门禁推进完整M/F/J矩阵。完整迁移、桌面接线、macOS联合验证及实际人员签认/业务验收仍未完成。证据见raw/c-x10-x11-update-check.json，任务[[C集成-X10X11修正远端检查]]。
+
+最新cece332实测见[[Acece332迁移复验与B契约材料接收]]：X01～X09通过，补充X10/X11失败，B固定材料已在后续取得并核对；整体M13保持部分失败。
+
+上轮65885ff实测见[[A迁移谱系65885ff复核与有效定义剩余问题]]：原四项通过、五变体失败，M13整体仍未完成。以下各轮描述保留对应版本时点。
+
+这是1f6fbbb准备的执行规格，当时全部M/F/J为not_run。2026-10-24已对M13执行四个有效约束子样本且失败，原29项尚未整套完成；其他组不因原N复测通过而追填整体通过。A须先逐项定允许升级/已知适配版本保留/安全拒绝及目标schema，B/C核对依赖；没有最终目标提交前不填兼容通过。执行任务[[C集成-迁移方案执行与联合验收]]继续active；准备任务[[C集成-迁移后执行准备]]的文档验证不是这些用例的结果。
+
+固定输入：C源码45fa03d57d6fc405c2438c3b187f87838355a88b、协调b3bc98c2c4149a21ec70978c0dd73eea67e561c6，B回复f2dfa5fa2fd550c16057abcbdf07ec0ba23ec2ef/接口e80d1a25c5ace628df6952a43d98b84d75e418e4；原B迁移/报告DDL仍来自6c76fb991f3135d6a48362c1b242e46af6641817，A01c原输入dd42b055efd409fa3c332c6cb1997c7a7638ca62。A/B最终实现和组合目标SHA尚待提供，不将它们预填为上述旧提交。
+
+## 夹具与统一判定
+
+每个用例用独立合成内存库；涉及重开/崩溃/WAL/锁的用例改用独立临时文件库。从固定谱系真实原SQL逐步构造，不以“最终库删几张表”冒充历史版本；故意损坏单独标注tampered。字段、用户输入和多来源均为明确合成，不打开真实用户库/凭据、不提交DB/原始模型文本。
+
+记录三次边界：T0旧库快照；T1完成迁移或拒绝、尚未构造协调器；T2启动/恢复/业务后。T0→T1只允许A明确的新DDL/默认值/追加登记，旧TEXT/JSON/hash/IDs/事件/账本逐项保持；拒绝还须schema/数据/user_version/旧账本无变，物理DB/WAL/SHM/owner文件按A明确边界另记，不拿逻辑一致冒充字节文件不变。T1→T2仅允许[[C迁移后运行与事件不变量]]I06/I16规定的恢复修改及真实追加事件，模型请求仍0。保留外键检查、索引/唯一/CHECK/不可变触发器的实际存在与行为证据。
+
+所有允许升级路线必须完成目标就绪检查：C run/control/write/step、知识/来源/生命周期/消费、B报告及其完整约束并存；不能只看user_version、SQL hash或“迁移没有抛错”。原谱系登记身份与旧SQL指纹保留，不重写成另一含义；重复迁移/重开不重复执行或登记。若A限定本阶段拒绝某路线，用例可按明确拒绝验收，但该路线的完整接线仍未完成；只读保留不意味着新组合可打开未知库。
+
+## 输入矩阵：A定预期，C执行组合
+
+| ID | 输入与预置 | 操作与必须核对 | 当前状态/责任 |
+|---|---|---|---|
+| M01 | 空库v0 | 初始化完整目标；新登记可追溯，重复打开不增记录 | SQL级空库/两次repository重开通过；新组合待验 |
+| M02 | 共同v3真实SQL＋合成V1/V2/V3/turn/idempotency/outbox | 升级或声明拒绝；若升级，旧JSON/hash/版本/报价关系逐字节保持 | 共同1/2/3 SQL旧行保留通过；领域有效V1/V2/V3回放待验 |
+| M03 | A01b v4＋staged/published旧知识 | 保留原知识资格/来源hash和历史报价，原发布事实不重新签造 | A4 staged/published SQL旧行保留通过；实际服务验收待验 |
+| M04 | C v5＋全部七种run状态、控制回执、真实成功旧幂等；无新写账本 | 不伪造旧toolCallId/receipt；迁移与启动恢复分验，补足目标或先拒绝 | C5七状态/控制SQL行保留通过；领域回放与启动恢复待验 |
+| M05 | C v6＋prepared/abandoned/committed调用及控制 | 不把C6记成知识6；保留已提交input/hash/revision/执行身份，新增列按显式默认值 | C6 prepared/committed/abandoned行保留、新列null通过；业务回放待验 |
+| M06 | C v7＋validation_json/tool_steps/事件，多attempt、交错全局seq | 不覆盖成报告7，保存授权/步骤可回读，公开seq/ID不重置 | C7授权/步骤/事件SQL行保留通过；领域/协调器待验 |
+| M07 | A v6真实知识四表＋多来源/lifecycle/消费 | 不误认成C写账本6；目标run/报告能力或明确拒绝，来源事实不丢 | A6多来源/生命周期/消费SQL行保留通过；真实资格业务待验 |
+| M08 | B v7＋有效schema_migration＋多来源报告/消费/幂等/outbox | 不能“无步骤”却缺run；旧报告JSON/hash/checkedAt/消费身份保持，新组合目标完整 | B7报告/消费/旧账本SQL行保留通过；B真实幂等回放待组合 |
+| M09 | 上述有部署可能的库，分别账本存在/缺失/遗漏/重复登记身份 | 每个变体单列支持/拒绝，不仅按user_version引导；不存在的谱系组合标tampered而非真实历史 | A163f7a4：L01/L02安全拒绝且字节保持，unified重入通过；其他账本变体待验 |
+| M10 | C6已被旧B误引导为7，账本声称A6但缺知识四表 | 隔离并安全拒绝，另列A鉴别/恢复方案；不改hash/user_version伪修 | C6误导B7/声称A6样本安全拒绝且文件字节不变；其他恢复路线待A决定 |
+| M11 | 未知合成v6、部分混合C/B/A同号表 | 在旧账本bootstrap/任何业务写前拒绝，不建立假已执行记录 | 未知合成v6安全拒绝且文件字节不变；其他混合变体待验 |
+| M12 | 已有账本但错误SQL hash/原编号含义冲突/未知高版本 | 拒绝并保存原事实，错误公开安全，内部诊断可核验 | 高版本/未知新身份与原N10坏hash拒绝通过；其他组合待验 |
+| M13 | 持有效hash但缺表/列/索引/CHECK/外键/关键触发器的逐一损坏库 | 检测完整结构/约束；含缺quote_check_report_no_delete、agent_write_once/不可变步骤，不能凭hash接受 | A910e626：已知X01～X11、Y01～Y10（含Y04a/b）样本全通过，Y10两控制通过；完整约束矩阵/新组合待验，不标整项通过 |
+| M14 | 旧C run无agent.run.event.v1；另含已存在的完整日志 | 迁移不补假历史，启动才追加真实中断；原日志字节/ID/两类seq保持 | 迁移不造假日志/不改变run状态通过；协调器T2恢复待验 |
+
+M04～M08除空schema，还要有旧业务行。七种run状态按各谱系当时合法schema生成；C5/6不强填C7的optional步骤/授权；多来源新字段不回填到旧报告。每个明确支持的M项都重复执行、关闭重开，并派生相关F用例。原D1～D6仅六个空schema诊断，不能替代本表数据测试。
+
+## 失败、拒绝与恢复：每条支持路线都覆盖相应写入点
+
+| ID | 动作/注入点 | 必须证据 | 责任与状态 |
+|---|---|---|---|
+| F01 | A判定前、判定后但DDL前、逐个追加DDL、登记写前/后、version写前/后、COMMIT前/后分别抛错 | 原schema/业务行/旧登记/version整体回滚或符合A明示可恢复阶段；无伪执行/半目标，重试不重装 | 部分80/80：10路线8个选定首DDL/首登记/version/COMMIT边界；逐追加点待验 |
+| F02 | 对F01实际存在的持久检查点用子进程屏障SIGKILL，等待exit后重开 | 独占顺序、WAL恢复/目标完整性、可审阅恢复路径；不能用普通异常代替断进程测试 | 部分4/4：C7四屏障真实SIGKILL/WAL恢复；其余路线/检查点待验 |
+| F03 | 两个Worker争用同一路径/别名路径；旧进程未exit时重建，迁移中并发入口 | 唯一writer/迁移互斥，不误中断活跃run、不重复登记，不声称阻止外部工具 | A锁/识别边界，C宿主；not_run |
+| F04 | 任一不支持输入走真实repository/Worker启动入口 | 拒绝先于账本引导与恢复、无ready/伪空workspace/业务写；公开错误无SQL/路径，物理副作用按A约定记录 | A910e626原拒绝与Y10均通过，逻辑/物理边界保持；真实Worker/公开错误/ready待验 |
+| F05 | 完成迁移后首次/重复构造协调器，涵盖queued/running/终态及prepared | T0/T1/T2分离；中断只发生一次、旧控制回执/终态不改、事件仅真实追加、Provider计数0 | C；I02/I05/I06/I16；not_run |
+| F06 | 报价/run/回执/步骤/授权/新事件插入中途失败或SIGKILL，另验COMMIT后丢回复 | 同连接原子事实全有或全无；已提交回放不增版本，失败重试无seq缺口，旧attempt无权写 | C＋B事务夹具；I03/I04/I07/I08/I12；not_run |
+| F07 | B报告/全部消费/事件/成功幂等任一点失败，重复同键/异参/重开 | 完整事务回滚；原报告JSON/首次时点保持，损坏消费不筛掉后假成功 | B先交固定测试/输出，C组合复验；not_run |
+
+## 迁移后的运行与桌面场景
+
+| ID | 场景与步骤 | 预期与关联 | 状态 |
+|---|---|---|---|
+| J01 | 同键并发旧/新start、控制丢响应重送、改输入/改run重用控制键 | 同参无重复派发/事件、异参冲突，completed返回原版本；I01/I02 | not_run |
+| J02 | cancel提交前/后、Provider不合作晚到、显式retry新attempt、waiting_input补事实 | 事务赢者决定最终事实，旧票据拒绝，澄清须新业务键；I03～I05 | not_run |
+| J03 | run分页同createdAt、多页过滤、跨run/越界游标；事件交错全局outbox | 列表无漏/重复，事件本run seq跨attempt连续，真实快照同事务；I11/I13 | not_run |
+| J04 | 重复/乱序/丢通知、丢页响应、缺口、跨页ID冲突、坏JSON/外run | 游标仅整页接受后推进；失败保留已接受事实且不泄露任意原文；I10/I12～I14 | not_run |
+| J05 | Worker kill/reload/online/可见性恢复、卸载迟到响应、重开历史 | 只读恢复、零新增Provider/业务重放；监听/定时器回收；超过显示上限仍能续页；I06/I15 | not_run |
+| J06 | 新来源与核价变更、preview/saved报告切换、B新版本历史查询 | 旧授权失效、block不写/pending明确；报告属于真实revision，V1～V3/旧报告不改；I09与D05/D10 | not_run |
+| J07 | 非主frame/外URL/伪context或金额/凭据/报告/未知命令及坏响应 | Runtime/Worker/Main/preload各层拒绝，无泛化IPC、无额外权限；D04/D08/D09 | not_run |
+| J08 | A实际人工review/publish及撤回，B验资格/消费，C验桌面显示，业务人员验语义 | 人员各自留实际固定版本证据；fixture不顶替发布，技术测试不代签R-1/H-1 | not_run，实际人员项待 |
+
+## 已有证据如何复用
+
+原C45fa03d/e6af0b2的294单元、9实际Electron含build、48fixture（189替身/0真实）、工程/Wiki及独立P2关闭，只作为原实现基线；索引[[C集成最终交接包]]和[[C最终交接包独立复核]]。现有agent-run-store.test.ts含v3/v6升级，agent-run-recovery.test.ts包含15个原运行/提交强杀屏障；run-event-store与RunEventFeed、preload/Worker/Electron已有回归是扩展起点，不证明新的跨谱系路线。
+
+B f2dfa5f中的原六组Windows重跑与C源码/SQL/脚本/cases一致仍compatible=false；额外两项负向0/2、全量183/184与Wiki34/36的EPERM失败保留，聚焦53/53不覆盖迁移缺口。C不重新写旧报告或把旧失败改成新通过。Windows按当前macOS优先策略保留原范围，不扩成必须先修Windows才可收敛方案的前提。
+
+## 方案确定后的实际命令与记录要求（本轮未运行）
+
+先在独立组合工作树记录实际A/B/C/目标SHA、合并基线、锁文件hash、OS/CPU、Node/pnpm/Electron及SQLite运行时；原生SQLite用工程锁定的Electron ABI，不能以普通Node或浏览器通过代替桌面。A/B新增迁移/负向探针须提供明确可执行命令并纳入实际验证清单，不能沿用旧“已知红探针”当新实现绿灯。
+
+```sh
+pnpm install --frozen-lockfile
+pnpm typecheck
+pnpm test
+pnpm test:e2e
+pnpm eval:model --mode fixture --output .runtime/c-migration-fixture
+pnpm check
+pnpm wiki:test
+node wiki-project/scripts/build-code-index.mjs .
+node wiki-project/scripts/build-code-index.mjs . --check
+node wiki-project/scripts/lint-wiki.mjs .
+```
+
+上述是待执行顺序；test:e2e按现有package.json自带build，记录构建退出码/输出，不虚构已运行。另对实际taskBase、实际共同目标merge-base和保留累计基线be53b98分别运行check-wiki-sync.mjs，不能用执行后HEAD替代本次基线。先生成再check/lint供工程门禁读取；源码/映射有更新时在需要时提前generate，并保留失败和修正后命令。诊断fixture/产品全套顺序运行，局部P2时限及业务预算不变；不执行deepseek模式或真实连接测试。
+
+每项记录：caseId/参数变体/ADR预期/状态not_run或实际pass/fail；源与目标完整SHA/SQL指纹/夹具生成方式；T0/T1/T2的版本、schema、ledger、按稳定主键排序的行与逐字节hash；触发器/约束行为、错误/失败点/子进程退出信号、Provider和写入计数；实际时间/命令/退出码/脱敏输出与SHA；实现者/执行者及未覆盖项。未知费用/token保持null；不得保存Key/客户原件/完整敏感日志。拒绝通过、诊断复现与完整兼容通过分开记录。
+
+责任顺序：A先交ADR/矩阵/固定存储实现→B交接口及报告/消费适配证据→C先M/F迁移门禁，再桌面D/J及macOS全套。A实际发布、业务语义验收、实际非作者整体接收分别留证；技术Agent意见不代签。任何not_run/失败/人员待签必须保留，不为小结凑“完成”。
+
+
+## A固定方案后的首轮核验（2026-10-23）
+
+[[A迁移谱系固定提交接收与前置验证]]：A实现9cdd13a3755b4bd1d0a4ac300785021e47ed4a88、回复a58e97097994491a9e49c085ae9369ef9bd08019及远端头b9a0af76217e57e0ab22ba927de1a1a287b1145f已取得；九SQL指纹一致、原A探针重跑一致。实际A typecheck失败11项（7新增迁移、4未变更A01c），实际生产migrate/repository原生12项7通过5失败。缺必要列、同名无效触发器/非唯一索引及旧账本/schema矛盾仍接受；坏新账本未在只读预检拒绝，真开WAL后才拒绝并改文件。结论changes_required：先A修正门禁并补作者验证，B交报告/消费适配与P1 lint回执，C再做完整迁移矩阵→桌面→macOS全套；人工发布/业务语义/实际非作者分别留证。不推送、合入、代签、自动发送或真实模型复测。本页仍draft/待完整执行，不追填29项或12接线项通过。
+
+
+## 9225526原例通过与M13部分失败（2026-10-24）
+
+[[A迁移谱系9225526复核与M13约束验证]]：固定A92255261e818e6fde0687deee5544755cf9af469已独立复核：typecheck退出0、原12项12/12（含N07～N11）、新增账本Electron ABI测试3/3，九SQL指纹一致；A原探针9指纹/19分类/10追加重跑一致。M13四个有效约束子样本均失败：WHEN 0使含RAISE触发器失效、WHERE 0使UNIQUE部分索引失效、缺外键/CHECK仍接受升8，且实际写删证明保护丢失；未损坏控制组全部真实拒绝。infrastructure macOS原生44/45，A-W08 retryable分歧仍失败，原Windows symlink EPERM未在本轮复现。原类型/N07～N11仅在9225526所列样本范围可关闭，旧6f9287b失败原样保留；schema一类未满足完整M13，不批准整体迁移/接线。A补有效定义/行为判据与回归，A/B确认A-W08公共语义及B适配/P1，再由C继续完整矩阵→桌面→macOS全套；人工发布/业务/实际非作者仍待。不推送/合入/代签/发送/真实模型复测。M13-X01～X04是本页既有有效约束要求的子样本，不是增加业务功能；对应完整schema/行为及控制证据见raw/c-a-lineage-recheck-m13.json。
+
+
+## A65885ff复核：原例通过、有效定义仍待（2026-10-24）
+
+[[A迁移谱系65885ff复核与有效定义剩余问题]]：固定A65885ff472acee4cedb3b0c17e7c850f30f98d91已独立取得并核对远端；原12项12/12、原M13-X01～X04 4/4、typecheck通过，A原探针9指纹/23分类/10追加与固定报告一致。macOS infrastructure45/45、contracts35/35，A-W08原行为失败已消失，B公共契约确认仍待。M13-X05～X09五个有效定义变体0/5：WHEN/WHERE 1=0、索引列集合错误、触发器事件错误、CHECK仅注释仍接受升8，实际写删证明保护失效；原schema控制组全部真实拒绝。整体changes_required；A补已知有效定义识别/回归，避免仅关键词或常量黑名单；B确认公共failure语义、账本/报告/消费适配及P1，再由C继续完整矩阵→桌面→macOS联合全套。原四例在新A版本技术关闭不追改旧失败，M13整体仍未关闭；A人工发布/业务/实际非作者仍待，不代签、不推送/合入/发送或真实模型复测。
+
+
+## Acece332九例复验与B材料接收（2026-10-24）
+
+[[Acece332迁移复验与B契约材料接收]]：已取得并核对A远端固定cece332e41a230ebbeeaee64eb283b49a5d4fb43；请求的M13-X01～X09九例全部通过，原生产12项12/12，typecheck、macOS infrastructure45/45、contracts35/35通过，A原探针9指纹/28分类/10追加一致。补充X10/X11两个有效定义缺口仍失败：触发器仅含字符串RAISE仍接受、大写WHERE字符串被整体小写归一误判，接受升8后可实际删除步骤/重复prepared；有效原schema控制组均拒绝。M13整体仍changes_required，A修有效触发器体与保留字面量语义的结构核对；B已报告A-W08公共契约符合与100/100，但本次origin未找到codex/b-c-third-feedback，固定Wiki/证据不可读，接收核对未完成；不代签或把转述当已核实交付。取得新A修正/B固定材料后C再复核，完整29项、新组合接线/macOS联合未执行。人工发布/业务/整体非作者仍待，不推送/合入/发送/真实模型复测。
+
+
+### 同轮后续：B固定材料已接收
+
+[[Acece332迁移复验与B契约材料接收]]：本轮后续复查已取得并核对B远端b80ad4329e7a72f4990aea89eced0536d6ebba1d（材料509a234，代码基线8043afb），原Wiki与原始/重复两次八文件100/100、Wiki门禁证据已逐项核对；C引用blob/SHA/脚本hash、B源码未变、A/B helper原文hash一致，C独立重放3个helper结果一致。B确认CAPABILITY_UNAVAILABLE / retryable=false为开发Agent技术确认，实际人员签认仍待。100项为B Windows原执行，未据此宣称C复跑或新A/B/C组合/macOS桌面通过。B8043afb依赖旧A b9a0af7，新组合仍须保留A迁移修正/C运行导出/B检查与P1公开出口。原初查无头仅时点事实，不继续作为当前阻塞。当前仍待A补M13-X10/X11及新组合/人员验收，产品任务保持active。

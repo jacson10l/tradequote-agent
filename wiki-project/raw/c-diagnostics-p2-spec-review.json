@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "axis": "Spec",
+  "status": "passed_static_conditional_closure",
+  "candidate": "e6af0b2d0cfe86af3abd45180dd56750db86b214",
+  "base": "29f5b94b9ef6d46a9934e366df6022cc1a0f50c3",
+  "scope": {
+    "diff": "git diff 29f5b94b9ef6d46a9934e366df6022cc1a0f50c3...e6af0b2d0cfe86af3abd45180dd56750db86b214",
+    "log": "git log 29f5b94b9ef6d46a9934e366df6022cc1a0f50c3..e6af0b2d0cfe86af3abd45180dd56750db86b214 --oneline",
+    "commits": 1,
+    "changedFiles": 16,
+    "changedCodeFiles": 1,
+    "immutableCommittedBlobs": true,
+    "trackedWorkingTreeInitiallyClean": true
+  },
+  "spec": {
+    "quote": "请在独立工作树和分支修复这项 P2，保留诊断与脱敏断言、业务预算和失败证据，重新运行完整本机验证并同步 Wiki，再安排独立子 Agent 复核关闭；A/B及业务人工签认不代签，暂不推送、合入或真实模型复测。",
+    "source": "Human request supplied by parent; AGENTS.md P0 and CONTRIBUTING.md"
+  },
+  "reviewedFiles": [
+    "AGENTS.md",
+    "CONTRIBUTING.md",
+    "wiki-project/AGENTS.md",
+    "packages/infrastructure/src/evaluation/diagnostics.test.ts",
+    "packages/infrastructure/src/evaluation/evaluation.test.ts",
+    "wiki-project/wiki/C04诊断回归时限修复.md",
+    "wiki-project/wiki/tasks/C04-诊断回归时限修复.md",
+    "wiki-project/wiki/tasks/C集成候选-独立技术评审.md",
+    "wiki-project/wiki/C集成候选独立技术评审.md",
+    "wiki-project/wiki/C04失败阶段诊断与二轮收敛.md",
+    "wiki-project/wiki/C04模型评估与脱敏报告.md",
+    "wiki-project/wiki/项目状态.md",
+    "wiki-project/CONTEXT.md",
+    "wiki-project/index.md",
+    "wiki-project/log.md",
+    "wiki-project/raw/generated/inventory.json",
+    "wiki-project/raw/generated/源码快照.md",
+    "wiki-project/raw/c-integration-independent-review.json",
+    "wiki-project/raw/c-integration-independent-standards.json",
+    "wiki-project/raw/c-integration-independent-evidence.json",
+    "wiki-project/raw/c-diagnostics-p2-validation.json",
+    "wiki-project/raw/c-diagnostics-p2-preservation.json",
+    "wiki-project/raw/c-diagnostics-p2-fixture-report.json",
+    "wiki-project/raw/c-diagnostics-p2-fixture-report.md"
+  ],
+  "hashes": {
+    "packages/infrastructure/src/evaluation/diagnostics.test.ts": "082412c45cd884529a032af0f09092b17b01bc812122792a6b24878299b31bba",
+    "wiki-project/raw/generated/inventory.json": "4a3f816ecf6f640fcf4fe7c1bef9a53c824b2e2551d34835520611a1ed088c0a",
+    "wiki-project/raw/c-integration-independent-review.json": "c6112b86547ee07ee17791a62b0748dd9c48c60058a03812810e7e66982f0039",
+    "wiki-project/raw/c-integration-independent-standards.json": "eaf06b8e5de4d68ba8133ef98728088f7720786f6d96ca892f2138d67a3bbb74",
+    "wiki-project/raw/c-integration-independent-evidence.json": "3b0f4a9d08d9c8bab78a5988efe7684fd755dfa8118d756c7bd6b1785d40a720",
+    "wiki-project/raw/c-diagnostics-p2-validation.json": "0ea3c1e2d0d6a014c8778114b9a9a9ad8ce66771275ff2c7092c1a011f238a32",
+    "wiki-project/raw/c-diagnostics-p2-preservation.json": "a46c004cb9dbad7a693308c10a3ea6acf8d834c71023cf1e8de9ac30e50e237e",
+    "wiki-project/raw/c-diagnostics-p2-fixture-report.json": "2062301c38a59f9d3b0dd3dcc4163c8be3e461057edbd4634a6238b5387dedb3",
+    "wiki-project/raw/c-diagnostics-p2-fixture-report.md": "19c3d967c190b551ae8918a134fb2e4de4eb43c42b02e1d3c23e76a4dc15458f"
+  },
+  "findings": [],
+  "evidence": {
+    "codeChange": {
+      "file": "packages/infrastructure/src/evaluation/diagnostics.test.ts",
+      "line": 86,
+      "onlyChange": "it() third argument 20000ms",
+      "beforeSha256": "dbe425c76a6851315b4bd4f289734c23d016e20c34962dffae17497f84dc0f63",
+      "afterSha256": "082412c45cd884529a032af0f09092b17b01bc812122792a6b24878299b31bba",
+      "callbackByteIdentical": true,
+      "callbackSha256": "e8e4361531c50fa8b7b73dac8e93f0c48356f0388f1f7e249a2e360c8c0d3ccf",
+      "precedent": "packages/infrastructure/src/evaluation/evaluation.test.ts:81"
+    },
+    "preservedAssertions": [
+      "enum-only diagnostics",
+      "redaction",
+      "legacy compatibility",
+      "unknown tool/field rejection",
+      "zero external fetch",
+      "finally restoration"
+    ],
+    "scopeProof": "Complete committed diff contains one test change and Wiki only; no production, global timeout, concurrency, contract, migration or lockfile changes.",
+    "historicalEvidence": "No old raw file appears in committed diff. Three old failures remain historical; fresh pre-fix294 pass is disclosed as intermittent.",
+    "oldLogExactPrefix": true,
+    "oldLogPrefixBytes": 91101,
+    "authorOutputHashesVerified": true,
+    "authorAllRecordedExitCodesZero": true,
+    "authorSummary": {
+      "unitFiles": 40,
+      "unitTests": 294,
+      "electronIncludingBuild": 9,
+      "fixturePoints": 48,
+      "fixtureModelCalls": 189,
+      "realRequests": 0,
+      "syntheticHTMLTests": 45,
+      "engineeringTests": 6,
+      "wikiRegressionTests": 36,
+      "testTimeoutMs": 20000,
+      "businessBudgetChanged": false,
+      "sourceSnapshotsUnchangedExceptTest": 224
+    },
+    "fixture": "48 passed,189 synthetic calls,0 real; IDs unchanged; JSON equal after removing timing only; Markdown byte-identical.",
+    "wiki": "Knowledge/task/log/context/status/index updated; source inventory hash matches. Latest author record keeps independent closure and A/B/human signatures pending.",
+    "sourceSnapshotBoundary": "Author preservation records1changed/224unchanged; old source snapshots remain historical."
+  },
+  "limits": [
+    "Static/evidence audit only; no suites rerun by this reviewer.",
+    "Author command strings, outputs and hashes inspected; Standards agent owns independent default full pnpm test replay.",
+    "No provider/network/credential/customer-database access, external messages, push, merge, branch mutation or delegation.",
+    "A01c/P1/Windows/installation/real-model/manual semantic acceptance remain excluded."
+  ],
+  "closure": {
+    "findingId": "STD-001",
+    "recommendation": "Close for this revised candidate only if Standards independently passes canonical default full pnpm test and parent records final Wiki closure/gates.",
+    "conditionalOnStandardsReplay": true,
+    "actualClosureRecordedByThisAgent": false,
+    "A": "pending_actual_person",
+    "B": "pending_actual_person",
+    "businessHuman": "pending_actual_person",
+    "pushOrMergeApproval": false
+  },
+  "conciseText": "No actionable Spec findings. The local20-second deadline preserves the complete diagnostic/redaction callback and business budgets. Author full validation and Wiki evidence are consistent and retain historical failures. Recommend STD-001 technical closure conditional on Standards default full-suite replay and final Wiki closure; no A/B or human approval."
+}

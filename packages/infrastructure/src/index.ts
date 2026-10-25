@@ -20,6 +20,7 @@ import {
 } from "@tradequote/domain";
 import Database from "better-sqlite3";
 import { drizzle } from "drizzle-orm/better-sqlite3";
+import { AgentRunStore } from "./agent-run-store";
 import { CheckStore } from "./check-store";
 import { SqliteKnowledgeStore } from "./knowledge-store";
 import { identify, migrate } from "./migrations";
@@ -124,6 +125,9 @@ export class SqliteWorkspaceRepository implements WorkspaceRepository {
   executeChecks(command: unknown, context: ExecutionContext): CheckResult | CheckListResult {
     return new CheckStore(this.db, new SqliteWikiCheckSource(this.db)).execute(command, context);
   }
+  runStore() {
+    return new AgentRunStore(this.db);
+  }
   agentReplay(command: import("@tradequote/contracts").AgentCommand) {
     return new TradeStore(this.db).replay(command);
   }
@@ -142,7 +146,10 @@ export class SqliteWorkspaceRepository implements WorkspaceRepository {
 }
 
 export { AgentExecutor } from "./agent-executor";
+export { AgentRunCoordinator } from "./agent-run-coordinator";
+export { CatalogQuoteReadService } from "./catalog-quote-read-service";
 export { DeepSeekProvider } from "./deepseek";
 export { SqliteKnowledgeStore } from "./knowledge-store";
 export { ModelSettingsStore } from "./model-settings";
 export { SqliteWikiStore } from "./wiki-store";
+export { WorkerOwnership } from "./worker-ownership";
