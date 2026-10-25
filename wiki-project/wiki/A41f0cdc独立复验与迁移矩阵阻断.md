@@ -14,6 +14,8 @@ sources:
 
 # A41f0cdc独立复验与迁移矩阵阻断
 
+后续复验：2026-10-25 当前独立复验：A远端固定163f7a4d2954237d5c88ca909451509b720c0117已核对。前轮五项M09-L01/L02、M13-Y01/Y02/Y03均通过，X01～X11保持11/11，原矩阵107/107。继续扩展M13发现三类四样本Y04a/Y04b（SELECT RAISE后WHERE 0/LIMIT 0）、Y05（UPDATE OF不存在列）、Y06（AFTER DELETE + RAISE IGNORE）仍被接受升8且旧步骤可删改，当前M13仍changes_required。详见[[A163f7a4独立复验与触发器边界回执]]、[[C集成-A163f7a4复验与边界扩展]]。原五项仅在已测范围技术关闭，不撤销其旧失败记录；完整迁移矩阵、新组合、桌面/macOS联合、实际人员签认与业务验收未完成。B既有A-W08与两次100/100材料保留，不外推为新组合通过。下方旧版本结论为历史时点。
+
 ## 固定输入、环境与边界
 
 C从fd2fa2529d2ebc919ca669b16486b0bc87484c89建立独立codex/c-a41f0cdc-validation工作树。实际fetch及ls-remote/rev-parse确认A远端固定41f0cdc4d2d8db931f00f4c2fc141e4274abf82b。A完整快照在忽略的.runtime/a-source安装，175份非Wiki源码与固定Git blob逐字节一致；九个历史SQL指纹与前轮C及固定B一致。旧C45fa03d、B6c76fb的原SQL分别按固定blob取出用于构造历史库，没有将最终库降版本冒充历史迁移。

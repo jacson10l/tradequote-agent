@@ -689,3 +689,10 @@ M13整体仍changes_required，A修有效触发器体与保留字面量语义的
 证据raw/c-a41f0cdc-{intake,native,m13,matrix}.json保留固定源码/九SQL指纹、实际命令退出码和完整合成脚本/快照。X01～X11通过仅关闭原两修正范围；M09/M13五项新失败不隐去。F01的80个选定异常点、C7四个真实SIGKILL点通过；全矩阵、业务回放、桌面/联合与人员仍待。机械生成/check/lint/三套真实基线sync/diff及215旧raw/228非Wiki/旧log前缀保留检查见raw/c-a41f0cdc-wiki-validation.json。
 
 最终文档门禁实跑通过：生成225文件、只读check、lint（209 Markdown/181语义页）、固定fd2fa25/真实共同merge-base654fecc/累计be53b98三套sync、diff均退出0。215份旧raw、228份非Wiki和120107字节旧log前缀保持。复核后为提交后丢回复/重试/强杀重开补显式原列值比较，最终矩阵重跑仍107项102通过/5失败（前次命令输出保留）。产品与人员任务保持active；文档门禁通过不代表联合迁移通过。
+
+
+## 2026-10-25 C独立复验A163f7a4与M13边界扩展
+
+2026-10-25 当前独立复验：A远端固定163f7a4d2954237d5c88ca909451509b720c0117已核对。前轮五项M09-L01/L02、M13-Y01/Y02/Y03均通过，X01～X11保持11/11，原矩阵107/107。继续扩展M13发现三类四样本Y04a/Y04b（SELECT RAISE后WHERE 0/LIMIT 0）、Y05（UPDATE OF不存在列）、Y06（AFTER DELETE + RAISE IGNORE）仍被接受升8且旧步骤可删改，当前M13仍changes_required。详见[[A163f7a4独立复验与触发器边界回执]]、[[C集成-A163f7a4复验与边界扩展]]。原五项仅在已测范围技术关闭，不撤销其旧失败记录；完整迁移矩阵、新组合、桌面/macOS联合、实际人员签认与业务验收未完成。B既有A-W08与两次100/100材料保留，不外推为新组合通过。下方旧版本结论为历史时点。
+
+固定taskBase356e4ca；A175非Wiki及九段SQL指纹保持。typecheck0、macOS infrastructure47/47、contracts35/35、作者探针33+10+2、A Wiki基于41f0cdc全通过。新边界内部Electron退出1，4失败/3控制通过，无harnessError；原107脚本仅替换A来源，全部通过。完整复现/验收要求见新知识回执，原始命令与脚本见raw/c-a163f7a4-*。保留220旧raw、228非Wiki与本日志原字节前缀；文档generate/check/lint及taskBase/共同merge-base/累计be53b98 sync与审计见wiki-validation。仅Wiki/证据本地交付，不推送/合入，不代实际人员签认。
