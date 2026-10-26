@@ -1032,3 +1032,12 @@ taskBase=97a8fd9b98317f4592bd234e52a6615a7736dec7；八份原探针仅换A标识
 B新组合作者验证已在完整代码提交ceec0ee4e329d891aad1855a42414256762e367c执行：九文件121/121、typecheck、build、pnpm check与Wiki生成/只读check/lint/真实7f8afe6基线sync均通过。全量454/455、维护回归34/36仍有Windows symlink EPERM，保留真实失败，不宣称全绿或联合批准；同盘临时目录修正前的cpSync EIO也保留。新结果与原067afc2上的121分开，最终证据raw/b-a910-c03-combination-validation.json，来源/AST/九SQL及旧证据保留审计见raw/b-a910-c03-combination-preservation.json。
 
 最终工程与Wiki：pnpm check退出0（工程5通过/1 macOS专用跳过，模块边界通过）；生成250文件、只读check、lint（241页/213语义页）、以7f8afe6a0849da3f198bf5bf3be32180053f082d为真实基线sync（91源码/139知识页/50任务）和diff均退出0。维护回归34/36，仅两项Windows symlink EPERM，未修改工具或跳过测试；首次跨盘cpSync EIO已通过运行器同盘TMP/TEMP与Git发现上限修正，失败原输出保留。当前仅本地独立候选，源码树自ceec0ee固定后不变，整体active/WIP、未推送、未合入。
+
+
+## 2026-10-26 B核对A ec6b729文档回执
+
+2026-10-26 B已核对A文档回执ec6b729cdaf15174930409e50c174d8cc4c3d37c：其父为既有组合A a2b050e，仅六份Wiki、无代码变化。Y10在已测范围关闭；A-W08已由B技术确认、C已接收材料，实际人员签认仍待。B在c154ee69d3f0669ce843021172d8c71b8e1c7dae已保存过期状态更正、固定A/B/C候选和接口/事务作者回归；代码提交ceec0ee上的新九文件121/121、typecheck/build/check通过，Windows全量454/455及维护34/36的symlink权限失败保留。本轮不重跑、不把A文档回执当新组合批准；下一步为固定候选材料交C独立复验及继续完整M/F/J和桌面/macOS联合。“A侧无需额外动作”仅针对本次文档修正，后续A仍配合组合迁移/存储问题，并完成实际人工发布与业务验收。旧记录保留，整体任务active；证据raw/b-ec6b729-status-intake.json。
+
+实际任务基线c154ee69d3f0669ce843021172d8c71b8e1c7dae；核对A父a2b050e到ec6b729的六份Wiki及源码差异为空，保存blob/SHA与远端实际回读；不将A资料更新覆盖既有组合来源，不重跑121项或改写旧失败。生成/只读check/lint、增量/累计sync、diff及旧raw/log/源码保持结果见raw/b-ec6b729-status-intake.json。无代码、测试、维护工具或映射更改；未推送、合入或自动外发。
+
+实际门禁均退出0：Node22.22.0生成250文件、只读check、lint 241页/213语义页、固定c154ee6增量及7f8afe6累计sync、diff；288份旧非生成raw及log字节前缀保持，非Wiki变化为空。首次Git中文路径转义导致的运行器分类失败及连带ENOENT保留说明，改NUL分隔取证后通过，未放宽任何业务断言；旧产品/维护Windows symlink失败记录不改。

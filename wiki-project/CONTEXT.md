@@ -1,5 +1,9 @@
 # 当前上下文
 
+2026-10-26 B已核对A文档回执ec6b729cdaf15174930409e50c174d8cc4c3d37c：其父为既有组合A a2b050e，仅六份Wiki、无代码变化。Y10在已测范围关闭；A-W08已由B技术确认、C已接收材料，实际人员签认仍待。B在c154ee69d3f0669ce843021172d8c71b8e1c7dae已保存过期状态更正、固定A/B/C候选和接口/事务作者回归；代码提交ceec0ee上的新九文件121/121、typecheck/build/check通过，Windows全量454/455及维护34/36的symlink权限失败保留。本轮不重跑、不把A文档回执当新组合批准；下一步为固定候选材料交C独立复验及继续完整M/F/J和桌面/macOS联合。“A侧无需额外动作”仅针对本次文档修正，后续A仍配合组合迁移/存储问题，并完成实际人工发布与业务验收。旧记录保留，整体任务active；证据raw/b-ec6b729-status-intake.json。
+
+以下保留此前固定版本的验证和历史。
+
 2026-10-25 最新固定状态：已实际读取C 03b16b76ceb336d9f37692ee8b51046e90f328a0的B接收原文、来源审计及A910e626矩阵。M09-L01/L02、M13-Y01/Y02/Y03在后续C复验已关闭，固定A910e626保持107/107，X01～X11及Y10也在已测范围通过；不再等待163f7a4或要求A重修这些已关闭样本。C按原范围接收B121作者自验（HEAD067afc2、A依赖b9a0af7、证据5cdb2b1），本轮C未复跑；原A-W08技术确认与两次100项接收保持。B现于独立codex/b-a910-c03-combination组合A a2b050e（实现910e626）、B7f8afe6、C03b16b7，保留A迁移/B检查与P1/C运行及桌面出口；新九文件及兼容验证另存raw/b-a910-c03-combination-validation.json，不沿用原121作为新结果。完整迁移M/F/J、新组合独立接收、桌面/macOS联合、真实lint存储/人工发布、人员签认和业务验收仍未完成。详见[[B新固定组合与回归范围]]、[[B01-新固定组合回归]]。
 
 B新组合作者验证已在完整代码提交ceec0ee4e329d891aad1855a42414256762e367c执行：九文件121/121、typecheck、build、pnpm check与Wiki生成/只读check/lint/真实7f8afe6基线sync均通过。全量454/455、维护回归34/36仍有Windows symlink EPERM，保留真实失败，不宣称全绿或联合批准；同盘临时目录修正前的cpSync EIO也保留。新结果与原067afc2上的121分开，最终证据raw/b-a910-c03-combination-validation.json，来源/AST/九SQL及旧证据保留审计见raw/b-a910-c03-combination-preservation.json。

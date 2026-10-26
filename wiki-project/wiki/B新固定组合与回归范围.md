@@ -2,7 +2,7 @@
 title: B新固定组合与回归范围
 type: interface
 status: observed
-updated: 2026-10-25
+updated: 2026-10-26
 sources:
   - packages/infrastructure/src/index.ts:1
   - packages/contracts/src/pending-client.ts:1
@@ -15,6 +15,10 @@ sources:
 ---
 
 # B新固定组合与回归范围
+
+2026-10-26 B已核对A文档回执ec6b729cdaf15174930409e50c174d8cc4c3d37c：其父为既有组合A a2b050e，仅六份Wiki、无代码变化。Y10在已测范围关闭；A-W08已由B技术确认、C已接收材料，实际人员签认仍待。B在c154ee69d3f0669ce843021172d8c71b8e1c7dae已保存过期状态更正、固定A/B/C候选和接口/事务作者回归；代码提交ceec0ee上的新九文件121/121、typecheck/build/check通过，Windows全量454/455及维护34/36的symlink权限失败保留。本轮不重跑、不把A文档回执当新组合批准；下一步为固定候选材料交C独立复验及继续完整M/F/J和桌面/macOS联合。“A侧无需额外动作”仅针对本次文档修正，后续A仍配合组合迁移/存储问题，并完成实际人工发布与业务验收。旧记录保留，整体任务active；证据raw/b-ec6b729-status-intake.json。
+
+以下保留此前固定版本的验证和历史。
 
 ## 来源与已关闭样本
 
