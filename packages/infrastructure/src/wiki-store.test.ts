@@ -660,3 +660,107 @@ it("A-W09-3: 发布/撤回状态机边界与乐观并发版本校验", async () 
   ).toMatchObject({ ok: false, error: { code: "ACTION_NOT_ALLOWED" } });
   repo.close();
 });
+
+const citationResolution = (result: WikiResult): { eligible: boolean; reasons: string[] } =>
+  (
+    result as {
+      ok: true;
+      data: { kind: "citationResolution"; resolution: { eligibility: { eligible: boolean; reasons: string[] } } };
+    }
+  ).data.resolution.eligibility;
+
+it("A-W07-3: 来源过期后历史解析标 eligible=false，新引用被拒", async () => {
+  const file = join(temp(), "wiki.sqlite");
+  const { repo, workspaceId } = openRepo(file);
+  const seeded = await seedPublished(file, repo, workspaceId);
+  const expired = seeded.sources[0]!;
+  // 来源有效期改到 LATER 之前，模拟来源已过期（P0 未开放来源维护命令，直接改库构造）。
+  const db = new Database(file);
+  try {
+    const row = db
+      .prepare("SELECT data_json FROM knowledge_source WHERE source_revision_id=?")
+      .get(expired.sourceRevisionId) as { data_json: string };
+    const source = JSON.parse(row.data_json);
+    source.validity = { status: "confirmed", validFrom: null, validUntil: "2026-10-22T12:00:00.000Z" };
+    db.prepare("UPDATE knowledge_source SET data_json=? WHERE source_revision_id=?").run(
+      JSON.stringify(source),
+      expired.sourceRevisionId,
+    );
+  } finally {
+    db.close();
+  }
+
+  const history = await repo.executeWiki(
+    read("wiki.resolveCitation", {
+      citation: seeded.citation,
+      purpose: "history",
+      scope: SEARCH_SCOPE,
+      locale: "pt-BR",
+    }),
+    { ...host(workspaceId), now: LATER },
+  );
+  expect(history.ok).toBe(true);
+  expect(citationResolution(history).eligible).toBe(false);
+  expect(citationResolution(history).reasons).toContain("expired");
+
+  const newRef = await repo.executeWiki(
+    read("wiki.resolveCitation", {
+      citation: seeded.citation,
+      purpose: "new_reference",
+      scope: SEARCH_SCOPE,
+      locale: "pt-BR",
+    }),
+    { ...host(workspaceId), now: LATER },
+  );
+  expect(newRef).toMatchObject({ ok: false, error: { code: "SOURCE_CONFLICT" } });
+  repo.close();
+});
+
+it("A-W07-4: 来源更新至 v2 后，旧 v1 新引用被拒，历史解析标 source_updated", async () => {
+  const file = join(temp(), "wiki.sqlite");
+  const { repo, workspaceId } = openRepo(file);
+  const seeded = await seedPublished(file, repo, workspaceId);
+  const old = seeded.sources[0]!;
+  // 同一 sourceId 暂存 v2，旧 v1 仍是知识修订引用的来源。
+  const staged = await repo.executeWiki(
+    write("source.stage", {
+      sourceId: old.sourceId,
+      expectedVersion: old.version,
+      label: old.label,
+      sourceStatus: old.sourceStatus,
+      mediaType: old.mediaType,
+      sourceText: "更新后的合成来源",
+      acquiredAt: old.acquiredAt,
+      sourceUri: null,
+      permissionNote: old.permissionNote,
+      validity: VALIDITY,
+    }),
+    host(workspaceId),
+  );
+  expect(staged).toMatchObject({ ok: true, data: { kind: "sourceRevision", revision: { version: 2 } } });
+
+  const newRef = await repo.executeWiki(
+    read("wiki.resolveCitation", {
+      citation: seeded.citation,
+      purpose: "new_reference",
+      scope: SEARCH_SCOPE,
+      locale: "pt-BR",
+    }),
+    host(workspaceId),
+  );
+  expect(newRef).toMatchObject({ ok: false, error: { code: "SOURCE_CONFLICT" } });
+
+  const history = await repo.executeWiki(
+    read("wiki.resolveCitation", {
+      citation: seeded.citation,
+      purpose: "history",
+      scope: SEARCH_SCOPE,
+      locale: "pt-BR",
+    }),
+    host(workspaceId),
+  );
+  expect(history.ok).toBe(true);
+  expect(citationResolution(history).eligible).toBe(false);
+  expect(citationResolution(history).reasons).toContain("source_updated");
+  repo.close();
+});

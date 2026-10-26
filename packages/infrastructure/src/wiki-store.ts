@@ -68,6 +68,17 @@ function validityAllows(
   );
 }
 
+/** 知识或来源的有效期不适用于 checkedAt 时，落到公开资格原因。 */
+function validityIneligibility(
+  validity: { status: string; validFrom: string | null; validUntil: string | null },
+  at: string,
+): WikiIneligibilityReason {
+  if (validity.status === "conflict") return "conflict";
+  if (validity.validUntil && Date.parse(validity.validUntil) <= Date.parse(at)) return "expired";
+  if (validity.validFrom && Date.parse(validity.validFrom) > Date.parse(at)) return "not_yet_valid";
+  return "unknown";
+}
+
 function citationMatches(c: KnowledgeCitation, r: WikiRevision): boolean {
   const section = r.content.sections.find((s) => s.sectionId === c.sectionId);
   if (
@@ -828,9 +839,13 @@ export class SqliteWikiStore {
       revision,
       lifecycle,
       currentPublicationRevisionId,
+      sources,
       states,
       checkedAt,
     );
+    // 新引用必须是当前有效依据：任一来源/知识失效或已被更新即整体拒绝，不得返回 ok=true/eligible=false。
+    if (parsed.purpose === "new_reference" && !eligible.eligible)
+      return failure("SOURCE_CONFLICT", "引用依据已更新或失效，不能作为新引用");
     return {
       ok: true,
       data: {
@@ -865,10 +880,21 @@ export class SqliteWikiStore {
     return row?.revision_id ?? null;
   }
 
+  /** 同一来源是否已存在更高版本：来源 S2 一旦暂存，仍引用 S1 的新引资格须标 source_updated。 */
+  private hasNewerSourceVersion(workspaceId: string, sourceId: string, version: number): boolean {
+    const row = this.db
+      .prepare(
+        "SELECT 1 AS found FROM knowledge_source WHERE workspace_id=? AND source_id=? AND version > ? LIMIT 1",
+      )
+      .get(workspaceId, sourceId, version) as { found: number } | undefined;
+    return row !== undefined;
+  }
+
   private eligibility(
     revision: WikiRevision,
     lifecycle: WikiLifecycle,
     currentPublicationRevisionId: string | null,
+    sources: WikiSourceRevision[],
     states: WikiSourceState[],
     checkedAt: string,
   ): WikiEligibility {
@@ -878,22 +904,15 @@ export class SqliteWikiStore {
     else if (lifecycle.state === "withdrawn") reasons.push("withdrawn");
     else if (lifecycle.state !== "published") reasons.push("unknown");
     if (currentPublicationRevisionId !== revision.revisionId) reasons.push("superseded");
-    if (!validityAllows(revision.content.validity, checkedAt)) {
-      if (revision.content.validity.status === "conflict") reasons.push("conflict");
-      else if (
-        revision.content.validity.validUntil &&
-        Date.parse(revision.content.validity.validUntil) <= Date.parse(checkedAt)
-      )
-        reasons.push("expired");
-      else if (
-        revision.content.validity.validFrom &&
-        Date.parse(revision.content.validity.validFrom) > Date.parse(checkedAt)
-      )
-        reasons.push("not_yet_valid");
-      else reasons.push("unknown");
-    }
-    for (const state of states) {
-      if (state.state !== "active") reasons.push("source_unavailable");
+    if (!validityAllows(revision.content.validity, checkedAt))
+      reasons.push(validityIneligibility(revision.content.validity, checkedAt));
+    for (const source of sources) {
+      const state = states.find((s) => s.sourceRevisionId === source.sourceRevisionId);
+      if (!state || state.state !== "active") reasons.push("source_unavailable");
+      if (!validityAllows(source.validity, checkedAt))
+        reasons.push(validityIneligibility(source.validity, checkedAt));
+      if (this.hasNewerSourceVersion(revision.workspaceId, source.sourceId, source.version))
+        reasons.push("source_updated");
     }
     const unique = [...new Set(reasons)];
     return unique.length === 0
