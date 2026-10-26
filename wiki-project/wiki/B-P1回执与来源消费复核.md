@@ -66,3 +66,8 @@ node -e "const {createRequire}=require('node:module');const {resolve}=require('n
 ```
 
 本轮Windows作者验证不代C独立macOS或739961a桌面验收。A真实lint存储/review/publish/withdraw、两项资格修正、C新固定接线与Electron联合、实际人员审核/发布/撤回/业务语义确认及整体非作者接收分别待完成。见[[B02-P1回执与消费复核]]、[[B00a知识整理与维护协议]]、[[B规则检查实现]]。
+
+
+## 最终本机证据
+
+最终作者测试代码固定e4649ca5e3f1cdb3a65c2baec6b44da3f82d8e5f；七文件104/104、typecheck、build、pnpm check均退出0（工程5通过/1 macOS专用跳过）。Wiki生成252文件、只读check、lint（247页/219语义页）、固定c6f6788d3e75f3ac9de02d95306222fb5509ca71同步（2测试源码/8知识页/1任务）及diff退出0。A公开资格反例仍0/2、退出1，两个有效控制通过，无运行器错误；完整脚本/config及hash/结构化观察已保存。303份旧非生成raw原字节及原log前缀保持，所有生产契约/存储文件未变。未运行完整单元、维护回归、C739桌面或macOS联合，理由与范围在新JSON中明确。整体review=changes_required，不标done或发布就绪。

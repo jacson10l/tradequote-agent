@@ -1072,3 +1072,8 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 2026-10-26 B在独立codex/b-p1-review-consumption、固定C c6f6788d3e75f3ac9de02d95306222fb5509ca71复核P1与来源消费。已有公开lint回执/审核绑定及B报告消费首轮七文件104/104，新增两项晚写失败原子回滚及一项来源到期后旧报告/完整消费重开回放。另复现A公开解析两项资格缺口：来源v2存在仍允许v1新引、过期source的history仍标eligible=true而不符公共schema；正常套件不覆盖这两项失败，整体changes_required。A可按既有P1推进真实lint存储/review/publish/withdraw，但须处理上述边界；C739961a本轮不可由远端取得，只记录用户本地接线报告，未作其桌面验收。原五项/Y10及A-W08技术确认与材料接收不重开；实际人审/发布/撤回、业务语义及整体非作者接收仍待。详见[[B-P1回执与来源消费复核]]、[[B02-P1回执与消费复核]]。
 
 基线c6f6788，独立D:/code/tradequote-agent-b-p1-review；无生产契约/存储/桌面改动，仅两份已有测试与fixture补覆盖、语义页/任务/状态/导航及追加日志。七文件104/104与两项反例分列，首轮探针运行器无法从.runtime解析workspace包，改为相对公共导入后才复现产品断言失败，原输出保留。固定测试源码后将另记最终命令/退出码/源码hash；旧raw与log前缀保留，不以合成lifecycle代人审或把C本地739写成可验。
+
+
+最终作者测试代码固定e4649ca5e3f1cdb3a65c2baec6b44da3f82d8e5f；七文件104/104、typecheck、build、pnpm check均退出0（工程5通过/1 macOS专用跳过）。Wiki生成252文件、只读check、lint（247页/219语义页）、固定c6f6788d3e75f3ac9de02d95306222fb5509ca71同步（2测试源码/8知识页/1任务）及diff退出0。A公开资格反例仍0/2、退出1，两个有效控制通过，无运行器错误；完整脚本/config及hash/结构化观察已保存。303份旧非生成raw原字节及原log前缀保持，所有生产契约/存储文件未变。未运行完整单元、维护回归、C739桌面或macOS联合，理由与范围在新JSON中明确。整体review=changes_required，不标done或发布就绪。
+
+A可据既有P1开始真实lint报告/回执落库与人工审核/发布/撤回，同时修公开引用资格两项；B本轮只变更既有测试/合成fixture，不代A修改存储、C接线或实际人员签认。新固定提交交接供A/C复核，不强推、不合入或调用真实模型。

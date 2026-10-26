@@ -1,5 +1,588 @@
 {
-  "status": "pending_fixed_probe_replay",
-  "base": "c6f6788d3e75f3ac9de02d95306222fb5509ca71",
-  "note": "Two failures already observed in main validation JSON; final fixed-test replay will add complete script/config/observations before handoff."
+  "status": "changes_required",
+  "taskBase": "c6f6788d3e75f3ac9de02d95306222fb5509ca71",
+  "testedReviewCodeSha": "e4649ca5e3f1cdb3a65c2baec6b44da3f82d8e5f",
+  "scope": "A public citation source eligibility on fixed C baseline; B check storage fails closed; not C739 or A real review service acceptance",
+  "recordedAt": "2026-10-26T11:50:16.975Z",
+  "environment": {
+    "platform": "win32",
+    "arch": "x64",
+    "node": "v22.22.0",
+    "pnpm": "10.13.1",
+    "dependencyPreparation": "pnpm install --frozen-lockfile --offline --ignore-scripts exited 0 under host Node24.21.0 with engine warning; checks below run Node22.22.0"
+  },
+  "checks": [
+    {
+      "name": "A source eligibility review probe",
+      "executable": "D:\\code\\tradequote-agent-b-p1-review\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        ".runtime/p1-source-probe.config.ts"
+      ],
+      "environment": {
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "startedAt": "2026-10-26T11:44:47.928Z",
+      "finishedAt": "2026-10-26T11:44:49.190Z",
+      "exit_code": 1,
+      "stdout": "\n RUN  v5.0.5 D:/code/tradequote-agent-b-p1-review\n\nstdout | .runtime/p1-source-probe.test.ts > A public source eligibility: source_expired_history\nP1_ELIGIBILITY_OBSERVATION {\"kind\":\"source_expired_history\",\"controlValid\":true,\"updatedSourcePin\":null,\"publicSchemaValid\":false,\"result\":{\"ok\":true,\"data\":{\"kind\":\"citationResolution\",\"resolution\":{\"purpose\":\"history\",\"lifecycle\":{\"revisionId\":\"4ce5a888-4e88-432f-a50b-7b36f3da24dd\",\"lifecycleVersion\":3,\"state\":\"published\",\"review\":{\"revisionId\":\"4ce5a888-4e88-432f-a50b-7b36f3da24dd\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"2b967bf7d7480dc840e35fe74d208120a86fafaeab347939ae91b41e77d1ebf8\",\"workspaceId\":\"4d4b66f7-d491-48d2-92bb-38133b12226e\",\"expectedLifecycleVersion\":1,\"decision\":\"approve\",\"note\":\"合成审核通过\",\"lintReceiptId\":\"d36a2749-41be-4bde-81e1-e35f5928e363\",\"lintReceipt\":{\"revisionId\":\"4ce5a888-4e88-432f-a50b-7b36f3da24dd\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"2b967bf7d7480dc840e35fe74d208120a86fafaeab347939ae91b41e77d1ebf8\",\"receiptId\":\"d36a2749-41be-4bde-81e1-e35f5928e363\",\"workspaceId\":\"4d4b66f7-d491-48d2-92bb-38133b12226e\",\"checkedAt\":\"2026-10-22T00:00:00.000Z\",\"policyVersion\":\"synthetic-v1\",\"outcome\":\"passed\"},\"reviewId\":\"faaa55bc-08dc-4617-9f9d-9f0e4c64bd12\",\"actorId\":\"host-human\",\"decidedAt\":\"2026-10-22T00:00:00.000Z\"},\"publication\":{\"revisionId\":\"4ce5a888-4e88-432f-a50b-7b36f3da24dd\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"2b967bf7d7480dc840e35fe74d208120a86fafaeab347939ae91b41e77d1ebf8\",\"eventId\":\"e6f464c7-d6fd-48bd-bf9c-03b8ace5dd05\",\"lifecycleVersion\":3,\"type\":\"published\",\"reviewId\":\"faaa55bc-08dc-4617-9f9d-9f0e4c64bd12\",\"actorId\":\"host-human\",\"occurredAt\":\"2026-10-22T00:00:00.000Z\",\"note\":\"合成发布\"}},\"currentPublicationRevisionId\":\"4ce5a888-4e88-432f-a50b-7b36f3da24dd\",\"citation\":{\"revisionId\":\"4ce5a888-4e88-432f-a50b-7b36f3da24dd\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"2b967bf7d7480dc840e35fe74d208120a86fafaeab347939ae91b41e77d1ebf8\",\"documentId\":\"c944d850-3a31-48b0-93b2-e70348c5dac2\",\"version\":1,\"sectionId\":\"7b5e63fe-b033-4784-bc84-9a05165f54a4\",\"sourceRefs\":[{\"referenceId\":\"8f9b8f9c-f15b-4cf0-b05b-be3cef215631\",\"sourceId\":\"763537c4-4a68-4b9f-9941-c319c23619a4\",\"sourceRevisionId\":\"f5f32a4b-926a-4db5-a3e2-606d3a005061\",\"sourceVersion\":1,\"artifactHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":11},\"excerptHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"assertion\":\"fact\"},{\"referenceId\":\"6ef9bf7f-da8e-45b9-98ae-15980299d4c7\",\"sourceId\":\"7d852979-bf87-460f-859d-945f606942d4\",\"sourceRevisionId\":\"868d23df-b2e3-45d4-ab78-19b1087c8ca3\",\"sourceVersion\":1,\"artifactHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":23},\"excerptHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"assertion\":\"fact\"}]},\"revision\":{\"workspaceId\":\"4d4b66f7-d491-48d2-92bb-38133b12226e\",\"revisionId\":\"4ce5a888-4e88-432f-a50b-7b36f3da24dd\",\"documentId\":\"c944d850-3a31-48b0-93b2-e70348c5dac2\",\"version\":1,\"parentRevisionId\":null,\"content\":{\"kind\":\"rule\",\"title\":\"合成 SOP\",\"locale\":\"en\",\"scope\":{\"platforms\":[],\"markets\":[],\"categories\":[]},\"markdown\":\"# 合成 SOP\\nInspect both sources.\\n\",\"validity\":{\"status\":\"confirmed\",\"validFrom\":null,\"validUntil\":null},\"sections\":[{\"sectionId\":\"7b5e63fe-b033-4784-bc84-9a05165f54a4\",\"title\":\"核对\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":31},\"sourceReferenceIds\":[\"8f9b8f9c-f15b-4cf0-b05b-be3cef215631\",\"6ef9bf7f-da8e-45b9-98ae-15980299d4c7\"]}],\"sourceRefs\":[{\"referenceId\":\"8f9b8f9c-f15b-4cf0-b05b-be3cef215631\",\"sourceId\":\"763537c4-4a68-4b9f-9941-c319c23619a4\",\"sourceRevisionId\":\"f5f32a4b-926a-4db5-a3e2-606d3a005061\",\"sourceVersion\":1,\"artifactHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":11},\"excerptHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"assertion\":\"fact\"},{\"referenceId\":\"6ef9bf7f-da8e-45b9-98ae-15980299d4c7\",\"sourceId\":\"7d852979-bf87-460f-859d-945f606942d4\",\"sourceRevisionId\":\"868d23df-b2e3-45d4-ab78-19b1087c8ca3\",\"sourceVersion\":1,\"artifactHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":23},\"excerptHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"assertion\":\"fact\"}],\"relations\":[],\"rules\":[{\"sectionId\":\"7b5e63fe-b033-4784-bc84-9a05165f54a4\",\"definition\":{\"ruleId\":\"7c66801f-f4a4-449a-8a9b-dd41abdfcf78\",\"category\":\"commercial_terms\",\"title\":\"synthetic\",\"message\":\"synthetic\",\"suggestedAction\":\"human review\",\"field\":\"payment\",\"condition\":{\"kind\":\"required\"},\"failureSeverity\":\"block\"}}]},\"artifactId\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"2b967bf7d7480dc840e35fe74d208120a86fafaeab347939ae91b41e77d1ebf8\",\"createdAt\":\"2026-10-22T00:00:00.000Z\"},\"sources\":[{\"workspaceId\":\"4d4b66f7-d491-48d2-92bb-38133b12226e\",\"sourceId\":\"763537c4-4a68-4b9f-9941-c319c23619a4\",\"sourceRevisionId\":\"f5f32a4b-926a-4db5-a3e2-606d3a005061\",\"version\":1,\"parentRevisionId\":null,\"label\":\"合成原文\",\"sourceStatus\":\"synthetic\",\"mediaType\":\"text/plain\",\"sourceText\":\"  合成 😀来源A\\n\",\"acquiredAt\":\"2026-10-22T00:00:00.000Z\",\"sourceUri\":null,\"permissionNote\":\"合成 fixture，非真实政策\",\"validity\":{\"status\":\"confirmed\",\"validFrom\":null,\"validUntil\":\"2026-10-26T13:44:49.086Z\"},\"artifactId\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"artifactHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"createdAt\":\"2026-10-22T00:00:00.000Z\"},{\"workspaceId\":\"4d4b66f7-d491-48d2-92bb-38133b12226e\",\"sourceId\":\"7d852979-bf87-460f-859d-945f606942d4\",\"sourceRevisionId\":\"868d23df-b2e3-45d4-ab78-19b1087c8ca3\",\"version\":1,\"parentRevisionId\":null,\"label\":\"合成原文\",\"sourceStatus\":\"synthetic\",\"mediaType\":\"text/plain\",\"sourceText\":\"Synthetic second source\",\"acquiredAt\":\"2026-10-22T00:00:00.000Z\",\"sourceUri\":null,\"permissionNote\":\"合成 fixture，非真实政策\",\"validity\":{\"status\":\"confirmed\",\"validFrom\":null,\"validUntil\":\"2026-10-26T13:44:49.086Z\"},\"artifactId\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"artifactHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"createdAt\":\"2026-10-22T00:00:00.000Z\"}],\"sourceStates\":[{\"sourceRevisionId\":\"f5f32a4b-926a-4db5-a3e2-606d3a005061\",\"lifecycleVersion\":1,\"state\":\"active\",\"changedAt\":\"2026-10-22T00:00:00.000Z\"},{\"sourceRevisionId\":\"868d23df-b2e3-45d4-ab78-19b1087c8ca3\",\"lifecycleVersion\":1,\"state\":\"active\",\"changedAt\":\"2026-10-22T00:00:00.000Z\"}],\"eligibility\":{\"eligible\":true,\"reasons\":[]},\"checkedAt\":\"2026-10-26T13:44:49.086Z\"}},\"warnings\":[],\"evidenceIds\":[\"f5f32a4b-926a-4db5-a3e2-606d3a005061\",\"868d23df-b2e3-45d4-ab78-19b1087c8ca3\"]},\"schemaIssues\":[\"候选/撤回/失效知识或来源不可新引\"]}\n\nstdout | .runtime/p1-source-probe.test.ts > A public source eligibility: source_updated_new_reference\nP1_ELIGIBILITY_OBSERVATION {\"kind\":\"source_updated_new_reference\",\"controlValid\":true,\"updatedSourcePin\":{\"sourceRevisionId\":\"fac17415-8d4d-43ad-8ec4-08d629dabed4\",\"version\":2},\"publicSchemaValid\":true,\"result\":{\"ok\":true,\"data\":{\"kind\":\"citationResolution\",\"resolution\":{\"purpose\":\"new_reference\",\"lifecycle\":{\"revisionId\":\"42a721e8-eb9c-4257-aa3c-070e8341b569\",\"lifecycleVersion\":3,\"state\":\"published\",\"review\":{\"revisionId\":\"42a721e8-eb9c-4257-aa3c-070e8341b569\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"0699a8da10d45ee093d3e7af09641fa850e5cb99589a87feaa727b0722a7aef3\",\"workspaceId\":\"58143a1e-c27a-479d-ba0e-bac4692dfbd8\",\"expectedLifecycleVersion\":1,\"decision\":\"approve\",\"note\":\"合成审核通过\",\"lintReceiptId\":\"be88c57b-91cd-46c3-b6e6-2274f9a48b4d\",\"lintReceipt\":{\"revisionId\":\"42a721e8-eb9c-4257-aa3c-070e8341b569\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"0699a8da10d45ee093d3e7af09641fa850e5cb99589a87feaa727b0722a7aef3\",\"receiptId\":\"be88c57b-91cd-46c3-b6e6-2274f9a48b4d\",\"workspaceId\":\"58143a1e-c27a-479d-ba0e-bac4692dfbd8\",\"checkedAt\":\"2026-10-22T00:00:00.000Z\",\"policyVersion\":\"synthetic-v1\",\"outcome\":\"passed\"},\"reviewId\":\"6a6eceeb-fcc6-4674-a622-ef1212125b97\",\"actorId\":\"host-human\",\"decidedAt\":\"2026-10-22T00:00:00.000Z\"},\"publication\":{\"revisionId\":\"42a721e8-eb9c-4257-aa3c-070e8341b569\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"0699a8da10d45ee093d3e7af09641fa850e5cb99589a87feaa727b0722a7aef3\",\"eventId\":\"aae96fe9-73fd-4dad-93d9-2c82c563cbb4\",\"lifecycleVersion\":3,\"type\":\"published\",\"reviewId\":\"6a6eceeb-fcc6-4674-a622-ef1212125b97\",\"actorId\":\"host-human\",\"occurredAt\":\"2026-10-22T00:00:00.000Z\",\"note\":\"合成发布\"}},\"currentPublicationRevisionId\":\"42a721e8-eb9c-4257-aa3c-070e8341b569\",\"citation\":{\"revisionId\":\"42a721e8-eb9c-4257-aa3c-070e8341b569\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"0699a8da10d45ee093d3e7af09641fa850e5cb99589a87feaa727b0722a7aef3\",\"documentId\":\"e19e3f60-0b7a-4706-9c14-041475ac9da2\",\"version\":1,\"sectionId\":\"0c714ead-52f7-4619-bfdd-6c5e8140192c\",\"sourceRefs\":[{\"referenceId\":\"5580c48e-0658-4b6a-b549-fe100df8f826\",\"sourceId\":\"9dcadb70-c3f8-439e-962e-419f4a744c71\",\"sourceRevisionId\":\"fce6b9b4-e307-45f3-97c4-024e50ba397a\",\"sourceVersion\":1,\"artifactHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":11},\"excerptHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"assertion\":\"fact\"},{\"referenceId\":\"0a4f569d-db1f-4f30-bac8-a913ac388456\",\"sourceId\":\"01a0a02e-a520-46e8-9c23-e473d11c4e07\",\"sourceRevisionId\":\"eaca5a45-0640-42ab-a9f3-f9d4a94af6dd\",\"sourceVersion\":1,\"artifactHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":23},\"excerptHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"assertion\":\"fact\"}]},\"revision\":{\"workspaceId\":\"58143a1e-c27a-479d-ba0e-bac4692dfbd8\",\"revisionId\":\"42a721e8-eb9c-4257-aa3c-070e8341b569\",\"documentId\":\"e19e3f60-0b7a-4706-9c14-041475ac9da2\",\"version\":1,\"parentRevisionId\":null,\"content\":{\"kind\":\"rule\",\"title\":\"合成 SOP\",\"locale\":\"en\",\"scope\":{\"platforms\":[],\"markets\":[],\"categories\":[]},\"markdown\":\"# 合成 SOP\\nInspect both sources.\\n\",\"validity\":{\"status\":\"confirmed\",\"validFrom\":null,\"validUntil\":null},\"sections\":[{\"sectionId\":\"0c714ead-52f7-4619-bfdd-6c5e8140192c\",\"title\":\"核对\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":31},\"sourceReferenceIds\":[\"5580c48e-0658-4b6a-b549-fe100df8f826\",\"0a4f569d-db1f-4f30-bac8-a913ac388456\"]}],\"sourceRefs\":[{\"referenceId\":\"5580c48e-0658-4b6a-b549-fe100df8f826\",\"sourceId\":\"9dcadb70-c3f8-439e-962e-419f4a744c71\",\"sourceRevisionId\":\"fce6b9b4-e307-45f3-97c4-024e50ba397a\",\"sourceVersion\":1,\"artifactHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":11},\"excerptHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"assertion\":\"fact\"},{\"referenceId\":\"0a4f569d-db1f-4f30-bac8-a913ac388456\",\"sourceId\":\"01a0a02e-a520-46e8-9c23-e473d11c4e07\",\"sourceRevisionId\":\"eaca5a45-0640-42ab-a9f3-f9d4a94af6dd\",\"sourceVersion\":1,\"artifactHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":23},\"excerptHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"assertion\":\"fact\"}],\"relations\":[],\"rules\":[{\"sectionId\":\"0c714ead-52f7-4619-bfdd-6c5e8140192c\",\"definition\":{\"ruleId\":\"42fbc1f8-b5db-41e8-828b-9343e5b60827\",\"category\":\"commercial_terms\",\"title\":\"synthetic\",\"message\":\"synthetic\",\"suggestedAction\":\"human review\",\"field\":\"payment\",\"condition\":{\"kind\":\"required\"},\"failureSeverity\":\"block\"}}]},\"artifactId\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"0699a8da10d45ee093d3e7af09641fa850e5cb99589a87feaa727b0722a7aef3\",\"createdAt\":\"2026-10-22T00:00:00.000Z\"},\"sources\":[{\"workspaceId\":\"58143a1e-c27a-479d-ba0e-bac4692dfbd8\",\"sourceId\":\"9dcadb70-c3f8-439e-962e-419f4a744c71\",\"sourceRevisionId\":\"fce6b9b4-e307-45f3-97c4-024e50ba397a\",\"version\":1,\"parentRevisionId\":null,\"label\":\"合成原文\",\"sourceStatus\":\"synthetic\",\"mediaType\":\"text/plain\",\"sourceText\":\"  合成 😀来源A\\n\",\"acquiredAt\":\"2026-10-22T00:00:00.000Z\",\"sourceUri\":null,\"permissionNote\":\"合成 fixture，非真实政策\",\"validity\":{\"status\":\"confirmed\",\"validFrom\":null,\"validUntil\":null},\"artifactId\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"artifactHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"createdAt\":\"2026-10-22T00:00:00.000Z\"},{\"workspaceId\":\"58143a1e-c27a-479d-ba0e-bac4692dfbd8\",\"sourceId\":\"01a0a02e-a520-46e8-9c23-e473d11c4e07\",\"sourceRevisionId\":\"eaca5a45-0640-42ab-a9f3-f9d4a94af6dd\",\"version\":1,\"parentRevisionId\":null,\"label\":\"合成原文\",\"sourceStatus\":\"synthetic\",\"mediaType\":\"text/plain\",\"sourceText\":\"Synthetic second source\",\"acquiredAt\":\"2026-10-22T00:00:00.000Z\",\"sourceUri\":null,\"permissionNote\":\"合成 fixture，非真实政策\",\"validity\":{\"status\":\"confirmed\",\"validFrom\":null,\"validUntil\":null},\"artifactId\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"artifactHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"createdAt\":\"2026-10-22T00:00:00.000Z\"}],\"sourceStates\":[{\"sourceRevisionId\":\"fce6b9b4-e307-45f3-97c4-024e50ba397a\",\"lifecycleVersion\":1,\"state\":\"active\",\"changedAt\":\"2026-10-22T00:00:00.000Z\"},{\"sourceRevisionId\":\"eaca5a45-0640-42ab-a9f3-f9d4a94af6dd\",\"lifecycleVersion\":1,\"state\":\"active\",\"changedAt\":\"2026-10-22T00:00:00.000Z\"}],\"eligibility\":{\"eligible\":true,\"reasons\":[]},\"checkedAt\":\"2026-10-26T13:44:49.136Z\"}},\"warnings\":[],\"evidenceIds\":[\"fce6b9b4-e307-45f3-97c4-024e50ba397a\",\"eaca5a45-0640-42ab-a9f3-f9d4a94af6dd\"]},\"schemaIssues\":[]}\n\n ❯ .runtime/p1-source-probe.test.ts (2 tests | 2 failed) 99ms\n   × A public source eligibility: source_expired_history 68ms\n   × A public source eligibility: source_updated_new_reference 31ms\n\n Test Files  1 failed (1)\n      Tests  2 failed (2)\n   Start at  19:44:48\n   Duration  854ms (import 67%, transform 18%, tests 14%, worker 1%)\n\n",
+      "stderr": "\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  .runtime/p1-source-probe.test.ts > A public source eligibility: source_expired_history\nAssertionError: expected false to be true // Object.is equality\n\n- Expected\n+ Received\n\n- true\n+ false\n\n ❯ .runtime/p1-source-probe.test.ts:39:28\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯\n\n FAIL  .runtime/p1-source-probe.test.ts > A public source eligibility: source_updated_new_reference\nAssertionError: expected true to be false // Object.is equality\n\n- Expected\n+ Received\n\n- false\n+ true\n\n ❯ .runtime/p1-source-probe.test.ts:41:73\n     39|     expect(parsed.success).toBe(true);\n     40|     if (!parsed.success) return;\n     41|     if (kind === \"source_updated_new_reference\") expect(parsed.data.ok…\n       |                                                                         ^\n     42|     else expect(parsed.data).toMatchObject({ ok: true, data: { kind: \"…\n     43|   } finally {\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯\n\n",
+      "head": "e4649ca5e3f1cdb3a65c2baec6b44da3f82d8e5f",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710"
+      },
+      "workingSourceChanges": ""
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "passed": 0,
+    "failed": [
+      "B-P1-A01",
+      "B-P1-A02"
+    ],
+    "validControlsPassed": 2,
+    "harnessError": false
+  },
+  "cases": [
+    {
+      "id": "B-P1-A01",
+      "kind": "source_updated_new_reference",
+      "expected": "Latest source head v2 makes old v1 citation unavailable for new_reference; valid public failure result",
+      "observed": {
+        "kind": "source_updated_new_reference",
+        "controlValid": true,
+        "updatedSourcePin": {
+          "sourceRevisionId": "fac17415-8d4d-43ad-8ec4-08d629dabed4",
+          "version": 2
+        },
+        "publicSchemaValid": true,
+        "result": {
+          "ok": true,
+          "data": {
+            "kind": "citationResolution",
+            "resolution": {
+              "purpose": "new_reference",
+              "lifecycle": {
+                "revisionId": "42a721e8-eb9c-4257-aa3c-070e8341b569",
+                "lifecycleVersion": 3,
+                "state": "published",
+                "review": {
+                  "revisionId": "42a721e8-eb9c-4257-aa3c-070e8341b569",
+                  "contentHash": "76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5",
+                  "sourceSetHash": "0699a8da10d45ee093d3e7af09641fa850e5cb99589a87feaa727b0722a7aef3",
+                  "workspaceId": "58143a1e-c27a-479d-ba0e-bac4692dfbd8",
+                  "expectedLifecycleVersion": 1,
+                  "decision": "approve",
+                  "note": "合成审核通过",
+                  "lintReceiptId": "be88c57b-91cd-46c3-b6e6-2274f9a48b4d",
+                  "lintReceipt": {
+                    "revisionId": "42a721e8-eb9c-4257-aa3c-070e8341b569",
+                    "contentHash": "76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5",
+                    "sourceSetHash": "0699a8da10d45ee093d3e7af09641fa850e5cb99589a87feaa727b0722a7aef3",
+                    "receiptId": "be88c57b-91cd-46c3-b6e6-2274f9a48b4d",
+                    "workspaceId": "58143a1e-c27a-479d-ba0e-bac4692dfbd8",
+                    "checkedAt": "2026-10-22T00:00:00.000Z",
+                    "policyVersion": "synthetic-v1",
+                    "outcome": "passed"
+                  },
+                  "reviewId": "6a6eceeb-fcc6-4674-a622-ef1212125b97",
+                  "actorId": "host-human",
+                  "decidedAt": "2026-10-22T00:00:00.000Z"
+                },
+                "publication": {
+                  "revisionId": "42a721e8-eb9c-4257-aa3c-070e8341b569",
+                  "contentHash": "76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5",
+                  "sourceSetHash": "0699a8da10d45ee093d3e7af09641fa850e5cb99589a87feaa727b0722a7aef3",
+                  "eventId": "aae96fe9-73fd-4dad-93d9-2c82c563cbb4",
+                  "lifecycleVersion": 3,
+                  "type": "published",
+                  "reviewId": "6a6eceeb-fcc6-4674-a622-ef1212125b97",
+                  "actorId": "host-human",
+                  "occurredAt": "2026-10-22T00:00:00.000Z",
+                  "note": "合成发布"
+                }
+              },
+              "currentPublicationRevisionId": "42a721e8-eb9c-4257-aa3c-070e8341b569",
+              "citation": {
+                "revisionId": "42a721e8-eb9c-4257-aa3c-070e8341b569",
+                "contentHash": "76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5",
+                "sourceSetHash": "0699a8da10d45ee093d3e7af09641fa850e5cb99589a87feaa727b0722a7aef3",
+                "documentId": "e19e3f60-0b7a-4706-9c14-041475ac9da2",
+                "version": 1,
+                "sectionId": "0c714ead-52f7-4619-bfdd-6c5e8140192c",
+                "sourceRefs": [
+                  {
+                    "referenceId": "5580c48e-0658-4b6a-b549-fe100df8f826",
+                    "sourceId": "9dcadb70-c3f8-439e-962e-419f4a744c71",
+                    "sourceRevisionId": "fce6b9b4-e307-45f3-97c4-024e50ba397a",
+                    "sourceVersion": 1,
+                    "artifactHash": "6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f",
+                    "location": {
+                      "kind": "text",
+                      "start": 0,
+                      "end": 11
+                    },
+                    "excerptHash": "6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f",
+                    "assertion": "fact"
+                  },
+                  {
+                    "referenceId": "0a4f569d-db1f-4f30-bac8-a913ac388456",
+                    "sourceId": "01a0a02e-a520-46e8-9c23-e473d11c4e07",
+                    "sourceRevisionId": "eaca5a45-0640-42ab-a9f3-f9d4a94af6dd",
+                    "sourceVersion": 1,
+                    "artifactHash": "877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355",
+                    "location": {
+                      "kind": "text",
+                      "start": 0,
+                      "end": 23
+                    },
+                    "excerptHash": "877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355",
+                    "assertion": "fact"
+                  }
+                ]
+              },
+              "revision": {
+                "workspaceId": "58143a1e-c27a-479d-ba0e-bac4692dfbd8",
+                "revisionId": "42a721e8-eb9c-4257-aa3c-070e8341b569",
+                "documentId": "e19e3f60-0b7a-4706-9c14-041475ac9da2",
+                "version": 1,
+                "parentRevisionId": null,
+                "content": {
+                  "kind": "rule",
+                  "title": "合成 SOP",
+                  "locale": "en",
+                  "scope": {
+                    "platforms": [],
+                    "markets": [],
+                    "categories": []
+                  },
+                  "markdown": "# 合成 SOP\nInspect both sources.\n",
+                  "validity": {
+                    "status": "confirmed",
+                    "validFrom": null,
+                    "validUntil": null
+                  },
+                  "sections": [
+                    {
+                      "sectionId": "0c714ead-52f7-4619-bfdd-6c5e8140192c",
+                      "title": "核对",
+                      "location": {
+                        "kind": "text",
+                        "start": 0,
+                        "end": 31
+                      },
+                      "sourceReferenceIds": [
+                        "5580c48e-0658-4b6a-b549-fe100df8f826",
+                        "0a4f569d-db1f-4f30-bac8-a913ac388456"
+                      ]
+                    }
+                  ],
+                  "sourceRefs": [
+                    {
+                      "referenceId": "5580c48e-0658-4b6a-b549-fe100df8f826",
+                      "sourceId": "9dcadb70-c3f8-439e-962e-419f4a744c71",
+                      "sourceRevisionId": "fce6b9b4-e307-45f3-97c4-024e50ba397a",
+                      "sourceVersion": 1,
+                      "artifactHash": "6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f",
+                      "location": {
+                        "kind": "text",
+                        "start": 0,
+                        "end": 11
+                      },
+                      "excerptHash": "6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f",
+                      "assertion": "fact"
+                    },
+                    {
+                      "referenceId": "0a4f569d-db1f-4f30-bac8-a913ac388456",
+                      "sourceId": "01a0a02e-a520-46e8-9c23-e473d11c4e07",
+                      "sourceRevisionId": "eaca5a45-0640-42ab-a9f3-f9d4a94af6dd",
+                      "sourceVersion": 1,
+                      "artifactHash": "877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355",
+                      "location": {
+                        "kind": "text",
+                        "start": 0,
+                        "end": 23
+                      },
+                      "excerptHash": "877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355",
+                      "assertion": "fact"
+                    }
+                  ],
+                  "relations": [],
+                  "rules": [
+                    {
+                      "sectionId": "0c714ead-52f7-4619-bfdd-6c5e8140192c",
+                      "definition": {
+                        "ruleId": "42fbc1f8-b5db-41e8-828b-9343e5b60827",
+                        "category": "commercial_terms",
+                        "title": "synthetic",
+                        "message": "synthetic",
+                        "suggestedAction": "human review",
+                        "field": "payment",
+                        "condition": {
+                          "kind": "required"
+                        },
+                        "failureSeverity": "block"
+                      }
+                    }
+                  ]
+                },
+                "artifactId": "76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5",
+                "contentHash": "76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5",
+                "sourceSetHash": "0699a8da10d45ee093d3e7af09641fa850e5cb99589a87feaa727b0722a7aef3",
+                "createdAt": "2026-10-22T00:00:00.000Z"
+              },
+              "sources": [
+                {
+                  "workspaceId": "58143a1e-c27a-479d-ba0e-bac4692dfbd8",
+                  "sourceId": "9dcadb70-c3f8-439e-962e-419f4a744c71",
+                  "sourceRevisionId": "fce6b9b4-e307-45f3-97c4-024e50ba397a",
+                  "version": 1,
+                  "parentRevisionId": null,
+                  "label": "合成原文",
+                  "sourceStatus": "synthetic",
+                  "mediaType": "text/plain",
+                  "sourceText": "  合成 😀来源A\n",
+                  "acquiredAt": "2026-10-22T00:00:00.000Z",
+                  "sourceUri": null,
+                  "permissionNote": "合成 fixture，非真实政策",
+                  "validity": {
+                    "status": "confirmed",
+                    "validFrom": null,
+                    "validUntil": null
+                  },
+                  "artifactId": "6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f",
+                  "artifactHash": "6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f",
+                  "createdAt": "2026-10-22T00:00:00.000Z"
+                },
+                {
+                  "workspaceId": "58143a1e-c27a-479d-ba0e-bac4692dfbd8",
+                  "sourceId": "01a0a02e-a520-46e8-9c23-e473d11c4e07",
+                  "sourceRevisionId": "eaca5a45-0640-42ab-a9f3-f9d4a94af6dd",
+                  "version": 1,
+                  "parentRevisionId": null,
+                  "label": "合成原文",
+                  "sourceStatus": "synthetic",
+                  "mediaType": "text/plain",
+                  "sourceText": "Synthetic second source",
+                  "acquiredAt": "2026-10-22T00:00:00.000Z",
+                  "sourceUri": null,
+                  "permissionNote": "合成 fixture，非真实政策",
+                  "validity": {
+                    "status": "confirmed",
+                    "validFrom": null,
+                    "validUntil": null
+                  },
+                  "artifactId": "877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355",
+                  "artifactHash": "877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355",
+                  "createdAt": "2026-10-22T00:00:00.000Z"
+                }
+              ],
+              "sourceStates": [
+                {
+                  "sourceRevisionId": "fce6b9b4-e307-45f3-97c4-024e50ba397a",
+                  "lifecycleVersion": 1,
+                  "state": "active",
+                  "changedAt": "2026-10-22T00:00:00.000Z"
+                },
+                {
+                  "sourceRevisionId": "eaca5a45-0640-42ab-a9f3-f9d4a94af6dd",
+                  "lifecycleVersion": 1,
+                  "state": "active",
+                  "changedAt": "2026-10-22T00:00:00.000Z"
+                }
+              ],
+              "eligibility": {
+                "eligible": true,
+                "reasons": []
+              },
+              "checkedAt": "2026-10-26T13:44:49.136Z"
+            }
+          },
+          "warnings": [],
+          "evidenceIds": [
+            "fce6b9b4-e307-45f3-97c4-024e50ba397a",
+            "eaca5a45-0640-42ab-a9f3-f9d4a94af6dd"
+          ]
+        },
+        "schemaIssues": []
+      }
+    },
+    {
+      "id": "B-P1-A02",
+      "kind": "source_expired_history",
+      "expected": "history retains pinned old source/revision while reporting eligibility=false; result must satisfy public schema",
+      "observed": {
+        "kind": "source_expired_history",
+        "controlValid": true,
+        "updatedSourcePin": null,
+        "publicSchemaValid": false,
+        "result": {
+          "ok": true,
+          "data": {
+            "kind": "citationResolution",
+            "resolution": {
+              "purpose": "history",
+              "lifecycle": {
+                "revisionId": "4ce5a888-4e88-432f-a50b-7b36f3da24dd",
+                "lifecycleVersion": 3,
+                "state": "published",
+                "review": {
+                  "revisionId": "4ce5a888-4e88-432f-a50b-7b36f3da24dd",
+                  "contentHash": "76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5",
+                  "sourceSetHash": "2b967bf7d7480dc840e35fe74d208120a86fafaeab347939ae91b41e77d1ebf8",
+                  "workspaceId": "4d4b66f7-d491-48d2-92bb-38133b12226e",
+                  "expectedLifecycleVersion": 1,
+                  "decision": "approve",
+                  "note": "合成审核通过",
+                  "lintReceiptId": "d36a2749-41be-4bde-81e1-e35f5928e363",
+                  "lintReceipt": {
+                    "revisionId": "4ce5a888-4e88-432f-a50b-7b36f3da24dd",
+                    "contentHash": "76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5",
+                    "sourceSetHash": "2b967bf7d7480dc840e35fe74d208120a86fafaeab347939ae91b41e77d1ebf8",
+                    "receiptId": "d36a2749-41be-4bde-81e1-e35f5928e363",
+                    "workspaceId": "4d4b66f7-d491-48d2-92bb-38133b12226e",
+                    "checkedAt": "2026-10-22T00:00:00.000Z",
+                    "policyVersion": "synthetic-v1",
+                    "outcome": "passed"
+                  },
+                  "reviewId": "faaa55bc-08dc-4617-9f9d-9f0e4c64bd12",
+                  "actorId": "host-human",
+                  "decidedAt": "2026-10-22T00:00:00.000Z"
+                },
+                "publication": {
+                  "revisionId": "4ce5a888-4e88-432f-a50b-7b36f3da24dd",
+                  "contentHash": "76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5",
+                  "sourceSetHash": "2b967bf7d7480dc840e35fe74d208120a86fafaeab347939ae91b41e77d1ebf8",
+                  "eventId": "e6f464c7-d6fd-48bd-bf9c-03b8ace5dd05",
+                  "lifecycleVersion": 3,
+                  "type": "published",
+                  "reviewId": "faaa55bc-08dc-4617-9f9d-9f0e4c64bd12",
+                  "actorId": "host-human",
+                  "occurredAt": "2026-10-22T00:00:00.000Z",
+                  "note": "合成发布"
+                }
+              },
+              "currentPublicationRevisionId": "4ce5a888-4e88-432f-a50b-7b36f3da24dd",
+              "citation": {
+                "revisionId": "4ce5a888-4e88-432f-a50b-7b36f3da24dd",
+                "contentHash": "76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5",
+                "sourceSetHash": "2b967bf7d7480dc840e35fe74d208120a86fafaeab347939ae91b41e77d1ebf8",
+                "documentId": "c944d850-3a31-48b0-93b2-e70348c5dac2",
+                "version": 1,
+                "sectionId": "7b5e63fe-b033-4784-bc84-9a05165f54a4",
+                "sourceRefs": [
+                  {
+                    "referenceId": "8f9b8f9c-f15b-4cf0-b05b-be3cef215631",
+                    "sourceId": "763537c4-4a68-4b9f-9941-c319c23619a4",
+                    "sourceRevisionId": "f5f32a4b-926a-4db5-a3e2-606d3a005061",
+                    "sourceVersion": 1,
+                    "artifactHash": "6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f",
+                    "location": {
+                      "kind": "text",
+                      "start": 0,
+                      "end": 11
+                    },
+                    "excerptHash": "6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f",
+                    "assertion": "fact"
+                  },
+                  {
+                    "referenceId": "6ef9bf7f-da8e-45b9-98ae-15980299d4c7",
+                    "sourceId": "7d852979-bf87-460f-859d-945f606942d4",
+                    "sourceRevisionId": "868d23df-b2e3-45d4-ab78-19b1087c8ca3",
+                    "sourceVersion": 1,
+                    "artifactHash": "877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355",
+                    "location": {
+                      "kind": "text",
+                      "start": 0,
+                      "end": 23
+                    },
+                    "excerptHash": "877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355",
+                    "assertion": "fact"
+                  }
+                ]
+              },
+              "revision": {
+                "workspaceId": "4d4b66f7-d491-48d2-92bb-38133b12226e",
+                "revisionId": "4ce5a888-4e88-432f-a50b-7b36f3da24dd",
+                "documentId": "c944d850-3a31-48b0-93b2-e70348c5dac2",
+                "version": 1,
+                "parentRevisionId": null,
+                "content": {
+                  "kind": "rule",
+                  "title": "合成 SOP",
+                  "locale": "en",
+                  "scope": {
+                    "platforms": [],
+                    "markets": [],
+                    "categories": []
+                  },
+                  "markdown": "# 合成 SOP\nInspect both sources.\n",
+                  "validity": {
+                    "status": "confirmed",
+                    "validFrom": null,
+                    "validUntil": null
+                  },
+                  "sections": [
+                    {
+                      "sectionId": "7b5e63fe-b033-4784-bc84-9a05165f54a4",
+                      "title": "核对",
+                      "location": {
+                        "kind": "text",
+                        "start": 0,
+                        "end": 31
+                      },
+                      "sourceReferenceIds": [
+                        "8f9b8f9c-f15b-4cf0-b05b-be3cef215631",
+                        "6ef9bf7f-da8e-45b9-98ae-15980299d4c7"
+                      ]
+                    }
+                  ],
+                  "sourceRefs": [
+                    {
+                      "referenceId": "8f9b8f9c-f15b-4cf0-b05b-be3cef215631",
+                      "sourceId": "763537c4-4a68-4b9f-9941-c319c23619a4",
+                      "sourceRevisionId": "f5f32a4b-926a-4db5-a3e2-606d3a005061",
+                      "sourceVersion": 1,
+                      "artifactHash": "6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f",
+                      "location": {
+                        "kind": "text",
+                        "start": 0,
+                        "end": 11
+                      },
+                      "excerptHash": "6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f",
+                      "assertion": "fact"
+                    },
+                    {
+                      "referenceId": "6ef9bf7f-da8e-45b9-98ae-15980299d4c7",
+                      "sourceId": "7d852979-bf87-460f-859d-945f606942d4",
+                      "sourceRevisionId": "868d23df-b2e3-45d4-ab78-19b1087c8ca3",
+                      "sourceVersion": 1,
+                      "artifactHash": "877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355",
+                      "location": {
+                        "kind": "text",
+                        "start": 0,
+                        "end": 23
+                      },
+                      "excerptHash": "877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355",
+                      "assertion": "fact"
+                    }
+                  ],
+                  "relations": [],
+                  "rules": [
+                    {
+                      "sectionId": "7b5e63fe-b033-4784-bc84-9a05165f54a4",
+                      "definition": {
+                        "ruleId": "7c66801f-f4a4-449a-8a9b-dd41abdfcf78",
+                        "category": "commercial_terms",
+                        "title": "synthetic",
+                        "message": "synthetic",
+                        "suggestedAction": "human review",
+                        "field": "payment",
+                        "condition": {
+                          "kind": "required"
+                        },
+                        "failureSeverity": "block"
+                      }
+                    }
+                  ]
+                },
+                "artifactId": "76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5",
+                "contentHash": "76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5",
+                "sourceSetHash": "2b967bf7d7480dc840e35fe74d208120a86fafaeab347939ae91b41e77d1ebf8",
+                "createdAt": "2026-10-22T00:00:00.000Z"
+              },
+              "sources": [
+                {
+                  "workspaceId": "4d4b66f7-d491-48d2-92bb-38133b12226e",
+                  "sourceId": "763537c4-4a68-4b9f-9941-c319c23619a4",
+                  "sourceRevisionId": "f5f32a4b-926a-4db5-a3e2-606d3a005061",
+                  "version": 1,
+                  "parentRevisionId": null,
+                  "label": "合成原文",
+                  "sourceStatus": "synthetic",
+                  "mediaType": "text/plain",
+                  "sourceText": "  合成 😀来源A\n",
+                  "acquiredAt": "2026-10-22T00:00:00.000Z",
+                  "sourceUri": null,
+                  "permissionNote": "合成 fixture，非真实政策",
+                  "validity": {
+                    "status": "confirmed",
+                    "validFrom": null,
+                    "validUntil": "2026-10-26T13:44:49.086Z"
+                  },
+                  "artifactId": "6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f",
+                  "artifactHash": "6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f",
+                  "createdAt": "2026-10-22T00:00:00.000Z"
+                },
+                {
+                  "workspaceId": "4d4b66f7-d491-48d2-92bb-38133b12226e",
+                  "sourceId": "7d852979-bf87-460f-859d-945f606942d4",
+                  "sourceRevisionId": "868d23df-b2e3-45d4-ab78-19b1087c8ca3",
+                  "version": 1,
+                  "parentRevisionId": null,
+                  "label": "合成原文",
+                  "sourceStatus": "synthetic",
+                  "mediaType": "text/plain",
+                  "sourceText": "Synthetic second source",
+                  "acquiredAt": "2026-10-22T00:00:00.000Z",
+                  "sourceUri": null,
+                  "permissionNote": "合成 fixture，非真实政策",
+                  "validity": {
+                    "status": "confirmed",
+                    "validFrom": null,
+                    "validUntil": "2026-10-26T13:44:49.086Z"
+                  },
+                  "artifactId": "877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355",
+                  "artifactHash": "877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355",
+                  "createdAt": "2026-10-22T00:00:00.000Z"
+                }
+              ],
+              "sourceStates": [
+                {
+                  "sourceRevisionId": "f5f32a4b-926a-4db5-a3e2-606d3a005061",
+                  "lifecycleVersion": 1,
+                  "state": "active",
+                  "changedAt": "2026-10-22T00:00:00.000Z"
+                },
+                {
+                  "sourceRevisionId": "868d23df-b2e3-45d4-ab78-19b1087c8ca3",
+                  "lifecycleVersion": 1,
+                  "state": "active",
+                  "changedAt": "2026-10-22T00:00:00.000Z"
+                }
+              ],
+              "eligibility": {
+                "eligible": true,
+                "reasons": []
+              },
+              "checkedAt": "2026-10-26T13:44:49.086Z"
+            }
+          },
+          "warnings": [],
+          "evidenceIds": [
+            "f5f32a4b-926a-4db5-a3e2-606d3a005061",
+            "868d23df-b2e3-45d4-ab78-19b1087c8ca3"
+          ]
+        },
+        "schemaIssues": [
+          "候选/撤回/失效知识或来源不可新引"
+        ]
+      }
+    }
+  ],
+  "scriptUtf8": "import { randomUUID } from \"node:crypto\";\nimport { mkdtempSync, rmSync } from \"node:fs\";\nimport { tmpdir } from \"node:os\";\nimport { join } from \"node:path\";\nimport { WikiResultSchema } from \"../packages/contracts/src/index\";\nimport { expect, it } from \"vitest\";\nimport { SqliteWorkspaceRepository } from \"../packages/infrastructure/src/index\";\nimport { createSyntheticQuote, seedPublished } from \"../packages/infrastructure/src/wiki-test.fixture\";\n\nit.each([\"source_expired_history\", \"source_updated_new_reference\"] as const)(\"A public source eligibility: %s\", async (kind) => {\n  const dir = mkdtempSync(join(tmpdir(), \"tq-p1-eligibility-\"));\n  const file = join(dir, \"synthetic.sqlite\");\n  const repo = new SqliteWorkspaceRepository(file);\n  try {\n    const actor = { actorId: \"synthetic-review\", origin: \"human_ui\" as const };\n    repo.commit({ schemaVersion: 1, requestId: randomUUID(), idempotencyKey: randomUUID(), method: \"workspace.create\", payload: { name: \"synthetic P1 probe\" } }, actor);\n    const quote = createSyntheticQuote(repo);\n    const start = Date.parse(quote.createdAt);\n    const expiresAt = new Date(start + 7200000).toISOString();\n    const beforeExpiry = new Date(start + 3600000).toISOString();\n    const seed = await seedPublished(file, repo, quote.workspaceId, {\n      locale: \"en\", kind: \"rule\", rules: [{ ruleId: randomUUID(), category: \"commercial_terms\", field: \"payment\", condition: { kind: \"required\" }, title: \"synthetic\", message: \"synthetic\", failureSeverity: \"block\", suggestedAction: \"human review\" }],\n      ...(kind === \"source_expired_history\" ? { sourceValidity: { status: \"confirmed\" as const, validFrom: null, validUntil: expiresAt } } : {}),\n    });\n    const host = (now: string) => ({ ...actor, workspaceId: quote.workspaceId, now });\n    const resolve = (purpose: \"history\" | \"new_reference\", now: string) => repo.executeWiki({ schemaVersion: 1, requestId: randomUUID(), method: \"wiki.resolveCitation\", payload: { citation: seed.citation, purpose, scope: { platform: quote.scenario.platform, market: quote.scenario.market, category: quote.scenario.category }, locale: \"en\" } }, host(now));\n    const control = WikiResultSchema.parse(await resolve(\"new_reference\", beforeExpiry));\n    expect(control).toMatchObject({ ok: true, data: { kind: \"citationResolution\", resolution: { eligibility: { eligible: true } } } });\n    let updatedSourcePin: { sourceRevisionId: string; version: number } | null = null;\n    if (kind === \"source_updated_new_reference\") {\n      const old = seed.sources[0]!;\n      const staged = WikiResultSchema.parse(await repo.executeWiki({ schemaVersion: 1, requestId: randomUUID(), idempotencyKey: randomUUID(), method: \"source.stage\", payload: { sourceId: old.sourceId, expectedVersion: old.version, label: old.label, sourceStatus: old.sourceStatus, mediaType: old.mediaType, sourceText: \"synthetic updated source\", acquiredAt: old.acquiredAt, sourceUri: null, permissionNote: old.permissionNote, validity: old.validity } }, host(beforeExpiry)));\n      expect(staged).toMatchObject({ ok: true, data: { kind: \"sourceRevision\", revision: { version: 2 } } });\n      if (staged.ok && staged.data.kind === \"sourceRevision\") updatedSourcePin = { sourceRevisionId: staged.data.revision.sourceRevisionId, version: staged.data.revision.version };\n    }\n    const raw = await resolve(kind === \"source_expired_history\" ? \"history\" : \"new_reference\", expiresAt);\n    const parsed = WikiResultSchema.safeParse(raw);\n    console.log(\"P1_ELIGIBILITY_OBSERVATION \" + JSON.stringify({ kind, controlValid: true, updatedSourcePin, publicSchemaValid: parsed.success, result: raw, schemaIssues: parsed.success ? [] : parsed.error.issues.map(i => i.message) }));\n    expect(parsed.success).toBe(true);\n    if (!parsed.success) return;\n    if (kind === \"source_updated_new_reference\") expect(parsed.data.ok).toBe(false);\n    else expect(parsed.data).toMatchObject({ ok: true, data: { kind: \"citationResolution\", resolution: { eligibility: { eligible: false } } } });\n  } finally {\n    repo.close(); rmSync(dir, { recursive: true, force: true });\n  }\n});\n",
+  "scriptSha256": "af1f40157095bc79031aa1de565afa45c879e7fa277259310ca67bc321b15203",
+  "configUtf8": "import { defineConfig } from \"vitest/config\";\nexport default defineConfig({\n  test: { include: [\".runtime/p1-source-probe.test.ts\"], environment: \"node\" },\n});\n",
+  "configSha256": "9710ffb3c4ac04686d131dce8617bacaacb13277003b8985959e390603fba22d",
+  "originalHarnessFailurePreservedInMainValidation": true,
+  "overallJointAcceptance": false
 }
