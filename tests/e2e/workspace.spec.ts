@@ -132,7 +132,6 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
     });
     const pendingCapabilities = await page.evaluate(async () => {
       const read = { schemaVersion: 1 as const, requestId: crypto.randomUUID() };
-      const write = { ...read, idempotencyKey: crypto.randomUUID() };
       return Promise.all([
         window.tradequote.queryKnowledge({
           ...read,
@@ -142,11 +141,6 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
             at: "2026-10-21T00:00:00.000Z",
           },
         }),
-        window.tradequote.checkQuote({
-          ...write,
-          method: "quote.check",
-          payload: { revisionId: crypto.randomUUID() },
-        }),
       ]);
     });
     for (const result of pendingCapabilities)
@@ -154,6 +148,19 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
         ok: false,
         error: { code: "CAPABILITY_UNAVAILABLE", retryable: false },
       });
+    const missingCheck = await page.evaluate(() =>
+      window.tradequote.checkQuote({
+        schemaVersion: 1,
+        requestId: crypto.randomUUID(),
+        idempotencyKey: crypto.randomUUID(),
+        method: "quote.check",
+        payload: { revisionId: crypto.randomUUID() },
+      }),
+    );
+    expect(missingCheck).toMatchObject({
+      ok: false,
+      error: { code: "NOT_FOUND", retryable: false },
+    });
     const wikiResults = await page.evaluate(
       async (commands) =>
         Promise.all(commands.map((command) => window.tradequote.executeWiki(command))),

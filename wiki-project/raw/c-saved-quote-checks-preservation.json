@@ -1,0 +1,17 @@
+{
+  "baseline": "c6f6788d3e75f3ac9de02d95306222fb5509ca71",
+  "oldRawFilesUnchanged": 303,
+  "oldLogPrefixBytesUnchanged": 203782,
+  "protectedSourcesUnchanged": {
+    "packages/infrastructure/src/migrations.ts": "b469d9a09072510994b5d8eccab5d5ec6ec13ec79ffcf8980c92dae0d47734c0",
+    "packages/infrastructure/src/migration-lineage.ts": "de13ea2bdb1ccf26471663c162b6613eb116c2090ec41d16b9d05d3926f1aec8",
+    "packages/infrastructure/src/check-store.ts": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+    "packages/infrastructure/src/wiki-check-source.ts": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+    "packages/infrastructure/src/wiki-store.ts": "b772db86f14535fb0d730724a298f5569fbe6a5efbfe5fdc1e67013675e8abd0",
+    "packages/contracts/src/checks.ts": "efce7cb19f9c52bcd16c70da2b6431ed21f2fe9c1113ef9bd912ca74e9d3e5ff",
+    "packages/contracts/src/knowledge-wiki.ts": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
+    "packages/contracts/src/pending-client.ts": "fd807ea3c592125298b49928a9d28766030f00b7fbdfa950a97c69d818ebab20",
+    "packages/contracts/src/mock.ts": "697963d7744b4fb6c8e43f7ae6b37d929888fa50c401c41293417a721f3fc5ce"
+  },
+  "review": "Author code/semantic review only. A/B non-author review and actual human business acceptance remain pending."
+}

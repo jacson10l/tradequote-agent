@@ -264,3 +264,8 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 ## C旧业务库与Worker门禁覆盖
 
 本轮新增worker-migration-gates.test.ts及worker-gates-host.ts，分别纳管领域有效旧库/实际Worker验证与隔离Electron测试宿主；映射到[[C领域旧库回放与Worker启动门禁]]。worker-ownership.ts保留原C02c职责页并增加本轮缺陷与真实验证来源。仅增加覆盖配置、不改维护算法；仍运行维护回归、生成/只读check/lint及cb90e9f真实基线sync，任务[[C集成-领域旧库与Worker启动恢复门禁]]保留初始失败与未完成人员项。
+
+
+## 2026-10-26 已保存报价检查接线
+
+新增tests/e2e/quote-checks.spec.ts、tests/fixtures/quote-checks-data.ts逐文件覆盖至[[C已保存报价检查桌面切片]]。前者是实际Electron人工检查/原子保存/双反馈/重开；后者只在关闭桌面后准备明确合成发布/撤回投影及只读核对，不进入生产IPC。现有C接线/契约/组件源码增加本轮知识页职责，相关M1/B页、任务与状态/log同步，维护算法不变；覆盖变动运行Wiki回归及本次c6f6788基线sync。

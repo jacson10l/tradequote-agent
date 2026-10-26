@@ -143,3 +143,8 @@ B在独立codex/b01-lineage-p1-adaptation整合A b9a0af7的九能力/统一8与P
 组合保留B的quoteCheckService/evaluateWikiQuote/CheckStore及executeChecks；C quote-draft-plan经同一公共quoteCheckService做预保存检查，仍不能把预览授权或临时ID当已保存版本报告。该纯检查接口要求宿主每份文档提供唯一版本，重复历史版本显式拒绝，不由检查器回退选旧。C原五项纯检查回归保存在新增quote-checks-runtime-compat.test.ts，scope/时间测试调整为宿主已选唯一版本，并明确断言重复同文档输入拒绝；其他原覆盖保留。新九文件结果与原作者121分别归档。
 
 详见[[B新固定组合与回归范围]]、[[B01-新固定组合回归]]及raw/b-a910-c03-combination-validation.json。
+
+
+## 2026-10-26 已保存报价检查接线
+
+C在c6f6788后续独立切片正式接通quote.check/getChecks，沿用现有CheckStore/SqliteWikiCheckSource事务与完整引用协议。QuoteChecks从只读增加人工检查与同组件同键重试、成功选中返回报告；保留同报告的标记/批注、历史与版本隔离，并补报告级全部引用展开（含通过规则）。新实际Electron验证消费写失败全回滚、V1/V2重开与来源撤回边界；A发布投影仍是明确合成fixture，不把真实review/publish/withdraw写成可用。详见[[C已保存报价检查桌面切片]]、[[C集成-已保存报价检查与双反馈]]。上文未开放IPC的描述保留原切片时点。

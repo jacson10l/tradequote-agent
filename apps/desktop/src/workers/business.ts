@@ -1,6 +1,7 @@
 import {
   AgentCommandSchema,
   AgentReadCommandSchema,
+  CheckCommandSchema,
   RunCommandSchema,
   RunEventsCommandSchema,
   RunEventsWatchSchema,
@@ -56,6 +57,15 @@ process.parentPort.on("message", async (event: { data: unknown }) => {
   const parsed = WorkerRequestSchema.safeParse(event.data);
   if (!parsed.success) return;
   const { id, command } = parsed.data;
+  const check = CheckCommandSchema.safeParse(command);
+  if (check.success) {
+    const result = repository.executeChecks(check.data, {
+      actorId: "local-user",
+      origin: "human_ui",
+    });
+    process.parentPort?.postMessage({ id, result });
+    return;
+  }
   const events = RunEventsCommandSchema.safeParse(command);
   if (events.success) {
     process.parentPort?.postMessage({ id, result: agent.events(events.data) });

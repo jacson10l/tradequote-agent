@@ -502,7 +502,8 @@
         "wiki/M1工程基线.md",
         "wiki/C02c统一运行与写账本.md",
         "wiki/C04正式设置评估入口.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     "apps/desktop/src/main/worker-client.ts": {
@@ -520,7 +521,8 @@
         "wiki/M1工程基线.md",
         "wiki/C02c统一运行与写账本.md",
         "wiki/C04正式设置评估入口.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     "apps/desktop/src/renderer/index.html": {
@@ -588,7 +590,8 @@
       "pages": [
         "wiki/M1工程基线.md",
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     "biome.json": {
@@ -613,7 +616,8 @@
     "packages/contracts/src/contracts.test.ts": {
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     "packages/contracts/src/index.ts": {
@@ -624,7 +628,8 @@
         "wiki/B00a知识整理与维护协议.md",
         "wiki/C02c统一运行与写账本.md",
         "wiki/C04正式设置评估入口.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     "packages/contracts/src/mock.ts": {
@@ -761,7 +766,8 @@
         "wiki/B00a知识整理与维护协议.md",
         "wiki/C02c统一运行与写账本.md",
         "wiki/C04正式设置评估入口.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     "tsconfig.json": {
@@ -1102,7 +1108,8 @@
         "wiki/B00a知识整理与维护协议.md",
         "wiki/C02c统一运行与写账本.md",
         "wiki/C04正式设置评估入口.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     "packages/domain/src/agent-run.ts": {
@@ -1217,13 +1224,15 @@
     "apps/desktop/src/renderer/src/features/quote-checks.tsx": {
       "role": "B01 read-only report UI, shared risks and field annotations, version isolation",
       "pages": [
-        "wiki/B规则检查实现.md"
+        "wiki/B规则检查实现.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     "apps/desktop/src/renderer/src/features/quote-checks.test.tsx": {
       "role": "B01 component and saved-quote mounting behavior regression",
       "pages": [
-        "wiki/B规则检查实现.md"
+        "wiki/B规则检查实现.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     "apps/desktop/src/renderer/src/features/quote-checks.fixture.ts": {
@@ -1811,6 +1820,18 @@
       "role": "仅测试的隔离Electron宿主，调用生产UtilityProcess与Main业务客户端验证启动恢复门禁",
       "pages": [
         "wiki/C领域旧库回放与Worker启动门禁.md"
+      ]
+    },
+    "tests/e2e/quote-checks.spec.ts": {
+      "role": "C实际Electron保存报价/人工检查/完整来源消费/双反馈/重开和原子失败验证",
+      "pages": [
+        "wiki/C已保存报价检查桌面切片.md"
+      ]
+    },
+    "tests/fixtures/quote-checks-data.ts": {
+      "role": "仅测试离线合成已发布知识投影、故障注入和只读业务数据库检查",
+      "pages": [
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     }
   }

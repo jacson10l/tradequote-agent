@@ -1,12 +1,15 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   type CheckClient,
   type CheckIssue,
   CheckListResultSchema,
+  type CheckReport,
+  CheckResultSchema,
   type QuoteSnapshot,
 } from "@tradequote/contracts";
-import { useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { Button } from "../shared/button";
+import { useMessage } from "../shared/message";
 
 type Field = CheckIssue["fieldPath"];
 const fields: Field[] = ["payment", "delivery", "scenario.platform"];
@@ -22,26 +25,85 @@ const severityStyles = {
   pending: "text-[var(--text-secondary)]",
 };
 
-/** Reads reports only. Rule execution, persistence and source revalidation belong to the host. */
-export function QuoteChecks({
-  quote,
-  client,
-}: {
-  quote: QuoteSnapshot;
-  client: Pick<CheckClient, "getQuoteChecks">;
-}) {
+const checkQueryKey = (quote: QuoteSnapshot) =>
+  ["quote-checks", quote.workspaceId, quote.rootId ?? quote.id, quote.id, quote.version] as const;
+const matchesQuote = (report: CheckReport, quote: QuoteSnapshot) =>
+  report.revisionId === quote.id &&
+  report.quoteId === (quote.rootId ?? quote.id) &&
+  report.quoteVersion === quote.version;
+
+/** Only the human button writes; rule evaluation and the complete transaction live in the Worker. */
+export function QuoteChecks({ quote, client }: { quote: QuoteSnapshot; client: CheckClient }) {
   const prefix = useId();
   const fieldRefs = useRef<Partial<Record<Field, HTMLElement | null>>>({});
   const [activeIssue, setActiveIssue] = useState<string | null>(null);
   const [selectedReport, setSelectedReport] = useState<string | null>(null);
+  const queries = useQueryClient();
+  const message = useMessage();
+  const operations = useRef(new Map<string, string>());
+  const queryKey = checkQueryKey(quote);
+  const identity = JSON.stringify(queryKey);
+  const currentIdentity = useRef(identity);
+  const mounted = useRef(false);
+  useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
+  currentIdentity.current = identity;
+  const mutation = useMutation({
+    retry: false,
+    mutationFn: async ({
+      target,
+      operationKey,
+    }: {
+      target: QuoteSnapshot;
+      operationKey: string;
+    }) => {
+      let response: unknown;
+      try {
+        response = await client.checkQuote({
+          schemaVersion: 1,
+          requestId: crypto.randomUUID(),
+          idempotencyKey: operationKey,
+          method: "quote.check",
+          payload: { revisionId: target.id },
+        });
+      } catch {
+        throw new Error("检查连接中断，保存结果未知；请重试本次检查或重新读取报告。");
+      }
+      const parsed = CheckResultSchema.safeParse(response);
+      if (!parsed.success) throw new Error("检查结果无法校验，保存结果未知；请重试本次检查。");
+      if (!parsed.data.ok) throw new Error(parsed.data.error.message);
+      if (!matchesQuote(parsed.data.data, target))
+        throw new Error("检查报告与当前报价版本不一致；请重试本次检查。");
+      return parsed.data.data;
+    },
+    onSuccess: async (report, { target }) => {
+      const key = checkQueryKey(target);
+      const completedIdentity = JSON.stringify(key);
+      operations.current.delete(completedIdentity);
+      queries.setQueryData<CheckReport[]>(key, (prior) => [
+        ...(prior ?? []).filter((r) => r.reportId !== report.reportId),
+        report,
+      ]);
+      if (mounted.current && currentIdentity.current === completedIdentity) {
+        setSelectedReport(report.reportId);
+        setActiveIssue(null);
+        message.success(`V${target.version} 检查报告已保存；报价仍为未审核草稿`);
+      }
+      await queries.invalidateQueries({ queryKey: key, exact: true });
+    },
+    onError: (error, { target }) => {
+      if (mounted.current && currentIdentity.current === JSON.stringify(checkQueryKey(target)))
+        message.error(error.message);
+    },
+  });
+  const checking = mutation.isPending;
+  const pendingKey = operations.current.get(identity);
   const query = useQuery({
-    queryKey: [
-      "quote-checks",
-      quote.workspaceId,
-      quote.rootId ?? quote.id,
-      quote.id,
-      quote.version,
-    ],
+    queryKey,
     retry: false,
     refetchOnWindowFocus: false,
     queryFn: async () => {
@@ -62,17 +124,10 @@ export function QuoteChecks({
       if (!result.ok)
         throw new Error(
           result.error.code === "CAPABILITY_UNAVAILABLE"
-            ? "检查服务尚未接入，当前版本的条款仍待核实。"
+            ? "检查报告暂时无法读取，当前版本的条款仍待核实；请重新读取报告。"
             : result.error.message,
         );
-      if (
-        result.data.some(
-          (report) =>
-            report.revisionId !== quote.id ||
-            report.quoteId !== (quote.rootId ?? quote.id) ||
-            report.quoteVersion !== quote.version,
-        )
-      ) {
+      if (result.data.some((report) => !matchesQuote(report, quote))) {
         throw new Error("检查报告与当前报价版本不一致，已停止展示。");
       }
       if (new Set(result.data.map((item) => item.reportId)).size !== result.data.length) {
@@ -94,10 +149,29 @@ export function QuoteChecks({
     >
       <div className="section-heading gap-3 flex-wrap">
         <h3>规则检查 · V{quote.version}</h3>
-        <Button variant="outline" disabled={query.isFetching} onClick={() => void query.refetch()}>
-          {query.isFetching ? "正在读取报告…" : "重新读取报告"}
-        </Button>
+        <div className="flex flex-wrap gap-2">
+          <Button
+            disabled={checking || query.isFetching}
+            onClick={() => {
+              const operationKey = operations.current.get(identity) ?? crypto.randomUUID();
+              operations.current.set(identity, operationKey);
+              mutation.mutate({ target: quote, operationKey });
+            }}
+          >
+            {checking ? "正在检查并保存…" : pendingKey ? "重试本次检查" : "检查并保存报告"}
+          </Button>
+          <Button
+            variant="outline"
+            disabled={checking || query.isFetching}
+            onClick={() => void query.refetch()}
+          >
+            {query.isFetching ? "正在读取报告…" : "重新读取报告"}
+          </Button>
+        </div>
       </div>
+      <p className="description">
+        人工触发后保存本版本的检查报告；检查不修改报价，也不代表审批通过。
+      </p>
       {query.isPending && <p role="status">正在读取当前版本的检查报告…</p>}
       {query.isError && (
         <p role="alert" className="error-box">
@@ -126,7 +200,7 @@ export function QuoteChecks({
             </select>
           </div>
           <p className="description">
-            保存时检查 · {report.checkedAt} · 仅对应 V{report.quoteVersion}。
+            检查保存于 · {report.checkedAt} · 仅对应 V{report.quoteVersion}。
             修改条款后需重新检查，旧报告保留原记录。
           </p>
           {report.issues.some((issue) =>
@@ -140,6 +214,30 @@ export function QuoteChecks({
               </span>
             ))}
           </div>
+          {report.wikiCitations && report.wikiCitations.length > 0 && (
+            <details>
+              <summary>本报告采用的知识与来源 · {report.wikiCitations.length} 个知识段落</summary>
+              <p className="description mt-2">
+                保留全部已应用规则的来源，包括本次未发现问题的规则；历史引用不代表当前仍有效。
+              </p>
+              {report.wikiCitations.map((citation) => (
+                <div
+                  key={`${citation.revisionId}:${citation.sectionId}`}
+                  className="mt-3 space-y-1 text-sm"
+                >
+                  <p>
+                    知识版本：<code>{citation.revisionId}</code> · V{citation.version}
+                  </p>
+                  {citation.sourceRefs.map((ref) => (
+                    <p key={ref.referenceId}>
+                      来源版本：<code>{ref.sourceRevisionId}</code> · V{ref.sourceVersion} · UTF-16
+                      [{ref.location.start}, {ref.location.end}) · SHA-256 {ref.artifactHash}
+                    </p>
+                  ))}
+                </div>
+              ))}
+            </details>
+          )}
           <p role="status">
             {report.issues.filter((issue) => issue.severity === "block").length} 项阻断 ·{" "}
             {report.issues.filter((issue) => issue.severity === "warning").length} 项提醒 ·{" "}

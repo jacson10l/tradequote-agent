@@ -3,7 +3,9 @@ import {
   CommandSchema,
   patchToolJsonSchema,
   ResultSchema,
+  RuntimeCommandSchema,
   TypedPatchSchema,
+  WorkerReplySchema,
   WorkerRequestSchema,
 } from "./index";
 
@@ -52,4 +54,35 @@ describe("untrusted boundary contracts", () => {
     expect(schema.additionalProperties).toBe(false);
     expect(JSON.stringify(schema)).not.toMatch(/approval|actorId/);
   });
+});
+
+it("allows only the existing strict quote check commands through Runtime and Worker", () => {
+  for (const method of ["quote.check", "quote.getChecks"]) {
+    const command = {
+      schemaVersion: 1,
+      requestId: id,
+      method,
+      payload: { revisionId: id },
+      ...(method === "quote.check" ? { idempotencyKey: id } : {}),
+    };
+    expect(RuntimeCommandSchema.safeParse(command).success).toBe(true);
+    expect(WorkerRequestSchema.safeParse({ id, command }).success).toBe(true);
+    for (const extra of [
+      { actorId: "forged" },
+      { credentials: { key: "synthetic" } },
+      { payload: { revisionId: id, goodsTotal: "0" } },
+    ])
+      expect(WorkerRequestSchema.safeParse({ id, command: { ...command, ...extra } }).success).toBe(
+        false,
+      );
+    expect(RuntimeCommandSchema.safeParse({ ...command, method: "quote.approve" }).success).toBe(
+      false,
+    );
+  }
+  expect(
+    WorkerReplySchema.safeParse({
+      id,
+      result: { ok: true, data: [], warnings: [], evidenceIds: [] },
+    }).success,
+  ).toBe(true);
 });

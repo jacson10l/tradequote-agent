@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "832bf13122dfe187804c3193c5679495d5d056c601c105d60da725bcac5f403e",
+    "wiki-config.json": "ea29179cefb1c5b3fd54b8a6089b3043633802b7a6069c94dea85ff756e502c6",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -214,15 +214,16 @@
     {
       "path": "apps/desktop/src/main/index.ts",
       "type": "ts",
-      "lines": 317,
-      "bytes": 12694,
-      "sha256": "26adab79e1074255a3c3e3431819a53faea445d29f29dfb6a3a8f887247a3104",
+      "lines": 319,
+      "bytes": 12744,
+      "sha256": "a78f990dc5ebcc2e77f9d6a5bdfd54d932cdc6a3ae454f5eca1f1c57cd68605c",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md",
         "wiki/C02c统一运行与写账本.md",
         "wiki/C04正式设置评估入口.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     {
@@ -256,9 +257,9 @@
     {
       "path": "apps/desktop/src/preload/contracts.test.ts",
       "type": "ts",
-      "lines": 388,
-      "bytes": 15123,
-      "sha256": "b63277cb23d014495c66de9bd68d9f4d0a4bca6e20e8d6d1ba5674103198060d",
+      "lines": 493,
+      "bytes": 19032,
+      "sha256": "5439353da7a35afd5250fe5f8542fadf46d7ef15adb4675ddc65919e5491ba2b",
       "role": "B00 preload and mock capability gate without new IPC",
       "pages": [
         "wiki/首批并行接口约定.md",
@@ -267,21 +268,23 @@
         "wiki/B00a知识整理与维护协议.md",
         "wiki/C02c统一运行与写账本.md",
         "wiki/C04正式设置评估入口.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     {
       "path": "apps/desktop/src/preload/index.ts",
       "type": "ts",
-      "lines": 161,
-      "bytes": 6805,
-      "sha256": "3a3f788d3b10dc08d28531131e0ed76fc47e8fec037b8e4597786a13a93aee19",
+      "lines": 196,
+      "bytes": 8365,
+      "sha256": "d296a0e7d9c50c2b1c5e60c22ecfad5b166233f9cc6801afc7e519736678b30a",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md",
         "wiki/C02c统一运行与写账本.md",
         "wiki/C04正式设置评估入口.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     {
@@ -394,23 +397,25 @@
     {
       "path": "apps/desktop/src/renderer/src/features/quote-checks.test.tsx",
       "type": "tsx",
-      "lines": 268,
-      "bytes": 11909,
-      "sha256": "06b8d1797fdc8a5d99d02902660a997f7af2783161c9fe12613944f4a82ee790",
+      "lines": 378,
+      "bytes": 17449,
+      "sha256": "b4b2d6f0ef0b744ec6908c2bfd423207f875dc020db3ba06c9c7f030afafa792",
       "role": "B01 component and saved-quote mounting behavior regression",
       "pages": [
-        "wiki/B规则检查实现.md"
+        "wiki/B规则检查实现.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     {
       "path": "apps/desktop/src/renderer/src/features/quote-checks.tsx",
       "type": "tsx",
-      "lines": 240,
-      "bytes": 10595,
-      "sha256": "c8b070da782e2beb8f07c62a50e6a065e9c2e3898b85422e58fd58591c85f931",
+      "lines": 338,
+      "bytes": 15188,
+      "sha256": "3210484fce567315acbc15d8f15c0c462810a4b23b596e51bd7c275bb69f71f9",
       "role": "B01 read-only report UI, shared risks and field annotations, version isolation",
       "pages": [
-        "wiki/B规则检查实现.md"
+        "wiki/B规则检查实现.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     {
@@ -605,14 +610,15 @@
     {
       "path": "apps/desktop/src/workers/business.ts",
       "type": "ts",
-      "lines": 91,
-      "bytes": 3244,
-      "sha256": "2732a2c062379f3a43edbc7ca3571253c958261bb0ef8371bdd2eba11ff2bedd",
+      "lines": 101,
+      "bytes": 3534,
+      "sha256": "807c41e0ecfbf5fd64d6897631c4d97aa582715e44bb8b201858dc59fb1351ac",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md",
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     {
@@ -1343,12 +1349,13 @@
     {
       "path": "packages/contracts/src/contracts.test.ts",
       "type": "ts",
-      "lines": 55,
-      "bytes": 1989,
-      "sha256": "bf1004d647ae3fe93a82bb06624f40bc6616ece3a8b0361a1a72f47838e91495",
+      "lines": 88,
+      "bytes": 3100,
+      "sha256": "0c5275f0dc6b6e1a8e80a73c6a0c085d60ba46e9ccead7f137d3385834a6bf5c",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     {
@@ -1388,9 +1395,9 @@
     {
       "path": "packages/contracts/src/index.ts",
       "type": "ts",
-      "lines": 166,
-      "bytes": 5907,
-      "sha256": "2ae819f9022d4df13fe0ba187d2374e0dcddcfdfe3343153157feda4fef3a32f",
+      "lines": 174,
+      "bytes": 6046,
+      "sha256": "bfb33fe83d41864c59ef6eee036159e6903dd7dfec0bdf2efff99c04822ec630",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
@@ -1398,7 +1405,8 @@
         "wiki/B00a知识整理与维护协议.md",
         "wiki/C02c统一运行与写账本.md",
         "wiki/C04正式设置评估入口.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     {
@@ -2828,6 +2836,17 @@
       ]
     },
     {
+      "path": "tests/e2e/quote-checks.spec.ts",
+      "type": "ts",
+      "lines": 284,
+      "bytes": 13682,
+      "sha256": "2c448bfdf6875d3215f2725058ccfc88b0cedacf09aa02d79a3b38111e69c923",
+      "role": "C实际Electron保存报价/人工检查/完整来源消费/双反馈/重开和原子失败验证",
+      "pages": [
+        "wiki/C已保存报价检查桌面切片.md"
+      ]
+    },
+    {
       "path": "tests/e2e/quote-v1.spec.ts",
       "type": "ts",
       "lines": 131,
@@ -2854,9 +2873,9 @@
     {
       "path": "tests/e2e/workspace.spec.ts",
       "type": "ts",
-      "lines": 330,
-      "bytes": 13956,
-      "sha256": "4628983f37f25da0dadfe1c030008ed172620be78346957f57761748a9e7936d",
+      "lines": 337,
+      "bytes": 14147,
+      "sha256": "77f76c122d3571b52322d809629371a8e4029c85cbc3088b669ac2ae1d13fdb1",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md",
@@ -2864,7 +2883,8 @@
         "wiki/B00a知识整理与维护协议.md",
         "wiki/C02c统一运行与写账本.md",
         "wiki/C04正式设置评估入口.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     {
@@ -2986,6 +3006,17 @@
       "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
       "pages": [
         "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/quote-checks-data.ts",
+      "type": "ts",
+      "lines": 138,
+      "bytes": 4721,
+      "sha256": "fdaac56bb63f31c9927630919535973836266d285de99f36afb182ac9ed034b8",
+      "role": "仅测试离线合成已发布知识投影、故障注入和只读业务数据库检查",
+      "pages": [
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     {

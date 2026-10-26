@@ -13,7 +13,7 @@ import {
 } from "@tradequote/contracts";
 import { readonlyMockClient } from "@tradequote/contracts/mock";
 import { MemoryRouter } from "react-router-dom";
-import { afterEach, expect, it } from "vitest";
+import { afterEach, expect, it, vi } from "vitest";
 import { MessageProvider } from "../shared/message";
 import { QuoteChecks } from "./quote-checks";
 import { checksList, checksPendingReport, checksQuote, checksReport } from "./quote-checks.fixture";
@@ -21,7 +21,7 @@ import { QuotesPage } from "./quotes";
 
 afterEach(cleanup);
 function mount(
-  client: Pick<CheckClient, "getQuoteChecks"> = {
+  client: Pick<CheckClient, "getQuoteChecks"> & Partial<Pick<CheckClient, "checkQuote">> = {
     getQuoteChecks: async () => checksList([checksReport]),
   },
   quote = checksQuote,
@@ -29,7 +29,9 @@ function mount(
   const queries = new QueryClient({ defaultOptions: { queries: { retry: false } } });
   const element = (next: QuoteSnapshot) => (
     <QueryClientProvider client={queries}>
-      <QuoteChecks quote={next} client={client} />
+      <MessageProvider>
+        <QuoteChecks quote={next} client={{ ...readonlyMockClient, ...client }} />
+      </MessageProvider>
     </QueryClientProvider>
   );
   const view = render(element(quote));
@@ -151,14 +153,14 @@ it("keeps new versions empty when an old-version response arrives late", async (
   expect(requestIds).toContain(v2.id);
 });
 
-it("shows unavailable service as pending and recovers through a read-only retry", async () => {
+it("shows an unavailable connection as pending and recovers through a read-only retry", async () => {
   const user = userEvent.setup();
   let available = false;
   mount({
     getQuoteChecks: async () =>
       available ? checksList([checksReport]) : failure("CAPABILITY_UNAVAILABLE", "未接入"),
   });
-  expect(await screen.findByRole("alert")).toHaveTextContent("检查服务尚未接入");
+  expect(await screen.findByRole("alert")).toHaveTextContent("检查报告暂时无法读取");
   expect(screen.queryByRole("group", { name: "风险标记" })).not.toBeInTheDocument();
   available = true;
   await user.click(screen.getByRole("button", { name: "重新读取报告" }));
@@ -265,4 +267,112 @@ it("revalidates cached data when quote identity metadata changes", async () => {
   view.showQuote({ ...checksQuote, version: 2, rootId: "00000000-0000-4000-8000-000000000050" });
   expect(await screen.findByRole("alert")).toHaveTextContent("检查报告与当前报价版本不一致");
   expect(screen.queryByRole("group", { name: "风险标记" })).not.toBeInTheDocument();
+});
+
+it("writes only on a human check, retains history and uses a fresh key after acknowledged success", async () => {
+  const user = userEvent.setup();
+  const saved = {
+    ...checksReport,
+    reportId: crypto.randomUUID(),
+    checkedAt: "2026-10-26T10:00:00.000Z",
+  };
+  let reports = [checksReport];
+  const checkQuote = vi.fn<CheckClient["checkQuote"]>(async () => {
+    reports = [checksReport, saved];
+    return { ok: true as const, data: saved, warnings: [], evidenceIds: [saved.reportId] };
+  });
+  mount({ getQuoteChecks: async () => checksList(reports), checkQuote });
+  await screen.findByLabelText("本版本检查报告");
+  expect(checkQuote).not.toHaveBeenCalled();
+  await user.click(screen.getByRole("button", { name: "检查并保存报告" }));
+  expect(await screen.findByText("V1 检查报告已保存；报价仍为未审核草稿")).toBeVisible();
+  expect(screen.getByLabelText("本版本检查报告")).toHaveValue(saved.reportId);
+  expect(within(screen.getByLabelText("本版本检查报告")).getAllByRole("option")).toHaveLength(2);
+  const command = checkQuote.mock.calls[0]?.[0];
+  expect(command).toMatchObject({ method: "quote.check", payload: { revisionId: checksQuote.id } });
+  expect(Object.keys(command ?? {}).sort()).toEqual([
+    "idempotencyKey",
+    "method",
+    "payload",
+    "requestId",
+    "schemaVersion",
+  ]);
+  await user.click(screen.getByRole("button", { name: "重新读取报告" }));
+  expect(checkQuote).toHaveBeenCalledTimes(1);
+  await user.click(screen.getByRole("button", { name: "检查并保存报告" }));
+  expect(checkQuote).toHaveBeenCalledTimes(2);
+  expect(checkQuote.mock.calls[1]?.[0].idempotencyKey).not.toBe(command?.idempotencyKey);
+});
+
+it("preserves existing evidence and reuses the operation key after a lost write reply", async () => {
+  const user = userEvent.setup();
+  const checkQuote = vi
+    .fn<CheckClient["checkQuote"]>()
+    .mockRejectedValueOnce(new Error("synthetic-private-error"))
+    .mockResolvedValue({
+      ok: true,
+      data: checksReport,
+      warnings: [],
+      evidenceIds: [checksReport.reportId],
+    });
+  mount({ getQuoteChecks: async () => checksList([checksReport]), checkQuote });
+  await screen.findByLabelText("本版本检查报告");
+  await user.click(screen.getByRole("button", { name: "检查并保存报告" }));
+  expect(await screen.findByRole("alert")).toHaveTextContent("保存结果未知");
+  expect(screen.queryByText("synthetic-private-error")).not.toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "阻断 · 付款条款 · 付款条件缺失" })).toBeVisible();
+  await user.click(screen.getByRole("button", { name: "重试本次检查" }));
+  expect(await screen.findByText("V1 检查报告已保存；报价仍为未审核草稿")).toBeVisible();
+  expect(checkQuote.mock.calls[0]?.[0].idempotencyKey).toBe(
+    checkQuote.mock.calls[1]?.[0].idempotencyKey,
+  );
+  expect(checkQuote.mock.calls[0]?.[0].requestId).not.toBe(checkQuote.mock.calls[1]?.[0].requestId);
+  expect(within(screen.getByLabelText("本版本检查报告")).getAllByRole("option")).toHaveLength(1);
+});
+
+it("rejects a wrong-version write response without replacing existing reports or consuming the retry key", async () => {
+  const user = userEvent.setup();
+  const checkQuote = vi.fn<CheckClient["checkQuote"]>().mockResolvedValue({
+    ok: true,
+    data: { ...checksReport, quoteVersion: 2 },
+    warnings: [],
+    evidenceIds: [],
+  });
+  mount({ getQuoteChecks: async () => checksList([checksReport]), checkQuote });
+  await screen.findByLabelText("本版本检查报告");
+  await user.click(screen.getByRole("button", { name: "检查并保存报告" }));
+  expect(await screen.findByRole("alert")).toHaveTextContent("当前报价版本不一致");
+  expect(screen.getByLabelText("本版本检查报告")).toHaveValue(checksReport.reportId);
+  await user.click(screen.getByRole("button", { name: "重试本次检查" }));
+  expect(checkQuote.mock.calls[0]?.[0].idempotencyKey).toBe(
+    checkQuote.mock.calls[1]?.[0].idempotencyKey,
+  );
+});
+
+it("does not select or announce an old-version write when it completes after a version switch", async () => {
+  const user = userEvent.setup();
+  let finish!: (value: Awaited<ReturnType<CheckClient["checkQuote"]>>) => void;
+  const pending = new Promise<Awaited<ReturnType<CheckClient["checkQuote"]>>>((resolve) => {
+    finish = resolve;
+  });
+  const view = mount({
+    getQuoteChecks: async (command) =>
+      checksList(command.payload.revisionId === checksQuote.id ? [checksReport] : []),
+    checkQuote: () => pending,
+  });
+  await screen.findByLabelText("本版本检查报告");
+  await user.click(screen.getByRole("button", { name: "检查并保存报告" }));
+  const v2 = {
+    ...checksQuote,
+    id: crypto.randomUUID(),
+    rootId: checksQuote.id,
+    parentId: checksQuote.id,
+    version: 2,
+  };
+  view.showQuote(v2);
+  expect(await screen.findByText("当前版本尚无检查报告，条款仍待核实。")).toBeVisible();
+  await act(async () => finish({ ok: true, data: checksReport, warnings: [], evidenceIds: [] }));
+  expect(screen.queryByLabelText("本版本检查报告")).not.toBeInTheDocument();
+  expect(screen.queryByText("V1 检查报告已保存；报价仍为未审核草稿")).not.toBeInTheDocument();
+  expect(screen.getByRole("region", { name: "报价 V2 规则检查" })).toBeVisible();
 });

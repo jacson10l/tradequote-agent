@@ -2,6 +2,9 @@ import {
   AgentCommandSchema,
   AgentReadCommandSchema,
   AgentReadResultSchema,
+  CheckCommandSchema,
+  CheckListResultSchema,
+  CheckResultSchema,
   CommandSchema,
   CsvSelectionSchema,
   type DesktopClient,
@@ -62,6 +65,35 @@ async function invokeRun(input: unknown) {
     return failure("CAPABILITY_UNAVAILABLE", "运行连接中断，请刷新运行记录；不会自动重发");
   }
 }
+async function invokeCheck(input: unknown, method: "quote.check" | "quote.getChecks") {
+  const parsed = CheckCommandSchema.safeParse(input);
+  if (!parsed.success || parsed.data.method !== method)
+    return failure("VALIDATION_ERROR", "检查请求字段不合法");
+  try {
+    const response = await ipcRenderer.invoke(method, parsed.data);
+    if (method === "quote.check") {
+      const result = CheckResultSchema.parse(response);
+      if (result.ok && result.data.revisionId !== parsed.data.payload.revisionId)
+        return failure("STORAGE_ERROR", "检查报告与请求版本不一致");
+      return result;
+    }
+    const result = CheckListResultSchema.parse(response);
+    if (
+      result.ok &&
+      (result.data.some((report) => report.revisionId !== parsed.data.payload.revisionId) ||
+        new Set(result.data.map((report) => report.reportId)).size !== result.data.length)
+    )
+      return failure("STORAGE_ERROR", "检查报告列表与请求版本不一致");
+    return result;
+  } catch {
+    return failure(
+      "CAPABILITY_UNAVAILABLE",
+      method === "quote.check"
+        ? "检查连接中断，保存结果未知；请重试本次检查或重新读取报告"
+        : "检查报告读取失败，请重新读取报告",
+    );
+  }
+}
 const client: DesktopClient = {
   modelEvaluation: async (command) => {
     const parsed = ModelEvaluationCommandSchema.safeParse(command);
@@ -75,6 +107,9 @@ const client: DesktopClient = {
     }
   },
   ...unavailableFirstBatchClient,
+  checkQuote: async (command) => CheckResultSchema.parse(await invokeCheck(command, "quote.check")),
+  getQuoteChecks: async (command) =>
+    CheckListResultSchema.parse(await invokeCheck(command, "quote.getChecks")),
   getAgentRunEvents: async (command) => {
     const parsed = RunEventsCommandSchema.safeParse(command);
     if (!parsed.success) return failure("VALIDATION_ERROR", "运行事件字段不合法");

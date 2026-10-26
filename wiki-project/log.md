@@ -1065,3 +1065,17 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 - 同步[[C领域旧库回放与Worker启动门禁]]、[[C集成-领域旧库与Worker启动恢复门禁]]、C02c/ADR0020/矩阵/状态/导航/覆盖。完整迁移、新业务桌面切片、真实lint/review、人员业务验收与Windows后置均未冒称完成；本轮新分支未推送。
 
 - 本轮最终收尾：工程6/6、Wiki维护36/36、cb90e9f/654fecc/be53b98三基线sync均退出0；300份旧非生成raw和202518字节log旧前缀保持。作者自查不替代实际非作者评审。
+
+
+## 2026-10-26 C已保存报价检查真实桌面切片
+
+- c6f6788普通推送origin/codex/c-worker-migration-gates并完整SHA回读；新建codex/c-saved-quote-checks，本次taskBase=c6f6788，无合入。
+- 接通既有quote.check/getChecks的Runtime/Worker/Main/preload；人工按钮委托既有A/B同连接报告/全部来源消费，保留双反馈/历史并展示全部已应用来源。未知结果显式同键重试，迟到写入不串版本。
+- 当前类型及31项、新增实际Electron2/2通过；完整桌面含build/工程/Wiki/三基线sync结果以raw/c-saved-quote-checks-validation.json的实际命令为准，原121复用历史范围。初始测试前缀定位/不支持preload查询API错误保留diagnosis。
+- 已同步[[C已保存报价检查桌面切片]]、[[C集成-已保存报价检查与双反馈]]及M1/B/接口/状态/覆盖/导航；A真实lint/review/publish/withdraw仍不可用，已发布fixture和合成撤回不顶替业务人员操作或非作者签认。Windows后置，新切片未推送。
+
+- 本轮最终应用验证：typecheck退出0、三文件31/31、pnpm test:e2e含构建11/11；原9项桌面回归与新增2项同候选实际通过，旧源码与证据的作用域未扩大。
+
+- 最终工程6/6、维护36/36及c6f6788/654fecc/be53b98同步退出0；303旧raw和203782字节log前缀保持，A/B迁移/报告事务/来源资格/原DTO/mock保持。作者自查保留实际非作者接收待办。连接中断提示更正后重新执行类型/31项和全部11项Electron，记录同一validation实际顺序。
+
+- 项目依赖远端回读确认A ec6b729/dd42b05、B f4c9dfc/P1契约19d60a8仍为可取得固定材料；本候选真实审核发布仍门禁，未推断未推送开发、未代签或向其他聊天发送消息。

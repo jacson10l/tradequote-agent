@@ -3,7 +3,12 @@ import { type AgentClient, AgentCommandSchema, ModelCredentialsSchema } from "./
 export * from "./agent";
 
 import { z } from "zod";
-import type { CheckClient } from "./checks";
+import {
+  type CheckClient,
+  CheckCommandSchema,
+  CheckListResultSchema,
+  CheckResultSchema,
+} from "./checks";
 import type { KnowledgeClient } from "./knowledge";
 import type { KnowledgeBuildClient } from "./knowledge-build";
 import type { KnowledgeMaintenanceClient } from "./knowledge-maintenance";
@@ -126,6 +131,7 @@ export const RuntimeCommandSchema = z.union([
   AgentReadCommandSchema,
   RunCommandSchema,
   RunEventsCommandSchema,
+  CheckCommandSchema,
 ]);
 export const RuntimeResultSchema = z.union([
   ResultSchema,
@@ -134,6 +140,8 @@ export const RuntimeResultSchema = z.union([
   RunResultSchema,
   RunListResultSchema,
   RunEventsResultSchema,
+  CheckResultSchema,
+  CheckListResultSchema,
 ]);
 export type RuntimeCommand = z.infer<typeof RuntimeCommandSchema>;
 export type RuntimeResult = z.infer<typeof RuntimeResultSchema>;

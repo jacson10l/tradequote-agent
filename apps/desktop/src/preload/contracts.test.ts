@@ -6,6 +6,7 @@ import {
 } from "@tradequote/contracts";
 import {
   mockAgentRun,
+  mockCheckReport,
   mockKnowledgeRevision,
   readonlyMockClient,
 } from "@tradequote/contracts/mock";
@@ -32,7 +33,7 @@ describe("B00 read-only mock and formal preload capability gate", () => {
     vi.resetModules();
     vi.clearAllMocks();
   });
-  it("keeps knowledge/check services unavailable; mock run methods stay unavailable", async () => {
+  it("keeps knowledge services gated and readonly mock checks/runs unavailable", async () => {
     await import("./index");
     const desktop: DesktopClient = electron.exposeInMainWorld.mock.calls[0]?.[1];
     expect(desktop).toBeDefined();
@@ -91,7 +92,11 @@ describe("B00 read-only mock and formal preload capability gate", () => {
     ];
     for (const client of [readonlyMockClient, desktop]) {
       for (const command of commands) {
-        if (client === desktop && command.method.startsWith("agent.")) continue;
+        if (
+          client === desktop &&
+          (command.method.startsWith("agent.") || command.method.startsWith("quote."))
+        )
+          continue;
         const result =
           command.method === "knowledge.stage"
             ? await client.stageKnowledge(command)
@@ -384,5 +389,105 @@ describe("B00a P1 build/maintenance capability gates", () => {
       }
     }
     expect(electron.invoke).not.toHaveBeenCalled();
+  });
+});
+
+describe("C saved quote check bridge", () => {
+  it("forwards only the requested method and revision, rejects injected authority before IPC", async () => {
+    vi.resetModules();
+    vi.clearAllMocks();
+    await import("./index");
+    const desktop: DesktopClient = electron.exposeInMainWorld.mock.calls[0]?.[1];
+    const check = {
+      ...write,
+      method: "quote.check" as const,
+      payload: { revisionId: mockCheckReport.revisionId },
+    };
+    const get = { ...read, method: "quote.getChecks" as const, payload: check.payload };
+    electron.invoke.mockResolvedValue({
+      ok: true,
+      data: mockCheckReport,
+      warnings: [],
+      evidenceIds: [mockCheckReport.reportId],
+    });
+    expect(await desktop.checkQuote(check)).toMatchObject({ ok: true, data: mockCheckReport });
+    expect(electron.invoke).toHaveBeenLastCalledWith("quote.check", check);
+    electron.invoke.mockResolvedValue({
+      ok: true,
+      data: [mockCheckReport],
+      warnings: [],
+      evidenceIds: [],
+    });
+    expect(await desktop.getQuoteChecks(get)).toMatchObject({ ok: true, data: [mockCheckReport] });
+    expect(electron.invoke).toHaveBeenLastCalledWith("quote.getChecks", get);
+    electron.invoke.mockClear();
+    for (const extra of [
+      { actorId: "forged" },
+      { origin: "human_ui" },
+      { credentials: { key: "synthetic" } },
+      { payload: { ...check.payload, report: mockCheckReport } },
+    ])
+      expect(
+        await Reflect.apply(desktop.checkQuote, undefined, [{ ...check, ...extra }]),
+      ).toMatchObject({ ok: false, error: { code: "VALIDATION_ERROR" } });
+    expect(await Reflect.apply(desktop.getQuoteChecks, undefined, [check])).toMatchObject({
+      ok: false,
+      error: { code: "VALIDATION_ERROR" },
+    });
+    expect(await Reflect.apply(desktop.checkQuote, undefined, [get])).toMatchObject({
+      ok: false,
+      error: { code: "VALIDATION_ERROR" },
+    });
+    expect(electron.invoke).not.toHaveBeenCalled();
+  });
+  it("refuses wrong-revision, duplicate or malformed responses and hides transport exceptions", async () => {
+    vi.resetModules();
+    vi.clearAllMocks();
+    await import("./index");
+    const desktop: DesktopClient = electron.exposeInMainWorld.mock.calls[0]?.[1];
+    const check = {
+      ...write,
+      method: "quote.check" as const,
+      payload: { revisionId: crypto.randomUUID() },
+    };
+    const get = { ...read, method: "quote.getChecks" as const, payload: check.payload };
+    electron.invoke.mockResolvedValue({
+      ok: true,
+      data: mockCheckReport,
+      warnings: [],
+      evidenceIds: [],
+    });
+    expect(await desktop.checkQuote(check)).toMatchObject({
+      ok: false,
+      error: { code: "STORAGE_ERROR" },
+    });
+    electron.invoke.mockResolvedValue({
+      ok: true,
+      data: [mockCheckReport],
+      warnings: [],
+      evidenceIds: [],
+    });
+    expect(await desktop.getQuoteChecks(get)).toMatchObject({
+      ok: false,
+      error: { code: "STORAGE_ERROR" },
+    });
+    electron.invoke.mockResolvedValue({
+      ok: true,
+      data: [mockCheckReport, mockCheckReport],
+      warnings: [],
+      evidenceIds: [],
+    });
+    expect(
+      await desktop.getQuoteChecks({ ...get, payload: { revisionId: mockCheckReport.revisionId } }),
+    ).toMatchObject({ ok: false, error: { code: "STORAGE_ERROR" } });
+    for (const method of [() => desktop.checkQuote(check), () => desktop.getQuoteChecks(get)]) {
+      electron.invoke.mockResolvedValue({ ok: true, data: { approved: true } });
+      expect(await method()).toMatchObject({
+        ok: false,
+        error: { code: "CAPABILITY_UNAVAILABLE" },
+      });
+      electron.invoke.mockRejectedValue(new Error("SELECT synthetic-private-path"));
+      expect(JSON.stringify(await method())).not.toContain("synthetic-private");
+    }
   });
 });
