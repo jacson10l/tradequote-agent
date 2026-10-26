@@ -147,7 +147,9 @@ test("desktop settings and HTTP adapter support inquiry plus two saved revisions
     mode = "invalid";
     await page.getByLabel("本轮修改要求").fill("交期改40天");
     await page.getByRole("button", { name: "理解修改并保存 V4" }).click();
-    await expect(page.getByRole("alert")).toContainText("模型建议未通过字段校验");
+    await expect(
+      page.getByRole("region", { name: "DeepSeek 询盘与对话" }).getByRole("alert"),
+    ).toContainText("模型建议未通过字段校验");
     mode = "auth";
     const failedRun = page
       .getByRole("region", { name: "模型运行记录" })

@@ -1048,3 +1048,10 @@ B新组合作者验证已在完整代码提交ceec0ee4e329d891aad1855a4241425676
 2026-10-26 固定候选已普通推送origin/codex/b-a910-c03-combination：材料提交ee71a0f62bef9d9de97bdc449b686ac11e2f0620，push及远端回读均退出0、完整SHA一致，包含组合实现与全部验证证据。本条及raw/b-a910-c03-combination-delivery.json另作回执提交保存，最终分支头在后续普通推送后再次回读；不能把材料SHA与最终头或自验代码混用。实际新组合自验代码为ceec0ee4e329d891aad1855a42414256762e367c，源码树至材料提交不变；旧121属于067afc2+旧A b9a0af7，两者分开。C现在可取得固定材料并独立复验，尚无C新组合通过/人员业务验收结论。下方“仅本地/未推送”描述是推送前历史。
 
 用户本轮明确授权推送，实际git push --set-upstream origin HEAD:refs/heads/codex/b-a910-c03-combination退出0；ls-remote回读ee71a0f完整SHA一致，源码相对实测ceec0ee无非Wiki差异，工作树在推送时干净。原始验证/保留审计及A文档回执都已随材料可取得；本次只补回执，不重跑未变化121或其他产品检查。生成/只读check/lint/真实ee71增量sync及diff/旧raw/log检查见新delivery JSON，整体仍active。
+
+
+## 2026-10-26 C独立复验Bf4c9dfc组合与桌面定位兼容修正
+
+2026-10-26 C已取得固定B组合f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd（实际B自验代码ceec0ee，二者非Wiki源码一致），在macOS独立通过九文件121/121、全量455/455、维护36/36、工程6/6及原12/107、X01～X11、Y01～Y10和九SQL指纹。原桌面套件7/9，因新规则面板多个alert使两处全局定位器歧义；C仅将两E2E定位限制到DeepSeek业务区，原断言/时限/生产源码不变，诊断2/2、正式九项含构建9/9。B的旧Windows EPERM和本轮初始失败保留。详见[[Bf4c9dfc组合macOS独立复验与桌面回归]]、[[C集成-Bf4c9dfc组合独立复验]]。本轮仅固定组合基础/原桌面回归通过，完整M/F/J、新知识/检查/P1桌面接线、真实lint/review服务及人员/业务验收仍未完成。
+
+taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一致。C执行253源manifest、A/B/C raw与日志来源保留及A迁移AST/九SQL核对；本轮只改两E2E定位器/格式，不跳断言。完整命令/输出/hash、原7/9、诊断2/2、正式9/9及本地AST运行器初失败保留于raw/c-f4c9dfc-*。最终生成/check/lint/taskBase/共同merge-base/累计sync、工程及290旧raw/原log前缀检查见wiki-validation。任务done只限本轮基础技术复验，完整项目与实际人员仍待；暂不推送/合入/外发。

@@ -162,7 +162,9 @@ test("formal multistep loop saves validated V1/V2/V3, shows blocking sources, su
     mode = "block";
     await page.getByLabel("交给模型理解的询盘").fill("阻断验收：100件 DEMO-TEE，不提供付款");
     await page.getByRole("button", { name: "理解询盘并保存 V1" }).click();
-    await expect(page.getByRole("alert")).toBeVisible();
+    await expect(
+      page.getByRole("region", { name: "DeepSeek 询盘与对话" }).getByRole("alert"),
+    ).toBeVisible();
     const blocked = history.getByRole("article").filter({ hasText: "阻断验收：" }).first();
     await expect(blocked).toContainText("付款条款为空，阻断保存");
     await expect(blocked).toContainText("核价预览检查（未保存）");

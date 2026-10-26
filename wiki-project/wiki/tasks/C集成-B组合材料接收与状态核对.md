@@ -2,7 +2,7 @@
 title: C集成-B组合材料接收与状态核对
 type: task
 status: active
-updated: 2026-10-25
+updated: 2026-10-26
 sources:
   - conversation:用户转交B固定7f8afe6组合准备矩阵121作者自验及推送回执供C接收
   - wiki-repo:raw/c-b-combination-intake.json:1
@@ -10,6 +10,8 @@ sources:
 ---
 
 # C集成-B组合材料接收与状态核对
+
+后续状态：B固定f4c9dfc已更正旧五项/Y10等待、准确保留旧/新121归属并实际推送。C已取得并开展新组合独立复验，见[[Bf4c9dfc组合macOS独立复验与桌面回归]]。以下旧“待B更正/无固定候选”只属2026-10-25材料接收时点，不继续作为当前阻塞；完整项目范围仍待。
 
 ## 目标
 

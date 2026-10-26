@@ -2,7 +2,7 @@
 title: B组合固定材料接收与状态滞后
 type: process
 status: observed
-updated: 2026-10-25
+updated: 2026-10-26
 sources:
   - wiki-repo:raw/c-b-combination-intake.json:1
   - wiki-repo:raw/c-a163f7a4-intake.json:1
@@ -12,6 +12,8 @@ sources:
 ---
 
 # B组合固定材料接收与状态滞后
+
+后续状态：B固定f4c9dfc已更正旧五项/Y10等待、准确保留旧/新121归属并实际推送。C已取得并开展新组合独立复验，见[[Bf4c9dfc组合macOS独立复验与桌面回归]]。以下旧“待B更正/无固定候选”只属2026-10-25材料接收时点，不继续作为当前阻塞；完整项目范围仍待。
 
 ## 固定输入与接收结论
 

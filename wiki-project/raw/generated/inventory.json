@@ -2795,9 +2795,9 @@
     {
       "path": "tests/e2e/multistep-agent.spec.ts",
       "type": "ts",
-      "lines": 244,
-      "bytes": 10625,
-      "sha256": "6b827af0d1f544d97799d5f9d7b612a03943516143a773db6fa31bc856ffba50",
+      "lines": 246,
+      "bytes": 10696,
+      "sha256": "57c97d566021e42d39ae1f3769d2ab9d12d25c432c66997b5e4c653310fe2b75",
       "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
       "pages": [
         "wiki/C02c多步报价工具闭环.md"
@@ -2806,9 +2806,9 @@
     {
       "path": "tests/e2e/quote-agent.spec.ts",
       "type": "ts",
-      "lines": 191,
-      "bytes": 10086,
-      "sha256": "43f7b90244f352c8efb29fb87423cf818a05c3a42f7bc175eca1eed53fb76e49",
+      "lines": 193,
+      "bytes": 10157,
+      "sha256": "bae5f5de3af87c36b753fc65a1dc0af21c230503781c927026d6b05a07bb92ff",
       "role": "真实Electron加HTTP替身两轮报价验收",
       "pages": [
         "wiki/M4模型与报价修订.md",
