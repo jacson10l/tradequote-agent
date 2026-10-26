@@ -1041,3 +1041,10 @@ B新组合作者验证已在完整代码提交ceec0ee4e329d891aad1855a4241425676
 实际任务基线c154ee69d3f0669ce843021172d8c71b8e1c7dae；核对A父a2b050e到ec6b729的六份Wiki及源码差异为空，保存blob/SHA与远端实际回读；不将A资料更新覆盖既有组合来源，不重跑121项或改写旧失败。生成/只读check/lint、增量/累计sync、diff及旧raw/log/源码保持结果见raw/b-ec6b729-status-intake.json。无代码、测试、维护工具或映射更改；未推送、合入或自动外发。
 
 实际门禁均退出0：Node22.22.0生成250文件、只读check、lint 241页/213语义页、固定c154ee6增量及7f8afe6累计sync、diff；288份旧非生成raw及log字节前缀保持，非Wiki变化为空。首次Git中文路径转义导致的运行器分类失败及连带ENOENT保留说明，改NUL分隔取证后通过，未放宽任何业务断言；旧产品/维护Windows symlink失败记录不改。
+
+
+## 2026-10-26 B新固定组合普通推送交接
+
+2026-10-26 固定候选已普通推送origin/codex/b-a910-c03-combination：材料提交ee71a0f62bef9d9de97bdc449b686ac11e2f0620，push及远端回读均退出0、完整SHA一致，包含组合实现与全部验证证据。本条及raw/b-a910-c03-combination-delivery.json另作回执提交保存，最终分支头在后续普通推送后再次回读；不能把材料SHA与最终头或自验代码混用。实际新组合自验代码为ceec0ee4e329d891aad1855a42414256762e367c，源码树至材料提交不变；旧121属于067afc2+旧A b9a0af7，两者分开。C现在可取得固定材料并独立复验，尚无C新组合通过/人员业务验收结论。下方“仅本地/未推送”描述是推送前历史。
+
+用户本轮明确授权推送，实际git push --set-upstream origin HEAD:refs/heads/codex/b-a910-c03-combination退出0；ls-remote回读ee71a0f完整SHA一致，源码相对实测ceec0ee无非Wiki差异，工作树在推送时干净。原始验证/保留审计及A文档回执都已随材料可取得；本次只补回执，不重跑未变化121或其他产品检查。生成/只读check/lint/真实ee71增量sync及diff/旧raw/log检查见新delivery JSON，整体仍active。
