@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "d64079c7fd3601ef81bd2293e76088fa411b10d28820ed496711b1dd3385a069",
+    "wiki-config.json": "832bf13122dfe187804c3193c5679495d5d056c601c105d60da725bcac5f403e",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -2589,11 +2589,22 @@
       ]
     },
     {
+      "path": "packages/infrastructure/src/worker-migration-gates.test.ts",
+      "type": "ts",
+      "lines": 378,
+      "bytes": 15683,
+      "sha256": "a25010d05e72a87d27cb69e96efb3b555fad82910323d5fff7c1e81ffa08b5dd",
+      "role": "C领域有效共同v3/C5/C6/C7升级回放、真实Worker互斥和启动拒绝验证",
+      "pages": [
+        "wiki/C领域旧库回放与Worker启动门禁.md"
+      ]
+    },
+    {
       "path": "packages/infrastructure/src/worker-ownership.ts",
       "type": "ts",
-      "lines": 24,
-      "bytes": 927,
-      "sha256": "670f8ba2dc2648b63042936ade3ee7e3351cd81e574ef2bf79737316d996680f",
+      "lines": 29,
+      "bytes": 1200,
+      "sha256": "7d78c8a5f38a818c90f950f2cc41930159b12ebde870bae1658bf6bf1e8e0423",
       "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
       "pages": [
         "wiki/C02c统一运行与写账本.md"
@@ -2987,6 +2998,17 @@
       "pages": [
         "wiki/C02c统一运行与写账本.md",
         "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/worker-gates-host.ts",
+      "type": "ts",
+      "lines": 206,
+      "bytes": 6882,
+      "sha256": "002154147a71a88c9833f438d195a1605deebd4b63a719c62831823c80c8b6e0",
+      "role": "仅测试的隔离Electron宿主，调用生产UtilityProcess与Main业务客户端验证启动恢复门禁",
+      "pages": [
+        "wiki/C领域旧库回放与Worker启动门禁.md"
       ]
     },
     {

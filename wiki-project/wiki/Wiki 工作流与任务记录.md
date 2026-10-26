@@ -259,3 +259,8 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 来源审计发现A/B同名探针JSON版本不同：恢复B原a01-migration-lineage-probe.json字节，A a2b050e新原件另存a01-migration-lineage-probe-a2b050e.json并记录原blob/hash；不以同路径覆盖删除B旧证据。原raw与旧日志保留检查覆盖A78/B108/C254份，映射与工具测试结果各按实际退出码登记。
 
 详见[[B新固定组合与回归范围]]、[[B01-新固定组合回归]]及raw/b-a910-c03-combination-validation.json。
+
+
+## C旧业务库与Worker门禁覆盖
+
+本轮新增worker-migration-gates.test.ts及worker-gates-host.ts，分别纳管领域有效旧库/实际Worker验证与隔离Electron测试宿主；映射到[[C领域旧库回放与Worker启动门禁]]。worker-ownership.ts保留原C02c职责页并增加本轮缺陷与真实验证来源。仅增加覆盖配置、不改维护算法；仍运行维护回归、生成/只读check/lint及cb90e9f真实基线sync，任务[[C集成-领域旧库与Worker启动恢复门禁]]保留初始失败与未完成人员项。

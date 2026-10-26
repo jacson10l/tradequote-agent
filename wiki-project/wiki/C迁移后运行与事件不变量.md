@@ -13,6 +13,8 @@ sources:
   - wiki-repo:raw/c-migration-execution-plan-audit.json:1
 ---
 
+
+2026-10-26 C已普通推送cb90e9f至origin/codex/c-b-f4c9dfc-validation并回读一致，未合入。以它为本次独立基线补共同v3/C5/C6/C7领域有效旧库与实际Worker门禁，发现并修正数据库文件符号链接绕过独占锁；新8项及相关回归45/45、build/typecheck、实际Electron恢复1/1通过。旧成功/金额null/回执与事件保持，恢复不重发模型，三类坏库无ready；拒绝只允许锁侧库副作用。详见[[C领域旧库回放与Worker启动门禁]]、[[C集成-领域旧库与Worker启动恢复门禁]]。原121项复用旧证据；完整M/F/J、新业务接线、真实lint/review和实际人员验收仍待，新分支未推送。
 # C迁移后运行与事件不变量
 
 2026-10-25 最新C独立复验：固定A 910e6260af0c4d84471e665da7656dbf8133aae7的Y10安全拒绝，identify与真实repository均在升级/写入前报tampered，原schema/数据/版本7/账本、DB字节和目录列表保持。两个有效CHECK控制均正常通过迁移入口并实际拒绝attempt=0，套件3/3。此前全部指定回归保持：原五项、六轮四例、七轮三例、X01～X11、原12/107及九段SQL指纹；macOS infrastructure47/47、contracts35/35。Y10仅在已测范围技术关闭，本轮未发现新的阻断；M13完整矩阵、新组合、桌面/macOS联合及实际人员/业务验收仍未完成。详见[[A910e626独立复验与Y10关闭回执]]、[[C集成-A910e626与Y10独立复验]]；旧版本失败记录保留原作用域。

@@ -1,4 +1,4 @@
-import { mkdirSync, realpathSync } from "node:fs";
+import { existsSync, mkdirSync, realpathSync } from "node:fs";
 import { basename, dirname, join } from "node:path";
 import { TradeFault } from "@tradequote/domain";
 import Database from "better-sqlite3";
@@ -9,7 +9,12 @@ export class WorkerOwnership {
   private readonly lock: Database.Database;
   constructor(database: string) {
     mkdirSync(dirname(database), { recursive: true });
-    const path = join(realpathSync(dirname(database)), `${basename(database)}.owner`);
+    // Existing database-file symlinks must share the target writer lock as well as
+    // directory aliases. A new database still uses its canonical parent directory.
+    const canonical = existsSync(database)
+      ? realpathSync(database)
+      : join(realpathSync(dirname(database)), basename(database));
+    const path = `${canonical}.owner`;
     this.lock = new Database(path, { timeout: 0 });
     try {
       this.lock.exec("BEGIN EXCLUSIVE");

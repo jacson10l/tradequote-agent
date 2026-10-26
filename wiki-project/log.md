@@ -1055,3 +1055,13 @@ B新组合作者验证已在完整代码提交ceec0ee4e329d891aad1855a4241425676
 2026-10-26 C已取得固定B组合f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd（实际B自验代码ceec0ee，二者非Wiki源码一致），在macOS独立通过九文件121/121、全量455/455、维护36/36、工程6/6及原12/107、X01～X11、Y01～Y10和九SQL指纹。原桌面套件7/9，因新规则面板多个alert使两处全局定位器歧义；C仅将两E2E定位限制到DeepSeek业务区，原断言/时限/生产源码不变，诊断2/2、正式九项含构建9/9。B的旧Windows EPERM和本轮初始失败保留。详见[[Bf4c9dfc组合macOS独立复验与桌面回归]]、[[C集成-Bf4c9dfc组合独立复验]]。本轮仅固定组合基础/原桌面回归通过，完整M/F/J、新知识/检查/P1桌面接线、真实lint/review服务及人员/业务验收仍未完成。
 
 taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一致。C执行253源manifest、A/B/C raw与日志来源保留及A迁移AST/九SQL核对；本轮只改两E2E定位器/格式，不跳断言。完整命令/输出/hash、原7/9、诊断2/2、正式9/9及本地AST运行器初失败保留于raw/c-f4c9dfc-*。最终生成/check/lint/taskBase/共同merge-base/累计sync、工程及290旧raw/原log前缀检查见wiki-validation。任务done只限本轮基础技术复验，完整项目与实际人员仍待；暂不推送/合入/外发。
+
+
+## 2026-10-26 C领域旧库与Worker门禁
+
+- 用户授权普通推送cb90e9f，origin/codex/c-b-f4c9dfc-validation回读完整SHA一致，未合入；新任务独立codex/c-worker-migration-gates以该提交为基线。
+- 新增四条领域有效旧库回放、实际Worker别名互斥及三类安全拒绝共8项。发现数据库文件symlink绕锁后修正WorkerOwnership整体realpath，活跃run/旧成功/金额null/回执/步骤/事件均有断言。
+- typecheck0、相关四文件45/45、build0、实际Electron恢复1/1；P0生成/check/lint/维护/三基线sync结果见raw/c-worker-migration-gates-validation.json；原121复用，不重复宣称。诊断失败保留raw/c-worker-migration-gates-diagnosis.json，锁侧库副作用按实际记录。
+- 同步[[C领域旧库回放与Worker启动门禁]]、[[C集成-领域旧库与Worker启动恢复门禁]]、C02c/ADR0020/矩阵/状态/导航/覆盖。完整迁移、新业务桌面切片、真实lint/review、人员业务验收与Windows后置均未冒称完成；本轮新分支未推送。
+
+- 本轮最终收尾：工程6/6、Wiki维护36/36、cb90e9f/654fecc/be53b98三基线sync均退出0；300份旧非生成raw和202518字节log旧前缀保持。作者自查不替代实际非作者评审。

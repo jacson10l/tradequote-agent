@@ -15,6 +15,8 @@ sources:
   - wiki-repo:raw/c-migration-execution-plan-audit.json:1
 ---
 
+
+2026-10-26 本轮先限定[[C领域旧库回放与Worker启动门禁]]，固定cb90e9f已共享，新增八项/相关45项与原桌面恢复1项通过；文件symlink独占缺口已修。当前未修改本表新业务入口。下一张纵向切片从已保存revision人工触发quote.check，经B报告及全部消费同事务、风险标记和文本批注、重开getChecks；A负责来源资格/人工发布，C接Worker/Main/preload/UI，B配合公共契约/报告事务。完整M/F/J剩余场景与实际人员验收独立保留，不能把本次启动门禁当审核发布通过。
 # C迁移后桌面接线清单
 
 2026-10-26 C已取得固定B组合f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd（实际B自验代码ceec0ee，二者非Wiki源码一致），在macOS独立通过九文件121/121、全量455/455、维护36/36、工程6/6及原12/107、X01～X11、Y01～Y10和九SQL指纹。原桌面套件7/9，因新规则面板多个alert使两处全局定位器歧义；C仅将两E2E定位限制到DeepSeek业务区，原断言/时限/生产源码不变，诊断2/2、正式九项含构建9/9。B的旧Windows EPERM和本轮初始失败保留。详见[[Bf4c9dfc组合macOS独立复验与桌面回归]]、[[C集成-Bf4c9dfc组合独立复验]]。本轮仅固定组合基础/原桌面回归通过，完整M/F/J、新知识/检查/P1桌面接线、真实lint/review服务及人员/业务验收仍未完成。

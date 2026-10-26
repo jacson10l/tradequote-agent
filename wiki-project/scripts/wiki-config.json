@@ -1800,6 +1800,18 @@
         "wiki/B规则检查实现.md",
         "wiki/C02c多步报价工具闭环.md"
       ]
+    },
+    "packages/infrastructure/src/worker-migration-gates.test.ts": {
+      "role": "C领域有效共同v3/C5/C6/C7升级回放、真实Worker互斥和启动拒绝验证",
+      "pages": [
+        "wiki/C领域旧库回放与Worker启动门禁.md"
+      ]
+    },
+    "tests/fixtures/worker-gates-host.ts": {
+      "role": "仅测试的隔离Electron宿主，调用生产UtilityProcess与Main业务客户端验证启动恢复门禁",
+      "pages": [
+        "wiki/C领域旧库回放与Worker启动门禁.md"
+      ]
     }
   }
 }
