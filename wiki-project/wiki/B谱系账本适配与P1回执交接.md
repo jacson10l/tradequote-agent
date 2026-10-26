@@ -108,3 +108,10 @@ C固定a633c428/A65885ff已接收，B确认A-W08公共语义正确，并在既�
 来源已核对：B通过git fetch取得完整C提交abda94e90bf54786937510b802eb5d2479e01412并实际读取其[复核Wiki](https://github.com/jacson10l/tradequote-agent/blob/abda94e90bf54786937510b802eb5d2479e01412/wiki-project/wiki/Acece332迁移复验与B契约材料接收.md)、[X10/X11失败证据](https://github.com/jacson10l/tradequote-agent/blob/abda94e90bf54786937510b802eb5d2479e01412/wiki-project/raw/c-a-lineage-fourth-m13-extra.json)和[B材料接收记录](https://github.com/jacson10l/tradequote-agent/blob/abda94e90bf54786937510b802eb5d2479e01412/wiki-project/raw/c-b-third-feedback-intake.json)；另读取[九例复验原证据](https://github.com/jacson10l/tradequote-agent/blob/abda94e90bf54786937510b802eb5d2479e01412/wiki-project/raw/c-a-lineage-fourth-m13.json)，确认A完整基线cece332e41a230ebbeeaee64eb283b49a5d4fb43、X01～X09的9/9通过与X10/X11的0/2失败。读取固定C材料不等于B重跑C脚本，也不等于新组合或整体通过。原3256c74中“用户转述/未推送/未取得对象”是更新前的历史状态，原始状态同步JSON、旧raw和追加日志保留。
 
 B已比对C所列B材料及八份源码/两次Windows100项输出hash；X10/X11待A修/C验，后续同事务/旧库重开/P1回执责任保持。新核对证据见raw/b-c-abda94e-fixed-source-validation.json，原状态与失败证据不改；详见[[B对Ca633c428复核与公共契约确认]]。
+
+
+## 2026-10-26 P1回执与来源消费复核
+
+本轮P1及消费复核基于新独立C c6f6788；原A-W08/100/121与后续macOS接收证据保持。新增sourceValidity仅为合成fixture控制期限，生产协议不变；七文件104及公开引用资格两项失败另存新raw。A真实lint报告/回执落库与人审发布仍由A实现，B提供绑定门禁与事务/历史回归，C739961a未取得前不声称已验其接线。
+
+关联[[B-P1回执与来源消费复核]]、[[B02-P1回执与消费复核]]；实际证据raw/b-p1-review-validation.json。

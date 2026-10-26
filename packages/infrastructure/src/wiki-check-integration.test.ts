@@ -11,7 +11,9 @@ import {
 } from "@tradequote/contracts";
 import Database from "better-sqlite3";
 import { afterEach, expect, it } from "vitest";
+import { CheckStore } from "./check-store";
 import { SqliteWorkspaceRepository } from "./index";
+import { SqliteWikiCheckSource } from "./wiki-check-source";
 import { createSyntheticQuote, seedPublished } from "./wiki-test.fixture";
 
 const cleanup: (() => void)[] = [];
@@ -158,6 +160,48 @@ it.each(["quote_check_report", "knowledge_consumption", "outbox", "idempotency"]
     const first = data(f.check());
     expect(f.list()).toEqual([first]);
     expect(f.db.prepare("SELECT COUNT(*) AS n FROM knowledge_consumption").get()).toEqual({ n: 1 });
+  },
+);
+
+it.each(["quote_event", "outer_success_receipt"] as const)(
+  "rolls back all citations and inner receipts when the late %s write fails",
+  async (point) => {
+    const f = fixture();
+    await f.seed({ rules: [rule()] });
+    await f.seed({ rules: [rule("delivery")] });
+    const snapshot = () =>
+      Object.fromEntries(
+        ["quote_check_report", "knowledge_consumption", "outbox", "idempotency"].map((table) => [
+          table,
+          f.db.prepare(`SELECT * FROM ${table} ORDER BY rowid`).all(),
+        ]),
+      );
+    const before = snapshot();
+    const target =
+      point === "quote_event"
+        ? "ON outbox WHEN NEW.type='quote.check'"
+        : `ON idempotency WHEN NEW.key='${f.command.idempotencyKey}'`;
+    // Both points occur after the participant has inserted consumption, its event
+    // and its own success receipt. Failing here must roll back that earlier work.
+    f.db.exec(`CREATE TRIGGER injected_late_failure BEFORE INSERT ${target}
+      BEGIN SELECT RAISE(ABORT,'synthetic-late-failure'); END;`);
+    expect(f.check()).toMatchObject({ ok: false, error: { code: "STORAGE_ERROR" } });
+    expect(snapshot()).toEqual(before);
+    f.db.exec("DROP TRIGGER injected_late_failure");
+    const first = data(f.check());
+    expect(first.wikiCitations).toHaveLength(2);
+    expect(first.wikiCitations?.map((c) => c.sourceRefs.length)).toEqual([2, 2]);
+    const consumption = data(await f.consumption(first.reportId));
+    expect(consumption).toMatchObject({
+      kind: "consumption",
+      consumption: { citations: first.wikiCitations },
+    });
+    const committed = snapshot();
+    f.reopen();
+    expect(data(f.check({ ...f.command, requestId: randomUUID() }))).toEqual(first);
+    expect(f.list()).toEqual([first]);
+    expect(data(await f.consumption(first.reportId))).toEqual(consumption);
+    expect(snapshot()).toEqual(committed);
   },
 );
 
@@ -382,6 +426,41 @@ it("rejects an old source revision once a newer source is stored, retaining hist
   });
   expect(data(f.check())).toEqual(first);
   expect(f.list()).toEqual([first]);
+});
+
+it("rejects a new check exactly at source expiry but reopens the original report and all consumption", async () => {
+  const f = fixture();
+  const started = Date.parse(f.quote.createdAt);
+  const expiresAt = new Date(started + 2 * 60 * 60 * 1000).toISOString();
+  let checkedAt = new Date(started + 60 * 60 * 1000).toISOString();
+  await f.seed({
+    sourceValidity: { status: "confirmed", validFrom: null, validUntil: expiresAt },
+  });
+  const store = new CheckStore(f.db, new SqliteWikiCheckSource(f.db), () => checkedAt);
+  const check = (command: unknown = f.command) =>
+    CheckResultSchema.parse(store.execute(command, context));
+  const first = data(check());
+  expect(first.wikiCitations?.[0]?.sourceRefs).toHaveLength(2);
+  const consumption = data(await f.consumption(first.reportId));
+  const snapshot = () =>
+    Object.fromEntries(
+      ["quote_check_report", "knowledge_consumption", "outbox", "idempotency"].map((table) => [
+        table,
+        f.db.prepare(`SELECT * FROM ${table} ORDER BY rowid`).all(),
+      ]),
+    );
+  const before = snapshot();
+  checkedAt = expiresAt;
+  expect(check({ ...f.command, idempotencyKey: randomUUID() })).toMatchObject({
+    ok: false,
+    error: { code: "SOURCE_CONFLICT", retryable: false },
+  });
+  expect(snapshot()).toEqual(before);
+  f.reopen();
+  expect(data(f.check({ ...f.command, requestId: randomUUID() }))).toEqual(first);
+  expect(f.list()).toEqual([first]);
+  expect(data(await f.consumption(first.reportId))).toEqual(consumption);
+  expect(snapshot()).toEqual(before);
 });
 
 it("does not store a partial report when more than 100 rule sections must be consumed", async () => {

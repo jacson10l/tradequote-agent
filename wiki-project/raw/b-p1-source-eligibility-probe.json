@@ -1,0 +1,5 @@
+{
+  "status": "pending_fixed_probe_replay",
+  "base": "c6f6788d3e75f3ac9de02d95306222fb5509ca71",
+  "note": "Two failures already observed in main validation JSON; final fixed-test replay will add complete script/config/observations before handoff."
+}

@@ -1,0 +1,147 @@
+{
+  "status": "in_progress",
+  "scope": "B P1/public binding and check-consumption review on fixed pushed C baseline; not A real lint storage or C739 desktop acceptance",
+  "taskBase": "c6f6788d3e75f3ac9de02d95306222fb5509ca71",
+  "branch": "codex/b-p1-review-consumption",
+  "environment": {
+    "platform": "win32",
+    "arch": "x64",
+    "node": "v22.22.0",
+    "pnpm": "10.13.1",
+    "dependencyPreparation": "pnpm install --frozen-lockfile --offline --ignore-scripts exited 0 under host Node24.21.0 with engine warning; checks below run Node22.22.0"
+  },
+  "inputAvailability": {
+    "pushedC": "c6f6788d3e75f3ac9de02d95306222fb5509ca71",
+    "unavailableC": "739961a",
+    "unavailableMeaning": "git fetch origin succeeded; git show 739961a failed unknown revision. User-reported local-only saved-check integration not tested here."
+  },
+  "checks": [
+    {
+      "name": "native identity",
+      "executable": "D:\\code\\tradequote-agent-b-p1-review\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "-e",
+        "console.log(JSON.stringify({electron:process.versions.electron,node:process.version,sqlite:process.versions.sqlite,platform:process.platform,arch:process.arch}))"
+      ],
+      "environment": {
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "startedAt": "2026-10-26T11:35:19.065Z",
+      "finishedAt": "2026-10-26T11:35:20.975Z",
+      "exit_code": 0,
+      "stdout": "{\"electron\":\"44.9.2\",\"node\":\"v24.22.0\",\"sqlite\":\"3.53.4\",\"platform\":\"win32\",\"arch\":\"x64\"}\n",
+      "stderr": "",
+      "head": "c6f6788d3e75f3ac9de02d95306222fb5509ca71",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710"
+      },
+      "workingSourceChanges": "packages/infrastructure/src/wiki-check-integration.test.ts\npackages/infrastructure/src/wiki-test.fixture.ts"
+    },
+    {
+      "name": "P1 binding and consumption regression",
+      "executable": "D:\\code\\tradequote-agent-b-p1-review\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/contracts/src/knowledge-maintenance.test.ts",
+        "packages/contracts/src/knowledge-lint-review.test.ts",
+        "packages/contracts/src/knowledge-wiki.test.ts",
+        "packages/infrastructure/src/wiki-store.test.ts",
+        "packages/infrastructure/src/check-store.test.ts",
+        "packages/infrastructure/src/check-lineage-integration.test.ts",
+        "packages/infrastructure/src/wiki-check-integration.test.ts"
+      ],
+      "environment": {
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "startedAt": "2026-10-26T11:35:21.104Z",
+      "finishedAt": "2026-10-26T11:35:25.706Z",
+      "exit_code": 0,
+      "stdout": "\n RUN  v5.0.5 D:/code/tradequote-agent-b-p1-review\n\n\n Test Files  7 passed (7)\n      Tests  104 passed (104)\n   Start at  19:35:22\n   Duration  3.40s (tests 45%, import 32%, transform 23%)\n\n",
+      "stderr": "",
+      "head": "c6f6788d3e75f3ac9de02d95306222fb5509ca71",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710"
+      },
+      "workingSourceChanges": "packages/infrastructure/src/wiki-check-integration.test.ts\npackages/infrastructure/src/wiki-test.fixture.ts"
+    },
+    {
+      "name": "A source eligibility review probe",
+      "executable": "D:\\code\\tradequote-agent-b-p1-review\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        ".runtime/p1-source-probe.config.ts"
+      ],
+      "environment": {
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "startedAt": "2026-10-26T11:36:45.200Z",
+      "finishedAt": "2026-10-26T11:36:45.828Z",
+      "exit_code": 1,
+      "stdout": "\n RUN  v5.0.5 D:/code/tradequote-agent-b-p1-review\n\n ❯ .runtime/p1-source-probe.test.ts (0 test)\n\n Test Files  1 failed (1)\n      Tests  no tests\n   Start at  19:36:45\n   Duration  212ms (worker 96%, environment 4%)\n\n",
+      "stderr": "\n⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  .runtime/p1-source-probe.test.ts [ .runtime/p1-source-probe.test.ts ]\nError: Cannot find package '@tradequote/contracts' imported from D:/code/tradequote-agent-b-p1-review/.runtime/p1-source-probe.test.ts\n ❯ .runtime/p1-source-probe.test.ts:5:1\n      3| import { tmpdir } from \"node:os\";\n      4| import { join } from \"node:path\";\n      5| import { WikiResultSchema } from \"@tradequote/contracts\";\n       | ^\n      6| import Database from \"better-sqlite3\";\n      7| import { expect, it } from \"vitest\";\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n",
+      "head": "c6f6788d3e75f3ac9de02d95306222fb5509ca71",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710"
+      },
+      "workingSourceChanges": "packages/infrastructure/src/wiki-check-integration.test.ts\npackages/infrastructure/src/wiki-test.fixture.ts"
+    },
+    {
+      "name": "A source eligibility review probe",
+      "executable": "D:\\code\\tradequote-agent-b-p1-review\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        ".runtime/p1-source-probe.config.ts"
+      ],
+      "environment": {
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "startedAt": "2026-10-26T11:37:17.264Z",
+      "finishedAt": "2026-10-26T11:37:18.850Z",
+      "exit_code": 1,
+      "stdout": "\n RUN  v5.0.5 D:/code/tradequote-agent-b-p1-review\n\nstdout | .runtime/p1-source-probe.test.ts > A public source eligibility: source_expired_history\nP1_ELIGIBILITY_OBSERVATION {\"kind\":\"source_expired_history\",\"controlValid\":true,\"publicSchemaValid\":false,\"result\":{\"ok\":true,\"data\":{\"kind\":\"citationResolution\",\"resolution\":{\"purpose\":\"history\",\"lifecycle\":{\"revisionId\":\"a6a2eb0c-f2ea-4998-80d8-9d019a03ab0d\",\"lifecycleVersion\":3,\"state\":\"published\",\"review\":{\"revisionId\":\"a6a2eb0c-f2ea-4998-80d8-9d019a03ab0d\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"fa280f39fe7289a2dd01b1c734c6f40eed00550d34c1ce4c01caa70921573b25\",\"workspaceId\":\"ab0e8980-2e1e-4e3d-a81a-131d8edb010d\",\"expectedLifecycleVersion\":1,\"decision\":\"approve\",\"note\":\"合成审核通过\",\"lintReceiptId\":\"736ba43c-8b95-49bb-b18d-832da70fae10\",\"lintReceipt\":{\"revisionId\":\"a6a2eb0c-f2ea-4998-80d8-9d019a03ab0d\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"fa280f39fe7289a2dd01b1c734c6f40eed00550d34c1ce4c01caa70921573b25\",\"receiptId\":\"736ba43c-8b95-49bb-b18d-832da70fae10\",\"workspaceId\":\"ab0e8980-2e1e-4e3d-a81a-131d8edb010d\",\"checkedAt\":\"2026-10-22T00:00:00.000Z\",\"policyVersion\":\"synthetic-v1\",\"outcome\":\"passed\"},\"reviewId\":\"e344f903-7ae2-47f3-a020-84a049ab72bf\",\"actorId\":\"host-human\",\"decidedAt\":\"2026-10-22T00:00:00.000Z\"},\"publication\":{\"revisionId\":\"a6a2eb0c-f2ea-4998-80d8-9d019a03ab0d\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"fa280f39fe7289a2dd01b1c734c6f40eed00550d34c1ce4c01caa70921573b25\",\"eventId\":\"5d936381-aeaf-40e8-9506-0966bdd5878e\",\"lifecycleVersion\":3,\"type\":\"published\",\"reviewId\":\"e344f903-7ae2-47f3-a020-84a049ab72bf\",\"actorId\":\"host-human\",\"occurredAt\":\"2026-10-22T00:00:00.000Z\",\"note\":\"合成发布\"}},\"currentPublicationRevisionId\":\"a6a2eb0c-f2ea-4998-80d8-9d019a03ab0d\",\"citation\":{\"revisionId\":\"a6a2eb0c-f2ea-4998-80d8-9d019a03ab0d\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"fa280f39fe7289a2dd01b1c734c6f40eed00550d34c1ce4c01caa70921573b25\",\"documentId\":\"6954094a-187f-4bf8-81dc-7f0a631df322\",\"version\":1,\"sectionId\":\"f2417e9d-53d7-40b6-adf0-e1ca88b1db6d\",\"sourceRefs\":[{\"referenceId\":\"efc7ec00-e5b2-4ffa-95b2-fc32bd862d27\",\"sourceId\":\"ef911ec7-4e7d-4ca7-b4f9-94218a7d0561\",\"sourceRevisionId\":\"aa92ca3f-ef1d-4cb5-b9ab-c8ef99e8168f\",\"sourceVersion\":1,\"artifactHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":11},\"excerptHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"assertion\":\"fact\"},{\"referenceId\":\"12c44235-cb7a-4705-af9c-9021fc218e97\",\"sourceId\":\"dcc403d2-d05b-433d-9219-6c61b2e7fa13\",\"sourceRevisionId\":\"2280ad94-af37-41b9-b4d2-31656e792f08\",\"sourceVersion\":1,\"artifactHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":23},\"excerptHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"assertion\":\"fact\"}]},\"revision\":{\"workspaceId\":\"ab0e8980-2e1e-4e3d-a81a-131d8edb010d\",\"revisionId\":\"a6a2eb0c-f2ea-4998-80d8-9d019a03ab0d\",\"documentId\":\"6954094a-187f-4bf8-81dc-7f0a631df322\",\"version\":1,\"parentRevisionId\":null,\"content\":{\"kind\":\"rule\",\"title\":\"合成 SOP\",\"locale\":\"en\",\"scope\":{\"platforms\":[],\"markets\":[],\"categories\":[]},\"markdown\":\"# 合成 SOP\\nInspect both sources.\\n\",\"validity\":{\"status\":\"confirmed\",\"validFrom\":null,\"validUntil\":null},\"sections\":[{\"sectionId\":\"f2417e9d-53d7-40b6-adf0-e1ca88b1db6d\",\"title\":\"核对\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":31},\"sourceReferenceIds\":[\"efc7ec00-e5b2-4ffa-95b2-fc32bd862d27\",\"12c44235-cb7a-4705-af9c-9021fc218e97\"]}],\"sourceRefs\":[{\"referenceId\":\"efc7ec00-e5b2-4ffa-95b2-fc32bd862d27\",\"sourceId\":\"ef911ec7-4e7d-4ca7-b4f9-94218a7d0561\",\"sourceRevisionId\":\"aa92ca3f-ef1d-4cb5-b9ab-c8ef99e8168f\",\"sourceVersion\":1,\"artifactHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":11},\"excerptHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"assertion\":\"fact\"},{\"referenceId\":\"12c44235-cb7a-4705-af9c-9021fc218e97\",\"sourceId\":\"dcc403d2-d05b-433d-9219-6c61b2e7fa13\",\"sourceRevisionId\":\"2280ad94-af37-41b9-b4d2-31656e792f08\",\"sourceVersion\":1,\"artifactHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":23},\"excerptHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"assertion\":\"fact\"}],\"relations\":[],\"rules\":[{\"sectionId\":\"f2417e9d-53d7-40b6-adf0-e1ca88b1db6d\",\"definition\":{\"ruleId\":\"27cc36db-281b-4f3d-a93c-e9b2d1be5eb3\",\"category\":\"commercial_terms\",\"title\":\"synthetic\",\"message\":\"synthetic\",\"suggestedAction\":\"human review\",\"field\":\"payment\",\"condition\":{\"kind\":\"required\"},\"failureSeverity\":\"block\"}}]},\"artifactId\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"fa280f39fe7289a2dd01b1c734c6f40eed00550d34c1ce4c01caa70921573b25\",\"createdAt\":\"2026-10-22T00:00:00.000Z\"},\"sources\":[{\"workspaceId\":\"ab0e8980-2e1e-4e3d-a81a-131d8edb010d\",\"sourceId\":\"ef911ec7-4e7d-4ca7-b4f9-94218a7d0561\",\"sourceRevisionId\":\"aa92ca3f-ef1d-4cb5-b9ab-c8ef99e8168f\",\"version\":1,\"parentRevisionId\":null,\"label\":\"合成原文\",\"sourceStatus\":\"synthetic\",\"mediaType\":\"text/plain\",\"sourceText\":\"  合成 😀来源A\\n\",\"acquiredAt\":\"2026-10-22T00:00:00.000Z\",\"sourceUri\":null,\"permissionNote\":\"合成 fixture，非真实政策\",\"validity\":{\"status\":\"confirmed\",\"validFrom\":null,\"validUntil\":\"2026-10-26T13:37:18.740Z\"},\"artifactId\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"artifactHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"createdAt\":\"2026-10-22T00:00:00.000Z\"},{\"workspaceId\":\"ab0e8980-2e1e-4e3d-a81a-131d8edb010d\",\"sourceId\":\"dcc403d2-d05b-433d-9219-6c61b2e7fa13\",\"sourceRevisionId\":\"2280ad94-af37-41b9-b4d2-31656e792f08\",\"version\":1,\"parentRevisionId\":null,\"label\":\"合成原文\",\"sourceStatus\":\"synthetic\",\"mediaType\":\"text/plain\",\"sourceText\":\"Synthetic second source\",\"acquiredAt\":\"2026-10-22T00:00:00.000Z\",\"sourceUri\":null,\"permissionNote\":\"合成 fixture，非真实政策\",\"validity\":{\"status\":\"confirmed\",\"validFrom\":null,\"validUntil\":\"2026-10-26T13:37:18.740Z\"},\"artifactId\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"artifactHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"createdAt\":\"2026-10-22T00:00:00.000Z\"}],\"sourceStates\":[{\"sourceRevisionId\":\"aa92ca3f-ef1d-4cb5-b9ab-c8ef99e8168f\",\"lifecycleVersion\":1,\"state\":\"active\",\"changedAt\":\"2026-10-22T00:00:00.000Z\"},{\"sourceRevisionId\":\"2280ad94-af37-41b9-b4d2-31656e792f08\",\"lifecycleVersion\":1,\"state\":\"active\",\"changedAt\":\"2026-10-22T00:00:00.000Z\"}],\"eligibility\":{\"eligible\":true,\"reasons\":[]},\"checkedAt\":\"2026-10-26T13:37:18.740Z\"}},\"warnings\":[],\"evidenceIds\":[\"aa92ca3f-ef1d-4cb5-b9ab-c8ef99e8168f\",\"2280ad94-af37-41b9-b4d2-31656e792f08\"]},\"schemaIssues\":[\"候选/撤回/失效知识或来源不可新引\"]}\n\nstdout | .runtime/p1-source-probe.test.ts > A public source eligibility: source_updated_new_reference\nP1_ELIGIBILITY_OBSERVATION {\"kind\":\"source_updated_new_reference\",\"controlValid\":true,\"publicSchemaValid\":true,\"result\":{\"ok\":true,\"data\":{\"kind\":\"citationResolution\",\"resolution\":{\"purpose\":\"new_reference\",\"lifecycle\":{\"revisionId\":\"78250d7e-d9df-4ffb-b670-121bfa791177\",\"lifecycleVersion\":3,\"state\":\"published\",\"review\":{\"revisionId\":\"78250d7e-d9df-4ffb-b670-121bfa791177\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"95e5c06dc905b26c9dd9648ce6d86febd2a252b8d9a534880fb85a41f5ee0c9b\",\"workspaceId\":\"fb28a805-033e-4c3c-86d4-be0429cc948e\",\"expectedLifecycleVersion\":1,\"decision\":\"approve\",\"note\":\"合成审核通过\",\"lintReceiptId\":\"81c45dd4-866f-447c-8085-8672fed5935c\",\"lintReceipt\":{\"revisionId\":\"78250d7e-d9df-4ffb-b670-121bfa791177\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"95e5c06dc905b26c9dd9648ce6d86febd2a252b8d9a534880fb85a41f5ee0c9b\",\"receiptId\":\"81c45dd4-866f-447c-8085-8672fed5935c\",\"workspaceId\":\"fb28a805-033e-4c3c-86d4-be0429cc948e\",\"checkedAt\":\"2026-10-22T00:00:00.000Z\",\"policyVersion\":\"synthetic-v1\",\"outcome\":\"passed\"},\"reviewId\":\"3a1fc159-e271-4ea0-b005-d215c45cc26f\",\"actorId\":\"host-human\",\"decidedAt\":\"2026-10-22T00:00:00.000Z\"},\"publication\":{\"revisionId\":\"78250d7e-d9df-4ffb-b670-121bfa791177\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"95e5c06dc905b26c9dd9648ce6d86febd2a252b8d9a534880fb85a41f5ee0c9b\",\"eventId\":\"5b259aae-960c-4f20-bbd5-122bcd0492f7\",\"lifecycleVersion\":3,\"type\":\"published\",\"reviewId\":\"3a1fc159-e271-4ea0-b005-d215c45cc26f\",\"actorId\":\"host-human\",\"occurredAt\":\"2026-10-22T00:00:00.000Z\",\"note\":\"合成发布\"}},\"currentPublicationRevisionId\":\"78250d7e-d9df-4ffb-b670-121bfa791177\",\"citation\":{\"revisionId\":\"78250d7e-d9df-4ffb-b670-121bfa791177\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"95e5c06dc905b26c9dd9648ce6d86febd2a252b8d9a534880fb85a41f5ee0c9b\",\"documentId\":\"a74a8778-0e94-4935-9f32-8b3662629e5c\",\"version\":1,\"sectionId\":\"99bbf7d8-35b3-4d63-ac54-77dcc4f92515\",\"sourceRefs\":[{\"referenceId\":\"89ec9d08-d349-44cc-aece-11702ed737cb\",\"sourceId\":\"79a191bb-c222-4627-9a27-b2e2c73d0dcb\",\"sourceRevisionId\":\"272ef2af-3f72-42a1-a0a4-8342d5db9592\",\"sourceVersion\":1,\"artifactHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":11},\"excerptHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"assertion\":\"fact\"},{\"referenceId\":\"c49f33fd-8aec-401b-a680-7f44eb9e632f\",\"sourceId\":\"7e4e2ac2-b17e-45a6-ab69-318e16448e18\",\"sourceRevisionId\":\"8bd34f5d-fe5f-4630-9e8e-1dc2b72e46ee\",\"sourceVersion\":1,\"artifactHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":23},\"excerptHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"assertion\":\"fact\"}]},\"revision\":{\"workspaceId\":\"fb28a805-033e-4c3c-86d4-be0429cc948e\",\"revisionId\":\"78250d7e-d9df-4ffb-b670-121bfa791177\",\"documentId\":\"a74a8778-0e94-4935-9f32-8b3662629e5c\",\"version\":1,\"parentRevisionId\":null,\"content\":{\"kind\":\"rule\",\"title\":\"合成 SOP\",\"locale\":\"en\",\"scope\":{\"platforms\":[],\"markets\":[],\"categories\":[]},\"markdown\":\"# 合成 SOP\\nInspect both sources.\\n\",\"validity\":{\"status\":\"confirmed\",\"validFrom\":null,\"validUntil\":null},\"sections\":[{\"sectionId\":\"99bbf7d8-35b3-4d63-ac54-77dcc4f92515\",\"title\":\"核对\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":31},\"sourceReferenceIds\":[\"89ec9d08-d349-44cc-aece-11702ed737cb\",\"c49f33fd-8aec-401b-a680-7f44eb9e632f\"]}],\"sourceRefs\":[{\"referenceId\":\"89ec9d08-d349-44cc-aece-11702ed737cb\",\"sourceId\":\"79a191bb-c222-4627-9a27-b2e2c73d0dcb\",\"sourceRevisionId\":\"272ef2af-3f72-42a1-a0a4-8342d5db9592\",\"sourceVersion\":1,\"artifactHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":11},\"excerptHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"assertion\":\"fact\"},{\"referenceId\":\"c49f33fd-8aec-401b-a680-7f44eb9e632f\",\"sourceId\":\"7e4e2ac2-b17e-45a6-ab69-318e16448e18\",\"sourceRevisionId\":\"8bd34f5d-fe5f-4630-9e8e-1dc2b72e46ee\",\"sourceVersion\":1,\"artifactHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":23},\"excerptHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"assertion\":\"fact\"}],\"relations\":[],\"rules\":[{\"sectionId\":\"99bbf7d8-35b3-4d63-ac54-77dcc4f92515\",\"definition\":{\"ruleId\":\"0ffda418-56f3-4d2a-a16e-978fd8e972a6\",\"category\":\"commercial_terms\",\"title\":\"synthetic\",\"message\":\"synthetic\",\"suggestedAction\":\"human review\",\"field\":\"payment\",\"condition\":{\"kind\":\"required\"},\"failureSeverity\":\"block\"}}]},\"artifactId\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"95e5c06dc905b26c9dd9648ce6d86febd2a252b8d9a534880fb85a41f5ee0c9b\",\"createdAt\":\"2026-10-22T00:00:00.000Z\"},\"sources\":[{\"workspaceId\":\"fb28a805-033e-4c3c-86d4-be0429cc948e\",\"sourceId\":\"79a191bb-c222-4627-9a27-b2e2c73d0dcb\",\"sourceRevisionId\":\"272ef2af-3f72-42a1-a0a4-8342d5db9592\",\"version\":1,\"parentRevisionId\":null,\"label\":\"合成原文\",\"sourceStatus\":\"synthetic\",\"mediaType\":\"text/plain\",\"sourceText\":\"  合成 😀来源A\\n\",\"acquiredAt\":\"2026-10-22T00:00:00.000Z\",\"sourceUri\":null,\"permissionNote\":\"合成 fixture，非真实政策\",\"validity\":{\"status\":\"confirmed\",\"validFrom\":null,\"validUntil\":null},\"artifactId\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"artifactHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"createdAt\":\"2026-10-22T00:00:00.000Z\"},{\"workspaceId\":\"fb28a805-033e-4c3c-86d4-be0429cc948e\",\"sourceId\":\"7e4e2ac2-b17e-45a6-ab69-318e16448e18\",\"sourceRevisionId\":\"8bd34f5d-fe5f-4630-9e8e-1dc2b72e46ee\",\"version\":1,\"parentRevisionId\":null,\"label\":\"合成原文\",\"sourceStatus\":\"synthetic\",\"mediaType\":\"text/plain\",\"sourceText\":\"Synthetic second source\",\"acquiredAt\":\"2026-10-22T00:00:00.000Z\",\"sourceUri\":null,\"permissionNote\":\"合成 fixture，非真实政策\",\"validity\":{\"status\":\"confirmed\",\"validFrom\":null,\"validUntil\":null},\"artifactId\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"artifactHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"createdAt\":\"2026-10-22T00:00:00.000Z\"}],\"sourceStates\":[{\"sourceRevisionId\":\"272ef2af-3f72-42a1-a0a4-8342d5db9592\",\"lifecycleVersion\":1,\"state\":\"active\",\"changedAt\":\"2026-10-22T00:00:00.000Z\"},{\"sourceRevisionId\":\"8bd34f5d-fe5f-4630-9e8e-1dc2b72e46ee\",\"lifecycleVersion\":1,\"state\":\"active\",\"changedAt\":\"2026-10-22T00:00:00.000Z\"}],\"eligibility\":{\"eligible\":true,\"reasons\":[]},\"checkedAt\":\"2026-10-26T13:37:18.794Z\"}},\"warnings\":[],\"evidenceIds\":[\"272ef2af-3f72-42a1-a0a4-8342d5db9592\",\"8bd34f5d-fe5f-4630-9e8e-1dc2b72e46ee\"]},\"schemaIssues\":[]}\n\n ❯ .runtime/p1-source-probe.test.ts (2 tests | 2 failed) 103ms\n   × A public source eligibility: source_expired_history 69ms\n   × A public source eligibility: source_updated_new_reference 33ms\n\n Test Files  1 failed (1)\n      Tests  2 failed (2)\n   Start at  19:37:17\n   Duration  1.18s (import 46%, transform 43%, tests 10%)\n\n",
+      "stderr": "\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  .runtime/p1-source-probe.test.ts > A public source eligibility: source_expired_history\nAssertionError: expected false to be true // Object.is equality\n\n- Expected\n+ Received\n\n- true\n+ false\n\n ❯ .runtime/p1-source-probe.test.ts:37:28\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯\n\n FAIL  .runtime/p1-source-probe.test.ts > A public source eligibility: source_updated_new_reference\nAssertionError: expected true to be false // Object.is equality\n\n- Expected\n+ Received\n\n- false\n+ true\n\n ❯ .runtime/p1-source-probe.test.ts:39:73\n     37|     expect(parsed.success).toBe(true);\n     38|     if (!parsed.success) return;\n     39|     if (kind === \"source_updated_new_reference\") expect(parsed.data.ok…\n       |                                                                         ^\n     40|     else expect(parsed.data).toMatchObject({ ok: true, data: { kind: \"…\n     41|   } finally {\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯\n\n",
+      "head": "c6f6788d3e75f3ac9de02d95306222fb5509ca71",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710"
+      },
+      "workingSourceChanges": "packages/infrastructure/src/wiki-check-integration.test.ts\npackages/infrastructure/src/wiki-test.fixture.ts"
+    }
+  ],
+  "overallJointAcceptance": false,
+  "notRun": [
+    "A real lint report persistence/review/publish/withdraw service: not implemented in fixed base",
+    "C local-only 739961a and its desktop route",
+    "real Electron desktop/macOS joint, full migration M/F/J, human publication/withdrawal/personnel or business signoff",
+    "maintenance regression: no tools/coverage change",
+    "real model calls/force push/merge"
+  ]
+}

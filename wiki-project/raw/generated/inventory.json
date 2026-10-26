@@ -2531,9 +2531,9 @@
     {
       "path": "packages/infrastructure/src/wiki-check-integration.test.ts",
       "type": "ts",
-      "lines": 474,
-      "bytes": 17727,
-      "sha256": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7",
+      "lines": 553,
+      "bytes": 21264,
+      "sha256": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
       "role": "A真实查询到B报告消费的端口联调、故障与历史回归",
       "pages": [
         "wiki/B规则检查实现.md",
@@ -2578,9 +2578,9 @@
     {
       "path": "packages/infrastructure/src/wiki-test.fixture.ts",
       "type": "ts",
-      "lines": 250,
-      "bytes": 7342,
-      "sha256": "415616706aaa51487477595c148ee6e1f4eb348861c59eb5ea3da994126d5e8e",
+      "lines": 251,
+      "bytes": 7416,
+      "sha256": "e665c3c934a5679a641b554ff4c3cdf49151dddc61fd82511a140cc6276b669c",
       "role": "明确合成A+B来源/候选和测试发布投影，非产品审核入口",
       "pages": [
         "wiki/A01c检索引用实现.md",

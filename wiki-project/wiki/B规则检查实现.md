@@ -143,3 +143,10 @@ B在独立codex/b01-lineage-p1-adaptation整合A b9a0af7的九能力/统一8与P
 组合保留B的quoteCheckService/evaluateWikiQuote/CheckStore及executeChecks；C quote-draft-plan经同一公共quoteCheckService做预保存检查，仍不能把预览授权或临时ID当已保存版本报告。该纯检查接口要求宿主每份文档提供唯一版本，重复历史版本显式拒绝，不由检查器回退选旧。C原五项纯检查回归保存在新增quote-checks-runtime-compat.test.ts，scope/时间测试调整为宿主已选唯一版本，并明确断言重复同文档输入拒绝；其他原覆盖保留。新九文件结果与原作者121分别归档。
 
 详见[[B新固定组合与回归范围]]、[[B01-新固定组合回归]]及raw/b-a910-c03-combination-validation.json。
+
+
+## 2026-10-26 P1回执与来源消费复核
+
+新增late quote.check事件与外层成功幂等两个失败注入点，均在内部消费/事件/回执已插入后触发；两个知识段落四来源整体回滚，无半份报告或成功幂等，移除注入后同键成功并保持全部引用，重开/回放不重复。新增source.validUntil相等边界，新检查SOURCE_CONFLICT，旧报告/完整消费/回执保持。既有来源更新/撤回及最新知识过期/撤回不回退旧依据、完整消费被篡改拒绝的回归一并复跑。生产金额、CheckStore及消费事务不改。
+
+关联[[B-P1回执与来源消费复核]]、[[B02-P1回执与消费复核]]；实际证据raw/b-p1-review-validation.json。
