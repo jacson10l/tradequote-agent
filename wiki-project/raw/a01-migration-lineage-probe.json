@@ -1,7 +1,7 @@
 {
   "status": "passed",
   "scope": "A01c migration lineage identification & append matrix probe; synthetic in-memory only; proves identification classification and capability-append shape, not business acceptance",
-  "recordedAt": "2026-10-25T08:52:17.403Z",
+  "recordedAt": "2026-10-26T12:59:11.449Z",
   "environment": {
     "platform": "win32",
     "arch": "x64",
@@ -57,6 +57,11 @@
     "check-report:7": {
       "got": "927ce55cc67a6ec655cff131a67af33f9fdc7f83372d4247ab65467d91144602",
       "known": "927ce55cc67a6ec655cff131a67af33f9fdc7f83372d4247ab65467d91144602",
+      "match": true
+    },
+    "knowledge-wiki:8": {
+      "got": "32942f9e99a6159002a5f19904a44bb6a7b3afd28b60cdaa553b6f06d280448f",
+      "known": "32942f9e99a6159002a5f19904a44bb6a7b3afd28b60cdaa553b6f06d280448f",
       "match": true
     }
   },
@@ -184,6 +189,22 @@
       "partial": []
     },
     {
+      "name": "a-v8",
+      "userVersion": 8,
+      "lineage": "a-v8",
+      "expect": "a-v8",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "knowledge-wiki:6",
+        "knowledge-wiki:8"
+      ],
+      "partial": []
+    },
+    {
       "name": "b-v7",
       "userVersion": 7,
       "lineage": "b-v7",
@@ -214,7 +235,8 @@
         "c-run:6",
         "c-run:7",
         "knowledge-wiki:6",
-        "check-report:7"
+        "check-report:7",
+        "knowledge-wiki:8"
       ],
       "partial": []
     },
@@ -281,7 +303,8 @@
         "c-run:6",
         "c-run:7",
         "knowledge-wiki:6",
-        "check-report:7"
+        "check-report:7",
+        "knowledge-wiki:8"
       ],
       "partial": []
     },
@@ -829,6 +852,14 @@
     {
       "lineage": "a-v6",
       "before": "a-v6",
+      "after": "unified",
+      "allCapabilitiesPresent": true,
+      "userVersion": 8,
+      "pass": true
+    },
+    {
+      "lineage": "a-v8",
+      "before": "a-v8",
       "after": "unified",
       "allCapabilitiesPresent": true,
       "userVersion": 8,

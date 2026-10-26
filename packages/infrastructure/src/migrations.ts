@@ -244,6 +244,28 @@ CREATE TRIGGER quote_check_report_no_delete BEFORE DELETE ON quote_check_report
 BEGIN SELECT RAISE(ABORT, 'IMMUTABLE_CHECK_REPORT'); END;
 `,
   },
+  {
+    // A01e：维护 lint 回执。审核/发布/撤回服务的前置不可变事实；lint 成功不自动发布。
+    lineage: "knowledge-wiki",
+    version: 8,
+    sql: `
+CREATE TABLE knowledge_lint (
+  receipt_id TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL REFERENCES workspace(id),
+  revision_id TEXT NOT NULL REFERENCES knowledge_wiki(revision_id),
+  content_hash TEXT NOT NULL CHECK(length(content_hash)=64),
+  source_set_hash TEXT NOT NULL CHECK(length(source_set_hash)=64),
+  checked_at TEXT NOT NULL,
+  policy_version TEXT NOT NULL,
+  outcome TEXT NOT NULL CHECK(outcome IN ('passed','blocked','unknown')),
+  data_json TEXT NOT NULL,
+  UNIQUE(revision_id, content_hash, source_set_hash, checked_at)
+);
+CREATE INDEX knowledge_lint_revision ON knowledge_lint(revision_id, checked_at DESC);
+CREATE TRIGGER knowledge_lint_no_update BEFORE UPDATE ON knowledge_lint BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE_LINT'); END;
+CREATE TRIGGER knowledge_lint_no_delete BEFORE DELETE ON knowledge_lint BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE_LINT'); END;
+`,
+  },
 ];
 
 /** 统一目标 user_version。8 不与任何历史谱系编号冲突。 */
@@ -260,6 +282,7 @@ export const UPGRADEABLE_LINEAGES: ReadonlySet<MigrationLineage> = new Set<Migra
   "c-v6",
   "c-v7",
   "a-v6",
+  "a-v8",
   "b-v7",
   "unified",
 ]);
@@ -332,6 +355,7 @@ export function verifyLegacyLedger(db: Database.Database, id: Identification): v
     4: "common",
     6: "knowledge-wiki",
     7: "check-report",
+    8: "knowledge-wiki",
   };
   const rows = db.prepare("SELECT version, sql_hash FROM schema_migration").all() as {
     version: number;

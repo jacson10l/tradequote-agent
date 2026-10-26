@@ -35,6 +35,7 @@ export type MigrationLineage =
   | "c-v6"
   | "c-v7"
   | "a-v6"
+  | "a-v8"
   | "b-v7"
   | "unified"
   | "mixed"
@@ -318,6 +319,33 @@ export const CAPABILITIES: CapabilitySpec[] = [
       ],
     },
   },
+  {
+    // A01e：维护 lint 回执（审核发布撤回服务的前置事实，不可变）。
+    lineage: "knowledge-wiki",
+    version: 8,
+    tables: ["knowledge_lint"],
+    indexes: [{ name: "knowledge_lint_revision", table: "knowledge_lint" }],
+    triggers: [
+      { name: "knowledge_lint_no_update", table: "knowledge_lint", raises: true, event: "UPDATE", when: null },
+      { name: "knowledge_lint_no_delete", table: "knowledge_lint", raises: true, event: "DELETE", when: null },
+    ],
+    columns: {
+      knowledge_lint: [
+        "receipt_id",
+        "workspace_id",
+        "revision_id",
+        "content_hash",
+        "source_set_hash",
+        "checked_at",
+        "policy_version",
+        "outcome",
+        "data_json",
+      ],
+    },
+    foreignKeys: [
+      { table: "knowledge_lint", from: "revision_id", toTable: "knowledge_wiki", to: "revision_id" },
+    ],
+  },
 ];
 
 export type CapabilityId = `${CapabilityLineage}:${number}`;
@@ -599,6 +627,7 @@ const LINEAGE_VERSION: Record<MigrationLineage, number> = {
   "c-v6": 6,
   "c-v7": 7,
   "a-v6": 6,
+  "a-v8": 8,
   "b-v7": 7,
   unified: 8,
   mixed: -1,
@@ -623,11 +652,19 @@ function classifyPresent(present: CapabilityId[]): MigrationLineage {
     ["c-run:5,c-run:6,c-run:7,common:1,common:2,common:3,common:4", "c-v7"],
     ["common:1,common:2,common:3,common:4,knowledge-wiki:6", "a-v6"],
     [
+      "common:1,common:2,common:3,common:4,knowledge-wiki:6,knowledge-wiki:8",
+      "a-v8",
+    ],
+    [
       "check-report:7,common:1,common:2,common:3,common:4,knowledge-wiki:6",
       "b-v7",
     ],
     [
       "c-run:5,c-run:6,c-run:7,check-report:7,common:1,common:2,common:3,common:4,knowledge-wiki:6",
+      "unified",
+    ],
+    [
+      "c-run:5,c-run:6,c-run:7,check-report:7,common:1,common:2,common:3,common:4,knowledge-wiki:6,knowledge-wiki:8",
       "unified",
     ],
   ]);

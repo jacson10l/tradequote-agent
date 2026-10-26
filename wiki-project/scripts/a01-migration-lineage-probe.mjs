@@ -1,8 +1,8 @@
 // A01c 迁移谱系识别与追加矩阵探针（纯 Node，仅 node:sqlite + 类型剥离的 TS 源码）。
 // 目的：在不依赖 node_modules/better-sqlite3 的前提下，验证
 //   1) 能力 SQL 与 C/B 固定原件的 LF 指纹一致；
-//   2) identifyLineage 对 12+ 种谱系（含混合/篡改/未知 v6/缺触发器）分类正确；
-//   3) 每个可升级谱系能定向追加到统一目标（9 能力齐全、user_version=8）。
+//   2) identifyLineage 对 13+ 种谱系（含混合/篡改/未知 v6/缺触发器）分类正确；
+//   3) 每个可升级谱系能定向追加到统一目标（10 能力齐全、user_version=8）。
 // 识别逻辑直接 import 真实 migration-lineage.ts；SQL 逐字复制自 migrations.ts 的
 // MIGRATION_STEPS，并用已知指纹断言字节忠实。
 import { createHash } from "node:crypto";
@@ -188,6 +188,23 @@ BEGIN SELECT RAISE(ABORT, 'IMMUTABLE_CHECK_REPORT'); END;
 CREATE TRIGGER quote_check_report_no_delete BEFORE DELETE ON quote_check_report
 BEGIN SELECT RAISE(ABORT, 'IMMUTABLE_CHECK_REPORT'); END;
 ` },
+  { lineage: "knowledge-wiki", version: 8, sql: `
+CREATE TABLE knowledge_lint (
+  receipt_id TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL REFERENCES workspace(id),
+  revision_id TEXT NOT NULL REFERENCES knowledge_wiki(revision_id),
+  content_hash TEXT NOT NULL CHECK(length(content_hash)=64),
+  source_set_hash TEXT NOT NULL CHECK(length(source_set_hash)=64),
+  checked_at TEXT NOT NULL,
+  policy_version TEXT NOT NULL,
+  outcome TEXT NOT NULL CHECK(outcome IN ('passed','blocked','unknown')),
+  data_json TEXT NOT NULL,
+  UNIQUE(revision_id, content_hash, source_set_hash, checked_at)
+);
+CREATE INDEX knowledge_lint_revision ON knowledge_lint(revision_id, checked_at DESC);
+CREATE TRIGGER knowledge_lint_no_update BEFORE UPDATE ON knowledge_lint BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE_LINT'); END;
+CREATE TRIGGER knowledge_lint_no_delete BEFORE DELETE ON knowledge_lint BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE_LINT'); END;
+` },
 ];
 
 // C/B 固定诊断原件的 LF 归一指纹（d99f2b3）。
@@ -201,11 +218,12 @@ const KNOWN_FINGERPRINTS = {
   "c-run:7": "268beab4bd70f403d62877153abf2df0c6f574bde852b77c1cfe7a63808d87fa",
   "knowledge-wiki:6": "5184461756e3a389588182c1e9e497f34bfc7442bbf4d7ff8a09cdb458f49f66",
   "check-report:7": "927ce55cc67a6ec655cff131a67af33f9fdc7f83372d4247ab65467d91144602",
+  "knowledge-wiki:8": "32942f9e99a6159002a5f19904a44bb6a7b3afd28b60cdaa553b6f06d280448f",
 };
 
 const UPGRADEABLE = new Set([
   "empty", "common-v1", "common-v2", "common-v3", "a01b-v4",
-  "c-v5", "c-v6", "c-v7", "a-v6", "b-v7", "unified",
+  "c-v5", "c-v6", "c-v7", "a-v6", "a-v8", "b-v7", "unified",
 ]);
 
 function sha(s) {
@@ -254,6 +272,7 @@ const LINEAGE_BUILD = {
   "c-v6": { ids: ["common:1", "common:2", "common:3", "common:4", "c-run:5", "c-run:6"], uv: 6 },
   "c-v7": { ids: ["common:1", "common:2", "common:3", "common:4", "c-run:5", "c-run:6", "c-run:7"], uv: 7 },
   "a-v6": { ids: ["common:1", "common:2", "common:3", "common:4", "knowledge-wiki:6"], uv: 6 },
+  "a-v8": { ids: ["common:1", "common:2", "common:3", "common:4", "knowledge-wiki:6", "knowledge-wiki:8"], uv: 8 },
   "b-v7": { ids: ["common:1", "common:2", "common:3", "common:4", "knowledge-wiki:6", "check-report:7"], uv: 7 },
 };
 function buildLineage(db, key) {
@@ -305,6 +324,7 @@ caseRun("c-v5", (db) => buildLineage(db, "c-v5"), "c-v5");
 caseRun("c-v6", (db) => buildLineage(db, "c-v6"), "c-v6");
 caseRun("c-v7", (db) => buildLineage(db, "c-v7"), "c-v7");
 caseRun("a-v6", (db) => buildLineage(db, "a-v6"), "a-v6");
+caseRun("a-v8", (db) => buildLineage(db, "a-v8"), "a-v8");
 caseRun("b-v7", (db) => buildLineage(db, "b-v7"), "b-v7");
 caseRun("unified", (db) => buildAll(db), "unified");
 
@@ -582,7 +602,7 @@ caseRun("valid-extra-bracket-column-with-real-check", (db) => {
   db.exec("ALTER TABLE agent_write_call ADD COLUMN [CHECK(attempt>0)] TEXT");
 }, "c-v7");
 
-// 3) 追加：每个可升级谱系定向追加后应达到统一目标（9 能力齐全 + user_version=8）
+// 3) 追加：每个可升级谱系定向追加后应达到统一目标（10 能力齐全 + user_version=8）
 function appendToTarget(db, snap) {
   const present = new Set(snap.present);
   for (const step of STEPS) {
@@ -593,7 +613,7 @@ function appendToTarget(db, snap) {
 }
 
 const appendResults = [];
-for (const lineage of ["empty", "common-v1", "common-v2", "common-v3", "a01b-v4", "c-v5", "c-v6", "c-v7", "a-v6", "b-v7"]) {
+for (const lineage of ["empty", "common-v1", "common-v2", "common-v3", "a01b-v4", "c-v5", "c-v6", "c-v7", "a-v6", "a-v8", "b-v7"]) {
   const db = new DatabaseSync(":memory:");
   if (lineage !== "empty") buildLineage(db, lineage);
   const before = identifyLineage(snapshot(db));

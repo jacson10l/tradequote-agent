@@ -117,6 +117,11 @@ export class SqliteWorkspaceRepository implements WorkspaceRepository {
   executeWiki(command: unknown, context: WikiHostContext) {
     return createWikiService(new SqliteWikiStore(this.db)).execute(command, context);
   }
+  /** 维护入口：对知识版本跑一次真实 lint 并落库不可变回执（审核前置事实）。
+   *  不经过 WikiCommand 路由，返回回执或 null（版本不存在）。 */
+  runWikiLint(revisionId: string, context: WikiHostContext): ReturnType<SqliteWikiStore["runLint"]> {
+    return new SqliteWikiStore(this.db).runLint(revisionId, context);
+  }
   agentReplay(command: import("@tradequote/contracts").AgentCommand) {
     return new TradeStore(this.db).replay(command);
   }

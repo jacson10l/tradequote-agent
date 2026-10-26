@@ -29,6 +29,7 @@ afterEach(() => {
 
 const human = { actorId: "test-user", origin: "human_ui" } as const;
 const NOW = "2026-10-22T00:00:00.000Z";
+const LATER = "2026-10-23T00:00:00.000Z";
 const host = (workspaceId: string, origin: WikiHostContext["origin"] = "human_ui"): WikiHostContext => ({
   workspaceId,
   actorId: origin === "human_ui" ? "test-user" : "agent",
@@ -80,16 +81,13 @@ interface Seeded {
   citation: KnowledgeCitation;
 }
 
-/** Stage sources + a wiki candidate through the real store, then promote the
- *  candidate to published by writing the lifecycle projection directly (publish
- *  itself is P1 and gated on a lint receipt). Returns everything search/citation
- *  paths need. */
-async function seedPublished(
-  file: string,
+/** Stage sources + a wiki candidate through the real store, leaving the
+ *  lifecycle as `candidate` (P1 review/publish/withdraw operate on it). */
+async function seedCandidate(
   repo: SqliteWorkspaceRepository,
   workspaceId: string,
   opts: SeedOptions = {},
-): Promise<Seeded> {
+) {
   const sources: WikiSourceRevision[] = [];
   for (const sourceText of SOURCE_TEXTS) {
     const result = WikiResultSchema.parse(
@@ -160,7 +158,23 @@ async function seedPublished(
   const revision = (
     result as { ok: true; data: { kind: "wikiRevision"; record: { revision: WikiRevision } } }
   ).data.record.revision;
+  return { sources, revision, refs, sectionId, documentId, markdown };
+}
 
+/** Stage sources + a wiki candidate through the real store, then promote the
+ *  candidate to published by writing the lifecycle projection directly (publish
+ *  itself is exercised in A-W09). Returns everything search/citation paths need. */
+async function seedPublished(
+  file: string,
+  repo: SqliteWorkspaceRepository,
+  workspaceId: string,
+  opts: SeedOptions = {},
+): Promise<Seeded> {
+  const { sources, revision, refs, sectionId, documentId } = await seedCandidate(
+    repo,
+    workspaceId,
+    opts,
+  );
   const binding = {
     revisionId: revision.revisionId,
     contentHash: revision.contentHash,
@@ -392,7 +406,7 @@ it("A-W07-2: 消费登记事务内复核来源与生命周期，幂等重放，�
   repo.close();
 });
 
-it("A-W08: 来源/知识暂存幂等与来源校验，审核发布撤回保持不可用", async () => {
+it("A-W08: 来源/知识暂存幂等与来源校验，人工来源暂存被拒", async () => {
   const file = join(temp(), "wiki.sqlite");
   const { repo, workspaceId } = openRepo(file);
 
@@ -420,28 +434,8 @@ it("A-W08: 来源/知识暂存幂等与来源校验，审核发布撤回保持�
   const s2 = await repo.executeWiki({ ...stageSourceCmd, requestId: randomUUID() }, host(workspaceId));
   expect(s2).toEqual(s1);
 
-  // 审核/发布/撤回仍依赖维护协议，返回 CAPABILITY_UNAVAILABLE。
-  const seeded = await seedPublished(file, repo, workspaceId);
-  const binding = {
-    revisionId: seeded.revision.revisionId,
-    contentHash: seeded.revision.contentHash,
-    sourceSetHash: seeded.revision.sourceSetHash,
-  };
-  for (const [method, payload] of [
-    [
-      "wiki.review",
-      { ...binding, expectedLifecycleVersion: 1, decision: "approve", note: "x", lintReceiptId: randomUUID() },
-    ],
-    ["wiki.publish", { ...binding, reviewId: randomUUID(), expectedLifecycleVersion: 2 }],
-    ["wiki.withdraw", { revisionId: seeded.revision.revisionId, expectedLifecycleVersion: 3, note: "x" }],
-  ] as const) {
-    expect(await repo.executeWiki(write(method, payload), host(workspaceId)), method).toMatchObject({
-      ok: false,
-      error: { code: "CAPABILITY_UNAVAILABLE", retryable: false },
-    });
-  }
-
   // getRevision/listRevisions 可读回暂存版本。
+  const seeded = await seedPublished(file, repo, workspaceId);
   const got = await repo.executeWiki(
     read("wiki.getRevision", { revisionId: seeded.revision.revisionId }),
     host(workspaceId),
@@ -452,5 +446,217 @@ it("A-W08: 来源/知识暂存幂等与来源校验，审核发布撤回保持�
     host(workspaceId),
   );
   expect((listed as { ok: true; data: { records: unknown[] } }).data.records).toHaveLength(1);
+  repo.close();
+});
+
+const lifecycleOf = (result: WikiResult): WikiLifecycle =>
+  (result as { ok: true; data: { kind: "wikiRevision"; record: { lifecycle: WikiLifecycle } } }).data
+    .record.lifecycle;
+
+it("A-W09-1: lint 落库回执，审核绑定已存回执后批准、发布、撤回全链路", async () => {
+  const file = join(temp(), "wiki.sqlite");
+  const { repo, workspaceId } = openRepo(file);
+  const { revision } = await seedCandidate(repo, workspaceId);
+  const binding = {
+    revisionId: revision.revisionId,
+    contentHash: revision.contentHash,
+    sourceSetHash: revision.sourceSetHash,
+  };
+
+  // lint 产生真实回执并落库：通过版本的 outcome 为 passed。
+  const receipt = repo.runWikiLint(revision.revisionId, host(workspaceId));
+  expect(receipt).not.toBeNull();
+  expect(receipt!.outcome).toBe("passed");
+  expect(receipt!.revisionId).toBe(revision.revisionId);
+  expect(receipt!.contentHash).toBe(revision.contentHash);
+
+  // lint 成功不自动发布：检索仍为空。
+  expect(pageOf(await repo.executeWiki(searchCmd(), host(workspaceId))).hits).toHaveLength(0);
+
+  // 人工审核批准（绑定已存 lint 回执）。
+  const reviewCmd = write("wiki.review", {
+    ...binding,
+    expectedLifecycleVersion: 1,
+    decision: "approve",
+    note: "人工复核通过",
+    lintReceiptId: receipt!.receiptId,
+  });
+  const review = await repo.executeWiki(reviewCmd, host(workspaceId));
+  expect(review.ok).toBe(true);
+  expect(lifecycleOf(review).state).toBe("approved");
+  const reviewId = lifecycleOf(review).review!.reviewId;
+
+  // 审核幂等重放：同一 idempotencyKey、不同 requestId 返回同一结果。
+  const replay = await repo.executeWiki({ ...reviewCmd, requestId: randomUUID() }, host(workspaceId));
+  expect(replay).toEqual(review);
+
+  // 发布。
+  const publish = await repo.executeWiki(
+    write("wiki.publish", { ...binding, reviewId, expectedLifecycleVersion: 2 }),
+    host(workspaceId),
+  );
+  expect(publish.ok).toBe(true);
+  expect(lifecycleOf(publish).state).toBe("published");
+  expect(pageOf(await repo.executeWiki(searchCmd(), host(workspaceId))).hits).toHaveLength(1);
+
+  // 撤回。
+  const withdraw = await repo.executeWiki(
+    write("wiki.withdraw", { revisionId: revision.revisionId, expectedLifecycleVersion: 3, note: "临时撤回" }),
+    host(workspaceId),
+  );
+  expect(withdraw.ok).toBe(true);
+  expect(lifecycleOf(withdraw).state).toBe("withdrawn");
+  expect(pageOf(await repo.executeWiki(searchCmd(), host(workspaceId))).hits).toHaveLength(0);
+  repo.close();
+});
+
+it("A-W09-2: 审核须绑定已存 lint 回执与版本 hash，批准必须通过；lint 失败可拒绝", async () => {
+  const file = join(temp(), "wiki.sqlite");
+  const { repo, workspaceId } = openRepo(file);
+  const { revision, sources } = await seedCandidate(repo, workspaceId);
+  const binding = {
+    revisionId: revision.revisionId,
+    contentHash: revision.contentHash,
+    sourceSetHash: revision.sourceSetHash,
+  };
+
+  // 引用不存在的 lint 回执被拒。
+  expect(
+    await repo.executeWiki(
+      write("wiki.review", {
+        ...binding,
+        expectedLifecycleVersion: 1,
+        decision: "approve",
+        note: "x",
+        lintReceiptId: randomUUID(),
+      }),
+      host(workspaceId),
+    ),
+  ).toMatchObject({ ok: false, error: { code: "NOT_FOUND" } });
+
+  // 绑定错误正文 hash 被拒（与知识版本不一致）。
+  const passed = repo.runWikiLint(revision.revisionId, host(workspaceId))!;
+  expect(
+    await repo.executeWiki(
+      write("wiki.review", {
+        ...binding,
+        contentHash: "f".repeat(64),
+        expectedLifecycleVersion: 1,
+        decision: "approve",
+        note: "x",
+        lintReceiptId: passed.receiptId,
+      }),
+      host(workspaceId),
+    ),
+  ).toMatchObject({ ok: false, error: { code: "MISSING_FACTS" } });
+
+  // 撤回一个来源后 lint 为 blocked：批准被拒，拒绝允许。
+  const db = new Database(file);
+  try {
+    db.prepare("UPDATE knowledge_source SET state='withdrawn' WHERE source_revision_id=?").run(
+      sources[0]!.sourceRevisionId,
+    );
+  } finally {
+    db.close();
+  }
+  const blocked = repo.runWikiLint(revision.revisionId, { ...host(workspaceId), now: LATER })!;
+  expect(blocked.outcome).toBe("blocked");
+  expect(
+    await repo.executeWiki(
+      write("wiki.review", {
+        ...binding,
+        expectedLifecycleVersion: 1,
+        decision: "approve",
+        note: "x",
+        lintReceiptId: blocked.receiptId,
+      }),
+      { ...host(workspaceId), now: LATER },
+    ),
+  ).toMatchObject({ ok: false, error: { code: "MISSING_FACTS" } });
+  const reject = await repo.executeWiki(
+    write("wiki.review", {
+      ...binding,
+      expectedLifecycleVersion: 1,
+      decision: "reject",
+      note: "来源已撤回",
+      lintReceiptId: blocked.receiptId,
+    }),
+    { ...host(workspaceId), now: LATER },
+  );
+  expect(reject.ok).toBe(true);
+  expect(lifecycleOf(reject).state).toBe("rejected");
+  repo.close();
+});
+
+it("A-W09-3: 发布/撤回状态机边界与乐观并发版本校验", async () => {
+  const file = join(temp(), "wiki.sqlite");
+  const { repo, workspaceId } = openRepo(file);
+  const { revision } = await seedCandidate(repo, workspaceId);
+  const binding = {
+    revisionId: revision.revisionId,
+    contentHash: revision.contentHash,
+    sourceSetHash: revision.sourceSetHash,
+  };
+
+  // 未审核不可发布，未发布不可撤回。
+  expect(
+    await repo.executeWiki(
+      write("wiki.publish", { ...binding, reviewId: randomUUID(), expectedLifecycleVersion: 1 }),
+      host(workspaceId),
+    ),
+  ).toMatchObject({ ok: false, error: { code: "ACTION_NOT_ALLOWED" } });
+  expect(
+    await repo.executeWiki(
+      write("wiki.withdraw", { revisionId: revision.revisionId, expectedLifecycleVersion: 1, note: "x" }),
+      host(workspaceId),
+    ),
+  ).toMatchObject({ ok: false, error: { code: "ACTION_NOT_ALLOWED" } });
+
+  const receipt = repo.runWikiLint(revision.revisionId, host(workspaceId))!;
+  const review = await repo.executeWiki(
+    write("wiki.review", {
+      ...binding,
+      expectedLifecycleVersion: 1,
+      decision: "approve",
+      note: "通过",
+      lintReceiptId: receipt.receiptId,
+    }),
+    host(workspaceId),
+  );
+  expect(review.ok).toBe(true);
+  const reviewId = lifecycleOf(review).review!.reviewId;
+
+  // 发布引用错误 reviewId 被拒；过期 expectedLifecycleVersion 被拒。
+  expect(
+    await repo.executeWiki(
+      write("wiki.publish", { ...binding, reviewId: randomUUID(), expectedLifecycleVersion: 2 }),
+      host(workspaceId),
+    ),
+  ).toMatchObject({ ok: false, error: { code: "MISSING_FACTS" } });
+  expect(
+    await repo.executeWiki(
+      write("wiki.publish", { ...binding, reviewId, expectedLifecycleVersion: 1 }),
+      host(workspaceId),
+    ),
+  ).toMatchObject({ ok: false, error: { code: "REVISION_CONFLICT" } });
+
+  // 正确发布后，已发布版本不可再次审核。
+  const publish = await repo.executeWiki(
+    write("wiki.publish", { ...binding, reviewId, expectedLifecycleVersion: 2 }),
+    host(workspaceId),
+  );
+  expect(publish.ok).toBe(true);
+  expect(
+    await repo.executeWiki(
+      write("wiki.review", {
+        ...binding,
+        expectedLifecycleVersion: 3,
+        decision: "reject",
+        note: "x",
+        lintReceiptId: receipt.receiptId,
+      }),
+      host(workspaceId),
+    ),
+  ).toMatchObject({ ok: false, error: { code: "ACTION_NOT_ALLOWED" } });
   repo.close();
 });

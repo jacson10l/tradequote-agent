@@ -2,6 +2,7 @@ import { createHash, randomUUID } from "node:crypto";
 import {
   failure,
   type KnowledgeCitation,
+  validTextLocation,
   type WikiCitationResolveInput,
   WikiCitationResolveInputSchema,
   type WikiConsumption,
@@ -11,7 +12,13 @@ import {
   type WikiHostContext,
   WikiIneligibilityReasonSchema,
   type WikiLifecycle,
+  WikiLintReceiptSchema,
+  type WikiPublicationEvent,
   type WikiResult,
+  type WikiReviewDecision,
+  WikiReviewBindingSchema,
+  WikiReviewDecisionSchema,
+  WikiReviewInputSchema,
   type WikiRevision,
   type WikiRevisionRecord,
   WikiSearchHitSchema,
@@ -36,6 +43,19 @@ type Row = { data_json: string };
 type WikiEligibility = z.infer<typeof WikiEligibilitySchema>;
 type WikiIneligibilityReason = z.infer<typeof WikiIneligibilityReasonSchema>;
 type WikiSearchHit = z.infer<typeof WikiSearchHitSchema>;
+type WikiLintReceipt = z.infer<typeof WikiLintReceiptSchema>;
+
+// P1 发布/撤回负载在契约里是内联 schema（B00a 未单独命名导出），这里按同
+// 形状复刻，用于 store 边界解析；domain 侧仍以 WikiCommandSchema 权威校验。
+const publishInputSchema = WikiReviewBindingSchema.extend({
+  reviewId: z.uuid(),
+  expectedLifecycleVersion: z.number().int().positive(),
+});
+const withdrawInputSchema = z.strictObject({
+  revisionId: z.uuid(),
+  expectedLifecycleVersion: z.number().int().positive(),
+  note: z.string().trim().min(1).max(2000),
+});
 
 function validityAllows(
   validity: { status: string; validFrom: string | null; validUntil: string | null },
@@ -157,6 +177,13 @@ export class SqliteWikiStore {
       .prepare("SELECT data_json FROM knowledge_lifecycle WHERE revision_id=?")
       .get(revisionId) as Row | undefined;
     return row ? (JSON.parse(row.data_json) as WikiLifecycle) : null;
+  }
+
+  private readLintReceipt(receiptId: string): WikiLintReceipt | null {
+    const row = this.db
+      .prepare("SELECT data_json FROM knowledge_lint WHERE receipt_id=?")
+      .get(receiptId) as Row | undefined;
+    return row ? (JSON.parse(row.data_json) as WikiLintReceipt) : null;
   }
 
   private readRecord(revisionId: string): WikiRevisionRecord | null {
@@ -364,16 +391,302 @@ export class SqliteWikiStore {
     };
   }
 
-  review(_input: unknown, _context: WikiHostContext, _idempotencyKey: string): WikiResult {
-    return failure("CAPABILITY_UNAVAILABLE", "审核发布依赖维护协议 lint 回执，尚未实现");
+  // -- review / publish / withdraw ----------------------------------------
+
+  /** 维护前置事实：对特定知识版本做一次真实 lint，落库一份不可变回执。
+   *  审核必须引用这里已保存的回执（契约要求“已存 lint 事实”），而不是
+   *  在审核请求里现算。lint 通过只产生回执，绝不自动发布。 */
+  runLint(revisionId: string, context: WikiHostContext): WikiLintReceipt | null {
+    const revision = this.readWikiRevision(revisionId);
+    if (!revision) return null;
+    const workspaceId = this.workspaceId();
+    if (!workspaceId) return null;
+    const checkedAt = context.now;
+    // 同一 (版本/hash/检查时刻) 幂等：重复 lint 返回已落库回执，不重复插入。
+    const existing = this.db
+      .prepare(
+        "SELECT data_json FROM knowledge_lint WHERE revision_id=? AND content_hash=? AND source_set_hash=? AND checked_at=?",
+      )
+      .get(revision.revisionId, revision.contentHash, revision.sourceSetHash, checkedAt) as
+      | Row
+      | undefined;
+    if (existing) return JSON.parse(existing.data_json) as WikiLintReceipt;
+    const receipt: WikiLintReceipt = {
+      receiptId: randomUUID(),
+      workspaceId,
+      revisionId: revision.revisionId,
+      contentHash: revision.contentHash,
+      sourceSetHash: revision.sourceSetHash,
+      checkedAt,
+      policyVersion: "knowledge-maintenance-v1",
+      outcome: this.lintOutcome(revision, checkedAt),
+    };
+    this.db.transaction(() => {
+      this.db
+        .prepare(
+          "INSERT INTO knowledge_lint(receipt_id,workspace_id,revision_id,content_hash,source_set_hash,checked_at,policy_version,outcome,data_json) VALUES (?,?,?,?,?,?,?,?,?)",
+        )
+        .run(
+          receipt.receiptId,
+          receipt.workspaceId,
+          receipt.revisionId,
+          receipt.contentHash,
+          receipt.sourceSetHash,
+          receipt.checkedAt,
+          receipt.policyVersion,
+          receipt.outcome,
+          JSON.stringify(receipt),
+        );
+      this.emit(workspaceId, "wiki.lint", { receiptId: receipt.receiptId, outcome: receipt.outcome }, context);
+    }).immediate();
+    return receipt;
   }
 
-  publish(_input: unknown, _context: WikiHostContext, _idempotencyKey: string): WikiResult {
-    return failure("CAPABILITY_UNAVAILABLE", "发布依赖审核通过回执，尚未实现");
+  private lintOutcome(revision: WikiRevision, checkedAt: string): WikiLintReceipt["outcome"] {
+    // 正文/来源集 hash 必须等于内容寻址重算值，任何篡改即 blocked。
+    if (
+      sha256Utf8(revision.content.markdown) !== revision.contentHash ||
+      sha256Utf8(wikiSourceSetPayload(revision.content.sourceRefs)) !== revision.sourceSetHash
+    )
+      return "blocked";
+    // 有效性须确认且当前适用（未过期/未生效/无冲突）。
+    if (!validityAllows(revision.content.validity, checkedAt)) return "blocked";
+    // 每个来源引用必须能解析、状态 active，且身份/hash/摘录/位置一致。
+    for (const ref of revision.content.sourceRefs) {
+      const source = this.readSourceRevision(ref.sourceRevisionId);
+      if (
+        !source ||
+        source.workspaceId !== revision.workspaceId ||
+        source.sourceId !== ref.sourceId ||
+        source.version !== ref.sourceVersion ||
+        source.artifactHash !== ref.artifactHash
+      )
+        return "blocked";
+      if (sha256Utf8(source.sourceText) !== source.artifactHash) return "blocked";
+      if (!validTextLocation(source.sourceText, ref.location)) return "blocked";
+      if (sha256Utf8(source.sourceText.slice(ref.location.start, ref.location.end)) !== ref.excerptHash)
+        return "blocked";
+      const row = this.db
+        .prepare("SELECT state FROM knowledge_source WHERE source_revision_id=?")
+        .get(ref.sourceRevisionId) as { state: string } | undefined;
+      if (row?.state !== "active") return "blocked";
+    }
+    return "passed";
   }
 
-  withdraw(_input: unknown, _context: WikiHostContext, _idempotencyKey: string): WikiResult {
-    return failure("CAPABILITY_UNAVAILABLE", "撤回依赖持续维护协议，尚未实现");
+  review(input: unknown, context: WikiHostContext, idempotencyKey: string): WikiResult {
+    const parsed = WikiReviewInputSchema.parse(input);
+    return this.db.transaction(() => {
+      const requestHash = hash(JSON.stringify({ method: "wiki.review", payload: parsed, context }));
+      const prior = this.replay(idempotencyKey, requestHash);
+      if (prior === "conflict")
+        return failure("IDEMPOTENCY_CONFLICT", "同一操作标识不能用于不同内容");
+      if (prior) return prior;
+      const workspaceId = this.workspaceId();
+      if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
+      const revision = this.readWikiRevision(parsed.revisionId);
+      if (!revision) return failure("NOT_FOUND", "知识版本不存在");
+      const lifecycle = this.readLifecycle(parsed.revisionId);
+      if (!lifecycle) return failure("NOT_FOUND", "知识生命周期不存在");
+      if (lifecycle.lifecycleVersion !== parsed.expectedLifecycleVersion)
+        return failure(
+          "REVISION_CONFLICT",
+          `知识生命周期当前版本为 v${lifecycle.lifecycleVersion}，与提交的 expectedLifecycleVersion 不一致`,
+        );
+      if (lifecycle.state !== "candidate")
+        return failure("ACTION_NOT_ALLOWED", "仅候选版本可审核");
+      if (
+        parsed.contentHash !== revision.contentHash ||
+        parsed.sourceSetHash !== revision.sourceSetHash
+      )
+        return failure("MISSING_FACTS", "审核绑定与知识版本 hash 不一致");
+      const lintReceipt = this.readLintReceipt(parsed.lintReceiptId);
+      if (!lintReceipt) return failure("NOT_FOUND", "lint 回执不存在");
+      const decision: WikiReviewDecision = {
+        ...parsed,
+        workspaceId,
+        lintReceipt,
+        reviewId: randomUUID(),
+        actorId: context.actorId,
+        decidedAt: context.now,
+      };
+      const parsedDecision = WikiReviewDecisionSchema.safeParse(decision);
+      if (!parsedDecision.success)
+        return failure("MISSING_FACTS", "审核须绑定同工作区/版本/hash的已存lint事实，批准必须通过");
+      const newLifecycle: WikiLifecycle = {
+        revisionId: parsed.revisionId,
+        lifecycleVersion: parsed.expectedLifecycleVersion + 1,
+        state: parsed.decision === "approve" ? "approved" : "rejected",
+        review: parsedDecision.data,
+        publication: null,
+      };
+      this.db
+        .prepare(
+          "UPDATE knowledge_lifecycle SET lifecycle_version=?, state=?, data_json=? WHERE revision_id=?",
+        )
+        .run(
+          newLifecycle.lifecycleVersion,
+          newLifecycle.state,
+          JSON.stringify(newLifecycle),
+          newLifecycle.revisionId,
+        );
+      this.emit(
+        workspaceId,
+        "wiki.review",
+        { revisionId: newLifecycle.revisionId, reviewId: parsedDecision.data.reviewId, decision: parsed.decision },
+        context,
+      );
+      const result = this.wikiRevisionResult({ revision, lifecycle: newLifecycle });
+      this.db
+        .prepare("INSERT INTO idempotency VALUES (?,?,?)")
+        .run(idempotencyKey, requestHash, JSON.stringify(result));
+      return result;
+    }).immediate();
+  }
+
+  publish(input: unknown, context: WikiHostContext, idempotencyKey: string): WikiResult {
+    const parsed = publishInputSchema.parse(input);
+    return this.db.transaction(() => {
+      const requestHash = hash(JSON.stringify({ method: "wiki.publish", payload: parsed, context }));
+      const prior = this.replay(idempotencyKey, requestHash);
+      if (prior === "conflict")
+        return failure("IDEMPOTENCY_CONFLICT", "同一操作标识不能用于不同内容");
+      if (prior) return prior;
+      const workspaceId = this.workspaceId();
+      if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
+      const revision = this.readWikiRevision(parsed.revisionId);
+      if (!revision) return failure("NOT_FOUND", "知识版本不存在");
+      const lifecycle = this.readLifecycle(parsed.revisionId);
+      if (!lifecycle) return failure("NOT_FOUND", "知识生命周期不存在");
+      if (lifecycle.lifecycleVersion !== parsed.expectedLifecycleVersion)
+        return failure(
+          "REVISION_CONFLICT",
+          `知识生命周期当前版本为 v${lifecycle.lifecycleVersion}，与提交的 expectedLifecycleVersion 不一致`,
+        );
+      if (lifecycle.state !== "approved")
+        return failure("ACTION_NOT_ALLOWED", "仅审核通过的版本可发布");
+      const review = lifecycle.review;
+      if (!review || review.decision !== "approve")
+        return failure("MISSING_FACTS", "发布缺少批准记录");
+      if (
+        parsed.contentHash !== revision.contentHash ||
+        parsed.sourceSetHash !== revision.sourceSetHash
+      )
+        return failure("MISSING_FACTS", "发布绑定与知识版本 hash 不一致");
+      if (review.reviewId !== parsed.reviewId)
+        return failure("MISSING_FACTS", "发布引用的 reviewId 与已存审核不一致");
+      if (Date.parse(context.now) < Date.parse(review.decidedAt))
+        return failure("MISSING_FACTS", "发布时间不得早于审核时间");
+      const publication: WikiPublicationEvent = {
+        eventId: randomUUID(),
+        revisionId: parsed.revisionId,
+        lifecycleVersion: parsed.expectedLifecycleVersion + 1,
+        type: "published",
+        reviewId: review.reviewId,
+        contentHash: review.contentHash,
+        sourceSetHash: review.sourceSetHash,
+        actorId: context.actorId,
+        occurredAt: context.now,
+        note: review.note,
+      };
+      const newLifecycle: WikiLifecycle = {
+        revisionId: parsed.revisionId,
+        lifecycleVersion: parsed.expectedLifecycleVersion + 1,
+        state: "published",
+        review,
+        publication,
+      };
+      this.db
+        .prepare(
+          "UPDATE knowledge_lifecycle SET lifecycle_version=?, state=?, data_json=? WHERE revision_id=?",
+        )
+        .run(
+          newLifecycle.lifecycleVersion,
+          newLifecycle.state,
+          JSON.stringify(newLifecycle),
+          newLifecycle.revisionId,
+        );
+      this.emit(
+        workspaceId,
+        "wiki.publish",
+        { revisionId: parsed.revisionId, publicationEventId: publication.eventId },
+        context,
+      );
+      const result = this.wikiRevisionResult({ revision, lifecycle: newLifecycle });
+      this.db
+        .prepare("INSERT INTO idempotency VALUES (?,?,?)")
+        .run(idempotencyKey, requestHash, JSON.stringify(result));
+      return result;
+    }).immediate();
+  }
+
+  withdraw(input: unknown, context: WikiHostContext, idempotencyKey: string): WikiResult {
+    const parsed = withdrawInputSchema.parse(input);
+    return this.db.transaction(() => {
+      const requestHash = hash(JSON.stringify({ method: "wiki.withdraw", payload: parsed, context }));
+      const prior = this.replay(idempotencyKey, requestHash);
+      if (prior === "conflict")
+        return failure("IDEMPOTENCY_CONFLICT", "同一操作标识不能用于不同内容");
+      if (prior) return prior;
+      const workspaceId = this.workspaceId();
+      if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
+      const revision = this.readWikiRevision(parsed.revisionId);
+      if (!revision) return failure("NOT_FOUND", "知识版本不存在");
+      const lifecycle = this.readLifecycle(parsed.revisionId);
+      if (!lifecycle) return failure("NOT_FOUND", "知识生命周期不存在");
+      if (lifecycle.lifecycleVersion !== parsed.expectedLifecycleVersion)
+        return failure(
+          "REVISION_CONFLICT",
+          `知识生命周期当前版本为 v${lifecycle.lifecycleVersion}，与提交的 expectedLifecycleVersion 不一致`,
+        );
+      if (lifecycle.state !== "published")
+        return failure("ACTION_NOT_ALLOWED", "仅已发布版本可撤回");
+      const review = lifecycle.review;
+      if (!review || review.decision !== "approve")
+        return failure("MISSING_FACTS", "撤回缺少批准记录");
+      if (Date.parse(context.now) < Date.parse(review.decidedAt))
+        return failure("MISSING_FACTS", "撤回时间不得早于审核时间");
+      const publication: WikiPublicationEvent = {
+        eventId: randomUUID(),
+        revisionId: parsed.revisionId,
+        lifecycleVersion: parsed.expectedLifecycleVersion + 1,
+        type: "withdrawn",
+        reviewId: review.reviewId,
+        contentHash: review.contentHash,
+        sourceSetHash: review.sourceSetHash,
+        actorId: context.actorId,
+        occurredAt: context.now,
+        note: parsed.note,
+      };
+      const newLifecycle: WikiLifecycle = {
+        revisionId: parsed.revisionId,
+        lifecycleVersion: parsed.expectedLifecycleVersion + 1,
+        state: "withdrawn",
+        review,
+        publication,
+      };
+      this.db
+        .prepare(
+          "UPDATE knowledge_lifecycle SET lifecycle_version=?, state=?, data_json=? WHERE revision_id=?",
+        )
+        .run(
+          newLifecycle.lifecycleVersion,
+          newLifecycle.state,
+          JSON.stringify(newLifecycle),
+          newLifecycle.revisionId,
+        );
+      this.emit(
+        workspaceId,
+        "wiki.withdraw",
+        { revisionId: parsed.revisionId, publicationEventId: publication.eventId },
+        context,
+      );
+      const result = this.wikiRevisionResult({ revision, lifecycle: newLifecycle });
+      this.db
+        .prepare("INSERT INTO idempotency VALUES (?,?,?)")
+        .run(idempotencyKey, requestHash, JSON.stringify(result));
+      return result;
+    }).immediate();
   }
 
   // -- search -------------------------------------------------------------

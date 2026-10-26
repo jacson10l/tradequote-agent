@@ -1529,9 +1529,9 @@
     {
       "path": "packages/infrastructure/src/index.ts",
       "type": "ts",
-      "lines": 142,
-      "bytes": 5128,
-      "sha256": "330ecc31a8219934aaefe684d95d45089ecb6aef1743f3cca562af7220f4c657",
+      "lines": 147,
+      "bytes": 5498,
+      "sha256": "f29cd24e91d8ab757bc037d9e3e2605fbe49733e5639fdd14145c48f8928d711",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
@@ -1578,9 +1578,9 @@
     {
       "path": "packages/infrastructure/src/migration-lineage.ts",
       "type": "ts",
-      "lines": 716,
-      "bytes": 28050,
-      "sha256": "29ff1c4cdad66155cd0f36c4c9cb97f617be943ad05705c7a541fa2f1369d7bd",
+      "lines": 753,
+      "bytes": 29224,
+      "sha256": "3aa6ab8bf4ad35145db4d63e674876c37334fd17f2148a533a24ce96787972a5",
       "role": "迁移谱系识别与拒绝边界（纯函数，只读）",
       "pages": [
         "wiki/decisions/0029-迁移谱系统一与拒绝边界.md",
@@ -1590,9 +1590,9 @@
     {
       "path": "packages/infrastructure/src/migrations.ts",
       "type": "ts",
-      "lines": 460,
-      "bytes": 21286,
-      "sha256": "d4b135275c277920fadfb6520a3a9590372e2d479e1a1fe49bb768922a9efb8c",
+      "lines": 484,
+      "bytes": 22398,
+      "sha256": "fdb0a60dda3057fb5366981d8b6c0e01bd8d8ef688526ab5e275a9ce051215e0",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
@@ -1676,9 +1676,9 @@
     {
       "path": "packages/infrastructure/src/wiki-store.test.ts",
       "type": "ts",
-      "lines": 456,
-      "bytes": 15143,
-      "sha256": "62b138930d7af6e622a052ec6d136e57ebad3f0740c45740d36f70fee353f015",
+      "lines": 662,
+      "bytes": 22263,
+      "sha256": "8b8b66dc4bf559944c9217e36e4f84a101367caeb7305d3a2f8e9f158559518b",
       "role": "A01c检索引用回归：不回退、分页、引用闭环与消费事务",
       "pages": [
         "wiki/A01c检索引用实现.md",
@@ -1688,9 +1688,9 @@
     {
       "path": "packages/infrastructure/src/wiki-store.ts",
       "type": "ts",
-      "lines": 676,
-      "bytes": 27065,
-      "sha256": "4565185957d1843dec003a10ec50909753712a937c248b53544e9f88f37b485a",
+      "lines": 989,
+      "bytes": 40902,
+      "sha256": "4c6c8476f5ed1b6804347cd469dd89e66b684eeaef42e9ca0c177ad7f1360f94",
       "role": "A01c检索引用SQLite存储：检索/引用/消费与候选暂存",
       "pages": [
         "wiki/A01c检索引用实现.md"
