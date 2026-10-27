@@ -45,3 +45,8 @@ A修四类P1并交固定作者证据，B确认完整报告/审核绑定与来源
 
 
 最终工程6/6、Wiki维护36/36以及739/654fecc/be53b98三套同步均通过。一次Wiki缺两个相关语义链接的失败已补齐并保留，未改检查器；P1的7产品失败继续保持，不据此标done。完整lint报告补齐时应保留旧receipt-only历史，不把未执行的七类检查补造为passed，不覆写既有审核/发布事实。
+
+
+## 2026-10-27 共享与修正要求
+
+用户授权普通推送7e6b485，实际推送origin/codex/c-a01e-p1-intake和完整SHA回读均退出0，未合入；raw/c-a01e-p1-push-receipt.json保存回执。可直接转发A/B的四类修正、责任与验收已写入[[Ae7a9439接收与P1接线阻断复核]]本日共享节，固定复现材料仍为7e6b485。后续仅文档回执提交不改应用源码，不重跑117/Electron11或P1七红例；本次文档生成/check/lint与7e6b485基线sync结果另存raw/c-a01e-p1-sharing-validation.json，产品changes_required和人员待签不变。前文“未推送”保留原WIP保存时点。

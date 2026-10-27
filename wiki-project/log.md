@@ -1090,3 +1090,10 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 - 同步[[Ae7a9439接收与P1接线阻断复核]]、[[C集成-A01e真实lint与审核接收]]及语义/ADR/覆盖/状态/导航。原307份非生成raw与205566字节log前缀保持；本轮WIP未推送/合入、未外发消息或代签，新Wiki/维护入口未开放。
 
 - 最终工程6/6、维护36/36与739/654fecc/be53b98同步通过；一次Wiki关联链接遗漏已补齐并保留失败。P1七红例仍为changes_required，未标完成；补齐完整报告需保留旧receipt历史，不补造passed或改旧审核事实。
+
+
+## 2026-10-27 C固定WIP普通推送与A/B修正要求
+
+- 按用户明确授权，7e6b485c15ba7c4ec30d6495df0a58cd2088207e普通推送origin/codex/c-a01e-p1-intake，远端完整SHA回读一致；未合入、未向其他聊天/外部人员发送消息。
+- [[Ae7a9439接收与P1接线阻断复核]]增加可直接转发的四类修正、A/B/C职责和验收，[[C集成-A01e真实lint与审核接收]]与CONTEXT/状态同步，推送回执单存raw/c-a01e-p1-push-receipt.json。
+- 仅文档/交接状态变化，应用源码与原七红例脚本不变；不重复应用测试或声称P1已修复。实际文档generate/check/lint/7e6b485基线sync及diff检查存raw/c-a01e-p1-sharing-validation.json，整体保持active/WIP。

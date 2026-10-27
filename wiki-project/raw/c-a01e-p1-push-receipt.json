@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-27",
+  "authorization": "User explicitly requested ordinary push of 7e6b485, no merge, then forwardable A/B corrections",
+  "materialCommit": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+  "branch": "codex/c-a01e-p1-intake",
+  "push": {
+    "argv": [
+      "git",
+      "push",
+      "origin",
+      "7e6b485c15ba7c4ec30d6495df0a58cd2088207e:refs/heads/codex/c-a01e-p1-intake"
+    ],
+    "exitCode": 0,
+    "result": "new branch"
+  },
+  "readback": {
+    "argv": [
+      "git",
+      "ls-remote",
+      "--heads",
+      "origin",
+      "codex/c-a01e-p1-intake"
+    ],
+    "exitCode": 0,
+    "stdout": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e\trefs/heads/codex/c-a01e-p1-intake\n"
+  },
+  "merged": false,
+  "projectStatus": "changes_required / WIP; 7 P1 acceptance failures remain",
+  "followup": "Only forwarding requirements and push receipt documentation; no application source changes or external task messages."
+}

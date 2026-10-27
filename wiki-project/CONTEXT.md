@@ -1,5 +1,7 @@
 # 当前上下文
 
+2026-10-27 用户已授权并完成固定WIP材料7e6b485普通推送至origin/codex/c-a01e-p1-intake，完整SHA回读一致，未合入。[[Ae7a9439接收与P1接线阻断复核]]已整理可直接转发A/B的四类修正：完整报告、同键重放、审核/发布前来源复核、lint资格结果；A修复、B确认契约/语义、C原脚本复验。当前P1七红例及实际人员验收仍待，整体changes_required；后续文档回执与固定材料SHA分开。
+
 2026-10-27 C已取得A e7a9439（含b05a049）和B e5f6b1a固定推送，从739961a在独立codex/c-a01e-p1-intake组合。原B两项引用资格修正2/2通过，最终聚焦117/117、含build实际Electron11/11及A新十能力探针通过；修正B7夹具误吸入未来A8并保留原失败。但新增P1验收1控制通过/7产品失败：完整报告缺失、review同键随宿主now冲突、发布前来源变化不拒绝、失格来源lint静默passed。详见[[Ae7a9439接收与P1接线阻断复核]]、[[C集成-A01e真实lint与审核接收]]；changes_required，WIP不合入，新Wiki入口仍门禁。A修固定实现、B复核后C再接，人员业务验收不代签。
 
 2026-10-26 C按负责人继续指令共享c6f6788至origin/codex/c-worker-migration-gates并回读一致，未合入。从它新建codex/c-saved-quote-checks接通两个CheckClient方法、可信Main/Worker、既有B/A报告与完整消费事务、人工检查/重试、风险标记＋文本批注与重开历史。类型及相关31/31、含构建全部实际Electron11/11通过，完整最终门禁见[[C集成-已保存报价检查与双反馈]]；实现[[C已保存报价检查桌面切片]]。A真实lint/review/publish/withdraw仍不可用，合成发布投影不算人员验收；新切片未推送，完整矩阵/业务/非作者接收继续active。

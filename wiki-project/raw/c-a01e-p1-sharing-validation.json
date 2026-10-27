@@ -1,0 +1,62 @@
+{
+  "scope": "Documentation and push handoff only; application and P1 failures unchanged",
+  "taskBase": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+  "checks": [
+    {
+      "argv": [
+        "pnpm",
+        "wiki:generate"
+      ],
+      "startedAt": "2026-10-27T04:53:16.022368+00:00",
+      "finishedAt": "2026-10-27T04:53:16.461748+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 wiki:generate /Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs .\n\n{\n  \"mode\": \"generate\",\n  \"files\": 254,\n  \"lines\": 68066,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n",
+      "stderr": "",
+      "stdoutSha256": "d8d7f944481ec290319276def70a762717f49efce73141ad6ad95bcd4d0e87d7",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "wiki:check"
+      ],
+      "startedAt": "2026-10-27T04:53:16.462403+00:00",
+      "finishedAt": "2026-10-27T04:53:17.955369+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 254,\n  \"lines\": 68066,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 251,\n  \"semantic\": 223,\n  \"reachable\": 251\n}\n",
+      "stderr": "",
+      "stdoutSha256": "7b50d1d4b9b3d17889115bd413a87adc74ebe475e00ace845ccad321c340c4da",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "wiki:sync",
+        "--base",
+        "7e6b485c15ba7c4ec30d6495df0a58cd2088207e"
+      ],
+      "startedAt": "2026-10-27T04:53:17.956083+00:00",
+      "finishedAt": "2026-10-27T04:53:18.237727+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 wiki:sync /Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent\n> node wiki-project/scripts/check-wiki-sync.mjs . --base 7e6b485c15ba7c4ec30d6495df0a58cd2088207e\n\n{\n  \"base\": \"7e6b485c15ba7c4ec30d6495df0a58cd2088207e\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "stdoutSha256": "8f815d120c271ec745809a9a446b3b6396f5489b529767437a17c872d390b813",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "startedAt": "2026-10-27T04:53:18.238176+00:00",
+      "finishedAt": "2026-10-27T04:53:18.251960+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "status": "passed"
+}
