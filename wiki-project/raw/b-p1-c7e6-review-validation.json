@@ -1,0 +1,975 @@
+{
+  "status": "review_complete_changes_required",
+  "review": "changes_required",
+  "taskBase": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+  "testedCodeSha": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+  "branch": "codex/b-p1-contract-semantics",
+  "inputs": {
+    "A": "e7a94392af5816c4e9d7f01885bde40189030432",
+    "B": "e5f6b1a2a4d03a83ea5264c8a4f9f524f62461b2",
+    "C": "739961a6aecf379bbdd785e9fd3bfe115ee6ade1",
+    "Cmaterial": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+    "Crequirements": "3d21289e79a2b8f8f8de9a3a8899674c0b12c07e"
+  },
+  "scope": "B public P1 contract/business technical review of C fixed implementation; no A storage fixes, no desktop/human acceptance",
+  "environment": {
+    "platform": "win32",
+    "arch": "x64",
+    "os": "10.0.19045",
+    "node": "v22.22.0",
+    "pnpm": "10.13.1",
+    "cwd": "D:\\code\\tradequote-agent-b-p1-corrections"
+  },
+  "preparation": [
+    {
+      "command": "pnpm install --frozen-lockfile --offline --ignore-scripts",
+      "exitCode": 0,
+      "node": "24.21.0",
+      "note": "Engine warning retained; locked packages reused, no lockfile change"
+    },
+    {
+      "command": "Node22 scripts/prepare-electron.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm native:rebuild",
+      "exitCode": 1,
+      "node": "24.21.0",
+      "reason": "Could not find any Python installation to use; no product tests executed"
+    },
+    {
+      "command": "PYTHON=bundled Python, PATH=Node22; pnpm native:rebuild",
+      "exitCode": 1,
+      "node": "22.22.0",
+      "reason": "Could not find any Visual Studio installation to use; no product tests executed"
+    },
+    {
+      "command": "ELECTRON_RUN_AS_NODE=1 native identity loads better-sqlite3 shipped prebuild",
+      "exitCode": 0,
+      "note": "better-sqlite3 13.0.3 prebuilds/win32-x64.node loads directly under Electron; no build replacement, dependency edit, or native binary committed"
+    }
+  ],
+  "checks": [
+    {
+      "name": "native identity and SQLite prebuild load",
+      "executable": "D:\\code\\tradequote-agent-b-p1-corrections\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "-e",
+        "const {createRequire}=require('node:module');const r=createRequire(process.cwd()+'/packages/infrastructure/package.json');const D=r('better-sqlite3');const d=new D(':memory:');console.log(JSON.stringify({electron:process.versions.electron,node:process.version,sqlite:d.prepare('select sqlite_version() as version').get(),arch:process.arch,platform:process.platform}));d.close();"
+      ],
+      "environment": {
+        "TEMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "TMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "GIT_CEILING_DIRECTORIES": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "executedAt": "2026-10-27T05:02:10.476Z",
+      "exitCode": 0,
+      "stdout": "{\"electron\":\"44.9.2\",\"node\":\"v24.22.0\",\"sqlite\":{\"version\":\"3.53.4\"},\"arch\":\"x64\",\"platform\":\"win32\"}\n",
+      "stderr": "",
+      "head": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "f3d6772bffcdd1672376f02a3657e4e1b71785fb3e81faf86bcabf1759570171",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/infrastructure/src/worker-migration-gates.test.ts": "a25010d05e72a87d27cb69e96efb3b555fad82910323d5fff7c1e81ffa08b5dd",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "packages/contracts/src/knowledge-wiki.ts": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
+        "packages/infrastructure/src/wiki-store.ts": "bd7f97eaa12861d59aa04b9b10b02da97364024000a4e3f757b373a686d916af",
+        "packages/infrastructure/src/index.ts": "bfcc352c546f63658f5074a1249055839fa10b961642765097cebee76da2213d",
+        "packages/infrastructure/src/wiki-check-source.ts": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+        "packages/infrastructure/src/check-store.ts": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromTestedSha": ""
+    },
+    {
+      "name": "C original P1 eight cases unchanged",
+      "executable": "D:\\code\\tradequote-agent-b-p1-corrections\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        ".runtime/c-p1-boundary.config.ts"
+      ],
+      "environment": {
+        "TEMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "TMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "GIT_CEILING_DIRECTORIES": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "executedAt": "2026-10-27T05:02:13.302Z",
+      "exitCode": 1,
+      "stdout": "\n RUN  v5.0.5 D:/code/tradequote-agent-b-p1-corrections\n\n ❯ .runtime/c-p1-boundary.test.ts (8 tests | 7 failed) 212ms\n   × P1-01: persisted lint fact must contain the complete P1 report and seven-category coverage 31ms\n   × P1-02: review retry with a later host clock replays the first result 26ms\n   × P1-03 source_updated: publication revalidates after a successful lint and review 23ms\n   × P1-03 source_expired: publication revalidates after a successful lint and review 21ms\n   × P1-03 source_withdrawn: publication revalidates after a successful lint and review 24ms\n   × P1-04 expired: lint cannot mark an ineligible source as passed 19ms\n   × P1-04 updated: lint cannot mark an ineligible source as passed 20ms\n\n Test Files  1 failed (1)\n      Tests  7 failed | 1 passed (8)\n   Start at  13:02:11\n   Duration  1.41s (import 44%, transform 37%, tests 18%)\n\n",
+      "stderr": "\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  .runtime/c-p1-boundary.test.ts > P1-01: persisted lint fact must contain the complete P1 report and seven-category coverage\nAssertionError: expected false to be true // Object.is equality\n\n- Expected\n+ Received\n\n- true\n+ false\n\n ❯ .runtime/c-p1-boundary.test.ts:39:81\n     37|  const f=await fixture();f.repo.runWikiLint(f.revision.revisionId,f.co…\n     38|  const row=f.db.prepare(\"SELECT data_json FROM knowledge_lint WHERE re…\n     39|  expect(KnowledgeLintReportSchema.safeParse(JSON.parse(row.data_json))…\n       |                                                                                 ^\n     40| });\n     41| it(\"P1-02: review retry with a later host clock replays the first resu…\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯\n\n FAIL  .runtime/c-p1-boundary.test.ts > P1-02: review retry with a later host clock replays the first result\nAssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, data: { …(2) }, …(2) }\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"kind\": \"wikiRevision\",\n-     \"record\": {\n-       \"lifecycle\": {\n-         \"lifecycleVersion\": 2,\n-         \"publication\": null,\n-         \"review\": {\n-           \"actorId\": \"synthetic-human\",\n-           \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-           \"decidedAt\": \"2026-10-27T00:00:00.000Z\",\n-           \"decision\": \"approve\",\n-           \"expectedLifecycleVersion\": 1,\n-           \"lintReceipt\": {\n-             \"checkedAt\": \"2026-10-27T00:00:00.000Z\",\n-             \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-             \"outcome\": \"passed\",\n-             \"policyVersion\": \"knowledge-maintenance-v1\",\n-             \"receiptId\": \"edafa03f-516b-4d59-adae-58573ad383e5\",\n-             \"revisionId\": \"00f0f931-7355-4721-a294-4faa46fd49d3\",\n-             \"sourceSetHash\": \"1d00d406e51b7352d02b5cc9fe423aa31f6ca93cdee5e6b9758e041395f5ab17\",\n-             \"workspaceId\": \"a9d9e044-76cc-4ab9-9bbf-94f14a45b073\",\n-           },\n-           \"lintReceiptId\": \"edafa03f-516b-4d59-adae-58573ad383e5\",\n-           \"note\": \"synthetic technical review\",\n-           \"reviewId\": \"5c5ecf7d-9bdf-4b57-a383-8ccfb493418a\",\n-           \"revisionId\": \"00f0f931-7355-4721-a294-4faa46fd49d3\",\n-           \"sourceSetHash\": \"1d00d406e51b7352d02b5cc9fe423aa31f6ca93cdee5e6b9758e041395f5ab17\",\n-           \"workspaceId\": \"a9d9e044-76cc-4ab9-9bbf-94f14a45b073\",\n-         },\n-         \"revisionId\": \"00f0f931-7355-4721-a294-4faa46fd49d3\",\n-         \"state\": \"approved\",\n-       },\n-       \"revision\": {\n-         \"artifactId\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-         \"content\": {\n-           \"kind\": \"sop\",\n-           \"locale\": \"en\",\n-           \"markdown\": \"# Synthetic candidate\",\n-           \"relations\": [],\n-           \"rules\": [],\n-           \"scope\": {\n-             \"categories\": [],\n-             \"markets\": [],\n-             \"platforms\": [],\n-           },\n-           \"sections\": [\n-             {\n-               \"location\": {\n-                 \"end\": 21,\n-                 \"kind\": \"text\",\n-                 \"start\": 0,\n-               },\n-               \"sectionId\": \"77d9ded4-6bb0-4b07-9fc7-e2d2959011c1\",\n-               \"sourceReferenceIds\": [\n-                 \"57ce1ff8-35f3-42b3-94c7-3d114867d430\",\n-               ],\n-               \"title\": \"合成段落\",\n-             },\n-           ],\n-           \"sourceRefs\": [\n-             {\n-               \"artifactHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-               \"assertion\": \"fact\",\n-               \"excerptHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-               \"location\": {\n-                 \"end\": 16,\n-                 \"kind\": \"text\",\n-                 \"start\": 0,\n-               },\n-               \"referenceId\": \"57ce1ff8-35f3-42b3-94c7-3d114867d430\",\n-               \"sourceId\": \"2e73f7c3-cb32-4a5b-becc-128cc7a9ca3f\",\n-               \"sourceRevisionId\": \"8bc253c5-24b1-4b14-a123-890c4988aa2b\",\n-               \"sourceVersion\": 1,\n-             },\n-           ],\n-           \"title\": \"合成知识\",\n-           \"validity\": {\n-             \"status\": \"confirmed\",\n-             \"validFrom\": null,\n-             \"validUntil\": null,\n-           },\n-         },\n-         \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-         \"createdAt\": \"2026-10-27T00:00:00.000Z\",\n-         \"documentId\": \"f6ed528d-ba2a-486a-86e7-2dc2e6d616d3\",\n-         \"parentRevisionId\": null,\n-         \"revisionId\": \"00f0f931-7355-4721-a294-4faa46fd49d3\",\n-         \"sourceSetHash\": \"1d00d406e51b7352d02b5cc9fe423aa31f6ca93cdee5e6b9758e041395f5ab17\",\n-         \"version\": 1,\n-         \"workspaceId\": \"a9d9e044-76cc-4ab9-9bbf-94f14a45b073\",\n-       },\n+   \"error\": {\n+     \"code\": \"IDEMPOTENCY_CONFLICT\",\n+     \"issues\": [],\n+     \"message\": \"同一操作标识不能用于不同内容\",\n+     \"retryable\": false,\n    },\n-   },\n-   \"evidenceIds\": [\n-     \"00f0f931-7355-4721-a294-4faa46fd49d3\",\n-   ],\n-   \"ok\": true,\n-   \"warnings\": [],\n+   \"ok\": false,\n  }\n\n ❯ .runtime/c-p1-boundary.test.ts:44:16\n     42|  const f=await fixture(),a=await f.approve();\n     43|  const retry=await f.repo.executeWiki({...a.cmd,requestId:randomUUID()…\n     44|  expect(retry).toEqual(a.result);\n       |                ^\n     45| });\n     46| for(const kind of [\"source_updated\",\"source_expired\",\"source_withdrawn…\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯\n\n FAIL  .runtime/c-p1-boundary.test.ts > P1-03 source_updated: publication revalidates after a successful lint and review\n FAIL  .runtime/c-p1-boundary.test.ts > P1-03 source_expired: publication revalidates after a successful lint and review\n FAIL  .runtime/c-p1-boundary.test.ts > P1-03 source_withdrawn: publication revalidates after a successful lint and review\nAssertionError: expected true to be false // Object.is equality\n\n- Expected\n+ Received\n\n- false\n+ true\n\n ❯ .runtime/c-p1-boundary.test.ts:51:20\n     49|  if(kind===\"source_withdrawn\")f.db.prepare(\"UPDATE knowledge_source SE…\n     50|  const result=await f.repo.executeWiki(command(\"wiki.publish\",{...f.bi…\n     51|  expect(result.ok).toBe(false);\n       |                    ^\n     52| });\n     53| for(const kind of [\"expired\",\"updated\"] as const)it(`P1-04 ${kind}: li…\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯\n\n FAIL  .runtime/c-p1-boundary.test.ts > P1-04 expired: lint cannot mark an ineligible source as passed\n FAIL  .runtime/c-p1-boundary.test.ts > P1-04 updated: lint cannot mark an ineligible source as passed\nAssertionError: expected 'passed' not to be 'passed' // Object.is equality\n ❯ .runtime/c-p1-boundary.test.ts:56:75\n     54|  const f=await fixture(kind===\"expired\"?\"2026-10-26T23:59:59.000Z\":nul…\n     55|  if(kind===\"updated\")data(await f.repo.executeWiki(command(\"source.sta…\n     56|  expect(f.repo.runWikiLint(f.revision.revisionId,f.context)?.outcome).…\n       |                                                                           ^\n     57| });\n     58|\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯\n\n",
+      "head": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "f3d6772bffcdd1672376f02a3657e4e1b71785fb3e81faf86bcabf1759570171",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/infrastructure/src/worker-migration-gates.test.ts": "a25010d05e72a87d27cb69e96efb3b555fad82910323d5fff7c1e81ffa08b5dd",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "packages/contracts/src/knowledge-wiki.ts": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
+        "packages/infrastructure/src/wiki-store.ts": "bd7f97eaa12861d59aa04b9b10b02da97364024000a4e3f757b373a686d916af",
+        "packages/infrastructure/src/index.ts": "bfcc352c546f63658f5074a1249055839fa10b961642765097cebee76da2213d",
+        "packages/infrastructure/src/wiki-check-source.ts": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+        "packages/infrastructure/src/check-store.ts": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromTestedSha": ""
+    },
+    {
+      "name": "fixed C eight-file regression",
+      "executable": "D:\\code\\tradequote-agent-b-p1-corrections\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/contracts/src/knowledge-maintenance.test.ts",
+        "packages/contracts/src/knowledge-lint-review.test.ts",
+        "packages/contracts/src/knowledge-wiki.test.ts",
+        "packages/infrastructure/src/wiki-store.test.ts",
+        "packages/infrastructure/src/check-store.test.ts",
+        "packages/infrastructure/src/check-lineage-integration.test.ts",
+        "packages/infrastructure/src/wiki-check-integration.test.ts",
+        "packages/infrastructure/src/worker-migration-gates.test.ts"
+      ],
+      "environment": {
+        "TEMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "TMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "GIT_CEILING_DIRECTORIES": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "executedAt": "2026-10-27T05:02:24.309Z",
+      "exitCode": 1,
+      "stdout": "\n RUN  v5.0.5 D:/code/tradequote-agent-b-p1-corrections\n\n ❯ packages/infrastructure/src/worker-migration-gates.test.ts (8 tests | 8 skipped) 7ms\n\n Test Files  1 failed | 7 passed (8)\n      Tests  109 passed | 8 skipped (117)\n   Start at  13:02:20\n   Duration  3.40s (import 44%, tests 31%, transform 24%)\n\n",
+      "stderr": "\n⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/worker-migration-gates.test.ts [ packages/infrastructure/src/worker-migration-gates.test.ts ]\nError: EPERM: operation not permitted, symlink 'D:\\code\\tradequote-agent-b-p1-corrections\\packages\\infrastructure\\node_modules' -> 'D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\worker-gates-45c0d96f-3cb6-4183-a4ff-5fe5f93f7e8c\\node_modules'\n ❯ packages/infrastructure/src/worker-migration-gates.test.ts:25:3\n     23| beforeAll(async () => {\n     24|   mkdirSync(output, { recursive: true });\n     25|   symlinkSync(resolve(\"packages/infrastructure/node_modules\"), join(ou…\n       |   ^\n     26|   for (const [name, entry] of [\n     27|     [\"worker\", \"apps/desktop/src/workers/business.ts\"],\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n",
+      "head": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "f3d6772bffcdd1672376f02a3657e4e1b71785fb3e81faf86bcabf1759570171",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/infrastructure/src/worker-migration-gates.test.ts": "a25010d05e72a87d27cb69e96efb3b555fad82910323d5fff7c1e81ffa08b5dd",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "packages/contracts/src/knowledge-wiki.ts": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
+        "packages/infrastructure/src/wiki-store.ts": "bd7f97eaa12861d59aa04b9b10b02da97364024000a4e3f757b373a686d916af",
+        "packages/infrastructure/src/index.ts": "bfcc352c546f63658f5074a1249055839fa10b961642765097cebee76da2213d",
+        "packages/infrastructure/src/wiki-check-source.ts": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+        "packages/infrastructure/src/check-store.ts": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromTestedSha": ""
+    },
+    {
+      "name": "typecheck",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "environment": {
+        "TEMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "TMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "GIT_CEILING_DIRECTORIES": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp"
+      },
+      "executedAt": "2026-10-27T05:02:27.193Z",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "head": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "f3d6772bffcdd1672376f02a3657e4e1b71785fb3e81faf86bcabf1759570171",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/infrastructure/src/worker-migration-gates.test.ts": "a25010d05e72a87d27cb69e96efb3b555fad82910323d5fff7c1e81ffa08b5dd",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "packages/contracts/src/knowledge-wiki.ts": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
+        "packages/infrastructure/src/wiki-store.ts": "bd7f97eaa12861d59aa04b9b10b02da97364024000a4e3f757b373a686d916af",
+        "packages/infrastructure/src/index.ts": "bfcc352c546f63658f5074a1249055839fa10b961642765097cebee76da2213d",
+        "packages/infrastructure/src/wiki-check-source.ts": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+        "packages/infrastructure/src/check-store.ts": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromTestedSha": ""
+    },
+    {
+      "name": "B supplemental P1 transaction and replay boundaries",
+      "executable": "D:\\code\\tradequote-agent-b-p1-corrections\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        ".runtime/b-p1-supplement.config.ts"
+      ],
+      "environment": {
+        "TEMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "TMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "GIT_CEILING_DIRECTORIES": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "executedAt": "2026-10-27T05:03:27.342Z",
+      "exitCode": 1,
+      "stdout": "\n RUN  v5.0.5 D:/code/tradequote-agent-b-p1-corrections\n\nstdout | .runtime/b-p1-supplement.test.ts > B-review-updated: source eligibility is checked after lint before review, no partial facts\nB_REVIEW_OBSERVATION {\"kind\":\"updated\",\"ok\":true,\"unchanged\":false}\n\nstdout | .runtime/b-p1-supplement.test.ts > B-review-expired: source eligibility is checked after lint before review, no partial facts\nB_REVIEW_OBSERVATION {\"kind\":\"expired\",\"ok\":true,\"unchanged\":false}\n\nstdout | .runtime/b-p1-supplement.test.ts > B-review-withdrawn: source eligibility is checked after lint before review, no partial facts\nB_REVIEW_OBSERVATION {\"kind\":\"withdrawn\",\"ok\":true,\"unchanged\":false}\n\nstdout | .runtime/b-p1-supplement.test.ts > B-publish-replay: only requestId/host now changes, first result/time retained\nB_REPLAY_OBSERVATION {\"method\":\"publish\",\"ok\":false,\"code\":\"IDEMPOTENCY_CONFLICT\",\"unchanged\":true}\n\nstdout | .runtime/b-p1-supplement.test.ts > B-withdraw-replay: only requestId/host now changes, first result/time retained\nB_REPLAY_OBSERVATION {\"method\":\"withdraw\",\"ok\":false,\"code\":\"IDEMPOTENCY_CONFLICT\",\"unchanged\":true}\n\n ❯ .runtime/b-p1-supplement.test.ts (15 tests | 5 failed) 423ms\n   × B-review-updated: source eligibility is checked after lint before review, no partial facts 53ms\n   × B-review-expired: source eligibility is checked after lint before review, no partial facts 23ms\n   × B-review-withdrawn: source eligibility is checked after lint before review, no partial facts 23ms\n   × B-publish-replay: only requestId/host now changes, first result/time retained 29ms\n   × B-withdraw-replay: only requestId/host now changes, first result/time retained 29ms\n\n Test Files  1 failed (1)\n      Tests  5 failed | 10 passed (15)\n   Start at  13:03:25\n   Duration  1.60s (import 38%, transform 32%, tests 30%)\n\n",
+      "stderr": "\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  .runtime/b-p1-supplement.test.ts > B-review-updated: source eligibility is checked after lint before review, no partial facts\n FAIL  .runtime/b-p1-supplement.test.ts > B-review-expired: source eligibility is checked after lint before review, no partial facts\n FAIL  .runtime/b-p1-supplement.test.ts > B-review-withdrawn: source eligibility is checked after lint before review, no partial facts\nAssertionError: expected true to be false // Object.is equality\n\n- Expected\n+ Received\n\n- false\n+ true\n\n ❯ .runtime/b-p1-supplement.test.ts:55:20\n     53|  const result=await f.repo.executeWiki(cmd,{...f.context,now:LATER});\n     54|  console.log(\"B_REVIEW_OBSERVATION\",JSON.stringify({kind,ok:result.ok,…\n     55|  expect(result.ok).toBe(false);expect(snapshot(f)).toEqual(before);\n       |                    ^\n     56| });\n     57| for(const method of [\"publish\",\"withdraw\"] as const)it(`B-${method}-re…\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯\n\n FAIL  .runtime/b-p1-supplement.test.ts > B-publish-replay: only requestId/host now changes, first result/time retained\nAssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, data: { …(2) }, …(2) }\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"kind\": \"wikiRevision\",\n-     \"record\": {\n-       \"lifecycle\": {\n-         \"lifecycleVersion\": 3,\n-         \"publication\": {\n-           \"actorId\": \"synthetic-human\",\n-           \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-           \"eventId\": \"e15f0c8b-2b24-4e1d-9628-5722bcd4a8ea\",\n-           \"lifecycleVersion\": 3,\n-           \"note\": \"synthetic technical review\",\n-           \"occurredAt\": \"2026-10-27T00:00:00.000Z\",\n-           \"reviewId\": \"570c781d-1b1f-4023-8303-c2e7c3eb5a83\",\n-           \"revisionId\": \"3db65c0d-2c25-4e6a-97d5-ca5fc389b80b\",\n-           \"sourceSetHash\": \"428afd2ac34ba194ca7bf373d661cc89f24a75dd302147b5075e502e217ed015\",\n-           \"type\": \"published\",\n-         },\n-         \"review\": {\n-           \"actorId\": \"synthetic-human\",\n-           \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-           \"decidedAt\": \"2026-10-27T00:00:00.000Z\",\n-           \"decision\": \"approve\",\n-           \"expectedLifecycleVersion\": 1,\n-           \"lintReceipt\": {\n-             \"checkedAt\": \"2026-10-27T00:00:00.000Z\",\n-             \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-             \"outcome\": \"passed\",\n-             \"policyVersion\": \"knowledge-maintenance-v1\",\n-             \"receiptId\": \"247d0da7-f218-497f-8ae6-9937a0e263fb\",\n-             \"revisionId\": \"3db65c0d-2c25-4e6a-97d5-ca5fc389b80b\",\n-             \"sourceSetHash\": \"428afd2ac34ba194ca7bf373d661cc89f24a75dd302147b5075e502e217ed015\",\n-             \"workspaceId\": \"c7e5db8b-9de0-4f02-8d4e-b911606e84be\",\n+   \"error\": {\n+     \"code\": \"IDEMPOTENCY_CONFLICT\",\n+     \"issues\": [],\n+     \"message\": \"同一操作标识不能用于不同内容\",\n+     \"retryable\": false,\n    },\n-           \"lintReceiptId\": \"247d0da7-f218-497f-8ae6-9937a0e263fb\",\n-           \"note\": \"synthetic technical review\",\n-           \"reviewId\": \"570c781d-1b1f-4023-8303-c2e7c3eb5a83\",\n-           \"revisionId\": \"3db65c0d-2c25-4e6a-97d5-ca5fc389b80b\",\n-           \"sourceSetHash\": \"428afd2ac34ba194ca7bf373d661cc89f24a75dd302147b5075e502e217ed015\",\n-           \"workspaceId\": \"c7e5db8b-9de0-4f02-8d4e-b911606e84be\",\n-         },\n-         \"revisionId\": \"3db65c0d-2c25-4e6a-97d5-ca5fc389b80b\",\n-         \"state\": \"published\",\n-       },\n-       \"revision\": {\n-         \"artifactId\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-         \"content\": {\n-           \"kind\": \"sop\",\n-           \"locale\": \"en\",\n-           \"markdown\": \"# Synthetic candidate\",\n-           \"relations\": [],\n-           \"rules\": [],\n-           \"scope\": {\n-             \"categories\": [],\n-             \"markets\": [],\n-             \"platforms\": [],\n-           },\n-           \"sections\": [\n-             {\n-               \"location\": {\n-                 \"end\": 21,\n-                 \"kind\": \"text\",\n-                 \"start\": 0,\n-               },\n-               \"sectionId\": \"19baebce-4c37-4cf4-a64a-1daf14773302\",\n-               \"sourceReferenceIds\": [\n-                 \"0e84f35c-b274-4edd-ac59-fd4b8b59627a\",\n-               ],\n-               \"title\": \"合成段落\",\n-             },\n-           ],\n-           \"sourceRefs\": [\n-             {\n-               \"artifactHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-               \"assertion\": \"fact\",\n-               \"excerptHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-               \"location\": {\n-                 \"end\": 16,\n-                 \"kind\": \"text\",\n-                 \"start\": 0,\n-               },\n-               \"referenceId\": \"0e84f35c-b274-4edd-ac59-fd4b8b59627a\",\n-               \"sourceId\": \"2685bf26-7b2f-4733-87e0-8228081241cd\",\n-               \"sourceRevisionId\": \"81f1f68a-cf05-41b3-8a52-ef3d79038afe\",\n-               \"sourceVersion\": 1,\n-             },\n-           ],\n-           \"title\": \"合成知识\",\n-           \"validity\": {\n-             \"status\": \"confirmed\",\n-             \"validFrom\": null,\n-             \"validUntil\": null,\n-           },\n-         },\n-         \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-         \"createdAt\": \"2026-10-27T00:00:00.000Z\",\n-         \"documentId\": \"844b81c7-aea7-4aba-a3c2-e90c6fca4d74\",\n-         \"parentRevisionId\": null,\n-         \"revisionId\": \"3db65c0d-2c25-4e6a-97d5-ca5fc389b80b\",\n-         \"sourceSetHash\": \"428afd2ac34ba194ca7bf373d661cc89f24a75dd302147b5075e502e217ed015\",\n-         \"version\": 1,\n-         \"workspaceId\": \"c7e5db8b-9de0-4f02-8d4e-b911606e84be\",\n-       },\n-     },\n-   },\n-   \"evidenceIds\": [\n-     \"3db65c0d-2c25-4e6a-97d5-ca5fc389b80b\",\n-   ],\n-   \"ok\": true,\n-   \"warnings\": [],\n+   \"ok\": false,\n  }\n\n ❯ .runtime/b-p1-supplement.test.ts:61:17\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯\n\n FAIL  .runtime/b-p1-supplement.test.ts > B-withdraw-replay: only requestId/host now changes, first result/time retained\nAssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, data: { …(2) }, …(2) }\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"kind\": \"wikiRevision\",\n-     \"record\": {\n-       \"lifecycle\": {\n-         \"lifecycleVersion\": 4,\n-         \"publication\": {\n-           \"actorId\": \"synthetic-human\",\n-           \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-           \"eventId\": \"ed1a7d69-9d7b-458b-ac43-c650bce3e203\",\n-           \"lifecycleVersion\": 4,\n-           \"note\": \"synthetic withdrawal\",\n-           \"occurredAt\": \"2026-10-27T00:00:00.000Z\",\n-           \"reviewId\": \"6db7381f-317c-4978-adbb-3dcdb8eb2211\",\n-           \"revisionId\": \"69733fb5-df0b-4cf0-be2e-d1054755fe31\",\n-           \"sourceSetHash\": \"090c8fdfd7e25dc71fc54c4e9f2e2b85c7484cf9107d0170c635dbd727320153\",\n-           \"type\": \"withdrawn\",\n-         },\n-         \"review\": {\n-           \"actorId\": \"synthetic-human\",\n-           \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-           \"decidedAt\": \"2026-10-27T00:00:00.000Z\",\n-           \"decision\": \"approve\",\n-           \"expectedLifecycleVersion\": 1,\n-           \"lintReceipt\": {\n-             \"checkedAt\": \"2026-10-27T00:00:00.000Z\",\n-             \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-             \"outcome\": \"passed\",\n-             \"policyVersion\": \"knowledge-maintenance-v1\",\n-             \"receiptId\": \"4c4581c6-e6be-4fb8-842b-0d35cbdf4bbc\",\n-             \"revisionId\": \"69733fb5-df0b-4cf0-be2e-d1054755fe31\",\n-             \"sourceSetHash\": \"090c8fdfd7e25dc71fc54c4e9f2e2b85c7484cf9107d0170c635dbd727320153\",\n-             \"workspaceId\": \"57f49625-7063-4927-bc18-791b4100c94e\",\n+   \"error\": {\n+     \"code\": \"IDEMPOTENCY_CONFLICT\",\n+     \"issues\": [],\n+     \"message\": \"同一操作标识不能用于不同内容\",\n+     \"retryable\": false,\n    },\n-           \"lintReceiptId\": \"4c4581c6-e6be-4fb8-842b-0d35cbdf4bbc\",\n-           \"note\": \"synthetic technical review\",\n-           \"reviewId\": \"6db7381f-317c-4978-adbb-3dcdb8eb2211\",\n-           \"revisionId\": \"69733fb5-df0b-4cf0-be2e-d1054755fe31\",\n-           \"sourceSetHash\": \"090c8fdfd7e25dc71fc54c4e9f2e2b85c7484cf9107d0170c635dbd727320153\",\n-           \"workspaceId\": \"57f49625-7063-4927-bc18-791b4100c94e\",\n-         },\n-         \"revisionId\": \"69733fb5-df0b-4cf0-be2e-d1054755fe31\",\n-         \"state\": \"withdrawn\",\n-       },\n-       \"revision\": {\n-         \"artifactId\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-         \"content\": {\n-           \"kind\": \"sop\",\n-           \"locale\": \"en\",\n-           \"markdown\": \"# Synthetic candidate\",\n-           \"relations\": [],\n-           \"rules\": [],\n-           \"scope\": {\n-             \"categories\": [],\n-             \"markets\": [],\n-             \"platforms\": [],\n-           },\n-           \"sections\": [\n-             {\n-               \"location\": {\n-                 \"end\": 21,\n-                 \"kind\": \"text\",\n-                 \"start\": 0,\n-               },\n-               \"sectionId\": \"37b74833-cf07-4c53-aa92-c6fa7992e2b6\",\n-               \"sourceReferenceIds\": [\n-                 \"b7921604-2e5b-433f-8967-df9f1a1892af\",\n-               ],\n-               \"title\": \"合成段落\",\n-             },\n-           ],\n-           \"sourceRefs\": [\n-             {\n-               \"artifactHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-               \"assertion\": \"fact\",\n-               \"excerptHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-               \"location\": {\n-                 \"end\": 16,\n-                 \"kind\": \"text\",\n-                 \"start\": 0,\n-               },\n-               \"referenceId\": \"b7921604-2e5b-433f-8967-df9f1a1892af\",\n-               \"sourceId\": \"e4a88047-f22e-4000-a149-0a13e560a039\",\n-               \"sourceRevisionId\": \"7b80d548-b4ee-439f-a229-41c04228bbef\",\n-               \"sourceVersion\": 1,\n-             },\n-           ],\n-           \"title\": \"合成知识\",\n-           \"validity\": {\n-             \"status\": \"confirmed\",\n-             \"validFrom\": null,\n-             \"validUntil\": null,\n-           },\n-         },\n-         \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-         \"createdAt\": \"2026-10-27T00:00:00.000Z\",\n-         \"documentId\": \"991aa81b-0571-4d28-9609-7093b2edec5e\",\n-         \"parentRevisionId\": null,\n-         \"revisionId\": \"69733fb5-df0b-4cf0-be2e-d1054755fe31\",\n-         \"sourceSetHash\": \"090c8fdfd7e25dc71fc54c4e9f2e2b85c7484cf9107d0170c635dbd727320153\",\n-         \"version\": 1,\n-         \"workspaceId\": \"57f49625-7063-4927-bc18-791b4100c94e\",\n-       },\n-     },\n-   },\n-   \"evidenceIds\": [\n-     \"69733fb5-df0b-4cf0-be2e-d1054755fe31\",\n-   ],\n-   \"ok\": true,\n-   \"warnings\": [],\n+   \"ok\": false,\n  }\n\n ❯ .runtime/b-p1-supplement.test.ts:61:17\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯\n\n",
+      "head": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "f3d6772bffcdd1672376f02a3657e4e1b71785fb3e81faf86bcabf1759570171",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/infrastructure/src/worker-migration-gates.test.ts": "a25010d05e72a87d27cb69e96efb3b555fad82910323d5fff7c1e81ffa08b5dd",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "packages/contracts/src/knowledge-wiki.ts": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
+        "packages/infrastructure/src/wiki-store.ts": "bd7f97eaa12861d59aa04b9b10b02da97364024000a4e3f757b373a686d916af",
+        "packages/infrastructure/src/index.ts": "bfcc352c546f63658f5074a1249055839fa10b961642765097cebee76da2213d",
+        "packages/infrastructure/src/wiki-check-source.ts": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+        "packages/infrastructure/src/check-store.ts": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromTestedSha": ""
+    },
+    {
+      "name": "original B public source fixes",
+      "executable": "D:\\code\\tradequote-agent-b-p1-corrections\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        ".runtime/p1-source-probe.config.ts"
+      ],
+      "environment": {
+        "TEMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "TMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "GIT_CEILING_DIRECTORIES": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "executedAt": "2026-10-27T05:03:29.201Z",
+      "exitCode": 0,
+      "stdout": "\n RUN  v5.0.5 D:/code/tradequote-agent-b-p1-corrections\n\n\n Test Files  1 passed (1)\n      Tests  2 passed (2)\n   Start at  13:03:27\n   Duration  1.21s (import 48%, transform 42%, tests 9%)\n\n",
+      "stderr": "",
+      "head": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "f3d6772bffcdd1672376f02a3657e4e1b71785fb3e81faf86bcabf1759570171",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/infrastructure/src/worker-migration-gates.test.ts": "a25010d05e72a87d27cb69e96efb3b555fad82910323d5fff7c1e81ffa08b5dd",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "packages/contracts/src/knowledge-wiki.ts": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
+        "packages/infrastructure/src/wiki-store.ts": "bd7f97eaa12861d59aa04b9b10b02da97364024000a4e3f757b373a686d916af",
+        "packages/infrastructure/src/index.ts": "bfcc352c546f63658f5074a1249055839fa10b961642765097cebee76da2213d",
+        "packages/infrastructure/src/wiki-check-source.ts": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+        "packages/infrastructure/src/check-store.ts": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromTestedSha": ""
+    },
+    {
+      "name": "wiki generate",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "environment": {
+        "TEMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "TMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "GIT_CEILING_DIRECTORIES": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp"
+      },
+      "executedAt": "2026-10-27T05:06:16.008Z",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 254,\n  \"lines\": 68066,\n  \"generated\": 5,\n  \"excluded\": 11\n}\n",
+      "stderr": "",
+      "head": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "f3d6772bffcdd1672376f02a3657e4e1b71785fb3e81faf86bcabf1759570171",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/infrastructure/src/worker-migration-gates.test.ts": "a25010d05e72a87d27cb69e96efb3b555fad82910323d5fff7c1e81ffa08b5dd",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "packages/contracts/src/knowledge-wiki.ts": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
+        "packages/infrastructure/src/wiki-store.ts": "bd7f97eaa12861d59aa04b9b10b02da97364024000a4e3f757b373a686d916af",
+        "packages/infrastructure/src/index.ts": "bfcc352c546f63658f5074a1249055839fa10b961642765097cebee76da2213d",
+        "packages/infrastructure/src/wiki-check-source.ts": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+        "packages/infrastructure/src/check-store.ts": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromTestedSha": ""
+    },
+    {
+      "name": "wiki readonly",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "environment": {
+        "TEMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "TMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "GIT_CEILING_DIRECTORIES": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp"
+      },
+      "executedAt": "2026-10-27T05:06:16.578Z",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 254,\n  \"lines\": 68066,\n  \"generated\": 5,\n  \"excluded\": 11\n}\n",
+      "stderr": "",
+      "head": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "f3d6772bffcdd1672376f02a3657e4e1b71785fb3e81faf86bcabf1759570171",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/infrastructure/src/worker-migration-gates.test.ts": "a25010d05e72a87d27cb69e96efb3b555fad82910323d5fff7c1e81ffa08b5dd",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "packages/contracts/src/knowledge-wiki.ts": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
+        "packages/infrastructure/src/wiki-store.ts": "bd7f97eaa12861d59aa04b9b10b02da97364024000a4e3f757b373a686d916af",
+        "packages/infrastructure/src/index.ts": "bfcc352c546f63658f5074a1249055839fa10b961642765097cebee76da2213d",
+        "packages/infrastructure/src/wiki-check-source.ts": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+        "packages/infrastructure/src/check-store.ts": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromTestedSha": ""
+    },
+    {
+      "name": "wiki lint",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "environment": {
+        "TEMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "TMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "GIT_CEILING_DIRECTORIES": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp"
+      },
+      "executedAt": "2026-10-27T05:06:18.413Z",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 253,\n  \"semantic\": 225,\n  \"reachable\": 253\n}\n",
+      "stderr": "",
+      "head": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "f3d6772bffcdd1672376f02a3657e4e1b71785fb3e81faf86bcabf1759570171",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/infrastructure/src/worker-migration-gates.test.ts": "a25010d05e72a87d27cb69e96efb3b555fad82910323d5fff7c1e81ffa08b5dd",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "packages/contracts/src/knowledge-wiki.ts": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
+        "packages/infrastructure/src/wiki-store.ts": "bd7f97eaa12861d59aa04b9b10b02da97364024000a4e3f757b373a686d916af",
+        "packages/infrastructure/src/index.ts": "bfcc352c546f63658f5074a1249055839fa10b961642765097cebee76da2213d",
+        "packages/infrastructure/src/wiki-check-source.ts": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+        "packages/infrastructure/src/check-store.ts": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromTestedSha": ""
+    },
+    {
+      "name": "wiki sync",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "7e6b485c15ba7c4ec30d6495df0a58cd2088207e"
+      ],
+      "environment": {
+        "TEMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "TMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "GIT_CEILING_DIRECTORIES": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp"
+      },
+      "executedAt": "2026-10-27T05:06:19.018Z",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"7e6b485c15ba7c4ec30d6495df0a58cd2088207e\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "head": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "f3d6772bffcdd1672376f02a3657e4e1b71785fb3e81faf86bcabf1759570171",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/infrastructure/src/worker-migration-gates.test.ts": "a25010d05e72a87d27cb69e96efb3b555fad82910323d5fff7c1e81ffa08b5dd",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "packages/contracts/src/knowledge-wiki.ts": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
+        "packages/infrastructure/src/wiki-store.ts": "bd7f97eaa12861d59aa04b9b10b02da97364024000a4e3f757b373a686d916af",
+        "packages/infrastructure/src/index.ts": "bfcc352c546f63658f5074a1249055839fa10b961642765097cebee76da2213d",
+        "packages/infrastructure/src/wiki-check-source.ts": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+        "packages/infrastructure/src/check-store.ts": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromTestedSha": ""
+    },
+    {
+      "name": "diff whitespace",
+      "executable": "git",
+      "args": [
+        "diff",
+        "--check",
+        "7e6b485c15ba7c4ec30d6495df0a58cd2088207e"
+      ],
+      "environment": {
+        "TEMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "TMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "GIT_CEILING_DIRECTORIES": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp"
+      },
+      "executedAt": "2026-10-27T05:06:19.236Z",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "head": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "f3d6772bffcdd1672376f02a3657e4e1b71785fb3e81faf86bcabf1759570171",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/infrastructure/src/worker-migration-gates.test.ts": "a25010d05e72a87d27cb69e96efb3b555fad82910323d5fff7c1e81ffa08b5dd",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "packages/contracts/src/knowledge-wiki.ts": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
+        "packages/infrastructure/src/wiki-store.ts": "bd7f97eaa12861d59aa04b9b10b02da97364024000a4e3f757b373a686d916af",
+        "packages/infrastructure/src/index.ts": "bfcc352c546f63658f5074a1249055839fa10b961642765097cebee76da2213d",
+        "packages/infrastructure/src/wiki-check-source.ts": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+        "packages/infrastructure/src/check-store.ts": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromTestedSha": ""
+    },
+    {
+      "name": "engineering check",
+      "executable": "cmd.exe",
+      "args": [
+        "/d",
+        "/s",
+        "/c",
+        "pnpm check"
+      ],
+      "environment": {
+        "TEMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "TMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "GIT_CEILING_DIRECTORIES": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp"
+      },
+      "executedAt": "2026-10-27T05:06:41.176Z",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 check D:\\code\\tradequote-agent-b-p1-corrections\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 182 files in 75ms. No fixes applied.\nTAP version 13\n# Subtest: renderer cannot reach Node, database or desktop internals through import forms\nok 1 - renderer cannot reach Node, database or desktop internals through import forms\n  ---\n  duration_ms: 13.9859\n  type: 'test'\n  ...\n# Subtest: pure modules use public contracts while other platform dependencies are rejected\nok 2 - pure modules use public contracts while other platform dependencies are rejected\n  ---\n  duration_ms: 2.7706\n  type: 'test'\n  ...\n# Subtest: domain permits exact pure decimal dependency without opening contracts or SDK imports\nok 3 - domain permits exact pure decimal dependency without opening contracts or SDK imports\n  ---\n  duration_ms: 0.6929\n  type: 'test'\n  ...\n# Subtest: committed icon resources match their source manifest\nok 4 - committed icon resources match their source manifest\n  ---\n  duration_ms: 3.2681\n  type: 'test'\n  ...\n# Subtest: editing either SVG or packaged icon without generation blocks the build\nok 5 - editing either SVG or packaged icon without generation blocks the build\n  ---\n  duration_ms: 18.1486\n  type: 'test'\n  ...\n# Subtest: macOS native process and runtime display TradeQuote while upstream Electron stays intact\nok 6 - macOS native process and runtime display TradeQuote while upstream Electron stays intact # SKIP\n  ---\n  duration_ms: 1.4381\n  type: 'test'\n  ...\n1..6\n# tests 6\n# suites 0\n# pass 5\n# fail 0\n# cancelled 0\n# skipped 1\n# todo 0\n# duration_ms 225.3796\nModule boundaries passed\n\n> tradequote-agent@0.1.0 wiki:check D:\\code\\tradequote-agent-b-p1-corrections\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 254,\n  \"lines\": 68066,\n  \"generated\": 5,\n  \"excluded\": 11\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 253,\n  \"semantic\": 225,\n  \"reachable\": 253\n}\n",
+      "stderr": "",
+      "head": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "f3d6772bffcdd1672376f02a3657e4e1b71785fb3e81faf86bcabf1759570171",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/infrastructure/src/worker-migration-gates.test.ts": "a25010d05e72a87d27cb69e96efb3b555fad82910323d5fff7c1e81ffa08b5dd",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "packages/contracts/src/knowledge-wiki.ts": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
+        "packages/infrastructure/src/wiki-store.ts": "bd7f97eaa12861d59aa04b9b10b02da97364024000a4e3f757b373a686d916af",
+        "packages/infrastructure/src/index.ts": "bfcc352c546f63658f5074a1249055839fa10b961642765097cebee76da2213d",
+        "packages/infrastructure/src/wiki-check-source.ts": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+        "packages/infrastructure/src/check-store.ts": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromTestedSha": ""
+    },
+    {
+      "name": "wiki generate",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "environment": {
+        "TEMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "TMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "GIT_CEILING_DIRECTORIES": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp"
+      },
+      "executedAt": "2026-10-27T05:08:14.151Z",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 254,\n  \"lines\": 68066,\n  \"generated\": 5,\n  \"excluded\": 11\n}\n",
+      "stderr": "",
+      "head": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "f3d6772bffcdd1672376f02a3657e4e1b71785fb3e81faf86bcabf1759570171",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/infrastructure/src/worker-migration-gates.test.ts": "a25010d05e72a87d27cb69e96efb3b555fad82910323d5fff7c1e81ffa08b5dd",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "packages/contracts/src/knowledge-wiki.ts": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
+        "packages/infrastructure/src/wiki-store.ts": "bd7f97eaa12861d59aa04b9b10b02da97364024000a4e3f757b373a686d916af",
+        "packages/infrastructure/src/index.ts": "bfcc352c546f63658f5074a1249055839fa10b961642765097cebee76da2213d",
+        "packages/infrastructure/src/wiki-check-source.ts": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+        "packages/infrastructure/src/check-store.ts": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromTestedSha": ""
+    },
+    {
+      "name": "wiki readonly",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "environment": {
+        "TEMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "TMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "GIT_CEILING_DIRECTORIES": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp"
+      },
+      "executedAt": "2026-10-27T05:08:14.678Z",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 254,\n  \"lines\": 68066,\n  \"generated\": 5,\n  \"excluded\": 11\n}\n",
+      "stderr": "",
+      "head": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "f3d6772bffcdd1672376f02a3657e4e1b71785fb3e81faf86bcabf1759570171",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/infrastructure/src/worker-migration-gates.test.ts": "a25010d05e72a87d27cb69e96efb3b555fad82910323d5fff7c1e81ffa08b5dd",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "packages/contracts/src/knowledge-wiki.ts": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
+        "packages/infrastructure/src/wiki-store.ts": "bd7f97eaa12861d59aa04b9b10b02da97364024000a4e3f757b373a686d916af",
+        "packages/infrastructure/src/index.ts": "bfcc352c546f63658f5074a1249055839fa10b961642765097cebee76da2213d",
+        "packages/infrastructure/src/wiki-check-source.ts": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+        "packages/infrastructure/src/check-store.ts": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromTestedSha": ""
+    },
+    {
+      "name": "wiki lint",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "environment": {
+        "TEMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "TMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "GIT_CEILING_DIRECTORIES": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp"
+      },
+      "executedAt": "2026-10-27T05:08:16.490Z",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 254,\n  \"semantic\": 226,\n  \"reachable\": 254\n}\n",
+      "stderr": "",
+      "head": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "f3d6772bffcdd1672376f02a3657e4e1b71785fb3e81faf86bcabf1759570171",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/infrastructure/src/worker-migration-gates.test.ts": "a25010d05e72a87d27cb69e96efb3b555fad82910323d5fff7c1e81ffa08b5dd",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "packages/contracts/src/knowledge-wiki.ts": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
+        "packages/infrastructure/src/wiki-store.ts": "bd7f97eaa12861d59aa04b9b10b02da97364024000a4e3f757b373a686d916af",
+        "packages/infrastructure/src/index.ts": "bfcc352c546f63658f5074a1249055839fa10b961642765097cebee76da2213d",
+        "packages/infrastructure/src/wiki-check-source.ts": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+        "packages/infrastructure/src/check-store.ts": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromTestedSha": ""
+    },
+    {
+      "name": "wiki sync",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "7e6b485c15ba7c4ec30d6495df0a58cd2088207e"
+      ],
+      "environment": {
+        "TEMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "TMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "GIT_CEILING_DIRECTORIES": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp"
+      },
+      "executedAt": "2026-10-27T05:08:17.002Z",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"7e6b485c15ba7c4ec30d6495df0a58cd2088207e\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "head": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "f3d6772bffcdd1672376f02a3657e4e1b71785fb3e81faf86bcabf1759570171",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/infrastructure/src/worker-migration-gates.test.ts": "a25010d05e72a87d27cb69e96efb3b555fad82910323d5fff7c1e81ffa08b5dd",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "packages/contracts/src/knowledge-wiki.ts": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
+        "packages/infrastructure/src/wiki-store.ts": "bd7f97eaa12861d59aa04b9b10b02da97364024000a4e3f757b373a686d916af",
+        "packages/infrastructure/src/index.ts": "bfcc352c546f63658f5074a1249055839fa10b961642765097cebee76da2213d",
+        "packages/infrastructure/src/wiki-check-source.ts": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+        "packages/infrastructure/src/check-store.ts": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromTestedSha": ""
+    },
+    {
+      "name": "diff whitespace",
+      "executable": "git",
+      "args": [
+        "diff",
+        "--check",
+        "7e6b485c15ba7c4ec30d6495df0a58cd2088207e"
+      ],
+      "environment": {
+        "TEMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "TMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "GIT_CEILING_DIRECTORIES": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp"
+      },
+      "executedAt": "2026-10-27T05:08:17.214Z",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "head": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "f3d6772bffcdd1672376f02a3657e4e1b71785fb3e81faf86bcabf1759570171",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/infrastructure/src/worker-migration-gates.test.ts": "a25010d05e72a87d27cb69e96efb3b555fad82910323d5fff7c1e81ffa08b5dd",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "packages/contracts/src/knowledge-wiki.ts": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
+        "packages/infrastructure/src/wiki-store.ts": "bd7f97eaa12861d59aa04b9b10b02da97364024000a4e3f757b373a686d916af",
+        "packages/infrastructure/src/index.ts": "bfcc352c546f63658f5074a1249055839fa10b961642765097cebee76da2213d",
+        "packages/infrastructure/src/wiki-check-source.ts": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+        "packages/infrastructure/src/check-store.ts": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromTestedSha": ""
+    },
+    {
+      "name": "wiki generate",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "environment": {
+        "TEMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "TMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "GIT_CEILING_DIRECTORIES": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp"
+      },
+      "executedAt": "2026-10-27T05:09:03.536Z",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 254,\n  \"lines\": 68066,\n  \"generated\": 5,\n  \"excluded\": 11\n}\n",
+      "stderr": "",
+      "head": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "f3d6772bffcdd1672376f02a3657e4e1b71785fb3e81faf86bcabf1759570171",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/infrastructure/src/worker-migration-gates.test.ts": "a25010d05e72a87d27cb69e96efb3b555fad82910323d5fff7c1e81ffa08b5dd",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "packages/contracts/src/knowledge-wiki.ts": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
+        "packages/infrastructure/src/wiki-store.ts": "bd7f97eaa12861d59aa04b9b10b02da97364024000a4e3f757b373a686d916af",
+        "packages/infrastructure/src/index.ts": "bfcc352c546f63658f5074a1249055839fa10b961642765097cebee76da2213d",
+        "packages/infrastructure/src/wiki-check-source.ts": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+        "packages/infrastructure/src/check-store.ts": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromTestedSha": ""
+    },
+    {
+      "name": "wiki readonly",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "environment": {
+        "TEMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "TMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "GIT_CEILING_DIRECTORIES": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp"
+      },
+      "executedAt": "2026-10-27T05:09:04.074Z",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 254,\n  \"lines\": 68066,\n  \"generated\": 5,\n  \"excluded\": 11\n}\n",
+      "stderr": "",
+      "head": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "f3d6772bffcdd1672376f02a3657e4e1b71785fb3e81faf86bcabf1759570171",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/infrastructure/src/worker-migration-gates.test.ts": "a25010d05e72a87d27cb69e96efb3b555fad82910323d5fff7c1e81ffa08b5dd",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "packages/contracts/src/knowledge-wiki.ts": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
+        "packages/infrastructure/src/wiki-store.ts": "bd7f97eaa12861d59aa04b9b10b02da97364024000a4e3f757b373a686d916af",
+        "packages/infrastructure/src/index.ts": "bfcc352c546f63658f5074a1249055839fa10b961642765097cebee76da2213d",
+        "packages/infrastructure/src/wiki-check-source.ts": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+        "packages/infrastructure/src/check-store.ts": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromTestedSha": ""
+    },
+    {
+      "name": "wiki lint",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "environment": {
+        "TEMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "TMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "GIT_CEILING_DIRECTORIES": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp"
+      },
+      "executedAt": "2026-10-27T05:09:05.893Z",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 254,\n  \"semantic\": 226,\n  \"reachable\": 254\n}\n",
+      "stderr": "",
+      "head": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "f3d6772bffcdd1672376f02a3657e4e1b71785fb3e81faf86bcabf1759570171",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/infrastructure/src/worker-migration-gates.test.ts": "a25010d05e72a87d27cb69e96efb3b555fad82910323d5fff7c1e81ffa08b5dd",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "packages/contracts/src/knowledge-wiki.ts": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
+        "packages/infrastructure/src/wiki-store.ts": "bd7f97eaa12861d59aa04b9b10b02da97364024000a4e3f757b373a686d916af",
+        "packages/infrastructure/src/index.ts": "bfcc352c546f63658f5074a1249055839fa10b961642765097cebee76da2213d",
+        "packages/infrastructure/src/wiki-check-source.ts": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+        "packages/infrastructure/src/check-store.ts": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromTestedSha": ""
+    },
+    {
+      "name": "wiki sync",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "7e6b485c15ba7c4ec30d6495df0a58cd2088207e"
+      ],
+      "environment": {
+        "TEMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "TMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "GIT_CEILING_DIRECTORIES": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp"
+      },
+      "executedAt": "2026-10-27T05:09:06.401Z",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"7e6b485c15ba7c4ec30d6495df0a58cd2088207e\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "head": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "f3d6772bffcdd1672376f02a3657e4e1b71785fb3e81faf86bcabf1759570171",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/infrastructure/src/worker-migration-gates.test.ts": "a25010d05e72a87d27cb69e96efb3b555fad82910323d5fff7c1e81ffa08b5dd",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "packages/contracts/src/knowledge-wiki.ts": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
+        "packages/infrastructure/src/wiki-store.ts": "bd7f97eaa12861d59aa04b9b10b02da97364024000a4e3f757b373a686d916af",
+        "packages/infrastructure/src/index.ts": "bfcc352c546f63658f5074a1249055839fa10b961642765097cebee76da2213d",
+        "packages/infrastructure/src/wiki-check-source.ts": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+        "packages/infrastructure/src/check-store.ts": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromTestedSha": ""
+    },
+    {
+      "name": "diff whitespace",
+      "executable": "git",
+      "args": [
+        "diff",
+        "--check",
+        "7e6b485c15ba7c4ec30d6495df0a58cd2088207e"
+      ],
+      "environment": {
+        "TEMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "TMP": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp",
+        "GIT_CEILING_DIRECTORIES": "D:\\code\\tradequote-agent-b-p1-corrections\\.runtime\\test-temp"
+      },
+      "executedAt": "2026-10-27T05:09:06.612Z",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "head": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "f3d6772bffcdd1672376f02a3657e4e1b71785fb3e81faf86bcabf1759570171",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/infrastructure/src/worker-migration-gates.test.ts": "a25010d05e72a87d27cb69e96efb3b555fad82910323d5fff7c1e81ffa08b5dd",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "packages/contracts/src/knowledge-wiki.ts": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
+        "packages/infrastructure/src/wiki-store.ts": "bd7f97eaa12861d59aa04b9b10b02da97364024000a4e3f757b373a686d916af",
+        "packages/infrastructure/src/index.ts": "bfcc352c546f63658f5074a1249055839fa10b961642765097cebee76da2213d",
+        "packages/infrastructure/src/wiki-check-source.ts": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+        "packages/infrastructure/src/check-store.ts": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromTestedSha": ""
+    }
+  ],
+  "notRun": [
+    "A new fixed repair: not supplied; review applies only to fixed C7e6/Ae7a9439 implementation",
+    "Electron desktop/macOS joint and human review/publication/withdrawal/business signoff",
+    "full migration M/F/J and full unit suite",
+    "maintenance regression: no tools/mapping/code changes",
+    "build: no application/build/dependency changes; this is B technical review evidence and Wiki only, not desktop acceptance"
+  ],
+  "overallJointAcceptance": false,
+  "mergeBases": {
+    "A": "a2b050eb74f52dc10916645bcc7a2dead02f9a72",
+    "B": "c6f6788d3e75f3ac9de02d95306222fb5509ca71",
+    "C": "739961a6aecf379bbdd785e9fd3bfe115ee6ade1"
+  },
+  "composition": "C fixed material is a three-way content composition, not a Git merge of A/B tip commits; A/B source preservation evidence is C raw/c-a01e-p1-protected-methods.json. No production source changed in B review.",
+  "summary": {
+    "COriginal": {
+      "passed": 1,
+      "failed": 7,
+      "exitCode": 1,
+      "assertionsUnchanged": true
+    },
+    "BSupplement": {
+      "passed": 10,
+      "failed": 5,
+      "exitCode": 1,
+      "details": "review-before-commit eligibility three failures; publish/withdraw later-clock replay two failures; six rollback/retry, three identity/changed-input refusals, one historical replay pass"
+    },
+    "oldBSourceFixes": {
+      "passed": 2,
+      "failed": 0,
+      "exitCode": 0
+    },
+    "fixedCEightFileRegression": {
+      "passed": 109,
+      "notExecuted": 8,
+      "exitCode": 1,
+      "reason": "worker-migration-gates beforeAll symlink EPERM on Windows; no test assertions skipped or altered by B"
+    },
+    "typecheck": {
+      "exitCode": 0
+    },
+    "old121": "not reused as this fixed C run",
+    "review": "changes_required",
+    "engineering": {
+      "exitCode": 0,
+      "passed": 5,
+      "skippedMacOnly": 1
+    },
+    "wiki": {
+      "generate": 0,
+      "readonly": 0,
+      "lint": 0,
+      "sync": 0,
+      "base": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e"
+    }
+  },
+  "probes": {
+    "COriginal": {
+      "restoreScriptPath": ".runtime/c-p1-boundary.test.ts",
+      "restoreConfigPath": ".runtime/c-p1-boundary.config.ts",
+      "scriptUtf8": "import { randomUUID } from \"node:crypto\";\nimport { mkdtempSync, rmSync } from \"node:fs\";\nimport { tmpdir } from \"node:os\";\nimport { join } from \"node:path\";\nimport { KnowledgeLintReportSchema, WikiLintReceiptSchema, WikiResultSchema, type WikiRevision, type WikiSourceRevision } from \"../packages/contracts/src/index\";\nimport {createRequire} from \"node:module\";\nconst Database = createRequire(new URL(\"../packages/infrastructure/package.json\", import.meta.url))(\"better-sqlite3\");\nimport { afterEach, expect, it } from \"vitest\";\nimport { SqliteWorkspaceRepository } from \"../packages/infrastructure/src/index\";\nconst NOW=\"2026-10-27T00:00:00.000Z\", LATER=\"2026-10-27T00:00:02.000Z\";\nconst valid={status:\"confirmed\" as const,validFrom:null,validUntil:null};\nconst dispose:(()=>void)[]=[];\nafterEach(()=>{for(const close of dispose.splice(0).reverse())close();});\nconst command=(method:string,payload:unknown)=>({schemaVersion:1,requestId:randomUUID(),idempotencyKey:randomUUID(),method,payload});\nfunction data(input:unknown){const r=WikiResultSchema.parse(input);if(!r.ok)throw Error(r.error.message);return r.data;}\nasync function fixture(expires:string|null=null){\n const dir=mkdtempSync(join(tmpdir(),\"c-p1-probe-\"));dispose.push(()=>rmSync(dir,{recursive:true,force:true}));\n const file=join(dir,\"synthetic.sqlite\"),repo=new SqliteWorkspaceRepository(file);dispose.push(()=>repo.close());\n repo.commit(command(\"workspace.create\",{name:\"合成P1边界\"}) as never,{actorId:\"synthetic-human\",origin:\"human_ui\"});\n const context={workspaceId:repo.read()!.id,actorId:\"synthetic-human\",origin:\"human_ui\" as const,now:NOW};\n const payload={sourceId:randomUUID(),expectedVersion:0,label:\"合成资料\",sourceStatus:\"synthetic\",mediaType:\"text/plain\",sourceText:\"Synthetic source\",acquiredAt:NOW,sourceUri:null,permissionNote:\"synthetic only\",validity:{...valid,validUntil:expires}};\n const sourceData=data(await repo.executeWiki(command(\"source.stage\",payload),context));if(sourceData.kind!==\"sourceRevision\")throw Error(\"source fixture\");\n const source:WikiSourceRevision=sourceData.revision,ref={referenceId:randomUUID(),sourceId:source.sourceId,sourceRevisionId:source.sourceRevisionId,sourceVersion:source.version,artifactHash:source.artifactHash,location:{kind:\"text\",start:0,end:source.sourceText.length},excerptHash:source.artifactHash,assertion:\"fact\"};\n const markdown=\"# Synthetic candidate\",sectionId=randomUUID();\n const wiki=data(await repo.executeWiki(command(\"wiki.stage\",{documentId:randomUUID(),expectedVersion:0,parentRevisionId:null,content:{kind:\"sop\",title:\"合成知识\",locale:\"en\",scope:{platforms:[],markets:[],categories:[]},markdown,validity:valid,sections:[{sectionId,title:\"合成段落\",location:{kind:\"text\",start:0,end:markdown.length},sourceReferenceIds:[ref.referenceId]}],sourceRefs:[ref],relations:[],rules:[]}}),context));\n if(wiki.kind!==\"wikiRevision\")throw Error(\"wiki fixture\"); const revision:WikiRevision=wiki.record.revision;\n const db=new Database(file);dispose.push(()=>db.close());\n const binding={revisionId:revision.revisionId,contentHash:revision.contentHash,sourceSetHash:revision.sourceSetHash};\n return {repo,db,context,revision,source,payload,binding,async approve(){const receipt=repo.runWikiLint(revision.revisionId,context)!; const cmd=command(\"wiki.review\",{...binding,expectedLifecycleVersion:1,decision:\"approve\",note:\"synthetic technical review\",lintReceiptId:receipt.receiptId});const result=await repo.executeWiki(cmd,context);const d=data(result);if(d.kind!==\"wikiRevision\"||!d.record.lifecycle.review)throw Error(\"review fixture\");return {receipt,cmd,result,reviewId:d.record.lifecycle.review.reviewId};}};\n}\nit(\"control: real lint receipt, approve, publish and withdraw use the saved binding\",async()=>{\n const f=await fixture(),a=await f.approve();expect(WikiLintReceiptSchema.safeParse(a.receipt).success).toBe(true);\n const published=data(await f.repo.executeWiki(command(\"wiki.publish\",{...f.binding,reviewId:a.reviewId,expectedLifecycleVersion:2}),f.context));expect(published.kind===\"wikiRevision\"&&published.record.lifecycle.state).toBe(\"published\");\n const withdrawn=data(await f.repo.executeWiki(command(\"wiki.withdraw\",{revisionId:f.revision.revisionId,expectedLifecycleVersion:3,note:\"synthetic withdrawal\"}),f.context));expect(withdrawn.kind===\"wikiRevision\"&&withdrawn.record.lifecycle.state).toBe(\"withdrawn\");\n});\nit(\"P1-01: persisted lint fact must contain the complete P1 report and seven-category coverage\",async()=>{\n const f=await fixture();f.repo.runWikiLint(f.revision.revisionId,f.context);\n const row=f.db.prepare(\"SELECT data_json FROM knowledge_lint WHERE revision_id=?\").get(f.revision.revisionId) as {data_json:string};\n expect(KnowledgeLintReportSchema.safeParse(JSON.parse(row.data_json)).success).toBe(true);\n});\nit(\"P1-02: review retry with a later host clock replays the first result\",async()=>{\n const f=await fixture(),a=await f.approve();\n const retry=await f.repo.executeWiki({...a.cmd,requestId:randomUUID()},{...f.context,now:LATER});\n expect(retry).toEqual(a.result);\n});\nfor(const kind of [\"source_updated\",\"source_expired\",\"source_withdrawn\"] as const)it(`P1-03 ${kind}: publication revalidates after a successful lint and review`,async()=>{\n const f=await fixture(kind===\"source_expired\"?\"2026-10-27T00:00:01.000Z\":null),a=await f.approve();\n if(kind===\"source_updated\") data(await f.repo.executeWiki(command(\"source.stage\",{...f.payload,expectedVersion:1,sourceText:\"New synthetic source\"}),{...f.context,now:LATER}));\n if(kind===\"source_withdrawn\")f.db.prepare(\"UPDATE knowledge_source SET state='withdrawn',lifecycle_version=2 WHERE source_revision_id=?\").run(f.source.sourceRevisionId);\n const result=await f.repo.executeWiki(command(\"wiki.publish\",{...f.binding,reviewId:a.reviewId,expectedLifecycleVersion:2}),{...f.context,now:LATER});\n expect(result.ok).toBe(false);\n});\nfor(const kind of [\"expired\",\"updated\"] as const)it(`P1-04 ${kind}: lint cannot mark an ineligible source as passed`,async()=>{\n const f=await fixture(kind===\"expired\"?\"2026-10-26T23:59:59.000Z\":null);\n if(kind===\"updated\")data(await f.repo.executeWiki(command(\"source.stage\",{...f.payload,expectedVersion:1,sourceText:\"New synthetic source\"}),f.context));\n expect(f.repo.runWikiLint(f.revision.revisionId,f.context)?.outcome).not.toBe(\"passed\");\n});\n",
+      "configUtf8": "import {defineConfig} from \"vitest/config\";\nexport default defineConfig({test:{include:[\".runtime/c-p1-boundary.test.ts\"],environment:\"node\"}});\n",
+      "scriptSha256": "af0e0f3e6b5b3790d947ef71df46d4a8ea724f6268d006565e1972409f7b6127",
+      "configSha256": "3ed7d066f986fdbc174f24a5f14b5cb1928723d25b34731f68b960b02b1c36f6"
+    },
+    "BSupplement": {
+      "restoreScriptPath": ".runtime/b-p1-supplement.test.ts",
+      "restoreConfigPath": ".runtime/b-p1-supplement.config.ts",
+      "scriptUtf8": "import { randomUUID } from \"node:crypto\";\nimport { mkdtempSync, rmSync } from \"node:fs\";\nimport { tmpdir } from \"node:os\";\nimport { join } from \"node:path\";\nimport { KnowledgeLintReportSchema, WikiLintReceiptSchema, WikiResultSchema, type WikiRevision, type WikiSourceRevision } from \"../packages/contracts/src/index\";\nimport {createRequire} from \"node:module\";\nconst Database = createRequire(new URL(\"../packages/infrastructure/package.json\", import.meta.url))(\"better-sqlite3\");\nimport { afterEach, expect, it } from \"vitest\";\nimport { SqliteWorkspaceRepository } from \"../packages/infrastructure/src/index\";\nconst NOW=\"2026-10-27T00:00:00.000Z\", LATER=\"2026-10-27T00:00:02.000Z\";\nconst valid={status:\"confirmed\" as const,validFrom:null,validUntil:null};\nconst dispose:(()=>void)[]=[];\nafterEach(()=>{for(const close of dispose.splice(0).reverse())close();});\nconst command=(method:string,payload:unknown)=>({schemaVersion:1,requestId:randomUUID(),idempotencyKey:randomUUID(),method,payload});\nfunction data(input:unknown){const r=WikiResultSchema.parse(input);if(!r.ok)throw Error(r.error.message);return r.data;}\nasync function fixture(expires:string|null=null){\n const dir=mkdtempSync(join(tmpdir(),\"c-p1-probe-\"));dispose.push(()=>rmSync(dir,{recursive:true,force:true}));\n const file=join(dir,\"synthetic.sqlite\"),repo=new SqliteWorkspaceRepository(file);dispose.push(()=>repo.close());\n repo.commit(command(\"workspace.create\",{name:\"合成P1边界\"}) as never,{actorId:\"synthetic-human\",origin:\"human_ui\"});\n const context={workspaceId:repo.read()!.id,actorId:\"synthetic-human\",origin:\"human_ui\" as const,now:NOW};\n const payload={sourceId:randomUUID(),expectedVersion:0,label:\"合成资料\",sourceStatus:\"synthetic\",mediaType:\"text/plain\",sourceText:\"Synthetic source\",acquiredAt:NOW,sourceUri:null,permissionNote:\"synthetic only\",validity:{...valid,validUntil:expires}};\n const sourceData=data(await repo.executeWiki(command(\"source.stage\",payload),context));if(sourceData.kind!==\"sourceRevision\")throw Error(\"source fixture\");\n const source:WikiSourceRevision=sourceData.revision,ref={referenceId:randomUUID(),sourceId:source.sourceId,sourceRevisionId:source.sourceRevisionId,sourceVersion:source.version,artifactHash:source.artifactHash,location:{kind:\"text\",start:0,end:source.sourceText.length},excerptHash:source.artifactHash,assertion:\"fact\"};\n const markdown=\"# Synthetic candidate\",sectionId=randomUUID();\n const wiki=data(await repo.executeWiki(command(\"wiki.stage\",{documentId:randomUUID(),expectedVersion:0,parentRevisionId:null,content:{kind:\"sop\",title:\"合成知识\",locale:\"en\",scope:{platforms:[],markets:[],categories:[]},markdown,validity:valid,sections:[{sectionId,title:\"合成段落\",location:{kind:\"text\",start:0,end:markdown.length},sourceReferenceIds:[ref.referenceId]}],sourceRefs:[ref],relations:[],rules:[]}}),context));\n if(wiki.kind!==\"wikiRevision\")throw Error(\"wiki fixture\"); const revision:WikiRevision=wiki.record.revision;\n const db=new Database(file);dispose.push(()=>db.close());\n const binding={revisionId:revision.revisionId,contentHash:revision.contentHash,sourceSetHash:revision.sourceSetHash};\n return {repo,db,context,revision,source,payload,binding,async approve(){const receipt=repo.runWikiLint(revision.revisionId,context)!; const cmd=command(\"wiki.review\",{...binding,expectedLifecycleVersion:1,decision:\"approve\",note:\"synthetic technical review\",lintReceiptId:receipt.receiptId});const result=await repo.executeWiki(cmd,context);const d=data(result);if(d.kind!==\"wikiRevision\"||!d.record.lifecycle.review)throw Error(\"review fixture\");return {receipt,cmd,result,reviewId:d.record.lifecycle.review.reviewId};}};\n}\ntype Fixture = Awaited<ReturnType<typeof fixture>>;\nfunction snapshot(f: Fixture) {\n return Object.fromEntries([\"knowledge_lint\",\"knowledge_lifecycle\",\"knowledge_wiki\",\"knowledge_source\",\"knowledge_consumption\",\"quote_check_report\",\"outbox\",\"idempotency\"].map(t=>[t,f.db.prepare(`SELECT * FROM ${t} ORDER BY rowid`).all()]));\n}\nasync function operation(method:\"review\"|\"publish\"|\"withdraw\") {\n const f=await fixture();\n if(method===\"review\"){\n  const receipt=f.repo.runWikiLint(f.revision.revisionId,f.context)!;\n  return {f,cmd:command(\"wiki.review\",{...f.binding,expectedLifecycleVersion:1,decision:\"approve\",note:\"synthetic review\",lintReceiptId:receipt.receiptId})};\n }\n const a=await f.approve();\n const cmd=command(\"wiki.publish\",{...f.binding,reviewId:a.reviewId,expectedLifecycleVersion:2});\n if(method===\"publish\") return {f,cmd};\n data(await f.repo.executeWiki(cmd,f.context));\n return {f,cmd:command(\"wiki.withdraw\",{revisionId:f.revision.revisionId,expectedLifecycleVersion:3,note:\"synthetic withdrawal\"})};\n}\nfor(const kind of [\"updated\",\"expired\",\"withdrawn\"] as const)it(`B-review-${kind}: source eligibility is checked after lint before review, no partial facts`,async()=>{\n const f=await fixture(kind===\"expired\"?\"2026-10-27T00:00:01.000Z\":null);\n const receipt=f.repo.runWikiLint(f.revision.revisionId,f.context)!;\n if(kind===\"updated\")data(await f.repo.executeWiki(command(\"source.stage\",{...f.payload,expectedVersion:1,sourceText:\"New synthetic source\"}),{...f.context,now:LATER}));\n if(kind===\"withdrawn\")f.db.prepare(\"UPDATE knowledge_source SET state='withdrawn',lifecycle_version=2 WHERE source_revision_id=?\").run(f.source.sourceRevisionId);\n const before=snapshot(f),cmd=command(\"wiki.review\",{...f.binding,expectedLifecycleVersion:1,decision:\"approve\",note:\"synthetic review after invalidation\",lintReceiptId:receipt.receiptId});\n const result=await f.repo.executeWiki(cmd,{...f.context,now:LATER});\n console.log(\"B_REVIEW_OBSERVATION\",JSON.stringify({kind,ok:result.ok,unchanged:JSON.stringify(snapshot(f))===JSON.stringify(before)}));\n expect(result.ok).toBe(false);expect(snapshot(f)).toEqual(before);\n});\nfor(const method of [\"publish\",\"withdraw\"] as const)it(`B-${method}-replay: only requestId/host now changes, first result/time retained`,async()=>{\n const {f,cmd}=await operation(method);const first=await f.repo.executeWiki(cmd,f.context);expect(first.ok).toBe(true);const before=snapshot(f);\n const replay=await f.repo.executeWiki({...cmd,requestId:randomUUID()},{...f.context,now:LATER});\n console.log(\"B_REPLAY_OBSERVATION\",JSON.stringify({method,ok:replay.ok,code:replay.ok?null:replay.error.code,unchanged:JSON.stringify(snapshot(f))===JSON.stringify(before)}));\n expect(replay).toEqual(first);expect(snapshot(f)).toEqual(before);\n});\nfor(const method of [\"review\",\"publish\",\"withdraw\"] as const)for(const point of [\"outbox\",\"idempotency\"] as const)it(`B-${method}-${point}: injected final write failure rolls back, same key can retry`,async()=>{\n const {f,cmd}=await operation(method);const before=snapshot(f);\n const target=point===\"outbox\"?`ON outbox WHEN NEW.type='wiki.${method}'`:`ON idempotency WHEN NEW.key='${cmd.idempotencyKey}'`;\n f.db.exec(`CREATE TRIGGER b_injected_failure BEFORE INSERT ${target} BEGIN SELECT RAISE(ABORT,'synthetic B late failure'); END;`);\n const result=await f.repo.executeWiki(cmd,f.context);expect(result).toMatchObject({ok:false,error:{code:\"STORAGE_ERROR\"}});expect(snapshot(f)).toEqual(before);\n f.db.exec(\"DROP TRIGGER b_injected_failure\");const first=await f.repo.executeWiki(cmd,f.context);expect(first.ok).toBe(true);const committed=snapshot(f);\n expect(await f.repo.executeWiki({...cmd,requestId:randomUUID()},f.context)).toEqual(first);expect(snapshot(f)).toEqual(committed);\n});\nfor(const method of [\"review\",\"publish\",\"withdraw\"] as const)it(`B-${method}-identity: actor/origin/business input changes conflict under a used key`,async()=>{\n const {f,cmd}=await operation(method);expect((await f.repo.executeWiki(cmd,f.context)).ok).toBe(true);const before=snapshot(f);\n const mutations=[{command:cmd,context:{...f.context,actorId:\"different-synthetic-human\"}},{command:cmd,context:{...f.context,origin:\"agent_tool\" as const}},{command:{...cmd,payload:{...cmd.payload,expectedLifecycleVersion:99}},context:f.context}];\n for(const change of mutations){const result=await f.repo.executeWiki(change.command,change.context);expect(result.ok).toBe(false);if(!result.ok)expect([\"IDEMPOTENCY_CONFLICT\",\"ACTION_NOT_ALLOWED\"]).toContain(result.error.code);expect(snapshot(f)).toEqual(before);}\n});\nit(\"B-review-history: successful review replay survives a later source version without rewriting facts\",async()=>{\n const f=await fixture(),a=await f.approve();data(await f.repo.executeWiki(command(\"source.stage\",{...f.payload,expectedVersion:1,sourceText:\"New synthetic source\"}),f.context));const before=snapshot(f);\n expect(await f.repo.executeWiki({...a.cmd,requestId:randomUUID()},f.context)).toEqual(a.result);expect(snapshot(f)).toEqual(before);\n});\n",
+      "configUtf8": "import {defineConfig} from \"vitest/config\";\nexport default defineConfig({test:{include:[\".runtime/b-p1-supplement.test.ts\"],environment:\"node\"}});\n",
+      "scriptSha256": "f45b33b64aec56ed9eac8f2f3e94dbe7100d9c996852f56f35ef917d6f8ccf24",
+      "configSha256": "8a13e0a41882e2db34dc67dd71ec0a5e4032b2322deb880c309ab618f62d8af7"
+    },
+    "oldBSourceFixes": {
+      "restoreScriptPath": ".runtime/p1-source-probe.test.ts",
+      "restoreConfigPath": ".runtime/p1-source-probe.config.ts",
+      "scriptUtf8": "import { randomUUID } from \"node:crypto\";\nimport { mkdtempSync, rmSync } from \"node:fs\";\nimport { tmpdir } from \"node:os\";\nimport { join } from \"node:path\";\nimport { WikiResultSchema } from \"../packages/contracts/src/index\";\nimport { expect, it } from \"vitest\";\nimport { SqliteWorkspaceRepository } from \"../packages/infrastructure/src/index\";\nimport { createSyntheticQuote, seedPublished } from \"../packages/infrastructure/src/wiki-test.fixture\";\n\nit.each([\"source_expired_history\", \"source_updated_new_reference\"] as const)(\"A public source eligibility: %s\", async (kind) => {\n  const dir = mkdtempSync(join(tmpdir(), \"tq-p1-eligibility-\"));\n  const file = join(dir, \"synthetic.sqlite\");\n  const repo = new SqliteWorkspaceRepository(file);\n  try {\n    const actor = { actorId: \"synthetic-review\", origin: \"human_ui\" as const };\n    repo.commit({ schemaVersion: 1, requestId: randomUUID(), idempotencyKey: randomUUID(), method: \"workspace.create\", payload: { name: \"synthetic P1 probe\" } }, actor);\n    const quote = createSyntheticQuote(repo);\n    const start = Date.parse(quote.createdAt);\n    const expiresAt = new Date(start + 7200000).toISOString();\n    const beforeExpiry = new Date(start + 3600000).toISOString();\n    const seed = await seedPublished(file, repo, quote.workspaceId, {\n      locale: \"en\", kind: \"rule\", rules: [{ ruleId: randomUUID(), category: \"commercial_terms\", field: \"payment\", condition: { kind: \"required\" }, title: \"synthetic\", message: \"synthetic\", failureSeverity: \"block\", suggestedAction: \"human review\" }],\n      ...(kind === \"source_expired_history\" ? { sourceValidity: { status: \"confirmed\" as const, validFrom: null, validUntil: expiresAt } } : {}),\n    });\n    const host = (now: string) => ({ ...actor, workspaceId: quote.workspaceId, now });\n    const resolve = (purpose: \"history\" | \"new_reference\", now: string) => repo.executeWiki({ schemaVersion: 1, requestId: randomUUID(), method: \"wiki.resolveCitation\", payload: { citation: seed.citation, purpose, scope: { platform: quote.scenario.platform, market: quote.scenario.market, category: quote.scenario.category }, locale: \"en\" } }, host(now));\n    const control = WikiResultSchema.parse(await resolve(\"new_reference\", beforeExpiry));\n    expect(control).toMatchObject({ ok: true, data: { kind: \"citationResolution\", resolution: { eligibility: { eligible: true } } } });\n    let updatedSourcePin: { sourceRevisionId: string; version: number } | null = null;\n    if (kind === \"source_updated_new_reference\") {\n      const old = seed.sources[0]!;\n      const staged = WikiResultSchema.parse(await repo.executeWiki({ schemaVersion: 1, requestId: randomUUID(), idempotencyKey: randomUUID(), method: \"source.stage\", payload: { sourceId: old.sourceId, expectedVersion: old.version, label: old.label, sourceStatus: old.sourceStatus, mediaType: old.mediaType, sourceText: \"synthetic updated source\", acquiredAt: old.acquiredAt, sourceUri: null, permissionNote: old.permissionNote, validity: old.validity } }, host(beforeExpiry)));\n      expect(staged).toMatchObject({ ok: true, data: { kind: \"sourceRevision\", revision: { version: 2 } } });\n      if (staged.ok && staged.data.kind === \"sourceRevision\") updatedSourcePin = { sourceRevisionId: staged.data.revision.sourceRevisionId, version: staged.data.revision.version };\n    }\n    const raw = await resolve(kind === \"source_expired_history\" ? \"history\" : \"new_reference\", expiresAt);\n    const parsed = WikiResultSchema.safeParse(raw);\n    console.log(\"P1_ELIGIBILITY_OBSERVATION \" + JSON.stringify({ kind, controlValid: true, updatedSourcePin, publicSchemaValid: parsed.success, result: raw, schemaIssues: parsed.success ? [] : parsed.error.issues.map(i => i.message) }));\n    expect(parsed.success).toBe(true);\n    if (!parsed.success) return;\n    if (kind === \"source_updated_new_reference\") expect(parsed.data.ok).toBe(false);\n    else expect(parsed.data).toMatchObject({ ok: true, data: { kind: \"citationResolution\", resolution: { eligibility: { eligible: false } } } });\n  } finally {\n    repo.close(); rmSync(dir, { recursive: true, force: true });\n  }\n});\n",
+      "configUtf8": "import { defineConfig } from \"vitest/config\";\nexport default defineConfig({\n  test: { include: [\".runtime/p1-source-probe.test.ts\"], environment: \"node\" },\n});\n",
+      "scriptSha256": "af1f40157095bc79031aa1de565afa45c879e7fa277259310ca67bc321b15203",
+      "configSha256": "9710ffb3c4ac04686d131dce8617bacaacb13277003b8985959e390603fba22d"
+    }
+  },
+  "COriginalScriptByteMatch": true,
+  "runnerUtf8": "const fs=require('node:fs'),cp=require('node:child_process'),path=require('node:path'),crypto=require('node:crypto'),os=require('node:os');\nconst out='wiki-project/raw/b-p1-c7e6-review-validation.json';\nconst base='7e6b485c15ba7c4ec30d6495df0a58cd2088207e';\nconst git=(...a)=>cp.execFileSync('git',a,{maxBuffer:64*1024*1024});\nconst sha=b=>crypto.createHash('sha256').update(b).digest('hex');\nconst files=['packages/contracts/src/knowledge-maintenance.test.ts','packages/contracts/src/knowledge-lint-review.test.ts','packages/contracts/src/knowledge-wiki.test.ts','packages/infrastructure/src/wiki-store.test.ts','packages/infrastructure/src/check-store.test.ts','packages/infrastructure/src/check-lineage-integration.test.ts','packages/infrastructure/src/wiki-check-integration.test.ts','packages/infrastructure/src/worker-migration-gates.test.ts'];\nconst sourcePaths=[...files,'packages/contracts/src/knowledge-maintenance.ts','packages/contracts/src/knowledge-wiki.ts','packages/infrastructure/src/wiki-store.ts','packages/infrastructure/src/index.ts','packages/infrastructure/src/wiki-check-source.ts','packages/infrastructure/src/check-store.ts','pnpm-lock.yaml'];\nlet ev=fs.existsSync(out)?JSON.parse(fs.readFileSync(out)):{status:'in_progress',review:'changes_required',taskBase:base,testedCodeSha:base,branch:git('branch','--show-current').toString().trim(),inputs:{A:'e7a94392af5816c4e9d7f01885bde40189030432',B:'e5f6b1a2a4d03a83ea5264c8a4f9f524f62461b2',C:'739961a6aecf379bbdd785e9fd3bfe115ee6ade1',Cmaterial:base,Crequirements:'3d21289e79a2b8f8f8de9a3a8899674c0b12c07e'},scope:'B public P1 contract/business technical review of C fixed implementation; no A storage fixes, no desktop/human acceptance',environment:{platform:process.platform,arch:process.arch,os:os.release(),node:process.version,pnpm:'10.13.1',cwd:process.cwd()},preparation:[{command:'pnpm install --frozen-lockfile --offline --ignore-scripts',exitCode:0,node:'24.21.0',note:'Engine warning retained; locked packages reused, no lockfile change'},{command:'Node22 scripts/prepare-electron.mjs',exitCode:0},{command:'pnpm native:rebuild',exitCode:1,node:'24.21.0',reason:'Could not find any Python installation to use; no product tests executed'},{command:'PYTHON=bundled Python, PATH=Node22; pnpm native:rebuild',exitCode:1,node:'22.22.0',reason:'Could not find any Visual Studio installation to use; no product tests executed'}],checks:[],notRun:['A new fixed repair: not supplied; review applies only to fixed C7e6/Ae7a9439 implementation','Electron desktop/macOS joint and human review/publication/withdrawal/business signoff','full migration M/F/J and full unit suite','maintenance regression: no tools/mapping/code changes'],overallJointAcceptance:false};\nconst tmp=path.resolve('.runtime/test-temp');fs.mkdirSync(tmp,{recursive:true});\nfunction run(name,exe,args,env={}){const r=cp.spawnSync(exe,args,{encoding:'utf8',maxBuffer:32*1024*1024,env:{...process.env,Path:path.dirname(process.execPath)+';'+process.env.Path,TEMP:tmp,TMP:tmp,GIT_CEILING_DIRECTORIES:tmp,...env}});ev.checks.push({name,executable:exe,args,environment:{TEMP:tmp,TMP:tmp,GIT_CEILING_DIRECTORIES:tmp,...env},executedAt:new Date().toISOString(),exitCode:r.status,stdout:r.stdout,stderr:r.stderr,error:r.error?.message,head:git('rev-parse','HEAD').toString().trim(),sourceHashes:Object.fromEntries(sourcePaths.map(p=>[p,sha(fs.readFileSync(p))])),sourceChangesFromTestedSha:git('diff',base,'--name-only','--','packages','apps','scripts','tests','package.json','pnpm-lock.yaml').toString().trim()});fs.writeFileSync(out,JSON.stringify(ev,null,2)+'\\n');console.log(name,r.status,(r.stdout||'').slice(-3200),(r.stderr||'').slice(-2000));if(r.status!==0)process.exitCode=1;return r;}\nconst phase=process.argv[2];\nif(['identity','original','supplement','targeted','old'].includes(phase)){\nconst electron=require('node:module').createRequire(path.resolve('apps/desktop/package.json'))('electron');\nif(phase==='identity')run('native identity and SQLite prebuild load',electron,['-e',`const {createRequire}=require('node:module');const r=createRequire(process.cwd()+'/packages/infrastructure/package.json');const D=r('better-sqlite3');const d=new D(':memory:');console.log(JSON.stringify({electron:process.versions.electron,node:process.version,sqlite:d.prepare('select sqlite_version() as version').get(),arch:process.arch,platform:process.platform}));d.close();`],{ELECTRON_RUN_AS_NODE:'1'});\nif(phase==='original')run('C original P1 eight cases unchanged',electron,['node_modules/vitest/vitest.mjs','run','--config','.runtime/c-p1-boundary.config.ts'],{ELECTRON_RUN_AS_NODE:'1'});\nif(phase==='supplement')run('B supplemental P1 transaction and replay boundaries',electron,['node_modules/vitest/vitest.mjs','run','--config','.runtime/b-p1-supplement.config.ts'],{ELECTRON_RUN_AS_NODE:'1'});\nif(phase==='targeted')run('fixed C eight-file regression',electron,['node_modules/vitest/vitest.mjs','run',...files],{ELECTRON_RUN_AS_NODE:'1'});\nif(phase==='old')run('original B public source fixes',electron,['node_modules/vitest/vitest.mjs','run','--config','.runtime/p1-source-probe.config.ts'],{ELECTRON_RUN_AS_NODE:'1'});\n}\nif(phase==='typecheck')run('typecheck',process.execPath,['node_modules/typescript/bin/tsc','--noEmit']);\nif(phase==='engineering')run('engineering check','cmd.exe',['/d','/s','/c','pnpm check']);\nif(phase==='wiki'){\nfor(const[name,args]of [['wiki generate',['wiki-project/scripts/build-code-index.mjs','.']],['wiki readonly',['wiki-project/scripts/build-code-index.mjs','.','--check']],['wiki lint',['wiki-project/scripts/lint-wiki.mjs','.']],['wiki sync',['wiki-project/scripts/check-wiki-sync.mjs','.','--base',base]]])run(name,process.execPath,args);\nrun('diff whitespace','git',['diff','--check',base]);\n}\n",
+  "runnerSha256": "36178a0d42c9743f7d5f50367bd9c7d73d86442825aea24865ef000aba258beb",
+  "preservation": {
+    "base": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+    "priorNonGeneratedRawFiles": 314,
+    "changedOrDeleted": [],
+    "oldLogBytes": 207056,
+    "oldLogExactPrefix": true,
+    "applicationSourceChanges": [],
+    "coverageMappingChanged": false,
+    "maintenanceToolsChanged": false
+  },
+  "finalizationRunnerUtf8": "const fs=require('node:fs'),cp=require('node:child_process'),crypto=require('node:crypto');\nconst base='7e6b485c15ba7c4ec30d6495df0a58cd2088207e';\nconst git=(...a)=>cp.execFileSync('git',a,{maxBuffer:64*1024*1024});\nconst files=git('ls-tree','-r','-z',base,'--','wiki-project/raw').toString().split('\\0').filter(Boolean).map(l=>{const[head,p]=l.split('\\t');return {path:p,blob:head.split(' ')[2]};}).filter(x=>!x.path.startsWith('wiki-project/raw/generated/'));\nconst changed=files.filter(f=>{const b=fs.readFileSync(f.path);const blob=crypto.createHash('sha1').update(Buffer.from('blob '+b.length+'\\0')).update(b).digest('hex');return blob!==f.blob;});\nconst oldLog=git('show',base+':wiki-project/log.md'),log=fs.readFileSync('wiki-project/log.md');\nconst codeDiff=git('diff','--name-only',base,'--','packages','apps','scripts','tests','experiments','package.json','pnpm-lock.yaml','pnpm-workspace.yaml').toString().trim();\nif(changed.length||!log.subarray(0,oldLog.length).equals(oldLog)||codeDiff)throw Error('preservation failed');\nconst p='wiki-project/raw/b-p1-c7e6-review-validation.json',v=JSON.parse(fs.readFileSync(p));\nv.preservation={base,priorNonGeneratedRawFiles:files.length,changedOrDeleted:changed,oldLogBytes:oldLog.length,oldLogExactPrefix:true,applicationSourceChanges:[],coverageMappingChanged:false,maintenanceToolsChanged:false};\nv.notRun.push('build: no application/build/dependency changes; this is B technical review evidence and Wiki only, not desktop acceptance');\nv.summary.engineering={exitCode:0,passed:5,skippedMacOnly:1};v.summary.wiki={generate:0,readonly:0,lint:0,sync:0,base};\nv.finalizationRunnerUtf8=fs.readFileSync('.runtime/finalize-b-p1.cjs','utf8');\nfs.writeFileSync(p,JSON.stringify(v,null,2)+'\\n');\nconst text=`\\n\\n## 本轮最终文档门禁与历史保持\\n\\nNode22下pnpm check退出0（工程5通过/1 macOS专用跳过），机械生成/只读check/lint及固定${base}同步、diff检查均退出0；本轮应用源码/映射/维护工具零差异。${files.length}份既有非生成raw逐个Git blob一致，旧log前${oldLog.length}字节原样保留。补充取舍见[[0030-P1报告来源资格与重放边界]]（draft，B技术确认不代人员签认）。未运行build/全量/维护回归：本轮无对应工具或应用改动；原109/8环境结果及P1/B产品红例不改。以上门禁只完成B固定复核材料，不代表A四类修正或C独立复验完成。\\n`;\nfor(const file of ['wiki-project/wiki/B对C7e6固定P1修正边界复核.md','wiki-project/wiki/tasks/B03-C固定P1修正边界复核.md'])fs.appendFileSync(file,text);\nfs.appendFileSync('wiki-project/log.md',`\\n本轮最终门禁：工程5通过/1 macOS专用跳过、生成/只读check/lint/固定7e6同步/diff均退出0，${files.length}旧raw和${oldLog.length}字节旧log前缀保持。新增[[0030-P1报告来源资格与重放边界]]为B技术政策draft，无应用/维护工具/映射变化，不运行build/全量/维护回归；已知产品红例保留，A/B/C后续及人员/业务仍待。\\n`);\nconsole.log(JSON.stringify(v.preservation));\n"
+}

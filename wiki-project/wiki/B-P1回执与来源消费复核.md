@@ -2,7 +2,7 @@
 title: B-P1回执与来源消费复核
 type: interface
 status: observed
-updated: 2026-10-26
+updated: 2026-10-27
 sources:
   - packages/contracts/src/knowledge-maintenance.ts:42
   - packages/contracts/src/knowledge-maintenance.ts:93
@@ -71,3 +71,10 @@ node -e "const {createRequire}=require('node:module');const {resolve}=require('n
 ## 最终本机证据
 
 最终作者测试代码固定e4649ca5e3f1cdb3a65c2baec6b44da3f82d8e5f；七文件104/104、typecheck、build、pnpm check均退出0（工程5通过/1 macOS专用跳过）。Wiki生成252文件、只读check、lint（247页/219语义页）、固定c6f6788d3e75f3ac9de02d95306222fb5509ca71同步（2测试源码/8知识页/1任务）及diff退出0。A公开资格反例仍0/2、退出1，两个有效控制通过，无运行器错误；完整脚本/config及hash/结构化观察已保存。303份旧非生成raw原字节及原log前缀保持，所有生产契约/存储文件未变。未运行完整单元、维护回归、C739桌面或macOS联合，理由与范围在新JSON中明确。整体review=changes_required，不标done或发布就绪。
+
+
+## C7e6固定实现后续复核
+
+2026-10-27 B在C固定7e6b485c15ba7c4ec30d6495df0a58cd2088207e原样复跑P1：1控制通过/7产品失败，补15例10通过/5失败（审核前来源更新/到期/撤回，publish/withdraw晚钟重放），仍changes_required；原B两资格修正2/2保持关闭。B明确现有完整报告/两Exchange契约、已证实失格block与未完成unknown、身份绑定/首次重放、事务内来源资格及旧事实兼容；不改A实现。Windows八文件109通过/8 Worker因symlink EPERM未执行，typecheck通过，不能套用C macOS117。详见[[B对C7e6固定P1修正边界复核]]、[[B03-C固定P1修正边界复核]]与raw/b-p1-c7e6-review-validation.json。A交新固定修正后B再复核、C独立复验和桌面；完整矩阵/macOS/人员/业务验收仍待，旧五项/Y10/A-W08技术接收保持。
+
+以上c6f6788上的104项及两公开资格失败是历史；本轮已取得739961a以及A修正e7a9439，两资格问题在固定C组合再次2/2通过，不再待旧修复。当前待的是新四类P1门禁及A固定修正；B未签认这些实现，补充异常回滚通过不等于来源失格拒绝已实现。
