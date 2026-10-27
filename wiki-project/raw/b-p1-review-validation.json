@@ -1,0 +1,655 @@
+{
+  "status": "targeted_regression_passed_review_changes_required",
+  "scope": "B P1/public binding and check-consumption review on fixed pushed C baseline; not A real lint storage or C739 desktop acceptance",
+  "taskBase": "c6f6788d3e75f3ac9de02d95306222fb5509ca71",
+  "branch": "codex/b-p1-review-consumption",
+  "environment": {
+    "platform": "win32",
+    "arch": "x64",
+    "node": "v22.22.0",
+    "pnpm": "10.13.1",
+    "dependencyPreparation": "pnpm install --frozen-lockfile --offline --ignore-scripts exited 0 under host Node24.21.0 with engine warning; checks below run Node22.22.0"
+  },
+  "inputAvailability": {
+    "pushedC": "c6f6788d3e75f3ac9de02d95306222fb5509ca71",
+    "unavailableC": "739961a",
+    "unavailableMeaning": "git fetch origin succeeded; git show 739961a failed unknown revision. User-reported local-only saved-check integration not tested here.",
+    "latestLookup": {
+      "checkedAt": "2026-10-26T11:50:18.971Z",
+      "executable": "git",
+      "args": [
+        "cat-file",
+        "-e",
+        "739961a^{commit}"
+      ],
+      "exit_code": 128,
+      "stdout": "",
+      "stderr": "fatal: Not a valid object name 739961a^{commit}\n"
+    }
+  },
+  "checks": [
+    {
+      "name": "native identity",
+      "executable": "D:\\code\\tradequote-agent-b-p1-review\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "-e",
+        "console.log(JSON.stringify({electron:process.versions.electron,node:process.version,sqlite:process.versions.sqlite,platform:process.platform,arch:process.arch}))"
+      ],
+      "environment": {
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "startedAt": "2026-10-26T11:35:19.065Z",
+      "finishedAt": "2026-10-26T11:35:20.975Z",
+      "exit_code": 0,
+      "stdout": "{\"electron\":\"44.9.2\",\"node\":\"v24.22.0\",\"sqlite\":\"3.53.4\",\"platform\":\"win32\",\"arch\":\"x64\"}\n",
+      "stderr": "",
+      "head": "c6f6788d3e75f3ac9de02d95306222fb5509ca71",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710"
+      },
+      "workingSourceChanges": "packages/infrastructure/src/wiki-check-integration.test.ts\npackages/infrastructure/src/wiki-test.fixture.ts"
+    },
+    {
+      "name": "P1 binding and consumption regression",
+      "executable": "D:\\code\\tradequote-agent-b-p1-review\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/contracts/src/knowledge-maintenance.test.ts",
+        "packages/contracts/src/knowledge-lint-review.test.ts",
+        "packages/contracts/src/knowledge-wiki.test.ts",
+        "packages/infrastructure/src/wiki-store.test.ts",
+        "packages/infrastructure/src/check-store.test.ts",
+        "packages/infrastructure/src/check-lineage-integration.test.ts",
+        "packages/infrastructure/src/wiki-check-integration.test.ts"
+      ],
+      "environment": {
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "startedAt": "2026-10-26T11:35:21.104Z",
+      "finishedAt": "2026-10-26T11:35:25.706Z",
+      "exit_code": 0,
+      "stdout": "\n RUN  v5.0.5 D:/code/tradequote-agent-b-p1-review\n\n\n Test Files  7 passed (7)\n      Tests  104 passed (104)\n   Start at  19:35:22\n   Duration  3.40s (tests 45%, import 32%, transform 23%)\n\n",
+      "stderr": "",
+      "head": "c6f6788d3e75f3ac9de02d95306222fb5509ca71",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710"
+      },
+      "workingSourceChanges": "packages/infrastructure/src/wiki-check-integration.test.ts\npackages/infrastructure/src/wiki-test.fixture.ts"
+    },
+    {
+      "name": "A source eligibility review probe",
+      "executable": "D:\\code\\tradequote-agent-b-p1-review\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        ".runtime/p1-source-probe.config.ts"
+      ],
+      "environment": {
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "startedAt": "2026-10-26T11:36:45.200Z",
+      "finishedAt": "2026-10-26T11:36:45.828Z",
+      "exit_code": 1,
+      "stdout": "\n RUN  v5.0.5 D:/code/tradequote-agent-b-p1-review\n\n ❯ .runtime/p1-source-probe.test.ts (0 test)\n\n Test Files  1 failed (1)\n      Tests  no tests\n   Start at  19:36:45\n   Duration  212ms (worker 96%, environment 4%)\n\n",
+      "stderr": "\n⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  .runtime/p1-source-probe.test.ts [ .runtime/p1-source-probe.test.ts ]\nError: Cannot find package '@tradequote/contracts' imported from D:/code/tradequote-agent-b-p1-review/.runtime/p1-source-probe.test.ts\n ❯ .runtime/p1-source-probe.test.ts:5:1\n      3| import { tmpdir } from \"node:os\";\n      4| import { join } from \"node:path\";\n      5| import { WikiResultSchema } from \"@tradequote/contracts\";\n       | ^\n      6| import Database from \"better-sqlite3\";\n      7| import { expect, it } from \"vitest\";\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n",
+      "head": "c6f6788d3e75f3ac9de02d95306222fb5509ca71",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710"
+      },
+      "workingSourceChanges": "packages/infrastructure/src/wiki-check-integration.test.ts\npackages/infrastructure/src/wiki-test.fixture.ts"
+    },
+    {
+      "name": "A source eligibility review probe",
+      "executable": "D:\\code\\tradequote-agent-b-p1-review\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        ".runtime/p1-source-probe.config.ts"
+      ],
+      "environment": {
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "startedAt": "2026-10-26T11:37:17.264Z",
+      "finishedAt": "2026-10-26T11:37:18.850Z",
+      "exit_code": 1,
+      "stdout": "\n RUN  v5.0.5 D:/code/tradequote-agent-b-p1-review\n\nstdout | .runtime/p1-source-probe.test.ts > A public source eligibility: source_expired_history\nP1_ELIGIBILITY_OBSERVATION {\"kind\":\"source_expired_history\",\"controlValid\":true,\"publicSchemaValid\":false,\"result\":{\"ok\":true,\"data\":{\"kind\":\"citationResolution\",\"resolution\":{\"purpose\":\"history\",\"lifecycle\":{\"revisionId\":\"a6a2eb0c-f2ea-4998-80d8-9d019a03ab0d\",\"lifecycleVersion\":3,\"state\":\"published\",\"review\":{\"revisionId\":\"a6a2eb0c-f2ea-4998-80d8-9d019a03ab0d\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"fa280f39fe7289a2dd01b1c734c6f40eed00550d34c1ce4c01caa70921573b25\",\"workspaceId\":\"ab0e8980-2e1e-4e3d-a81a-131d8edb010d\",\"expectedLifecycleVersion\":1,\"decision\":\"approve\",\"note\":\"合成审核通过\",\"lintReceiptId\":\"736ba43c-8b95-49bb-b18d-832da70fae10\",\"lintReceipt\":{\"revisionId\":\"a6a2eb0c-f2ea-4998-80d8-9d019a03ab0d\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"fa280f39fe7289a2dd01b1c734c6f40eed00550d34c1ce4c01caa70921573b25\",\"receiptId\":\"736ba43c-8b95-49bb-b18d-832da70fae10\",\"workspaceId\":\"ab0e8980-2e1e-4e3d-a81a-131d8edb010d\",\"checkedAt\":\"2026-10-22T00:00:00.000Z\",\"policyVersion\":\"synthetic-v1\",\"outcome\":\"passed\"},\"reviewId\":\"e344f903-7ae2-47f3-a020-84a049ab72bf\",\"actorId\":\"host-human\",\"decidedAt\":\"2026-10-22T00:00:00.000Z\"},\"publication\":{\"revisionId\":\"a6a2eb0c-f2ea-4998-80d8-9d019a03ab0d\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"fa280f39fe7289a2dd01b1c734c6f40eed00550d34c1ce4c01caa70921573b25\",\"eventId\":\"5d936381-aeaf-40e8-9506-0966bdd5878e\",\"lifecycleVersion\":3,\"type\":\"published\",\"reviewId\":\"e344f903-7ae2-47f3-a020-84a049ab72bf\",\"actorId\":\"host-human\",\"occurredAt\":\"2026-10-22T00:00:00.000Z\",\"note\":\"合成发布\"}},\"currentPublicationRevisionId\":\"a6a2eb0c-f2ea-4998-80d8-9d019a03ab0d\",\"citation\":{\"revisionId\":\"a6a2eb0c-f2ea-4998-80d8-9d019a03ab0d\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"fa280f39fe7289a2dd01b1c734c6f40eed00550d34c1ce4c01caa70921573b25\",\"documentId\":\"6954094a-187f-4bf8-81dc-7f0a631df322\",\"version\":1,\"sectionId\":\"f2417e9d-53d7-40b6-adf0-e1ca88b1db6d\",\"sourceRefs\":[{\"referenceId\":\"efc7ec00-e5b2-4ffa-95b2-fc32bd862d27\",\"sourceId\":\"ef911ec7-4e7d-4ca7-b4f9-94218a7d0561\",\"sourceRevisionId\":\"aa92ca3f-ef1d-4cb5-b9ab-c8ef99e8168f\",\"sourceVersion\":1,\"artifactHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":11},\"excerptHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"assertion\":\"fact\"},{\"referenceId\":\"12c44235-cb7a-4705-af9c-9021fc218e97\",\"sourceId\":\"dcc403d2-d05b-433d-9219-6c61b2e7fa13\",\"sourceRevisionId\":\"2280ad94-af37-41b9-b4d2-31656e792f08\",\"sourceVersion\":1,\"artifactHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":23},\"excerptHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"assertion\":\"fact\"}]},\"revision\":{\"workspaceId\":\"ab0e8980-2e1e-4e3d-a81a-131d8edb010d\",\"revisionId\":\"a6a2eb0c-f2ea-4998-80d8-9d019a03ab0d\",\"documentId\":\"6954094a-187f-4bf8-81dc-7f0a631df322\",\"version\":1,\"parentRevisionId\":null,\"content\":{\"kind\":\"rule\",\"title\":\"合成 SOP\",\"locale\":\"en\",\"scope\":{\"platforms\":[],\"markets\":[],\"categories\":[]},\"markdown\":\"# 合成 SOP\\nInspect both sources.\\n\",\"validity\":{\"status\":\"confirmed\",\"validFrom\":null,\"validUntil\":null},\"sections\":[{\"sectionId\":\"f2417e9d-53d7-40b6-adf0-e1ca88b1db6d\",\"title\":\"核对\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":31},\"sourceReferenceIds\":[\"efc7ec00-e5b2-4ffa-95b2-fc32bd862d27\",\"12c44235-cb7a-4705-af9c-9021fc218e97\"]}],\"sourceRefs\":[{\"referenceId\":\"efc7ec00-e5b2-4ffa-95b2-fc32bd862d27\",\"sourceId\":\"ef911ec7-4e7d-4ca7-b4f9-94218a7d0561\",\"sourceRevisionId\":\"aa92ca3f-ef1d-4cb5-b9ab-c8ef99e8168f\",\"sourceVersion\":1,\"artifactHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":11},\"excerptHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"assertion\":\"fact\"},{\"referenceId\":\"12c44235-cb7a-4705-af9c-9021fc218e97\",\"sourceId\":\"dcc403d2-d05b-433d-9219-6c61b2e7fa13\",\"sourceRevisionId\":\"2280ad94-af37-41b9-b4d2-31656e792f08\",\"sourceVersion\":1,\"artifactHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":23},\"excerptHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"assertion\":\"fact\"}],\"relations\":[],\"rules\":[{\"sectionId\":\"f2417e9d-53d7-40b6-adf0-e1ca88b1db6d\",\"definition\":{\"ruleId\":\"27cc36db-281b-4f3d-a93c-e9b2d1be5eb3\",\"category\":\"commercial_terms\",\"title\":\"synthetic\",\"message\":\"synthetic\",\"suggestedAction\":\"human review\",\"field\":\"payment\",\"condition\":{\"kind\":\"required\"},\"failureSeverity\":\"block\"}}]},\"artifactId\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"fa280f39fe7289a2dd01b1c734c6f40eed00550d34c1ce4c01caa70921573b25\",\"createdAt\":\"2026-10-22T00:00:00.000Z\"},\"sources\":[{\"workspaceId\":\"ab0e8980-2e1e-4e3d-a81a-131d8edb010d\",\"sourceId\":\"ef911ec7-4e7d-4ca7-b4f9-94218a7d0561\",\"sourceRevisionId\":\"aa92ca3f-ef1d-4cb5-b9ab-c8ef99e8168f\",\"version\":1,\"parentRevisionId\":null,\"label\":\"合成原文\",\"sourceStatus\":\"synthetic\",\"mediaType\":\"text/plain\",\"sourceText\":\"  合成 😀来源A\\n\",\"acquiredAt\":\"2026-10-22T00:00:00.000Z\",\"sourceUri\":null,\"permissionNote\":\"合成 fixture，非真实政策\",\"validity\":{\"status\":\"confirmed\",\"validFrom\":null,\"validUntil\":\"2026-10-26T13:37:18.740Z\"},\"artifactId\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"artifactHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"createdAt\":\"2026-10-22T00:00:00.000Z\"},{\"workspaceId\":\"ab0e8980-2e1e-4e3d-a81a-131d8edb010d\",\"sourceId\":\"dcc403d2-d05b-433d-9219-6c61b2e7fa13\",\"sourceRevisionId\":\"2280ad94-af37-41b9-b4d2-31656e792f08\",\"version\":1,\"parentRevisionId\":null,\"label\":\"合成原文\",\"sourceStatus\":\"synthetic\",\"mediaType\":\"text/plain\",\"sourceText\":\"Synthetic second source\",\"acquiredAt\":\"2026-10-22T00:00:00.000Z\",\"sourceUri\":null,\"permissionNote\":\"合成 fixture，非真实政策\",\"validity\":{\"status\":\"confirmed\",\"validFrom\":null,\"validUntil\":\"2026-10-26T13:37:18.740Z\"},\"artifactId\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"artifactHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"createdAt\":\"2026-10-22T00:00:00.000Z\"}],\"sourceStates\":[{\"sourceRevisionId\":\"aa92ca3f-ef1d-4cb5-b9ab-c8ef99e8168f\",\"lifecycleVersion\":1,\"state\":\"active\",\"changedAt\":\"2026-10-22T00:00:00.000Z\"},{\"sourceRevisionId\":\"2280ad94-af37-41b9-b4d2-31656e792f08\",\"lifecycleVersion\":1,\"state\":\"active\",\"changedAt\":\"2026-10-22T00:00:00.000Z\"}],\"eligibility\":{\"eligible\":true,\"reasons\":[]},\"checkedAt\":\"2026-10-26T13:37:18.740Z\"}},\"warnings\":[],\"evidenceIds\":[\"aa92ca3f-ef1d-4cb5-b9ab-c8ef99e8168f\",\"2280ad94-af37-41b9-b4d2-31656e792f08\"]},\"schemaIssues\":[\"候选/撤回/失效知识或来源不可新引\"]}\n\nstdout | .runtime/p1-source-probe.test.ts > A public source eligibility: source_updated_new_reference\nP1_ELIGIBILITY_OBSERVATION {\"kind\":\"source_updated_new_reference\",\"controlValid\":true,\"publicSchemaValid\":true,\"result\":{\"ok\":true,\"data\":{\"kind\":\"citationResolution\",\"resolution\":{\"purpose\":\"new_reference\",\"lifecycle\":{\"revisionId\":\"78250d7e-d9df-4ffb-b670-121bfa791177\",\"lifecycleVersion\":3,\"state\":\"published\",\"review\":{\"revisionId\":\"78250d7e-d9df-4ffb-b670-121bfa791177\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"95e5c06dc905b26c9dd9648ce6d86febd2a252b8d9a534880fb85a41f5ee0c9b\",\"workspaceId\":\"fb28a805-033e-4c3c-86d4-be0429cc948e\",\"expectedLifecycleVersion\":1,\"decision\":\"approve\",\"note\":\"合成审核通过\",\"lintReceiptId\":\"81c45dd4-866f-447c-8085-8672fed5935c\",\"lintReceipt\":{\"revisionId\":\"78250d7e-d9df-4ffb-b670-121bfa791177\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"95e5c06dc905b26c9dd9648ce6d86febd2a252b8d9a534880fb85a41f5ee0c9b\",\"receiptId\":\"81c45dd4-866f-447c-8085-8672fed5935c\",\"workspaceId\":\"fb28a805-033e-4c3c-86d4-be0429cc948e\",\"checkedAt\":\"2026-10-22T00:00:00.000Z\",\"policyVersion\":\"synthetic-v1\",\"outcome\":\"passed\"},\"reviewId\":\"3a1fc159-e271-4ea0-b005-d215c45cc26f\",\"actorId\":\"host-human\",\"decidedAt\":\"2026-10-22T00:00:00.000Z\"},\"publication\":{\"revisionId\":\"78250d7e-d9df-4ffb-b670-121bfa791177\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"95e5c06dc905b26c9dd9648ce6d86febd2a252b8d9a534880fb85a41f5ee0c9b\",\"eventId\":\"5b259aae-960c-4f20-bbd5-122bcd0492f7\",\"lifecycleVersion\":3,\"type\":\"published\",\"reviewId\":\"3a1fc159-e271-4ea0-b005-d215c45cc26f\",\"actorId\":\"host-human\",\"occurredAt\":\"2026-10-22T00:00:00.000Z\",\"note\":\"合成发布\"}},\"currentPublicationRevisionId\":\"78250d7e-d9df-4ffb-b670-121bfa791177\",\"citation\":{\"revisionId\":\"78250d7e-d9df-4ffb-b670-121bfa791177\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"95e5c06dc905b26c9dd9648ce6d86febd2a252b8d9a534880fb85a41f5ee0c9b\",\"documentId\":\"a74a8778-0e94-4935-9f32-8b3662629e5c\",\"version\":1,\"sectionId\":\"99bbf7d8-35b3-4d63-ac54-77dcc4f92515\",\"sourceRefs\":[{\"referenceId\":\"89ec9d08-d349-44cc-aece-11702ed737cb\",\"sourceId\":\"79a191bb-c222-4627-9a27-b2e2c73d0dcb\",\"sourceRevisionId\":\"272ef2af-3f72-42a1-a0a4-8342d5db9592\",\"sourceVersion\":1,\"artifactHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":11},\"excerptHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"assertion\":\"fact\"},{\"referenceId\":\"c49f33fd-8aec-401b-a680-7f44eb9e632f\",\"sourceId\":\"7e4e2ac2-b17e-45a6-ab69-318e16448e18\",\"sourceRevisionId\":\"8bd34f5d-fe5f-4630-9e8e-1dc2b72e46ee\",\"sourceVersion\":1,\"artifactHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":23},\"excerptHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"assertion\":\"fact\"}]},\"revision\":{\"workspaceId\":\"fb28a805-033e-4c3c-86d4-be0429cc948e\",\"revisionId\":\"78250d7e-d9df-4ffb-b670-121bfa791177\",\"documentId\":\"a74a8778-0e94-4935-9f32-8b3662629e5c\",\"version\":1,\"parentRevisionId\":null,\"content\":{\"kind\":\"rule\",\"title\":\"合成 SOP\",\"locale\":\"en\",\"scope\":{\"platforms\":[],\"markets\":[],\"categories\":[]},\"markdown\":\"# 合成 SOP\\nInspect both sources.\\n\",\"validity\":{\"status\":\"confirmed\",\"validFrom\":null,\"validUntil\":null},\"sections\":[{\"sectionId\":\"99bbf7d8-35b3-4d63-ac54-77dcc4f92515\",\"title\":\"核对\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":31},\"sourceReferenceIds\":[\"89ec9d08-d349-44cc-aece-11702ed737cb\",\"c49f33fd-8aec-401b-a680-7f44eb9e632f\"]}],\"sourceRefs\":[{\"referenceId\":\"89ec9d08-d349-44cc-aece-11702ed737cb\",\"sourceId\":\"79a191bb-c222-4627-9a27-b2e2c73d0dcb\",\"sourceRevisionId\":\"272ef2af-3f72-42a1-a0a4-8342d5db9592\",\"sourceVersion\":1,\"artifactHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":11},\"excerptHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"assertion\":\"fact\"},{\"referenceId\":\"c49f33fd-8aec-401b-a680-7f44eb9e632f\",\"sourceId\":\"7e4e2ac2-b17e-45a6-ab69-318e16448e18\",\"sourceRevisionId\":\"8bd34f5d-fe5f-4630-9e8e-1dc2b72e46ee\",\"sourceVersion\":1,\"artifactHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":23},\"excerptHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"assertion\":\"fact\"}],\"relations\":[],\"rules\":[{\"sectionId\":\"99bbf7d8-35b3-4d63-ac54-77dcc4f92515\",\"definition\":{\"ruleId\":\"0ffda418-56f3-4d2a-a16e-978fd8e972a6\",\"category\":\"commercial_terms\",\"title\":\"synthetic\",\"message\":\"synthetic\",\"suggestedAction\":\"human review\",\"field\":\"payment\",\"condition\":{\"kind\":\"required\"},\"failureSeverity\":\"block\"}}]},\"artifactId\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"95e5c06dc905b26c9dd9648ce6d86febd2a252b8d9a534880fb85a41f5ee0c9b\",\"createdAt\":\"2026-10-22T00:00:00.000Z\"},\"sources\":[{\"workspaceId\":\"fb28a805-033e-4c3c-86d4-be0429cc948e\",\"sourceId\":\"79a191bb-c222-4627-9a27-b2e2c73d0dcb\",\"sourceRevisionId\":\"272ef2af-3f72-42a1-a0a4-8342d5db9592\",\"version\":1,\"parentRevisionId\":null,\"label\":\"合成原文\",\"sourceStatus\":\"synthetic\",\"mediaType\":\"text/plain\",\"sourceText\":\"  合成 😀来源A\\n\",\"acquiredAt\":\"2026-10-22T00:00:00.000Z\",\"sourceUri\":null,\"permissionNote\":\"合成 fixture，非真实政策\",\"validity\":{\"status\":\"confirmed\",\"validFrom\":null,\"validUntil\":null},\"artifactId\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"artifactHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"createdAt\":\"2026-10-22T00:00:00.000Z\"},{\"workspaceId\":\"fb28a805-033e-4c3c-86d4-be0429cc948e\",\"sourceId\":\"7e4e2ac2-b17e-45a6-ab69-318e16448e18\",\"sourceRevisionId\":\"8bd34f5d-fe5f-4630-9e8e-1dc2b72e46ee\",\"version\":1,\"parentRevisionId\":null,\"label\":\"合成原文\",\"sourceStatus\":\"synthetic\",\"mediaType\":\"text/plain\",\"sourceText\":\"Synthetic second source\",\"acquiredAt\":\"2026-10-22T00:00:00.000Z\",\"sourceUri\":null,\"permissionNote\":\"合成 fixture，非真实政策\",\"validity\":{\"status\":\"confirmed\",\"validFrom\":null,\"validUntil\":null},\"artifactId\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"artifactHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"createdAt\":\"2026-10-22T00:00:00.000Z\"}],\"sourceStates\":[{\"sourceRevisionId\":\"272ef2af-3f72-42a1-a0a4-8342d5db9592\",\"lifecycleVersion\":1,\"state\":\"active\",\"changedAt\":\"2026-10-22T00:00:00.000Z\"},{\"sourceRevisionId\":\"8bd34f5d-fe5f-4630-9e8e-1dc2b72e46ee\",\"lifecycleVersion\":1,\"state\":\"active\",\"changedAt\":\"2026-10-22T00:00:00.000Z\"}],\"eligibility\":{\"eligible\":true,\"reasons\":[]},\"checkedAt\":\"2026-10-26T13:37:18.794Z\"}},\"warnings\":[],\"evidenceIds\":[\"272ef2af-3f72-42a1-a0a4-8342d5db9592\",\"8bd34f5d-fe5f-4630-9e8e-1dc2b72e46ee\"]},\"schemaIssues\":[]}\n\n ❯ .runtime/p1-source-probe.test.ts (2 tests | 2 failed) 103ms\n   × A public source eligibility: source_expired_history 69ms\n   × A public source eligibility: source_updated_new_reference 33ms\n\n Test Files  1 failed (1)\n      Tests  2 failed (2)\n   Start at  19:37:17\n   Duration  1.18s (import 46%, transform 43%, tests 10%)\n\n",
+      "stderr": "\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  .runtime/p1-source-probe.test.ts > A public source eligibility: source_expired_history\nAssertionError: expected false to be true // Object.is equality\n\n- Expected\n+ Received\n\n- true\n+ false\n\n ❯ .runtime/p1-source-probe.test.ts:37:28\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯\n\n FAIL  .runtime/p1-source-probe.test.ts > A public source eligibility: source_updated_new_reference\nAssertionError: expected true to be false // Object.is equality\n\n- Expected\n+ Received\n\n- false\n+ true\n\n ❯ .runtime/p1-source-probe.test.ts:39:73\n     37|     expect(parsed.success).toBe(true);\n     38|     if (!parsed.success) return;\n     39|     if (kind === \"source_updated_new_reference\") expect(parsed.data.ok…\n       |                                                                         ^\n     40|     else expect(parsed.data).toMatchObject({ ok: true, data: { kind: \"…\n     41|   } finally {\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯\n\n",
+      "head": "c6f6788d3e75f3ac9de02d95306222fb5509ca71",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710"
+      },
+      "workingSourceChanges": "packages/infrastructure/src/wiki-check-integration.test.ts\npackages/infrastructure/src/wiki-test.fixture.ts"
+    },
+    {
+      "name": "typecheck",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "environment": {},
+      "startedAt": "2026-10-26T11:44:40.320Z",
+      "finishedAt": "2026-10-26T11:44:41.660Z",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "head": "e4649ca5e3f1cdb3a65c2baec6b44da3f82d8e5f",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710"
+      },
+      "workingSourceChanges": ""
+    },
+    {
+      "name": "native identity",
+      "executable": "D:\\code\\tradequote-agent-b-p1-review\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "-e",
+        "console.log(JSON.stringify({electron:process.versions.electron,node:process.version,sqlite:process.versions.sqlite,platform:process.platform,arch:process.arch}))"
+      ],
+      "environment": {
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "startedAt": "2026-10-26T11:44:41.884Z",
+      "finishedAt": "2026-10-26T11:44:41.972Z",
+      "exit_code": 0,
+      "stdout": "{\"electron\":\"44.9.2\",\"node\":\"v24.22.0\",\"sqlite\":\"3.53.4\",\"platform\":\"win32\",\"arch\":\"x64\"}\n",
+      "stderr": "",
+      "head": "e4649ca5e3f1cdb3a65c2baec6b44da3f82d8e5f",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710"
+      },
+      "workingSourceChanges": ""
+    },
+    {
+      "name": "P1 binding and consumption regression",
+      "executable": "D:\\code\\tradequote-agent-b-p1-review\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/contracts/src/knowledge-maintenance.test.ts",
+        "packages/contracts/src/knowledge-lint-review.test.ts",
+        "packages/contracts/src/knowledge-wiki.test.ts",
+        "packages/infrastructure/src/wiki-store.test.ts",
+        "packages/infrastructure/src/check-store.test.ts",
+        "packages/infrastructure/src/check-lineage-integration.test.ts",
+        "packages/infrastructure/src/wiki-check-integration.test.ts"
+      ],
+      "environment": {
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "startedAt": "2026-10-26T11:44:42.108Z",
+      "finishedAt": "2026-10-26T11:44:45.135Z",
+      "exit_code": 0,
+      "stdout": "\n RUN  v5.0.5 D:/code/tradequote-agent-b-p1-review\n\n\n Test Files  7 passed (7)\n      Tests  104 passed (104)\n   Start at  19:44:42\n   Duration  2.63s (import 48%, tests 45%, transform 6%, worker 1%)\n\n",
+      "stderr": "",
+      "head": "e4649ca5e3f1cdb3a65c2baec6b44da3f82d8e5f",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710"
+      },
+      "workingSourceChanges": ""
+    },
+    {
+      "name": "build",
+      "executable": "cmd.exe",
+      "args": [
+        "/d",
+        "/s",
+        "/c",
+        "pnpm build"
+      ],
+      "environment": {},
+      "startedAt": "2026-10-26T11:44:45.353Z",
+      "finishedAt": "2026-10-26T11:44:47.700Z",
+      "exit_code": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 build D:\\code\\tradequote-agent-b-p1-review\n> node scripts/check-icons.mjs && pnpm --filter @tradequote/desktop build\n\nApplication icons passed: SVG/1024 PNG/macOS ICNS/Windows ICO\n\n> @tradequote/desktop@0.1.0 build D:\\code\\tradequote-agent-b-p1-review\\apps\\desktop\n> electron-vite build\n\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 279 modules transformed.\nrendering chunks...\nout/main/evaluation.js                2.41 kB\nout/main/worker.js                    2.80 kB\nout/main/index.js                    26.17 kB\nout/main/chunks/public-DQQklE0d.js   29.90 kB\nout/main/chunks/src-DCtjbfDF.js     739.84 kB\n\n✓ built in 156ms\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 116 modules transformed.\nrendering chunks...\nout/preload/index.js  285.02 kB\n\n✓ built in 49ms\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 2120 modules transformed.\nrendering chunks...\nout/renderer/index.html                   0.64 kB\nout/renderer/assets/index-CKwX_z5s.css   15.94 kB\nout/renderer/assets/index-Cri8MQtj.js   594.44 kB\n\n✓ built in 413ms\n",
+      "stderr": "[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n",
+      "head": "e4649ca5e3f1cdb3a65c2baec6b44da3f82d8e5f",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710"
+      },
+      "workingSourceChanges": ""
+    },
+    {
+      "name": "A source eligibility review probe",
+      "executable": "D:\\code\\tradequote-agent-b-p1-review\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        ".runtime/p1-source-probe.config.ts"
+      ],
+      "environment": {
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "startedAt": "2026-10-26T11:44:47.928Z",
+      "finishedAt": "2026-10-26T11:44:49.190Z",
+      "exit_code": 1,
+      "stdout": "\n RUN  v5.0.5 D:/code/tradequote-agent-b-p1-review\n\nstdout | .runtime/p1-source-probe.test.ts > A public source eligibility: source_expired_history\nP1_ELIGIBILITY_OBSERVATION {\"kind\":\"source_expired_history\",\"controlValid\":true,\"updatedSourcePin\":null,\"publicSchemaValid\":false,\"result\":{\"ok\":true,\"data\":{\"kind\":\"citationResolution\",\"resolution\":{\"purpose\":\"history\",\"lifecycle\":{\"revisionId\":\"4ce5a888-4e88-432f-a50b-7b36f3da24dd\",\"lifecycleVersion\":3,\"state\":\"published\",\"review\":{\"revisionId\":\"4ce5a888-4e88-432f-a50b-7b36f3da24dd\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"2b967bf7d7480dc840e35fe74d208120a86fafaeab347939ae91b41e77d1ebf8\",\"workspaceId\":\"4d4b66f7-d491-48d2-92bb-38133b12226e\",\"expectedLifecycleVersion\":1,\"decision\":\"approve\",\"note\":\"合成审核通过\",\"lintReceiptId\":\"d36a2749-41be-4bde-81e1-e35f5928e363\",\"lintReceipt\":{\"revisionId\":\"4ce5a888-4e88-432f-a50b-7b36f3da24dd\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"2b967bf7d7480dc840e35fe74d208120a86fafaeab347939ae91b41e77d1ebf8\",\"receiptId\":\"d36a2749-41be-4bde-81e1-e35f5928e363\",\"workspaceId\":\"4d4b66f7-d491-48d2-92bb-38133b12226e\",\"checkedAt\":\"2026-10-22T00:00:00.000Z\",\"policyVersion\":\"synthetic-v1\",\"outcome\":\"passed\"},\"reviewId\":\"faaa55bc-08dc-4617-9f9d-9f0e4c64bd12\",\"actorId\":\"host-human\",\"decidedAt\":\"2026-10-22T00:00:00.000Z\"},\"publication\":{\"revisionId\":\"4ce5a888-4e88-432f-a50b-7b36f3da24dd\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"2b967bf7d7480dc840e35fe74d208120a86fafaeab347939ae91b41e77d1ebf8\",\"eventId\":\"e6f464c7-d6fd-48bd-bf9c-03b8ace5dd05\",\"lifecycleVersion\":3,\"type\":\"published\",\"reviewId\":\"faaa55bc-08dc-4617-9f9d-9f0e4c64bd12\",\"actorId\":\"host-human\",\"occurredAt\":\"2026-10-22T00:00:00.000Z\",\"note\":\"合成发布\"}},\"currentPublicationRevisionId\":\"4ce5a888-4e88-432f-a50b-7b36f3da24dd\",\"citation\":{\"revisionId\":\"4ce5a888-4e88-432f-a50b-7b36f3da24dd\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"2b967bf7d7480dc840e35fe74d208120a86fafaeab347939ae91b41e77d1ebf8\",\"documentId\":\"c944d850-3a31-48b0-93b2-e70348c5dac2\",\"version\":1,\"sectionId\":\"7b5e63fe-b033-4784-bc84-9a05165f54a4\",\"sourceRefs\":[{\"referenceId\":\"8f9b8f9c-f15b-4cf0-b05b-be3cef215631\",\"sourceId\":\"763537c4-4a68-4b9f-9941-c319c23619a4\",\"sourceRevisionId\":\"f5f32a4b-926a-4db5-a3e2-606d3a005061\",\"sourceVersion\":1,\"artifactHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":11},\"excerptHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"assertion\":\"fact\"},{\"referenceId\":\"6ef9bf7f-da8e-45b9-98ae-15980299d4c7\",\"sourceId\":\"7d852979-bf87-460f-859d-945f606942d4\",\"sourceRevisionId\":\"868d23df-b2e3-45d4-ab78-19b1087c8ca3\",\"sourceVersion\":1,\"artifactHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":23},\"excerptHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"assertion\":\"fact\"}]},\"revision\":{\"workspaceId\":\"4d4b66f7-d491-48d2-92bb-38133b12226e\",\"revisionId\":\"4ce5a888-4e88-432f-a50b-7b36f3da24dd\",\"documentId\":\"c944d850-3a31-48b0-93b2-e70348c5dac2\",\"version\":1,\"parentRevisionId\":null,\"content\":{\"kind\":\"rule\",\"title\":\"合成 SOP\",\"locale\":\"en\",\"scope\":{\"platforms\":[],\"markets\":[],\"categories\":[]},\"markdown\":\"# 合成 SOP\\nInspect both sources.\\n\",\"validity\":{\"status\":\"confirmed\",\"validFrom\":null,\"validUntil\":null},\"sections\":[{\"sectionId\":\"7b5e63fe-b033-4784-bc84-9a05165f54a4\",\"title\":\"核对\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":31},\"sourceReferenceIds\":[\"8f9b8f9c-f15b-4cf0-b05b-be3cef215631\",\"6ef9bf7f-da8e-45b9-98ae-15980299d4c7\"]}],\"sourceRefs\":[{\"referenceId\":\"8f9b8f9c-f15b-4cf0-b05b-be3cef215631\",\"sourceId\":\"763537c4-4a68-4b9f-9941-c319c23619a4\",\"sourceRevisionId\":\"f5f32a4b-926a-4db5-a3e2-606d3a005061\",\"sourceVersion\":1,\"artifactHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":11},\"excerptHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"assertion\":\"fact\"},{\"referenceId\":\"6ef9bf7f-da8e-45b9-98ae-15980299d4c7\",\"sourceId\":\"7d852979-bf87-460f-859d-945f606942d4\",\"sourceRevisionId\":\"868d23df-b2e3-45d4-ab78-19b1087c8ca3\",\"sourceVersion\":1,\"artifactHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":23},\"excerptHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"assertion\":\"fact\"}],\"relations\":[],\"rules\":[{\"sectionId\":\"7b5e63fe-b033-4784-bc84-9a05165f54a4\",\"definition\":{\"ruleId\":\"7c66801f-f4a4-449a-8a9b-dd41abdfcf78\",\"category\":\"commercial_terms\",\"title\":\"synthetic\",\"message\":\"synthetic\",\"suggestedAction\":\"human review\",\"field\":\"payment\",\"condition\":{\"kind\":\"required\"},\"failureSeverity\":\"block\"}}]},\"artifactId\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"2b967bf7d7480dc840e35fe74d208120a86fafaeab347939ae91b41e77d1ebf8\",\"createdAt\":\"2026-10-22T00:00:00.000Z\"},\"sources\":[{\"workspaceId\":\"4d4b66f7-d491-48d2-92bb-38133b12226e\",\"sourceId\":\"763537c4-4a68-4b9f-9941-c319c23619a4\",\"sourceRevisionId\":\"f5f32a4b-926a-4db5-a3e2-606d3a005061\",\"version\":1,\"parentRevisionId\":null,\"label\":\"合成原文\",\"sourceStatus\":\"synthetic\",\"mediaType\":\"text/plain\",\"sourceText\":\"  合成 😀来源A\\n\",\"acquiredAt\":\"2026-10-22T00:00:00.000Z\",\"sourceUri\":null,\"permissionNote\":\"合成 fixture，非真实政策\",\"validity\":{\"status\":\"confirmed\",\"validFrom\":null,\"validUntil\":\"2026-10-26T13:44:49.086Z\"},\"artifactId\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"artifactHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"createdAt\":\"2026-10-22T00:00:00.000Z\"},{\"workspaceId\":\"4d4b66f7-d491-48d2-92bb-38133b12226e\",\"sourceId\":\"7d852979-bf87-460f-859d-945f606942d4\",\"sourceRevisionId\":\"868d23df-b2e3-45d4-ab78-19b1087c8ca3\",\"version\":1,\"parentRevisionId\":null,\"label\":\"合成原文\",\"sourceStatus\":\"synthetic\",\"mediaType\":\"text/plain\",\"sourceText\":\"Synthetic second source\",\"acquiredAt\":\"2026-10-22T00:00:00.000Z\",\"sourceUri\":null,\"permissionNote\":\"合成 fixture，非真实政策\",\"validity\":{\"status\":\"confirmed\",\"validFrom\":null,\"validUntil\":\"2026-10-26T13:44:49.086Z\"},\"artifactId\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"artifactHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"createdAt\":\"2026-10-22T00:00:00.000Z\"}],\"sourceStates\":[{\"sourceRevisionId\":\"f5f32a4b-926a-4db5-a3e2-606d3a005061\",\"lifecycleVersion\":1,\"state\":\"active\",\"changedAt\":\"2026-10-22T00:00:00.000Z\"},{\"sourceRevisionId\":\"868d23df-b2e3-45d4-ab78-19b1087c8ca3\",\"lifecycleVersion\":1,\"state\":\"active\",\"changedAt\":\"2026-10-22T00:00:00.000Z\"}],\"eligibility\":{\"eligible\":true,\"reasons\":[]},\"checkedAt\":\"2026-10-26T13:44:49.086Z\"}},\"warnings\":[],\"evidenceIds\":[\"f5f32a4b-926a-4db5-a3e2-606d3a005061\",\"868d23df-b2e3-45d4-ab78-19b1087c8ca3\"]},\"schemaIssues\":[\"候选/撤回/失效知识或来源不可新引\"]}\n\nstdout | .runtime/p1-source-probe.test.ts > A public source eligibility: source_updated_new_reference\nP1_ELIGIBILITY_OBSERVATION {\"kind\":\"source_updated_new_reference\",\"controlValid\":true,\"updatedSourcePin\":{\"sourceRevisionId\":\"fac17415-8d4d-43ad-8ec4-08d629dabed4\",\"version\":2},\"publicSchemaValid\":true,\"result\":{\"ok\":true,\"data\":{\"kind\":\"citationResolution\",\"resolution\":{\"purpose\":\"new_reference\",\"lifecycle\":{\"revisionId\":\"42a721e8-eb9c-4257-aa3c-070e8341b569\",\"lifecycleVersion\":3,\"state\":\"published\",\"review\":{\"revisionId\":\"42a721e8-eb9c-4257-aa3c-070e8341b569\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"0699a8da10d45ee093d3e7af09641fa850e5cb99589a87feaa727b0722a7aef3\",\"workspaceId\":\"58143a1e-c27a-479d-ba0e-bac4692dfbd8\",\"expectedLifecycleVersion\":1,\"decision\":\"approve\",\"note\":\"合成审核通过\",\"lintReceiptId\":\"be88c57b-91cd-46c3-b6e6-2274f9a48b4d\",\"lintReceipt\":{\"revisionId\":\"42a721e8-eb9c-4257-aa3c-070e8341b569\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"0699a8da10d45ee093d3e7af09641fa850e5cb99589a87feaa727b0722a7aef3\",\"receiptId\":\"be88c57b-91cd-46c3-b6e6-2274f9a48b4d\",\"workspaceId\":\"58143a1e-c27a-479d-ba0e-bac4692dfbd8\",\"checkedAt\":\"2026-10-22T00:00:00.000Z\",\"policyVersion\":\"synthetic-v1\",\"outcome\":\"passed\"},\"reviewId\":\"6a6eceeb-fcc6-4674-a622-ef1212125b97\",\"actorId\":\"host-human\",\"decidedAt\":\"2026-10-22T00:00:00.000Z\"},\"publication\":{\"revisionId\":\"42a721e8-eb9c-4257-aa3c-070e8341b569\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"0699a8da10d45ee093d3e7af09641fa850e5cb99589a87feaa727b0722a7aef3\",\"eventId\":\"aae96fe9-73fd-4dad-93d9-2c82c563cbb4\",\"lifecycleVersion\":3,\"type\":\"published\",\"reviewId\":\"6a6eceeb-fcc6-4674-a622-ef1212125b97\",\"actorId\":\"host-human\",\"occurredAt\":\"2026-10-22T00:00:00.000Z\",\"note\":\"合成发布\"}},\"currentPublicationRevisionId\":\"42a721e8-eb9c-4257-aa3c-070e8341b569\",\"citation\":{\"revisionId\":\"42a721e8-eb9c-4257-aa3c-070e8341b569\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"0699a8da10d45ee093d3e7af09641fa850e5cb99589a87feaa727b0722a7aef3\",\"documentId\":\"e19e3f60-0b7a-4706-9c14-041475ac9da2\",\"version\":1,\"sectionId\":\"0c714ead-52f7-4619-bfdd-6c5e8140192c\",\"sourceRefs\":[{\"referenceId\":\"5580c48e-0658-4b6a-b549-fe100df8f826\",\"sourceId\":\"9dcadb70-c3f8-439e-962e-419f4a744c71\",\"sourceRevisionId\":\"fce6b9b4-e307-45f3-97c4-024e50ba397a\",\"sourceVersion\":1,\"artifactHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":11},\"excerptHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"assertion\":\"fact\"},{\"referenceId\":\"0a4f569d-db1f-4f30-bac8-a913ac388456\",\"sourceId\":\"01a0a02e-a520-46e8-9c23-e473d11c4e07\",\"sourceRevisionId\":\"eaca5a45-0640-42ab-a9f3-f9d4a94af6dd\",\"sourceVersion\":1,\"artifactHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":23},\"excerptHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"assertion\":\"fact\"}]},\"revision\":{\"workspaceId\":\"58143a1e-c27a-479d-ba0e-bac4692dfbd8\",\"revisionId\":\"42a721e8-eb9c-4257-aa3c-070e8341b569\",\"documentId\":\"e19e3f60-0b7a-4706-9c14-041475ac9da2\",\"version\":1,\"parentRevisionId\":null,\"content\":{\"kind\":\"rule\",\"title\":\"合成 SOP\",\"locale\":\"en\",\"scope\":{\"platforms\":[],\"markets\":[],\"categories\":[]},\"markdown\":\"# 合成 SOP\\nInspect both sources.\\n\",\"validity\":{\"status\":\"confirmed\",\"validFrom\":null,\"validUntil\":null},\"sections\":[{\"sectionId\":\"0c714ead-52f7-4619-bfdd-6c5e8140192c\",\"title\":\"核对\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":31},\"sourceReferenceIds\":[\"5580c48e-0658-4b6a-b549-fe100df8f826\",\"0a4f569d-db1f-4f30-bac8-a913ac388456\"]}],\"sourceRefs\":[{\"referenceId\":\"5580c48e-0658-4b6a-b549-fe100df8f826\",\"sourceId\":\"9dcadb70-c3f8-439e-962e-419f4a744c71\",\"sourceRevisionId\":\"fce6b9b4-e307-45f3-97c4-024e50ba397a\",\"sourceVersion\":1,\"artifactHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":11},\"excerptHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"assertion\":\"fact\"},{\"referenceId\":\"0a4f569d-db1f-4f30-bac8-a913ac388456\",\"sourceId\":\"01a0a02e-a520-46e8-9c23-e473d11c4e07\",\"sourceRevisionId\":\"eaca5a45-0640-42ab-a9f3-f9d4a94af6dd\",\"sourceVersion\":1,\"artifactHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"location\":{\"kind\":\"text\",\"start\":0,\"end\":23},\"excerptHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"assertion\":\"fact\"}],\"relations\":[],\"rules\":[{\"sectionId\":\"0c714ead-52f7-4619-bfdd-6c5e8140192c\",\"definition\":{\"ruleId\":\"42fbc1f8-b5db-41e8-828b-9343e5b60827\",\"category\":\"commercial_terms\",\"title\":\"synthetic\",\"message\":\"synthetic\",\"suggestedAction\":\"human review\",\"field\":\"payment\",\"condition\":{\"kind\":\"required\"},\"failureSeverity\":\"block\"}}]},\"artifactId\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"contentHash\":\"76397bd60b156aed192858983917bf3fc109fef251457bce343beade0c42dec5\",\"sourceSetHash\":\"0699a8da10d45ee093d3e7af09641fa850e5cb99589a87feaa727b0722a7aef3\",\"createdAt\":\"2026-10-22T00:00:00.000Z\"},\"sources\":[{\"workspaceId\":\"58143a1e-c27a-479d-ba0e-bac4692dfbd8\",\"sourceId\":\"9dcadb70-c3f8-439e-962e-419f4a744c71\",\"sourceRevisionId\":\"fce6b9b4-e307-45f3-97c4-024e50ba397a\",\"version\":1,\"parentRevisionId\":null,\"label\":\"合成原文\",\"sourceStatus\":\"synthetic\",\"mediaType\":\"text/plain\",\"sourceText\":\"  合成 😀来源A\\n\",\"acquiredAt\":\"2026-10-22T00:00:00.000Z\",\"sourceUri\":null,\"permissionNote\":\"合成 fixture，非真实政策\",\"validity\":{\"status\":\"confirmed\",\"validFrom\":null,\"validUntil\":null},\"artifactId\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"artifactHash\":\"6faad41d58ed7601fb8eeea291e370c16f80c15e4688cf9eddeee7e22a20187f\",\"createdAt\":\"2026-10-22T00:00:00.000Z\"},{\"workspaceId\":\"58143a1e-c27a-479d-ba0e-bac4692dfbd8\",\"sourceId\":\"01a0a02e-a520-46e8-9c23-e473d11c4e07\",\"sourceRevisionId\":\"eaca5a45-0640-42ab-a9f3-f9d4a94af6dd\",\"version\":1,\"parentRevisionId\":null,\"label\":\"合成原文\",\"sourceStatus\":\"synthetic\",\"mediaType\":\"text/plain\",\"sourceText\":\"Synthetic second source\",\"acquiredAt\":\"2026-10-22T00:00:00.000Z\",\"sourceUri\":null,\"permissionNote\":\"合成 fixture，非真实政策\",\"validity\":{\"status\":\"confirmed\",\"validFrom\":null,\"validUntil\":null},\"artifactId\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"artifactHash\":\"877e4840c7dbbd3444b135b03b7e369e9152142ac1a04b5ec1c06c5e025c0355\",\"createdAt\":\"2026-10-22T00:00:00.000Z\"}],\"sourceStates\":[{\"sourceRevisionId\":\"fce6b9b4-e307-45f3-97c4-024e50ba397a\",\"lifecycleVersion\":1,\"state\":\"active\",\"changedAt\":\"2026-10-22T00:00:00.000Z\"},{\"sourceRevisionId\":\"eaca5a45-0640-42ab-a9f3-f9d4a94af6dd\",\"lifecycleVersion\":1,\"state\":\"active\",\"changedAt\":\"2026-10-22T00:00:00.000Z\"}],\"eligibility\":{\"eligible\":true,\"reasons\":[]},\"checkedAt\":\"2026-10-26T13:44:49.136Z\"}},\"warnings\":[],\"evidenceIds\":[\"fce6b9b4-e307-45f3-97c4-024e50ba397a\",\"eaca5a45-0640-42ab-a9f3-f9d4a94af6dd\"]},\"schemaIssues\":[]}\n\n ❯ .runtime/p1-source-probe.test.ts (2 tests | 2 failed) 99ms\n   × A public source eligibility: source_expired_history 68ms\n   × A public source eligibility: source_updated_new_reference 31ms\n\n Test Files  1 failed (1)\n      Tests  2 failed (2)\n   Start at  19:44:48\n   Duration  854ms (import 67%, transform 18%, tests 14%, worker 1%)\n\n",
+      "stderr": "\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  .runtime/p1-source-probe.test.ts > A public source eligibility: source_expired_history\nAssertionError: expected false to be true // Object.is equality\n\n- Expected\n+ Received\n\n- true\n+ false\n\n ❯ .runtime/p1-source-probe.test.ts:39:28\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯\n\n FAIL  .runtime/p1-source-probe.test.ts > A public source eligibility: source_updated_new_reference\nAssertionError: expected true to be false // Object.is equality\n\n- Expected\n+ Received\n\n- false\n+ true\n\n ❯ .runtime/p1-source-probe.test.ts:41:73\n     39|     expect(parsed.success).toBe(true);\n     40|     if (!parsed.success) return;\n     41|     if (kind === \"source_updated_new_reference\") expect(parsed.data.ok…\n       |                                                                         ^\n     42|     else expect(parsed.data).toMatchObject({ ok: true, data: { kind: \"…\n     43|   } finally {\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯\n\n",
+      "head": "e4649ca5e3f1cdb3a65c2baec6b44da3f82d8e5f",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710"
+      },
+      "workingSourceChanges": ""
+    },
+    {
+      "name": "wiki generate",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "environment": {},
+      "startedAt": "2026-10-26T11:48:37.696Z",
+      "finishedAt": "2026-10-26T11:48:38.085Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 252,\n  \"lines\": 66377,\n  \"generated\": 5,\n  \"excluded\": 12\n}\n",
+      "stderr": "",
+      "head": "e4649ca5e3f1cdb3a65c2baec6b44da3f82d8e5f",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710"
+      },
+      "workingSourceChanges": ""
+    },
+    {
+      "name": "wiki readonly",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "environment": {},
+      "startedAt": "2026-10-26T11:48:38.220Z",
+      "finishedAt": "2026-10-26T11:48:38.626Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 252,\n  \"lines\": 66377,\n  \"generated\": 5,\n  \"excluded\": 12\n}\n",
+      "stderr": "",
+      "head": "e4649ca5e3f1cdb3a65c2baec6b44da3f82d8e5f",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710"
+      },
+      "workingSourceChanges": ""
+    },
+    {
+      "name": "wiki lint",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "environment": {},
+      "startedAt": "2026-10-26T11:48:38.757Z",
+      "finishedAt": "2026-10-26T11:48:40.346Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 247,\n  \"semantic\": 219,\n  \"reachable\": 247\n}\n",
+      "stderr": "",
+      "head": "e4649ca5e3f1cdb3a65c2baec6b44da3f82d8e5f",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710"
+      },
+      "workingSourceChanges": ""
+    },
+    {
+      "name": "wiki sync",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "c6f6788d3e75f3ac9de02d95306222fb5509ca71"
+      ],
+      "environment": {},
+      "startedAt": "2026-10-26T11:48:40.478Z",
+      "finishedAt": "2026-10-26T11:48:41.424Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"c6f6788d3e75f3ac9de02d95306222fb5509ca71\",\n  \"status\": \"passed\",\n  \"codeFiles\": 2,\n  \"knowledgePages\": 8,\n  \"tasks\": 1,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "head": "e4649ca5e3f1cdb3a65c2baec6b44da3f82d8e5f",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710"
+      },
+      "workingSourceChanges": ""
+    },
+    {
+      "name": "diff whitespace",
+      "executable": "git",
+      "args": [
+        "diff",
+        "--check",
+        "c6f6788d3e75f3ac9de02d95306222fb5509ca71"
+      ],
+      "environment": {},
+      "startedAt": "2026-10-26T11:48:41.554Z",
+      "finishedAt": "2026-10-26T11:48:41.638Z",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "head": "e4649ca5e3f1cdb3a65c2baec6b44da3f82d8e5f",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710"
+      },
+      "workingSourceChanges": ""
+    },
+    {
+      "name": "engineering check",
+      "executable": "cmd.exe",
+      "args": [
+        "/d",
+        "/s",
+        "/c",
+        "pnpm check"
+      ],
+      "environment": {},
+      "startedAt": "2026-10-26T11:48:41.851Z",
+      "finishedAt": "2026-10-26T11:48:45.870Z",
+      "exit_code": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 check D:\\code\\tradequote-agent-b-p1-review\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 180 files in 71ms. No fixes applied.\nTAP version 13\n# Subtest: renderer cannot reach Node, database or desktop internals through import forms\nok 1 - renderer cannot reach Node, database or desktop internals through import forms\n  ---\n  duration_ms: 11.6385\n  type: 'test'\n  ...\n# Subtest: pure modules use public contracts while other platform dependencies are rejected\nok 2 - pure modules use public contracts while other platform dependencies are rejected\n  ---\n  duration_ms: 2.3758\n  type: 'test'\n  ...\n# Subtest: domain permits exact pure decimal dependency without opening contracts or SDK imports\nok 3 - domain permits exact pure decimal dependency without opening contracts or SDK imports\n  ---\n  duration_ms: 0.7018\n  type: 'test'\n  ...\n# Subtest: committed icon resources match their source manifest\nok 4 - committed icon resources match their source manifest\n  ---\n  duration_ms: 2.7277\n  type: 'test'\n  ...\n# Subtest: editing either SVG or packaged icon without generation blocks the build\nok 5 - editing either SVG or packaged icon without generation blocks the build\n  ---\n  duration_ms: 14.8897\n  type: 'test'\n  ...\n# Subtest: macOS native process and runtime display TradeQuote while upstream Electron stays intact\nok 6 - macOS native process and runtime display TradeQuote while upstream Electron stays intact # SKIP\n  ---\n  duration_ms: 1.5714\n  type: 'test'\n  ...\n1..6\n# tests 6\n# suites 0\n# pass 5\n# fail 0\n# cancelled 0\n# skipped 1\n# todo 0\n# duration_ms 196.335\nModule boundaries passed\n\n> tradequote-agent@0.1.0 wiki:check D:\\code\\tradequote-agent-b-p1-review\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 252,\n  \"lines\": 66377,\n  \"generated\": 5,\n  \"excluded\": 12\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 247,\n  \"semantic\": 219,\n  \"reachable\": 247\n}\n",
+      "stderr": "",
+      "head": "e4649ca5e3f1cdb3a65c2baec6b44da3f82d8e5f",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710"
+      },
+      "workingSourceChanges": ""
+    },
+    {
+      "name": "wiki generate",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "environment": {},
+      "startedAt": "2026-10-26T11:50:12.892Z",
+      "finishedAt": "2026-10-26T11:50:13.280Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 252,\n  \"lines\": 66377,\n  \"generated\": 5,\n  \"excluded\": 12\n}\n",
+      "stderr": "",
+      "head": "e4649ca5e3f1cdb3a65c2baec6b44da3f82d8e5f",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710"
+      },
+      "workingSourceChanges": ""
+    },
+    {
+      "name": "wiki readonly",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "environment": {},
+      "startedAt": "2026-10-26T11:50:13.412Z",
+      "finishedAt": "2026-10-26T11:50:13.774Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 252,\n  \"lines\": 66377,\n  \"generated\": 5,\n  \"excluded\": 12\n}\n",
+      "stderr": "",
+      "head": "e4649ca5e3f1cdb3a65c2baec6b44da3f82d8e5f",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710"
+      },
+      "workingSourceChanges": ""
+    },
+    {
+      "name": "wiki lint",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "environment": {},
+      "startedAt": "2026-10-26T11:50:13.902Z",
+      "finishedAt": "2026-10-26T11:50:15.472Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 247,\n  \"semantic\": 219,\n  \"reachable\": 247\n}\n",
+      "stderr": "",
+      "head": "e4649ca5e3f1cdb3a65c2baec6b44da3f82d8e5f",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710"
+      },
+      "workingSourceChanges": ""
+    },
+    {
+      "name": "wiki sync",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "c6f6788d3e75f3ac9de02d95306222fb5509ca71"
+      ],
+      "environment": {},
+      "startedAt": "2026-10-26T11:50:15.599Z",
+      "finishedAt": "2026-10-26T11:50:16.545Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"c6f6788d3e75f3ac9de02d95306222fb5509ca71\",\n  \"status\": \"passed\",\n  \"codeFiles\": 2,\n  \"knowledgePages\": 8,\n  \"tasks\": 1,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "head": "e4649ca5e3f1cdb3a65c2baec6b44da3f82d8e5f",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710"
+      },
+      "workingSourceChanges": ""
+    },
+    {
+      "name": "diff whitespace",
+      "executable": "git",
+      "args": [
+        "diff",
+        "--check",
+        "c6f6788d3e75f3ac9de02d95306222fb5509ca71"
+      ],
+      "environment": {},
+      "startedAt": "2026-10-26T11:50:16.675Z",
+      "finishedAt": "2026-10-26T11:50:16.760Z",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "head": "e4649ca5e3f1cdb3a65c2baec6b44da3f82d8e5f",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710"
+      },
+      "workingSourceChanges": ""
+    }
+  ],
+  "overallJointAcceptance": false,
+  "notRun": [
+    "A real lint report persistence/review/publish/withdraw service: not implemented in fixed base",
+    "C local-only 739961a and its desktop route",
+    "real Electron desktop/macOS joint, full migration M/F/J, human publication/withdrawal/personnel or business signoff",
+    "maintenance regression: no tools/coverage change",
+    "real model calls/force push/merge",
+    "Full unit suite not rerun: only existing test/fixture coverage changed; all production files unchanged"
+  ],
+  "productionPreservation": [
+    {
+      "path": "packages/contracts/src/knowledge-maintenance.ts",
+      "sha256": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+      "unchanged": true
+    },
+    {
+      "path": "packages/contracts/src/knowledge-wiki.ts",
+      "sha256": "a559afc21fe8bee9a8559cad289e28141d45e58567ef79b338cf3505444dddc9",
+      "unchanged": true
+    },
+    {
+      "path": "packages/domain/src/wiki.ts",
+      "sha256": "c53ad78d95b550d8226d274f60d30b22c6114dd785b23a7637ca4d2869227cc6",
+      "unchanged": true
+    },
+    {
+      "path": "packages/infrastructure/src/wiki-store.ts",
+      "sha256": "b772db86f14535fb0d730724a298f5569fbe6a5efbfe5fdc1e67013675e8abd0",
+      "unchanged": true
+    },
+    {
+      "path": "packages/infrastructure/src/wiki-check-source.ts",
+      "sha256": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+      "unchanged": true
+    },
+    {
+      "path": "packages/infrastructure/src/check-store.ts",
+      "sha256": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+      "unchanged": true
+    }
+  ],
+  "acceptedAuthorCodeSha": "e4649ca5e3f1cdb3a65c2baec6b44da3f82d8e5f",
+  "preservation": {
+    "oldRawCount": 303,
+    "rawMismatches": [],
+    "oldLogBytePrefixPreserved": true,
+    "sourceChangesAfterCodeFreeze": ""
+  },
+  "reviewStatus": "changes_required_A_public_source_eligibility",
+  "finalResults": {
+    "authorCodeSha": "e4649ca5e3f1cdb3a65c2baec6b44da3f82d8e5f",
+    "targeted": {
+      "files": 7,
+      "passed": 104,
+      "total": 104,
+      "exit_code": 0
+    },
+    "typecheck": 0,
+    "build": 0,
+    "sourceProbe": {
+      "failed": 2,
+      "validControlsPassed": 2,
+      "exit_code": 1,
+      "artifact": "wiki-project/raw/b-p1-source-eligibility-probe.json"
+    },
+    "overallJointAcceptance": false,
+    "localGates": {
+      "engineering": 0,
+      "engineeringPassed": 5,
+      "macOSOnlySkipped": 1,
+      "wikiGenerate": 0,
+      "wikiReadonly": 0,
+      "wikiLint": 0,
+      "wikiSync": 0,
+      "diffWhitespace": 0
+    }
+  }
+}

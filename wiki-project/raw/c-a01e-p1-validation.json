@@ -1,0 +1,315 @@
+{
+  "status": "regression_passed_p1_changes_required",
+  "taskBase": "739961a6aecf379bbdd785e9fd3bfe115ee6ade1",
+  "inputA": "e7a94392af5816c4e9d7f01885bde40189030432",
+  "inputB": "e5f6b1a2a4d03a83ea5264c8a4f9f524f62461b2",
+  "environment": {
+    "platform": "macOS-26.4-arm64-arm-64bit",
+    "architecture": "arm64",
+    "node": "v22.22.0",
+    "pnpm": "10.13.1",
+    "macOS": "26.4"
+  },
+  "checks": [
+    {
+      "argv": [
+        "pnpm",
+        "typecheck"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent",
+      "startedAt": "2026-10-27T04:37:51.386726+00:00",
+      "finishedAt": "2026-10-27T04:37:53.096081+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 typecheck /Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent\n> tsc --noEmit\n\n",
+      "stderr": "",
+      "stdoutSha256": "7271f2c76c3b936bcef9095a87c5e560ffdf386bb7dcab038ebc0685be15fe9b",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "env",
+        "ELECTRON_RUN_AS_NODE=1",
+        "apps/desktop/node_modules/.bin/electron",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/contracts/src/knowledge-maintenance.test.ts",
+        "packages/contracts/src/knowledge-lint-review.test.ts",
+        "packages/contracts/src/knowledge-wiki.test.ts",
+        "packages/infrastructure/src/wiki-store.test.ts",
+        "packages/infrastructure/src/check-store.test.ts",
+        "packages/infrastructure/src/check-lineage-integration.test.ts",
+        "packages/infrastructure/src/wiki-check-integration.test.ts",
+        "packages/infrastructure/src/worker-migration-gates.test.ts"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent",
+      "startedAt": "2026-10-27T04:37:53.119847+00:00",
+      "finishedAt": "2026-10-27T04:38:03.559904+00:00",
+      "exitCode": 1,
+      "stdout": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent\n\n ❯ packages/infrastructure/src/check-lineage-integration.test.ts (1 test | 1 failed) 174ms\n   × upgrades populated B7 with immutable multi-source report/consumption/old ledger and replays its first result after two reopens 173ms\n\n Test Files  1 failed | 7 passed (8)\n      Tests  1 failed | 116 passed (117)\n   Start at  12:37:53\n   Duration  9.94s (tests 70%, import 21%, transform 8%)\n\n",
+      "stderr": "\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/check-lineage-integration.test.ts > upgrades populated B7 with immutable multi-source report/consumption/old ledger and replays its first result after two reopens\nMigrationLineageError: MIGRATION_LINEAGE_REJECTED:unknown\n ❯ identify packages/infrastructure/src/migrations.ts:422:11\n    420|   const id = identifyLineage(snapshot);\n    421|   if (!UPGRADEABLE_LINEAGES.has(id.lineage)) {\n    422|     throw new MigrationLineageError(id.lineage, snapshot.userVersion);\n       |           ^\n    423|   }\n    424|   verifyLegacyLedger(db, id);\n ❯ preflightMigration packages/infrastructure/src/index.ts:42:5\n ❯ new SqliteWorkspaceRepository packages/infrastructure/src/index.ts:53:5\n ❯ packages/infrastructure/src/check-lineage-integration.test.ts:107:14\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n",
+      "stdoutSha256": "eb935805ac72969fce725812dc247088d2301022705d8de114c675125f2e79d7",
+      "stderrSha256": "a51f18ec173c7697ef62a40d2c836c4a73c5a01aae013a5b6efdd50ccd1edc54"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "typecheck"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent",
+      "startedAt": "2026-10-27T04:41:39.398578+00:00",
+      "finishedAt": "2026-10-27T04:41:41.487034+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 typecheck /Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent\n> tsc --noEmit\n\n",
+      "stderr": "",
+      "stdoutSha256": "7271f2c76c3b936bcef9095a87c5e560ffdf386bb7dcab038ebc0685be15fe9b",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "env",
+        "ELECTRON_RUN_AS_NODE=1",
+        "apps/desktop/node_modules/.bin/electron",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/contracts/src/knowledge-maintenance.test.ts",
+        "packages/contracts/src/knowledge-lint-review.test.ts",
+        "packages/contracts/src/knowledge-wiki.test.ts",
+        "packages/infrastructure/src/wiki-store.test.ts",
+        "packages/infrastructure/src/check-store.test.ts",
+        "packages/infrastructure/src/check-lineage-integration.test.ts",
+        "packages/infrastructure/src/wiki-check-integration.test.ts",
+        "packages/infrastructure/src/worker-migration-gates.test.ts"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent",
+      "startedAt": "2026-10-27T04:41:41.498871+00:00",
+      "finishedAt": "2026-10-27T04:41:51.037743+00:00",
+      "exitCode": 0,
+      "stdout": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent\n\n\n Test Files  8 passed (8)\n      Tests  117 passed (117)\n   Start at  12:41:41\n   Duration  9.03s (tests 75%, import 20%, transform 5%)\n\n",
+      "stderr": "",
+      "stdoutSha256": "2f249f14e432b630330343868d5308296af7cd6fa99d73731d9dd44568364140",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "test:e2e"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent",
+      "startedAt": "2026-10-27T04:41:51.049740+00:00",
+      "finishedAt": "2026-10-27T04:42:46.444578+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 test:e2e /Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent\n> pnpm build && playwright test\n\n\n> tradequote-agent@0.1.0 build /Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent\n> node scripts/check-icons.mjs && pnpm --filter @tradequote/desktop build\n\nApplication icons passed: SVG/1024 PNG/macOS ICNS/Windows ICO\n\n> @tradequote/desktop@0.1.0 build /Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent/apps/desktop\n> electron-vite build\n\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 279 modules transformed.\nrendering chunks...\nout/main/evaluation.js                2.41 kB\nout/main/worker.js                    3.07 kB\nout/main/index.js                    26.21 kB\nout/main/chunks/public-CbjmtEdU.js   29.90 kB\nout/main/chunks/src-CRJUSXgP.js     754.68 kB\n\n✓ built in 81ms\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 116 modules transformed.\nrendering chunks...\nout/preload/index.js  286.48 kB\n\n✓ built in 30ms\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 2120 modules transformed.\nrendering chunks...\nout/renderer/index.html                   0.64 kB\nout/renderer/assets/index-CKwX_z5s.css   15.94 kB\nout/renderer/assets/index-Dkp_l23Z.js   597.05 kB\n\n✓ built in 858ms\n\nRunning 11 tests using 1 worker\n\n  ✓   1 tests/e2e/agent-recovery.spec.ts:9:1 › R20 real worker SIGKILL, restart discovery, explicit retry, cancellation and immutable saved receipts (6.2s)\n  ✓   2 tests/e2e/feedback.spec.ts:8:1 › desktop feedback floats above content and recovers through the notification action (2.4s)\n  ✓   3 tests/e2e/model-evaluation.spec.ts:9:1 › formal model settings explicitly start isolated evaluations, cancel, preserve redacted fixture reports and never replay on reopen (8.0s)\n  ✓   4 tests/e2e/multistep-agent.spec.ts:13:1 › formal multistep loop saves validated V1/V2/V3, shows blocking sources, survives worker kill and explicitly retries (3.4s)\n  ✓   5 tests/e2e/quote-agent.spec.ts:9:1 › desktop settings and HTTP adapter support inquiry plus two saved revisions, differences, failures and reopen (4.1s)\n  ✓   6 tests/e2e/quote-checks.spec.ts:56:1 › human saved-quote check persists both sources, paired feedback and immutable V1/V2 history across restart (5.1s)\n  ✓   7 tests/e2e/quote-checks.spec.ts:215:1 › desktop transaction failure saves no partial report, retries explicitly, and preserves old reports after source withdrawal (5.5s)\n  ✓   8 tests/e2e/quote-v1.spec.ts:11:1 › real desktop imports CSV with confirmation, saves deterministic V1 and reopens frozen evidence (2.8s)\n  ✓   9 tests/e2e/read-assistant.spec.ts:9:1 › formal desktop read assistant executes four real tools, shows facts, guards missing tools and never saves (3.4s)\n  ✓  10 tests/e2e/workspace.spec.ts:13:1 › development renderer runs with React refresh and the real desktop bridge (1.4s)\n  ✓  11 tests/e2e/workspace.spec.ts:38:1 › real desktop persists workspace, validates IPC, handles conflict and reopens (4.7s)\n\n  11 passed (50.5s)\n",
+      "stderr": "[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n[WebServer] (node:88706) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (node:88718) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:\n[WebServer]   - ESM syntax in a file loaded as CommonJS (vite.renderer.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\n[WebServer]   - ESM syntax in a file loaded as CommonJS (electron.vite.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\n[WebServer] Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.\n(node:88746) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+      "stdoutSha256": "c71b3cc24da0515cefdb3da2abc950073ee6ea12f8b0c8dfa5484b86e9088d72",
+      "stderrSha256": "10aec14095e22e0304637e70b03473799604b48b760ba4ca644a3478da256772"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "wiki:generate"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent",
+      "startedAt": "2026-10-27T04:45:57.935495+00:00",
+      "finishedAt": "2026-10-27T04:45:58.436408+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 wiki:generate /Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs .\n\n{\n  \"mode\": \"generate\",\n  \"files\": 254,\n  \"lines\": 68066,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n",
+      "stderr": "",
+      "stdoutSha256": "d8d7f944481ec290319276def70a762717f49efce73141ad6ad95bcd4d0e87d7",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "check"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent",
+      "startedAt": "2026-10-27T04:45:58.461961+00:00",
+      "finishedAt": "2026-10-27T04:46:05.977802+00:00",
+      "exitCode": 1,
+      "stdout": "\n> tradequote-agent@0.1.0 check /Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 182 files in 62ms. No fixes applied.\nTAP version 13\n# Subtest: renderer cannot reach Node, database or desktop internals through import forms\nok 1 - renderer cannot reach Node, database or desktop internals through import forms\n  ---\n  duration_ms: 13.504708\n  type: 'test'\n  ...\n# Subtest: pure modules use public contracts while other platform dependencies are rejected\nok 2 - pure modules use public contracts while other platform dependencies are rejected\n  ---\n  duration_ms: 2.580209\n  type: 'test'\n  ...\n# Subtest: domain permits exact pure decimal dependency without opening contracts or SDK imports\nok 3 - domain permits exact pure decimal dependency without opening contracts or SDK imports\n  ---\n  duration_ms: 0.590041\n  type: 'test'\n  ...\n# Subtest: committed icon resources match their source manifest\nok 4 - committed icon resources match their source manifest\n  ---\n  duration_ms: 4.551208\n  type: 'test'\n  ...\n# Subtest: editing either SVG or packaged icon without generation blocks the build\nok 5 - editing either SVG or packaged icon without generation blocks the build\n  ---\n  duration_ms: 16.826375\n  type: 'test'\n  ...\n# Subtest: macOS native process and runtime display TradeQuote while upstream Electron stays intact\nok 6 - macOS native process and runtime display TradeQuote while upstream Electron stays intact\n  ---\n  duration_ms: 5080.545542\n  type: 'test'\n  ...\n1..6\n# tests 6\n# suites 0\n# pass 6\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 5166.449042\nModule boundaries passed\n\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 254,\n  \"lines\": 68066,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n ELIFECYCLE  Command failed with exit code 1.\n ELIFECYCLE  Command failed with exit code 1.\n",
+      "stderr": "wiki-project/wiki/tasks/C集成-A01e真实lint与审核接收.md: NEEDS_TWO_RELATED_SEMANTIC_PAGES\n",
+      "stdoutSha256": "d7a10d97466a33d29975a419cb4580986d868dcc2974aa6f94be1cb2cb962c06",
+      "stderrSha256": "f5cac37d41ff8c514adf119b974b66c6a018bd0c76b6a5a03230cc366b49fd00"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "wiki:generate"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent",
+      "startedAt": "2026-10-27T04:46:56.657630+00:00",
+      "finishedAt": "2026-10-27T04:46:57.171214+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 wiki:generate /Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs .\n\n{\n  \"mode\": \"generate\",\n  \"files\": 254,\n  \"lines\": 68066,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n",
+      "stderr": "",
+      "stdoutSha256": "d8d7f944481ec290319276def70a762717f49efce73141ad6ad95bcd4d0e87d7",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "check"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent",
+      "startedAt": "2026-10-27T04:46:57.193845+00:00",
+      "finishedAt": "2026-10-27T04:47:00.194894+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 check /Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 182 files in 71ms. No fixes applied.\nTAP version 13\n# Subtest: renderer cannot reach Node, database or desktop internals through import forms\nok 1 - renderer cannot reach Node, database or desktop internals through import forms\n  ---\n  duration_ms: 10.765417\n  type: 'test'\n  ...\n# Subtest: pure modules use public contracts while other platform dependencies are rejected\nok 2 - pure modules use public contracts while other platform dependencies are rejected\n  ---\n  duration_ms: 2.798291\n  type: 'test'\n  ...\n# Subtest: domain permits exact pure decimal dependency without opening contracts or SDK imports\nok 3 - domain permits exact pure decimal dependency without opening contracts or SDK imports\n  ---\n  duration_ms: 0.6175\n  type: 'test'\n  ...\n# Subtest: committed icon resources match their source manifest\nok 4 - committed icon resources match their source manifest\n  ---\n  duration_ms: 2.446458\n  type: 'test'\n  ...\n# Subtest: editing either SVG or packaged icon without generation blocks the build\nok 5 - editing either SVG or packaged icon without generation blocks the build\n  ---\n  duration_ms: 10.004208\n  type: 'test'\n  ...\n# Subtest: macOS native process and runtime display TradeQuote while upstream Electron stays intact\nok 6 - macOS native process and runtime display TradeQuote while upstream Electron stays intact\n  ---\n  duration_ms: 586.44\n  type: 'test'\n  ...\n1..6\n# tests 6\n# suites 0\n# pass 6\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 643.143583\nModule boundaries passed\n\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 254,\n  \"lines\": 68066,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 251,\n  \"semantic\": 223,\n  \"reachable\": 251\n}\n",
+      "stderr": "",
+      "stdoutSha256": "c22ef397aaadcf98974604da3c3bbea5a7003d41fdfb767be41dd66faf6b23b7",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "wiki:test"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent",
+      "startedAt": "2026-10-27T04:47:00.209164+00:00",
+      "finishedAt": "2026-10-27T04:47:33.963933+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 wiki:test /Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent\n> node --test wiki-project/scripts/wiki-tools.test.mjs wiki-project/scripts/wiki-sync.test.mjs\n\nTAP version 13\n# Subtest: runtime version pin is a mandatory Wiki-synchronized configuration change\nok 1 - runtime version pin is a mandatory Wiki-synchronized configuration change\n  ---\n  duration_ms: 1.436458\n  type: 'test'\n  ...\n# Subtest: code with related knowledge, task and appended log passes\nok 2 - code with related knowledge, task and appended log passes\n  ---\n  duration_ms: 0.326875\n  type: 'test'\n  ...\n# Subtest: generated snapshots alone cannot satisfy knowledge/task/log changes\nok 3 - generated snapshots alone cannot satisfy knowledge/task/log changes\n  ---\n  duration_ms: 0.098333\n  type: 'test'\n  ...\n# Subtest: metadata-only or whitespace-only edits cannot satisfy semantic update\nok 4 - metadata-only or whitespace-only edits cannot satisfy semantic update\n  ---\n  duration_ms: 0.112584\n  type: 'test'\n  ...\n# Subtest: each source needs its own mapped knowledge, unrelated pages do not suffice\nok 5 - each source needs its own mapped knowledge, unrelated pages do not suffice\n  ---\n  duration_ms: 0.183417\n  type: 'test'\n  ...\n# Subtest: deleted source uses baseline mapping; unknown source fails\nok 6 - deleted source uses baseline mapping; unknown source fails\n  ---\n  duration_ms: 0.207875\n  type: 'test'\n  ...\n# Subtest: history rewrite and removed task do not pass\nok 7 - history rewrite and removed task do not pass\n  ---\n  duration_ms: 0.627167\n  type: 'test'\n  ...\n# Subtest: Wiki maintenance code requires workflow knowledge, not generated data\nok 8 - Wiki maintenance code requires workflow knowledge, not generated data\n  ---\n  duration_ms: 0.083333\n  type: 'test'\n  ...\n# Subtest: ordinary documentation-only edits do not trigger code delivery check\nok 9 - ordinary documentation-only edits do not trigger code delivery check\n  ---\n  duration_ms: 0.322333\n  type: 'test'\n  ...\n# Subtest: real Git baseline includes committed, unstaged and untracked sources\nok 10 - real Git baseline includes committed, unstaged and untracked sources\n  ---\n  duration_ms: 197.19625\n  type: 'test'\n  ...\n# Subtest: SVG assets require semantic Wiki, task and append-only log changes\nok 11 - SVG assets require semantic Wiki, task and append-only log changes\n  ---\n  duration_ms: 0.125125\n  type: 'test'\n  ...\n# Subtest: same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\nok 12 - same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\n  ---\n  duration_ms: 2299.544167\n  type: 'test'\n  ...\n# Subtest: source drift fails without writes; generation repairs snapshot while preserving ingest baseline\nok 13 - source drift fails without writes; generation repairs snapshot while preserving ingest baseline\n  ---\n  duration_ms: 927.65225\n  type: 'test'\n  ...\n# Subtest: explicit ingest records a non-Git project honestly\nok 14 - explicit ingest records a non-Git project honestly\n  ---\n  duration_ms: 709.745708\n  type: 'test'\n  ...\n# Subtest: tool inventory names come from definitions, not nested headers/output/schema fields\nok 15 - tool inventory names come from definitions, not nested headers/output/schema fields\n  ---\n  duration_ms: 452.662042\n  type: 'test'\n  ...\n# Subtest: new unclassified source fails; missing knowledge target and stale mapping fail\nok 16 - new unclassified source fails; missing knowledge target and stale mapping fail\n  ---\n  duration_ms: 606.293\n  type: 'test'\n  ...\n# Subtest: generated coverage tampering is detected by lint and remains untouched\nok 17 - generated coverage tampering is detected by lint and remains untouched\n  ---\n  duration_ms: 1375.056958\n  type: 'test'\n  ...\n# Subtest: sensitive filename is excluded before read; external source symlink is not followed\nok 18 - sensitive filename is excluded before read; external source symlink is not followed\n  ---\n  duration_ms: 512.475958\n  type: 'test'\n  ...\n# Subtest: Wiki and generated-output symlinks cannot write outside project\nok 19 - Wiki and generated-output symlinks cannot write outside project\n  ---\n  duration_ms: 484.772041\n  type: 'test'\n  ...\n# Subtest: missing schema field\nok 20 - missing schema field\n  ---\n  duration_ms: 1261.474\n  type: 'test'\n  ...\n# Subtest: bad type\nok 21 - bad type\n  ---\n  duration_ms: 1288.283834\n  type: 'test'\n  ...\n# Subtest: bad date\nok 22 - bad date\n  ---\n  duration_ms: 1293.02325\n  type: 'test'\n  ...\n# Subtest: bad status\nok 23 - bad status\n  ---\n  duration_ms: 1330.838875\n  type: 'test'\n  ...\n# Subtest: missing wiki target\nok 24 - missing wiki target\n  ---\n  duration_ms: 1446.054125\n  type: 'test'\n  ...\n# Subtest: missing markdown target\nok 25 - missing markdown target\n  ---\n  duration_ms: 1246.484375\n  type: 'test'\n  ...\n# Subtest: invalid source line\nok 26 - invalid source line\n  ---\n  duration_ms: 1261.210791\n  type: 'test'\n  ...\n# Subtest: verified without code evidence\nok 27 - verified without code evidence\n  ---\n  duration_ms: 1286.750708\n  type: 'test'\n  ...\n# Subtest: source escaping project\nok 28 - source escaping project\n  ---\n  duration_ms: 1264.741625\n  type: 'test'\n  ...\n# Subtest: unfilled placeholder\nok 29 - unfilled placeholder\n  ---\n  duration_ms: 1257.968542\n  type: 'test'\n  ...\n# Subtest: all sources are validated even after a valid implementation source\nok 30 - all sources are validated even after a valid implementation source\n  ---\n  duration_ms: 1293.809\n  type: 'test'\n  ...\n# Subtest: orphan pages and duplicate basenames are rejected\nok 31 - orphan pages and duplicate basenames are rejected\n  ---\n  duration_ms: 2258.422208\n  type: 'test'\n  ...\n# Subtest: completed task requires actual verification record\nok 32 - completed task requires actual verification record\n  ---\n  duration_ms: 1266.824\n  type: 'test'\n  ...\n# Subtest: archived source cannot bypass inspection through silent changes\nok 33 - archived source cannot bypass inspection through silent changes\n  ---\n  duration_ms: 1243.93825\n  type: 'test'\n  ...\n# Subtest: source references cannot open excluded runtime data\nok 34 - source references cannot open excluded runtime data\n  ---\n  duration_ms: 1275.809\n  type: 'test'\n  ...\n# Subtest: new JSON evidence is checked and sensitive Wiki filenames are rejected before read\nok 35 - new JSON evidence is checked and sensitive Wiki filenames are rejected before read\n  ---\n  duration_ms: 1481.461666\n  type: 'test'\n  ...\n# Subtest: secret/JWT/private-key/PII detections redact the value in diagnostics\nok 36 - secret/JWT/private-key/PII detections redact the value in diagnostics\n  ---\n  duration_ms: 4323.904833\n  type: 'test'\n  ...\n1..36\n# tests 36\n# suites 0\n# pass 36\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 33514.165542\n",
+      "stderr": "",
+      "stdoutSha256": "52a0f0335375a1f045e6c8ea08cf6bfb56cf8f41c0ec305fd03c50449dd6ffec",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "wiki:sync",
+        "--base",
+        "739961a6aecf379bbdd785e9fd3bfe115ee6ade1"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent",
+      "startedAt": "2026-10-27T04:47:33.986068+00:00",
+      "finishedAt": "2026-10-27T04:47:34.446192+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 wiki:sync /Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent\n> node wiki-project/scripts/check-wiki-sync.mjs . --base 739961a6aecf379bbdd785e9fd3bfe115ee6ade1\n\n{\n  \"base\": \"739961a6aecf379bbdd785e9fd3bfe115ee6ade1\",\n  \"status\": \"passed\",\n  \"codeFiles\": 10,\n  \"knowledgePages\": 15,\n  \"tasks\": 3,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "stdoutSha256": "acb5d5c79e552ba84104f71d04391857b4b4e754bdd284815c990fd8ead6e770",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "wiki:sync",
+        "--base",
+        "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent",
+      "startedAt": "2026-10-27T04:47:34.456813+00:00",
+      "finishedAt": "2026-10-27T04:47:36.022440+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 wiki:sync /Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent\n> node wiki-project/scripts/check-wiki-sync.mjs . --base 654fecc4d93e4630ed4a0cf42f261d0d432e23d3\n\n{\n  \"base\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 127,\n  \"knowledgePages\": 162,\n  \"tasks\": 59,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "stdoutSha256": "2b26f76b70428aee73acd4c9826c2a0e4d5345692c00cf57f78c749d1064b769",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "wiki:sync",
+        "--base",
+        "be53b98"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent",
+      "startedAt": "2026-10-27T04:47:36.032934+00:00",
+      "finishedAt": "2026-10-27T04:47:37.836467+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 wiki:sync /Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent\n> node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98\n\n{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 132,\n  \"knowledgePages\": 174,\n  \"tasks\": 66,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "stdoutSha256": "61b1b05ecd39e0353d177ae16205282db048de120d3a24c7f31ed354d8877c2e",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent",
+      "startedAt": "2026-10-27T04:47:37.848050+00:00",
+      "finishedAt": "2026-10-27T04:47:37.869647+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "wiki:check"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent",
+      "startedAt": "2026-10-27T04:48:51.556759+00:00",
+      "finishedAt": "2026-10-27T04:48:53.214664+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 254,\n  \"lines\": 68066,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 251,\n  \"semantic\": 223,\n  \"reachable\": 251\n}\n",
+      "stderr": "",
+      "stdoutSha256": "7b50d1d4b9b3d17889115bd413a87adc74ebe475e00ace845ccad321c340c4da",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent",
+      "startedAt": "2026-10-27T04:48:53.225545+00:00",
+      "finishedAt": "2026-10-27T04:48:53.248804+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "sourceHashes": {
+    "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+    "packages/infrastructure/src/index.ts": "bfcc352c546f63658f5074a1249055839fa10b961642765097cebee76da2213d",
+    "packages/infrastructure/src/migration-lineage.ts": "6ce2cb0a969866f6f435d22fbf65d183b675351bf4bba50bc610e99a74344ef4",
+    "packages/infrastructure/src/migrations.ts": "eb68fa0e0fb8e55484bd4e8c1c689eef3e182c138bf0bff63cbf625c6034d6c7",
+    "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+    "packages/infrastructure/src/wiki-store.test.ts": "f3d6772bffcdd1672376f02a3657e4e1b71785fb3e81faf86bcabf1759570171",
+    "packages/infrastructure/src/wiki-store.ts": "bd7f97eaa12861d59aa04b9b10b02da97364024000a4e3f757b373a686d916af",
+    "packages/infrastructure/src/wiki-test.fixture.ts": "e665c3c934a5679a641b554ff4c3cdf49151dddc61fd82511a140cc6276b669c"
+  },
+  "finalScope": {
+    "targetedRegression": "117/117",
+    "desktopIncludingBuild": "11/11",
+    "engineering": "6/6",
+    "wikiMaintenance": "36/36",
+    "sourceEligibilityOriginalBProbe": "2/2",
+    "p1Acceptance": {
+      "controlPass": 1,
+      "productFailures": 7,
+      "exitCode": 1
+    },
+    "candidate": "WIP, no new Wiki UI enabled, no merge approval"
+  },
+  "migrationProbe": {
+    "argv": [
+      "node",
+      "--experimental-strip-types",
+      "wiki-project/scripts/a01-migration-lineage-probe.mjs"
+    ],
+    "exitCode": 0,
+    "fingerprints": 10,
+    "classification": 43,
+    "append": 11,
+    "enforcementControls": 2,
+    "summary": {
+      "fingerprintMatch": true,
+      "allCasesPass": true,
+      "allAppendPass": true,
+      "allEnforcementPass": true,
+      "caseFailures": [],
+      "appendFailures": [],
+      "enforcementFailures": [],
+      "fpFailures": []
+    },
+    "scriptSha256": "ee378bc2096040c0a293bea4695d434b440db2b1a680ea898cfdabdb714b9f8f"
+  }
+}

@@ -43,6 +43,7 @@ interface SeedOptions {
   parentRevisionId?: string | null;
   markdown?: string;
   validity?: WikiRevision["content"]["validity"];
+  sourceValidity?: WikiSourceRevision["validity"];
   scope?: WikiRevision["content"]["scope"];
 }
 
@@ -76,7 +77,7 @@ export async function seedPublished(
           acquiredAt: NOW,
           sourceUri: null,
           permissionNote: "合成 fixture，非真实政策",
-          validity: VALIDITY,
+          validity: opts.sourceValidity ?? VALIDITY,
         }),
         host(workspaceId),
       ),

@@ -34,7 +34,16 @@ it("upgrades populated B7 with immutable multi-source report/consumption/old led
   try {
     db = new Database(file);
     db.pragma("foreign_keys=ON");
-    const legacySteps = MIGRATION_STEPS.filter((s) => s.lineage !== "c-run");
+    // Freeze the historical B7 capability set; later A8 must not leak into this old fixture.
+    const legacySteps = MIGRATION_STEPS.filter((s) => s.lineage !== "c-run" && s.version <= 7);
+    expect(legacySteps.map((s) => `${s.lineage}:${s.version}`)).toEqual([
+      "common:1",
+      "common:2",
+      "common:3",
+      "common:4",
+      "knowledge-wiki:6",
+      "check-report:7",
+    ]);
     db.exec("CREATE TABLE schema_migration(version INTEGER PRIMARY KEY,sql_hash TEXT NOT NULL)");
     for (const step of legacySteps) {
       db.exec(step.sql);
@@ -119,6 +128,14 @@ it("upgrades populated B7 with immutable multi-source report/consumption/old led
         { lineage: "check-report", version: 7 },
         { lineage: "knowledge-wiki", version: 6 },
       ]);
+      expect(
+        db
+          .prepare(
+            "SELECT lineage,version FROM migration_registry WHERE lineage='knowledge-wiki' AND version=8",
+          )
+          .all(),
+      ).toEqual([{ lineage: "knowledge-wiki", version: 8 }]);
+      expect(db.prepare("SELECT COUNT(*) AS n FROM knowledge_lint").get()).toEqual({ n: 0 });
       expect(snapshot(db)).toEqual(before);
       expect(
         CheckResultSchema.parse(

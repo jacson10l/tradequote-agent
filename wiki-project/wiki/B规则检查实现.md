@@ -148,3 +148,8 @@ B在独立codex/b01-lineage-p1-adaptation整合A b9a0af7的九能力/统一8与P
 ## 2026-10-26 已保存报价检查接线
 
 C在c6f6788后续独立切片正式接通quote.check/getChecks，沿用现有CheckStore/SqliteWikiCheckSource事务与完整引用协议。QuoteChecks从只读增加人工检查与同组件同键重试、成功选中返回报告；保留同报告的标记/批注、历史与版本隔离，并补报告级全部引用展开（含通过规则）。新实际Electron验证消费写失败全回滚、V1/V2重开与来源撤回边界；A发布投影仍是明确合成fixture，不把真实review/publish/withdraw写成可用。详见[[C已保存报价检查桌面切片]]、[[C集成-已保存报价检查与双反馈]]。上文未开放IPC的描述保留原切片时点。
+
+
+## 2026-10-27 A01e固定接收
+
+C接收B e5f6b1a两项晚失败/来源到期回归与fixture sourceValidity选项，生产CheckStore/SqliteWikiCheckSource字节保持；同时接A e7a9439，原公开引用两例关闭。117组合首次B7 fixture把A8也装入v7而正确被拒，C固定旧能力集合并补目标lint登记，最终117/117且旧数据/回执断言不减；正常回归不替代P1四类7红例，见[[Ae7a9439接收与P1接线阻断复核]]。

@@ -682,7 +682,8 @@
         "wiki/A01c检索引用实现.md",
         "wiki/A01-追加迁移设计.md",
         "wiki/B谱系账本适配与P1回执交接.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
       ]
     },
     "packages/infrastructure/src/migration-lineage.ts": {
@@ -690,7 +691,8 @@
       "pages": [
         "wiki/decisions/0029-迁移谱系统一与拒绝边界.md",
         "wiki/A01-迁移谱系支持与拒绝矩阵.md",
-        "wiki/B谱系账本适配与P1回执交接.md"
+        "wiki/B谱系账本适配与P1回执交接.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
       ]
     },
     "packages/infrastructure/src/migration-ledger.test.ts": {
@@ -712,7 +714,8 @@
         "wiki/A01-迁移验证计划.md",
         "wiki/B谱系账本适配与P1回执交接.md",
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
       ]
     },
     "packages/infrastructure/src/schema.ts": {
@@ -1152,14 +1155,16 @@
     "packages/infrastructure/src/wiki-store.ts": {
       "role": "A01c检索引用SQLite存储：检索/引用/消费与候选暂存",
       "pages": [
-        "wiki/A01c检索引用实现.md"
+        "wiki/A01c检索引用实现.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
       ]
     },
     "packages/infrastructure/src/wiki-store.test.ts": {
       "role": "A01c检索引用回归：不回退、分页、引用闭环与消费事务",
       "pages": [
         "wiki/A01c检索引用实现.md",
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
       ]
     },
     "experiments/product-walkthrough/index.html": {
@@ -1285,7 +1290,8 @@
       "role": "A真实查询到B报告消费的端口联调、故障与历史回归",
       "pages": [
         "wiki/B规则检查实现.md",
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
       ]
     },
     "packages/infrastructure/src/wiki-test.fixture.ts": {
@@ -1293,7 +1299,8 @@
       "pages": [
         "wiki/A01c检索引用实现.md",
         "wiki/M1验证与协作.md",
-        "wiki/B谱系账本适配与P1回执交接.md"
+        "wiki/B谱系账本适配与P1回执交接.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
       ]
     },
     "packages/infrastructure/probes/migration-lineage.probe.ts": {
@@ -1339,7 +1346,8 @@
       "role": "B historical report and multi-source consumption upgrade/reopen evidence",
       "pages": [
         "wiki/B谱系账本适配与P1回执交接.md",
-        "wiki/B规则检查实现.md"
+        "wiki/B规则检查实现.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
       ]
     },
     "packages/contracts/src/knowledge-lint-review.test.ts": {

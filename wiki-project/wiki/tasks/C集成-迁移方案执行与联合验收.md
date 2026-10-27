@@ -14,6 +14,8 @@ sources:
 2026-10-26 C已普通推送cb90e9f至origin/codex/c-b-f4c9dfc-validation并回读一致，未合入。以它为本次独立基线补共同v3/C5/C6/C7领域有效旧库与实际Worker门禁，发现并修正数据库文件符号链接绕过独占锁；新8项及相关回归45/45、build/typecheck、实际Electron恢复1/1通过。旧成功/金额null/回执与事件保持，恢复不重发模型，三类坏库无ready；拒绝只允许锁侧库副作用。详见[[C领域旧库回放与Worker启动门禁]]、[[C集成-领域旧库与Worker启动恢复门禁]]。原121项复用旧证据；完整M/F/J、新业务接线、真实lint/review和实际人员验收仍待，新分支未推送。
 # C集成-迁移方案执行与联合验收
 
+2026-10-27 C已取得A e7a9439（含b05a049）和B e5f6b1a固定推送，从739961a在独立codex/c-a01e-p1-intake组合。原B两项引用资格修正2/2通过，最终聚焦117/117、含build实际Electron11/11及A新十能力探针通过；修正B7夹具误吸入未来A8并保留原失败。但新增P1验收1控制通过/7产品失败：完整报告缺失、review同键随宿主now冲突、发布前来源变化不拒绝、失格来源lint静默passed。详见[[Ae7a9439接收与P1接线阻断复核]]、[[C集成-A01e真实lint与审核接收]]；changes_required，WIP不合入，新Wiki入口仍门禁。A修固定实现、B复核后C再接，人员业务验收不代签。
+
 2026-10-26 C按负责人继续指令共享c6f6788至origin/codex/c-worker-migration-gates并回读一致，未合入。从它新建codex/c-saved-quote-checks接通两个CheckClient方法、可信Main/Worker、既有B/A报告与完整消费事务、人工检查/重试、风险标记＋文本批注与重开历史。类型及相关31/31、含构建全部实际Electron11/11通过，完整最终门禁见[[C集成-已保存报价检查与双反馈]]；实现[[C已保存报价检查桌面切片]]。A真实lint/review/publish/withdraw仍不可用，合成发布投影不算人员验收；新切片未推送，完整矩阵/业务/非作者接收继续active。
 
 2026-10-26 C已取得固定B组合f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd（实际B自验代码ceec0ee，二者非Wiki源码一致），在macOS独立通过九文件121/121、全量455/455、维护36/36、工程6/6及原12/107、X01～X11、Y01～Y10和九SQL指纹。原桌面套件7/9，因新规则面板多个alert使两处全局定位器歧义；C仅将两E2E定位限制到DeepSeek业务区，原断言/时限/生产源码不变，诊断2/2、正式九项含构建9/9。B的旧Windows EPERM和本轮初始失败保留。详见[[Bf4c9dfc组合macOS独立复验与桌面回归]]、[[C集成-Bf4c9dfc组合独立复验]]。本轮仅固定组合基础/原桌面回归通过，完整M/F/J、新知识/检查/P1桌面接线、真实lint/review服务及人员/业务验收仍未完成。

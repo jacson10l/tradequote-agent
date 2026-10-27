@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "ea29179cefb1c5b3fd54b8a6089b3043633802b7a6069c94dea85ff756e502c6",
+    "wiki-config.json": "5a3ec215f8cfbe55331e48f0aa5653b33168e8198374bed4fabc4a225df1c896",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -2041,13 +2041,14 @@
     {
       "path": "packages/infrastructure/src/check-lineage-integration.test.ts",
       "type": "ts",
-      "lines": 170,
-      "bytes": 5878,
-      "sha256": "146f1c4bf1c6d194a4c5306dc90e6030206b8fd1202dc8bd03129d8b93db076a",
+      "lines": 187,
+      "bytes": 6532,
+      "sha256": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
       "role": "B historical report and multi-source consumption upgrade/reopen evidence",
       "pages": [
         "wiki/B谱系账本适配与P1回执交接.md",
-        "wiki/B规则检查实现.md"
+        "wiki/B规则检查实现.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
       ]
     },
     {
@@ -2270,16 +2271,17 @@
     {
       "path": "packages/infrastructure/src/index.ts",
       "type": "ts",
-      "lines": 155,
-      "bytes": 5770,
-      "sha256": "6fc44c55031846ee241e9adc8139f8551c9c9a2831c184d2b4d061602d55bca1",
+      "lines": 163,
+      "bytes": 6153,
+      "sha256": "bfcc352c546f63658f5074a1249055839fa10b961642765097cebee76da2213d",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
         "wiki/A01c检索引用实现.md",
         "wiki/A01-追加迁移设计.md",
         "wiki/B谱系账本适配与P1回执交接.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
       ]
     },
     {
@@ -2321,14 +2323,15 @@
     {
       "path": "packages/infrastructure/src/migration-lineage.ts",
       "type": "ts",
-      "lines": 836,
-      "bytes": 29003,
-      "sha256": "de13ea2bdb1ccf26471663c162b6613eb116c2090ec41d16b9d05d3926f1aec8",
+      "lines": 887,
+      "bytes": 30291,
+      "sha256": "6ce2cb0a969866f6f435d22fbf65d183b675351bf4bba50bc610e99a74344ef4",
       "role": "迁移谱系识别与拒绝边界（纯函数，只读）",
       "pages": [
         "wiki/decisions/0029-迁移谱系统一与拒绝边界.md",
         "wiki/A01-迁移谱系支持与拒绝矩阵.md",
-        "wiki/B谱系账本适配与P1回执交接.md"
+        "wiki/B谱系账本适配与P1回执交接.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
       ]
     },
     {
@@ -2347,9 +2350,9 @@
     {
       "path": "packages/infrastructure/src/migrations.ts",
       "type": "ts",
-      "lines": 464,
-      "bytes": 21304,
-      "sha256": "b469d9a09072510994b5d8eccab5d5ec6ec13ec79ffcf8980c92dae0d47734c0",
+      "lines": 488,
+      "bytes": 22416,
+      "sha256": "eb68fa0e0fb8e55484bd4e8c1c689eef3e182c138bf0bff63cbf625c6034d6c7",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
@@ -2360,7 +2363,8 @@
         "wiki/A01-迁移验证计划.md",
         "wiki/B谱系账本适配与P1回执交接.md",
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
       ]
     },
     {
@@ -2539,13 +2543,14 @@
     {
       "path": "packages/infrastructure/src/wiki-check-integration.test.ts",
       "type": "ts",
-      "lines": 474,
-      "bytes": 17727,
-      "sha256": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7",
+      "lines": 553,
+      "bytes": 21264,
+      "sha256": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
       "role": "A真实查询到B报告消费的端口联调、故障与历史回归",
       "pages": [
         "wiki/B规则检查实现.md",
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
       ]
     },
     {
@@ -2563,37 +2568,40 @@
     {
       "path": "packages/infrastructure/src/wiki-store.test.ts",
       "type": "ts",
-      "lines": 324,
-      "bytes": 10844,
-      "sha256": "ef952f47e8fcd4243f75d1f7ac7edcb4e98cf1cf7b07cb119307d93c5fda43b9",
+      "lines": 729,
+      "bytes": 24209,
+      "sha256": "f3d6772bffcdd1672376f02a3657e4e1b71785fb3e81faf86bcabf1759570171",
       "role": "A01c检索引用回归：不回退、分页、引用闭环与消费事务",
       "pages": [
         "wiki/A01c检索引用实现.md",
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/wiki-store.ts",
       "type": "ts",
-      "lines": 764,
-      "bytes": 30177,
-      "sha256": "b772db86f14535fb0d730724a298f5569fbe6a5efbfe5fdc1e67013675e8abd0",
+      "lines": 1118,
+      "bytes": 45770,
+      "sha256": "bd7f97eaa12861d59aa04b9b10b02da97364024000a4e3f757b373a686d916af",
       "role": "A01c检索引用SQLite存储：检索/引用/消费与候选暂存",
       "pages": [
-        "wiki/A01c检索引用实现.md"
+        "wiki/A01c检索引用实现.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/wiki-test.fixture.ts",
       "type": "ts",
-      "lines": 250,
-      "bytes": 7342,
-      "sha256": "415616706aaa51487477595c148ee6e1f4eb348861c59eb5ea3da994126d5e8e",
+      "lines": 251,
+      "bytes": 7416,
+      "sha256": "e665c3c934a5679a641b554ff4c3cdf49151dddc61fd82511a140cc6276b669c",
       "role": "明确合成A+B来源/候选和测试发布投影，非产品审核入口",
       "pages": [
         "wiki/A01c检索引用实现.md",
         "wiki/M1验证与协作.md",
-        "wiki/B谱系账本适配与P1回执交接.md"
+        "wiki/B谱系账本适配与P1回执交接.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
       ]
     },
     {
