@@ -3,6 +3,7 @@ import { mkdtempSync, realpathSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import {
+  KnowledgeLintReportSchema,
   type WikiHostContext,
   type WikiLifecycle,
   type WikiResult,
@@ -726,4 +727,232 @@ it("A-W07-4: 来源更新至 v2 后，旧 v1 新引用被拒，历史解析标 s
   expect(citationResolution(history).eligible).toBe(false);
   expect(citationResolution(history).reasons).toContain("source_updated");
   repo.close();
+});
+
+it("A-W09-4: lint 落库完整 KnowledgeLintReport 且 reportId=receiptId，审核按报告绑定", async () => {
+  const file = join(temp(), "wiki.sqlite");
+  const { repo, workspaceId } = openRepo(file);
+  const { revision } = await seedCandidate(repo, workspaceId);
+  const binding = {
+    revisionId: revision.revisionId,
+    contentHash: revision.contentHash,
+    sourceSetHash: revision.sourceSetHash,
+  };
+
+  const receipt = repo.runWikiLint(revision.revisionId, host(workspaceId))!;
+  expect(receipt.outcome).toBe("passed");
+
+  // knowledge_lint.data_json 必须是完整 P1 报告（七类 coverage/issues/error）。
+  const db = new Database(file);
+  try {
+    const row = db
+      .prepare("SELECT data_json FROM knowledge_lint WHERE receipt_id=?")
+      .get(receipt.receiptId) as { data_json: string };
+    const report = KnowledgeLintReportSchema.parse(JSON.parse(row.data_json));
+    expect(report.reportId).toBe(receipt.receiptId);
+    expect(report.status).toBe("completed");
+    expect(report.coverage).toHaveLength(7);
+    expect(report.coverage.every((c) => c.status === "passed")).toBe(true);
+    expect(report.issues).toHaveLength(0);
+    expect(report.error).toBeNull();
+  } finally {
+    db.close();
+  }
+
+  // 审核绑定已存完整报告后批准。
+  const review = await repo.executeWiki(
+    write("wiki.review", {
+      ...binding,
+      expectedLifecycleVersion: 1,
+      decision: "approve",
+      note: "通过",
+      lintReceiptId: receipt.receiptId,
+    }),
+    host(workspaceId),
+  );
+  expect(review.ok).toBe(true);
+  expect(lifecycleOf(review).state).toBe("approved");
+  repo.close();
+});
+
+it("A-W09-5: 同键重放仅 requestId/宿主时钟变化时返回首次结果", async () => {
+  const file = join(temp(), "wiki.sqlite");
+  const { repo, workspaceId } = openRepo(file);
+  const { revision } = await seedCandidate(repo, workspaceId);
+  const binding = {
+    revisionId: revision.revisionId,
+    contentHash: revision.contentHash,
+    sourceSetHash: revision.sourceSetHash,
+  };
+  const receipt = repo.runWikiLint(revision.revisionId, host(workspaceId))!;
+  const reviewCmd = write("wiki.review", {
+    ...binding,
+    expectedLifecycleVersion: 1,
+    decision: "approve",
+    note: "通过",
+    lintReceiptId: receipt.receiptId,
+  });
+  const first = await repo.executeWiki(reviewCmd, host(workspaceId));
+  expect(first.ok).toBe(true);
+
+  // 仅 requestId 与宿主 now 变化，同键应重放首次结果与时间。
+  const retry = await repo.executeWiki(
+    { ...reviewCmd, requestId: randomUUID() },
+    { ...host(workspaceId), now: LATER },
+  );
+  expect(retry).toEqual(first);
+
+  // 业务输入变化（decision 由 approve 改 reject）仍必须冲突。
+  const changed = await repo.executeWiki(
+    {
+      ...reviewCmd,
+      requestId: randomUUID(),
+      payload: {
+        ...binding,
+        expectedLifecycleVersion: 1,
+        decision: "reject",
+        note: "通过",
+        lintReceiptId: receipt.receiptId,
+      },
+    },
+    host(workspaceId),
+  );
+  expect(changed).toMatchObject({ ok: false, error: { code: "IDEMPOTENCY_CONFLICT" } });
+  repo.close();
+});
+
+it("A-W09-6: 发布前来源更新/到期/撤回被拒，不写发布/事件/成功幂等", async () => {
+  for (const kind of ["updated", "expired", "withdrawn"] as const) {
+    const file = join(temp(), `wiki-pub-${kind}.sqlite`);
+    const { repo, workspaceId } = openRepo(file);
+    const { revision, sources } = await seedCandidate(repo, workspaceId);
+    const binding = {
+      revisionId: revision.revisionId,
+      contentHash: revision.contentHash,
+      sourceSetHash: revision.sourceSetHash,
+    };
+    const receipt = repo.runWikiLint(revision.revisionId, host(workspaceId))!;
+    const review = await repo.executeWiki(
+      write("wiki.review", {
+        ...binding,
+        expectedLifecycleVersion: 1,
+        decision: "approve",
+        note: "通过",
+        lintReceiptId: receipt.receiptId,
+      }),
+      host(workspaceId),
+    );
+    expect(review.ok).toBe(true);
+    const reviewId = lifecycleOf(review).review!.reviewId;
+    const source = sources[0]!;
+
+    // 批准后、发布提交前，来源发生资格变化。
+    if (kind === "updated") {
+      await repo.executeWiki(
+        write("source.stage", {
+          sourceId: source.sourceId,
+          expectedVersion: source.version,
+          label: source.label,
+          sourceStatus: source.sourceStatus,
+          mediaType: source.mediaType,
+          sourceText: "新版本合成来源",
+          acquiredAt: source.acquiredAt,
+          sourceUri: null,
+          permissionNote: source.permissionNote,
+          validity: VALIDITY,
+        }),
+        { ...host(workspaceId), now: LATER },
+      );
+    } else {
+      const db = new Database(file);
+      try {
+        if (kind === "expired") {
+          const row = db
+            .prepare("SELECT data_json FROM knowledge_source WHERE source_revision_id=?")
+            .get(source.sourceRevisionId) as { data_json: string };
+          const sourceJson = JSON.parse(row.data_json) as { validity: { validUntil: string | null } };
+          sourceJson.validity = { ...sourceJson.validity, validUntil: "2026-10-21T00:00:00.000Z" };
+          db.prepare("UPDATE knowledge_source SET data_json=? WHERE source_revision_id=?")
+            .run(JSON.stringify(sourceJson), source.sourceRevisionId);
+        } else {
+          db.prepare("UPDATE knowledge_source SET state='withdrawn' WHERE source_revision_id=?")
+            .run(source.sourceRevisionId);
+        }
+      } finally {
+        db.close();
+      }
+    }
+
+    const publish = await repo.executeWiki(
+      write("wiki.publish", { ...binding, reviewId, expectedLifecycleVersion: 2 }),
+      { ...host(workspaceId), now: LATER },
+    );
+    expect(publish).toMatchObject({ ok: false, error: { code: "SOURCE_CONFLICT" } });
+    // 生命周期未被部分写入，仍为 approved。
+    const after = await repo.executeWiki(
+      read("wiki.getRevision", { revisionId: revision.revisionId }),
+      host(workspaceId),
+    );
+    expect(after.ok).toBe(true);
+    expect(lifecycleOf(after).state).toBe("approved");
+    expect(lifecycleOf(after).publication).toBeNull();
+    repo.close();
+  }
+});
+
+it("A-W09-7: 失格来源（到期/被替代）lint 不返回 passed 并记录完整问题", async () => {
+  for (const kind of ["expired", "updated"] as const) {
+    const file = join(temp(), `wiki-lint-${kind}.sqlite`);
+    const { repo, workspaceId } = openRepo(file);
+    const { revision, sources } = await seedCandidate(repo, workspaceId);
+    const source = sources[0]!;
+
+    // 引用来源失格：到期或被新版本替代。
+    if (kind === "updated") {
+      await repo.executeWiki(
+        write("source.stage", {
+          sourceId: source.sourceId,
+          expectedVersion: source.version,
+          label: source.label,
+          sourceStatus: source.sourceStatus,
+          mediaType: source.mediaType,
+          sourceText: "新版本合成来源",
+          acquiredAt: source.acquiredAt,
+          sourceUri: null,
+          permissionNote: source.permissionNote,
+          validity: VALIDITY,
+        }),
+        host(workspaceId),
+      );
+    } else {
+      const db = new Database(file);
+      try {
+        const row = db
+          .prepare("SELECT data_json FROM knowledge_source WHERE source_revision_id=?")
+          .get(source.sourceRevisionId) as { data_json: string };
+        const sourceJson = JSON.parse(row.data_json) as { validity: { validUntil: string | null } };
+        sourceJson.validity = { ...sourceJson.validity, validUntil: "2026-10-21T00:00:00.000Z" };
+        db.prepare("UPDATE knowledge_source SET data_json=? WHERE source_revision_id=?")
+          .run(JSON.stringify(sourceJson), source.sourceRevisionId);
+      } finally {
+        db.close();
+      }
+    }
+
+    const receipt = repo.runWikiLint(revision.revisionId, host(workspaceId))!;
+    expect(receipt.outcome).not.toBe("passed");
+
+    const db = new Database(file);
+    try {
+      const row = db
+        .prepare("SELECT data_json FROM knowledge_lint WHERE receipt_id=?")
+        .get(receipt.receiptId) as { data_json: string };
+      const report = KnowledgeLintReportSchema.parse(JSON.parse(row.data_json));
+      const check = kind === "updated" ? "source_updates" : "scope_validity";
+      expect(report.issues.some((i) => i.check === check && i.severity === "block")).toBe(true);
+    } finally {
+      db.close();
+    }
+    repo.close();
+  }
 });

@@ -1090,3 +1090,10 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 - 同步[[Ae7a9439接收与P1接线阻断复核]]、[[C集成-A01e真实lint与审核接收]]及语义/ADR/覆盖/状态/导航。原307份非生成raw与205566字节log前缀保持；本轮WIP未推送/合入、未外发消息或代签，新Wiki/维护入口未开放。
 
 - 最终工程6/6、维护36/36与739/654fecc/be53b98同步通过；一次Wiki关联链接遗漏已补齐并保留失败。P1七红例仍为changes_required，未标完成；补齐完整报告需保留旧receipt历史，不补造passed或改旧审核事实。
+
+
+## 2026-10-27 A01e P1 四类阻断修正（codex/a01e-p1-fixes）
+
+- 以 C 固定材料 7e6b485（分支 codex/c-a01e-p1-intake，暂不合入）为基线，A 在 codex/a01e-p1-fixes 修正独立 P1 验收 1 正常控制/7 失败样本的四类阻断：完整 lint 报告按 B 契约 KnowledgeLintReportSchema 落库并绑定审核、同键重放指纹排除宿主 now/requestId、审核/发布提交前事务内重新核验来源资格、失格来源 lint 产出 block issue 不再静默 passed。迁移谱系 knowledge-wiki:8 与 DDL 不变，无新谱系。
+- 测试：wiki-store.test.ts 新增 A-W09-4～A-W09-7（报告落库/审核绑定、同键重放、发布前来源三种变化、失格来源 lint），14/14；C 独立 P1 探针 8/8 转绿（原 1/7）。`pnpm typecheck` 退出 0。
+- 本机经 ELECTRON_RUN_AS_NODE=1 走 Electron 内嵌 Node（系统 Node v24.14.1 与仓库 engines 22.22.0 不一致，如实标注）。B 对固定实现的契约/语义复核、C 原脚本复验与桌面接线、人工审核发布/业务验收仍待完成；本轮分支未推送/合入、未代签。

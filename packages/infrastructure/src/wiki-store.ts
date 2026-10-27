@@ -3,6 +3,11 @@ import {
   CheckReportSchema,
   failure,
   type KnowledgeCitation,
+  type KnowledgeLintIssue,
+  type KnowledgeLintReport,
+  KnowledgeLintReportSchema,
+  KnowledgeLintReviewExchangeSchema,
+  KnowledgeLintReviewInputExchangeSchema,
   QuoteSnapshotSchema,
   validTextLocation,
   type WikiCitationResolveInput,
@@ -41,6 +46,20 @@ import type { z } from "zod";
 
 const hash = (value: string) => createHash("sha256").update(value).digest("hex");
 const sha256Utf8 = (value: string) => createHash("sha256").update(value, "utf8").digest("hex");
+
+/** 请求幂等指纹只绑定方法、业务输入与身份（工作区/actor/origin），
+ *  排除 requestId 与宿主时钟等传输噪声：同一身份/输入/幂等键重放首结果。 */
+function requestFingerprint(method: string, payload: unknown, context: WikiHostContext): string {
+  return hash(
+    JSON.stringify({
+      method,
+      payload,
+      workspaceId: context.workspaceId,
+      actorId: context.actorId,
+      origin: context.origin,
+    }),
+  );
+}
 
 type Row = { data_json: string };
 type WikiLintReceipt = z.infer<typeof WikiLintReceiptSchema>;
@@ -182,11 +201,13 @@ export class SqliteWikiStore {
     return row ? (JSON.parse(row.data_json) as WikiLifecycle) : null;
   }
 
-  private readLintReceipt(receiptId: string): WikiLintReceipt | null {
+  private readLintReport(receiptId: string): KnowledgeLintReport | null {
     const row = this.db
       .prepare("SELECT data_json FROM knowledge_lint WHERE receipt_id=?")
       .get(receiptId) as Row | undefined;
-    return row ? (JSON.parse(row.data_json) as WikiLintReceipt) : null;
+    if (!row) return null;
+    const parsed = JSON.parse(row.data_json) as KnowledgeLintReport;
+    return KnowledgeLintReportSchema.safeParse(parsed).success ? parsed : null;
   }
 
   private readRecord(revisionId: string): WikiRevisionRecord | null {
@@ -225,9 +246,7 @@ export class SqliteWikiStore {
     const parsed = WikiSourceStageInputSchema.parse(input);
     return this.db
       .transaction(() => {
-        const requestHash = hash(
-          JSON.stringify({ method: "source.stage", payload: parsed, context }),
-        );
+        const requestHash = requestFingerprint("source.stage", parsed, context);
         const prior = this.replay(idempotencyKey, requestHash);
         if (prior === "conflict")
           return failure("IDEMPOTENCY_CONFLICT", "同一操作标识不能用于不同内容");
@@ -313,9 +332,7 @@ export class SqliteWikiStore {
     const parsed = WikiStageInputSchema.parse(input);
     return this.db
       .transaction(() => {
-        const requestHash = hash(
-          JSON.stringify({ method: "wiki.stage", payload: parsed, context }),
-        );
+        const requestHash = requestFingerprint("wiki.stage", parsed, context);
         const prior = this.replay(idempotencyKey, requestHash);
         if (prior === "conflict")
           return failure("IDEMPOTENCY_CONFLICT", "同一操作标识不能用于不同内容");
@@ -421,36 +438,29 @@ export class SqliteWikiStore {
 
   // -- review / publish / withdraw ----------------------------------------
 
-  /** 维护前置事实：对特定知识版本做一次真实 lint，落库一份不可变回执。
-   *  审核必须引用这里已保存的回执（契约要求“已存 lint 事实”），而不是
-   *  在审核请求里现算。lint 通过只产生回执，绝不自动发布。 */
+  /** 维护前置事实：对特定知识版本做一次真实 lint，落库一份不可变完整报告
+   *  （KnowledgeLintReport，reportId=receiptId，含七类 coverage/issues/error）。
+   *  审核必须引用这里已保存的报告（契约要求“已存 lint 事实”），而不是在
+   *  审核请求里现算。lint 通过只产生回执，绝不自动发布。 */
   runLint(revisionId: string, context: WikiHostContext): WikiLintReceipt | null {
     const revision = this.readWikiRevision(revisionId);
     if (!revision) return null;
     const workspaceId = this.workspaceId();
     if (!workspaceId) return null;
     const checkedAt = context.now;
-    // 同一 (版本/hash/检查时刻) 幂等：重复 lint 返回已落库回执，不重复插入。
-    const existing = this.db
-      .prepare(
-        "SELECT data_json FROM knowledge_lint WHERE revision_id=? AND content_hash=? AND source_set_hash=? AND checked_at=?",
-      )
-      .get(revision.revisionId, revision.contentHash, revision.sourceSetHash, checkedAt) as
-      | Row
-      | undefined;
-    if (existing) return JSON.parse(existing.data_json) as WikiLintReceipt;
-    const receipt: WikiLintReceipt = {
-      receiptId: randomUUID(),
-      workspaceId,
-      revisionId: revision.revisionId,
-      contentHash: revision.contentHash,
-      sourceSetHash: revision.sourceSetHash,
-      checkedAt,
-      policyVersion: "knowledge-maintenance-v1",
-      outcome: this.lintOutcome(revision, checkedAt),
-    };
-    this.db
+    return this.db
       .transaction(() => {
+        // 同一 (版本/hash/检查时刻) 幂等：重复 lint 返回已落库回执，不重复插入。
+        const existing = this.db
+          .prepare(
+            "SELECT data_json FROM knowledge_lint WHERE revision_id=? AND content_hash=? AND source_set_hash=? AND checked_at=?",
+          )
+          .get(revision.revisionId, revision.contentHash, revision.sourceSetHash, checkedAt) as
+          | Row
+          | undefined;
+        if (existing) return (JSON.parse(existing.data_json) as KnowledgeLintReport).receipt;
+        const report = this.buildLintReport(revision, workspaceId, checkedAt);
+        const receipt = report.receipt;
         this.db
           .prepare(
             "INSERT INTO knowledge_lint(receipt_id,workspace_id,revision_id,content_hash,source_set_hash,checked_at,policy_version,outcome,data_json) VALUES (?,?,?,?,?,?,?,?,?)",
@@ -464,7 +474,7 @@ export class SqliteWikiStore {
             receipt.checkedAt,
             receipt.policyVersion,
             receipt.outcome,
-            JSON.stringify(receipt),
+            JSON.stringify(report),
           );
         this.emit(
           workspaceId,
@@ -472,53 +482,191 @@ export class SqliteWikiStore {
           { receiptId: receipt.receiptId, outcome: receipt.outcome },
           context,
         );
+        return receipt;
       })
       .immediate();
-    return receipt;
   }
 
-  private lintOutcome(revision: WikiRevision, checkedAt: string): WikiLintReceipt["outcome"] {
-    // 正文/来源集 hash 必须等于内容寻址重算值，任何篡改即 blocked。
-    if (
-      sha256Utf8(revision.content.markdown) !== revision.contentHash ||
-      sha256Utf8(wikiSourceSetPayload(revision.content.sourceRefs)) !== revision.sourceSetHash
-    )
-      return "blocked";
-    // 有效性须确认且当前适用（未过期/未生效/无冲突）。
-    if (!validityAllows(revision.content.validity, checkedAt)) return "blocked";
-    // 每个来源引用必须能解析、状态 active，且身份/hash/摘录/位置一致。
+  /** 生成完整 P1 报告：七类覆盖逐项真实核对，任何阻断问题都以 block 级 issue
+   *  记录（不能把失格来源静默表达为通过）。reportId=receiptId，status 恒为
+   *  completed（七类均可确定），outcome 由是否存在 block issue 推导。 */
+  private buildLintReport(
+    revision: WikiRevision,
+    workspaceId: string,
+    checkedAt: string,
+  ): KnowledgeLintReport {
+    const checks: KnowledgeLintIssue["check"][] = [
+      "source_integrity",
+      "section_references",
+      "relations",
+      "scope_validity",
+      "source_updates",
+      "duplicates_conflicts",
+      "orphans",
+    ];
+    const issues: KnowledgeLintIssue[] = [];
+    const add = (
+      check: KnowledgeLintIssue["check"],
+      severity: KnowledgeLintIssue["severity"],
+      message: string,
+      sectionIds: string[] = [],
+      sourceRevisionIds: string[] = [],
+    ) => {
+      issues.push({
+        issueKey: hash(JSON.stringify([check, severity, message, sectionIds, sourceRevisionIds])),
+        check,
+        severity,
+        message,
+        sectionIds,
+        sourceRevisionIds,
+      });
+    };
+
+    // source_integrity：正文/来源集 hash、来源身份与 hash、摘录位置与 excerpt。
+    if (sha256Utf8(revision.content.markdown) !== revision.contentHash)
+      add("source_integrity", "block", "知识正文与 contentHash 不一致");
+    if (sha256Utf8(wikiSourceSetPayload(revision.content.sourceRefs)) !== revision.sourceSetHash)
+      add("source_integrity", "block", "来源集与 sourceSetHash 不一致");
+    const sources = new Map<string, WikiSourceRevision>();
     for (const ref of revision.content.sourceRefs) {
       const source = this.readSourceRevision(ref.sourceRevisionId);
+      if (!source) {
+        add("source_integrity", "block", "引用来源版本不存在", [], [ref.sourceRevisionId]);
+        continue;
+      }
+      sources.set(source.sourceRevisionId, source);
       if (
-        !source ||
         source.workspaceId !== revision.workspaceId ||
         source.sourceId !== ref.sourceId ||
         source.version !== ref.sourceVersion ||
         source.artifactHash !== ref.artifactHash
       )
-        return "blocked";
-      if (sha256Utf8(source.sourceText) !== source.artifactHash) return "blocked";
-      if (!validTextLocation(source.sourceText, ref.location)) return "blocked";
-      if (
+        add("source_integrity", "block", "来源身份或 hash 与引用不一致", [], [
+          ref.sourceRevisionId,
+        ]);
+      if (sha256Utf8(source.sourceText) !== source.artifactHash)
+        add("source_integrity", "block", "来源原文与 artifactHash 不一致", [], [
+          ref.sourceRevisionId,
+        ]);
+      if (!validTextLocation(source.sourceText, ref.location))
+        add("source_integrity", "block", "来源摘录位置越界", [], [ref.sourceRevisionId]);
+      else if (
         sha256Utf8(source.sourceText.slice(ref.location.start, ref.location.end)) !==
         ref.excerptHash
       )
-        return "blocked";
+        add("source_integrity", "block", "来源摘录与 excerptHash 不一致", [], [
+          ref.sourceRevisionId,
+        ]);
+    }
+
+    // section_references：段落引用不能悬空，来源引用不能无段落使用。
+    const refIds = new Set(revision.content.sourceRefs.map((r) => r.referenceId));
+    const usedIds = new Set(revision.content.sections.flatMap((s) => s.sourceReferenceIds));
+    for (const section of revision.content.sections)
+      for (const id of section.sourceReferenceIds)
+        if (!refIds.has(id))
+          add("section_references", "block", "段落引用不存在的来源", [section.sectionId]);
+    for (const ref of revision.content.sourceRefs)
+      if (!usedIds.has(ref.referenceId))
+        add("section_references", "block", "来源引用未被任何段落使用", [], [
+          ref.sourceRevisionId,
+        ]);
+
+    // relations：关联指向的版本必须真实存在且属于同一文档/工作区。
+    for (const relation of revision.content.relations) {
+      const target = this.readWikiRevision(relation.revisionId);
+      if (
+        !target ||
+        target.documentId !== relation.documentId ||
+        target.workspaceId !== revision.workspaceId
+      )
+        add("relations", "block", "关联指向不存在的知识版本");
+    }
+
+    // scope_validity：知识与来源的有效期须确认且当前适用。
+    if (!validityAllows(revision.content.validity, checkedAt))
+      add("scope_validity", "block", `知识有效期不适用：${validityIneligibility(revision.content.validity, checkedAt)}`);
+    for (const [sourceRevisionId, source] of sources)
+      if (!validityAllows(source.validity, checkedAt))
+        add(
+          "scope_validity",
+          "block",
+          `来源有效期不适用：${validityIneligibility(source.validity, checkedAt)}`,
+          [],
+          [sourceRevisionId],
+        );
+
+    // source_updates：来源不得已被新版本替代或撤回。
+    for (const [sourceRevisionId, source] of sources) {
+      if (this.hasNewerSourceVersion(revision.workspaceId, source.sourceId, source.version))
+        add("source_updates", "block", "来源已有新版本，引用已过期", [], [sourceRevisionId]);
+      const row = this.db
+        .prepare("SELECT state FROM knowledge_source WHERE source_revision_id=?")
+        .get(sourceRevisionId) as { state: string } | undefined;
+      if (row && row.state !== "active")
+        add("source_updates", "block", "来源已撤回", [], [sourceRevisionId]);
+    }
+
+    // duplicates_conflicts：有效期冲突等重复/冲突事实。
+    if (revision.content.validity.status === "conflict")
+      add("duplicates_conflicts", "block", "知识有效期处于冲突状态");
+
+    // orphans：规则不得绑定不存在的段落。
+    for (const rule of revision.content.rules)
+      if (!revision.content.sections.some((s) => s.sectionId === rule.sectionId))
+        add("orphans", "block", "规则绑定不存在的段落", [rule.sectionId]);
+
+    const coverage = checks.map((check) => ({
+      check,
+      status: issues.some((issue) => issue.check === check) ? ("issues" as const) : ("passed" as const),
+    })) as KnowledgeLintReport["coverage"];
+    const outcome: WikiLintReceipt["outcome"] = issues.some((i) => i.severity === "block")
+      ? "blocked"
+      : "passed";
+    const receipt: WikiLintReceipt = {
+      receiptId: randomUUID(),
+      workspaceId,
+      revisionId: revision.revisionId,
+      contentHash: revision.contentHash,
+      sourceSetHash: revision.sourceSetHash,
+      checkedAt,
+      policyVersion: "knowledge-maintenance-v1",
+      outcome,
+    };
+    return {
+      reportId: receipt.receiptId,
+      receipt,
+      status: "completed",
+      coverage,
+      issues,
+      error: null,
+    };
+  }
+
+  /** 审核/发布提交边界前的来源资格复核：任一引用来源已撤回、过期或被新版本
+   *  替代即返回失败；否则返回 null（表示可继续）。 */
+  private sourceRevalidationFailure(revision: WikiRevision, checkedAt: string): WikiResult | null {
+    for (const ref of revision.content.sourceRefs) {
+      const source = this.readSourceRevision(ref.sourceRevisionId);
+      if (!source) return failure("SOURCE_CONFLICT", "引用来源版本不存在，不能继续");
       const row = this.db
         .prepare("SELECT state FROM knowledge_source WHERE source_revision_id=?")
         .get(ref.sourceRevisionId) as { state: string } | undefined;
-      if (row?.state !== "active") return "blocked";
+      if (!row || row.state !== "active")
+        return failure("SOURCE_CONFLICT", "引用来源已撤回，不能继续");
+      if (!validityAllows(source.validity, checkedAt))
+        return failure("SOURCE_CONFLICT", "引用来源已失效，不能继续");
+      if (this.hasNewerSourceVersion(revision.workspaceId, source.sourceId, source.version))
+        return failure("SOURCE_CONFLICT", "引用来源已有新版本，不能继续");
     }
-    return "passed";
+    return null;
   }
 
   review(input: unknown, context: WikiHostContext, idempotencyKey: string): WikiResult {
     const parsed = WikiReviewInputSchema.parse(input);
     return this.db
       .transaction(() => {
-        const requestHash = hash(
-          JSON.stringify({ method: "wiki.review", payload: parsed, context }),
-        );
+        const requestHash = requestFingerprint("wiki.review", parsed, context);
         const prior = this.replay(idempotencyKey, requestHash);
         if (prior === "conflict")
           return failure("IDEMPOTENCY_CONFLICT", "同一操作标识不能用于不同内容");
@@ -541,12 +689,25 @@ export class SqliteWikiStore {
           parsed.sourceSetHash !== revision.sourceSetHash
         )
           return failure("MISSING_FACTS", "审核绑定与知识版本 hash 不一致");
-        const lintReceipt = this.readLintReceipt(parsed.lintReceiptId);
-        if (!lintReceipt) return failure("NOT_FOUND", "lint 回执不存在");
+        const lintReport = this.readLintReport(parsed.lintReceiptId);
+        if (!lintReport) return failure("NOT_FOUND", "lint 报告不存在");
+        if (
+          !KnowledgeLintReviewInputExchangeSchema.safeParse({
+            report: lintReport,
+            input: parsed,
+            context,
+          }).success
+        )
+          return failure("MISSING_FACTS", "审核须在当前工作区绑定已存lint报告");
+        // 提交边界复核：批准前来源不得已被更新、到期或撤回。
+        if (parsed.decision === "approve") {
+          const ineligible = this.sourceRevalidationFailure(revision, context.now);
+          if (ineligible) return ineligible;
+        }
         const decision: WikiReviewDecision = {
           ...parsed,
           workspaceId,
-          lintReceipt,
+          lintReceipt: lintReport.receipt,
           reviewId: randomUUID(),
           actorId: context.actorId,
           decidedAt: context.now,
@@ -557,6 +718,13 @@ export class SqliteWikiStore {
             "MISSING_FACTS",
             "审核须绑定同工作区/版本/hash的已存lint事实，批准必须通过",
           );
+        if (
+          !KnowledgeLintReviewExchangeSchema.safeParse({
+            report: lintReport,
+            review: parsedDecision.data,
+          }).success
+        )
+          return failure("MISSING_FACTS", "审核须使用已存报告的完整回执");
         const newLifecycle: WikiLifecycle = {
           revisionId: parsed.revisionId,
           lifecycleVersion: parsed.expectedLifecycleVersion + 1,
@@ -597,9 +765,7 @@ export class SqliteWikiStore {
     const parsed = publishInputSchema.parse(input);
     return this.db
       .transaction(() => {
-        const requestHash = hash(
-          JSON.stringify({ method: "wiki.publish", payload: parsed, context }),
-        );
+        const requestHash = requestFingerprint("wiki.publish", parsed, context);
         const prior = this.replay(idempotencyKey, requestHash);
         if (prior === "conflict")
           return failure("IDEMPOTENCY_CONFLICT", "同一操作标识不能用于不同内容");
@@ -629,6 +795,9 @@ export class SqliteWikiStore {
           return failure("MISSING_FACTS", "发布引用的 reviewId 与已存审核不一致");
         if (Date.parse(context.now) < Date.parse(review.decidedAt))
           return failure("MISSING_FACTS", "发布时间不得早于审核时间");
+        // 提交边界复核：发布前来源不得已被更新、到期或撤回。
+        const ineligible = this.sourceRevalidationFailure(revision, context.now);
+        if (ineligible) return ineligible;
         const publication: WikiPublicationEvent = {
           eventId: randomUUID(),
           revisionId: parsed.revisionId,
@@ -677,9 +846,7 @@ export class SqliteWikiStore {
     const parsed = withdrawInputSchema.parse(input);
     return this.db
       .transaction(() => {
-        const requestHash = hash(
-          JSON.stringify({ method: "wiki.withdraw", payload: parsed, context }),
-        );
+        const requestHash = requestFingerprint("wiki.withdraw", parsed, context);
         const prior = this.replay(idempotencyKey, requestHash);
         if (prior === "conflict")
           return failure("IDEMPOTENCY_CONFLICT", "同一操作标识不能用于不同内容");
@@ -983,9 +1150,7 @@ export class SqliteWikiStore {
     const parsed = WikiConsumptionInputSchema.parse(input);
     return this.db
       .transaction(() => {
-        const requestHash = hash(
-          JSON.stringify({ method: "wiki.registerConsumption", payload: parsed, context }),
-        );
+        const requestHash = requestFingerprint("wiki.registerConsumption", parsed, context);
         const prior = this.replay(idempotencyKey, requestHash);
         if (prior === "conflict")
           return failure("IDEMPOTENCY_CONFLICT", "同一操作标识不能用于不同内容");
