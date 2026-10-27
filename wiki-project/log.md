@@ -1097,3 +1097,8 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 - 以 C 固定材料 7e6b485（分支 codex/c-a01e-p1-intake，暂不合入）为基线，A 在 codex/a01e-p1-fixes 修正独立 P1 验收 1 正常控制/7 失败样本的四类阻断：完整 lint 报告按 B 契约 KnowledgeLintReportSchema 落库并绑定审核、同键重放指纹排除宿主 now/requestId、审核/发布提交前事务内重新核验来源资格、失格来源 lint 产出 block issue 不再静默 passed。迁移谱系 knowledge-wiki:8 与 DDL 不变，无新谱系。
 - 测试：wiki-store.test.ts 新增 A-W09-4～A-W09-7（报告落库/审核绑定、同键重放、发布前来源三种变化、失格来源 lint），14/14；C 独立 P1 探针 8/8 转绿（原 1/7）。`pnpm typecheck` 退出 0。
 - 本机经 ELECTRON_RUN_AS_NODE=1 走 Electron 内嵌 Node（系统 Node v24.14.1 与仓库 engines 22.22.0 不一致，如实标注）。B 对固定实现的契约/语义复核、C 原脚本复验与桌面接线、人工审核发布/业务验收仍待完成；本轮分支未推送/合入、未代签。
+
+
+## 2026-10-27 A01e P1 修正普通推送回执
+
+2026-10-27 用户授权普通推送，A 已 `git push --set-upstream origin HEAD:refs/heads/codex/a01e-p1-fixes`（退出 0），`git ls-remote` 回读 369ca3a7284dc8bfc2e0163c36adb78d8fb81881 完整 SHA 一致，未合入。固定修正提交即 369ca3a（四类 P1 阻断、本机验证命令/退出码、同步 Wiki 见上一节与 [[A01c检索引用实现]]）；B 契约/语义复核、C 原脚本复验与桌面接线、实际人员审核/发布/撤回/业务语义签认仍待。本条为回执 docs-only 提交，位于 369ca3a 之上，不与固定修正 SHA 混用。
