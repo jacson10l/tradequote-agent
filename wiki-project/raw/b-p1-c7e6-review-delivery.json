@@ -1,0 +1,92 @@
+{
+  "status": "passed",
+  "scope": "ordinary push/readback of B fixed P1 review materials; not implementation acceptance",
+  "materialSha": "69d8ba13acd045365cc6626a3d7202e7c59314fc",
+  "testedCodeSha": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+  "branch": "codex/b-p1-contract-semantics",
+  "checks": [
+    {
+      "argv": [
+        "git",
+        "push",
+        "-u",
+        "origin",
+        "codex/b-p1-contract-semantics"
+      ],
+      "exitCode": 0,
+      "result": "new remote branch created, upstream configured"
+    },
+    {
+      "argv": [
+        "git",
+        "ls-remote",
+        "--heads",
+        "origin",
+        "refs/heads/codex/b-p1-contract-semantics"
+      ],
+      "exitCode": 0,
+      "stdout": "69d8ba13acd045365cc6626a3d7202e7c59314fc\trefs/heads/codex/b-p1-contract-semantics",
+      "fullShaMatches": true
+    },
+    {
+      "argv": [
+        "git",
+        "status",
+        "--porcelain"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "clean": true
+    },
+    {
+      "name": "wiki generate",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 254,\n  \"lines\": 68066,\n  \"generated\": 5,\n  \"excluded\": 11\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki readonly",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 254,\n  \"lines\": 68066,\n  \"generated\": 5,\n  \"excluded\": 11\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki lint",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 254,\n  \"semantic\": 226,\n  \"reachable\": 254\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki sync",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "7e6b485c15ba7c4ec30d6495df0a58cd2088207e"
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"7e6b485c15ba7c4ec30d6495df0a58cd2088207e\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    }
+  ],
+  "forcePush": false,
+  "merged": false,
+  "note": "This receipt is a later documentation commit. Final branch HEAD is read back after ordinary push and returned in the handoff; material SHA and tested code SHA are intentionally distinct."
+}

@@ -80,3 +80,8 @@ A仍负责实现及旧数据兼容/真实report端口，B收到A新固定SHA后�
 ## 本轮最终文档门禁与历史保持
 
 Node22下pnpm check退出0（工程5通过/1 macOS专用跳过），机械生成/只读check/lint及固定7e6b485c15ba7c4ec30d6495df0a58cd2088207e同步、diff检查均退出0；本轮应用源码/映射/维护工具零差异。314份既有非生成raw逐个Git blob一致，旧log前207056字节原样保留。补充取舍见[[0030-P1报告来源资格与重放边界]]（draft，B技术确认不代人员签认）。未运行build/全量/维护回归：本轮无对应工具或应用改动；原109/8环境结果及P1/B产品红例不改。以上门禁只完成B固定复核材料，不代表A四类修正或C独立复验完成。
+
+
+## 固定材料普通推送
+
+B材料69d8ba13acd045365cc6626a3d7202e7c59314fc已普通推送origin/codex/b-p1-contract-semantics，push与ls-remote均退出0、完整SHA一致，推送后工作树干净，未强推、未合入。固定材料包含本页、任务、ADR和完整raw脚本/输出，C可读取，不再依赖D:/路径。本节及raw/b-p1-c7e6-review-delivery.json是后续文档回执；实际应用复核仍7e6b485c15ba7c4ec30d6495df0a58cd2088207e，材料与最终文档HEAD分列。产品结论changes_required，A四类新修正/B后续复核/C独立复验与人员业务验收均未因此关闭。

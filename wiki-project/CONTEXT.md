@@ -1,5 +1,7 @@
 # 当前上下文
 
+2026-10-27 B固定P1复核材料69d8ba13acd045365cc6626a3d7202e7c59314fc已普通推送origin/codex/b-p1-contract-semantics，远端完整SHA一致；后续文档回执另存，不改实际复核代码7e6。详见[[B对C7e6固定P1修正边界复核]]及raw/b-p1-c7e6-review-delivery.json。原C七失败/B补五失败保持，A修实现后B复核、C独立复验与实际人员业务验收仍待，未合入。
+
 2026-10-27 B在C固定7e6b485c15ba7c4ec30d6495df0a58cd2088207e原样复跑P1：1控制通过/7产品失败，补15例10通过/5失败（审核前来源更新/到期/撤回，publish/withdraw晚钟重放），仍changes_required；原B两资格修正2/2保持关闭。B明确现有完整报告/两Exchange契约、已证实失格block与未完成unknown、身份绑定/首次重放、事务内来源资格及旧事实兼容；不改A实现。Windows八文件109通过/8 Worker因symlink EPERM未执行，typecheck通过，不能套用C macOS117。详见[[B对C7e6固定P1修正边界复核]]、[[B03-C固定P1修正边界复核]]与raw/b-p1-c7e6-review-validation.json。A交新固定修正后B再复核、C独立复验和桌面；完整矩阵/macOS/人员/业务验收仍待，旧五项/Y10/A-W08技术接收保持。
 
 2026-10-27 C已取得A e7a9439（含b05a049）和B e5f6b1a固定推送，从739961a在独立codex/c-a01e-p1-intake组合。原B两项引用资格修正2/2通过，最终聚焦117/117、含build实际Electron11/11及A新十能力探针通过；修正B7夹具误吸入未来A8并保留原失败。但新增P1验收1控制通过/7产品失败：完整报告缺失、review同键随宿主now冲突、发布前来源变化不拒绝、失格来源lint静默passed。详见[[Ae7a9439接收与P1接线阻断复核]]、[[C集成-A01e真实lint与审核接收]]；changes_required，WIP不合入，新Wiki入口仍门禁。A修固定实现、B复核后C再接，人员业务验收不代签。

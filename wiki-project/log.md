@@ -1099,3 +1099,5 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 独立分支只增Wiki及完整可恢复脚本raw，保留C原八例/config原字节。补例三方法两晚写点6/6回滚/重试通过，身份/输入变化3/3拒绝、旧review重放1/1；审核前来源失格3例及发布/撤回晚钟2例失败。原生重建两次因Python/VS环境失败均保留，最终实际加载锁定SQLite prebuild成功，不改依赖或测试断言。工程/Wiki最终检查、旧raw/log前缀与应用零差异核对在交付前补记。未强推、未合入，真实人员与新A实现接收仍待。
 
 本轮最终门禁：工程5通过/1 macOS专用跳过、生成/只读check/lint/固定7e6同步/diff均退出0，314旧raw和207056字节旧log前缀保持。新增[[0030-P1报告来源资格与重放边界]]为B技术政策draft，无应用/维护工具/映射变化，不运行build/全量/维护回归；已知产品红例保留，A/B/C后续及人员/业务仍待。
+
+2026-10-27 B材料69d8ba13acd045365cc6626a3d7202e7c59314fc普通推送origin/codex/b-p1-contract-semantics、远端回读退出0且完整SHA一致，工作树干净。回执另存raw/b-p1-c7e6-review-delivery.json；本轮仅复核证据与Wiki，实际应用7e6未改，未强推/合入/开启入口，A/C及人员业务剩余保持。
