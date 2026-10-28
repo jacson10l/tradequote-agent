@@ -1105,3 +1105,12 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 - 真实7e6旧库生成1/1并关闭，369重开后五成功键冲突、旧lint返回undefined；两个不同悬空关联的issueKey重复使报告schema失败。unknown候选completed/blocked与B后补政策不符，用户明确未转给A，单列边界。新增九例最终1/8；首次控制read误带写信封0/9已修正保留，不删产品断言。
 - pnpm check实际退出1（A两个改动文件格式），后续&&未执行；A基线sync及diff通过。第一次另一组八文件98通过单列，不与正确121相加。raw/c-a01e-fixes-review-validation.json保存完整命令、原脚本、旧库生成器/合成facts及两次额外探针。
 - 同步[[A369ca3修正独立复验与旧事实兼容]]、[[C集成-A01e真实lint与审核接收]]、原接收页、上下文/状态/索引；文档生成/check/lint与真实369基线sync结果另存raw/c-a01e-fixes-docs-validation.json。整体仍changes_required，未推送/合入/代签，未开放新入口，未执行完整矩阵/桌面新回归。
+
+
+## 2026-10-28 B固定A369旧事实与未知语义复核
+
+2026-10-28 B在固定C1f74e4a（实际应用369ca3a7284dc8bfc2e0163c36adb78d8fb81881）复跑原C8/8、B15/15、来源2/2全部通过，原七红例已关闭；新C九例仍1通过/8失败。B新增真实旧消费成功键重开反例，registerConsumption也返回IDEMPOTENCY_CONFLICT（另2控制通过）；unknown来源/未知知识叠加来源到期补例2失败，已知到期控制通过。七文件113/113和typecheck通过，pnpm check因A两文件格式失败。B本轮不改A代码或schema，明确unknown/partial与兼容/公共端口接收要求，A接收确认待，不宣称已对齐或新实现已获批准。详见[[B对A369旧事实与未知语义复核]]、[[B04-旧事实与报告端口复核]]及raw/b-p1-369-legacy-review.json。
+
+本轮保留C原脚本/config字节，新增真实旧消费库经人工知识服务与报价保存后登记，再撤回/关闭/重开，第六键冲突不再仅静态推测。旧历史/身份控制通过，未知政策与已知block分列；纯Wiki/探针原始材料WIP，无应用/格式/维护工具改动，不标done不合入。316旧raw及209463字节log前缀保持，独立Wiki检查在完成后补记。
+
+最终独立Wiki生成/check/lint/1f74固定基线sync/diff退出0，316旧raw与209463字节旧log前缀保持。pnpm check格式失败及全部红例不删除，A确认/新实现/C复验仍待；本轮是B复核WIP，未合入。

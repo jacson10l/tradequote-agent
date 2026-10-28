@@ -2,7 +2,7 @@
 title: B-P1回执与来源消费复核
 type: interface
 status: observed
-updated: 2026-10-26
+updated: 2026-10-28
 sources:
   - packages/contracts/src/knowledge-maintenance.ts:42
   - packages/contracts/src/knowledge-maintenance.ts:93
@@ -71,3 +71,10 @@ node -e "const {createRequire}=require('node:module');const {resolve}=require('n
 ## 最终本机证据
 
 最终作者测试代码固定e4649ca5e3f1cdb3a65c2baec6b44da3f82d8e5f；七文件104/104、typecheck、build、pnpm check均退出0（工程5通过/1 macOS专用跳过）。Wiki生成252文件、只读check、lint（247页/219语义页）、固定c6f6788d3e75f3ac9de02d95306222fb5509ca71同步（2测试源码/8知识页/1任务）及diff退出0。A公开资格反例仍0/2、退出1，两个有效控制通过，无运行器错误；完整脚本/config及hash/结构化观察已保存。303份旧非生成raw原字节及原log前缀保持，所有生产契约/存储文件未变。未运行完整单元、维护回归、C739桌面或macOS联合，理由与范围在新JSON中明确。整体review=changes_required，不标done或发布就绪。
+
+
+## 2026-10-28 A369后当前复核
+
+2026-10-28 B在固定C1f74e4a（实际应用369ca3a7284dc8bfc2e0163c36adb78d8fb81881）复跑原C8/8、B15/15、来源2/2全部通过，原七红例已关闭；新C九例仍1通过/8失败。B新增真实旧消费成功键重开反例，registerConsumption也返回IDEMPOTENCY_CONFLICT（另2控制通过）；unknown来源/未知知识叠加来源到期补例2失败，已知到期控制通过。七文件113/113和typecheck通过，pnpm check因A两文件格式失败。B本轮不改A代码或schema，明确unknown/partial与兼容/公共端口接收要求，A接收确认待，不宣称已对齐或新实现已获批准。详见[[B对A369旧事实与未知语义复核]]、[[B04-旧事实与报告端口复核]]及raw/b-p1-369-legacy-review.json。
+
+原七例在369已绿，原资格两例也关闭，旧记录保留为其固定版本历史。当前来源unknown/未运行须partial/unknown，已证实block仍保留；两者混合也partial/unknown且不可approve。此细化此前未转达A，本次固定书面口径等待A接收确认，不能写A已同意。旧键含registerConsumption六类兼容、receipt-only与完整报告区分、问题稳定唯一及写前校验、KnowledgeMaintenanceService的wiki.lint/getLintReport公开端口仍待A固定实现。
