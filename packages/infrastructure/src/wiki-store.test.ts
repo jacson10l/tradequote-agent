@@ -870,13 +870,18 @@ it("A-W09-6: 发布前来源更新/到期/撤回被拒，不写发布/事件/成
           const row = db
             .prepare("SELECT data_json FROM knowledge_source WHERE source_revision_id=?")
             .get(source.sourceRevisionId) as { data_json: string };
-          const sourceJson = JSON.parse(row.data_json) as { validity: { validUntil: string | null } };
+          const sourceJson = JSON.parse(row.data_json) as {
+            validity: { validUntil: string | null };
+          };
           sourceJson.validity = { ...sourceJson.validity, validUntil: "2026-10-21T00:00:00.000Z" };
-          db.prepare("UPDATE knowledge_source SET data_json=? WHERE source_revision_id=?")
-            .run(JSON.stringify(sourceJson), source.sourceRevisionId);
+          db.prepare("UPDATE knowledge_source SET data_json=? WHERE source_revision_id=?").run(
+            JSON.stringify(sourceJson),
+            source.sourceRevisionId,
+          );
         } else {
-          db.prepare("UPDATE knowledge_source SET state='withdrawn' WHERE source_revision_id=?")
-            .run(source.sourceRevisionId);
+          db.prepare(
+            "UPDATE knowledge_source SET state='withdrawn' WHERE source_revision_id=?",
+          ).run(source.sourceRevisionId);
         }
       } finally {
         db.close();
@@ -932,8 +937,10 @@ it("A-W09-7: 失格来源（到期/被替代）lint 不返回 passed 并记录�
           .get(source.sourceRevisionId) as { data_json: string };
         const sourceJson = JSON.parse(row.data_json) as { validity: { validUntil: string | null } };
         sourceJson.validity = { ...sourceJson.validity, validUntil: "2026-10-21T00:00:00.000Z" };
-        db.prepare("UPDATE knowledge_source SET data_json=? WHERE source_revision_id=?")
-          .run(JSON.stringify(sourceJson), source.sourceRevisionId);
+        db.prepare("UPDATE knowledge_source SET data_json=? WHERE source_revision_id=?").run(
+          JSON.stringify(sourceJson),
+          source.sourceRevisionId,
+        );
       } finally {
         db.close();
       }
@@ -955,4 +962,193 @@ it("A-W09-7: 失格来源（到期/被替代）lint 不返回 passed 并记录�
     }
     repo.close();
   }
+});
+
+// -- P1 修正回归（S1 旧键 / S2 旧回执 / S3 问题身份 / S4 公共端口 / S5 unknown） --
+
+const legacyFingerprint = (method: string, payload: unknown, context: WikiHostContext) =>
+  sha(JSON.stringify({ method, payload, context }));
+
+const reportOf = (result: unknown) =>
+  (
+    result as {
+      ok: true;
+      data: { kind: "lintReport"; report: unknown };
+    }
+  ).data.report;
+
+it("A-W09-8: 旧幂等键（7e6 全 context 指纹）重开重放，业务输入变化仍冲突", async () => {
+  const file = join(temp(), "wiki-legacy-idem.sqlite");
+  const { repo, workspaceId } = openRepo(file);
+  const sourcePayload = {
+    sourceId: randomUUID(),
+    expectedVersion: 0,
+    label: "合成原文",
+    sourceStatus: "synthetic",
+    mediaType: "text/plain",
+    sourceText: "合成原文A",
+    acquiredAt: NOW,
+    sourceUri: null,
+    permissionNote: "合成 fixture，非真实政策",
+    validity: VALIDITY,
+  };
+  const cmd = write("source.stage", sourcePayload);
+  const first = await repo.executeWiki(cmd, host(workspaceId));
+  expect(first.ok).toBe(true);
+
+  // 把已存新指纹改写为 7e6 旧指纹（method/payload/完整 context 含 now）。
+  const db = new Database(file);
+  try {
+    db.prepare("UPDATE idempotency SET request_hash=? WHERE key=?").run(
+      legacyFingerprint("source.stage", sourcePayload, host(workspaceId)),
+      cmd.idempotencyKey,
+    );
+  } finally {
+    db.close();
+  }
+  repo.close();
+
+  // 重开：同键/同业务输入/同身份与时钟须重放首次结果与时间。
+  const reopened = new SqliteWorkspaceRepository(file);
+  const replay = await reopened.executeWiki({ ...cmd, requestId: randomUUID() }, host(workspaceId));
+  expect(replay).toEqual(first);
+  // 业务输入变化仍拒绝。
+  const changed = await reopened.executeWiki(
+    { ...cmd, requestId: randomUUID(), payload: { ...sourcePayload, sourceText: "不同内容" } },
+    host(workspaceId),
+  );
+  expect(changed).toMatchObject({ ok: false, error: { code: "IDEMPOTENCY_CONFLICT" } });
+  reopened.close();
+});
+
+it("A-W09-9: 旧 receipt-only lint 行同版本/hash/checkedAt 重试原样重放", async () => {
+  const file = join(temp(), "wiki-legacy-receipt.sqlite");
+  const { repo, workspaceId } = openRepo(file);
+  const { revision } = await seedCandidate(repo, workspaceId);
+  const receipt = repo.runWikiLint(revision.revisionId, host(workspaceId))!;
+  expect(receipt.outcome).toBe("passed");
+
+  // 把完整报告改写为 7e6 的 receipt-only（data_json 只有回执本身）。
+  // knowledge_lint 不可变，临时摘除 UPDATE 触发器以模拟旧库落盘形态。
+  const db = new Database(file);
+  try {
+    db.prepare("DROP TRIGGER knowledge_lint_no_update").run();
+    db.prepare("UPDATE knowledge_lint SET data_json=? WHERE receipt_id=?").run(
+      JSON.stringify(receipt),
+      receipt.receiptId,
+    );
+    db.prepare(
+      "CREATE TRIGGER knowledge_lint_no_update BEFORE UPDATE ON knowledge_lint BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE_LINT'); END",
+    ).run();
+  } finally {
+    db.close();
+  }
+  repo.close();
+
+  // 重开：同版本/hash/checkedAt 重试须原样返回旧回执，不返回 undefined。
+  const reopened = new SqliteWorkspaceRepository(file);
+  expect(reopened.runWikiLint(revision.revisionId, host(workspaceId))).toEqual(receipt);
+  reopened.close();
+});
+
+it("A-W09-10: 两个不同悬空关联生成不同 issueKey，落库报告通过 schema", async () => {
+  const file = join(temp(), "wiki-relations.sqlite");
+  const { repo, workspaceId } = openRepo(file);
+  const { revision } = await seedCandidate(repo, workspaceId);
+
+  // 给不可变知识版本注入两个不同的悬空关联（不影响 contentHash/sourceSetHash）。
+  const db = new Database(file);
+  try {
+    const row = db
+      .prepare("SELECT data_json FROM knowledge_wiki WHERE revision_id=?")
+      .get(revision.revisionId) as { data_json: string };
+    const stored = JSON.parse(row.data_json) as WikiRevision;
+    stored.content.relations = [
+      { kind: "related", documentId: randomUUID(), revisionId: randomUUID() },
+      { kind: "related", documentId: randomUUID(), revisionId: randomUUID() },
+    ];
+    // knowledge_wiki 不可变，临时摘除 UPDATE 触发器以注入悬空关联。
+    db.prepare("DROP TRIGGER knowledge_wiki_no_update").run();
+    db.prepare("UPDATE knowledge_wiki SET data_json=? WHERE revision_id=?").run(
+      JSON.stringify(stored),
+      revision.revisionId,
+    );
+    db.prepare(
+      "CREATE TRIGGER knowledge_wiki_no_update BEFORE UPDATE ON knowledge_wiki BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE_WIKI'); END",
+    ).run();
+  } finally {
+    db.close();
+  }
+
+  const receipt = repo.runWikiLint(revision.revisionId, host(workspaceId))!;
+  const db2 = new Database(file);
+  try {
+    const row = db2
+      .prepare("SELECT data_json FROM knowledge_lint WHERE receipt_id=?")
+      .get(receipt.receiptId) as { data_json: string };
+    const report = KnowledgeLintReportSchema.parse(JSON.parse(row.data_json));
+    const relationIssues = report.issues.filter((i) => i.check === "relations");
+    expect(relationIssues).toHaveLength(2);
+    expect(new Set(relationIssues.map((i) => i.issueKey)).size).toBe(2);
+  } finally {
+    db2.close();
+  }
+  repo.close();
+});
+
+it("A-W09-11: 公共 wiki.lint / wiki.getLintReport 端口生成并重开回读完整报告", async () => {
+  const file = join(temp(), "wiki-maintenance-port.sqlite");
+  const { repo, workspaceId } = openRepo(file);
+  const { revision } = await seedCandidate(repo, workspaceId);
+  const binding = {
+    revisionId: revision.revisionId,
+    contentHash: revision.contentHash,
+    sourceSetHash: revision.sourceSetHash,
+  };
+
+  const linted = await repo.executeWikiMaintenance(
+    write("wiki.lint", { ...binding, expectedLifecycleVersion: 1 }),
+    host(workspaceId),
+  );
+  expect(linted.ok).toBe(true);
+  const report = KnowledgeLintReportSchema.parse(reportOf(linted));
+  expect(report.reportId).toBe(report.receipt.receiptId);
+  expect(report.receipt.revisionId).toBe(revision.revisionId);
+  expect(report.status).toBe("completed");
+  repo.close();
+
+  // 重开按 reportId 回读同一份完整报告。
+  const reopened = new SqliteWorkspaceRepository(file);
+  const got = await reopened.executeWikiMaintenance(
+    read("wiki.getLintReport", { reportId: report.reportId }),
+    host(workspaceId),
+  );
+  expect(got).toEqual(linted);
+  reopened.close();
+});
+
+it("A-W09-12: 未知有效期如实 partial/unknown，不误判为 block", async () => {
+  const file = join(temp(), "wiki-unknown-validity.sqlite");
+  const { repo, workspaceId } = openRepo(file);
+  const { revision } = await seedCandidate(repo, workspaceId, {
+    validity: { status: "unknown", validFrom: null, validUntil: null },
+  });
+  const receipt = repo.runWikiLint(revision.revisionId, host(workspaceId))!;
+  expect(receipt.outcome).toBe("unknown");
+
+  const db = new Database(file);
+  try {
+    const row = db
+      .prepare("SELECT data_json FROM knowledge_lint WHERE receipt_id=?")
+      .get(receipt.receiptId) as { data_json: string };
+    const report = KnowledgeLintReportSchema.parse(JSON.parse(row.data_json));
+    expect(report.status).toBe("partial");
+    expect(report.receipt.outcome).toBe("unknown");
+    const scopeIssue = report.issues.find((i) => i.check === "scope_validity");
+    expect(scopeIssue?.severity).toBe("unknown");
+    expect(report.coverage.find((c) => c.check === "scope_validity")?.status).toBe("unknown");
+  } finally {
+    db.close();
+  }
+  repo.close();
 });

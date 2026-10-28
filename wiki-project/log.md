@@ -1102,3 +1102,12 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 ## 2026-10-27 A01e P1 修正普通推送回执
 
 2026-10-27 用户授权普通推送，A 已 `git push --set-upstream origin HEAD:refs/heads/codex/a01e-p1-fixes`（退出 0），`git ls-remote` 回读 369ca3a7284dc8bfc2e0163c36adb78d8fb81881 完整 SHA 一致，未合入。固定修正提交即 369ca3a（四类 P1 阻断、本机验证命令/退出码、同步 Wiki 见上一节与 [[A01c检索引用实现]]）；B 契约/语义复核、C 原脚本复验与桌面接线、实际人员审核/发布/撤回/业务语义签认仍待。本条为回执 docs-only 提交，位于 369ca3a 之上，不与固定修正 SHA 混用。
+
+
+## 2026-10-28 A01e P1 二轮九例修正（S1～S5，基线 1f74e4a）
+
+- 以 C 新固定材料 1f74e4a（分支 codex/c-a01e-fixes-review）为基线，A 在 codex/a01e-p1-fixes（HEAD 1c7158e，暂不合入）修正二轮独立 P1 验收 1 正常控制/8 失败的九例：S1 旧成功键双指纹兼容（source.stage/wiki.stage/review/publish/withdraw 五类旧键同身份/业务输入重放返回首次结果/ID/时间，不重复写、不删旧键）；S2 旧 receipt-only 兼容（旧回执可读可重放，新审核/发布重跑生成并落完整报告）；S3 报告问题身份唯一（多悬空关联 issueKey 去重，持久化前 `KnowledgeLintReportSchema` 完整校验，失败回滚不落伪成功）；S4 完整报告公共端口（createKnowledgeMaintenanceService + SqliteWikiStore.lint/getLintReport + executeWikiMaintenance，绑定真实 workspace/version/hash 与宿主权限/时间，重开回读完整报告）；S5 未知有效度派生 unknown/partial + 工程交接。
+- 迁移谱系 knowledge-wiki:8 与 DDL 不变，无新谱系；旧成功事实与旧失败证据一律不删除、不覆盖。
+- 测试：wiki-store.test.ts 新增 A-W09-8～A-W09-12 共 5 项回归（旧幂等键重放、旧 receipt 重放、多悬空关联 issueKey、公共端口重开回读、未知有效度），19/19；`pnpm typecheck` 退出 0；`node scripts/check-boundaries.mjs` 退出 0。
+- 本机 vitest 经系统 Node v24.14.1（better-sqlite3 用 Node ABI 预编译产物，系统 Node 与仓库 engines 22.22.0 不一致，如实标注）；Electron ABI 原生重建因本机无 Visual Studio 未复跑。整仓 `pnpm check`/`pnpm wiki:check` 仍受本机工作区预存在 CRLF（177 处，C 边界）与 icon.svg 漂移影响，A 的 5 个改动文件 Biome 全绿。
+- B 契约/语义复核、C 原脚本复验与桌面接线、实际人员审核/发布/撤回/业务签认仍待；本轮分支未推送/合入、未代签。详见 [[A01c检索引用实现]]。

@@ -66,4 +66,5 @@ export {
   validateCatalogRows,
 } from "./trade";
 export { createWikiService } from "./wiki";
+export { createKnowledgeMaintenanceService, type WikiMaintenanceStore } from "./wiki-maintenance";
 export { evaluateWikiQuote } from "./wiki-quote-checks";

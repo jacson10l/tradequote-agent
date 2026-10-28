@@ -13,6 +13,7 @@ import {
   WorkspaceSchema,
 } from "@tradequote/contracts";
 import {
+  createKnowledgeMaintenanceService,
   createKnowledgeService,
   createWikiService,
   transitionWorkspace,
@@ -121,6 +122,12 @@ export class SqliteWorkspaceRepository implements WorkspaceRepository {
   }
   executeWiki(command: unknown, context: WikiHostContext) {
     return createWikiService(new SqliteWikiStore(this.db)).execute(command, context);
+  }
+  executeWikiMaintenance(command: unknown, context: WikiHostContext) {
+    return createKnowledgeMaintenanceService(new SqliteWikiStore(this.db)).execute(
+      command,
+      context,
+    );
   }
   executeChecks(command: unknown, context: ExecutionContext): CheckResult | CheckListResult {
     return new CheckStore(this.db, new SqliteWikiCheckSource(this.db)).execute(command, context);

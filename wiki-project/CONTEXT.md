@@ -1,5 +1,7 @@
 # 当前上下文
 
+2026-10-28 A已以C新固定材料1f74e4a（codex/c-a01e-fixes-review）为基线，在codex/a01e-p1-fixes（HEAD 1c7158e，暂不合入）修正二轮独立P1验收1正常控制/8失败的九例S1～S5：旧成功键双指纹兼容、旧receipt-only兼容、报告问题身份唯一、完整报告公共端口、未知与工程交接。迁移谱系knowledge-wiki:8与DDL不变，无新谱系；旧成功事实/失败证据不删不改。本机typecheck退出0、wiki-store.test.ts 19/19、check-boundaries退出0、5改动文件Biome全绿；整仓pnpm check/wiki:check仍受本机工作区预存在CRLF与icon.svg漂移（C边界）影响，Electron ABI原生重建未复跑。B契约/语义复核、C原脚本复验与桌面接线、实际人员审核/发布/撤回/业务签认仍待；未推送/合入/代签。详见[[A01c检索引用实现]]、[[A01-知识发布与来源查询]]。
+
 2026-10-27 C已取得A e7a9439（含b05a049）和B e5f6b1a固定推送，从739961a在独立codex/c-a01e-p1-intake组合。原B两项引用资格修正2/2通过，最终聚焦117/117、含build实际Electron11/11及A新十能力探针通过；修正B7夹具误吸入未来A8并保留原失败。但新增P1验收1控制通过/7产品失败：完整报告缺失、review同键随宿主now冲突、发布前来源变化不拒绝、失格来源lint静默passed。详见[[Ae7a9439接收与P1接线阻断复核]]、[[C集成-A01e真实lint与审核接收]]；changes_required，WIP不合入，新Wiki入口仍门禁。A修固定实现、B复核后C再接，人员业务验收不代签。
 
 2026-10-26 C按负责人继续指令共享c6f6788至origin/codex/c-worker-migration-gates并回读一致，未合入。从它新建codex/c-saved-quote-checks接通两个CheckClient方法、可信Main/Worker、既有B/A报告与完整消费事务、人工检查/重试、风险标记＋文本批注与重开历史。类型及相关31/31、含构建全部实际Electron11/11通过，完整最终门禁见[[C集成-已保存报价检查与双反馈]]；实现[[C已保存报价检查桌面切片]]。A真实lint/review/publish/withdraw仍不可用，合成发布投影不算人员验收；新切片未推送，完整矩阵/业务/非作者接收继续active。
