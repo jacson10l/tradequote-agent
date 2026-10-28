@@ -1105,3 +1105,10 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 - 真实7e6旧库生成1/1并关闭，369重开后五成功键冲突、旧lint返回undefined；两个不同悬空关联的issueKey重复使报告schema失败。unknown候选completed/blocked与B后补政策不符，用户明确未转给A，单列边界。新增九例最终1/8；首次控制read误带写信封0/9已修正保留，不删产品断言。
 - pnpm check实际退出1（A两个改动文件格式），后续&&未执行；A基线sync及diff通过。第一次另一组八文件98通过单列，不与正确121相加。raw/c-a01e-fixes-review-validation.json保存完整命令、原脚本、旧库生成器/合成facts及两次额外探针。
 - 同步[[A369ca3修正独立复验与旧事实兼容]]、[[C集成-A01e真实lint与审核接收]]、原接收页、上下文/状态/索引；文档生成/check/lint与真实369基线sync结果另存raw/c-a01e-fixes-docs-validation.json。整体仍changes_required，未推送/合入/代签，未开放新入口，未执行完整矩阵/桌面新回归。
+
+
+## 2026-10-28 C复核材料普通推送与A/B修正要求
+
+- 用户授权1f74e4a普通推送；origin/codex/c-a01e-fixes-review完整SHA回读一致，未强推/合入，回执raw/c-a01e-fixes-push-receipt.json。
+- [[A369ca3修正独立复验与旧事实兼容]]增加直接转发A/B文本：A修S1～S4及格式/状态同步，B对齐未转达的S5并复核新固定实现；[[C集成-A01e真实lint与审核接收]]及CONTEXT/状态同步。
+- 仅文档/共享记录，应用仍369，复核材料固定1f74e4a；本轮文档门禁单存raw/c-a01e-fixes-sharing-validation.json，不重跑原应用测试，原新增1/8失败、工程格式失败保持changes_required。未向其他聊天外发、未代签实际人员验收。

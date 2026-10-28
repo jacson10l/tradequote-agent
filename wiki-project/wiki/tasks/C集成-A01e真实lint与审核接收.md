@@ -52,3 +52,8 @@ A修四类P1并交固定作者证据，B确认完整报告/审核绑定与来源
 本阶段taskBase=369ca3a7284dc8bfc2e0163c36adb78d8fb81881，独立codex/c-a01e-fixes-review，应用相对该SHA零改动；A修复基线仍7e6b485。目标为原脚本转绿及旧事实/真实报告端口门禁，范围与结果见[[A369ca3修正独立复验与旧事实兼容]]。本机macOS Node22.22.0/pnpm10.13.1、Electron44.9.2，原C8/8、B15/15、旧B2/2、原八文件117加A4例=121/121，类型/build退出0；初步另一组98通过另列。新增真实旧库重开及报告边界最终1控制通过/8失败，pnpm check因A两文件格式退出1。所有完整命令/输出及可恢复脚本存raw/c-a01e-fixes-review-validation.json。
 
 仅新增C语义复核、任务/上下文/状态/导航与追加日志，不修改A/B实现或原脚本；文档门禁另存raw/c-a01e-fixes-docs-validation.json。原七红例现已转绿，但旧键/旧回执/非法报告与完整报告公共端口仍需A，unknown细化由A/B先对齐；用户明确此前未转发B补充。保持active/changes_required，未推送/合入/跨聊天发送，完整矩阵、桌面与人员签认不声称通过。
+
+
+## 2026-10-28 普通推送与A/B修正交接
+
+按用户明确授权，固定材料1f74e4a普通推送origin/codex/c-a01e-fixes-review，完整SHA回读一致，未合入，回执raw/c-a01e-fixes-push-receipt.json。[[A369ca3修正独立复验与旧事实兼容]]增加直接转发文本：A修S1～S4、格式及P0状态同步，B先对齐此前未转达的S5政策并复核新固定实现，C原脚本复验后接线。本轮仅文档回执/共享文本，应用仍369，材料固定1f74e4a；后续文档头分列。实际generate/check/lint/1f74基线sync/diff结果存raw/c-a01e-fixes-sharing-validation.json，不重跑或覆盖产品失败；active/changes_required，人员与桌面验收待。未向A/B聊天代发。

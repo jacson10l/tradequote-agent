@@ -1,0 +1,55 @@
+{
+  "status": "passed",
+  "date": "2026-10-28",
+  "scope": "Push receipt and forwardable A/B requirements only; product and engineering failures unchanged",
+  "taskBase": "1f74e4a704f43b057ea7516758559578b7ab85b9",
+  "checks": [
+    {
+      "argv": [
+        "pnpm",
+        "wiki:generate"
+      ],
+      "startedAt": "2026-10-28T06:43:09.104228+00:00",
+      "finishedAt": "2026-10-28T06:43:09.579515+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 wiki:generate /Users/jason/.codex/worktrees/c-a01e-fixes-review/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs .\n\n{\n  \"mode\": \"generate\",\n  \"files\": 254,\n  \"lines\": 68460,\n  \"generated\": 5,\n  \"excluded\": 12\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "pnpm",
+        "wiki:check"
+      ],
+      "startedAt": "2026-10-28T06:43:09.579999+00:00",
+      "finishedAt": "2026-10-28T06:43:11.155969+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-a01e-fixes-review/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 254,\n  \"lines\": 68460,\n  \"generated\": 5,\n  \"excluded\": 12\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 252,\n  \"semantic\": 224,\n  \"reachable\": 252\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "pnpm",
+        "wiki:sync",
+        "--base",
+        "1f74e4a704f43b057ea7516758559578b7ab85b9"
+      ],
+      "startedAt": "2026-10-28T06:43:11.156639+00:00",
+      "finishedAt": "2026-10-28T06:43:11.474080+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 wiki:sync /Users/jason/.codex/worktrees/c-a01e-fixes-review/tradequote-agent\n> node wiki-project/scripts/check-wiki-sync.mjs . --base 1f74e4a704f43b057ea7516758559578b7ab85b9\n\n{\n  \"base\": \"1f74e4a704f43b057ea7516758559578b7ab85b9\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "startedAt": "2026-10-28T06:43:11.474512+00:00",
+      "finishedAt": "2026-10-28T06:43:11.492993+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}

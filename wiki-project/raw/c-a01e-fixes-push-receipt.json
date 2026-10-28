@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-28",
+  "authorization": "User requested ordinary push of1f74e4a, no merge, then forwardable A/B correction requirements",
+  "materialCommit": "1f74e4a704f43b057ea7516758559578b7ab85b9",
+  "testedApplicationCommit": "369ca3a7284dc8bfc2e0163c36adb78d8fb81881",
+  "branch": "codex/c-a01e-fixes-review",
+  "push": {
+    "argv": [
+      "git",
+      "push",
+      "origin",
+      "1f74e4a:refs/heads/codex/c-a01e-fixes-review"
+    ],
+    "exitCode": 0,
+    "result": "new branch"
+  },
+  "readback": {
+    "argv": [
+      "git",
+      "ls-remote",
+      "--heads",
+      "origin",
+      "codex/c-a01e-fixes-review"
+    ],
+    "exitCode": 0,
+    "stdout": "1f74e4a704f43b057ea7516758559578b7ab85b9\trefs/heads/codex/c-a01e-fixes-review\n"
+  },
+  "merged": false,
+  "projectStatus": "changes_required; original8/15/2 and121 pass; extra1pass8fail and engineering formatter failures remain",
+  "followup": "Documentation receipt and forwarding text only; application unchanged; no external messages or personnel signoff"
+}
