@@ -2,7 +2,7 @@
 title: C集成-A01e真实lint与审核接收
 type: task
 status: active
-updated: 2026-10-27
+updated: 2026-10-28
 sources:
   - conversation:用户转交A的b05a049与e7a9439反馈要求继续C接收
   - packages/infrastructure/src/wiki-store.ts:1
@@ -45,3 +45,10 @@ A修四类P1并交固定作者证据，B确认完整报告/审核绑定与来源
 
 
 最终工程6/6、Wiki维护36/36以及739/654fecc/be53b98三套同步均通过。一次Wiki缺两个相关语义链接的失败已补齐并保留，未改检查器；P1的7产品失败继续保持，不据此标done。完整lint报告补齐时应保留旧receipt-only历史，不把未执行的七类检查补造为passed，不覆写既有审核/发布事实。
+
+
+## 2026-10-28 固定A369独立复验
+
+本阶段taskBase=369ca3a7284dc8bfc2e0163c36adb78d8fb81881，独立codex/c-a01e-fixes-review，应用相对该SHA零改动；A修复基线仍7e6b485。目标为原脚本转绿及旧事实/真实报告端口门禁，范围与结果见[[A369ca3修正独立复验与旧事实兼容]]。本机macOS Node22.22.0/pnpm10.13.1、Electron44.9.2，原C8/8、B15/15、旧B2/2、原八文件117加A4例=121/121，类型/build退出0；初步另一组98通过另列。新增真实旧库重开及报告边界最终1控制通过/8失败，pnpm check因A两文件格式退出1。所有完整命令/输出及可恢复脚本存raw/c-a01e-fixes-review-validation.json。
+
+仅新增C语义复核、任务/上下文/状态/导航与追加日志，不修改A/B实现或原脚本；文档门禁另存raw/c-a01e-fixes-docs-validation.json。原七红例现已转绿，但旧键/旧回执/非法报告与完整报告公共端口仍需A，unknown细化由A/B先对齐；用户明确此前未转发B补充。保持active/changes_required，未推送/合入/跨聊天发送，完整矩阵、桌面与人员签认不声称通过。

@@ -1,5 +1,7 @@
 # 当前上下文
 
+2026-10-28 C已在独立codex/c-a01e-fixes-review复核固定A369ca3：原C8/B15/旧来源2及匹配八文件121均通过，类型/build通过；新增真实旧库重开/报告边界1通过8失败，pnpm check两文件格式失败。旧键/旧回执/报告身份与公共报告端口仍待A；B后补unknown政策未转达A，先对齐。详见[[A369ca3修正独立复验与旧事实兼容]]及[[C集成-A01e真实lint与审核接收]]。changes_required，不开放新入口；本轮仅C文档证据未推送/合入，完整矩阵/桌面/实际人员签认仍待。
+
 2026-10-27 C已取得A e7a9439（含b05a049）和B e5f6b1a固定推送，从739961a在独立codex/c-a01e-p1-intake组合。原B两项引用资格修正2/2通过，最终聚焦117/117、含build实际Electron11/11及A新十能力探针通过；修正B7夹具误吸入未来A8并保留原失败。但新增P1验收1控制通过/7产品失败：完整报告缺失、review同键随宿主now冲突、发布前来源变化不拒绝、失格来源lint静默passed。详见[[Ae7a9439接收与P1接线阻断复核]]、[[C集成-A01e真实lint与审核接收]]；changes_required，WIP不合入，新Wiki入口仍门禁。A修固定实现、B复核后C再接，人员业务验收不代签。
 
 2026-10-26 C按负责人继续指令共享c6f6788至origin/codex/c-worker-migration-gates并回读一致，未合入。从它新建codex/c-saved-quote-checks接通两个CheckClient方法、可信Main/Worker、既有B/A报告与完整消费事务、人工检查/重试、风险标记＋文本批注与重开历史。类型及相关31/31、含构建全部实际Electron11/11通过，完整最终门禁见[[C集成-已保存报价检查与双反馈]]；实现[[C已保存报价检查桌面切片]]。A真实lint/review/publish/withdraw仍不可用，合成发布投影不算人员验收；新切片未推送，完整矩阵/业务/非作者接收继续active。

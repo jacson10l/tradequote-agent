@@ -1,0 +1,998 @@
+{
+  "status": "review_complete_changes_required",
+  "date": "2026-10-28",
+  "testedCodeSha": "369ca3a7284dc8bfc2e0163c36adb78d8fb81881",
+  "base": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+  "BReviewInput": "5be4a0f029db9552d1fa1032e51c80e8be84caaf",
+  "environment": {
+    "platform": "macOS-26.4-arm64-arm-64bit",
+    "node": "v22.22.0",
+    "pnpm": "10.13.1"
+  },
+  "probes": {
+    "COriginal": {
+      "restoreScriptPath": ".runtime/c-p1-boundary.test.ts",
+      "restoreConfigPath": ".runtime/c-p1-boundary.config.ts",
+      "scriptUtf8": "import { randomUUID } from \"node:crypto\";\nimport { mkdtempSync, rmSync } from \"node:fs\";\nimport { tmpdir } from \"node:os\";\nimport { join } from \"node:path\";\nimport { KnowledgeLintReportSchema, WikiLintReceiptSchema, WikiResultSchema, type WikiRevision, type WikiSourceRevision } from \"../packages/contracts/src/index\";\nimport {createRequire} from \"node:module\";\nconst Database = createRequire(new URL(\"../packages/infrastructure/package.json\", import.meta.url))(\"better-sqlite3\");\nimport { afterEach, expect, it } from \"vitest\";\nimport { SqliteWorkspaceRepository } from \"../packages/infrastructure/src/index\";\nconst NOW=\"2026-10-27T00:00:00.000Z\", LATER=\"2026-10-27T00:00:02.000Z\";\nconst valid={status:\"confirmed\" as const,validFrom:null,validUntil:null};\nconst dispose:(()=>void)[]=[];\nafterEach(()=>{for(const close of dispose.splice(0).reverse())close();});\nconst command=(method:string,payload:unknown)=>({schemaVersion:1,requestId:randomUUID(),idempotencyKey:randomUUID(),method,payload});\nfunction data(input:unknown){const r=WikiResultSchema.parse(input);if(!r.ok)throw Error(r.error.message);return r.data;}\nasync function fixture(expires:string|null=null){\n const dir=mkdtempSync(join(tmpdir(),\"c-p1-probe-\"));dispose.push(()=>rmSync(dir,{recursive:true,force:true}));\n const file=join(dir,\"synthetic.sqlite\"),repo=new SqliteWorkspaceRepository(file);dispose.push(()=>repo.close());\n repo.commit(command(\"workspace.create\",{name:\"合成P1边界\"}) as never,{actorId:\"synthetic-human\",origin:\"human_ui\"});\n const context={workspaceId:repo.read()!.id,actorId:\"synthetic-human\",origin:\"human_ui\" as const,now:NOW};\n const payload={sourceId:randomUUID(),expectedVersion:0,label:\"合成资料\",sourceStatus:\"synthetic\",mediaType:\"text/plain\",sourceText:\"Synthetic source\",acquiredAt:NOW,sourceUri:null,permissionNote:\"synthetic only\",validity:{...valid,validUntil:expires}};\n const sourceData=data(await repo.executeWiki(command(\"source.stage\",payload),context));if(sourceData.kind!==\"sourceRevision\")throw Error(\"source fixture\");\n const source:WikiSourceRevision=sourceData.revision,ref={referenceId:randomUUID(),sourceId:source.sourceId,sourceRevisionId:source.sourceRevisionId,sourceVersion:source.version,artifactHash:source.artifactHash,location:{kind:\"text\",start:0,end:source.sourceText.length},excerptHash:source.artifactHash,assertion:\"fact\"};\n const markdown=\"# Synthetic candidate\",sectionId=randomUUID();\n const wiki=data(await repo.executeWiki(command(\"wiki.stage\",{documentId:randomUUID(),expectedVersion:0,parentRevisionId:null,content:{kind:\"sop\",title:\"合成知识\",locale:\"en\",scope:{platforms:[],markets:[],categories:[]},markdown,validity:valid,sections:[{sectionId,title:\"合成段落\",location:{kind:\"text\",start:0,end:markdown.length},sourceReferenceIds:[ref.referenceId]}],sourceRefs:[ref],relations:[],rules:[]}}),context));\n if(wiki.kind!==\"wikiRevision\")throw Error(\"wiki fixture\"); const revision:WikiRevision=wiki.record.revision;\n const db=new Database(file);dispose.push(()=>db.close());\n const binding={revisionId:revision.revisionId,contentHash:revision.contentHash,sourceSetHash:revision.sourceSetHash};\n return {repo,db,context,revision,source,payload,binding,async approve(){const receipt=repo.runWikiLint(revision.revisionId,context)!; const cmd=command(\"wiki.review\",{...binding,expectedLifecycleVersion:1,decision:\"approve\",note:\"synthetic technical review\",lintReceiptId:receipt.receiptId});const result=await repo.executeWiki(cmd,context);const d=data(result);if(d.kind!==\"wikiRevision\"||!d.record.lifecycle.review)throw Error(\"review fixture\");return {receipt,cmd,result,reviewId:d.record.lifecycle.review.reviewId};}};\n}\nit(\"control: real lint receipt, approve, publish and withdraw use the saved binding\",async()=>{\n const f=await fixture(),a=await f.approve();expect(WikiLintReceiptSchema.safeParse(a.receipt).success).toBe(true);\n const published=data(await f.repo.executeWiki(command(\"wiki.publish\",{...f.binding,reviewId:a.reviewId,expectedLifecycleVersion:2}),f.context));expect(published.kind===\"wikiRevision\"&&published.record.lifecycle.state).toBe(\"published\");\n const withdrawn=data(await f.repo.executeWiki(command(\"wiki.withdraw\",{revisionId:f.revision.revisionId,expectedLifecycleVersion:3,note:\"synthetic withdrawal\"}),f.context));expect(withdrawn.kind===\"wikiRevision\"&&withdrawn.record.lifecycle.state).toBe(\"withdrawn\");\n});\nit(\"P1-01: persisted lint fact must contain the complete P1 report and seven-category coverage\",async()=>{\n const f=await fixture();f.repo.runWikiLint(f.revision.revisionId,f.context);\n const row=f.db.prepare(\"SELECT data_json FROM knowledge_lint WHERE revision_id=?\").get(f.revision.revisionId) as {data_json:string};\n expect(KnowledgeLintReportSchema.safeParse(JSON.parse(row.data_json)).success).toBe(true);\n});\nit(\"P1-02: review retry with a later host clock replays the first result\",async()=>{\n const f=await fixture(),a=await f.approve();\n const retry=await f.repo.executeWiki({...a.cmd,requestId:randomUUID()},{...f.context,now:LATER});\n expect(retry).toEqual(a.result);\n});\nfor(const kind of [\"source_updated\",\"source_expired\",\"source_withdrawn\"] as const)it(`P1-03 ${kind}: publication revalidates after a successful lint and review`,async()=>{\n const f=await fixture(kind===\"source_expired\"?\"2026-10-27T00:00:01.000Z\":null),a=await f.approve();\n if(kind===\"source_updated\") data(await f.repo.executeWiki(command(\"source.stage\",{...f.payload,expectedVersion:1,sourceText:\"New synthetic source\"}),{...f.context,now:LATER}));\n if(kind===\"source_withdrawn\")f.db.prepare(\"UPDATE knowledge_source SET state='withdrawn',lifecycle_version=2 WHERE source_revision_id=?\").run(f.source.sourceRevisionId);\n const result=await f.repo.executeWiki(command(\"wiki.publish\",{...f.binding,reviewId:a.reviewId,expectedLifecycleVersion:2}),{...f.context,now:LATER});\n expect(result.ok).toBe(false);\n});\nfor(const kind of [\"expired\",\"updated\"] as const)it(`P1-04 ${kind}: lint cannot mark an ineligible source as passed`,async()=>{\n const f=await fixture(kind===\"expired\"?\"2026-10-26T23:59:59.000Z\":null);\n if(kind===\"updated\")data(await f.repo.executeWiki(command(\"source.stage\",{...f.payload,expectedVersion:1,sourceText:\"New synthetic source\"}),f.context));\n expect(f.repo.runWikiLint(f.revision.revisionId,f.context)?.outcome).not.toBe(\"passed\");\n});\n",
+      "configUtf8": "import {defineConfig} from \"vitest/config\";\nexport default defineConfig({test:{include:[\".runtime/c-p1-boundary.test.ts\"],environment:\"node\"}});\n",
+      "scriptSha256": "af0e0f3e6b5b3790d947ef71df46d4a8ea724f6268d006565e1972409f7b6127",
+      "configSha256": "3ed7d066f986fdbc174f24a5f14b5cb1928723d25b34731f68b960b02b1c36f6"
+    },
+    "BSupplement": {
+      "restoreScriptPath": ".runtime/b-p1-supplement.test.ts",
+      "restoreConfigPath": ".runtime/b-p1-supplement.config.ts",
+      "scriptUtf8": "import { randomUUID } from \"node:crypto\";\nimport { mkdtempSync, rmSync } from \"node:fs\";\nimport { tmpdir } from \"node:os\";\nimport { join } from \"node:path\";\nimport { KnowledgeLintReportSchema, WikiLintReceiptSchema, WikiResultSchema, type WikiRevision, type WikiSourceRevision } from \"../packages/contracts/src/index\";\nimport {createRequire} from \"node:module\";\nconst Database = createRequire(new URL(\"../packages/infrastructure/package.json\", import.meta.url))(\"better-sqlite3\");\nimport { afterEach, expect, it } from \"vitest\";\nimport { SqliteWorkspaceRepository } from \"../packages/infrastructure/src/index\";\nconst NOW=\"2026-10-27T00:00:00.000Z\", LATER=\"2026-10-27T00:00:02.000Z\";\nconst valid={status:\"confirmed\" as const,validFrom:null,validUntil:null};\nconst dispose:(()=>void)[]=[];\nafterEach(()=>{for(const close of dispose.splice(0).reverse())close();});\nconst command=(method:string,payload:unknown)=>({schemaVersion:1,requestId:randomUUID(),idempotencyKey:randomUUID(),method,payload});\nfunction data(input:unknown){const r=WikiResultSchema.parse(input);if(!r.ok)throw Error(r.error.message);return r.data;}\nasync function fixture(expires:string|null=null){\n const dir=mkdtempSync(join(tmpdir(),\"c-p1-probe-\"));dispose.push(()=>rmSync(dir,{recursive:true,force:true}));\n const file=join(dir,\"synthetic.sqlite\"),repo=new SqliteWorkspaceRepository(file);dispose.push(()=>repo.close());\n repo.commit(command(\"workspace.create\",{name:\"合成P1边界\"}) as never,{actorId:\"synthetic-human\",origin:\"human_ui\"});\n const context={workspaceId:repo.read()!.id,actorId:\"synthetic-human\",origin:\"human_ui\" as const,now:NOW};\n const payload={sourceId:randomUUID(),expectedVersion:0,label:\"合成资料\",sourceStatus:\"synthetic\",mediaType:\"text/plain\",sourceText:\"Synthetic source\",acquiredAt:NOW,sourceUri:null,permissionNote:\"synthetic only\",validity:{...valid,validUntil:expires}};\n const sourceData=data(await repo.executeWiki(command(\"source.stage\",payload),context));if(sourceData.kind!==\"sourceRevision\")throw Error(\"source fixture\");\n const source:WikiSourceRevision=sourceData.revision,ref={referenceId:randomUUID(),sourceId:source.sourceId,sourceRevisionId:source.sourceRevisionId,sourceVersion:source.version,artifactHash:source.artifactHash,location:{kind:\"text\",start:0,end:source.sourceText.length},excerptHash:source.artifactHash,assertion:\"fact\"};\n const markdown=\"# Synthetic candidate\",sectionId=randomUUID();\n const wiki=data(await repo.executeWiki(command(\"wiki.stage\",{documentId:randomUUID(),expectedVersion:0,parentRevisionId:null,content:{kind:\"sop\",title:\"合成知识\",locale:\"en\",scope:{platforms:[],markets:[],categories:[]},markdown,validity:valid,sections:[{sectionId,title:\"合成段落\",location:{kind:\"text\",start:0,end:markdown.length},sourceReferenceIds:[ref.referenceId]}],sourceRefs:[ref],relations:[],rules:[]}}),context));\n if(wiki.kind!==\"wikiRevision\")throw Error(\"wiki fixture\"); const revision:WikiRevision=wiki.record.revision;\n const db=new Database(file);dispose.push(()=>db.close());\n const binding={revisionId:revision.revisionId,contentHash:revision.contentHash,sourceSetHash:revision.sourceSetHash};\n return {repo,db,context,revision,source,payload,binding,async approve(){const receipt=repo.runWikiLint(revision.revisionId,context)!; const cmd=command(\"wiki.review\",{...binding,expectedLifecycleVersion:1,decision:\"approve\",note:\"synthetic technical review\",lintReceiptId:receipt.receiptId});const result=await repo.executeWiki(cmd,context);const d=data(result);if(d.kind!==\"wikiRevision\"||!d.record.lifecycle.review)throw Error(\"review fixture\");return {receipt,cmd,result,reviewId:d.record.lifecycle.review.reviewId};}};\n}\ntype Fixture = Awaited<ReturnType<typeof fixture>>;\nfunction snapshot(f: Fixture) {\n return Object.fromEntries([\"knowledge_lint\",\"knowledge_lifecycle\",\"knowledge_wiki\",\"knowledge_source\",\"knowledge_consumption\",\"quote_check_report\",\"outbox\",\"idempotency\"].map(t=>[t,f.db.prepare(`SELECT * FROM ${t} ORDER BY rowid`).all()]));\n}\nasync function operation(method:\"review\"|\"publish\"|\"withdraw\") {\n const f=await fixture();\n if(method===\"review\"){\n  const receipt=f.repo.runWikiLint(f.revision.revisionId,f.context)!;\n  return {f,cmd:command(\"wiki.review\",{...f.binding,expectedLifecycleVersion:1,decision:\"approve\",note:\"synthetic review\",lintReceiptId:receipt.receiptId})};\n }\n const a=await f.approve();\n const cmd=command(\"wiki.publish\",{...f.binding,reviewId:a.reviewId,expectedLifecycleVersion:2});\n if(method===\"publish\") return {f,cmd};\n data(await f.repo.executeWiki(cmd,f.context));\n return {f,cmd:command(\"wiki.withdraw\",{revisionId:f.revision.revisionId,expectedLifecycleVersion:3,note:\"synthetic withdrawal\"})};\n}\nfor(const kind of [\"updated\",\"expired\",\"withdrawn\"] as const)it(`B-review-${kind}: source eligibility is checked after lint before review, no partial facts`,async()=>{\n const f=await fixture(kind===\"expired\"?\"2026-10-27T00:00:01.000Z\":null);\n const receipt=f.repo.runWikiLint(f.revision.revisionId,f.context)!;\n if(kind===\"updated\")data(await f.repo.executeWiki(command(\"source.stage\",{...f.payload,expectedVersion:1,sourceText:\"New synthetic source\"}),{...f.context,now:LATER}));\n if(kind===\"withdrawn\")f.db.prepare(\"UPDATE knowledge_source SET state='withdrawn',lifecycle_version=2 WHERE source_revision_id=?\").run(f.source.sourceRevisionId);\n const before=snapshot(f),cmd=command(\"wiki.review\",{...f.binding,expectedLifecycleVersion:1,decision:\"approve\",note:\"synthetic review after invalidation\",lintReceiptId:receipt.receiptId});\n const result=await f.repo.executeWiki(cmd,{...f.context,now:LATER});\n console.log(\"B_REVIEW_OBSERVATION\",JSON.stringify({kind,ok:result.ok,unchanged:JSON.stringify(snapshot(f))===JSON.stringify(before)}));\n expect(result.ok).toBe(false);expect(snapshot(f)).toEqual(before);\n});\nfor(const method of [\"publish\",\"withdraw\"] as const)it(`B-${method}-replay: only requestId/host now changes, first result/time retained`,async()=>{\n const {f,cmd}=await operation(method);const first=await f.repo.executeWiki(cmd,f.context);expect(first.ok).toBe(true);const before=snapshot(f);\n const replay=await f.repo.executeWiki({...cmd,requestId:randomUUID()},{...f.context,now:LATER});\n console.log(\"B_REPLAY_OBSERVATION\",JSON.stringify({method,ok:replay.ok,code:replay.ok?null:replay.error.code,unchanged:JSON.stringify(snapshot(f))===JSON.stringify(before)}));\n expect(replay).toEqual(first);expect(snapshot(f)).toEqual(before);\n});\nfor(const method of [\"review\",\"publish\",\"withdraw\"] as const)for(const point of [\"outbox\",\"idempotency\"] as const)it(`B-${method}-${point}: injected final write failure rolls back, same key can retry`,async()=>{\n const {f,cmd}=await operation(method);const before=snapshot(f);\n const target=point===\"outbox\"?`ON outbox WHEN NEW.type='wiki.${method}'`:`ON idempotency WHEN NEW.key='${cmd.idempotencyKey}'`;\n f.db.exec(`CREATE TRIGGER b_injected_failure BEFORE INSERT ${target} BEGIN SELECT RAISE(ABORT,'synthetic B late failure'); END;`);\n const result=await f.repo.executeWiki(cmd,f.context);expect(result).toMatchObject({ok:false,error:{code:\"STORAGE_ERROR\"}});expect(snapshot(f)).toEqual(before);\n f.db.exec(\"DROP TRIGGER b_injected_failure\");const first=await f.repo.executeWiki(cmd,f.context);expect(first.ok).toBe(true);const committed=snapshot(f);\n expect(await f.repo.executeWiki({...cmd,requestId:randomUUID()},f.context)).toEqual(first);expect(snapshot(f)).toEqual(committed);\n});\nfor(const method of [\"review\",\"publish\",\"withdraw\"] as const)it(`B-${method}-identity: actor/origin/business input changes conflict under a used key`,async()=>{\n const {f,cmd}=await operation(method);expect((await f.repo.executeWiki(cmd,f.context)).ok).toBe(true);const before=snapshot(f);\n const mutations=[{command:cmd,context:{...f.context,actorId:\"different-synthetic-human\"}},{command:cmd,context:{...f.context,origin:\"agent_tool\" as const}},{command:{...cmd,payload:{...cmd.payload,expectedLifecycleVersion:99}},context:f.context}];\n for(const change of mutations){const result=await f.repo.executeWiki(change.command,change.context);expect(result.ok).toBe(false);if(!result.ok)expect([\"IDEMPOTENCY_CONFLICT\",\"ACTION_NOT_ALLOWED\"]).toContain(result.error.code);expect(snapshot(f)).toEqual(before);}\n});\nit(\"B-review-history: successful review replay survives a later source version without rewriting facts\",async()=>{\n const f=await fixture(),a=await f.approve();data(await f.repo.executeWiki(command(\"source.stage\",{...f.payload,expectedVersion:1,sourceText:\"New synthetic source\"}),f.context));const before=snapshot(f);\n expect(await f.repo.executeWiki({...a.cmd,requestId:randomUUID()},f.context)).toEqual(a.result);expect(snapshot(f)).toEqual(before);\n});\n",
+      "configUtf8": "import {defineConfig} from \"vitest/config\";\nexport default defineConfig({test:{include:[\".runtime/b-p1-supplement.test.ts\"],environment:\"node\"}});\n",
+      "scriptSha256": "f45b33b64aec56ed9eac8f2f3e94dbe7100d9c996852f56f35ef917d6f8ccf24",
+      "configSha256": "8a13e0a41882e2db34dc67dd71ec0a5e4032b2322deb880c309ab618f62d8af7"
+    },
+    "oldBSourceFixes": {
+      "restoreScriptPath": ".runtime/p1-source-probe.test.ts",
+      "restoreConfigPath": ".runtime/p1-source-probe.config.ts",
+      "scriptUtf8": "import { randomUUID } from \"node:crypto\";\nimport { mkdtempSync, rmSync } from \"node:fs\";\nimport { tmpdir } from \"node:os\";\nimport { join } from \"node:path\";\nimport { WikiResultSchema } from \"../packages/contracts/src/index\";\nimport { expect, it } from \"vitest\";\nimport { SqliteWorkspaceRepository } from \"../packages/infrastructure/src/index\";\nimport { createSyntheticQuote, seedPublished } from \"../packages/infrastructure/src/wiki-test.fixture\";\n\nit.each([\"source_expired_history\", \"source_updated_new_reference\"] as const)(\"A public source eligibility: %s\", async (kind) => {\n  const dir = mkdtempSync(join(tmpdir(), \"tq-p1-eligibility-\"));\n  const file = join(dir, \"synthetic.sqlite\");\n  const repo = new SqliteWorkspaceRepository(file);\n  try {\n    const actor = { actorId: \"synthetic-review\", origin: \"human_ui\" as const };\n    repo.commit({ schemaVersion: 1, requestId: randomUUID(), idempotencyKey: randomUUID(), method: \"workspace.create\", payload: { name: \"synthetic P1 probe\" } }, actor);\n    const quote = createSyntheticQuote(repo);\n    const start = Date.parse(quote.createdAt);\n    const expiresAt = new Date(start + 7200000).toISOString();\n    const beforeExpiry = new Date(start + 3600000).toISOString();\n    const seed = await seedPublished(file, repo, quote.workspaceId, {\n      locale: \"en\", kind: \"rule\", rules: [{ ruleId: randomUUID(), category: \"commercial_terms\", field: \"payment\", condition: { kind: \"required\" }, title: \"synthetic\", message: \"synthetic\", failureSeverity: \"block\", suggestedAction: \"human review\" }],\n      ...(kind === \"source_expired_history\" ? { sourceValidity: { status: \"confirmed\" as const, validFrom: null, validUntil: expiresAt } } : {}),\n    });\n    const host = (now: string) => ({ ...actor, workspaceId: quote.workspaceId, now });\n    const resolve = (purpose: \"history\" | \"new_reference\", now: string) => repo.executeWiki({ schemaVersion: 1, requestId: randomUUID(), method: \"wiki.resolveCitation\", payload: { citation: seed.citation, purpose, scope: { platform: quote.scenario.platform, market: quote.scenario.market, category: quote.scenario.category }, locale: \"en\" } }, host(now));\n    const control = WikiResultSchema.parse(await resolve(\"new_reference\", beforeExpiry));\n    expect(control).toMatchObject({ ok: true, data: { kind: \"citationResolution\", resolution: { eligibility: { eligible: true } } } });\n    let updatedSourcePin: { sourceRevisionId: string; version: number } | null = null;\n    if (kind === \"source_updated_new_reference\") {\n      const old = seed.sources[0]!;\n      const staged = WikiResultSchema.parse(await repo.executeWiki({ schemaVersion: 1, requestId: randomUUID(), idempotencyKey: randomUUID(), method: \"source.stage\", payload: { sourceId: old.sourceId, expectedVersion: old.version, label: old.label, sourceStatus: old.sourceStatus, mediaType: old.mediaType, sourceText: \"synthetic updated source\", acquiredAt: old.acquiredAt, sourceUri: null, permissionNote: old.permissionNote, validity: old.validity } }, host(beforeExpiry)));\n      expect(staged).toMatchObject({ ok: true, data: { kind: \"sourceRevision\", revision: { version: 2 } } });\n      if (staged.ok && staged.data.kind === \"sourceRevision\") updatedSourcePin = { sourceRevisionId: staged.data.revision.sourceRevisionId, version: staged.data.revision.version };\n    }\n    const raw = await resolve(kind === \"source_expired_history\" ? \"history\" : \"new_reference\", expiresAt);\n    const parsed = WikiResultSchema.safeParse(raw);\n    console.log(\"P1_ELIGIBILITY_OBSERVATION \" + JSON.stringify({ kind, controlValid: true, updatedSourcePin, publicSchemaValid: parsed.success, result: raw, schemaIssues: parsed.success ? [] : parsed.error.issues.map(i => i.message) }));\n    expect(parsed.success).toBe(true);\n    if (!parsed.success) return;\n    if (kind === \"source_updated_new_reference\") expect(parsed.data.ok).toBe(false);\n    else expect(parsed.data).toMatchObject({ ok: true, data: { kind: \"citationResolution\", resolution: { eligibility: { eligible: false } } } });\n  } finally {\n    repo.close(); rmSync(dir, { recursive: true, force: true });\n  }\n});\n",
+      "configUtf8": "import { defineConfig } from \"vitest/config\";\nexport default defineConfig({\n  test: { include: [\".runtime/p1-source-probe.test.ts\"], environment: \"node\" },\n});\n",
+      "scriptSha256": "af1f40157095bc79031aa1de565afa45c879e7fa277259310ca67bc321b15203",
+      "configSha256": "9710ffb3c4ac04686d131dce8617bacaacb13277003b8985959e390603fba22d"
+    }
+  },
+  "checks": [
+    {
+      "name": "COriginal",
+      "argv": [
+        "apps/desktop/node_modules/.bin/electron",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        ".runtime/c-p1-boundary.config.ts"
+      ],
+      "startedAt": "2026-10-28T06:24:58.240737+00:00",
+      "finishedAt": "2026-10-28T06:25:04.557970+00:00",
+      "exitCode": 0,
+      "stdout": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-a01e-fixes-review/tradequote-agent\n\n\n Test Files  1 passed (1)\n      Tests  8 passed (8)\n   Start at  14:25:03\n   Duration  1.25s (tests 49%, import 29%, transform 22%)\n\n",
+      "stderr": "",
+      "stdoutSha256": "02dc2ea7b6cd7d137ca87a075dd6840d18b487ae37f07ad9816c90f5a0395f7b",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "BSupplement",
+      "argv": [
+        "apps/desktop/node_modules/.bin/electron",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        ".runtime/b-p1-supplement.config.ts"
+      ],
+      "startedAt": "2026-10-28T06:25:04.558776+00:00",
+      "finishedAt": "2026-10-28T06:25:06.178816+00:00",
+      "exitCode": 0,
+      "stdout": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-a01e-fixes-review/tradequote-agent\n\n\n Test Files  1 passed (1)\n      Tests  15 passed (15)\n   Start at  14:25:04\n   Duration  1.31s (import 40%, transform 33%, tests 26%)\n\n",
+      "stderr": "",
+      "stdoutSha256": "1460485fcdc5ed665cefad2eba440aedcd2cc42fede0b1bb73a778361f8bae13",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "oldBSourceFixes",
+      "argv": [
+        "apps/desktop/node_modules/.bin/electron",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        ".runtime/p1-source-probe.config.ts"
+      ],
+      "startedAt": "2026-10-28T06:25:06.179474+00:00",
+      "finishedAt": "2026-10-28T06:25:07.333531+00:00",
+      "exitCode": 0,
+      "stdout": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-a01e-fixes-review/tradequote-agent\n\n\n Test Files  1 passed (1)\n      Tests  2 passed (2)\n   Start at  14:25:06\n   Duration  828ms (transform 45%, import 44%, tests 10%)\n\n",
+      "stderr": "",
+      "stdoutSha256": "a92b5314df5e4fc8ee5f535035175762d27ab4f5f94a474642f6224266f3153f",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "focused-eight-files",
+      "argv": [
+        "apps/desktop/node_modules/.bin/electron",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/infrastructure/src/wiki-store.test.ts",
+        "packages/infrastructure/src/wiki-check-integration.test.ts",
+        "packages/infrastructure/src/check-store.test.ts",
+        "packages/infrastructure/src/check-lineage-integration.test.ts",
+        "packages/infrastructure/src/knowledge-store.test.ts",
+        "packages/infrastructure/src/migration-ledger.test.ts",
+        "packages/infrastructure/src/worker-migration-gates.test.ts",
+        "packages/contracts/src/knowledge-maintenance.test.ts"
+      ],
+      "startedAt": "2026-10-28T06:25:31.240490+00:00",
+      "finishedAt": "2026-10-28T06:25:50.709856+00:00",
+      "exitCode": 0,
+      "stdout": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-a01e-fixes-review/tradequote-agent\n\n\n Test Files  8 passed (8)\n      Tests  98 passed (98)\n   Start at  14:25:31\n   Duration  18.88s (tests 67%, import 22%, transform 10%)\n\n",
+      "stderr": "",
+      "stdoutSha256": "b1f37098d669613c8aeb954dae0cf0b3007f8d8e0b5f5708e5529bed256e8c8a",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "focused-eight-files",
+      "argv": [
+        "apps/desktop/node_modules/.bin/electron",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/infrastructure/src/wiki-store.test.ts",
+        "packages/infrastructure/src/wiki-check-integration.test.ts",
+        "packages/infrastructure/src/check-store.test.ts",
+        "packages/infrastructure/src/check-lineage-integration.test.ts",
+        "packages/contracts/src/knowledge-lint-review.test.ts",
+        "packages/contracts/src/knowledge-wiki.test.ts",
+        "packages/infrastructure/src/worker-migration-gates.test.ts",
+        "packages/contracts/src/knowledge-maintenance.test.ts"
+      ],
+      "startedAt": "2026-10-28T06:27:30.750230+00:00",
+      "finishedAt": "2026-10-28T06:27:43.640685+00:00",
+      "exitCode": 0,
+      "stdout": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-a01e-fixes-review/tradequote-agent\n\n\n Test Files  8 passed (8)\n      Tests  121 passed (121)\n   Start at  14:27:31\n   Duration  12.05s (tests 63%, import 30%, transform 7%)\n\n",
+      "stderr": "",
+      "stdoutSha256": "0fa4c190787392323905e5fe070a56d4f4d8008dfa1a2c48e3dfb817271b03c1",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "typecheck",
+      "argv": [
+        "pnpm",
+        "typecheck"
+      ],
+      "startedAt": "2026-10-28T06:27:30.750232+00:00",
+      "finishedAt": "2026-10-28T06:27:34.232080+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 typecheck /Users/jason/.codex/worktrees/c-a01e-fixes-review/tradequote-agent\n> tsc --noEmit\n\n",
+      "stderr": "",
+      "stdoutSha256": "d4880d8ae329802a77cd2ef470e989fce393cdcf83d2a47fa024eb57422275d9",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "engineering-and-wiki",
+      "argv": [
+        "pnpm",
+        "check"
+      ],
+      "startedAt": "2026-10-28T06:27:34.234295+00:00",
+      "finishedAt": "2026-10-28T06:27:35.197720+00:00",
+      "exitCode": 1,
+      "stdout": "\n> tradequote-agent@0.1.0 check /Users/jason/.codex/worktrees/c-a01e-fixes-review/tradequote-agent\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 182 files in 191ms. No fixes applied.\nFound 2 errors.\n ELIFECYCLE  Command failed with exit code 1.\n",
+      "stderr": "packages/infrastructure/src/wiki-store.test.ts format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Formatter would have printed the following content:\n  \n    871 871 │               .prepare(\"SELECT data_json FROM knowledge_source WHERE source_revision_id=?\")\n    872 872 │               .get(source.sourceRevisionId) as { data_json: string };\n    873     │ - ··········const·sourceJson·=·JSON.parse(row.data_json)·as·{·validity:·{·validUntil:·string·|·null·}·};\n        873 │ + ··········const·sourceJson·=·JSON.parse(row.data_json)·as·{\n        874 │ + ············validity:·{·validUntil:·string·|·null·};\n        875 │ + ··········};\n    874 876 │             sourceJson.validity = { ...sourceJson.validity, validUntil: \"2026-10-21T00:00:00.000Z\" };\n    875     │ - ··········db.prepare(\"UPDATE·knowledge_source·SET·data_json=?·WHERE·source_revision_id=?\")\n    876     │ - ············.run(JSON.stringify(sourceJson),·source.sourceRevisionId);\n        877 │ + ··········db.prepare(\"UPDATE·knowledge_source·SET·data_json=?·WHERE·source_revision_id=?\").run(\n        878 │ + ············JSON.stringify(sourceJson),\n        879 │ + ············source.sourceRevisionId,\n        880 │ + ··········);\n    877 881 │           } else {\n    878     │ - ··········db.prepare(\"UPDATE·knowledge_source·SET·state='withdrawn'·WHERE·source_revision_id=?\")\n    879     │ - ············.run(source.sourceRevisionId);\n        882 │ + ··········db.prepare(\n        883 │ + ············\"UPDATE·knowledge_source·SET·state='withdrawn'·WHERE·source_revision_id=?\",\n        884 │ + ··········).run(source.sourceRevisionId);\n    880 885 │           }\n    881 886 │         } finally {\n    ······· │ \n    933 938 │           const sourceJson = JSON.parse(row.data_json) as { validity: { validUntil: string | null } };\n    934 939 │           sourceJson.validity = { ...sourceJson.validity, validUntil: \"2026-10-21T00:00:00.000Z\" };\n    935     │ - ········db.prepare(\"UPDATE·knowledge_source·SET·data_json=?·WHERE·source_revision_id=?\")\n    936     │ - ··········.run(JSON.stringify(sourceJson),·source.sourceRevisionId);\n        940 │ + ········db.prepare(\"UPDATE·knowledge_source·SET·data_json=?·WHERE·source_revision_id=?\").run(\n        941 │ + ··········JSON.stringify(sourceJson),\n        942 │ + ··········source.sourceRevisionId,\n        943 │ + ········);\n    937 944 │         } finally {\n    938 945 │           db.close();\n  \n\npackages/infrastructure/src/wiki-store.ts format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Formatter would have printed the following content:\n  \n     542  542 │           source.artifactHash !== ref.artifactHash\n     543  543 │         )\n     544      │ - ········add(\"source_integrity\",·\"block\",·\"来源身份或·hash·与引用不一致\",·[],·[\n     545      │ - ··········ref.sourceRevisionId,\n     546      │ - ········]);\n          544 │ + ········add(\n          545 │ + ··········\"source_integrity\",\n          546 │ + ··········\"block\",\n          547 │ + ··········\"来源身份或·hash·与引用不一致\",\n          548 │ + ··········[],\n          549 │ + ··········[ref.sourceRevisionId],\n          550 │ + ········);\n     547  551 │         if (sha256Utf8(source.sourceText) !== source.artifactHash)\n     548      │ - ········add(\"source_integrity\",·\"block\",·\"来源原文与·artifactHash·不一致\",·[],·[\n     549      │ - ··········ref.sourceRevisionId,\n     550      │ - ········]);\n          552 │ + ········add(\n          553 │ + ··········\"source_integrity\",\n          554 │ + ··········\"block\",\n          555 │ + ··········\"来源原文与·artifactHash·不一致\",\n          556 │ + ··········[],\n          557 │ + ··········[ref.sourceRevisionId],\n          558 │ + ········);\n     551  559 │         if (!validTextLocation(source.sourceText, ref.location))\n     552  560 │           add(\"source_integrity\", \"block\", \"来源摘录位置越界\", [], [ref.sourceRevisionId]);\n    ········· │ \n     555  563 │           ref.excerptHash\n     556  564 │         )\n     557      │ - ········add(\"source_integrity\",·\"block\",·\"来源摘录与·excerptHash·不一致\",·[],·[\n     558      │ - ··········ref.sourceRevisionId,\n     559      │ - ········]);\n          565 │ + ········add(\n          566 │ + ··········\"source_integrity\",\n          567 │ + ··········\"block\",\n          568 │ + ··········\"来源摘录与·excerptHash·不一致\",\n          569 │ + ··········[],\n          570 │ + ··········[ref.sourceRevisionId],\n          571 │ + ········);\n     560  572 │       }\n     561  573 │   \n    ········· │ \n     569  581 │       for (const ref of revision.content.sourceRefs)\n     570  582 │         if (!usedIds.has(ref.referenceId))\n     571      │ - ········add(\"section_references\",·\"block\",·\"来源引用未被任何段落使用\",·[],·[\n     572      │ - ··········ref.sourceRevisionId,\n     573      │ - ········]);\n          583 │ + ········add(\"section_references\",·\"block\",·\"来源引用未被任何段落使用\",·[],·[ref.sourceRevisionId]);\n     574  584 │   \n     575  585 │       // relations：关联指向的版本必须真实存在且属于同一文档/工作区。\n    ········· │ \n     586  596 │       // scope_validity：知识与来源的有效期须确认且当前适用。\n     587  597 │       if (!validityAllows(revision.content.validity, checkedAt))\n     588      │ - ······add(\"scope_validity\",·\"block\",·`知识有效期不适用：${validityIneligibility(revision.content.validity,·checkedAt)}`);\n          598 │ + ······add(\n          599 │ + ········\"scope_validity\",\n          600 │ + ········\"block\",\n          601 │ + ········`知识有效期不适用：${validityIneligibility(revision.content.validity,·checkedAt)}`,\n          602 │ + ······);\n     589  603 │       for (const [sourceRevisionId, source] of sources)\n     590  604 │         if (!validityAllows(source.validity, checkedAt))\n    ········· │ \n     619  633 │       const coverage = checks.map((check) => ({\n     620  634 │         check,\n     621      │ - ······status:·issues.some((issue)·=>·issue.check·===·check)·?·(\"issues\"·as·const)·:·(\"passed\"·as·const),\n          635 │ + ······status:·issues.some((issue)·=>·issue.check·===·check)\n          636 │ + ········?·(\"issues\"·as·const)\n          637 │ + ········:·(\"passed\"·as·const),\n     622  638 │       })) as KnowledgeLintReport[\"coverage\"];\n     623  639 │       const outcome: WikiLintReceipt[\"outcome\"] = issues.some((i) => i.severity === \"block\")\n  \n\ncheck ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Some errors were emitted while running checks.\n  \n\n",
+      "stdoutSha256": "e5cdb7f4be71bca7cdb5a38c9387b0d3e729d58501ad65d07dc8b492ee44f8db",
+      "stderrSha256": "14d078d2784a30c3ab558ab924f8864e6848170225e3cdcc49ccdde061eaee76"
+    },
+    {
+      "name": "wiki-sync-A-base",
+      "argv": [
+        "pnpm",
+        "wiki:sync",
+        "--base",
+        "7e6b485c15ba7c4ec30d6495df0a58cd2088207e"
+      ],
+      "startedAt": "2026-10-28T06:27:35.198960+00:00",
+      "finishedAt": "2026-10-28T06:27:35.941202+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 wiki:sync /Users/jason/.codex/worktrees/c-a01e-fixes-review/tradequote-agent\n> node wiki-project/scripts/check-wiki-sync.mjs . --base 7e6b485c15ba7c4ec30d6495df0a58cd2088207e\n\n{\n  \"base\": \"7e6b485c15ba7c4ec30d6495df0a58cd2088207e\",\n  \"status\": \"passed\",\n  \"codeFiles\": 2,\n  \"knowledgePages\": 2,\n  \"tasks\": 1,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "stdoutSha256": "a9f08ae6b6209bf1ffa44b81fb0754cfba25f0178f93f80151fdee6581efdcdd",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "diff-check",
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "startedAt": "2026-10-28T06:27:35.942403+00:00",
+      "finishedAt": "2026-10-28T06:27:36.013890+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "legacy-and-report-boundaries",
+      "argv": [
+        "apps/desktop/node_modules/.bin/electron",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        ".runtime/c-a-fixes-extra.config.ts"
+      ],
+      "startedAt": "2026-10-28T06:27:41.815442+00:00",
+      "finishedAt": "2026-10-28T06:27:43.272122+00:00",
+      "exitCode": 1,
+      "stdout": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-a01e-fixes-review/tradequote-agent\n\nstdout | .runtime/c-a-fixes-extra.test.ts > C-legacy-key source.stage: old success replays after reopen\nLEGACY_REPLAY {\"method\":\"source.stage\",\"ok\":false,\"code\":\"IDEMPOTENCY_CONFLICT\"}\n\nstdout | .runtime/c-a-fixes-extra.test.ts > C-legacy-key wiki.stage: old success replays after reopen\nLEGACY_REPLAY {\"method\":\"wiki.stage\",\"ok\":false,\"code\":\"IDEMPOTENCY_CONFLICT\"}\n\nstdout | .runtime/c-a-fixes-extra.test.ts > C-legacy-key wiki.review: old success replays after reopen\nLEGACY_REPLAY {\"method\":\"wiki.review\",\"ok\":false,\"code\":\"IDEMPOTENCY_CONFLICT\"}\n\nstdout | .runtime/c-a-fixes-extra.test.ts > C-legacy-key wiki.publish: old success replays after reopen\nLEGACY_REPLAY {\"method\":\"wiki.publish\",\"ok\":false,\"code\":\"IDEMPOTENCY_CONFLICT\"}\n\nstdout | .runtime/c-a-fixes-extra.test.ts > C-legacy-key wiki.withdraw: old success replays after reopen\nLEGACY_REPLAY {\"method\":\"wiki.withdraw\",\"ok\":false,\"code\":\"IDEMPOTENCY_CONFLICT\"}\n\nstdout | .runtime/c-a-fixes-extra.test.ts > C-legacy-receipt: same lint identity returns original receipt\nLEGACY_LINT {\"actual\":null,\"expectedReceiptId\":\"1366894d-29be-4247-9b67-104564804c14\"}\n\nstdout | .runtime/c-a-fixes-extra.test.ts > C-report-relations: two distinct broken relations yield valid stored report\nRELATIONS_REPORT {\"valid\":false,\"issues\":[{\"issueKey\":\"0adb2ae2fb573788e852cf9a61c02ea256bb7d761681776dbedb31ab80e957cc\",\"check\":\"relations\",\"severity\":\"block\",\"message\":\"关联指向不存在的知识版本\",\"sectionIds\":[],\"sourceRevisionIds\":[]},{\"issueKey\":\"0adb2ae2fb573788e852cf9a61c02ea256bb7d761681776dbedb31ab80e957cc\",\"check\":\"relations\",\"severity\":\"block\",\"message\":\"关联指向不存在的知识版本\",\"sectionIds\":[],\"sourceRevisionIds\":[]}]}\n\nstdout | .runtime/c-a-fixes-extra.test.ts > C-B-unknown: unknown validity stays partial/unknown\nUNKNOWN_REPORT {\"status\":\"completed\",\"outcome\":\"blocked\",\"coverage\":[{\"check\":\"source_integrity\",\"status\":\"passed\"},{\"check\":\"section_references\",\"status\":\"passed\"},{\"check\":\"relations\",\"status\":\"passed\"},{\"check\":\"scope_validity\",\"status\":\"issues\"},{\"check\":\"source_updates\",\"status\":\"passed\"},{\"check\":\"duplicates_conflicts\",\"status\":\"passed\"},{\"check\":\"orphans\",\"status\":\"passed\"}],\"issues\":[{\"issueKey\":\"e5ca235db2d9f9471b525160598e9799a23b09a3703a9191ff3001d79653b94c\",\"check\":\"scope_validity\",\"severity\":\"block\",\"message\":\"知识有效期不适用：unknown\",\"sectionIds\":[],\"sourceRevisionIds\":[]}]}\n\n ❯ .runtime/c-a-fixes-extra.test.ts (9 tests | 9 failed) 145ms\n   × control: legacy lifecycle and receipt stay readable 26ms\n   × C-legacy-key source.stage: old success replays after reopen 20ms\n   × C-legacy-key wiki.stage: old success replays after reopen 14ms\n   × C-legacy-key wiki.review: old success replays after reopen 12ms\n   × C-legacy-key wiki.publish: old success replays after reopen 12ms\n   × C-legacy-key wiki.withdraw: old success replays after reopen 13ms\n   × C-legacy-receipt: same lint identity returns original receipt 11ms\n   × C-report-relations: two distinct broken relations yield valid stored report 20ms\n   × C-B-unknown: unknown validity stays partial/unknown 16ms\n\n Test Files  1 failed (1)\n      Tests  9 failed (9)\n   Start at  14:27:42\n   Duration  1.14s (import 46%, transform 39%, tests 15%)\n\n",
+      "stderr": "\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 9 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  .runtime/c-a-fixes-extra.test.ts > control: legacy lifecycle and receipt stay readable\nError: 请求字段不合法\n ❯ data .runtime/c-a-fixes-extra.test.ts:15:83\n     13| afterEach(()=>{for(const close of dispose.splice(0).reverse())close();…\n     14| const command=(method:string,payload:unknown)=>({schemaVersion:1,reque…\n     15| function data(input:unknown){const r=WikiResultSchema.parse(input);if(…\n       |                                                                                   ^\n     16| async function fixture(expires:string|null=null, contentOverrides:Reco…\n     17|  const dir=mkdtempSync(join(tmpdir(),\"c-p1-probe-\"));dispose.push(()=>…\n ❯ .runtime/c-a-fixes-extra.test.ts:35:27\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/9]⎯\n\n FAIL  .runtime/c-a-fixes-extra.test.ts > C-legacy-key source.stage: old success replays after reopen\nAssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, data: { …(2) }, …(2) }\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"kind\": \"sourceRevision\",\n-     \"revision\": {\n-       \"acquiredAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"artifactHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-       \"artifactId\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-       \"createdAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"label\": \"合成资料\",\n-       \"mediaType\": \"text/plain\",\n-       \"parentRevisionId\": null,\n-       \"permissionNote\": \"synthetic only\",\n-       \"sourceId\": \"963a2b89-62e4-42b1-bd23-8a3eb925ed15\",\n-       \"sourceRevisionId\": \"f97d2a32-74c4-4a47-bbb9-988688b57c9b\",\n-       \"sourceStatus\": \"synthetic\",\n-       \"sourceText\": \"Synthetic source\",\n-       \"sourceUri\": null,\n-       \"validity\": {\n-         \"status\": \"confirmed\",\n-         \"validFrom\": null,\n-         \"validUntil\": null,\n-       },\n-       \"version\": 1,\n-       \"workspaceId\": \"9974fa6c-a75c-45f9-959e-8d5befc41055\",\n-     },\n+   \"error\": {\n+     \"code\": \"IDEMPOTENCY_CONFLICT\",\n+     \"issues\": [],\n+     \"message\": \"同一操作标识不能用于不同内容\",\n+     \"retryable\": false,\n    },\n-   \"evidenceIds\": [\n-     \"f97d2a32-74c4-4a47-bbb9-988688b57c9b\",\n-   ],\n-   \"ok\": true,\n-   \"warnings\": [],\n+   \"ok\": false,\n  }\n\n ❯ .runtime/c-a-fixes-extra.test.ts:38:214\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/9]⎯\n\n FAIL  .runtime/c-a-fixes-extra.test.ts > C-legacy-key wiki.stage: old success replays after reopen\nAssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, data: { …(2) }, …(2) }\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"kind\": \"wikiRevision\",\n-     \"record\": {\n-       \"lifecycle\": {\n-         \"lifecycleVersion\": 1,\n-         \"publication\": null,\n-         \"review\": null,\n-         \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-         \"state\": \"candidate\",\n-       },\n-       \"revision\": {\n-         \"artifactId\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-         \"content\": {\n-           \"kind\": \"sop\",\n-           \"locale\": \"en\",\n-           \"markdown\": \"# Synthetic candidate\",\n-           \"relations\": [],\n-           \"rules\": [],\n-           \"scope\": {\n-             \"categories\": [],\n-             \"markets\": [],\n-             \"platforms\": [],\n-           },\n-           \"sections\": [\n-             {\n-               \"location\": {\n-                 \"end\": 21,\n-                 \"kind\": \"text\",\n-                 \"start\": 0,\n-               },\n-               \"sectionId\": \"ea26b962-de69-4b1d-9479-6acb41f3415b\",\n-               \"sourceReferenceIds\": [\n-                 \"4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf\",\n-               ],\n-               \"title\": \"合成段落\",\n-             },\n-           ],\n-           \"sourceRefs\": [\n-             {\n-               \"artifactHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-               \"assertion\": \"fact\",\n-               \"excerptHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-               \"location\": {\n-                 \"end\": 16,\n-                 \"kind\": \"text\",\n-                 \"start\": 0,\n-               },\n-               \"referenceId\": \"4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf\",\n-               \"sourceId\": \"963a2b89-62e4-42b1-bd23-8a3eb925ed15\",\n-               \"sourceRevisionId\": \"f97d2a32-74c4-4a47-bbb9-988688b57c9b\",\n-               \"sourceVersion\": 1,\n+   \"error\": {\n+     \"code\": \"IDEMPOTENCY_CONFLICT\",\n+     \"issues\": [],\n+     \"message\": \"同一操作标识不能用于不同内容\",\n+     \"retryable\": false,\n    },\n-           ],\n-           \"title\": \"合成知识\",\n-           \"validity\": {\n-             \"status\": \"confirmed\",\n-             \"validFrom\": null,\n-             \"validUntil\": null,\n-           },\n-         },\n-         \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-         \"createdAt\": \"2026-10-27T00:00:00.000Z\",\n-         \"documentId\": \"418af6de-5228-44bf-9212-92b855748fea\",\n-         \"parentRevisionId\": null,\n-         \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-         \"sourceSetHash\": \"cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f\",\n-         \"version\": 1,\n-         \"workspaceId\": \"9974fa6c-a75c-45f9-959e-8d5befc41055\",\n-       },\n-     },\n-   },\n-   \"evidenceIds\": [\n-     \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-   ],\n-   \"ok\": true,\n-   \"warnings\": [],\n+   \"ok\": false,\n  }\n\n ❯ .runtime/c-a-fixes-extra.test.ts:38:214\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/9]⎯\n\n FAIL  .runtime/c-a-fixes-extra.test.ts > C-legacy-key wiki.review: old success replays after reopen\nAssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, data: { …(2) }, …(2) }\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"kind\": \"wikiRevision\",\n-     \"record\": {\n-       \"lifecycle\": {\n-         \"lifecycleVersion\": 2,\n-         \"publication\": null,\n-         \"review\": {\n-           \"actorId\": \"synthetic-human\",\n-           \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-           \"decidedAt\": \"2026-10-27T00:00:00.000Z\",\n-           \"decision\": \"approve\",\n-           \"expectedLifecycleVersion\": 1,\n-           \"lintReceipt\": {\n-             \"checkedAt\": \"2026-10-27T00:00:00.000Z\",\n-             \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-             \"outcome\": \"passed\",\n-             \"policyVersion\": \"knowledge-maintenance-v1\",\n-             \"receiptId\": \"1366894d-29be-4247-9b67-104564804c14\",\n-             \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-             \"sourceSetHash\": \"cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f\",\n-             \"workspaceId\": \"9974fa6c-a75c-45f9-959e-8d5befc41055\",\n-           },\n-           \"lintReceiptId\": \"1366894d-29be-4247-9b67-104564804c14\",\n-           \"note\": \"synthetic technical review\",\n-           \"reviewId\": \"ed33581b-93d0-4184-8d47-05aef6b54897\",\n-           \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-           \"sourceSetHash\": \"cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f\",\n-           \"workspaceId\": \"9974fa6c-a75c-45f9-959e-8d5befc41055\",\n-         },\n-         \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-         \"state\": \"approved\",\n-       },\n-       \"revision\": {\n-         \"artifactId\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-         \"content\": {\n-           \"kind\": \"sop\",\n-           \"locale\": \"en\",\n-           \"markdown\": \"# Synthetic candidate\",\n-           \"relations\": [],\n-           \"rules\": [],\n-           \"scope\": {\n-             \"categories\": [],\n-             \"markets\": [],\n-             \"platforms\": [],\n-           },\n-           \"sections\": [\n-             {\n-               \"location\": {\n-                 \"end\": 21,\n-                 \"kind\": \"text\",\n-                 \"start\": 0,\n-               },\n-               \"sectionId\": \"ea26b962-de69-4b1d-9479-6acb41f3415b\",\n-               \"sourceReferenceIds\": [\n-                 \"4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf\",\n-               ],\n-               \"title\": \"合成段落\",\n-             },\n-           ],\n-           \"sourceRefs\": [\n-             {\n-               \"artifactHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-               \"assertion\": \"fact\",\n-               \"excerptHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-               \"location\": {\n-                 \"end\": 16,\n-                 \"kind\": \"text\",\n-                 \"start\": 0,\n-               },\n-               \"referenceId\": \"4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf\",\n-               \"sourceId\": \"963a2b89-62e4-42b1-bd23-8a3eb925ed15\",\n-               \"sourceRevisionId\": \"f97d2a32-74c4-4a47-bbb9-988688b57c9b\",\n-               \"sourceVersion\": 1,\n-             },\n-           ],\n-           \"title\": \"合成知识\",\n-           \"validity\": {\n-             \"status\": \"confirmed\",\n-             \"validFrom\": null,\n-             \"validUntil\": null,\n-           },\n-         },\n-         \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-         \"createdAt\": \"2026-10-27T00:00:00.000Z\",\n-         \"documentId\": \"418af6de-5228-44bf-9212-92b855748fea\",\n-         \"parentRevisionId\": null,\n-         \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-         \"sourceSetHash\": \"cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f\",\n-         \"version\": 1,\n-         \"workspaceId\": \"9974fa6c-a75c-45f9-959e-8d5befc41055\",\n-       },\n+   \"error\": {\n+     \"code\": \"IDEMPOTENCY_CONFLICT\",\n+     \"issues\": [],\n+     \"message\": \"同一操作标识不能用于不同内容\",\n+     \"retryable\": false,\n    },\n-   },\n-   \"evidenceIds\": [\n-     \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-   ],\n-   \"ok\": true,\n-   \"warnings\": [],\n+   \"ok\": false,\n  }\n\n ❯ .runtime/c-a-fixes-extra.test.ts:38:214\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/9]⎯\n\n FAIL  .runtime/c-a-fixes-extra.test.ts > C-legacy-key wiki.publish: old success replays after reopen\nAssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, data: { …(2) }, …(2) }\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"kind\": \"wikiRevision\",\n-     \"record\": {\n-       \"lifecycle\": {\n-         \"lifecycleVersion\": 3,\n-         \"publication\": {\n-           \"actorId\": \"synthetic-human\",\n-           \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-           \"eventId\": \"d0c8b5ad-cfee-4b10-8023-658147a60c6c\",\n-           \"lifecycleVersion\": 3,\n-           \"note\": \"synthetic technical review\",\n-           \"occurredAt\": \"2026-10-27T00:00:00.000Z\",\n-           \"reviewId\": \"ed33581b-93d0-4184-8d47-05aef6b54897\",\n-           \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-           \"sourceSetHash\": \"cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f\",\n-           \"type\": \"published\",\n-         },\n-         \"review\": {\n-           \"actorId\": \"synthetic-human\",\n-           \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-           \"decidedAt\": \"2026-10-27T00:00:00.000Z\",\n-           \"decision\": \"approve\",\n-           \"expectedLifecycleVersion\": 1,\n-           \"lintReceipt\": {\n-             \"checkedAt\": \"2026-10-27T00:00:00.000Z\",\n-             \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-             \"outcome\": \"passed\",\n-             \"policyVersion\": \"knowledge-maintenance-v1\",\n-             \"receiptId\": \"1366894d-29be-4247-9b67-104564804c14\",\n-             \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-             \"sourceSetHash\": \"cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f\",\n-             \"workspaceId\": \"9974fa6c-a75c-45f9-959e-8d5befc41055\",\n+   \"error\": {\n+     \"code\": \"IDEMPOTENCY_CONFLICT\",\n+     \"issues\": [],\n+     \"message\": \"同一操作标识不能用于不同内容\",\n+     \"retryable\": false,\n    },\n-           \"lintReceiptId\": \"1366894d-29be-4247-9b67-104564804c14\",\n-           \"note\": \"synthetic technical review\",\n-           \"reviewId\": \"ed33581b-93d0-4184-8d47-05aef6b54897\",\n-           \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-           \"sourceSetHash\": \"cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f\",\n-           \"workspaceId\": \"9974fa6c-a75c-45f9-959e-8d5befc41055\",\n-         },\n-         \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-         \"state\": \"published\",\n-       },\n-       \"revision\": {\n-         \"artifactId\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-         \"content\": {\n-           \"kind\": \"sop\",\n-           \"locale\": \"en\",\n-           \"markdown\": \"# Synthetic candidate\",\n-           \"relations\": [],\n-           \"rules\": [],\n-           \"scope\": {\n-             \"categories\": [],\n-             \"markets\": [],\n-             \"platforms\": [],\n-           },\n-           \"sections\": [\n-             {\n-               \"location\": {\n-                 \"end\": 21,\n-                 \"kind\": \"text\",\n-                 \"start\": 0,\n-               },\n-               \"sectionId\": \"ea26b962-de69-4b1d-9479-6acb41f3415b\",\n-               \"sourceReferenceIds\": [\n-                 \"4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf\",\n-               ],\n-               \"title\": \"合成段落\",\n-             },\n-           ],\n-           \"sourceRefs\": [\n-             {\n-               \"artifactHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-               \"assertion\": \"fact\",\n-               \"excerptHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-               \"location\": {\n-                 \"end\": 16,\n-                 \"kind\": \"text\",\n-                 \"start\": 0,\n-               },\n-               \"referenceId\": \"4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf\",\n-               \"sourceId\": \"963a2b89-62e4-42b1-bd23-8a3eb925ed15\",\n-               \"sourceRevisionId\": \"f97d2a32-74c4-4a47-bbb9-988688b57c9b\",\n-               \"sourceVersion\": 1,\n-             },\n-           ],\n-           \"title\": \"合成知识\",\n-           \"validity\": {\n-             \"status\": \"confirmed\",\n-             \"validFrom\": null,\n-             \"validUntil\": null,\n-           },\n-         },\n-         \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-         \"createdAt\": \"2026-10-27T00:00:00.000Z\",\n-         \"documentId\": \"418af6de-5228-44bf-9212-92b855748fea\",\n-         \"parentRevisionId\": null,\n-         \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-         \"sourceSetHash\": \"cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f\",\n-         \"version\": 1,\n-         \"workspaceId\": \"9974fa6c-a75c-45f9-959e-8d5befc41055\",\n-       },\n-     },\n-   },\n-   \"evidenceIds\": [\n-     \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-   ],\n-   \"ok\": true,\n-   \"warnings\": [],\n+   \"ok\": false,\n  }\n\n ❯ .runtime/c-a-fixes-extra.test.ts:38:214\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/9]⎯\n\n FAIL  .runtime/c-a-fixes-extra.test.ts > C-legacy-key wiki.withdraw: old success replays after reopen\nAssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, data: { …(2) }, …(2) }\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"kind\": \"wikiRevision\",\n-     \"record\": {\n-       \"lifecycle\": {\n-         \"lifecycleVersion\": 4,\n-         \"publication\": {\n-           \"actorId\": \"synthetic-human\",\n-           \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-           \"eventId\": \"0be3b730-d1e3-4ea1-bd18-e2a59a546ac2\",\n-           \"lifecycleVersion\": 4,\n-           \"note\": \"synthetic legacy withdrawal\",\n-           \"occurredAt\": \"2026-10-27T00:00:00.000Z\",\n-           \"reviewId\": \"ed33581b-93d0-4184-8d47-05aef6b54897\",\n-           \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-           \"sourceSetHash\": \"cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f\",\n-           \"type\": \"withdrawn\",\n-         },\n-         \"review\": {\n-           \"actorId\": \"synthetic-human\",\n-           \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-           \"decidedAt\": \"2026-10-27T00:00:00.000Z\",\n-           \"decision\": \"approve\",\n-           \"expectedLifecycleVersion\": 1,\n-           \"lintReceipt\": {\n-             \"checkedAt\": \"2026-10-27T00:00:00.000Z\",\n-             \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-             \"outcome\": \"passed\",\n-             \"policyVersion\": \"knowledge-maintenance-v1\",\n-             \"receiptId\": \"1366894d-29be-4247-9b67-104564804c14\",\n-             \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-             \"sourceSetHash\": \"cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f\",\n-             \"workspaceId\": \"9974fa6c-a75c-45f9-959e-8d5befc41055\",\n+   \"error\": {\n+     \"code\": \"IDEMPOTENCY_CONFLICT\",\n+     \"issues\": [],\n+     \"message\": \"同一操作标识不能用于不同内容\",\n+     \"retryable\": false,\n    },\n-           \"lintReceiptId\": \"1366894d-29be-4247-9b67-104564804c14\",\n-           \"note\": \"synthetic technical review\",\n-           \"reviewId\": \"ed33581b-93d0-4184-8d47-05aef6b54897\",\n-           \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-           \"sourceSetHash\": \"cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f\",\n-           \"workspaceId\": \"9974fa6c-a75c-45f9-959e-8d5befc41055\",\n-         },\n-         \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-         \"state\": \"withdrawn\",\n-       },\n-       \"revision\": {\n-         \"artifactId\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-         \"content\": {\n-           \"kind\": \"sop\",\n-           \"locale\": \"en\",\n-           \"markdown\": \"# Synthetic candidate\",\n-           \"relations\": [],\n-           \"rules\": [],\n-           \"scope\": {\n-             \"categories\": [],\n-             \"markets\": [],\n-             \"platforms\": [],\n-           },\n-           \"sections\": [\n-             {\n-               \"location\": {\n-                 \"end\": 21,\n-                 \"kind\": \"text\",\n-                 \"start\": 0,\n-               },\n-               \"sectionId\": \"ea26b962-de69-4b1d-9479-6acb41f3415b\",\n-               \"sourceReferenceIds\": [\n-                 \"4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf\",\n-               ],\n-               \"title\": \"合成段落\",\n-             },\n-           ],\n-           \"sourceRefs\": [\n-             {\n-               \"artifactHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-               \"assertion\": \"fact\",\n-               \"excerptHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-               \"location\": {\n-                 \"end\": 16,\n-                 \"kind\": \"text\",\n-                 \"start\": 0,\n-               },\n-               \"referenceId\": \"4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf\",\n-               \"sourceId\": \"963a2b89-62e4-42b1-bd23-8a3eb925ed15\",\n-               \"sourceRevisionId\": \"f97d2a32-74c4-4a47-bbb9-988688b57c9b\",\n-               \"sourceVersion\": 1,\n-             },\n-           ],\n-           \"title\": \"合成知识\",\n-           \"validity\": {\n-             \"status\": \"confirmed\",\n-             \"validFrom\": null,\n-             \"validUntil\": null,\n-           },\n-         },\n-         \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-         \"createdAt\": \"2026-10-27T00:00:00.000Z\",\n-         \"documentId\": \"418af6de-5228-44bf-9212-92b855748fea\",\n-         \"parentRevisionId\": null,\n-         \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-         \"sourceSetHash\": \"cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f\",\n-         \"version\": 1,\n-         \"workspaceId\": \"9974fa6c-a75c-45f9-959e-8d5befc41055\",\n-       },\n-     },\n-   },\n-   \"evidenceIds\": [\n-     \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-   ],\n-   \"ok\": true,\n-   \"warnings\": [],\n+   \"ok\": false,\n  }\n\n ❯ .runtime/c-a-fixes-extra.test.ts:38:214\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/9]⎯\n\n FAIL  .runtime/c-a-fixes-extra.test.ts > C-legacy-receipt: same lint identity returns original receipt\nAssertionError: expected undefined to deeply equal { …(8) }\n\n- Expected:\n{\n  \"checkedAt\": \"2026-10-27T00:00:00.000Z\",\n  \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n  \"outcome\": \"passed\",\n  \"policyVersion\": \"knowledge-maintenance-v1\",\n  \"receiptId\": \"1366894d-29be-4247-9b67-104564804c14\",\n  \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n  \"sourceSetHash\": \"cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f\",\n  \"workspaceId\": \"9974fa6c-a75c-45f9-959e-8d5befc41055\",\n}\n\n+ Received:\nundefined\n\n ❯ .runtime/c-a-fixes-extra.test.ts:41:215\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/9]⎯\n\n FAIL  .runtime/c-a-fixes-extra.test.ts > C-report-relations: two distinct broken relations yield valid stored report\nAssertionError: expected false to be true // Object.is equality\n\n- Expected\n+ Received\n\n- true\n+ false\n\n ❯ .runtime/c-a-fixes-extra.test.ts:45:304\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/9]⎯\n\n FAIL  .runtime/c-a-fixes-extra.test.ts > C-B-unknown: unknown validity stays partial/unknown\nAssertionError: expected 'completed' to be 'partial' // Object.is equality\n\nExpected: \"partial\"\nReceived: \"completed\"\n\n ❯ .runtime/c-a-fixes-extra.test.ts:49:300\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/9]⎯\n\n",
+      "stdoutSha256": "ba7cc2f99e1f77fd70d16a06d20e882b1abce1c0efb4ea39fcbd6a9289f0423a",
+      "stderrSha256": "a708be4aa890ceb6073f8c861d316b8dc81242e9f6e1396d62aea0021fda7ee3"
+    },
+    {
+      "name": "legacy-and-report-boundaries",
+      "argv": [
+        "apps/desktop/node_modules/.bin/electron",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        ".runtime/c-a-fixes-extra.config.ts"
+      ],
+      "startedAt": "2026-10-28T06:28:18.259963+00:00",
+      "finishedAt": "2026-10-28T06:28:19.661941+00:00",
+      "exitCode": 1,
+      "stdout": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-a01e-fixes-review/tradequote-agent\n\nstdout | .runtime/c-a-fixes-extra.test.ts > C-legacy-key source.stage: old success replays after reopen\nLEGACY_REPLAY {\"method\":\"source.stage\",\"ok\":false,\"code\":\"IDEMPOTENCY_CONFLICT\"}\n\nstdout | .runtime/c-a-fixes-extra.test.ts > C-legacy-key wiki.stage: old success replays after reopen\nLEGACY_REPLAY {\"method\":\"wiki.stage\",\"ok\":false,\"code\":\"IDEMPOTENCY_CONFLICT\"}\n\nstdout | .runtime/c-a-fixes-extra.test.ts > C-legacy-key wiki.review: old success replays after reopen\nLEGACY_REPLAY {\"method\":\"wiki.review\",\"ok\":false,\"code\":\"IDEMPOTENCY_CONFLICT\"}\n\nstdout | .runtime/c-a-fixes-extra.test.ts > C-legacy-key wiki.publish: old success replays after reopen\nLEGACY_REPLAY {\"method\":\"wiki.publish\",\"ok\":false,\"code\":\"IDEMPOTENCY_CONFLICT\"}\n\nstdout | .runtime/c-a-fixes-extra.test.ts > C-legacy-key wiki.withdraw: old success replays after reopen\nLEGACY_REPLAY {\"method\":\"wiki.withdraw\",\"ok\":false,\"code\":\"IDEMPOTENCY_CONFLICT\"}\n\nstdout | .runtime/c-a-fixes-extra.test.ts > C-legacy-receipt: same lint identity returns original receipt\nLEGACY_LINT {\"actual\":null,\"expectedReceiptId\":\"1366894d-29be-4247-9b67-104564804c14\"}\n\nstdout | .runtime/c-a-fixes-extra.test.ts > C-report-relations: two distinct broken relations yield valid stored report\nRELATIONS_REPORT {\"valid\":false,\"issues\":[{\"issueKey\":\"0adb2ae2fb573788e852cf9a61c02ea256bb7d761681776dbedb31ab80e957cc\",\"check\":\"relations\",\"severity\":\"block\",\"message\":\"关联指向不存在的知识版本\",\"sectionIds\":[],\"sourceRevisionIds\":[]},{\"issueKey\":\"0adb2ae2fb573788e852cf9a61c02ea256bb7d761681776dbedb31ab80e957cc\",\"check\":\"relations\",\"severity\":\"block\",\"message\":\"关联指向不存在的知识版本\",\"sectionIds\":[],\"sourceRevisionIds\":[]}]}\n\nstdout | .runtime/c-a-fixes-extra.test.ts > C-B-unknown: unknown validity stays partial/unknown\nUNKNOWN_REPORT {\"status\":\"completed\",\"outcome\":\"blocked\",\"coverage\":[{\"check\":\"source_integrity\",\"status\":\"passed\"},{\"check\":\"section_references\",\"status\":\"passed\"},{\"check\":\"relations\",\"status\":\"passed\"},{\"check\":\"scope_validity\",\"status\":\"issues\"},{\"check\":\"source_updates\",\"status\":\"passed\"},{\"check\":\"duplicates_conflicts\",\"status\":\"passed\"},{\"check\":\"orphans\",\"status\":\"passed\"}],\"issues\":[{\"issueKey\":\"e5ca235db2d9f9471b525160598e9799a23b09a3703a9191ff3001d79653b94c\",\"check\":\"scope_validity\",\"severity\":\"block\",\"message\":\"知识有效期不适用：unknown\",\"sectionIds\":[],\"sourceRevisionIds\":[]}]}\n\n ❯ .runtime/c-a-fixes-extra.test.ts (9 tests | 8 failed) 216ms\n   × C-legacy-key source.stage: old success replays after reopen 27ms\n   × C-legacy-key wiki.stage: old success replays after reopen 15ms\n   × C-legacy-key wiki.review: old success replays after reopen 16ms\n   × C-legacy-key wiki.publish: old success replays after reopen 18ms\n   × C-legacy-key wiki.withdraw: old success replays after reopen 22ms\n   × C-legacy-receipt: same lint identity returns original receipt 17ms\n   × C-report-relations: two distinct broken relations yield valid stored report 44ms\n   × C-B-unknown: unknown validity stays partial/unknown 24ms\n\n Test Files  1 failed (1)\n      Tests  8 failed | 1 passed (9)\n   Start at  14:28:18\n   Duration  793ms (import 53%, tests 33%, transform 13%)\n\n",
+      "stderr": "\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  .runtime/c-a-fixes-extra.test.ts > C-legacy-key source.stage: old success replays after reopen\nAssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, data: { …(2) }, …(2) }\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"kind\": \"sourceRevision\",\n-     \"revision\": {\n-       \"acquiredAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"artifactHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-       \"artifactId\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-       \"createdAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"label\": \"合成资料\",\n-       \"mediaType\": \"text/plain\",\n-       \"parentRevisionId\": null,\n-       \"permissionNote\": \"synthetic only\",\n-       \"sourceId\": \"963a2b89-62e4-42b1-bd23-8a3eb925ed15\",\n-       \"sourceRevisionId\": \"f97d2a32-74c4-4a47-bbb9-988688b57c9b\",\n-       \"sourceStatus\": \"synthetic\",\n-       \"sourceText\": \"Synthetic source\",\n-       \"sourceUri\": null,\n-       \"validity\": {\n-         \"status\": \"confirmed\",\n-         \"validFrom\": null,\n-         \"validUntil\": null,\n-       },\n-       \"version\": 1,\n-       \"workspaceId\": \"9974fa6c-a75c-45f9-959e-8d5befc41055\",\n-     },\n+   \"error\": {\n+     \"code\": \"IDEMPOTENCY_CONFLICT\",\n+     \"issues\": [],\n+     \"message\": \"同一操作标识不能用于不同内容\",\n+     \"retryable\": false,\n    },\n-   \"evidenceIds\": [\n-     \"f97d2a32-74c4-4a47-bbb9-988688b57c9b\",\n-   ],\n-   \"ok\": true,\n-   \"warnings\": [],\n+   \"ok\": false,\n  }\n\n ❯ .runtime/c-a-fixes-extra.test.ts:38:214\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯\n\n FAIL  .runtime/c-a-fixes-extra.test.ts > C-legacy-key wiki.stage: old success replays after reopen\nAssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, data: { …(2) }, …(2) }\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"kind\": \"wikiRevision\",\n-     \"record\": {\n-       \"lifecycle\": {\n-         \"lifecycleVersion\": 1,\n-         \"publication\": null,\n-         \"review\": null,\n-         \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-         \"state\": \"candidate\",\n-       },\n-       \"revision\": {\n-         \"artifactId\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-         \"content\": {\n-           \"kind\": \"sop\",\n-           \"locale\": \"en\",\n-           \"markdown\": \"# Synthetic candidate\",\n-           \"relations\": [],\n-           \"rules\": [],\n-           \"scope\": {\n-             \"categories\": [],\n-             \"markets\": [],\n-             \"platforms\": [],\n-           },\n-           \"sections\": [\n-             {\n-               \"location\": {\n-                 \"end\": 21,\n-                 \"kind\": \"text\",\n-                 \"start\": 0,\n-               },\n-               \"sectionId\": \"ea26b962-de69-4b1d-9479-6acb41f3415b\",\n-               \"sourceReferenceIds\": [\n-                 \"4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf\",\n-               ],\n-               \"title\": \"合成段落\",\n-             },\n-           ],\n-           \"sourceRefs\": [\n-             {\n-               \"artifactHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-               \"assertion\": \"fact\",\n-               \"excerptHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-               \"location\": {\n-                 \"end\": 16,\n-                 \"kind\": \"text\",\n-                 \"start\": 0,\n-               },\n-               \"referenceId\": \"4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf\",\n-               \"sourceId\": \"963a2b89-62e4-42b1-bd23-8a3eb925ed15\",\n-               \"sourceRevisionId\": \"f97d2a32-74c4-4a47-bbb9-988688b57c9b\",\n-               \"sourceVersion\": 1,\n+   \"error\": {\n+     \"code\": \"IDEMPOTENCY_CONFLICT\",\n+     \"issues\": [],\n+     \"message\": \"同一操作标识不能用于不同内容\",\n+     \"retryable\": false,\n    },\n-           ],\n-           \"title\": \"合成知识\",\n-           \"validity\": {\n-             \"status\": \"confirmed\",\n-             \"validFrom\": null,\n-             \"validUntil\": null,\n-           },\n-         },\n-         \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-         \"createdAt\": \"2026-10-27T00:00:00.000Z\",\n-         \"documentId\": \"418af6de-5228-44bf-9212-92b855748fea\",\n-         \"parentRevisionId\": null,\n-         \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-         \"sourceSetHash\": \"cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f\",\n-         \"version\": 1,\n-         \"workspaceId\": \"9974fa6c-a75c-45f9-959e-8d5befc41055\",\n-       },\n-     },\n-   },\n-   \"evidenceIds\": [\n-     \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-   ],\n-   \"ok\": true,\n-   \"warnings\": [],\n+   \"ok\": false,\n  }\n\n ❯ .runtime/c-a-fixes-extra.test.ts:38:214\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯\n\n FAIL  .runtime/c-a-fixes-extra.test.ts > C-legacy-key wiki.review: old success replays after reopen\nAssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, data: { …(2) }, …(2) }\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"kind\": \"wikiRevision\",\n-     \"record\": {\n-       \"lifecycle\": {\n-         \"lifecycleVersion\": 2,\n-         \"publication\": null,\n-         \"review\": {\n-           \"actorId\": \"synthetic-human\",\n-           \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-           \"decidedAt\": \"2026-10-27T00:00:00.000Z\",\n-           \"decision\": \"approve\",\n-           \"expectedLifecycleVersion\": 1,\n-           \"lintReceipt\": {\n-             \"checkedAt\": \"2026-10-27T00:00:00.000Z\",\n-             \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-             \"outcome\": \"passed\",\n-             \"policyVersion\": \"knowledge-maintenance-v1\",\n-             \"receiptId\": \"1366894d-29be-4247-9b67-104564804c14\",\n-             \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-             \"sourceSetHash\": \"cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f\",\n-             \"workspaceId\": \"9974fa6c-a75c-45f9-959e-8d5befc41055\",\n-           },\n-           \"lintReceiptId\": \"1366894d-29be-4247-9b67-104564804c14\",\n-           \"note\": \"synthetic technical review\",\n-           \"reviewId\": \"ed33581b-93d0-4184-8d47-05aef6b54897\",\n-           \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-           \"sourceSetHash\": \"cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f\",\n-           \"workspaceId\": \"9974fa6c-a75c-45f9-959e-8d5befc41055\",\n-         },\n-         \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-         \"state\": \"approved\",\n-       },\n-       \"revision\": {\n-         \"artifactId\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-         \"content\": {\n-           \"kind\": \"sop\",\n-           \"locale\": \"en\",\n-           \"markdown\": \"# Synthetic candidate\",\n-           \"relations\": [],\n-           \"rules\": [],\n-           \"scope\": {\n-             \"categories\": [],\n-             \"markets\": [],\n-             \"platforms\": [],\n-           },\n-           \"sections\": [\n-             {\n-               \"location\": {\n-                 \"end\": 21,\n-                 \"kind\": \"text\",\n-                 \"start\": 0,\n-               },\n-               \"sectionId\": \"ea26b962-de69-4b1d-9479-6acb41f3415b\",\n-               \"sourceReferenceIds\": [\n-                 \"4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf\",\n-               ],\n-               \"title\": \"合成段落\",\n-             },\n-           ],\n-           \"sourceRefs\": [\n-             {\n-               \"artifactHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-               \"assertion\": \"fact\",\n-               \"excerptHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-               \"location\": {\n-                 \"end\": 16,\n-                 \"kind\": \"text\",\n-                 \"start\": 0,\n-               },\n-               \"referenceId\": \"4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf\",\n-               \"sourceId\": \"963a2b89-62e4-42b1-bd23-8a3eb925ed15\",\n-               \"sourceRevisionId\": \"f97d2a32-74c4-4a47-bbb9-988688b57c9b\",\n-               \"sourceVersion\": 1,\n-             },\n-           ],\n-           \"title\": \"合成知识\",\n-           \"validity\": {\n-             \"status\": \"confirmed\",\n-             \"validFrom\": null,\n-             \"validUntil\": null,\n-           },\n-         },\n-         \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-         \"createdAt\": \"2026-10-27T00:00:00.000Z\",\n-         \"documentId\": \"418af6de-5228-44bf-9212-92b855748fea\",\n-         \"parentRevisionId\": null,\n-         \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-         \"sourceSetHash\": \"cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f\",\n-         \"version\": 1,\n-         \"workspaceId\": \"9974fa6c-a75c-45f9-959e-8d5befc41055\",\n-       },\n+   \"error\": {\n+     \"code\": \"IDEMPOTENCY_CONFLICT\",\n+     \"issues\": [],\n+     \"message\": \"同一操作标识不能用于不同内容\",\n+     \"retryable\": false,\n    },\n-   },\n-   \"evidenceIds\": [\n-     \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-   ],\n-   \"ok\": true,\n-   \"warnings\": [],\n+   \"ok\": false,\n  }\n\n ❯ .runtime/c-a-fixes-extra.test.ts:38:214\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯\n\n FAIL  .runtime/c-a-fixes-extra.test.ts > C-legacy-key wiki.publish: old success replays after reopen\nAssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, data: { …(2) }, …(2) }\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"kind\": \"wikiRevision\",\n-     \"record\": {\n-       \"lifecycle\": {\n-         \"lifecycleVersion\": 3,\n-         \"publication\": {\n-           \"actorId\": \"synthetic-human\",\n-           \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-           \"eventId\": \"d0c8b5ad-cfee-4b10-8023-658147a60c6c\",\n-           \"lifecycleVersion\": 3,\n-           \"note\": \"synthetic technical review\",\n-           \"occurredAt\": \"2026-10-27T00:00:00.000Z\",\n-           \"reviewId\": \"ed33581b-93d0-4184-8d47-05aef6b54897\",\n-           \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-           \"sourceSetHash\": \"cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f\",\n-           \"type\": \"published\",\n-         },\n-         \"review\": {\n-           \"actorId\": \"synthetic-human\",\n-           \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-           \"decidedAt\": \"2026-10-27T00:00:00.000Z\",\n-           \"decision\": \"approve\",\n-           \"expectedLifecycleVersion\": 1,\n-           \"lintReceipt\": {\n-             \"checkedAt\": \"2026-10-27T00:00:00.000Z\",\n-             \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-             \"outcome\": \"passed\",\n-             \"policyVersion\": \"knowledge-maintenance-v1\",\n-             \"receiptId\": \"1366894d-29be-4247-9b67-104564804c14\",\n-             \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-             \"sourceSetHash\": \"cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f\",\n-             \"workspaceId\": \"9974fa6c-a75c-45f9-959e-8d5befc41055\",\n+   \"error\": {\n+     \"code\": \"IDEMPOTENCY_CONFLICT\",\n+     \"issues\": [],\n+     \"message\": \"同一操作标识不能用于不同内容\",\n+     \"retryable\": false,\n    },\n-           \"lintReceiptId\": \"1366894d-29be-4247-9b67-104564804c14\",\n-           \"note\": \"synthetic technical review\",\n-           \"reviewId\": \"ed33581b-93d0-4184-8d47-05aef6b54897\",\n-           \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-           \"sourceSetHash\": \"cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f\",\n-           \"workspaceId\": \"9974fa6c-a75c-45f9-959e-8d5befc41055\",\n-         },\n-         \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-         \"state\": \"published\",\n-       },\n-       \"revision\": {\n-         \"artifactId\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-         \"content\": {\n-           \"kind\": \"sop\",\n-           \"locale\": \"en\",\n-           \"markdown\": \"# Synthetic candidate\",\n-           \"relations\": [],\n-           \"rules\": [],\n-           \"scope\": {\n-             \"categories\": [],\n-             \"markets\": [],\n-             \"platforms\": [],\n-           },\n-           \"sections\": [\n-             {\n-               \"location\": {\n-                 \"end\": 21,\n-                 \"kind\": \"text\",\n-                 \"start\": 0,\n-               },\n-               \"sectionId\": \"ea26b962-de69-4b1d-9479-6acb41f3415b\",\n-               \"sourceReferenceIds\": [\n-                 \"4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf\",\n-               ],\n-               \"title\": \"合成段落\",\n-             },\n-           ],\n-           \"sourceRefs\": [\n-             {\n-               \"artifactHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-               \"assertion\": \"fact\",\n-               \"excerptHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-               \"location\": {\n-                 \"end\": 16,\n-                 \"kind\": \"text\",\n-                 \"start\": 0,\n-               },\n-               \"referenceId\": \"4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf\",\n-               \"sourceId\": \"963a2b89-62e4-42b1-bd23-8a3eb925ed15\",\n-               \"sourceRevisionId\": \"f97d2a32-74c4-4a47-bbb9-988688b57c9b\",\n-               \"sourceVersion\": 1,\n-             },\n-           ],\n-           \"title\": \"合成知识\",\n-           \"validity\": {\n-             \"status\": \"confirmed\",\n-             \"validFrom\": null,\n-             \"validUntil\": null,\n-           },\n-         },\n-         \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-         \"createdAt\": \"2026-10-27T00:00:00.000Z\",\n-         \"documentId\": \"418af6de-5228-44bf-9212-92b855748fea\",\n-         \"parentRevisionId\": null,\n-         \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-         \"sourceSetHash\": \"cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f\",\n-         \"version\": 1,\n-         \"workspaceId\": \"9974fa6c-a75c-45f9-959e-8d5befc41055\",\n-       },\n-     },\n-   },\n-   \"evidenceIds\": [\n-     \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-   ],\n-   \"ok\": true,\n-   \"warnings\": [],\n+   \"ok\": false,\n  }\n\n ❯ .runtime/c-a-fixes-extra.test.ts:38:214\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯\n\n FAIL  .runtime/c-a-fixes-extra.test.ts > C-legacy-key wiki.withdraw: old success replays after reopen\nAssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, data: { …(2) }, …(2) }\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"kind\": \"wikiRevision\",\n-     \"record\": {\n-       \"lifecycle\": {\n-         \"lifecycleVersion\": 4,\n-         \"publication\": {\n-           \"actorId\": \"synthetic-human\",\n-           \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-           \"eventId\": \"0be3b730-d1e3-4ea1-bd18-e2a59a546ac2\",\n-           \"lifecycleVersion\": 4,\n-           \"note\": \"synthetic legacy withdrawal\",\n-           \"occurredAt\": \"2026-10-27T00:00:00.000Z\",\n-           \"reviewId\": \"ed33581b-93d0-4184-8d47-05aef6b54897\",\n-           \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-           \"sourceSetHash\": \"cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f\",\n-           \"type\": \"withdrawn\",\n-         },\n-         \"review\": {\n-           \"actorId\": \"synthetic-human\",\n-           \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-           \"decidedAt\": \"2026-10-27T00:00:00.000Z\",\n-           \"decision\": \"approve\",\n-           \"expectedLifecycleVersion\": 1,\n-           \"lintReceipt\": {\n-             \"checkedAt\": \"2026-10-27T00:00:00.000Z\",\n-             \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-             \"outcome\": \"passed\",\n-             \"policyVersion\": \"knowledge-maintenance-v1\",\n-             \"receiptId\": \"1366894d-29be-4247-9b67-104564804c14\",\n-             \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-             \"sourceSetHash\": \"cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f\",\n-             \"workspaceId\": \"9974fa6c-a75c-45f9-959e-8d5befc41055\",\n+   \"error\": {\n+     \"code\": \"IDEMPOTENCY_CONFLICT\",\n+     \"issues\": [],\n+     \"message\": \"同一操作标识不能用于不同内容\",\n+     \"retryable\": false,\n    },\n-           \"lintReceiptId\": \"1366894d-29be-4247-9b67-104564804c14\",\n-           \"note\": \"synthetic technical review\",\n-           \"reviewId\": \"ed33581b-93d0-4184-8d47-05aef6b54897\",\n-           \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-           \"sourceSetHash\": \"cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f\",\n-           \"workspaceId\": \"9974fa6c-a75c-45f9-959e-8d5befc41055\",\n-         },\n-         \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-         \"state\": \"withdrawn\",\n-       },\n-       \"revision\": {\n-         \"artifactId\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-         \"content\": {\n-           \"kind\": \"sop\",\n-           \"locale\": \"en\",\n-           \"markdown\": \"# Synthetic candidate\",\n-           \"relations\": [],\n-           \"rules\": [],\n-           \"scope\": {\n-             \"categories\": [],\n-             \"markets\": [],\n-             \"platforms\": [],\n-           },\n-           \"sections\": [\n-             {\n-               \"location\": {\n-                 \"end\": 21,\n-                 \"kind\": \"text\",\n-                 \"start\": 0,\n-               },\n-               \"sectionId\": \"ea26b962-de69-4b1d-9479-6acb41f3415b\",\n-               \"sourceReferenceIds\": [\n-                 \"4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf\",\n-               ],\n-               \"title\": \"合成段落\",\n-             },\n-           ],\n-           \"sourceRefs\": [\n-             {\n-               \"artifactHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-               \"assertion\": \"fact\",\n-               \"excerptHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-               \"location\": {\n-                 \"end\": 16,\n-                 \"kind\": \"text\",\n-                 \"start\": 0,\n-               },\n-               \"referenceId\": \"4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf\",\n-               \"sourceId\": \"963a2b89-62e4-42b1-bd23-8a3eb925ed15\",\n-               \"sourceRevisionId\": \"f97d2a32-74c4-4a47-bbb9-988688b57c9b\",\n-               \"sourceVersion\": 1,\n-             },\n-           ],\n-           \"title\": \"合成知识\",\n-           \"validity\": {\n-             \"status\": \"confirmed\",\n-             \"validFrom\": null,\n-             \"validUntil\": null,\n-           },\n-         },\n-         \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n-         \"createdAt\": \"2026-10-27T00:00:00.000Z\",\n-         \"documentId\": \"418af6de-5228-44bf-9212-92b855748fea\",\n-         \"parentRevisionId\": null,\n-         \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-         \"sourceSetHash\": \"cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f\",\n-         \"version\": 1,\n-         \"workspaceId\": \"9974fa6c-a75c-45f9-959e-8d5befc41055\",\n-       },\n-     },\n-   },\n-   \"evidenceIds\": [\n-     \"a9a1c931-7de9-4161-9903-3e331364d371\",\n-   ],\n-   \"ok\": true,\n-   \"warnings\": [],\n+   \"ok\": false,\n  }\n\n ❯ .runtime/c-a-fixes-extra.test.ts:38:214\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯\n\n FAIL  .runtime/c-a-fixes-extra.test.ts > C-legacy-receipt: same lint identity returns original receipt\nAssertionError: expected undefined to deeply equal { …(8) }\n\n- Expected:\n{\n  \"checkedAt\": \"2026-10-27T00:00:00.000Z\",\n  \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n  \"outcome\": \"passed\",\n  \"policyVersion\": \"knowledge-maintenance-v1\",\n  \"receiptId\": \"1366894d-29be-4247-9b67-104564804c14\",\n  \"revisionId\": \"a9a1c931-7de9-4161-9903-3e331364d371\",\n  \"sourceSetHash\": \"cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f\",\n  \"workspaceId\": \"9974fa6c-a75c-45f9-959e-8d5befc41055\",\n}\n\n+ Received:\nundefined\n\n ❯ .runtime/c-a-fixes-extra.test.ts:41:215\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯\n\n FAIL  .runtime/c-a-fixes-extra.test.ts > C-report-relations: two distinct broken relations yield valid stored report\nAssertionError: expected false to be true // Object.is equality\n\n- Expected\n+ Received\n\n- true\n+ false\n\n ❯ .runtime/c-a-fixes-extra.test.ts:45:304\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯\n\n FAIL  .runtime/c-a-fixes-extra.test.ts > C-B-unknown: unknown validity stays partial/unknown\nAssertionError: expected 'completed' to be 'partial' // Object.is equality\n\nExpected: \"partial\"\nReceived: \"completed\"\n\n ❯ .runtime/c-a-fixes-extra.test.ts:49:300\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯\n\n",
+      "stdoutSha256": "247c8af017e4e10477ff2d675d86d3e97866eac8e9efc2c9b0d935289dafaeeb",
+      "stderrSha256": "502e477996db9f6956d81d809396a2ece972f0b02ebf337e5b4a09c7b4854e51"
+    },
+    {
+      "name": "build",
+      "argv": [
+        "pnpm",
+        "build"
+      ],
+      "startedAt": "2026-10-28T06:28:19.753560+00:00",
+      "finishedAt": "2026-10-28T06:28:23.614070+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 build /Users/jason/.codex/worktrees/c-a01e-fixes-review/tradequote-agent\n> node scripts/check-icons.mjs && pnpm --filter @tradequote/desktop build\n\nApplication icons passed: SVG/1024 PNG/macOS ICNS/Windows ICO\n\n> @tradequote/desktop@0.1.0 build /Users/jason/.codex/worktrees/c-a01e-fixes-review/tradequote-agent/apps/desktop\n> electron-vite build\n\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 279 modules transformed.\nrendering chunks...\nout/main/evaluation.js                2.41 kB\nout/main/worker.js                    3.07 kB\nout/main/index.js                    26.21 kB\nout/main/chunks/public-CsVrzCFH.js   29.90 kB\nout/main/chunks/src-CpX42lfR.js     760.93 kB\n\n✓ built in 88ms\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 116 modules transformed.\nrendering chunks...\nout/preload/index.js  286.48 kB\n\n✓ built in 31ms\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 2120 modules transformed.\nrendering chunks...\nout/renderer/index.html                   0.64 kB\nout/renderer/assets/index-CKwX_z5s.css   15.94 kB\nout/renderer/assets/index-Dkp_l23Z.js   597.05 kB\n\n✓ built in 872ms\n",
+      "stderr": "[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n",
+      "stdoutSha256": "4b651a99c281d82857546621faded7bb446aa1cc6148a535caac450bcfb41c24",
+      "stderrSha256": "351b524197fb492920789369e7f1a271420c757633fbb553b280a181ac4c31a4"
+    }
+  ],
+  "scope": "Only review documentation and restored runtime probes; application files unchanged from369; no merge/push/external chat messages/model calls or personnel signoff",
+  "summary": {
+    "COriginal": {
+      "passed": 8,
+      "failed": 0
+    },
+    "BSupplement": {
+      "passed": 15,
+      "failed": 0
+    },
+    "oldBSourceFixes": {
+      "passed": 2,
+      "failed": 0
+    },
+    "matchedEightFileRegression": {
+      "passed": 121,
+      "failed": 0,
+      "note": "prior117 + four A new tests; distinct from older nine-file121"
+    },
+    "preliminaryDifferentEightFileSet": {
+      "passed": 98,
+      "failed": 0,
+      "note": "not counted as matched121; retained evidence"
+    },
+    "extraFinal": {
+      "passed": 1,
+      "failed": 8,
+      "failureGroups": {
+        "legacySuccessfulKeys": 5,
+        "legacyReceiptReuse": 1,
+        "reportDuplicateIssueKeys": 1,
+        "BUnknownSemantics": 1
+      }
+    },
+    "extraInitial": {
+      "passed": 0,
+      "failed": 9,
+      "fixtureError": 1,
+      "note": "control used write envelope for read; corrected fixture only, eight product assertions unchanged"
+    },
+    "typecheck": 0,
+    "build": 0,
+    "pnpmCheck": {
+      "exitCode": 1,
+      "reason": "Biome formatter rejects two A-modified files; later && checks not executed in this command"
+    },
+    "desktopE2E": "not rerun; product boundary failures unresolved",
+    "overall": "changes_required"
+  },
+  "legacyFixture": {
+    "generatorSourceSha": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+    "actualCheckoutSha": "3d21289e79a2b8f8f8de9a3a8899674c0b12c07e",
+    "codeDifferenceFrom7e6": "",
+    "scriptUtf8": "import { randomUUID } from \"node:crypto\";\nimport { writeFileSync, mkdtempSync, rmSync } from \"node:fs\";\nimport { tmpdir } from \"node:os\";\nimport { join } from \"node:path\";\nimport { KnowledgeLintReportSchema, WikiLintReceiptSchema, WikiResultSchema, type WikiRevision, type WikiSourceRevision } from \"../packages/contracts/src/index\";\nimport {createRequire} from \"node:module\";\nconst Database = createRequire(new URL(\"../packages/infrastructure/package.json\", import.meta.url))(\"better-sqlite3\");\nimport { afterEach, expect, it } from \"vitest\";\nimport { SqliteWorkspaceRepository } from \"../packages/infrastructure/src/index\";\nconst NOW=\"2026-10-27T00:00:00.000Z\", LATER=\"2026-10-27T00:00:02.000Z\";\nconst valid={status:\"confirmed\" as const,validFrom:null,validUntil:null};\nconst dispose:(()=>void)[]=[];\nafterEach(()=>{for(const close of dispose.splice(0).reverse())close();});\nconst command=(method:string,payload:unknown)=>({schemaVersion:1,requestId:randomUUID(),idempotencyKey:randomUUID(),method,payload});\nfunction data(input:unknown){const r=WikiResultSchema.parse(input);if(!r.ok)throw Error(r.error.message);return r.data;}\nasync function fixture(expires:string|null=null){\n const dir=process.env.C_LEGACY_FIXTURE_DIR!;\n const file=join(dir,\"synthetic.sqlite\"),repo=new SqliteWorkspaceRepository(file);dispose.push(()=>repo.close());\n repo.commit(command(\"workspace.create\",{name:\"合成P1边界\"}) as never,{actorId:\"synthetic-human\",origin:\"human_ui\"});\n const context={workspaceId:repo.read()!.id,actorId:\"synthetic-human\",origin:\"human_ui\" as const,now:NOW};\n const payload={sourceId:randomUUID(),expectedVersion:0,label:\"合成资料\",sourceStatus:\"synthetic\",mediaType:\"text/plain\",sourceText:\"Synthetic source\",acquiredAt:NOW,sourceUri:null,permissionNote:\"synthetic only\",validity:{...valid,validUntil:expires}};\n const sourceCommand=command(\"source.stage\",payload);const sourceResult=await repo.executeWiki(sourceCommand,context);const sourceData=data(sourceResult);if(sourceData.kind!==\"sourceRevision\")throw Error(\"source fixture\");\n const source:WikiSourceRevision=sourceData.revision,ref={referenceId:randomUUID(),sourceId:source.sourceId,sourceRevisionId:source.sourceRevisionId,sourceVersion:source.version,artifactHash:source.artifactHash,location:{kind:\"text\",start:0,end:source.sourceText.length},excerptHash:source.artifactHash,assertion:\"fact\"};\n const markdown=\"# Synthetic candidate\",sectionId=randomUUID();\n const wikiCommand=command(\"wiki.stage\",{documentId:randomUUID(),expectedVersion:0,parentRevisionId:null,content:{kind:\"sop\",title:\"合成知识\",locale:\"en\",scope:{platforms:[],markets:[],categories:[]},markdown,validity:valid,sections:[{sectionId,title:\"合成段落\",location:{kind:\"text\",start:0,end:markdown.length},sourceReferenceIds:[ref.referenceId]}],sourceRefs:[ref],relations:[],rules:[]}});const wikiResult=await repo.executeWiki(wikiCommand,context);const wiki=data(wikiResult);\n if(wiki.kind!==\"wikiRevision\")throw Error(\"wiki fixture\"); const revision:WikiRevision=wiki.record.revision;\n const db=new Database(file);dispose.push(()=>db.close());\n const binding={revisionId:revision.revisionId,contentHash:revision.contentHash,sourceSetHash:revision.sourceSetHash};\n return {repo,db,context,revision,source,payload,binding,sourceCommand,sourceResult,wikiCommand,wikiResult,async approve(){const receipt=repo.runWikiLint(revision.revisionId,context)!; const cmd=command(\"wiki.review\",{...binding,expectedLifecycleVersion:1,decision:\"approve\",note:\"synthetic technical review\",lintReceiptId:receipt.receiptId});const result=await repo.executeWiki(cmd,context);const d=data(result);if(d.kind!==\"wikiRevision\"||!d.record.lifecycle.review)throw Error(\"review fixture\");return {receipt,cmd,result,reviewId:d.record.lifecycle.review.reviewId};}};\n}\n\nit(\"generate valid pre-fix successes and receipt-only fact\",async()=>{\n const f=await fixture(),a=await f.approve();\n const pub=command(\"wiki.publish\",{...f.binding,reviewId:a.reviewId,expectedLifecycleVersion:2});const pubResult=await f.repo.executeWiki(pub,f.context);expect(pubResult.ok).toBe(true);\n const wd=command(\"wiki.withdraw\",{revisionId:f.revision.revisionId,expectedLifecycleVersion:3,note:\"synthetic legacy withdrawal\"});const wdResult=await f.repo.executeWiki(wd,f.context);expect(wdResult.ok).toBe(true);\n const saved=JSON.parse(f.db.prepare(\"SELECT data_json FROM knowledge_lint WHERE receipt_id=?\").get(a.receipt.receiptId).data_json);expect(saved).toEqual(a.receipt);\n writeFileSync(join(process.env.C_LEGACY_FIXTURE_DIR!,\"facts.json\"),JSON.stringify({context:f.context,revision:f.revision,receipt:a.receipt,operations:[{cmd:f.sourceCommand,result:f.sourceResult},{cmd:f.wikiCommand,result:f.wikiResult},{cmd:a.cmd,result:a.result},{cmd:pub,result:pubResult},{cmd:wd,result:wdResult}]}));\n});\n",
+    "configUtf8": "import {defineConfig} from \"vitest/config\";export default defineConfig({test:{include:[\".runtime/c-legacy-export.test.ts\"],environment:\"node\"}});\n",
+    "generationArgv": [
+      "env",
+      "C_LEGACY_FIXTURE_DIR=<review-root>/.runtime/legacy-db",
+      "ELECTRON_RUN_AS_NODE=1",
+      "apps/desktop/node_modules/.bin/electron",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--config",
+      ".runtime/c-legacy-export.config.ts"
+    ],
+    "generationExitCode": 0,
+    "generationOutput": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent\n\n\n Test Files  1 passed (1)\n      Tests  1 passed (1)\n   Start at  14:27:29\n   Duration  766ms (import 53%, transform 40%, tests 7%)\n\n",
+    "fixtureFacts": {
+      "context": {
+        "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+        "actorId": "synthetic-human",
+        "origin": "human_ui",
+        "now": "2026-10-27T00:00:00.000Z"
+      },
+      "revision": {
+        "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+        "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+        "documentId": "418af6de-5228-44bf-9212-92b855748fea",
+        "version": 1,
+        "parentRevisionId": null,
+        "content": {
+          "kind": "sop",
+          "title": "合成知识",
+          "locale": "en",
+          "scope": {
+            "platforms": [],
+            "markets": [],
+            "categories": []
+          },
+          "markdown": "# Synthetic candidate",
+          "validity": {
+            "status": "confirmed",
+            "validFrom": null,
+            "validUntil": null
+          },
+          "sections": [
+            {
+              "sectionId": "ea26b962-de69-4b1d-9479-6acb41f3415b",
+              "title": "合成段落",
+              "location": {
+                "kind": "text",
+                "start": 0,
+                "end": 21
+              },
+              "sourceReferenceIds": [
+                "4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf"
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "referenceId": "4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf",
+              "sourceId": "963a2b89-62e4-42b1-bd23-8a3eb925ed15",
+              "sourceRevisionId": "f97d2a32-74c4-4a47-bbb9-988688b57c9b",
+              "sourceVersion": 1,
+              "artifactHash": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+              "location": {
+                "kind": "text",
+                "start": 0,
+                "end": 16
+              },
+              "excerptHash": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+              "assertion": "fact"
+            }
+          ],
+          "relations": [],
+          "rules": []
+        },
+        "artifactId": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+        "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+        "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+        "createdAt": "2026-10-27T00:00:00.000Z"
+      },
+      "receipt": {
+        "receiptId": "1366894d-29be-4247-9b67-104564804c14",
+        "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+        "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+        "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+        "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+        "checkedAt": "2026-10-27T00:00:00.000Z",
+        "policyVersion": "knowledge-maintenance-v1",
+        "outcome": "passed"
+      },
+      "operations": [
+        {
+          "cmd": {
+            "schemaVersion": 1,
+            "requestId": "feed03a6-f949-497c-8d9c-cb25ff298f93",
+            "idempotencyKey": "79da9980-cb59-41dc-8d57-c357d1ceefa7",
+            "method": "source.stage",
+            "payload": {
+              "sourceId": "963a2b89-62e4-42b1-bd23-8a3eb925ed15",
+              "expectedVersion": 0,
+              "label": "合成资料",
+              "sourceStatus": "synthetic",
+              "mediaType": "text/plain",
+              "sourceText": "Synthetic source",
+              "acquiredAt": "2026-10-27T00:00:00.000Z",
+              "sourceUri": null,
+              "permissionNote": "synthetic only",
+              "validity": {
+                "status": "confirmed",
+                "validFrom": null,
+                "validUntil": null
+              }
+            }
+          },
+          "result": {
+            "ok": true,
+            "data": {
+              "kind": "sourceRevision",
+              "revision": {
+                "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+                "sourceId": "963a2b89-62e4-42b1-bd23-8a3eb925ed15",
+                "sourceRevisionId": "f97d2a32-74c4-4a47-bbb9-988688b57c9b",
+                "version": 1,
+                "parentRevisionId": null,
+                "label": "合成资料",
+                "sourceStatus": "synthetic",
+                "mediaType": "text/plain",
+                "sourceText": "Synthetic source",
+                "acquiredAt": "2026-10-27T00:00:00.000Z",
+                "sourceUri": null,
+                "permissionNote": "synthetic only",
+                "validity": {
+                  "status": "confirmed",
+                  "validFrom": null,
+                  "validUntil": null
+                },
+                "artifactId": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+                "artifactHash": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+                "createdAt": "2026-10-27T00:00:00.000Z"
+              }
+            },
+            "warnings": [],
+            "evidenceIds": [
+              "f97d2a32-74c4-4a47-bbb9-988688b57c9b"
+            ]
+          }
+        },
+        {
+          "cmd": {
+            "schemaVersion": 1,
+            "requestId": "2737dc64-33ae-4d55-b8aa-87af1cf9a5a5",
+            "idempotencyKey": "b0a7741d-e34f-49ca-8682-89cdbb2d7c95",
+            "method": "wiki.stage",
+            "payload": {
+              "documentId": "418af6de-5228-44bf-9212-92b855748fea",
+              "expectedVersion": 0,
+              "parentRevisionId": null,
+              "content": {
+                "kind": "sop",
+                "title": "合成知识",
+                "locale": "en",
+                "scope": {
+                  "platforms": [],
+                  "markets": [],
+                  "categories": []
+                },
+                "markdown": "# Synthetic candidate",
+                "validity": {
+                  "status": "confirmed",
+                  "validFrom": null,
+                  "validUntil": null
+                },
+                "sections": [
+                  {
+                    "sectionId": "ea26b962-de69-4b1d-9479-6acb41f3415b",
+                    "title": "合成段落",
+                    "location": {
+                      "kind": "text",
+                      "start": 0,
+                      "end": 21
+                    },
+                    "sourceReferenceIds": [
+                      "4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf"
+                    ]
+                  }
+                ],
+                "sourceRefs": [
+                  {
+                    "referenceId": "4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf",
+                    "sourceId": "963a2b89-62e4-42b1-bd23-8a3eb925ed15",
+                    "sourceRevisionId": "f97d2a32-74c4-4a47-bbb9-988688b57c9b",
+                    "sourceVersion": 1,
+                    "artifactHash": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+                    "location": {
+                      "kind": "text",
+                      "start": 0,
+                      "end": 16
+                    },
+                    "excerptHash": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+                    "assertion": "fact"
+                  }
+                ],
+                "relations": [],
+                "rules": []
+              }
+            }
+          },
+          "result": {
+            "ok": true,
+            "data": {
+              "kind": "wikiRevision",
+              "record": {
+                "revision": {
+                  "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+                  "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                  "documentId": "418af6de-5228-44bf-9212-92b855748fea",
+                  "version": 1,
+                  "parentRevisionId": null,
+                  "content": {
+                    "kind": "sop",
+                    "title": "合成知识",
+                    "locale": "en",
+                    "scope": {
+                      "platforms": [],
+                      "markets": [],
+                      "categories": []
+                    },
+                    "markdown": "# Synthetic candidate",
+                    "validity": {
+                      "status": "confirmed",
+                      "validFrom": null,
+                      "validUntil": null
+                    },
+                    "sections": [
+                      {
+                        "sectionId": "ea26b962-de69-4b1d-9479-6acb41f3415b",
+                        "title": "合成段落",
+                        "location": {
+                          "kind": "text",
+                          "start": 0,
+                          "end": 21
+                        },
+                        "sourceReferenceIds": [
+                          "4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf"
+                        ]
+                      }
+                    ],
+                    "sourceRefs": [
+                      {
+                        "referenceId": "4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf",
+                        "sourceId": "963a2b89-62e4-42b1-bd23-8a3eb925ed15",
+                        "sourceRevisionId": "f97d2a32-74c4-4a47-bbb9-988688b57c9b",
+                        "sourceVersion": 1,
+                        "artifactHash": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+                        "location": {
+                          "kind": "text",
+                          "start": 0,
+                          "end": 16
+                        },
+                        "excerptHash": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+                        "assertion": "fact"
+                      }
+                    ],
+                    "relations": [],
+                    "rules": []
+                  },
+                  "artifactId": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                  "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                  "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+                  "createdAt": "2026-10-27T00:00:00.000Z"
+                },
+                "lifecycle": {
+                  "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                  "lifecycleVersion": 1,
+                  "state": "candidate",
+                  "review": null,
+                  "publication": null
+                }
+              }
+            },
+            "warnings": [],
+            "evidenceIds": [
+              "a9a1c931-7de9-4161-9903-3e331364d371"
+            ]
+          }
+        },
+        {
+          "cmd": {
+            "schemaVersion": 1,
+            "requestId": "b2e0e2e9-1663-4f1c-99dd-4193d3008ef8",
+            "idempotencyKey": "4e990bac-812e-43c8-a441-271ffee13085",
+            "method": "wiki.review",
+            "payload": {
+              "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+              "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+              "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+              "expectedLifecycleVersion": 1,
+              "decision": "approve",
+              "note": "synthetic technical review",
+              "lintReceiptId": "1366894d-29be-4247-9b67-104564804c14"
+            }
+          },
+          "result": {
+            "ok": true,
+            "data": {
+              "kind": "wikiRevision",
+              "record": {
+                "revision": {
+                  "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+                  "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                  "documentId": "418af6de-5228-44bf-9212-92b855748fea",
+                  "version": 1,
+                  "parentRevisionId": null,
+                  "content": {
+                    "kind": "sop",
+                    "title": "合成知识",
+                    "locale": "en",
+                    "scope": {
+                      "platforms": [],
+                      "markets": [],
+                      "categories": []
+                    },
+                    "markdown": "# Synthetic candidate",
+                    "validity": {
+                      "status": "confirmed",
+                      "validFrom": null,
+                      "validUntil": null
+                    },
+                    "sections": [
+                      {
+                        "sectionId": "ea26b962-de69-4b1d-9479-6acb41f3415b",
+                        "title": "合成段落",
+                        "location": {
+                          "kind": "text",
+                          "start": 0,
+                          "end": 21
+                        },
+                        "sourceReferenceIds": [
+                          "4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf"
+                        ]
+                      }
+                    ],
+                    "sourceRefs": [
+                      {
+                        "referenceId": "4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf",
+                        "sourceId": "963a2b89-62e4-42b1-bd23-8a3eb925ed15",
+                        "sourceRevisionId": "f97d2a32-74c4-4a47-bbb9-988688b57c9b",
+                        "sourceVersion": 1,
+                        "artifactHash": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+                        "location": {
+                          "kind": "text",
+                          "start": 0,
+                          "end": 16
+                        },
+                        "excerptHash": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+                        "assertion": "fact"
+                      }
+                    ],
+                    "relations": [],
+                    "rules": []
+                  },
+                  "artifactId": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                  "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                  "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+                  "createdAt": "2026-10-27T00:00:00.000Z"
+                },
+                "lifecycle": {
+                  "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                  "lifecycleVersion": 2,
+                  "state": "approved",
+                  "review": {
+                    "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                    "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                    "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+                    "expectedLifecycleVersion": 1,
+                    "decision": "approve",
+                    "note": "synthetic technical review",
+                    "lintReceiptId": "1366894d-29be-4247-9b67-104564804c14",
+                    "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+                    "lintReceipt": {
+                      "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                      "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                      "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+                      "receiptId": "1366894d-29be-4247-9b67-104564804c14",
+                      "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+                      "checkedAt": "2026-10-27T00:00:00.000Z",
+                      "policyVersion": "knowledge-maintenance-v1",
+                      "outcome": "passed"
+                    },
+                    "reviewId": "ed33581b-93d0-4184-8d47-05aef6b54897",
+                    "actorId": "synthetic-human",
+                    "decidedAt": "2026-10-27T00:00:00.000Z"
+                  },
+                  "publication": null
+                }
+              }
+            },
+            "warnings": [],
+            "evidenceIds": [
+              "a9a1c931-7de9-4161-9903-3e331364d371"
+            ]
+          }
+        },
+        {
+          "cmd": {
+            "schemaVersion": 1,
+            "requestId": "314a314a-db1b-41fc-8a29-e591d44378b4",
+            "idempotencyKey": "9997af35-9b6e-46b2-9aca-b9bdd438de07",
+            "method": "wiki.publish",
+            "payload": {
+              "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+              "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+              "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+              "reviewId": "ed33581b-93d0-4184-8d47-05aef6b54897",
+              "expectedLifecycleVersion": 2
+            }
+          },
+          "result": {
+            "ok": true,
+            "data": {
+              "kind": "wikiRevision",
+              "record": {
+                "revision": {
+                  "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+                  "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                  "documentId": "418af6de-5228-44bf-9212-92b855748fea",
+                  "version": 1,
+                  "parentRevisionId": null,
+                  "content": {
+                    "kind": "sop",
+                    "title": "合成知识",
+                    "locale": "en",
+                    "scope": {
+                      "platforms": [],
+                      "markets": [],
+                      "categories": []
+                    },
+                    "markdown": "# Synthetic candidate",
+                    "validity": {
+                      "status": "confirmed",
+                      "validFrom": null,
+                      "validUntil": null
+                    },
+                    "sections": [
+                      {
+                        "sectionId": "ea26b962-de69-4b1d-9479-6acb41f3415b",
+                        "title": "合成段落",
+                        "location": {
+                          "kind": "text",
+                          "start": 0,
+                          "end": 21
+                        },
+                        "sourceReferenceIds": [
+                          "4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf"
+                        ]
+                      }
+                    ],
+                    "sourceRefs": [
+                      {
+                        "referenceId": "4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf",
+                        "sourceId": "963a2b89-62e4-42b1-bd23-8a3eb925ed15",
+                        "sourceRevisionId": "f97d2a32-74c4-4a47-bbb9-988688b57c9b",
+                        "sourceVersion": 1,
+                        "artifactHash": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+                        "location": {
+                          "kind": "text",
+                          "start": 0,
+                          "end": 16
+                        },
+                        "excerptHash": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+                        "assertion": "fact"
+                      }
+                    ],
+                    "relations": [],
+                    "rules": []
+                  },
+                  "artifactId": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                  "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                  "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+                  "createdAt": "2026-10-27T00:00:00.000Z"
+                },
+                "lifecycle": {
+                  "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                  "lifecycleVersion": 3,
+                  "state": "published",
+                  "review": {
+                    "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                    "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                    "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+                    "expectedLifecycleVersion": 1,
+                    "decision": "approve",
+                    "note": "synthetic technical review",
+                    "lintReceiptId": "1366894d-29be-4247-9b67-104564804c14",
+                    "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+                    "lintReceipt": {
+                      "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                      "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                      "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+                      "receiptId": "1366894d-29be-4247-9b67-104564804c14",
+                      "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+                      "checkedAt": "2026-10-27T00:00:00.000Z",
+                      "policyVersion": "knowledge-maintenance-v1",
+                      "outcome": "passed"
+                    },
+                    "reviewId": "ed33581b-93d0-4184-8d47-05aef6b54897",
+                    "actorId": "synthetic-human",
+                    "decidedAt": "2026-10-27T00:00:00.000Z"
+                  },
+                  "publication": {
+                    "eventId": "d0c8b5ad-cfee-4b10-8023-658147a60c6c",
+                    "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                    "lifecycleVersion": 3,
+                    "type": "published",
+                    "reviewId": "ed33581b-93d0-4184-8d47-05aef6b54897",
+                    "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                    "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+                    "actorId": "synthetic-human",
+                    "occurredAt": "2026-10-27T00:00:00.000Z",
+                    "note": "synthetic technical review"
+                  }
+                }
+              }
+            },
+            "warnings": [],
+            "evidenceIds": [
+              "a9a1c931-7de9-4161-9903-3e331364d371"
+            ]
+          }
+        },
+        {
+          "cmd": {
+            "schemaVersion": 1,
+            "requestId": "adccd3d9-80f2-46b2-bc0c-d195031848d2",
+            "idempotencyKey": "f741824b-a146-4551-aa72-9abb1d4c2d0d",
+            "method": "wiki.withdraw",
+            "payload": {
+              "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+              "expectedLifecycleVersion": 3,
+              "note": "synthetic legacy withdrawal"
+            }
+          },
+          "result": {
+            "ok": true,
+            "data": {
+              "kind": "wikiRevision",
+              "record": {
+                "revision": {
+                  "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+                  "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                  "documentId": "418af6de-5228-44bf-9212-92b855748fea",
+                  "version": 1,
+                  "parentRevisionId": null,
+                  "content": {
+                    "kind": "sop",
+                    "title": "合成知识",
+                    "locale": "en",
+                    "scope": {
+                      "platforms": [],
+                      "markets": [],
+                      "categories": []
+                    },
+                    "markdown": "# Synthetic candidate",
+                    "validity": {
+                      "status": "confirmed",
+                      "validFrom": null,
+                      "validUntil": null
+                    },
+                    "sections": [
+                      {
+                        "sectionId": "ea26b962-de69-4b1d-9479-6acb41f3415b",
+                        "title": "合成段落",
+                        "location": {
+                          "kind": "text",
+                          "start": 0,
+                          "end": 21
+                        },
+                        "sourceReferenceIds": [
+                          "4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf"
+                        ]
+                      }
+                    ],
+                    "sourceRefs": [
+                      {
+                        "referenceId": "4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf",
+                        "sourceId": "963a2b89-62e4-42b1-bd23-8a3eb925ed15",
+                        "sourceRevisionId": "f97d2a32-74c4-4a47-bbb9-988688b57c9b",
+                        "sourceVersion": 1,
+                        "artifactHash": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+                        "location": {
+                          "kind": "text",
+                          "start": 0,
+                          "end": 16
+                        },
+                        "excerptHash": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+                        "assertion": "fact"
+                      }
+                    ],
+                    "relations": [],
+                    "rules": []
+                  },
+                  "artifactId": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                  "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                  "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+                  "createdAt": "2026-10-27T00:00:00.000Z"
+                },
+                "lifecycle": {
+                  "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                  "lifecycleVersion": 4,
+                  "state": "withdrawn",
+                  "review": {
+                    "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                    "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                    "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+                    "expectedLifecycleVersion": 1,
+                    "decision": "approve",
+                    "note": "synthetic technical review",
+                    "lintReceiptId": "1366894d-29be-4247-9b67-104564804c14",
+                    "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+                    "lintReceipt": {
+                      "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                      "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                      "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+                      "receiptId": "1366894d-29be-4247-9b67-104564804c14",
+                      "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+                      "checkedAt": "2026-10-27T00:00:00.000Z",
+                      "policyVersion": "knowledge-maintenance-v1",
+                      "outcome": "passed"
+                    },
+                    "reviewId": "ed33581b-93d0-4184-8d47-05aef6b54897",
+                    "actorId": "synthetic-human",
+                    "decidedAt": "2026-10-27T00:00:00.000Z"
+                  },
+                  "publication": {
+                    "eventId": "0be3b730-d1e3-4ea1-bd18-e2a59a546ac2",
+                    "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                    "lifecycleVersion": 4,
+                    "type": "withdrawn",
+                    "reviewId": "ed33581b-93d0-4184-8d47-05aef6b54897",
+                    "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                    "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+                    "actorId": "synthetic-human",
+                    "occurredAt": "2026-10-27T00:00:00.000Z",
+                    "note": "synthetic legacy withdrawal"
+                  }
+                }
+              }
+            },
+            "warnings": [],
+            "evidenceIds": [
+              "a9a1c931-7de9-4161-9903-3e331364d371"
+            ]
+          }
+        }
+      ]
+    },
+    "databaseCommitted": false
+  },
+  "extraProbe": {
+    "scriptUtf8": "import { randomUUID } from \"node:crypto\";\nimport { cpSync, readFileSync, mkdtempSync, rmSync } from \"node:fs\";\nimport { tmpdir } from \"node:os\";\nimport { join } from \"node:path\";\nimport { KnowledgeLintReportSchema, WikiLintReceiptSchema, WikiResultSchema, type WikiRevision, type WikiSourceRevision } from \"../packages/contracts/src/index\";\nimport {createRequire} from \"node:module\";\nconst Database = createRequire(new URL(\"../packages/infrastructure/package.json\", import.meta.url))(\"better-sqlite3\");\nimport { afterEach, expect, it } from \"vitest\";\nimport { SqliteWorkspaceRepository } from \"../packages/infrastructure/src/index\";\nconst NOW=\"2026-10-27T00:00:00.000Z\", LATER=\"2026-10-27T00:00:02.000Z\";\nconst valid={status:\"confirmed\" as const,validFrom:null,validUntil:null};\nconst dispose:(()=>void)[]=[];\nafterEach(()=>{for(const close of dispose.splice(0).reverse())close();});\nconst command=(method:string,payload:unknown)=>({schemaVersion:1,requestId:randomUUID(),idempotencyKey:randomUUID(),method,payload});\nfunction data(input:unknown){const r=WikiResultSchema.parse(input);if(!r.ok)throw Error(r.error.message);return r.data;}\nasync function fixture(expires:string|null=null, contentOverrides:Record<string,unknown>={}){\n const dir=mkdtempSync(join(tmpdir(),\"c-p1-probe-\"));dispose.push(()=>rmSync(dir,{recursive:true,force:true}));\n const file=join(dir,\"synthetic.sqlite\"),repo=new SqliteWorkspaceRepository(file);dispose.push(()=>repo.close());\n repo.commit(command(\"workspace.create\",{name:\"合成P1边界\"}) as never,{actorId:\"synthetic-human\",origin:\"human_ui\"});\n const context={workspaceId:repo.read()!.id,actorId:\"synthetic-human\",origin:\"human_ui\" as const,now:NOW};\n const payload={sourceId:randomUUID(),expectedVersion:0,label:\"合成资料\",sourceStatus:\"synthetic\",mediaType:\"text/plain\",sourceText:\"Synthetic source\",acquiredAt:NOW,sourceUri:null,permissionNote:\"synthetic only\",validity:{...valid,validUntil:expires}};\n const sourceData=data(await repo.executeWiki(command(\"source.stage\",payload),context));if(sourceData.kind!==\"sourceRevision\")throw Error(\"source fixture\");\n const source:WikiSourceRevision=sourceData.revision,ref={referenceId:randomUUID(),sourceId:source.sourceId,sourceRevisionId:source.sourceRevisionId,sourceVersion:source.version,artifactHash:source.artifactHash,location:{kind:\"text\",start:0,end:source.sourceText.length},excerptHash:source.artifactHash,assertion:\"fact\"};\n const markdown=\"# Synthetic candidate\",sectionId=randomUUID();\n const wiki=data(await repo.executeWiki(command(\"wiki.stage\",{documentId:randomUUID(),expectedVersion:0,parentRevisionId:null,content:{kind:\"sop\",title:\"合成知识\",locale:\"en\",scope:{platforms:[],markets:[],categories:[]},markdown,validity:valid,sections:[{sectionId,title:\"合成段落\",location:{kind:\"text\",start:0,end:markdown.length},sourceReferenceIds:[ref.referenceId]}],sourceRefs:[ref],relations:[],rules:[],...contentOverrides}}),context));\n if(wiki.kind!==\"wikiRevision\")throw Error(\"wiki fixture\"); const revision:WikiRevision=wiki.record.revision;\n const db=new Database(file);dispose.push(()=>db.close());\n const binding={revisionId:revision.revisionId,contentHash:revision.contentHash,sourceSetHash:revision.sourceSetHash};\n return {repo,db,context,revision,source,payload,binding,async approve(){const receipt=repo.runWikiLint(revision.revisionId,context)!; const cmd=command(\"wiki.review\",{...binding,expectedLifecycleVersion:1,decision:\"approve\",note:\"synthetic technical review\",lintReceiptId:receipt.receiptId});const result=await repo.executeWiki(cmd,context);const d=data(result);if(d.kind!==\"wikiRevision\"||!d.record.lifecycle.review)throw Error(\"review fixture\");return {receipt,cmd,result,reviewId:d.record.lifecycle.review.reviewId};}};\n}\n\nconst facts=JSON.parse(readFileSync(join(process.env.C_LEGACY_FIXTURE_DIR!,\"facts.json\"),\"utf8\"));\nfunction reopen(){const dir=mkdtempSync(join(tmpdir(),\"c-legacy-reopen-\"));dispose.push(()=>rmSync(dir,{recursive:true,force:true}));const file=join(dir,\"synthetic.sqlite\");cpSync(join(process.env.C_LEGACY_FIXTURE_DIR!,\"synthetic.sqlite\"),file);const repo=new SqliteWorkspaceRepository(file);dispose.push(()=>repo.close());return repo;}\nit(\"control: legacy lifecycle and receipt stay readable\",async()=>{\n const repo=reopen(),read=data(await repo.executeWiki({schemaVersion:1,requestId:randomUUID(),method:\"wiki.getRevision\",payload:{revisionId:facts.revision.revisionId}},facts.context));if(read.kind!==\"wikiRevision\")throw Error(\"kind\");expect(read.record.lifecycle.state).toBe(\"withdrawn\");expect(read.record.lifecycle.review!.lintReceipt).toEqual(facts.receipt);\n});\nfor(const op of facts.operations)it(`C-legacy-key ${op.cmd.method}: old success replays after reopen`,async()=>{\n const repo=reopen();const actual=await repo.executeWiki(op.cmd,facts.context);console.log(\"LEGACY_REPLAY\",JSON.stringify({method:op.cmd.method,ok:actual.ok,code:actual.ok?null:actual.error.code}));expect(actual).toEqual(op.result);\n});\nit(\"C-legacy-receipt: same lint identity returns original receipt\",()=>{\n const repo=reopen();const actual=repo.runWikiLint(facts.revision.revisionId,facts.context);console.log(\"LEGACY_LINT\",JSON.stringify({actual:actual??null,expectedReceiptId:facts.receipt.receiptId}));expect(actual).toEqual(facts.receipt);\n});\nit(\"C-report-relations: two distinct broken relations yield valid stored report\",async()=>{\n const f=await fixture(null,{relations:[{kind:\"related\",documentId:randomUUID(),revisionId:randomUUID()},{kind:\"related\",documentId:randomUUID(),revisionId:randomUUID()}]});const receipt=f.repo.runWikiLint(f.revision.revisionId,f.context)!;\n const report=JSON.parse(f.db.prepare(\"SELECT data_json FROM knowledge_lint WHERE receipt_id=?\").get(receipt.receiptId).data_json);const result=KnowledgeLintReportSchema.safeParse(report);console.log(\"RELATIONS_REPORT\",JSON.stringify({valid:result.success,issues:report.issues}));expect(result.success).toBe(true);\n});\nit(\"C-B-unknown: unknown validity stays partial/unknown\",async()=>{\n const f=await fixture(null,{validity:{status:\"unknown\",validFrom:null,validUntil:null}});const receipt=f.repo.runWikiLint(f.revision.revisionId,f.context)!;\n const report=JSON.parse(f.db.prepare(\"SELECT data_json FROM knowledge_lint WHERE receipt_id=?\").get(receipt.receiptId).data_json);console.log(\"UNKNOWN_REPORT\",JSON.stringify({status:report.status,outcome:report.receipt.outcome,coverage:report.coverage,issues:report.issues}));expect(report.status).toBe(\"partial\");expect(report.receipt.outcome).toBe(\"unknown\");\n});\n",
+    "configUtf8": "import {defineConfig} from \"vitest/config\";export default defineConfig({test:{include:[\".runtime/c-a-fixes-extra.test.ts\"],environment:\"node\"}});\n",
+    "requiredEnvironment": "C_LEGACY_FIXTURE_DIR absolute directory generated using legacy7e6 application; then reopen using fixed369 application",
+    "firstControlFixtureCorrection": "removed idempotencyKey from wiki.getRevision read envelope only; eight product assertions unchanged"
+  },
+  "runnerUtf8": "import subprocess,json,pathlib,datetime,hashlib,os,platform,sys\nroot=pathlib.Path.cwd(); out=root/('wiki-project/raw/c-a01e-fixes-'+sys.argv[1]+'-validation.json')\ndef sha(s):return hashlib.sha256(s.encode()).hexdigest()\ndef stamp():return datetime.datetime.now(datetime.timezone.utc).isoformat()\nif out.exists(): e=json.loads(out.read_text())\nelse:\n b=json.loads((root/'.runtime/b-review-input.json').read_text())\n e={'status':'running','date':'2026-10-28','testedCodeSha':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'base':'7e6b485c15ba7c4ec30d6495df0a58cd2088207e','BReviewInput':'5be4a0f029db9552d1fa1032e51c80e8be84caaf','environment':{'platform':platform.platform(),'node':subprocess.check_output(['node','-v'],text=True).strip(),'pnpm':subprocess.check_output(['pnpm','-v'],text=True).strip()},'probes':b['probes'],'checks':[],'scope':'Fixed A implementation independent macOS review; synthetic data only; no model/network business calls, no merge/push/personnel signoff'}\nelectron=['apps/desktop/node_modules/.bin/electron','node_modules/vitest/vitest.mjs','run']\nphases={\n'probes':[(k,electron+['--config',p['restoreConfigPath']]) for k,p in e['probes'].items()],\n'regression':[('focused-eight-files',electron+['packages/infrastructure/src/wiki-store.test.ts','packages/infrastructure/src/wiki-check-integration.test.ts','packages/infrastructure/src/check-store.test.ts','packages/infrastructure/src/check-lineage-integration.test.ts','packages/contracts/src/knowledge-lint-review.test.ts','packages/contracts/src/knowledge-wiki.test.ts','packages/infrastructure/src/worker-migration-gates.test.ts','packages/contracts/src/knowledge-maintenance.test.ts'])],\n'extra':[('legacy-and-report-boundaries',electron+['--config','.runtime/c-a-fixes-extra.config.ts'])],\n'build':[('build',['pnpm','build'])],\n'engineering':[('typecheck',['pnpm','typecheck']),('engineering-and-wiki',['pnpm','check']),('wiki-sync-A-base',['pnpm','wiki:sync','--base',e['base']]),('diff-check',['git','diff','--check'])]}\nfor name,cmd in phases[sys.argv[1]]:\n t=stamp();r=subprocess.run(cmd,text=True,capture_output=True,env={**os.environ,'ELECTRON_RUN_AS_NODE':'1'} if cmd[0]==electron[0] else os.environ)\n c={'name':name,'argv':cmd,'startedAt':t,'finishedAt':stamp(),'exitCode':r.returncode,'stdout':r.stdout,'stderr':r.stderr,'stdoutSha256':sha(r.stdout),'stderrSha256':sha(r.stderr)};e['checks'].append(c);out.write_text(json.dumps(e,ensure_ascii=False,indent=2)+'\\n')\n print(name,'exit',r.returncode,flush=True);print((r.stdout+r.stderr)[-5000:] if r.returncode else (r.stdout+r.stderr)[-1800:],flush=True)\ne['status']='review_in_progress';out.write_text(json.dumps(e,ensure_ascii=False,indent=2)+'\\n')\n",
+  "sourceHashes": {
+    "packages/infrastructure/src/wiki-store.ts": "d9e485ed7165c4b7dffe46795050808de5477c24a7247e60aa0110c8a9a4ab0d",
+    "packages/infrastructure/src/wiki-store.test.ts": "55d563cddcf58b89ab3aa81650f1c39a4762f0b6246b7d2c839ae00946fc23c6",
+    "packages/infrastructure/src/index.ts": "bfcc352c546f63658f5074a1249055839fa10b961642765097cebee76da2213d",
+    "packages/domain/src/wiki.ts": "c53ad78d95b550d8226d274f60d30b22c6114dd785b23a7637ca4d2869227cc6",
+    "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+    "packages/infrastructure/src/migration-lineage.ts": "6ce2cb0a969866f6f435d22fbf65d183b675351bf4bba50bc610e99a74344ef4",
+    "packages/infrastructure/src/migrations.ts": "eb68fa0e0fb8e55484bd4e8c1c689eef3e182c138bf0bff63cbf625c6034d6c7"
+  },
+  "BAddendumNotForwarded": "User explicitly says B latest supplement not forwarded to A; partial/unknown and exact legacy compatibility policy distinguished from earlier old-fact preservation requirement.",
+  "preservation": {
+    "oldRawFiles": 319,
+    "changedOldRaw": [],
+    "logPrefixBytes": 208160,
+    "logPrefixUnchanged": true,
+    "applicationDifferenceFromFixedSha": "",
+    "DDLAndLineageDifferenceAFrom7e6": ""
+  },
+  "reviewAxes": {
+    "Spec": {
+      "confirmedFindings": 5,
+      "notes": "Independent Spec subagent plus C dynamic confirmation; public port is static gap, unknown policy is B addendum not forwarded"
+    },
+    "Standards": {
+      "confirmedFindings": 1,
+      "finding": "AGENTS P0 item2 requires CONTEXT/project state updates when status or next actions change; neither modified in fixed369 and both still report original seven red cases",
+      "verification": "C checked diff7e6...369 and current two pages directly",
+      "delegation": "Standards subagent did not return a final report and was interrupted; C performed the documented-rule review; no claim its review completed"
+    },
+    "toolingSeparate": {
+      "pnpmCheckExitCode": 1,
+      "formatFiles": [
+        "packages/infrastructure/src/wiki-store.ts",
+        "packages/infrastructure/src/wiki-store.test.ts"
+      ]
+    }
+  }
+}

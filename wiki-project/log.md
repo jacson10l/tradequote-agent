@@ -1097,3 +1097,11 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 - 以 C 固定材料 7e6b485（分支 codex/c-a01e-p1-intake，暂不合入）为基线，A 在 codex/a01e-p1-fixes 修正独立 P1 验收 1 正常控制/7 失败样本的四类阻断：完整 lint 报告按 B 契约 KnowledgeLintReportSchema 落库并绑定审核、同键重放指纹排除宿主 now/requestId、审核/发布提交前事务内重新核验来源资格、失格来源 lint 产出 block issue 不再静默 passed。迁移谱系 knowledge-wiki:8 与 DDL 不变，无新谱系。
 - 测试：wiki-store.test.ts 新增 A-W09-4～A-W09-7（报告落库/审核绑定、同键重放、发布前来源三种变化、失格来源 lint），14/14；C 独立 P1 探针 8/8 转绿（原 1/7）。`pnpm typecheck` 退出 0。
 - 本机经 ELECTRON_RUN_AS_NODE=1 走 Electron 内嵌 Node（系统 Node v24.14.1 与仓库 engines 22.22.0 不一致，如实标注）。B 对固定实现的契约/语义复核、C 原脚本复验与桌面接线、人工审核发布/业务验收仍待完成；本轮分支未推送/合入、未代签。
+
+
+## 2026-10-28 C固定A369修正独立复验
+
+- 从固定369ca3新建独立codex/c-a01e-fixes-review，B5be4a0f脚本原样恢复。macOS原C8/8、B15/15、来源2/2及匹配八文件121/121、类型/build通过，未修改A源码。原七例在此固定实现已绿，不覆盖历史证据。
+- 真实7e6旧库生成1/1并关闭，369重开后五成功键冲突、旧lint返回undefined；两个不同悬空关联的issueKey重复使报告schema失败。unknown候选completed/blocked与B后补政策不符，用户明确未转给A，单列边界。新增九例最终1/8；首次控制read误带写信封0/9已修正保留，不删产品断言。
+- pnpm check实际退出1（A两个改动文件格式），后续&&未执行；A基线sync及diff通过。第一次另一组八文件98通过单列，不与正确121相加。raw/c-a01e-fixes-review-validation.json保存完整命令、原脚本、旧库生成器/合成facts及两次额外探针。
+- 同步[[A369ca3修正独立复验与旧事实兼容]]、[[C集成-A01e真实lint与审核接收]]、原接收页、上下文/状态/索引；文档生成/check/lint与真实369基线sync结果另存raw/c-a01e-fixes-docs-validation.json。整体仍changes_required，未推送/合入/代签，未开放新入口，未执行完整矩阵/桌面新回归。
