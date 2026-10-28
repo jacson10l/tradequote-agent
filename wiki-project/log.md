@@ -1114,3 +1114,5 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 本轮保留C原脚本/config字节，新增真实旧消费库经人工知识服务与报价保存后登记，再撤回/关闭/重开，第六键冲突不再仅静态推测。旧历史/身份控制通过，未知政策与已知block分列；纯Wiki/探针原始材料WIP，无应用/格式/维护工具改动，不标done不合入。316旧raw及209463字节log前缀保持，独立Wiki检查在完成后补记。
 
 最终独立Wiki生成/check/lint/1f74固定基线sync/diff退出0，316旧raw与209463字节旧log前缀保持。pnpm check格式失败及全部红例不删除，A确认/新实现/C复验仍待；本轮是B复核WIP，未合入。
+
+B复核WIP材料0e80ae8761a9c900867284b1a11c0616b00f6eef普通推送origin/codex/b-p1-legacy-port-review，push/完整SHA回读0且一致，工作树干净。回执单独文档保存，未强推/合入；A接收政策/新实现/C验收仍待，不抹除格式和产品红例。

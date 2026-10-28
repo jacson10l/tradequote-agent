@@ -1,0 +1,67 @@
+{
+  "status": "passed",
+  "scope": "ordinary sharing of B WIP review materials; no product acceptance",
+  "materialSha": "0e80ae8761a9c900867284b1a11c0616b00f6eef",
+  "testedCodeSha": "369ca3a7284dc8bfc2e0163c36adb78d8fb81881",
+  "taskBase": "1f74e4a704f43b057ea7516758559578b7ab85b9",
+  "branch": "codex/b-p1-legacy-port-review",
+  "pushExitCode": 0,
+  "readbackExitCode": 0,
+  "remoteReadback": "0e80ae8761a9c900867284b1a11c0616b00f6eef\trefs/heads/codex/b-p1-legacy-port-review",
+  "fullShaMatches": true,
+  "workingTreeCleanAfterPush": true,
+  "forcePush": false,
+  "merged": false,
+  "AReceived": false,
+  "AConfirmed": false,
+  "productReview": "changes_required",
+  "checks": [
+    {
+      "name": "generate",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 254,\n  \"lines\": 68460,\n  \"generated\": 5,\n  \"excluded\": 11\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "readonly",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 254,\n  \"lines\": 68460,\n  \"generated\": 5,\n  \"excluded\": 11\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "lint",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 254,\n  \"semantic\": 226,\n  \"reachable\": 254\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "sync",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "1f74e4a704f43b057ea7516758559578b7ab85b9"
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"1f74e4a704f43b057ea7516758559578b7ab85b9\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    }
+  ]
+}
