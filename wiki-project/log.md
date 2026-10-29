@@ -1128,3 +1128,9 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 - 兼容修正：currentSeq/bumpSeq 增加 hasSeqTable() 保护，legacy B7 fixture（无 knowledge_seq 表）被新 store 代码填充时 seq 视为 0 不报 STORAGE_ERROR；生产库总是先迁移再写入，不触发。
 - 测试：wiki-store.test.ts 新增 A01e-1～A01e-4（含 3b）共 5 项（来源撤回+issue 登记+重复撤回、getMaintenance 分页+resolveMaintenance OCC 生命周期、analyzeImpact/getImpact 部分消费与无消费、getIndexStatus/rebuildIndex/getIndexRebuild 缺失→就绪→滞后→重建 + OCC），24/24 通过。`pnpm typecheck` 退出 0、`node scripts/check-boundaries.mjs` 退出 0；check-lineage-integration/migration-ledger/migrations/wiki-check-integration 46/46、domain 39/39 通过；仅 storage.test.ts/worker-migration-gates.test.ts 预存在 Windows symlink EPERM 保留。
 - B 契约/语义复核、C 原脚本复验与桌面接线、实际人员审核/发布/撤回/业务签认仍待；本轮未推送/合入、未代签。详见 [[A01c检索引用实现]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-知识发布与来源查询]]。
+
+
+## 2026-10-29 A01e 八维护方法推送回执
+
+- 2026-10-29 用户授权普通推送，A 已将固定实现提交 dac69db 推送到 origin/codex/a01e-p1-fixes；`git ls-remote` 回读 dac69db4c527ee3484f3481f65c76d63649cd04c 与本地 HEAD 逐字一致，未合入、未创建 PR。推送一次成功（输出 `0827476..dac69db`，exit 0），未改全局 git 配置。
+- 固定实现提交即 dac69db（A01e 八维护方法 + knowledge-wiki:9 迁移、本机验证命令/退出码与 Wiki 同步见上一节与 [[A01c检索引用实现]]、[[A01-迁移谱系支持与拒绝矩阵]]）；B 契约/语义复核、C 原脚本复验与桌面接线、实际人员审核/发布/撤回/业务语义签认仍待。本条为回执 docs-only 提交，位于 dac69db 之上，不与固定实现 SHA 混用。
