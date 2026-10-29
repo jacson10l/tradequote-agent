@@ -1111,3 +1111,10 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 - 测试：wiki-store.test.ts 新增 A-W09-8～A-W09-12 共 5 项回归（旧幂等键重放、旧 receipt 重放、多悬空关联 issueKey、公共端口重开回读、未知有效度），19/19；`pnpm typecheck` 退出 0；`node scripts/check-boundaries.mjs` 退出 0。
 - 本机 vitest 经系统 Node v24.14.1（better-sqlite3 用 Node ABI 预编译产物，系统 Node 与仓库 engines 22.22.0 不一致，如实标注）；Electron ABI 原生重建因本机无 Visual Studio 未复跑。整仓 `pnpm check`/`pnpm wiki:check` 仍受本机工作区预存在 CRLF（177 处，C 边界）与 icon.svg 漂移影响，A 的 5 个改动文件 Biome 全绿。
 - B 契约/语义复核、C 原脚本复验与桌面接线、实际人员审核/发布/撤回/业务签认仍待；本轮分支未推送/合入、未代签。详见 [[A01c检索引用实现]]。
+
+
+## 2026-10-29 A01e P1 二轮九例修正推送回执
+
+- 2026-10-29 用户授权普通推送，A 已将固定修正提交 9f5213a 推送到 origin/codex/a01e-p1-fixes；`git ls-remote` 回读 9f5213ab5c94b500246a852cceca389e6726fa0f 与本地 HEAD 逐字一致，未合入、未创建 PR。
+- 推送过程如实记录：前两次因本机到 github.com:443 网络超时/连接被服务器中断失败（首次 `Connection timed out after 300002 ms`、exit 128；二次 `curl 52 Empty reply from server`、exit 1），第三次以 `git -c http.version=HTTP/1.1 -c http.postBuffer=524288000` 重试成功，输出 `1c7158e..9f5213a`；未改全局 git 配置。
+- 固定修正提交即 9f5213a（S1～S5 九例、本机验证命令/退出码与 Wiki 同步见上一节与 [[A01c检索引用实现]]）；B 契约/语义复核、C 原脚本复验与桌面接线、实际人员审核/发布/撤回/业务语义签认仍待。本条为回执 docs-only 提交，位于 9f5213a 之上，不与固定修正 SHA 混用。
