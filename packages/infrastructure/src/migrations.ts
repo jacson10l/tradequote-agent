@@ -266,6 +266,63 @@ CREATE TRIGGER knowledge_lint_no_update BEFORE UPDATE ON knowledge_lint BEGIN SE
 CREATE TRIGGER knowledge_lint_no_delete BEFORE DELETE ON knowledge_lint BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE_LINT'); END;
 `,
   },
+  {
+    // A01e：持续维护协议。维护问题队列、影响分析、索引状态/重建与权威快照序号。
+    lineage: "knowledge-wiki",
+    version: 9,
+    sql: `
+CREATE TABLE knowledge_seq (
+  workspace_id TEXT PRIMARY KEY REFERENCES workspace(id),
+  seq INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE knowledge_maintenance_issue (
+  issue_id TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL REFERENCES workspace(id),
+  dedup_key TEXT NOT NULL,
+  kind TEXT NOT NULL,
+  state TEXT NOT NULL,
+  first_detected_at TEXT NOT NULL,
+  last_detected_at TEXT NOT NULL,
+  data_json TEXT NOT NULL,
+  UNIQUE(workspace_id, dedup_key)
+);
+CREATE INDEX knowledge_maintenance_issue_list ON knowledge_maintenance_issue(workspace_id, state, issue_id);
+
+CREATE TABLE knowledge_impact_report (
+  report_id TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL REFERENCES workspace(id),
+  snapshot_seq INTEGER NOT NULL,
+  data_json TEXT NOT NULL
+);
+
+CREATE TABLE knowledge_impact_item (
+  item_id TEXT PRIMARY KEY,
+  report_id TEXT NOT NULL REFERENCES knowledge_impact_report(report_id),
+  data_json TEXT NOT NULL
+);
+CREATE INDEX knowledge_impact_item_report ON knowledge_impact_item(report_id, item_id);
+
+CREATE TABLE knowledge_index_status (
+  workspace_id TEXT NOT NULL REFERENCES workspace(id),
+  index_kind TEXT NOT NULL CHECK(index_kind IN ('keyword','markdown_view')),
+  generation INTEGER NOT NULL,
+  authoritative_seq INTEGER NOT NULL,
+  indexed_seq INTEGER NOT NULL,
+  state TEXT NOT NULL,
+  rebuild_id TEXT,
+  data_json TEXT NOT NULL,
+  PRIMARY KEY(workspace_id, index_kind)
+);
+
+CREATE TABLE knowledge_index_rebuild (
+  rebuild_id TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL REFERENCES workspace(id),
+  index_kind TEXT NOT NULL CHECK(index_kind IN ('keyword','markdown_view')),
+  data_json TEXT NOT NULL
+);
+`,
+  },
 ];
 
 /** 统一目标 user_version。8 不与任何历史谱系编号冲突。 */
@@ -283,6 +340,7 @@ export const UPGRADEABLE_LINEAGES: ReadonlySet<MigrationLineage> = new Set<Migra
   "c-v7",
   "a-v6",
   "a-v8",
+  "a-v9",
   "b-v7",
   "unified",
 ]);
@@ -358,6 +416,7 @@ export function verifyLegacyLedger(db: Database.Database, id: Identification): v
     6: "knowledge-wiki",
     7: "check-report",
     8: "knowledge-wiki",
+    9: "knowledge-wiki",
   };
   const rows = db.prepare("SELECT version, sql_hash FROM schema_migration").all() as {
     version: number;

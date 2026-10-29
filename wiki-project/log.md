@@ -1118,3 +1118,13 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 - 2026-10-29 用户授权普通推送，A 已将固定修正提交 9f5213a 推送到 origin/codex/a01e-p1-fixes；`git ls-remote` 回读 9f5213ab5c94b500246a852cceca389e6726fa0f 与本地 HEAD 逐字一致，未合入、未创建 PR。
 - 推送过程如实记录：前两次因本机到 github.com:443 网络超时/连接被服务器中断失败（首次 `Connection timed out after 300002 ms`、exit 128；二次 `curl 52 Empty reply from server`、exit 1），第三次以 `git -c http.version=HTTP/1.1 -c http.postBuffer=524288000` 重试成功，输出 `1c7158e..9f5213a`；未改全局 git 配置。
 - 固定修正提交即 9f5213a（S1～S5 九例、本机验证命令/退出码与 Wiki 同步见上一节与 [[A01c检索引用实现]]）；B 契约/语义复核、C 原脚本复验与桌面接线、实际人员审核/发布/撤回/业务语义签认仍待。本条为回执 docs-only 提交，位于 9f5213a 之上，不与固定修正 SHA 混用。
+
+
+## 2026-10-29 A01e 八维护方法（knowledge-wiki:9）
+
+- 以 origin/codex/a01e-p1-fixes（HEAD 0827476，回执 docs 提交）为基线，A 在同一分支实现 B 维护契约剩余八个方法：source.withdraw、wiki.getMaintenance、wiki.resolveMaintenance、wiki.analyzeImpact、wiki.getImpact、wiki.getIndexStatus、wiki.rebuildIndex、wiki.getIndexRebuild；连同已完成的 wiki.lint/wiki.getLintReport，十方法全部在 SqliteWikiStore 与 createKnowledgeMaintenanceService 落地。写方法（withdrawSource/resolveMaintenance/rebuildIndex）走 OCC（expectedVersion/seq 或 generation），不使用 idempotency 表，与 lint 一致；来源撤回在事务内登记维护 issue，重复撤回/已结案撤回按 OCC 拒绝。
+- 新增迁移 knowledge-wiki:9（六表，无触发器）：knowledge_seq（权威快照序号，stageSource/stageWiki/review/publish/withdraw/source.withdraw 等权威写入驱动索引陈旧）、knowledge_maintenance_issue（维护问题队列，UNIQUE(workspace_id,dedup_key) 去重）、knowledge_impact_report/knowledge_impact_item（影响分析报告与条目，item 外键 report_id）、knowledge_index_status（keyword/markdown_view 两索引状态，PK(workspace_id,index_kind)）、knowledge_index_rebuild（重建记录）。迁移谱系新增 a-v9（common1～4 + knowledge-wiki:6/8/9），unified 同步纳入 knowledge-wiki:9。
+- 索引列名用 index_kind 而非 index：`index` 是 SQLite 保留关键字，直接做列名报 `near "index": syntax error`；DDL/CHECK/PK 与 store 四处 SQL 及 CapabilitySpec.columns 统一改用 index_kind。
+- 兼容修正：currentSeq/bumpSeq 增加 hasSeqTable() 保护，legacy B7 fixture（无 knowledge_seq 表）被新 store 代码填充时 seq 视为 0 不报 STORAGE_ERROR；生产库总是先迁移再写入，不触发。
+- 测试：wiki-store.test.ts 新增 A01e-1～A01e-4（含 3b）共 5 项（来源撤回+issue 登记+重复撤回、getMaintenance 分页+resolveMaintenance OCC 生命周期、analyzeImpact/getImpact 部分消费与无消费、getIndexStatus/rebuildIndex/getIndexRebuild 缺失→就绪→滞后→重建 + OCC），24/24 通过。`pnpm typecheck` 退出 0、`node scripts/check-boundaries.mjs` 退出 0；check-lineage-integration/migration-ledger/migrations/wiki-check-integration 46/46、domain 39/39 通过；仅 storage.test.ts/worker-migration-gates.test.ts 预存在 Windows symlink EPERM 保留。
+- B 契约/语义复核、C 原脚本复验与桌面接线、实际人员审核/发布/撤回/业务签认仍待；本轮未推送/合入、未代签。详见 [[A01c检索引用实现]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-知识发布与来源查询]]。

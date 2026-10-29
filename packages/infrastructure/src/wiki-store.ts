@@ -44,6 +44,28 @@ import {
 } from "@tradequote/contracts";
 import type Database from "better-sqlite3";
 import type { z } from "zod";
+import {
+  KnowledgeImpactItemSchema,
+  type KnowledgeImpactItem,
+  KnowledgeImpactPageSchema,
+  type KnowledgeImpactPage,
+  KnowledgeImpactQuerySchema,
+  KnowledgeImpactReportSchema,
+  type KnowledgeImpactReport,
+  KnowledgeImpactSubjectSchema,
+  type KnowledgeImpactSubject,
+  KnowledgeIndexRebuildSchema,
+  type KnowledgeIndexRebuild,
+  KnowledgeIndexStatusSchema,
+  type KnowledgeIndexStatus,
+  type KnowledgeMaintenanceLifecycleEvent,
+  type MaintenanceIssue,
+  MaintenanceIssueSchema,
+  type MaintenancePage,
+  MaintenancePageSchema,
+  type MaintenanceQuery,
+  type MaintenanceTarget,
+} from "@tradequote/contracts";
 
 const hash = (value: string) => createHash("sha256").update(value).digest("hex");
 const sha256Utf8 = (value: string) => createHash("sha256").update(value, "utf8").digest("hex");
@@ -322,6 +344,7 @@ export class SqliteWikiStore {
             sourceRevision.createdAt,
             JSON.stringify(sourceRevision),
           );
+        this.bumpSeq(workspaceId);
         this.emit(
           workspaceId,
           "source.stage",
@@ -411,6 +434,7 @@ export class SqliteWikiStore {
             lifecycle.state,
             JSON.stringify(lifecycle),
           );
+        this.bumpSeq(workspaceId);
         this.emit(
           workspaceId,
           "wiki.stage",
@@ -861,6 +885,7 @@ export class SqliteWikiStore {
             JSON.stringify(newLifecycle),
             newLifecycle.revisionId,
           );
+        this.bumpSeq(workspaceId);
         this.emit(
           workspaceId,
           "wiki.review",
@@ -947,6 +972,7 @@ export class SqliteWikiStore {
             JSON.stringify(newLifecycle),
             newLifecycle.revisionId,
           );
+        this.bumpSeq(workspaceId);
         this.emit(
           workspaceId,
           "wiki.publish",
@@ -1019,6 +1045,7 @@ export class SqliteWikiStore {
             JSON.stringify(newLifecycle),
             newLifecycle.revisionId,
           );
+        this.bumpSeq(workspaceId);
         this.emit(
           workspaceId,
           "wiki.withdraw",
@@ -1404,6 +1431,627 @@ export class SqliteWikiStore {
       data: { kind: "consumption", consumption },
       warnings: [],
       evidenceIds: [consumption.consumptionId],
+    };
+  }
+
+  // -- maintenance (A01e) -------------------------------------------------
+
+  private hasSeqTable(): boolean {
+    return (
+      this.db
+        .prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='knowledge_seq'")
+        .get() !== undefined
+    );
+  }
+
+  private currentSeq(workspaceId: string): number {
+    if (!this.hasSeqTable()) return 0;
+    const row = this.db
+      .prepare("SELECT seq FROM knowledge_seq WHERE workspace_id=?")
+      .get(workspaceId) as { seq: number } | undefined;
+    return row?.seq ?? 0;
+  }
+
+  /** 权威快照序号：任何来源/知识生命周期权威写都会单调递增，供索引滞后判定。
+   *  旧谱系（尚无 knowledge_seq）写入时安全跳过，待统一迁移补齐后再计数。 */
+  private bumpSeq(workspaceId: string): number {
+    if (!this.hasSeqTable()) return 0;
+    const next = this.currentSeq(workspaceId) + 1;
+    this.db
+      .prepare(
+        "INSERT INTO knowledge_seq(workspace_id,seq) VALUES (?,?) ON CONFLICT(workspace_id) DO UPDATE SET seq=excluded.seq",
+      )
+      .run(workspaceId, next);
+    return next;
+  }
+
+  private maintenanceDedupKey(kind: string, target: unknown): string {
+    return hash(JSON.stringify({ kind, target }));
+  }
+
+  private readMaintenanceIssue(issueId: string): MaintenanceIssue | null {
+    const row = this.db
+      .prepare("SELECT data_json FROM knowledge_maintenance_issue WHERE issue_id=?")
+      .get(issueId) as Row | undefined;
+    if (!row) return null;
+    const parsed = JSON.parse(row.data_json) as MaintenanceIssue;
+    return MaintenanceIssueSchema.safeParse(parsed).success ? parsed : null;
+  }
+
+  private readImpactReport(reportId: string): KnowledgeImpactReport | null {
+    const row = this.db
+      .prepare("SELECT data_json FROM knowledge_impact_report WHERE report_id=?")
+      .get(reportId) as Row | undefined;
+    if (!row) return null;
+    const parsed = JSON.parse(row.data_json) as KnowledgeImpactReport;
+    return KnowledgeImpactReportSchema.safeParse(parsed).success ? parsed : null;
+  }
+
+  /** 按 dedupKey 幂等登记维护问题；已存在只刷新 lastDetectedAt，不重开也不改版本。 */
+  private upsertMaintenanceIssue(
+    workspaceId: string,
+    dedupKey: string,
+    kind: MaintenanceIssue["kind"],
+    target: MaintenanceTarget,
+    severity: MaintenanceIssue["severity"],
+    message: string,
+    evidenceIds: string[],
+    now: string,
+  ): MaintenanceIssue {
+    const existing = this.db
+      .prepare(
+        "SELECT data_json FROM knowledge_maintenance_issue WHERE workspace_id=? AND dedup_key=?",
+      )
+      .get(workspaceId, dedupKey) as Row | undefined;
+    if (existing) {
+      const issue = JSON.parse(existing.data_json) as MaintenanceIssue;
+      const updated: MaintenanceIssue = {
+        ...issue,
+        lastDetectedAt: now,
+        evidenceIds: [...new Set([...issue.evidenceIds, ...evidenceIds])],
+      };
+      this.db
+        .prepare("UPDATE knowledge_maintenance_issue SET last_detected_at=?, data_json=? WHERE issue_id=?")
+        .run(updated.lastDetectedAt, JSON.stringify(updated), updated.issueId);
+      return updated;
+    }
+    const issue: MaintenanceIssue = {
+      workspaceId,
+      issueId: randomUUID(),
+      issueVersion: 1,
+      dedupKey,
+      kind,
+      target,
+      severity,
+      message,
+      state: "open",
+      evidenceIds,
+      firstDetectedAt: now,
+      lastDetectedAt: now,
+      resolution: null,
+    };
+    const parsed = MaintenanceIssueSchema.safeParse(issue);
+    if (!parsed.success) throw new Error("维护问题事实不合法");
+    this.db
+      .prepare(
+        "INSERT INTO knowledge_maintenance_issue(issue_id,workspace_id,dedup_key,kind,state,first_detected_at,last_detected_at,data_json) VALUES (?,?,?,?,?,?,?,?)",
+      )
+      .run(
+        issue.issueId,
+        workspaceId,
+        dedupKey,
+        kind,
+        issue.state,
+        issue.firstDetectedAt,
+        issue.lastDetectedAt,
+        JSON.stringify(issue),
+      );
+    return issue;
+  }
+
+  /** source.withdraw：来源生命周期推进为 withdrawn，登记维护队列并落 source.withdrawn 事件。 */
+  withdrawSource(
+    input: { sourceRevisionId: string; expectedLifecycleVersion: number; note: string },
+    context: WikiHostContext,
+  ): KnowledgeMaintenanceResult {
+    return this.db
+      .transaction(() => {
+        const workspaceId = this.workspaceId();
+        if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
+        const row = this.db
+          .prepare(
+            "SELECT source_id, version, state, lifecycle_version, artifact_hash FROM knowledge_source WHERE source_revision_id=? AND workspace_id=?",
+          )
+          .get(input.sourceRevisionId, workspaceId) as
+          | {
+              source_id: string;
+              version: number;
+              state: "active" | "withdrawn";
+              lifecycle_version: number;
+              artifact_hash: string;
+            }
+          | undefined;
+        if (!row) return failure("NOT_FOUND", "来源版本不存在");
+        if (input.expectedLifecycleVersion !== row.lifecycle_version)
+          return failure(
+            "REVISION_CONFLICT",
+            `来源生命周期当前版本为 v${row.lifecycle_version}，与提交的 expectedLifecycleVersion 不一致`,
+          );
+        if (row.state !== "active") return failure("ACTION_NOT_ALLOWED", "来源已撤回，不能重复撤回");
+        this.bumpSeq(workspaceId);
+        const newVersion = row.lifecycle_version + 1;
+        this.db
+          .prepare("UPDATE knowledge_source SET state='withdrawn', lifecycle_version=? WHERE source_revision_id=?")
+          .run(newVersion, input.sourceRevisionId);
+        const state: WikiSourceState = {
+          sourceRevisionId: input.sourceRevisionId,
+          lifecycleVersion: newVersion,
+          state: "withdrawn",
+          changedAt: context.now,
+        };
+        const event: KnowledgeMaintenanceLifecycleEvent = {
+          schemaVersion: 1,
+          workspaceId,
+          eventId: randomUUID(),
+          entityId: input.sourceRevisionId,
+          entityVersion: newVersion,
+          type: "source.withdrawn",
+          evidenceIds: [input.sourceRevisionId],
+          actorId: context.actorId,
+          occurredAt: context.now,
+          note: input.note,
+        };
+        this.emit(
+          workspaceId,
+          "source.withdrawn",
+          { sourceRevisionId: input.sourceRevisionId, eventId: event.eventId },
+          context,
+        );
+        this.upsertMaintenanceIssue(
+          workspaceId,
+          this.maintenanceDedupKey("source_withdrawn", {
+            sourceId: row.source_id,
+            sourceRevisionId: input.sourceRevisionId,
+          }),
+          "source_withdrawn",
+          {
+            kind: "source",
+            sourceId: row.source_id,
+            sourceRevisionId: input.sourceRevisionId,
+            artifactHash: row.artifact_hash,
+          },
+          "warning",
+          `来源 v${row.version} 已撤回，依赖该来源的知识与消费需复核`,
+          [input.sourceRevisionId],
+          context.now,
+        );
+        return {
+          ok: true,
+          data: { kind: "sourceWithdrawal", state, event },
+          warnings: [],
+          evidenceIds: [event.eventId, input.sourceRevisionId],
+        } satisfies KnowledgeMaintenanceResult;
+      })
+      .immediate();
+  }
+
+  /** wiki.getMaintenance：按 kinds/states 过滤，issueId 稳定前进分页。 */
+  getMaintenance(query: MaintenanceQuery, context: WikiHostContext): KnowledgeMaintenanceResult {
+    const workspaceId = this.workspaceId();
+    if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
+    const kinds = [...query.kinds].sort();
+    const states = [...query.states].sort();
+    const queryHash = hash(JSON.stringify({ kinds, states }));
+    const snapshotId = query.cursor?.snapshotId ?? randomUUID();
+    const afterIssueId = query.cursor?.afterIssueId ?? "";
+    const kindsFilter = kinds.length === 0 ? "" : ` AND kind IN (${kinds.map(() => "?").join(",")})`;
+    const statesFilter =
+      states.length === 0 ? "" : ` AND state IN (${states.map(() => "?").join(",")})`;
+    const rows = this.db
+      .prepare(
+        `SELECT issue_id FROM knowledge_maintenance_issue WHERE workspace_id=? AND issue_id > ?${kindsFilter}${statesFilter} ORDER BY issue_id LIMIT ?`,
+      )
+      .all(workspaceId, afterIssueId, ...kinds, ...states, query.limit + 1) as { issue_id: string }[];
+    const issues = rows
+      .slice(0, query.limit)
+      .map((r) => this.readMaintenanceIssue(r.issue_id))
+      .filter((i): i is MaintenanceIssue => i !== null);
+    const hasMore = rows.length > query.limit;
+    const nextCursor =
+      hasMore && issues.length > 0
+        ? { snapshotId, queryHash, afterIssueId: issues[issues.length - 1]!.issueId }
+        : null;
+    const page: MaintenancePage = { snapshotId, queryHash, checkedAt: context.now, issues, nextCursor };
+    const parsed = MaintenancePageSchema.safeParse(page);
+    if (!parsed.success) return failure("STORAGE_ERROR", "维护页事实不完整");
+    return {
+      ok: true,
+      data: { kind: "maintenancePage", page: parsed.data },
+      warnings: [],
+      evidenceIds: issues.map((i) => i.issueId),
+    };
+  }
+
+  /** wiki.resolveMaintenance：OCC 推进 open→in_progress→resolved/dismissed。 */
+  resolveMaintenance(
+    input: {
+      issueId: string;
+      expectedIssueVersion: number;
+      action: "start_review" | "resolve" | "dismiss";
+      note: string;
+      evidenceIds: string[];
+    },
+    context: WikiHostContext,
+  ): KnowledgeMaintenanceResult {
+    return this.db
+      .transaction(() => {
+        const workspaceId = this.workspaceId();
+        if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
+        const issue = this.readMaintenanceIssue(input.issueId);
+        if (!issue) return failure("NOT_FOUND", "维护问题不存在");
+        if (issue.workspaceId !== workspaceId)
+          return failure("SOURCE_CONFLICT", "维护问题工作区不一致");
+        if (issue.issueVersion !== input.expectedIssueVersion)
+          return failure(
+            "REVISION_CONFLICT",
+            `维护问题当前版本为 v${issue.issueVersion}，与提交的 expectedIssueVersion 不一致`,
+          );
+        let nextState: MaintenanceIssue["state"];
+        let resolution: MaintenanceIssue["resolution"];
+        let eventType: KnowledgeMaintenanceLifecycleEvent["type"];
+        if (input.action === "start_review") {
+          if (issue.state !== "open") return failure("ACTION_NOT_ALLOWED", "仅未处理问题可进入处理");
+          nextState = "in_progress";
+          resolution = null;
+          eventType = "maintenance.in_progress";
+        } else {
+          if (issue.state !== "open" && issue.state !== "in_progress")
+            return failure("ACTION_NOT_ALLOWED", "仅未处理或处理中的问题可解决/关闭");
+          nextState = input.action === "resolve" ? "resolved" : "dismissed";
+          resolution = {
+            action: input.action,
+            note: input.note,
+            evidenceIds: input.evidenceIds,
+            actorId: context.actorId,
+            resolvedAt: context.now,
+          };
+          eventType = input.action === "resolve" ? "maintenance.resolved" : "maintenance.dismissed";
+        }
+        const updated: MaintenanceIssue = {
+          ...issue,
+          issueVersion: issue.issueVersion + 1,
+          state: nextState,
+          resolution,
+        };
+        const parsedIssue = MaintenanceIssueSchema.safeParse(updated);
+        if (!parsedIssue.success) return failure("MISSING_FACTS", "维护问题处理事实不完整");
+        this.db
+          .prepare("UPDATE knowledge_maintenance_issue SET state=?, data_json=? WHERE issue_id=?")
+          .run(updated.state, JSON.stringify(updated), updated.issueId);
+        this.emit(workspaceId, eventType, { issueId: updated.issueId }, context);
+        return {
+          ok: true,
+          data: { kind: "maintenanceIssue", issue: parsedIssue.data },
+          warnings: [],
+          evidenceIds: [updated.issueId],
+        } satisfies KnowledgeMaintenanceResult;
+      })
+      .immediate();
+  }
+
+  /** wiki.analyzeImpact：计算主题波及的知识版本与消费，并登记维护队列。 */
+  analyzeImpact(subject: KnowledgeImpactSubject, context: WikiHostContext): KnowledgeMaintenanceResult {
+    return this.db
+      .transaction(() => {
+        const workspaceId = this.workspaceId();
+        if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
+        const subjectParsed = KnowledgeImpactSubjectSchema.safeParse(subject);
+        if (!subjectParsed.success) return failure("VALIDATION_ERROR", "影响分析主题不合法");
+        if (subject.target.kind === "source") {
+          const src = this.readSourceRevision(subject.target.sourceRevisionId);
+          if (!src || src.workspaceId !== workspaceId)
+            return failure("NOT_FOUND", "影响分析来源不存在");
+          if (subject.reason === "source_updated" && subject.replacementRevisionId) {
+            const repl = this.readSourceRevision(subject.replacementRevisionId);
+            if (!repl || repl.sourceId !== subject.target.sourceId)
+              return failure("NOT_FOUND", "替代来源版本不存在或不属于同源");
+          }
+        } else if (subject.target.kind === "knowledge") {
+          const rev = this.readWikiRevision(subject.target.revisionId);
+          if (!rev || rev.workspaceId !== workspaceId)
+            return failure("NOT_FOUND", "影响分析知识版本不存在");
+        } else {
+          return failure("VALIDATION_ERROR", "影响分析主题不得为消费者");
+        }
+
+        const issueKind: MaintenanceIssue["kind"] =
+          subject.reason === "withdrawn" ? "source_withdrawn" : subject.reason;
+        const targetEvidence =
+          subject.target.kind === "source"
+            ? subject.target.sourceRevisionId
+            : subject.target.revisionId;
+        this.upsertMaintenanceIssue(
+          workspaceId,
+          this.maintenanceDedupKey(issueKind, subject.target),
+          issueKind,
+          subject.target,
+          issueKind === "conflict" || issueKind === "expired" ? "block" : "warning",
+          `影响分析主题：${subject.reason}`,
+          [targetEvidence],
+          context.now,
+        );
+
+        const affectedRevisionIds = new Set<string>();
+        if (subject.target.kind === "source") {
+          const sourceId = subject.target.sourceId;
+          const all = this.db
+            .prepare("SELECT revision_id FROM knowledge_wiki WHERE workspace_id=?")
+            .all(workspaceId) as { revision_id: string }[];
+          for (const { revision_id } of all) {
+            const rev = this.readWikiRevision(revision_id);
+            if (rev && rev.content.sourceRefs.some((ref) => ref.sourceId === sourceId))
+              affectedRevisionIds.add(revision_id);
+          }
+        } else {
+          affectedRevisionIds.add(subject.target.revisionId);
+        }
+
+        const consumptions = this.db
+          .prepare("SELECT data_json FROM knowledge_consumption WHERE workspace_id=?")
+          .all(workspaceId) as Row[];
+        const items: KnowledgeImpactItem[] = [];
+        let hasUnknownConsumer = false;
+        for (const revisionId of affectedRevisionIds) {
+          const rev = this.readWikiRevision(revisionId);
+          if (!rev) continue;
+          items.push({
+            itemId: randomUUID(),
+            target: {
+              kind: "knowledge",
+              revisionId: rev.revisionId,
+              contentHash: rev.contentHash,
+              sourceSetHash: rev.sourceSetHash,
+              documentId: rev.documentId,
+            },
+            viaKnowledgeRevisionIds: [rev.revisionId],
+            consumptionId: null,
+            consumerState: null,
+            requiresReview: false,
+          });
+          for (const row of consumptions) {
+            const consumption = JSON.parse(row.data_json) as WikiConsumption;
+            if (!consumption.citations.some((c) => c.revisionId === revisionId)) continue;
+            items.push({
+              itemId: randomUUID(),
+              target: {
+                kind: "consumer",
+                consumerKind: consumption.consumer.kind,
+                entityId: consumption.consumer.entityId,
+                revisionId: consumption.consumer.revisionId,
+                contentHash: consumption.consumer.contentHash,
+              },
+              viaKnowledgeRevisionIds: [revisionId],
+              consumptionId: consumption.consumptionId,
+              consumerState: "unknown",
+              requiresReview: true,
+            });
+            hasUnknownConsumer = true;
+          }
+        }
+
+        const snapshotSeq = this.currentSeq(workspaceId);
+        const status: KnowledgeImpactReport["status"] = hasUnknownConsumer ? "partial" : "completed";
+        const report: KnowledgeImpactReport = {
+          workspaceId,
+          reportId: randomUUID(),
+          subject: subjectParsed.data,
+          snapshotSeq,
+          checkedAt: context.now,
+          status,
+          totalItems: status === "completed" ? items.length : null,
+          unknownReasons: hasUnknownConsumer ? ["受影响消费者的最终状态需桌面侧判定"] : [],
+          error: null,
+        };
+        const parsedReport = KnowledgeImpactReportSchema.safeParse(report);
+        if (!parsedReport.success) return failure("MISSING_FACTS", "影响分析报告事实不完整");
+        this.db
+          .prepare(
+            "INSERT INTO knowledge_impact_report(report_id,workspace_id,snapshot_seq,data_json) VALUES (?,?,?,?)",
+          )
+          .run(report.reportId, workspaceId, snapshotSeq, JSON.stringify(report));
+        for (const item of items) {
+          if (!KnowledgeImpactItemSchema.safeParse(item).success) continue;
+          this.db
+            .prepare("INSERT INTO knowledge_impact_item(item_id,report_id,data_json) VALUES (?,?,?)")
+            .run(item.itemId, report.reportId, JSON.stringify(item));
+        }
+        return {
+          ok: true,
+          data: { kind: "impactReport", report: parsedReport.data },
+          warnings: [],
+          evidenceIds: [report.reportId],
+        } satisfies KnowledgeMaintenanceResult;
+      })
+      .immediate();
+  }
+
+  /** wiki.getImpact：按 reportId 读回影响页，itemId 稳定前进分页。 */
+  getImpact(
+    query: z.infer<typeof KnowledgeImpactQuerySchema>,
+    _context: WikiHostContext,
+  ): KnowledgeMaintenanceResult {
+    const report = this.readImpactReport(query.reportId);
+    if (!report) return failure("NOT_FOUND", "影响分析报告不存在");
+    const afterItemId = query.cursor?.afterItemId ?? "";
+    const rows = this.db
+      .prepare(
+        "SELECT item_id FROM knowledge_impact_item WHERE report_id=? AND item_id > ? ORDER BY item_id LIMIT ?",
+      )
+      .all(query.reportId, afterItemId, query.limit + 1) as { item_id: string }[];
+    const items = rows
+      .slice(0, query.limit)
+      .map((r) => {
+        const row = this.db
+          .prepare("SELECT data_json FROM knowledge_impact_item WHERE item_id=?")
+          .get(r.item_id) as Row | undefined;
+        return row ? (JSON.parse(row.data_json) as KnowledgeImpactItem) : null;
+      })
+      .filter((i): i is KnowledgeImpactItem => i !== null);
+    const hasMore = rows.length > query.limit;
+    const nextCursor =
+      hasMore && items.length > 0
+        ? { reportId: report.reportId, afterItemId: items[items.length - 1]!.itemId }
+        : null;
+    const page: KnowledgeImpactPage = { report, items, nextCursor };
+    const parsed = KnowledgeImpactPageSchema.safeParse(page);
+    if (!parsed.success) return failure("STORAGE_ERROR", "影响分析页事实不完整");
+    return {
+      ok: true,
+      data: { kind: "impactPage", page: parsed.data },
+      warnings: [],
+      evidenceIds: items.map((i) => i.itemId),
+    };
+  }
+
+  /** wiki.getIndexStatus：按当前权威快照序号推导缺失/滞后/就绪。 */
+  getIndexStatus(index: "keyword" | "markdown_view", context: WikiHostContext): KnowledgeMaintenanceResult {
+    const workspaceId = this.workspaceId();
+    if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
+    const authoritativeSeq = this.currentSeq(workspaceId);
+    const row = this.db
+      .prepare("SELECT generation, indexed_seq FROM knowledge_index_status WHERE workspace_id=? AND index_kind=?")
+      .get(workspaceId, index) as { generation: number; indexed_seq: number } | undefined;
+    const generation = row?.generation ?? 0;
+    const indexedSeq = row?.indexed_seq ?? 0;
+    const state: KnowledgeIndexStatus["state"] =
+      generation === 0 && indexedSeq === 0
+        ? "missing"
+        : indexedSeq < authoritativeSeq
+          ? "stale"
+          : "ready";
+    const status: KnowledgeIndexStatus = {
+      workspaceId,
+      index,
+      generation,
+      authoritativeSeq,
+      indexedSeq,
+      state,
+      rebuildId: null,
+      checkedAt: context.now,
+      error: null,
+    };
+    const parsed = KnowledgeIndexStatusSchema.safeParse(status);
+    if (!parsed.success) return failure("STORAGE_ERROR", "索引状态事实不完整");
+    return { ok: true, data: { kind: "indexStatus", status: parsed.data }, warnings: [], evidenceIds: [] };
+  }
+
+  /** wiki.rebuildIndex：OCC 校验代际/权威序号后原子推进投影并落重建票据。 */
+  rebuildIndex(
+    input: {
+      index: "keyword" | "markdown_view";
+      expectedGeneration: number;
+      expectedAuthoritativeSeq: number;
+    },
+    context: WikiHostContext,
+  ): KnowledgeMaintenanceResult {
+    return this.db
+      .transaction(() => {
+        const workspaceId = this.workspaceId();
+        if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
+        const row = this.db
+          .prepare("SELECT generation, indexed_seq FROM knowledge_index_status WHERE workspace_id=? AND index_kind=?")
+          .get(workspaceId, input.index) as { generation: number; indexed_seq: number } | undefined;
+        const currentGeneration = row?.generation ?? 0;
+        const currentAuthoritative = this.currentSeq(workspaceId);
+        if (input.expectedGeneration !== currentGeneration)
+          return failure(
+            "REVISION_CONFLICT",
+            `索引当前代际为 ${currentGeneration}，与提交的 expectedGeneration 不一致`,
+          );
+        if (input.expectedAuthoritativeSeq !== currentAuthoritative)
+          return failure(
+            "REVISION_CONFLICT",
+            `权威快照当前序号为 ${currentAuthoritative}，与提交的 expectedAuthoritativeSeq 不一致`,
+          );
+        const requestedSeq = currentAuthoritative;
+        const targetGeneration = currentGeneration + 1;
+        const now = context.now;
+        const status: KnowledgeIndexStatus = {
+          workspaceId,
+          index: input.index,
+          generation: targetGeneration,
+          authoritativeSeq: requestedSeq,
+          indexedSeq: requestedSeq,
+          state: "ready",
+          rebuildId: null,
+          checkedAt: now,
+          error: null,
+        };
+        const parsedStatus = KnowledgeIndexStatusSchema.safeParse(status);
+        if (!parsedStatus.success) return failure("MISSING_FACTS", "重建后索引状态不合法");
+        const rebuildId = randomUUID();
+        const rebuild: KnowledgeIndexRebuild = {
+          workspaceId,
+          rebuildId,
+          operationKey: randomUUID(),
+          index: input.index,
+          requestedSeq,
+          targetGeneration,
+          status: "completed",
+          createdAt: now,
+          updatedAt: now,
+          result: parsedStatus.data,
+          error: null,
+        };
+        const parsedRebuild = KnowledgeIndexRebuildSchema.safeParse(rebuild);
+        if (!parsedRebuild.success) return failure("MISSING_FACTS", "重建票据事实不完整");
+        this.db
+          .prepare(
+            "INSERT INTO knowledge_index_status(workspace_id,index_kind,generation,authoritative_seq,indexed_seq,state,rebuild_id,data_json) VALUES (?,?,?,?,?,?,?,?) ON CONFLICT(workspace_id,index_kind) DO UPDATE SET generation=excluded.generation,authoritative_seq=excluded.authoritative_seq,indexed_seq=excluded.indexed_seq,state=excluded.state,rebuild_id=excluded.rebuild_id,data_json=excluded.data_json",
+          )
+          .run(
+            workspaceId,
+            input.index,
+            targetGeneration,
+            requestedSeq,
+            requestedSeq,
+            "ready",
+            null,
+            JSON.stringify(status),
+          );
+        this.db
+          .prepare("INSERT INTO knowledge_index_rebuild(rebuild_id,workspace_id,index_kind,data_json) VALUES (?,?,?,?)")
+          .run(rebuildId, workspaceId, input.index, JSON.stringify(rebuild));
+        this.emit(
+          workspaceId,
+          "index.rebuilt",
+          { index: input.index, rebuildId, generation: targetGeneration },
+          context,
+        );
+        return {
+          ok: true,
+          data: { kind: "indexRebuild", rebuild: parsedRebuild.data },
+          warnings: [],
+          evidenceIds: [rebuildId],
+        } satisfies KnowledgeMaintenanceResult;
+      })
+      .immediate();
+  }
+
+  /** wiki.getIndexRebuild：按 rebuildId 读回重建票据。 */
+  getIndexRebuild(rebuildId: string): KnowledgeMaintenanceResult {
+    const row = this.db
+      .prepare("SELECT data_json FROM knowledge_index_rebuild WHERE rebuild_id=?")
+      .get(rebuildId) as Row | undefined;
+    if (!row) return failure("NOT_FOUND", "索引重建票据不存在");
+    const rebuild = JSON.parse(row.data_json) as KnowledgeIndexRebuild;
+    const parsed = KnowledgeIndexRebuildSchema.safeParse(rebuild);
+    if (!parsed.success) return failure("STORAGE_ERROR", "索引重建票据不完整");
+    return {
+      ok: true,
+      data: { kind: "indexRebuild", rebuild: parsed.data },
+      warnings: [],
+      evidenceIds: [rebuildId],
     };
   }
 }

@@ -36,6 +36,7 @@ export type MigrationLineage =
   | "c-v7"
   | "a-v6"
   | "a-v8"
+  | "a-v9"
   | "b-v7"
   | "unified"
   | "mixed"
@@ -487,6 +488,58 @@ export const CAPABILITIES: CapabilitySpec[] = [
       },
     ],
   },
+  {
+    // A01e：持续维护协议。维护问题队列、影响分析、索引状态/重建与权威快照序号。
+    lineage: "knowledge-wiki",
+    version: 9,
+    tables: [
+      "knowledge_maintenance_issue",
+      "knowledge_impact_report",
+      "knowledge_impact_item",
+      "knowledge_index_status",
+      "knowledge_index_rebuild",
+      "knowledge_seq",
+    ],
+    indexes: [
+      { name: "knowledge_maintenance_issue_list", table: "knowledge_maintenance_issue" },
+      { name: "knowledge_impact_item_report", table: "knowledge_impact_item" },
+    ],
+    triggers: [],
+    columns: {
+      knowledge_maintenance_issue: [
+        "issue_id",
+        "workspace_id",
+        "dedup_key",
+        "kind",
+        "state",
+        "first_detected_at",
+        "last_detected_at",
+        "data_json",
+      ],
+      knowledge_impact_report: ["report_id", "workspace_id", "snapshot_seq", "data_json"],
+      knowledge_impact_item: ["item_id", "report_id", "data_json"],
+      knowledge_index_status: [
+        "workspace_id",
+        "index_kind",
+        "generation",
+        "authoritative_seq",
+        "indexed_seq",
+        "state",
+        "rebuild_id",
+        "data_json",
+      ],
+      knowledge_index_rebuild: ["rebuild_id", "workspace_id", "index_kind", "data_json"],
+      knowledge_seq: ["workspace_id", "seq"],
+    },
+    foreignKeys: [
+      {
+        table: "knowledge_impact_item",
+        from: "report_id",
+        toTable: "knowledge_impact_report",
+        to: "report_id",
+      },
+    ],
+  },
 ];
 
 export type CapabilityId = `${CapabilityLineage}:${number}`;
@@ -768,6 +821,7 @@ const LINEAGE_VERSION: Record<MigrationLineage, number> = {
   "c-v7": 7,
   "a-v6": 6,
   "a-v8": 8,
+  "a-v9": 9,
   "b-v7": 7,
   unified: 8,
   mixed: -1,
@@ -792,6 +846,10 @@ function classifyPresent(present: CapabilityId[]): MigrationLineage {
     ["c-run:5,c-run:6,c-run:7,common:1,common:2,common:3,common:4", "c-v7"],
     ["common:1,common:2,common:3,common:4,knowledge-wiki:6", "a-v6"],
     ["common:1,common:2,common:3,common:4,knowledge-wiki:6,knowledge-wiki:8", "a-v8"],
+    [
+      "common:1,common:2,common:3,common:4,knowledge-wiki:6,knowledge-wiki:8,knowledge-wiki:9",
+      "a-v9",
+    ],
     ["check-report:7,common:1,common:2,common:3,common:4,knowledge-wiki:6", "b-v7"],
     [
       "c-run:5,c-run:6,c-run:7,check-report:7,common:1,common:2,common:3,common:4,knowledge-wiki:6",
@@ -799,6 +857,10 @@ function classifyPresent(present: CapabilityId[]): MigrationLineage {
     ],
     [
       "c-run:5,c-run:6,c-run:7,check-report:7,common:1,common:2,common:3,common:4,knowledge-wiki:6,knowledge-wiki:8",
+      "unified",
+    ],
+    [
+      "c-run:5,c-run:6,c-run:7,check-report:7,common:1,common:2,common:3,common:4,knowledge-wiki:6,knowledge-wiki:8,knowledge-wiki:9",
       "unified",
     ],
   ]);
