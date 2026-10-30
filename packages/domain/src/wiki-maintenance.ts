@@ -22,10 +22,12 @@ export interface WikiMaintenanceStore {
   resolveMaintenance(
     input: Extract<KnowledgeMaintenanceCommand, { method: "wiki.resolveMaintenance" }>["payload"],
     context: WikiHostContext,
+    idempotencyKey: string,
   ): KnowledgeMaintenanceResult;
   analyzeImpact(
     subject: KnowledgeImpactSubject,
     context: WikiHostContext,
+    idempotencyKey: string,
   ): KnowledgeMaintenanceResult;
   getImpact(
     query: Extract<KnowledgeMaintenanceCommand, { method: "wiki.getImpact" }>["payload"],
@@ -38,11 +40,13 @@ export interface WikiMaintenanceStore {
   rebuildIndex(
     input: Extract<KnowledgeMaintenanceCommand, { method: "wiki.rebuildIndex" }>["payload"],
     context: WikiHostContext,
+    idempotencyKey: string,
   ): KnowledgeMaintenanceResult;
   getIndexRebuild(rebuildId: string): KnowledgeMaintenanceResult;
   withdrawSource(
     input: Extract<KnowledgeMaintenanceCommand, { method: "source.withdraw" }>["payload"],
     context: WikiHostContext,
+    idempotencyKey: string,
   ): KnowledgeMaintenanceResult;
 }
 
@@ -65,19 +69,19 @@ export function createKnowledgeMaintenanceService(store: WikiMaintenanceStore) {
           case "wiki.getMaintenance":
             return store.getMaintenance(command.payload, context);
           case "wiki.resolveMaintenance":
-            return store.resolveMaintenance(command.payload, context);
+            return store.resolveMaintenance(command.payload, context, command.idempotencyKey);
           case "wiki.analyzeImpact":
-            return store.analyzeImpact(command.payload, context);
+            return store.analyzeImpact(command.payload, context, command.idempotencyKey);
           case "wiki.getImpact":
             return store.getImpact(command.payload, context);
           case "wiki.getIndexStatus":
             return store.getIndexStatus(command.payload.index, context);
           case "wiki.rebuildIndex":
-            return store.rebuildIndex(command.payload, context);
+            return store.rebuildIndex(command.payload, context, command.idempotencyKey);
           case "wiki.getIndexRebuild":
             return store.getIndexRebuild(command.payload.rebuildId);
           case "source.withdraw":
-            return store.withdrawSource(command.payload, context);
+            return store.withdrawSource(command.payload, context, command.idempotencyKey);
         }
       } catch {
         return failure(

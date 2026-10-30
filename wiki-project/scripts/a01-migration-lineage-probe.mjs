@@ -205,9 +205,90 @@ CREATE INDEX knowledge_lint_revision ON knowledge_lint(revision_id, checked_at D
 CREATE TRIGGER knowledge_lint_no_update BEFORE UPDATE ON knowledge_lint BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE_LINT'); END;
 CREATE TRIGGER knowledge_lint_no_delete BEFORE DELETE ON knowledge_lint BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE_LINT'); END;
 ` },
+  { lineage: "knowledge-wiki", version: 9, sql: `
+CREATE TABLE knowledge_seq (
+  workspace_id TEXT PRIMARY KEY REFERENCES workspace(id),
+  seq INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE knowledge_maintenance_issue (
+  issue_id TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL REFERENCES workspace(id),
+  dedup_key TEXT NOT NULL,
+  kind TEXT NOT NULL,
+  state TEXT NOT NULL,
+  first_detected_at TEXT NOT NULL,
+  last_detected_at TEXT NOT NULL,
+  data_json TEXT NOT NULL,
+  UNIQUE(workspace_id, dedup_key)
+);
+CREATE INDEX knowledge_maintenance_issue_list ON knowledge_maintenance_issue(workspace_id, state, issue_id);
+
+CREATE TABLE knowledge_impact_report (
+  report_id TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL REFERENCES workspace(id),
+  snapshot_seq INTEGER NOT NULL,
+  data_json TEXT NOT NULL
+);
+
+CREATE TABLE knowledge_impact_item (
+  item_id TEXT PRIMARY KEY,
+  report_id TEXT NOT NULL REFERENCES knowledge_impact_report(report_id),
+  data_json TEXT NOT NULL
+);
+CREATE INDEX knowledge_impact_item_report ON knowledge_impact_item(report_id, item_id);
+
+CREATE TABLE knowledge_index_status (
+  workspace_id TEXT NOT NULL REFERENCES workspace(id),
+  index_kind TEXT NOT NULL CHECK(index_kind IN ('keyword','markdown_view')),
+  generation INTEGER NOT NULL,
+  authoritative_seq INTEGER NOT NULL,
+  indexed_seq INTEGER NOT NULL,
+  state TEXT NOT NULL,
+  rebuild_id TEXT,
+  data_json TEXT NOT NULL,
+  PRIMARY KEY(workspace_id, index_kind)
+);
+
+CREATE TABLE knowledge_index_rebuild (
+  rebuild_id TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL REFERENCES workspace(id),
+  index_kind TEXT NOT NULL CHECK(index_kind IN ('keyword','markdown_view')),
+  data_json TEXT NOT NULL
+);
+` },
+  { lineage: "knowledge-wiki", version: 10, sql: `
+CREATE TABLE knowledge_maintenance_snapshot (
+  snapshot_id TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL REFERENCES workspace(id),
+  query_hash TEXT NOT NULL,
+  checked_at TEXT NOT NULL,
+  issues_json TEXT NOT NULL
+);
+
+CREATE TABLE knowledge_index_keyword (
+  generation INTEGER NOT NULL,
+  workspace_id TEXT NOT NULL REFERENCES workspace(id),
+  keyword TEXT NOT NULL,
+  document_id TEXT NOT NULL,
+  revision_id TEXT NOT NULL,
+  PRIMARY KEY(workspace_id, generation, keyword, document_id)
+);
+
+CREATE TABLE knowledge_index_markdown (
+  generation INTEGER NOT NULL,
+  workspace_id TEXT NOT NULL REFERENCES workspace(id),
+  document_id TEXT NOT NULL,
+  revision_id TEXT NOT NULL,
+  markdown TEXT NOT NULL,
+  PRIMARY KEY(workspace_id, generation, document_id)
+);
+` },
 ];
 
-// C/B 固定诊断原件的 LF 归一指纹（d99f2b3）。
+// 归一 CRLF→LF 后的 SQL 指纹。v1~v8 为 C/B 固定诊断原件指纹（d99f2b3）；
+// v9/v10 为 A 后补能力，指纹由 migrations.ts 原文提取（sqlFingerprint），
+// 仍断言探针镜像 SQL 与 migrations.ts 逐字一致。
 const KNOWN_FINGERPRINTS = {
   "common:1": "9e95979532306333f9f07037ce7e0841931d6e8c0b3d885208d63f4eb7360cb1",
   "common:2": "519f17179c501d08270a48eee562b6593eed6598bd0081692e437fbe7c53b723",
@@ -219,11 +300,13 @@ const KNOWN_FINGERPRINTS = {
   "knowledge-wiki:6": "5184461756e3a389588182c1e9e497f34bfc7442bbf4d7ff8a09cdb458f49f66",
   "check-report:7": "927ce55cc67a6ec655cff131a67af33f9fdc7f83372d4247ab65467d91144602",
   "knowledge-wiki:8": "32942f9e99a6159002a5f19904a44bb6a7b3afd28b60cdaa553b6f06d280448f",
+  "knowledge-wiki:9": "5b9016337913a496c92c765b2f0b83f6129f1d2d8cd9fdc8e7c5eb5879846105",
+  "knowledge-wiki:10": "1b7582d4a17851a88170df9649e9c3055372e678f12a025e1846591a5cdefbde",
 };
 
 const UPGRADEABLE = new Set([
   "empty", "common-v1", "common-v2", "common-v3", "a01b-v4",
-  "c-v5", "c-v6", "c-v7", "a-v6", "a-v8", "b-v7", "unified",
+  "c-v5", "c-v6", "c-v7", "a-v6", "a-v8", "a-v9", "a-v10", "b-v7", "unified",
 ]);
 
 function sha(s) {
@@ -273,6 +356,8 @@ const LINEAGE_BUILD = {
   "c-v7": { ids: ["common:1", "common:2", "common:3", "common:4", "c-run:5", "c-run:6", "c-run:7"], uv: 7 },
   "a-v6": { ids: ["common:1", "common:2", "common:3", "common:4", "knowledge-wiki:6"], uv: 6 },
   "a-v8": { ids: ["common:1", "common:2", "common:3", "common:4", "knowledge-wiki:6", "knowledge-wiki:8"], uv: 8 },
+  "a-v9": { ids: ["common:1", "common:2", "common:3", "common:4", "knowledge-wiki:6", "knowledge-wiki:8", "knowledge-wiki:9"], uv: 9 },
+  "a-v10": { ids: ["common:1", "common:2", "common:3", "common:4", "knowledge-wiki:6", "knowledge-wiki:8", "knowledge-wiki:9", "knowledge-wiki:10"], uv: 10 },
   "b-v7": { ids: ["common:1", "common:2", "common:3", "common:4", "knowledge-wiki:6", "check-report:7"], uv: 7 },
 };
 function buildLineage(db, key) {
@@ -325,6 +410,8 @@ caseRun("c-v6", (db) => buildLineage(db, "c-v6"), "c-v6");
 caseRun("c-v7", (db) => buildLineage(db, "c-v7"), "c-v7");
 caseRun("a-v6", (db) => buildLineage(db, "a-v6"), "a-v6");
 caseRun("a-v8", (db) => buildLineage(db, "a-v8"), "a-v8");
+caseRun("a-v9", (db) => buildLineage(db, "a-v9"), "a-v9");
+caseRun("a-v10", (db) => buildLineage(db, "a-v10"), "a-v10");
 caseRun("b-v7", (db) => buildLineage(db, "b-v7"), "b-v7");
 caseRun("unified", (db) => buildAll(db), "unified");
 
@@ -613,7 +700,7 @@ function appendToTarget(db, snap) {
 }
 
 const appendResults = [];
-for (const lineage of ["empty", "common-v1", "common-v2", "common-v3", "a01b-v4", "c-v5", "c-v6", "c-v7", "a-v6", "a-v8", "b-v7"]) {
+for (const lineage of ["empty", "common-v1", "common-v2", "common-v3", "a01b-v4", "c-v5", "c-v6", "c-v7", "a-v6", "a-v8", "a-v9", "a-v10", "b-v7"]) {
   const db = new DatabaseSync(":memory:");
   if (lineage !== "empty") buildLineage(db, lineage);
   const before = identifyLineage(snapshot(db));

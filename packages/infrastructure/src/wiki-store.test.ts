@@ -1167,13 +1167,15 @@ const maintenanceIssueOf = (result: unknown): MaintenanceIssue =>
 const maintenancePageOf = (result: unknown): MaintenancePage =>
   (result as { ok: true; data: { kind: "maintenancePage"; page: MaintenancePage } }).data.page;
 const impactReportOf = (result: unknown): KnowledgeImpactReport =>
-  (result as { ok: true; data: { kind: "impactReport"; report: KnowledgeImpactReport } }).data.report;
+  (result as { ok: true; data: { kind: "impactReport"; report: KnowledgeImpactReport } }).data
+    .report;
 const impactPageOf = (result: unknown): KnowledgeImpactPage =>
   (result as { ok: true; data: { kind: "impactPage"; page: KnowledgeImpactPage } }).data.page;
 const indexStatusOf = (result: unknown): KnowledgeIndexStatus =>
   (result as { ok: true; data: { kind: "indexStatus"; status: KnowledgeIndexStatus } }).data.status;
 const indexRebuildOf = (result: unknown): KnowledgeIndexRebuild =>
-  (result as { ok: true; data: { kind: "indexRebuild"; rebuild: KnowledgeIndexRebuild } }).data.rebuild;
+  (result as { ok: true; data: { kind: "indexRebuild"; rebuild: KnowledgeIndexRebuild } }).data
+    .rebuild;
 const sourceWithdrawalOf = (result: unknown) =>
   (
     result as {
@@ -1204,8 +1206,8 @@ async function stageSource(repo: SqliteWorkspaceRepository, workspaceId: string)
       host(workspaceId),
     ),
   );
-  return (result as { ok: true; data: { kind: "sourceRevision"; revision: WikiSourceRevision } }).data
-    .revision;
+  return (result as { ok: true; data: { kind: "sourceRevision"; revision: WikiSourceRevision } })
+    .data.revision;
 }
 
 it("A01e-1: source.withdraw 撤回来源并登记维护队列，重复撤回被拒", async () => {
@@ -1231,7 +1233,12 @@ it("A01e-1: source.withdraw 撤回来源并登记维护队列，重复撤回被�
 
   const page = maintenancePageOf(
     await repo.executeWikiMaintenance(
-      read("wiki.getMaintenance", { kinds: ["source_withdrawn"], states: [], limit: 10, cursor: null }),
+      read("wiki.getMaintenance", {
+        kinds: ["source_withdrawn"],
+        states: [],
+        limit: 10,
+        cursor: null,
+      }),
       host(workspaceId),
     ),
   );
@@ -1254,7 +1261,10 @@ it("A01e-1: source.withdraw 撤回来源并登记维护队列，重复撤回被�
 it("A01e-2: getMaintenance 稳定分页，resolveMaintenance 按 OCC 推进生命周期", async () => {
   const file = join(temp(), "wiki-maintenance-resolve.sqlite");
   const { repo, workspaceId } = openRepo(file);
-  for (const source of [await stageSource(repo, workspaceId), await stageSource(repo, workspaceId)]) {
+  for (const source of [
+    await stageSource(repo, workspaceId),
+    await stageSource(repo, workspaceId),
+  ]) {
     expect(
       (
         await repo.executeWikiMaintenance(
@@ -1287,6 +1297,9 @@ it("A01e-2: getMaintenance 稳定分页，resolveMaintenance 按 OCC 推进生�
   expect(second.issues[0]!.issueId).not.toBe(first.issues[0]!.issueId);
 
   const issueId = first.issues[0]!.issueId;
+  const issueTarget = first.issues[0]!.target;
+  const resolveEvidenceId =
+    issueTarget.kind === "source" ? issueTarget.sourceRevisionId : issueTarget.revisionId;
   expect(
     await repo.executeWikiMaintenance(
       write("wiki.resolveMaintenance", {
@@ -1321,7 +1334,7 @@ it("A01e-2: getMaintenance 稳定分页，resolveMaintenance 按 OCC 推进生�
         expectedIssueVersion: 2,
         action: "resolve",
         note: "已处理",
-        evidenceIds: [randomUUID()],
+        evidenceIds: [resolveEvidenceId],
       }),
       host(workspaceId),
     ),
@@ -1341,6 +1354,76 @@ it("A01e-2: getMaintenance 稳定分页，resolveMaintenance 按 OCC 推进生�
       host(workspaceId),
     ),
   ).toMatchObject({ ok: false, error: { code: "ACTION_NOT_ALLOWED" } });
+  repo.close();
+});
+
+it("A01e-2b: getMaintenance 首页冻结候选集/事实，续页不受并发推进影响", async () => {
+  const file = join(temp(), "wiki-maintenance-snapshot.sqlite");
+  const { repo, workspaceId } = openRepo(file);
+  for (const source of [
+    await stageSource(repo, workspaceId),
+    await stageSource(repo, workspaceId),
+  ]) {
+    expect(
+      (
+        await repo.executeWikiMaintenance(
+          write("source.withdraw", {
+            sourceRevisionId: source.sourceRevisionId,
+            expectedLifecycleVersion: 1,
+            note: "撤回",
+          }),
+          host(workspaceId),
+        )
+      ).ok,
+    ).toBe(true);
+  }
+
+  const first = maintenancePageOf(
+    await repo.executeWikiMaintenance(
+      read("wiki.getMaintenance", { kinds: [], states: [], limit: 1, cursor: null }),
+      host(workspaceId),
+    ),
+  );
+  expect(first.issues).toHaveLength(1);
+  expect(first.nextCursor).not.toBeNull();
+  const firstIssueId = first.issues[0]!.issueId;
+
+  // 用独立的新查询发现第二页对应的问题 id（不消耗原快照游标）。
+  const all = maintenancePageOf(
+    await repo.executeWikiMaintenance(
+      read("wiki.getMaintenance", { kinds: [], states: [], limit: 10, cursor: null }),
+      host(workspaceId),
+    ),
+  );
+  const otherIssue = all.issues.find((i) => i.issueId !== firstIssueId)!;
+  expect(otherIssue).toBeTruthy();
+
+  // 并发推进“下一页问题”：resolve 后 live 状态/版本随之更新。
+  expect(
+    (
+      await repo.executeWikiMaintenance(
+        write("wiki.resolveMaintenance", {
+          issueId: otherIssue.issueId,
+          expectedIssueVersion: 1,
+          action: "start_review",
+          note: "并发处理",
+          evidenceIds: [randomUUID()],
+        }),
+        host(workspaceId),
+      )
+    ).ok,
+  ).toBe(true);
+
+  // 原快照续页应读回冻结的 open v1，而非并发更新后的 in_progress v2。
+  const second = maintenancePageOf(
+    await repo.executeWikiMaintenance(
+      read("wiki.getMaintenance", { kinds: [], states: [], limit: 1, cursor: first.nextCursor }),
+      host(workspaceId),
+    ),
+  );
+  expect(second.issues).toHaveLength(1);
+  expect(second.issues[0]!.issueId).toBe(otherIssue.issueId);
+  expect(second.issues[0]).toMatchObject({ state: "open", issueVersion: 1 });
   repo.close();
 });
 
@@ -1410,9 +1493,9 @@ it("A01e-3: analyzeImpact/getImpact 覆盖知识版本与消费，消费状态�
   );
   expect(page.report.reportId).toBe(report.reportId);
   expect(page.items.some((i) => i.target.kind === "knowledge")).toBe(true);
-  expect(page.items.some((i) => i.target.kind === "consumer" && i.consumerState === "unknown")).toBe(
-    true,
-  );
+  expect(
+    page.items.some((i) => i.target.kind === "consumer" && i.consumerState === "unknown"),
+  ).toBe(true);
   repo.close();
 });
 
@@ -1456,22 +1539,42 @@ it("A01e-4: getIndexStatus/rebuildIndex/getIndexRebuild 覆盖缺失→就绪→
   const { repo, workspaceId } = openRepo(file);
 
   const missing = indexStatusOf(
-    await repo.executeWikiMaintenance(read("wiki.getIndexStatus", { index: "keyword" }), host(workspaceId)),
+    await repo.executeWikiMaintenance(
+      read("wiki.getIndexStatus", { index: "keyword" }),
+      host(workspaceId),
+    ),
   );
-  expect(missing).toMatchObject({ state: "missing", generation: 0, indexedSeq: 0, authoritativeSeq: 0 });
+  expect(missing).toMatchObject({
+    state: "missing",
+    generation: 0,
+    indexedSeq: 0,
+    authoritativeSeq: 0,
+  });
 
   const rebuilt = indexRebuildOf(
     await repo.executeWikiMaintenance(
-      write("wiki.rebuildIndex", { index: "keyword", expectedGeneration: 0, expectedAuthoritativeSeq: 0 }),
+      write("wiki.rebuildIndex", {
+        index: "keyword",
+        expectedGeneration: 0,
+        expectedAuthoritativeSeq: 0,
+      }),
       host(workspaceId),
     ),
   );
   expect(rebuilt).toMatchObject({ status: "completed", targetGeneration: 1 });
 
   const ready = indexStatusOf(
-    await repo.executeWikiMaintenance(read("wiki.getIndexStatus", { index: "keyword" }), host(workspaceId)),
+    await repo.executeWikiMaintenance(
+      read("wiki.getIndexStatus", { index: "keyword" }),
+      host(workspaceId),
+    ),
   );
-  expect(ready).toMatchObject({ state: "ready", generation: 1, indexedSeq: 0, authoritativeSeq: 0 });
+  expect(ready).toMatchObject({
+    state: "ready",
+    generation: 1,
+    indexedSeq: 0,
+    authoritativeSeq: 0,
+  });
 
   const got = indexRebuildOf(
     await repo.executeWikiMaintenance(
@@ -1483,23 +1586,112 @@ it("A01e-4: getIndexStatus/rebuildIndex/getIndexRebuild 覆盖缺失→就绪→
 
   await stageSource(repo, workspaceId);
   const stale = indexStatusOf(
-    await repo.executeWikiMaintenance(read("wiki.getIndexStatus", { index: "keyword" }), host(workspaceId)),
+    await repo.executeWikiMaintenance(
+      read("wiki.getIndexStatus", { index: "keyword" }),
+      host(workspaceId),
+    ),
   );
-  expect(stale).toMatchObject({ state: "stale", generation: 1, indexedSeq: 0, authoritativeSeq: 1 });
+  expect(stale).toMatchObject({
+    state: "stale",
+    generation: 1,
+    indexedSeq: 0,
+    authoritativeSeq: 1,
+  });
 
   expect(
     await repo.executeWikiMaintenance(
-      write("wiki.rebuildIndex", { index: "keyword", expectedGeneration: 0, expectedAuthoritativeSeq: 1 }),
+      write("wiki.rebuildIndex", {
+        index: "keyword",
+        expectedGeneration: 0,
+        expectedAuthoritativeSeq: 1,
+      }),
       host(workspaceId),
     ),
   ).toMatchObject({ ok: false, error: { code: "REVISION_CONFLICT" } });
 
   const rebuilt2 = indexRebuildOf(
     await repo.executeWikiMaintenance(
-      write("wiki.rebuildIndex", { index: "keyword", expectedGeneration: 1, expectedAuthoritativeSeq: 1 }),
+      write("wiki.rebuildIndex", {
+        index: "keyword",
+        expectedGeneration: 1,
+        expectedAuthoritativeSeq: 1,
+      }),
       host(workspaceId),
     ),
   );
   expect(rebuilt2).toMatchObject({ status: "completed", targetGeneration: 2 });
+  repo.close();
+});
+
+it("A01e-4b: rebuildIndex 实际构建并原子切换分代投影，markdown/keyword 均物化", async () => {
+  const file = join(temp(), "wiki-maintenance-index-projection.sqlite");
+  const { repo, workspaceId } = openRepo(file);
+  await seedPublished(file, repo, workspaceId);
+
+  const status = indexStatusOf(
+    await repo.executeWikiMaintenance(
+      read("wiki.getIndexStatus", { index: "markdown_view" }),
+      host(workspaceId),
+    ),
+  );
+  const rebuilt = indexRebuildOf(
+    await repo.executeWikiMaintenance(
+      write("wiki.rebuildIndex", {
+        index: "markdown_view",
+        expectedGeneration: status.generation,
+        expectedAuthoritativeSeq: status.authoritativeSeq,
+      }),
+      host(workspaceId),
+    ),
+  );
+  expect(rebuilt).toMatchObject({ status: "completed", targetGeneration: status.generation + 1 });
+
+  const db = new Database(file);
+  try {
+    const markdown = db
+      .prepare(
+        "SELECT generation, document_id, revision_id, markdown FROM knowledge_index_markdown WHERE workspace_id=? AND generation=?",
+      )
+      .all(workspaceId, rebuilt.targetGeneration) as {
+      generation: number;
+      document_id: string;
+      revision_id: string;
+      markdown: string;
+    }[];
+    expect(markdown).toHaveLength(1);
+    expect(markdown[0]).toMatchObject({
+      generation: rebuilt.targetGeneration,
+      markdown: expect.stringContaining("Inspect"),
+    });
+
+    const keywords = db
+      .prepare(
+        "SELECT DISTINCT keyword FROM knowledge_index_keyword WHERE workspace_id=? AND generation=?",
+      )
+      .all(workspaceId, rebuilt.targetGeneration) as { keyword: string }[];
+    expect(keywords).toHaveLength(0); // markdown_view 只建 markdown 投影，keyword 表未写入该代际
+
+    const keywordRebuild = indexRebuildOf(
+      await repo.executeWikiMaintenance(
+        write("wiki.rebuildIndex", {
+          index: "keyword",
+          expectedGeneration: 0,
+          expectedAuthoritativeSeq: status.authoritativeSeq,
+        }),
+        host(workspaceId),
+      ),
+    );
+    expect(keywordRebuild).toMatchObject({ status: "completed", targetGeneration: 1 });
+    const kwRows = db
+      .prepare(
+        "SELECT DISTINCT keyword FROM knowledge_index_keyword WHERE workspace_id=? AND generation=?",
+      )
+      .all(workspaceId, keywordRebuild.targetGeneration) as { keyword: string }[];
+    expect(kwRows.map((k) => k.keyword)).toEqual(
+      expect.arrayContaining(["inspect", "sources", "合成"]),
+    );
+  } finally {
+    db.close();
+  }
   repo.close();
 });

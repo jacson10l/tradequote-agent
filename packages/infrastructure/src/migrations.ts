@@ -323,6 +323,39 @@ CREATE TABLE knowledge_index_rebuild (
 );
 `,
   },
+  {
+    // A01e 维护快照与索引投影：M06 快照隔离固定候选集/事实，rebuildIndex 实际
+    // 构建的分代投影（keyword 倒排 + markdown 视图），生成后校验并原子切换。
+    lineage: "knowledge-wiki",
+    version: 10,
+    sql: `
+CREATE TABLE knowledge_maintenance_snapshot (
+  snapshot_id TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL REFERENCES workspace(id),
+  query_hash TEXT NOT NULL,
+  checked_at TEXT NOT NULL,
+  issues_json TEXT NOT NULL
+);
+
+CREATE TABLE knowledge_index_keyword (
+  generation INTEGER NOT NULL,
+  workspace_id TEXT NOT NULL REFERENCES workspace(id),
+  keyword TEXT NOT NULL,
+  document_id TEXT NOT NULL,
+  revision_id TEXT NOT NULL,
+  PRIMARY KEY(workspace_id, generation, keyword, document_id)
+);
+
+CREATE TABLE knowledge_index_markdown (
+  generation INTEGER NOT NULL,
+  workspace_id TEXT NOT NULL REFERENCES workspace(id),
+  document_id TEXT NOT NULL,
+  revision_id TEXT NOT NULL,
+  markdown TEXT NOT NULL,
+  PRIMARY KEY(workspace_id, generation, document_id)
+);
+`,
+  },
 ];
 
 /** 统一目标 user_version。8 不与任何历史谱系编号冲突。 */
@@ -341,6 +374,7 @@ export const UPGRADEABLE_LINEAGES: ReadonlySet<MigrationLineage> = new Set<Migra
   "a-v6",
   "a-v8",
   "a-v9",
+  "a-v10",
   "b-v7",
   "unified",
 ]);
@@ -417,6 +451,7 @@ export function verifyLegacyLedger(db: Database.Database, id: Identification): v
     7: "check-report",
     8: "knowledge-wiki",
     9: "knowledge-wiki",
+    10: "knowledge-wiki",
   };
   const rows = db.prepare("SELECT version, sql_hash FROM schema_migration").all() as {
     version: number;
