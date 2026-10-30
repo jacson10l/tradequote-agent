@@ -1134,3 +1134,13 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 
 - 2026-10-29 用户授权普通推送，A 已将固定实现提交 dac69db 推送到 origin/codex/a01e-p1-fixes；`git ls-remote` 回读 dac69db4c527ee3484f3481f65c76d63649cd04c 与本地 HEAD 逐字一致，未合入、未创建 PR。推送一次成功（输出 `0827476..dac69db`，exit 0），未改全局 git 配置。
 - 固定实现提交即 dac69db（A01e 八维护方法 + knowledge-wiki:9 迁移、本机验证命令/退出码与 Wiki 同步见上一节与 [[A01c检索引用实现]]、[[A01-迁移谱系支持与拒绝矩阵]]）；B 契约/语义复核、C 原脚本复验与桌面接线、实际人员审核/发布/撤回/业务语义签认仍待。本条为回执 docs-only 提交，位于 dac69db 之上，不与固定实现 SHA 混用。
+
+
+## 2026-10-30 A01e 维护快照与索引投影（knowledge-wiki:10，codex/a01e-p2-fixes）
+
+- 以 origin/codex/a01e-p1-fixes（HEAD 267f087，回执 docs 提交）为基线，A 在 codex/a01e-p2-fixes 修正 C A01e 维护-fix 交接的两处结构缺口：M06 getMaintenance 续页并发读到更新后 version/state、rebuildIndex 只推进代际不实际构建投影；连同 3 个 pnpm check 诊断（wiki-store.ts import 排序/格式、wiki-store.test.ts 格式）。迁移新增 knowledge-wiki:10。
+- M06 快照隔离：getMaintenance 首页（cursor=null）把全量匹配候选集与事实冻结写入新表 knowledge_maintenance_snapshot（snapshot_id 主键、issues_json 存冻结 MaintenanceIssue[]），续页按 afterIssueId 从快照切片，不再回读并发推进后的 live version/state；快照不存在或事实校验失败返回 SOURCE_CONFLICT。
+- rebuildIndex 实际构建分代投影：按 B 决策「实际构建、校验并原子切换后才返回 completed」，keyword 物化倒排 knowledge_index_keyword(generation,keyword,document_id,revision_id)，markdown_view 物化 knowledge_index_markdown(generation,document_id,revision_id,markdown)，均以已发布头部（每 document 最新 published）为源，单事务内先物化新代际行→校验行数→再更新 knowledge_index_status 指向新代际；失败整体回滚。落后权威序号仍标 stale。search 保持 substring 语义不变（契约 WikiSearchExchangeSchema 用 haystack.includes，不改写为 token 检索）。
+- 迁移 knowledge-wiki:10 三表：knowledge_maintenance_snapshot、knowledge_index_keyword（PK(workspace_id,generation,keyword,document_id)）、knowledge_index_markdown（PK(workspace_id,generation,document_id)）。谱系新增 a-v10（common1～4 + knowledge-wiki:6/8/9/10），unified 同步纳入 knowledge-wiki:10；UPGRADEABLE_LINEAGES 增 a-v10、verifyLegacyLedger legacyMap 增 10→knowledge-wiki。classifyPresent 的 present 键按 sortIds 字典序，knowledge-wiki:10 排在 knowledge-wiki:6 之前（'1'<'6'），否则 a-v10/unified 被误判 mixed。
+- 测试：wiki-store.test.ts 新增 A01e-2b（首页冻结候选集/事实，续页读回冻结 open v1 而非并发 in_progress v2）、A01e-4b（rebuildIndex 实际物化 markdown/keyword 投影并原子切换）共 2 项，26/26；migrations 17/17、migration-ledger 5/5、wiki-check-integration 24/24、check-lineage-integration 1/1 全过；`tsc --noEmit` 退出 0；纯 Node 探针 a01-migration-lineage-probe.mjs 指纹/分类/追加/控制全过（v9/v10 指纹已纳入）。仅 storage.test.ts/worker-migration-gates.test.ts 预存在 Windows symlink EPERM 保留。
+- B 契约/语义复核、C 原脚本复验与桌面接线、实际人员审核/发布/撤回/业务签认仍待；本轮未推送/合入、未代签。详见 [[A01c检索引用实现]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-知识发布与来源查询]]。

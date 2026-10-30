@@ -2,7 +2,7 @@
 title: Wiki 工作流与任务记录
 type: meta
 status: active
-updated: 2026-10-25
+updated: 2026-10-30
 sources:
   - wiki-repo:scripts/build-code-index.mjs:1
   - wiki-repo:scripts/lint-wiki.mjs:1
@@ -244,6 +244,8 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 2026-10-25 修正 C 七轮 M13 注释词法核验：探针再扩至 40 用例（新增 M13-Y07 注释伪造保护体 / M13-Y08 注释分隔 `UPDATE OF` / M13-Y09 注释伪造事件三个负例），`capabilityStatus` 新增 `stripComments`（去 `--` 行注释/块注释，字符串/引号标识符原样保留，注释补空格保持词法边界），触发器与索引的结构识别（保护体/事件/时机/`UPDATE OF`/`UNIQUE`/列/谓词）一律先剥离注释再匹配；`migration-lineage.ts` 未新增文件、覆盖映射不变。本轮 sync 基线为 e73d177。
 
 2026-10-25 修正 C 八轮 M13 方括号标识符核验：探针再扩至 42 用例（新增 M13-Y10 方括号列名 `[CHECK(attempt>0)] TEXT` 伪造 CHECK 负例，及「额外方括号列 + 真实 CHECK 并存」有效控制组），`stripTrivia` 新增方括号引号标识符 `[name]` 剥离（内容去除、占位 `[]`）、`stripComments` 同步识别 `[name]`（内容原样保留），CHECK 判据按去注释/字符串/方括号标识符后的表原文匹配，方括号列名中的 `CHECK(attempt>0)` 文本不再被误认作真实约束，额外方括号列与真实 CHECK 并存的合法库仍识别为原谱系（不禁止所有额外列）；`migration-lineage.ts` 未新增文件、覆盖映射不变。本轮 sync 基线为 1c890dc。
+
+2026-10-30 A01e 维护快照与索引投影（knowledge-wiki:10）：`a01-migration-lineage-probe.mjs` 探针扩至 v9/v10——内联 knowledge-wiki:9/v10 三段 SQL 与两枚指纹、UPGRADEABLE 集与 LINEAGE_BUILD 增 a-v9/a-v10、分类（2a）与追加循环同步，指纹匹配/分类/追加/控制全过（13 可升级谱系追加全过）；输出仅内联指纹，不改维护工具算法。业务侧 [[A01-迁移谱系支持与拒绝矩阵]]、[[A01c检索引用实现]]、[[A01-知识发布与来源查询]] 2026-10-30 段同步，本轮 sync 基线为 267f087。
 
 ## C集成候选的两侧覆盖与证据保留
 

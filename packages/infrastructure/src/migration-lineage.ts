@@ -37,6 +37,7 @@ export type MigrationLineage =
   | "a-v6"
   | "a-v8"
   | "a-v9"
+  | "a-v10"
   | "b-v7"
   | "unified"
   | "mixed"
@@ -109,6 +110,8 @@ export interface CapabilitySpec {
   foreignKeys?: ForeignKeyRef[];
   /** 必须存在的 CHECK 约束（防 M13-X04 静默删除 attempt>0）。 */
   checks?: CheckRequirement[];
+  /** 必须存在的表级约束（UNIQUE/PRIMARY KEY 等），从 CREATE TABLE 原文去注释/字符串/方括号标识符后匹配（防 N9-01 静默删除去重 UNIQUE 与复合主键）。 */
+  tableConstraints?: CheckRequirement[];
 }
 
 /** 统一目标 = 共同 1~4 + C run 5/6/7 + 知识四表 + 检查报告。 */
@@ -539,6 +542,82 @@ export const CAPABILITIES: CapabilitySpec[] = [
         to: "report_id",
       },
     ],
+    tableConstraints: [
+      {
+        table: "knowledge_maintenance_issue",
+        pattern: /UNIQUE\s*\(\s*workspace_id\s*,\s*dedup_key\s*\)/i,
+      },
+      {
+        table: "knowledge_index_status",
+        pattern: /PRIMARY\s+KEY\s*\(\s*workspace_id\s*,\s*index_kind\s*\)/i,
+      },
+    ],
+  },
+  {
+    // A01e：维护快照（M06 固定候选集/事实）+ 分代投影（keyword 倒排 + markdown 视图）。
+    lineage: "knowledge-wiki",
+    version: 10,
+    tables: [
+      "knowledge_maintenance_snapshot",
+      "knowledge_index_keyword",
+      "knowledge_index_markdown",
+    ],
+    indexes: [],
+    triggers: [],
+    columns: {
+      knowledge_maintenance_snapshot: [
+        "snapshot_id",
+        "workspace_id",
+        "query_hash",
+        "checked_at",
+        "issues_json",
+      ],
+      knowledge_index_keyword: [
+        "generation",
+        "workspace_id",
+        "keyword",
+        "document_id",
+        "revision_id",
+      ],
+      knowledge_index_markdown: [
+        "generation",
+        "workspace_id",
+        "document_id",
+        "revision_id",
+        "markdown",
+      ],
+    },
+    foreignKeys: [
+      {
+        table: "knowledge_maintenance_snapshot",
+        from: "workspace_id",
+        toTable: "workspace",
+        to: "id",
+      },
+      {
+        table: "knowledge_index_keyword",
+        from: "workspace_id",
+        toTable: "workspace",
+        to: "id",
+      },
+      {
+        table: "knowledge_index_markdown",
+        from: "workspace_id",
+        toTable: "workspace",
+        to: "id",
+      },
+    ],
+    tableConstraints: [
+      {
+        table: "knowledge_index_keyword",
+        pattern:
+          /PRIMARY\s+KEY\s*\(\s*workspace_id\s*,\s*generation\s*,\s*keyword\s*,\s*document_id\s*\)/i,
+      },
+      {
+        table: "knowledge_index_markdown",
+        pattern: /PRIMARY\s+KEY\s*\(\s*workspace_id\s*,\s*generation\s*,\s*document_id\s*\)/i,
+      },
+    ],
   },
 ];
 
@@ -802,7 +881,14 @@ function capabilityStatus(
     // 去注释/字符串/方括号标识符后匹配，避免命中注释、字符串或 [CHECK(...)] 列名中的伪 CHECK（M13-X09/Y10）。
     return sql !== undefined && req.pattern.test(stripTrivia(sql));
   });
-  return columnsOk && indexesOk && triggersOk && foreignKeysOk && checksOk ? "present" : "partial";
+  const tableConstraintsOk = (cap.tableConstraints ?? []).every((req) => {
+    const sql = tableSql.get(req.table);
+    // 表级 UNIQUE/PRIMARY KEY 无专用 PRAGMA，只能从表原文判定；去注释/字符串/方括号标识符避免命中注释或 [UNIQUE(...)] 列名中的伪约束（N9-01）。
+    return sql !== undefined && req.pattern.test(stripTrivia(sql));
+  });
+  return columnsOk && indexesOk && triggersOk && foreignKeysOk && checksOk && tableConstraintsOk
+    ? "present"
+    : "partial";
 }
 
 /** 归一 CRLF→LF 后的 SQL 指纹；与 C/B 固定诊断一致。 */
@@ -822,6 +908,7 @@ const LINEAGE_VERSION: Record<MigrationLineage, number> = {
   "a-v6": 6,
   "a-v8": 8,
   "a-v9": 9,
+  "a-v10": 10,
   "b-v7": 7,
   unified: 8,
   mixed: -1,
@@ -850,6 +937,10 @@ function classifyPresent(present: CapabilityId[]): MigrationLineage {
       "common:1,common:2,common:3,common:4,knowledge-wiki:6,knowledge-wiki:8,knowledge-wiki:9",
       "a-v9",
     ],
+    [
+      "common:1,common:2,common:3,common:4,knowledge-wiki:10,knowledge-wiki:6,knowledge-wiki:8,knowledge-wiki:9",
+      "a-v10",
+    ],
     ["check-report:7,common:1,common:2,common:3,common:4,knowledge-wiki:6", "b-v7"],
     [
       "c-run:5,c-run:6,c-run:7,check-report:7,common:1,common:2,common:3,common:4,knowledge-wiki:6",
@@ -861,6 +952,10 @@ function classifyPresent(present: CapabilityId[]): MigrationLineage {
     ],
     [
       "c-run:5,c-run:6,c-run:7,check-report:7,common:1,common:2,common:3,common:4,knowledge-wiki:6,knowledge-wiki:8,knowledge-wiki:9",
+      "unified",
+    ],
+    [
+      "c-run:5,c-run:6,c-run:7,check-report:7,common:1,common:2,common:3,common:4,knowledge-wiki:10,knowledge-wiki:6,knowledge-wiki:8,knowledge-wiki:9",
       "unified",
     ],
   ]);
