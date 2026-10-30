@@ -1,5 +1,8 @@
 # 当前上下文
 
+2026-10-30 B复核WIP材料311bc66b21696e41ba397637a43999fd4615edb1已普通推送origin/codex/b-267-maintenance-review，远端完整SHA一致；实际应用267不变，结论changes_required。固定[[B对267维护契约与语义复核]]和raw/b-267-review-delivery.json已可供A/C读取，未合入；新实现、迁移/桌面及实际人员业务验收仍待。
+
+
 2026-10-30 B已在独立codex/b-267-maintenance-review针对固定267f087490046955a0b4b1e6183caa163cc177c3实测维护契约。七文件123/123与typecheck通过；新增19例7正常控制通过/12产品断言失败，幂等、维护分页/证据、影响目标/版本/完整页及索引完成事实仍changes_required。撤回后的新引用/消费拒绝、旧消费回读重放、OCC冲突、索引stale标记和三处写入异常回滚通过。pnpm check因两文件3项格式/导入诊断失败，A固定Wiki只读check/lint因四生成物漂移失败；不能以机械sync通过代替语义通过。详见[[B对267维护契约与语义复核]]、[[B05-267维护契约复核]]及raw/b-267-maintenance-review.json。
 
 2026-10-29 A在codex/a01e-p1-fixes（HEAD 0827476）实现B维护契约剩余八个方法source.withdraw/wiki.getMaintenance/wiki.resolveMaintenance/wiki.analyzeImpact/wiki.getImpact/wiki.getIndexStatus/wiki.rebuildIndex/wiki.getIndexRebuild，连同wiki.lint/wiki.getLintReport共十方法在SqliteWikiStore与createKnowledgeMaintenanceService落地；写方法走OCC、权威写入bumpSeq驱动索引陈旧。新增迁移knowledge-wiki:9（六表：knowledge_seq/knowledge_maintenance_issue/knowledge_impact_report/knowledge_impact_item/knowledge_index_status/knowledge_index_rebuild），谱系新增a-v9、unified纳入knowledge-wiki:9；索引列名index_kind（`index`为SQLite保留关键字）。本机typecheck退出0、wiki-store.test.ts 24/24（新增A01e-1～A01e-4/3b共5项）、check-boundaries退出0、check-lineage-integration/migration-ledger/migrations/wiki-check-integration 46/46、domain 39/39通过；仅预存在Windows symlink EPERM保留。B契约/语义复核、C原脚本复验与桌面接线、实际人员审核/发布/撤回/业务签认仍待；未推送/合入/代签。详见[[A01c检索引用实现]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-知识发布与来源查询]]。

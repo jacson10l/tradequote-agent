@@ -1,0 +1,64 @@
+{
+  "status": "passed",
+  "scope": "ordinary sharing of B review WIP, not product acceptance",
+  "materialSha": "311bc66b21696e41ba397637a43999fd4615edb1",
+  "testedCodeSha": "267f087490046955a0b4b1e6183caa163cc177c3",
+  "branch": "codex/b-267-maintenance-review",
+  "pushExitCode": 0,
+  "readbackExitCode": 0,
+  "remoteReadback": "311bc66b21696e41ba397637a43999fd4615edb1\trefs/heads/codex/b-267-maintenance-review",
+  "fullShaMatches": true,
+  "cleanAfterPush": true,
+  "forcePush": false,
+  "merged": false,
+  "review": "changes_required",
+  "checks": [
+    {
+      "name": "generate",
+      "exe": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 255,\n  \"lines\": 70000,\n  \"generated\": 5,\n  \"excluded\": 11\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "readonly",
+      "exe": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 255,\n  \"lines\": 70000,\n  \"generated\": 5,\n  \"excluded\": 11\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "lint",
+      "exe": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 253,\n  \"semantic\": 225,\n  \"reachable\": 253\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "sync",
+      "exe": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "267f087490046955a0b4b1e6183caa163cc177c3"
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"267f087490046955a0b4b1e6183caa163cc177c3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    }
+  ]
+}
