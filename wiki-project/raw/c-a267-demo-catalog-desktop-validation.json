@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-31",
+  "role": "C",
+  "desktopBase": "81e9c935bcc0e1bcb2b568092a7614258255fb22",
+  "dataBranch": "origin/codex/demo-data-catalog",
+  "dataHead": "11826e4dedb6df1c2593fe061f8b7517527a3c73",
+  "sampleCommit": "e49af7cc7ba8607233f82a0678d4888b4c80c78",
+  "environment": {
+    "platform": "macOS arm64",
+    "node": "22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2"
+  },
+  "commands": [
+    { "argv": ["pnpm", "install", "--frozen-lockfile"], "exitCode": 0 },
+    { "argv": ["pnpm", "build"], "exitCode": 0 }
+  ],
+  "electronFlow": {
+    "source": "git show origin/codex/demo-data-catalog:wiki-project/demo_data/catalog_demo.csv",
+    "input": "temporary CSV under system temp directory; repository unchanged",
+    "steps": ["create isolated workspace", "save demo scenario", "select CSV through main dialog handler with returned path stubbed", "parse and preview", "human publish", "verify each SKU selectable"],
+    "result": "passed",
+    "rowsPreviewed": 14,
+    "publishedSkus": ["1601053415993", "1601926123092", "MDF-001", "BOLT-001"],
+    "quoteCreated": false
+  },
+  "readonlyCsvCheck": {
+    "parsedRows": 14,
+    "fullCatalogRows": 300,
+    "exactSubset": true,
+    "tierMinimumsStrictlyAscending": true,
+    "pricesStrictlyDescending": true,
+    "units": ["kg", "m2", "piece"],
+    "currencies": ["CNY", "USD"],
+    "schemaCompatible": true
+  },
+  "notRun": ["full pnpm test:e2e", "installer/package acceptance", "quote calculation with mixed currencies", "business rule semantics", "provenance authenticity review"],
+  "remaining": ["PR #10 description still lists only the original 300-row CSV despite 18 changed files", "MANIFEST blanket synthetic-source claim must distinguish public product URLs/fields from synthetic URLs and derived/demo values", "A01e maintenance blockers unchanged; maintenance IPC/UI stays gated"]
+}

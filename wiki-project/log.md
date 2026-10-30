@@ -1146,3 +1146,7 @@ C文档门禁补记：状态页CRLF导致Wiki工具初次11/36（25项fixture装
 ## 2026-10-30 C整理A/B独立Markdown交接
 
 按用户要求新增wiki/C交接给A-A01e维护修正.md、wiki/C交接给B-A01e契约复核.md，分别提供A修复清单/原脚本恢复和B契约/报价消费复核要求，明确267f087与9c27678固定材料、13失败断言分组、未推送和未代发状态。同步导航、C任务和CONTEXT。仅文档，不改实现、不重跑产品测试；生成/只读check/lint/9c27678基线sync/diff实际结果存raw/c-a267-ab-handoff-validation.json。A01e与C集成仍active/WIP。
+
+## 2026-10-31 C验证PR#10主样本Electron导入
+
+C在81e9c93固定桌面基线上，从origin/codex/demo-data-catalog头11826e4读取catalog_demo.csv至系统临时目录，冻结安装/SQLite ABI重建/`pnpm build`退出0；真实Electron文件选择入口、14行预览、人工发布及四SKU可选通过。只读CSV核验精确子集、单位/币种schema和价格阶梯通过。不创建报价、不覆盖业务规则/汇率/来源真实性结论；未跑全套e2e/打包验收。PR正文过时、MANIFEST将不同来源一概称合成，A待修。A01e 13项维护/迁移阻断保持active，未接新维护入口。完整证据raw/c-a267-demo-catalog-desktop-validation.json，知识/任务[[C267f087维护接收与剩余阻断]]、[[C集成-A267维护方法复验]]。
