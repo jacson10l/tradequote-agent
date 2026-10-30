@@ -2,7 +2,7 @@
 title: B-P1回执与来源消费复核
 type: interface
 status: observed
-updated: 2026-10-26
+updated: 2026-10-30
 sources:
   - packages/contracts/src/knowledge-maintenance.ts:42
   - packages/contracts/src/knowledge-maintenance.ts:93
@@ -71,3 +71,10 @@ node -e "const {createRequire}=require('node:module');const {resolve}=require('n
 ## 最终本机证据
 
 最终作者测试代码固定e4649ca5e3f1cdb3a65c2baec6b44da3f82d8e5f；七文件104/104、typecheck、build、pnpm check均退出0（工程5通过/1 macOS专用跳过）。Wiki生成252文件、只读check、lint（247页/219语义页）、固定c6f6788d3e75f3ac9de02d95306222fb5509ca71同步（2测试源码/8知识页/1任务）及diff退出0。A公开资格反例仍0/2、退出1，两个有效控制通过，无运行器错误；完整脚本/config及hash/结构化观察已保存。303份旧非生成raw原字节及原log前缀保持，所有生产契约/存储文件未变。未运行完整单元、维护回归、C739桌面或macOS联合，理由与范围在新JSON中明确。整体review=changes_required，不标done或发布就绪。
+
+
+## 2026-10-30 固定267维护实现复核
+
+2026-10-30 B已在独立codex/b-267-maintenance-review针对固定267f087490046955a0b4b1e6183caa163cc177c3实测维护契约。七文件123/123与typecheck通过；新增19例7正常控制通过/12产品断言失败，幂等、维护分页/证据、影响目标/版本/完整页及索引完成事实仍changes_required。撤回后的新引用/消费拒绝、旧消费回读重放、OCC冲突、索引stale标记和三处写入异常回滚通过。pnpm check因两文件3项格式/导入诊断失败，A固定Wiki只读check/lint因四生成物漂移失败；不能以机械sync通过代替语义通过。详见[[B对267维护契约与语义复核]]、[[B05-267维护契约复核]]及raw/b-267-maintenance-review.json。
+
+本轮公共契约不变。只把idempotencyKey留在信封中而未传给存储不能实现先重放后OCC；cursor里有snapshotId也不能证明固定快照；任意UUID不能充当解决证据；影响主题需绑定实际版本/hash且完整首终页满足Exchange；索引代数/ready标记不等于投影构建切换。B以明确正常控制及红例交A修实现，C原脚本/新迁移组合/桌面及人员业务验收继续待，旧失败证据按原固定版本保留。

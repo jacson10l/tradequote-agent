@@ -1,0 +1,1219 @@
+{
+  "status": "wip_changes_required",
+  "date": "2026-10-30",
+  "taskBase": "267f087490046955a0b4b1e6183caa163cc177c3",
+  "testedCodeSha": "267f087490046955a0b4b1e6183caa163cc177c3",
+  "diffBase": "0827476312efabf70a08693da984ea41330fa286",
+  "implementation": "dac69db",
+  "environment": {
+    "platform": "win32",
+    "arch": "x64",
+    "os": "10.0.19045",
+    "node": "v22.22.0",
+    "pnpm": "10.13.1",
+    "native": {
+      "electron": "44.9.2",
+      "node": "v24.22.0",
+      "sqlite": {
+        "version": "3.53.4"
+      },
+      "platform": "win32",
+      "arch": "x64"
+    }
+  },
+  "preparation": {
+    "command": "pnpm install --frozen-lockfile --offline --ignore-scripts",
+    "exitCode": 0,
+    "node": "24.21.0",
+    "engineWarning": true
+  },
+  "checks": [
+    {
+      "name": "native identity",
+      "exe": "D:\\code\\tradequote-agent-b-maintenance-review\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "-e",
+        "const D=require('node:module').createRequire(process.cwd()+'/packages/infrastructure/package.json')('better-sqlite3'),d=new D(':memory:');console.log(JSON.stringify({electron:process.versions.electron,node:process.version,sqlite:d.prepare('select sqlite_version() as version').get(),platform:process.platform,arch:process.arch}));d.close();"
+      ],
+      "environment": {
+        "TMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp",
+        "TEMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp",
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "startedAt": "2026-10-30T08:31:06.577Z",
+      "finishedAt": "2026-10-30T08:31:09.137Z",
+      "exitCode": 0,
+      "stdout": "{\"electron\":\"44.9.2\",\"node\":\"v24.22.0\",\"sqlite\":{\"version\":\"3.53.4\"},\"platform\":\"win32\",\"arch\":\"x64\"}\n",
+      "stderr": "",
+      "head": "267f087490046955a0b4b1e6183caa163cc177c3",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "2f40c614c8ffb80c3fc4e0f9d476ef909fea5d85af568aa6c345dae834f0a46c",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/domain/src/wiki-maintenance.ts": "62af5c10cbfde341db63f6ec212126ef3fae8ab72e05f3bb9dd7fc61c1fb5955",
+        "packages/infrastructure/src/wiki-store.ts": "5f92fc767938803d887cf27345beca6869122b79196685f6d762fb3c30506ab7",
+        "packages/infrastructure/src/migrations.ts": "9f5f3694d1375bc5bce969fb572cc17728c5c45f833abc260fc944163e3df40c",
+        "packages/infrastructure/src/migration-lineage.ts": "d26b0a179911e088d7059b69be962d679fca17781784b9d704a5365c066fd0a6",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromFixedCode": ""
+    },
+    {
+      "name": "B selected contract and report-consumption regression",
+      "exe": "D:\\code\\tradequote-agent-b-maintenance-review\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/contracts/src/knowledge-maintenance.test.ts",
+        "packages/contracts/src/knowledge-lint-review.test.ts",
+        "packages/contracts/src/knowledge-wiki.test.ts",
+        "packages/infrastructure/src/wiki-store.test.ts",
+        "packages/infrastructure/src/check-store.test.ts",
+        "packages/infrastructure/src/check-lineage-integration.test.ts",
+        "packages/infrastructure/src/wiki-check-integration.test.ts"
+      ],
+      "environment": {
+        "TMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp",
+        "TEMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp",
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "startedAt": "2026-10-30T08:31:09.378Z",
+      "finishedAt": "2026-10-30T08:31:14.106Z",
+      "exitCode": 0,
+      "stdout": "\n RUN  v5.0.5 D:/code/tradequote-agent-b-maintenance-review\n\n\n Test Files  7 passed (7)\n      Tests  123 passed (123)\n   Start at  16:31:10\n   Duration  3.47s (tests 39%, import 37%, transform 24%)\n\n",
+      "stderr": "",
+      "head": "267f087490046955a0b4b1e6183caa163cc177c3",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "2f40c614c8ffb80c3fc4e0f9d476ef909fea5d85af568aa6c345dae834f0a46c",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/domain/src/wiki-maintenance.ts": "62af5c10cbfde341db63f6ec212126ef3fae8ab72e05f3bb9dd7fc61c1fb5955",
+        "packages/infrastructure/src/wiki-store.ts": "5f92fc767938803d887cf27345beca6869122b79196685f6d762fb3c30506ab7",
+        "packages/infrastructure/src/migrations.ts": "9f5f3694d1375bc5bce969fb572cc17728c5c45f833abc260fc944163e3df40c",
+        "packages/infrastructure/src/migration-lineage.ts": "d26b0a179911e088d7059b69be962d679fca17781784b9d704a5365c066fd0a6",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromFixedCode": ""
+    },
+    {
+      "name": "typecheck",
+      "exe": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "environment": {
+        "TMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp",
+        "TEMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp"
+      },
+      "startedAt": "2026-10-30T08:31:14.347Z",
+      "finishedAt": "2026-10-30T08:31:16.981Z",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "head": "267f087490046955a0b4b1e6183caa163cc177c3",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "2f40c614c8ffb80c3fc4e0f9d476ef909fea5d85af568aa6c345dae834f0a46c",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/domain/src/wiki-maintenance.ts": "62af5c10cbfde341db63f6ec212126ef3fae8ab72e05f3bb9dd7fc61c1fb5955",
+        "packages/infrastructure/src/wiki-store.ts": "5f92fc767938803d887cf27345beca6869122b79196685f6d762fb3c30506ab7",
+        "packages/infrastructure/src/migrations.ts": "9f5f3694d1375bc5bce969fb572cc17728c5c45f833abc260fc944163e3df40c",
+        "packages/infrastructure/src/migration-lineage.ts": "d26b0a179911e088d7059b69be962d679fca17781784b9d704a5365c066fd0a6",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromFixedCode": ""
+    },
+    {
+      "name": "B maintenance semantics probe",
+      "exe": "D:\\code\\tradequote-agent-b-maintenance-review\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        ".runtime/b-maintenance.config.ts"
+      ],
+      "environment": {
+        "TMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp",
+        "TEMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp",
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "startedAt": "2026-10-30T08:35:53.526Z",
+      "finishedAt": "2026-10-30T08:35:55.584Z",
+      "exitCode": 1,
+      "stdout": "\n RUN  v5.0.5 D:/code/tradequote-agent-b-maintenance-review\n\nstdout | .runtime/b-maintenance.test.ts > M01 source.withdraw: same-key replay returns first result/time without writes\nB_MAINT_REPLAY {\"method\":\"source.withdraw\",\"ok\":false,\"code\":\"REVISION_CONFLICT\",\"unchanged\":true}\n\nstdout | .runtime/b-maintenance.test.ts > M01 wiki.resolveMaintenance: same-key replay returns first result/time without writes\nB_MAINT_REPLAY {\"method\":\"wiki.resolveMaintenance\",\"ok\":false,\"code\":\"REVISION_CONFLICT\",\"unchanged\":true}\n\nstdout | .runtime/b-maintenance.test.ts > M01 wiki.analyzeImpact: same-key replay returns first result/time without writes\nB_MAINT_REPLAY {\"method\":\"wiki.analyzeImpact\",\"ok\":true,\"code\":null,\"unchanged\":false}\n\nstdout | .runtime/b-maintenance.test.ts > M01 wiki.rebuildIndex: same-key replay returns first result/time without writes\nB_MAINT_REPLAY {\"method\":\"wiki.rebuildIndex\",\"ok\":false,\"code\":\"REVISION_CONFLICT\",\"unchanged\":true}\n\nstdout | .runtime/b-maintenance.test.ts > M06: impact target identity/hash must match the saved source revision\nB_IMPACT_FORGED {\"ok\":true,\"data\":{\"kind\":\"impactReport\",\"report\":{\"workspaceId\":\"4fdd8861-4706-4ec6-b27a-45b32395cda6\",\"reportId\":\"51beb776-cafd-4c5b-99a6-9299f6e80d75\",\"subject\":{\"target\":{\"kind\":\"source\",\"sourceId\":\"146ee863-c4a1-417e-a5ac-9f1517eb97a3\",\"sourceRevisionId\":\"d96ffea7-97db-40fb-8b96-9d00a528eb83\",\"artifactHash\":\"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\"},\"reason\":\"withdrawn\",\"replacementRevisionId\":null},\"snapshotSeq\":2,\"checkedAt\":\"2026-10-27T00:00:00.000Z\",\"status\":\"completed\",\"totalItems\":0,\"unknownReasons\":[],\"error\":null}},\"warnings\":[],\"evidenceIds\":[\"51beb776-cafd-4c5b-99a6-9299f6e80d75\"]}\n\n ❯ .runtime/b-maintenance.test.ts (19 tests | 13 failed) 513ms\n   × control: OCC refusal, real withdrawal, new citation/consumption refusal and historical consumption retained 83ms\n   × M01 source.withdraw: same-key replay returns first result/time without writes 25ms\n   × M01 wiki.resolveMaintenance: same-key replay returns first result/time without writes 25ms\n   × M01 wiki.analyzeImpact: same-key replay returns first result/time without writes 26ms\n   × M01 wiki.rebuildIndex: same-key replay returns first result/time without writes 23ms\n   × M02: a used key cannot withdraw a different source 24ms\n   × M03: page cursor cannot change its query hash/filter 22ms\n   × M04: page snapshot stays fixed or explicitly expires after a concurrent issue transition 24ms\n   × M05: resolve cannot claim completion with an unknown evidence UUID 23ms\n   × M06: impact target identity/hash must match the saved source revision 20ms\n   × M07: withdrawing v1 does not include knowledge pinned only to active v2 23ms\n   × M08: getImpact must not hide missing stored items behind a completed nonzero total 21ms\n   × M09: rebuild receipt binds the original operation key 22ms\n\n Test Files  1 failed (1)\n      Tests  13 failed | 6 passed (19)\n   Start at  16:35:53\n   Duration  1.63s (tests 35%, import 34%, transform 31%)\n\n",
+      "stderr": "\n⎯⎯⎯⎯⎯⎯ Failed Tests 13 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  .runtime/b-maintenance.test.ts > control: OCC refusal, real withdrawal, new citation/consumption refusal and historical consumption retained\nAssertionError: expected { ok: false, error: { …(4) } } to match object { ok: true, …(1) }\n(5 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"resolution\": {\n-       \"eligibility\": {\n-         \"eligible\": false,\n-       },\n-     },\n-   },\n-   \"ok\": true,\n+   \"ok\": false,\n  }\n\n ❯ .runtime/b-maintenance.test.ts:56:144\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/13]⎯\n\n FAIL  .runtime/b-maintenance.test.ts > M01 source.withdraw: same-key replay returns first result/time without writes\nAssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, data: { …(3) }, …(2) }\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"event\": {\n-       \"actorId\": \"synthetic-human\",\n-       \"entityId\": \"2d3e1851-18a2-4e1f-bacd-80685ada6c64\",\n-       \"entityVersion\": 2,\n-       \"eventId\": \"89b7bef0-ff26-41c9-b088-e4e8c5b7aa13\",\n-       \"evidenceIds\": [\n-         \"2d3e1851-18a2-4e1f-bacd-80685ada6c64\",\n-       ],\n-       \"note\": \"synthetic withdrawal\",\n-       \"occurredAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"schemaVersion\": 1,\n-       \"type\": \"source.withdrawn\",\n-       \"workspaceId\": \"a99a1d81-742a-4528-ada2-2d25a7c5c7a7\",\n+   \"error\": {\n+     \"code\": \"REVISION_CONFLICT\",\n+     \"issues\": [],\n+     \"message\": \"来源生命周期当前版本为 v2，与提交的 expectedLifecycleVersion 不一致\",\n+     \"retryable\": false,\n    },\n-     \"kind\": \"sourceWithdrawal\",\n-     \"state\": {\n-       \"changedAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"lifecycleVersion\": 2,\n-       \"sourceRevisionId\": \"2d3e1851-18a2-4e1f-bacd-80685ada6c64\",\n-       \"state\": \"withdrawn\",\n-     },\n-   },\n-   \"evidenceIds\": [\n-     \"89b7bef0-ff26-41c9-b088-e4e8c5b7aa13\",\n-     \"2d3e1851-18a2-4e1f-bacd-80685ada6c64\",\n-   ],\n-   \"ok\": true,\n-   \"warnings\": [],\n+   \"ok\": false,\n  }\n\n ❯ .runtime/b-maintenance.test.ts:65:591\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/13]⎯\n\n FAIL  .runtime/b-maintenance.test.ts > M01 wiki.resolveMaintenance: same-key replay returns first result/time without writes\nAssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, data: { …(2) }, …(2) }\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"issue\": {\n-       \"dedupKey\": \"f10cfc29522a81517445e6c0bd0e152c682e0694cad41711e0438134bd8b7ae7\",\n-       \"evidenceIds\": [\n-         \"823bfabf-8bf4-4bb3-a6d5-187dffa54337\",\n-       ],\n-       \"firstDetectedAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"issueId\": \"44222065-6e50-447f-9d61-dd784cb6a075\",\n-       \"issueVersion\": 2,\n-       \"kind\": \"source_withdrawn\",\n-       \"lastDetectedAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"message\": \"来源 v1 已撤回，依赖该来源的知识与消费需复核\",\n-       \"resolution\": null,\n-       \"severity\": \"warning\",\n-       \"state\": \"in_progress\",\n-       \"target\": {\n-         \"artifactHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-         \"kind\": \"source\",\n-         \"sourceId\": \"d4624e07-81d8-45ba-88dd-07a89d21dcb7\",\n-         \"sourceRevisionId\": \"823bfabf-8bf4-4bb3-a6d5-187dffa54337\",\n-       },\n-       \"workspaceId\": \"cf898ed9-0e0f-4a11-bcc6-e1c718d9ca38\",\n-     },\n-     \"kind\": \"maintenanceIssue\",\n+   \"error\": {\n+     \"code\": \"REVISION_CONFLICT\",\n+     \"issues\": [],\n+     \"message\": \"维护问题当前版本为 v2，与提交的 expectedIssueVersion 不一致\",\n+     \"retryable\": false,\n    },\n-   \"evidenceIds\": [\n-     \"44222065-6e50-447f-9d61-dd784cb6a075\",\n-   ],\n-   \"ok\": true,\n-   \"warnings\": [],\n+   \"ok\": false,\n  }\n\n ❯ .runtime/b-maintenance.test.ts:65:591\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/13]⎯\n\n FAIL  .runtime/b-maintenance.test.ts > M01 wiki.analyzeImpact: same-key replay returns first result/time without writes\nAssertionError: expected { ok: true, data: { …(2) }, …(2) } to deeply equal { ok: true, data: { …(2) }, …(2) }\n\n- Expected\n+ Received\n\n@@ -1,12 +1,12 @@\n  {\n    \"data\": {\n      \"kind\": \"impactReport\",\n      \"report\": {\n-       \"checkedAt\": \"2026-10-27T00:00:00.000Z\",\n+       \"checkedAt\": \"2026-10-27T00:00:02.000Z\",\n        \"error\": null,\n-       \"reportId\": \"fdd9ded5-99ba-4304-93f0-a5bc3522b5ec\",\n+       \"reportId\": \"afb3906e-35f6-4f87-83bb-dcdd39bcba1a\",\n        \"snapshotSeq\": 2,\n        \"status\": \"completed\",\n        \"subject\": {\n          \"reason\": \"withdrawn\",\n          \"replacementRevisionId\": null,\n@@ -21,10 +21,10 @@\n        \"unknownReasons\": [],\n        \"workspaceId\": \"41f51a34-7743-4450-921e-1e11e0a6efce\",\n      },\n    },\n    \"evidenceIds\": [\n-     \"fdd9ded5-99ba-4304-93f0-a5bc3522b5ec\",\n+     \"afb3906e-35f6-4f87-83bb-dcdd39bcba1a\",\n    ],\n    \"ok\": true,\n    \"warnings\": [],\n  }\n\n ❯ .runtime/b-maintenance.test.ts:65:591\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/13]⎯\n\n FAIL  .runtime/b-maintenance.test.ts > M01 wiki.rebuildIndex: same-key replay returns first result/time without writes\nAssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, data: { …(2) }, …(2) }\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"kind\": \"indexRebuild\",\n-     \"rebuild\": {\n-       \"createdAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"error\": null,\n-       \"index\": \"keyword\",\n-       \"operationKey\": \"1188fb6a-8db3-471d-875e-edd6905bb8b0\",\n-       \"rebuildId\": \"632e6471-7de6-4d7c-9e92-9207eafed87c\",\n-       \"requestedSeq\": 2,\n-       \"result\": {\n-         \"authoritativeSeq\": 2,\n-         \"checkedAt\": \"2026-10-27T00:00:00.000Z\",\n-         \"error\": null,\n-         \"generation\": 1,\n-         \"index\": \"keyword\",\n-         \"indexedSeq\": 2,\n-         \"rebuildId\": null,\n-         \"state\": \"ready\",\n-         \"workspaceId\": \"f99f91d3-c004-4941-9605-169603f8f787\",\n+   \"error\": {\n+     \"code\": \"REVISION_CONFLICT\",\n+     \"issues\": [],\n+     \"message\": \"索引当前代际为 1，与提交的 expectedGeneration 不一致\",\n+     \"retryable\": false,\n    },\n-       \"status\": \"completed\",\n-       \"targetGeneration\": 1,\n-       \"updatedAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"workspaceId\": \"f99f91d3-c004-4941-9605-169603f8f787\",\n-     },\n-   },\n-   \"evidenceIds\": [\n-     \"632e6471-7de6-4d7c-9e92-9207eafed87c\",\n-   ],\n-   \"ok\": true,\n-   \"warnings\": [],\n+   \"ok\": false,\n  }\n\n ❯ .runtime/b-maintenance.test.ts:65:591\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/13]⎯\n\n FAIL  .runtime/b-maintenance.test.ts > M02: a used key cannot withdraw a different source\nAssertionError: expected { ok: true, data: { …(3) }, …(2) } to match object { ok: false, …(1) }\n(6 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  {\n-   \"error\": {\n-     \"code\": \"IDEMPOTENCY_CONFLICT\",\n-   },\n-   \"ok\": false,\n+   \"ok\": true,\n  }\n\n ❯ .runtime/b-maintenance.test.ts:66:463\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/13]⎯\n\n FAIL  .runtime/b-maintenance.test.ts > M03: page cursor cannot change its query hash/filter\nAssertionError: expected false to be true // Object.is equality\n\n- Expected\n+ Received\n\n- true\n+ false\n\n ❯ .runtime/b-maintenance.test.ts:68:375\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/13]⎯\n\n FAIL  .runtime/b-maintenance.test.ts > M04: page snapshot stays fixed or explicitly expires after a concurrent issue transition\nAssertionError: expected [] to deep equally contain { …(13) }\n\n- Expected:\n{\n  \"dedupKey\": \"5a3edfcfc0c5bf204ac687a1514074fd6eb8dc2af8511f116260221d96e5cce9\",\n  \"evidenceIds\": [\n    \"5ea21f7b-166c-49fe-8a80-0eb6a375817b\",\n  ],\n  \"firstDetectedAt\": \"2026-10-27T00:00:00.000Z\",\n  \"issueId\": \"8f54e9cb-32a6-4249-9ee3-0de3d472f0ba\",\n  \"issueVersion\": 1,\n  \"kind\": \"source_withdrawn\",\n  \"lastDetectedAt\": \"2026-10-27T00:00:00.000Z\",\n  \"message\": \"来源 v1 已撤回，依赖该来源的知识与消费需复核\",\n  \"resolution\": null,\n  \"severity\": \"warning\",\n  \"state\": \"open\",\n  \"target\": {\n    \"artifactHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n    \"kind\": \"source\",\n    \"sourceId\": \"8747fd2d-62da-43df-bb4a-5d95a9685bda\",\n    \"sourceRevisionId\": \"5ea21f7b-166c-49fe-8a80-0eb6a375817b\",\n  },\n  \"workspaceId\": \"ee684ca8-c79c-4904-83ec-8e950d0d2fd0\",\n}\n\n+ Received:\n[]\n\n ❯ .runtime/b-maintenance.test.ts:69:692\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/13]⎯\n\n FAIL  .runtime/b-maintenance.test.ts > M05: resolve cannot claim completion with an unknown evidence UUID\nAssertionError: expected true to be false // Object.is equality\n\n- Expected\n+ Received\n\n- false\n+ true\n\n ❯ .runtime/b-maintenance.test.ts:70:347\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/13]⎯\n\n FAIL  .runtime/b-maintenance.test.ts > M06: impact target identity/hash must match the saved source revision\nAssertionError: expected true to be false // Object.is equality\n\n- Expected\n+ Received\n\n- false\n+ true\n\n ❯ .runtime/b-maintenance.test.ts:71:343\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/13]⎯\n\n FAIL  .runtime/b-maintenance.test.ts > M07: withdrawing v1 does not include knowledge pinned only to active v2\nAssertionError: expected [ …(2) ] to deeply equal [ Array(1) ]\n\n- Expected\n+ Received\n\n  [\n+   \"5a1b0712-e004-473b-a79e-452092790125\",\n    \"5f7dde04-4811-4549-85a6-adbe5e0dce5d\",\n  ]\n\n ❯ .runtime/b-maintenance.test.ts:72:1258\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/13]⎯\n\n FAIL  .runtime/b-maintenance.test.ts > M08: getImpact must not hide missing stored items behind a completed nonzero total\nAssertionError: expected false to be true // Object.is equality\n\n- Expected\n+ Received\n\n- true\n+ false\n\n ❯ .runtime/b-maintenance.test.ts:73:521\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/13]⎯\n\n FAIL  .runtime/b-maintenance.test.ts > M09: rebuild receipt binds the original operation key\nAssertionError: expected 'dd9cce67-9867-4ad9-b04e-d3c484aae2de' to be '4bdee2e8-8653-401c-aaee-ad2af9f4eb14' // Object.is equality\n\nExpected: \"4bdee2e8-8653-401c-aaee-ad2af9f4eb14\"\nReceived: \"dd9cce67-9867-4ad9-b04e-d3c484aae2de\"\n\n ❯ .runtime/b-maintenance.test.ts:74:199\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/13]⎯\n\n",
+      "head": "267f087490046955a0b4b1e6183caa163cc177c3",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "2f40c614c8ffb80c3fc4e0f9d476ef909fea5d85af568aa6c345dae834f0a46c",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/domain/src/wiki-maintenance.ts": "62af5c10cbfde341db63f6ec212126ef3fae8ab72e05f3bb9dd7fc61c1fb5955",
+        "packages/infrastructure/src/wiki-store.ts": "5f92fc767938803d887cf27345beca6869122b79196685f6d762fb3c30506ab7",
+        "packages/infrastructure/src/migrations.ts": "9f5f3694d1375bc5bce969fb572cc17728c5c45f833abc260fc944163e3df40c",
+        "packages/infrastructure/src/migration-lineage.ts": "d26b0a179911e088d7059b69be962d679fca17781784b9d704a5365c066fd0a6",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromFixedCode": ""
+    },
+    {
+      "name": "pnpm check",
+      "exe": "cmd.exe",
+      "args": [
+        "/d",
+        "/s",
+        "/c",
+        "pnpm check"
+      ],
+      "environment": {
+        "TMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp",
+        "TEMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp"
+      },
+      "startedAt": "2026-10-30T08:35:55.831Z",
+      "finishedAt": "2026-10-30T08:35:57.499Z",
+      "exitCode": 1,
+      "stdout": "\n> tradequote-agent@0.1.0 check D:\\code\\tradequote-agent-b-maintenance-review\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 183 files in 84ms. No fixes applied.\nFound 3 errors.\n ELIFECYCLE  Command failed with exit code 1.\n",
+      "stderr": "packages\\infrastructure\\src\\wiki-store.test.ts format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Formatter would have printed the following content:\n  \n    1168 1168 │     (result as { ok: true; data: { kind: \"maintenancePage\"; page: MaintenancePage } }).data.page;\n    1169 1169 │   const impactReportOf = (result: unknown): KnowledgeImpactReport =>\n    1170      │ - ··(result·as·{·ok:·true;·data:·{·kind:·\"impactReport\";·report:·KnowledgeImpactReport·}·}).data.report;\n         1170 │ + ··(result·as·{·ok:·true;·data:·{·kind:·\"impactReport\";·report:·KnowledgeImpactReport·}·}).data\n         1171 │ + ····.report;\n    1171 1172 │   const impactPageOf = (result: unknown): KnowledgeImpactPage =>\n    1172 1173 │     (result as { ok: true; data: { kind: \"impactPage\"; page: KnowledgeImpactPage } }).data.page;\n    ········· │ \n    1174 1175 │     (result as { ok: true; data: { kind: \"indexStatus\"; status: KnowledgeIndexStatus } }).data.status;\n    1175 1176 │   const indexRebuildOf = (result: unknown): KnowledgeIndexRebuild =>\n    1176      │ - ··(result·as·{·ok:·true;·data:·{·kind:·\"indexRebuild\";·rebuild:·KnowledgeIndexRebuild·}·}).data.rebuild;\n         1177 │ + ··(result·as·{·ok:·true;·data:·{·kind:·\"indexRebuild\";·rebuild:·KnowledgeIndexRebuild·}·}).data\n         1178 │ + ····.rebuild;\n    1177 1179 │   const sourceWithdrawalOf = (result: unknown) =>\n    1178 1180 │     (\n    ········· │ \n    1205 1207 │       ),\n    1206 1208 │     );\n    1207      │ - ··return·(result·as·{·ok:·true;·data:·{·kind:·\"sourceRevision\";·revision:·WikiSourceRevision·}·}).data\n    1208      │ - ····.revision;\n         1209 │ + ··return·(result·as·{·ok:·true;·data:·{·kind:·\"sourceRevision\";·revision:·WikiSourceRevision·}·})\n         1210 │ + ····.data.revision;\n    1209 1211 │   }\n    1210 1212 │   \n    ········· │ \n    1232 1234 │     const page = maintenancePageOf(\n    1233 1235 │       await repo.executeWikiMaintenance(\n    1234      │ - ······read(\"wiki.getMaintenance\",·{·kinds:·[\"source_withdrawn\"],·states:·[],·limit:·10,·cursor:·null·}),\n         1236 │ + ······read(\"wiki.getMaintenance\",·{\n         1237 │ + ········kinds:·[\"source_withdrawn\"],\n         1238 │ + ········states:·[],\n         1239 │ + ········limit:·10,\n         1240 │ + ········cursor:·null,\n         1241 │ + ······}),\n    1235 1242 │         host(workspaceId),\n    1236 1243 │       ),\n    ········· │ \n    1255 1262 │     const file = join(temp(), \"wiki-maintenance-resolve.sqlite\");\n    1256 1263 │     const { repo, workspaceId } = openRepo(file);\n    1257      │ - ··for·(const·source·of·[await·stageSource(repo,·workspaceId),·await·stageSource(repo,·workspaceId)])·{\n         1264 │ + ··for·(const·source·of·[\n         1265 │ + ····await·stageSource(repo,·workspaceId),\n         1266 │ + ····await·stageSource(repo,·workspaceId),\n         1267 │ + ··])·{\n    1258 1268 │       expect(\n    1259 1269 │         (\n    ········· │ \n    1411 1421 │     expect(page.report.reportId).toBe(report.reportId);\n    1412 1422 │     expect(page.items.some((i) => i.target.kind === \"knowledge\")).toBe(true);\n    1413      │ - ··expect(page.items.some((i)·=>·i.target.kind·===·\"consumer\"·&&·i.consumerState·===·\"unknown\")).toBe(\n    1414      │ - ····true,\n    1415      │ - ··);\n         1423 │ + ··expect(\n         1424 │ + ····page.items.some((i)·=>·i.target.kind·===·\"consumer\"·&&·i.consumerState·===·\"unknown\"),\n         1425 │ + ··).toBe(true);\n    1416 1426 │     repo.close();\n    1417 1427 │   });\n    ········· │ \n    1457 1467 │   \n    1458 1468 │     const missing = indexStatusOf(\n    1459      │ - ····await·repo.executeWikiMaintenance(read(\"wiki.getIndexStatus\",·{·index:·\"keyword\"·}),·host(workspaceId)),\n         1469 │ + ····await·repo.executeWikiMaintenance(\n         1470 │ + ······read(\"wiki.getIndexStatus\",·{·index:·\"keyword\"·}),\n         1471 │ + ······host(workspaceId),\n         1472 │ + ····),\n    1460 1473 │     );\n    1461      │ - ··expect(missing).toMatchObject({·state:·\"missing\",·generation:·0,·indexedSeq:·0,·authoritativeSeq:·0·});\n         1474 │ + ··expect(missing).toMatchObject({\n         1475 │ + ····state:·\"missing\",\n         1476 │ + ····generation:·0,\n         1477 │ + ····indexedSeq:·0,\n         1478 │ + ····authoritativeSeq:·0,\n         1479 │ + ··});\n    1462 1480 │   \n    1463 1481 │     const rebuilt = indexRebuildOf(\n    1464 1482 │       await repo.executeWikiMaintenance(\n    1465      │ - ······write(\"wiki.rebuildIndex\",·{·index:·\"keyword\",·expectedGeneration:·0,·expectedAuthoritativeSeq:·0·}),\n         1483 │ + ······write(\"wiki.rebuildIndex\",·{\n         1484 │ + ········index:·\"keyword\",\n         1485 │ + ········expectedGeneration:·0,\n         1486 │ + ········expectedAuthoritativeSeq:·0,\n         1487 │ + ······}),\n    1466 1488 │         host(workspaceId),\n    1467 1489 │       ),\n    ········· │ \n    1470 1492 │   \n    1471 1493 │     const ready = indexStatusOf(\n    1472      │ - ····await·repo.executeWikiMaintenance(read(\"wiki.getIndexStatus\",·{·index:·\"keyword\"·}),·host(workspaceId)),\n         1494 │ + ····await·repo.executeWikiMaintenance(\n         1495 │ + ······read(\"wiki.getIndexStatus\",·{·index:·\"keyword\"·}),\n         1496 │ + ······host(workspaceId),\n         1497 │ + ····),\n    1473 1498 │     );\n    1474      │ - ··expect(ready).toMatchObject({·state:·\"ready\",·generation:·1,·indexedSeq:·0,·authoritativeSeq:·0·});\n         1499 │ + ··expect(ready).toMatchObject({\n         1500 │ + ····state:·\"ready\",\n         1501 │ + ····generation:·1,\n         1502 │ + ····indexedSeq:·0,\n         1503 │ + ····authoritativeSeq:·0,\n         1504 │ + ··});\n    1475 1505 │   \n    1476 1506 │     const got = indexRebuildOf(\n    ········· │ \n    1484 1514 │     await stageSource(repo, workspaceId);\n    1485 1515 │     const stale = indexStatusOf(\n    1486      │ - ····await·repo.executeWikiMaintenance(read(\"wiki.getIndexStatus\",·{·index:·\"keyword\"·}),·host(workspaceId)),\n         1516 │ + ····await·repo.executeWikiMaintenance(\n         1517 │ + ······read(\"wiki.getIndexStatus\",·{·index:·\"keyword\"·}),\n         1518 │ + ······host(workspaceId),\n         1519 │ + ····),\n    1487 1520 │     );\n    1488      │ - ··expect(stale).toMatchObject({·state:·\"stale\",·generation:·1,·indexedSeq:·0,·authoritativeSeq:·1·});\n         1521 │ + ··expect(stale).toMatchObject({\n         1522 │ + ····state:·\"stale\",\n         1523 │ + ····generation:·1,\n         1524 │ + ····indexedSeq:·0,\n         1525 │ + ····authoritativeSeq:·1,\n         1526 │ + ··});\n    1489 1527 │   \n    1490 1528 │     expect(\n    1491 1529 │       await repo.executeWikiMaintenance(\n    1492      │ - ······write(\"wiki.rebuildIndex\",·{·index:·\"keyword\",·expectedGeneration:·0,·expectedAuthoritativeSeq:·1·}),\n         1530 │ + ······write(\"wiki.rebuildIndex\",·{\n         1531 │ + ········index:·\"keyword\",\n         1532 │ + ········expectedGeneration:·0,\n         1533 │ + ········expectedAuthoritativeSeq:·1,\n         1534 │ + ······}),\n    1493 1535 │         host(workspaceId),\n    1494 1536 │       ),\n    ········· │ \n    1497 1539 │     const rebuilt2 = indexRebuildOf(\n    1498 1540 │       await repo.executeWikiMaintenance(\n    1499      │ - ······write(\"wiki.rebuildIndex\",·{·index:·\"keyword\",·expectedGeneration:·1,·expectedAuthoritativeSeq:·1·}),\n         1541 │ + ······write(\"wiki.rebuildIndex\",·{\n         1542 │ + ········index:·\"keyword\",\n         1543 │ + ········expectedGeneration:·1,\n         1544 │ + ········expectedAuthoritativeSeq:·1,\n         1545 │ + ······}),\n    1500 1546 │         host(workspaceId),\n    1501 1547 │       ),\n  \n\npackages\\infrastructure\\src\\wiki-store.ts:1:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━━━━━\n\n  × Sort these imports.\n  \n   > 1 │ import { createHash, randomUUID } from \"node:crypto\";\n       │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   > 2 │ import {\n   > 3 │   CheckReportSchema,\n   > 4 │   failure,\n        ...\n  > 67 │   type MaintenanceTarget,\n  > 68 │ } from \"@tradequote/contracts\";\n       │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    69 │ \n    70 │ const hash = (value: string) => createHash(\"sha256\").update(value).digest(\"hex\");\n  \n  i Safe fix: Organize imports and exports (Biome)\n  \n       4    4 │     failure,\n       5    5 │     type KnowledgeCitation,\n       6      │ - ··type·KnowledgeLintIssue,\n            6 │ + ··type·KnowledgeImpactItem,\n            7 │ + ··KnowledgeImpactItemSchema,\n            8 │ + ··type·KnowledgeImpactPage,\n            9 │ + ··KnowledgeImpactPageSchema,\n           10 │ + ··KnowledgeImpactQuerySchema,\n           11 │ + ··type·KnowledgeImpactReport,\n           12 │ + ··KnowledgeImpactReportSchema,\n           13 │ + ··type·KnowledgeImpactSubject,\n           14 │ + ··KnowledgeImpactSubjectSchema,\n           15 │ + ··type·KnowledgeIndexRebuild,\n           16 │ + ··KnowledgeIndexRebuildSchema,\n           17 │ + ··type·KnowledgeIndexStatus,\n           18 │ + ··KnowledgeIndexStatusSchema,\n           19 │ + ··type·KnowledgeLintIssue,\n       7   20 │     type KnowledgeLintReport,\n       8   21 │     KnowledgeLintReportSchema,\n       9   22 │     KnowledgeLintReviewExchangeSchema,\n      10   23 │     KnowledgeLintReviewInputExchangeSchema,\n      11      │ - ··type·KnowledgeMaintenanceResult,\n      12      │ - ··QuoteSnapshotSchema,\n           24 │ + ··type·KnowledgeMaintenanceLifecycleEvent,\n           25 │ + ··type·KnowledgeMaintenanceResult,\n           26 │ + ··type·MaintenanceIssue,\n           27 │ + ··MaintenanceIssueSchema,\n           28 │ + ··type·MaintenancePage,\n           29 │ + ··MaintenancePageSchema,\n           30 │ + ··type·MaintenanceQuery,\n           31 │ + ··type·MaintenanceTarget,\n           32 │ + ··QuoteSnapshotSchema,\n      13   33 │     validTextLocation,\n      14   34 │     type WikiCitationResolveInput,\n    ········· │ \n      43   63 │     wikiSourceSetPayload,\n      44   64 │   } from \"@tradequote/contracts\";\n      45      │ - import·type·Database·from·\"better-sqlite3\";\n      46      │ - import·type·{·z·}·from·\"zod\";\n      47      │ - import·{\n      48      │ - ··KnowledgeImpactItemSchema,\n      49      │ - ··type·KnowledgeImpactItem,\n      50      │ - ··KnowledgeImpactPageSchema,\n      51      │ - ··type·KnowledgeImpactPage,\n      52      │ - ··KnowledgeImpactQuerySchema,\n      53      │ - ··KnowledgeImpactReportSchema,\n      54      │ - ··type·KnowledgeImpactReport,\n      55      │ - ··KnowledgeImpactSubjectSchema,\n      56      │ - ··type·KnowledgeImpactSubject,\n      57      │ - ··KnowledgeIndexRebuildSchema,\n      58      │ - ··type·KnowledgeIndexRebuild,\n      59      │ - ··KnowledgeIndexStatusSchema,\n      60      │ - ··type·KnowledgeIndexStatus,\n      61      │ - ··type·KnowledgeMaintenanceLifecycleEvent,\n      62      │ - ··type·MaintenanceIssue,\n      63      │ - ··MaintenanceIssueSchema,\n      64      │ - ··type·MaintenancePage,\n      65      │ - ··MaintenancePageSchema,\n      66      │ - ··type·MaintenanceQuery,\n      67      │ - ··type·MaintenanceTarget,\n      68      │ - }·from·\"@tradequote/contracts\";\n           65 │ + import·type·Database·from·\"better-sqlite3\";\n           66 │ + import·type·{·z·}·from·\"zod\";\n      69   67 │   \n      70   68 │   const hash = (value: string) => createHash(\"sha256\").update(value).digest(\"hex\");\n  \n\npackages\\infrastructure\\src\\wiki-store.ts format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Formatter would have printed the following content:\n  \n    1512 1512 │         };\n    1513 1513 │         this.db\n    1514      │ - ········.prepare(\"UPDATE·knowledge_maintenance_issue·SET·last_detected_at=?,·data_json=?·WHERE·issue_id=?\")\n         1514 │ + ········.prepare(\n         1515 │ + ··········\"UPDATE·knowledge_maintenance_issue·SET·last_detected_at=?,·data_json=?·WHERE·issue_id=?\",\n         1516 │ + ········)\n    1515 1517 │           .run(updated.lastDetectedAt, JSON.stringify(updated), updated.issueId);\n    1516 1518 │         return updated;\n    ········· │ \n    1578 1580 │               `来源生命周期当前版本为 v${row.lifecycle_version}，与提交的 expectedLifecycleVersion 不一致`,\n    1579 1581 │             );\n    1580      │ - ········if·(row.state·!==·\"active\")·return·failure(\"ACTION_NOT_ALLOWED\",·\"来源已撤回，不能重复撤回\");\n         1582 │ + ········if·(row.state·!==·\"active\")\n         1583 │ + ··········return·failure(\"ACTION_NOT_ALLOWED\",·\"来源已撤回，不能重复撤回\");\n    1581 1584 │           this.bumpSeq(workspaceId);\n    1582 1585 │           const newVersion = row.lifecycle_version + 1;\n    1583 1586 │           this.db\n    1584      │ - ··········.prepare(\"UPDATE·knowledge_source·SET·state='withdrawn',·lifecycle_version=?·WHERE·source_revision_id=?\")\n         1587 │ + ··········.prepare(\n         1588 │ + ············\"UPDATE·knowledge_source·SET·state='withdrawn',·lifecycle_version=?·WHERE·source_revision_id=?\",\n         1589 │ + ··········)\n    1585 1590 │             .run(newVersion, input.sourceRevisionId);\n    1586 1591 │           const state: WikiSourceState = {\n    ········· │ \n    1645 1650 │       const snapshotId = query.cursor?.snapshotId ?? randomUUID();\n    1646 1651 │       const afterIssueId = query.cursor?.afterIssueId ?? \"\";\n    1647      │ - ····const·kindsFilter·=·kinds.length·===·0·?·\"\"·:·`·AND·kind·IN·(${kinds.map(()·=>·\"?\").join(\",\")})`;\n         1652 │ + ····const·kindsFilter·=\n         1653 │ + ······kinds.length·===·0·?·\"\"·:·`·AND·kind·IN·(${kinds.map(()·=>·\"?\").join(\",\")})`;\n    1648 1654 │       const statesFilter =\n    1649 1655 │         states.length === 0 ? \"\" : ` AND state IN (${states.map(() => \"?\").join(\",\")})`;\n    ········· │ \n    1652 1658 │           `SELECT issue_id FROM knowledge_maintenance_issue WHERE workspace_id=? AND issue_id > ?${kindsFilter}${statesFilter} ORDER BY issue_id LIMIT ?`,\n    1653 1659 │         )\n    1654      │ - ······.all(workspaceId,·afterIssueId,·...kinds,·...states,·query.limit·+·1)·as·{·issue_id:·string·}[];\n         1660 │ + ······.all(workspaceId,·afterIssueId,·...kinds,·...states,·query.limit·+·1)·as·{\n         1661 │ + ······issue_id:·string;\n         1662 │ + ····}[];\n    1655 1663 │       const issues = rows\n    1656 1664 │         .slice(0, query.limit)\n    ········· │ \n    1662 1670 │           ? { snapshotId, queryHash, afterIssueId: issues[issues.length - 1]!.issueId }\n    1663 1671 │           : null;\n    1664      │ - ····const·page:·MaintenancePage·=·{·snapshotId,·queryHash,·checkedAt:·context.now,·issues,·nextCursor·};\n         1672 │ + ····const·page:·MaintenancePage·=·{\n         1673 │ + ······snapshotId,\n         1674 │ + ······queryHash,\n         1675 │ + ······checkedAt:·context.now,\n         1676 │ + ······issues,\n         1677 │ + ······nextCursor,\n         1678 │ + ····};\n    1665 1679 │       const parsed = MaintenancePageSchema.safeParse(page);\n    1666 1680 │       if (!parsed.success) return failure(\"STORAGE_ERROR\", \"维护页事实不完整\");\n    ········· │ \n    1701 1715 │           let eventType: KnowledgeMaintenanceLifecycleEvent[\"type\"];\n    1702 1716 │           if (input.action === \"start_review\") {\n    1703      │ - ··········if·(issue.state·!==·\"open\")·return·failure(\"ACTION_NOT_ALLOWED\",·\"仅未处理问题可进入处理\");\n         1717 │ + ··········if·(issue.state·!==·\"open\")\n         1718 │ + ············return·failure(\"ACTION_NOT_ALLOWED\",·\"仅未处理问题可进入处理\");\n    1704 1719 │             nextState = \"in_progress\";\n    1705 1720 │             resolution = null;\n    ········· │ \n    1741 1756 │   \n    1742 1757 │     /** wiki.analyzeImpact：计算主题波及的知识版本与消费，并登记维护队列。 */\n    1743      │ - ··analyzeImpact(subject:·KnowledgeImpactSubject,·context:·WikiHostContext):·KnowledgeMaintenanceResult·{\n         1758 │ + ··analyzeImpact(\n         1759 │ + ····subject:·KnowledgeImpactSubject,\n         1760 │ + ····context:·WikiHostContext,\n         1761 │ + ··):·KnowledgeMaintenanceResult·{\n    1744 1762 │       return this.db\n    1745 1763 │         .transaction(() => {\n    ········· │ \n    1841 1859 │   \n    1842 1860 │           const snapshotSeq = this.currentSeq(workspaceId);\n    1843      │ - ········const·status:·KnowledgeImpactReport[\"status\"]·=·hasUnknownConsumer·?·\"partial\"·:·\"completed\";\n         1861 │ + ········const·status:·KnowledgeImpactReport[\"status\"]·=·hasUnknownConsumer\n         1862 │ + ··········?·\"partial\"\n         1863 │ + ··········:·\"completed\";\n    1844 1864 │           const report: KnowledgeImpactReport = {\n    1845 1865 │             workspaceId,\n    ········· │ \n    1863 1883 │             if (!KnowledgeImpactItemSchema.safeParse(item).success) continue;\n    1864 1884 │             this.db\n    1865      │ - ············.prepare(\"INSERT·INTO·knowledge_impact_item(item_id,report_id,data_json)·VALUES·(?,?,?)\")\n         1885 │ + ············.prepare(\n         1886 │ + ··············\"INSERT·INTO·knowledge_impact_item(item_id,report_id,data_json)·VALUES·(?,?,?)\",\n         1887 │ + ············)\n    1866 1888 │               .run(item.itemId, report.reportId, JSON.stringify(item));\n    1867 1889 │           }\n    ········· │ \n    1915 1937 │   \n    1916 1938 │     /** wiki.getIndexStatus：按当前权威快照序号推导缺失/滞后/就绪。 */\n    1917      │ - ··getIndexStatus(index:·\"keyword\"·|·\"markdown_view\",·context:·WikiHostContext):·KnowledgeMaintenanceResult·{\n         1939 │ + ··getIndexStatus(\n         1940 │ + ····index:·\"keyword\"·|·\"markdown_view\",\n         1941 │ + ····context:·WikiHostContext,\n         1942 │ + ··):·KnowledgeMaintenanceResult·{\n    1918 1943 │       const workspaceId = this.workspaceId();\n    1919 1944 │       if (!workspaceId) return failure(\"NOT_FOUND\", \"请先创建工作区\");\n    1920 1945 │       const authoritativeSeq = this.currentSeq(workspaceId);\n    1921 1946 │       const row = this.db\n    1922      │ - ······.prepare(\"SELECT·generation,·indexed_seq·FROM·knowledge_index_status·WHERE·workspace_id=?·AND·index_kind=?\")\n         1947 │ + ······.prepare(\n         1948 │ + ········\"SELECT·generation,·indexed_seq·FROM·knowledge_index_status·WHERE·workspace_id=?·AND·index_kind=?\",\n         1949 │ + ······)\n    1923 1950 │         .get(workspaceId, index) as { generation: number; indexed_seq: number } | undefined;\n    1924 1951 │       const generation = row?.generation ?? 0;\n    ········· │ \n    1943 1970 │       const parsed = KnowledgeIndexStatusSchema.safeParse(status);\n    1944 1971 │       if (!parsed.success) return failure(\"STORAGE_ERROR\", \"索引状态事实不完整\");\n    1945      │ - ····return·{·ok:·true,·data:·{·kind:·\"indexStatus\",·status:·parsed.data·},·warnings:·[],·evidenceIds:·[]·};\n         1972 │ + ····return·{\n         1973 │ + ······ok:·true,\n         1974 │ + ······data:·{·kind:·\"indexStatus\",·status:·parsed.data·},\n         1975 │ + ······warnings:·[],\n         1976 │ + ······evidenceIds:·[],\n         1977 │ + ····};\n    1946 1978 │     }\n    1947 1979 │   \n    ········· │ \n    1960 1992 │           if (!workspaceId) return failure(\"NOT_FOUND\", \"请先创建工作区\");\n    1961 1993 │           const row = this.db\n    1962      │ - ··········.prepare(\"SELECT·generation,·indexed_seq·FROM·knowledge_index_status·WHERE·workspace_id=?·AND·index_kind=?\")\n         1994 │ + ··········.prepare(\n         1995 │ + ············\"SELECT·generation,·indexed_seq·FROM·knowledge_index_status·WHERE·workspace_id=?·AND·index_kind=?\",\n         1996 │ + ··········)\n    1963 1997 │             .get(workspaceId, input.index) as { generation: number; indexed_seq: number } | undefined;\n    1964 1998 │           const currentGeneration = row?.generation ?? 0;\n    ········· │ \n    2021 2055 │             );\n    2022 2056 │           this.db\n    2023      │ - ··········.prepare(\"INSERT·INTO·knowledge_index_rebuild(rebuild_id,workspace_id,index_kind,data_json)·VALUES·(?,?,?,?)\")\n         2057 │ + ··········.prepare(\n         2058 │ + ············\"INSERT·INTO·knowledge_index_rebuild(rebuild_id,workspace_id,index_kind,data_json)·VALUES·(?,?,?,?)\",\n         2059 │ + ··········)\n    2024 2060 │             .run(rebuildId, workspaceId, input.index, JSON.stringify(rebuild));\n    2025 2061 │           this.emit(\n  \n\ncheck ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Some errors were emitted while running checks.\n  \n\n",
+      "head": "267f087490046955a0b4b1e6183caa163cc177c3",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "2f40c614c8ffb80c3fc4e0f9d476ef909fea5d85af568aa6c345dae834f0a46c",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/domain/src/wiki-maintenance.ts": "62af5c10cbfde341db63f6ec212126ef3fae8ab72e05f3bb9dd7fc61c1fb5955",
+        "packages/infrastructure/src/wiki-store.ts": "5f92fc767938803d887cf27345beca6869122b79196685f6d762fb3c30506ab7",
+        "packages/infrastructure/src/migrations.ts": "9f5f3694d1375bc5bce969fb572cc17728c5c45f833abc260fc944163e3df40c",
+        "packages/infrastructure/src/migration-lineage.ts": "d26b0a179911e088d7059b69be962d679fca17781784b9d704a5365c066fd0a6",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromFixedCode": ""
+    },
+    {
+      "name": "B maintenance semantics probe",
+      "exe": "D:\\code\\tradequote-agent-b-maintenance-review\\node_modules\\.pnpm\\electron@44.9.2\\node_modules\\electron\\dist\\electron.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        ".runtime/b-maintenance.config.ts"
+      ],
+      "environment": {
+        "TMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp",
+        "TEMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp",
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "startedAt": "2026-10-30T08:37:53.229Z",
+      "finishedAt": "2026-10-30T08:37:54.919Z",
+      "exitCode": 1,
+      "stdout": "\n RUN  v5.0.5 D:/code/tradequote-agent-b-maintenance-review\n\nstdout | .runtime/b-maintenance.test.ts > M01 source.withdraw: same-key replay returns first result/time without writes\nB_MAINT_REPLAY {\"method\":\"source.withdraw\",\"ok\":false,\"code\":\"REVISION_CONFLICT\",\"unchanged\":true}\n\nstdout | .runtime/b-maintenance.test.ts > M01 wiki.resolveMaintenance: same-key replay returns first result/time without writes\nB_MAINT_REPLAY {\"method\":\"wiki.resolveMaintenance\",\"ok\":false,\"code\":\"REVISION_CONFLICT\",\"unchanged\":true}\n\nstdout | .runtime/b-maintenance.test.ts > M01 wiki.analyzeImpact: same-key replay returns first result/time without writes\nB_MAINT_REPLAY {\"method\":\"wiki.analyzeImpact\",\"ok\":true,\"code\":null,\"unchanged\":false}\n\nstdout | .runtime/b-maintenance.test.ts > M01 wiki.rebuildIndex: same-key replay returns first result/time without writes\nB_MAINT_REPLAY {\"method\":\"wiki.rebuildIndex\",\"ok\":false,\"code\":\"REVISION_CONFLICT\",\"unchanged\":true}\n\nstdout | .runtime/b-maintenance.test.ts > M06: impact target identity/hash must match the saved source revision\nB_IMPACT_FORGED {\"ok\":true,\"data\":{\"kind\":\"impactReport\",\"report\":{\"workspaceId\":\"d6cac965-743d-415b-97ca-adc84e473421\",\"reportId\":\"e4d0f561-de44-4b55-b8f7-5c13d19018e5\",\"subject\":{\"target\":{\"kind\":\"source\",\"sourceId\":\"cd03fcb0-fa0c-4ee0-9ccf-f1225f403bd3\",\"sourceRevisionId\":\"2cdbcb2e-6c29-4ab9-a173-c6013b7ffde6\",\"artifactHash\":\"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\"},\"reason\":\"withdrawn\",\"replacementRevisionId\":null},\"snapshotSeq\":2,\"checkedAt\":\"2026-10-27T00:00:00.000Z\",\"status\":\"completed\",\"totalItems\":0,\"unknownReasons\":[],\"error\":null}},\"warnings\":[],\"evidenceIds\":[\"e4d0f561-de44-4b55-b8f7-5c13d19018e5\"]}\n\n ❯ .runtime/b-maintenance.test.ts (19 tests | 12 failed) 513ms\n   × M01 source.withdraw: same-key replay returns first result/time without writes 30ms\n   × M01 wiki.resolveMaintenance: same-key replay returns first result/time without writes 25ms\n   × M01 wiki.analyzeImpact: same-key replay returns first result/time without writes 27ms\n   × M01 wiki.rebuildIndex: same-key replay returns first result/time without writes 23ms\n   × M02: a used key cannot withdraw a different source 25ms\n   × M03: page cursor cannot change its query hash/filter 24ms\n   × M04: page snapshot stays fixed or explicitly expires after a concurrent issue transition 24ms\n   × M05: resolve cannot claim completion with an unknown evidence UUID 22ms\n   × M06: impact target identity/hash must match the saved source revision 20ms\n   × M07: withdrawing v1 does not include knowledge pinned only to active v2 24ms\n   × M08: getImpact must not hide missing stored items behind a completed nonzero total 23ms\n   × M09: rebuild receipt binds the original operation key 20ms\n\n Test Files  1 failed (1)\n      Tests  12 failed | 7 passed (19)\n   Start at  16:37:53\n   Duration  1.29s (tests 46%, import 42%, transform 12%)\n\n",
+      "stderr": "\n⎯⎯⎯⎯⎯⎯ Failed Tests 12 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  .runtime/b-maintenance.test.ts > M01 source.withdraw: same-key replay returns first result/time without writes\nAssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, data: { …(3) }, …(2) }\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"event\": {\n-       \"actorId\": \"synthetic-human\",\n-       \"entityId\": \"a4db6135-bddb-4f4e-ac3f-6c6d8ecb5539\",\n-       \"entityVersion\": 2,\n-       \"eventId\": \"30125c46-7838-41ad-9653-79be69db3613\",\n-       \"evidenceIds\": [\n-         \"a4db6135-bddb-4f4e-ac3f-6c6d8ecb5539\",\n-       ],\n-       \"note\": \"synthetic withdrawal\",\n-       \"occurredAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"schemaVersion\": 1,\n-       \"type\": \"source.withdrawn\",\n-       \"workspaceId\": \"71db6086-9b0c-4ffc-9baf-7016cb017132\",\n+   \"error\": {\n+     \"code\": \"REVISION_CONFLICT\",\n+     \"issues\": [],\n+     \"message\": \"来源生命周期当前版本为 v2，与提交的 expectedLifecycleVersion 不一致\",\n+     \"retryable\": false,\n    },\n-     \"kind\": \"sourceWithdrawal\",\n-     \"state\": {\n-       \"changedAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"lifecycleVersion\": 2,\n-       \"sourceRevisionId\": \"a4db6135-bddb-4f4e-ac3f-6c6d8ecb5539\",\n-       \"state\": \"withdrawn\",\n-     },\n-   },\n-   \"evidenceIds\": [\n-     \"30125c46-7838-41ad-9653-79be69db3613\",\n-     \"a4db6135-bddb-4f4e-ac3f-6c6d8ecb5539\",\n-   ],\n-   \"ok\": true,\n-   \"warnings\": [],\n+   \"ok\": false,\n  }\n\n ❯ .runtime/b-maintenance.test.ts:65:591\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/12]⎯\n\n FAIL  .runtime/b-maintenance.test.ts > M01 wiki.resolveMaintenance: same-key replay returns first result/time without writes\nAssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, data: { …(2) }, …(2) }\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"issue\": {\n-       \"dedupKey\": \"f38e3b480550900e2f51b2b3d77cb1d14c4a5def58a78ac812b4987f3bf4d52e\",\n-       \"evidenceIds\": [\n-         \"0c5f699e-f054-4eda-b32d-1420691ca406\",\n-       ],\n-       \"firstDetectedAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"issueId\": \"e5647e00-9d39-4f43-a04e-8c8b462e472b\",\n-       \"issueVersion\": 2,\n-       \"kind\": \"source_withdrawn\",\n-       \"lastDetectedAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"message\": \"来源 v1 已撤回，依赖该来源的知识与消费需复核\",\n-       \"resolution\": null,\n-       \"severity\": \"warning\",\n-       \"state\": \"in_progress\",\n-       \"target\": {\n-         \"artifactHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-         \"kind\": \"source\",\n-         \"sourceId\": \"96f22568-e3c1-41a4-a76b-aaca3bd6d2ff\",\n-         \"sourceRevisionId\": \"0c5f699e-f054-4eda-b32d-1420691ca406\",\n-       },\n-       \"workspaceId\": \"9faef388-9fb7-4f1e-b173-42cda60574af\",\n-     },\n-     \"kind\": \"maintenanceIssue\",\n+   \"error\": {\n+     \"code\": \"REVISION_CONFLICT\",\n+     \"issues\": [],\n+     \"message\": \"维护问题当前版本为 v2，与提交的 expectedIssueVersion 不一致\",\n+     \"retryable\": false,\n    },\n-   \"evidenceIds\": [\n-     \"e5647e00-9d39-4f43-a04e-8c8b462e472b\",\n-   ],\n-   \"ok\": true,\n-   \"warnings\": [],\n+   \"ok\": false,\n  }\n\n ❯ .runtime/b-maintenance.test.ts:65:591\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/12]⎯\n\n FAIL  .runtime/b-maintenance.test.ts > M01 wiki.analyzeImpact: same-key replay returns first result/time without writes\nAssertionError: expected { ok: true, data: { …(2) }, …(2) } to deeply equal { ok: true, data: { …(2) }, …(2) }\n\n- Expected\n+ Received\n\n@@ -1,12 +1,12 @@\n  {\n    \"data\": {\n      \"kind\": \"impactReport\",\n      \"report\": {\n-       \"checkedAt\": \"2026-10-27T00:00:00.000Z\",\n+       \"checkedAt\": \"2026-10-27T00:00:02.000Z\",\n        \"error\": null,\n-       \"reportId\": \"afc73a25-96af-4107-a8b1-7dbc08215ff7\",\n+       \"reportId\": \"16c9d742-ae52-472e-9d3f-11bfb28ca890\",\n        \"snapshotSeq\": 2,\n        \"status\": \"completed\",\n        \"subject\": {\n          \"reason\": \"withdrawn\",\n          \"replacementRevisionId\": null,\n@@ -21,10 +21,10 @@\n        \"unknownReasons\": [],\n        \"workspaceId\": \"3f786b07-392f-4d88-a1d4-c4ef96aac652\",\n      },\n    },\n    \"evidenceIds\": [\n-     \"afc73a25-96af-4107-a8b1-7dbc08215ff7\",\n+     \"16c9d742-ae52-472e-9d3f-11bfb28ca890\",\n    ],\n    \"ok\": true,\n    \"warnings\": [],\n  }\n\n ❯ .runtime/b-maintenance.test.ts:65:591\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/12]⎯\n\n FAIL  .runtime/b-maintenance.test.ts > M01 wiki.rebuildIndex: same-key replay returns first result/time without writes\nAssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, data: { …(2) }, …(2) }\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"kind\": \"indexRebuild\",\n-     \"rebuild\": {\n-       \"createdAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"error\": null,\n-       \"index\": \"keyword\",\n-       \"operationKey\": \"9672a045-32e2-460e-94f7-fb5be82e8113\",\n-       \"rebuildId\": \"9180e101-778f-4b96-8b0c-351383b68924\",\n-       \"requestedSeq\": 2,\n-       \"result\": {\n-         \"authoritativeSeq\": 2,\n-         \"checkedAt\": \"2026-10-27T00:00:00.000Z\",\n-         \"error\": null,\n-         \"generation\": 1,\n-         \"index\": \"keyword\",\n-         \"indexedSeq\": 2,\n-         \"rebuildId\": null,\n-         \"state\": \"ready\",\n-         \"workspaceId\": \"ea31fa5c-4011-4844-bfe8-b2f1a57c65c4\",\n+   \"error\": {\n+     \"code\": \"REVISION_CONFLICT\",\n+     \"issues\": [],\n+     \"message\": \"索引当前代际为 1，与提交的 expectedGeneration 不一致\",\n+     \"retryable\": false,\n    },\n-       \"status\": \"completed\",\n-       \"targetGeneration\": 1,\n-       \"updatedAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"workspaceId\": \"ea31fa5c-4011-4844-bfe8-b2f1a57c65c4\",\n-     },\n-   },\n-   \"evidenceIds\": [\n-     \"9180e101-778f-4b96-8b0c-351383b68924\",\n-   ],\n-   \"ok\": true,\n-   \"warnings\": [],\n+   \"ok\": false,\n  }\n\n ❯ .runtime/b-maintenance.test.ts:65:591\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/12]⎯\n\n FAIL  .runtime/b-maintenance.test.ts > M02: a used key cannot withdraw a different source\nAssertionError: expected { ok: true, data: { …(3) }, …(2) } to match object { ok: false, …(1) }\n(6 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  {\n-   \"error\": {\n-     \"code\": \"IDEMPOTENCY_CONFLICT\",\n-   },\n-   \"ok\": false,\n+   \"ok\": true,\n  }\n\n ❯ .runtime/b-maintenance.test.ts:66:463\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/12]⎯\n\n FAIL  .runtime/b-maintenance.test.ts > M03: page cursor cannot change its query hash/filter\nAssertionError: expected false to be true // Object.is equality\n\n- Expected\n+ Received\n\n- true\n+ false\n\n ❯ .runtime/b-maintenance.test.ts:68:375\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/12]⎯\n\n FAIL  .runtime/b-maintenance.test.ts > M04: page snapshot stays fixed or explicitly expires after a concurrent issue transition\nAssertionError: expected [] to deep equally contain { …(13) }\n\n- Expected:\n{\n  \"dedupKey\": \"123f26b5c4af103908bc411e60af1fd00802c98c5a6b6ec14cc68688f5292046\",\n  \"evidenceIds\": [\n    \"9e73e3fc-166f-4472-a71d-2410f7857107\",\n  ],\n  \"firstDetectedAt\": \"2026-10-27T00:00:00.000Z\",\n  \"issueId\": \"46a5ad4e-3696-46d1-a678-85a5dd7ca929\",\n  \"issueVersion\": 1,\n  \"kind\": \"source_withdrawn\",\n  \"lastDetectedAt\": \"2026-10-27T00:00:00.000Z\",\n  \"message\": \"来源 v1 已撤回，依赖该来源的知识与消费需复核\",\n  \"resolution\": null,\n  \"severity\": \"warning\",\n  \"state\": \"open\",\n  \"target\": {\n    \"artifactHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n    \"kind\": \"source\",\n    \"sourceId\": \"cc7a3109-41ba-49f9-ae2f-3ea3825640ae\",\n    \"sourceRevisionId\": \"9e73e3fc-166f-4472-a71d-2410f7857107\",\n  },\n  \"workspaceId\": \"5b19744b-35b5-4252-9900-69f0e5370ccf\",\n}\n\n+ Received:\n[]\n\n ❯ .runtime/b-maintenance.test.ts:69:692\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/12]⎯\n\n FAIL  .runtime/b-maintenance.test.ts > M05: resolve cannot claim completion with an unknown evidence UUID\nAssertionError: expected true to be false // Object.is equality\n\n- Expected\n+ Received\n\n- false\n+ true\n\n ❯ .runtime/b-maintenance.test.ts:70:347\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/12]⎯\n\n FAIL  .runtime/b-maintenance.test.ts > M06: impact target identity/hash must match the saved source revision\nAssertionError: expected true to be false // Object.is equality\n\n- Expected\n+ Received\n\n- false\n+ true\n\n ❯ .runtime/b-maintenance.test.ts:71:343\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/12]⎯\n\n FAIL  .runtime/b-maintenance.test.ts > M07: withdrawing v1 does not include knowledge pinned only to active v2\nAssertionError: expected [ …(2) ] to deeply equal [ Array(1) ]\n\n- Expected\n+ Received\n\n  [\n+   \"76a4cc15-6664-4b2c-9de5-7b2f9de4d16d\",\n    \"ddfbfc1e-0043-4f6b-9bc7-a938a904215d\",\n  ]\n\n ❯ .runtime/b-maintenance.test.ts:72:1258\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/12]⎯\n\n FAIL  .runtime/b-maintenance.test.ts > M08: getImpact must not hide missing stored items behind a completed nonzero total\nAssertionError: expected false to be true // Object.is equality\n\n- Expected\n+ Received\n\n- true\n+ false\n\n ❯ .runtime/b-maintenance.test.ts:73:521\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/12]⎯\n\n FAIL  .runtime/b-maintenance.test.ts > M09: rebuild receipt binds the original operation key\nAssertionError: expected 'c9414ff1-401e-4100-96cf-c87464110d7c' to be '13c03f09-f287-450b-abc8-67282768446a' // Object.is equality\n\nExpected: \"13c03f09-f287-450b-abc8-67282768446a\"\nReceived: \"c9414ff1-401e-4100-96cf-c87464110d7c\"\n\n ❯ .runtime/b-maintenance.test.ts:74:199\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/12]⎯\n\n",
+      "head": "267f087490046955a0b4b1e6183caa163cc177c3",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "2f40c614c8ffb80c3fc4e0f9d476ef909fea5d85af568aa6c345dae834f0a46c",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/domain/src/wiki-maintenance.ts": "62af5c10cbfde341db63f6ec212126ef3fae8ab72e05f3bb9dd7fc61c1fb5955",
+        "packages/infrastructure/src/wiki-store.ts": "5f92fc767938803d887cf27345beca6869122b79196685f6d762fb3c30506ab7",
+        "packages/infrastructure/src/migrations.ts": "9f5f3694d1375bc5bce969fb572cc17728c5c45f833abc260fc944163e3df40c",
+        "packages/infrastructure/src/migration-lineage.ts": "d26b0a179911e088d7059b69be962d679fca17781784b9d704a5365c066fd0a6",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromFixedCode": ""
+    },
+    {
+      "name": "A fixed baseline wiki readonly",
+      "exe": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "environment": {
+        "TMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp",
+        "TEMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp"
+      },
+      "startedAt": "2026-10-30T08:39:32.591Z",
+      "finishedAt": "2026-10-30T08:39:32.976Z",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "wiki-project/raw/generated/inventory.json\nwiki-project/raw/generated/代码清单.md\nwiki-project/raw/generated/源码快照.md\nwiki-project/raw/generated/命令与运行时清单.md: GENERATED_DRIFT：运行生成器并检查语义页\n",
+      "head": "267f087490046955a0b4b1e6183caa163cc177c3",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "2f40c614c8ffb80c3fc4e0f9d476ef909fea5d85af568aa6c345dae834f0a46c",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/domain/src/wiki-maintenance.ts": "62af5c10cbfde341db63f6ec212126ef3fae8ab72e05f3bb9dd7fc61c1fb5955",
+        "packages/infrastructure/src/wiki-store.ts": "5f92fc767938803d887cf27345beca6869122b79196685f6d762fb3c30506ab7",
+        "packages/infrastructure/src/migrations.ts": "9f5f3694d1375bc5bce969fb572cc17728c5c45f833abc260fc944163e3df40c",
+        "packages/infrastructure/src/migration-lineage.ts": "d26b0a179911e088d7059b69be962d679fca17781784b9d704a5365c066fd0a6",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromFixedCode": ""
+    },
+    {
+      "name": "A fixed baseline wiki lint",
+      "exe": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "environment": {
+        "TMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp",
+        "TEMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp"
+      },
+      "startedAt": "2026-10-30T08:39:33.121Z",
+      "finishedAt": "2026-10-30T08:39:34.722Z",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "生成器: wiki-project/raw/generated/inventory.json\nwiki-project/raw/generated/代码清单.md\nwiki-project/raw/generated/源码快照.md\nwiki-project/raw/generated/命令与运行时清单.md: GENERATED_DRIFT：运行生成器并检查语义页\n",
+      "head": "267f087490046955a0b4b1e6183caa163cc177c3",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "2f40c614c8ffb80c3fc4e0f9d476ef909fea5d85af568aa6c345dae834f0a46c",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/domain/src/wiki-maintenance.ts": "62af5c10cbfde341db63f6ec212126ef3fae8ab72e05f3bb9dd7fc61c1fb5955",
+        "packages/infrastructure/src/wiki-store.ts": "5f92fc767938803d887cf27345beca6869122b79196685f6d762fb3c30506ab7",
+        "packages/infrastructure/src/migrations.ts": "9f5f3694d1375bc5bce969fb572cc17728c5c45f833abc260fc944163e3df40c",
+        "packages/infrastructure/src/migration-lineage.ts": "d26b0a179911e088d7059b69be962d679fca17781784b9d704a5365c066fd0a6",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromFixedCode": ""
+    },
+    {
+      "name": "A fixed baseline wiki sync",
+      "exe": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "0827476312efabf70a08693da984ea41330fa286"
+      ],
+      "environment": {
+        "TMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp",
+        "TEMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp"
+      },
+      "startedAt": "2026-10-30T08:39:34.866Z",
+      "finishedAt": "2026-10-30T08:39:35.671Z",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"0827476312efabf70a08693da984ea41330fa286\",\n  \"status\": \"passed\",\n  \"codeFiles\": 5,\n  \"knowledgePages\": 4,\n  \"tasks\": 1,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "head": "267f087490046955a0b4b1e6183caa163cc177c3",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "2f40c614c8ffb80c3fc4e0f9d476ef909fea5d85af568aa6c345dae834f0a46c",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/domain/src/wiki-maintenance.ts": "62af5c10cbfde341db63f6ec212126ef3fae8ab72e05f3bb9dd7fc61c1fb5955",
+        "packages/infrastructure/src/wiki-store.ts": "5f92fc767938803d887cf27345beca6869122b79196685f6d762fb3c30506ab7",
+        "packages/infrastructure/src/migrations.ts": "9f5f3694d1375bc5bce969fb572cc17728c5c45f833abc260fc944163e3df40c",
+        "packages/infrastructure/src/migration-lineage.ts": "d26b0a179911e088d7059b69be962d679fca17781784b9d704a5365c066fd0a6",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromFixedCode": ""
+    },
+    {
+      "name": "wiki generate",
+      "exe": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "environment": {
+        "TMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp",
+        "TEMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp"
+      },
+      "startedAt": "2026-10-30T08:42:50.370Z",
+      "finishedAt": "2026-10-30T08:42:50.758Z",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 255,\n  \"lines\": 70000,\n  \"generated\": 5,\n  \"excluded\": 11\n}\n",
+      "stderr": "",
+      "head": "267f087490046955a0b4b1e6183caa163cc177c3",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "2f40c614c8ffb80c3fc4e0f9d476ef909fea5d85af568aa6c345dae834f0a46c",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/domain/src/wiki-maintenance.ts": "62af5c10cbfde341db63f6ec212126ef3fae8ab72e05f3bb9dd7fc61c1fb5955",
+        "packages/infrastructure/src/wiki-store.ts": "5f92fc767938803d887cf27345beca6869122b79196685f6d762fb3c30506ab7",
+        "packages/infrastructure/src/migrations.ts": "9f5f3694d1375bc5bce969fb572cc17728c5c45f833abc260fc944163e3df40c",
+        "packages/infrastructure/src/migration-lineage.ts": "d26b0a179911e088d7059b69be962d679fca17781784b9d704a5365c066fd0a6",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromFixedCode": ""
+    },
+    {
+      "name": "wiki readonly",
+      "exe": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "environment": {
+        "TMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp",
+        "TEMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp"
+      },
+      "startedAt": "2026-10-30T08:42:50.903Z",
+      "finishedAt": "2026-10-30T08:42:51.268Z",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 255,\n  \"lines\": 70000,\n  \"generated\": 5,\n  \"excluded\": 11\n}\n",
+      "stderr": "",
+      "head": "267f087490046955a0b4b1e6183caa163cc177c3",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "2f40c614c8ffb80c3fc4e0f9d476ef909fea5d85af568aa6c345dae834f0a46c",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/domain/src/wiki-maintenance.ts": "62af5c10cbfde341db63f6ec212126ef3fae8ab72e05f3bb9dd7fc61c1fb5955",
+        "packages/infrastructure/src/wiki-store.ts": "5f92fc767938803d887cf27345beca6869122b79196685f6d762fb3c30506ab7",
+        "packages/infrastructure/src/migrations.ts": "9f5f3694d1375bc5bce969fb572cc17728c5c45f833abc260fc944163e3df40c",
+        "packages/infrastructure/src/migration-lineage.ts": "d26b0a179911e088d7059b69be962d679fca17781784b9d704a5365c066fd0a6",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromFixedCode": ""
+    },
+    {
+      "name": "wiki lint",
+      "exe": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "environment": {
+        "TMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp",
+        "TEMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp"
+      },
+      "startedAt": "2026-10-30T08:42:51.411Z",
+      "finishedAt": "2026-10-30T08:42:53.012Z",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 253,\n  \"semantic\": 225,\n  \"reachable\": 253\n}\n",
+      "stderr": "",
+      "head": "267f087490046955a0b4b1e6183caa163cc177c3",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "2f40c614c8ffb80c3fc4e0f9d476ef909fea5d85af568aa6c345dae834f0a46c",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/domain/src/wiki-maintenance.ts": "62af5c10cbfde341db63f6ec212126ef3fae8ab72e05f3bb9dd7fc61c1fb5955",
+        "packages/infrastructure/src/wiki-store.ts": "5f92fc767938803d887cf27345beca6869122b79196685f6d762fb3c30506ab7",
+        "packages/infrastructure/src/migrations.ts": "9f5f3694d1375bc5bce969fb572cc17728c5c45f833abc260fc944163e3df40c",
+        "packages/infrastructure/src/migration-lineage.ts": "d26b0a179911e088d7059b69be962d679fca17781784b9d704a5365c066fd0a6",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromFixedCode": ""
+    },
+    {
+      "name": "wiki sync",
+      "exe": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "267f087490046955a0b4b1e6183caa163cc177c3"
+      ],
+      "environment": {
+        "TMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp",
+        "TEMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp"
+      },
+      "startedAt": "2026-10-30T08:42:53.157Z",
+      "finishedAt": "2026-10-30T08:42:53.754Z",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"267f087490046955a0b4b1e6183caa163cc177c3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "head": "267f087490046955a0b4b1e6183caa163cc177c3",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "2f40c614c8ffb80c3fc4e0f9d476ef909fea5d85af568aa6c345dae834f0a46c",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/domain/src/wiki-maintenance.ts": "62af5c10cbfde341db63f6ec212126ef3fae8ab72e05f3bb9dd7fc61c1fb5955",
+        "packages/infrastructure/src/wiki-store.ts": "5f92fc767938803d887cf27345beca6869122b79196685f6d762fb3c30506ab7",
+        "packages/infrastructure/src/migrations.ts": "9f5f3694d1375bc5bce969fb572cc17728c5c45f833abc260fc944163e3df40c",
+        "packages/infrastructure/src/migration-lineage.ts": "d26b0a179911e088d7059b69be962d679fca17781784b9d704a5365c066fd0a6",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromFixedCode": ""
+    },
+    {
+      "name": "B material diff whitespace",
+      "exe": "git",
+      "args": [
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "name": "wiki generate",
+      "exe": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "environment": {
+        "TMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp",
+        "TEMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp"
+      },
+      "startedAt": "2026-10-30T08:44:52.571Z",
+      "finishedAt": "2026-10-30T08:44:52.957Z",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 255,\n  \"lines\": 70000,\n  \"generated\": 5,\n  \"excluded\": 11\n}\n",
+      "stderr": "",
+      "head": "267f087490046955a0b4b1e6183caa163cc177c3",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "2f40c614c8ffb80c3fc4e0f9d476ef909fea5d85af568aa6c345dae834f0a46c",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/domain/src/wiki-maintenance.ts": "62af5c10cbfde341db63f6ec212126ef3fae8ab72e05f3bb9dd7fc61c1fb5955",
+        "packages/infrastructure/src/wiki-store.ts": "5f92fc767938803d887cf27345beca6869122b79196685f6d762fb3c30506ab7",
+        "packages/infrastructure/src/migrations.ts": "9f5f3694d1375bc5bce969fb572cc17728c5c45f833abc260fc944163e3df40c",
+        "packages/infrastructure/src/migration-lineage.ts": "d26b0a179911e088d7059b69be962d679fca17781784b9d704a5365c066fd0a6",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromFixedCode": ""
+    },
+    {
+      "name": "wiki readonly",
+      "exe": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "environment": {
+        "TMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp",
+        "TEMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp"
+      },
+      "startedAt": "2026-10-30T08:44:53.092Z",
+      "finishedAt": "2026-10-30T08:44:53.456Z",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 255,\n  \"lines\": 70000,\n  \"generated\": 5,\n  \"excluded\": 11\n}\n",
+      "stderr": "",
+      "head": "267f087490046955a0b4b1e6183caa163cc177c3",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "2f40c614c8ffb80c3fc4e0f9d476ef909fea5d85af568aa6c345dae834f0a46c",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/domain/src/wiki-maintenance.ts": "62af5c10cbfde341db63f6ec212126ef3fae8ab72e05f3bb9dd7fc61c1fb5955",
+        "packages/infrastructure/src/wiki-store.ts": "5f92fc767938803d887cf27345beca6869122b79196685f6d762fb3c30506ab7",
+        "packages/infrastructure/src/migrations.ts": "9f5f3694d1375bc5bce969fb572cc17728c5c45f833abc260fc944163e3df40c",
+        "packages/infrastructure/src/migration-lineage.ts": "d26b0a179911e088d7059b69be962d679fca17781784b9d704a5365c066fd0a6",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromFixedCode": ""
+    },
+    {
+      "name": "wiki lint",
+      "exe": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "environment": {
+        "TMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp",
+        "TEMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp"
+      },
+      "startedAt": "2026-10-30T08:44:53.588Z",
+      "finishedAt": "2026-10-30T08:44:55.182Z",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 253,\n  \"semantic\": 225,\n  \"reachable\": 253\n}\n",
+      "stderr": "",
+      "head": "267f087490046955a0b4b1e6183caa163cc177c3",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "2f40c614c8ffb80c3fc4e0f9d476ef909fea5d85af568aa6c345dae834f0a46c",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/domain/src/wiki-maintenance.ts": "62af5c10cbfde341db63f6ec212126ef3fae8ab72e05f3bb9dd7fc61c1fb5955",
+        "packages/infrastructure/src/wiki-store.ts": "5f92fc767938803d887cf27345beca6869122b79196685f6d762fb3c30506ab7",
+        "packages/infrastructure/src/migrations.ts": "9f5f3694d1375bc5bce969fb572cc17728c5c45f833abc260fc944163e3df40c",
+        "packages/infrastructure/src/migration-lineage.ts": "d26b0a179911e088d7059b69be962d679fca17781784b9d704a5365c066fd0a6",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromFixedCode": ""
+    },
+    {
+      "name": "wiki sync",
+      "exe": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "267f087490046955a0b4b1e6183caa163cc177c3"
+      ],
+      "environment": {
+        "TMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp",
+        "TEMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp"
+      },
+      "startedAt": "2026-10-30T08:44:55.316Z",
+      "finishedAt": "2026-10-30T08:44:55.676Z",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"267f087490046955a0b4b1e6183caa163cc177c3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "head": "267f087490046955a0b4b1e6183caa163cc177c3",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "2f40c614c8ffb80c3fc4e0f9d476ef909fea5d85af568aa6c345dae834f0a46c",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/domain/src/wiki-maintenance.ts": "62af5c10cbfde341db63f6ec212126ef3fae8ab72e05f3bb9dd7fc61c1fb5955",
+        "packages/infrastructure/src/wiki-store.ts": "5f92fc767938803d887cf27345beca6869122b79196685f6d762fb3c30506ab7",
+        "packages/infrastructure/src/migrations.ts": "9f5f3694d1375bc5bce969fb572cc17728c5c45f833abc260fc944163e3df40c",
+        "packages/infrastructure/src/migration-lineage.ts": "d26b0a179911e088d7059b69be962d679fca17781784b9d704a5365c066fd0a6",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromFixedCode": ""
+    },
+    {
+      "name": "wiki generate",
+      "exe": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "environment": {
+        "TMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp",
+        "TEMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp"
+      },
+      "startedAt": "2026-10-30T08:47:06.429Z",
+      "finishedAt": "2026-10-30T08:47:06.822Z",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 255,\n  \"lines\": 70000,\n  \"generated\": 5,\n  \"excluded\": 11\n}\n",
+      "stderr": "",
+      "head": "267f087490046955a0b4b1e6183caa163cc177c3",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "2f40c614c8ffb80c3fc4e0f9d476ef909fea5d85af568aa6c345dae834f0a46c",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/domain/src/wiki-maintenance.ts": "62af5c10cbfde341db63f6ec212126ef3fae8ab72e05f3bb9dd7fc61c1fb5955",
+        "packages/infrastructure/src/wiki-store.ts": "5f92fc767938803d887cf27345beca6869122b79196685f6d762fb3c30506ab7",
+        "packages/infrastructure/src/migrations.ts": "9f5f3694d1375bc5bce969fb572cc17728c5c45f833abc260fc944163e3df40c",
+        "packages/infrastructure/src/migration-lineage.ts": "d26b0a179911e088d7059b69be962d679fca17781784b9d704a5365c066fd0a6",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromFixedCode": ""
+    },
+    {
+      "name": "wiki readonly",
+      "exe": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "environment": {
+        "TMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp",
+        "TEMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp"
+      },
+      "startedAt": "2026-10-30T08:47:06.957Z",
+      "finishedAt": "2026-10-30T08:47:07.321Z",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 255,\n  \"lines\": 70000,\n  \"generated\": 5,\n  \"excluded\": 11\n}\n",
+      "stderr": "",
+      "head": "267f087490046955a0b4b1e6183caa163cc177c3",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "2f40c614c8ffb80c3fc4e0f9d476ef909fea5d85af568aa6c345dae834f0a46c",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/domain/src/wiki-maintenance.ts": "62af5c10cbfde341db63f6ec212126ef3fae8ab72e05f3bb9dd7fc61c1fb5955",
+        "packages/infrastructure/src/wiki-store.ts": "5f92fc767938803d887cf27345beca6869122b79196685f6d762fb3c30506ab7",
+        "packages/infrastructure/src/migrations.ts": "9f5f3694d1375bc5bce969fb572cc17728c5c45f833abc260fc944163e3df40c",
+        "packages/infrastructure/src/migration-lineage.ts": "d26b0a179911e088d7059b69be962d679fca17781784b9d704a5365c066fd0a6",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromFixedCode": ""
+    },
+    {
+      "name": "wiki lint",
+      "exe": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "environment": {
+        "TMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp",
+        "TEMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp"
+      },
+      "startedAt": "2026-10-30T08:47:07.450Z",
+      "finishedAt": "2026-10-30T08:47:09.047Z",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 253,\n  \"semantic\": 225,\n  \"reachable\": 253\n}\n",
+      "stderr": "",
+      "head": "267f087490046955a0b4b1e6183caa163cc177c3",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "2f40c614c8ffb80c3fc4e0f9d476ef909fea5d85af568aa6c345dae834f0a46c",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/domain/src/wiki-maintenance.ts": "62af5c10cbfde341db63f6ec212126ef3fae8ab72e05f3bb9dd7fc61c1fb5955",
+        "packages/infrastructure/src/wiki-store.ts": "5f92fc767938803d887cf27345beca6869122b79196685f6d762fb3c30506ab7",
+        "packages/infrastructure/src/migrations.ts": "9f5f3694d1375bc5bce969fb572cc17728c5c45f833abc260fc944163e3df40c",
+        "packages/infrastructure/src/migration-lineage.ts": "d26b0a179911e088d7059b69be962d679fca17781784b9d704a5365c066fd0a6",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromFixedCode": ""
+    },
+    {
+      "name": "wiki sync",
+      "exe": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "267f087490046955a0b4b1e6183caa163cc177c3"
+      ],
+      "environment": {
+        "TMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp",
+        "TEMP": "D:\\code\\tradequote-agent-b-maintenance-review\\.runtime\\test-temp"
+      },
+      "startedAt": "2026-10-30T08:47:09.180Z",
+      "finishedAt": "2026-10-30T08:47:09.549Z",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"267f087490046955a0b4b1e6183caa163cc177c3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "head": "267f087490046955a0b4b1e6183caa163cc177c3",
+      "sourceHashes": {
+        "packages/contracts/src/knowledge-maintenance.test.ts": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+        "packages/contracts/src/knowledge-lint-review.test.ts": "5c5027635e626aa233649ef5ecf4ce4966e046693d1dd7d9497b7a95fa002d40",
+        "packages/contracts/src/knowledge-wiki.test.ts": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+        "packages/infrastructure/src/wiki-store.test.ts": "2f40c614c8ffb80c3fc4e0f9d476ef909fea5d85af568aa6c345dae834f0a46c",
+        "packages/infrastructure/src/check-store.test.ts": "f993f884968b236602f93e639622e8a347a276dd76761dc2db366a0d948d0246",
+        "packages/infrastructure/src/check-lineage-integration.test.ts": "6a4ac42269e53ad14838e14bb36e3b2c0ba4507e48728ecfbc3abf8560381aae",
+        "packages/infrastructure/src/wiki-check-integration.test.ts": "68246053eecbb3641682e624cb2d6f4fcca775d7fa5ba047b9be70c8c884d710",
+        "packages/domain/src/wiki-maintenance.ts": "62af5c10cbfde341db63f6ec212126ef3fae8ab72e05f3bb9dd7fc61c1fb5955",
+        "packages/infrastructure/src/wiki-store.ts": "5f92fc767938803d887cf27345beca6869122b79196685f6d762fb3c30506ab7",
+        "packages/infrastructure/src/migrations.ts": "9f5f3694d1375bc5bce969fb572cc17728c5c45f833abc260fc944163e3df40c",
+        "packages/infrastructure/src/migration-lineage.ts": "d26b0a179911e088d7059b69be962d679fca17781784b9d704a5365c066fd0a6",
+        "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+        "pnpm-lock.yaml": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe"
+      },
+      "sourceChangesFromFixedCode": ""
+    }
+  ],
+  "overallJointAcceptance": false,
+  "notRun": [
+    "C original blocker scripts/new migration matrix and populated database combination independent verification",
+    "macOS Electron desktop wiring and regression, full migration M/F/J",
+    "formal CSV import/quote acceptance, m² and mixed-currency paths, demonstration closure",
+    "human/personnel/business acceptance",
+    "full unit/maintenance-tool regression: no tools or coverage mapping change by B"
+  ],
+  "initialProbe": {
+    "scriptUtf8": "import { createHash } from \"node:crypto\";\nimport { KnowledgeMaintenanceResultSchema, MaintenanceExchangeSchema, KnowledgeImpactExchangeSchema } from \"../packages/contracts/src/index\";\nimport { createSyntheticQuote } from \"../packages/infrastructure/src/wiki-test.fixture\";\nimport { randomUUID } from \"node:crypto\";\nimport { mkdtempSync, rmSync } from \"node:fs\";\nimport { tmpdir } from \"node:os\";\nimport { join } from \"node:path\";\nimport { KnowledgeLintReportSchema, WikiLintReceiptSchema, WikiResultSchema, type WikiRevision, type WikiSourceRevision } from \"../packages/contracts/src/index\";\nimport {createRequire} from \"node:module\";\nconst Database = createRequire(new URL(\"../packages/infrastructure/package.json\", import.meta.url))(\"better-sqlite3\");\nimport { afterEach, expect, it } from \"vitest\";\nimport { SqliteWorkspaceRepository } from \"../packages/infrastructure/src/index\";\nconst NOW=\"2026-10-27T00:00:00.000Z\", LATER=\"2026-10-27T00:00:02.000Z\";\nconst valid={status:\"confirmed\" as const,validFrom:null,validUntil:null};\nconst dispose:(()=>void)[]=[];\nafterEach(()=>{for(const close of dispose.splice(0).reverse())close();});\nconst command=(method:string,payload:unknown)=>({schemaVersion:1,requestId:randomUUID(),idempotencyKey:randomUUID(),method,payload});\nfunction data(input:unknown){const r=WikiResultSchema.parse(input);if(!r.ok)throw Error(r.error.message);return r.data;}\nasync function fixture(expires:string|null=null){\n const dir=mkdtempSync(join(tmpdir(),\"c-p1-probe-\"));dispose.push(()=>rmSync(dir,{recursive:true,force:true}));\n const file=join(dir,\"synthetic.sqlite\"),repo=new SqliteWorkspaceRepository(file);dispose.push(()=>repo.close());\n repo.commit(command(\"workspace.create\",{name:\"合成P1边界\"}) as never,{actorId:\"synthetic-human\",origin:\"human_ui\"});\n const context={workspaceId:repo.read()!.id,actorId:\"synthetic-human\",origin:\"human_ui\" as const,now:NOW};\n const payload={sourceId:randomUUID(),expectedVersion:0,label:\"合成资料\",sourceStatus:\"synthetic\",mediaType:\"text/plain\",sourceText:\"Synthetic source\",acquiredAt:NOW,sourceUri:null,permissionNote:\"synthetic only\",validity:{...valid,validUntil:expires}};\n const sourceData=data(await repo.executeWiki(command(\"source.stage\",payload),context));if(sourceData.kind!==\"sourceRevision\")throw Error(\"source fixture\");\n const source:WikiSourceRevision=sourceData.revision,ref={referenceId:randomUUID(),sourceId:source.sourceId,sourceRevisionId:source.sourceRevisionId,sourceVersion:source.version,artifactHash:source.artifactHash,location:{kind:\"text\",start:0,end:source.sourceText.length},excerptHash:source.artifactHash,assertion:\"fact\"};\n const markdown=\"# Synthetic candidate\",sectionId=randomUUID();\n const wiki=data(await repo.executeWiki(command(\"wiki.stage\",{documentId:randomUUID(),expectedVersion:0,parentRevisionId:null,content:{kind:\"sop\",title:\"合成知识\",locale:\"en\",scope:{platforms:[],markets:[],categories:[]},markdown,validity:valid,sections:[{sectionId,title:\"合成段落\",location:{kind:\"text\",start:0,end:markdown.length},sourceReferenceIds:[ref.referenceId]}],sourceRefs:[ref],relations:[],rules:[]}}),context));\n if(wiki.kind!==\"wikiRevision\")throw Error(\"wiki fixture\"); const revision:WikiRevision=wiki.record.revision;\n const db=new Database(file);dispose.push(()=>db.close());\n const binding={revisionId:revision.revisionId,contentHash:revision.contentHash,sourceSetHash:revision.sourceSetHash};\n return {repo,db,context,revision,source,payload,binding,async approve(){const receipt=repo.runWikiLint(revision.revisionId,context)!; const cmd=command(\"wiki.review\",{...binding,expectedLifecycleVersion:1,decision:\"approve\",note:\"synthetic technical review\",lintReceiptId:receipt.receiptId});const result=await repo.executeWiki(cmd,context);const d=data(result);if(d.kind!==\"wikiRevision\"||!d.record.lifecycle.review)throw Error(\"review fixture\");return {receipt,cmd,result,reviewId:d.record.lifecycle.review.reviewId};}};\n}\ntype F=Awaited<ReturnType<typeof fixture>>;\nconst read=(method:string,payload:unknown)=>({schemaVersion:1,requestId:randomUUID(),method,payload});\nfunction body(r:any):any{const p=KnowledgeMaintenanceResultSchema.parse(r);if(!p.ok)throw Error(p.error.message);return p.data;}\nconst maintain=(f:F,c:any,ctx=f.context)=>f.repo.executeWikiMaintenance(c,ctx);\nconst snapshot=(f:F)=>Object.fromEntries([\"knowledge_source\",\"knowledge_wiki\",\"knowledge_lifecycle\",\"knowledge_lint\",\"knowledge_consumption\",\"quote_v1\",\"quote_check_report\",\"knowledge_seq\",\"knowledge_maintenance_issue\",\"knowledge_impact_report\",\"knowledge_impact_item\",\"knowledge_index_status\",\"knowledge_index_rebuild\",\"outbox\",\"idempotency\"].map(t=>[t,f.db.prepare(`SELECT * FROM ${t} ORDER BY rowid`).all()]));\nconst sourceSubject=(f:F)=>({target:{kind:\"source\",sourceId:f.source.sourceId,sourceRevisionId:f.source.sourceRevisionId,artifactHash:f.source.artifactHash},reason:\"withdrawn\",replacementRevisionId:null});\nconst withdrawal=(f:F)=>command(\"source.withdraw\",{sourceRevisionId:f.source.sourceRevisionId,expectedLifecycleVersion:1,note:\"synthetic withdrawal\"});\nconst queue=(f:F,q:any={kinds:[],states:[],limit:100,cursor:null})=>maintain(f,read(\"wiki.getMaintenance\",q));\nasync function issueFixture(){const f=await fixture();body(await maintain(f,withdrawal(f)));const issue=body(await queue(f)).page.issues[0];return{f,issue};}\nasync function publish(f:F){const a=await f.approve();data(await f.repo.executeWiki(command(\"wiki.publish\",{...f.binding,reviewId:a.reviewId,expectedLifecycleVersion:2}),f.context));return{...f.binding,documentId:f.revision.documentId,version:f.revision.version,sectionId:f.revision.content.sections[0].sectionId,sourceRefs:f.revision.content.sourceRefs};}\nasync function operation(method:string){\n if(method===\"source.withdraw\"){const f=await fixture();return{f,cmd:withdrawal(f)};}\n if(method===\"wiki.resolveMaintenance\"){const{f,issue}=await issueFixture();return{f,cmd:command(method,{issueId:issue.issueId,expectedIssueVersion:1,action:\"start_review\",note:\"synthetic review\",evidenceIds:issue.evidenceIds})};}\n const f=await fixture();if(method===\"wiki.analyzeImpact\")return{f,cmd:command(method,sourceSubject(f))};\n const s=body(await maintain(f,read(\"wiki.getIndexStatus\",{index:\"keyword\"}))).status;return{f,cmd:command(method,{index:\"keyword\",expectedGeneration:s.generation,expectedAuthoritativeSeq:s.authoritativeSeq})};\n}\nit(\"control: OCC refusal, real withdrawal, new citation/consumption refusal and historical consumption retained\",async()=>{\n const f=await fixture(),citation=await publish(f),quote=createSyntheticQuote(f.repo);\n const cmd=command(\"wiki.registerConsumption\",{consumer:{kind:\"quote\",entityId:quote.id,revisionId:quote.id,contentHash:createHash(\"sha256\").update(JSON.stringify(quote)).digest(\"hex\")},citations:[citation]});\n const first=await f.repo.executeWiki(cmd,f.context);expect(first.ok).toBe(true);const old=snapshot(f),wd=withdrawal(f);\n expect(await maintain(f,{...wd,payload:{...wd.payload,expectedLifecycleVersion:99}})).toMatchObject({ok:false,error:{code:\"REVISION_CONFLICT\"}});expect(snapshot(f)).toEqual(old);\n const withdrawn=body(await maintain(f,wd));expect(withdrawn.state.lifecycleVersion).toBe(2);\n const hist=WikiResultSchema.parse(await f.repo.executeWiki(read(\"wiki.resolveCitation\",{citation,purpose:\"history\"}),f.context));expect(hist).toMatchObject({ok:true,data:{resolution:{eligibility:{eligible:false}}}});\n expect(await f.repo.executeWiki(read(\"wiki.resolveCitation\",{citation,purpose:\"new_reference\"}),f.context)).toMatchObject({ok:false});\n const before=snapshot(f);expect(await f.repo.executeWiki({...cmd,idempotencyKey:randomUUID()},f.context)).toMatchObject({ok:false,error:{code:\"SOURCE_CONFLICT\"}});expect(snapshot(f)).toEqual(before);\n expect(await f.repo.executeWiki(read(\"wiki.getConsumption\",{kind:\"quote\",revisionId:quote.id}),f.context)).toEqual(first);expect(await f.repo.executeWiki({...cmd,requestId:randomUUID()},f.context)).toEqual(first);expect(snapshot(f)).toEqual(before);\n});\nit(\"control: maintenance OCC and origin refusal retain facts\",async()=>{const{f,issue}=await issueFixture();const cmd=command(\"wiki.resolveMaintenance\",{issueId:issue.issueId,expectedIssueVersion:99,action:\"start_review\",note:\"synthetic\",evidenceIds:issue.evidenceIds});const before=snapshot(f);expect(await maintain(f,cmd)).toMatchObject({ok:false,error:{code:\"REVISION_CONFLICT\"}});expect(await maintain(f,{...cmd,payload:{...cmd.payload,expectedIssueVersion:1}},{...f.context,origin:\"agent_tool\"})).toMatchObject({ok:false,error:{code:\"ACTION_NOT_ALLOWED\"}});expect(snapshot(f)).toEqual(before);});\nit(\"control: valid impact target and stored page satisfy public exchange\",async()=>{const f=await fixture(),report=body(await maintain(f,command(\"wiki.analyzeImpact\",sourceSubject(f)))).report;const query={reportId:report.reportId,limit:100,cursor:null};const page=body(await maintain(f,read(\"wiki.getImpact\",query))).page;expect(report.status).toBe(\"completed\");expect(report.totalItems).toBe(1);expect(KnowledgeImpactExchangeSchema.safeParse({query,page}).success).toBe(true);});\nit(\"control: index metadata OCC and stale detection after new authoritative source\",async()=>{const{f,cmd}=await operation(\"wiki.rebuildIndex\");const rebuilt=body(await maintain(f,cmd)).rebuild;expect(rebuilt.result.state).toBe(\"ready\");data(await f.repo.executeWiki(command(\"source.stage\",{...f.payload,expectedVersion:1,sourceText:\"new synthetic source\"}),f.context));const status=body(await maintain(f,read(\"wiki.getIndexStatus\",{index:\"keyword\"}))).status;expect(status.state).toBe(\"stale\");expect(status.indexedSeq).toBeLessThan(status.authoritativeSeq);const before=snapshot(f);expect(await maintain(f,command(\"wiki.rebuildIndex\",cmd.payload))).toMatchObject({ok:false,error:{code:\"REVISION_CONFLICT\"}});expect(snapshot(f)).toEqual(before);});\nfor(const method of [\"source.withdraw\",\"wiki.analyzeImpact\",\"wiki.rebuildIndex\"])it(`control: ${method} late storage failure rolls all facts back`,async()=>{const{f,cmd}=await operation(method);const before=snapshot(f);const target=method===\"wiki.analyzeImpact\"?\"ON knowledge_impact_item\":\"ON outbox\";f.db.exec(`CREATE TRIGGER b_late BEFORE INSERT ${target} BEGIN SELECT RAISE(ABORT,'synthetic late failure'); END;`);expect(await maintain(f,cmd)).toMatchObject({ok:false,error:{code:\"STORAGE_ERROR\"}});expect(snapshot(f)).toEqual(before);});\nfor(const method of [\"source.withdraw\",\"wiki.resolveMaintenance\",\"wiki.analyzeImpact\",\"wiki.rebuildIndex\"])it(`M01 ${method}: same-key replay returns first result/time without writes`,async()=>{const{f,cmd}=await operation(method);const first=await maintain(f,cmd);expect(first.ok).toBe(true);const before=snapshot(f);const replay=await maintain(f,{...cmd,requestId:randomUUID()},{...f.context,now:LATER});console.log(\"B_MAINT_REPLAY\",JSON.stringify({method,ok:replay.ok,code:replay.ok?null:replay.error.code,unchanged:JSON.stringify(before)===JSON.stringify(snapshot(f))}));expect(replay).toEqual(first);expect(snapshot(f)).toEqual(before);});\nit(\"M02: a used key cannot withdraw a different source\",async()=>{const f=await fixture(),cmd=withdrawal(f);body(await maintain(f,cmd));const source=data(await f.repo.executeWiki(command(\"source.stage\",{...f.payload,sourceId:randomUUID(),expectedVersion:0}),f.context));if(source.kind!==\"sourceRevision\")throw Error(\"fixture\");const before=snapshot(f);expect(await maintain(f,{...cmd,payload:{...cmd.payload,sourceRevisionId:source.revision.sourceRevisionId}})).toMatchObject({ok:false,error:{code:\"IDEMPOTENCY_CONFLICT\"}});expect(snapshot(f)).toEqual(before);});\nasync function twoIssues(){const f=await fixture();body(await maintain(f,withdrawal(f)));const second=data(await f.repo.executeWiki(command(\"source.stage\",{...f.payload,sourceId:randomUUID(),expectedVersion:0}),f.context));if(second.kind!==\"sourceRevision\")throw Error(\"fixture\");body(await maintain(f,command(\"source.withdraw\",{sourceRevisionId:second.revision.sourceRevisionId,expectedLifecycleVersion:1,note:\"second synthetic withdrawal\"})));return f;}\nit(\"M03: page cursor cannot change its query hash/filter\",async()=>{const f=await twoIssues(),first=body(await queue(f,{kinds:[],states:[],limit:1,cursor:null})).page;const query={kinds:[\"expired\"],states:[],limit:1,cursor:first.nextCursor};const r=await queue(f,query);expect(!r.ok||MaintenanceExchangeSchema.safeParse({query,page:r.ok?(r.data as any).page:null}).success).toBe(true);});\nit(\"M04: page snapshot stays fixed or explicitly expires after a concurrent issue transition\",async()=>{const f=await twoIssues(),all=body(await queue(f)).page.issues,first=body(await queue(f,{kinds:[],states:[\"open\"],limit:1,cursor:null})).page;const second=all.find((x:any)=>x.issueId>first.issues[0].issueId)!;body(await maintain(f,command(\"wiki.resolveMaintenance\",{issueId:second.issueId,expectedIssueVersion:1,action:\"start_review\",note:\"synthetic concurrent review\",evidenceIds:second.evidenceIds})));const r=await queue(f,{kinds:[],states:[\"open\"],limit:1,cursor:first.nextCursor});if(!r.ok){expect(r.error.code).toBe(\"REVISION_CONFLICT\");return;}expect((r.data as any).page.issues).toContainEqual(second);});\nit(\"M05: resolve cannot claim completion with an unknown evidence UUID\",async()=>{const{f,issue}=await issueFixture(),before=snapshot(f);const r=await maintain(f,command(\"wiki.resolveMaintenance\",{issueId:issue.issueId,expectedIssueVersion:1,action:\"resolve\",note:\"synthetic missing execution evidence\",evidenceIds:[randomUUID()]}));expect(r.ok).toBe(false);expect(snapshot(f)).toEqual(before);});\nit(\"M06: impact target identity/hash must match the saved source revision\",async()=>{const f=await fixture(),subject=sourceSubject(f);const r=await maintain(f,command(\"wiki.analyzeImpact\",{...subject,target:{...subject.target,sourceId:randomUUID(),artifactHash:\"f\".repeat(64)}}));console.log(\"B_IMPACT_FORGED\",JSON.stringify(r));expect(r.ok).toBe(false);});\nit(\"M07: withdrawing v1 does not include knowledge pinned only to active v2\",async()=>{const f=await fixture();const source=data(await f.repo.executeWiki(command(\"source.stage\",{...f.payload,expectedVersion:1,sourceText:\"v2 synthetic source\"}),f.context));if(source.kind!==\"sourceRevision\")throw Error(\"fixture\");const s=source.revision;const ref={...f.revision.content.sourceRefs[0],referenceId:randomUUID(),sourceRevisionId:s.sourceRevisionId,sourceVersion:s.version,artifactHash:s.artifactHash,excerptHash:s.artifactHash,location:{kind:\"text\",start:0,end:s.sourceText.length}};const second=data(await f.repo.executeWiki(command(\"wiki.stage\",{documentId:randomUUID(),expectedVersion:0,parentRevisionId:null,content:{...f.revision.content,sections:f.revision.content.sections.map(x=>({...x,sourceReferenceIds:[ref.referenceId]})),sourceRefs:[ref]}}),f.context));if(second.kind!==\"wikiRevision\")throw Error(\"fixture\");body(await maintain(f,withdrawal(f)));const report=body(await maintain(f,command(\"wiki.analyzeImpact\",sourceSubject(f)))).report;const page=body(await maintain(f,read(\"wiki.getImpact\",{reportId:report.reportId,limit:100,cursor:null}))).page;expect(page.items.filter((i:any)=>i.target.kind===\"knowledge\").map((i:any)=>i.target.revisionId)).toEqual([f.revision.revisionId]);});\nit(\"M08: getImpact must not hide missing stored items behind a completed nonzero total\",async()=>{const f=await fixture(),report=body(await maintain(f,command(\"wiki.analyzeImpact\",sourceSubject(f)))).report;f.db.prepare(\"DELETE FROM knowledge_impact_item WHERE report_id=?\").run(report.reportId);const query={reportId:report.reportId,limit:100,cursor:null};const r=await maintain(f,read(\"wiki.getImpact\",query));expect(!r.ok||KnowledgeImpactExchangeSchema.safeParse({query,page:r.ok?(r.data as any).page:null}).success).toBe(true);});\nit(\"M09: rebuild receipt binds the original operation key\",async()=>{const{f,cmd}=await operation(\"wiki.rebuildIndex\");const rebuild=body(await maintain(f,cmd)).rebuild;expect(rebuild.operationKey).toBe(cmd.idempotencyKey);});\n",
+    "configUtf8": "import {defineConfig} from \"vitest/config\";\nexport default defineConfig({test:{include:[\".runtime/b-maintenance.test.ts\"],environment:\"node\"}});\n",
+    "meaning": "First 19-case run contains one invalid-control input: citation reads omitted required scope/locale. Its 13 failed includes this harness case; do not count it as a product defect. Original product assertions retained."
+  },
+  "review": "changes_required",
+  "summary": {
+    "regression": {
+      "files": 7,
+      "passed": 123,
+      "failed": 0,
+      "exitCode": 0
+    },
+    "typecheck": {
+      "exitCode": 0
+    },
+    "probe": {
+      "total": 19,
+      "passedControls": 7,
+      "failedProductAssertions": 12,
+      "exitCode": 1
+    },
+    "initialProbe": {
+      "passed": 6,
+      "failed": 13,
+      "harnessInvalidControl": 1,
+      "note": "missing required scope/locale fixed only in control request; old attempt preserved"
+    },
+    "engineering": {
+      "exitCode": 1,
+      "diagnostics": 3,
+      "files": [
+        "packages/infrastructure/src/wiki-store.ts",
+        "packages/infrastructure/src/wiki-store.test.ts"
+      ],
+      "reason": "organizeImports and format; subsequent && checks not executed"
+    },
+    "fixedABaselineWiki": {
+      "readonly": 1,
+      "lint": 1,
+      "sync": 0,
+      "reason": "four generated snapshots stale; sync against082 passes but does not prove semantics"
+    },
+    "notAcceptance": [
+      "not macOS/desktop",
+      "not C original scripts or full migration matrix",
+      "not formal import/quote/m²/mixed currency or business/human signoff"
+    ],
+    "BMaterialWiki": {
+      "generate": 0,
+      "readonly": 0,
+      "lint": 0,
+      "sync": 0,
+      "base": "267f087490046955a0b4b1e6183caa163cc177c3",
+      "note": "After mechanical regeneration in B materials; original A267 drift failures preserved separately"
+    }
+  },
+  "diffCommand": "git diff 0827476312efabf70a08693da984ea41330fa286...267f087490046955a0b4b1e6183caa163cc177c3",
+  "commitList": "267f087 docs(a): record A01e 8 maintenance methods push receipt\ndac69db feat: implement A01e 8 maintenance methods + knowledge-wiki:9 migration",
+  "probe": {
+    "scriptUtf8": "import { createHash } from \"node:crypto\";\nimport { KnowledgeMaintenanceResultSchema, MaintenanceExchangeSchema, KnowledgeImpactExchangeSchema } from \"../packages/contracts/src/index\";\nimport { createSyntheticQuote } from \"../packages/infrastructure/src/wiki-test.fixture\";\nimport { randomUUID } from \"node:crypto\";\nimport { mkdtempSync, rmSync } from \"node:fs\";\nimport { tmpdir } from \"node:os\";\nimport { join } from \"node:path\";\nimport { KnowledgeLintReportSchema, WikiLintReceiptSchema, WikiResultSchema, type WikiRevision, type WikiSourceRevision } from \"../packages/contracts/src/index\";\nimport {createRequire} from \"node:module\";\nconst Database = createRequire(new URL(\"../packages/infrastructure/package.json\", import.meta.url))(\"better-sqlite3\");\nimport { afterEach, expect, it } from \"vitest\";\nimport { SqliteWorkspaceRepository } from \"../packages/infrastructure/src/index\";\nconst NOW=\"2026-10-27T00:00:00.000Z\", LATER=\"2026-10-27T00:00:02.000Z\";\nconst valid={status:\"confirmed\" as const,validFrom:null,validUntil:null};\nconst dispose:(()=>void)[]=[];\nafterEach(()=>{for(const close of dispose.splice(0).reverse())close();});\nconst command=(method:string,payload:unknown)=>({schemaVersion:1,requestId:randomUUID(),idempotencyKey:randomUUID(),method,payload});\nfunction data(input:unknown){const r=WikiResultSchema.parse(input);if(!r.ok)throw Error(r.error.message);return r.data;}\nasync function fixture(expires:string|null=null){\n const dir=mkdtempSync(join(tmpdir(),\"c-p1-probe-\"));dispose.push(()=>rmSync(dir,{recursive:true,force:true}));\n const file=join(dir,\"synthetic.sqlite\"),repo=new SqliteWorkspaceRepository(file);dispose.push(()=>repo.close());\n repo.commit(command(\"workspace.create\",{name:\"合成P1边界\"}) as never,{actorId:\"synthetic-human\",origin:\"human_ui\"});\n const context={workspaceId:repo.read()!.id,actorId:\"synthetic-human\",origin:\"human_ui\" as const,now:NOW};\n const payload={sourceId:randomUUID(),expectedVersion:0,label:\"合成资料\",sourceStatus:\"synthetic\",mediaType:\"text/plain\",sourceText:\"Synthetic source\",acquiredAt:NOW,sourceUri:null,permissionNote:\"synthetic only\",validity:{...valid,validUntil:expires}};\n const sourceData=data(await repo.executeWiki(command(\"source.stage\",payload),context));if(sourceData.kind!==\"sourceRevision\")throw Error(\"source fixture\");\n const source:WikiSourceRevision=sourceData.revision,ref={referenceId:randomUUID(),sourceId:source.sourceId,sourceRevisionId:source.sourceRevisionId,sourceVersion:source.version,artifactHash:source.artifactHash,location:{kind:\"text\",start:0,end:source.sourceText.length},excerptHash:source.artifactHash,assertion:\"fact\"};\n const markdown=\"# Synthetic candidate\",sectionId=randomUUID();\n const wiki=data(await repo.executeWiki(command(\"wiki.stage\",{documentId:randomUUID(),expectedVersion:0,parentRevisionId:null,content:{kind:\"sop\",title:\"合成知识\",locale:\"en\",scope:{platforms:[],markets:[],categories:[]},markdown,validity:valid,sections:[{sectionId,title:\"合成段落\",location:{kind:\"text\",start:0,end:markdown.length},sourceReferenceIds:[ref.referenceId]}],sourceRefs:[ref],relations:[],rules:[]}}),context));\n if(wiki.kind!==\"wikiRevision\")throw Error(\"wiki fixture\"); const revision:WikiRevision=wiki.record.revision;\n const db=new Database(file);dispose.push(()=>db.close());\n const binding={revisionId:revision.revisionId,contentHash:revision.contentHash,sourceSetHash:revision.sourceSetHash};\n return {repo,db,context,revision,source,payload,binding,async approve(){const receipt=repo.runWikiLint(revision.revisionId,context)!; const cmd=command(\"wiki.review\",{...binding,expectedLifecycleVersion:1,decision:\"approve\",note:\"synthetic technical review\",lintReceiptId:receipt.receiptId});const result=await repo.executeWiki(cmd,context);const d=data(result);if(d.kind!==\"wikiRevision\"||!d.record.lifecycle.review)throw Error(\"review fixture\");return {receipt,cmd,result,reviewId:d.record.lifecycle.review.reviewId};}};\n}\ntype F=Awaited<ReturnType<typeof fixture>>;\nconst read=(method:string,payload:unknown)=>({schemaVersion:1,requestId:randomUUID(),method,payload});\nfunction body(r:any):any{const p=KnowledgeMaintenanceResultSchema.parse(r);if(!p.ok)throw Error(p.error.message);return p.data;}\nconst maintain=(f:F,c:any,ctx=f.context)=>f.repo.executeWikiMaintenance(c,ctx);\nconst snapshot=(f:F)=>Object.fromEntries([\"knowledge_source\",\"knowledge_wiki\",\"knowledge_lifecycle\",\"knowledge_lint\",\"knowledge_consumption\",\"quote_v1\",\"quote_check_report\",\"knowledge_seq\",\"knowledge_maintenance_issue\",\"knowledge_impact_report\",\"knowledge_impact_item\",\"knowledge_index_status\",\"knowledge_index_rebuild\",\"outbox\",\"idempotency\"].map(t=>[t,f.db.prepare(`SELECT * FROM ${t} ORDER BY rowid`).all()]));\nconst sourceSubject=(f:F)=>({target:{kind:\"source\",sourceId:f.source.sourceId,sourceRevisionId:f.source.sourceRevisionId,artifactHash:f.source.artifactHash},reason:\"withdrawn\",replacementRevisionId:null});\nconst withdrawal=(f:F)=>command(\"source.withdraw\",{sourceRevisionId:f.source.sourceRevisionId,expectedLifecycleVersion:1,note:\"synthetic withdrawal\"});\nconst queue=(f:F,q:any={kinds:[],states:[],limit:100,cursor:null})=>maintain(f,read(\"wiki.getMaintenance\",q));\nasync function issueFixture(){const f=await fixture();body(await maintain(f,withdrawal(f)));const issue=body(await queue(f)).page.issues[0];return{f,issue};}\nasync function publish(f:F){const a=await f.approve();data(await f.repo.executeWiki(command(\"wiki.publish\",{...f.binding,reviewId:a.reviewId,expectedLifecycleVersion:2}),f.context));return{...f.binding,documentId:f.revision.documentId,version:f.revision.version,sectionId:f.revision.content.sections[0].sectionId,sourceRefs:f.revision.content.sourceRefs};}\nasync function operation(method:string){\n if(method===\"source.withdraw\"){const f=await fixture();return{f,cmd:withdrawal(f)};}\n if(method===\"wiki.resolveMaintenance\"){const{f,issue}=await issueFixture();return{f,cmd:command(method,{issueId:issue.issueId,expectedIssueVersion:1,action:\"start_review\",note:\"synthetic review\",evidenceIds:issue.evidenceIds})};}\n const f=await fixture();if(method===\"wiki.analyzeImpact\")return{f,cmd:command(method,sourceSubject(f))};\n const s=body(await maintain(f,read(\"wiki.getIndexStatus\",{index:\"keyword\"}))).status;return{f,cmd:command(method,{index:\"keyword\",expectedGeneration:s.generation,expectedAuthoritativeSeq:s.authoritativeSeq})};\n}\nit(\"control: OCC refusal, real withdrawal, new citation/consumption refusal and historical consumption retained\",async()=>{\n const f=await fixture(),citation=await publish(f),quote=createSyntheticQuote(f.repo);\n const cmd=command(\"wiki.registerConsumption\",{consumer:{kind:\"quote\",entityId:quote.id,revisionId:quote.id,contentHash:createHash(\"sha256\").update(JSON.stringify(quote)).digest(\"hex\")},citations:[citation]});\n const first=await f.repo.executeWiki(cmd,f.context);expect(first.ok).toBe(true);const old=snapshot(f),wd=withdrawal(f);\n expect(await maintain(f,{...wd,payload:{...wd.payload,expectedLifecycleVersion:99}})).toMatchObject({ok:false,error:{code:\"REVISION_CONFLICT\"}});expect(snapshot(f)).toEqual(old);\n const withdrawn=body(await maintain(f,wd));expect(withdrawn.state.lifecycleVersion).toBe(2);\n const hist=WikiResultSchema.parse(await f.repo.executeWiki(read(\"wiki.resolveCitation\",{citation,purpose:\"history\",scope:{platform:\"synthetic\",market:\"synthetic\",category:\"synthetic\"},locale:\"en\"}),f.context));expect(hist).toMatchObject({ok:true,data:{resolution:{eligibility:{eligible:false}}}});\n expect(await f.repo.executeWiki(read(\"wiki.resolveCitation\",{citation,purpose:\"new_reference\",scope:{platform:\"synthetic\",market:\"synthetic\",category:\"synthetic\"},locale:\"en\"}),f.context)).toMatchObject({ok:false});\n const before=snapshot(f);expect(await f.repo.executeWiki({...cmd,idempotencyKey:randomUUID()},f.context)).toMatchObject({ok:false,error:{code:\"SOURCE_CONFLICT\"}});expect(snapshot(f)).toEqual(before);\n expect(await f.repo.executeWiki(read(\"wiki.getConsumption\",{kind:\"quote\",revisionId:quote.id}),f.context)).toEqual(first);expect(await f.repo.executeWiki({...cmd,requestId:randomUUID()},f.context)).toEqual(first);expect(snapshot(f)).toEqual(before);\n});\nit(\"control: maintenance OCC and origin refusal retain facts\",async()=>{const{f,issue}=await issueFixture();const cmd=command(\"wiki.resolveMaintenance\",{issueId:issue.issueId,expectedIssueVersion:99,action:\"start_review\",note:\"synthetic\",evidenceIds:issue.evidenceIds});const before=snapshot(f);expect(await maintain(f,cmd)).toMatchObject({ok:false,error:{code:\"REVISION_CONFLICT\"}});expect(await maintain(f,{...cmd,payload:{...cmd.payload,expectedIssueVersion:1}},{...f.context,origin:\"agent_tool\"})).toMatchObject({ok:false,error:{code:\"ACTION_NOT_ALLOWED\"}});expect(snapshot(f)).toEqual(before);});\nit(\"control: valid impact target and stored page satisfy public exchange\",async()=>{const f=await fixture(),report=body(await maintain(f,command(\"wiki.analyzeImpact\",sourceSubject(f)))).report;const query={reportId:report.reportId,limit:100,cursor:null};const page=body(await maintain(f,read(\"wiki.getImpact\",query))).page;expect(report.status).toBe(\"completed\");expect(report.totalItems).toBe(1);expect(KnowledgeImpactExchangeSchema.safeParse({query,page}).success).toBe(true);});\nit(\"control: index metadata OCC and stale detection after new authoritative source\",async()=>{const{f,cmd}=await operation(\"wiki.rebuildIndex\");const rebuilt=body(await maintain(f,cmd)).rebuild;expect(rebuilt.result.state).toBe(\"ready\");data(await f.repo.executeWiki(command(\"source.stage\",{...f.payload,expectedVersion:1,sourceText:\"new synthetic source\"}),f.context));const status=body(await maintain(f,read(\"wiki.getIndexStatus\",{index:\"keyword\"}))).status;expect(status.state).toBe(\"stale\");expect(status.indexedSeq).toBeLessThan(status.authoritativeSeq);const before=snapshot(f);expect(await maintain(f,command(\"wiki.rebuildIndex\",cmd.payload))).toMatchObject({ok:false,error:{code:\"REVISION_CONFLICT\"}});expect(snapshot(f)).toEqual(before);});\nfor(const method of [\"source.withdraw\",\"wiki.analyzeImpact\",\"wiki.rebuildIndex\"])it(`control: ${method} late storage failure rolls all facts back`,async()=>{const{f,cmd}=await operation(method);const before=snapshot(f);const target=method===\"wiki.analyzeImpact\"?\"ON knowledge_impact_item\":\"ON outbox\";f.db.exec(`CREATE TRIGGER b_late BEFORE INSERT ${target} BEGIN SELECT RAISE(ABORT,'synthetic late failure'); END;`);expect(await maintain(f,cmd)).toMatchObject({ok:false,error:{code:\"STORAGE_ERROR\"}});expect(snapshot(f)).toEqual(before);});\nfor(const method of [\"source.withdraw\",\"wiki.resolveMaintenance\",\"wiki.analyzeImpact\",\"wiki.rebuildIndex\"])it(`M01 ${method}: same-key replay returns first result/time without writes`,async()=>{const{f,cmd}=await operation(method);const first=await maintain(f,cmd);expect(first.ok).toBe(true);const before=snapshot(f);const replay=await maintain(f,{...cmd,requestId:randomUUID()},{...f.context,now:LATER});console.log(\"B_MAINT_REPLAY\",JSON.stringify({method,ok:replay.ok,code:replay.ok?null:replay.error.code,unchanged:JSON.stringify(before)===JSON.stringify(snapshot(f))}));expect(replay).toEqual(first);expect(snapshot(f)).toEqual(before);});\nit(\"M02: a used key cannot withdraw a different source\",async()=>{const f=await fixture(),cmd=withdrawal(f);body(await maintain(f,cmd));const source=data(await f.repo.executeWiki(command(\"source.stage\",{...f.payload,sourceId:randomUUID(),expectedVersion:0}),f.context));if(source.kind!==\"sourceRevision\")throw Error(\"fixture\");const before=snapshot(f);expect(await maintain(f,{...cmd,payload:{...cmd.payload,sourceRevisionId:source.revision.sourceRevisionId}})).toMatchObject({ok:false,error:{code:\"IDEMPOTENCY_CONFLICT\"}});expect(snapshot(f)).toEqual(before);});\nasync function twoIssues(){const f=await fixture();body(await maintain(f,withdrawal(f)));const second=data(await f.repo.executeWiki(command(\"source.stage\",{...f.payload,sourceId:randomUUID(),expectedVersion:0}),f.context));if(second.kind!==\"sourceRevision\")throw Error(\"fixture\");body(await maintain(f,command(\"source.withdraw\",{sourceRevisionId:second.revision.sourceRevisionId,expectedLifecycleVersion:1,note:\"second synthetic withdrawal\"})));return f;}\nit(\"M03: page cursor cannot change its query hash/filter\",async()=>{const f=await twoIssues(),first=body(await queue(f,{kinds:[],states:[],limit:1,cursor:null})).page;const query={kinds:[\"expired\"],states:[],limit:1,cursor:first.nextCursor};const r=await queue(f,query);expect(!r.ok||MaintenanceExchangeSchema.safeParse({query,page:r.ok?(r.data as any).page:null}).success).toBe(true);});\nit(\"M04: page snapshot stays fixed or explicitly expires after a concurrent issue transition\",async()=>{const f=await twoIssues(),all=body(await queue(f)).page.issues,first=body(await queue(f,{kinds:[],states:[\"open\"],limit:1,cursor:null})).page;const second=all.find((x:any)=>x.issueId>first.issues[0].issueId)!;body(await maintain(f,command(\"wiki.resolveMaintenance\",{issueId:second.issueId,expectedIssueVersion:1,action:\"start_review\",note:\"synthetic concurrent review\",evidenceIds:second.evidenceIds})));const r=await queue(f,{kinds:[],states:[\"open\"],limit:1,cursor:first.nextCursor});if(!r.ok){expect(r.error.code).toBe(\"REVISION_CONFLICT\");return;}expect((r.data as any).page.issues).toContainEqual(second);});\nit(\"M05: resolve cannot claim completion with an unknown evidence UUID\",async()=>{const{f,issue}=await issueFixture(),before=snapshot(f);const r=await maintain(f,command(\"wiki.resolveMaintenance\",{issueId:issue.issueId,expectedIssueVersion:1,action:\"resolve\",note:\"synthetic missing execution evidence\",evidenceIds:[randomUUID()]}));expect(r.ok).toBe(false);expect(snapshot(f)).toEqual(before);});\nit(\"M06: impact target identity/hash must match the saved source revision\",async()=>{const f=await fixture(),subject=sourceSubject(f);const r=await maintain(f,command(\"wiki.analyzeImpact\",{...subject,target:{...subject.target,sourceId:randomUUID(),artifactHash:\"f\".repeat(64)}}));console.log(\"B_IMPACT_FORGED\",JSON.stringify(r));expect(r.ok).toBe(false);});\nit(\"M07: withdrawing v1 does not include knowledge pinned only to active v2\",async()=>{const f=await fixture();const source=data(await f.repo.executeWiki(command(\"source.stage\",{...f.payload,expectedVersion:1,sourceText:\"v2 synthetic source\"}),f.context));if(source.kind!==\"sourceRevision\")throw Error(\"fixture\");const s=source.revision;const ref={...f.revision.content.sourceRefs[0],referenceId:randomUUID(),sourceRevisionId:s.sourceRevisionId,sourceVersion:s.version,artifactHash:s.artifactHash,excerptHash:s.artifactHash,location:{kind:\"text\",start:0,end:s.sourceText.length}};const second=data(await f.repo.executeWiki(command(\"wiki.stage\",{documentId:randomUUID(),expectedVersion:0,parentRevisionId:null,content:{...f.revision.content,sections:f.revision.content.sections.map(x=>({...x,sourceReferenceIds:[ref.referenceId]})),sourceRefs:[ref]}}),f.context));if(second.kind!==\"wikiRevision\")throw Error(\"fixture\");body(await maintain(f,withdrawal(f)));const report=body(await maintain(f,command(\"wiki.analyzeImpact\",sourceSubject(f)))).report;const page=body(await maintain(f,read(\"wiki.getImpact\",{reportId:report.reportId,limit:100,cursor:null}))).page;expect(page.items.filter((i:any)=>i.target.kind===\"knowledge\").map((i:any)=>i.target.revisionId)).toEqual([f.revision.revisionId]);});\nit(\"M08: getImpact must not hide missing stored items behind a completed nonzero total\",async()=>{const f=await fixture(),report=body(await maintain(f,command(\"wiki.analyzeImpact\",sourceSubject(f)))).report;f.db.prepare(\"DELETE FROM knowledge_impact_item WHERE report_id=?\").run(report.reportId);const query={reportId:report.reportId,limit:100,cursor:null};const r=await maintain(f,read(\"wiki.getImpact\",query));expect(!r.ok||KnowledgeImpactExchangeSchema.safeParse({query,page:r.ok?(r.data as any).page:null}).success).toBe(true);});\nit(\"M09: rebuild receipt binds the original operation key\",async()=>{const{f,cmd}=await operation(\"wiki.rebuildIndex\");const rebuild=body(await maintain(f,cmd)).rebuild;expect(rebuild.operationKey).toBe(cmd.idempotencyKey);});\n",
+    "configUtf8": "import {defineConfig} from \"vitest/config\";\nexport default defineConfig({test:{include:[\".runtime/b-maintenance.test.ts\"],environment:\"node\"}});\n",
+    "restoreScriptPath": ".runtime/b-maintenance.test.ts",
+    "restoreConfigPath": ".runtime/b-maintenance.config.ts",
+    "scriptSha256": "f03cdd416cfd5488a13711968b53c3c15914b9bf7e7d696076ac7335bbaa19e5",
+    "configSha256": "8d3776a326b0d27dc699261c1c04499a2eeef889f12ca8f7389f131894e8a36e"
+  },
+  "runnerUtf8": "const fs=require('node:fs'),cp=require('node:child_process'),path=require('node:path'),crypto=require('node:crypto'),os=require('node:os');\nconst base='267f087490046955a0b4b1e6183caa163cc177c3',raw='wiki-project/raw/b-267-maintenance-review.json';\nconst git=(...a)=>cp.execFileSync('git',a,{maxBuffer:64*1024*1024});const sha=b=>crypto.createHash('sha256').update(b).digest('hex');\nconst files=['packages/contracts/src/knowledge-maintenance.test.ts','packages/contracts/src/knowledge-lint-review.test.ts','packages/contracts/src/knowledge-wiki.test.ts','packages/infrastructure/src/wiki-store.test.ts','packages/infrastructure/src/check-store.test.ts','packages/infrastructure/src/check-lineage-integration.test.ts','packages/infrastructure/src/wiki-check-integration.test.ts'];\nconst sources=[...files,'packages/domain/src/wiki-maintenance.ts','packages/infrastructure/src/wiki-store.ts','packages/infrastructure/src/migrations.ts','packages/infrastructure/src/migration-lineage.ts','packages/contracts/src/knowledge-maintenance.ts','pnpm-lock.yaml'];\nlet e=fs.existsSync(raw)?JSON.parse(fs.readFileSync(raw)):{status:'in_progress',date:'2026-10-30',taskBase:base,testedCodeSha:base,diffBase:'0827476312efabf70a08693da984ea41330fa286',implementation:'dac69db',environment:{platform:process.platform,arch:process.arch,os:os.release(),node:process.version,pnpm:'10.13.1'},preparation:{command:'pnpm install --frozen-lockfile --offline --ignore-scripts',exitCode:0,node:'24.21.0',engineWarning:true},checks:[],overallJointAcceptance:false,notRun:['C original blocker scripts/new migration matrix and populated database combination independent verification','macOS Electron desktop wiring and regression, full migration M/F/J','formal CSV import/quote acceptance, m² and mixed-currency paths, demonstration closure','human/personnel/business acceptance','full unit/maintenance-tool regression: no tools or coverage mapping change by B']};\nconst tmp=path.resolve('.runtime/test-temp');fs.mkdirSync(tmp,{recursive:true});\nfunction run(name,exe,args,env={}){const startedAt=new Date().toISOString();const r=cp.spawnSync(exe,args,{encoding:'utf8',maxBuffer:40*1024*1024,env:{...process.env,Path:path.dirname(process.execPath)+';'+process.env.Path,TMP:tmp,TEMP:tmp,GIT_CEILING_DIRECTORIES:tmp,...env}});e.checks.push({name,exe,args,environment:{TMP:tmp,TEMP:tmp,...env},startedAt,finishedAt:new Date().toISOString(),exitCode:r.status,stdout:r.stdout,stderr:r.stderr,error:r.error?.message,head:git('rev-parse','HEAD').toString().trim(),sourceHashes:Object.fromEntries(sources.map(p=>[p,sha(fs.readFileSync(p))])),sourceChangesFromFixedCode:git('diff',base,'--name-only','--','packages','apps','scripts','tests','package.json','pnpm-lock.yaml').toString().trim()});fs.writeFileSync(raw,JSON.stringify(e,null,2)+'\\n');console.log(name,r.status,(r.stdout||'').slice(-2600),(r.stderr||'').slice(-1500));return r;}\nconst phase=process.argv[2];const electron=()=>require('node:module').createRequire(path.resolve('apps/desktop/package.json'))('electron');\nif(phase==='targeted')run('B selected contract and report-consumption regression',electron(),['node_modules/vitest/vitest.mjs','run',...files],{ELECTRON_RUN_AS_NODE:'1'});\nif(phase==='probe')run('B maintenance semantics probe',electron(),['node_modules/vitest/vitest.mjs','run','--config','.runtime/b-maintenance.config.ts'],{ELECTRON_RUN_AS_NODE:'1'});\nif(phase==='typecheck')run('typecheck',process.execPath,['node_modules/typescript/bin/tsc','--noEmit']);\nif(phase==='engineering')run('pnpm check','cmd.exe',['/d','/s','/c','pnpm check']);\nif(phase==='identity')run('native identity',electron(),['-e',`const D=require('node:module').createRequire(process.cwd()+'/packages/infrastructure/package.json')('better-sqlite3'),d=new D(':memory:');console.log(JSON.stringify({electron:process.versions.electron,node:process.version,sqlite:d.prepare('select sqlite_version() as version').get(),platform:process.platform,arch:process.arch}));d.close();`],{ELECTRON_RUN_AS_NODE:'1'});\nif(phase==='baseline')for(const[n,a]of [['readonly',['wiki-project/scripts/build-code-index.mjs','.','--check']],['lint',['wiki-project/scripts/lint-wiki.mjs','.']],['sync',['wiki-project/scripts/check-wiki-sync.mjs','.','--base','0827476312efabf70a08693da984ea41330fa286']]])run('A fixed baseline wiki '+n,process.execPath,a);\nif(phase==='wiki')for(const[n,a]of [['generate',['wiki-project/scripts/build-code-index.mjs','.']],['readonly',['wiki-project/scripts/build-code-index.mjs','.','--check']],['lint',['wiki-project/scripts/lint-wiki.mjs','.']],['sync',['wiki-project/scripts/check-wiki-sync.mjs','.','--base',base]]])run('wiki '+n,process.execPath,a);\n",
+  "runnerSha256": "a72355ef19cb74c4c3b0bd2d3cb6aa35e3d90c3d7394777e9dfd250cc34590c0",
+  "reviewAxes": {
+    "Standards": {
+      "hard": [
+        {
+          "priority": "P2",
+          "file": "wiki-project/wiki/A01c检索引用实现.md",
+          "line": 79,
+          "standard": "AGENTS.md P0 items1/5; CONTRIBUTING.md",
+          "finding": "New docs promise state/seq OCC and open→acknowledged→resolved; public/actual contract is expectedIssueVersion and open→in_progress→resolved/dismissed; fixed snapshot claim not implemented."
+        }
+      ],
+      "heuristic": [
+        {
+          "priority": "P3",
+          "file": "packages/infrastructure/src/wiki-store.ts",
+          "lines": [
+            1558,
+            1676,
+            1949
+          ],
+          "finding": "Possible duplicated payload types; domain already uses Extract<KnowledgeMaintenanceCommand,...>. No current field mismatch proven, nonblocking suggestion."
+        }
+      ]
+    },
+    "Spec": {
+      "groups": [
+        {
+          "id": "S1",
+          "priority": "P1",
+          "lines": "packages/domain/src/wiki-maintenance.ts:67-80",
+          "spec": "B00a知识整理与维护协议:58/100",
+          "cases": [
+            "M01 four methods",
+            "M02",
+            "M09"
+          ],
+          "finding": "New maintenance writes drop command idempotency identity; same-key retries conflict/create new report, changed target accepted; rebuild operationKey random."
+        },
+        {
+          "id": "S2",
+          "priority": "P1",
+          "lines": "packages/infrastructure/src/wiki-store.ts:1644-1654",
+          "spec": "B00a知识整理与维护协议:80",
+          "cases": [
+            "M03",
+            "M04"
+          ],
+          "finding": "Query hash not bound and list uses live rows under echoed snapshot UUID."
+        },
+        {
+          "id": "S3",
+          "priority": "P1",
+          "lines": "packages/infrastructure/src/wiki-store.ts:1708-1730",
+          "spec": "B00a知识整理与维护协议:80",
+          "cases": [
+            "M05"
+          ],
+          "finding": "Unknown evidence UUID accepted as real resolution evidence."
+        },
+        {
+          "id": "S4",
+          "priority": "P1",
+          "lines": "packages/infrastructure/src/wiki-store.ts:1750-1793/1879-1913",
+          "spec": "B00a知识整理与维护协议:84/86",
+          "cases": [
+            "M06",
+            "M07",
+            "M08"
+          ],
+          "finding": "Target identity/hash not verified, scan by sourceId mixes source revisions, missing persisted items can be returned as completed nonzero report with empty terminal page."
+        },
+        {
+          "id": "S5",
+          "priority": "P1",
+          "lines": "packages/infrastructure/src/wiki-store.ts:1979-2024",
+          "spec": "B00a知识整理与维护协议:88; KnowledgeIndexRebuildSchema",
+          "evidenceKind": "static code audit, not a simulated projection failure",
+          "finding": "Writes ready/completed status and ticket without constructing/validating/switching actual keyword/markdown projection."
+        }
+      ]
+    },
+    "agents": {
+      "Standards": "read-only subagent completed",
+      "Spec": "read-only subagent completed after retry following capacity error; all declared product probe findings independently rerun by primary"
+    }
+  },
+  "preservation": {
+    "oldNonGeneratedRaw": 314,
+    "changedOldRaw": [],
+    "oldLogBytes": 216443,
+    "oldLogExactPrefix": true,
+    "productionDiff": ""
+  },
+  "BMaterialWhitespaceCorrection": {
+    "initialExitCode": 1,
+    "paths": [
+      "wiki-project/CONTEXT.md",
+      "wiki-project/wiki/项目状态.md"
+    ],
+    "reason": "New date/status lines inherited CR at line end in mixed-line-ending files; normalize only new dated lines, preserve historical raw/log and existing text."
+  },
+  "productionDiff": "",
+  "generatedDriftAudit": {
+    "eolOnlyCount": 240,
+    "eolOnlyPaths": [
+      ".github/pull_request_template.md",
+      ".gitignore",
+      ".node-version",
+      "AGENTS.md",
+      "CONTRIBUTING.md",
+      "DESIGN.md",
+      "README.md",
+      "THIRD_PARTY_NOTICES.md",
+      "UPSTREAM.md",
+      "apps/desktop/components.json",
+      "apps/desktop/electron.vite.config.ts",
+      "apps/desktop/package.json",
+      "apps/desktop/resources/icon-manifest.json",
+      "apps/desktop/resources/icon.svg",
+      "apps/desktop/src/main/evaluation-host.test.ts",
+      "apps/desktop/src/main/evaluation-host.ts",
+      "apps/desktop/src/main/index.ts",
+      "apps/desktop/src/main/worker-client.test.ts",
+      "apps/desktop/src/main/worker-client.ts",
+      "apps/desktop/src/preload/contracts.test.ts",
+      "apps/desktop/src/preload/index.ts",
+      "apps/desktop/src/renderer/index.html",
+      "apps/desktop/src/renderer/src/App.tsx",
+      "apps/desktop/src/renderer/src/env.d.ts",
+      "apps/desktop/src/renderer/src/features/agent-runs.test.tsx",
+      "apps/desktop/src/renderer/src/features/agent-runs.tsx",
+      "apps/desktop/src/renderer/src/features/model-evaluation.tsx",
+      "apps/desktop/src/renderer/src/features/model-settings.tsx",
+      "apps/desktop/src/renderer/src/features/quote-agent.tsx",
+      "apps/desktop/src/renderer/src/features/quote-checks.fixture.ts",
+      "apps/desktop/src/renderer/src/features/quote-checks.test.tsx",
+      "apps/desktop/src/renderer/src/features/quote-checks.tsx",
+      "apps/desktop/src/renderer/src/features/quotes.tsx",
+      "apps/desktop/src/renderer/src/features/read-assistant.tsx",
+      "apps/desktop/src/renderer/src/features/run-event-feed.test.ts",
+      "apps/desktop/src/renderer/src/features/run-event-feed.ts",
+      "apps/desktop/src/renderer/src/features/run-events.test.tsx",
+      "apps/desktop/src/renderer/src/features/run-events.tsx",
+      "apps/desktop/src/renderer/src/features/run-tool-labels.ts",
+      "apps/desktop/src/renderer/src/features/workbench.tsx",
+      "apps/desktop/src/renderer/src/features/workspace.test.tsx",
+      "apps/desktop/src/renderer/src/features/workspace.tsx",
+      "apps/desktop/src/renderer/src/main.tsx",
+      "apps/desktop/src/renderer/src/shared/button.tsx",
+      "apps/desktop/src/renderer/src/shared/feedback.test.tsx",
+      "apps/desktop/src/renderer/src/shared/message.tsx",
+      "apps/desktop/src/renderer/src/shared/notification.tsx",
+      "apps/desktop/src/renderer/src/shared/utils.ts",
+      "apps/desktop/src/renderer/src/theme.css",
+      "apps/desktop/src/workers/business.ts",
+      "apps/desktop/src/workers/evaluation.ts",
+      "apps/desktop/vite.renderer.config.ts",
+      "biome.json",
+      "experiments/m0-platform/README.md",
+      "experiments/m0-platform/business-tools.mjs",
+      "experiments/m0-platform/contracts.test.ts",
+      "experiments/m0-platform/contracts.ts",
+      "experiments/m0-platform/evidence/dependencies.json",
+      "experiments/m0-platform/evidence/desktop.json",
+      "experiments/m0-platform/evidence/initial-desktop.json",
+      "experiments/m0-platform/evidence/initial-packaged.json",
+      "experiments/m0-platform/evidence/package-initial.json",
+      "experiments/m0-platform/evidence/packaged.json",
+      "experiments/m0-platform/evidence/validation.json",
+      "experiments/m0-platform/executor-probe.mjs",
+      "experiments/m0-platform/executor.mjs",
+      "experiments/m0-platform/harness-desktop.mjs",
+      "experiments/m0-platform/main.cjs",
+      "experiments/m0-platform/model-provider.mjs",
+      "experiments/m0-platform/package.json",
+      "experiments/m0-platform/parsers.mjs",
+      "experiments/m0-platform/pdf-probe.mjs",
+      "experiments/m0-platform/pnpm-lock.yaml",
+      "experiments/m0-platform/settings-preload.cjs",
+      "experiments/m0-platform/settings.cjs",
+      "experiments/m0-platform/settings.css",
+      "experiments/m0-platform/settings.html",
+      "experiments/m0-platform/settings.js",
+      "experiments/m0-platform/storage.mjs",
+      "experiments/m0-platform/tsconfig.json",
+      "experiments/m0-platform/verify.mjs",
+      "experiments/m0-platform/worker.mjs",
+      "experiments/m0-reuse/README.md",
+      "experiments/m0-reuse/business-tools.mjs",
+      "experiments/m0-reuse/collect-evidence.mjs",
+      "experiments/m0-reuse/evidence/docs-check.json",
+      "experiments/m0-reuse/evidence/harness.json",
+      "experiments/m0-reuse/evidence/harness.stdout.log",
+      "experiments/m0-reuse/evidence/install-frozen.log",
+      "experiments/m0-reuse/evidence/install-initial.log",
+      "experiments/m0-reuse/evidence/install-pinned.log",
+      "experiments/m0-reuse/evidence/solivio.tap",
+      "experiments/m0-reuse/evidence/source-audit.json",
+      "experiments/m0-reuse/evidence/summary.json",
+      "experiments/m0-reuse/harness-probe.mjs",
+      "experiments/m0-reuse/package.json",
+      "experiments/m0-reuse/pnpm-lock.yaml",
+      "experiments/m0-reuse/solivio.test.ts",
+      "experiments/m0-reuse/vendor/harness/LICENSE",
+      "experiments/m0-reuse/vendor/solivio/LICENSE",
+      "experiments/m0-reuse/vendor/solivio/offerTotals.ts",
+      "experiments/m0-reuse/vendor/solivio/productParser.ts",
+      "experiments/m0-reuse/vendor/solivio/provenance.json",
+      "experiments/product-walkthrough/README.md",
+      "experiments/product-walkthrough/check.mjs",
+      "experiments/product-walkthrough/index.html",
+      "package.json",
+      "packages/contracts/package.json",
+      "packages/contracts/src/agent.ts",
+      "packages/contracts/src/checks.test.ts",
+      "packages/contracts/src/checks.ts",
+      "packages/contracts/src/contracts.test.ts",
+      "packages/contracts/src/errors.ts",
+      "packages/contracts/src/events.ts",
+      "packages/contracts/src/foundation.test.ts",
+      "packages/contracts/src/index.ts",
+      "packages/contracts/src/knowledge-build.test.ts",
+      "packages/contracts/src/knowledge-build.ts",
+      "packages/contracts/src/knowledge-lint-review.test.ts",
+      "packages/contracts/src/knowledge-maintenance.test.ts",
+      "packages/contracts/src/knowledge-maintenance.ts",
+      "packages/contracts/src/knowledge-wiki.test.ts",
+      "packages/contracts/src/knowledge-wiki.ts",
+      "packages/contracts/src/knowledge.test.ts",
+      "packages/contracts/src/knowledge.ts",
+      "packages/contracts/src/mock.ts",
+      "packages/contracts/src/model-evaluation.ts",
+      "packages/contracts/src/pending-client.ts",
+      "packages/contracts/src/protocol.ts",
+      "packages/contracts/src/quote.ts",
+      "packages/contracts/src/read-tools.test.ts",
+      "packages/contracts/src/read-tools.ts",
+      "packages/contracts/src/run-events.test.ts",
+      "packages/contracts/src/run-events.ts",
+      "packages/contracts/src/runs.test.ts",
+      "packages/contracts/src/runs.ts",
+      "packages/contracts/src/trade.ts",
+      "packages/contracts/src/values.ts",
+      "packages/contracts/src/wiki-integrity.ts",
+      "packages/domain/package.json",
+      "packages/domain/src/agent-run.test.ts",
+      "packages/domain/src/agent-run.ts",
+      "packages/domain/src/domain.test.ts",
+      "packages/domain/src/knowledge.ts",
+      "packages/domain/src/quote-checks-runtime-compat.test.ts",
+      "packages/domain/src/quote-checks.test.ts",
+      "packages/domain/src/quote-checks.ts",
+      "packages/domain/src/revision.ts",
+      "packages/domain/src/trade.test.ts",
+      "packages/domain/src/trade.ts",
+      "packages/domain/src/wiki-quote-checks.ts",
+      "packages/domain/src/wiki.ts",
+      "packages/infrastructure/package.json",
+      "packages/infrastructure/probes/migration-lineage.probe.ts",
+      "packages/infrastructure/probes/vitest.config.ts",
+      "packages/infrastructure/src/agent-executor.ts",
+      "packages/infrastructure/src/agent-run-coordinator.test.ts",
+      "packages/infrastructure/src/agent-run-coordinator.ts",
+      "packages/infrastructure/src/agent-run-recovery.test.ts",
+      "packages/infrastructure/src/agent-run-store.test.ts",
+      "packages/infrastructure/src/agent-run-store.ts",
+      "packages/infrastructure/src/agent.test.ts",
+      "packages/infrastructure/src/artifacts.ts",
+      "packages/infrastructure/src/catalog-csv.ts",
+      "packages/infrastructure/src/catalog-quote-read-agent.test.ts",
+      "packages/infrastructure/src/catalog-quote-read-agent.ts",
+      "packages/infrastructure/src/catalog-quote-read-service.test.ts",
+      "packages/infrastructure/src/catalog-quote-read-service.ts",
+      "packages/infrastructure/src/check-lineage-integration.test.ts",
+      "packages/infrastructure/src/check-report-schema.ts",
+      "packages/infrastructure/src/check-store.test.ts",
+      "packages/infrastructure/src/check-store.ts",
+      "packages/infrastructure/src/deepseek.test.ts",
+      "packages/infrastructure/src/deepseek.ts",
+      "packages/infrastructure/src/evaluation/action-regressions.test.ts",
+      "packages/infrastructure/src/evaluation/cases.ts",
+      "packages/infrastructure/src/evaluation/diagnostics.test.ts",
+      "packages/infrastructure/src/evaluation/evaluation.test.ts",
+      "packages/infrastructure/src/evaluation/failure-regressions.test.ts",
+      "packages/infrastructure/src/evaluation/fixture-model.ts",
+      "packages/infrastructure/src/evaluation/public.ts",
+      "packages/infrastructure/src/evaluation/remaining-regressions.test.ts",
+      "packages/infrastructure/src/evaluation/report.ts",
+      "packages/infrastructure/src/evaluation/retest-regressions.test.ts",
+      "packages/infrastructure/src/evaluation/runner.ts",
+      "packages/infrastructure/src/evaluation/worker-protocol.ts",
+      "packages/infrastructure/src/evaluation/workspace.ts",
+      "packages/infrastructure/src/knowledge-store.test.ts",
+      "packages/infrastructure/src/knowledge-store.ts",
+      "packages/infrastructure/src/migration-ledger.test.ts",
+      "packages/infrastructure/src/migrations.test.ts",
+      "packages/infrastructure/src/model-settings.test.ts",
+      "packages/infrastructure/src/model-settings.ts",
+      "packages/infrastructure/src/quote-draft-plan.ts",
+      "packages/infrastructure/src/quote-tool-agent.test.ts",
+      "packages/infrastructure/src/quote-tool-agent.ts",
+      "packages/infrastructure/src/read-tool-runtime.test.ts",
+      "packages/infrastructure/src/read-tool-runtime.ts",
+      "packages/infrastructure/src/run-event-store.test.ts",
+      "packages/infrastructure/src/run-event-store.ts",
+      "packages/infrastructure/src/schema.ts",
+      "packages/infrastructure/src/storage.test.ts",
+      "packages/infrastructure/src/testing/run-fixture.ts",
+      "packages/infrastructure/src/trade-store.test.ts",
+      "packages/infrastructure/src/trade-store.ts",
+      "packages/infrastructure/src/wiki-check-integration.test.ts",
+      "packages/infrastructure/src/wiki-check-source.ts",
+      "packages/infrastructure/src/wiki-test.fixture.ts",
+      "packages/infrastructure/src/worker-migration-gates.test.ts",
+      "packages/infrastructure/src/worker-ownership.ts",
+      "playwright.config.ts",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "scripts/check-boundaries.mjs",
+      "scripts/check-boundaries.test.mjs",
+      "scripts/check-icons.mjs",
+      "scripts/check-icons.test.mjs",
+      "scripts/desktop-executable.mjs",
+      "scripts/desktop-executable.test.mjs",
+      "scripts/dev-desktop.mjs",
+      "scripts/evaluate-model.mjs",
+      "scripts/generate-icons.cjs",
+      "scripts/prepare-electron.mjs",
+      "scripts/test-unit.mjs",
+      "tests/e2e/agent-recovery.spec.ts",
+      "tests/e2e/feedback.spec.ts",
+      "tests/e2e/model-evaluation.spec.ts",
+      "tests/e2e/multistep-agent.spec.ts",
+      "tests/e2e/quote-agent.spec.ts",
+      "tests/e2e/quote-checks.spec.ts",
+      "tests/e2e/quote-v1.spec.ts",
+      "tests/e2e/read-assistant.spec.ts",
+      "tests/e2e/workspace.spec.ts",
+      "tests/fixtures/knowledge/knowledge-drafts.a01a.json",
+      "tests/fixtures/multistep-seed.ts",
+      "tests/fixtures/quote-checks-data.ts",
+      "tests/fixtures/run-crash-child.ts",
+      "tests/fixtures/worker-gates-host.ts",
+      "tsconfig.json",
+      "vitest.config.ts"
+    ],
+    "changedBeyondLFCRLF": [
+      "packages/domain/src/wiki-maintenance.ts",
+      "packages/infrastructure/src/migration-lineage.ts",
+      "packages/infrastructure/src/migrations.ts",
+      "packages/infrastructure/src/wiki-store.test.ts",
+      "packages/infrastructure/src/wiki-store.ts"
+    ],
+    "newPaths": [],
+    "note": "Read-only diagnostic: fixed inventory often hashed CRLF working-tree bytes while committed files here are LF; do not infer all hundreds of records were application changes. New maintenance-source differences remain beyond EOL. No production normalization performed."
+  }
+}
