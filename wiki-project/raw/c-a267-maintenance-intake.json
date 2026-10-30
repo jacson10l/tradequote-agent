@@ -1,0 +1,977 @@
+{
+  "date": "2026-10-30",
+  "status": "changes_required_wip",
+  "role": "C",
+  "branch": "codex/c-a01e-maintenance-intake",
+  "taskBase": "267f087490046955a0b4b1e6183caa163cc177c3",
+  "implementationSha": "dac69db4c527ee3484f3481f65c76d63649cd04c",
+  "environment": {
+    "platform": "macOS-26.4-arm64-arm-64bit",
+    "node": "v22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2"
+  },
+  "originalEvidenceSource": {
+    "sha": "1f74e4a",
+    "legacyGeneratorApplication": "3d21289e79a2b8f8f8de9a3a8899674c0b12c07e",
+    "legacyGeneratorDifferenceFrom7e6": ""
+  },
+  "originalProbes": {
+    "COriginal": {
+      "restoreScriptPath": ".runtime/c-p1-boundary.test.ts",
+      "restoreConfigPath": ".runtime/c-p1-boundary.config.ts",
+      "scriptUtf8": "import { randomUUID } from \"node:crypto\";\nimport { mkdtempSync, rmSync } from \"node:fs\";\nimport { tmpdir } from \"node:os\";\nimport { join } from \"node:path\";\nimport { KnowledgeLintReportSchema, WikiLintReceiptSchema, WikiResultSchema, type WikiRevision, type WikiSourceRevision } from \"../packages/contracts/src/index\";\nimport {createRequire} from \"node:module\";\nconst Database = createRequire(new URL(\"../packages/infrastructure/package.json\", import.meta.url))(\"better-sqlite3\");\nimport { afterEach, expect, it } from \"vitest\";\nimport { SqliteWorkspaceRepository } from \"../packages/infrastructure/src/index\";\nconst NOW=\"2026-10-27T00:00:00.000Z\", LATER=\"2026-10-27T00:00:02.000Z\";\nconst valid={status:\"confirmed\" as const,validFrom:null,validUntil:null};\nconst dispose:(()=>void)[]=[];\nafterEach(()=>{for(const close of dispose.splice(0).reverse())close();});\nconst command=(method:string,payload:unknown)=>({schemaVersion:1,requestId:randomUUID(),idempotencyKey:randomUUID(),method,payload});\nfunction data(input:unknown){const r=WikiResultSchema.parse(input);if(!r.ok)throw Error(r.error.message);return r.data;}\nasync function fixture(expires:string|null=null){\n const dir=mkdtempSync(join(tmpdir(),\"c-p1-probe-\"));dispose.push(()=>rmSync(dir,{recursive:true,force:true}));\n const file=join(dir,\"synthetic.sqlite\"),repo=new SqliteWorkspaceRepository(file);dispose.push(()=>repo.close());\n repo.commit(command(\"workspace.create\",{name:\"合成P1边界\"}) as never,{actorId:\"synthetic-human\",origin:\"human_ui\"});\n const context={workspaceId:repo.read()!.id,actorId:\"synthetic-human\",origin:\"human_ui\" as const,now:NOW};\n const payload={sourceId:randomUUID(),expectedVersion:0,label:\"合成资料\",sourceStatus:\"synthetic\",mediaType:\"text/plain\",sourceText:\"Synthetic source\",acquiredAt:NOW,sourceUri:null,permissionNote:\"synthetic only\",validity:{...valid,validUntil:expires}};\n const sourceData=data(await repo.executeWiki(command(\"source.stage\",payload),context));if(sourceData.kind!==\"sourceRevision\")throw Error(\"source fixture\");\n const source:WikiSourceRevision=sourceData.revision,ref={referenceId:randomUUID(),sourceId:source.sourceId,sourceRevisionId:source.sourceRevisionId,sourceVersion:source.version,artifactHash:source.artifactHash,location:{kind:\"text\",start:0,end:source.sourceText.length},excerptHash:source.artifactHash,assertion:\"fact\"};\n const markdown=\"# Synthetic candidate\",sectionId=randomUUID();\n const wiki=data(await repo.executeWiki(command(\"wiki.stage\",{documentId:randomUUID(),expectedVersion:0,parentRevisionId:null,content:{kind:\"sop\",title:\"合成知识\",locale:\"en\",scope:{platforms:[],markets:[],categories:[]},markdown,validity:valid,sections:[{sectionId,title:\"合成段落\",location:{kind:\"text\",start:0,end:markdown.length},sourceReferenceIds:[ref.referenceId]}],sourceRefs:[ref],relations:[],rules:[]}}),context));\n if(wiki.kind!==\"wikiRevision\")throw Error(\"wiki fixture\"); const revision:WikiRevision=wiki.record.revision;\n const db=new Database(file);dispose.push(()=>db.close());\n const binding={revisionId:revision.revisionId,contentHash:revision.contentHash,sourceSetHash:revision.sourceSetHash};\n return {repo,db,context,revision,source,payload,binding,async approve(){const receipt=repo.runWikiLint(revision.revisionId,context)!; const cmd=command(\"wiki.review\",{...binding,expectedLifecycleVersion:1,decision:\"approve\",note:\"synthetic technical review\",lintReceiptId:receipt.receiptId});const result=await repo.executeWiki(cmd,context);const d=data(result);if(d.kind!==\"wikiRevision\"||!d.record.lifecycle.review)throw Error(\"review fixture\");return {receipt,cmd,result,reviewId:d.record.lifecycle.review.reviewId};}};\n}\nit(\"control: real lint receipt, approve, publish and withdraw use the saved binding\",async()=>{\n const f=await fixture(),a=await f.approve();expect(WikiLintReceiptSchema.safeParse(a.receipt).success).toBe(true);\n const published=data(await f.repo.executeWiki(command(\"wiki.publish\",{...f.binding,reviewId:a.reviewId,expectedLifecycleVersion:2}),f.context));expect(published.kind===\"wikiRevision\"&&published.record.lifecycle.state).toBe(\"published\");\n const withdrawn=data(await f.repo.executeWiki(command(\"wiki.withdraw\",{revisionId:f.revision.revisionId,expectedLifecycleVersion:3,note:\"synthetic withdrawal\"}),f.context));expect(withdrawn.kind===\"wikiRevision\"&&withdrawn.record.lifecycle.state).toBe(\"withdrawn\");\n});\nit(\"P1-01: persisted lint fact must contain the complete P1 report and seven-category coverage\",async()=>{\n const f=await fixture();f.repo.runWikiLint(f.revision.revisionId,f.context);\n const row=f.db.prepare(\"SELECT data_json FROM knowledge_lint WHERE revision_id=?\").get(f.revision.revisionId) as {data_json:string};\n expect(KnowledgeLintReportSchema.safeParse(JSON.parse(row.data_json)).success).toBe(true);\n});\nit(\"P1-02: review retry with a later host clock replays the first result\",async()=>{\n const f=await fixture(),a=await f.approve();\n const retry=await f.repo.executeWiki({...a.cmd,requestId:randomUUID()},{...f.context,now:LATER});\n expect(retry).toEqual(a.result);\n});\nfor(const kind of [\"source_updated\",\"source_expired\",\"source_withdrawn\"] as const)it(`P1-03 ${kind}: publication revalidates after a successful lint and review`,async()=>{\n const f=await fixture(kind===\"source_expired\"?\"2026-10-27T00:00:01.000Z\":null),a=await f.approve();\n if(kind===\"source_updated\") data(await f.repo.executeWiki(command(\"source.stage\",{...f.payload,expectedVersion:1,sourceText:\"New synthetic source\"}),{...f.context,now:LATER}));\n if(kind===\"source_withdrawn\")f.db.prepare(\"UPDATE knowledge_source SET state='withdrawn',lifecycle_version=2 WHERE source_revision_id=?\").run(f.source.sourceRevisionId);\n const result=await f.repo.executeWiki(command(\"wiki.publish\",{...f.binding,reviewId:a.reviewId,expectedLifecycleVersion:2}),{...f.context,now:LATER});\n expect(result.ok).toBe(false);\n});\nfor(const kind of [\"expired\",\"updated\"] as const)it(`P1-04 ${kind}: lint cannot mark an ineligible source as passed`,async()=>{\n const f=await fixture(kind===\"expired\"?\"2026-10-26T23:59:59.000Z\":null);\n if(kind===\"updated\")data(await f.repo.executeWiki(command(\"source.stage\",{...f.payload,expectedVersion:1,sourceText:\"New synthetic source\"}),f.context));\n expect(f.repo.runWikiLint(f.revision.revisionId,f.context)?.outcome).not.toBe(\"passed\");\n});\n",
+      "configUtf8": "import {defineConfig} from \"vitest/config\";\nexport default defineConfig({test:{include:[\".runtime/c-p1-boundary.test.ts\"],environment:\"node\"}});\n",
+      "scriptSha256": "af0e0f3e6b5b3790d947ef71df46d4a8ea724f6268d006565e1972409f7b6127",
+      "configSha256": "3ed7d066f986fdbc174f24a5f14b5cb1928723d25b34731f68b960b02b1c36f6"
+    },
+    "BSupplement": {
+      "restoreScriptPath": ".runtime/b-p1-supplement.test.ts",
+      "restoreConfigPath": ".runtime/b-p1-supplement.config.ts",
+      "scriptUtf8": "import { randomUUID } from \"node:crypto\";\nimport { mkdtempSync, rmSync } from \"node:fs\";\nimport { tmpdir } from \"node:os\";\nimport { join } from \"node:path\";\nimport { KnowledgeLintReportSchema, WikiLintReceiptSchema, WikiResultSchema, type WikiRevision, type WikiSourceRevision } from \"../packages/contracts/src/index\";\nimport {createRequire} from \"node:module\";\nconst Database = createRequire(new URL(\"../packages/infrastructure/package.json\", import.meta.url))(\"better-sqlite3\");\nimport { afterEach, expect, it } from \"vitest\";\nimport { SqliteWorkspaceRepository } from \"../packages/infrastructure/src/index\";\nconst NOW=\"2026-10-27T00:00:00.000Z\", LATER=\"2026-10-27T00:00:02.000Z\";\nconst valid={status:\"confirmed\" as const,validFrom:null,validUntil:null};\nconst dispose:(()=>void)[]=[];\nafterEach(()=>{for(const close of dispose.splice(0).reverse())close();});\nconst command=(method:string,payload:unknown)=>({schemaVersion:1,requestId:randomUUID(),idempotencyKey:randomUUID(),method,payload});\nfunction data(input:unknown){const r=WikiResultSchema.parse(input);if(!r.ok)throw Error(r.error.message);return r.data;}\nasync function fixture(expires:string|null=null){\n const dir=mkdtempSync(join(tmpdir(),\"c-p1-probe-\"));dispose.push(()=>rmSync(dir,{recursive:true,force:true}));\n const file=join(dir,\"synthetic.sqlite\"),repo=new SqliteWorkspaceRepository(file);dispose.push(()=>repo.close());\n repo.commit(command(\"workspace.create\",{name:\"合成P1边界\"}) as never,{actorId:\"synthetic-human\",origin:\"human_ui\"});\n const context={workspaceId:repo.read()!.id,actorId:\"synthetic-human\",origin:\"human_ui\" as const,now:NOW};\n const payload={sourceId:randomUUID(),expectedVersion:0,label:\"合成资料\",sourceStatus:\"synthetic\",mediaType:\"text/plain\",sourceText:\"Synthetic source\",acquiredAt:NOW,sourceUri:null,permissionNote:\"synthetic only\",validity:{...valid,validUntil:expires}};\n const sourceData=data(await repo.executeWiki(command(\"source.stage\",payload),context));if(sourceData.kind!==\"sourceRevision\")throw Error(\"source fixture\");\n const source:WikiSourceRevision=sourceData.revision,ref={referenceId:randomUUID(),sourceId:source.sourceId,sourceRevisionId:source.sourceRevisionId,sourceVersion:source.version,artifactHash:source.artifactHash,location:{kind:\"text\",start:0,end:source.sourceText.length},excerptHash:source.artifactHash,assertion:\"fact\"};\n const markdown=\"# Synthetic candidate\",sectionId=randomUUID();\n const wiki=data(await repo.executeWiki(command(\"wiki.stage\",{documentId:randomUUID(),expectedVersion:0,parentRevisionId:null,content:{kind:\"sop\",title:\"合成知识\",locale:\"en\",scope:{platforms:[],markets:[],categories:[]},markdown,validity:valid,sections:[{sectionId,title:\"合成段落\",location:{kind:\"text\",start:0,end:markdown.length},sourceReferenceIds:[ref.referenceId]}],sourceRefs:[ref],relations:[],rules:[]}}),context));\n if(wiki.kind!==\"wikiRevision\")throw Error(\"wiki fixture\"); const revision:WikiRevision=wiki.record.revision;\n const db=new Database(file);dispose.push(()=>db.close());\n const binding={revisionId:revision.revisionId,contentHash:revision.contentHash,sourceSetHash:revision.sourceSetHash};\n return {repo,db,context,revision,source,payload,binding,async approve(){const receipt=repo.runWikiLint(revision.revisionId,context)!; const cmd=command(\"wiki.review\",{...binding,expectedLifecycleVersion:1,decision:\"approve\",note:\"synthetic technical review\",lintReceiptId:receipt.receiptId});const result=await repo.executeWiki(cmd,context);const d=data(result);if(d.kind!==\"wikiRevision\"||!d.record.lifecycle.review)throw Error(\"review fixture\");return {receipt,cmd,result,reviewId:d.record.lifecycle.review.reviewId};}};\n}\ntype Fixture = Awaited<ReturnType<typeof fixture>>;\nfunction snapshot(f: Fixture) {\n return Object.fromEntries([\"knowledge_lint\",\"knowledge_lifecycle\",\"knowledge_wiki\",\"knowledge_source\",\"knowledge_consumption\",\"quote_check_report\",\"outbox\",\"idempotency\"].map(t=>[t,f.db.prepare(`SELECT * FROM ${t} ORDER BY rowid`).all()]));\n}\nasync function operation(method:\"review\"|\"publish\"|\"withdraw\") {\n const f=await fixture();\n if(method===\"review\"){\n  const receipt=f.repo.runWikiLint(f.revision.revisionId,f.context)!;\n  return {f,cmd:command(\"wiki.review\",{...f.binding,expectedLifecycleVersion:1,decision:\"approve\",note:\"synthetic review\",lintReceiptId:receipt.receiptId})};\n }\n const a=await f.approve();\n const cmd=command(\"wiki.publish\",{...f.binding,reviewId:a.reviewId,expectedLifecycleVersion:2});\n if(method===\"publish\") return {f,cmd};\n data(await f.repo.executeWiki(cmd,f.context));\n return {f,cmd:command(\"wiki.withdraw\",{revisionId:f.revision.revisionId,expectedLifecycleVersion:3,note:\"synthetic withdrawal\"})};\n}\nfor(const kind of [\"updated\",\"expired\",\"withdrawn\"] as const)it(`B-review-${kind}: source eligibility is checked after lint before review, no partial facts`,async()=>{\n const f=await fixture(kind===\"expired\"?\"2026-10-27T00:00:01.000Z\":null);\n const receipt=f.repo.runWikiLint(f.revision.revisionId,f.context)!;\n if(kind===\"updated\")data(await f.repo.executeWiki(command(\"source.stage\",{...f.payload,expectedVersion:1,sourceText:\"New synthetic source\"}),{...f.context,now:LATER}));\n if(kind===\"withdrawn\")f.db.prepare(\"UPDATE knowledge_source SET state='withdrawn',lifecycle_version=2 WHERE source_revision_id=?\").run(f.source.sourceRevisionId);\n const before=snapshot(f),cmd=command(\"wiki.review\",{...f.binding,expectedLifecycleVersion:1,decision:\"approve\",note:\"synthetic review after invalidation\",lintReceiptId:receipt.receiptId});\n const result=await f.repo.executeWiki(cmd,{...f.context,now:LATER});\n console.log(\"B_REVIEW_OBSERVATION\",JSON.stringify({kind,ok:result.ok,unchanged:JSON.stringify(snapshot(f))===JSON.stringify(before)}));\n expect(result.ok).toBe(false);expect(snapshot(f)).toEqual(before);\n});\nfor(const method of [\"publish\",\"withdraw\"] as const)it(`B-${method}-replay: only requestId/host now changes, first result/time retained`,async()=>{\n const {f,cmd}=await operation(method);const first=await f.repo.executeWiki(cmd,f.context);expect(first.ok).toBe(true);const before=snapshot(f);\n const replay=await f.repo.executeWiki({...cmd,requestId:randomUUID()},{...f.context,now:LATER});\n console.log(\"B_REPLAY_OBSERVATION\",JSON.stringify({method,ok:replay.ok,code:replay.ok?null:replay.error.code,unchanged:JSON.stringify(snapshot(f))===JSON.stringify(before)}));\n expect(replay).toEqual(first);expect(snapshot(f)).toEqual(before);\n});\nfor(const method of [\"review\",\"publish\",\"withdraw\"] as const)for(const point of [\"outbox\",\"idempotency\"] as const)it(`B-${method}-${point}: injected final write failure rolls back, same key can retry`,async()=>{\n const {f,cmd}=await operation(method);const before=snapshot(f);\n const target=point===\"outbox\"?`ON outbox WHEN NEW.type='wiki.${method}'`:`ON idempotency WHEN NEW.key='${cmd.idempotencyKey}'`;\n f.db.exec(`CREATE TRIGGER b_injected_failure BEFORE INSERT ${target} BEGIN SELECT RAISE(ABORT,'synthetic B late failure'); END;`);\n const result=await f.repo.executeWiki(cmd,f.context);expect(result).toMatchObject({ok:false,error:{code:\"STORAGE_ERROR\"}});expect(snapshot(f)).toEqual(before);\n f.db.exec(\"DROP TRIGGER b_injected_failure\");const first=await f.repo.executeWiki(cmd,f.context);expect(first.ok).toBe(true);const committed=snapshot(f);\n expect(await f.repo.executeWiki({...cmd,requestId:randomUUID()},f.context)).toEqual(first);expect(snapshot(f)).toEqual(committed);\n});\nfor(const method of [\"review\",\"publish\",\"withdraw\"] as const)it(`B-${method}-identity: actor/origin/business input changes conflict under a used key`,async()=>{\n const {f,cmd}=await operation(method);expect((await f.repo.executeWiki(cmd,f.context)).ok).toBe(true);const before=snapshot(f);\n const mutations=[{command:cmd,context:{...f.context,actorId:\"different-synthetic-human\"}},{command:cmd,context:{...f.context,origin:\"agent_tool\" as const}},{command:{...cmd,payload:{...cmd.payload,expectedLifecycleVersion:99}},context:f.context}];\n for(const change of mutations){const result=await f.repo.executeWiki(change.command,change.context);expect(result.ok).toBe(false);if(!result.ok)expect([\"IDEMPOTENCY_CONFLICT\",\"ACTION_NOT_ALLOWED\"]).toContain(result.error.code);expect(snapshot(f)).toEqual(before);}\n});\nit(\"B-review-history: successful review replay survives a later source version without rewriting facts\",async()=>{\n const f=await fixture(),a=await f.approve();data(await f.repo.executeWiki(command(\"source.stage\",{...f.payload,expectedVersion:1,sourceText:\"New synthetic source\"}),f.context));const before=snapshot(f);\n expect(await f.repo.executeWiki({...a.cmd,requestId:randomUUID()},f.context)).toEqual(a.result);expect(snapshot(f)).toEqual(before);\n});\n",
+      "configUtf8": "import {defineConfig} from \"vitest/config\";\nexport default defineConfig({test:{include:[\".runtime/b-p1-supplement.test.ts\"],environment:\"node\"}});\n",
+      "scriptSha256": "f45b33b64aec56ed9eac8f2f3e94dbe7100d9c996852f56f35ef917d6f8ccf24",
+      "configSha256": "8a13e0a41882e2db34dc67dd71ec0a5e4032b2322deb880c309ab618f62d8af7"
+    },
+    "oldBSourceFixes": {
+      "restoreScriptPath": ".runtime/p1-source-probe.test.ts",
+      "restoreConfigPath": ".runtime/p1-source-probe.config.ts",
+      "scriptUtf8": "import { randomUUID } from \"node:crypto\";\nimport { mkdtempSync, rmSync } from \"node:fs\";\nimport { tmpdir } from \"node:os\";\nimport { join } from \"node:path\";\nimport { WikiResultSchema } from \"../packages/contracts/src/index\";\nimport { expect, it } from \"vitest\";\nimport { SqliteWorkspaceRepository } from \"../packages/infrastructure/src/index\";\nimport { createSyntheticQuote, seedPublished } from \"../packages/infrastructure/src/wiki-test.fixture\";\n\nit.each([\"source_expired_history\", \"source_updated_new_reference\"] as const)(\"A public source eligibility: %s\", async (kind) => {\n  const dir = mkdtempSync(join(tmpdir(), \"tq-p1-eligibility-\"));\n  const file = join(dir, \"synthetic.sqlite\");\n  const repo = new SqliteWorkspaceRepository(file);\n  try {\n    const actor = { actorId: \"synthetic-review\", origin: \"human_ui\" as const };\n    repo.commit({ schemaVersion: 1, requestId: randomUUID(), idempotencyKey: randomUUID(), method: \"workspace.create\", payload: { name: \"synthetic P1 probe\" } }, actor);\n    const quote = createSyntheticQuote(repo);\n    const start = Date.parse(quote.createdAt);\n    const expiresAt = new Date(start + 7200000).toISOString();\n    const beforeExpiry = new Date(start + 3600000).toISOString();\n    const seed = await seedPublished(file, repo, quote.workspaceId, {\n      locale: \"en\", kind: \"rule\", rules: [{ ruleId: randomUUID(), category: \"commercial_terms\", field: \"payment\", condition: { kind: \"required\" }, title: \"synthetic\", message: \"synthetic\", failureSeverity: \"block\", suggestedAction: \"human review\" }],\n      ...(kind === \"source_expired_history\" ? { sourceValidity: { status: \"confirmed\" as const, validFrom: null, validUntil: expiresAt } } : {}),\n    });\n    const host = (now: string) => ({ ...actor, workspaceId: quote.workspaceId, now });\n    const resolve = (purpose: \"history\" | \"new_reference\", now: string) => repo.executeWiki({ schemaVersion: 1, requestId: randomUUID(), method: \"wiki.resolveCitation\", payload: { citation: seed.citation, purpose, scope: { platform: quote.scenario.platform, market: quote.scenario.market, category: quote.scenario.category }, locale: \"en\" } }, host(now));\n    const control = WikiResultSchema.parse(await resolve(\"new_reference\", beforeExpiry));\n    expect(control).toMatchObject({ ok: true, data: { kind: \"citationResolution\", resolution: { eligibility: { eligible: true } } } });\n    let updatedSourcePin: { sourceRevisionId: string; version: number } | null = null;\n    if (kind === \"source_updated_new_reference\") {\n      const old = seed.sources[0]!;\n      const staged = WikiResultSchema.parse(await repo.executeWiki({ schemaVersion: 1, requestId: randomUUID(), idempotencyKey: randomUUID(), method: \"source.stage\", payload: { sourceId: old.sourceId, expectedVersion: old.version, label: old.label, sourceStatus: old.sourceStatus, mediaType: old.mediaType, sourceText: \"synthetic updated source\", acquiredAt: old.acquiredAt, sourceUri: null, permissionNote: old.permissionNote, validity: old.validity } }, host(beforeExpiry)));\n      expect(staged).toMatchObject({ ok: true, data: { kind: \"sourceRevision\", revision: { version: 2 } } });\n      if (staged.ok && staged.data.kind === \"sourceRevision\") updatedSourcePin = { sourceRevisionId: staged.data.revision.sourceRevisionId, version: staged.data.revision.version };\n    }\n    const raw = await resolve(kind === \"source_expired_history\" ? \"history\" : \"new_reference\", expiresAt);\n    const parsed = WikiResultSchema.safeParse(raw);\n    console.log(\"P1_ELIGIBILITY_OBSERVATION \" + JSON.stringify({ kind, controlValid: true, updatedSourcePin, publicSchemaValid: parsed.success, result: raw, schemaIssues: parsed.success ? [] : parsed.error.issues.map(i => i.message) }));\n    expect(parsed.success).toBe(true);\n    if (!parsed.success) return;\n    if (kind === \"source_updated_new_reference\") expect(parsed.data.ok).toBe(false);\n    else expect(parsed.data).toMatchObject({ ok: true, data: { kind: \"citationResolution\", resolution: { eligibility: { eligible: false } } } });\n  } finally {\n    repo.close(); rmSync(dir, { recursive: true, force: true });\n  }\n});\n",
+      "configUtf8": "import { defineConfig } from \"vitest/config\";\nexport default defineConfig({\n  test: { include: [\".runtime/p1-source-probe.test.ts\"], environment: \"node\" },\n});\n",
+      "scriptSha256": "af1f40157095bc79031aa1de565afa45c879e7fa277259310ca67bc321b15203",
+      "configSha256": "9710ffb3c4ac04686d131dce8617bacaacb13277003b8985959e390603fba22d"
+    }
+  },
+  "legacyFixture": {
+    "generatorSourceSha": "7e6b485c15ba7c4ec30d6495df0a58cd2088207e",
+    "actualCheckoutSha": "3d21289e79a2b8f8f8de9a3a8899674c0b12c07e",
+    "codeDifferenceFrom7e6": "",
+    "scriptUtf8": "import { randomUUID } from \"node:crypto\";\nimport { writeFileSync, mkdtempSync, rmSync } from \"node:fs\";\nimport { tmpdir } from \"node:os\";\nimport { join } from \"node:path\";\nimport { KnowledgeLintReportSchema, WikiLintReceiptSchema, WikiResultSchema, type WikiRevision, type WikiSourceRevision } from \"../packages/contracts/src/index\";\nimport {createRequire} from \"node:module\";\nconst Database = createRequire(new URL(\"../packages/infrastructure/package.json\", import.meta.url))(\"better-sqlite3\");\nimport { afterEach, expect, it } from \"vitest\";\nimport { SqliteWorkspaceRepository } from \"../packages/infrastructure/src/index\";\nconst NOW=\"2026-10-27T00:00:00.000Z\", LATER=\"2026-10-27T00:00:02.000Z\";\nconst valid={status:\"confirmed\" as const,validFrom:null,validUntil:null};\nconst dispose:(()=>void)[]=[];\nafterEach(()=>{for(const close of dispose.splice(0).reverse())close();});\nconst command=(method:string,payload:unknown)=>({schemaVersion:1,requestId:randomUUID(),idempotencyKey:randomUUID(),method,payload});\nfunction data(input:unknown){const r=WikiResultSchema.parse(input);if(!r.ok)throw Error(r.error.message);return r.data;}\nasync function fixture(expires:string|null=null){\n const dir=process.env.C_LEGACY_FIXTURE_DIR!;\n const file=join(dir,\"synthetic.sqlite\"),repo=new SqliteWorkspaceRepository(file);dispose.push(()=>repo.close());\n repo.commit(command(\"workspace.create\",{name:\"合成P1边界\"}) as never,{actorId:\"synthetic-human\",origin:\"human_ui\"});\n const context={workspaceId:repo.read()!.id,actorId:\"synthetic-human\",origin:\"human_ui\" as const,now:NOW};\n const payload={sourceId:randomUUID(),expectedVersion:0,label:\"合成资料\",sourceStatus:\"synthetic\",mediaType:\"text/plain\",sourceText:\"Synthetic source\",acquiredAt:NOW,sourceUri:null,permissionNote:\"synthetic only\",validity:{...valid,validUntil:expires}};\n const sourceCommand=command(\"source.stage\",payload);const sourceResult=await repo.executeWiki(sourceCommand,context);const sourceData=data(sourceResult);if(sourceData.kind!==\"sourceRevision\")throw Error(\"source fixture\");\n const source:WikiSourceRevision=sourceData.revision,ref={referenceId:randomUUID(),sourceId:source.sourceId,sourceRevisionId:source.sourceRevisionId,sourceVersion:source.version,artifactHash:source.artifactHash,location:{kind:\"text\",start:0,end:source.sourceText.length},excerptHash:source.artifactHash,assertion:\"fact\"};\n const markdown=\"# Synthetic candidate\",sectionId=randomUUID();\n const wikiCommand=command(\"wiki.stage\",{documentId:randomUUID(),expectedVersion:0,parentRevisionId:null,content:{kind:\"sop\",title:\"合成知识\",locale:\"en\",scope:{platforms:[],markets:[],categories:[]},markdown,validity:valid,sections:[{sectionId,title:\"合成段落\",location:{kind:\"text\",start:0,end:markdown.length},sourceReferenceIds:[ref.referenceId]}],sourceRefs:[ref],relations:[],rules:[]}});const wikiResult=await repo.executeWiki(wikiCommand,context);const wiki=data(wikiResult);\n if(wiki.kind!==\"wikiRevision\")throw Error(\"wiki fixture\"); const revision:WikiRevision=wiki.record.revision;\n const db=new Database(file);dispose.push(()=>db.close());\n const binding={revisionId:revision.revisionId,contentHash:revision.contentHash,sourceSetHash:revision.sourceSetHash};\n return {repo,db,context,revision,source,payload,binding,sourceCommand,sourceResult,wikiCommand,wikiResult,async approve(){const receipt=repo.runWikiLint(revision.revisionId,context)!; const cmd=command(\"wiki.review\",{...binding,expectedLifecycleVersion:1,decision:\"approve\",note:\"synthetic technical review\",lintReceiptId:receipt.receiptId});const result=await repo.executeWiki(cmd,context);const d=data(result);if(d.kind!==\"wikiRevision\"||!d.record.lifecycle.review)throw Error(\"review fixture\");return {receipt,cmd,result,reviewId:d.record.lifecycle.review.reviewId};}};\n}\n\nit(\"generate valid pre-fix successes and receipt-only fact\",async()=>{\n const f=await fixture(),a=await f.approve();\n const pub=command(\"wiki.publish\",{...f.binding,reviewId:a.reviewId,expectedLifecycleVersion:2});const pubResult=await f.repo.executeWiki(pub,f.context);expect(pubResult.ok).toBe(true);\n const wd=command(\"wiki.withdraw\",{revisionId:f.revision.revisionId,expectedLifecycleVersion:3,note:\"synthetic legacy withdrawal\"});const wdResult=await f.repo.executeWiki(wd,f.context);expect(wdResult.ok).toBe(true);\n const saved=JSON.parse(f.db.prepare(\"SELECT data_json FROM knowledge_lint WHERE receipt_id=?\").get(a.receipt.receiptId).data_json);expect(saved).toEqual(a.receipt);\n writeFileSync(join(process.env.C_LEGACY_FIXTURE_DIR!,\"facts.json\"),JSON.stringify({context:f.context,revision:f.revision,receipt:a.receipt,operations:[{cmd:f.sourceCommand,result:f.sourceResult},{cmd:f.wikiCommand,result:f.wikiResult},{cmd:a.cmd,result:a.result},{cmd:pub,result:pubResult},{cmd:wd,result:wdResult}]}));\n});\n",
+    "configUtf8": "import {defineConfig} from \"vitest/config\";export default defineConfig({test:{include:[\".runtime/c-legacy-export.test.ts\"],environment:\"node\"}});\n",
+    "generationArgv": [
+      "env",
+      "C_LEGACY_FIXTURE_DIR=<review-root>/.runtime/legacy-db",
+      "ELECTRON_RUN_AS_NODE=1",
+      "apps/desktop/node_modules/.bin/electron",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--config",
+      ".runtime/c-legacy-export.config.ts"
+    ],
+    "generationExitCode": 0,
+    "generationOutput": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent\n\n\n Test Files  1 passed (1)\n      Tests  1 passed (1)\n   Start at  14:27:29\n   Duration  766ms (import 53%, transform 40%, tests 7%)\n\n",
+    "fixtureFacts": {
+      "context": {
+        "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+        "actorId": "synthetic-human",
+        "origin": "human_ui",
+        "now": "2026-10-27T00:00:00.000Z"
+      },
+      "revision": {
+        "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+        "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+        "documentId": "418af6de-5228-44bf-9212-92b855748fea",
+        "version": 1,
+        "parentRevisionId": null,
+        "content": {
+          "kind": "sop",
+          "title": "合成知识",
+          "locale": "en",
+          "scope": {
+            "platforms": [],
+            "markets": [],
+            "categories": []
+          },
+          "markdown": "# Synthetic candidate",
+          "validity": {
+            "status": "confirmed",
+            "validFrom": null,
+            "validUntil": null
+          },
+          "sections": [
+            {
+              "sectionId": "ea26b962-de69-4b1d-9479-6acb41f3415b",
+              "title": "合成段落",
+              "location": {
+                "kind": "text",
+                "start": 0,
+                "end": 21
+              },
+              "sourceReferenceIds": [
+                "4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf"
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "referenceId": "4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf",
+              "sourceId": "963a2b89-62e4-42b1-bd23-8a3eb925ed15",
+              "sourceRevisionId": "f97d2a32-74c4-4a47-bbb9-988688b57c9b",
+              "sourceVersion": 1,
+              "artifactHash": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+              "location": {
+                "kind": "text",
+                "start": 0,
+                "end": 16
+              },
+              "excerptHash": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+              "assertion": "fact"
+            }
+          ],
+          "relations": [],
+          "rules": []
+        },
+        "artifactId": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+        "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+        "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+        "createdAt": "2026-10-27T00:00:00.000Z"
+      },
+      "receipt": {
+        "receiptId": "1366894d-29be-4247-9b67-104564804c14",
+        "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+        "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+        "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+        "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+        "checkedAt": "2026-10-27T00:00:00.000Z",
+        "policyVersion": "knowledge-maintenance-v1",
+        "outcome": "passed"
+      },
+      "operations": [
+        {
+          "cmd": {
+            "schemaVersion": 1,
+            "requestId": "feed03a6-f949-497c-8d9c-cb25ff298f93",
+            "idempotencyKey": "79da9980-cb59-41dc-8d57-c357d1ceefa7",
+            "method": "source.stage",
+            "payload": {
+              "sourceId": "963a2b89-62e4-42b1-bd23-8a3eb925ed15",
+              "expectedVersion": 0,
+              "label": "合成资料",
+              "sourceStatus": "synthetic",
+              "mediaType": "text/plain",
+              "sourceText": "Synthetic source",
+              "acquiredAt": "2026-10-27T00:00:00.000Z",
+              "sourceUri": null,
+              "permissionNote": "synthetic only",
+              "validity": {
+                "status": "confirmed",
+                "validFrom": null,
+                "validUntil": null
+              }
+            }
+          },
+          "result": {
+            "ok": true,
+            "data": {
+              "kind": "sourceRevision",
+              "revision": {
+                "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+                "sourceId": "963a2b89-62e4-42b1-bd23-8a3eb925ed15",
+                "sourceRevisionId": "f97d2a32-74c4-4a47-bbb9-988688b57c9b",
+                "version": 1,
+                "parentRevisionId": null,
+                "label": "合成资料",
+                "sourceStatus": "synthetic",
+                "mediaType": "text/plain",
+                "sourceText": "Synthetic source",
+                "acquiredAt": "2026-10-27T00:00:00.000Z",
+                "sourceUri": null,
+                "permissionNote": "synthetic only",
+                "validity": {
+                  "status": "confirmed",
+                  "validFrom": null,
+                  "validUntil": null
+                },
+                "artifactId": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+                "artifactHash": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+                "createdAt": "2026-10-27T00:00:00.000Z"
+              }
+            },
+            "warnings": [],
+            "evidenceIds": [
+              "f97d2a32-74c4-4a47-bbb9-988688b57c9b"
+            ]
+          }
+        },
+        {
+          "cmd": {
+            "schemaVersion": 1,
+            "requestId": "2737dc64-33ae-4d55-b8aa-87af1cf9a5a5",
+            "idempotencyKey": "b0a7741d-e34f-49ca-8682-89cdbb2d7c95",
+            "method": "wiki.stage",
+            "payload": {
+              "documentId": "418af6de-5228-44bf-9212-92b855748fea",
+              "expectedVersion": 0,
+              "parentRevisionId": null,
+              "content": {
+                "kind": "sop",
+                "title": "合成知识",
+                "locale": "en",
+                "scope": {
+                  "platforms": [],
+                  "markets": [],
+                  "categories": []
+                },
+                "markdown": "# Synthetic candidate",
+                "validity": {
+                  "status": "confirmed",
+                  "validFrom": null,
+                  "validUntil": null
+                },
+                "sections": [
+                  {
+                    "sectionId": "ea26b962-de69-4b1d-9479-6acb41f3415b",
+                    "title": "合成段落",
+                    "location": {
+                      "kind": "text",
+                      "start": 0,
+                      "end": 21
+                    },
+                    "sourceReferenceIds": [
+                      "4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf"
+                    ]
+                  }
+                ],
+                "sourceRefs": [
+                  {
+                    "referenceId": "4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf",
+                    "sourceId": "963a2b89-62e4-42b1-bd23-8a3eb925ed15",
+                    "sourceRevisionId": "f97d2a32-74c4-4a47-bbb9-988688b57c9b",
+                    "sourceVersion": 1,
+                    "artifactHash": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+                    "location": {
+                      "kind": "text",
+                      "start": 0,
+                      "end": 16
+                    },
+                    "excerptHash": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+                    "assertion": "fact"
+                  }
+                ],
+                "relations": [],
+                "rules": []
+              }
+            }
+          },
+          "result": {
+            "ok": true,
+            "data": {
+              "kind": "wikiRevision",
+              "record": {
+                "revision": {
+                  "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+                  "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                  "documentId": "418af6de-5228-44bf-9212-92b855748fea",
+                  "version": 1,
+                  "parentRevisionId": null,
+                  "content": {
+                    "kind": "sop",
+                    "title": "合成知识",
+                    "locale": "en",
+                    "scope": {
+                      "platforms": [],
+                      "markets": [],
+                      "categories": []
+                    },
+                    "markdown": "# Synthetic candidate",
+                    "validity": {
+                      "status": "confirmed",
+                      "validFrom": null,
+                      "validUntil": null
+                    },
+                    "sections": [
+                      {
+                        "sectionId": "ea26b962-de69-4b1d-9479-6acb41f3415b",
+                        "title": "合成段落",
+                        "location": {
+                          "kind": "text",
+                          "start": 0,
+                          "end": 21
+                        },
+                        "sourceReferenceIds": [
+                          "4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf"
+                        ]
+                      }
+                    ],
+                    "sourceRefs": [
+                      {
+                        "referenceId": "4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf",
+                        "sourceId": "963a2b89-62e4-42b1-bd23-8a3eb925ed15",
+                        "sourceRevisionId": "f97d2a32-74c4-4a47-bbb9-988688b57c9b",
+                        "sourceVersion": 1,
+                        "artifactHash": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+                        "location": {
+                          "kind": "text",
+                          "start": 0,
+                          "end": 16
+                        },
+                        "excerptHash": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+                        "assertion": "fact"
+                      }
+                    ],
+                    "relations": [],
+                    "rules": []
+                  },
+                  "artifactId": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                  "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                  "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+                  "createdAt": "2026-10-27T00:00:00.000Z"
+                },
+                "lifecycle": {
+                  "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                  "lifecycleVersion": 1,
+                  "state": "candidate",
+                  "review": null,
+                  "publication": null
+                }
+              }
+            },
+            "warnings": [],
+            "evidenceIds": [
+              "a9a1c931-7de9-4161-9903-3e331364d371"
+            ]
+          }
+        },
+        {
+          "cmd": {
+            "schemaVersion": 1,
+            "requestId": "b2e0e2e9-1663-4f1c-99dd-4193d3008ef8",
+            "idempotencyKey": "4e990bac-812e-43c8-a441-271ffee13085",
+            "method": "wiki.review",
+            "payload": {
+              "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+              "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+              "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+              "expectedLifecycleVersion": 1,
+              "decision": "approve",
+              "note": "synthetic technical review",
+              "lintReceiptId": "1366894d-29be-4247-9b67-104564804c14"
+            }
+          },
+          "result": {
+            "ok": true,
+            "data": {
+              "kind": "wikiRevision",
+              "record": {
+                "revision": {
+                  "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+                  "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                  "documentId": "418af6de-5228-44bf-9212-92b855748fea",
+                  "version": 1,
+                  "parentRevisionId": null,
+                  "content": {
+                    "kind": "sop",
+                    "title": "合成知识",
+                    "locale": "en",
+                    "scope": {
+                      "platforms": [],
+                      "markets": [],
+                      "categories": []
+                    },
+                    "markdown": "# Synthetic candidate",
+                    "validity": {
+                      "status": "confirmed",
+                      "validFrom": null,
+                      "validUntil": null
+                    },
+                    "sections": [
+                      {
+                        "sectionId": "ea26b962-de69-4b1d-9479-6acb41f3415b",
+                        "title": "合成段落",
+                        "location": {
+                          "kind": "text",
+                          "start": 0,
+                          "end": 21
+                        },
+                        "sourceReferenceIds": [
+                          "4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf"
+                        ]
+                      }
+                    ],
+                    "sourceRefs": [
+                      {
+                        "referenceId": "4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf",
+                        "sourceId": "963a2b89-62e4-42b1-bd23-8a3eb925ed15",
+                        "sourceRevisionId": "f97d2a32-74c4-4a47-bbb9-988688b57c9b",
+                        "sourceVersion": 1,
+                        "artifactHash": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+                        "location": {
+                          "kind": "text",
+                          "start": 0,
+                          "end": 16
+                        },
+                        "excerptHash": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+                        "assertion": "fact"
+                      }
+                    ],
+                    "relations": [],
+                    "rules": []
+                  },
+                  "artifactId": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                  "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                  "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+                  "createdAt": "2026-10-27T00:00:00.000Z"
+                },
+                "lifecycle": {
+                  "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                  "lifecycleVersion": 2,
+                  "state": "approved",
+                  "review": {
+                    "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                    "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                    "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+                    "expectedLifecycleVersion": 1,
+                    "decision": "approve",
+                    "note": "synthetic technical review",
+                    "lintReceiptId": "1366894d-29be-4247-9b67-104564804c14",
+                    "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+                    "lintReceipt": {
+                      "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                      "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                      "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+                      "receiptId": "1366894d-29be-4247-9b67-104564804c14",
+                      "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+                      "checkedAt": "2026-10-27T00:00:00.000Z",
+                      "policyVersion": "knowledge-maintenance-v1",
+                      "outcome": "passed"
+                    },
+                    "reviewId": "ed33581b-93d0-4184-8d47-05aef6b54897",
+                    "actorId": "synthetic-human",
+                    "decidedAt": "2026-10-27T00:00:00.000Z"
+                  },
+                  "publication": null
+                }
+              }
+            },
+            "warnings": [],
+            "evidenceIds": [
+              "a9a1c931-7de9-4161-9903-3e331364d371"
+            ]
+          }
+        },
+        {
+          "cmd": {
+            "schemaVersion": 1,
+            "requestId": "314a314a-db1b-41fc-8a29-e591d44378b4",
+            "idempotencyKey": "9997af35-9b6e-46b2-9aca-b9bdd438de07",
+            "method": "wiki.publish",
+            "payload": {
+              "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+              "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+              "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+              "reviewId": "ed33581b-93d0-4184-8d47-05aef6b54897",
+              "expectedLifecycleVersion": 2
+            }
+          },
+          "result": {
+            "ok": true,
+            "data": {
+              "kind": "wikiRevision",
+              "record": {
+                "revision": {
+                  "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+                  "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                  "documentId": "418af6de-5228-44bf-9212-92b855748fea",
+                  "version": 1,
+                  "parentRevisionId": null,
+                  "content": {
+                    "kind": "sop",
+                    "title": "合成知识",
+                    "locale": "en",
+                    "scope": {
+                      "platforms": [],
+                      "markets": [],
+                      "categories": []
+                    },
+                    "markdown": "# Synthetic candidate",
+                    "validity": {
+                      "status": "confirmed",
+                      "validFrom": null,
+                      "validUntil": null
+                    },
+                    "sections": [
+                      {
+                        "sectionId": "ea26b962-de69-4b1d-9479-6acb41f3415b",
+                        "title": "合成段落",
+                        "location": {
+                          "kind": "text",
+                          "start": 0,
+                          "end": 21
+                        },
+                        "sourceReferenceIds": [
+                          "4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf"
+                        ]
+                      }
+                    ],
+                    "sourceRefs": [
+                      {
+                        "referenceId": "4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf",
+                        "sourceId": "963a2b89-62e4-42b1-bd23-8a3eb925ed15",
+                        "sourceRevisionId": "f97d2a32-74c4-4a47-bbb9-988688b57c9b",
+                        "sourceVersion": 1,
+                        "artifactHash": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+                        "location": {
+                          "kind": "text",
+                          "start": 0,
+                          "end": 16
+                        },
+                        "excerptHash": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+                        "assertion": "fact"
+                      }
+                    ],
+                    "relations": [],
+                    "rules": []
+                  },
+                  "artifactId": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                  "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                  "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+                  "createdAt": "2026-10-27T00:00:00.000Z"
+                },
+                "lifecycle": {
+                  "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                  "lifecycleVersion": 3,
+                  "state": "published",
+                  "review": {
+                    "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                    "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                    "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+                    "expectedLifecycleVersion": 1,
+                    "decision": "approve",
+                    "note": "synthetic technical review",
+                    "lintReceiptId": "1366894d-29be-4247-9b67-104564804c14",
+                    "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+                    "lintReceipt": {
+                      "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                      "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                      "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+                      "receiptId": "1366894d-29be-4247-9b67-104564804c14",
+                      "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+                      "checkedAt": "2026-10-27T00:00:00.000Z",
+                      "policyVersion": "knowledge-maintenance-v1",
+                      "outcome": "passed"
+                    },
+                    "reviewId": "ed33581b-93d0-4184-8d47-05aef6b54897",
+                    "actorId": "synthetic-human",
+                    "decidedAt": "2026-10-27T00:00:00.000Z"
+                  },
+                  "publication": {
+                    "eventId": "d0c8b5ad-cfee-4b10-8023-658147a60c6c",
+                    "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                    "lifecycleVersion": 3,
+                    "type": "published",
+                    "reviewId": "ed33581b-93d0-4184-8d47-05aef6b54897",
+                    "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                    "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+                    "actorId": "synthetic-human",
+                    "occurredAt": "2026-10-27T00:00:00.000Z",
+                    "note": "synthetic technical review"
+                  }
+                }
+              }
+            },
+            "warnings": [],
+            "evidenceIds": [
+              "a9a1c931-7de9-4161-9903-3e331364d371"
+            ]
+          }
+        },
+        {
+          "cmd": {
+            "schemaVersion": 1,
+            "requestId": "adccd3d9-80f2-46b2-bc0c-d195031848d2",
+            "idempotencyKey": "f741824b-a146-4551-aa72-9abb1d4c2d0d",
+            "method": "wiki.withdraw",
+            "payload": {
+              "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+              "expectedLifecycleVersion": 3,
+              "note": "synthetic legacy withdrawal"
+            }
+          },
+          "result": {
+            "ok": true,
+            "data": {
+              "kind": "wikiRevision",
+              "record": {
+                "revision": {
+                  "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+                  "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                  "documentId": "418af6de-5228-44bf-9212-92b855748fea",
+                  "version": 1,
+                  "parentRevisionId": null,
+                  "content": {
+                    "kind": "sop",
+                    "title": "合成知识",
+                    "locale": "en",
+                    "scope": {
+                      "platforms": [],
+                      "markets": [],
+                      "categories": []
+                    },
+                    "markdown": "# Synthetic candidate",
+                    "validity": {
+                      "status": "confirmed",
+                      "validFrom": null,
+                      "validUntil": null
+                    },
+                    "sections": [
+                      {
+                        "sectionId": "ea26b962-de69-4b1d-9479-6acb41f3415b",
+                        "title": "合成段落",
+                        "location": {
+                          "kind": "text",
+                          "start": 0,
+                          "end": 21
+                        },
+                        "sourceReferenceIds": [
+                          "4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf"
+                        ]
+                      }
+                    ],
+                    "sourceRefs": [
+                      {
+                        "referenceId": "4d77ce25-a6f0-400c-8f3c-e2a3f6e3a2bf",
+                        "sourceId": "963a2b89-62e4-42b1-bd23-8a3eb925ed15",
+                        "sourceRevisionId": "f97d2a32-74c4-4a47-bbb9-988688b57c9b",
+                        "sourceVersion": 1,
+                        "artifactHash": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+                        "location": {
+                          "kind": "text",
+                          "start": 0,
+                          "end": 16
+                        },
+                        "excerptHash": "3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8",
+                        "assertion": "fact"
+                      }
+                    ],
+                    "relations": [],
+                    "rules": []
+                  },
+                  "artifactId": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                  "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                  "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+                  "createdAt": "2026-10-27T00:00:00.000Z"
+                },
+                "lifecycle": {
+                  "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                  "lifecycleVersion": 4,
+                  "state": "withdrawn",
+                  "review": {
+                    "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                    "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                    "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+                    "expectedLifecycleVersion": 1,
+                    "decision": "approve",
+                    "note": "synthetic technical review",
+                    "lintReceiptId": "1366894d-29be-4247-9b67-104564804c14",
+                    "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+                    "lintReceipt": {
+                      "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                      "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                      "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+                      "receiptId": "1366894d-29be-4247-9b67-104564804c14",
+                      "workspaceId": "9974fa6c-a75c-45f9-959e-8d5befc41055",
+                      "checkedAt": "2026-10-27T00:00:00.000Z",
+                      "policyVersion": "knowledge-maintenance-v1",
+                      "outcome": "passed"
+                    },
+                    "reviewId": "ed33581b-93d0-4184-8d47-05aef6b54897",
+                    "actorId": "synthetic-human",
+                    "decidedAt": "2026-10-27T00:00:00.000Z"
+                  },
+                  "publication": {
+                    "eventId": "0be3b730-d1e3-4ea1-bd18-e2a59a546ac2",
+                    "revisionId": "a9a1c931-7de9-4161-9903-3e331364d371",
+                    "lifecycleVersion": 4,
+                    "type": "withdrawn",
+                    "reviewId": "ed33581b-93d0-4184-8d47-05aef6b54897",
+                    "contentHash": "3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c",
+                    "sourceSetHash": "cd5a28419cd7b00d07123a5e7cdacd3725ec406a740b49996dc3f051ef24830f",
+                    "actorId": "synthetic-human",
+                    "occurredAt": "2026-10-27T00:00:00.000Z",
+                    "note": "synthetic legacy withdrawal"
+                  }
+                }
+              }
+            },
+            "warnings": [],
+            "evidenceIds": [
+              "a9a1c931-7de9-4161-9903-3e331364d371"
+            ]
+          }
+        }
+      ]
+    },
+    "databaseCommitted": false
+  },
+  "legacyAndReportProbe": {
+    "scriptUtf8": "import { randomUUID } from \"node:crypto\";\nimport { cpSync, readFileSync, mkdtempSync, rmSync } from \"node:fs\";\nimport { tmpdir } from \"node:os\";\nimport { join } from \"node:path\";\nimport { KnowledgeLintReportSchema, WikiLintReceiptSchema, WikiResultSchema, type WikiRevision, type WikiSourceRevision } from \"../packages/contracts/src/index\";\nimport {createRequire} from \"node:module\";\nconst Database = createRequire(new URL(\"../packages/infrastructure/package.json\", import.meta.url))(\"better-sqlite3\");\nimport { afterEach, expect, it } from \"vitest\";\nimport { SqliteWorkspaceRepository } from \"../packages/infrastructure/src/index\";\nconst NOW=\"2026-10-27T00:00:00.000Z\", LATER=\"2026-10-27T00:00:02.000Z\";\nconst valid={status:\"confirmed\" as const,validFrom:null,validUntil:null};\nconst dispose:(()=>void)[]=[];\nafterEach(()=>{for(const close of dispose.splice(0).reverse())close();});\nconst command=(method:string,payload:unknown)=>({schemaVersion:1,requestId:randomUUID(),idempotencyKey:randomUUID(),method,payload});\nfunction data(input:unknown){const r=WikiResultSchema.parse(input);if(!r.ok)throw Error(r.error.message);return r.data;}\nasync function fixture(expires:string|null=null, contentOverrides:Record<string,unknown>={}){\n const dir=mkdtempSync(join(tmpdir(),\"c-p1-probe-\"));dispose.push(()=>rmSync(dir,{recursive:true,force:true}));\n const file=join(dir,\"synthetic.sqlite\"),repo=new SqliteWorkspaceRepository(file);dispose.push(()=>repo.close());\n repo.commit(command(\"workspace.create\",{name:\"合成P1边界\"}) as never,{actorId:\"synthetic-human\",origin:\"human_ui\"});\n const context={workspaceId:repo.read()!.id,actorId:\"synthetic-human\",origin:\"human_ui\" as const,now:NOW};\n const payload={sourceId:randomUUID(),expectedVersion:0,label:\"合成资料\",sourceStatus:\"synthetic\",mediaType:\"text/plain\",sourceText:\"Synthetic source\",acquiredAt:NOW,sourceUri:null,permissionNote:\"synthetic only\",validity:{...valid,validUntil:expires}};\n const sourceData=data(await repo.executeWiki(command(\"source.stage\",payload),context));if(sourceData.kind!==\"sourceRevision\")throw Error(\"source fixture\");\n const source:WikiSourceRevision=sourceData.revision,ref={referenceId:randomUUID(),sourceId:source.sourceId,sourceRevisionId:source.sourceRevisionId,sourceVersion:source.version,artifactHash:source.artifactHash,location:{kind:\"text\",start:0,end:source.sourceText.length},excerptHash:source.artifactHash,assertion:\"fact\"};\n const markdown=\"# Synthetic candidate\",sectionId=randomUUID();\n const wiki=data(await repo.executeWiki(command(\"wiki.stage\",{documentId:randomUUID(),expectedVersion:0,parentRevisionId:null,content:{kind:\"sop\",title:\"合成知识\",locale:\"en\",scope:{platforms:[],markets:[],categories:[]},markdown,validity:valid,sections:[{sectionId,title:\"合成段落\",location:{kind:\"text\",start:0,end:markdown.length},sourceReferenceIds:[ref.referenceId]}],sourceRefs:[ref],relations:[],rules:[],...contentOverrides}}),context));\n if(wiki.kind!==\"wikiRevision\")throw Error(\"wiki fixture\"); const revision:WikiRevision=wiki.record.revision;\n const db=new Database(file);dispose.push(()=>db.close());\n const binding={revisionId:revision.revisionId,contentHash:revision.contentHash,sourceSetHash:revision.sourceSetHash};\n return {repo,db,context,revision,source,payload,binding,async approve(){const receipt=repo.runWikiLint(revision.revisionId,context)!; const cmd=command(\"wiki.review\",{...binding,expectedLifecycleVersion:1,decision:\"approve\",note:\"synthetic technical review\",lintReceiptId:receipt.receiptId});const result=await repo.executeWiki(cmd,context);const d=data(result);if(d.kind!==\"wikiRevision\"||!d.record.lifecycle.review)throw Error(\"review fixture\");return {receipt,cmd,result,reviewId:d.record.lifecycle.review.reviewId};}};\n}\n\nconst facts=JSON.parse(readFileSync(join(process.env.C_LEGACY_FIXTURE_DIR!,\"facts.json\"),\"utf8\"));\nfunction reopen(){const dir=mkdtempSync(join(tmpdir(),\"c-legacy-reopen-\"));dispose.push(()=>rmSync(dir,{recursive:true,force:true}));const file=join(dir,\"synthetic.sqlite\");cpSync(join(process.env.C_LEGACY_FIXTURE_DIR!,\"synthetic.sqlite\"),file);const repo=new SqliteWorkspaceRepository(file);dispose.push(()=>repo.close());return repo;}\nit(\"control: legacy lifecycle and receipt stay readable\",async()=>{\n const repo=reopen(),read=data(await repo.executeWiki({schemaVersion:1,requestId:randomUUID(),method:\"wiki.getRevision\",payload:{revisionId:facts.revision.revisionId}},facts.context));if(read.kind!==\"wikiRevision\")throw Error(\"kind\");expect(read.record.lifecycle.state).toBe(\"withdrawn\");expect(read.record.lifecycle.review!.lintReceipt).toEqual(facts.receipt);\n});\nfor(const op of facts.operations)it(`C-legacy-key ${op.cmd.method}: old success replays after reopen`,async()=>{\n const repo=reopen();const actual=await repo.executeWiki(op.cmd,facts.context);console.log(\"LEGACY_REPLAY\",JSON.stringify({method:op.cmd.method,ok:actual.ok,code:actual.ok?null:actual.error.code}));expect(actual).toEqual(op.result);\n});\nit(\"C-legacy-receipt: same lint identity returns original receipt\",()=>{\n const repo=reopen();const actual=repo.runWikiLint(facts.revision.revisionId,facts.context);console.log(\"LEGACY_LINT\",JSON.stringify({actual:actual??null,expectedReceiptId:facts.receipt.receiptId}));expect(actual).toEqual(facts.receipt);\n});\nit(\"C-report-relations: two distinct broken relations yield valid stored report\",async()=>{\n const f=await fixture(null,{relations:[{kind:\"related\",documentId:randomUUID(),revisionId:randomUUID()},{kind:\"related\",documentId:randomUUID(),revisionId:randomUUID()}]});const receipt=f.repo.runWikiLint(f.revision.revisionId,f.context)!;\n const report=JSON.parse(f.db.prepare(\"SELECT data_json FROM knowledge_lint WHERE receipt_id=?\").get(receipt.receiptId).data_json);const result=KnowledgeLintReportSchema.safeParse(report);console.log(\"RELATIONS_REPORT\",JSON.stringify({valid:result.success,issues:report.issues}));expect(result.success).toBe(true);\n});\nit(\"C-B-unknown: unknown validity stays partial/unknown\",async()=>{\n const f=await fixture(null,{validity:{status:\"unknown\",validFrom:null,validUntil:null}});const receipt=f.repo.runWikiLint(f.revision.revisionId,f.context)!;\n const report=JSON.parse(f.db.prepare(\"SELECT data_json FROM knowledge_lint WHERE receipt_id=?\").get(receipt.receiptId).data_json);console.log(\"UNKNOWN_REPORT\",JSON.stringify({status:report.status,outcome:report.receipt.outcome,coverage:report.coverage,issues:report.issues}));expect(report.status).toBe(\"partial\");expect(report.receipt.outcome).toBe(\"unknown\");\n});\n",
+    "configUtf8": "import {defineConfig} from \"vitest/config\";export default defineConfig({test:{include:[\".runtime/c-a-fixes-extra.test.ts\"],environment:\"node\"}});\n",
+    "requiredEnvironment": "C_LEGACY_FIXTURE_DIR absolute directory generated using legacy7e6 application; then reopen using fixed369 application",
+    "firstControlFixtureCorrection": "removed idempotencyKey from wiki.getRevision read envelope only; eight product assertions unchanged"
+  },
+  "newProbes": {
+    "c-maintenance-boundary": {
+      "restoreScriptPath": ".runtime/c-maintenance-boundary.test.ts",
+      "restoreConfigPath": ".runtime/c-maintenance-boundary.config.ts",
+      "scriptUtf8": "import { randomUUID } from \"node:crypto\";\nimport { mkdtempSync, rmSync } from \"node:fs\";\nimport { tmpdir } from \"node:os\";\nimport { join } from \"node:path\";\nimport { KnowledgeLintReportSchema, WikiLintReceiptSchema, WikiResultSchema, type WikiRevision, type WikiSourceRevision } from \"../packages/contracts/src/index\";\nimport {createRequire} from \"node:module\";\nconst Database = createRequire(new URL(\"../packages/infrastructure/package.json\", import.meta.url))(\"better-sqlite3\");\nimport { afterEach, expect, it } from \"vitest\";\nimport { SqliteWorkspaceRepository } from \"../packages/infrastructure/src/index\";\nconst NOW=\"2026-10-27T00:00:00.000Z\", LATER=\"2026-10-27T00:00:02.000Z\";\nconst valid={status:\"confirmed\" as const,validFrom:null,validUntil:null};\nconst dispose:(()=>void)[]=[];\nafterEach(()=>{for(const close of dispose.splice(0).reverse())close();});\nconst command=(method:string,payload:unknown)=>({schemaVersion:1,requestId:randomUUID(),idempotencyKey:randomUUID(),method,payload});\nfunction data(input:unknown){const r=WikiResultSchema.parse(input);if(!r.ok)throw Error(r.error.message);return r.data;}\nasync function fixture(expires:string|null=null){\n const dir=mkdtempSync(join(tmpdir(),\"c-p1-probe-\"));dispose.push(()=>rmSync(dir,{recursive:true,force:true}));\n const file=join(dir,\"synthetic.sqlite\"),repo=new SqliteWorkspaceRepository(file);dispose.push(()=>repo.close());\n repo.commit(command(\"workspace.create\",{name:\"合成P1边界\"}) as never,{actorId:\"synthetic-human\",origin:\"human_ui\"});\n const context={workspaceId:repo.read()!.id,actorId:\"synthetic-human\",origin:\"human_ui\" as const,now:NOW};\n const payload={sourceId:randomUUID(),expectedVersion:0,label:\"合成资料\",sourceStatus:\"synthetic\",mediaType:\"text/plain\",sourceText:\"Synthetic source\",acquiredAt:NOW,sourceUri:null,permissionNote:\"synthetic only\",validity:{...valid,validUntil:expires}};\n const sourceData=data(await repo.executeWiki(command(\"source.stage\",payload),context));if(sourceData.kind!==\"sourceRevision\")throw Error(\"source fixture\");\n const source:WikiSourceRevision=sourceData.revision,ref={referenceId:randomUUID(),sourceId:source.sourceId,sourceRevisionId:source.sourceRevisionId,sourceVersion:source.version,artifactHash:source.artifactHash,location:{kind:\"text\",start:0,end:source.sourceText.length},excerptHash:source.artifactHash,assertion:\"fact\"};\n const markdown=\"# Synthetic candidate\",sectionId=randomUUID();\n const wiki=data(await repo.executeWiki(command(\"wiki.stage\",{documentId:randomUUID(),expectedVersion:0,parentRevisionId:null,content:{kind:\"sop\",title:\"合成知识\",locale:\"en\",scope:{platforms:[],markets:[],categories:[]},markdown,validity:valid,sections:[{sectionId,title:\"合成段落\",location:{kind:\"text\",start:0,end:markdown.length},sourceReferenceIds:[ref.referenceId]}],sourceRefs:[ref],relations:[],rules:[]}}),context));\n if(wiki.kind!==\"wikiRevision\")throw Error(\"wiki fixture\"); const revision:WikiRevision=wiki.record.revision;\n const db=new Database(file);dispose.push(()=>db.close());\n const binding={revisionId:revision.revisionId,contentHash:revision.contentHash,sourceSetHash:revision.sourceSetHash};\n return {repo,db,context,revision,source,payload,binding,async approve(){const receipt=repo.runWikiLint(revision.revisionId,context)!; const cmd=command(\"wiki.review\",{...binding,expectedLifecycleVersion:1,decision:\"approve\",note:\"synthetic technical review\",lintReceiptId:receipt.receiptId});const result=await repo.executeWiki(cmd,context);const d=data(result);if(d.kind!==\"wikiRevision\"||!d.record.lifecycle.review)throw Error(\"review fixture\");return {receipt,cmd,result,reviewId:d.record.lifecycle.review.reviewId};}};\n}\n\nimport { KnowledgeMaintenanceResultSchema, MaintenanceExchangeSchema } from \"../packages/contracts/src/index\";\nconst readCommand=(method:string,payload:unknown)=>({schemaVersion:1,requestId:randomUUID(),method,payload});\nasync function maint(f:Awaited<ReturnType<typeof fixture>>,method:string,payload:unknown,cmd?:any){return KnowledgeMaintenanceResultSchema.parse(await f.repo.executeWikiMaintenance(cmd??(method.startsWith(\"wiki.get\")?readCommand(method,payload):command(method,payload)),f.context));}\nconst target=(f:Awaited<ReturnType<typeof fixture>>)=>({kind:\"source\",sourceId:f.source.sourceId,sourceRevisionId:f.source.sourceRevisionId,artifactHash:f.source.artifactHash});\nconst subject=(f:Awaited<ReturnType<typeof fixture>>)=>({target:target(f),reason:\"withdrawn\",replacementRevisionId:null});\nconst withdraw=(f:Awaited<ReturnType<typeof fixture>>)=>({sourceRevisionId:f.source.sourceRevisionId,expectedLifecycleVersion:1,note:\"Synthetic withdrawal\"});\nfunction counts(f:Awaited<ReturnType<typeof fixture>>){return Object.fromEntries([\"knowledge_source\",\"knowledge_maintenance_issue\",\"knowledge_impact_report\",\"knowledge_impact_item\",\"knowledge_index_status\",\"knowledge_index_rebuild\",\"knowledge_seq\",\"outbox\",\"idempotency\"].map(t=>[t,f.db.prepare(`SELECT * FROM ${t} ORDER BY rowid`).all()]));}\nfunction ok(r:any,kind:string){expect(r.ok).toBe(true);if(!r.ok||r.data.kind!==kind)throw Error(JSON.stringify(r));return r.data;}\nit(\"M00 control: public source withdrawal, queue and index status are reachable\",async()=>{const f=await fixture();ok(await maint(f,\"source.withdraw\",withdraw(f)),\"sourceWithdrawal\");const page=ok(await maint(f,\"wiki.getMaintenance\",{kinds:[],states:[],limit:10,cursor:null}),\"maintenancePage\").page;expect(page.issues).toHaveLength(1);ok(await maint(f,\"wiki.getIndexStatus\",{index:\"keyword\"}),\"indexStatus\");});\nfor(const method of [\"source.withdraw\",\"wiki.analyzeImpact\",\"wiki.resolveMaintenance\",\"wiki.rebuildIndex\"])it(`M01 replay ${method}: same key retains first result and all facts`,async()=>{const f=await fixture();let payload:any;\n if(method===\"source.withdraw\")payload=withdraw(f);\n if(method===\"wiki.analyzeImpact\"){ok(await maint(f,\"source.withdraw\",withdraw(f)),\"sourceWithdrawal\");payload=subject(f);}\n if(method===\"wiki.resolveMaintenance\"){ok(await maint(f,\"source.withdraw\",withdraw(f)),\"sourceWithdrawal\");const page=ok(await maint(f,\"wiki.getMaintenance\",{kinds:[],states:[],limit:10,cursor:null}),\"maintenancePage\").page;payload={issueId:page.issues[0].issueId,expectedIssueVersion:1,action:\"start_review\",note:\"Synthetic review\",evidenceIds:[f.source.sourceRevisionId]};}\n if(method===\"wiki.rebuildIndex\"){const s=ok(await maint(f,\"wiki.getIndexStatus\",{index:\"keyword\"}),\"indexStatus\").status;payload={index:\"keyword\",expectedGeneration:s.generation,expectedAuthoritativeSeq:s.authoritativeSeq};}\n const cmd=command(method,payload),first=await maint(f,method,payload,cmd);expect(first.ok).toBe(true);const before=counts(f);const second=await f.repo.executeWikiMaintenance({...cmd,requestId:randomUUID()},{...f.context,now:LATER});console.log(\"C_MAINT_REPLAY\",JSON.stringify({method,firstOk:first.ok,secondOk:second.ok,error:second.ok?null:second.error.code,factsUnchanged:JSON.stringify(counts(f))===JSON.stringify(before)}));expect(second).toEqual(first);expect(counts(f)).toEqual(before);\n});\nit(\"M02: index rebuild receipt operationKey binds request idempotencyKey\",async()=>{const f=await fixture(),s=ok(await maint(f,\"wiki.getIndexStatus\",{index:\"keyword\"}),\"indexStatus\").status;const cmd=command(\"wiki.rebuildIndex\",{index:\"keyword\",expectedGeneration:s.generation,expectedAuthoritativeSeq:s.authoritativeSeq});const result=ok(await maint(f,cmd.method,cmd.payload,cmd),\"indexRebuild\");expect(result.rebuild.operationKey).toBe(cmd.idempotencyKey);});\nfor(const field of [\"sourceId\",\"artifactHash\"])it(`M03 impact target ${field}: reject identity/hash inconsistent with saved source`,async()=>{const f=await fixture();ok(await maint(f,\"source.withdraw\",withdraw(f)),\"sourceWithdrawal\");const s=subject(f);s.target={...s.target,[field]:field===\"sourceId\"?randomUUID():\"f\".repeat(64)};const before=counts(f);const r=await maint(f,\"wiki.analyzeImpact\",s);console.log(\"C_MAINT_BINDING\",JSON.stringify({field,ok:r.ok}));expect(r.ok).toBe(false);expect(counts(f)).toEqual(before);});\nit(\"M04: resolve cannot accept an evidence UUID absent from authoritative storage\",async()=>{const f=await fixture();ok(await maint(f,\"source.withdraw\",withdraw(f)),\"sourceWithdrawal\");const p=ok(await maint(f,\"wiki.getMaintenance\",{kinds:[],states:[],limit:10,cursor:null}),\"maintenancePage\").page;const before=counts(f);const r=await maint(f,\"wiki.resolveMaintenance\",{issueId:p.issues[0].issueId,expectedIssueVersion:1,action:\"resolve\",note:\"Synthetic unverified resolution\",evidenceIds:[randomUUID()]});expect(r.ok).toBe(false);expect(counts(f)).toEqual(before);});\nasync function twoIssues(){const f=await fixture();ok(await maint(f,\"source.withdraw\",withdraw(f)),\"sourceWithdrawal\");ok(await maint(f,\"wiki.analyzeImpact\",{target:{kind:\"knowledge\",documentId:f.revision.documentId,...f.binding},reason:\"conflict\",replacementRevisionId:null}),\"impactReport\");return f;}\nit(\"M05: maintenance continuation rejects changed query binding\",async()=>{const f=await twoIssues();const p=ok(await maint(f,\"wiki.getMaintenance\",{kinds:[],states:[],limit:1,cursor:null}),\"maintenancePage\").page;expect(p.nextCursor).not.toBeNull();const q={kinds:[\"source_withdrawn\"],states:[],limit:1,cursor:p.nextCursor};const r=await maint(f,\"wiki.getMaintenance\",q);console.log(\"C_MAINT_CURSOR\",JSON.stringify({accepted:r.ok,exchangeValid:r.ok&&r.data.kind===\"maintenancePage\"?MaintenanceExchangeSchema.safeParse({query:q,page:r.data.page}).success:null}));expect(r.ok).toBe(false);});\nit(\"M06: fixed snapshot never substitutes changed issue state on a later page\",async()=>{const f=await twoIssues();const p=ok(await maint(f,\"wiki.getMaintenance\",{kinds:[],states:[],limit:1,cursor:null}),\"maintenancePage\").page;const all=ok(await maint(f,\"wiki.getMaintenance\",{kinds:[],states:[],limit:10,cursor:null}),\"maintenancePage\").page;const pending=all.issues.find((i:any)=>i.issueId!==p.issues[0].issueId);ok(await maint(f,\"wiki.resolveMaintenance\",{issueId:pending.issueId,expectedIssueVersion:1,action:\"start_review\",note:\"Concurrent synthetic review\",evidenceIds:[f.source.sourceRevisionId]}),\"maintenanceIssue\");const r=await maint(f,\"wiki.getMaintenance\",{kinds:[],states:[],limit:1,cursor:p.nextCursor});if(r.ok){expect(r.data.kind).toBe(\"maintenancePage\");expect((r.data as any).page.issues[0]).toEqual(pending);}});\nit(\"M07: withdrawal and analysis of the same exact source fact share one issue\",async()=>{const f=await fixture();ok(await maint(f,\"source.withdraw\",withdraw(f)),\"sourceWithdrawal\");ok(await maint(f,\"wiki.analyzeImpact\",subject(f)),\"impactReport\");const p=ok(await maint(f,\"wiki.getMaintenance\",{kinds:[\"source_withdrawn\"],states:[],limit:10,cursor:null}),\"maintenancePage\").page;expect(p.issues).toHaveLength(1);});\n",
+      "configUtf8": "import {defineConfig} from \"vitest/config\";export default defineConfig({test:{include:[\".runtime/c-maintenance-boundary.test.ts\"],environment:\"node\"}});\n",
+      "scriptSha256": "3b80e25f3b12d632b4b412e2d9aefc769a303f24e830e1a714521c72a08ae8b9",
+      "configSha256": "85c0347439b0aa66c9167195d7e597455222116731eae849e8acfc7a10408094"
+    },
+    "c-maintenance-migration": {
+      "restoreScriptPath": ".runtime/c-maintenance-migration.test.ts",
+      "restoreConfigPath": ".runtime/c-maintenance-migration.config.ts",
+      "scriptUtf8": "import { randomUUID } from \"node:crypto\";\nimport { mkdtempSync, rmSync } from \"node:fs\";\nimport { tmpdir } from \"node:os\";\nimport { join } from \"node:path\";\nimport { KnowledgeLintReportSchema, WikiLintReceiptSchema, WikiResultSchema, type WikiRevision, type WikiSourceRevision } from \"../packages/contracts/src/index\";\nimport {createRequire} from \"node:module\";\nconst Database = createRequire(new URL(\"../packages/infrastructure/package.json\", import.meta.url))(\"better-sqlite3\");\nimport { afterEach, expect, it } from \"vitest\";\nimport { SqliteWorkspaceRepository } from \"../packages/infrastructure/src/index\";\nconst NOW=\"2026-10-27T00:00:00.000Z\", LATER=\"2026-10-27T00:00:02.000Z\";\nconst valid={status:\"confirmed\" as const,validFrom:null,validUntil:null};\nconst dispose:(()=>void)[]=[];\nafterEach(()=>{for(const close of dispose.splice(0).reverse())close();});\nconst command=(method:string,payload:unknown)=>({schemaVersion:1,requestId:randomUUID(),idempotencyKey:randomUUID(),method,payload});\nfunction data(input:unknown){const r=WikiResultSchema.parse(input);if(!r.ok)throw Error(r.error.message);return r.data;}\nasync function fixture(expires:string|null=null){\n const dir=mkdtempSync(join(tmpdir(),\"c-p1-probe-\"));dispose.push(()=>rmSync(dir,{recursive:true,force:true}));\n const file=join(dir,\"synthetic.sqlite\"),repo=new SqliteWorkspaceRepository(file);dispose.push(()=>repo.close());\n repo.commit(command(\"workspace.create\",{name:\"合成P1边界\"}) as never,{actorId:\"synthetic-human\",origin:\"human_ui\"});\n const context={workspaceId:repo.read()!.id,actorId:\"synthetic-human\",origin:\"human_ui\" as const,now:NOW};\n const payload={sourceId:randomUUID(),expectedVersion:0,label:\"合成资料\",sourceStatus:\"synthetic\",mediaType:\"text/plain\",sourceText:\"Synthetic source\",acquiredAt:NOW,sourceUri:null,permissionNote:\"synthetic only\",validity:{...valid,validUntil:expires}};\n const sourceData=data(await repo.executeWiki(command(\"source.stage\",payload),context));if(sourceData.kind!==\"sourceRevision\")throw Error(\"source fixture\");\n const source:WikiSourceRevision=sourceData.revision,ref={referenceId:randomUUID(),sourceId:source.sourceId,sourceRevisionId:source.sourceRevisionId,sourceVersion:source.version,artifactHash:source.artifactHash,location:{kind:\"text\",start:0,end:source.sourceText.length},excerptHash:source.artifactHash,assertion:\"fact\"};\n const markdown=\"# Synthetic candidate\",sectionId=randomUUID();\n const wiki=data(await repo.executeWiki(command(\"wiki.stage\",{documentId:randomUUID(),expectedVersion:0,parentRevisionId:null,content:{kind:\"sop\",title:\"合成知识\",locale:\"en\",scope:{platforms:[],markets:[],categories:[]},markdown,validity:valid,sections:[{sectionId,title:\"合成段落\",location:{kind:\"text\",start:0,end:markdown.length},sourceReferenceIds:[ref.referenceId]}],sourceRefs:[ref],relations:[],rules:[]}}),context));\n if(wiki.kind!==\"wikiRevision\")throw Error(\"wiki fixture\"); const revision:WikiRevision=wiki.record.revision;\n const db=new Database(file);dispose.push(()=>db.close());\n const binding={revisionId:revision.revisionId,contentHash:revision.contentHash,sourceSetHash:revision.sourceSetHash};\n return {repo,db,context,revision,source,payload,binding,async approve(){const receipt=repo.runWikiLint(revision.revisionId,context)!; const cmd=command(\"wiki.review\",{...binding,expectedLifecycleVersion:1,decision:\"approve\",note:\"synthetic technical review\",lintReceiptId:receipt.receiptId});const result=await repo.executeWiki(cmd,context);const d=data(result);if(d.kind!==\"wikiRevision\"||!d.record.lifecycle.review)throw Error(\"review fixture\");return {receipt,cmd,result,reviewId:d.record.lifecycle.review.reviewId};}};\n}\n\nimport { identify } from \"../packages/infrastructure/src/migrations\";\nit(\"N9-00 control: valid maintenance schema reopens\",async()=>{const f=await fixture();const r=new SqliteWorkspaceRepository(f.db.name);r.close();});\nfor(const table of [\"knowledge_maintenance_issue\",\"knowledge_index_status\"])it(`N9-01 ${table}: missing uniqueness is rejected before use`,async()=>{const f=await fixture();const sql=(f.db.prepare(\"SELECT sql FROM sqlite_master WHERE type='table' AND name=?\").get(table) as any).sql;const indexes=f.db.prepare(\"SELECT sql FROM sqlite_master WHERE type='index' AND tbl_name=? AND sql IS NOT NULL\").all(table) as any[];const damaged=table===\"knowledge_maintenance_issue\"?sql.replace(/,\\s*UNIQUE\\(workspace_id, dedup_key\\)/,\"\"):sql.replace(/,\\s*PRIMARY KEY\\(workspace_id, index_kind\\)/,\"\");expect(damaged).not.toBe(sql);f.db.exec(`DROP TABLE ${table}`);f.db.exec(damaged);for(const x of indexes)f.db.exec(x.sql);let readonlyAccepted=false;const ro=new Database(f.db.name,{readonly:true});try{identify(ro);readonlyAccepted=true;}catch{}finally{ro.close();}let accepted=false;try{const reopened=new SqliteWorkspaceRepository(f.db.name);accepted=true;reopened.close();}catch{}console.log(\"C_N9_UNIQUE\",JSON.stringify({table,readonlyAccepted,accepted}));expect({readonlyAccepted,accepted}).toEqual({readonlyAccepted:false,accepted:false});});\n",
+      "configUtf8": "import {defineConfig} from \"vitest/config\";export default defineConfig({test:{include:[\".runtime/c-maintenance-migration.test.ts\"],environment:\"node\"}});\n",
+      "scriptSha256": "11572c58810a7fafe14e5c4347cf1cf91523359b03aa766f9e472efa321b7a7d",
+      "configSha256": "74d2049266b678a104148e9aa858c26e4c30cc642600e74f6fe957c9ea047255"
+    }
+  },
+  "limits": [
+    "Synthetic data only; no production API requests, keys or databases.",
+    "P0/P1 Wiki and maintenance preload/worker entry points remain unavailable.",
+    "No B human/contract signoff, no merge or push.",
+    "Windows and final installer acceptance deferred."
+  ],
+  "checks": [
+    {
+      "name": "legacy-fixture-original-7e6",
+      "cwd": "/Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent",
+      "argv": [
+        "apps/desktop/node_modules/.bin/electron",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        ".runtime/c-legacy-export.config.ts"
+      ],
+      "exitCode": 0,
+      "stdout": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-a01e-p1-intake/tradequote-agent\n\n\n Test Files  1 passed (1)\n      Tests  1 passed (1)\n   Start at  17:30:02\n   Duration  1.04s (import 80%, transform 14%, tests 6%)\n\n",
+      "stderr": "",
+      "durationSeconds": 2.6078710556030273
+    },
+    {
+      "name": "C-original",
+      "argv": [
+        "apps/desktop/node_modules/.bin/electron",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        ".runtime/c-p1-boundary.config.ts"
+      ],
+      "exitCode": 0,
+      "stdout": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-a01e-maintenance-intake/tradequote-agent\n\n\n Test Files  1 passed (1)\n      Tests  8 passed (8)\n   Start at  17:30:18\n   Duration  3.40s (import 39%, transform 34%, tests 27%)\n\n",
+      "stderr": "",
+      "durationSeconds": 8.43
+    },
+    {
+      "name": "B-supplement",
+      "argv": [
+        "apps/desktop/node_modules/.bin/electron",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        ".runtime/b-p1-supplement.config.ts"
+      ],
+      "exitCode": 0,
+      "stdout": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-a01e-maintenance-intake/tradequote-agent\n\n\n Test Files  1 passed (1)\n      Tests  15 passed (15)\n   Start at  17:30:18\n   Duration  3.58s (import 36%, transform 32%, tests 31%)\n\n",
+      "stderr": "",
+      "durationSeconds": 8.58
+    },
+    {
+      "name": "B-source",
+      "argv": [
+        "apps/desktop/node_modules/.bin/electron",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        ".runtime/p1-source-probe.config.ts"
+      ],
+      "exitCode": 0,
+      "stdout": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-a01e-maintenance-intake/tradequote-agent\n\n\n Test Files  1 passed (1)\n      Tests  2 passed (2)\n   Start at  17:30:18\n   Duration  3.28s (import 39%, transform 37%, tests 24%)\n\n",
+      "stderr": "",
+      "durationSeconds": 8.3
+    },
+    {
+      "name": "C-legacy-and-report",
+      "argv": [
+        "apps/desktop/node_modules/.bin/electron",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        ".runtime/c-a-fixes-extra.config.ts"
+      ],
+      "exitCode": 0,
+      "stdout": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-a01e-maintenance-intake/tradequote-agent\n\n\n Test Files  1 passed (1)\n      Tests  9 passed (9)\n   Start at  17:30:21\n   Duration  2.12s (import 40%, transform 34%, tests 25%)\n\n",
+      "stderr": "",
+      "durationSeconds": 2.73
+    },
+    {
+      "name": "typecheck",
+      "argv": [
+        "pnpm",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 typecheck /Users/jason/.codex/worktrees/c-a01e-maintenance-intake/tradequote-agent\n> tsc --noEmit\n\n",
+      "stderr": "",
+      "durationSeconds": 16.72
+    },
+    {
+      "name": "all-unit",
+      "argv": [
+        "pnpm",
+        "test"
+      ],
+      "exitCode": 1,
+      "stdout": "\n> tradequote-agent@0.1.0 test /Users/jason/.codex/worktrees/c-a01e-maintenance-intake/tradequote-agent\n> node scripts/test-unit.mjs\n\n\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-a01e-maintenance-intake/tradequote-agent\n\n ❯ apps/desktop/src/renderer/src/features/quote-checks.test.tsx (19 tests | 1 failed) 5587ms\n   × uses the same issue for a keyboard risk marker and its field annotation with fixed evidence 2243ms\n\n Test Files  1 failed | 51 passed (52)\n      Tests  1 failed | 491 passed (492)\n   Start at  17:30:22\n   Duration  32.46s (tests 62%, import 30%, transform 7%, environment 2%)\n\n    Isolate  52 workers spawned · ~579ms startup each (spawn + environment, per file)\n             at least ~2.77s faster with isolate: false — reuses workers across files instead of one per file\n\n ELIFECYCLE  Test failed. See above for more details.\n",
+      "stderr": "\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  apps/desktop/src/renderer/src/features/quote-checks.test.tsx > uses the same issue for a keyboard risk marker and its field annotation with fixed evidence\nTestingLibraryElementError: Unable to find role=\"button\" and name \"阻断 · 付款条款 · 付款条件缺失\"\n\nIgnored nodes: comments, script, style\n\u001b[36m<body>\u001b[39m\n  \u001b[36m<div>\u001b[39m\n    \u001b[36m<section\u001b[39m\n      \u001b[33maria-label\u001b[39m=\u001b[32m\"报价 V1 规则检查\"\u001b[39m\n      \u001b[33mclass\u001b[39m=\u001b[32m\"space-y-4 min-w-0 rounded-lg border border-border bg-card p-4 [overflow-wrap:anywhere]\"\u001b[39m\n    \u001b[36m>\u001b[39m\n      \u001b[36m<div\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"section-heading gap-3 flex-wrap\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<h3>\u001b[39m\n          \u001b[0m规则检查 · V\u001b[0m\n          \u001b[0m1\u001b[0m\n        \u001b[36m</h3>\u001b[39m\n        \u001b[36m<div\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"flex flex-wrap gap-2\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[36m<button\u001b[39m\n            \u001b[33mclass\u001b[39m=\u001b[32m\"inline-flex h-10 items-center justify-center gap-2 rounded-lg px-4 text-sm font-medium transition-colors disabled:pointer-events-none disabled:bg-disabled disabled:text-muted-foreground bg-primary text-primary-foreground hover:bg-action-hover\"\u001b[39m\n            \u001b[33mdata-slot\u001b[39m=\u001b[32m\"button\"\u001b[39m\n            \u001b[33mdisabled\u001b[39m=\u001b[32m\"\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[0m检查并保存报告\u001b[0m\n          \u001b[36m</button>\u001b[39m\n          \u001b[36m<button\u001b[39m\n            \u001b[33mclass\u001b[39m=\u001b[32m\"inline-flex h-10 items-center justify-center gap-2 rounded-lg px-4 text-sm font-medium transition-colors disabled:pointer-events-none disabled:bg-disabled disabled:text-muted-foreground border border-input bg-card text-foreground hover:bg-muted\"\u001b[39m\n            \u001b[33mdata-slot\u001b[39m=\u001b[32m\"button\"\u001b[39m\n            \u001b[33mdisabled\u001b[39m=\u001b[32m\"\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[0m正在读取报告…\u001b[0m\n          \u001b[36m</button>\u001b[39m\n        \u001b[36m</div>\u001b[39m\n      \u001b[36m</div>\u001b[39m\n      \u001b[36m<p\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"description\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[0m人工触发后保存本版本的检查报告；检查不修改报价，也不代表审批通过。\u001b[0m\n      \u001b[36m</p>\u001b[39m\n      \u001b[36m<p\u001b[39m\n        \u001b[33mrole\u001b[39m=\u001b[32m\"status\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[0m正在读取当前版本的检查报告…\u001b[0m\n      \u001b[36m</p>\u001b[39m\n      \u001b[36m<div\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"grid gap-4 md:grid-cols-2\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<section\u001b[39m\n          \u001b[33maria-labelledby\u001b[39m=\u001b[32m\"_r_0_-payment-label\"\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"min-w-0 rounded-lg border border-border p-4 \"\u001b[39m\n          \u001b[33mid\u001b[39m=\u001b[32m\"_r_0_-payment\"\u001b[39m\n          \u001b[33mtabindex\u001b[39m=\u001b[32m\"-1\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[36m<h3\u001b[39m\n            \u001b[33mid\u001b[39m=\u001b[32m\"_r_0_-payment-label\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[0m付款条款\u001b[0m\n          \u001b[36m</h3>\u001b[39m\n          \u001b[36m<p\u001b[39m\n            \u001b[33mclass\u001b[39m=\u001b[32m\"whitespace-pre-wrap break-words mt-2\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[0m待确认\u001b[0m\n          \u001b[36m</p>\u001b[39m\n        \u001b[36m</section>\u001b[39m\n        \u001b[36m<section\u001b[39m\n          \u001b[33maria-labelledby\u001b[39m=\u001b[32m\"_r_0_-delivery-label\"\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"min-w-0 rounded-lg border border-border p-4 \"\u001b[39m\n          \u001b[33mid\u001b[39m=\u001b[32m\"_r_0_-delivery\"\u001b[39m\n          \u001b[33mtabindex\u001b[39m=\u001b[32m\"-1\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[36m<h3\u001b[39m\n            \u001b[33mid\u001b[39m=\u001b[32m\"_r_0_-delivery-label\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[0m交期与交货条件\u001b[0m\n          \u001b[36m</h3>\u001b[39m\n          \u001b[36m<p\u001b[39m\n            \u001b[33mclass\u001b[39m=\u001b[32m\"whitespace-pre-wrap break-words mt-2\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[0m保证三天到货\u001b[0m\n          \u001b[36m</p>\u001b[39m\n        \u001b[36m</section>\u001b[39m\n        \u001b[36m<section\u001b[39m\n          \u001b[33maria-labelledby\u001b[39m=\u001b[32m\"_r_0_-scenario.platform-label\"\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"min-w-0 rounded-lg border border-border p-4 md:col-span-2\"\u001b[39m\n          \u001b[33mid\u001b[39m=\u001b[32m\"_r_0_-scenario.platform\"\u001b[39m\n          \u001b[33mtabindex\u001b[39m=\u001b[32m\"-1\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[36m<h3\u001b[39m\n            \u001b[33mid\u001b[39m=\u001b[32m\"_r_0_-scenario.platform-label\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[0m业务平台与规则覆盖\u001b[0m\n          \u001b[36m</h3>\u001b[39m\n          \u001b[36m<p\u001b[39m\n            \u001b[33mclass\u001b[39m=\u001b[32m\"whitespace-pre-wrap break-words mt-2\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[0mRFQ · Brazil · 板材\u001b[0m\n          \u001b[36m</p>\u001b[39m\n        \u001b[36m</section>\u001b[39m\n      \u001b[36m</div>\u001b[39m\n    \u001b[36m</section>\u001b[39m\n  \u001b[36m</div>\u001b[39m\n  \u001b[36m<div\u001b[39m\n    \u001b[33maria-label\u001b[39m=\u001b[32m\"操作提示\"\u001b[39m\n    \u001b[33mclass\u001b[39m=\u001b[32m\"message-stack\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n\u001b[36m</body>\u001b[39m\n\nIgnored nodes: comments, script, style\n\u001b[36m<body>\u001b[39m\n  \u001b[36m<div>\u001b[39m\n    \u001b[36m<section\u001b[39m\n      \u001b[33maria-label\u001b[39m=\u001b[32m\"报价 V1 规则检查\"\u001b[39m\n      \u001b[33mclass\u001b[39m=\u001b[32m\"space-y-4 min-w-0 rounded-lg border border-border bg-card p-4 [overflow-wrap:anywhere]\"\u001b[39m\n    \u001b[36m>\u001b[39m\n      \u001b[36m<div\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"section-heading gap-3 flex-wrap\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<h3>\u001b[39m\n          \u001b[0m规则检查 · V\u001b[0m\n          \u001b[0m1\u001b[0m\n        \u001b[36m</h3>\u001b[39m\n        \u001b[36m<div\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"flex flex-wrap gap-2\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[36m<button\u001b[39m\n            \u001b[33mclass\u001b[39m=\u001b[32m\"inline-flex h-10 items-center justify-center gap-2 rounded-lg px-4 text-sm font-medium transition-colors disabled:pointer-events-none disabled:bg-disabled disabled:text-muted-foreground bg-primary text-primary-foreground hover:bg-action-hover\"\u001b[39m\n            \u001b[33mdata-slot\u001b[39m=\u001b[32m\"button\"\u001b[39m\n            \u001b[33mdisabled\u001b[39m=\u001b[32m\"\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[0m检查并保存报告\u001b[0m\n          \u001b[36m</button>\u001b[39m\n          \u001b[36m<button\u001b[39m\n            \u001b[33mclass\u001b[39m=\u001b[32m\"inline-flex h-10 items-center justify-center gap-2 rounded-lg px-4 text-sm font-medium transition-colors disabled:pointer-events-none disabled:bg-disabled disabled:text-muted-foreground border border-input bg-card text-foreground hover:bg-muted\"\u001b[39m\n            \u001b[33mdata-slot\u001b[39m=\u001b[32m\"button\"\u001b[39m\n            \u001b[33mdisabled\u001b[39m=\u001b[32m\"\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[0m正在读取报告…\u001b[0m\n          \u001b[36m</button>\u001b[39m\n        \u001b[36m</div>\u001b[39m\n      \u001b[36m</div>\u001b[39m\n      \u001b[36m<p\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"description\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[0m人工触发后保存本版本的检查报告；检查不修改报价，也不代表审批通过。\u001b[0m\n      \u001b[36m</p>\u001b[39m\n      \u001b[36m<p\u001b[39m\n        \u001b[33mrole\u001b[39m=\u001b[32m\"status\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[0m正在读取当前版本的检查报告…\u001b[0m\n      \u001b[36m</p>\u001b[39m\n      \u001b[36m<div\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"grid gap-4 md:grid-cols-2\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<section\u001b[39m\n          \u001b[33maria-labelledby\u001b[39m=\u001b[32m\"_r_0_-payment-label\"\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"min-w-0 rounded-lg border border-border p-4 \"\u001b[39m\n          \u001b[33mid\u001b[39m=\u001b[32m\"_r_0_-payment\"\u001b[39m\n          \u001b[33mtabindex\u001b[39m=\u001b[32m\"-1\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[36m<h3\u001b[39m\n            \u001b[33mid\u001b[39m=\u001b[32m\"_r_0_-payment-label\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[0m付款条款\u001b[0m\n          \u001b[36m</h3>\u001b[39m\n          \u001b[36m<p\u001b[39m\n            \u001b[33mclass\u001b[39m=\u001b[32m\"whitespace-pre-wrap break-words mt-2\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[0m待确认\u001b[0m\n          \u001b[36m</p>\u001b[39m\n        \u001b[36m</section>\u001b[39m\n        \u001b[36m<section\u001b[39m\n          \u001b[33maria-labelledby\u001b[39m=\u001b[32m\"_r_0_-delivery-label\"\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"min-w-0 rounded-lg border border-border p-4 \"\u001b[39m\n          \u001b[33mid\u001b[39m=\u001b[32m\"_r_0_-delivery\"\u001b[39m\n          \u001b[33mtabindex\u001b[39m=\u001b[32m\"-1\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[36m<h3\u001b[39m\n            \u001b[33mid\u001b[39m=\u001b[32m\"_r_0_-delivery-label\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[0m交期与交货条件\u001b[0m\n          \u001b[36m</h3>\u001b[39m\n          \u001b[36m<p\u001b[39m\n            \u001b[33mclass\u001b[39m=\u001b[32m\"whitespace-pre-wrap break-words mt-2\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[0m保证三天到货\u001b[0m\n          \u001b[36m</p>\u001b[39m\n        \u001b[36m</section>\u001b[39m\n        \u001b[36m<section\u001b[39m\n          \u001b[33maria-labelledby\u001b[39m=\u001b[32m\"_r_0_-scenario.platform-label\"\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"min-w-0 rounded-lg border border-border p-4 md:col-span-2\"\u001b[39m\n          \u001b[33mid\u001b[39m=\u001b[32m\"_r_0_-scenario.platform\"\u001b[39m\n          \u001b[33mtabindex\u001b[39m=\u001b[32m\"-1\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[36m<h3\u001b[39m\n            \u001b[33mid\u001b[39m=\u001b[32m\"_r_0_-scenario.platform-label\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[0m业务平台与规则覆盖\u001b[0m\n          \u001b[36m</h3>\u001b[39m\n          \u001b[36m<p\u001b[39m\n            \u001b[33mclass\u001b[39m=\u001b[32m\"whitespace-pre-wrap break-words mt-2\"\u001b[39m\n          \u001b[36m>\u001b[39m\n            \u001b[0mRFQ · Brazil · 板材\u001b[0m\n          \u001b[36m</p>\u001b[39m\n        \u001b[36m</section>\u001b[39m\n      \u001b[36m</div>\u001b[39m\n    \u001b[36m</section>\u001b[39m\n  \u001b[36m</div>\u001b[39m\n  \u001b[36m<div\u001b[39m\n    \u001b[33maria-label\u001b[39m=\u001b[32m\"操作提示\"\u001b[39m\n    \u001b[33mclass\u001b[39m=\u001b[32m\"message-stack\"\u001b[39m\n  \u001b[36m/>\u001b[39m\n\u001b[36m</body>\u001b[39m\n ❯ waitForWrapper node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/wait-for.js:163:27\n ❯ node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js:86:33\n ❯ apps/desktop/src/renderer/src/features/quote-checks.test.tsx:44:31\n     42|   const user = userEvent.setup();\n     43|   mount();\n     44|   const marker = await screen.findByRole(\"button\", { name: \"阻断 · 付款条款 …\n       |                               ^\n     45|   expect(screen.getByText(\"1 项阻断 · 1 项提醒 · 0 项待核实\")).toBeVisible();\n     46|   marker.focus();\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n",
+      "durationSeconds": 33.35
+    },
+    {
+      "name": "check",
+      "argv": [
+        "pnpm",
+        "check"
+      ],
+      "exitCode": 1,
+      "stdout": "\n> tradequote-agent@0.1.0 check /Users/jason/.codex/worktrees/c-a01e-maintenance-intake/tradequote-agent\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 183 files in 894ms. No fixes applied.\nFound 3 errors.\n ELIFECYCLE  Command failed with exit code 1.\n",
+      "stderr": "packages/infrastructure/src/wiki-store.test.ts format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Formatter would have printed the following content:\n  \n    1168 1168 │     (result as { ok: true; data: { kind: \"maintenancePage\"; page: MaintenancePage } }).data.page;\n    1169 1169 │   const impactReportOf = (result: unknown): KnowledgeImpactReport =>\n    1170      │ - ··(result·as·{·ok:·true;·data:·{·kind:·\"impactReport\";·report:·KnowledgeImpactReport·}·}).data.report;\n         1170 │ + ··(result·as·{·ok:·true;·data:·{·kind:·\"impactReport\";·report:·KnowledgeImpactReport·}·}).data\n         1171 │ + ····.report;\n    1171 1172 │   const impactPageOf = (result: unknown): KnowledgeImpactPage =>\n    1172 1173 │     (result as { ok: true; data: { kind: \"impactPage\"; page: KnowledgeImpactPage } }).data.page;\n    ········· │ \n    1174 1175 │     (result as { ok: true; data: { kind: \"indexStatus\"; status: KnowledgeIndexStatus } }).data.status;\n    1175 1176 │   const indexRebuildOf = (result: unknown): KnowledgeIndexRebuild =>\n    1176      │ - ··(result·as·{·ok:·true;·data:·{·kind:·\"indexRebuild\";·rebuild:·KnowledgeIndexRebuild·}·}).data.rebuild;\n         1177 │ + ··(result·as·{·ok:·true;·data:·{·kind:·\"indexRebuild\";·rebuild:·KnowledgeIndexRebuild·}·}).data\n         1178 │ + ····.rebuild;\n    1177 1179 │   const sourceWithdrawalOf = (result: unknown) =>\n    1178 1180 │     (\n    ········· │ \n    1205 1207 │       ),\n    1206 1208 │     );\n    1207      │ - ··return·(result·as·{·ok:·true;·data:·{·kind:·\"sourceRevision\";·revision:·WikiSourceRevision·}·}).data\n    1208      │ - ····.revision;\n         1209 │ + ··return·(result·as·{·ok:·true;·data:·{·kind:·\"sourceRevision\";·revision:·WikiSourceRevision·}·})\n         1210 │ + ····.data.revision;\n    1209 1211 │   }\n    1210 1212 │   \n    ········· │ \n    1232 1234 │     const page = maintenancePageOf(\n    1233 1235 │       await repo.executeWikiMaintenance(\n    1234      │ - ······read(\"wiki.getMaintenance\",·{·kinds:·[\"source_withdrawn\"],·states:·[],·limit:·10,·cursor:·null·}),\n         1236 │ + ······read(\"wiki.getMaintenance\",·{\n         1237 │ + ········kinds:·[\"source_withdrawn\"],\n         1238 │ + ········states:·[],\n         1239 │ + ········limit:·10,\n         1240 │ + ········cursor:·null,\n         1241 │ + ······}),\n    1235 1242 │         host(workspaceId),\n    1236 1243 │       ),\n    ········· │ \n    1255 1262 │     const file = join(temp(), \"wiki-maintenance-resolve.sqlite\");\n    1256 1263 │     const { repo, workspaceId } = openRepo(file);\n    1257      │ - ··for·(const·source·of·[await·stageSource(repo,·workspaceId),·await·stageSource(repo,·workspaceId)])·{\n         1264 │ + ··for·(const·source·of·[\n         1265 │ + ····await·stageSource(repo,·workspaceId),\n         1266 │ + ····await·stageSource(repo,·workspaceId),\n         1267 │ + ··])·{\n    1258 1268 │       expect(\n    1259 1269 │         (\n    ········· │ \n    1411 1421 │     expect(page.report.reportId).toBe(report.reportId);\n    1412 1422 │     expect(page.items.some((i) => i.target.kind === \"knowledge\")).toBe(true);\n    1413      │ - ··expect(page.items.some((i)·=>·i.target.kind·===·\"consumer\"·&&·i.consumerState·===·\"unknown\")).toBe(\n    1414      │ - ····true,\n    1415      │ - ··);\n         1423 │ + ··expect(\n         1424 │ + ····page.items.some((i)·=>·i.target.kind·===·\"consumer\"·&&·i.consumerState·===·\"unknown\"),\n         1425 │ + ··).toBe(true);\n    1416 1426 │     repo.close();\n    1417 1427 │   });\n    ········· │ \n    1457 1467 │   \n    1458 1468 │     const missing = indexStatusOf(\n    1459      │ - ····await·repo.executeWikiMaintenance(read(\"wiki.getIndexStatus\",·{·index:·\"keyword\"·}),·host(workspaceId)),\n         1469 │ + ····await·repo.executeWikiMaintenance(\n         1470 │ + ······read(\"wiki.getIndexStatus\",·{·index:·\"keyword\"·}),\n         1471 │ + ······host(workspaceId),\n         1472 │ + ····),\n    1460 1473 │     );\n    1461      │ - ··expect(missing).toMatchObject({·state:·\"missing\",·generation:·0,·indexedSeq:·0,·authoritativeSeq:·0·});\n         1474 │ + ··expect(missing).toMatchObject({\n         1475 │ + ····state:·\"missing\",\n         1476 │ + ····generation:·0,\n         1477 │ + ····indexedSeq:·0,\n         1478 │ + ····authoritativeSeq:·0,\n         1479 │ + ··});\n    1462 1480 │   \n    1463 1481 │     const rebuilt = indexRebuildOf(\n    1464 1482 │       await repo.executeWikiMaintenance(\n    1465      │ - ······write(\"wiki.rebuildIndex\",·{·index:·\"keyword\",·expectedGeneration:·0,·expectedAuthoritativeSeq:·0·}),\n         1483 │ + ······write(\"wiki.rebuildIndex\",·{\n         1484 │ + ········index:·\"keyword\",\n         1485 │ + ········expectedGeneration:·0,\n         1486 │ + ········expectedAuthoritativeSeq:·0,\n         1487 │ + ······}),\n    1466 1488 │         host(workspaceId),\n    1467 1489 │       ),\n    ········· │ \n    1470 1492 │   \n    1471 1493 │     const ready = indexStatusOf(\n    1472      │ - ····await·repo.executeWikiMaintenance(read(\"wiki.getIndexStatus\",·{·index:·\"keyword\"·}),·host(workspaceId)),\n         1494 │ + ····await·repo.executeWikiMaintenance(\n         1495 │ + ······read(\"wiki.getIndexStatus\",·{·index:·\"keyword\"·}),\n         1496 │ + ······host(workspaceId),\n         1497 │ + ····),\n    1473 1498 │     );\n    1474      │ - ··expect(ready).toMatchObject({·state:·\"ready\",·generation:·1,·indexedSeq:·0,·authoritativeSeq:·0·});\n         1499 │ + ··expect(ready).toMatchObject({\n         1500 │ + ····state:·\"ready\",\n         1501 │ + ····generation:·1,\n         1502 │ + ····indexedSeq:·0,\n         1503 │ + ····authoritativeSeq:·0,\n         1504 │ + ··});\n    1475 1505 │   \n    1476 1506 │     const got = indexRebuildOf(\n    ········· │ \n    1484 1514 │     await stageSource(repo, workspaceId);\n    1485 1515 │     const stale = indexStatusOf(\n    1486      │ - ····await·repo.executeWikiMaintenance(read(\"wiki.getIndexStatus\",·{·index:·\"keyword\"·}),·host(workspaceId)),\n         1516 │ + ····await·repo.executeWikiMaintenance(\n         1517 │ + ······read(\"wiki.getIndexStatus\",·{·index:·\"keyword\"·}),\n         1518 │ + ······host(workspaceId),\n         1519 │ + ····),\n    1487 1520 │     );\n    1488      │ - ··expect(stale).toMatchObject({·state:·\"stale\",·generation:·1,·indexedSeq:·0,·authoritativeSeq:·1·});\n         1521 │ + ··expect(stale).toMatchObject({\n         1522 │ + ····state:·\"stale\",\n         1523 │ + ····generation:·1,\n         1524 │ + ····indexedSeq:·0,\n         1525 │ + ····authoritativeSeq:·1,\n         1526 │ + ··});\n    1489 1527 │   \n    1490 1528 │     expect(\n    1491 1529 │       await repo.executeWikiMaintenance(\n    1492      │ - ······write(\"wiki.rebuildIndex\",·{·index:·\"keyword\",·expectedGeneration:·0,·expectedAuthoritativeSeq:·1·}),\n         1530 │ + ······write(\"wiki.rebuildIndex\",·{\n         1531 │ + ········index:·\"keyword\",\n         1532 │ + ········expectedGeneration:·0,\n         1533 │ + ········expectedAuthoritativeSeq:·1,\n         1534 │ + ······}),\n    1493 1535 │         host(workspaceId),\n    1494 1536 │       ),\n    ········· │ \n    1497 1539 │     const rebuilt2 = indexRebuildOf(\n    1498 1540 │       await repo.executeWikiMaintenance(\n    1499      │ - ······write(\"wiki.rebuildIndex\",·{·index:·\"keyword\",·expectedGeneration:·1,·expectedAuthoritativeSeq:·1·}),\n         1541 │ + ······write(\"wiki.rebuildIndex\",·{\n         1542 │ + ········index:·\"keyword\",\n         1543 │ + ········expectedGeneration:·1,\n         1544 │ + ········expectedAuthoritativeSeq:·1,\n         1545 │ + ······}),\n    1500 1546 │         host(workspaceId),\n    1501 1547 │       ),\n  \n\npackages/infrastructure/src/wiki-store.ts:1:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━━━━━\n\n  × Sort these imports.\n  \n   > 1 │ import { createHash, randomUUID } from \"node:crypto\";\n       │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   > 2 │ import {\n   > 3 │   CheckReportSchema,\n   > 4 │   failure,\n        ...\n  > 67 │   type MaintenanceTarget,\n  > 68 │ } from \"@tradequote/contracts\";\n       │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    69 │ \n    70 │ const hash = (value: string) => createHash(\"sha256\").update(value).digest(\"hex\");\n  \n  i Safe fix: Organize imports and exports (Biome)\n  \n       4    4 │     failure,\n       5    5 │     type KnowledgeCitation,\n       6      │ - ··type·KnowledgeLintIssue,\n            6 │ + ··type·KnowledgeImpactItem,\n            7 │ + ··KnowledgeImpactItemSchema,\n            8 │ + ··type·KnowledgeImpactPage,\n            9 │ + ··KnowledgeImpactPageSchema,\n           10 │ + ··KnowledgeImpactQuerySchema,\n           11 │ + ··type·KnowledgeImpactReport,\n           12 │ + ··KnowledgeImpactReportSchema,\n           13 │ + ··type·KnowledgeImpactSubject,\n           14 │ + ··KnowledgeImpactSubjectSchema,\n           15 │ + ··type·KnowledgeIndexRebuild,\n           16 │ + ··KnowledgeIndexRebuildSchema,\n           17 │ + ··type·KnowledgeIndexStatus,\n           18 │ + ··KnowledgeIndexStatusSchema,\n           19 │ + ··type·KnowledgeLintIssue,\n       7   20 │     type KnowledgeLintReport,\n       8   21 │     KnowledgeLintReportSchema,\n       9   22 │     KnowledgeLintReviewExchangeSchema,\n      10   23 │     KnowledgeLintReviewInputExchangeSchema,\n      11      │ - ··type·KnowledgeMaintenanceResult,\n      12      │ - ··QuoteSnapshotSchema,\n           24 │ + ··type·KnowledgeMaintenanceLifecycleEvent,\n           25 │ + ··type·KnowledgeMaintenanceResult,\n           26 │ + ··type·MaintenanceIssue,\n           27 │ + ··MaintenanceIssueSchema,\n           28 │ + ··type·MaintenancePage,\n           29 │ + ··MaintenancePageSchema,\n           30 │ + ··type·MaintenanceQuery,\n           31 │ + ··type·MaintenanceTarget,\n           32 │ + ··QuoteSnapshotSchema,\n      13   33 │     validTextLocation,\n      14   34 │     type WikiCitationResolveInput,\n    ········· │ \n      43   63 │     wikiSourceSetPayload,\n      44   64 │   } from \"@tradequote/contracts\";\n      45      │ - import·type·Database·from·\"better-sqlite3\";\n      46      │ - import·type·{·z·}·from·\"zod\";\n      47      │ - import·{\n      48      │ - ··KnowledgeImpactItemSchema,\n      49      │ - ··type·KnowledgeImpactItem,\n      50      │ - ··KnowledgeImpactPageSchema,\n      51      │ - ··type·KnowledgeImpactPage,\n      52      │ - ··KnowledgeImpactQuerySchema,\n      53      │ - ··KnowledgeImpactReportSchema,\n      54      │ - ··type·KnowledgeImpactReport,\n      55      │ - ··KnowledgeImpactSubjectSchema,\n      56      │ - ··type·KnowledgeImpactSubject,\n      57      │ - ··KnowledgeIndexRebuildSchema,\n      58      │ - ··type·KnowledgeIndexRebuild,\n      59      │ - ··KnowledgeIndexStatusSchema,\n      60      │ - ··type·KnowledgeIndexStatus,\n      61      │ - ··type·KnowledgeMaintenanceLifecycleEvent,\n      62      │ - ··type·MaintenanceIssue,\n      63      │ - ··MaintenanceIssueSchema,\n      64      │ - ··type·MaintenancePage,\n      65      │ - ··MaintenancePageSchema,\n      66      │ - ··type·MaintenanceQuery,\n      67      │ - ··type·MaintenanceTarget,\n      68      │ - }·from·\"@tradequote/contracts\";\n           65 │ + import·type·Database·from·\"better-sqlite3\";\n           66 │ + import·type·{·z·}·from·\"zod\";\n      69   67 │   \n      70   68 │   const hash = (value: string) => createHash(\"sha256\").update(value).digest(\"hex\");\n  \n\npackages/infrastructure/src/wiki-store.ts format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Formatter would have printed the following content:\n  \n    1512 1512 │         };\n    1513 1513 │         this.db\n    1514      │ - ········.prepare(\"UPDATE·knowledge_maintenance_issue·SET·last_detected_at=?,·data_json=?·WHERE·issue_id=?\")\n         1514 │ + ········.prepare(\n         1515 │ + ··········\"UPDATE·knowledge_maintenance_issue·SET·last_detected_at=?,·data_json=?·WHERE·issue_id=?\",\n         1516 │ + ········)\n    1515 1517 │           .run(updated.lastDetectedAt, JSON.stringify(updated), updated.issueId);\n    1516 1518 │         return updated;\n    ········· │ \n    1578 1580 │               `来源生命周期当前版本为 v${row.lifecycle_version}，与提交的 expectedLifecycleVersion 不一致`,\n    1579 1581 │             );\n    1580      │ - ········if·(row.state·!==·\"active\")·return·failure(\"ACTION_NOT_ALLOWED\",·\"来源已撤回，不能重复撤回\");\n         1582 │ + ········if·(row.state·!==·\"active\")\n         1583 │ + ··········return·failure(\"ACTION_NOT_ALLOWED\",·\"来源已撤回，不能重复撤回\");\n    1581 1584 │           this.bumpSeq(workspaceId);\n    1582 1585 │           const newVersion = row.lifecycle_version + 1;\n    1583 1586 │           this.db\n    1584      │ - ··········.prepare(\"UPDATE·knowledge_source·SET·state='withdrawn',·lifecycle_version=?·WHERE·source_revision_id=?\")\n         1587 │ + ··········.prepare(\n         1588 │ + ············\"UPDATE·knowledge_source·SET·state='withdrawn',·lifecycle_version=?·WHERE·source_revision_id=?\",\n         1589 │ + ··········)\n    1585 1590 │             .run(newVersion, input.sourceRevisionId);\n    1586 1591 │           const state: WikiSourceState = {\n    ········· │ \n    1645 1650 │       const snapshotId = query.cursor?.snapshotId ?? randomUUID();\n    1646 1651 │       const afterIssueId = query.cursor?.afterIssueId ?? \"\";\n    1647      │ - ····const·kindsFilter·=·kinds.length·===·0·?·\"\"·:·`·AND·kind·IN·(${kinds.map(()·=>·\"?\").join(\",\")})`;\n         1652 │ + ····const·kindsFilter·=\n         1653 │ + ······kinds.length·===·0·?·\"\"·:·`·AND·kind·IN·(${kinds.map(()·=>·\"?\").join(\",\")})`;\n    1648 1654 │       const statesFilter =\n    1649 1655 │         states.length === 0 ? \"\" : ` AND state IN (${states.map(() => \"?\").join(\",\")})`;\n    ········· │ \n    1652 1658 │           `SELECT issue_id FROM knowledge_maintenance_issue WHERE workspace_id=? AND issue_id > ?${kindsFilter}${statesFilter} ORDER BY issue_id LIMIT ?`,\n    1653 1659 │         )\n    1654      │ - ······.all(workspaceId,·afterIssueId,·...kinds,·...states,·query.limit·+·1)·as·{·issue_id:·string·}[];\n         1660 │ + ······.all(workspaceId,·afterIssueId,·...kinds,·...states,·query.limit·+·1)·as·{\n         1661 │ + ······issue_id:·string;\n         1662 │ + ····}[];\n    1655 1663 │       const issues = rows\n    1656 1664 │         .slice(0, query.limit)\n    ········· │ \n    1662 1670 │           ? { snapshotId, queryHash, afterIssueId: issues[issues.length - 1]!.issueId }\n    1663 1671 │           : null;\n    1664      │ - ····const·page:·MaintenancePage·=·{·snapshotId,·queryHash,·checkedAt:·context.now,·issues,·nextCursor·};\n         1672 │ + ····const·page:·MaintenancePage·=·{\n         1673 │ + ······snapshotId,\n         1674 │ + ······queryHash,\n         1675 │ + ······checkedAt:·context.now,\n         1676 │ + ······issues,\n         1677 │ + ······nextCursor,\n         1678 │ + ····};\n    1665 1679 │       const parsed = MaintenancePageSchema.safeParse(page);\n    1666 1680 │       if (!parsed.success) return failure(\"STORAGE_ERROR\", \"维护页事实不完整\");\n    ········· │ \n    1701 1715 │           let eventType: KnowledgeMaintenanceLifecycleEvent[\"type\"];\n    1702 1716 │           if (input.action === \"start_review\") {\n    1703      │ - ··········if·(issue.state·!==·\"open\")·return·failure(\"ACTION_NOT_ALLOWED\",·\"仅未处理问题可进入处理\");\n         1717 │ + ··········if·(issue.state·!==·\"open\")\n         1718 │ + ············return·failure(\"ACTION_NOT_ALLOWED\",·\"仅未处理问题可进入处理\");\n    1704 1719 │             nextState = \"in_progress\";\n    1705 1720 │             resolution = null;\n    ········· │ \n    1741 1756 │   \n    1742 1757 │     /** wiki.analyzeImpact：计算主题波及的知识版本与消费，并登记维护队列。 */\n    1743      │ - ··analyzeImpact(subject:·KnowledgeImpactSubject,·context:·WikiHostContext):·KnowledgeMaintenanceResult·{\n         1758 │ + ··analyzeImpact(\n         1759 │ + ····subject:·KnowledgeImpactSubject,\n         1760 │ + ····context:·WikiHostContext,\n         1761 │ + ··):·KnowledgeMaintenanceResult·{\n    1744 1762 │       return this.db\n    1745 1763 │         .transaction(() => {\n    ········· │ \n    1841 1859 │   \n    1842 1860 │           const snapshotSeq = this.currentSeq(workspaceId);\n    1843      │ - ········const·status:·KnowledgeImpactReport[\"status\"]·=·hasUnknownConsumer·?·\"partial\"·:·\"completed\";\n         1861 │ + ········const·status:·KnowledgeImpactReport[\"status\"]·=·hasUnknownConsumer\n         1862 │ + ··········?·\"partial\"\n         1863 │ + ··········:·\"completed\";\n    1844 1864 │           const report: KnowledgeImpactReport = {\n    1845 1865 │             workspaceId,\n    ········· │ \n    1863 1883 │             if (!KnowledgeImpactItemSchema.safeParse(item).success) continue;\n    1864 1884 │             this.db\n    1865      │ - ············.prepare(\"INSERT·INTO·knowledge_impact_item(item_id,report_id,data_json)·VALUES·(?,?,?)\")\n         1885 │ + ············.prepare(\n         1886 │ + ··············\"INSERT·INTO·knowledge_impact_item(item_id,report_id,data_json)·VALUES·(?,?,?)\",\n         1887 │ + ············)\n    1866 1888 │               .run(item.itemId, report.reportId, JSON.stringify(item));\n    1867 1889 │           }\n    ········· │ \n    1915 1937 │   \n    1916 1938 │     /** wiki.getIndexStatus：按当前权威快照序号推导缺失/滞后/就绪。 */\n    1917      │ - ··getIndexStatus(index:·\"keyword\"·|·\"markdown_view\",·context:·WikiHostContext):·KnowledgeMaintenanceResult·{\n         1939 │ + ··getIndexStatus(\n         1940 │ + ····index:·\"keyword\"·|·\"markdown_view\",\n         1941 │ + ····context:·WikiHostContext,\n         1942 │ + ··):·KnowledgeMaintenanceResult·{\n    1918 1943 │       const workspaceId = this.workspaceId();\n    1919 1944 │       if (!workspaceId) return failure(\"NOT_FOUND\", \"请先创建工作区\");\n    1920 1945 │       const authoritativeSeq = this.currentSeq(workspaceId);\n    1921 1946 │       const row = this.db\n    1922      │ - ······.prepare(\"SELECT·generation,·indexed_seq·FROM·knowledge_index_status·WHERE·workspace_id=?·AND·index_kind=?\")\n         1947 │ + ······.prepare(\n         1948 │ + ········\"SELECT·generation,·indexed_seq·FROM·knowledge_index_status·WHERE·workspace_id=?·AND·index_kind=?\",\n         1949 │ + ······)\n    1923 1950 │         .get(workspaceId, index) as { generation: number; indexed_seq: number } | undefined;\n    1924 1951 │       const generation = row?.generation ?? 0;\n    ········· │ \n    1943 1970 │       const parsed = KnowledgeIndexStatusSchema.safeParse(status);\n    1944 1971 │       if (!parsed.success) return failure(\"STORAGE_ERROR\", \"索引状态事实不完整\");\n    1945      │ - ····return·{·ok:·true,·data:·{·kind:·\"indexStatus\",·status:·parsed.data·},·warnings:·[],·evidenceIds:·[]·};\n         1972 │ + ····return·{\n         1973 │ + ······ok:·true,\n         1974 │ + ······data:·{·kind:·\"indexStatus\",·status:·parsed.data·},\n         1975 │ + ······warnings:·[],\n         1976 │ + ······evidenceIds:·[],\n         1977 │ + ····};\n    1946 1978 │     }\n    1947 1979 │   \n    ········· │ \n    1960 1992 │           if (!workspaceId) return failure(\"NOT_FOUND\", \"请先创建工作区\");\n    1961 1993 │           const row = this.db\n    1962      │ - ··········.prepare(\"SELECT·generation,·indexed_seq·FROM·knowledge_index_status·WHERE·workspace_id=?·AND·index_kind=?\")\n         1994 │ + ··········.prepare(\n         1995 │ + ············\"SELECT·generation,·indexed_seq·FROM·knowledge_index_status·WHERE·workspace_id=?·AND·index_kind=?\",\n         1996 │ + ··········)\n    1963 1997 │             .get(workspaceId, input.index) as { generation: number; indexed_seq: number } | undefined;\n    1964 1998 │           const currentGeneration = row?.generation ?? 0;\n    ········· │ \n    2021 2055 │             );\n    2022 2056 │           this.db\n    2023      │ - ··········.prepare(\"INSERT·INTO·knowledge_index_rebuild(rebuild_id,workspace_id,index_kind,data_json)·VALUES·(?,?,?,?)\")\n         2057 │ + ··········.prepare(\n         2058 │ + ············\"INSERT·INTO·knowledge_index_rebuild(rebuild_id,workspace_id,index_kind,data_json)·VALUES·(?,?,?,?)\",\n         2059 │ + ··········)\n    2024 2060 │             .run(rebuildId, workspaceId, input.index, JSON.stringify(rebuild));\n    2025 2061 │           this.emit(\n  \n\ncheck ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Some errors were emitted while running checks.\n  \n\n",
+      "durationSeconds": 9.16
+    },
+    {
+      "name": "build",
+      "argv": [
+        "pnpm",
+        "build"
+      ],
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 build /Users/jason/.codex/worktrees/c-a01e-maintenance-intake/tradequote-agent\n> node scripts/check-icons.mjs && pnpm --filter @tradequote/desktop build\n\nApplication icons passed: SVG/1024 PNG/macOS ICNS/Windows ICO\n\n> @tradequote/desktop@0.1.0 build /Users/jason/.codex/worktrees/c-a01e-maintenance-intake/tradequote-agent/apps/desktop\n> electron-vite build\n\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 280 modules transformed.\nrendering chunks...\nout/main/evaluation.js                2.41 kB\nout/main/worker.js                    3.07 kB\nout/main/index.js                    26.21 kB\nout/main/chunks/public-JyM1wgsz.js   29.90 kB\nout/main/chunks/src-Bt_U5qYI.js     790.76 kB\n\n✓ built in 423ms\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 116 modules transformed.\nrendering chunks...\nout/preload/index.js  286.48 kB\n\n✓ built in 155ms\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 2120 modules transformed.\nrendering chunks...\nout/renderer/index.html                   0.64 kB\nout/renderer/assets/index-CKwX_z5s.css   15.94 kB\nout/renderer/assets/index-Dkp_l23Z.js   597.05 kB\n\n✓ built in 1.77s\n",
+      "stderr": "[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n",
+      "durationSeconds": 11.29
+    },
+    {
+      "name": "ui-isolated",
+      "argv": [
+        "apps/desktop/node_modules/.bin/electron",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "apps/desktop/src/renderer/src/features/quote-checks.test.tsx"
+      ],
+      "exitCode": 0,
+      "stdout": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-a01e-maintenance-intake/tradequote-agent\n\n\n Test Files  1 passed (1)\n      Tests  19 passed (19)\n   Start at  17:31:35\n   Duration  1.40s (tests 46%, import 27%, environment 22%, transform 5%)\n\n",
+      "stderr": "",
+      "durationSeconds": 1.96
+    },
+    {
+      "name": "all-unit-sequential",
+      "argv": [
+        "pnpm",
+        "test"
+      ],
+      "exitCode": 1,
+      "stdout": "\n> tradequote-agent@0.1.0 test /Users/jason/.codex/worktrees/c-a01e-maintenance-intake/tradequote-agent\n> node scripts/test-unit.mjs\n\n\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-a01e-maintenance-intake/tradequote-agent\n\n ❯ packages/infrastructure/src/evaluation/remaining-regressions.test.ts (11 tests | 1 failed) 22234ms\n   × apparel-zh-v1: terms drift still fails the original checks but exposes only field classifications 20399ms\n ❯ packages/infrastructure/src/evaluation/evaluation.test.ts (7 tests | 1 failed) 27334ms\n   ❯ C04 evaluations against isolated real business services (7)\n     × detects schema-valid semantic drift and skips dependent revisions instead of reporting success 21142ms\n ❯ packages/infrastructure/src/evaluation/diagnostics.test.ts (1 test | 1 failed) 34577ms\n   × exports bounded enum-only failure evidence while accepting unchanged legacy rows 34575ms\n ❯ packages/infrastructure/src/agent-run-recovery.test.ts (15 tests | 3 failed) 42381ms\n   × R13/R14 SIGKILL at inside-receipt keeps atomic business facts, recovers without model requests 9045ms\n   × R13/R14 SIGKILL at committed keeps atomic business facts, recovers without model requests 5180ms\n   × R13/R14 SIGKILL at validated-inside-receipt keeps atomic business facts, recovers without model requests 5427ms\n ❯ packages/infrastructure/src/evaluation/action-regressions.test.ts (18 tests | 2 failed) 60304ms\n   × verified block cannot mask auth 22452ms\n   × verified block cannot mask truncated 18595ms\n\n Test Files  5 failed | 47 passed (52)\n      Tests  8 failed | 484 passed (492)\n   Start at  17:31:37\n   Duration  71.22s (tests 66%, import 27%, environment 5%, transform 2%)\n\n    Isolate  52 workers spawned · ~1.72s startup each (spawn + environment, per file)\n             at least ~8.21s faster with isolate: false — reuses workers across files instead of one per file\n\n ELIFECYCLE  Test failed. See above for more details.\n",
+      "stderr": "\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/agent-run-recovery.test.ts > R13/R14 SIGKILL at inside-receipt keeps atomic business facts, recovers without model requests\n FAIL  packages/infrastructure/src/agent-run-recovery.test.ts > R13/R14 SIGKILL at committed keeps atomic business facts, recovers without model requests\n FAIL  packages/infrastructure/src/agent-run-recovery.test.ts > R13/R14 SIGKILL at validated-inside-receipt keeps atomic business facts, recovers without model requests\nError: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".\n ❯ packages/infrastructure/src/agent-run-recovery.test.ts:99:3\n     97|   \"validated-committed\",\n     98| ]) {\n     99|   it(`R13/R14 SIGKILL at ${point} keeps atomic business facts, recover…\n       |   ^\n    100|     const f = runFixture(cleanups),\n    101|       command = f.start(),\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯\n\n FAIL  packages/infrastructure/src/evaluation/action-regressions.test.ts > verified block cannot mask auth\nError: Test timed out in 20000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".\n ❯ packages/infrastructure/src/evaluation/action-regressions.test.ts:248:46\n    246| );\n    247|\n    248| it.each([\"auth\", \"truncated\", \"stale_block\"])(\n       |                                              ^\n    249|   \"verified block cannot mask %s\",\n    250|   async (probe) => {\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯\n\n FAIL  packages/infrastructure/src/evaluation/action-regressions.test.ts > verified block cannot mask truncated\nAssertionError: expected false to be true // Object.is equality\n\n- Expected\n+ Received\n\n- true\n+ false\n\n ❯ packages/infrastructure/src/evaluation/action-regressions.test.ts:303:25\n    301|       const r = await evaluateC04({ mode: \"fixture\" });\n    302|       const row = r.rows.find((v) => v.id === \"rule-block\")!;\n    303|       expect(blockSeen).toBe(true);\n       |                         ^\n    304|       expect(row).toMatchObject({\n    305|         status: \"failed\",\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯\n\n FAIL  packages/infrastructure/src/evaluation/diagnostics.test.ts > exports bounded enum-only failure evidence while accepting unchanged legacy rows\nError: Test timed out in 20000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".\n ❯ packages/infrastructure/src/evaluation/diagnostics.test.ts:5:1\n      3| import { evaluateC04 } from \"./runner\";\n      4|\n      5| it(\"exports bounded enum-only failure evidence while accepting unchang…\n       | ^\n      6|   const network = vi\n      7|     .spyOn(globalThis, \"fetch\")\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯\n\n FAIL  packages/infrastructure/src/evaluation/evaluation.test.ts > C04 evaluations against isolated real business services > detects schema-valid semantic drift and skips dependent revisions instead of reporting success\nError: Test timed out in 20000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".\n ❯ packages/infrastructure/src/evaluation/evaluation.test.ts:82:3\n     80|     }\n     81|   }, 20000);\n     82|   it(\"detects schema-valid semantic drift and skips dependent revision…\n       |   ^\n     83|     const original = fixtureModule.fixtureTransport;\n     84|     const changed = vi.spyOn(fixtureModule, \"fixtureTransport\").mockIm…\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯\n\n FAIL  packages/infrastructure/src/evaluation/remaining-regressions.test.ts > apparel-zh-v1: terms drift still fails the original checks but exposes only field classifications\nError: Test timed out in 20000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".\n ❯ packages/infrastructure/src/evaluation/remaining-regressions.test.ts:33:1\n     31| });\n     32|\n     33| it(\"apparel-zh-v1: terms drift still fails the original checks but exp…\n       | ^\n     34|   const network = vi\n     35|     .spyOn(globalThis, \"fetch\")\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯\n\n",
+      "durationSeconds": 72.13
+    },
+    {
+      "name": "desktop-existing-e2e",
+      "argv": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test"
+      ],
+      "exitCode": 0,
+      "stdout": "\nRunning 11 tests using 1 worker\n\n  ✓   1 tests/e2e/agent-recovery.spec.ts:9:1 › R20 real worker SIGKILL, restart discovery, explicit retry, cancellation and immutable saved receipts (26.5s)\n  ✓   2 tests/e2e/feedback.spec.ts:8:1 › desktop feedback floats above content and recovers through the notification action (14.2s)\n  ✓   3 tests/e2e/model-evaluation.spec.ts:9:1 › formal model settings explicitly start isolated evaluations, cancel, preserve redacted fixture reports and never replay on reopen (19.9s)\n  ✓   4 tests/e2e/multistep-agent.spec.ts:13:1 › formal multistep loop saves validated V1/V2/V3, shows blocking sources, survives worker kill and explicitly retries (18.3s)\n  ✓   5 tests/e2e/quote-agent.spec.ts:9:1 › desktop settings and HTTP adapter support inquiry plus two saved revisions, differences, failures and reopen (12.5s)\n  ✓   6 tests/e2e/quote-checks.spec.ts:56:1 › human saved-quote check persists both sources, paired feedback and immutable V1/V2 history across restart (23.1s)\n  ✓   7 tests/e2e/quote-checks.spec.ts:215:1 › desktop transaction failure saves no partial report, retries explicitly, and preserves old reports after source withdrawal (13.6s)\n  ✓   8 tests/e2e/quote-v1.spec.ts:11:1 › real desktop imports CSV with confirmation, saves deterministic V1 and reopens frozen evidence (7.6s)\n  ✓   9 tests/e2e/read-assistant.spec.ts:9:1 › formal desktop read assistant executes four real tools, shows facts, guards missing tools and never saves (6.8s)\n  ✓  10 tests/e2e/workspace.spec.ts:13:1 › development renderer runs with React refresh and the real desktop bridge (4.7s)\n  ✓  11 tests/e2e/workspace.spec.ts:38:1 › real desktop persists workspace, validates IPC, handles conflict and reopens (13.4s)\n\n  11 passed (3.1m)\n",
+      "stderr": "[WebServer] (node:72424) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (node:72442) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:\n[WebServer]   - ESM syntax in a file loaded as CommonJS (vite.renderer.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\n[WebServer]   - ESM syntax in a file loaded as CommonJS (electron.vite.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\n[WebServer] Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.\n(node:72761) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+      "durationSeconds": 191.89
+    },
+    {
+      "name": "all-unit-maxWorkers2",
+      "argv": [
+        "apps/desktop/node_modules/.bin/electron",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--maxWorkers=2"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 76.28,
+      "stdout": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-a01e-maintenance-intake/tradequote-agent\n\n\n Test Files  52 passed (52)\n      Tests  492 passed (492)\n   Start at  17:36:02\n   Duration  75.13s (tests 63%, import 33%, environment 3%, transform 1%)\n\n     Import  152 modules were evaluated 289 times · 42.86s total, 33% of tracked time\n             ~5.34s faster with isolate: false — shared modules are evaluated once per worker instead of once per file\n             learn more: https://vitest.dev/guide/improving-performance#test-isolation\n\n",
+      "stderr": ""
+    },
+    {
+      "name": "maintenance-boundaries",
+      "argv": [
+        "apps/desktop/node_modules/.bin/electron",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        ".runtime/c-maintenance-boundary.config.ts"
+      ],
+      "exitCode": 1,
+      "stdout": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-a01e-maintenance-intake/tradequote-agent\n\nstdout | .runtime/c-maintenance-boundary.test.ts > M01 replay source.withdraw: same key retains first result and all facts\nC_MAINT_REPLAY {\"method\":\"source.withdraw\",\"firstOk\":true,\"secondOk\":false,\"error\":\"REVISION_CONFLICT\",\"factsUnchanged\":true}\n\nstdout | .runtime/c-maintenance-boundary.test.ts > M01 replay wiki.analyzeImpact: same key retains first result and all facts\nC_MAINT_REPLAY {\"method\":\"wiki.analyzeImpact\",\"firstOk\":true,\"secondOk\":true,\"error\":null,\"factsUnchanged\":false}\n\nstdout | .runtime/c-maintenance-boundary.test.ts > M01 replay wiki.resolveMaintenance: same key retains first result and all facts\nC_MAINT_REPLAY {\"method\":\"wiki.resolveMaintenance\",\"firstOk\":true,\"secondOk\":false,\"error\":\"REVISION_CONFLICT\",\"factsUnchanged\":true}\n\nstdout | .runtime/c-maintenance-boundary.test.ts > M01 replay wiki.rebuildIndex: same key retains first result and all facts\nC_MAINT_REPLAY {\"method\":\"wiki.rebuildIndex\",\"firstOk\":true,\"secondOk\":false,\"error\":\"REVISION_CONFLICT\",\"factsUnchanged\":true}\n\nstdout | .runtime/c-maintenance-boundary.test.ts > M03 impact target sourceId: reject identity/hash inconsistent with saved source\nC_MAINT_BINDING {\"field\":\"sourceId\",\"ok\":true}\n\nstdout | .runtime/c-maintenance-boundary.test.ts > M03 impact target artifactHash: reject identity/hash inconsistent with saved source\nC_MAINT_BINDING {\"field\":\"artifactHash\",\"ok\":true}\n\nstdout | .runtime/c-maintenance-boundary.test.ts > M05: maintenance continuation rejects changed query binding\nC_MAINT_CURSOR {\"accepted\":true,\"exchangeValid\":false}\n\n ❯ .runtime/c-maintenance-boundary.test.ts (12 tests | 11 failed) 152ms\n   × M01 replay source.withdraw: same key retains first result and all facts 16ms\n   × M01 replay wiki.analyzeImpact: same key retains first result and all facts 13ms\n   × M01 replay wiki.resolveMaintenance: same key retains first result and all facts 11ms\n   × M01 replay wiki.rebuildIndex: same key retains first result and all facts 11ms\n   × M02: index rebuild receipt operationKey binds request idempotencyKey 9ms\n   × M03 impact target sourceId: reject identity/hash inconsistent with saved source 9ms\n   × M03 impact target artifactHash: reject identity/hash inconsistent with saved source 10ms\n   × M04: resolve cannot accept an evidence UUID absent from authoritative storage 11ms\n   × M05: maintenance continuation rejects changed query binding 10ms\n   × M06: fixed snapshot never substitutes changed issue state on a later page 9ms\n   × M07: withdrawal and analysis of the same exact source fact share one issue 8ms\n\n⎯⎯⎯⎯⎯⎯ Failed Tests 11 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  .runtime/c-maintenance-boundary.test.ts > M01 replay source.withdraw: same key retains first result and all facts\nAssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, data: { …(3) }, …(2) }\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"event\": {\n-       \"actorId\": \"synthetic-human\",\n-       \"entityId\": \"74a48b6c-ea29-4cf2-8ad0-15d14581b836\",\n-       \"entityVersion\": 2,\n-       \"eventId\": \"e3087ef5-9b2e-4ad3-b020-65c4d671591f\",\n-       \"evidenceIds\": [\n-         \"74a48b6c-ea29-4cf2-8ad0-15d14581b836\",\n-       ],\n-       \"note\": \"Synthetic withdrawal\",\n-       \"occurredAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"schemaVersion\": 1,\n-       \"type\": \"source.withdrawn\",\n-       \"workspaceId\": \"3350d0e6-93aa-4560-8de4-63e3ab9f5015\",\n+   \"error\": {\n+     \"code\": \"REVISION_CONFLICT\",\n+     \"issues\": [],\n+     \"message\": \"来源生命周期当前版本为 v2，与提交的 expectedLifecycleVersion 不一致\",\n+     \"retryable\": false,\n    },\n-     \"kind\": \"sourceWithdrawal\",\n-     \"state\": {\n-       \"changedAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"lifecycleVersion\": 2,\n-       \"sourceRevisionId\": \"74a48b6c-ea29-4cf2-8ad0-15d14581b836\",\n-       \"state\": \"withdrawn\",\n-     },\n-   },\n-   \"evidenceIds\": [\n-     \"e3087ef5-9b2e-4ad3-b020-65c4d671591f\",\n-     \"74a48b6c-ea29-4cf2-8ad0-15d14581b836\",\n-   ],\n-   \"ok\": true,\n-   \"warnings\": [],\n+   \"ok\": false,\n  }\n\n ❯ .runtime/c-maintenance-boundary.test.ts:46:445\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/11]⎯\n\n FAIL  .runtime/c-maintenance-boundary.test.ts > M01 replay wiki.analyzeImpact: same key retains first result and all facts\nAssertionError: expected { ok: true, data: { …(2) }, …(2) } to deeply equal { ok: true, data: { …(2) }, …(2) }\n\n- Expected\n+ Received\n\n@@ -1,12 +1,12 @@\n  {\n    \"data\": {\n      \"kind\": \"impactReport\",\n      \"report\": {\n-       \"checkedAt\": \"2026-10-27T00:00:00.000Z\",\n+       \"checkedAt\": \"2026-10-27T00:00:02.000Z\",\n        \"error\": null,\n-       \"reportId\": \"ba051c3d-9d5f-4cd6-baaa-f674ae48240e\",\n+       \"reportId\": \"d1e62525-dbe1-4534-8914-277c54b29d7b\",\n        \"snapshotSeq\": 3,\n        \"status\": \"completed\",\n        \"subject\": {\n          \"reason\": \"withdrawn\",\n          \"replacementRevisionId\": null,\n@@ -21,10 +21,10 @@\n        \"unknownReasons\": [],\n        \"workspaceId\": \"83cf48d9-84e6-4859-b50b-91e4ec2f1d9c\",\n      },\n    },\n    \"evidenceIds\": [\n-     \"ba051c3d-9d5f-4cd6-baaa-f674ae48240e\",\n+     \"d1e62525-dbe1-4534-8914-277c54b29d7b\",\n    ],\n    \"ok\": true,\n    \"warnings\": [],\n  }\n\n ❯ .runtime/c-maintenance-boundary.test.ts:46:445\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/11]⎯\n\n FAIL  .runtime/c-maintenance-boundary.test.ts > M01 replay wiki.resolveMaintenance: same key retains first result and all facts\nAssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, data: { …(2) }, …(2) }\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"issue\": {\n-       \"dedupKey\": \"aedf297fc32d69a2fc05ee1c2652fcbec8e3adfdf09cbe1e1228a4ca719fad5c\",\n-       \"evidenceIds\": [\n-         \"b45e2671-7bd2-49cb-a699-777d36ae1c93\",\n-       ],\n-       \"firstDetectedAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"issueId\": \"225731ec-f9db-4a30-baf1-b9508fa42771\",\n-       \"issueVersion\": 2,\n-       \"kind\": \"source_withdrawn\",\n-       \"lastDetectedAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"message\": \"来源 v1 已撤回，依赖该来源的知识与消费需复核\",\n-       \"resolution\": null,\n-       \"severity\": \"warning\",\n-       \"state\": \"in_progress\",\n-       \"target\": {\n-         \"artifactHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-         \"kind\": \"source\",\n-         \"sourceId\": \"f3c0d90f-debe-4111-9c30-b3270b586c47\",\n-         \"sourceRevisionId\": \"b45e2671-7bd2-49cb-a699-777d36ae1c93\",\n-       },\n-       \"workspaceId\": \"2ac7e534-5dd9-486f-84d3-2ab9cc5c8168\",\n-     },\n-     \"kind\": \"maintenanceIssue\",\n+   \"error\": {\n+     \"code\": \"REVISION_CONFLICT\",\n+     \"issues\": [],\n+     \"message\": \"维护问题当前版本为 v2，与提交的 expectedIssueVersion 不一致\",\n+     \"retryable\": false,\n    },\n-   \"evidenceIds\": [\n-     \"225731ec-f9db-4a30-baf1-b9508fa42771\",\n-   ],\n-   \"ok\": true,\n-   \"warnings\": [],\n+   \"ok\": false,\n  }\n\n ❯ .runtime/c-maintenance-boundary.test.ts:46:445\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/11]⎯\n\n FAIL  .runtime/c-maintenance-boundary.test.ts > M01 replay wiki.rebuildIndex: same key retains first result and all facts\nAssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, data: { …(2) }, …(2) }\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"kind\": \"indexRebuild\",\n-     \"rebuild\": {\n-       \"createdAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"error\": null,\n-       \"index\": \"keyword\",\n-       \"operationKey\": \"19db8471-00f9-4407-9a7e-378f1dd50175\",\n-       \"rebuildId\": \"8c878e0b-c375-4471-8b92-e6ba1d45870d\",\n-       \"requestedSeq\": 2,\n-       \"result\": {\n-         \"authoritativeSeq\": 2,\n-         \"checkedAt\": \"2026-10-27T00:00:00.000Z\",\n-         \"error\": null,\n-         \"generation\": 1,\n-         \"index\": \"keyword\",\n-         \"indexedSeq\": 2,\n-         \"rebuildId\": null,\n-         \"state\": \"ready\",\n-         \"workspaceId\": \"c31a94d7-2f0f-4f07-8eb0-dc7bfcdf42e0\",\n+   \"error\": {\n+     \"code\": \"REVISION_CONFLICT\",\n+     \"issues\": [],\n+     \"message\": \"索引当前代际为 1，与提交的 expectedGeneration 不一致\",\n+     \"retryable\": false,\n    },\n-       \"status\": \"completed\",\n-       \"targetGeneration\": 1,\n-       \"updatedAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"workspaceId\": \"c31a94d7-2f0f-4f07-8eb0-dc7bfcdf42e0\",\n-     },\n-   },\n-   \"evidenceIds\": [\n-     \"8c878e0b-c375-4471-8b92-e6ba1d45870d\",\n-   ],\n-   \"ok\": true,\n-   \"warnings\": [],\n+   \"ok\": false,\n  }\n\n ❯ .runtime/c-maintenance-boundary.test.ts:46:445\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/11]⎯\n\n FAIL  .runtime/c-maintenance-boundary.test.ts > M02: index rebuild receipt operationKey binds request idempotencyKey\nAssertionError: expected 'db0684bd-2c18-43d5-bb31-c9bd3bbd2718' to be '2ba670cd-18ee-421a-b6ae-c2adb189801e' // Object.is equality\n\nExpected: \"2ba670cd-18ee-421a-b6ae-c2adb189801e\"\nReceived: \"db0684bd-2c18-43d5-bb31-c9bd3bbd2718\"\n\n ❯ .runtime/c-maintenance-boundary.test.ts:48:434\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/11]⎯\n\n FAIL  .runtime/c-maintenance-boundary.test.ts > M03 impact target sourceId: reject identity/hash inconsistent with saved source\n FAIL  .runtime/c-maintenance-boundary.test.ts > M03 impact target artifactHash: reject identity/hash inconsistent with saved source\nAssertionError: expected true to be false // Object.is equality\n\n- Expected\n+ Received\n\n- false\n+ true\n\n ❯ .runtime/c-maintenance-boundary.test.ts:49:477\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/11]⎯\n\n FAIL  .runtime/c-maintenance-boundary.test.ts > M04: resolve cannot accept an evidence UUID absent from authoritative storage\nAssertionError: expected true to be false // Object.is equality\n\n- Expected\n+ Received\n\n- false\n+ true\n\n ❯ .runtime/c-maintenance-boundary.test.ts:50:521\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/11]⎯\n\n FAIL  .runtime/c-maintenance-boundary.test.ts > M05: maintenance continuation rejects changed query binding\nAssertionError: expected true to be false // Object.is equality\n\n- Expected\n+ Received\n\n- false\n+ true\n\n ❯ .runtime/c-maintenance-boundary.test.ts:52:577\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/11]⎯\n\n FAIL  .runtime/c-maintenance-boundary.test.ts > M06: fixed snapshot never substitutes changed issue state on a later page\nAssertionError: expected { …(13) } to deeply equal { …(13) }\n\n- Expected\n+ Received\n\n@@ -3,17 +3,17 @@\n    \"evidenceIds\": [\n      \"a0250b9a-5d2f-41fe-9e26-f8e2d27c5b21\",\n    ],\n    \"firstDetectedAt\": \"2026-10-27T00:00:00.000Z\",\n    \"issueId\": \"5d890f1b-8a49-4c1c-b0f8-7209778d609c\",\n-   \"issueVersion\": 1,\n+   \"issueVersion\": 2,\n    \"kind\": \"conflict\",\n    \"lastDetectedAt\": \"2026-10-27T00:00:00.000Z\",\n    \"message\": \"影响分析主题：conflict\",\n    \"resolution\": null,\n    \"severity\": \"block\",\n-   \"state\": \"open\",\n+   \"state\": \"in_progress\",\n    \"target\": {\n      \"contentHash\": \"3897eb7597f17b22a113799fb709bd05bb3d864edd40e722600bbf5fb255e07c\",\n      \"documentId\": \"37e0439a-c488-415a-a75a-c40f4cfe0bd3\",\n      \"kind\": \"knowledge\",\n      \"revisionId\": \"a0250b9a-5d2f-41fe-9e26-f8e2d27c5b21\",\n\n ❯ .runtime/c-maintenance-boundary.test.ts:53:813\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/11]⎯\n\n FAIL  .runtime/c-maintenance-boundary.test.ts > M07: withdrawal and analysis of the same exact source fact share one issue\nAssertionError: expected [ { …(13) }, { …(13) } ] to have a length of 1 but got 2\n\n- Expected\n+ Received\n\n- 1\n+ 2\n\n ❯ .runtime/c-maintenance-boundary.test.ts:54:398\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/11]⎯\n\n\n Test Files  1 failed (1)\n      Tests  11 failed | 1 passed (12)\n   Start at  17:37:51\n   Duration  653ms (import 57%, tests 29%, transform 14%)\n\n",
+      "stderr": ""
+    },
+    {
+      "name": "migration-new-constraints-initial",
+      "argv": [
+        "apps/desktop/node_modules/.bin/electron",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        ".runtime/c-maintenance-migration.config.ts"
+      ],
+      "exitCode": 1,
+      "stdout": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-a01e-maintenance-intake/tradequote-agent\n\nstdout | .runtime/c-maintenance-migration.test.ts > N9-01 knowledge_maintenance_issue: missing uniqueness is rejected before use\nC_N9_UNIQUE {\"table\":\"knowledge_maintenance_issue\",\"accepted\":true}\n\nstdout | .runtime/c-maintenance-migration.test.ts > N9-01 knowledge_index_status: missing uniqueness is rejected before use\nC_N9_UNIQUE {\"table\":\"knowledge_index_status\",\"accepted\":true}\n\n ❯ .runtime/c-maintenance-migration.test.ts (3 tests | 2 failed) 279ms\n   × N9-01 knowledge_maintenance_issue: missing uniqueness is rejected before use 82ms\n   × N9-01 knowledge_index_status: missing uniqueness is rejected before use 123ms\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  .runtime/c-maintenance-migration.test.ts > N9-01 knowledge_maintenance_issue: missing uniqueness is rejected before use\n FAIL  .runtime/c-maintenance-migration.test.ts > N9-01 knowledge_index_status: missing uniqueness is rejected before use\nAssertionError: expected true to be false // Object.is equality\n\n- Expected\n+ Received\n\n- false\n+ true\n\n ❯ .runtime/c-maintenance-migration.test.ts:33:905\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯\n\n\n Test Files  1 failed (1)\n      Tests  2 failed | 1 passed (3)\n   Start at  17:34:28\n   Duration  13.68s (transform 70%, import 27%, tests 3%)\n\n",
+      "stderr": ""
+    },
+    {
+      "name": "migration-new-constraints-with-readonly",
+      "argv": [
+        "apps/desktop/node_modules/.bin/electron",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        ".runtime/c-maintenance-migration.config.ts"
+      ],
+      "exitCode": 1,
+      "stdout": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-a01e-maintenance-intake/tradequote-agent\n\nstdout | .runtime/c-maintenance-migration.test.ts > N9-01 knowledge_maintenance_issue: missing uniqueness is rejected before use\nC_N9_UNIQUE {\"table\":\"knowledge_maintenance_issue\",\"readonlyAccepted\":true,\"accepted\":true}\n\nstdout | .runtime/c-maintenance-migration.test.ts > N9-01 knowledge_index_status: missing uniqueness is rejected before use\nC_N9_UNIQUE {\"table\":\"knowledge_index_status\",\"readonlyAccepted\":true,\"accepted\":true}\n\n ❯ .runtime/c-maintenance-migration.test.ts (3 tests | 2 failed) 168ms\n   × N9-01 knowledge_maintenance_issue: missing uniqueness is rejected before use 40ms\n   × N9-01 knowledge_index_status: missing uniqueness is rejected before use 57ms\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  .runtime/c-maintenance-migration.test.ts > N9-01 knowledge_maintenance_issue: missing uniqueness is rejected before use\n FAIL  .runtime/c-maintenance-migration.test.ts > N9-01 knowledge_index_status: missing uniqueness is rejected before use\nAssertionError: expected { readonlyAccepted: true, …(1) } to deeply equal { readonlyAccepted: false, …(1) }\n\n- Expected\n+ Received\n\n  {\n-   \"accepted\": false,\n-   \"readonlyAccepted\": false,\n+   \"accepted\": true,\n+   \"readonlyAccepted\": true,\n  }\n\n ❯ .runtime/c-maintenance-migration.test.ts:34:1084\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯\n\n\n Test Files  1 failed (1)\n      Tests  2 failed | 1 passed (3)\n   Start at  17:35:25\n   Duration  3.00s (import 66%, transform 24%, tests 9%, worker 1%)\n\n",
+      "stderr": ""
+    }
+  ],
+  "summary": {
+    "originalC": 8,
+    "BSupplement": 15,
+    "oldBSource": 2,
+    "oldLegacyAndReport": 9,
+    "maintenanceBoundary": {
+      "passed": 1,
+      "failed": 11
+    },
+    "migrationConstraintBoundary": {
+      "passed": 1,
+      "failed": 2
+    },
+    "desktopExisting": "11/11",
+    "engineering": "A wiki-store.ts/test.ts formatting and organizeImports: exit1; unchanged in this C review",
+    "status": "changes_required; no new Wiki desktop IPC enabled",
+    "fullUnitWithMaxWorkers2": "492/492; exit0; default pnpm test failures retained"
+  },
+  "sourceHashes": {
+    "packages/infrastructure/src/wiki-store.ts": "5f92fc767938803d887cf27345beca6869122b79196685f6d762fb3c30506ab7",
+    "packages/infrastructure/src/wiki-store.test.ts": "2f40c614c8ffb80c3fc4e0f9d476ef909fea5d85af568aa6c345dae834f0a46c",
+    "packages/infrastructure/src/migration-lineage.ts": "d26b0a179911e088d7059b69be962d679fca17781784b9d704a5365c066fd0a6",
+    "packages/infrastructure/src/migrations.ts": "9f5f3694d1375bc5bce969fb572cc17728c5c45f833abc260fc944163e3df40c",
+    "packages/domain/src/wiki-maintenance.ts": "62af5c10cbfde341db63f6ec212126ef3fae8ab72e05f3bb9dd7fc61c1fb5955",
+    "packages/contracts/src/knowledge-maintenance.ts": "b86ab279e980e4433c39431588c7e0e41d3f5e86270c5ae1b8c36424e9b5628e",
+    "apps/desktop/src/workers/business.ts": "807c41e0ecfbf5fd64d6897631c4d97aa582715e44bb8b201858dc59fb1351ac",
+    "apps/desktop/src/preload/index.ts": "d296a0e7d9c50c2b1c5e60c22ecfad5b166233f9cc6801afc7e519736678b30a"
+  },
+  "preservation": {
+    "applicationDiffFromFixedA": "",
+    "legacyGeneratorCodeDiffFrom7e6": "",
+    "oldNonGeneratedRawCount": 314,
+    "changedOldNonGeneratedRaw": [],
+    "logOldPrefixPreserved": true
+  }
+}

@@ -1134,3 +1134,10 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 
 - 2026-10-29 用户授权普通推送，A 已将固定实现提交 dac69db 推送到 origin/codex/a01e-p1-fixes；`git ls-remote` 回读 dac69db4c527ee3484f3481f65c76d63649cd04c 与本地 HEAD 逐字一致，未合入、未创建 PR。推送一次成功（输出 `0827476..dac69db`，exit 0），未改全局 git 配置。
 - 固定实现提交即 dac69db（A01e 八维护方法 + knowledge-wiki:9 迁移、本机验证命令/退出码与 Wiki 同步见上一节与 [[A01c检索引用实现]]、[[A01-迁移谱系支持与拒绝矩阵]]）；B 契约/语义复核、C 原脚本复验与桌面接线、实际人员审核/发布/撤回/业务语义签认仍待。本条为回执 docs-only 提交，位于 dac69db 之上，不与固定实现 SHA 混用。
+
+
+## 2026-10-30 C A01e固定接收与维护阻断复核
+
+2026-10-30 C独立固定A267f087（实现dac69db）在codex/c-a01e-maintenance-intake复验：原C8/B15/旧B2/旧库报告9全部通过，类型/build及原真实Electron11/11通过；新增维护1通过/11失败（同键/OCC、operationKey、固定目标、证据、游标/快照、去重），新六表约束1通过/2失败（缺唯一性/主键仍被只读identify与仓库接受）。默认全量/格式检查失败与诊断保留；详见[[C267f087维护接收与剩余阻断]]、[[C集成-A267维护方法复验]]及raw/c-a267-maintenance-intake.json。changes_required/WIP，当前仍门禁、未接新UI/推送/合入/代签；A修固定版本、B复核后C再原脚本接收。
+
+C文档门禁补记：状态页CRLF导致Wiki工具初次11/36（25项fixture装载失败），仅规范本轮已改状态页为LF后36/36；工程工具6/6、边界及生成/check/lint/267f087同步通过。旧raw314份与log前缀保持，源码零修改；维护13红例和固定A格式诊断仍需修正，active/WIP不放行。
