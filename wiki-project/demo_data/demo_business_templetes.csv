@@ -1,0 +1,23 @@
+﻿template_id,clause_key,clause_value,source_tier,source_desc,source_url,source_product_id,captured_on,editable_by,notes
+TPL-001,custom_care_label,水洗标 +¥0.6645/件，500件起订,PUBLISHED_SUPPLIER_PAGE,供应商页面定制选项原文,,1600182983615,2026-10-21,业务员,Jinan Runhang: 同页 logo定制/吊牌/主标/包装 均 +¥0.6645/件起(500件)
+TPL-002,custom_logo_hengdong,logo/图文定制工艺 +¥6.65/件，10件起,PUBLISHED_SUPPLIER_PAGE,供应商页面定制选项原文,,1601053415993,2026-10-21,业务员,Hengdong OT180 同页：包装+¥2.66(100起) 主标+¥3.33(100起) 吊牌+¥2(100起) 水洗标+¥3.99(100起)
+TPL-003,sample_fee_paid,样品价 ¥332.23（可定制款）,PUBLISHED_SUPPLIER_PAGE,页面样品价格字段原文,,1600182983615,2026-10-21,业务员,
+TPL-004,sample_fee_paid_2,样品价 ¥66.45（95/5棉氨款）,PUBLISHED_SUPPLIER_PAGE,页面样品价格字段原文,,1601053415993,2026-10-21,业务员,
+TPL-005,sample_policy_free,免费提供样品，买家仅付快递费,PUBLISHED_SUPPLIER_PAGE,供应商FAQ原文,,1601151288010,2026-10-21,业务员,Nanchang Hot Fashion FAQ：可以免费吗？当然，我们免费提供样品，您只需支付快递费用
+TPL-006,payment_methods_faq,T/T 转账、电子支票(e-Checking)、PayPal,PUBLISHED_SUPPLIER_PAGE,供应商FAQ付款条件原文,,1601151288010,2026-10-21,报价主管,FAQ原文：T/T转账、电子支票、Paypal就可以了，其他付款条件请联系我们
+TPL-007,production_leadtime,现货产品3天，定制产品10-15天；月产能30万件,PUBLISHED_SUPPLIER_PAGE,供应商FAQ生产周期原文,,1601151288010,2026-10-21,采购,
+TPL-008,sampling_7days,7天快速打样支持：是（多数页面标准字段）,PUBLISHED_SUPPLIER_PAGE,重要属性区字段原文,,1600182983615;1601151288010;1601053415993,2026-10-21,业务员,
+TPL-010,payment_ratio_rule,平台不强制定金/尾款比例，买卖双方协商；预付款需≥1美金,OFFICIAL_PLATFORM_RULE,Alibaba.com 商家后台官方知识库《阿里巴巴国际站信保订单定金和尾款比例规则》《信保订单付款流程》,,,2026-10-21,报价主管,
+TPL-011,payment_ratio_norm,行业惯用 30%定金/70%尾款；新客首单30%-50%；FOB条款推荐30%,OFFICIAL_PLATFORM_RULE,Alibaba.com 商家后台官方知识库《信保订单定金和尾款比例规则》；辅证 seller.alibaba.com 博客(新买家先TT30%),,,2026-10-21,报价主管,多源一致
+TPL-012,payment_ratio_risk,定制/OEM建议40%-50%；高风险地区(非洲/中东)建议50%以上,OFFICIAL_PLATFORM_RULE,Alibaba.com 商家后台官方知识库《信保订单定金和尾款比例规则》,,,2026-10-21,报价主管,
+TPL-013,payment_ratio_rts,RTS/现货订单买家直接支付100%全款,OFFICIAL_PLATFORM_RULE,Alibaba.com 商家后台官方知识库；另见平台通知《Buynow订单升级为现货订单，发货后/收货后放款》(2025-07-22),,,2026-10-21,报价主管,
+TPL-014,ta_service_fee,信保基础版按实收2%（封顶100/200/300美金按星级）；升级版/半托管3%（封顶150/250/350）,OFFICIAL_PLATFORM_RULE,Alibaba.com 商家后台官方知识库《信保订单阿里交易服务费标注要求》《订单手续费封顶规则》,,,2026-10-21,报价主管,计入报价成本
+TPL-015,export_mode_threshold,≤3000美金可选便捷发货；>3000美金需自营出口或一达通代理出口（付款前出口方式仅可修改1次）,OFFICIAL_PLATFORM_RULE,activity.alibaba.com/onetouch《信用保障服务之发货及订单完结》+ KB《预付款比例修改方法》,https://activity.alibaba.com/onetouch/68754fce.html,,2026-10-21,报价主管,
+TPL-016,delivery_date_wording,约定发货日期须用确定表述（如'收齐尾款后5个自然日内发货'），禁止'about 30-35天'模糊区间，系统按最少天数计；含周末节假日,OFFICIAL_PLATFORM_RULE,微信公众号《阿里信保订单起草全流程+避坑》(引用平台规则)+ KB《发货期计算规则》,https://mp.weixin.qq.com/s?__biz=Mzg5NDg0NjU0Nw==&idx=1&mid=2247483712&sn=a096556b467de8beba4b675c9dfbde2d,,2026-10-21,业务员,
+TPL-017,auto_confirm,自动确认收货：海运45天/陆运30天/空运15天后且全款收齐,OFFICIAL_PLATFORM_RULE,Alibaba.com 商家后台官方知识库《信保订单付款流程》,,,2026-10-21,报价主管,影响回款时点
+TPL-018,order_modify_limit,已发货信保订单修改金额上限≤完成发货时订单金额120%；待发货阶段预付款不可改,OFFICIAL_PLATFORM_RULE,onetouch《信用保障订单修改规则优化通知》(2024-12-26生效),https://onetouch.alibaba.com/moBasedata/public/news/content82509846-9ede-4d7d-b2c1-7aa7df2254a7,,2026-10-21,报价主管,
+TPL-019,late_ship_penalty,半托管逾期发货：违约金=订单额20%，最低10美金封顶100美金；非半托管成交不卖：赔10%封顶50美金/单+扣分,OFFICIAL_PLATFORM_RULE,Alibaba.com 商家后台官方知识库《逾期发货处罚规则》,,,2026-10-21,采购,交期承诺风险的官方量化
+TPL-020,quote_validity_days,,MERCHANT_INPUT_PENDING,商家自有政策，无公开来源，不代填,,,2026-10-21,报价主管,待商家配置
+TPL-021,internal_margin_floor,,MERCHANT_INPUT_PENDING,商家自有政策，无公开来源，不代填,,,2026-10-21,报价主管,待商家配置
+TPL-022,exception_approver,,MERCHANT_INPUT_PENDING,商家自有政策，无公开来源，不代填,,,2026-10-21,系统,待商家配置
+TPL-023,incoterms_default,,MERCHANT_INPUT_PENDING,商家自有政策；术语本身规则见 R-CT-* 校验条款,,,2026-10-21,报价主管,待商家配置
