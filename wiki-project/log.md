@@ -1141,3 +1141,8 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 2026-10-30 C独立固定A267f087（实现dac69db）在codex/c-a01e-maintenance-intake复验：原C8/B15/旧B2/旧库报告9全部通过，类型/build及原真实Electron11/11通过；新增维护1通过/11失败（同键/OCC、operationKey、固定目标、证据、游标/快照、去重），新六表约束1通过/2失败（缺唯一性/主键仍被只读identify与仓库接受）。默认全量/格式检查失败与诊断保留；详见[[C267f087维护接收与剩余阻断]]、[[C集成-A267维护方法复验]]及raw/c-a267-maintenance-intake.json。changes_required/WIP，当前仍门禁、未接新UI/推送/合入/代签；A修固定版本、B复核后C再原脚本接收。
 
 C文档门禁补记：状态页CRLF导致Wiki工具初次11/36（25项fixture装载失败），仅规范本轮已改状态页为LF后36/36；工程工具6/6、边界及生成/check/lint/267f087同步通过。旧raw314份与log前缀保持，源码零修改；维护13红例和固定A格式诊断仍需修正，active/WIP不放行。
+
+
+## 2026-10-30 C整理A/B独立Markdown交接
+
+按用户要求新增wiki/C交接给A-A01e维护修正.md、wiki/C交接给B-A01e契约复核.md，分别提供A修复清单/原脚本恢复和B契约/报价消费复核要求，明确267f087与9c27678固定材料、13失败断言分组、未推送和未代发状态。同步导航、C任务和CONTEXT。仅文档，不改实现、不重跑产品测试；生成/只读check/lint/9c27678基线sync/diff实际结果存raw/c-a267-ab-handoff-validation.json。A01e与C集成仍active/WIP。
