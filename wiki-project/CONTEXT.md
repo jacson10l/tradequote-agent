@@ -259,4 +259,4 @@ C封板技术稳定性补齐：真实deepseek-flash连续五轮、每轮7检查�
 2026-11-01 A/B/C 集成分支已完成顺序合并并推送：A 固定 `4c622d04e1ae483b6c8649e09146f71b35ba33a9`、B 固定 `a4f2ba685b29438fd013373a146d40a68a093e68`、C07 候选 `8b53b1a`，统一位于 `codex/m1-abc-integration`，集成提交 `0af16b2` 已回读远端一致。A/B 已完成事项不重复分配；A 仅保留来源证据缺口，B 仅做非作者集成复核，C 后续负责路演收口和交接。最终门禁与剩余风险见[[C集成-ABC合并与后续分工]]。
 
 2026-11-01 C 已合入 B07 非作者复核并修正客户回复 pending 边界：domain 的 `renderReply` 不再输出未确认付款/交期内部占位词，新增回归测试；等待 macOS 集成门禁复跑。
-2026-11-01 C 已将 A06 来源收口（`ffbf5ec`）和 A01 UI/P0 收口（`5d30824`）合入 `codex/m1-abc-integration`；A06 隔离区间价 SKU 后目录为285行/82 SKU且解析0 issue，A01样式优化保留。最终集成提交 `77f74cc`，typecheck/build/check/wiki回归、串行566/3单测、Electron 12/1 均通过，进入人工MVP验收；服装快照、valid_until依据、认证/供应商有效期、人工发布、Windows/签名包/正式审批仍不冒称完成，见[[C集成-ABC合并与后续分工]]和raw/c-integration-mvp-validation.json。
+2026-11-01 C 已将 A06 来源收口（`ffbf5ec`）和 A01 UI/P0 收口（`5d30824`）合入 `codex/m1-abc-integration`；A06 隔离区间价 SKU 后目录为285行/82 SKU且解析0 issue，A01样式优化保留。最终集成 tip 已推送并回读一致，typecheck/build/check/wiki回归、串行566/3单测、Electron 12/1 均通过，进入人工MVP验收；服装快照、valid_until依据、认证/供应商有效期、人工发布、Windows/签名包/正式审批仍不冒称完成，见[[C集成-ABC合并与后续分工]]和raw/c-integration-mvp-validation.json。

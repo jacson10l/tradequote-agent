@@ -23,7 +23,7 @@ sources:
 
 ## 范围
 
-- 集成基线：`codex/m1-foundation` 的 `654fecc4d93e4630ed4a0cf42f261d0d432e23d3`；当前集成分支最终提交为 `77f74cc`。
+- 集成基线：`codex/m1-foundation` 的 `654fecc4d93e4630ed4a0cf42f261d0d432e23d3`；当前集成分支最终 tip 以交接时远端回读为准。
 - A 固定交付：`4c622d04e1ae483b6c8649e09146f71b35ba33a9`。
 - B 固定交付：`a4f2ba685b29438fd013373a146d40a68a093e68`。
 - C07 候选：`8b53b1a`，统一合入 `codex/m1-abc-integration`；未将历史 WIP 分支无差别合入。

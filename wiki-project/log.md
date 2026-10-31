@@ -1617,5 +1617,5 @@ B07 已按 `0f837e35e0592050917a0c0f4914ca43f2fe9b64` 接收并合入集成分�
 
 - 合入 `origin/codex/a06-source-evidence` 的 `ffbf5ecd7ce447001fe185e1aa8fe3f7d47b16e0`：隔离区间价/样品价 SKU，目录收口为 285 行/82 SKU，解析 0 issue，保留来源证据与未完成业务审核项。
 - 合入 `origin/codex/a01-maintenance-evidence` 的 `5d308241c17b25f953d05ec5d8032c905cee4903`：渲染层 UI 优化和 P0 Wiki 收尾；只保留与当前集成分支一致的导航、样式和工作区布局改动。
-- 最终集成提交 `77f74cc` 已完成 macOS 自动化复验：typecheck/build/check/wiki 回归通过，串行完整单测 566/3，Electron 12/1；并发单测曾出现 Worker 输出截断，单独及串行复跑通过。
+- 最终集成 tip 已完成 macOS 自动化复验并回读远端一致：typecheck/build/check/wiki 回归通过，串行完整单测 566/3，Electron 12/1；并发单测曾出现 Worker 输出截断，单独及串行复跑通过。
 - 当前阶段转入人工 MVP 验收，路径为导入资料→生成 V1→修订 V2/V3→重开→核对 pending→检查 `Quotation · V3` 客户回复草稿。正式审批/发送、真实资料发布、认证/有效期、Windows/签名包和真实供应商签认不计为完成。
