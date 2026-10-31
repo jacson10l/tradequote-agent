@@ -1,0 +1,38 @@
+{
+  "status": "passed",
+  "scope": "A01 desktop renderer UI refinement; no business, contract, persistence, or model behavior changes",
+  "date": "2026-11-01",
+  "branch": "codex/m1-abc-integration",
+  "environment": {
+    "platform": "macOS",
+    "node": "22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2"
+  },
+  "checks": [
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "result": "TypeScript noEmit passed"
+    },
+    {
+      "command": "pnpm build",
+      "exitCode": 0,
+      "result": "Main, preload, and renderer built; existing chunk-size warning retained"
+    },
+    {
+      "command": "pnpm exec biome check apps/desktop/src/renderer/src/theme.css",
+      "exitCode": 0,
+      "result": "No formatting errors"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "No whitespace errors"
+    }
+  ],
+  "limits": [
+    "The A01 changes are renderer-only and do not replace the final Electron manual visual acceptance.",
+    "Windows, signed installer, and cross-platform system-scale verification remain post-MVP items."
+  ]
+}

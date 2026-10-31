@@ -1574,6 +1574,8 @@ C05提交前新鲜复验535单元/3显式live跳过、12Electron、36维护及ty
 本轮重新确定：A 不重复做已完成 C06 固定交付，仅处理来源证据缺口；B 不重复开发已完成契约，仅做非作者集成复核；C 负责最终提交/推送、MVP 路演收口与交接。Windows/签名包、正式审批/PDF、真实平台规则和人工业务签认仍未完成；详见[[C集成-ABC合并与后续分工]]。
 
 集成推送确认：提交 `0af16b2ba92b48c9cdedd8bda72bd086ef06c3a3` 已推送至 `origin/codex/m1-abc-integration`，`git ls-remote` 回读一致，工作区干净。C 的后续任务仅为路演收口、交接和人工验收准备；A/B 已完成的固定交付不重复分配。
+
+
 ## 2026-11-01 B07 契约集成非作者复核
 
 C 完成 ABC 合并推送后，B 以非作者身份核对集成分支并补 reviseQuote 回归测试（从 origin/codex/m1-abc-integration 新建 codex/b07-contract-integration-review）。

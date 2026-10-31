@@ -309,7 +309,7 @@
       "type": "tsx",
       "lines": 71,
       "bytes": 2971,
-      "sha256": "9c9826a1871d88ee36b325288808354b245d09631c1f919548a30767aa11ade1",
+      "sha256": "fc08d89b09fc89c4fe91c449822e1ce1f538ab740b824c51fb5698c6705036c3",
       "role": "M1 React workspace form and document layout",
       "pages": [
         "wiki/M1工作台.md",
@@ -625,8 +625,8 @@
       "path": "apps/desktop/src/renderer/src/features/workspace.tsx",
       "type": "tsx",
       "lines": 144,
-      "bytes": 5178,
-      "sha256": "9bcbf1181f1aadccdb60a9f89170bfa3913278dd2ec168bae4382e3af1bf431d",
+      "bytes": 5193,
+      "sha256": "eaa33e0d1837972e4ea6626ad57da9f07fc7f9359d62547089cf74de19ea312e",
       "role": "M1 React workspace form and document layout",
       "pages": [
         "wiki/M1工作台.md",
@@ -703,9 +703,9 @@
     {
       "path": "apps/desktop/src/renderer/src/theme.css",
       "type": "css",
-      "lines": 640,
-      "bytes": 11194,
-      "sha256": "01f0bffb51ce1e0c0fc8a9b01c6508ceb7e61d8df1192f3b12091ac39886c9c0",
+      "lines": 671,
+      "bytes": 11846,
+      "sha256": "c6c04ef14d033eb5be4a89574d6a367475cb2f1f4b68c8886a842490f4f9bd3d",
       "role": "M1 React workspace form and document layout",
       "pages": [
         "wiki/M1工作台.md",
