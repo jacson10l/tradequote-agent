@@ -1572,3 +1572,5 @@ C05提交前新鲜复验535单元/3显式live跳过、12Electron、36维护及ty
 集成修正包括 Electron `approveQuote` 桥接名单、Wiki 覆盖映射与导航、demo-tools 文档重名、B 探针 `QUOTE-01`～`QUOTE-06` 案例标识，以及领域层对外产出 ID 的确定性派生。验证：`pnpm typecheck`、`pnpm build`、`pnpm check`、`pnpm wiki:check`、`pnpm wiki:test` 通过；串行低并发完整单测 561 通过/3 跳过；`pnpm test:e2e` 12 通过/1 跳过。并行运行单测与 Electron 时曾有 Worker 输出截断，失败保留为资源竞争观察，串行复跑通过。
 
 本轮重新确定：A 不重复做已完成 C06 固定交付，仅处理来源证据缺口；B 不重复开发已完成契约，仅做非作者集成复核；C 负责最终提交/推送、MVP 路演收口与交接。Windows/签名包、正式审批/PDF、真实平台规则和人工业务签认仍未完成；详见[[C集成-ABC合并与后续分工]]。
+
+集成推送确认：提交 `0af16b2ba92b48c9cdedd8bda72bd086ef06c3a3` 已推送至 `origin/codex/m1-abc-integration`，`git ls-remote` 回读一致，工作区干净。C 的后续任务仅为路演收口、交接和人工验收准备；A/B 已完成的固定交付不重复分配。
