@@ -1,6 +1,7 @@
 {
   "version": 1,
   "extraFiles": [
+    "docs/roadshow/c07/catalog.csv",
     "experiments/m0-reuse/evidence/harness.stdout.log",
     "experiments/m0-reuse/evidence/install-frozen.log",
     "experiments/m0-reuse/evidence/install-initial.log",
@@ -64,6 +65,81 @@
     "scripts/wiki-sync.test.mjs"
   ],
   "coverage": {
+    "packages/domain/src/listing-rules.test.ts": {
+      "role": "平台发布规则的单元回归测试",
+      "pages": [
+        "wiki/M2真实报价V1.md"
+      ]
+    },
+    "packages/domain/src/listing-rules.ts": {
+      "role": "平台发布规则校验实现",
+      "pages": [
+        "wiki/M2真实报价V1.md"
+      ]
+    },
+    "docs/roadshow/c07/cue-result.md": {"role": "C07 Cue私有导入、8页预览和接入边界", "pages": ["wiki/C07业务资料与路演收口.md"]},
+    "docs/roadshow/c07/source-manifest.json": {"role": "C07固定A资料来源、字段沿用和审核限制", "pages": ["wiki/C07业务资料与路演收口.md"]},
+    "docs/roadshow/c07/source-notes.md": {"role": "C07固定A资料来源、字段沿用和审核限制", "pages": ["wiki/C07业务资料与路演收口.md"]},
+    "docs/superpowers/plans/2026-10-31-c07-business-roadshow.md": {
+      "role": "C07执行与实际验证计划",
+      "pages": [
+        "wiki/C07业务资料与路演收口.md"
+      ]
+    },
+    "docs/superpowers/specs/2026-10-31-c07-business-roadshow-design.md": {
+      "role": "C07菜单及回复收口设计",
+      "pages": [
+        "wiki/C07业务资料与路演收口.md"
+      ]
+    },
+    "docs/roadshow/c07/inquiry.md": {
+      "role": "C07采集资料、编写询盘与路演制作材料",
+      "pages": [
+        "wiki/C07业务资料与路演收口.md"
+      ]
+    },
+    "docs/roadshow/c07/roadshow.md": {
+      "role": "C07采集资料、编写询盘与路演制作材料",
+      "pages": [
+        "wiki/C07业务资料与路演收口.md"
+      ]
+    },
+    "docs/roadshow/c07/customer-reply.md": {
+      "role": "C07采集资料、编写询盘与路演制作材料",
+      "pages": [
+        "wiki/C07业务资料与路演收口.md"
+      ]
+    },
+    "docs/roadshow/c07/catalog.csv": {
+      "role": "C07采集资料、编写询盘与路演制作材料",
+      "pages": [
+        "wiki/C07业务资料与路演收口.md"
+      ]
+    },
+    "docs/roadshow/c07/README.md": {
+      "role": "C07采集资料、编写询盘与路演制作材料",
+      "pages": [
+        "wiki/C07业务资料与路演收口.md"
+      ]
+    },
+    "docs/roadshow/c07/cue-prompt.md": {
+      "role": "C07采集资料、编写询盘与路演制作材料",
+      "pages": [
+        "wiki/C07业务资料与路演收口.md"
+      ]
+    },
+    "docs/roadshow/c07/expected.json": {
+      "role": "C07采集资料、编写询盘与路演制作材料",
+      "pages": [
+        "wiki/C07业务资料与路演收口.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/business-settings.tsx": {
+      "role": "业务默认配置复用场景服务与版本幂等",
+      "pages": [
+        "wiki/C07业务资料与路演收口.md"
+      ]
+    },
     ".gitignore": {
       "role": "运行数据与依赖排除",
       "pages": [
@@ -76,7 +152,8 @@
         "wiki/项目状态.md",
         "wiki/Wiki 工作流与任务记录.md",
         "wiki/C03持久事件与桌面重连.md",
-        "wiki/C04收口与验收边界.md"
+        "wiki/C04收口与验收边界.md",
+        "wiki/C05CodexHarness与单据工作台.md"
       ]
     },
     "AGENTS.md": {
@@ -91,7 +168,8 @@
     "DESIGN.md": {
       "role": "当前视觉规范",
       "pages": [
-        "wiki/decisions/0001-Mistral工作台风格.md"
+        "wiki/decisions/0001-Mistral工作台风格.md",
+        "wiki/C07业务资料与路演收口.md"
       ]
     },
     "UPSTREAM.md": {
@@ -505,7 +583,9 @@
         "wiki/C02c统一运行与写账本.md",
         "wiki/C04正式设置评估入口.md",
         "wiki/C03持久事件与桌面重连.md",
-        "wiki/C已保存报价检查桌面切片.md"
+        "wiki/C已保存报价检查桌面切片.md",
+        "wiki/C客户回复草稿桌面切片.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "apps/desktop/src/main/worker-client.ts": {
@@ -524,7 +604,8 @@
         "wiki/C02c统一运行与写账本.md",
         "wiki/C04正式设置评估入口.md",
         "wiki/C03持久事件与桌面重连.md",
-        "wiki/C已保存报价检查桌面切片.md"
+        "wiki/C已保存报价检查桌面切片.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "apps/desktop/src/renderer/index.html": {
@@ -536,7 +617,9 @@
     "apps/desktop/src/renderer/src/App.tsx": {
       "role": "M1 React workspace form and document layout",
       "pages": [
-        "wiki/M1工作台.md"
+        "wiki/M1工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/C07业务资料与路演收口.md"
       ]
     },
     "apps/desktop/src/renderer/src/env.d.ts": {
@@ -548,19 +631,25 @@
     "apps/desktop/src/renderer/src/features/workbench.tsx": {
       "role": "M1 React workspace form and document layout",
       "pages": [
-        "wiki/M1工作台.md"
+        "wiki/M1工作台.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/C07业务资料与路演收口.md"
       ]
     },
     "apps/desktop/src/renderer/src/features/workspace.test.tsx": {
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/C07业务资料与路演收口.md"
       ]
     },
     "apps/desktop/src/renderer/src/features/workspace.tsx": {
       "role": "M1 React workspace form and document layout",
       "pages": [
-        "wiki/M1工作台.md"
+        "wiki/M1工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/C07业务资料与路演收口.md"
       ]
     },
     "apps/desktop/src/renderer/src/main.tsx": {
@@ -584,7 +673,9 @@
     "apps/desktop/src/renderer/src/theme.css": {
       "role": "M1 React workspace form and document layout",
       "pages": [
-        "wiki/M1工作台.md"
+        "wiki/M1工作台.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "apps/desktop/src/workers/business.ts": {
@@ -593,7 +684,8 @@
         "wiki/M1工程基线.md",
         "wiki/C02c统一运行与写账本.md",
         "wiki/C03持久事件与桌面重连.md",
-        "wiki/C已保存报价检查桌面切片.md"
+        "wiki/C已保存报价检查桌面切片.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "biome.json": {
@@ -772,7 +864,10 @@
         "wiki/C02c统一运行与写账本.md",
         "wiki/C04正式设置评估入口.md",
         "wiki/C03持久事件与桌面重连.md",
-        "wiki/C已保存报价检查桌面切片.md"
+        "wiki/C已保存报价检查桌面切片.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/C07业务资料与路演收口.md"
       ]
     },
     "tsconfig.json": {
@@ -863,7 +958,8 @@
       "role": "Strict shared value, patch, approval and event contract foundation",
       "pages": [
         "wiki/M1接口与持久化.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "packages/contracts/src/errors.ts": {
@@ -881,7 +977,8 @@
     "packages/domain/src/trade.ts": {
       "role": "Deterministic tier pricing, unknown amounts and human-only V1 service",
       "pages": [
-        "wiki/M2真实报价V1.md"
+        "wiki/M2真实报价V1.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "packages/infrastructure/src/catalog-csv.ts": {
@@ -900,7 +997,11 @@
       "role": "Scenario form, confirmed CSV import and persisted quote V1 UI",
       "pages": [
         "wiki/M2真实报价V1.md",
-        "wiki/B规则检查实现.md"
+        "wiki/B规则检查实现.md",
+        "wiki/C客户回复草稿桌面切片.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/C07业务资料与路演收口.md"
       ]
     },
     "packages/domain/src/trade.test.ts": {
@@ -922,7 +1023,10 @@
       "role": "Quote V1 amount, source, transaction, migration and real Electron regression evidence",
       "pages": [
         "wiki/M2真实报价V1.md",
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/C07业务资料与路演收口.md"
       ]
     },
     "scripts/desktop-executable.mjs": {
@@ -964,14 +1068,16 @@
     "tests/e2e/feedback.spec.ts": {
       "role": "Actual Electron notification layout, zoom, recovery and message regression",
       "pages": [
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/C05CodexHarness与单据工作台.md"
       ]
     },
     "packages/contracts/src/agent.ts": {
       "role": "模型设置与询盘受限修改严格契约",
       "pages": [
         "wiki/M4模型与报价修订.md",
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C05CodexHarness与单据工作台.md"
       ]
     },
     "packages/domain/src/revision.ts": {
@@ -985,7 +1091,8 @@
       "pages": [
         "wiki/M4模型与报价修订.md",
         "wiki/C运行恢复实现.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "packages/infrastructure/src/deepseek.ts": {
@@ -1031,7 +1138,8 @@
       "role": "正式模型设置交互",
       "pages": [
         "wiki/M4模型与报价修订.md",
-        "wiki/C04正式设置评估入口.md"
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "apps/desktop/src/renderer/src/features/quote-agent.tsx": {
@@ -1039,7 +1147,8 @@
       "pages": [
         "wiki/M4模型与报价修订.md",
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C05CodexHarness与单据工作台.md"
       ]
     },
     "tests/e2e/quote-agent.spec.ts": {
@@ -1047,7 +1156,11 @@
       "pages": [
         "wiki/M4模型与报价修订.md",
         "wiki/M1验证与协作.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C客户回复草稿桌面切片.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/C07业务资料与路演收口.md"
       ]
     },
     "packages/contracts/src/knowledge.ts": {
@@ -1066,7 +1179,9 @@
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
         "wiki/首批并行接口约定.md",
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "packages/contracts/src/protocol.ts": {
@@ -1081,7 +1196,8 @@
         "wiki/首批并行接口约定.md",
         "wiki/B00a知识Wiki公共协议.md",
         "wiki/B00a知识整理与维护协议.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "packages/contracts/src/knowledge.test.ts": {
@@ -1114,13 +1230,15 @@
         "wiki/C02c统一运行与写账本.md",
         "wiki/C04正式设置评估入口.md",
         "wiki/C03持久事件与桌面重连.md",
-        "wiki/C已保存报价检查桌面切片.md"
+        "wiki/C已保存报价检查桌面切片.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "packages/domain/src/agent-run.ts": {
       "role": "C01a纯运行状态转换与终态边界",
       "pages": [
-        "wiki/C运行恢复实现.md"
+        "wiki/C运行恢复实现.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "packages/domain/src/agent-run.test.ts": {
@@ -1235,18 +1353,35 @@
         "wiki/C02c多步报价工具闭环.md"
       ]
     },
+    "packages/domain/src/quote-checks.samples.ts": {
+      "role": "B01规则检查使用的固定合成样例与回归基线",
+      "pages": [
+        "wiki/B规则检查实现.md"
+      ]
+    },
+    "packages/domain/src/quote-delivery.ts": {
+      "role": "人工审批后的确定性报价摘要与客户回复渲染",
+      "pages": [
+        "wiki/M2真实报价V1.md",
+        "wiki/C07业务资料与路演收口.md"
+      ]
+    },
     "apps/desktop/src/renderer/src/features/quote-checks.tsx": {
       "role": "B01 read-only report UI, shared risks and field annotations, version isolation",
       "pages": [
         "wiki/B规则检查实现.md",
-        "wiki/C已保存报价检查桌面切片.md"
+        "wiki/C已保存报价检查桌面切片.md",
+        "wiki/C客户回复草稿桌面切片.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "apps/desktop/src/renderer/src/features/quote-checks.test.tsx": {
       "role": "B01 component and saved-quote mounting behavior regression",
       "pages": [
         "wiki/B规则检查实现.md",
-        "wiki/C已保存报价检查桌面切片.md"
+        "wiki/C已保存报价检查桌面切片.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "apps/desktop/src/renderer/src/features/quote-checks.fixture.ts": {
@@ -1455,7 +1590,8 @@
       "pages": [
         "wiki/C02b商品与报价只读工具.md",
         "wiki/M4模型与报价修订.md",
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "packages/infrastructure/src/catalog-quote-read-agent.test.ts": {
@@ -1469,7 +1605,8 @@
       "role": "独立只读命令、四工具统一投影与严格结果",
       "pages": [
         "wiki/C02b桌面只读助手.md",
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C05CodexHarness与单据工作台.md"
       ]
     },
     "packages/contracts/src/read-tools.test.ts": {
@@ -1483,7 +1620,9 @@
       "role": "正式Worker只读服务、宿主范围/时钟、在途门禁",
       "pages": [
         "wiki/C02b桌面只读助手.md",
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "packages/infrastructure/src/catalog-quote-read-service.test.ts": {
@@ -1506,14 +1645,19 @@
       "role": "桌面只读任务/范围、实际结果与来源展示",
       "pages": [
         "wiki/C02b桌面只读助手.md",
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "tests/e2e/read-assistant.spec.ts": {
       "role": "正式Electron四工具、错误边界、来源/金额/重开验收",
       "pages": [
         "wiki/C02b桌面只读助手.md",
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/C07业务资料与路演收口.md"
       ]
     },
     "packages/infrastructure/src/agent-run-store.ts": {
@@ -1522,7 +1666,9 @@
         "wiki/C02c持久运行与写入前置.md",
         "wiki/C02c统一运行与写账本.md",
         "wiki/C02c多步报价工具闭环.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "packages/infrastructure/src/agent-run-store.test.ts": {
@@ -1538,7 +1684,9 @@
       "pages": [
         "wiki/C02c统一运行与写账本.md",
         "wiki/C02c多步报价工具闭环.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "packages/infrastructure/src/agent-run-coordinator.test.ts": {
@@ -1553,7 +1701,9 @@
         "wiki/C02c统一运行与写账本.md",
         "wiki/C02c多步报价工具闭环.md",
         "wiki/C04失败阶段诊断与二轮收敛.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "packages/infrastructure/src/agent-run-recovery.test.ts": {
@@ -1580,14 +1730,19 @@
       "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
       "pages": [
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
+      ,
+        "wiki/C07业务资料与路演收口.md"
       ]
     },
     "tests/fixtures/run-crash-child.ts": {
       "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
       "pages": [
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "apps/desktop/src/renderer/src/features/agent-runs.test.tsx": {
@@ -1595,7 +1750,8 @@
       "pages": [
         "wiki/C02c统一运行与写账本.md",
         "wiki/M1验证与协作.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "packages/infrastructure/src/quote-draft-plan.ts": {
@@ -1608,7 +1764,9 @@
       "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
       "pages": [
         "wiki/C02c多步报价工具闭环.md",
-        "wiki/C04剩余失败证据与收敛.md"
+        "wiki/C04剩余失败证据与收敛.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "packages/infrastructure/src/quote-tool-agent.ts": {
@@ -1618,13 +1776,17 @@
         "wiki/C04失败收敛与本地回归.md",
         "wiki/C04失败阶段诊断与二轮收敛.md",
         "wiki/C04剩余失败证据与收敛.md",
-        "wiki/C04动作与澄清失败收敛.md"
+        "wiki/C04动作与澄清失败收敛.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "tests/e2e/multistep-agent.spec.ts": {
       "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
       "pages": [
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "tests/fixtures/multistep-seed.ts": {
@@ -1706,7 +1868,8 @@
       "role": "C04正式评估入口、公开契约与生命周期验证",
       "pages": [
         "wiki/C04正式设置评估入口.md",
-        "wiki/C04失败阶段诊断与二轮收敛.md"
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "packages/contracts/src/model-evaluation.ts": {
@@ -1735,7 +1898,8 @@
       "pages": [
         "wiki/C04正式设置评估入口.md",
         "wiki/C04失败阶段诊断与二轮收敛.md",
-        "wiki/C04剩余失败证据与收敛.md"
+        "wiki/C04剩余失败证据与收敛.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "packages/infrastructure/src/evaluation/failure-regressions.test.ts": {
@@ -1788,13 +1952,15 @@
     "apps/desktop/src/renderer/src/features/run-events.test.tsx": {
       "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
       "pages": [
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "apps/desktop/src/renderer/src/features/run-events.tsx": {
       "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
       "pages": [
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     "apps/desktop/src/renderer/src/features/run-tool-labels.ts": {
@@ -1849,13 +2015,154 @@
     "tests/e2e/quote-checks.spec.ts": {
       "role": "C实际Electron保存报价/人工检查/完整来源消费/双反馈/重开和原子失败验证",
       "pages": [
-        "wiki/C已保存报价检查桌面切片.md"
+        "wiki/C已保存报价检查桌面切片.md",
+        "wiki/C客户回复草稿桌面切片.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/C07业务资料与路演收口.md"
       ]
     },
     "tests/fixtures/quote-checks-data.ts": {
       "role": "仅测试离线合成已发布知识投影、故障注入和只读业务数据库检查",
       "pages": [
         "wiki/C已保存报价检查桌面切片.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/customer-reply.tsx": {
+      "role": "C本地确定性英德回复草稿、版本报告绑定及测试/设计",
+      "pages": [
+        "wiki/C客户回复草稿桌面切片.md",
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/C07业务资料与路演收口.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/customer-reply.test.tsx": {
+      "role": "C本地确定性英德回复草稿、版本报告绑定及测试/设计",
+      "pages": [
+        "wiki/C客户回复草稿桌面切片.md",
+        "wiki/C07业务资料与路演收口.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/customer-reply-format.ts": {
+      "role": "C本地确定性英德回复草稿、版本报告绑定及测试/设计",
+      "pages": [
+        "wiki/C客户回复草稿桌面切片.md",
+        "wiki/C07业务资料与路演收口.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/customer-reply-format.test.ts": {
+      "role": "C本地确定性英德回复草稿、版本报告绑定及测试/设计",
+      "pages": [
+        "wiki/C客户回复草稿桌面切片.md",
+        "wiki/C07业务资料与路演收口.md"
+      ]
+    },
+    "docs/superpowers/specs/2026-10-31-customer-reply-drafts-design.md": {
+      "role": "C本地确定性英德回复草稿、版本报告绑定及测试/设计",
+      "pages": [
+        "wiki/C客户回复草稿桌面切片.md"
+      ]
+    },
+    "docs/superpowers/plans/2026-10-31-customer-reply-drafts.md": {
+      "role": "C本地确定性英德回复草稿、版本报告绑定及测试/设计",
+      "pages": [
+        "wiki/C客户回复草稿桌面切片.md"
+      ]
+    },
+    "scripts/rehearse-hackathon.mjs": {
+      "role": "C黑客松真实/替身Electron彩排、冻结样本、视频和公开业务校验",
+      "pages": [
+        "wiki/C黑客松整场彩排与恢复.md"
+      ]
+    },
+    "tests/fixtures/rehearsal-host.cjs": {
+      "role": "仅验收宿主：保留正式凭据入口，隔离Business Worker业务库",
+      "pages": [
+        "wiki/C黑客松整场彩排与恢复.md"
+      ]
+    },
+    "packages/infrastructure/src/codex-harness.integration.test.ts": {
+      "role": "C05 Codex原生工具与工作台纵向验收",
+      "pages": [
+        "wiki/C05CodexHarness与单据工作台.md"
+      ]
+    },
+    "packages/infrastructure/src/codex-harness.test.ts": {
+      "role": "C05 Codex原生工具与工作台纵向验收",
+      "pages": [
+        "wiki/C05CodexHarness与单据工作台.md"
+      ]
+    },
+    "packages/infrastructure/src/codex-harness.ts": {
+      "role": "C05 Codex原生工具与工作台纵向验收",
+      "pages": [
+        "wiki/C05CodexHarness与单据工作台.md"
+      ]
+    },
+    "packages/infrastructure/src/codex-isolation.integration.test.ts": {
+      "role": "C05 Codex原生工具与工作台纵向验收",
+      "pages": [
+        "wiki/C05CodexHarness与单据工作台.md"
+      ]
+    },
+    "packages/infrastructure/src/codex-read-recovery.test.ts": {
+      "role": "C05 Codex原生工具与工作台纵向验收",
+      "pages": [
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
+      ]
+    },
+    "tests/e2e/codex-workbench.spec.ts": {
+      "role": "C05 Codex原生工具与工作台纵向验收",
+      "pages": [
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/workbench.test.tsx": {
+      "role": "C05 Codex原生协议、隔离与工作台业务回归",
+      "pages": [
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
+      ]
+    },
+    "tests/fixtures/codex-provider-host.cjs": {
+      "role": "C05b正式设置原生Codex与独立Electron电脑验收宿主",
+      "pages": [
+        "wiki/C05CodexHarness与单据工作台.md"
+      ]
+    },
+    "packages/infrastructure/src/session-lifecycle.test.ts": {
+      "role": "C05c会话收口/只读生命周期与业务对话验收",
+      "pages": [
+        "wiki/C05c会话生命周期与业务对话.md"
+      ]
+    },
+    "tests/e2e/business-fixture.ts": {
+      "role": "C05c会话收口/只读生命周期与业务对话验收",
+      "pages": [
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/C07业务资料与路演收口.md"
+      ]
+    },
+    "reports/csv-compliance-alibaba-2026-10-31.md": {
+      "role": "A来源资料的CSV平台合规复核报告",
+      "pages": [
+        "wiki/C07业务资料与路演收口.md"
+      ]
+    },
+    "scripts/contract-review-probe.mjs": {
+      "role": "B契约与来源证据复核探针",
+      "pages": [
+        "wiki/B规则检查实现.md",
+        "wiki/tasks/B06-条款确认与运行契约复核.md"
+      ]
+    },
+    "scripts/contract-review-probe.test.mjs": {
+      "role": "B契约复核探针覆盖声明回归",
+      "pages": [
+        "wiki/B规则检查实现.md",
+        "wiki/tasks/B06-条款确认与运行契约复核.md"
       ]
     }
   }

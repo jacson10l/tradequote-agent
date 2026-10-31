@@ -1,0 +1,42 @@
+{
+  "nature": "A-collected-product-data-unreviewed; C-authored-inquiry-and-proposed-terms",
+  "aCommit": "4c622d04e1ae483b6c8649e09146f71b35ba33a9",
+  "currency": "CNY",
+  "sku": "1601053415993",
+  "versions": [
+    {
+      "version": 1,
+      "quantity": "300",
+      "unit": "piece",
+      "tierMin": "100",
+      "unitPrice": "39.21",
+      "goodsTotal": "11763.00"
+    },
+    {
+      "version": 2,
+      "quantity": "500",
+      "unit": "piece",
+      "tierMin": "500",
+      "unitPrice": "37.21",
+      "goodsTotal": "18605.00"
+    }
+  ],
+  "difference": {
+    "quantity": "200",
+    "unitPrice": "-2.00",
+    "goodsTotal": "6842.00"
+  },
+  "unknown": [
+    "printing",
+    "freight",
+    "taxes",
+    "other charges",
+    "supplier price validity",
+    "Polo fibre percentages"
+  ],
+  "payment": "30% deposit; 70% before dispatch",
+  "delivery": "EXW Guangzhou, China; 21 days after deposit and specification confirmation",
+  "termsStatus": "proposed-requires-supplier-confirmation",
+  "ruleCoverage": "not-verified",
+  "oldVersionMustRemainUnchanged": true
+}

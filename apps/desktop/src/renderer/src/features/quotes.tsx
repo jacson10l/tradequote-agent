@@ -1,26 +1,17 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   type DesktopClient,
-  demoCatalogCsv,
-  demoScenario,
   QuoteInputSchema,
-  type QuoteApproval,
   type QuoteSnapshot,
-  type Scenario,
-  type ScenarioInput,
-  ScenarioInputSchema,
   type TradeBoard,
   type TradeWrite,
 } from "@tradequote/contracts";
 import { useRef, useState } from "react";
-import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { Button } from "../shared/button";
 import { useMessage } from "../shared/message";
 import { Notification } from "../shared/notification";
-import { QuoteAgent, QuoteDifference } from "./quote-agent";
-import { QuoteChecks } from "./quote-checks";
+
 import { useWorkspace } from "./workspace";
 
 export function QuotesPage({ client }: { client: DesktopClient }) {
@@ -64,22 +55,18 @@ function QuoteWorkspace({ client }: { client: DesktopClient }) {
     },
   });
   const mutation = useMutation({
-    mutationFn: async (input: TradeWrite) => {
+    mutationFn: async (
+      input: Extract<TradeWrite, { method: "catalog.stage" | "catalog.publish" }>,
+    ) => {
       const fingerprint = JSON.stringify({ method: input.method, payload: input.payload });
       const key = operations.current.get(fingerprint) ?? crypto.randomUUID();
       operations.current.set(fingerprint, key);
       const command = { ...input, idempotencyKey: key };
       switch (command.method) {
-        case "scenario.save":
-          return client.saveScenario(command);
         case "catalog.stage":
           return client.stageCatalog(command);
         case "catalog.publish":
           return client.publishCatalog(command);
-        case "quote.createV1":
-          return client.createQuoteV1(command);
-        case "quote.approve":
-          return client.approveQuote(command);
       }
     },
     onSuccess: async (result, command) => {
@@ -88,19 +75,12 @@ function QuoteWorkspace({ client }: { client: DesktopClient }) {
         return;
       }
       queries.setQueryData(["trade"], result.data);
-      if (command.method === "quote.createV1") setSelectedQuote(result.evidenceIds[0] ?? null);
       if (command.method === "catalog.stage" || command.method === "catalog.publish")
         setSelectedBatch(result.evidenceIds[0] ?? "");
       message.success(
-        command.method === "quote.createV1"
-          ? "报价草稿 V1 已保存至本机"
-          : command.method === "quote.approve"
-            ? "报价已批准，对外产出已生成"
-            : command.method === "catalog.publish"
-              ? "已确认发布商品资料"
-              : command.method === "catalog.stage"
-                ? "预览已保存，请核对后确认发布"
-                : "演示场景已保存",
+        command.method === "catalog.publish"
+          ? "已确认发布商品资料"
+          : "预览已保存，请核对后确认发布",
       );
       await queries.invalidateQueries({ queryKey: ["trade"] });
     },
@@ -129,20 +109,6 @@ function QuoteWorkspace({ client }: { client: DesktopClient }) {
   return (
     <div className="grid gap-4">
       <h1 className="sr-only">资料与报价</h1>
-      <ScenarioForm
-        key={board.scenario?.id ?? "new"}
-        scenario={board.scenario}
-        busy={mutation.isPending}
-        reloading={query.isFetching}
-        onReload={() => void query.refetch()}
-        onSave={(scenario) =>
-          mutation.mutate({
-            ...common(),
-            method: "scenario.save",
-            payload: { scenario, expectedVersion: board.scenario?.version ?? 0 },
-          })
-        }
-      />
       <CatalogPanel
         client={client}
         selectedBatch={selectedBatch}
@@ -158,23 +124,11 @@ function QuoteWorkspace({ client }: { client: DesktopClient }) {
           })
         }
       />
-      <DraftForm
-        board={board}
-        busy={mutation.isPending}
-        onSave={(payload) => mutation.mutate({ ...common(), method: "quote.createV1", payload })}
-      />
-      <QuoteAgent
-        client={client}
-        board={board}
-        selected={saved}
-        onSaved={(result) => {
-          queries.setQueryData(["trade"], result.data);
-          setSelectedQuote(result.evidenceIds[0] ?? null);
-          void queries.invalidateQueries({ queryKey: ["trade"] });
-        }}
-      />
+      <Button asChild>
+        <Link to="/">进入工作台处理业务</Link>
+      </Button>
       <section className="panel space-y-4">
-        <h2>已保存的报价草稿</h2>
+        <h2>历史报价查询</h2>
         {board.quotes.length === 0 ? (
           <p className="description">保存后可在这里查看冻结的商品、价格依据和待确认事项。</p>
         ) : (
@@ -193,119 +147,16 @@ function QuoteWorkspace({ client }: { client: DesktopClient }) {
             </select>
             {saved && (
               <>
-                <SavedQuote
-                  quote={saved}
-                  approval={board.approvals.find((a) => a.revisionId === saved.id)}
-                  onApprove={(approvedBy, note) =>
-                    mutation.mutate({
-                      ...common(),
-                      method: "quote.approve",
-                      payload: {
-                        quoteId: saved.id,
-                        revisionId: saved.id,
-                        approvedBy,
-                        note,
-                      },
-                    })
-                  }
-                  busy={mutation.isPending}
-                />
-                <QuoteChecks key={saved.id} quote={saved} client={client} />
-                <QuoteDifference key={saved.id} quote={saved} quotes={board.quotes} />
+                <SavedQuote quote={saved} />
+                <Button asChild>
+                  <Link to={`/?quote=${saved.id}`}>在工作台继续处理此报价</Link>
+                </Button>
               </>
             )}
           </>
         )}
       </section>
     </div>
-  );
-}
-function ScenarioForm({
-  scenario,
-  busy,
-  reloading,
-  onReload,
-  onSave,
-}: {
-  scenario: Scenario | null;
-  busy: boolean;
-  reloading: boolean;
-  onReload: () => void;
-  onSave: (input: ScenarioInput) => void;
-}) {
-  const form = useForm<ScenarioInput>({
-    resolver: zodResolver(ScenarioInputSchema),
-    defaultValues: scenario
-      ? {
-          name: scenario.name,
-          targetUser: scenario.targetUser,
-          platform: scenario.platform,
-          market: scenario.market,
-          category: scenario.category,
-          locales: scenario.locales,
-          sourceStatus: scenario.sourceStatus,
-        }
-      : demoScenario,
-  });
-  // Stored metadata is deliberately not submitted as editable scenario input.
-  const submit = form.handleSubmit((data) => onSave(data));
-  return (
-    <section className="panel">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2>1 · 演示场景</h2>
-        <Button variant="outline" disabled={busy || reloading} onClick={onReload}>
-          重新加载资料与报价
-        </Button>
-      </div>
-      <p className="description">
-        工作流：询盘到报价；买家变更到复核。首轮先完成手工报价。配置可替换，平台规则和文化适配尚未验证。
-      </p>
-      <form onSubmit={submit} className="space-y-4 mt-4">
-        <div className="grid gap-4 md:grid-cols-2">
-          {(
-            [
-              ["name", "场景名称"],
-              ["targetUser", "目标用户与岗位"],
-              ["platform", "目标平台 / 场景"],
-              ["market", "目标市场"],
-              ["category", "演示品类"],
-            ] as const
-          ).map(([key, label]) => (
-            <div key={key}>
-              <label htmlFor={`scenario-${key}`}>{label}</label>
-              <input id={`scenario-${key}`} {...form.register(key)} />
-              <p className="field-error">{form.formState.errors[key]?.message}</p>
-            </div>
-          ))}
-          <div>
-            <label htmlFor="scenario-locales">目标语言（逗号分隔 BCP 47）</label>
-            <input
-              id="scenario-locales"
-              value={form.watch("locales").join(", ")}
-              onChange={(event) =>
-                form.setValue(
-                  "locales",
-                  event.target.value.split(",").map((v) => v.trim()),
-                  { shouldValidate: true },
-                )
-              }
-            />
-            <p className="field-error">{form.formState.errors.locales?.message}</p>
-          </div>
-          <div>
-            <label htmlFor="scenario-source">场景来源</label>
-            <select id="scenario-source" {...form.register("sourceStatus")}>
-              <option value="synthetic">合成演示配置</option>
-              <option value="user_provided">用户提供（规则仍待验证）</option>
-            </select>
-          </div>
-        </div>
-        <Button type="submit" disabled={busy}>
-          保存演示场景
-        </Button>
-        {scenario && <span className="status-badge ml-3">场景版本 {scenario.version}</span>}
-      </form>
-    </section>
   );
 }
 function CatalogPanel({
@@ -333,7 +184,7 @@ function CatalogPanel({
   const batch = board.batches.find((entry) => entry.id === selectedBatch) ?? board.batches[0];
   return (
     <section className="panel space-y-4">
-      <h2>2 · 商品与价目表</h2>
+      <h2>商品与价目表</h2>
       <p className="description">
         UTF-8 CSV，最多 256 KiB / 500 行。列名固定，顺序可变；同 SKU
         多行表示数量档位。空价格保留未知。原文和行位置会随预览保存。
@@ -359,17 +210,6 @@ function CatalogPanel({
           }}
         >
           选择 CSV 文件
-        </Button>
-        <Button
-          variant="outline"
-          disabled={busy}
-          onClick={() => {
-            setCsv(demoCatalogCsv);
-            setSourceName("合成演示商品.csv");
-            setSourceStatus("synthetic");
-          }}
-        >
-          填入合成 CSV 样本
         </Button>
       </div>
       <form
@@ -399,7 +239,7 @@ function CatalogPanel({
                 setSourceStatus(event.target.value === "synthetic" ? "synthetic" : "user_provided")
               }
             >
-              <option value="synthetic">合成演示资料</option>
+              <option value="synthetic">未核实资料（不可用于交易）</option>
               <option value="user_provided">用户提供资料（人工核对）</option>
             </select>
           </div>
@@ -434,7 +274,7 @@ function CatalogPanel({
             ))}
           </select>
           <p className="sample-note">
-            {batch.sourceStatus === "synthetic" ? "合成演示资料" : "用户提供资料"} ·{" "}
+            {batch.sourceStatus === "synthetic" ? "未核实资料（不可用于交易）" : "用户提供资料"} ·{" "}
             {batch.status === "published" ? "已人工确认发布" : "尚未发布，不用于报价"} · 来源
             SHA-256：<span className="break-all">{batch.sourceHash}</span>
           </p>
@@ -494,7 +334,7 @@ function CatalogPanel({
     </section>
   );
 }
-function DraftForm({
+export function DraftForm({
   board,
   busy,
   onSave,
@@ -511,7 +351,7 @@ function DraftForm({
   const message = useMessage();
   return (
     <section className="panel space-y-4">
-      <h2>3 · 建立报价草稿 V1</h2>
+      <h2>建立报价草稿</h2>
       <p className="description">
         仅使用已发布资料。按商品数量档位核价，每行 HALF_UP
         舍入后求和；仅计算商品金额，未含运税费。来源、场景和计算依据随草稿冻结。
@@ -644,29 +484,14 @@ function DraftForm({
     </section>
   );
 }
-function SavedQuote({
-  quote,
-  approval,
-  busy,
-  onApprove,
-}: {
-  quote: QuoteSnapshot;
-  approval: QuoteApproval | undefined;
-  busy: boolean;
-  onApprove: (approvedBy: string, note: string) => void;
-}) {
-  const [approvedBy, setApprovedBy] = useState("主管");
-  const [note, setNote] = useState("");
-  const message = useMessage();
+export function SavedQuote({ quote }: { quote: QuoteSnapshot }) {
   return (
     <article className="space-y-4" aria-label="已保存报价详情">
       <div className="section-heading">
         <h3>
           {quote.buyer} · 草稿 V{quote.version}
         </h3>
-        <span className="status-badge">
-          {approval ? `已批准 · ${approval.approvedBy}` : "已保存 · 未审核"}
-        </span>
+        <span className="status-badge">已保存 · 未审核</span>
       </div>
       <p className="break-all">
         {quote.number} · {quote.createdAt}
@@ -719,8 +544,11 @@ function SavedQuote({
         <strong data-testid="goods-total">
           {quote.goodsTotal ?? "未知"} {quote.currency}
         </strong>
-        <small>不是完整应付总额 · 确定性计算并保存</small>
+        <small>未含运费、税费及其他费用</small>
       </div>
+      <p>
+        付款条款：{quote.payment || "待确认"} · 交期与交货条件：{quote.delivery || "待确认"}
+      </p>
       <div className="sample-note">
         <h3>待确认事项</h3>
         <ul>
@@ -740,72 +568,9 @@ function SavedQuote({
         ))}
         <p>{quote.calculationPolicy}</p>
       </details>
-      {approval ? (
-        <ApprovalOutput approval={approval} />
-      ) : (
-        <form
-          className="space-y-3"
-          onSubmit={(event) => {
-            event.preventDefault();
-            if (!approvedBy.trim()) {
-              message.error("请填写审核人");
-              return;
-            }
-            onApprove(approvedBy.trim(), note.trim());
-          }}
-        >
-          <div className="grid gap-4 md:grid-cols-2">
-            <div>
-              <label htmlFor="approve-by">审核人</label>
-              <input
-                id="approve-by"
-                value={approvedBy}
-                maxLength={200}
-                onChange={(event) => setApprovedBy(event.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="approve-note">审核备注（可选）</label>
-              <input
-                id="approve-note"
-                value={note}
-                maxLength={2000}
-                onChange={(event) => setNote(event.target.value)}
-              />
-            </div>
-          </div>
-          <p className="description">
-            轻量审批：人工确认后生成对外产出（RFQ 摘要 + 客户回复）。规则检查与合成边界不阻塞演示闭环，
-            但产出会明确标注「未核验」。
-          </p>
-          <Button type="submit" disabled={busy}>
-            提交人工审核并生成对外产出
-          </Button>
-        </form>
-      )}
+      <Button disabled title="当前报价暂不可提交审核">
+        提交人工审核
+      </Button>
     </article>
-  );
-}
-function ApprovalOutput({ approval }: { approval: QuoteApproval }) {
-  return (
-    <section className="space-y-4" aria-label="对外产出">
-      <div className="section-heading">
-        <h3>对外产出（审批生成）</h3>
-        <span className="status-badge">合成演示 · 未核验</span>
-      </div>
-      <p>
-        批准于 {approval.approvedAt} · {approval.approvedBy}
-        {approval.note ? ` · 备注：${approval.note}` : ""}
-      </p>
-      {approval.deliveries.map((delivery) => (
-        <details key={delivery.id} open={delivery.kind === "reply"}>
-          <summary>
-            {delivery.locale} · {delivery.kind === "summary" ? "RFQ 摘要" : "客户回复"} ·{" "}
-            {delivery.subject}
-          </summary>
-          <pre className="whitespace-pre-wrap break-words text-sm">{delivery.body}</pre>
-        </details>
-      ))}
-    </section>
   );
 }

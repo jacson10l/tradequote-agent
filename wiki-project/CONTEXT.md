@@ -1,5 +1,20 @@
 # 当前上下文
 
+2026-11-01 C07独立分支：菜单职责与客户正文分离已实现；沿用A4c622d0小目录13行/4SKU，实际DeepSeek→Codex工具完成300/500件V1/V2和重开。单测539通过/3跳过，Electron12通过/1跳过；Wiki check/sync通过、Cue最终8页私有导入与备注已核对，整体因A/B签认及Cue持久连接仍active。A大目录第268行空MOQ与来源签认、B拟议条款pending缺失仍开放。基线450e945；无推送合入，见[[C07业务资料与路演收口]]、[[C07-业务资料与路演收口]]。
+
+2026-10-31C独立候选代码/Wiki已同次提交d62570a3c91890cc2aeb7ed8f971b275aaeac713并普通推送origin/codex/c-codex-harness，远端回读一致；集成仍观察为654fecc4d93e4630ed4a0cf42f261d0d432e23d3，本次未合入。包含最后暖色回调与新鲜535/12/36和全部门禁；便携验证raw/c05-delivery-validation.json绑定63项Git源码指纹，实际推送回执raw/c05-delivery-receipt.json。A/B按[[C05交付与AB接手]]取用固定材料，业务/契约签认仍见[[C05c-AB业务依据与契约交接]]；回执提交只补Wiki状态，最终分支头另回读。
+
+2026-10-31负责人授权C整轮代码/Wiki提交推送独立codex/c-codex-harness，仍禁止合入集成。任务面板按最新截图恢复统一暖色#FFF8E0，Computer Use已确认；取用步骤、A/B可领取事项和便携证据集中[[C05交付与AB接手]]，提交/远端回执见[[C05-候选提交推送与暖色回调]]。旧“仅本地/不推送”均为此前历史时点。
+
+2026-10-31 C05c本机修复与Computer Use已完成：补充100件保存900.00后原澄清自动已解决；只读执行3工具后停止、重开取消事实、显式重试20m2＝250.00；另一次运行中退出后发现interrupted，不重发，显式重试120件＝1080.00，原报价始终100件900.00。业务聊天区区分用户/助手，技术记录折叠，无内核标签/本机连接说明/演示默认；所有新任务缺保存配置拒绝，不使用本机连接兜底。新问答/只读复用唯一运行账本，递归分支和后页焦点/报价刷新反例已修。当前535单元/12Electron/36Wiki维护及typecheck/build/check通过，固定基线同步见本轮证据。A来源/覆盖、B条款确认与新公共契约复核列明交接，整体接收仍active；仅本地候选，未推送/合入。见[[C05c会话生命周期与业务对话]]、[[C05c-会话收口与只读持久运行]]、[[C05c-AB业务依据与契约交接]]，raw/c05c-session-workbench-validation.json。
+
+2026-10-31 C05b已验证当前保存deepseek-flash：正式Main受控设置→原生Codex Responses工具→确定性核价/保存。Computer Use真实窗口完成缺项追问、V1 900.00→V2 4500.00、差异、取消/重开、检查/回复与只读250.00预览且原单不变。发现阶段调用直接失败、自动报告未显示和重试锁竞态，已修复并保留首轮失败。只证明本机当前模型，不代表全型号或全部规则通过。A真实来源、B“未确认”语义、只读取消/持久恢复与旧澄清任务历史连续性仍待；未推送/合入。见[[C05b-DeepSeek兼容与电脑验收]]、[[C05CodexHarness与单据工作台]]，证据raw/c05b-deepseek-computer-use.json。
+
+2026-10-31 C05本机切片已验证：真实Codex原生工具900.00→500数量4500.00 USD，首次工具后取消/失败重开显式重试，正式工作台Electron专项1/1、原桌面12/12和单元514通过，显式Codex3/3另验。工作台为业务入口，对话/单据独立滚动，资料页保留导入/发布/来源/历史；原业务工具/事务完整复用。独立Agent复核问题已修正，本机证据raw/c05-codex-workbench-validation.json。本条为C05初轮历史，C05b已另验兼容。整体仍active：原阶段DeepSeek兼容未证，A来源版本与B契约/条款确认状态待业务复核；“未确认”不在pending已合成复现且未修复。codex/c-codex-harness，taskBase24771fb，未推送/合入。详见[[C05CodexHarness与单据工作台]]、[[C05-CodexHarness纠偏与工作台迁移]]。
+
+2026-10-31 C固定fdd571a在macOS原样复跑快照换绑反例：额外5/5、A28/28、原维护12/12及迁移两组各3/3通过；完整单测496/496、build/typecheck退出0，快照技术阻断关闭。事件证据仍NOT_FOUND（1控制通过/1失败），待B资格政策及A权威事件读取/目标绑定修复；维护入口和整体接收不放行。详见[[Cfdd571a快照绑定独立复验]]、[[C集成-快照绑定修复接收]]，完整原文/命令见raw/c-fdd571a-reverify.json。
+
+
 2026-10-29 A在codex/a01e-p1-fixes（HEAD 0827476）实现B维护契约剩余八个方法source.withdraw/wiki.getMaintenance/wiki.resolveMaintenance/wiki.analyzeImpact/wiki.getImpact/wiki.getIndexStatus/wiki.rebuildIndex/wiki.getIndexRebuild，连同wiki.lint/wiki.getLintReport共十方法在SqliteWikiStore与createKnowledgeMaintenanceService落地；写方法走OCC、权威写入bumpSeq驱动索引陈旧。新增迁移knowledge-wiki:9（六表：knowledge_seq/knowledge_maintenance_issue/knowledge_impact_report/knowledge_impact_item/knowledge_index_status/knowledge_index_rebuild），谱系新增a-v9、unified纳入knowledge-wiki:9；索引列名index_kind（`index`为SQLite保留关键字）。本机typecheck退出0、wiki-store.test.ts 24/24（新增A01e-1～A01e-4/3b共5项）、check-boundaries退出0、check-lineage-integration/migration-ledger/migrations/wiki-check-integration 46/46、domain 39/39通过；仅预存在Windows symlink EPERM保留。B契约/语义复核、C原脚本复验与桌面接线、实际人员审核/发布/撤回/业务签认仍待；未推送/合入/代签。详见[[A01c检索引用实现]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-知识发布与来源查询]]。
 
 2026-10-28 A已以C新固定材料1f74e4a（codex/c-a01e-fixes-review）为基线，在codex/a01e-p1-fixes（HEAD 1c7158e，暂不合入）修正二轮独立P1验收1正常控制/8失败的九例S1～S5：旧成功键双指纹兼容、旧receipt-only兼容、报告问题身份唯一、完整报告公共端口、未知与工程交接。迁移谱系knowledge-wiki:8与DDL不变，无新谱系；旧成功事实/失败证据不删不改。本机typecheck退出0、wiki-store.test.ts 19/19、check-boundaries退出0、5改动文件Biome全绿；整仓pnpm check/wiki:check仍受本机工作区预存在CRLF与icon.svg漂移（C边界）影响，Electron ABI原生重建未复跑。B契约/语义复核、C原脚本复验与桌面接线、实际人员审核/发布/撤回/业务签认仍待；未推送/合入/代签。详见[[A01c检索引用实现]]、[[A01-知识发布与来源查询]]。
@@ -215,4 +230,26 @@ B新组合作者验证已在完整代码提交ceec0ee4e329d891aad1855a4241425676
 
 2026-10-24 后续已获授权提交/普通推送B复核材料；当前作者取已登录GitHub连接器账户。原始验证证据保持，新共享/回读证据见raw/b-c-third-feedback-delivery.json与[[B对Ca633c428复核与公共契约确认]]，不改变M13阻断或active/WIP。
 
-- 2026-10-31：B 维护证据资格政策（codex/b-maintenance-evidence-increment，政策 56f702f/交付锚点 cdf3342）已定；A 在 codex/a01-maintenance-evidence（固定 SHA 0acbf86）按「权威读取/工作区+目标版本绑定/事务内资格核验」三点实现并接入 resolveMaintenance，见 [[B维护证据资格与规则样例]]。typecheck 0、EVID 12/12、wiki-store 28/28。缺口：validity_confirmed/integrity_reverified/review_decision 三类证据无持久化事实暂不可产；source_withdrawn 实际只能 dismiss 需 B 确认矩阵语义。
+2026-10-31 用户将黑客松可演示闭环设为当前最高优先级：A冻结主演示资料，B冻结规则案例和英德客户回复草稿，C完成真实Electron两条流程彩排、重置与恢复。完整知识维护、正式审批/PDF和Windows不阻塞演示封板；维护入口继续关闭。详见[[黑客松演示封板目标与ABC分工]]、[[黑客松演示闭环封板]]。
+
+2026-10-31 C实现英德本地回复草稿，三类规则反馈及来源报告绑定；报价金额/原文保持，未审核不外发，当前封板仍待整场真实模型彩排。见[[C客户回复草稿桌面切片]]、[[C黑客松演示闭环实现]]。
+
+2026-10-31 C从be4e574开codex/c-hackathon-rehearsal，冻结A035e5f8的14行CSV，推进独立演示业务库的真实DeepSeek与备用视频。正式设置保持原位且不读取密钥；见[[C黑客松整场彩排与恢复]]。合成规则投影不计人工知识发布。
+
+C整场真实DeepSeek彩排已通过：deepseek-flash在冻结14行样本上完成V1→V2/V3→重检→英德草稿→重开；真实/替身备用录屏分别保存本机.runtime，不提交运行库或视频。数据与知识规则明确合成，人工发布和业务语言签认仍待，详见[[C黑客松整场彩排与恢复]]。
+
+C封板技术稳定性补齐：真实deepseek-flash连续五轮、每轮7检查点均通过（15次业务操作，无自动重试），fixture一轮通过；本机冻结演示库与备用MP4已验证。工程与Wiki门禁通过，整体任务仍active等待人工业务/语言确认与非作者复核。
+
+2026-10-31 C上台讲稿已落地：[[C黑客松上台讲稿与现场检查]]含4分钟/3分钟路线与现场检查；讲稿时长为安排，真人计时/投影未验收。[[黑客松演示闭环封板]]已按2c04383实际证据更新，技术主链通过与整体封板待确认分别记录。
+
+2026-10-31用户截图实测对应主目录654fecc旧共同分支，非C候选。C另在最新分支复现无末尾/的开发入口导致ACTION_NOT_ALLOWED，独立codex/c-dev-origin-fix规范化允许URL并保留原信任限制；见[[C开发启动地址规范化修复]]。需退出旧实例从新目录启动，不清库。
+
+2026-10-31 C05d按用户截图仅补正输入区：橙色外框复用原聚焦参数并常驻，composer与可编辑textarea白底改为暖色；真实Electron已核对聚焦/失焦，原消息、报价和布局不变。沿用独立codex/c-codex-harness，基线fc8c515；本轮门禁/提交见[[C05d-输入区常驻边框与背景]]，A/B交接事项及集成未合入状态保持。
+
+2026-10-31 C05配色续改：用户决定恢复白色任务对话和输入区，用户消息采用当前暖色，橙框常驻，其他不变。独立codex/c-codex-harness，真实基线f21f4034b49b4c2a1a7067a2c30e34e3db7c297a；验证/交付续记[[C05d-输入区常驻边框与背景]]，原证据与A/B未完项保留，不合入集成。
+
+2026-10-31下一轮[[C06下一轮ABC任务书]]与A06/B06/C06任务已建立；独立codex/c06-abc-readiness，taskBase=1d140ed2003ccee7a45c23b25417b174753e3d2f。A5c69b70已只读核对80行/两个SKU/说明hash，原件缺失和真实性待审核不收口；B显式条款/契约复核仍待。C先审计、冻结契约包、适配旧验收脚本并执行本机准备回归，后续隔离组合等待A/B固定材料；不合入集成、不发送消息、不代签。
+
+2026-10-31 A1313db9新归档只读接收：远端1313db918ca5b3847217a6f97ad72129b33cb187，22文件/15图；主样本13行可解析，大目录286行/83SKU被现有解析器拒绝，混合268 CRLF+19 LF；前版及仅统一行尾诊断副本通过。样品66.19误作普通价、两份登记hash失配、统计/ID说明不一致交A修复，见[[C06-A1313资料接收复核]]和raw/c06-a1313-intake.json。A新来源证据部分补齐，真实性/服装快照/规则及B条款仍待；基线d8e83bc，C无产品改动、不合入、不重发模型。
+
+2026-11-01 A/B/C 集成分支已完成顺序合并：A 固定 `4c622d04e1ae483b6c8649e09146f71b35ba33a9`、B 固定 `a4f2ba685b29438fd013373a146d40a68a093e68`、C07 候选 `8b53b1a`，统一位于 `codex/m1-abc-integration`。A/B 已完成事项不重复分配；A 仅保留来源证据缺口，B 仅做非作者集成复核，C 负责最终推送、路演收口和交接。最终门禁与剩余风险见[[C集成-ABC合并与后续分工]]。

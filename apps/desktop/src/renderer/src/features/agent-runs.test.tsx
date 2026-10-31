@@ -36,7 +36,7 @@ it("discovers interrupted facts without starting work and retains the control ke
   };
   const onSaved = vi.fn();
   render(<AgentRuns client={client} onSaved={onSaved} refreshToken={false} />);
-  const button = await screen.findByRole("button", { name: "重试此运行（会再次调用模型）" });
+  const button = await screen.findByRole("button", { name: "重试" });
   expect(startAgentRun).not.toHaveBeenCalled();
   expect(retryAgentRun).not.toHaveBeenCalled();
   await user.click(button);
@@ -69,14 +69,14 @@ it("keeps the active second page visible after refreshing loaded history", async
   );
   const client = { ...readonlyMockClient, listAgentRuns };
   render(<AgentRuns client={client} onSaved={vi.fn()} refreshToken={false} />);
-  await user.click(await screen.findByRole("button", { name: "加载更多运行" }));
-  expect(await screen.findByRole("article", { name: `运行 ${active.runId}` })).toHaveTextContent(
+  await user.click(await screen.findByRole("button", { name: "更早的对话" }));
+  expect(await screen.findByRole("region", { name: `运行 ${active.runId}` })).toHaveTextContent(
     "运行中",
   );
-  await user.click(screen.getByRole("button", { name: "刷新运行记录" }));
+  await user.click(screen.getByRole("button", { name: "刷新记录" }));
   await waitFor(() => expect(listAgentRuns).toHaveBeenCalledTimes(4));
-  expect(screen.getAllByRole("article")).toHaveLength(21);
-  expect(screen.getByRole("button", { name: "取消此运行" })).toBeEnabled();
+  expect(screen.getAllByRole("article", { name: "用户消息" })).toHaveLength(21);
+  expect(screen.getByRole("button", { name: "停止" })).toBeEnabled();
 });
 
 it("does not lose a new-run hint arriving during an in-flight history read", async () => {
@@ -114,7 +114,91 @@ it("does not lose a new-run hint arriving during an in-flight history read", asy
     release();
   });
   await waitFor(() => expect(listAgentRuns).toHaveBeenCalledTimes(3));
-  expect(await screen.findByRole("article", { name: `运行 ${run.runId}` })).toHaveTextContent(
+  expect(await screen.findByRole("region", { name: `运行 ${run.runId}` })).toHaveTextContent(
     "失败",
   );
+});
+
+it("separates persisted user messages from assistant replies and closes resolved clarification controls", async () => {
+  const parent: AgentRun = {
+    ...mockAgentRun,
+    status: "resolved",
+    clarification: "请确认数量",
+    resolvedByRunId: crypto.randomUUID(),
+  };
+  render(
+    <AgentRuns
+      client={{
+        ...readonlyMockClient,
+        listAgentRuns: async () => ok({ runs: [parent], nextCursor: null }),
+      }}
+      onSaved={vi.fn()}
+      refreshToken={false}
+      onContinue={vi.fn()}
+    />,
+  );
+  expect(await screen.findByRole("article", { name: "用户消息" })).toHaveTextContent(
+    "仅供契约测试，未调用模型",
+  );
+  expect(screen.getByRole("article", { name: "助手回复" })).toHaveTextContent("已解决");
+  expect(screen.queryByRole("button", { name: "补充说明" })).not.toBeInTheDocument();
+});
+it("follows a focused task beyond the first history page without needing load-more", async () => {
+  const target: AgentRun = { ...mockAgentRun, runId: crypto.randomUUID(), status: "running" };
+  const client = {
+    ...readonlyMockClient,
+    listAgentRuns: async () =>
+      ok({ runs: [], nextCursor: { createdAt: target.createdAt, runId: crypto.randomUUID() } }),
+    getAgentRun: vi.fn(async () => ok(target)),
+  };
+  const onRun = vi.fn();
+  render(
+    <AgentRuns
+      client={client}
+      onSaved={vi.fn()}
+      refreshToken={false}
+      onRun={onRun}
+      focusRunId={target.runId}
+    />,
+  );
+  expect(await screen.findByRole("region", { name: `运行 ${target.runId}` })).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "停止" })).toBeEnabled();
+  expect(onRun).toHaveBeenCalledWith(target);
+});
+it("shows verified read facts rather than raw model text containing implementation details", async () => {
+  const id = crypto.randomUUID();
+  const run: AgentRun = {
+    ...mockAgentRun,
+    runId: id,
+    command: {
+      schemaVersion: 1,
+      requestId: id,
+      idempotencyKey: mockAgentRun.operationKey,
+      method: "agent.read",
+      payload: { executionMode: "codex_harness", instruction: "查询板材", quoteRevisionIds: [] },
+    },
+    status: "completed",
+    readResult: {
+      outcome: "completed",
+      workspaceId: id,
+      asOf: mockAgentRun.createdAt,
+      toolCalls: 0,
+      observations: [],
+      summary: "sourceStatus synthetic sales-tiers-v1 internal debug output",
+    },
+  };
+  render(
+    <AgentRuns
+      client={{
+        ...readonlyMockClient,
+        listAgentRuns: async () => ok({ runs: [run], nextCursor: null }),
+      }}
+      onSaved={vi.fn()}
+      refreshToken={false}
+    />,
+  );
+  expect(await screen.findByRole("article", { name: "助手回复" })).toHaveTextContent(
+    "本次未取得查询依据",
+  );
+  expect(screen.queryByText(/sales-tiers-v1|sourceStatus/)).not.toBeInTheDocument();
 });

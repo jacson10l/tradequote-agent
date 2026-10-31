@@ -1,0 +1,63 @@
+{
+  "status": "passed",
+  "scope": "C05d CSS-only permanent composer outline and warm background; native Electron focus/blur visual verification; no business/model execution",
+  "date": "2026-10-31",
+  "taskBase": "fc8c515450a8e0f90b30edda95cd1dab40056e28",
+  "branch": "codex/c-codex-harness",
+  "environment": {
+    "platform": "macOS arm64",
+    "node": "22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2"
+  },
+  "checks": [
+    {
+      "command": "pnpm build",
+      "exitCode": 0,
+      "result": "Main/preload/renderer built; existing renderer chunk size warning retained"
+    },
+    {
+      "command": "pnpm exec biome check apps/desktop/src/renderer/src/theme.css",
+      "exitCode": 0,
+      "result": "Checked 1 file, no fixes"
+    },
+    {
+      "command": "Computer Use: native Electron reload, focus textarea, click task heading to blur",
+      "exitCode": 0,
+      "result": "Orange outline present before focus, while focused, and after blur. Editable textarea and composer use warm background. Gray user bubble/button, quote V1 900 USD and prior read result 1080 USD retained. No text submitted or model task run. Focus AX426 -> blur AX244."
+    },
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "result": "TypeScript noEmit passed"
+    },
+    {
+      "command": "pnpm wiki:generate",
+      "exitCode": 0,
+      "result": "273 source files; 5 generated artifacts"
+    },
+    {
+      "command": "pnpm check",
+      "exitCode": 0,
+      "result": "Biome passed; 6 engineering tests passed; boundaries passed; read-only Wiki check 273 source files and lint 273 Markdown/244 semantic/all273 reachable"
+    },
+    {
+      "command": "pnpm wiki:sync --base fc8c515450a8e0f90b30edda95cd1dab40056e28",
+      "exitCode": 0,
+      "result": "1 code file,5 knowledge pages,1 task,errors[]"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "No whitespace errors"
+    }
+  ],
+  "sourceSnapshot": {
+    "path": "apps/desktop/src/renderer/src/theme.css",
+    "sha256": "6a8a39b3ced4a82d1737f444091fe1a2e2fbd4001bc8ed023e6bc8e0e9ee863a"
+  },
+  "limits": [
+    "No new unit/Electron automated suite or paid model run for this reversible CSS refinement; previous C05 evidence retains its fixed material scope.",
+    "Windows/signed installer and A/B pending responsibilities remain unchanged."
+  ]
+}

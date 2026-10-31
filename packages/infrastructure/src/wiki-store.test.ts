@@ -1308,8 +1308,9 @@ it("A01e-2: getMaintenance 稳定分页，resolveMaintenance 按 B 资格政策�
     }),
     { ...host(workspaceId), now: LATER },
   );
-  const v2 = (staged as { ok: true; data: { kind: "sourceRevision"; revision: WikiSourceRevision } })
-    .data.revision;
+  const v2 = (
+    staged as { ok: true; data: { kind: "sourceRevision"; revision: WikiSourceRevision } }
+  ).data.revision;
   expect(v2.version).toBe(2);
 
   // analyzeImpact 登记 source_updated 问题，目标为来源 v1。

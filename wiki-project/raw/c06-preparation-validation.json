@@ -1,0 +1,100 @@
+{
+  "status": "passed",
+  "date": "2026-10-31",
+  "scope": "C06 independent readiness only; A/B integration, source authenticity and paid live rerun remain pending",
+  "taskBase": "1d140ed2003ccee7a45c23b25417b174753e3d2f",
+  "branch": "codex/c06-abc-readiness",
+  "environment": {
+    "os": "macOS arm64",
+    "node": "22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2"
+  },
+  "checks": [
+    {
+      "command": "git ls-remote / fetch named A branch; inspect fixed Git blobs and registered hash",
+      "exitCode": 0,
+      "result": "5c69b708ea796addd39493e4daaded66b9955c08,80 source rows/80 ids,selected rows7/18; registered SOURCE-PROVENANCE hash matches. No A code imported."
+    },
+    {
+      "command": "verify c06-contract-review-packet Git blobs and historical log/context/status byte prefixes",
+      "exitCode": 0,
+      "result": "12 pinned files verified; history retained"
+    },
+    {
+      "command": "pnpm test",
+      "exitCode": 0,
+      "result": "535 passed,3 explicit live skipped;58 passed test files/2 skipped"
+    },
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "result": "No TypeScript errors"
+    },
+    {
+      "command": "pnpm build",
+      "exitCode": 0,
+      "result": "Main/preload/renderer built; existing chunk-size warning"
+    },
+    {
+      "command": "pnpm exec playwright test --grep-invert 'real Codex completes'",
+      "exitCode": 0,
+      "result": "12 Electron fixture regressions passed,51.8s; no real supplier model run"
+    },
+    {
+      "command": "TRADEQUOTE_VERIFY_CODEX=0 pnpm exec playwright test tests/e2e/codex-workbench.spec.ts",
+      "exitCode": 0,
+      "result": "1 explicitly skipped; file loads and opt-in gate holds. Does not validate paid live behavior."
+    },
+    {
+      "command": "pnpm wiki:generate",
+      "exitCode": 0,
+      "result": "273 source files,5 generated artifacts"
+    },
+    {
+      "command": "pnpm check",
+      "exitCode": 0,
+      "result": "Biome,6 engineering tests,boundaries,read-only inventory and Wiki lint passed:277 Markdown/248 semantic/all reachable"
+    },
+    {
+      "command": "pnpm wiki:sync --base 1d140ed2003ccee7a45c23b25417b174753e3d2f",
+      "exitCode": 0,
+      "result": "1 source file,9 knowledge pages,3 tasks,errors[]"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "No whitespace errors"
+    },
+    {
+      "command": "writing-plans independent read-only plan review",
+      "exitCode": 0,
+      "result": "review_c06_plan Approved; no blockers, no files edited, no live run or human signoff"
+    },
+    {
+      "command": "pnpm wiki:test",
+      "exitCode": 0,
+      "result": "36 maintenance regressions passed; no maintenance algorithm or coverage config changed"
+    }
+  ],
+  "sourceSnapshot": {
+    "path": "tests/e2e/codex-workbench.spec.ts",
+    "sha256": "4b5170c406a61cfd6209c0cb3944eee359b20c2107c87b741e707897921558e7"
+  },
+  "inputEvidence": [
+    {
+      "path": "wiki-project/raw/c06-a-intake.json",
+      "sha256": "862ddfc1134028bcfb305e9d14afd6a9ff75829e6ee5c25e7aba68ea45e24707"
+    },
+    {
+      "path": "wiki-project/raw/c06-contract-review-packet.json",
+      "sha256": "91b99c4642c3aa975795cb80d117498a8a6a9ab9ddf84ec87522482dabab9be9"
+    }
+  ],
+  "pending": [
+    "A snapshots/field verification/publication and applicable rules",
+    "B confirmation status implementation, compatibility and non-author contract signoff",
+    "New integration source SHA, full combined Computer Use and paid native scenario rerun",
+    "Windows/signed installer; no integration merge"
+  ]
+}

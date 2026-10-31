@@ -43,6 +43,7 @@ export const unavailableFirstBatchClient: KnowledgeClient &
   checkQuote: (command) => unavailable(CheckCommandSchema.options[0], command),
   getQuoteChecks: (command) => unavailable(CheckCommandSchema.options[1], command),
   listAgentRuns: (command) => unavailable(RunCommandSchema.options[4], command),
+  continueAgentRun: (command) => unavailable(RunCommandSchema.options[5], command),
   startAgentRun: (command) => unavailable(RunCommandSchema.options[0], command),
   getAgentRun: (command) => unavailable(RunCommandSchema.options[1], command),
   cancelAgentRun: (command) => unavailable(RunCommandSchema.options[2], command),

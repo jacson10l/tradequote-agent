@@ -99,7 +99,7 @@ function freeze(value: object) {
 }
 
 describe("B01 pure quote checks", () => {
-  it("reports both missing rule categories as pending instead of an all-clear", () => {
+  it("QUOTE-01 reports both missing rule categories as pending instead of an all-clear", () => {
     const result = quoteCheckService.evaluate(input());
     expect(result).toMatchObject({
       reportId,
@@ -203,7 +203,7 @@ describe("B01 pure quote checks", () => {
     expect(result.issues.every((issue) => issue.evidence.length === 0)).toBe(true);
   });
 
-  it("does not use a publication from after the explicit check time", () => {
+  it("QUOTE-02 does not use a publication from after the explicit check time", () => {
     const result = quoteCheckService.evaluate(
       input([knowledge({ publishedAt: "2026-10-23T00:00:00.000Z" })]),
     );
@@ -211,7 +211,7 @@ describe("B01 pure quote checks", () => {
     expect(result.coverage.map((entry) => entry.status)).toEqual(["pending", "pending"]);
   });
 
-  it("keeps issue order and IDs stable when query order changes or a rule ID is reused", () => {
+  it("QUOTE-03 keeps issue order and IDs stable when query order changes or a rule ID is reused", () => {
     const secondId = "00000000-0000-4000-8000-000000000030";
     const second = knowledge({ revisionId: secondId, documentId: secondId });
     const first = knowledge();
@@ -225,7 +225,7 @@ describe("B01 pure quote checks", () => {
     ]);
   });
 
-  it("rejects ambiguous duplicate revisions and multiple versions of the same document", () => {
+  it("QUOTE-04 rejects ambiguous duplicate revisions and multiple versions of the same document", () => {
     const first = knowledge();
     for (const second of [
       structuredClone(first),
@@ -234,7 +234,7 @@ describe("B01 pure quote checks", () => {
       expect(() => quoteCheckService.evaluate(input([first, second]))).toThrow();
   });
 
-  it("rejects a revised quote without a root identity instead of inventing a new root", () => {
+  it("QUOTE-05 rejects a revised quote without a root identity instead of inventing a new root", () => {
     const request = input([knowledge()]);
     request.quote.version = 2;
     request.quote.parentId = id;
@@ -263,7 +263,7 @@ describe("B01 pure quote checks", () => {
     },
   );
 
-  it("checks both categories when exact scope matches and valid terms meet their rules", () => {
+  it("QUOTE-06 checks both categories when exact scope matches and valid terms meet their rules", () => {
     const revision = knowledge({}, [
       requiredRule,
       { ...requiredRule, ruleId: reportId, field: "delivery", category: "platform_guidance" },

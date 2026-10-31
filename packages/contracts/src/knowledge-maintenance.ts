@@ -1042,7 +1042,6 @@ export const MaintenanceResolutionReplaySchema = z
     "同键同参只回放原结果，同键异参必须 IDEMPOTENCY_CONFLICT",
   );
 
-
 export type MaintenanceEvidence = z.infer<typeof MaintenanceEvidenceSchema>;
 export type MaintenanceEvidenceKind = z.infer<typeof MaintenanceEvidenceKindSchema>;
 export type MaintenanceAdjudicationOutcome = z.infer<typeof MaintenanceAdjudicationOutcomeSchema>;

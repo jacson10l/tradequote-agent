@@ -1955,8 +1955,7 @@ export class SqliteWikiStore {
           resolvedAt: context.now,
           evidence,
         });
-        if (!verdict.ok)
-          return failure(verdict.code, `${verdict.message}（${verdict.reason}）`);
+        if (!verdict.ok) return failure(verdict.code, `${verdict.message}（${verdict.reason}）`);
         let nextState: MaintenanceIssue["state"];
         let resolution: MaintenanceIssue["resolution"];
         let eventType: KnowledgeMaintenanceLifecycleEvent["type"];

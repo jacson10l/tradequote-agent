@@ -42,7 +42,7 @@ test("formal model settings explicitly start isolated evaluations, cancel, prese
     await page.getByLabel("工作区名称").fill("C04隔离评估验收");
     await page.getByRole("button", { name: "创建工作区", exact: true }).click();
     await page.getByRole("navigation").getByRole("link", { name: "模型设置", exact: true }).click();
-    const panel = page.getByRole("region", { name: "C04 模型评估" });
+    const panel = page.getByRole("region", { name: "模型评估" });
     await expect(panel.getByText("尚无评估记录，请显式选择模式后启动。")).toBeVisible();
     expect(calls).toBe(0);
     await panel.getByLabel("评估模式", { exact: true }).selectOption("deepseek");
@@ -191,7 +191,7 @@ test("formal model settings explicitly start isolated evaluations, cancel, prese
     app = await launch();
     page = await app.firstWindow();
     await page.getByRole("navigation").getByRole("link", { name: "模型设置", exact: true }).click();
-    const reopenedPanel = page.getByRole("region", { name: "C04 模型评估" });
+    const reopenedPanel = page.getByRole("region", { name: "模型评估" });
     await expect(reopenedPanel.getByRole("article", { name: "评估结果" })).toContainText("已中断");
     expect(calls).toBe(3);
     await reopenedPanel.getByLabel("评估历史（最近20次）").selectOption(completedId);

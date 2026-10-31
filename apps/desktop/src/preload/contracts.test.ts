@@ -118,7 +118,9 @@ describe("B00 read-only mock and formal preload capability gate", () => {
                             ? await client.cancelAgentRun(command)
                             : command.method === "agent.retry"
                               ? await client.retryAgentRun(command)
-                              : await client.listAgentRuns(command);
+                              : command.method === "agent.continue"
+                                ? await client.continueAgentRun(command)
+                                : await client.listAgentRuns(command);
         expect(result).toMatchObject({
           ok: false,
           error: { code: "CAPABILITY_UNAVAILABLE", retryable: false },

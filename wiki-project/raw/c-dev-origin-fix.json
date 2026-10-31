@@ -1,0 +1,68 @@
+{
+  "base": "83014be2116978fb90fa684e83e42ac4c1cd457d",
+  "branch": "codex/c-dev-origin-fix",
+  "userRuntime": {
+    "directory": "/Users/jason/Documents/code/tradequote-agent",
+    "branch": "codex/m1-foundation",
+    "commit": "654fecc",
+    "inspection": "process command and Git metadata only; no real database or credentials read"
+  },
+  "reproduction": [
+    {
+      "configuredRootHasTrailingSlash": false,
+      "loadedRootHasTrailingSlash": true,
+      "ok": false,
+      "errorCode": "ACTION_NOT_ALLOWED"
+    },
+    {
+      "configuredRootHasTrailingSlash": true,
+      "loadedRootHasTrailingSlash": true,
+      "ok": true
+    }
+  ],
+  "redTest": {
+    "command": "pnpm exec playwright test tests/e2e/workspace.spec.ts -g 'development renderer'",
+    "exitCode": 1,
+    "passed": 1,
+    "failed": 1,
+    "failure": "workspace.get returned ok:false on URL without trailing slash"
+  },
+  "checks": [
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm build",
+      "exitCode": 0,
+      "note": "Existing Vite chunk-size warning."
+    },
+    {
+      "command": "pnpm exec playwright test",
+      "exitCode": 0,
+      "passed": 12,
+      "durationSeconds": 49.2,
+      "coverage": "both HTTP root forms, workspace/model access, normal file entry, quote/rules/replies and untrusted-window rejection"
+    }
+  ],
+  "finalChecks": [
+    {
+      "command": "pnpm check",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 check /Users/jason/.codex/worktrees/c-a24-maintenance-reverify/tradequote-agent\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 189 files in 69ms. No fixes applied.\nTAP version 13\n# Subtest: renderer cannot reach Node, database or desktop internals through import forms\nok 1 - renderer cannot reach Node, database or desktop internals through import forms\n  ---\n  duration_ms: 7.82175\n  type: 'test'\n  ...\n# Subtest: pure modules use public contracts while other platform dependencies are rejected\nok 2 - pure modules use public contracts while other platform dependencies are rejected\n  ---\n  duration_ms: 1.727042\n  type: 'test'\n  ...\n# Subtest: domain permits exact pure decimal dependency without opening contracts or SDK imports\nok 3 - domain permits exact pure decimal dependency without opening contracts or SDK imports\n  ---\n  duration_ms: 0.404709\n  type: 'test'\n  ...\n# Subtest: committed icon resources match their source manifest\nok 4 - committed icon resources match their source manifest\n  ---\n  duration_ms: 2.370292\n  type: 'test'\n  ...\n# Subtest: editing either SVG or packaged icon without generation blocks the build\nok 5 - editing either SVG or packaged icon without generation blocks the build\n  ---\n  duration_ms: 6.742584\n  type: 'test'\n  ...\n# Subtest: macOS native process and runtime display TradeQuote while upstream Electron stays intact\nok 6 - macOS native process and runtime display TradeQuote while upstream Electron stays intact\n  ---\n  duration_ms: 588.49725\n  type: 'test'\n  ...\n1..6\n# tests 6\n# suites 0\n# pass 6\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 641.82125\nModule boundaries passed\n\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-a24-maintenance-reverify/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 263,\n  \"lines\": 71905,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 261,\n  \"semantic\": 232,\n  \"reachable\": 261\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 83014be",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"83014be2116978fb90fa684e83e42ac4c1cd457d\",\n  \"status\": \"passed\",\n  \"codeFiles\": 2,\n  \"knowledgePages\": 4,\n  \"tasks\": 1,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "git -c core.whitespace=cr-at-eol diff --check",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}

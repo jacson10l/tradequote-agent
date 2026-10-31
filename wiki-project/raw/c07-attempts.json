@@ -1,0 +1,61 @@
+{
+  "status": "observed",
+  "recordedAt": "2026-11-01",
+  "scope": "Historical attempts retained separately; do not treat these as passed final gates",
+  "attempts": [
+    {
+      "check": "customerText first new tests",
+      "result": "2 failed, 7 existing passed; implement customerText"
+    },
+    {
+      "check": "UUID quote number counterexample",
+      "result": "failed then removed internal number from customer subject"
+    },
+    {
+      "check": "pnpm typecheck initial",
+      "result": "3 unused imports; cleaned"
+    },
+    {
+      "check": "pnpm test high concurrency",
+      "result": "530 passed, 8 failed, 3 skipped at60workers; timeouts/time budget; limited4workers repeat538pass3skip; no timeout/assertion relaxation"
+    },
+    {
+      "check": "Electron intermediate",
+      "result": "8/12 then11/12; stale UI/internal text expectations; updated assertions"
+    },
+    {
+      "check": "pnpm wiki:test",
+      "result": "35/36 first schema, then35/36 generated drift before regeneration; after regeneration36/36"
+    },
+    {
+      "check": "pnpm check",
+      "result": "source-manifest JSON format; formatter corrected"
+    },
+    {
+      "check": "wiki sync fixed450e945",
+      "result": "APPEND_ONLY_LOG_REQUIRED and workflow-page body missing; added both, next passed"
+    },
+    {
+      "check": "native copy first",
+      "result": "background/unfocused document rejected clipboard; foreground + focused reply succeeded; automated clipboard equality verified"
+    },
+    {
+      "check": "Cue first import",
+      "deckId": "c2345d1b-a693-4935-8800-7f41f6926e0a",
+      "result": "JPEG content under PNG extension omitted2media; converted PNG and reimported; record retained"
+    },
+    {
+      "check": "Independent review P2",
+      "result": "scenario-only synthetic + user_provided products omitted noncommercial condition; regression red9pass1fail; fixed scenario OR product condition; targeted19pass and independent confirmation"
+    },
+    {
+      "check": "final build Electron before fixture adjustment",
+      "result": "9pass3fail1skip: old materials-page exact scenario-version selectors; moved actual version expectation into workspace helper; repeat12pass1skip"
+    },
+    {
+      "check": "Cue second import",
+      "deckId": "4c87f064-da02-4811-a4a9-95aadbf67a4c",
+      "result": "8pages/private/notes checked; retained as pre-review record; final third import updates reply screenshot"
+    }
+  ]
+}

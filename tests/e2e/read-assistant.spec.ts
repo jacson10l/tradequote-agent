@@ -4,6 +4,7 @@ import { createRequire } from "node:module";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { _electron as electron, expect, test } from "@playwright/test";
+import { fillCatalogFixture, saveBusinessScenario } from "./business-fixture";
 
 const require = createRequire(resolve("apps/desktop/package.json"));
 test("formal desktop read assistant executes four real tools, shows facts, guards missing tools and never saves", async () => {
@@ -131,12 +132,16 @@ test("formal desktop read assistant executes four real tools, shows facts, guard
       .getByRole("navigation")
       .getByRole("link", { name: "资料与报价", exact: true })
       .click();
-    await page.getByRole("button", { name: "保存演示场景" }).click();
-    await expect(page.getByText("场景版本 1", { exact: true })).toBeVisible();
-    await page.getByRole("button", { name: "填入合成 CSV 样本" }).click();
+    await saveBusinessScenario(page);
+    await fillCatalogFixture(page);
     await page.getByRole("button", { name: "解析并预览" }).click();
     await expect(page.getByRole("table", { name: "CSV 导入预览" })).toBeVisible();
     await page.getByRole("button", { name: "确认发布此批次" }).click();
+    await page
+      .getByRole("navigation")
+      .getByRole("link", { name: "单据工作台", exact: true })
+      .click();
+    await page.getByText("手工填写报价", { exact: true }).click();
     await page.getByRole("checkbox", { name: "选择 DEMO-TEE", exact: true }).check();
     await page.getByLabel("客户名称").fill("合成只读客户");
     await page.getByLabel("原始询盘", { exact: true }).fill("请报价100件上衣");
@@ -145,46 +150,38 @@ test("formal desktop read assistant executes four real tools, shows facts, guard
     await expect(page.getByTestId("goods-total")).toHaveText("900.00 USD");
     const before = await page.evaluate(() => window.tradequote.getTrade());
     if (!before.ok || !before.data.quotes[0]) throw new Error("saved quote fixture");
-    const quoteId = before.data.quotes[0].id;
-    await page.getByRole("navigation").getByRole("link", { name: "只读助手", exact: true }).click();
-    await expect(page.getByText("知识检索和规则检查尚未开放。", { exact: false })).toBeVisible();
-    await page.getByLabel("只读任务", { exact: true }).fill("查询商品并对照原报价，核算120件");
-    await page.getByLabel("允许读取的报价版本").selectOption(quoteId);
-    await page.getByRole("button", { name: "运行只读任务", exact: true }).click();
-    await expect(page.getByRole("alert")).toContainText("请先在模型设置中保存");
-    expect(calls).toBe(0);
-    await page.getByRole("navigation").getByRole("link", { name: "模型设置", exact: true }).click();
-    await page.getByLabel("DeepSeek API Key", { exact: false }).fill("synthetic-read-key");
-    await page.getByRole("combobox", { name: "模型", exact: true }).selectOption("deepseek-v4-pro");
-    await page.getByRole("button", { name: "保存模型设置", exact: true }).click();
-    await expect(page.getByLabel("DeepSeek API Key", { exact: false })).toHaveValue("");
-    await page.getByRole("navigation").getByRole("link", { name: "只读助手", exact: true }).click();
-    await page.getByLabel("允许读取的报价版本").selectOption(quoteId);
-    await page.getByLabel("只读任务", { exact: true }).fill("查询商品并对照原报价，核算120件");
-    while (await page.getByRole("button", { name: "关闭提示", exact: true }).count())
-      await page.getByRole("button", { name: "关闭提示", exact: true }).first().click();
-    await page.screenshot({ path: ".runtime/c02b-read-form.png" });
-    pauseNext = new Promise<void>((resolve) => {
-      release = resolve;
-    });
-    await page.getByRole("button", { name: "运行只读任务", exact: true }).focus();
-    await page.keyboard.press("Enter");
-    await expect(page.getByText("只读任务运行中", { exact: false })).toBeVisible();
-    await expect(page.getByRole("button", { name: "运行只读任务", exact: true })).toBeDisabled();
-    await expect(page.getByLabel("允许读取的报价版本")).toBeDisabled();
-    release?.();
-    const result = page.getByRole("region", { name: "只读任务结果" });
     await expect(
-      result.getByRole("heading", { name: "只读任务已结束 · 未保存报价" }),
-    ).toBeVisible();
-    await expect(result.getByRole("article")).toHaveCount(4);
-    await expect(result).toContainText("原报价商品合计：900.00 USD");
-    await expect(result).toContainText("预览商品合计：1080.00 USD");
-    await result.getByText("DEMO-TEE · 价格档位与来源", { exact: true }).first().click();
-    await expect(result).toContainText("原文第 3 行");
-    await expect(result).toContainText(
-      before.data.products.find((p) => p.sku === "DEMO-TEE")?.sourceHash ?? "invalid hash",
+      page.getByRole("navigation").getByRole("link", { name: "只读助手", exact: true }),
+    ).toHaveCount(0);
+    await page.getByRole("checkbox", { name: "仅查询与试算，不保存报价" }).check();
+    await expect(page.getByRole("checkbox", { name: "仅查询与试算，不保存报价" })).toBeChecked();
+    const readLegacy = () =>
+      page.evaluate(
+        async (revisionId) =>
+          window.tradequote.readAgent({
+            schemaVersion: 1,
+            requestId: crypto.randomUUID(),
+            method: "agent.read",
+            payload: {
+              instruction: "查询商品并对照原报价，核算120件",
+              quoteRevisionIds: [revisionId],
+            },
+          }),
+        before.data.quotes[0]!.id,
+      );
+    expect((await readLegacy()).ok).toBe(false);
+    expect(calls).toBe(0);
+    await page.evaluate(() =>
+      window.tradequote.modelSettings({
+        method: "model.save",
+        key: "synthetic-read-key",
+        model: "synthetic-model",
+      }),
     );
+    const complete = await readLegacy();
+    expect(complete.ok).toBe(true);
+    if (!complete.ok) throw Error("read failed");
+    expect(complete.data.toolCalls).toBe(4);
     expect(seenTools).toEqual([
       "search_catalog",
       "get_product_revisions",
@@ -193,45 +190,66 @@ test("formal desktop read assistant executes four real tools, shows facts, guard
     ]);
     expect(calls).toBe(5);
     expect(await page.evaluate(() => window.tradequote.getTrade())).toEqual(before);
-    await result.scrollIntoViewIfNeeded();
-    while (await page.getByRole("button", { name: "关闭提示", exact: true }).count())
-      await page.getByRole("button", { name: "关闭提示", exact: true }).first().click();
-    await page.screenshot({ path: ".runtime/c02b-read-desktop.png" });
-    await app.evaluate(({ BrowserWindow }) =>
-      BrowserWindow.getAllWindows()[0]?.setContentSize(900, 640),
+    await page.reload();
+    const result = page
+      .locator(".conversation-turn")
+      .filter({ hasText: "本次试算商品合计：1080.00 USD" })
+      .last();
+    await result.getByText("查询结果与金额依据", { exact: true }).click();
+    await expect(result).toContainText("预览商品合计：1080.00 USD");
+    await result.getByText("DEMO-TEE · 价格档位与来源", { exact: true }).first().click();
+    await expect(result).toContainText(
+      before.data.products.find((p) => p.sku === "DEMO-TEE")!.sourceHash,
     );
-    await expect(
-      page.getByRole("navigation").getByRole("link", { name: "只读助手", exact: true }),
-    ).toBeInViewport();
-    await page.screenshot({ path: ".runtime/c02b-read-narrow.png" });
     for (const next of ["knowledge", "rules"] as const) {
       mode = next;
-      await page.getByRole("button", { name: "运行只读任务", exact: true }).click();
-      await expect(page.getByRole("alert")).toContainText("模型请求了未注册的工具");
-      await expect(result).toHaveCount(0);
-      await page.getByRole("button", { name: "关闭提示", exact: true }).first().click();
+      expect((await readLegacy()).ok).toBe(false);
     }
     mode = "failure";
-    await page.getByRole("button", { name: "运行只读任务", exact: true }).click();
-    await expect(result.getByRole("alert")).toContainText("NOT_FOUND");
+    const missing = await readLegacy();
+    expect(missing.ok && missing.data.observations[0]?.result.ok).toBe(false);
     mode = "clarification";
-    await page.getByRole("button", { name: "运行只读任务", exact: true }).click();
-    await expect(result).toContainText("请确认需要读取的商品和单位");
-    await expect(result).toContainText("本次未调用业务工具");
+    const clarification = await readLegacy();
+    expect(clarification.ok && clarification.data.outcome).toBe("waiting_input");
     mode = "auth";
-    await page.getByRole("button", { name: "运行只读任务", exact: true }).click();
-    await expect(page.getByRole("alert")).toContainText("模型鉴权失败");
-    expect(await page.evaluate(() => window.tradequote.getTrade())).toEqual(before);
+    expect((await readLegacy()).ok).toBe(false);
+    mode = "chain";
+    pauseNext = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    const cancelled = await page.evaluate(
+      async (revisionId) =>
+        window.tradequote.startAgentRun({
+          schemaVersion: 1,
+          requestId: crypto.randomUUID(),
+          idempotencyKey: crypto.randomUUID(),
+          method: "agent.start",
+          payload: {
+            method: "agent.read",
+            payload: { instruction: "取消中的查询", quoteRevisionIds: [revisionId] },
+          },
+        }),
+      before.data.quotes[0]!.id,
+    );
+    if (!cancelled.ok) throw Error("start failed");
+    await page.getByRole("button", { name: "刷新记录", exact: true }).click();
+    const active = page.getByRole("region", { name: `运行 ${cancelled.data.runId}`, exact: true });
+    await active.getByRole("button", { name: "停止", exact: true }).click();
+    await expect(active).toContainText("已取消");
+    release?.();
     const count = calls;
     await app.close();
     app = await launch();
     const reopened = await app.firstWindow();
-    await reopened
-      .getByRole("navigation")
-      .getByRole("link", { name: "只读助手", exact: true })
-      .click();
-    await expect(reopened.getByRole("region", { name: "只读助手任务" })).toBeVisible();
-    await expect(reopened.getByRole("region", { name: "只读任务结果" })).toHaveCount(0);
+    await expect(
+      reopened.getByRole("region", { name: `运行 ${cancelled.data.runId}`, exact: true }),
+    ).toContainText("已取消");
+    await expect(
+      reopened
+        .locator(".conversation-turn")
+        .filter({ hasText: "本次试算商品合计：1080.00 USD" })
+        .last(),
+    ).toContainText("1080.00 USD");
     expect(calls).toBe(count);
     expect(await reopened.evaluate(() => window.tradequote.getTrade())).toEqual(before);
   } finally {

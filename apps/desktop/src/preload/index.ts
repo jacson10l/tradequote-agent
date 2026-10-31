@@ -150,6 +150,7 @@ const client: DesktopClient = {
     window.addEventListener("unload", dispose, { once: true });
     return dispose;
   },
+  continueAgentRun: async (command) => RunResultSchema.parse(await invokeRun(command)),
   startAgentRun: async (command) => RunResultSchema.parse(await invokeRun(command)),
   getAgentRun: async (command) => RunResultSchema.parse(await invokeRun(command)),
   cancelAgentRun: async (command) => RunResultSchema.parse(await invokeRun(command)),

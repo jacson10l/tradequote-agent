@@ -86,9 +86,12 @@ else {
         join(app.getPath("userData"), "workspaces", "default", "workspace.sqlite"),
         fixture,
       );
-      const rendererUrl =
+      // Chromium canonicalizes HTTP root URLs (including the trailing slash).
+      // Compare against that same serialization while retaining exact-page checks.
+      const rendererUrl = new URL(
         (!app.isPackaged && process.env.ELECTRON_RENDERER_URL) ||
-        pathToFileURL(join(__dirname, "../renderer/index.html")).href;
+          pathToFileURL(join(__dirname, "../renderer/index.html")).href,
+      ).href;
       const icon = nativeImage.createFromPath(join(__dirname, "../../resources/icon.png"));
       if (icon.isEmpty()) throw new Error("APPLICATION_ICON_MISSING");
       app.dock?.setIcon(icon);
@@ -116,6 +119,25 @@ else {
         event.sender === window.webContents &&
         event.senderFrame === window.webContents.mainFrame &&
         event.senderFrame.url.split("#")[0] === rendererUrl.split("#")[0];
+      // Only the trusted application main frame may write sanitized clipboard text.
+      // Clipboard reads and every other browser permission remain denied.
+      const clipboardWriter = (
+        contents: Electron.WebContents | null,
+        permission: string,
+        details: { isMainFrame: boolean; requestingUrl?: string },
+      ) =>
+        !!window &&
+        contents === window.webContents &&
+        permission === "clipboard-sanitized-write" &&
+        details.isMainFrame &&
+        details.requestingUrl?.split("#")[0] === rendererUrl.split("#")[0];
+      session.defaultSession.setPermissionCheckHandler((contents, permission, _origin, details) =>
+        clipboardWriter(contents, permission, details),
+      );
+      session.defaultSession.setPermissionRequestHandler(
+        (contents, permission, callback, details) =>
+          callback(clipboardWriter(contents, permission, details)),
+      );
       for (const method of [
         "modelEvaluation.start",
         "modelEvaluation.list",
@@ -253,6 +275,7 @@ else {
         "agent.revise",
         "agent.read",
         "agent.start",
+        "agent.continue",
         "agent.get",
         "agent.list",
         "agent.events",
@@ -277,6 +300,7 @@ else {
               [
                 "agent.read",
                 "agent.start",
+                "agent.continue",
                 "agent.retry",
                 "agent.understand",
                 "agent.revise",

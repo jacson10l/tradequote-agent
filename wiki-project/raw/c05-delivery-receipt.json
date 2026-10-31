@@ -1,0 +1,68 @@
+{
+  "status": "passed",
+  "scope": "authorized independent C code+Wiki material publication and warm-panel delivery; no integration merge",
+  "date": "2026-10-31",
+  "taskBase": "24771fb8eb9c0ae80f29b7f9653794e3ba2886be",
+  "branch": "codex/c-codex-harness",
+  "materialCommit": "d62570a3c91890cc2aeb7ed8f971b275aaeac713",
+  "materialTree": "82c9d60eaa7591ee5b9708016c2a448035b7f81a",
+  "materialUrl": "https://github.com/jacson10l/tradequote-agent/commit/d62570a3c91890cc2aeb7ed8f971b275aaeac713",
+  "validation": {
+    "path": "wiki-project/raw/c05-delivery-validation.json",
+    "sha256": "6169c7bdfc515be699d5bf2c443d6eaeca9c1ae15e40ce07a645f84d7cbf66df",
+    "sourceManifestSha256": "26cd3c71bc145114a7d4a064f9e82e4e93e36fb632ed1fe20ec882d4972f387e",
+    "canonicalSourceBlobs": 63
+  },
+  "checks": [
+    {
+      "command": "git commit -m \"feat: connect native Codex workbench and durable conversation runs\"",
+      "exitCode": 0,
+      "result": "91 files; code,Wiki,tasks,ADRs and redacted evidence in one material commit"
+    },
+    {
+      "command": "node canonical Git HEAD source verification",
+      "exitCode": 0,
+      "result": "verified63 canonical source blobs against committed validation packet"
+    },
+    {
+      "command": "pnpm wiki:check (committed material)",
+      "exitCode": 0,
+      "result": "273 source files;272 Markdown/243 semantic/all272 reachable"
+    },
+    {
+      "command": "pnpm wiki:sync --base 24771fb8eb9c0ae80f29b7f9653794e3ba2886be (committed material)",
+      "exitCode": 0,
+      "result": "58 source files,19 knowledge pages,4 tasks,errors[]"
+    },
+    {
+      "command": "git push --set-upstream origin HEAD:refs/heads/codex/c-codex-harness",
+      "exitCode": 0,
+      "result": "new independent branch created; upstream set; no force or other push ref"
+    },
+    {
+      "command": "git ls-remote --heads origin refs/heads/codex/c-codex-harness refs/heads/codex/m1-foundation",
+      "exitCode": 0,
+      "result": "d62570a3c91890cc2aeb7ed8f971b275aaeac713 refs/heads/codex/c-codex-harness; 654fecc4d93e4630ed4a0cf42f261d0d432e23d3 refs/heads/codex/m1-foundation"
+    },
+    {
+      "command": "git status --porcelain (after material push)",
+      "exitCode": 0,
+      "result": "clean before documentation receipt changes"
+    }
+  ],
+  "remoteMaterialVerified": true,
+  "integrationObservedBefore": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+  "integrationObservedAfterMaterialPush": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+  "integrationMerged": false,
+  "releaseTagCreated": false,
+  "externalMessagesSent": false,
+  "receiptPolicy": "This subsequent Wiki receipt adds fixed material SHA and actual push proof; it changes no application source. Its own final branch HEAD is verified after a separate normal fast-forward push and reported in the handoff response.",
+  "remaining": [
+    "A-01 real source originals/version/provenance",
+    "A-02 applicable published rule coverage",
+    "B-01 explicit confirmation semantics for nonempty unknown placeholders",
+    "B-02 public run/read/continue contract review and release compatibility",
+    "only saved deepseek-flash previously verified; no all-model certification",
+    "Windows/signed installer not verified; no integration merge or human signoff"
+  ]
+}

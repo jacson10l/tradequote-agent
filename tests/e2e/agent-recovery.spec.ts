@@ -4,6 +4,7 @@ import { createRequire } from "node:module";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { _electron as electron, expect, test } from "@playwright/test";
+import { fillCatalogFixture, saveBusinessScenario } from "./business-fixture";
 
 const require = createRequire(resolve("apps/desktop/package.json"));
 test("R20 real worker SIGKILL, restart discovery, explicit retry, cancellation and immutable saved receipts", async () => {
@@ -69,12 +70,15 @@ test("R20 real worker SIGKILL, restart discovery, explicit retry, cancellation a
       }),
     );
     await page.getByRole("link", { name: "资料与报价" }).click();
-    await page.getByRole("button", { name: "保存演示场景" }).click();
-    await expect(page.getByText("场景版本 1", { exact: true })).toBeVisible();
-    await page.getByRole("button", { name: "填入合成 CSV 样本" }).click();
+    await saveBusinessScenario(page);
+    await fillCatalogFixture(page);
     await page.getByRole("button", { name: "解析并预览" }).click();
     await page.getByRole("button", { name: "确认发布此批次" }).click();
-    await expect(page.getByRole("checkbox", { name: "选择 DEMO-TEE", exact: true })).toBeVisible();
+    await page
+      .getByRole("navigation")
+      .getByRole("link", { name: "单据工作台", exact: true })
+      .click();
+
     const started = await page.evaluate(async () => {
       const board = await window.tradequote.getTrade();
       if (!board.ok || !board.data.scenario) throw new Error("synthetic scenario");
@@ -109,8 +113,8 @@ test("R20 real worker SIGKILL, restart discovery, explicit retry, cancellation a
       );
     const firstEvents = await eventPage(0, 1);
     expect(firstEvents.ok && firstEvents.data.hasMore).toBe(true);
-    await expect(page.getByRole("article", { name: `运行 ${runId}` })).toContainText(
-      "运行进度已同步",
+    await expect(page.getByRole("region", { name: `运行 ${runId}` })).toContainText(
+      "处理进度已同步",
     );
     await app.evaluate(({ app }) => {
       const metric = app
@@ -121,17 +125,21 @@ test("R20 real worker SIGKILL, restart discovery, explicit retry, cancellation a
     });
     await expect.poll(() => disconnected).toBe(1);
     // The mounted desktop recovers by read-only event/list queries, with no user retry.
-    await expect(page.getByRole("article", { name: `运行 ${runId}` })).toContainText("已中断");
+    await expect(page.getByRole("region", { name: `运行 ${runId}` })).toContainText("已中断");
     const interrupted = await eventPage(0, 100);
     expect(interrupted.ok && interrupted.data.events.map((e) => e.seq)).toEqual([1, 2, 3]);
     await page.reload();
-    await expect(page.getByRole("article", { name: `运行 ${runId}` })).toContainText("已中断");
+    await expect(page.getByRole("region", { name: `运行 ${runId}` })).toContainText("已中断");
     expect(calls).toBe(1);
     await app.close();
     app = await launch();
     page = await app.firstWindow();
-    await page.getByRole("link", { name: "资料与报价" }).click();
-    const article = page.getByRole("article", { name: `运行 ${runId}` });
+    await page
+      .getByRole("navigation")
+      .getByRole("link", { name: "单据工作台", exact: true })
+      .click();
+
+    const article = page.getByRole("region", { name: `运行 ${runId}` });
     await expect(article).toContainText("已中断");
     expect(calls).toBe(1);
     await page.evaluate(() =>
@@ -142,9 +150,9 @@ test("R20 real worker SIGKILL, restart discovery, explicit retry, cancellation a
       }),
     );
     mode = "ok";
-    await article.getByRole("button", { name: "重试此运行（会再次调用模型）" }).click();
-    await expect(article).toContainText("草稿已保存");
-    await expect(article).toContainText("第 2 次尝试");
+    await article.getByRole("button", { name: "重试" }).click();
+    await expect(article).toContainText("已完成");
+    await expect(article).toContainText("第 2 次处理");
     await expect(page.getByTestId("goods-total")).toHaveText("900.00 USD");
     expect(calls).toBe(2);
     const recovered = await eventPage(0, 100);
@@ -152,6 +160,10 @@ test("R20 real worker SIGKILL, restart discovery, explicit retry, cancellation a
     expect(recovered.data.events[0]).toEqual(firstEvents.data.events[0]);
     expect(recovered.data.events.slice(0, 3)).toEqual(interrupted.data.events);
     expect(recovered.data.headSeq).toBe(6);
+    await article
+      .getByText(/^处理记录(?: ·|$)/)
+      .first()
+      .click();
     await expect(article.getByRole("region", { name: "运行事件" })).toHaveAttribute(
       "data-event-seq",
       "6",
@@ -167,7 +179,7 @@ test("R20 real worker SIGKILL, restart discovery, explicit retry, cancellation a
     }
     expect(allEvents.map((e) => e.seq)).toEqual([1, 2, 3, 4, 5, 6]);
     expect(new Set(allEvents.map((e) => e.eventId)).size).toBe(6);
-    await article.getByText("持久运行记录（最近6条）", { exact: true }).click();
+    await article.getByText("处理记录（最近6条）", { exact: true }).click();
     await app.evaluate(
       ({ BrowserWindow }, { runId }) => {
         const win = BrowserWindow.getAllWindows()[0];
@@ -214,8 +226,8 @@ test("R20 real worker SIGKILL, restart discovery, explicit retry, cancellation a
     const after = await page.evaluate(() => window.tradequote.getTrade());
     expect(after.ok && after.data.quotes).toEqual(saved.data.quotes);
     expect(after.ok && after.data.turns).toEqual(saved.data.turns);
-    await page.getByRole("button", { name: "刷新运行记录" }).click();
-    await page.getByRole("article", { name: `运行 ${next.data.runId}` }).scrollIntoViewIfNeeded();
+    await page.getByRole("button", { name: "刷新记录" }).click();
+    await page.getByRole("region", { name: `运行 ${next.data.runId}` }).scrollIntoViewIfNeeded();
     await page.screenshot({ path: ".runtime/agent-recovery.png" });
     await app.close();
     app = await launch();

@@ -2,7 +2,6 @@ import { randomUUID } from "node:crypto";
 import {
   type AgentCommand,
   type KnowledgeDraftInput,
-  type RunCommand,
   RunResultSchema,
 } from "@tradequote/contracts";
 import { afterEach, expect, it, vi } from "vitest";
@@ -73,7 +72,7 @@ function published(f: ReturnType<typeof runFixture>, change: Partial<KnowledgeDr
   if (!result.ok || result.data.kind !== "revision") throw new Error("synthetic publish");
   return result.data.revision;
 }
-function start(f: ReturnType<typeof runFixture>): Extract<RunCommand, { method: "agent.start" }> {
+function start(f: ReturnType<typeof runFixture>) {
   const input = f.start();
   return {
     ...input,
@@ -81,7 +80,7 @@ function start(f: ReturnType<typeof runFixture>): Extract<RunCommand, { method: 
       ...input.payload,
       payload: {
         ...input.payload.payload,
-        executionMode: "tool_loop",
+        executionMode: "tool_loop" as const,
         inquiry: "100单位合成商品，付款T/T，30天交货",
       },
     },
@@ -162,6 +161,7 @@ for (const [category, sku, total, next] of [
     if (!first.ok) throw new Error(first.error.message);
     const v1 = first.data.quotes[0]!;
     expect(v1.goodsTotal).toBe(total);
+    expect(f.store.list().runs[0]?.calculationPreview?.goodsTotal).toBe(total);
     const rows = f.store.list().runs;
     const run = rows[0]!;
     expect(run.toolSteps?.map((step) => step.tool)).toEqual([

@@ -94,6 +94,7 @@ export const AgentReadCommandSchema = z.strictObject({
   ...readEnvelope,
   method: z.literal("agent.read"),
   payload: z.strictObject({
+    executionMode: z.literal("codex_harness").optional(),
     instruction: z.string().trim().min(1).max(8000),
     quoteRevisionIds: ids(50).default([]),
     productIds: ids(500).optional(),

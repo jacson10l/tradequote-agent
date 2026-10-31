@@ -1,0 +1,236 @@
+{
+  "recordedAt": "2026-11-01",
+  "timezone": "Asia/Tokyo",
+  "status": "passed",
+  "scope": "Local C07 code, semantic Wiki and private Cue imported roadshow validation; not whole-project business signoff",
+  "overallTaskStatus": "active",
+  "branch": "codex/c07-business-roadshow",
+  "base": "450e945afe2a6a0582df572817e00c67e0cf13d0",
+  "environment": {
+    "os": "macOS",
+    "arch": "arm64",
+    "node": "22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2"
+  },
+  "checks": [
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "result": "passed"
+    },
+    {
+      "command": "ELECTRON_RUN_AS_NODE=1 node_modules/.pnpm/electron@44.9.2/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron node_modules/vitest/vitest.mjs run --maxWorkers=4",
+      "exitCode": 0,
+      "result": {
+        "passed": 539,
+        "skipped": 3,
+        "filesPassed": 58,
+        "filesSkipped": 2
+      }
+    },
+    {
+      "command": "pnpm build",
+      "exitCode": 0,
+      "result": "passed; existing renderer chunk exceeds 500 kB warning"
+    },
+    {
+      "command": "pnpm exec playwright test",
+      "exitCode": 0,
+      "result": {
+        "passed": 12,
+        "skipped": 1,
+        "skipScope": "real-model environment test; separate native saved-model acceptance recorded below"
+      }
+    },
+    {
+      "command": "pnpm wiki:test",
+      "exitCode": 0,
+      "result": {
+        "passed": 36,
+        "failed": 0
+      }
+    },
+    {
+      "command": "pnpm check",
+      "exitCode": 0,
+      "result": "Biome, engineering checks, boundaries, generated index check and Wiki lint passed"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 450e945afe2a6a0582df572817e00c67e0cf13d0",
+      "exitCode": 0,
+      "result": {
+        "status": "passed",
+        "codeFiles": 20,
+        "knowledgePages": 5,
+        "tasks": 1,
+        "errors": []
+      }
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "passed"
+    }
+  ],
+  "nativeComputerUse": {
+    "provider": "Application-saved DeepSeek configuration with actual Codex native tool execution; no local Codex connection fallback or mock provider",
+    "catalogPreview": {
+      "rows": 13,
+      "issues": 0,
+      "publishedThroughHumanEntry": true
+    },
+    "runs": [
+      {
+        "runId": "d466c519-f356-43e7-b0c9-3851b3028dc5",
+        "tools": 3,
+        "result": "product search/read/price followed by clarification"
+      },
+      {
+        "runId": "9075e987-6583-4cb6-8c07-5ec903ddb744",
+        "tools": 6,
+        "version": 1,
+        "quoteId": "2246cfbf-c537-4d0c-9a6c-65278f6f17f5",
+        "quantity": "300",
+        "unitPrice": "39.21",
+        "goodsTotal": "11763.00",
+        "currency": "CNY"
+      },
+      {
+        "runId": "12bcf85b-fe8d-4600-a0d3-aeba320b2f08",
+        "tools": 6,
+        "version": 2,
+        "quoteId": "e33aca49-9d4c-4b09-b78a-bcf5f211b575",
+        "quantity": "500",
+        "unitPrice": "37.21",
+        "goodsTotal": "18605.00",
+        "currency": "CNY"
+      }
+    ],
+    "difference": {
+      "quantity": "200",
+      "unitPrice": "-2.00",
+      "goodsTotal": "6842.00"
+    },
+    "observed": [
+      "Old clarification resolved after supplementary task",
+      "V1 unchanged after V2 and reopening",
+      "V2, conversation and version-bound reports persisted after restart",
+      "Both version reports: 0 blocking, 0 warning, 2 unverified; not business approval",
+      "Final customer text retains noncommercial limitation and proposed terms; internal identifiers excluded",
+      "Foreground focused copy succeeded; automated clipboard equality passed"
+    ],
+    "knownIssue": "Proposed unconfirmed payment/delivery absent from pending in V1/V2 and after reopen; handed to B",
+    "roundScope": "No new native cancellation test in C07; existing cancellation/recovery behavior retained and Electron suite passed"
+  },
+  "source": {
+    "commit": "4c622d04e1ae483b6c8649e09146f71b35ba33a9",
+    "file": "docs/roadshow/c07/catalog.csv",
+    "sha256": "7e03f6749d77d3c3192ffa65b6faefe1753dcc5c3fb950693a8acdae6cab8926",
+    "provenance": "A collected product data, authenticity pending review; C authored inquiry and proposed terms only",
+    "productionParser": {
+      "small": {
+        "acceptedRows": 13,
+        "skus": 4,
+        "issues": 0
+      },
+      "large": {
+        "rawRows": 286,
+        "rawSkus": 83,
+        "acceptedRows": 285,
+        "acceptedSkus": 82,
+        "invalidPhysicalRow": 268,
+        "sku": "1600614614202",
+        "field": "min_quantity",
+        "issues": 2,
+        "wholeImportAccepted": false
+      }
+    },
+    "unknowns": [
+      "supplier price validity",
+      "apparel original snapshots",
+      "certification evidence",
+      "Polo fibre percentages",
+      "printing/freight/taxes/other charges"
+    ]
+  },
+  "cue": {
+    "url": "https://cue.humanmeetsai.com/deck/e9d13069-7ede-4dc8-86a0-9de1b3d680e7",
+    "title": "TradeQuote｜把一封询盘，变成一份有依据的报价",
+    "method": "Locally authored PowerPoint imported through Cue presentation import; editable private online draft",
+    "slides": 8,
+    "actualElectronImages": 2,
+    "allSlidesVisited": true,
+    "speakerNotesLengths": [
+      85,
+      72,
+      97,
+      106,
+      106,
+      117,
+      97,
+      131
+    ],
+    "visibility": "private draft",
+    "published": false,
+    "invitedThirdParties": false,
+    "persistentAgentConnectionEstablished": false,
+    "newTokenCreated": false,
+    "priorAttemptsRetained": true,
+    "localPowerPoint": ".runtime/c07-roadshow/TradeQuote-roadshow.pptx"
+  },
+  "review": {
+    "finding": "P2 scenario-only synthetic customer text lost noncommercial limitation",
+    "regression": "red: 9 passed / 1 failed; green targeted: 19 passed",
+    "independentRereview": "finding closed; not A/B business signoff"
+  },
+  "remaining": [
+    "A large catalog row 268 publishable unknown MOQ representation",
+    "A original sources/version/validity/certification evidence",
+    "B proposed versus confirmed terms and pending semantics; public contract and rule coverage signoff",
+    "Cue persistent agent connection",
+    "Windows and signed installer unverified",
+    "Formal approval, sending and PDF not implemented"
+  ],
+  "historicalAttempts": "wiki-project/raw/c07-attempts.json",
+  "sourceFileSha256": {
+    "apps/desktop/src/renderer/src/App.tsx": "9c9826a1871d88ee36b325288808354b245d09631c1f919548a30767aa11ade1",
+    "apps/desktop/src/renderer/src/features/business-settings.tsx": "42754c2f3a531ed0366f12559768b6d7519c5baa82a58b9ed0b77077ce3d77ae",
+    "apps/desktop/src/renderer/src/features/customer-reply-format.test.ts": "ab4415e5b0c401fa0a907a58d388fc93b3cd122843ba1b85046c96cb91f15d1f",
+    "apps/desktop/src/renderer/src/features/customer-reply-format.ts": "075788c0e43581a817e2bf443b5082ae6ffc8dee9996290e16c24542d1523ae0",
+    "apps/desktop/src/renderer/src/features/customer-reply.test.tsx": "db4507b3d994eef1a9b1ce94dd5f4d3ad8865d03bf87c00b2126b60e53edbad0",
+    "apps/desktop/src/renderer/src/features/customer-reply.tsx": "988e576ce5625ed0a32b1e6f460a7b887604612d69ec143680c84c75c258a5f1",
+    "apps/desktop/src/renderer/src/features/quotes.tsx": "2eb015377618aec0740f21894d3812816126bd04678b9a12da0908b97c387c41",
+    "apps/desktop/src/renderer/src/features/workbench.tsx": "91ea1a450da074e74b3a6fca1503b6b7657c3b1687df545657cb03643edfe668",
+    "apps/desktop/src/renderer/src/features/workspace.test.tsx": "de16a9d904daac62d2e683b3ab2141bafae859096bc007b5f405af69f9db2f82",
+    "apps/desktop/src/renderer/src/features/workspace.tsx": "9bcbf1181f1aadccdb60a9f89170bfa3913278dd2ec168bae4382e3af1bf431d",
+    "docs/roadshow/c07/README.md": "b3dfdafbe914a817d607cc730a44a2239e8802c71285ef9d6f8f3a2fdb3a9873",
+    "docs/roadshow/c07/catalog.csv": "7e03f6749d77d3c3192ffa65b6faefe1753dcc5c3fb950693a8acdae6cab8926",
+    "docs/roadshow/c07/cue-prompt.md": "48b78120d9a13cee235cfb540481e198c81632b979b853bdfcff661bb8f41ddb",
+    "docs/roadshow/c07/cue-result.md": "8581def554640720bc2d1c4bacf491531ded36b29ca4bb7253e7702ab579f049",
+    "docs/roadshow/c07/customer-reply.md": "8d4c997f0158704849cefb8c662313f09fc376663dee62ff6ba533104ff6e44b",
+    "docs/roadshow/c07/expected.json": "9945d38a491d76fd97d1f5a9ad6ecac7116c7267f86ce0fedf1677b6f7726d31",
+    "docs/roadshow/c07/inquiry.md": "61acdfa929baaa74d37ac194d5a0b1f90cf63c66a841635fca1a13b65d8a29dc",
+    "docs/roadshow/c07/roadshow.md": "ea5eb46c3e743f2d95fb96b47170bfcf55a0136eded6994501d8b1f603a65a3b",
+    "docs/roadshow/c07/source-manifest.json": "02fe35210882a485c94885810beaf038e35375f1587d8c15e25c0b91a48ba0c8",
+    "docs/roadshow/c07/source-notes.md": "c7b180456c80e265d9cbc3a704882b954ee79e23ed10e52378e7b32e31232d77",
+    "tests/e2e/agent-recovery.spec.ts": "2a5a200f1b6f8738e6cc3d389fc63ccd39f09a3ad8e26e48a2728c8696a134c5",
+    "tests/e2e/business-fixture.ts": "e8fc8ce1f280ece04a69b62a62b9471d23ae8d8b1ca6e97f19594ba62b1d977a",
+    "tests/e2e/quote-agent.spec.ts": "8d019310405696d2955979b38f9651e395e879a39462a52a84d76ba0dc614b7c",
+    "tests/e2e/quote-checks.spec.ts": "7d47b2adb115ed9d33c8cf3e2cb41517054bb67e92c0c5f402eb8ccf33932e97",
+    "tests/e2e/quote-v1.spec.ts": "f9a8c53f0a02c44b848a8449dea3204c499720c7865a03f56a5f4c18cea29b9b",
+    "tests/e2e/read-assistant.spec.ts": "dc5027fb6b64757ed4b40aea581473c0ef4fade8f02ad71b4ffcfe853f05c25d",
+    "tests/e2e/workspace.spec.ts": "d5e1c5942004f316a46c7fb4148439878987a180dd024ec86f52120ecdc0b285"
+  },
+  "screenshotSha256": {
+    "wiki-project/raw/c07-roadshow-evidence/cue-final.jpg": "cb0429367f7d6324ec56f8791c1a7a94dedc6712e2611fe9aaa4ef68a0103d00",
+    "wiki-project/raw/c07-roadshow-evidence/customer-reply-final.jpg": "0acfd44d3f658ba238ec6833a8611a600b643dab5a9bc56bb0462d72561cea15",
+    "wiki-project/raw/c07-roadshow-evidence/native-v2.jpg": "acc71e83566923e18702308984c1368d1c7e09d0cbf1aa490ecfb259d9ad85a5"
+  },
+  "gitActions": {
+    "committed": false,
+    "pushed": false,
+    "merged": false,
+    "tagged": false
+  }
+}

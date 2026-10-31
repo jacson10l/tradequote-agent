@@ -10,31 +10,38 @@ import {
 } from "../../packages/contracts/src/mock";
 
 const require = createRequire(resolve("apps/desktop/package.json"));
-test("development renderer runs with React refresh and the real desktop bridge", async () => {
-  const data = await mkdtemp(join(tmpdir(), "tradequote-dev-e2e-"));
-  const app = await electron.launch({
-    executablePath: require("electron") as string,
-    args: [resolve("apps/desktop/out/main/index.js")],
-    env: {
-      ...process.env,
-      ELECTRON_RUN_AS_NODE: "",
-      TRADEQUOTE_TEST_DATA: data,
-      ELECTRON_RENDERER_URL: "http://127.0.0.1:5189/",
-    },
+for (const trailingSlash of [false, true])
+  test(`development renderer normalizes root URL (trailing slash: ${trailingSlash}) and supports the real desktop bridge`, async () => {
+    const data = await mkdtemp(join(tmpdir(), "tradequote-dev-e2e-"));
+    const app = await electron.launch({
+      executablePath: require("electron") as string,
+      args: [resolve("apps/desktop/out/main/index.js")],
+      env: {
+        ...process.env,
+        ELECTRON_RUN_AS_NODE: "",
+        TRADEQUOTE_TEST_DATA: data,
+        ELECTRON_RENDERER_URL: `http://127.0.0.1:5189${trailingSlash ? "/" : ""}`,
+      },
+    });
+    try {
+      expect(await app.evaluate(({ app }) => app.getName())).toBe("TradeQuote");
+      const page = await app.firstWindow();
+      await expect(page.getByRole("heading", { name: "从一份询盘开始" })).toBeVisible();
+      const initial = await page.evaluate(() => window.tradequote.getWorkspace());
+      expect(initial).toMatchObject({ ok: true, data: null });
+      const model = await page.evaluate(() =>
+        window.tradequote.modelSettings({ method: "model.status" }),
+      );
+      expect(model.ok).toBe(true);
+      await page.getByRole("link", { name: "创建工作区", exact: true }).click();
+      await page.getByLabel("工作区名称").fill("开发模式合成工作区");
+      await page.getByRole("button", { name: "创建工作区", exact: true }).click();
+      await expect(page.getByText("已保存至本机 · 版本 1")).toBeVisible();
+    } finally {
+      await app.close();
+      await rm(data, { recursive: true, force: true });
+    }
   });
-  try {
-    expect(await app.evaluate(({ app }) => app.getName())).toBe("TradeQuote");
-    const page = await app.firstWindow();
-    await expect(page.getByRole("heading", { name: "从一份询盘开始" })).toBeVisible();
-    await page.getByRole("link", { name: "创建工作区", exact: true }).click();
-    await page.getByLabel("工作区名称").fill("开发模式合成工作区");
-    await page.getByRole("button", { name: "创建工作区", exact: true }).click();
-    await expect(page.getByText("已保存至本机 · 版本 1")).toBeVisible();
-  } finally {
-    await app.close();
-    await rm(data, { recursive: true, force: true });
-  }
-});
 test("real desktop persists workspace, validates IPC, handles conflict and reopens", async () => {
   const data = await mkdtemp(join(tmpdir(), "tradequote-e2e-"));
   const launch = () =>
@@ -47,6 +54,12 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
   try {
     const page = await app.firstWindow();
     await expect(page.getByRole("heading", { name: "从一份询盘开始" })).toBeVisible();
+    const initial = await page.evaluate(() => window.tradequote.getWorkspace());
+    expect(initial).toMatchObject({ ok: true, data: null });
+    const model = await page.evaluate(() =>
+      window.tradequote.modelSettings({ method: "model.status" }),
+    );
+    expect(model.ok).toBe(true);
     await page.getByRole("link", { name: "创建工作区", exact: true }).click();
     const name = page.getByLabel("工作区名称");
     await name.fill("E2E 合成工作区");
@@ -58,8 +71,8 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
         BrowserWindow.getAllWindows()[0]?.setContentSize(nextWidth, 800);
       }, width);
       for (const [route, ready] of [
-        ["单据工作台", "报价单据"],
-        ["资料与报价", "1 · 演示场景"],
+        ["单据工作台", "当前报价"],
+        ["资料与报价", "商品与价目表"],
         ["模型设置", "DeepSeek 连接与凭据"],
         ["工作区设置", "工作区设置"],
       ] as const) {
@@ -97,8 +110,10 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
       })),
     ).toEqual({
       bridge: [
+        "approveQuote",
         "cancelAgentRun",
         "checkQuote",
+        "continueAgentRun",
         "createQuoteV1",
         "createWorkspace",
         "executeKnowledgeBuild",
@@ -233,8 +248,9 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
     });
     expect(invalid.ok).toBe(false);
     await page.getByRole("link", { name: "单据工作台" }).click();
-    await page.getByRole("button", { name: "查看合成样例" }).click();
-    await expect(page.getByRole("button", { name: "提交人工审核" })).toBeDisabled();
+    await expect(page.getByRole("complementary", { name: "工作台任务对话" })).not.toContainText(
+      "Codex harness",
+    );
     await page.screenshot({ path: "output/playwright/m1-workbench.png", fullPage: true });
     // macOS may clamp large windows to its work area; record actual native sizes.
     const nativeMeasurements: { requested: readonly number[]; actual: number[] }[] = [];
@@ -305,8 +321,8 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
     await main.evaluate((element) => {
       element.scrollTop = element.scrollHeight;
     });
-    await expect(page.getByRole("button", { name: "发送给 Agent" })).toBeVisible();
-    expect(await main.evaluate((element) => element.scrollTop)).toBeGreaterThan(0);
+    await expect(page.getByRole("button", { name: "发送" })).toBeInViewport();
+    expect(await main.evaluate((element) => element.scrollTop)).toBe(0);
     expect(
       await page.evaluate(() => {
         const root = document.getElementById("root");

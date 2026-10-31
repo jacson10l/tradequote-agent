@@ -3,7 +3,7 @@ import "@testing-library/jest-dom/vitest";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { failure, success } from "@tradequote/contracts";
+import { type DesktopClient, failure, success } from "@tradequote/contracts";
 import { mockWorkspace, readonlyMockClient } from "@tradequote/contracts/mock";
 import { afterEach, expect, it, vi } from "vitest";
 import { MessageProvider } from "../shared/message";
@@ -79,4 +79,40 @@ it("retries a load notification and removes it after recovery", async () => {
   expect(await screen.findByRole("button", { name: "创建工作区" })).toBeVisible();
   expect(screen.queryByRole("alert")).not.toBeInTheDocument();
   expect(getWorkspace).toHaveBeenCalledTimes(3);
+});
+
+it("keeps business defaults blank and saves through the existing versioned service, reusing the retry key", async () => {
+  const user = userEvent.setup();
+  const saveScenario = vi
+    .fn<DesktopClient["saveScenario"]>()
+    .mockResolvedValue(failure("STORAGE_ERROR", "保存未完成，请重试"));
+  mount({ ...readonlyMockClient, getWorkspace: async () => success(mockWorkspace), saveScenario });
+  expect(await screen.findByRole("heading", { name: "业务默认配置" })).toBeVisible();
+  expect(screen.getByLabelText("场景名称")).toHaveValue("");
+  for (const [label, value] of Object.entries({
+    场景名称: "活动采购",
+    目标用户与岗位: "业务员",
+    "目标平台 / 场景": "客户邮件",
+    目标市场: "英国",
+    商品品类: "活动用品",
+    "目标语言（逗号分隔 BCP 47）": "en",
+  })) {
+    await user.type(screen.getByLabelText(label), value);
+  }
+  await user.selectOptions(screen.getByLabelText("场景来源"), "synthetic");
+  await user.click(screen.getByRole("button", { name: "保存业务场景" }));
+  expect(await screen.findByRole("alert")).toHaveTextContent("保存未完成");
+  await user.click(screen.getByRole("button", { name: "保存业务场景" }));
+  expect(saveScenario).toHaveBeenCalledTimes(2);
+  const first = saveScenario.mock.calls[0]![0];
+  const second = saveScenario.mock.calls[1]![0];
+  expect(first).toMatchObject({
+    method: "scenario.save",
+    payload: {
+      expectedVersion: 0,
+      scenario: { name: "活动采购", locales: ["en"], sourceStatus: "synthetic" },
+    },
+  });
+  expect(second.idempotencyKey).toBe(first.idempotencyKey);
+  expect(second.requestId).not.toBe(first.requestId);
 });

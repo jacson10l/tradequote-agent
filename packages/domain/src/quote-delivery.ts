@@ -4,7 +4,6 @@ import {
   type QuoteDelivery,
   type QuoteSnapshot,
 } from "@tradequote/contracts";
-import { randomUUID } from "node:crypto";
 
 /**
  * 对外产出（RFQ 摘要 / 客户回复）的确定性渲染。
@@ -42,7 +41,8 @@ function renderSummary(quote: QuoteSnapshot, locale: string): { subject: string;
       return `- ${line.product.sku} · ${line.product.name}: ${line.quantity} ${line.product.unit} × ${line.unitPrice ?? "—"} = ${amount}`;
     })
     .join("\n");
-  const total = quote.goodsTotal === null ? "—" : `${quote.goodsTotal} ${currencyLabel(quote.currency)}`;
+  const total =
+    quote.goodsTotal === null ? "—" : `${quote.goodsTotal} ${currencyLabel(quote.currency)}`;
   const body = [
     copy.intro,
     `Quote ${quote.number} · V${quote.version}`,
@@ -54,9 +54,7 @@ function renderSummary(quote: QuoteSnapshot, locale: string): { subject: string;
     `Goods total (excl. freight/tax): ${total}`,
     `Payment: ${quote.payment || "to be confirmed"}`,
     `Delivery: ${quote.delivery || "to be confirmed"}`,
-    ...(quote.pending.length
-      ? [``, `Pending items:`, ...quote.pending.map((p) => `- ${p}`)]
-      : []),
+    ...(quote.pending.length ? [``, `Pending items:`, ...quote.pending.map((p) => `- ${p}`)] : []),
     ``,
     copy.disclaimer,
   ].join("\n");
@@ -65,7 +63,8 @@ function renderSummary(quote: QuoteSnapshot, locale: string): { subject: string;
 
 function renderReply(quote: QuoteSnapshot, locale: string): { subject: string; body: string } {
   const copy = copyFor(locale);
-  const total = quote.goodsTotal === null ? "—" : `${quote.goodsTotal} ${currencyLabel(quote.currency)}`;
+  const total =
+    quote.goodsTotal === null ? "—" : `${quote.goodsTotal} ${currencyLabel(quote.currency)}`;
   const body = [
     copy.intro,
     ``,
@@ -94,8 +93,7 @@ function renderOne(
   kind: DeliveryKind,
   metadata: { id: string; generatedAt: string },
 ): QuoteDelivery {
-  const rendered =
-    kind === "summary" ? renderSummary(quote, locale) : renderReply(quote, locale);
+  const rendered = kind === "summary" ? renderSummary(quote, locale) : renderReply(quote, locale);
   return {
     id: metadata.id,
     quoteId: quote.id,
@@ -107,6 +105,10 @@ function renderOne(
     generatedAt: metadata.generatedAt,
     syntheticBoundary: true,
   };
+}
+
+function deliveryId(approvalId: string, sequence: number): string {
+  return `${approvalId.slice(0, -12)}${sequence.toString(16).padStart(12, "0")}`;
 }
 
 /**
@@ -121,14 +123,16 @@ export function approveQuote(
   const locales = quote.scenario.locales.length ? quote.scenario.locales : ["en"];
   const kinds: DeliveryKind[] = ["summary", "reply"];
   const deliveries: QuoteDelivery[] = [];
+  let sequence = 1;
   for (const locale of locales) {
     for (const kind of kinds) {
       deliveries.push(
         renderOne(quote, locale, kind, {
-          id: randomUUID(),
+          id: deliveryId(metadata.id, sequence),
           generatedAt: metadata.approvedAt,
         }),
       );
+      sequence += 1;
     }
   }
   return {

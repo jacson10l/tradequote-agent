@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "../shared/button";
 import { useMessage } from "../shared/message";
 import { Notification } from "../shared/notification";
+import { BusinessSettings } from "./business-settings";
 
 export function useWorkspace(client: DesktopClient) {
   return useQuery({
@@ -42,11 +43,14 @@ export function WorkspacePage({ client }: { client: DesktopClient }) {
       </section>
     );
   return (
-    <WorkspaceForm
-      key={`${query.data?.id ?? "new"}-${query.data?.version ?? 0}`}
-      client={client}
-      workspace={query.data}
-    />
+    <div className="grid gap-4">
+      <WorkspaceForm
+        key={`${query.data?.id ?? "new"}-${query.data?.version ?? 0}`}
+        client={client}
+        workspace={query.data}
+      />
+      {query.data && <BusinessSettings client={client} />}
+    </div>
   );
 }
 function WorkspaceForm({
@@ -134,9 +138,7 @@ function WorkspaceForm({
           {mutation.isPending ? "正在保存…" : workspace ? "保存工作区" : "创建工作区"}
         </Button>
       </form>
-      <p className="mt-6 text-sm text-muted-foreground">
-        资料保存在当前设备。未来共享服务将沿用同一业务接口。
-      </p>
+      <p className="mt-6 text-sm text-muted-foreground">资料保存在当前设备。</p>
     </section>
   );
 }

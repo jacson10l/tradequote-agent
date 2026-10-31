@@ -17,7 +17,7 @@ import { afterEach, expect, it, vi } from "vitest";
 import { MessageProvider } from "../shared/message";
 import { QuoteChecks } from "./quote-checks";
 import { checksList, checksPendingReport, checksQuote, checksReport } from "./quote-checks.fixture";
-import { QuotesPage } from "./quotes";
+import { Workbench } from "./workbench";
 
 afterEach(cleanup);
 function mount(
@@ -202,7 +202,7 @@ it("shows every fixed source as text and identifies synthetic evidence before ex
     sourceLabel: "<img src=x onerror=alert(1)>",
   });
   mount({ getQuoteChecks: async () => checksList([report]) });
-  expect(await screen.findByText(/含合成规则来源/)).toBeVisible();
+  expect(await screen.findByText(/规则来源未经业务确认/)).toBeVisible();
   const field = screen.getByRole("region", { name: "付款条款" });
   await user.click(within(field).getByText("查看固定来源"));
   expect(within(field).getByText("用户提供来源 · <img src=x onerror=alert(1)>")).toBeVisible();
@@ -247,7 +247,7 @@ it("mounts the report beside the actual saved quote without writing or opening a
     <QueryClientProvider client={queries}>
       <MemoryRouter>
         <MessageProvider>
-          <QuotesPage client={client} />
+          <Workbench client={client} />
         </MessageProvider>
       </MemoryRouter>
     </QueryClientProvider>,
@@ -259,7 +259,7 @@ it("mounts the report beside the actual saved quote without writing or opening a
     checksQuote.number,
   );
   expect(screen.getByTestId("goods-total")).toHaveTextContent("未知 USD");
-  expect(screen.getByRole("button", { name: "提交人工审核并生成对外产出" })).toBeEnabled();
+  expect(screen.getByRole("button", { name: "提交人工审核" })).toBeDisabled();
 });
 
 it("revalidates cached data when quote identity metadata changes", async () => {
@@ -376,4 +376,25 @@ it("does not select or announce an old-version write when it completes after a v
   expect(screen.queryByLabelText("本版本检查报告")).not.toBeInTheDocument();
   expect(screen.queryByText("V1 检查报告已保存；报价仍为未审核草稿")).not.toBeInTheDocument();
   expect(screen.getByRole("region", { name: "报价 V2 规则检查" })).toBeVisible();
+});
+
+it("displays the version-bound persisted Agent report without requiring another manual check", async () => {
+  const checkQuote = vi.fn();
+  render(
+    <QueryClientProvider
+      client={new QueryClient({ defaultOptions: { queries: { retry: false } } })}
+    >
+      <MessageProvider>
+        <QuoteChecks
+          quote={checksQuote}
+          client={{ ...readonlyMockClient, getQuoteChecks: async () => checksList([]), checkQuote }}
+          runReport={checksReport}
+        />
+      </MessageProvider>
+    </QueryClientProvider>,
+  );
+  expect(
+    await screen.findByRole("button", { name: "阻断 · 付款条款 · 付款条件缺失" }),
+  ).toBeVisible();
+  expect(checkQuote).not.toHaveBeenCalled();
 });

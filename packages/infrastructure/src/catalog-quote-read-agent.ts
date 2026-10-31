@@ -48,6 +48,7 @@ export class CatalogQuoteReadAgent {
     private readonly provider: Pick<DeepSeekProvider, "json">,
     scope: z.input<typeof scopeSchema>,
     private readonly limits: ConstructorParameters<typeof ReadToolRuntime>[2] = {},
+    private readonly clarificationHistory: { question: string; answer: string }[] = [],
   ) {
     this.scope = scopeSchema.parse(scope);
   }
@@ -199,6 +200,7 @@ export class CatalogQuoteReadAgent {
         }),
       );
     const hostContext = {
+      clarificationHistory: this.clarificationHistory,
       workspaceId: this.scope.workspaceId,
       asOf,
       snapshot: "当前已发布业务快照；asOf为核价日期，不提供历史时点检索",

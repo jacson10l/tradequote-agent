@@ -1,0 +1,33 @@
+{
+  "base": "2c043834b78e9803df17f5113c5605dcc0258971",
+  "status": "passed",
+  "checks": [
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 263,\n  \"lines\": 71889,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 260,\n  \"semantic\": 231,\n  \"reachable\": 260\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 2c04383",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"2c043834b78e9803df17f5113c5605dcc0258971\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "git -c core.whitespace=cr-at-eol diff --check",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "limitations": [
+    "Document validation only; presenter timing and projection check pending."
+  ]
+}

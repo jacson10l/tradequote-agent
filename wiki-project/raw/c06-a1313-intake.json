@@ -1,0 +1,324 @@
+{
+  "status": "needs_fix",
+  "scope": "Read-only C intake of pinned A data/document candidate; not a supplier/product certification or production publication",
+  "aCommit": "1313db918ca5b3847217a6f97ad72129b33cb187",
+  "aBranch": "codex/a01-maintenance-evidence",
+  "cTaskBase": "d8e83bc5b22376c4df794e8fdce219b6ae490f78",
+  "changedFileCount": 22,
+  "files": [
+    {
+      "path": "wiki-project/demo_data/MANIFEST.md",
+      "sha256": "4fa6d3681a7c4aba5efc0f4d7c16b5749cc1973620c61d6940dfc9abd350e5ab",
+      "bytes": 3953
+    },
+    {
+      "path": "wiki-project/demo_data/SOURCE-PROVENANCE.md",
+      "sha256": "a4900a46d47895fc9daacf5ff6133aa5cd3b420d7f27027be52409a398a347b4",
+      "bytes": 5517
+    },
+    {
+      "path": "wiki-project/demo_data/catalog_converted.csv",
+      "sha256": "1ab257f76b3c4093933aebf48a9e211a76cfc2d9d7b360fa9de175a782e82dbd",
+      "bytes": 120738
+    },
+    {
+      "path": "wiki-project/demo_data/catalog_demo.csv",
+      "sha256": "7e03f6749d77d3c3192ffa65b6faefe1753dcc5c3fb950693a8acdae6cab8926",
+      "bytes": 6020
+    },
+    {
+      "path": "wiki-project/demo_data/source-archive/BOLT-REAL-DATA.md",
+      "sha256": "452cbb6d9f2652f00c410f8264978a96a65ef5d83bd15b884873650e7accefc1",
+      "bytes": 5383
+    },
+    {
+      "path": "wiki-project/demo_data/source-archive/MDF-REAL-DATA.md",
+      "sha256": "8c5e88fe2e93ed3a2256d8566a6d164583a7e6f7fbbb8bbe832578bdbc3084c4",
+      "bytes": 5864
+    },
+    {
+      "path": "wiki-project/demo_data/source-archive/bolt-real-01-din933-stainless-m6-m8-m10.png",
+      "sha256": "ee12c0e10cf13a8791c9e1edac55d1de0348da6dc365b26064642e767a887b68",
+      "bytes": 332227
+    },
+    {
+      "path": "wiki-project/demo_data/source-archive/bolt-real-02-grade8-ss304-316-m5-m10.png",
+      "sha256": "04f34fa891f11b945bc92ae8f574fc5075c7c3cad62b4ea175d362dd3dd68481",
+      "bytes": 451759
+    },
+    {
+      "path": "wiki-project/demo_data/source-archive/bolt-real-03-316-hex-bolt-nut-washer.png",
+      "sha256": "4fa93d605a736d668357f12316c535e28403497123a6541f1bbdc57cb84dd02c",
+      "bytes": 500604
+    },
+    {
+      "path": "wiki-project/demo_data/source-archive/bolt-real-04-din912-socket-cap-8.8-12.9.png",
+      "sha256": "d7111d28f2fd953014e5cda2b29cf69e4b659e6eb564c8f3fe184bf7472343de",
+      "bytes": 424668
+    },
+    {
+      "path": "wiki-project/demo_data/source-archive/bolt-real-05-carbon-steel-din933-931-8.8-12.9.png",
+      "sha256": "6ed2287af2dc71509ae8281c3092dd77bdae88ec24c95382d8b1196511269763",
+      "bytes": 492968
+    },
+    {
+      "path": "wiki-project/demo_data/source-archive/bolt-real-06-din933-a2-70-ss304.png",
+      "sha256": "ddc69123ea474504865ccaa754f228eb8c99a54d071cea040c6720e4ef6e4eef",
+      "bytes": 347137
+    },
+    {
+      "path": "wiki-project/demo_data/source-archive/bolt-real-07-din6921-flange-bolt.jpg",
+      "sha256": "6e659708053a9a2130655b16124d367685b24fc6cb67ae4786b41e39cc27ba2b",
+      "bytes": 228172
+    },
+    {
+      "path": "wiki-project/demo_data/source-archive/mdf-real-01-gloss-mdf-board.jpg",
+      "sha256": "bfbf20a81cf28230732a4d4cabea2cff12b9549c633037e919ede0e47d1bd88d",
+      "bytes": 229546
+    },
+    {
+      "path": "wiki-project/demo_data/source-archive/mdf-real-02-sublimation-placemat.jpg",
+      "sha256": "ee35ffe0fba78e59653bcd8b8835f2a075b5e8b5cfb69bbce73fb7957cd9c12e",
+      "bytes": 215296
+    },
+    {
+      "path": "wiki-project/demo_data/source-archive/mdf-real-03-modern-e0-xinlida.png",
+      "sha256": "156ed980045c28bb1a7c7522b859cce1d4462036683521f928115ba90bc14b7b",
+      "bytes": 450093
+    },
+    {
+      "path": "wiki-project/demo_data/source-archive/mdf-real-04-raw-mdf-beijing.jpg",
+      "sha256": "68a2f51e6f1fb53f1e1c56de8c909ea1095f5b78a195fe1e92d0df2f6163d7c1",
+      "bytes": 231285
+    },
+    {
+      "path": "wiki-project/demo_data/source-archive/mdf-real-05-3mm-natural-veneer.jpg",
+      "sha256": "028e845dbd34fd381c900206b65a85368fb20bf1fa9b7f033f4e4b21596c7ef5",
+      "bytes": 249891
+    },
+    {
+      "path": "wiki-project/demo_data/source-archive/mdf-real-06-melamine-faced-decor-18mm.png",
+      "sha256": "94217beab8010b37697337f15c69d827d61abfe81521dd11dd0459f78c14e17e",
+      "bytes": 492461
+    },
+    {
+      "path": "wiki-project/demo_data/source-archive/mdf-real-06-ultra-thin-waterproof.png",
+      "sha256": "95e7a893d1f2c41ab1ba81234b9ed72fa785a18e305af2692a1895bde2a52639",
+      "bytes": 481598
+    },
+    {
+      "path": "wiki-project/demo_data/source-archive/mdf-real-07-glossy-furniture.jpg",
+      "sha256": "00ade4786673670c7a41274bf709aa93d064400329ca93cf085402cb93b2fcea",
+      "bytes": 582811
+    },
+    {
+      "path": "wiki-project/log.md",
+      "sha256": "33adda632c11fb734b785c7e43770f01204d20a1d93382c734df074886170da0",
+      "bytes": 240993
+    }
+  ],
+  "imageCount": 15,
+  "visualInspection": {
+    "viewedFiles": [
+      "mdf-real-01-gloss-mdf-board.jpg",
+      "bolt-real-01-din933-stainless-m6-m8-m10.png",
+      "mdf-real-06-melamine-faced-decor-18mm.png",
+      "bolt-real-04-din912-socket-cap-8.8-12.9.png",
+      "bolt-real-05-carbon-steel-din933-931-8.8-12.9.png",
+      "bolt-real-07-din6921-flange-bolt.jpg"
+    ],
+    "notAllImagesIndividuallyReviewed": true,
+    "observed": [
+      "Main board1601359234640:500/5000/500000 sheets at40.51/28.13/13.11 CNY visible; CSV matches those displayed tiers.",
+      "Main fastener1600593893760:1000/10000 pieces at0.331/0.2648 CNY visible; CSV matches those displayed tiers.",
+      "Board1600614614202:range38.99-238.12, sample price66.19; screenshot selection shows12mm while text title18mm; CSV regular tier at1piece66.19 is not justified.",
+      "Bolt04 image URL shows1601512254159; Bolt05 shows1600961286215.html; Bolt07 shows1600763733044.html. Source summary has differing numbers/11-digit labels, needs reconciliation; never pad IDs based on length."
+    ],
+    "limits": "Screenshots show page assertions at capture, not independent certificate, current online page validity, supplier commitment, or human approval."
+  },
+  "catalogs": [
+    {
+      "path": "wiki-project/demo_data/catalog_demo.csv",
+      "sha256": "7e03f6749d77d3c3192ffa65b6faefe1753dcc5c3fb950693a8acdae6cab8926",
+      "rowCountPermissiveCsvReader": 13,
+      "uniqueSkuCount": 4,
+      "uniqueSkuByCategory": {
+        "Board-MDF": 1,
+        "Hardware-Fastener": 1,
+        "Men-Polo": 1,
+        "Men-T-Shirt": 1
+      },
+      "currencySet": [
+        "CNY"
+      ],
+      "unitSet": [
+        "piece",
+        "sheet"
+      ],
+      "allSkuNumeric": true,
+      "oldPlaceholderInTheseTwoCsvs": false,
+      "crlf": 0,
+      "loneLf": 14
+    },
+    {
+      "path": "wiki-project/demo_data/catalog_converted.csv",
+      "sha256": "1ab257f76b3c4093933aebf48a9e211a76cfc2d9d7b360fa9de175a782e82dbd",
+      "rowCountPermissiveCsvReader": 286,
+      "uniqueSkuCount": 83,
+      "uniqueSkuByCategory": {
+        "Board-MDF": 6,
+        "Hardware-Fastener": 7,
+        "Men-Polo": 2,
+        "Men-Set": 1,
+        "Men-T-Shirt": 66,
+        "Men-Tank": 1
+      },
+      "currencySet": [
+        "CNY"
+      ],
+      "unitSet": [
+        "piece",
+        "sheet"
+      ],
+      "allSkuNumeric": true,
+      "oldPlaceholderInTheseTwoCsvs": false,
+      "crlf": 268,
+      "loneLf": 19
+    }
+  ],
+  "registryChecks": [
+    {
+      "path": "wiki-project/demo_data/MANIFEST.md",
+      "registered": "71ed18c35a228247eab8c833b2409d10c52c029cf088e7e429db365b1061ce43",
+      "actual": "4fa6d3681a7c4aba5efc0f4d7c16b5749cc1973620c61d6940dfc9abd350e5ab",
+      "matches": false
+    },
+    {
+      "path": "wiki-project/demo_data/SOURCE-PROVENANCE.md",
+      "registered": "e5148a23f45a3fb4a35100f45968bf5707125eeb82f9a5e88d7bf918198d27c9",
+      "actual": "a4900a46d47895fc9daacf5ff6133aa5cd3b420d7f27027be52409a398a347b4",
+      "matches": false
+    }
+  ],
+  "parserChecks": [
+    {
+      "file": "catalog_demo.csv",
+      "rows": 13,
+      "issues": []
+    },
+    {
+      "file": "catalog_converted.csv",
+      "rows": 0,
+      "issues": [
+        {
+          "row": 1,
+          "field": "csv",
+          "message": "CSV 结构不合法：请检查引号、列数或过长内容"
+        }
+      ]
+    }
+  ],
+  "delimiterDiagnosis": [
+    {
+      "file": "catalog_converted.csv",
+      "rows": 0,
+      "issues": [
+        {
+          "row": 1,
+          "field": "csv",
+          "message": "CSV 结构不合法：请检查引号、列数或过长内容"
+        }
+      ]
+    },
+    {
+      "file": "catalog_converted-previous.csv",
+      "rows": 300,
+      "issues": []
+    },
+    {
+      "file": "catalog_converted-normalized-diagnostic.csv",
+      "rows": 286,
+      "issues": []
+    }
+  ],
+  "probes": [
+    {
+      "command": "pnpm exec vitest run --config .runtime/c06-a1313/vitest.config.mts",
+      "exitCode": 1,
+      "result": "Readiness assertion fails for big CSV; small13 rows no issues, big0 rows with structure issue. Expected intake finding, not green A acceptance."
+    },
+    {
+      "command": "node .runtime/c06-a1313/csv-error.cjs",
+      "exitCode": 0,
+      "result": "CSV_NON_TRIMABLE_CHAR_AFTER_CLOSING_QUOTE at parser physical line270,records268"
+    },
+    {
+      "command": "pnpm exec vitest run --config .runtime/c06-a1313/diagnosis.config.mts",
+      "exitCode": 0,
+      "result": "1 diagnostic test passed: current big rejected,5c69b70 predecessor accepted,normalized COPY286 rows accepted; pinned input unchanged."
+    }
+  ],
+  "diagnosticFixture": {
+    "config": "import { defineConfig } from 'vitest/config';\nexport default defineConfig({ test: { include: ['.runtime/c06-a1313/diagnosis.test.ts'], environment: 'node' } });\n",
+    "test": "import { readFileSync, writeFileSync } from 'node:fs';\nimport { expect, it } from 'vitest';\nimport { parseCatalogCsv } from '../../packages/infrastructure/src/catalog-csv';\nit('diagnoses mixed record delimiters using copies, keeping pinned inputs unchanged', () => {\n const results = ['catalog_converted.csv','catalog_converted-previous.csv','catalog_converted-normalized-diagnostic.csv'].map(file=>({file,...parseCatalogCsv(readFileSync(`.runtime/c06-a1313/${file}`,'utf8'))}));\n writeFileSync('.runtime/c06-a1313/delimiter-diagnosis.json',JSON.stringify(results.map(r=>({file:r.file,rows:r.rows.length,issues:r.issues})),null,2));\n expect(results[0]!.issues.length).toBeGreaterThan(0);\n expect(results[1]!.issues).toEqual([]);\n expect(results[2]!.issues).toEqual([]);\n expect(results[2]!.rows).toHaveLength(286);\n});\n"
+  },
+  "blockingFindings": [
+    {
+      "id": "A1313-01",
+      "owner": "A",
+      "issue": "Mixed record delimiters break existing business CSV parser",
+      "required": "Normalize CSV record endings consistently, retain old evidence, run existing parser/stage preview against exact delivered bytes."
+    },
+    {
+      "id": "A1313-02",
+      "owner": "A; B confirms price policy",
+      "issue": "1600614614202 uses sample66.19 as ordinary MOQ1 unit_price; range/selected specification unresolved",
+      "required": "Use unknown/blank price or exclude from quotable catalog until ordinary selected-SKU price confirmed. Do not substitute sample price or range minimum."
+    },
+    {
+      "id": "A1313-03",
+      "owner": "A",
+      "issue": "Both MANIFEST and SOURCE-PROVENANCE registered hashes stale after modification",
+      "required": "Update archive registry hashes from exact delivered bytes; run read-only Wiki lint and fixed-base sync, retain old failed evidence."
+    },
+    {
+      "id": "A1313-04",
+      "owner": "A",
+      "issue": "Statistics and ID/provenance documents disagree with CSV/images",
+      "required": "Document13/286 rows,83 SKUs=70 apparel+6board+7fastener,allCNY,piece/sheet,15 image files including duplicate/superseded; reconcile IDs from screenshot URLs without guessing."
+    }
+  ],
+  "remaining": [
+    "Apparel2 original page snapshots still missing; source assertions and empty fields remain unreviewed.",
+    "2027-12-31 validity has no demonstrated supplier evidence in inspected captures; identify author assumption vs confirmed expiry.",
+    "A applicable rule publication/coverage and B confirmation-state/contract signoff remain pending.",
+    "No A code merged, no formal data published, no historical quotation changed, no new paid model request or Computer Use acceptance."
+  ],
+  "cDocumentationChecks": [
+    {
+      "command": "pnpm wiki:generate",
+      "exitCode": 0,
+      "result": "273 source files,5 generated artifacts unchanged"
+    },
+    {
+      "command": "pnpm check",
+      "exitCode": 0,
+      "result": "6 engineering tests,boundaries,Biome,read-only inventory and Wiki lint passed:278 Markdown/249 semantic/all reachable"
+    },
+    {
+      "command": "pnpm wiki:sync --base d8e83bc5b22376c4df794e8fdce219b6ae490f78",
+      "exitCode": 0,
+      "result": "0 product source changes,errors[]"
+    },
+    {
+      "command": "git diff --check and history prefix inspection",
+      "exitCode": 0,
+      "result": "No whitespace errors; prior context/status/log bytes retained"
+    },
+    {
+      "command": "independent C06 intake review",
+      "exitCode": 0,
+      "result": "Approved;22 blob hashes verified and findings consistent; does not sign off A source or B contract"
+    }
+  ]
+}

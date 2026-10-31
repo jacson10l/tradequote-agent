@@ -65,6 +65,7 @@ export class AgentExecutor {
     command: AgentCommand,
     credentials: ModelCredentials,
     signal: AbortSignal,
+    clarificationHistory?: { question: string; answer: string }[],
   ): Promise<unknown> {
     const result = this.repository.executeTrade(
       { schemaVersion: 1, requestId: command.requestId, method: "trade.get" },
@@ -131,6 +132,8 @@ export class AgentExecutor {
         instruction: command.payload.instruction,
       };
     }
+    if (clarificationHistory?.length)
+      messages.push({ role: "user", content: JSON.stringify({ clarificationHistory }) });
     messages.push({ role: "user", content: JSON.stringify(context) });
     if (Buffer.byteLength(JSON.stringify(messages), "utf8") > 100000)
       throw new TradeFault("VALIDATION_ERROR", "对话上下文过长，请缩短询盘或商品描述");
