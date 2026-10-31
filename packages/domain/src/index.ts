@@ -54,6 +54,7 @@ export function createWorkspaceService(repository: WorkspaceRepository) {
 }
 
 export { type AgentRunAction, transitionAgentRun } from "./agent-run";
+export { evaluateQuoteChecks, type QuoteCheckEvaluation } from "./quote-checks";
 export { reviseQuote } from "./revision";
 export type { TradeRepository } from "./trade";
 export {

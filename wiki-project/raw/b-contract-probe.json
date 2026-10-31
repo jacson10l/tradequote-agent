@@ -1,0 +1,393 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "name": "b-contract-review-probe",
+      "command": "node node_modules/vitest/vitest.mjs run packages/contracts/src/maintenance-evidence.test.ts packages/contracts/src/knowledge-maintenance.test.ts packages/domain/src/quote-checks.test.ts --reporter=json --outputFile=D:\\code\\tradequote-agent\\.probe-report.json",
+      "exitCode": 0
+    }
+  ],
+  "probe": "b-contract-review-probe",
+  "probeVersion": 1,
+  "reason": "B证据资格/规则样例/探针复核（最终）",
+  "generatedAt": "2026-10-31T04:02:42.975Z",
+  "startedAt": "2026-10-31T04:02:41.081Z",
+  "source": {
+    "commit": "19d60a8436fc72faf2780cbe1e5f77aeb043b863",
+    "branch": "codex/b00a-p1-knowledge-build-maintenance",
+    "worktree": "dirty",
+    "dirtyPaths": [
+      "ackage.json",
+      "packages/contracts/src/knowledge-maintenance.ts",
+      "packages/contracts/src/knowledge.ts",
+      "packages/domain/src/index.ts",
+      "wiki-project/CONTEXT.md",
+      "wiki-project/index.md",
+      "wiki-project/log.md",
+      "wiki-project/raw/generated/inventory.json",
+      "\"wiki-project/raw/generated/\\344\\273\\243\\347\\240\\201\\346\\270\\205\\345\\215\\225.md\"",
+      "\"wiki-project/raw/generated/\\345\\221\\275\\344\\273\\244\\344\\270\\216\\350\\277\\220\\350\\241\\214\\346\\227\\266\\346\\270\\205\\345\\215\\225.md\"",
+      "\"wiki-project/raw/generated/\\346\\272\\220\\347\\240\\201\\345\\277\\253\\347\\205\\247.md\"",
+      "\"wiki-project/raw/generated/\\346\\272\\220\\347\\240\\201\\350\\246\\206\\347\\233\\226\\347\\237\\251\\351\\230\\265.md\"",
+      "wiki-project/scripts/wiki-config.json",
+      "\"wiki-project/wiki/B00a\\347\\237\\245\\350\\257\\206\\346\\225\\264\\347\\220\\206\\344\\270\\216\\347\\273\\264\\346\\212\\244\\345\\215\\217\\350\\256\\256.md\"",
+      "\"wiki-project/wiki/M1\\345\\267\\245\\347\\250\\213\\345\\237\\272\\347\\272\\277.md\"",
+      "\"wiki-project/wiki/M1\\346\\216\\245\\345\\217\\243\\344\\270\\216\\346\\214\\201\\344\\271\\205\\345\\214\\226.md\"",
+      "\"wiki-project/wiki/Wiki \\345\\267\\245\\344\\275\\234\\346\\265\\201\\344\\270\\216\\344\\273\\273\\345\\212\\241\\350\\256\\260\\345\\275\\225.md\"",
+      "\"wiki-project/wiki/tasks/B00a-P1\\347\\237\\245\\350\\257\\206\\346\\225\\264\\347\\220\\206\\344\\270\\216\\347\\273\\264\\346\\212\\244\\345\\245\\221\\347\\272\\246.md\"",
+      "\"wiki-project/wiki/tasks/B01-\\350\\247\\204\\345\\210\\231\\346\\243\\200\\346\\237\\245\\344\\270\\216\\345\\217\\214\\345\\217\\215\\351\\246\\210.md\"",
+      "\"wiki-project/wiki/\\351\\246\\226\\346\\211\\271\\345\\271\\266\\350\\241\\214\\346\\216\\245\\345\\217\\243\\347\\272\\246\\345\\256\\232.md\"",
+      "packages/contracts/src/maintenance-evidence.test.ts",
+      "packages/domain/src/quote-checks.samples.ts",
+      "packages/domain/src/quote-checks.test.ts",
+      "packages/domain/src/quote-checks.ts",
+      "scripts/contract-review-probe.mjs",
+      "scripts/contract-review-probe.test.mjs",
+      "wiki-project/raw/b-contract-probe.json",
+      "\"wiki-project/wiki/B\\347\\273\\264\\346\\212\\244\\350\\257\\201\\346\\215\\256\\350\\265\\204\\346\\240\\274\\344\\270\\216\\350\\247\\204\\345\\210\\231\\346\\240\\267\\344\\276\\213.md\""
+    ],
+    "files": [
+      {
+        "role": "test",
+        "path": "packages/contracts/src/maintenance-evidence.test.ts",
+        "sha256": "3b01bd7c03e073da8bbabe923ae2d1c4489ec78795487a2f743bd6b46d14b9d1"
+      },
+      {
+        "role": "test",
+        "path": "packages/contracts/src/knowledge-maintenance.test.ts",
+        "sha256": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7"
+      },
+      {
+        "role": "test",
+        "path": "packages/domain/src/quote-checks.test.ts",
+        "sha256": "d94327cb7dd3fff4334cfa59455890f196e173438d672a9e7eaa29bff5f83bd9"
+      },
+      {
+        "role": "source",
+        "path": "packages/contracts/src/knowledge-maintenance.ts",
+        "sha256": "e4b8c09a6e5c40bdceca855dde45cb441e5ab1fea702c5766d240c73547d4530"
+      },
+      {
+        "role": "source",
+        "path": "packages/contracts/src/knowledge-wiki.ts",
+        "sha256": "7d9177f877175d18f9fa0df2135dae1d5cec9adf8316bdaa7bcd2c5426e5ff07"
+      },
+      {
+        "role": "source",
+        "path": "packages/contracts/src/knowledge.ts",
+        "sha256": "b443dbba9907b012d1d0f42ca3b961a88d8094c03d4571e685d9cd44cc73216e"
+      },
+      {
+        "role": "source",
+        "path": "packages/domain/src/quote-checks.ts",
+        "sha256": "9fe1c1070bd0747af432b61d4eace7e6f45d69ee7309bbffefa3b44fcbcf354d"
+      },
+      {
+        "role": "source",
+        "path": "packages/domain/src/quote-checks.samples.ts",
+        "sha256": "8e066af5e237fffa865c456b4913c8d9c683875a17cb8081cc09217ad59871a8"
+      }
+    ]
+  },
+  "runner": {
+    "node": "v22.22.2",
+    "platform": "win32",
+    "arch": "x64",
+    "command": "node node_modules/vitest/vitest.mjs run packages/contracts/src/maintenance-evidence.test.ts packages/contracts/src/knowledge-maintenance.test.ts packages/domain/src/quote-checks.test.ts --reporter=json --outputFile=D:\\code\\tradequote-agent\\.probe-report.json"
+  },
+  "targets": [
+    "packages/contracts/src/maintenance-evidence.test.ts",
+    "packages/contracts/src/knowledge-maintenance.test.ts",
+    "packages/domain/src/quote-checks.test.ts"
+  ],
+  "coverage": {
+    "permission": {
+      "required": [
+        "EVID-03",
+        "EVID-09"
+      ],
+      "missing": [],
+      "failed": []
+    },
+    "evidenceMismatch": {
+      "required": [
+        "EVID-04",
+        "EVID-05",
+        "EVID-07",
+        "EVID-08"
+      ],
+      "missing": [],
+      "failed": []
+    },
+    "idempotency": {
+      "required": [
+        "EVID-11"
+      ],
+      "missing": [],
+      "failed": []
+    },
+    "exchangeIntegrity": {
+      "required": [
+        "EVID-10",
+        "EVID-12"
+      ],
+      "missing": [],
+      "failed": []
+    },
+    "eligibilityMatrix": {
+      "required": [
+        "EVID-01",
+        "EVID-02",
+        "EVID-06"
+      ],
+      "missing": [],
+      "failed": []
+    },
+    "quoteSamples": {
+      "required": [
+        "QUOTE-01",
+        "QUOTE-02",
+        "QUOTE-03",
+        "QUOTE-04",
+        "QUOTE-05",
+        "QUOTE-06"
+      ],
+      "missing": [],
+      "failed": []
+    }
+  },
+  "cases": [
+    {
+      "caseId": null,
+      "title": "B00a P1 maintenance protocols only issues a passed P0 receipt for complete unblocked checks",
+      "file": "packages/contracts/src/knowledge-maintenance.test.ts",
+      "status": "passed",
+      "durationMs": 9.939899999999966,
+      "failure": null
+    },
+    {
+      "caseId": null,
+      "title": "B00a P1 maintenance protocols rejects duplicate/omitted checks, receipt mismatch and hidden blocking issues",
+      "file": "packages/contracts/src/knowledge-maintenance.test.ts",
+      "status": "passed",
+      "durationMs": 3.1625999999999976,
+      "failure": null
+    },
+    {
+      "caseId": null,
+      "title": "B00a P1 maintenance protocols requires issue-versioned human resolution evidence and preserves original detected facts",
+      "file": "packages/contracts/src/knowledge-maintenance.test.ts",
+      "status": "passed",
+      "durationMs": 4.591000000000008,
+      "failure": null
+    },
+    {
+      "caseId": null,
+      "title": "B00a P1 maintenance protocols never loops or rewinds maintenance pagination after live filtering removes all items",
+      "file": "packages/contracts/src/knowledge-maintenance.test.ts",
+      "status": "passed",
+      "durationMs": 4.124900000000025,
+      "failure": null
+    },
+    {
+      "caseId": null,
+      "title": "B00a P1 maintenance protocols distinguishes complete empty influence from unknown/partial/failed influence",
+      "file": "packages/contracts/src/knowledge-maintenance.test.ts",
+      "status": "passed",
+      "durationMs": 4.633500000000026,
+      "failure": null
+    },
+    {
+      "caseId": null,
+      "title": "B00a P1 maintenance protocols binds influence pages to one immutable report and excludes fabricated failure results",
+      "file": "packages/contracts/src/knowledge-maintenance.test.ts",
+      "status": "passed",
+      "durationMs": 5.129099999999994,
+      "failure": null
+    },
+    {
+      "caseId": null,
+      "title": "B00a P1 maintenance protocols cannot hide known first-page impact or package unknown consumers as complete",
+      "file": "packages/contracts/src/knowledge-maintenance.test.ts",
+      "status": "passed",
+      "durationMs": 3.284999999999968,
+      "failure": null
+    },
+    {
+      "caseId": null,
+      "title": "B00a P1 maintenance protocols makes missing/stale/failed projection explicit instead of reporting ready",
+      "file": "packages/contracts/src/knowledge-maintenance.test.ts",
+      "status": "passed",
+      "durationMs": 1.6408999999999878,
+      "failure": null
+    },
+    {
+      "caseId": null,
+      "title": "B00a P1 maintenance protocols fences index swaps by current job/generation/source snapshot without rewriting authority",
+      "file": "packages/contracts/src/knowledge-maintenance.test.ts",
+      "status": "passed",
+      "durationMs": 3.1099000000000387,
+      "failure": null
+    },
+    {
+      "caseId": null,
+      "title": "B00a P1 maintenance protocols keeps all maintenance capabilities unavailable to legacy transports and host authority out of requests",
+      "file": "packages/contracts/src/knowledge-maintenance.test.ts",
+      "status": "passed",
+      "durationMs": 21.584899999999948,
+      "failure": null
+    },
+    {
+      "caseId": "EVID-01",
+      "title": "B maintenance evidence qualification EVID-01 resolve accepts only a newer published revision of the same document",
+      "file": "packages/contracts/src/maintenance-evidence.test.ts",
+      "status": "passed",
+      "durationMs": 13.101200000000063,
+      "failure": null
+    },
+    {
+      "caseId": "EVID-02",
+      "title": "B maintenance evidence qualification EVID-02 resolve covers source revision, integrity reverify, index rebuild and duplicate merge",
+      "file": "packages/contracts/src/maintenance-evidence.test.ts",
+      "status": "passed",
+      "durationMs": 1,
+      "failure": null
+    },
+    {
+      "caseId": "EVID-03",
+      "title": "B maintenance evidence qualification EVID-03 rejects cross-workspace evidence and cross-workspace requests",
+      "file": "packages/contracts/src/maintenance-evidence.test.ts",
+      "status": "passed",
+      "durationMs": 1.475500000000011,
+      "failure": null
+    },
+    {
+      "caseId": "EVID-04",
+      "title": "B maintenance evidence qualification EVID-04 rejects evidence that predates the latest detection",
+      "file": "packages/contracts/src/maintenance-evidence.test.ts",
+      "status": "passed",
+      "durationMs": 0.568300000000022,
+      "failure": null
+    },
+    {
+      "caseId": "EVID-05",
+      "title": "B maintenance evidence qualification EVID-05 rejects republishing the same revision/content as a fix",
+      "file": "packages/contracts/src/maintenance-evidence.test.ts",
+      "status": "passed",
+      "durationMs": 0.23419999999998709,
+      "failure": null
+    },
+    {
+      "caseId": "EVID-06",
+      "title": "B maintenance evidence qualification EVID-06 rejects dismiss by fact and resolve by mere adjudication",
+      "file": "packages/contracts/src/maintenance-evidence.test.ts",
+      "status": "passed",
+      "durationMs": 0.3673999999999751,
+      "failure": null
+    },
+    {
+      "caseId": "EVID-07",
+      "title": "B maintenance evidence qualification EVID-07 rejects decisions bound to another issue version or to itself",
+      "file": "packages/contracts/src/maintenance-evidence.test.ts",
+      "status": "passed",
+      "durationMs": 0.3345999999999094,
+      "failure": null
+    },
+    {
+      "caseId": "EVID-08",
+      "title": "B maintenance evidence qualification EVID-08 rejects unknown validity and unborn sources as resolution",
+      "file": "packages/contracts/src/maintenance-evidence.test.ts",
+      "status": "passed",
+      "durationMs": 0.4115000000000464,
+      "failure": null
+    },
+    {
+      "caseId": "EVID-09",
+      "title": "B maintenance evidence qualification EVID-09 rejects non-human actors, stale issue versions, closed issues and duplicate evidence",
+      "file": "packages/contracts/src/maintenance-evidence.test.ts",
+      "status": "passed",
+      "durationMs": 0.8898999999998978,
+      "failure": null
+    },
+    {
+      "caseId": "EVID-10",
+      "title": "B maintenance evidence qualification EVID-10 rejects exchanges that rewrite identity, jump versions or mismatch the event",
+      "file": "packages/contracts/src/maintenance-evidence.test.ts",
+      "status": "passed",
+      "durationMs": 11.739299999999957,
+      "failure": null
+    },
+    {
+      "caseId": "EVID-11",
+      "title": "B maintenance evidence qualification EVID-11 binds idempotency to one payload and separates same-key replay from same-key new args",
+      "file": "packages/contracts/src/maintenance-evidence.test.ts",
+      "status": "passed",
+      "durationMs": 2.9447000000000116,
+      "failure": null
+    },
+    {
+      "caseId": "EVID-12",
+      "title": "B maintenance evidence qualification EVID-12 rejects fabricated evidence records and keeps the eligibility matrix total",
+      "file": "packages/contracts/src/maintenance-evidence.test.ts",
+      "status": "passed",
+      "durationMs": 6.982300000000009,
+      "failure": null
+    },
+    {
+      "caseId": "QUOTE-01",
+      "title": "B01 quote rule samples and double feedback QUOTE-01 keeps the sample set synthetic, fixed and explicitly versioned",
+      "file": "packages/domain/src/quote-checks.test.ts",
+      "status": "passed",
+      "durationMs": 3.28389999999996,
+      "failure": null
+    },
+    {
+      "caseId": "QUOTE-02",
+      "title": "B01 quote rule samples and double feedback QUOTE-02 reports a payment-ratio literal violation and the packaging conflict without picking a side",
+      "file": "packages/domain/src/quote-checks.test.ts",
+      "status": "passed",
+      "durationMs": 14.316100000000006,
+      "failure": null
+    },
+    {
+      "caseId": "QUOTE-03",
+      "title": "B01 quote rule samples and double feedback QUOTE-03 treats a clean quote as checked-and-clear only when rules actually applied",
+      "file": "packages/domain/src/quote-checks.test.ts",
+      "status": "passed",
+      "durationMs": 0.6983000000000175,
+      "failure": null
+    },
+    {
+      "caseId": "QUOTE-04",
+      "title": "B01 quote rule samples and double feedback QUOTE-04 never turns missing coverage into an all-clear report",
+      "file": "packages/domain/src/quote-checks.test.ts",
+      "status": "passed",
+      "durationMs": 1.0300000000000296,
+      "failure": null
+    },
+    {
+      "caseId": "QUOTE-05",
+      "title": "B01 quote rule samples and double feedback QUOTE-05 matches full-width, case and surrounding-space variants deterministically",
+      "file": "packages/domain/src/quote-checks.test.ts",
+      "status": "passed",
+      "durationMs": 2.7543000000000006,
+      "failure": null
+    },
+    {
+      "caseId": "QUOTE-06",
+      "title": "B01 quote rule samples and double feedback QUOTE-06 keeps V1 results immutable and gives V2 a new revision-bound report",
+      "file": "packages/domain/src/quote-checks.test.ts",
+      "status": "passed",
+      "durationMs": 2.775800000000004,
+      "failure": null
+    }
+  ],
+  "summary": {
+    "total": 28,
+    "passed": 28,
+    "failed": 0,
+    "missingCaseIds": [],
+    "ok": true
+  },
+  "exitCode": 0
+}

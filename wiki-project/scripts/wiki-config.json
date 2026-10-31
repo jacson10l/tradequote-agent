@@ -1089,15 +1089,59 @@
       ]
     },
     "packages/contracts/src/knowledge-maintenance.ts": {
-      "role": "P1 lint, deduplicated maintenance, influence analysis and fenced index reconstruction contracts",
+      "role": "P1 maintenance, evidence eligibility, versioned resolution, replay and fenced index contracts",
       "pages": [
+        "wiki/B00a知识整理与维护协议.md",
+        "wiki/B维护证据资格与规则样例.md"
+      ]
+    },
+    "packages/contracts/src/maintenance-evidence.test.ts": {
+      "role": "B维护证据资格正反例：工作区/版本/时点/目标绑定、不可裁决事实与同键异参拒绝",
+      "pages": [
+        "wiki/B维护证据资格与规则样例.md",
         "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
+    "packages/domain/src/quote-checks.ts": {
+      "role": "B01确定性规则判定、缺覆盖pending与同键异参规则冲突阻断",
+      "pages": [
+        "wiki/B维护证据资格与规则样例.md",
+        "wiki/tasks/B01-规则检查与双反馈.md"
+      ]
+    },
+    "packages/domain/src/quote-checks.samples.ts": {
+      "role": "B01合成规则样例固定版本与合成来源标记",
+      "pages": [
+        "wiki/B维护证据资格与规则样例.md",
+        "wiki/tasks/B01-规则检查与双反馈.md"
+      ]
+    },
+    "packages/domain/src/quote-checks.test.ts": {
+      "role": "B01付款比例/包装冲突/未知覆盖与双反馈同源回归",
+      "pages": [
+        "wiki/B维护证据资格与规则样例.md",
+        "wiki/tasks/B01-规则检查与双反馈.md"
+      ]
+    },
+    "scripts/contract-review-probe.mjs": {
+      "role": "B可复跑复核探针、声明式覆盖轴与源码SHA/hash证据",
+      "pages": [
+        "wiki/B维护证据资格与规则样例.md",
+        "wiki/测试与验证地图.md"
+      ]
+    },
+    "scripts/contract-review-probe.test.mjs": {
+      "role": "探针声明覆盖与合成本样版本回归",
+      "pages": [
+        "wiki/B维护证据资格与规则样例.md",
+        "wiki/测试与验证地图.md"
       ]
     },
     "packages/contracts/src/knowledge-maintenance.test.ts": {
       "role": "P1 unknown/failure reports, human resolution, paging and stale projection negative tests",
       "pages": [
-        "wiki/B00a知识整理与维护协议.md"
+        "wiki/B00a知识整理与维护协议.md",
+        "wiki/B维护证据资格与规则样例.md"
       ]
     }
   }

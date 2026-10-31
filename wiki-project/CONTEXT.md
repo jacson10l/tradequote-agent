@@ -1,5 +1,7 @@
 # 当前上下文
 
+- 2026-10-31：B证据资格与规则样例增量在 codex/b00a-p1-knowledge-build-maintenance 追加（不新开分支、不进PR#7）。[[B维护证据资格与规则样例]]记录：6类事实证据与10种问题的可由矩阵、`evaluateMaintenanceResolution` 首错拒绝（跨工作区/早于最近发现/重发同版本/误报裁决解决/有效期未覆盖）、before-after交换对象与同键异参幂等；EVID-01～12 正反例。B01纯规则切片 `packages/domain/src/quote-checks.ts` 与合成样例 b01-quote-checks-samples-v1 覆盖付款比例字面、同ruleId两种已发布定义的冲突、未知覆盖pending与V1/V2分离，QUOTE-01～06。复核探针 `scripts/contract-review-probe.mjs` 固定commit+逐文件hash+声明式覆盖，证据 raw/b-contract-probe.json（28/28，Windows本机）；Electron/e2e与build因本机未构建better-sqlite3未运行，A/C评审与接线仍待。
+
 - 2026-10-22：[[B00a-P1知识整理与维护契约]] 在独立codex/b00a-p1-knowledge-build-maintenance分支推进，taskBase=ae1af9d3ab2d560847be6df6bdc6346bb6f27f58（P0头）；新PR暂以P0为比较基线，P0合入后改向共同分支。[[B00a知识整理与维护协议]]新增独立知识运行、局部提案/候选事务、lint/问题/影响/索引与15方法不可用门禁，无执行器/维护引擎。P0 PR#7不增加P1提交，A01c仍待P0 A评审及合入；P1最终111单元/5Electron/6工程/36Wiki与双基线通过，C三个P2已修复并独立复核28项通过；[PR#8](https://github.com/jacson10l/tradequote-agent/pull/8)已独立推送并请求A/ssyyy31评审；当前base=P0仅供增量评审，不得直接合入P0，待#7合入后改向共同分支。A评审/合入与接线另验收。
 
 - 2026-10-22：B00a P0 独立分支 codex/b00a-knowledge-wiki-contracts，taskBase=56c909e21aefa484b6805bf9afc7c94b0e1d4576；[[B00a知识Wiki公共协议]] 已记录版本/来源/审核/检索引用/消费事务协议及 A01b 旧兼容差异。专用宿主上下文和 12 方法不可用门禁；C 范围技术复核通过（含空页游标 P2 修复，20项独立测试），A PR #6 接收清单，[PR#7](https://github.com/jacson10l/tradequote-agent/pull/7) 已推送并向 A/ssyyy31 请求评审，A 评审与合入仍待，A01c 未解锁。P1 知识运行/维护另交；真实验证以 [[B00a-业务Wiki契约补充]] 为准。

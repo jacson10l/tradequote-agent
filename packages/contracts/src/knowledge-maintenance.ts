@@ -1,11 +1,14 @@
 import { z } from "zod";
+import type { ErrorCodeSchema } from "./errors";
 import { SourceHashSchema } from "./knowledge";
 import {
   WikiConsumptionInputSchema,
   type WikiHostContext,
+  WikiHostContextSchema,
   WikiLintReceiptSchema,
   WikiReviewBindingSchema,
   WikiSourceStateSchema,
+  WikiValiditySchema,
 } from "./knowledge-wiki";
 import { PublicErrorSchema, readEnvelope, resultSchema, writeEnvelope } from "./protocol";
 
@@ -518,8 +521,489 @@ export const KnowledgeIndexCommitExchangeSchema = z
     "旧重建票据/生成代不能覆盖当前索引或权威历史",
   );
 
+/**
+ * B evidence qualification. Closing or dismissing a maintenance issue is a factual claim: the host
+ * must resolve every evidenceId to a stored event that (a) belongs to the same workspace, (b) is
+ * about the issue's own target/version, (c) happened after the last detection and before the
+ * resolution, and (d) is decisive for that exact issue kind. Candidates, model proposals, quotes and
+ * approvals are never evidence: they change nothing about the knowledge/source fact.
+ */
+export const MaintenanceEvidenceKindSchema = z.enum([
+  "knowledge.revision_published",
+  "source.revised",
+  "source.validity_confirmed",
+  "source.integrity_reverified",
+  "index.rebuilt",
+  "issue.review_decision",
+]);
+export const MaintenanceAdjudicationOutcomeSchema = z.enum([
+  "duplicate_of",
+  "superseded",
+  "false_positive",
+  "not_applicable",
+]);
+export const MaintenanceEvidenceSchema = z
+  .discriminatedUnion("kind", [
+    z.strictObject({
+      kind: z.literal("knowledge.revision_published"),
+      workspaceId: z.uuid(),
+      evidenceId: z.uuid(),
+      occurredAt: z.iso.datetime(),
+      actorId: z.string().trim().min(1).max(200),
+      revision: z.strictObject({
+        documentId: z.uuid(),
+        revisionId: z.uuid(),
+        version,
+        contentHash: SourceHashSchema,
+        sourceSetHash: SourceHashSchema,
+        publishedAt: z.iso.datetime(),
+      }),
+    }),
+    z.strictObject({
+      kind: z.literal("source.revised"),
+      workspaceId: z.uuid(),
+      evidenceId: z.uuid(),
+      occurredAt: z.iso.datetime(),
+      actorId: z.string().trim().min(1).max(200),
+      source: z.strictObject({
+        sourceId: z.uuid(),
+        sourceRevisionId: z.uuid(),
+        previousSourceRevisionId: z.uuid(),
+        artifactHash: SourceHashSchema,
+        validity: WikiValiditySchema,
+      }),
+    }),
+    z.strictObject({
+      kind: z.literal("source.validity_confirmed"),
+      workspaceId: z.uuid(),
+      evidenceId: z.uuid(),
+      occurredAt: z.iso.datetime(),
+      actorId: z.string().trim().min(1).max(200),
+      confirmation: z.strictObject({
+        sourceId: z.uuid(),
+        sourceRevisionId: z.uuid(),
+        validity: WikiValiditySchema,
+      }),
+    }),
+    z.strictObject({
+      kind: z.literal("source.integrity_reverified"),
+      workspaceId: z.uuid(),
+      evidenceId: z.uuid(),
+      occurredAt: z.iso.datetime(),
+      actorId: z.string().trim().min(1).max(200),
+      verification: z.strictObject({
+        sourceRevisionId: z.uuid(),
+        artifactHash: SourceHashSchema,
+        matchesRecordedHash: z.literal(true),
+      }),
+    }),
+    z.strictObject({
+      kind: z.literal("index.rebuilt"),
+      workspaceId: z.uuid(),
+      evidenceId: z.uuid(),
+      occurredAt: z.iso.datetime(),
+      actorId: z.string().trim().min(1).max(200),
+      index: z.strictObject({
+        index: KnowledgeIndexStatusSchema.shape.index,
+        generation: version,
+        indexedSeq: z.number().int().nonnegative(),
+        authoritativeSeq: z.number().int().nonnegative(),
+      }),
+    }),
+    z.strictObject({
+      kind: z.literal("issue.review_decision"),
+      workspaceId: z.uuid(),
+      evidenceId: z.uuid(),
+      occurredAt: z.iso.datetime(),
+      actorId: z.string().trim().min(1).max(200),
+      decision: z.strictObject({
+        issueId: z.uuid(),
+        issueVersion: version,
+        outcome: MaintenanceAdjudicationOutcomeSchema,
+        canonicalIssueId: z.uuid().nullable(),
+        rationale: note,
+      }),
+    }),
+  ])
+  .superRefine((value, context) => {
+    const fail = (message: string) => context.addIssue({ code: "custom", message });
+    if (
+      value.kind === "knowledge.revision_published" &&
+      Date.parse(value.revision.publishedAt) > Date.parse(value.occurredAt)
+    )
+      fail("发布事件不能早于版本发布时间");
+    if (
+      value.kind === "source.validity_confirmed" &&
+      value.confirmation.validity.status !== "confirmed"
+    )
+      fail("有效性未知/冲突不能作为确认证据");
+    if (
+      value.kind === "index.rebuilt" &&
+      (value.index.indexedSeq !== value.index.authoritativeSeq || value.index.generation < 1)
+    )
+      fail("重建证据必须已追平权威快照");
+    if (
+      value.kind === "issue.review_decision" &&
+      (value.decision.outcome === "duplicate_of") !== (value.decision.canonicalIssueId !== null)
+    )
+      fail("仅重复裁决需指向规范问题");
+  });
+export const MaintenanceResolutionActionSchema = z.enum(["start_review", "resolve", "dismiss"]);
+type ResolutionAction = z.infer<typeof MaintenanceResolutionActionSchema>;
+type EvidenceKind = z.infer<typeof MaintenanceEvidenceKindSchema>;
+type IssueKind = z.infer<typeof MaintenanceIssueKindSchema>;
+/** Decidable eligibility matrix: which stored fact may prove this issue kind fixed (resolve) or moot (dismiss). */
+export const maintenanceResolutionEligibility: Record<
+  IssueKind,
+  { readonly resolve: readonly EvidenceKind[]; readonly dismiss: readonly EvidenceKind[] }
+> = {
+  source_updated: {
+    resolve: ["knowledge.revision_published", "source.revised"],
+    dismiss: ["issue.review_decision"],
+  },
+  source_withdrawn: {
+    resolve: ["knowledge.revision_published"],
+    dismiss: ["issue.review_decision"],
+  },
+  expired: {
+    resolve: ["knowledge.revision_published", "source.revised", "source.validity_confirmed"],
+    dismiss: ["issue.review_decision"],
+  },
+  unknown_validity: {
+    resolve: ["source.validity_confirmed", "source.revised", "knowledge.revision_published"],
+    dismiss: ["issue.review_decision"],
+  },
+  conflict: { resolve: ["knowledge.revision_published"], dismiss: ["issue.review_decision"] },
+  broken_reference: {
+    resolve: ["knowledge.revision_published"],
+    dismiss: ["issue.review_decision"],
+  },
+  hash_mismatch: {
+    resolve: ["source.integrity_reverified", "source.revised", "knowledge.revision_published"],
+    dismiss: ["issue.review_decision"],
+  },
+  orphan: { resolve: ["knowledge.revision_published"], dismiss: ["issue.review_decision"] },
+  duplicate: { resolve: ["issue.review_decision"], dismiss: ["issue.review_decision"] },
+  index_stale: { resolve: ["index.rebuilt"], dismiss: ["issue.review_decision"] },
+};
+export const MaintenanceRejectionReasonSchema = z.enum([
+  "actor_not_human",
+  "workspace_mismatch",
+  "issue_version_stale",
+  "issue_already_closed",
+  "evidence_workspace_mismatch",
+  "evidence_predates_detection",
+  "evidence_after_resolution",
+  "evidence_kind_not_eligible",
+  "evidence_target_mismatch",
+  "evidence_snapshot_mismatch",
+  "evidence_not_decisive",
+  "evidence_void",
+]);
+export type MaintenanceResolutionVerdict =
+  | { ok: true; action: ResolutionAction; evidenceIds: string[] }
+  | {
+      ok: false;
+      code: z.infer<typeof ErrorCodeSchema>;
+      reason: z.infer<typeof MaintenanceRejectionReasonSchema>;
+      message: string;
+    };
+function reject(
+  code: z.infer<typeof ErrorCodeSchema>,
+  reason: z.infer<typeof MaintenanceRejectionReasonSchema>,
+  message: string,
+): MaintenanceResolutionVerdict {
+  return { ok: false, code, reason, message };
+}
+function validityCovers(validity: z.infer<typeof WikiValiditySchema>, at: string): boolean {
+  return (
+    validity.status === "confirmed" &&
+    (validity.validFrom === null || Date.parse(validity.validFrom) <= Date.parse(at)) &&
+    (validity.validUntil === null || Date.parse(at) < Date.parse(validity.validUntil))
+  );
+}
+export interface MaintenanceResolutionIntent {
+  workspaceId: string;
+  actorId: string;
+  origin: WikiHostContext["origin"];
+  action: ResolutionAction;
+  issue: MaintenanceIssue;
+  expectedIssueVersion: number;
+  resolvedAt: string;
+  evidence: readonly MaintenanceEvidence[];
+}
+export const MaintenanceResolutionIntentSchema = z.strictObject({
+  workspaceId: z.uuid(),
+  actorId: z.string().trim().min(1).max(200),
+  origin: WikiHostContextSchema.shape.origin,
+  action: MaintenanceResolutionActionSchema,
+  issue: MaintenanceIssueSchema,
+  expectedIssueVersion: version,
+  resolvedAt: z.iso.datetime(),
+  evidence: z.array(MaintenanceEvidenceSchema).min(1).max(100),
+});
+function bindingFailure(
+  intent: MaintenanceResolutionIntent,
+  evidence: MaintenanceEvidence,
+): MaintenanceResolutionVerdict | null {
+  const { issue, action, resolvedAt } = intent;
+  const target = issue.target;
+  const mismatch = (message: string) =>
+    reject("REVISION_CONFLICT", "evidence_target_mismatch", message);
+  switch (evidence.kind) {
+    case "knowledge.revision_published": {
+      if (target.kind !== "knowledge") return mismatch("知识发布证据只适用于知识目标问题");
+      const { revision } = evidence;
+      if (revision.documentId !== target.documentId) return mismatch("发布证据须为同一知识文档");
+      if (revision.revisionId === target.revisionId || revision.contentHash === target.contentHash)
+        return reject(
+          "VALIDATION_ERROR",
+          "evidence_not_decisive",
+          "重新发布同一版本不能证明问题已解决",
+        );
+      return null;
+    }
+    case "source.revised": {
+      if (target.kind !== "source") return mismatch("来源更新证据只适用于来源目标问题");
+      const { source } = evidence;
+      if (
+        source.sourceId !== target.sourceId ||
+        source.previousSourceRevisionId !== target.sourceRevisionId ||
+        source.sourceRevisionId === target.sourceRevisionId ||
+        source.artifactHash === target.artifactHash
+      )
+        return mismatch("来源更新证据须替换问题固定来源版本");
+      if (
+        (issue.kind === "expired" || issue.kind === "unknown_validity") &&
+        !validityCovers(source.validity, resolvedAt)
+      )
+        return reject("SOURCE_CONFLICT", "evidence_void", "新来源有效性仍未确认或未覆盖处理时点");
+      return null;
+    }
+    case "source.validity_confirmed": {
+      if (target.kind !== "source") return mismatch("有效性确认证据只适用于来源目标问题");
+      const { confirmation } = evidence;
+      if (
+        confirmation.sourceId !== target.sourceId ||
+        confirmation.sourceRevisionId !== target.sourceRevisionId
+      )
+        return mismatch("有效性确认须针对问题固定来源版本");
+      if (!validityCovers(confirmation.validity, resolvedAt))
+        return reject("SOURCE_CONFLICT", "evidence_void", "确认的有效期未覆盖处理时点");
+      return null;
+    }
+    case "source.integrity_reverified": {
+      if (target.kind !== "source") return mismatch("完整性复核证据只适用于来源目标问题");
+      const { verification } = evidence;
+      if (
+        verification.sourceRevisionId !== target.sourceRevisionId ||
+        verification.artifactHash !== target.artifactHash
+      )
+        return mismatch("完整性复核须针对问题固定来源版本与记录hash");
+      return null;
+    }
+    case "index.rebuilt": {
+      if (issue.kind !== "index_stale") return mismatch("重建证据只适用于索引滞后问题");
+      return null;
+    }
+    case "issue.review_decision": {
+      const { decision } = evidence;
+      if (decision.issueId !== issue.issueId || decision.issueVersion !== issue.issueVersion)
+        return reject(
+          "REVISION_CONFLICT",
+          "evidence_snapshot_mismatch",
+          "裁决须绑定当前问题版本，旧裁决不能关闭再次发现的问题",
+        );
+      const outcomes =
+        action === "resolve"
+          ? ["duplicate_of", "superseded"]
+          : ["false_positive", "not_applicable"];
+      if (!outcomes.includes(decision.outcome))
+        return reject(
+          "VALIDATION_ERROR",
+          "evidence_not_decisive",
+          action === "resolve"
+            ? "仅重复/被取代的裁决可解决处理项"
+            : "仅误报/不适用于的裁决可驳回处理项",
+        );
+      if (decision.outcome === "duplicate_of" && decision.canonicalIssueId === issue.issueId)
+        return reject("VALIDATION_ERROR", "evidence_not_decisive", "重复裁决不能指向自身");
+      return null;
+    }
+  }
+}
+/** Deterministic first-failure verdict. The host calls this inside the write transaction. */
+export function evaluateMaintenanceResolution(
+  intent: MaintenanceResolutionIntent,
+): MaintenanceResolutionVerdict {
+  const { issue, action, evidence } = intent;
+  if (intent.origin !== "human_ui")
+    return reject("ACTION_NOT_ALLOWED", "actor_not_human", "维护处理只允许人工入口");
+  if (intent.workspaceId !== issue.workspaceId)
+    return reject("ACTION_NOT_ALLOWED", "workspace_mismatch", "不得跨工作区处理维护问题");
+  if (intent.expectedIssueVersion !== issue.issueVersion)
+    return reject("REVISION_CONFLICT", "issue_version_stale", "问题版本已变化，请重新读取");
+  if (issue.state !== "open" && issue.state !== "in_progress")
+    return reject("REVISION_CONFLICT", "issue_already_closed", "问题已关闭，不能重复处理");
+  if (action === "start_review") {
+    // Review never closes anything, but a foreign workspace record is still unreadable here.
+    if (evidence.some((item) => item.workspaceId !== issue.workspaceId))
+      return reject(
+        "ACTION_NOT_ALLOWED",
+        "evidence_workspace_mismatch",
+        "处理证据必须属于同一工作区",
+      );
+    return { ok: true, action, evidenceIds: evidence.map((item) => item.evidenceId) };
+  }
+  if (!unique(evidence, (item) => item.evidenceId))
+    return reject("VALIDATION_ERROR", "evidence_not_decisive", "处理证据不能重复");
+  for (const item of evidence) {
+    if (item.workspaceId !== issue.workspaceId)
+      return reject(
+        "ACTION_NOT_ALLOWED",
+        "evidence_workspace_mismatch",
+        "处理证据必须属于同一工作区",
+      );
+    if (Date.parse(item.occurredAt) > Date.parse(intent.resolvedAt))
+      return reject("VALIDATION_ERROR", "evidence_after_resolution", "证据不能晚于处理时点");
+    if (Date.parse(item.occurredAt) <= Date.parse(issue.lastDetectedAt))
+      return reject(
+        "REVISION_CONFLICT",
+        "evidence_predates_detection",
+        "证据须晚于最近一次发现，旧事实不能关闭当前问题",
+      );
+  }
+  for (const item of evidence) {
+    if (!maintenanceResolutionEligibility[issue.kind][action].includes(item.kind))
+      return reject(
+        "VALIDATION_ERROR",
+        "evidence_kind_not_eligible",
+        `${issue.kind} 的 ${action} 不接受 ${item.kind} 作为依据`,
+      );
+  }
+  for (const item of evidence) {
+    const failure = bindingFailure(intent, item);
+    if (failure) return failure;
+  }
+  return { ok: true, action, evidenceIds: evidence.map((item) => item.evidenceId) };
+}
+export const MaintenanceResolutionExchangeSchema = z
+  .strictObject({
+    intent: MaintenanceResolutionIntentSchema,
+    after: MaintenanceIssueSchema,
+    event: KnowledgeMaintenanceLifecycleEventSchema,
+  })
+  .superRefine((value, context) => {
+    const fail = (message: string) => context.addIssue({ code: "custom", message });
+    const { intent, after: next, event } = value;
+    const before = intent.issue;
+    if (!evaluateMaintenanceResolution(intent).ok) fail("处理依据不满足证据资格");
+    if (
+      next.issueId !== before.issueId ||
+      next.workspaceId !== before.workspaceId ||
+      next.dedupKey !== before.dedupKey ||
+      next.kind !== before.kind ||
+      next.firstDetectedAt !== before.firstDetectedAt ||
+      JSON.stringify(next.target) !== JSON.stringify(before.target) ||
+      JSON.stringify(next.evidenceIds) !== JSON.stringify(before.evidenceIds) ||
+      next.issueVersion !== before.issueVersion + 1 ||
+      Date.parse(next.lastDetectedAt) < Date.parse(before.lastDetectedAt)
+    )
+      fail("处理不得改写问题身份/目标/首末发现时点或跳过版本");
+    if (intent.action === "start_review") {
+      if (
+        next.state !== "in_progress" ||
+        next.resolution !== null ||
+        event.type !== "maintenance.in_progress"
+      )
+        fail("开始复核只能转为处理中，不能留下解决事实");
+    } else {
+      const expected = intent.action === "resolve" ? "resolved" : "dismissed";
+      if (next.state !== expected || next.resolution === null)
+        fail("解决/驳回必须留下对应处理事实");
+      else if (
+        next.resolution.action !== intent.action ||
+        next.resolution.actorId !== intent.actorId ||
+        next.resolution.resolvedAt !== intent.resolvedAt ||
+        !unique(intent.evidence, (item) => item.evidenceId) ||
+        JSON.stringify([...next.resolution.evidenceIds].sort()) !==
+          JSON.stringify(intent.evidence.map((item) => item.evidenceId).sort())
+      )
+        fail("处理事实须与本次请求的证据/处理人/时点一致");
+      if (
+        event.type !==
+        (intent.action === "resolve" ? "maintenance.resolved" : "maintenance.dismissed")
+      )
+        fail("生命周期事件类型必须与处理动作一致");
+    }
+    if (
+      event.workspaceId !== before.workspaceId ||
+      event.entityId !== before.issueId ||
+      event.entityVersion !== next.issueVersion ||
+      event.actorId !== intent.actorId ||
+      event.occurredAt !== intent.resolvedAt ||
+      JSON.stringify([...event.evidenceIds].sort()) !==
+        JSON.stringify(intent.evidence.map((item) => item.evidenceId).sort())
+    )
+      fail("生命周期事件须绑定同一问题版本、处理人、时点和证据");
+  });
+/** Canonical idempotency payload: method/workspace/actor/origin/issue version/action/note/evidence set, no requestId or host clock. */
+export function maintenanceResolutionPayload(input: {
+  workspaceId: string;
+  actorId: string;
+  origin: WikiHostContext["origin"];
+  issueId: string;
+  expectedIssueVersion: number;
+  action: ResolutionAction;
+  note: string;
+  evidenceIds: readonly string[];
+}): string {
+  return JSON.stringify({
+    workspaceId: input.workspaceId,
+    method: "wiki.resolveMaintenance",
+    actorId: input.actorId,
+    origin: input.origin,
+    issueId: input.issueId,
+    expectedIssueVersion: input.expectedIssueVersion,
+    action: input.action,
+    note: input.note,
+    evidenceIds: [...new Set(input.evidenceIds)].sort(),
+  });
+}
+export const MaintenanceResolutionReplaySchema = z
+  .strictObject({
+    request: z.strictObject({
+      idempotencyKey: z.uuid(),
+      workspaceId: z.uuid(),
+      payload: z.string().min(2).max(20000),
+    }),
+    stored: z
+      .strictObject({
+        idempotencyKey: z.uuid(),
+        workspaceId: z.uuid(),
+        payload: z.string().min(2).max(20000),
+      })
+      .nullable(),
+    outcome: z.enum(["new", "replay", "idempotency_conflict"]),
+  })
+  .refine(
+    (v) =>
+      v.stored === null
+        ? v.outcome === "new"
+        : v.stored.idempotencyKey === v.request.idempotencyKey &&
+          v.stored.workspaceId === v.request.workspaceId &&
+          v.outcome ===
+            (v.stored.payload === v.request.payload ? "replay" : "idempotency_conflict"),
+    "同键同参只回放原结果，同键异参必须 IDEMPOTENCY_CONFLICT",
+  );
+
 export type KnowledgeLintIssue = z.infer<typeof KnowledgeLintIssueSchema>;
 export type MaintenanceTarget = z.infer<typeof MaintenanceTargetSchema>;
+export type MaintenanceEvidence = z.infer<typeof MaintenanceEvidenceSchema>;
+export type MaintenanceEvidenceKind = z.infer<typeof MaintenanceEvidenceKindSchema>;
+export type MaintenanceAdjudicationOutcome = z.infer<typeof MaintenanceAdjudicationOutcomeSchema>;
+export type MaintenanceRejectionReason = z.infer<typeof MaintenanceRejectionReasonSchema>;
+export type MaintenanceResolutionAction = z.infer<typeof MaintenanceResolutionActionSchema>;
 export type MaintenanceQuery = z.infer<typeof MaintenanceQuerySchema>;
 export type MaintenancePage = z.infer<typeof MaintenancePageSchema>;
 export type KnowledgeImpactSubject = z.infer<typeof KnowledgeImpactSubjectSchema>;

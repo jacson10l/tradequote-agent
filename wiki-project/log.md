@@ -316,3 +316,13 @@ C对P1首轮实现复核发现3个P2（fail转换、未知消费者完整性、�
 B00a P1稳定源码最终通过：111单元、含build的5真实Electron、6工程/边界/check、36Wiki回归、typecheck、generate与ae1af9d/56c909e双基线sync均退出0；证据raw/b00a-p1-validation.json含源码/config hash。C独立重放关闭3个P2并复跑28项，raw/b00a-p1-c-review.json；原发现保留。77份历史raw逐字节和log精确前缀保留，PR#7分支头仍ae1af9d。A远程评审/新PR合入待完成，任务active，无运行/维护引擎交付声明。
 
 B00a P1远端交接：[PR #8](https://github.com/jacson10l/tradequote-agent/pull/8)，代码87f05e3c2240c26f9f1884043d83df56f7ad7918已推送独立分支并请求A/ssyyy31评审。当前base=P0分支仅用于隔离增量；不得直接合入P0，待PR#7合入后改向codex/m1-foundation并复核真实基线。P0远端头仍ae1af9d，未混入P1；交付事实raw/b00a-p1-delivery.json。C范围技术通过，A评审/依赖合入及正式接线仍待，任务active。
+
+## 2026-10-31 B证据资格、规则样例与复核探针
+
+本轮按用户分配的三项B交付推进，全部在既有 codex/b00a-p1-knowledge-build-maintenance 分支追加，新开小PR增量、不向PR#7增加提交。证据资格：knowledge-maintenance 增加 MaintenanceEvidenceSchema（6类已发生事实）、maintenanceResolutionEligibility（10种问题×resolve/dismiss可由矩阵）、evaluateMaintenanceResolution（权限→工作区→版本→时点→kind→目标绑定首错）、MaintenanceResolutionExchangeSchema（before/after+事件+版本+1+不可改写字段）、maintenanceResolutionPayload 与 Replay（同键同参回放/同键异参冲突）。正反例 EVID-01～12 与矩阵表见 [[B维护证据资格与规则样例]]，同步 [[B00a知识整理与维护协议]]。
+
+报价规则：新增 packages/domain/src/quote-checks.ts 纯判定（NFKC/大小写/空白归一，required 与 forbidden_literal，空范围维度视为未限定）与固定合成样例 b01-quote-checks-samples-v1；同 ruleId 两种已发布定义输出 block 冲突并引用两版本而不择一，缺匹配规则输出两类 pending，checkId 稳定且风险标记/批注同源。QUOTE-01～06 覆盖付款比例字面（100%/30%/全角）、包装条款冲突、未知覆盖与 V1/V2 分离。未做数值门槛与材质字段校验，未伪装通过；下游 quote.check 编排、存储、面板与 A01 查询未实现。
+
+探针：scripts/contract-review-probe.mjs 固定运行证据资格/既有P1维护契约/报价样例三套件，记录 commit、分支、dirty、逐文件 SHA-256、Node/平台、完整命令、逐case结果与声明式覆盖轴；scripts/contract-review-probe.test.mjs 仅跑 --list 守门并加入 pnpm check（根 package.json 一行，需 C 复核）。
+
+本机验证（Windows 10 22H2、Node 22.22.2、pnpm 10.13.1）：typecheck 0；vitest packages/contracts+packages/domain 13文件/89项 0；探针 28/28 退出0，证据 raw/b-contract-probe.json（含 commit 19d60a8、逐文件 hash）；biome 改动文件 0。pnpm install 因本机缺 VS C++ 未构建 better-sqlite3，Electron ABI 的 pnpm test/test:e2e/build 与 macOS 验收均未运行，不写成通过。A 的写入事务/证据查表与 C 的接线仍待。

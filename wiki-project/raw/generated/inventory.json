@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "d90e66182653ee45eee734a093ce541fe71abf96571a233ee83368d0eb4e3a7f",
+    "wiki-config.json": "1f733a64a2e9083e451f2ba85395211f5ac0c1cbbf13234d2b83b30388ff5afd",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -1079,8 +1079,8 @@
       "path": "package.json",
       "type": "json",
       "lines": 46,
-      "bytes": 2056,
-      "sha256": "681da811b57a6fd125b406705da03da07bc204886587137fd9a6030cfbd7b8a1",
+      "bytes": 2095,
+      "sha256": "1610123dbbec831575088b89882d38893dd1e670a384df66a1a3ad2ee683d41c",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md"
@@ -1217,18 +1217,20 @@
       "sha256": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
       "role": "P1 unknown/failure reports, human resolution, paging and stale projection negative tests",
       "pages": [
-        "wiki/B00a知识整理与维护协议.md"
+        "wiki/B00a知识整理与维护协议.md",
+        "wiki/B维护证据资格与规则样例.md"
       ]
     },
     {
       "path": "packages/contracts/src/knowledge-maintenance.ts",
       "type": "ts",
-      "lines": 531,
-      "bytes": 20236,
-      "sha256": "c6cc2135ef04df9479d362360c0b58c6c7ca8540d31fbeaf360bf716e90f8e60",
-      "role": "P1 lint, deduplicated maintenance, influence analysis and fenced index reconstruction contracts",
+      "lines": 1015,
+      "bytes": 39853,
+      "sha256": "e4b8c09a6e5c40bdceca855dde45cb441e5ab1fea702c5766d240c73547d4530",
+      "role": "P1 maintenance, evidence eligibility, versioned resolution, replay and fenced index contracts",
       "pages": [
-        "wiki/B00a知识整理与维护协议.md"
+        "wiki/B00a知识整理与维护协议.md",
+        "wiki/B维护证据资格与规则样例.md"
       ]
     },
     {
@@ -1267,12 +1269,24 @@
     {
       "path": "packages/contracts/src/knowledge.ts",
       "type": "ts",
-      "lines": 177,
-      "bytes": 6842,
-      "sha256": "be970620289068a323502ad19e6cc25c753273d951c7e590b2d07097254ff169",
+      "lines": 178,
+      "bytes": 6933,
+      "sha256": "b443dbba9907b012d1d0f42ca3b961a88d8094c03d4571e685d9cd44cc73216e",
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
         "wiki/首批并行接口约定.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/maintenance-evidence.test.ts",
+      "type": "ts",
+      "lines": 476,
+      "bytes": 17015,
+      "sha256": "3b01bd7c03e073da8bbabe923ae2d1c4489ec78795487a2f743bd6b46d14b9d1",
+      "role": "B维护证据资格正反例：工作区/版本/时点/目标绑定、不可裁决事实与同键异参拒绝",
+      "pages": [
+        "wiki/B维护证据资格与规则样例.md",
+        "wiki/B00a知识整理与维护协议.md"
       ]
     },
     {
@@ -1425,12 +1439,48 @@
     {
       "path": "packages/domain/src/index.ts",
       "type": "ts",
-      "lines": 65,
-      "bytes": 2315,
-      "sha256": "818a9237921282e9c03e3343d53f926ed5ef2b7c5c8cbe376788ea646ea1c2f8",
+      "lines": 66,
+      "bytes": 2396,
+      "sha256": "cb15c4f295865651dd2370976e61d371c47575d8cdf47df2f871013b08b591ee",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md"
+      ]
+    },
+    {
+      "path": "packages/domain/src/quote-checks.samples.ts",
+      "type": "ts",
+      "lines": 254,
+      "bytes": 8265,
+      "sha256": "8e066af5e237fffa865c456b4913c8d9c683875a17cb8081cc09217ad59871a8",
+      "role": "B01合成规则样例固定版本与合成来源标记",
+      "pages": [
+        "wiki/B维护证据资格与规则样例.md",
+        "wiki/tasks/B01-规则检查与双反馈.md"
+      ]
+    },
+    {
+      "path": "packages/domain/src/quote-checks.test.ts",
+      "type": "ts",
+      "lines": 157,
+      "bytes": 7028,
+      "sha256": "d94327cb7dd3fff4334cfa59455890f196e173438d672a9e7eaa29bff5f83bd9",
+      "role": "B01付款比例/包装冲突/未知覆盖与双反馈同源回归",
+      "pages": [
+        "wiki/B维护证据资格与规则样例.md",
+        "wiki/tasks/B01-规则检查与双反馈.md"
+      ]
+    },
+    {
+      "path": "packages/domain/src/quote-checks.ts",
+      "type": "ts",
+      "lines": 170,
+      "bytes": 6689,
+      "sha256": "9fe1c1070bd0747af432b61d4eace7e6f45d69ee7309bbffefa3b44fcbcf354d",
+      "role": "B01确定性规则判定、缺覆盖pending与同键异参规则冲突阻断",
+      "pages": [
+        "wiki/B维护证据资格与规则样例.md",
+        "wiki/tasks/B01-规则检查与双反馈.md"
       ]
     },
     {
@@ -1716,6 +1766,30 @@
       "role": "M1 icon drift and untrusted shared-contract regression checks",
       "pages": [
         "wiki/M1验证与协作.md"
+      ]
+    },
+    {
+      "path": "scripts/contract-review-probe.mjs",
+      "type": "mjs",
+      "lines": 187,
+      "bytes": 6697,
+      "sha256": "6e872ea8ca696d6ea47db731af84ce2a0ce668f7e3cdc3b88115924db3eb00af",
+      "role": "B可复跑复核探针、声明式覆盖轴与源码SHA/hash证据",
+      "pages": [
+        "wiki/B维护证据资格与规则样例.md",
+        "wiki/测试与验证地图.md"
+      ]
+    },
+    {
+      "path": "scripts/contract-review-probe.test.mjs",
+      "type": "mjs",
+      "lines": 43,
+      "bytes": 1862,
+      "sha256": "d6129e43fa328465bdcf272a140a01f846b0cd0c0e4e9c6967016bb264ac736f",
+      "role": "探针声明覆盖与合成本样版本回归",
+      "pages": [
+        "wiki/B维护证据资格与规则样例.md",
+        "wiki/测试与验证地图.md"
       ]
     },
     {
