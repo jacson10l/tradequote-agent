@@ -1587,3 +1587,8 @@ C 完成 ABC 合并推送后，B 以非作者身份核对集成分支并补 revi
 两个缺口：① reviseQuote 原无单元测试，本复核已补；② quote-delivery.ts 的 renderReply 用 quote.payment || "to be confirmed" 仅对空字符串降级，非空未确认措辞会直接作为条款输出且无 Pending items 列表，与 renderSummary 及前端 customer-reply-format.ts 不一致，记录为 C 后续修复项，B 不修改 C 生产逻辑。
 
 本机 Windows 缺 VS C++ 未编译 better-sqlite3，pnpm build、Electron 集成、test:e2e、完整门禁未运行，以 C 的 macOS 结果为准。详见 [[B对ABC集成非作者复核]]、[[B07契约集成非作者复核]]。
+
+
+## 2026-11-01 C 客户回复 pending 边界修正
+
+B07 已按 `0f837e35e0592050917a0c0f4914ca43f2fe9b64` 接收并合入集成分支。C 修正 `quote-delivery.ts` 的 `renderReply`：付款/交期对应 pending 时输出 `to be confirmed`，不泄露内部占位词；新增 `quote-delivery.test.ts` 覆盖未确认词屏蔽与已确认条款保留。完整 macOS 门禁在本修复后复跑，Windows/签名包/正式审批仍后置。

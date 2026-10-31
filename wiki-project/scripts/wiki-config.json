@@ -1372,6 +1372,13 @@
         "wiki/C07业务资料与路演收口.md"
       ]
     },
+    "packages/domain/src/quote-delivery.test.ts": {
+      "role": "审批后客户回复 pending 边界回归测试",
+      "pages": [
+        "wiki/M2真实报价V1.md",
+        "wiki/C07业务资料与路演收口.md"
+      ]
+    },
     "apps/desktop/src/renderer/src/features/quote-checks.tsx": {
       "role": "B01 read-only report UI, shared risks and field annotations, version isolation",
       "pages": [

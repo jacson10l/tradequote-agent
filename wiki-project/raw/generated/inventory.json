@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "b3d0957c0240b68d7a1e5c2e0311458c8c08b6322b84330d80ea4c7acad2c195",
-    "wiki-config.json": "56b523a1a6350dbb6450e3f86dec1b4f2ce2c173d443198c64967e1774725ed2",
+    "wiki-config.json": "63c8a6c5527880b1cc9207657a7ffb92003d88e4bdf0e936dc8af56b72f8b9cf",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -2096,11 +2096,23 @@
       ]
     },
     {
+      "path": "packages/domain/src/quote-delivery.test.ts",
+      "type": "ts",
+      "lines": 61,
+      "bytes": 2118,
+      "sha256": "a4c8af01af7ac74999bad1e08417c32ab0f854a4400bac4922ce8cc876607c3c",
+      "role": "审批后客户回复 pending 边界回归测试",
+      "pages": [
+        "wiki/M2真实报价V1.md",
+        "wiki/C07业务资料与路演收口.md"
+      ]
+    },
+    {
       "path": "packages/domain/src/quote-delivery.ts",
       "type": "ts",
-      "lines": 148,
-      "bytes": 5217,
-      "sha256": "f05efc22b93b25c6762edc05ef4bb1230cbbd4a28c30727feb31ae29afa7c87c",
+      "lines": 153,
+      "bytes": 5634,
+      "sha256": "c80b6830e6bb0730053351209f75306f6c680d135534f43d3ab20ed8d7115d6e",
       "role": "人工审批后的确定性报价摘要与客户回复渲染",
       "pages": [
         "wiki/M2真实报价V1.md",

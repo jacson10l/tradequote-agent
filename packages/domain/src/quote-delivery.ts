@@ -65,6 +65,10 @@ function renderReply(quote: QuoteSnapshot, locale: string): { subject: string; b
   const copy = copyFor(locale);
   const total =
     quote.goodsTotal === null ? "—" : `${quote.goodsTotal} ${currencyLabel(quote.currency)}`;
+  const paymentPending = quote.pending.some((item) => item.startsWith("付款条款待确认"));
+  const deliveryPending = quote.pending.some((item) => item.startsWith("交期与交货条件待确认"));
+  const payment = paymentPending || !quote.payment ? "to be confirmed" : quote.payment;
+  const delivery = deliveryPending || !quote.delivery ? "to be confirmed" : quote.delivery;
   const body = [
     copy.intro,
     ``,
@@ -78,8 +82,9 @@ function renderReply(quote: QuoteSnapshot, locale: string): { subject: string; b
       .join("\n"),
     ``,
     `Goods total: ${total}.`,
-    `Payment terms: ${quote.payment || "to be confirmed"}.`,
-    `Delivery: ${quote.delivery || "to be confirmed"}.`,
+    `Payment terms: ${payment}.`,
+    `Delivery: ${delivery}.`,
+    ...(quote.pending.length ? ["", "Some details still require confirmation."] : []),
     ``,
     `This quotation is provided as a draft for your confirmation; the goods total excludes freight, tax and other charges, which remain to be verified.`,
     copy.disclaimer,
