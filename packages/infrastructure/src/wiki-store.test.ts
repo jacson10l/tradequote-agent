@@ -1416,6 +1416,18 @@ it("A01e-2b: getMaintenance 首页冻结候选集/事实，续页不受并发推
   expect(first.nextCursor).not.toBeNull();
   const firstIssueId = first.issues[0]!.issueId;
 
+  expect(
+    await repo.executeWikiMaintenance(
+      read("wiki.getMaintenance", {
+        kinds: [],
+        states: ["resolved"],
+        limit: 1,
+        cursor: first.nextCursor,
+      }),
+      host(workspaceId),
+    ),
+  ).toMatchObject({ ok: false, error: { code: "REVISION_CONFLICT" } });
+
   // 用独立的新查询发现第二页对应的问题 id（不消耗原快照游标）。
   const all = maintenancePageOf(
     await repo.executeWikiMaintenance(

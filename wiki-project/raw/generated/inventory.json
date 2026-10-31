@@ -2580,9 +2580,9 @@
     {
       "path": "packages/infrastructure/src/wiki-store.test.ts",
       "type": "ts",
-      "lines": 1725,
-      "bytes": 58833,
-      "sha256": "fc0cc382b9b7d9498870dd088dafd6b5673be50f0a28b7aba9493dc5529cd168",
+      "lines": 1737,
+      "bytes": 59134,
+      "sha256": "a634af3626469aa5427a2a7106aa09fdf7c747c2163ec0fa6a08ce4483ec179c",
       "role": "A01c检索引用回归：不回退、分页、引用闭环与消费事务",
       "pages": [
         "wiki/A01c检索引用实现.md",
@@ -2593,9 +2593,9 @@
     {
       "path": "packages/infrastructure/src/wiki-store.ts",
       "type": "ts",
-      "lines": 2471,
-      "bytes": 101709,
-      "sha256": "8ee7314a206cc405ef28c9ac7892b79733109b82633c1516d60f826fc5e9c9ac",
+      "lines": 2482,
+      "bytes": 102179,
+      "sha256": "6c2952075ec937c37619b695857b2a456220ff6aae341c2f0c78ef8b8cc9ebc8",
       "role": "A01c检索引用SQLite存储：检索/引用/消费与候选暂存",
       "pages": [
         "wiki/A01c检索引用实现.md",

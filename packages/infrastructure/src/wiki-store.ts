@@ -1525,13 +1525,21 @@ export class SqliteWikiStore {
   }
 
   /** M06：读回维护页冻结快照；全部事实通过 schema 校验才视为有效，否则视为过期。 */
-  private readMaintenanceSnapshot(snapshotId: string): MaintenanceIssue[] | null {
+  private readMaintenanceSnapshot(
+    snapshotId: string,
+  ): { workspaceId: string; queryHash: string; issues: MaintenanceIssue[] } | null {
     const row = this.db
-      .prepare("SELECT issues_json FROM knowledge_maintenance_snapshot WHERE snapshot_id=?")
-      .get(snapshotId) as { issues_json: string } | undefined;
+      .prepare(
+        "SELECT workspace_id, query_hash, issues_json FROM knowledge_maintenance_snapshot WHERE snapshot_id=?",
+      )
+      .get(snapshotId) as
+      | { workspace_id: string; query_hash: string; issues_json: string }
+      | undefined;
     if (!row) return null;
     const issues = JSON.parse(row.issues_json) as MaintenanceIssue[];
-    return issues.every((i) => MaintenanceIssueSchema.safeParse(i).success) ? issues : null;
+    return issues.every((i) => MaintenanceIssueSchema.safeParse(i).success)
+      ? { workspaceId: row.workspace_id, queryHash: row.query_hash, issues }
+      : null;
   }
 
   /** 已发布头部：每个 document 取最新 published 版本（去重），按 document_id 升序。 */
@@ -1877,7 +1885,7 @@ export class SqliteWikiStore {
     const states = [...query.states].sort();
     const queryHash = hash(JSON.stringify({ kinds, states }));
     if (query.cursor !== null && query.cursor.queryHash !== queryHash)
-      return failure("SOURCE_CONFLICT", "续页游标与当前查询不一致");
+      return failure("REVISION_CONFLICT", "续页游标与当前查询不一致");
 
     let frozen: MaintenanceIssue[] | null;
     let snapshotId: string;
@@ -1902,8 +1910,11 @@ export class SqliteWikiStore {
         .run(snapshotId, workspaceId, queryHash, context.now, JSON.stringify(frozen));
     } else {
       snapshotId = query.cursor.snapshotId;
-      frozen = this.readMaintenanceSnapshot(snapshotId);
-      if (frozen === null) return failure("SOURCE_CONFLICT", "维护页快照不存在或已过期");
+      const snapshot = this.readMaintenanceSnapshot(snapshotId);
+      if (snapshot === null) return failure("REVISION_CONFLICT", "维护页快照不存在或已过期");
+      if (snapshot.workspaceId !== workspaceId || snapshot.queryHash !== queryHash)
+        return failure("REVISION_CONFLICT", "维护页快照与当前工作区或查询条件不一致");
+      frozen = snapshot.issues;
     }
 
     const afterIssueId = query.cursor?.afterIssueId ?? "";
