@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "549bd6c983688e23a88c3030c989c913e0bcd3a147f113cdaa3e66d5eeeff3f9",
+    "wiki-config.json": "d90e66182653ee45eee734a093ce541fe71abf96571a233ee83368d0eb4e3a7f",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -209,14 +209,15 @@
     {
       "path": "apps/desktop/src/preload/contracts.test.ts",
       "type": "ts",
-      "lines": 148,
-      "bytes": 5822,
-      "sha256": "7fa753e7bc0fd54be0b55551059139ca5e6c85360bd4bb429af2f7a003340ba3",
+      "lines": 192,
+      "bytes": 7901,
+      "sha256": "7a743ce917a2901894cf5828b0dcddf2c600d8f667e379c4ba361b1404017cb9",
       "role": "B00 preload and mock capability gate without new IPC",
       "pages": [
         "wiki/首批并行接口约定.md",
         "wiki/M1工程基线.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md"
       ]
     },
     {
@@ -1176,13 +1177,58 @@
     {
       "path": "packages/contracts/src/index.ts",
       "type": "ts",
-      "lines": 136,
-      "bytes": 4632,
-      "sha256": "ab37ce2308e66ac1222eba46a5e9e96289515b59294d3e7a6ab6f9d7b6a97e79",
+      "lines": 142,
+      "bytes": 4904,
+      "sha256": "b3e3fc53cf3c33389500fd69cd9b2d01b19f0359f2e72d5d2798f3871e721091",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/knowledge-build.test.ts",
+      "type": "ts",
+      "lines": 461,
+      "bytes": 16071,
+      "sha256": "583bd5d55df85ec6161c7fb271e89c27862f192ace3f8b0cb19ce003e16bd14f",
+      "role": "P1 proposal authority, run receipt, retry fencing and stable pagination negative tests",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/knowledge-build.ts",
+      "type": "ts",
+      "lines": 584,
+      "bytes": 22838,
+      "sha256": "41c644866d1c337cd35584bbf784210715d864438bf3c00ea40ba729ae580916",
+      "role": "P1 frozen knowledge proposals, separate runs and host candidate transaction contracts",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/knowledge-maintenance.test.ts",
+      "type": "ts",
+      "lines": 433,
+      "bytes": 13762,
+      "sha256": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+      "role": "P1 unknown/failure reports, human resolution, paging and stale projection negative tests",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/knowledge-maintenance.ts",
+      "type": "ts",
+      "lines": 531,
+      "bytes": 20236,
+      "sha256": "c6cc2135ef04df9479d362360c0b58c6c7ca8540d31fbeaf360bf716e90f8e60",
+      "role": "P1 lint, deduplicated maintenance, influence analysis and fenced index reconstruction contracts",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md"
       ]
     },
     {
@@ -1232,25 +1278,27 @@
     {
       "path": "packages/contracts/src/mock.ts",
       "type": "ts",
-      "lines": 285,
-      "bytes": 9640,
-      "sha256": "2192a814cc876f40ebe96c15b13630c64b32a17d0df7955da5254a2800c7fa5a",
+      "lines": 403,
+      "bytes": 13953,
+      "sha256": "b9ec4d8f7bc222b1388fd24943d4585c0ba205eaf3cacae0777597b2dd20b35e",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md"
       ]
     },
     {
       "path": "packages/contracts/src/pending-client.ts",
       "type": "ts",
-      "lines": 33,
-      "bytes": 1889,
-      "sha256": "77191cf315e337b05d59add688f0185976949f7fcf6eb02ded65a1372eda94b0",
+      "lines": 45,
+      "bytes": 2343,
+      "sha256": "b963bfb0ea79ee590ef3fb58e836d494d3b3207b32b998459d5da08a7cf84284",
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
         "wiki/首批并行接口约定.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md"
       ]
     },
     {
@@ -1776,13 +1824,14 @@
     {
       "path": "tests/e2e/workspace.spec.ts",
       "type": "ts",
-      "lines": 311,
-      "bytes": 13133,
-      "sha256": "38d3c2c1b435e818964d83351ee052867b11c013afa293783419662f349398c0",
+      "lines": 337,
+      "bytes": 14180,
+      "sha256": "67278fd050f1494e44052ecf681f7f4bf399bbffe05fffa0afd5b0f7d3ff6819",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md"
       ]
     },
     {

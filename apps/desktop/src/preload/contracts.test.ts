@@ -146,3 +146,47 @@ describe("B00a strict Wiki capability gate", () => {
     expect(electron.invoke).not.toHaveBeenCalled();
   });
 });
+
+describe("B00a P1 build/maintenance capability gates", () => {
+  it("rejects every new method locally, including malformed and cross-family calls", async () => {
+    vi.resetModules();
+    vi.clearAllMocks();
+    const { mockKnowledgeBuildCommands, mockKnowledgeMaintenanceCommands } = await import(
+      "@tradequote/contracts/mock"
+    );
+    await import("./index");
+    const desktop: DesktopClient = electron.exposeInMainWorld.mock.calls[0]?.[1];
+    for (const client of [readonlyMockClient, desktop]) {
+      for (const command of mockKnowledgeBuildCommands) {
+        expect(await client.executeKnowledgeBuild(command)).toMatchObject({
+          ok: false,
+          error: { code: "CAPABILITY_UNAVAILABLE", retryable: false },
+        });
+        expect(
+          await client.executeKnowledgeBuild(Object.assign({}, command, { payload: {} })),
+        ).toMatchObject({ ok: false, error: { code: "VALIDATION_ERROR", retryable: false } });
+        expect(
+          await client.executeKnowledgeBuild(
+            Object.assign({}, command, { workspaceId: mockAgentRun.runId }),
+          ),
+        ).toMatchObject({ ok: false, error: { code: "VALIDATION_ERROR" } });
+        expect(
+          await client.executeKnowledgeBuild(Object.assign({}, command, { method: "wiki.lint" })),
+        ).toMatchObject({ ok: false, error: { code: "VALIDATION_ERROR" } });
+      }
+      for (const command of mockKnowledgeMaintenanceCommands) {
+        expect(await client.executeWikiMaintenance(command)).toMatchObject({
+          ok: false,
+          error: { code: "CAPABILITY_UNAVAILABLE", retryable: false },
+        });
+        expect(
+          await client.executeWikiMaintenance(Object.assign({}, command, { payload: {} })),
+        ).toMatchObject({ ok: false, error: { code: "VALIDATION_ERROR" } });
+        expect(
+          await client.executeWikiMaintenance(Object.assign({}, command, { origin: "human_ui" })),
+        ).toMatchObject({ ok: false, error: { code: "VALIDATION_ERROR" } });
+      }
+    }
+    expect(electron.invoke).not.toHaveBeenCalled();
+  });
+});

@@ -5,12 +5,16 @@ export * from "./agent";
 import { z } from "zod";
 import type { CheckClient } from "./checks";
 import type { KnowledgeClient } from "./knowledge";
+import type { KnowledgeBuildClient } from "./knowledge-build";
+import type { KnowledgeMaintenanceClient } from "./knowledge-maintenance";
 import type { WikiClient } from "./knowledge-wiki";
 import { IssueSchema } from "./protocol";
 import type { RunClient } from "./runs";
 
 export * from "./checks";
 export * from "./knowledge";
+export * from "./knowledge-build";
+export * from "./knowledge-maintenance";
 export * from "./knowledge-wiki";
 export { unavailableFirstBatchClient } from "./pending-client";
 export { FailureSchema, IssueSchema, PublicErrorSchema } from "./protocol";
@@ -89,6 +93,8 @@ export interface DesktopClient
     AgentClient,
     KnowledgeClient,
     WikiClient,
+    KnowledgeBuildClient,
+    KnowledgeMaintenanceClient,
     CheckClient,
     RunClient {
   getWorkspace(): Promise<WorkspaceResult>;

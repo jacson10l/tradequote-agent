@@ -122,3 +122,8 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 ## B00a P0 覆盖增量
 
 新增 contracts/knowledge-wiki.ts、wiki-integrity.ts 和 knowledge-wiki.test.ts，逐文件登记版本/来源/审核/检索/引用/消费协议及完整性反向回归；公共 index/mock/pending-client 和 preload 门禁测试追加同一实际知识页映射。没有新增业务存储/IPC，也没有改变维护算法。导航新增 [[B00a知识Wiki公共协议]]，任务 [[B00a-业务Wiki契约补充]] 更新实际 taskBase、A/C 对齐与本机证据；映射变更仍运行 Wiki 工具回归、生成、只读 check/lint 和固定基线 sync。
+
+
+## B00a P1 覆盖与独立基线
+
+新增knowledge-build/knowledge-maintenance两份schema与两组测试逐文件映射到 [[B00a知识整理与维护协议]]；index/mock/pending-client、preload/Electron桥接回归追加相同职责页，维护算法不变。任务 [[B00a-P1知识整理与维护契约]] 使用真实ae1af9d基线，并另以共同56c909e复验；不在PR#7混入P1提交。作者生成清单、运行只读check/lint/sync和映射回归，保留P0既有raw与追加日志，不能借旧P0通过记录代替新协议证据。

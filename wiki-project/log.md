@@ -306,3 +306,13 @@ B00a P0 最终 macOS 本机验证：pnpm typecheck、85 项单元、含 build �
 C 范围技术复核完成：空页游标 P2 独立确认修复，相关2文件/20项测试退出0，其余客户端/IPC和宿主接线范围无阻断，记录 raw/b00a-c-review.json；不代替 A 来源/存储/发布/检索评审或 T00 人类签字。A 评审及合入仍待，任务保持 active。
 
 B00a P0 远端交接：代码提交 26421ab5bf93f74b20d5888f0e1ff3b48b9bfc36 已正常推送独立分支，[PR #7](https://github.com/jacson10l/tradequote-agent/pull/7) 目标 codex/m1-foundation，已请求 A/ssyyy31 评审；API 核对 OPEN、尚无 review、未合入，证据 raw/b00a-delivery.json。本次仅追加交付事实，已测源码/config hash 不变；A01c 未解锁，合入后通知仍待。
+
+## 2026-10-22 B00a P1 独立契约
+
+用户授权B在A评审P0期间独立推进AI整理运行与维护。分支codex/b00a-p1-knowledge-build-maintenance，taskBase ae1af9d3ab2d560847be6df6bdc6346bb6f27f58，PR比较基线暂P0、最终目标共同分支。新增知识提案/独立运行/候选事务、lint/维护/影响/索引协议及反向测试；公开出口、mock、不可用客户端和真实桥接名单同步，15方法不发IPC。知识/任务为 [[B00a知识整理与维护协议]]、[[B00a-P1知识整理与维护契约]]，同步ADR/状态/CONTEXT/覆盖导航。typecheck及初轮107项、补反例后109项单元实际通过；最终稳定源码验证另记录。P0 PR#7不变，业务执行器/维护引擎和A/C实际评审未完成。
+
+C对P1首轮实现复核发现3个P2（fail转换、未知消费者完整性、首终页隐藏影响），证据raw/b00a-p1-review-findings.json；已补queued/running→failed且终态保护、unknown必须partial、首终页总数一致性反例，并明确索引indexedSeq切换不得倒退。修正后重新验证并请C复核，不用此前109项通过代替修正后的证据。
+
+B00a P1稳定源码最终通过：111单元、含build的5真实Electron、6工程/边界/check、36Wiki回归、typecheck、generate与ae1af9d/56c909e双基线sync均退出0；证据raw/b00a-p1-validation.json含源码/config hash。C独立重放关闭3个P2并复跑28项，raw/b00a-p1-c-review.json；原发现保留。77份历史raw逐字节和log精确前缀保留，PR#7分支头仍ae1af9d。A远程评审/新PR合入待完成，任务active，无运行/维护引擎交付声明。
+
+B00a P1远端交接：[PR #8](https://github.com/jacson10l/tradequote-agent/pull/8)，代码87f05e3c2240c26f9f1884043d83df56f7ad7918已推送独立分支并请求A/ssyyy31评审。当前base=P0分支仅用于隔离增量；不得直接合入P0，待PR#7合入后改向codex/m1-foundation并复核真实基线。P0远端头仍ae1af9d，未混入P1；交付事实raw/b00a-p1-delivery.json。C范围技术通过，A评审/依赖合入及正式接线仍待，任务active。

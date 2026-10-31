@@ -595,14 +595,16 @@
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md"
       ]
     },
     "packages/contracts/src/mock.ts": {
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md"
       ]
     },
     "packages/domain/package.json": {
@@ -693,7 +695,8 @@
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md"
       ]
     },
     "tsconfig.json": {
@@ -987,7 +990,8 @@
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
         "wiki/首批并行接口约定.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md"
       ]
     },
     "packages/contracts/src/knowledge.test.ts": {
@@ -1013,7 +1017,8 @@
       "pages": [
         "wiki/首批并行接口约定.md",
         "wiki/M1工程基线.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md"
       ]
     },
     "packages/domain/src/agent-run.ts": {
@@ -1069,6 +1074,30 @@
       "role": "B00a P0 authority, provenance, historical-read, validity and pagination negative regressions",
       "pages": [
         "wiki/B00a知识Wiki公共协议.md"
+      ]
+    },
+    "packages/contracts/src/knowledge-build.ts": {
+      "role": "P1 frozen knowledge proposals, separate runs and host candidate transaction contracts",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
+    "packages/contracts/src/knowledge-build.test.ts": {
+      "role": "P1 proposal authority, run receipt, retry fencing and stable pagination negative tests",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
+    "packages/contracts/src/knowledge-maintenance.ts": {
+      "role": "P1 lint, deduplicated maintenance, influence analysis and fenced index reconstruction contracts",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
+    "packages/contracts/src/knowledge-maintenance.test.ts": {
+      "role": "P1 unknown/failure reports, human resolution, paging and stale projection negative tests",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md"
       ]
     }
   }
