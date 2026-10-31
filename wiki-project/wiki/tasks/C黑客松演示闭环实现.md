@@ -43,3 +43,9 @@ C补齐可见客户回复草稿并在真实Electron验证两轮修订、规则�
 ## 上台准备增量
 
 2026-10-31在2c04383技术候选上补[[C黑客松上台讲稿与现场检查]]：约4分钟逐段讲解、3分钟压缩方案与现场故障切换。同步纠正整体封板任务仍写技术彩排未执行的旧状态；不把预存版本或录屏讲成现场模型请求。真人计时、投影共享、A/B复核接收与最终集成尚待，任务继续active。文档只读检查及固定基线sync记录见raw/c-presentation-prep.json。
+
+## 实际用户开发启动阻断
+
+base=83014be，独立codex/c-dev-origin-fix。用户实际运行主目录654fecc旧共同分支，缺最新接线；另复现最新C开发地址不带/时IPC误拒绝。规范化rendererUrl并扩展真实Electron开发回归，详见[[C开发启动地址规范化修复]]。实际验证见raw/c-dev-origin-fix.json。未改动主目录、未合入、未清库；用户旧实例需退出后从修复版本启动。
+
+开发入口修复本机结果：typecheck/build/工程退出0，Electron12/12通过，Wiki索引/lint/sync通过；失败红灯与成功记录均保留于raw/c-dev-origin-fix.json。

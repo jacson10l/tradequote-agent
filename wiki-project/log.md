@@ -1165,3 +1165,7 @@ C整场彩排实际结果：fixture与deepseek命令均退出0，各7检查点�
 C最终稳定性：真实DeepSeek五轮连续通过，每轮7检查点/3次业务操作，各用全新隔离业务库；无自动重试，合计15次操作，token/费用未知。fixture一轮通过；冻结演示库启动回读3版本/V3=18605.00 CNY，MP4解码退出0。最终typecheck/build、Electron11/11、工程6/6、Wiki36/36、索引/lint/sync均通过；原失败记录保留。维护、审批和外发保持关闭，人工业务/语言及非作者复核仍待。
 
 2026-10-31 C文档收口，base=2c04383：新增上台讲稿/压缩路线/现场检查，更新整体封板任务旧状态及C任务、CONTEXT和导航。五轮真实模型技术结果不变；真人计时、投影、A/B复核及人员确认尚待。未改产品代码，实际文档检查见raw/c-presentation-prep.json。
+
+2026-10-31 C实际开发启动修复，base=83014be，codex/c-dev-origin-fix。用户主目录为654fecc；隔离Electron配置http根URL无/返回ACTION_NOT_ALLOWED，带/成功。先新增双地址回归，红灯1失败/1通过；Main规范化rendererUrl后重跑。来源身份与精确页面限制保留；生产代码、回归、知识/任务/状态/日志同批，实际命令证据raw/c-dev-origin-fix.json。未改主目录或删除真实数据。
+
+C开发地址修复最终：typecheck/build退出0，Electron12/12（含两种HTTP根地址）通过；pnpm check、索引/lint、83014be基线sync与diff检查通过。保留来源校验，不自动合入共同分支或关闭用户旧实例。

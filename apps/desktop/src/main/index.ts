@@ -86,9 +86,12 @@ else {
         join(app.getPath("userData"), "workspaces", "default", "workspace.sqlite"),
         fixture,
       );
-      const rendererUrl =
+      // Chromium canonicalizes HTTP root URLs (including the trailing slash).
+      // Compare against that same serialization while retaining exact-page checks.
+      const rendererUrl = new URL(
         (!app.isPackaged && process.env.ELECTRON_RENDERER_URL) ||
-        pathToFileURL(join(__dirname, "../renderer/index.html")).href;
+          pathToFileURL(join(__dirname, "../renderer/index.html")).href,
+      ).href;
       const icon = nativeImage.createFromPath(join(__dirname, "../../resources/icon.png"));
       if (icon.isEmpty()) throw new Error("APPLICATION_ICON_MISSING");
       app.dock?.setIcon(icon);

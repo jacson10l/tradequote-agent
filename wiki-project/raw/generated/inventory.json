@@ -214,9 +214,9 @@
     {
       "path": "apps/desktop/src/main/index.ts",
       "type": "ts",
-      "lines": 338,
-      "bytes": 13665,
-      "sha256": "b53a2df4b8752e76cc32bdf8dd00ebeb5bb7f0d2e8912580c24f7c9fa291f785",
+      "lines": 341,
+      "bytes": 13853,
+      "sha256": "9e6e38842c8ae37c7b2cc7761504b520cc99924deebb2b4599e3ec2695262396",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md",
@@ -2975,9 +2975,9 @@
     {
       "path": "tests/e2e/workspace.spec.ts",
       "type": "ts",
-      "lines": 337,
-      "bytes": 14147,
-      "sha256": "77f76c122d3571b52322d809629371a8e4029c85cbc3088b669ac2ae1d13fdb1",
+      "lines": 350,
+      "bytes": 14904,
+      "sha256": "413c0b58f2cf97bd14ade492281f2dce7dd1613198741dd934ad04bae9c5190e",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md",
