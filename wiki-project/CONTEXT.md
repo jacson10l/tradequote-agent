@@ -214,3 +214,5 @@ B新组合作者验证已在完整代码提交ceec0ee4e329d891aad1855a4241425676
 - 2026-10-22：[[B00a-P1知识整理与维护契约]] 在独立codex/b00a-p1-knowledge-build-maintenance分支推进，taskBase=ae1af9d3ab2d560847be6df6bdc6346bb6f27f58（P0头）；新PR暂以P0为比较基线，P0合入后改向共同分支。[[B00a知识整理与维护协议]]新增独立知识运行、局部提案/候选事务、lint/问题/影响/索引与15方法不可用门禁，无执行器/维护引擎。P0 PR#7不增加P1提交，A01c仍待P0 A评审及合入；P1最终111单元/5Electron/6工程/36Wiki与双基线通过，C三个P2已修复并独立复核28项通过；[PR#8](https://github.com/jacson10l/tradequote-agent/pull/8)已独立推送并请求A/ssyyy31评审；当前base=P0仅供增量评审，不得直接合入P0，待#7合入后改向共同分支。A评审/合入与接线另验收。
 
 2026-10-24 后续已获授权提交/普通推送B复核材料；当前作者取已登录GitHub连接器账户。原始验证证据保持，新共享/回读证据见raw/b-c-third-feedback-delivery.json与[[B对Ca633c428复核与公共契约确认]]，不改变M13阻断或active/WIP。
+
+- 2026-10-31：B 维护证据资格政策（codex/b-maintenance-evidence-increment，政策 56f702f/交付锚点 cdf3342）已定；A 在 codex/a01-maintenance-evidence（固定 SHA 0acbf86）按「权威读取/工作区+目标版本绑定/事务内资格核验」三点实现并接入 resolveMaintenance，见 [[B维护证据资格与规则样例]]。typecheck 0、EVID 12/12、wiki-store 28/28。缺口：validity_confirmed/integrity_reverified/review_decision 三类证据无持久化事实暂不可产；source_withdrawn 实际只能 dismiss 需 B 确认矩阵语义。

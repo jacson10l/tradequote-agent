@@ -1150,3 +1150,15 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 - 2026-10-31 交接文档：新增 [[A01e快照绑定与事件证据交接]]，逐项判定 C 两项待修项——第一项快照绑定校验 A 已修复（2a61261 + A01e-2c 反例回归，fdd571a 已推送）；第二项事件证据解析与资格核验归属 B 契约/资格政策（C 报告明确「执行资格政策仍由 B 明确」），A 待 B 明确后实现事件持久化表 + readEvidenceFact 事件分支 + evidenceBindsTarget 事件绑定。
 - 2026-10-31 A01f 演示资料包冻结：明天上台，A 判断真实报价核心已能跑但「报价之后交给客户什么」未闭环，把精力从维护边界复核转到可见业务闭环。新增 [[A01f演示资料包冻结]]，冻结内置合成样本（DEMO-TEE/DEMO-PANEL/DEMO-BOLT，来源可指认）、两条流程彩排路径；明确英德/RFQ/邮件产出闭环缺口与 B（两规则案例+最小英德草稿）、C（可启动版本整场彩排）诉求；300 行混合币种 CSV 不作主演示，维护 13 项失败断言继续修但入口保持关闭。
 - 2026-10-31 A01f 演示资料包冻结（更正）：用户指出已上传 CSV——实际演示数据包在 `codex/demo-data-catalog` 分支的 `wiki-project/demo_data/`。A 拉回完整数据包（主样本 `catalog_demo.csv` 4 SKU/14 行、备用 `catalog_converted.csv` 300 行、`demo_check_rules.csv` 19 规则、`demo_inquiry_samples.csv` 10 询盘、商品/阶梯价/供应商配套），重写 [[A01f演示资料包冻结]] 指向真实数据源，新增 [[A01f演示彩排脚本]]，登记 `demo_data/MANIFEST.md` 归档来源与 provenance sha256。此前用内置 DEMO-TEE 样本的记录作废。
+
+
+## 2026-10-31 B 维护证据资格政策 → A 实现（codex/a01-maintenance-evidence）
+
+- B 在 codex/b-maintenance-evidence-increment（政策契约 56f702f，交付锚点 cdf3342）定死维护 resolve/dismiss 的事件证据资格：MaintenanceEvidenceSchema 六类已发生事实、maintenanceResolutionEligibility 逐类矩阵、evaluateMaintenanceResolution 首错判定、交换/回放 schema。A 按「权威读取 / 工作区+目标版本绑定 / 事务内资格核验」三点实现并接入 resolveMaintenance，见 [[B维护证据资格与规则样例]]。
+- 合约合入：把 B 的 475 行增量（六类证据模型 + 矩阵 + 裁决器 + 交换/回放）手工追加进 knowledge-maintenance.ts（B 分支基线 19d60a8 与 A01e 已分叉，直接 cherry-pick 冲突），并纳入 maintenance-evidence.test.ts（EVID-01~12）。
+- 存储产出：readMaintenanceEvidence 取代原 readEvidenceFact/evidenceBindsTarget，产出三类可立即产出的证据——knowledge.revision_published（取 lifecycle 发布事件）、source.revised（取带前驱来源行）、index.rebuilt（取 completed 重建）；lint/消费/影响报告/生命周期事件返回 null（非证据）。
+- 接线：resolveMaintenance 构造 MaintenanceResolutionIntent，事务内调用 evaluateMaintenanceResolution，首错即 failure(code,reason) 整体回滚；start_review 证据为参考性，未解析事实跳过。
+- 回归：wiki-store.test.ts A01e-2 重写为按 B 政策用 source.revised（v2 替换 v1）resolve source_updated，并断言旧宽松的「来源版本自身」证据被 NOT_FOUND 拒绝。
+- 验证：pnpm typecheck 0；vitest maintenance-evidence.test.ts 12/12；vitest wiki-store.test.ts 28/28。固定 SHA 0acbf86。
+- 已知缺口：source.validity_confirmed / source.integrity_reverified / issue.review_decision 三类证据无持久化事实暂不可产；source_withdrawn 仅能 knowledge.revision_published resolve 但该证据绑定要求 knowledge 目标，来源目标问题实际只能走 dismiss，需 B 确认矩阵语义。
+- 注：本机 Windows 沙箱无法建 symlink，storage.test.ts/worker-migration-gates.test.ts 两处 symlink 反例在 pnpm test 全量下报 EPERM，与本次改动无关；quote-delivery.ts 属 A 无关的在制改动，code-index 覆盖未登记。
