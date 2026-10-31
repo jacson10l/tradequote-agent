@@ -1574,8 +1574,6 @@ C05提交前新鲜复验535单元/3显式live跳过、12Electron、36维护及ty
 本轮重新确定：A 不重复做已完成 C06 固定交付，仅处理来源证据缺口；B 不重复开发已完成契约，仅做非作者集成复核；C 负责最终提交/推送、MVP 路演收口与交接。Windows/签名包、正式审批/PDF、真实平台规则和人工业务签认仍未完成；详见[[C集成-ABC合并与后续分工]]。
 
 集成推送确认：提交 `0af16b2ba92b48c9cdedd8bda72bd086ef06c3a3` 已推送至 `origin/codex/m1-abc-integration`，`git ls-remote` 回读一致，工作区干净。C 的后续任务仅为路演收口、交接和人工验收准备；A/B 已完成的固定交付不重复分配。
-
-
 ## 2026-11-01 B07 契约集成非作者复核
 
 C 完成 ABC 合并推送后，B 以非作者身份核对集成分支并补 reviseQuote 回归测试（从 origin/codex/m1-abc-integration 新建 codex/b07-contract-integration-review）。
@@ -1592,3 +1590,14 @@ C 完成 ABC 合并推送后，B 以非作者身份核对集成分支并补 revi
 ## 2026-11-01 C 客户回复 pending 边界修正
 
 B07 已按 `0f837e35e0592050917a0c0f4914ca43f2fe9b64` 接收并合入集成分支。C 修正 `quote-delivery.ts` 的 `renderReply`：付款/交期对应 pending 时输出 `to be confirmed`，不泄露内部占位词；新增 `quote-delivery.test.ts` 覆盖未确认词屏蔽与已确认条款保留。完整 macOS 门禁在本修复后复跑，Windows/签名包/正式审批仍后置。
+
+## 2026-11-01 A 来源证据：隔离区间价 SKU（大目录第 268 行 MOQ 收口）
+
+在独立分支 `codex/a06-source-evidence`（基线集成分支 `7688d39`）处理 A 保留的来源证据缺口之一「大目录第 268 行 MOQ」。
+
+- 根因：SKU `1600614614202`（三聚氰胺贴面 MDF 装饰板）为区间价（¥38.99–238.12）+ 样品价 ¥66.19，无确定普通阶梯单价。产品契约 `CatalogRowSchema.minQuantity` 必填正整数，A 先前将 `min_quantity`/`unit_price` 均置空导致 `parseCatalogCsv` 报 2 条 issue 且丢弃整行（实测复现）。
+- 修复：按 C 的 A1313-02「隔离该 SKU」选项，从 `catalog_converted.csv` 删除该行（不「猜 MOQ 绕过校验」）。目录 286 行/83 SKU → 285 行/82 SKU（服装 70 / 板材 5 / 紧固件 7）；`parseCatalogCsv` 复跑 0 issue、285 行全收。
+- 证据保留：采集证据（截图 `mdf-real-07-melamine-faced-decor-18mm.png`、`MDF-REAL-DATA.md` 第 7 条 MOQ=1 / 区间价 / 样品价）完整保留并加「隔离说明」，不删旧证据。
+- 同步：`MANIFEST.md`、`SOURCE-PROVENANCE.md`、`MDF-REAL-DATA.md`、`A01f演示资料包冻结.md`、任务页 `A06-来源证据与适用规则包.md` 规模与隔离说明同步；`file-provenance.json` 三个 demo-data 登记 hash 更新并复验匹配（MANIFEST `2d3ab3da…`、SOURCE-PROVENANCE `9e820ee6…`、MDF-REAL-DATA `e2ec6818…`）。
+- 验证：`catalog_converted.csv` 经产品 `parseCatalogCsv` 实测 285 行/0 issue；临时验证测试已清理，未入库。
+- 仍未完成（如实保留，不代签）：服装原始快照（登录墙拦截 `not collected`）、`valid_until` 统一 `2027-12-31` 为内部默认值（无供应商/页面依据）、认证/供应商有效期真实性、人工发布/复核（`pending`）。
