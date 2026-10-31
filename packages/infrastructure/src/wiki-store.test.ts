@@ -1467,6 +1467,82 @@ it("A01e-2b: getMaintenance 首页冻结候选集/事实，续页不受并发推
   repo.close();
 });
 
+it("A01e-2c: 伪造换绑快照游标（open 快照配 resolved 查询）不得返回 open 事实", async () => {
+  const file = join(temp(), "wiki-maintenance-snapshot-rebind.sqlite");
+  const { repo, workspaceId } = openRepo(file);
+  for (const source of [
+    await stageSource(repo, workspaceId),
+    await stageSource(repo, workspaceId),
+  ]) {
+    expect(
+      (
+        await repo.executeWikiMaintenance(
+          write("source.withdraw", {
+            sourceRevisionId: source.sourceRevisionId,
+            expectedLifecycleVersion: 1,
+            note: "撤回",
+          }),
+          host(workspaceId),
+        )
+      ).ok,
+    ).toBe(true);
+  }
+
+  // 全量（states=[]）取两条 open 问题的首页，拿到快照 id 与真实 afterIssueId。
+  const openPage = maintenancePageOf(
+    await repo.executeWikiMaintenance(
+      read("wiki.getMaintenance", { kinds: [], states: [], limit: 1, cursor: null }),
+      host(workspaceId),
+    ),
+  );
+  expect(openPage.issues).toHaveLength(1);
+  expect(openPage.nextCursor).not.toBeNull();
+  const openSnapshotId = openPage.snapshotId;
+  const realAfterIssueId = openPage.issues[0]!.issueId;
+
+  // 计算 resolved 查询的服务端规范化 queryHash（与 store 的 hash(JSON.stringify({kinds,states})) 一致）。
+  const resolvedQueryHash = sha(JSON.stringify({ kinds: [], states: ["resolved"] }));
+
+  // 原样反例：open 快照的 snapshotId 配 resolved 的 queryHash + 真实 afterIssueId，
+  // 请求 states=["resolved"]；若只信任客户端 cursor 的 queryHash 而不核对数据库保存的
+  // workspace_id/query_hash，会静默返回 open 事实，绕过 resolved 过滤。
+  const rebindResult = await repo.executeWikiMaintenance(
+    read("wiki.getMaintenance", {
+      kinds: [],
+      states: ["resolved"],
+      limit: 1,
+      cursor: {
+        snapshotId: openSnapshotId,
+        queryHash: resolvedQueryHash,
+        afterIssueId: realAfterIssueId,
+      },
+    }),
+    host(workspaceId),
+  );
+  expect(rebindResult).toMatchObject({ ok: false, error: { code: "REVISION_CONFLICT" } });
+
+  // 合法续页控制：同一快照 + 一致 queryHash + 真实 afterIssueId 仍能正常读回下一页。
+  const openQueryHash = sha(JSON.stringify({ kinds: [], states: [] }));
+  const second = maintenancePageOf(
+    await repo.executeWikiMaintenance(
+      read("wiki.getMaintenance", {
+        kinds: [],
+        states: [],
+        limit: 1,
+        cursor: {
+          snapshotId: openSnapshotId,
+          queryHash: openQueryHash,
+          afterIssueId: realAfterIssueId,
+        },
+      }),
+      host(workspaceId),
+    ),
+  );
+  expect(second.issues).toHaveLength(1);
+  expect(second.issues[0]!.issueId).not.toBe(realAfterIssueId);
+  repo.close();
+});
+
 it("A01e-3: analyzeImpact/getImpact 覆盖知识版本与消费，消费状态未知记 partial", async () => {
   const file = join(temp(), "wiki-maintenance-impact.sqlite");
   const { repo, workspaceId } = openRepo(file);

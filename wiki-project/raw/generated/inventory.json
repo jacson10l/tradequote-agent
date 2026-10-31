@@ -2580,9 +2580,9 @@
     {
       "path": "packages/infrastructure/src/wiki-store.test.ts",
       "type": "ts",
-      "lines": 1737,
-      "bytes": 59134,
-      "sha256": "a634af3626469aa5427a2a7106aa09fdf7c747c2163ec0fa6a08ce4483ec179c",
+      "lines": 1813,
+      "bytes": 61883,
+      "sha256": "49dc0983ac675410536fc16a553b9316beda44d2496bf997648eb769d978fb71",
       "role": "A01c检索引用回归：不回退、分页、引用闭环与消费事务",
       "pages": [
         "wiki/A01c检索引用实现.md",

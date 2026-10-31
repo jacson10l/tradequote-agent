@@ -1146,3 +1146,4 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 - B 契约/语义复核、C 原脚本复验与桌面接线、实际人员审核/发布/撤回/业务签认仍待；本轮未推送/合入、未代签。详见 [[A01c检索引用实现]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-知识发布与来源查询]]。
 - 2026-10-31 A01e 新版复验补充：在 `codex/a01e-p3-fixes` 基于 `46939c32` 增加同键撤回回放/事件唯一性测试，维护聚焦 27/27、typecheck 0；Windows symlink EPERM 保留。
 - 2026-10-31 快照阻断修正：修复维护续页只按 snapshotId 读取而未核对 workspace/queryHash 的缺陷，新增 `resolved` 查询换绑反例，wiki-store 27/27、typecheck 0。
+- 2026-10-31 快照换绑原样反例回归（A01e-2c）：C 复验报告指出的「伪造换绑快照游标」反例——用 open 快照的 snapshotId 配 resolved 查询的 queryHash 与真实 afterIssueId 续页，此前会静默返回 open 事实绕过 resolved 过滤。A 核对确认 2a61261 的读回绑定核对（snapshot.workspace_id/query_hash 与当前请求一致）已正确堵住该反例；新增 A01e-2c 回归（伪造换绑反例 + 合法续页控制），并临时禁用核对验证反例确由该关卡通断。wiki-store 28/28、typecheck 0。
