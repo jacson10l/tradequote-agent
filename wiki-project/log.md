@@ -1134,3 +1134,4 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 
 - 2026-10-29 用户授权普通推送，A 已将固定实现提交 dac69db 推送到 origin/codex/a01e-p1-fixes；`git ls-remote` 回读 dac69db4c527ee3484f3481f65c76d63649cd04c 与本地 HEAD 逐字一致，未合入、未创建 PR。推送一次成功（输出 `0827476..dac69db`，exit 0），未改全局 git 配置。
 - 固定实现提交即 dac69db（A01e 八维护方法 + knowledge-wiki:9 迁移、本机验证命令/退出码与 Wiki 同步见上一节与 [[A01c检索引用实现]]、[[A01-迁移谱系支持与拒绝矩阵]]）；B 契约/语义复核、C 原脚本复验与桌面接线、实际人员审核/发布/撤回/业务语义签认仍待。本条为回执 docs-only 提交，位于 dac69db 之上，不与固定实现 SHA 混用。
+- 2026-10-31 A01e 维护复验修正：基于 `267f087490046955a0b4b1e6183caa163cc177c3` 创建 `codex/a01e-maintenance-fixes`。维护写操作同键回放首次结果，影响分析/来源/知识指纹在事务内核验，结案证据必须存在，分页快照和索引重建按权威序号门禁；`pnpm typecheck` 退出0，wiki-store 23/24（旧随机证据夹具失败，Windows EPERM 保留）。

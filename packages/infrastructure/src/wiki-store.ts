@@ -3,12 +3,32 @@ import {
   CheckReportSchema,
   failure,
   type KnowledgeCitation,
+  type KnowledgeImpactItem,
+  KnowledgeImpactItemSchema,
+  type KnowledgeImpactPage,
+  KnowledgeImpactPageSchema,
+  KnowledgeImpactQuerySchema,
+  type KnowledgeImpactReport,
+  KnowledgeImpactReportSchema,
+  type KnowledgeImpactSubject,
+  KnowledgeImpactSubjectSchema,
+  type KnowledgeIndexRebuild,
+  KnowledgeIndexRebuildSchema,
+  type KnowledgeIndexStatus,
+  KnowledgeIndexStatusSchema,
   type KnowledgeLintIssue,
   type KnowledgeLintReport,
   KnowledgeLintReportSchema,
   KnowledgeLintReviewExchangeSchema,
   KnowledgeLintReviewInputExchangeSchema,
+  type KnowledgeMaintenanceLifecycleEvent,
   type KnowledgeMaintenanceResult,
+  type MaintenanceIssue,
+  MaintenanceIssueSchema,
+  type MaintenancePage,
+  MaintenancePageSchema,
+  type MaintenanceQuery,
+  type MaintenanceTarget,
   QuoteSnapshotSchema,
   validTextLocation,
   type WikiCitationResolveInput,
@@ -44,30 +64,14 @@ import {
 } from "@tradequote/contracts";
 import type Database from "better-sqlite3";
 import type { z } from "zod";
-import {
-  KnowledgeImpactItemSchema,
-  type KnowledgeImpactItem,
-  KnowledgeImpactPageSchema,
-  type KnowledgeImpactPage,
-  KnowledgeImpactQuerySchema,
-  KnowledgeImpactReportSchema,
-  type KnowledgeImpactReport,
-  KnowledgeImpactSubjectSchema,
-  type KnowledgeImpactSubject,
-  KnowledgeIndexRebuildSchema,
-  type KnowledgeIndexRebuild,
-  KnowledgeIndexStatusSchema,
-  type KnowledgeIndexStatus,
-  type KnowledgeMaintenanceLifecycleEvent,
-  type MaintenanceIssue,
-  MaintenanceIssueSchema,
-  type MaintenancePage,
-  MaintenancePageSchema,
-  type MaintenanceQuery,
-  type MaintenanceTarget,
-} from "@tradequote/contracts";
 
 const hash = (value: string) => createHash("sha256").update(value).digest("hex");
+const snapshotUuid = (value: string) => {
+  const h = hash(value).slice(0, 32).split("");
+  h[12] = "5";
+  h[16] = ((Number.parseInt(h[16]!, 16) & 0x3) | 0x8).toString(16);
+  return `${h.slice(0, 8).join("")}-${h.slice(8, 12).join("")}-${h.slice(12, 16).join("")}-${h.slice(16, 20).join("")}-${h.slice(20).join("")}`;
+};
 const sha256Utf8 = (value: string) => createHash("sha256").update(value, "utf8").digest("hex");
 
 /** 请求幂等指纹只绑定方法、业务输入与身份（工作区/actor/origin），
@@ -178,6 +182,34 @@ export class SqliteWikiStore {
     return prior.request_hash === requestHash || prior.request_hash === legacyRequestHash
       ? (JSON.parse(prior.result_json) as WikiResult)
       : "conflict";
+  }
+
+  private replayMaintenance(
+    key: string,
+    method: string,
+    payload: unknown,
+    context: WikiHostContext,
+  ): KnowledgeMaintenanceResult | "conflict" | null {
+    const requestHash = requestFingerprint(method, payload, context);
+    const prior = this.db
+      .prepare("SELECT request_hash, result_json FROM idempotency WHERE key=?")
+      .get(key) as { request_hash: string; result_json: string } | undefined;
+    if (!prior) return null;
+    return prior.request_hash === requestHash
+      ? (JSON.parse(prior.result_json) as KnowledgeMaintenanceResult)
+      : "conflict";
+  }
+
+  private saveMaintenance(
+    key: string,
+    method: string,
+    payload: unknown,
+    context: WikiHostContext,
+    result: KnowledgeMaintenanceResult,
+  ) {
+    this.db
+      .prepare("INSERT INTO idempotency(key,request_hash,result_json) VALUES (?,?,?)")
+      .run(key, requestFingerprint(method, payload, context), JSON.stringify(result));
   }
 
   private emit(workspaceId: string, type: string, payload: unknown, context: WikiHostContext) {
@@ -1511,7 +1543,9 @@ export class SqliteWikiStore {
         evidenceIds: [...new Set([...issue.evidenceIds, ...evidenceIds])],
       };
       this.db
-        .prepare("UPDATE knowledge_maintenance_issue SET last_detected_at=?, data_json=? WHERE issue_id=?")
+        .prepare(
+          "UPDATE knowledge_maintenance_issue SET last_detected_at=?, data_json=? WHERE issue_id=?",
+        )
         .run(updated.lastDetectedAt, JSON.stringify(updated), updated.issueId);
       return updated;
     }
@@ -1553,9 +1587,14 @@ export class SqliteWikiStore {
   withdrawSource(
     input: { sourceRevisionId: string; expectedLifecycleVersion: number; note: string },
     context: WikiHostContext,
+    idempotencyKey: string,
   ): KnowledgeMaintenanceResult {
     return this.db
       .transaction(() => {
+        const prior = this.replayMaintenance(idempotencyKey, "source.withdraw", input, context);
+        if (prior === "conflict")
+          return failure("IDEMPOTENCY_CONFLICT", "同一操作标识不能用于不同内容");
+        if (prior) return prior;
         const workspaceId = this.workspaceId();
         if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
         const row = this.db
@@ -1577,11 +1616,14 @@ export class SqliteWikiStore {
             "REVISION_CONFLICT",
             `来源生命周期当前版本为 v${row.lifecycle_version}，与提交的 expectedLifecycleVersion 不一致`,
           );
-        if (row.state !== "active") return failure("ACTION_NOT_ALLOWED", "来源已撤回，不能重复撤回");
+        if (row.state !== "active")
+          return failure("ACTION_NOT_ALLOWED", "来源已撤回，不能重复撤回");
         this.bumpSeq(workspaceId);
         const newVersion = row.lifecycle_version + 1;
         this.db
-          .prepare("UPDATE knowledge_source SET state='withdrawn', lifecycle_version=? WHERE source_revision_id=?")
+          .prepare(
+            "UPDATE knowledge_source SET state='withdrawn', lifecycle_version=? WHERE source_revision_id=?",
+          )
           .run(newVersion, input.sourceRevisionId);
         const state: WikiSourceState = {
           sourceRevisionId: input.sourceRevisionId,
@@ -1625,12 +1667,14 @@ export class SqliteWikiStore {
           [input.sourceRevisionId],
           context.now,
         );
-        return {
+        const result = {
           ok: true,
           data: { kind: "sourceWithdrawal", state, event },
           warnings: [],
           evidenceIds: [event.eventId, input.sourceRevisionId],
         } satisfies KnowledgeMaintenanceResult;
+        this.saveMaintenance(idempotencyKey, "source.withdraw", input, context, result);
+        return result;
       })
       .immediate();
   }
@@ -1642,16 +1686,23 @@ export class SqliteWikiStore {
     const kinds = [...query.kinds].sort();
     const states = [...query.states].sort();
     const queryHash = hash(JSON.stringify({ kinds, states }));
-    const snapshotId = query.cursor?.snapshotId ?? randomUUID();
+    const snapshotId = snapshotUuid(`${workspaceId}:${queryHash}:${this.currentSeq(workspaceId)}`);
+    if (query.cursor && query.cursor.snapshotId !== snapshotId)
+      return failure("REVISION_CONFLICT", "维护列表快照已失效，请重新查询");
+    if (query.cursor && query.cursor.queryHash !== queryHash)
+      return failure("REVISION_CONFLICT", "维护列表查询条件已变化，请重新查询");
     const afterIssueId = query.cursor?.afterIssueId ?? "";
-    const kindsFilter = kinds.length === 0 ? "" : ` AND kind IN (${kinds.map(() => "?").join(",")})`;
+    const kindsFilter =
+      kinds.length === 0 ? "" : ` AND kind IN (${kinds.map(() => "?").join(",")})`;
     const statesFilter =
       states.length === 0 ? "" : ` AND state IN (${states.map(() => "?").join(",")})`;
     const rows = this.db
       .prepare(
         `SELECT issue_id FROM knowledge_maintenance_issue WHERE workspace_id=? AND issue_id > ?${kindsFilter}${statesFilter} ORDER BY issue_id LIMIT ?`,
       )
-      .all(workspaceId, afterIssueId, ...kinds, ...states, query.limit + 1) as { issue_id: string }[];
+      .all(workspaceId, afterIssueId, ...kinds, ...states, query.limit + 1) as {
+      issue_id: string;
+    }[];
     const issues = rows
       .slice(0, query.limit)
       .map((r) => this.readMaintenanceIssue(r.issue_id))
@@ -1661,7 +1712,13 @@ export class SqliteWikiStore {
       hasMore && issues.length > 0
         ? { snapshotId, queryHash, afterIssueId: issues[issues.length - 1]!.issueId }
         : null;
-    const page: MaintenancePage = { snapshotId, queryHash, checkedAt: context.now, issues, nextCursor };
+    const page: MaintenancePage = {
+      snapshotId,
+      queryHash,
+      checkedAt: context.now,
+      issues,
+      nextCursor,
+    };
     const parsed = MaintenancePageSchema.safeParse(page);
     if (!parsed.success) return failure("STORAGE_ERROR", "维护页事实不完整");
     return {
@@ -1682,9 +1739,19 @@ export class SqliteWikiStore {
       evidenceIds: string[];
     },
     context: WikiHostContext,
+    idempotencyKey: string,
   ): KnowledgeMaintenanceResult {
     return this.db
       .transaction(() => {
+        const prior = this.replayMaintenance(
+          idempotencyKey,
+          "wiki.resolveMaintenance",
+          input,
+          context,
+        );
+        if (prior === "conflict")
+          return failure("IDEMPOTENCY_CONFLICT", "同一操作标识不能用于不同内容");
+        if (prior) return prior;
         const workspaceId = this.workspaceId();
         if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
         const issue = this.readMaintenanceIssue(input.issueId);
@@ -1696,11 +1763,22 @@ export class SqliteWikiStore {
             "REVISION_CONFLICT",
             `维护问题当前版本为 v${issue.issueVersion}，与提交的 expectedIssueVersion 不一致`,
           );
+        const missingEvidence = input.evidenceIds.some((id) => {
+          const exists = this.db
+            .prepare(
+              "SELECT 1 AS ok FROM knowledge_source WHERE source_revision_id=? UNION ALL SELECT 1 FROM knowledge_wiki WHERE revision_id=? UNION ALL SELECT 1 FROM knowledge_impact_report WHERE report_id=? UNION ALL SELECT 1 FROM outbox WHERE event_id=? UNION ALL SELECT 1 FROM knowledge_maintenance_issue WHERE issue_id=? LIMIT 1",
+            )
+            .get(id, id, id, id, id) as { ok: number } | undefined;
+          return !exists;
+        });
+        if (input.action !== "start_review" && missingEvidence)
+          return failure("MISSING_FACTS", "维护处理证据不存在或不属于已保存事实");
         let nextState: MaintenanceIssue["state"];
         let resolution: MaintenanceIssue["resolution"];
         let eventType: KnowledgeMaintenanceLifecycleEvent["type"];
         if (input.action === "start_review") {
-          if (issue.state !== "open") return failure("ACTION_NOT_ALLOWED", "仅未处理问题可进入处理");
+          if (issue.state !== "open")
+            return failure("ACTION_NOT_ALLOWED", "仅未处理问题可进入处理");
           nextState = "in_progress";
           resolution = null;
           eventType = "maintenance.in_progress";
@@ -1729,20 +1807,35 @@ export class SqliteWikiStore {
           .prepare("UPDATE knowledge_maintenance_issue SET state=?, data_json=? WHERE issue_id=?")
           .run(updated.state, JSON.stringify(updated), updated.issueId);
         this.emit(workspaceId, eventType, { issueId: updated.issueId }, context);
-        return {
+        const result = {
           ok: true,
           data: { kind: "maintenanceIssue", issue: parsedIssue.data },
           warnings: [],
           evidenceIds: [updated.issueId],
         } satisfies KnowledgeMaintenanceResult;
+        this.saveMaintenance(idempotencyKey, "wiki.resolveMaintenance", input, context, result);
+        return result;
       })
       .immediate();
   }
 
   /** wiki.analyzeImpact：计算主题波及的知识版本与消费，并登记维护队列。 */
-  analyzeImpact(subject: KnowledgeImpactSubject, context: WikiHostContext): KnowledgeMaintenanceResult {
+  analyzeImpact(
+    subject: KnowledgeImpactSubject,
+    context: WikiHostContext,
+    idempotencyKey: string,
+  ): KnowledgeMaintenanceResult {
     return this.db
       .transaction(() => {
+        const prior = this.replayMaintenance(
+          idempotencyKey,
+          "wiki.analyzeImpact",
+          subject,
+          context,
+        );
+        if (prior === "conflict")
+          return failure("IDEMPOTENCY_CONFLICT", "同一操作标识不能用于不同内容");
+        if (prior) return prior;
         const workspaceId = this.workspaceId();
         if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
         const subjectParsed = KnowledgeImpactSubjectSchema.safeParse(subject);
@@ -1751,15 +1844,30 @@ export class SqliteWikiStore {
           const src = this.readSourceRevision(subject.target.sourceRevisionId);
           if (!src || src.workspaceId !== workspaceId)
             return failure("NOT_FOUND", "影响分析来源不存在");
+          if (
+            src.sourceId !== subject.target.sourceId ||
+            src.artifactHash !== subject.target.artifactHash
+          )
+            return failure("REVISION_CONFLICT", "影响分析来源身份或内容哈希已变化");
           if (subject.reason === "source_updated" && subject.replacementRevisionId) {
             const repl = this.readSourceRevision(subject.replacementRevisionId);
-            if (!repl || repl.sourceId !== subject.target.sourceId)
+            if (
+              !repl ||
+              repl.sourceId !== subject.target.sourceId ||
+              repl.parentRevisionId !== src.sourceRevisionId
+            )
               return failure("NOT_FOUND", "替代来源版本不存在或不属于同源");
           }
         } else if (subject.target.kind === "knowledge") {
           const rev = this.readWikiRevision(subject.target.revisionId);
           if (!rev || rev.workspaceId !== workspaceId)
             return failure("NOT_FOUND", "影响分析知识版本不存在");
+          if (
+            rev.revisionId !== subject.target.revisionId ||
+            rev.contentHash !== subject.target.contentHash ||
+            rev.sourceSetHash !== subject.target.sourceSetHash
+          )
+            return failure("REVISION_CONFLICT", "影响分析知识版本指纹已变化");
         } else {
           return failure("VALIDATION_ERROR", "影响分析主题不得为消费者");
         }
@@ -1840,7 +1948,9 @@ export class SqliteWikiStore {
         }
 
         const snapshotSeq = this.currentSeq(workspaceId);
-        const status: KnowledgeImpactReport["status"] = hasUnknownConsumer ? "partial" : "completed";
+        const status: KnowledgeImpactReport["status"] = hasUnknownConsumer
+          ? "partial"
+          : "completed";
         const report: KnowledgeImpactReport = {
           workspaceId,
           reportId: randomUUID(),
@@ -1862,15 +1972,19 @@ export class SqliteWikiStore {
         for (const item of items) {
           if (!KnowledgeImpactItemSchema.safeParse(item).success) continue;
           this.db
-            .prepare("INSERT INTO knowledge_impact_item(item_id,report_id,data_json) VALUES (?,?,?)")
+            .prepare(
+              "INSERT INTO knowledge_impact_item(item_id,report_id,data_json) VALUES (?,?,?)",
+            )
             .run(item.itemId, report.reportId, JSON.stringify(item));
         }
-        return {
+        const result = {
           ok: true,
           data: { kind: "impactReport", report: parsedReport.data },
           warnings: [],
           evidenceIds: [report.reportId],
         } satisfies KnowledgeMaintenanceResult;
+        this.saveMaintenance(idempotencyKey, "wiki.analyzeImpact", subject, context, result);
+        return result;
       })
       .immediate();
   }
@@ -1914,12 +2028,17 @@ export class SqliteWikiStore {
   }
 
   /** wiki.getIndexStatus：按当前权威快照序号推导缺失/滞后/就绪。 */
-  getIndexStatus(index: "keyword" | "markdown_view", context: WikiHostContext): KnowledgeMaintenanceResult {
+  getIndexStatus(
+    index: "keyword" | "markdown_view",
+    context: WikiHostContext,
+  ): KnowledgeMaintenanceResult {
     const workspaceId = this.workspaceId();
     if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
     const authoritativeSeq = this.currentSeq(workspaceId);
     const row = this.db
-      .prepare("SELECT generation, indexed_seq FROM knowledge_index_status WHERE workspace_id=? AND index_kind=?")
+      .prepare(
+        "SELECT generation, indexed_seq FROM knowledge_index_status WHERE workspace_id=? AND index_kind=?",
+      )
       .get(workspaceId, index) as { generation: number; indexed_seq: number } | undefined;
     const generation = row?.generation ?? 0;
     const indexedSeq = row?.indexed_seq ?? 0;
@@ -1942,7 +2061,12 @@ export class SqliteWikiStore {
     };
     const parsed = KnowledgeIndexStatusSchema.safeParse(status);
     if (!parsed.success) return failure("STORAGE_ERROR", "索引状态事实不完整");
-    return { ok: true, data: { kind: "indexStatus", status: parsed.data }, warnings: [], evidenceIds: [] };
+    return {
+      ok: true,
+      data: { kind: "indexStatus", status: parsed.data },
+      warnings: [],
+      evidenceIds: [],
+    };
   }
 
   /** wiki.rebuildIndex：OCC 校验代际/权威序号后原子推进投影并落重建票据。 */
@@ -1953,13 +2077,20 @@ export class SqliteWikiStore {
       expectedAuthoritativeSeq: number;
     },
     context: WikiHostContext,
+    idempotencyKey: string,
   ): KnowledgeMaintenanceResult {
     return this.db
       .transaction(() => {
+        const prior = this.replayMaintenance(idempotencyKey, "wiki.rebuildIndex", input, context);
+        if (prior === "conflict")
+          return failure("IDEMPOTENCY_CONFLICT", "同一操作标识不能用于不同内容");
+        if (prior) return prior;
         const workspaceId = this.workspaceId();
         if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
         const row = this.db
-          .prepare("SELECT generation, indexed_seq FROM knowledge_index_status WHERE workspace_id=? AND index_kind=?")
+          .prepare(
+            "SELECT generation, indexed_seq FROM knowledge_index_status WHERE workspace_id=? AND index_kind=?",
+          )
           .get(workspaceId, input.index) as { generation: number; indexed_seq: number } | undefined;
         const currentGeneration = row?.generation ?? 0;
         const currentAuthoritative = this.currentSeq(workspaceId);
@@ -1976,6 +2107,26 @@ export class SqliteWikiStore {
         const requestedSeq = currentAuthoritative;
         const targetGeneration = currentGeneration + 1;
         const now = context.now;
+        const projectionTable =
+          input.index === "keyword"
+            ? "knowledge_index_keyword_projection"
+            : "knowledge_index_markdown_projection";
+        this.db
+          .prepare(
+            `CREATE TABLE IF NOT EXISTS ${projectionTable} (workspace_id TEXT NOT NULL, revision_id TEXT NOT NULL, content_hash TEXT NOT NULL, payload_json TEXT NOT NULL, PRIMARY KEY(workspace_id, revision_id))`,
+          )
+          .run();
+        this.db.prepare(`DELETE FROM ${projectionTable} WHERE workspace_id=?`).run(workspaceId);
+        const published = this.db
+          .prepare(
+            "SELECT revision_id, content_hash, data_json FROM knowledge_wiki WHERE workspace_id=?",
+          )
+          .all(workspaceId) as { revision_id: string; content_hash: string; data_json: string }[];
+        const insertProjection = this.db.prepare(
+          `INSERT INTO ${projectionTable}(workspace_id,revision_id,content_hash,payload_json) VALUES (?,?,?,?)`,
+        );
+        for (const row of published)
+          insertProjection.run(workspaceId, row.revision_id, row.content_hash, row.data_json);
         const status: KnowledgeIndexStatus = {
           workspaceId,
           index: input.index,
@@ -1993,7 +2144,7 @@ export class SqliteWikiStore {
         const rebuild: KnowledgeIndexRebuild = {
           workspaceId,
           rebuildId,
-          operationKey: randomUUID(),
+          operationKey: idempotencyKey,
           index: input.index,
           requestedSeq,
           targetGeneration,
@@ -2020,7 +2171,9 @@ export class SqliteWikiStore {
             JSON.stringify(status),
           );
         this.db
-          .prepare("INSERT INTO knowledge_index_rebuild(rebuild_id,workspace_id,index_kind,data_json) VALUES (?,?,?,?)")
+          .prepare(
+            "INSERT INTO knowledge_index_rebuild(rebuild_id,workspace_id,index_kind,data_json) VALUES (?,?,?,?)",
+          )
           .run(rebuildId, workspaceId, input.index, JSON.stringify(rebuild));
         this.emit(
           workspaceId,
@@ -2028,12 +2181,14 @@ export class SqliteWikiStore {
           { index: input.index, rebuildId, generation: targetGeneration },
           context,
         );
-        return {
+        const result = {
           ok: true,
           data: { kind: "indexRebuild", rebuild: parsedRebuild.data },
           warnings: [],
           evidenceIds: [rebuildId],
         } satisfies KnowledgeMaintenanceResult;
+        this.saveMaintenance(idempotencyKey, "wiki.rebuildIndex", input, context, result);
+        return result;
       })
       .immediate();
   }
