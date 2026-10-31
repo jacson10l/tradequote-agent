@@ -286,3 +286,7 @@ wiki-lib.mjs 的 ignoredDirs 增 .workbuddy（WorkBuddy IDE 项目数据目录�
 ## 2026-10-31 演示数据包 demo_data 归档登记
 
 `wiki-config.json` 的 `archivalMarkdown` 增 `demo_data/MANIFEST.md`：演示数据包（来自 `codex/demo-data-catalog` 分支，含 `catalog_demo.csv` 主样本、`catalog_converted.csv` 300 行备用、规则/询盘/商品配套 CSV 及生成脚本）的清单文件按归档来源文档处理，不参与文档导航；`raw/file-provenance.json` 同步登记其 sha256。导航算法不变，仅登记一个新归档清单，见 [[A01f演示资料包冻结]]。
+
+## 2026-11-01 B07 契约集成非作者复核
+
+新增 `packages/domain/src/revision.test.ts` 逐文件覆盖至 [[M4模型与报价修订]]：锁定 `reviseQuote` 复用 `calculateQuoteV1` 单点重算后，V1→V2→V3→重开的未确认付款/交期始终进入 pending。仅增加覆盖配置与回归测试，不改维护算法与生产逻辑；仍运行维护回归、生成/只读 check/lint 及 7688d39 真实基线 sync，任务 [[B07契约集成非作者复核]] 与审阅 [[B对ABC集成非作者复核]] 同步。

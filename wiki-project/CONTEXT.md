@@ -1,4 +1,6 @@
 # 当前上下文
+2026-11-01 B07契约集成非作者复核：从 origin/codex/m1-abc-integration 新建 codex/b07-contract-integration-review，核对集成分支（tip 7688d39，B 固定交付 a4f2ba6 已作为 201e471 父提交正确合入），补 reviseQuote 的 V1→V2→V3→重开 pending 回归测试（revision.test.ts 3 项），记录 quote-delivery.ts renderReply 缺 pending 标注为 C 后续修复项。见[[B对ABC集成非作者复核]]、[[B07契约集成非作者复核]]。
+
 
 2026-11-01 C07独立分支：菜单职责与客户正文分离已实现；沿用A4c622d0小目录13行/4SKU，实际DeepSeek→Codex工具完成300/500件V1/V2和重开。单测539通过/3跳过，Electron12通过/1跳过；Wiki check/sync通过、Cue最终8页私有导入与备注已核对，整体因A/B签认及Cue持久连接仍active。A大目录第268行空MOQ与来源签认、B拟议条款pending缺失仍开放。基线450e945；无推送合入，见[[C07业务资料与路演收口]]、[[C07-业务资料与路演收口]]。
 
