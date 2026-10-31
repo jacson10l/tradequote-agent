@@ -1264,4 +1264,14 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 - 归档哈希同步：`raw/file-provenance.json` 中 MANIFEST（71ed18c3→12ffdce2）、SOURCE-PROVENANCE（e5148a23→1cfb1f2a）。
 - lint 复核：本次相关文件（REAL-DATA / SOURCE-PROVENANCE / MANIFEST / A01f 冻结页）均无报错；全量报错 19→14，剩余 14 条为预存历史问题（raw/design、raw/inputs 的 ARCHIVE_HASH_MISMATCH、demo-tools/README、A01f-报价审批与对外产出 TASK_SECTION、listing-rules.test.ts），与本次无关。
 
+## 2026-10-31 A 回应 C06 固定交付：样品价隔离 + 哈希登记 + 统计口径统一（同分支）
+
+- 背景：C 发出 C06 固定交付说明（只读复验 `1313db9→7ce43a6→feaace6→56ba7b9`），结论「A 资料部分修正但尚未通过」。A 逐项核对并按 C 要求完成修正。
+- 修正 1（样品价隔离）：`catalog_converted.csv` 第 268 行 SKU `1600614614202`（三聚氰胺贴面 MDF）原把样品价 ¥66.19 写成 MOQ=1 的普通 unit_price。改为安全状态：`unit_price`/`min_quantity` 置空（unknown），description 标注「样品价 ¥66.19（禁止进入普通报价）；普通价为区间价 ¥38.99–238.12 未确定，unit_price=unknown」。未改历史报价快照。
+- 修正 2（哈希登记）：`source-archive/MDF-REAL-DATA.md`（f5c39c71…）与 `BOLT-REAL-DATA.md`（d1e8b823…）纳入 `raw/file-provenance.json` 的 sources 登记（status: demo-data-source-archive）。
+- 修正 3（统计口径统一）：实测 `catalog_converted.csv` 为 286 行、83 SKU（服装 70 = T-Shirt 66 + Polo 2 + Set 1 + Tank 1；板材 6；紧固件 7）、单一 CNY、单位 piece/sheet；`source-archive/` 图片 13 张（板材 6 + 紧固件 7）。同步修正 `MANIFEST.md`、`SOURCE-PROVENANCE.md`、`A01f演示资料包冻结.md` 中残留的「300 行 / 86 SKU / 两币种 / 三单位 / BOLT-008 高价异常」旧口径。
+- 修正 4（未完成诚实标注）：`SOURCE-PROVENANCE.md` 第五节补充 valid_until（unknown/not collected）、逐项人工复核（not manually reviewed）、人工审核/发布/撤回（pending/unknown）、服装页面快照（not collected）等状态，不冒称完成。
+- 验证：CSV 解析 exit 0；lint 本次相关文件 0 新增报错（全量 14 条预存）；wiki:sync --base 56ba7b9 返回 status=passed、codeFiles=0、exit 0；wiki:check 因预存 `listing-rules.test.ts` UNCOVERED_FILE 退出 1（非本次引入）。
+- 边界：仅数据与文档，未改历史报价快照/证据，未合入 codex/m1-foundation，未动 C 分支。
+
 
