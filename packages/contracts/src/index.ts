@@ -130,13 +130,16 @@ export {
   QuoteRevisionInputSchema,
   TypedPatchSchema,
 } from "./quote";
-export type { Evidence, Quantity } from "./values";
+export type { Evidence, Quantity, TermConfirmationStatus } from "./values";
 export {
+  classifyTermConfirmation,
   DecimalSchema,
   EvidenceSchema,
   factSchema,
+  isUnconfirmedTermText,
   LocaleSchema,
   MoneySchema,
   QuantitySchema,
   SourceLocationSchema,
+  TermConfirmationStatusSchema,
 } from "./values";

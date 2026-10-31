@@ -1166,9 +1166,9 @@
     {
       "path": "packages/contracts/src/foundation.test.ts",
       "type": "ts",
-      "lines": 149,
-      "bytes": 6018,
-      "sha256": "1fa9a6beac36b07ad438fce581d93a1c4f5feff73ec5c7d8e0a94be0c38fbd59",
+      "lines": 200,
+      "bytes": 8167,
+      "sha256": "ba2a5874ee1cf176de0c3faa53a0b48cee4f9418d02a98bb667cdbfcd8c3f41c",
       "role": "M1 icon drift and untrusted shared-contract regression checks",
       "pages": [
         "wiki/M1验证与协作.md"
@@ -1177,9 +1177,9 @@
     {
       "path": "packages/contracts/src/index.ts",
       "type": "ts",
-      "lines": 142,
-      "bytes": 4904,
-      "sha256": "b3e3fc53cf3c33389500fd69cd9b2d01b19f0359f2e72d5d2798f3871e721091",
+      "lines": 145,
+      "bytes": 5013,
+      "sha256": "57dccdf203b47296783d86bfca93f0e29c04f20961e883f234227cd6ebd15c73",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
@@ -1373,9 +1373,9 @@
     {
       "path": "packages/contracts/src/values.ts",
       "type": "ts",
-      "lines": 99,
-      "bytes": 2940,
-      "sha256": "34717b5a2b80ae973945f17c883404bb76564520e1802c8fb796b7ffa5888664",
+      "lines": 180,
+      "bytes": 6328,
+      "sha256": "a13a8104feb9ebe0c6ebbef54d44d362c67ce86588218cea984de8beca858dbc",
       "role": "Strict shared value, patch, approval and event contract foundation",
       "pages": [
         "wiki/M1接口与持久化.md"
@@ -1497,9 +1497,9 @@
     {
       "path": "packages/domain/src/trade.test.ts",
       "type": "ts",
-      "lines": 183,
-      "bytes": 6321,
-      "sha256": "c5eee9865b335cafff5ac4bf3b0544ecb48fdf0bf88275ad8aead51ef4c626dc",
+      "lines": 212,
+      "bytes": 7493,
+      "sha256": "62dcf56153c47618ea5bc9b907b93498a938b186f8b9ece468c5f742c980be30",
       "role": "Quote V1 amount, source, transaction, migration and real Electron regression evidence",
       "pages": [
         "wiki/M2真实报价V1.md",
@@ -1509,9 +1509,9 @@
     {
       "path": "packages/domain/src/trade.ts",
       "type": "ts",
-      "lines": 153,
-      "bytes": 5661,
-      "sha256": "004c559d3ce9da2a5ad65d0ffa7fa26889f5402da7156d7bbd83b267035a4581",
+      "lines": 158,
+      "bytes": 5952,
+      "sha256": "c87a779b68aa7b6487efac6848753d8bdec16880fd141edfb8bb8d19851664d6",
       "role": "Deterministic tier pricing, unknown amounts and human-only V1 service",
       "pages": [
         "wiki/M2真实报价V1.md"

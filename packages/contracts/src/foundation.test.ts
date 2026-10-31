@@ -1,9 +1,11 @@
 import { describe, expect, it } from "vitest";
 import {
   ApprovalBindingSchema,
+  classifyTermConfirmation,
   DecimalSchema,
   EvidenceSchema,
   factSchema,
+  isUnconfirmedTermText,
   LocaleSchema,
   MoneySchema,
   PatchBatchSchema,
@@ -12,6 +14,7 @@ import {
   QuoteRevisionInputSchema,
   RunEventSchema,
   SourceLocationSchema,
+  TermConfirmationStatusSchema,
   TypedPatchSchema,
 } from "./index";
 import { mockRevisionInput, mockRunEvent } from "./mock";
@@ -145,5 +148,53 @@ describe("M1 shared foundation", () => {
       false,
     );
     expect(RunEventSchema.safeParse({ ...mockRunEvent, seq: 0 }).success).toBe(false);
+  });
+  it("freezes term-confirmation semantics: non-empty text is never a confirmation fact", () => {
+    // Six explicit states are the frozen vocabulary; nothing else is allowed.
+    expect(TermConfirmationStatusSchema.options).toEqual([
+      "unknown",
+      "blank",
+      "pending_confirmation",
+      "confirmed",
+      "withdrawn",
+      "legacy_unstated",
+    ]);
+    for (const status of TermConfirmationStatusSchema.options)
+      expect(TermConfirmationStatusSchema.safeParse(status).success).toBe(true);
+    expect(TermConfirmationStatusSchema.safeParse("auto_confirmed").success).toBe(false);
+
+    // Non-empty unconfirmed wording must keep flowing as pending, never be treated as confirmed.
+    for (const text of [
+      "待客户确认",
+      "待确认",
+      "未确认",
+      "未知",
+      "来源缺失",
+      "模型建议",
+      "待定",
+      "TBC",
+      "to be confirmed",
+      "pending confirmation",
+      "unconfirmed",
+      "N/A",
+      "not available",
+    ])
+      expect(isUnconfirmedTermText(text)).toBe(true);
+
+    // Full-width / case / spacing normalization must not change the verdict.
+    expect(isUnconfirmedTermText("ＴＢＣ")).toBe(true);
+    expect(isUnconfirmedTermText("To Be Confirmed")).toBe(true);
+
+    // A real, concrete term is not "unconfirmed wording" — but it is still pending by default,
+    // because confirmation can only come from a human-controlled entry, never from text itself.
+    expect(isUnconfirmedTermText("30%预付，70%发货前付清")).toBe(false);
+    expect(classifyTermConfirmation("30%预付，70%发货前付清")).toBe("pending_confirmation");
+    expect(classifyTermConfirmation("待客户确认")).toBe("pending_confirmation");
+    expect(classifyTermConfirmation("")).toBe("blank");
+    expect(classifyTermConfirmation("   ")).toBe("blank");
+
+    // The classifier can never mint a "confirmed" fact from free text.
+    for (const text of ["30%预付", "待客户确认", "", "   ", "模型建议"])
+      expect(classifyTermConfirmation(text)).not.toBe("confirmed");
   });
 });

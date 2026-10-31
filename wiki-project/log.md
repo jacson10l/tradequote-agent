@@ -340,3 +340,17 @@ B00a P1远端交接：[PR #8](https://github.com/jacson10l/tradequote-agent/pull
 C 转达三方并行分工（B 定政策 → A 实现 → C 复验），并确认快照项已针对 `fdd571a` 复验通过（记录 `66cc22b`）、无需返工。B 的资格政策前两轮已落地，本轮把「政策交付给 A」写成固定锚点：政策与契约/Wiki 同批固定在 `codex/b-maintenance-evidence-increment` = `56f702f`。A 实现写入事务的三个验收点写入 [[B00a-P1知识整理与维护契约]] 的「政策交付给 A」：① 权威读取（`evidenceIds` 只解析到六类证据事件、不得指向生命周期事件）；② 工作区/目标版本绑定（证据 workspace 等于问题工作区、逐类针对固定目标版本、交换对象不可改写且 issueVersion +1）；③ 资格核验（事务内 `evaluateMaintenanceResolution` 首错判定、任一失败整体回滚）。正反例 EVID-01～12 是 A 回归最小契约面。B 侧无剩余政策缺口，转 A 实现与 C 复验。
 
 2026-10-31 B对A维护证据缺口裁定（codex/b-maintenance-evidence-increment，提交8b0d656）：A按cdf3342接入后暴露两处"缺口"，均裁定为预期设计。①三类证据（source.validity_confirmed/integrity_reverified/issue.review_decision）无持久化事实= P0/P1边界，契约不改，产生命令属P1维护实现，其中issue.review_decision是全部issue kind的dismiss唯一依据，列为P1第一优先级；②source_withdrawn只能dismiss=正确设计，resolve由["knowledge.revision_published"]置空（知识发布证据绑定知识目标，对来源目标命中evidence_target_mismatch），来源撤回是人工决策只允许issue.review_decision dismiss。详见[[B对A维护证据缺口裁定]]，维护入口保持关闭、不阻塞黑客松演示。
+
+## 2026-10-31 条款确认语义冻结与 C 运行契约审阅
+
+C06 固定交付要求 B 修复"未确认条款消失"、冻结显式确认语义、保持旧数据兼容与失败/取消语义，并审阅 C 运行契约。本任务在既有 codex/b-maintenance-evidence-increment 分支追加（用户确认沿用当前分支，不新开）。
+
+契约层：packages/contracts/src/values.ts 新增 TermConfirmationStatusSchema（六态 unknown/blank/pending_confirmation/confirmed/withdrawn/legacy_unstated）与纯判定 isUnconfirmedTermText、classifyTermConfirmation，index.ts 同步导出。核心约束：非空文字绝不等于"已确认"，classifyTermConfirmation 永不返回 confirmed，confirmed 仅由 human_ui 显式产生；匹配做 NFKC+大小写折叠+连续空白折叠。
+
+领域层：packages/domain/src/trade.ts 的 calculateQuoteV1 由 `if (!input.payment)` 扩展为"空或未确认措辞都进 pending"，付款/交期填入"待客户确认/未确认/未知/来源缺失/模型建议/TBC"等文字时仍进入 pending 并标注"已填写但未获人工确认"，不再因字段非空而从待确认列表消失。
+
+测试：foundation.test.ts 新增确认语义正反例（六态枚举、未确认字面量、全角/大小写归一、classify 永不 confirmed），trade.test.ts 新增 pending 反例（非空未确认措辞保留 pending）。
+
+审阅：新增 [[B对C运行契约非作者审阅]]，对 runs/events/read tools/pending-client/preload/Worker/Main、continue/read/resolved、幂等/取消/中断/提交凭据、旧 JSON 与旧二进制兼容边界给出非作者意见；只读复核，未改 C 侧代码，不代签 A 或人工评审。
+
+本机验证（Windows 10 22H2、Node 22）：ELECTRON_RUN_AS_NODE=1 electron node_modules/vitest/vitest.mjs run packages/contracts packages/domain —— 13 文件 91 项全部通过（含新增 4 项 foundation + 1 项 trade 断言）。本机缺 VS C++ 未构建 better-sqlite3，Electron/e2e/build 与 macOS 验收未运行，不写成通过。持久化 run 表与 agent.start/get/cancel/retry IPC 接线、重启恢复属 C 待验收；A 存储评审与 T00 人工签字未完成。C06 组合验收仍待 C 在收到固定 SHA 后执行。
