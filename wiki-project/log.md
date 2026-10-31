@@ -1204,3 +1204,10 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
   4. `BOLT-001` 螺栓：`规格:M8/M16` 后追加「计价单位说明:按卖家页 kg 计(平台紧固件惯例为 piece/件)」（保留 kg 真实计价，标注平台惯例差异）。
 - 新 SHA-256 `d9df548c…`（原冻结 `7c13afc1…`）。此为 A 侧合规修正，**未改动 C 的冻结 SHA 2c043834**；是否重新冻结/重跑由 C 决定。
 - 验证：数值列逐列比对 0 差异；description 仅追加合规标注；未改 demo_check_rules.csv（上轮 v3 已修）、未碰 17 个报价审批 WIP。
+
+## 2026-10-31 A 回应 C：来源映射补齐 + 口径分层（codex/a01-maintenance-evidence）
+
+- C 已核对新 CSV（ab19776，SHA d9df548c，仅 description 变化、其余 8 列一致），决定按新版本接收并重跑受影响业务链，旧报价/证据保持不变。
+- A 补齐来源映射：新增 `demo_data/SOURCE-PROVENANCE.md`，明确 4 个 SKU 来源分层——服装 2 SKU（1601053415993/1601926123092）真实采集（有真实 URL + demo_products_sources.csv 映射）；板材/紧固件 2 SKU（MDF-001/BOLT-001）合成占位（URL 为 _16000000XX.html 占位符，无真实页面、无来源映射）。
+- 口径统一为「真实采集、真实性待审核」；MANIFEST.md 来源性质说明由「全部合成」改为分层表述，并在文件清单补列 demo_products_sources.csv 与 SOURCE-PROVENANCE.md。
+- 边界：本轮仅数据与文档（SOURCE-PROVENANCE.md + MANIFEST 口径），不含维护分支其他功能代码，符合 C「只接收明确数据与文档、不整条合入维护分支」的要求。

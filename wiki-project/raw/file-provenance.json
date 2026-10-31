@@ -27,8 +27,14 @@
     {
       "source": "demo-data-catalog:MANIFEST.md",
       "copy": "wiki-project/demo_data/MANIFEST.md",
-      "sha256": "ab44d96af839468e49b3a8b1901b87b76515c381754de2e8270a39507d877b95",
+      "sha256": "71ed18c35a228247eab8c833b2409d10c52c029cf088e7e429db365b1061ce43",
       "status": "demo-data-manifest"
+    },
+    {
+      "source": "demo-data-catalog:SOURCE-PROVENANCE.md",
+      "copy": "wiki-project/demo_data/SOURCE-PROVENANCE.md",
+      "sha256": "ec3cf5af8271eda2da3bf98e21dc81fc10b018bd5e6bba0bf86a53bfd0616cf0",
+      "status": "demo-data-source-provenance"
     }
   ],
   "getdesign_cached_packages": [

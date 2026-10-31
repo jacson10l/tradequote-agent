@@ -29,7 +29,8 @@
     "raw/inputs/外贸询报价协同 Agent 完整产品与实施方案.md",
     "raw/design/mistral-original.md",
     "raw/design/claude-original.md",
-    "demo_data/MANIFEST.md"
+    "demo_data/MANIFEST.md",
+    "demo_data/SOURCE-PROVENANCE.md"
   ],
   "required": [
     "README.md",
