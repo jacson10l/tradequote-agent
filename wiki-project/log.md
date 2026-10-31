@@ -1163,3 +1163,5 @@ C英德回复草稿最终本机：类型/构建0、聚焦28/28、全量505/505�
 C整场彩排实际结果：fixture与deepseek命令均退出0，各7检查点通过；真实模式deepseek-flash，V1=3921.00 CNY，V2/V3=18605.00 CNY，付款/交期双反馈校正后0问题，旧V1与重开不改写。复制断言等待Electron异步readText且仅返回布尔值。typecheck/build退出0、Electron11/11退出0；初次check与wiki:test35/36失败为新冻结清单缺入链，已补链接并复跑。备用MP4及冻结演示库本机保留，raw/c-hackathon-rehearsal.json记录实际尝试与最终门禁。
 
 C最终稳定性：真实DeepSeek五轮连续通过，每轮7检查点/3次业务操作，各用全新隔离业务库；无自动重试，合计15次操作，token/费用未知。fixture一轮通过；冻结演示库启动回读3版本/V3=18605.00 CNY，MP4解码退出0。最终typecheck/build、Electron11/11、工程6/6、Wiki36/36、索引/lint/sync均通过；原失败记录保留。维护、审批和外发保持关闭，人工业务/语言及非作者复核仍待。
+
+2026-10-31 A黑客松演示资料收口（codex/a-hackathon-closeout，基线 2c043834）：A 按用户要求完成三项收口——①复核主演示冻结清单（14 行/4 SKU、SKU/单位/币种/阶梯价/有效期/说明全部正确，V1=3921.00 CNY、V2/V3=18605.00 CNY 经 decimal 独立验证，CSV SHA-256 与 A 提交 035e5f8 逐字一致）；②明确资料来源性质（OFFICIAL_VERIFIED 10 条为真实法规/官方原文摘录、TEAM_TEMPLATE 6 条为团队自定、NOT_MODELLED_YET 2 条未建模；全部为合成投影，供应商/URL/价格/有效期不因存在 CSV 而视为真实）；③明确正式知识发布状态（A01b 人工发布入口已实现但无真实发布动作、seedPublished 为离线合成投影、审批/导出未完成、维护入口关闭）。本收口仅新增 Wiki 文档，不改 C 分支、不改产品代码。详见 [[A黑客松演示资料收口]]。
