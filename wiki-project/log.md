@@ -1134,3 +1134,15 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 
 - 2026-10-29 用户授权普通推送，A 已将固定实现提交 dac69db 推送到 origin/codex/a01e-p1-fixes；`git ls-remote` 回读 dac69db4c527ee3484f3481f65c76d63649cd04c 与本地 HEAD 逐字一致，未合入、未创建 PR。推送一次成功（输出 `0827476..dac69db`，exit 0），未改全局 git 配置。
 - 固定实现提交即 dac69db（A01e 八维护方法 + knowledge-wiki:9 迁移、本机验证命令/退出码与 Wiki 同步见上一节与 [[A01c检索引用实现]]、[[A01-迁移谱系支持与拒绝矩阵]]）；B 契约/语义复核、C 原脚本复验与桌面接线、实际人员审核/发布/撤回/业务语义签认仍待。本条为回执 docs-only 提交，位于 dac69db 之上，不与固定实现 SHA 混用。
+
+
+## 2026-10-31 B 对 A01e 八维护方法 267f087 的契约语义复核
+
+- 复核对象：用户指定固定点 267f087（codex/a01e-p1-fixes 的 docs-only 推送回执），其下固定实现 dac69db；按 A 的声明不混用两个 SHA。A 后续 46939c3 不在本轮范围。B 在独立 worktree /Users/jason/.codex/worktrees/b-a01e-semantics-review/tradequote-agent 新建 codex/b01-a01e-contract-review，taskBase=267f087；macOS 26.4 arm64、宿主 Node v22.22.2（engines 声明 22.22.0，如实标注）、pnpm 10.13.1，未运行 Electron。
+- 结论：不通过，不能作为 A01e 合入/关闭依据。三项阻断：B-A01E-01 写命令丢弃 writeEnvelope.idempotencyKey，同键同参重试返回 REVISION_CONFLICT 而非首次回执，OCC 先于回放；B-A01E-02 source.withdraw 返回的 eventId 未持久化，outbox 另生成 event_id，7 条撤回事件 payload 与自身行匹配 0 条；B-A01E-03 getMaintenance 的 snapshotId 只回显不冻结，续页实时重扫（首屏 2 条后新增 4 条均在续页出现）、换 states 复用旧 cursor 仍 ok 且 queryHash 改变、hasMore 但解析失败时 nextCursor 置空。
+- 应修七项：B-A01E-04 analyzeImpact 不核对 target 的 artifactHash/contentHash/sourceSetHash，且接受 v1 作为 v2 的 replacement；B-A01E-05 去重键缺 workspace 与触发事实、依赖字面量顺序，伪造 hash 使同一来源出现 2 条 issue；B-A01E-06 resolve/dismiss 不校验证据存在性，随机 UUID 可结案（A 的 A01e-2 亦如此通过）；B-A01E-07 影响扫描未覆盖关系/断链/其它消费面却可给 completed，消费者状态硬编码 unknown，条目 parse 失败被 continue 跳过而总数照计；B-A01E-08 rebuildIndex 无投影构建即 ready（探针 generation=1/indexedSeq=0/无投影表），operationKey 随机生成，无 rebuilding/stale/failed；B-A01E-09 生命周期事件缺 entityVersion/evidenceIds/note，maintenance.discovered 不发；B-A01E-10 getImpact/getIndexRebuild 不校验 workspace。
+- 文档/迁移四项：A01c 页自述与实现不符（snapshot 固定、acknowledged、重复撤回按版本冲突、写方法不用幂等表）；issue 表无 issue_version 列、impact/rebuild 无不可变触发器；hasSeqTable 旧库静默返回 0 需声明；MaintenanceExchange/ImpactExchange/IndexCommitExchange 三个校验器全仓无调用点，B 自身交付缺口一并记录。
+- 证据：复跑 A 的 wiki-store.test.ts 24/24（验证环境与 A 自述一致）；另写临时探针 b01-a01e-probe.test.ts（不提交，提交前删除），用真实 SqliteWorkspaceRepository 记录上述返回值。命令/退出码/结果在 raw/b01-a01e-contract-review.json。
+- 样例裁定：明确 synthetic 且绑定 revision 的确定性冲突（付款比例合计、纤维宣称、有效期/币种）可作报价规则样例；真实客户/供应商原件、价格/成本/有效期/认证/原产地等实质结论、validity unknown、模型 inference、未裁决冲突只能待核对；synthetic 标签只证明非真实政策，不证明来源真实性，lint passed/resolved 同样不构成真实性证明。维护队列不得以 fixture 标识充当 resolve 证据。
+- 同步页面：新增 B对A01e八维护方法的契约语义复核；B00a知识整理与维护协议补四条澄清；B00a-业务Wiki契约补充追加本批复核以保持 active；index/log 更新。未改 A 分支、未推送/合入/代签，未跑桌面 IPC/E2E 与全量 pnpm check；人工审核/发布/撤回/业务签认仍未发生。B 待 A 给修正版固定提交后按新提交复核，不复用本轮结论。
+- 本机门禁（macOS 26.4 arm64、Node v22.22.2、pnpm 10.13.1）：`npx vitest run packages/infrastructure/src/wiki-store.test.ts` 24/24、退出 0；`node wiki-project/scripts/build-code-index.mjs . --check` 退出 0（255 文件、70000 行、5 生成）；`node wiki-project/scripts/lint-wiki.mjs .` 退出 0（252 Markdown/224 语义页/252 可达）；`node wiki-project/scripts/check-wiki-sync.mjs . --base 267f087…` 退出 0（codeFiles 0）；`node scripts/check-boundaries.mjs` 退出 0。生成快照因新增页面/证据更新 4 个 generated 文件，属正常再生成，不删除旧证据。

@@ -1,0 +1,145 @@
+{
+  "status": "failed",
+  "scope": "A01e 八维护方法契约语义复核（B）",
+  "reviewedRef": "267f087490046955a0b4b1e6183caa163cc177c3",
+  "reviewedRefNote": "267f087 为 docs-only 推送回执，位于固定实现 dac69db 之上；本复核同时针对两者，不混用 SHA",
+  "implementationCommit": "dac69db4c527ee3484f3481f65c76d63649cd04c",
+  "implementationBranch": "codex/a01e-p1-fixes",
+  "base": "267f087",
+  "reviewerBranch": "codex/b01-a01e-contract-review",
+  "outOfScope": [
+    "codex/a01e-p2-fixes 46939c32a558b29a76b39ce37d6e6716bd357cd0（A 后续自述修复 M06，本轮未复核）"
+  ],
+  "environment": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "osVersion": "26.4",
+    "hostNode": "v22.22.2",
+    "declaredNode": "22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "未运行",
+    "note": "宿主 Node 与 engines 声明不一致，如实记录；仅跑单元级 vitest 与临时探针，未跑桌面/E2E"
+  },
+  "checks": [
+    {
+      "name": "existing-wiki-store-tests",
+      "command": "npx vitest run packages/infrastructure/src/wiki-store.test.ts",
+      "exitCode": 0,
+      "result": "24/24 passed",
+      "meaning": "复现 A 自述的 24/24；只覆盖快乐路径，不覆盖同键重放/跨页换过滤/证据资格/去重/索引投影"
+    },
+    {
+      "name": "b01-contract-probe",
+      "command": "npx vitest run packages/infrastructure/src/b01-a01e-probe.test.ts",
+      "exitCode": 0,
+      "result": "1/1 passed（探针断言全部使用实际返回值记录，测试通过表示探针执行完成）",
+      "meaning": "临时探针，不在交付中；用真实 SqliteWorkspaceRepository 复现语义偏差"
+    }
+  ],
+  "probeSource": "packages/infrastructure/src/b01-a01e-probe.test.ts（临时，提交前删除）",
+  "probes": {
+    "replay": {
+      "first": "ok",
+      "replay": "REVISION_CONFLICT",
+      "replaySameEvent": null
+    },
+    "evidence": {
+      "resolvedOk": true,
+      "storedEvidenceIsRandom": true
+    },
+    "cursorSwitch": {
+      "snapshotId": "47f8509f-4f56-430f-9918-769c5d6aa83b",
+      "cursorQueryHash": "5cc5365b818b2e7375b53dcc74d9560fbc33a9c04cabf8f4b736b8e5f6bbc16a",
+      "result": "ok",
+      "returnedStates": [
+        "resolved"
+      ],
+      "pageQueryHash": "8aaa98867cd66fd087176ca919b26dc9be48e75db7f061422a06866f5888d20b"
+    },
+    "snapshot": {
+      "firstPageCount": 2,
+      "continuationCount": 6,
+      "newIssuesVisible": 4,
+      "checkedAtDiffers": true
+    },
+    "forgedHash": {
+      "analyzeOk": true,
+      "echoedHash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "issuesForSameSource": 2
+    },
+    "replacement": {
+      "targetVersion": 2,
+      "replacementVersion": 1,
+      "accepted": true,
+      "code": null
+    },
+    "eventIdentity": {
+      "returnedEventId": "721f4f73-6cf9-4d03-928f-93dd9e1c2c09",
+      "outboxMatches": false,
+      "outboxRows": 7,
+      "payloadEventIdsMatchOwnRow": 0
+    },
+    "index": {
+      "rebuildStatus": "completed",
+      "operationKeyIsRequestKey": false,
+      "state": "ready",
+      "generation": 1,
+      "indexedSeq": 0,
+      "projectionTables": []
+    }
+  },
+  "verdict": {
+    "blocking": [
+      "B-A01E-01 同键重放缺失",
+      "B-A01E-02 撤回事件身份不入库",
+      "B-A01E-03 快照分页与游标绑定"
+    ],
+    "required": [
+      "B-A01E-04 目标身份/hash 未核实",
+      "B-A01E-05 去重键不合规范",
+      "B-A01E-06 处理证据无资格校验",
+      "B-A01E-07 影响报告完整性与消费者状态",
+      "B-A01E-08 索引重建未构建投影",
+      "B-A01E-09 生命周期事件不完整",
+      "B-A01E-10 跨工作区读"
+    ],
+    "documentation": [
+      "A01c 自述与实现不一致",
+      "迁移缺不可变约束",
+      "hasSeqTable 兼容口子未声明",
+      "exchange 校验器无调用点"
+    ]
+  },
+  "notPerformed": [
+    "未修改 A 分支",
+    "未推送/合入/代签",
+    "未跑桌面 IPC/E2E",
+    "未跑全量 pnpm check"
+  ],
+  "wikiChecks": [
+    {
+      "name": "code-index-check",
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "exitCode": 0,
+      "result": "255 files / 70000 lines / 5 generated"
+    },
+    {
+      "name": "lint-wiki",
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exitCode": 0,
+      "result": "252 markdown / 224 semantic / 252 reachable"
+    },
+    {
+      "name": "check-wiki-sync",
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 267f087490046955a0b4b1e6183caa163cc177c3",
+      "exitCode": 0,
+      "result": "passed, codeFiles 0"
+    },
+    {
+      "name": "check-boundaries",
+      "command": "node scripts/check-boundaries.mjs",
+      "exitCode": 0,
+      "result": "Module boundaries passed"
+    }
+  ]
+}

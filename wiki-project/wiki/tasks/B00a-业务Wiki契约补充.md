@@ -2,9 +2,12 @@
 title: B00a-业务Wiki契约补充
 type: task
 status: active
-updated: 2026-10-22
+updated: 2026-10-31
 sources:
   - conversation:用户指定B优先交付B00aP0解锁A01c且P1另交
+  - wiki-repo:wiki/B对A01e八维护方法的契约语义复核.md:1
+  - wiki-repo:raw/b01-a01e-contract-review.json:1
+  - packages/infrastructure/src/wiki-store.ts:1439
   - packages/contracts/src/knowledge-wiki.ts:1
   - packages/contracts/src/wiki-integrity.ts:1
   - packages/contracts/src/knowledge-wiki.test.ts:1
@@ -86,3 +89,15 @@ A 在另一开发者机器，不在本机聊天。已在 [A01b PR #6 对齐评�
 ## P1 独立推进记录
 
 用户于2026-10-22授权在A评审P0期间另开P1分支/小PR，任务 [[B00a-P1知识整理与维护契约]]；新增 [[B00a知识整理与维护协议]]。本页P0交付事实与PR#7保持，P1只在独立分支叠加，不增加PR#7提交；两者评审、验证与解锁条件分别记录。
+
+## 2026-10-31 A01e 八维护方法契约语义复核（B）
+
+对 A 固定点 267f087（实现 dac69db）完成契约语义复核，结论不通过：三项阻断（同键重放缺失、撤回事件身份不入库、快照分页与游标绑定失效）、七项应修、四项文档/迁移问题。逐项契约条款、代码位置、本机探针返回值与修复顺序见 [[B对A01e八维护方法的契约语义复核]]，证据在 [raw/b01-a01e-contract-review.json](../../raw/b01-a01e-contract-review.json)。
+
+本机复现 A 的 24/24 通过，但该组测试只覆盖快乐路径；B 另用临时探针证明同 key 重放返回 REVISION_CONFLICT、随机证据可结案、续页可见首屏后新增问题、换过滤条件复用 cursor 仍成功、伪造 hash 与旧版本 replacement 被接受、返回 eventId 不在 outbox、无投影即 ready。
+
+同轮在 [[B00a知识整理与维护协议]] 补四条澄清（维护写命令的幂等与回放顺序、快照绑定、exchange 校验器必调、synthetic 标签不证明真实性），并裁定资料冲突的样例资格：合成且绑定 revision 的确定性冲突可作规则样例，真实资料、实质结论、未裁决冲突与 fixture 标识只能待核对。
+
+任务保持 active；A 的 A01e 任务页与 A01c 页由 A 自己更新。B 未改 A 分支、未推送/合入/代签，未跑桌面/IPC/E2E 与全量 pnpm check。
+
+本机门禁（macOS 26.4 arm64、Node v22.22.2）：wiki-store.test.ts 24/24 退出 0；代码索引 `--check` 退出 0（255 文件）；lint-wiki 退出 0（252 Markdown/224 语义页/252 可达）；check-wiki-sync `--base 267f087` 退出 0（codeFiles 0）；check-boundaries 退出 0。仅文档与 Wiki 变更，未跑桌面、E2E 与全量 pnpm check。
