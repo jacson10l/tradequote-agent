@@ -622,12 +622,18 @@ body:has(.notification) .message-stack {
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 12px;
-  background: var(--surface);
+  background: var(--surface-warm);
   box-shadow: 0 2px 8px #00000005;
 }
 .workbench-composer textarea {
   border: 0;
+  outline: 2px solid var(--action);
+  outline-offset: 3px;
   min-height: 80px;
   resize: vertical;
   padding: 4px;
+}
+
+.workbench-composer textarea:not(:disabled) {
+  background: var(--surface-warm);
 }

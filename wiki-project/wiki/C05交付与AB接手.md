@@ -15,7 +15,7 @@ sources:
 
 ## 固定范围与取用
 
-仓库jacson10l/tradequote-agent，交付分支codex/c-codex-harness；本轮代码差异基线24771fb8eb9c0ae80f29b7f9653794e3ba2886be。包含C05原生Codex接入、C05b保存DeepSeek/电脑验收、C05c会话/只读生命周期与产品界面，以及负责人最后指定的暖色回调。代码、业务Wiki、任务、ADR、覆盖清单和脱敏证据同次提交；固定代码/Wiki材料提交为d62570a3c91890cc2aeb7ed8f971b275aaeac713，已普通推送且远端回读完全一致；回执raw/c05-delivery-receipt.json绑定该提交与便携验证包。后续交付回执提交仅补Wiki状态，不改应用源码。
+仓库jacson10l/tradequote-agent，交付分支codex/c-codex-harness；本轮代码差异基线24771fb8eb9c0ae80f29b7f9653794e3ba2886be。包含C05原生Codex接入、C05b保存DeepSeek/电脑验收、C05c会话/只读生命周期与产品界面，以及负责人最后指定的暖色回调。代码、业务Wiki、任务、ADR、覆盖清单和脱敏证据同次提交；固定代码/Wiki材料提交为d62570a3c91890cc2aeb7ed8f971b275aaeac713，已普通推送且远端回读完全一致；回执raw/c05-delivery-receipt.json绑定该提交与便携验证包。fc8c515交付回执仅补Wiki状态；用户随后要求的输入区CSS微调单列C05d，不改变原材料指纹或业务范围。
 
 集成分支codex/m1-foundation不在本次推送ref范围，不合入、不创建发布标签、不强推，也不代A/B签认。取用者应使用独立工作树/自己的任务分支，先按固定材料审查，不把整支C分支未经评审并入集成。原集成远端观察值654fecc4d93e4630ed4a0cf42f261d0d432e23d3，不与本轮差异基线混用。
 
@@ -75,13 +75,14 @@ pnpm wiki:sync --base 24771fb8eb9c0ae80f29b7f9653794e3ba2886be
 git diff --check
 ```
 
-源码指纹可直接从当前提交的Git blob核对（不受接收者工作树换行设置影响，也不运行模型）：
+原交付源码指纹可直接从固定材料提交的Git blob核对（不受接收者工作树换行设置影响，也不运行模型）：
 
 ```sh
 node --input-type=module <<'JS'
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-const blob = path => execFileSync('git', ['show', `HEAD:${path}`], { maxBuffer: 16 * 1024 * 1024 });
+const material = 'd62570a3c91890cc2aeb7ed8f971b275aaeac713';
+const blob = path => execFileSync('git', ['show', `${material}:${path}`], { maxBuffer: 16 * 1024 * 1024 });
 const report = JSON.parse(blob('wiki-project/raw/c05-delivery-validation.json').toString('utf8'));
 for (const file of report.sourceSnapshot.files) {
   const actual = createHash('sha256').update(blob(file.path)).digest('hex');
@@ -97,4 +98,8 @@ JS
 
 ## 实际推送回执
 
-固定材料[d62570a3c91890cc2aeb7ed8f971b275aaeac713](https://github.com/jacson10l/tradequote-agent/commit/d62570a3c91890cc2aeb7ed8f971b275aaeac713)包含91个源/知识/测试/证据文件，63项canonical源码指纹已从Git HEAD独立核对。普通推送新建origin/codex/c-codex-harness后ls-remote回读同SHA；集成分支前后均观察为654fecc4d93e4630ed4a0cf42f261d0d432e23d3，本次未合入、不强推、不建标签。当前Wiki回执若推进分支头，A/B仍可固定材料SHA复跑，或在最新分支HEAD核对63项源码完全一致。
+固定材料[d62570a3c91890cc2aeb7ed8f971b275aaeac713](https://github.com/jacson10l/tradequote-agent/commit/d62570a3c91890cc2aeb7ed8f971b275aaeac713)包含91个源/知识/测试/证据文件，63项canonical源码指纹已从Git HEAD独立核对。普通推送新建origin/codex/c-codex-harness后ls-remote回读同SHA；集成分支前后均观察为654fecc4d93e4630ed4a0cf42f261d0d432e23d3，本次未合入、不强推、不建标签。当前Wiki回执若推进分支头，A/B仍可固定材料SHA复跑，fc8c515回执时也已核对63项源码完全一致；后续UI调整按下方独立任务和证据核对，不再要求移动HEAD等同于原材料。
+
+## 后续输入区微调
+
+[[C05d-输入区常驻边框与背景]]仅在原交付之上改变输入区白底与外框常驻，不改业务或聊天结构。原63项源码指纹核对示例固定使用d62570a材料提交，避免后续UI颜色更新使接手者误判原证据失真；本次补正证据另存raw/c05d-composer-validation.json。

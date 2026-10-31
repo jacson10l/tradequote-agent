@@ -85,9 +85,9 @@
     {
       "path": "DESIGN.md",
       "type": "md",
-      "lines": 108,
-      "bytes": 10452,
-      "sha256": "c4d06a5dea021a0a744027a4b33c51a49d6001db27675079e167f897d24c3345",
+      "lines": 110,
+      "bytes": 10777,
+      "sha256": "1a41e8a4145eaead6412ae834403318417d6b3db14e862302cfe9a4cb1907986",
       "role": "当前视觉规范",
       "pages": [
         "wiki/decisions/0001-Mistral工作台风格.md"
@@ -682,9 +682,9 @@
     {
       "path": "apps/desktop/src/renderer/src/theme.css",
       "type": "css",
-      "lines": 633,
-      "bytes": 11027,
-      "sha256": "e1de2dcf9e36228283c4de611c257596214063eed75be62d812ddba1c418d5bc",
+      "lines": 639,
+      "bytes": 11175,
+      "sha256": "6a8a39b3ced4a82d1737f444091fe1a2e2fbd4001bc8ed023e6bc8e0e9ee863a",
       "role": "M1 React workspace form and document layout",
       "pages": [
         "wiki/M1工作台.md",

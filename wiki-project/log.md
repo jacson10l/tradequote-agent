@@ -1221,3 +1221,9 @@ C05提交前新鲜复验535单元/3显式live跳过、12Electron、36维护及ty
 代码、Wiki、任务/ADR/覆盖和便携验证包同次提交d62570a3c91890cc2aeb7ed8f971b275aaeac713（91文件），提交后63项canonical Git blob指纹、只读Wiki门禁和原24771fb固定基线同步均通过。普通git push --set-upstream origin HEAD:refs/heads/codex/c-codex-harness退出0新建独立分支，ls-remote回读完整SHA一致；集成前后均观察为654fecc4d93e4630ed4a0cf42f261d0d432e23d3，未合入/强推/建标签。暖色已真实Electron重载确认，最新本机535/12/36和全部门禁对应材料源码，A/B入口[[C05交付与AB接手]]，证据raw/c05-delivery-validation.json与raw/c05-delivery-receipt.json。
 
 本条回执仅补交付SHA/远端事实和当前状态，不改应用源码；回执自身提交后仍只普通推送相同C独立ref，并在交付回复回读最终分支头。A/B业务/契约签认继续active，Windows/安装未验，不以推送代替验收。
+
+## 2026-10-31 C05d输入区常驻外框与背景
+
+负责人要求橙框常驻、仅修改白色输入背景，其余不动。同一独立候选从fc8c515450a8e0f90b30edda95cd1dab40056e28起，theme.css复用原2px action outline/3px offset常驻，并将composer/可编辑textarea改surface-warm，尺寸/文案/消息/按钮/禁用灰底保持。DESIGN、工作台知识、任务/导航同步，交接指纹命令固定原d62570a避免HEAD后续微调混淆；原证据/报价不改。实际桌面和本机门禁收尾见[[C05d-输入区常驻边框与背景]]。
+
+2026-10-31 C05d验证收口：Electron聚焦/失焦均有原橙框，输入区暖色，未重发模型。build/typecheck/check（6工程、边界、273源码清单与273 Markdown/244语义全部可达）/generate/fc8c515固定基线sync/diff-check均0；证据raw/c05d-composer-validation.json。仅1源码CSS，无新增源码/维护工具变化，原535/12/36未重跑，原证据固定d62570a；代码与Wiki同批提交到C独立分支，不合入集成。
