@@ -1145,3 +1145,8 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 - 测试：wiki-store.test.ts 新增 A01e-2b（首页冻结候选集/事实，续页读回冻结 open v1 而非并发 in_progress v2）、A01e-4b（rebuildIndex 实际物化 markdown/keyword 投影并原子切换）共 2 项，26/26；migrations 17/17、migration-ledger 5/5、wiki-check-integration 24/24、check-lineage-integration 1/1 全过；`tsc --noEmit` 退出 0；纯 Node 探针 a01-migration-lineage-probe.mjs 指纹/分类/追加/控制全过（v9/v10 指纹已纳入）。仅 storage.test.ts/worker-migration-gates.test.ts 预存在 Windows symlink EPERM 保留。
 - B 契约/语义复核、C 原脚本复验与桌面接线、实际人员审核/发布/撤回/业务签认仍待；本轮未推送/合入、未代签。详见 [[A01c检索引用实现]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-知识发布与来源查询]]。
 - 2026-10-31 A01e 新版复验补充：在 `codex/a01e-p3-fixes` 基于 `46939c32` 增加同键撤回回放/事件唯一性测试，维护聚焦 27/27、typecheck 0；Windows symlink EPERM 保留。
+
+
+## C接收A24维护回归增量
+
+2026-10-31 C接收A24c3eae：生产源码相对469零差异；A新增回归27/27、原维护12/12、迁移各3/3通过，但快照ID/queryHash换绑反例仍红（额外4/5），维护接线不放行。见[[C24c3eae撤回回归接收与快照阻断]]、[[C集成-A24维护增量复验]]与raw/c-a24-reverify.json。

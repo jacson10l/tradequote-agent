@@ -1,0 +1,62 @@
+[
+  {
+    "name": "generate",
+    "argv": [
+      "node",
+      "wiki-project/scripts/build-code-index.mjs",
+      "."
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 255,\n  \"lines\": 70768,\n  \"generated\": 5,\n  \"excluded\": 11\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "check",
+    "argv": [
+      "node",
+      "wiki-project/scripts/build-code-index.mjs",
+      ".",
+      "--check"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 255,\n  \"lines\": 70768,\n  \"generated\": 5,\n  \"excluded\": 11\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "lint",
+    "argv": [
+      "node",
+      "wiki-project/scripts/lint-wiki.mjs",
+      "."
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 253,\n  \"semantic\": 225,\n  \"reachable\": 253\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "sync",
+    "argv": [
+      "node",
+      "wiki-project/scripts/check-wiki-sync.mjs",
+      ".",
+      "--base",
+      "24c3eae96bf002ee0f6898733fff089c617f4162"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"base\": \"24c3eae96bf002ee0f6898733fff089c617f4162\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "diff",
+    "argv": [
+      "git",
+      "-c",
+      "core.whitespace=cr-at-eol",
+      "diff",
+      "--check"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+]
