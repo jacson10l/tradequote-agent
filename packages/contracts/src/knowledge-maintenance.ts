@@ -662,7 +662,10 @@ export const maintenanceResolutionEligibility: Record<
     dismiss: ["issue.review_decision"],
   },
   source_withdrawn: {
-    resolve: ["knowledge.revision_published"],
+    // 来源撤回本质是人工决策：不存在可自动证明"该来源已撤回"的来源目标事实证据。
+    // 知识新发布(knowledge.revision_published)绑定的是知识目标，无法解析到来源目标问题，
+    // 故 source_withdrawn 只能人工裁决(dismiss)关闭，不允许机器事实自动 resolve。
+    resolve: [],
     dismiss: ["issue.review_decision"],
   },
   expired: {

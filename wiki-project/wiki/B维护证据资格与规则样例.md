@@ -36,7 +36,7 @@ sources:
 | 问题种类 | 可用 resolve 依据 | 可用 dismiss 依据 |
 |---|---|---|
 | source_updated | 知识新发布、来源更新 | 人工裁决 |
-| source_withdrawn | 知识新发布（移除该来源） | 人工裁决 |
+| source_withdrawn | （无自动 resolve 依据，仅 dismiss） | 人工裁决 |
 | expired | 知识新发布、来源更新、有效性确认 | 人工裁决 |
 | unknown_validity | 有效性确认、来源更新、知识新发布 | 人工裁决 |
 | conflict | 知识新发布（单一裁决版本） | 人工裁决 |
@@ -47,6 +47,12 @@ sources:
 | index_stale | 索引重建完成 | 人工裁决 |
 
 结论：**dismiss 永远需要人工裁决记录**，事实事件只能证明"已修复"（resolve），不能证明"不必处理"。resolve 也不接受 false_positive/not_applicable；只有 duplicate 允许用 duplicate_of/superseded 结案。
+
+### source_withdrawn 裁决（A 方案，2026-10-31）
+
+`source_withdrawn` 问题目标是来源（sourceId/sourceRevisionId），而 `knowledge.revision_published` 绑定的是知识目标（documentId/revisionId）。知识发布证据无法解析到来源目标问题（`bindingFailure` 要求 `target.kind === "knowledge"`，命中即 `evidence_target_mismatch`），因此这条 resolve 路径在实现上本就永远走不通，会造成"矩阵给了 resolve 依据但实际只能 dismiss"的假象。
+
+按 B 确认的 A 方案，`source_withdrawn.resolve` 明确为**空**（无自动 resolve 依据），只允许 `issue.review_decision` 人工裁决 dismiss。理由：来源撤回本质是人工决策（"该来源不再有效/不再使用"），用"知识发新版本"自动关闭会掩盖"来源本身为何撤回"这一关键事实，不如强制人工裁决更诚实。任何对 source_withdrawn 的 resolve 尝试都会被 `evidence_kind_not_eligible`（或 schema 层 `.min(1)` 空证据）拒绝。
 
 ## 事件 vs 证据：术语裁决（A 实现必读）
 
