@@ -1,0 +1,222 @@
+{
+  "status": "passed",
+  "scope": "C05b saved deepseek-flash native Codex Responses and native Computer Use; synthetic business only, no all-model or business-rule certification",
+  "date": "2026-10-31",
+  "branch": "codex/c-codex-harness",
+  "taskBase": "24771fb8eb9c0ae80f29b7f9653794e3ba2886be",
+  "environment": {
+    "os": "macOS 26.4 arm64",
+    "node": "22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2",
+    "codex": "0.166.0-alpha.5.1"
+  },
+  "provider": {
+    "savedModel": "deepseek-flash",
+    "storageStatus": "encrypted",
+    "settingsAccess": "normal production Main ModelSettingsStore controlled status and credential snapshot; secret never inspected by agent",
+    "endpoint": "https://api.deepseek.com",
+    "wireApi": "responses",
+    "nativeRuntime": "codex app-server --stdio",
+    "fallback": false,
+    "keyChannel": "child env only; no argv/global config/public command/database",
+    "controlChatSucceeded": true,
+    "nativeReadSucceeded": true,
+    "nativeReadTools": [
+      "search_catalog",
+      "search_catalog"
+    ]
+  },
+  "computerUse": {
+    "driver": "mcp__cua_repl native Electron app AX/click/setValue/pressKey; no browser substitute",
+    "isolation": "explicit codex-provider-host.cjs; synthetic business db + Chromium session; production Main settings retained",
+    "workspace": "C05b电脑实测·合成业务",
+    "source": {
+      "file": "合成演示商品.csv",
+      "status": "synthetic",
+      "sha256": "16d58b64128babdf8fedc5ec46c1d9cdacf3aa9bc71cd8b6645579c55ced337a"
+    },
+    "observations": [
+      {
+        "step": "missing quantity",
+        "runId": "9675f065-f9ba-4036-a5a7-f3fe0009988d",
+        "status": "waiting_input",
+        "toolCount": 3,
+        "result": "catalog/product facts observed; quantity asked, no guessed payment/delivery"
+      },
+      {
+        "step": "supplement100",
+        "runId": "f90f4490-8f60-48a9-8eb7-10225ffb835c",
+        "initial": "failed ACTION_NOT_ALLOWED",
+        "recovery": "explicit retry after restart",
+        "attempt": 2,
+        "toolCount": 7,
+        "revisionId": "ae37c9a6-2570-4389-8314-401d1c35d8cc",
+        "version": 1,
+        "quantity": "100",
+        "goodsTotal": "900.00",
+        "currency": "USD"
+      },
+      {
+        "step": "revise500 and compare",
+        "runId": "3ffd02b4-ded8-4bbb-8b96-0277f7345013",
+        "initial": "failed ACTION_NOT_ALLOWED; registered search_knowledge called before calculate_quote",
+        "recovery": "stage error returned to native agent with available tool names; explicit retry",
+        "attempt": 2,
+        "toolCount": 6,
+        "revisionId": "8aebab6c-7579-4556-8790-93b124a24b12",
+        "version": 2,
+        "quantity": "500",
+        "goodsTotal": "4500.00",
+        "currency": "USD",
+        "diff": "quantity100→500; goods900.00→4500.00; V1 immutable"
+      },
+      {
+        "step": "cancel600",
+        "runId": "7673b8c1-0495-4e58-bf89-825a02428d27",
+        "status": "cancelled",
+        "toolCount": 2,
+        "result": "no V3, V2 remains4500.00"
+      },
+      {
+        "step": "restart",
+        "result": "V2/versions/run history/cancelled fact restored; no automatic resend"
+      },
+      {
+        "step": "automatic report and English reply",
+        "reportId": "e9446bc8-3481-40c3-b538-4e95dcf697e1",
+        "checkedAt": "2026-10-31T09:59:09.095Z",
+        "revisionId": "8aebab6c-7579-4556-8790-93b124a24b12",
+        "coverage": {
+          "commercial_terms": "pending",
+          "platform_guidance": "pending"
+        },
+        "result": "same persisted run report in current quote and reply after restart, no manual check needed; sources/unknown terms and unapproved unsent labels retained"
+      },
+      {
+        "step": "read-only20m2",
+        "sku": "DEMO-PANEL",
+        "quantity": "20",
+        "unit": "m2",
+        "unitPrice": "12.5",
+        "previewTotal": "250.00",
+        "currency": "USD",
+        "result": "native model requested real deterministic tool; no save, V2 remains500piece4500.00"
+      },
+      {
+        "step": "final built window reopened",
+        "result": "native AX and screenshot confirm V2 4500.00, 2 coverage pending, auto-report provenance, quantity/amount differences and actual cancelled run; no new model request"
+      }
+    ]
+  },
+  "fixes": [
+    "saved DeepSeek credentials native Responses provider, no silent fallback",
+    "registered stage-unavailable tool returns error to Codex within original call budget without executing it",
+    "exact-version persisted run report reused only when formal list succeeded empty",
+    "retry IPC pending locks parent workbench; successful response binds run, executing lock takes over",
+    "stale manual-first, checks-unconnected and read-only-cancel copy corrected"
+  ],
+  "checks": [
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "result": "passed after fixture type corrections",
+      "localLog": "/tmp/c05b-typecheck-final2.log"
+    },
+    {
+      "command": "pnpm test",
+      "exitCode": 0,
+      "result": "57 test files passed,2 skipped;520 tests passed,3 opt-in live skipped",
+      "localLog": "/tmp/c05b-unit-final2.log"
+    },
+    {
+      "command": "pnpm exec vitest run apps/desktop/src/renderer/src/features/workbench.test.tsx",
+      "exitCode": 0,
+      "result": "4/4, includes delayed retry IPC lock and bound-running continuation",
+      "localLog": "/tmp/c05b-retry-final.log"
+    },
+    {
+      "command": "pnpm build",
+      "exitCode": 0,
+      "result": "main/preload/renderer build passed; existing chunk-size warning",
+      "localLog": "/tmp/c05b-build-final.log"
+    },
+    {
+      "command": "pnpm exec playwright test --grep-invert 'real Codex completes'",
+      "exitCode": 0,
+      "result": "12/12 actual Electron regression tests; model transport fixtures, native DeepSeek proof comes from separate Computer Use",
+      "localLog": "/tmp/c05b-electron-final.log"
+    },
+    {
+      "command": "pnpm wiki:generate",
+      "exitCode": 0,
+      "result": "271 source files,5 generated pages",
+      "localLog": "/tmp/c05b-wiki-generate.log"
+    },
+    {
+      "command": "pnpm check",
+      "exitCode": 0,
+      "result": "Biome passed;6 engineering tests passed;module boundaries passed;generated inventory read-only check and Wiki lint passed (266 pages,237 semantic,266 reachable)",
+      "localLog": "/tmp/c05b-check-final.log"
+    },
+    {
+      "command": "pnpm wiki:test",
+      "exitCode": 0,
+      "result": "36/36 maintenance regressions passed after prose correction",
+      "localLog": "/tmp/c05b-wiki-test-final.log"
+    },
+    {
+      "command": "pnpm wiki:sync --base 24771fb8eb9c0ae80f29b7f9653794e3ba2886be",
+      "exitCode": 0,
+      "result": "36 code files,13 knowledge pages,2 tasks;errors[]",
+      "localLog": "/tmp/c05b-sync.log"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "no whitespace errors",
+      "localLog": "/tmp/c05b-diff-check.log"
+    },
+    {
+      "command": "pnpm wiki:sync --base 24771fb8eb9c0ae80f29b7f9653794e3ba2886be (after final evidence and preserving original log bytes)",
+      "exitCode": 0,
+      "result": "passed;36 source files,13 knowledge pages,2 tasks,errors[]",
+      "localLog": "/tmp/c05b-sync-last2.log"
+    }
+  ],
+  "initialFailures": [
+    {
+      "stage": "native acceptance",
+      "result": "V1/V2 initial ACTION_NOT_ALLOWED preserved; neither called saved success before retry"
+    },
+    {
+      "stage": "unit red tests",
+      "result": "provider1/6,stage1/7,report2/23,retry1/4; green after fixes; one textarea matcher misuse corrected"
+    },
+    {
+      "stage": "new retry fixture typecheck",
+      "result": "missing clarification and workspace-specific success helper typing; corrected, final typecheck0"
+    },
+    {
+      "stage": "Wiki lint/maintenance initial",
+      "result": "check exit1 and maintenance35/36 due literal business state matching reserved placeholder text; reworded prose, no checks weakened"
+    },
+    {
+      "stage": "final evidence append",
+      "result": "text rewrite normalized existing log CRLF prefix and triggered APPEND_ONLY_LOG_REQUIRED; restored baseline bytes for unchanged lines, retained all appended evidence; repeated fixed-base sync passed"
+    }
+  ],
+  "review": {
+    "type": "independent read-only agent",
+    "findings": "retry pending IPC race; fixed with parent lock and dedicated returned-run bind",
+    "followup": "no additional concrete race found in revised patch; reviewer did not run tests"
+  },
+  "remaining": [
+    "only saved deepseek-flash tested; other models not certified",
+    "B confirmation semantics: nonempty 未确认 still loses payment/delivery pending",
+    "A actual source versions/rule coverage and human signoff remain",
+    "read-only operation has no public cancel/durable resume",
+    "original waiting_input run remains historical pending after supplement creates successful new run",
+    "Windows and signed packaged desktop not tested; candidate unpushed/unmerged"
+  ]
+}

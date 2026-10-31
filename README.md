@@ -8,9 +8,11 @@
 
 **正式 Electron＋React 工作台已接通手工报价 V1：演示场景、CSV 预览确认、价目表核价、草稿保存与重开；并新增正式 DeepSeek 设置、询盘理解、两轮 V2/V3 与差异；完整报价 MVP 尚未完成。** 首版单机保存数据，优先接入 DeepSeek；最终安装和双平台验收按用户决定暂缓。UI 使用 `getdesign` 的 **mistral.ai** 参考，并适配为浅色单据工作台。
 
-最新结论：[M0 平台验证记录](wiki-project/wiki/M0平台验证记录.md)。Solivio 不整体 Fork，CSV/金额采用 csv-parse 与 decimal.js；Harness 在普通 Node 的历史实验通过，但在 Electron 44.9.2 初始化失败，当前默认改选最小执行器。
+当前 C 独立候选以 **Codex app-server 原生 Harness** 驱动现有业务工具；真实本机V1与500数量修订、取消/显式重试已验证，最终Electron与门禁见 [C05任务](wiki-project/wiki/tasks/C05-CodexHarness纠偏与工作台迁移.md)。日常任务迁至单据工作台，资料与报价保留导入/发布/来源/历史入口。现有保存的 deepseek-flash 配置已通过原生 Responses → Codex 工具链及 Computer Use 验证；工作台必须先保存模型配置，不使用本机连接兜底。其他型号未验证。详见 [C05b任务](wiki-project/wiki/tasks/C05b-DeepSeek兼容与电脑验收.md)。
 
-正式前端已接入 **Tailwind CSS、shadcn 组件组织方式、Lucide、Zod、React Hook Form＋resolvers、React Router、TanStack Query**；Biome、tsc、Vitest、React Testing Library 与 Playwright Electron 已建立检查入口。当前真实业务包括工作区与手工 V1 持久化；首页原报价布局/差异仍为明确标注的合成预览，真实操作进入“资料与报价”。实现与剩余范围见 [M1 工程基线](wiki-project/wiki/M1工程基线.md) 和 [M1 任务](wiki-project/wiki/tasks/2026-10-21-M1工程初始化.md)。
+历史 [M0 平台验证记录](wiki-project/wiki/M0平台验证记录.md) 的 Harness 是 DeepSeek Harness；它在Electron中的初始化失败不是Codex验证结果。Solivio 不整体 Fork，CSV/金额继续使用 csv-parse 与 decimal.js。
+
+正式前端已接入 **Tailwind CSS、shadcn 组件组织方式、Lucide、Zod、React Hook Form＋resolvers、React Router、TanStack Query**；Biome、tsc、Vitest、React Testing Library 与 Playwright Electron 已建立检查入口。当前真实业务包括工作区与手工 V1 持久化；当前候选首页已改为真实单据工作台；历史报价选中后进入工作台继续处理。实现与剩余范围见 [M1 工程基线](wiki-project/wiki/M1工程基线.md) 和 [M1 任务](wiki-project/wiki/tasks/2026-10-21-M1工程初始化.md)。
 
 当前独立C候选已接入[持久事件与桌面重连](wiki-project/wiki/C03持久事件与桌面重连.md)：进度从已提交日志补齐，Worker断线/reload只读恢复，不自动重发模型。[C04收口](wiki-project/wiki/C04收口与验收边界.md)为真实31业务技术通过、签认待补；17故障注入仍仅fixture，未触发分类不反填。旧章节按各自切片证据阅读。
 
@@ -138,3 +140,5 @@ macOS 开发启动使用本地 TradeQuote.app，Dock 名称与图标一致；重
 ## C本地集成候选
 
 [集成候选与依赖收口](wiki-project/wiki/C集成候选与依赖收口.md)在独立codex/c-integration-candidate组合C03/9e8695b与共同头654fecc；[评审说明](wiki-project/wiki/C集成候选评审说明.md)给出完整来源范围和组合证据。A01c迁移6不兼容、P1未合入均排除，A/B/非作者及C04人工签认仍待；没有推送、共同分支合入或真实复测。
+
+C05c将澄清补充、查询试算统一纳入持久任务：成功后关联收口原问题，只读可停止、重开读取结果/中断事实并显式重试。工作台按用户/助手消息显示，内核标签和演示默认输入已移除。实现与本机证据见 [C05c任务](wiki-project/wiki/tasks/C05c-会话收口与只读持久运行.md)，[A/B交接](wiki-project/wiki/C05c-AB业务依据与契约交接.md)保持独立待办。

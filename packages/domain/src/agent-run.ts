@@ -9,7 +9,8 @@ export type AgentRunAction =
   | "wait_for_input"
   | "cancel"
   | "interrupt"
-  | "retry";
+  | "retry"
+  | "resolve";
 
 const transitions: Record<RunStatus, Partial<Record<AgentRunAction, RunStatus>>> = {
   queued: { begin: "running", cancel: "cancelled", interrupt: "interrupted" },
@@ -20,7 +21,8 @@ const transitions: Record<RunStatus, Partial<Record<AgentRunAction, RunStatus>>>
     cancel: "cancelled",
     interrupt: "interrupted",
   },
-  waiting_input: { cancel: "cancelled" },
+  waiting_input: { cancel: "cancelled", resolve: "resolved" },
+  resolved: { cancel: "resolved", retry: "resolved" },
   completed: { cancel: "completed", retry: "completed" },
   failed: { retry: "queued" },
   cancelled: { cancel: "cancelled", retry: "queued" },

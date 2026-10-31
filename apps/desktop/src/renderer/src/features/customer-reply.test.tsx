@@ -69,3 +69,51 @@ it("rejects wrong-version and duplicate reports and permits an explicit read ret
     ),
   );
 });
+
+it("includes the persisted Agent check in the reply when no independent manual report exists", async () => {
+  render(
+    <QueryClientProvider
+      client={new QueryClient({ defaultOptions: { queries: { retry: false } } })}
+    >
+      <MessageProvider>
+        <CustomerReply
+          quote={checksQuote}
+          client={{ ...readonlyMockClient, getQuoteChecks: async () => checksList([]) }}
+          runReport={checksReport}
+        />
+      </MessageProvider>
+    </QueryClientProvider>,
+  );
+  await waitFor(() =>
+    expect(
+      screen.getByRole<HTMLTextAreaElement>("textbox", { name: "客户回复正文" }).value,
+    ).toContain(checksReport.reportId),
+  );
+  expect(
+    screen.getByRole<HTMLTextAreaElement>("textbox", { name: "客户回复正文" }).value,
+  ).toContain("[block]");
+});
+
+it("does not attach a persisted Agent report to another quote version", async () => {
+  render(
+    <QueryClientProvider
+      client={new QueryClient({ defaultOptions: { queries: { retry: false } } })}
+    >
+      <MessageProvider>
+        <CustomerReply
+          quote={{ ...checksQuote, version: 2 }}
+          client={{ ...readonlyMockClient, getQuoteChecks: async () => checksList([]) }}
+          runReport={checksReport}
+        />
+      </MessageProvider>
+    </QueryClientProvider>,
+  );
+  await waitFor(() =>
+    expect(
+      screen.getByRole<HTMLTextAreaElement>("textbox", { name: "客户回复正文" }).value,
+    ).toContain("No saved check report"),
+  );
+  expect(
+    screen.getByRole<HTMLTextAreaElement>("textbox", { name: "客户回复正文" }).value,
+  ).not.toContain(checksReport.reportId);
+});

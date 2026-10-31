@@ -1,6 +1,7 @@
 import { createHash, randomUUID } from "node:crypto";
 import {
-  AgentCommandSchema,
+  type AgentReadData,
+  AgentReadDataSchema,
   type AgentRun,
   AgentRunSchema,
   type AgentToolStep,
@@ -8,6 +9,7 @@ import {
   ClarificationSchema,
   failure,
   ModelCredentialsSchema,
+  type ReadToolObservation,
   type RevisionProposal,
   RevisionProposalSchema,
   type RunCommand,
@@ -15,6 +17,7 @@ import {
   type RunEventsQuery,
   type RunListQuery,
   RunListQuerySchema,
+  RunOperationCommandSchema,
   type Understanding,
   UnderstandingSchema,
 } from "@tradequote/contracts";
@@ -90,12 +93,23 @@ export class AgentRunStore {
     const run = AgentRunSchema.parse(JSON.parse(row.data_json));
     if (
       row.request_hash !==
-        fingerprint({ method: run.command.method, payload: run.command.payload }) ||
+        fingerprint({
+          method: run.command.method,
+          payload: run.command.payload,
+          ...(run.continuationOf
+            ? {
+                continuationOf: run.continuationOf,
+                continuationMessage: run.continuationMessage,
+                clarificationHistory: run.clarificationHistory,
+              }
+            : {}),
+        }) ||
       (run.status === "running") !== (row.execution_id !== null && row.worker_session_id !== null)
     )
       throw new TradeFault("STORAGE_ERROR", "运行记录与执行凭据不一致");
     if (
       run.status === "completed" &&
+      run.command.method !== "agent.read" &&
       this.trades.committedAgentRevision(run.command) !== run.committedRevisionId
     )
       throw new TradeFault("STORAGE_ERROR", "运行提交引用不一致");
@@ -264,9 +278,51 @@ export class AgentRunStore {
   }
   start(input: Extract<RunCommand, { method: "agent.start" }>): Effect {
     const command = RunCommandSchema.options[0].parse(input);
+    return this.createRun(command);
+  }
+  continue(input: Extract<RunCommand, { method: "agent.continue" }>): Effect {
+    return this.transaction(() => {
+      const parent = this.get(input.payload.runId);
+      const command = parent.command;
+      const history = [
+        ...(parent.clarificationHistory ?? []),
+        { question: parent.clarification ?? "", answer: input.payload.supplement },
+      ];
+      if (history.length > 20 || Buffer.byteLength(JSON.stringify(history), "utf8") > 64000)
+        throw new TradeFault(
+          "VALIDATION_ERROR",
+          "本任务的补充内容已达上限，请新建任务并提供精简需求",
+        );
+      return this.createRun(
+        RunCommandSchema.options[0].parse({
+          ...input,
+          method: "agent.start",
+          payload: { method: command.method, payload: command.payload },
+        }),
+        parent,
+        input.payload.supplement,
+        history,
+      );
+    });
+  }
+  private createRun(
+    command: Extract<RunCommand, { method: "agent.start" }>,
+    parent?: AgentRun,
+    supplement?: string,
+    history?: AgentRun["clarificationHistory"],
+  ): Effect {
     return this.transaction(() => {
       const workspaceId = this.workspaceId();
-      const hash = fingerprint(command.payload);
+      const hash = fingerprint({
+        ...command.payload,
+        ...(parent
+          ? {
+              continuationOf: parent.runId,
+              continuationMessage: supplement,
+              clarificationHistory: history,
+            }
+          : {}),
+      });
       const prior = this.db
         .prepare("SELECT * FROM agent_run WHERE workspace_id=? AND operation_key=?")
         .get(workspaceId, command.idempotencyKey) as Row | undefined;
@@ -275,13 +331,22 @@ export class AgentRunStore {
           throw new TradeFault("IDEMPOTENCY_CONFLICT", "同一业务标识不能用于不同内容");
         return { run: this.decode(prior), dispatch: null, abort: null };
       }
-      const operation = AgentCommandSchema.parse({ ...command, ...command.payload });
-      const committedRevisionId = this.trades.committedAgentRevision(operation);
+      if (parent) this.assertContinuationAvailable(parent);
+      const operation = RunOperationCommandSchema.parse({ ...command, ...command.payload });
+      const committedRevisionId =
+        operation.method === "agent.read" ? null : this.trades.committedAgentRevision(operation);
       const now = this.now();
       const run = AgentRunSchema.parse({
         runId: randomUUID(),
         operationKey: command.idempotencyKey,
         command: operation,
+        ...(parent
+          ? {
+              continuationOf: parent.runId,
+              continuationMessage: supplement,
+              clarificationHistory: history,
+            }
+          : {}),
         status: committedRevisionId ? "completed" : "queued",
         attempt: 1,
         createdAt: now,
@@ -303,6 +368,33 @@ export class AgentRunStore {
         abort: null,
       };
     });
+  }
+  private continuationWork(parentId: string, exceptBranch = "") {
+    return !!this.db
+      .prepare(`WITH RECURSIVE branch(run_id,root,status) AS (
+      SELECT run_id,run_id,json_extract(data_json,'$.status') FROM agent_run
+        WHERE workspace_id=? AND json_extract(data_json,'$.continuationOf')=?
+      UNION
+      SELECT child.run_id,branch.root,json_extract(child.data_json,'$.status') FROM agent_run child JOIN branch
+        ON json_extract(child.data_json,'$.continuationOf')=branch.run_id WHERE child.workspace_id=?
+    ) SELECT 1 FROM branch WHERE root<>? AND status NOT IN ('cancelled','failed','interrupted') LIMIT 1`)
+      .get(this.workspaceId(), parentId, this.workspaceId(), exceptBranch);
+  }
+  private assertContinuationAvailable(parent: AgentRun, exceptRunId = "") {
+    const visited = new Set<string>();
+    let current = parent,
+      branch = exceptRunId;
+    for (;;) {
+      if (visited.has(current.runId)) throw new TradeFault("STORAGE_ERROR", "任务关联出现循环");
+      visited.add(current.runId);
+      if (current.status !== "waiting_input")
+        throw new TradeFault("ACTION_NOT_ALLOWED", "此问题已处理，请打开当前任务");
+      if (this.continuationWork(current.runId, branch))
+        throw new TradeFault("ACTION_NOT_ALLOWED", "补充内容已有后续任务，请先处理该任务");
+      if (!current.continuationOf) break;
+      branch = current.runId;
+      current = this.get(current.continuationOf);
+    }
   }
   claim(
     runId: string,
@@ -369,16 +461,20 @@ export class AgentRunStore {
       ModelCredentialsSchema.shape.model.parse(model);
       // Existing commitAgent opens a savepoint on this SAME connection. Only this outer
       // transaction commits: quote + turn + business idempotency + run + both outboxes.
+      if (current.run.command.method === "agent.read")
+        throw new TradeFault("ACTION_NOT_ALLOWED", "只读任务不能保存报价");
       const result = this.trades.commitAgent(current.run.command, proposal, model);
       if (!result.ok) throw new TradeFault(result.error.code, result.error.message);
       const committedRevisionId = this.trades.committedAgentRevision(current.run.command);
       if (!committedRevisionId) throw new TradeFault("STORAGE_ERROR", "报价未产生提交凭据");
-      return this.save({
+      const done = this.save({
         ...current.run,
         status: transitionAgentRun(current.run.status, "commit"),
         committedRevisionId,
         updatedAt: this.now(current.run),
       });
+      this.resolveAncestors(done);
+      return done;
     });
   }
   /** Persist host-generated call identity before executing a draft mutation. */
@@ -391,6 +487,8 @@ export class AgentRunStore {
     return this.transaction(() => {
       z.uuid().parse(toolCallId);
       const current = this.current(ticket);
+      if (current.run.command.method === "agent.read")
+        throw new TradeFault("ACTION_NOT_ALLOWED", "只读任务不能调用写工具");
       const input = {
         proposal: (current.run.command.method === "agent.understand"
           ? UnderstandingSchema
@@ -504,11 +602,12 @@ export class AgentRunStore {
     ticket: RunTicket,
     step: AgentToolStep,
     validation?: NonNullable<AgentRun["validation"]>,
+    calculationPreview?: AgentRun["calculationPreview"],
   ): AgentRun {
     return this.transaction(() => {
       const current = this.current(ticket);
       if (!current.matches) return current.run;
-      return this.appendToolStep(current.run, step, ticket, validation);
+      return this.appendToolStep(current.run, step, ticket, validation, calculationPreview);
     });
   }
   private appendToolStep(
@@ -516,6 +615,7 @@ export class AgentRunStore {
     input: AgentToolStep,
     ticket: RunTicket | null,
     validation?: NonNullable<AgentRun["validation"]>,
+    calculationPreview?: AgentRun["calculationPreview"],
   ): AgentRun {
     const step = AgentToolStepSchema.parse(input);
     const prior = this.db
@@ -541,6 +641,7 @@ export class AgentRunStore {
           ? { validation: undefined }
           : {}),
         ...(validation ? { validation } : {}),
+        ...(calculationPreview ? { calculationPreview } : {}),
         updatedAt: this.now(run),
       },
       ticket,
@@ -596,6 +697,8 @@ export class AgentRunStore {
         { actorId: "local-user", origin: "agent_tool" },
       );
       if (!result.ok) throw new TradeFault(result.error.code, result.error.message);
+      if (current.run.command.method === "agent.read")
+        throw new TradeFault("ACTION_NOT_ALLOWED", "只读任务不能保存报价");
       const planned = draftPlan(
         result.data,
         current.run.command,
@@ -646,6 +749,73 @@ export class AgentRunStore {
       );
     });
   }
+  recordReadObservation(ticket: RunTicket, observation: ReadToolObservation): AgentRun {
+    return this.transaction(() => {
+      const current = this.current(ticket);
+      if (!current.matches) return current.run;
+      if (current.run.command.method !== "agent.read")
+        throw new TradeFault("ACTION_NOT_ALLOWED", "不是查询任务");
+      return this.appendToolStep(
+        {
+          ...current.run,
+          readObservations: [...(current.run.readObservations ?? []), observation],
+        },
+        {
+          toolCallId: randomUUID(),
+          attempt: ticket.attempt,
+          ordinal: (current.run.toolSteps?.length ?? 0) + 1,
+          tool: observation.tool,
+          ok: observation.result.ok,
+          errorCode: observation.result.ok ? null : observation.result.error.code,
+          evidenceIds: observation.result.ok ? observation.result.evidenceIds : [],
+        },
+        ticket,
+      );
+    });
+  }
+  completeRead(ticket: RunTicket, input: AgentReadData): AgentRun {
+    return this.transaction(() => {
+      const current = this.current(ticket);
+      if (!current.matches) return current.run;
+      if (current.run.command.method !== "agent.read")
+        throw new TradeFault("ACTION_NOT_ALLOWED", "不是查询任务");
+      const data = AgentReadDataSchema.parse(input);
+      if (
+        data.workspaceId !== this.workspaceId() ||
+        digest(data.observations) !== digest(current.run.readObservations ?? [])
+      )
+        throw new TradeFault("STORAGE_ERROR", "查询结果与实际记录不一致");
+      const done = this.save({
+        ...current.run,
+        readResult: data,
+        status: transitionAgentRun(
+          current.run.status,
+          data.outcome === "completed" ? "commit" : "wait_for_input",
+        ),
+        clarification: data.outcome === "waiting_input" ? data.clarification : null,
+        updatedAt: this.now(current.run),
+      });
+      if (done.status === "completed") this.resolveAncestors(done);
+      return done;
+    });
+  }
+  private resolveAncestors(done: AgentRun) {
+    let parentId = done.continuationOf;
+    const visited = new Set<string>([done.runId]);
+    while (parentId) {
+      if (visited.has(parentId)) throw new TradeFault("STORAGE_ERROR", "任务关联出现循环");
+      visited.add(parentId);
+      const parent = this.get(parentId);
+      if (parent.status !== "waiting_input") break;
+      this.save({
+        ...parent,
+        status: transitionAgentRun(parent.status, "resolve"),
+        resolvedByRunId: done.runId,
+        updatedAt: this.now(parent),
+      });
+      parentId = parent.continuationOf;
+    }
+  }
   control(input: Extract<RunCommand, { method: "agent.cancel" | "agent.retry" }>): Effect {
     const parsed = RunCommandSchema.parse(input);
     if (parsed.method !== "agent.cancel" && parsed.method !== "agent.retry")
@@ -675,6 +845,14 @@ export class AgentRunStore {
         run.status,
         parsed.method === "agent.cancel" ? "cancel" : "retry",
       );
+      if (
+        ((parsed.method === "agent.cancel" && run.status === "waiting_input") ||
+          status === "queued") &&
+        this.continuationWork(run.runId)
+      )
+        throw new TradeFault("ACTION_NOT_ALLOWED", "请先停止或处理后续任务");
+      if (status === "queued" && run.continuationOf)
+        this.assertContinuationAvailable(this.get(run.continuationOf), run.runId);
       const changed = status !== run.status;
       const abort = changed && parsed.method === "agent.cancel" ? this.ticket(run, row) : null;
       const next = changed
@@ -686,6 +864,10 @@ export class AgentRunStore {
             clarification: null,
             toolSteps: status === "queued" && run.toolSteps ? [] : run.toolSteps,
             validation: status === "queued" ? undefined : run.validation,
+            calculationPreview: status === "queued" ? undefined : run.calculationPreview,
+            readResult: status === "queued" ? undefined : run.readResult,
+            readObservations:
+              status === "queued" && run.readObservations ? [] : run.readObservations,
             updatedAt: this.now(run),
           })
         : run;

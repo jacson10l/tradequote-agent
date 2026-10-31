@@ -9,6 +9,7 @@ export const RunStatusSchema = z.enum([
   "failed",
   "cancelled",
   "interrupted",
+  "resolved",
 ]);
 const envelope = {
   schemaVersion: z.literal(1),

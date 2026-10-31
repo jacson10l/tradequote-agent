@@ -13,6 +13,8 @@ sources:
   - wiki-repo:raw/c01a-ci-startup.json:1
 ---
 
+2026-10-31 C05原生Codex复用既有AgentRunStore与Coordinator，command保存执行模式，取消/恢复/显式重试继续使用原票据和operationKey；没有第二份run数据库。calculationPreview是当前尝试的宿主确定性预览，随calculate_quote步骤保存进现有run JSON，重试时清空，不新增或改动A维护的SQL迁移。运行记录可恢复原询盘/修订澄清上下文。详见[[C05CodexHarness与单据工作台]]、[[C05-CodexHarness纠偏与工作台迁移]]。
+
 # C 运行恢复实现
 
 ## 独立交接复核
@@ -66,3 +68,11 @@ AgentExecutor.cancel(operationKey) 是 worker 内部可复用原语，未开放 
 ## C02c运行协调后续
 
 [[C02c统一运行与写账本]]将前置run存储正式接到唯一报价协调器和桌面运行记录；Worker独占侧库锁在恢复之前取得，Main在exit后才重建。旧C01a纯进程内取消已由生产持久控制取代，旧原语仍用于兼容测试。强杀与账本范围见新任务，真实DeepSeek/完整多步Agent仍未验收。
+
+## C05b原生DeepSeek阶段恢复
+
+实际DeepSeek提前请求已注册但当前阶段不可用工具时，Codex得到失败反馈及可用列表，在原预算内继续纠正；业务工具不执行，未知工具/写票据权限不放宽。持久失败由显式重试恢复，重试IPC派发前工作台锁定、成功绑定run接续执行锁。Computer Use验证取消后仍V2、重开不自动发模型、原失败重试保存，证据[[C05b-DeepSeek兼容与电脑验收]]。只读请求仍无公开取消/持久恢复，旧waiting_input补充通过新任务保存后仍保留历史，不能称完整会话恢复已完成。关联[[C05CodexHarness与单据工作台]]。
+
+## C05c后续
+
+C05c扩展原运行账本承接只读，逐工具观察和结果可持久回读；取消先保存再中断，活动记录重启发现为interrupted而不重发，显式retry才增加attempt。澄清补充关联原run，真正完成才同事务resolved祖先，递归分支守卫阻止取消中间节点/重试旧分支重复保存；历史问答独立存储，不把累计上下文塞回单条询盘。 具体实现/边界见[[C05c会话生命周期与业务对话]]，实际命令/电脑观察见[[C05c-会话收口与只读持久运行]]。

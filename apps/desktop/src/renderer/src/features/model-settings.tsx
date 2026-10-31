@@ -69,14 +69,13 @@ export function ModelSettingsPage({ client }: { client: DesktopClient }) {
       <section className="panel space-y-4">
         <h2>DeepSeek 连接与凭据</h2>
         <p className="description">接口：api.deepseek.com</p>
-        <p>
-          API Key 仅发送给
-          DeepSeek；系统加密可用时保存到本机，不在界面回显。加密不可用时仅保留到退出应用。
+        <p>保存连接后即可在工作台处理询价与报价。</p>
+        <p className="description">
+          密钥只用于连接
+          DeepSeek，不在界面回显。设备支持系统加密时会安全保存，否则仅保留到退出应用。
         </p>
-        <p className="sample-note">
-          运行询盘理解 /
-          对话修改会发送询盘、相关商品描述、场景与最近对话；不发送价目表金额和内部成本。请使用已获授权的业务资料。连接测试仅发送合成
-          JSON 提示。
+        <p className="description">
+          处理任务时会发送相关询盘、商品与报价资料，请使用已获授权的资料。连接测试不代表报价已经核验。
         </p>
         {status && (
           <p>

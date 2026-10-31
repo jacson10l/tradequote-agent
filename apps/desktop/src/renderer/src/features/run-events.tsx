@@ -4,13 +4,14 @@ import { RunEventFeed } from "./run-event-feed";
 import { toolLabels } from "./run-tool-labels";
 
 const stateLabels: Record<AgentRun["status"], string> = {
+  resolved: "已解决",
   queued: "任务已排队",
   running: "正在处理",
   waiting_input: "等待补充事实",
-  completed: "草稿已保存",
+  completed: "处理完成",
   failed: "任务失败",
   cancelled: "已取消",
-  interrupted: "运行中断，等待显式重试",
+  interrupted: "上次处理已中断",
 };
 function label(event: RunEvent) {
   if (event.type === "run.updated")
@@ -66,7 +67,7 @@ export function RunEvents({
         if (!closed)
           setView((previous) => ({
             ...previous,
-            error: "进度连接中断，正在只读补齐记录；不会重新运行模型。",
+            error: "进度连接中断，正在重新读取记录。",
           }));
       } finally {
         inFlight = false;
@@ -101,16 +102,12 @@ export function RunEvents({
         <p role="status">{view.error}</p>
       ) : (
         <p className="description">
-          {view.ready
-            ? view.seq
-              ? "运行进度已同步"
-              : "该历史运行没有事件记录，当前状态已回读。"
-            : "正在回读运行进度"}
+          {view.ready ? (view.seq ? "处理进度已同步" : "已读取当前状态。") : "正在读取处理进度"}
         </p>
       )}
       {view.events.length > 0 && (
         <details>
-          <summary>持久运行记录（最近{view.events.length}条）</summary>
+          <summary>处理记录（最近{view.events.length}条）</summary>
           <ol>
             {view.events.map((event) => (
               <li key={event.eventId} data-event-id={event.eventId} data-event-seq={event.seq}>

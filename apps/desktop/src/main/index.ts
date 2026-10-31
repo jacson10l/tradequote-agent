@@ -274,6 +274,7 @@ else {
         "agent.revise",
         "agent.read",
         "agent.start",
+        "agent.continue",
         "agent.get",
         "agent.list",
         "agent.events",
@@ -298,6 +299,7 @@ else {
               [
                 "agent.read",
                 "agent.start",
+                "agent.continue",
                 "agent.retry",
                 "agent.understand",
                 "agent.revise",

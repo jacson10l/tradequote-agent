@@ -67,7 +67,7 @@ it("reconnects from accepted seq after a lost page, only reads, and releases tim
   await act(async () => {
     await vi.advanceTimersByTimeAsync(2000);
   });
-  await screen.findByText("运行进度已同步");
+  await screen.findByText("处理进度已同步");
   expect(getAgentRunEvents.mock.calls.map((c) => c[0].payload.afterSeq)).toEqual([0, 1, 1]);
   expect(screen.getByRole("region", { name: "运行事件" })).toHaveAttribute("data-event-seq", "2");
   const calls = getAgentRunEvents.mock.calls.length;

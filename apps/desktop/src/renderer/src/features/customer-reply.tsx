@@ -1,12 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
-import type { CheckClient, QuoteSnapshot } from "@tradequote/contracts";
+import type { CheckClient, CheckReport, QuoteSnapshot } from "@tradequote/contracts";
 import { useId, useState } from "react";
 import { Button } from "../shared/button";
 import { useMessage } from "../shared/message";
 import { createCustomerReplyDraft, type ReplyLanguage } from "./customer-reply-format";
-import { checkQueryKey, loadQuoteChecks } from "./quote-checks";
+import { checkQueryKey, loadQuoteChecks, matchingRunReport } from "./quote-checks";
 
-export function CustomerReply({ quote, client }: { quote: QuoteSnapshot; client: CheckClient }) {
+export function CustomerReply({
+  quote,
+  client,
+  runReport,
+}: {
+  quote: QuoteSnapshot;
+  client: CheckClient;
+  runReport?: CheckReport | undefined;
+}) {
   const [language, setLanguage] = useState<ReplyLanguage>("en");
   const prefix = useId();
   const message = useMessage();
@@ -16,10 +24,17 @@ export function CustomerReply({ quote, client }: { quote: QuoteSnapshot; client:
     retry: false,
     refetchOnWindowFocus: false,
   });
+  const fromRun = matchingRunReport(quote, runReport);
   const draft = createCustomerReplyDraft(
     quote,
     language,
-    query.isSuccess && !query.isFetching ? query.data : null,
+    query.isSuccess && !query.isFetching
+      ? query.data.length
+        ? query.data
+        : fromRun
+          ? [fromRun]
+          : []
+      : null,
   );
   return (
     <section
@@ -31,7 +46,7 @@ export function CustomerReply({ quote, client }: { quote: QuoteSnapshot; client:
         <span className="status-badge">未审核</span>
       </div>
       <p className="description">
-        本地模板复用本版本的金额、原始条款与来源；条款不自动翻译，外用前请核对语言。复制不会审批或发送。
+        条款保留原文，请核对金额与所选语言后再使用。复制草稿不会发送或审批。
       </p>
       <label htmlFor={`${prefix}-language`}>回复语言</label>
       <select

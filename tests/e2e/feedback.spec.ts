@@ -30,7 +30,7 @@ test("desktop feedback floats above content and recovers through the notificatio
       }));
     });
     await page.reload();
-    const notice = page.getByRole("complementary", { name: "工作区读取失败" });
+    const notice = page.getByRole("complementary", { name: "工作台读取失败" });
     await expect(notice).toBeVisible();
     await expect(notice).toContainText("调用来源不允许");
     expect(await page.locator(".workbench-grid").boundingBox()).toEqual(before);

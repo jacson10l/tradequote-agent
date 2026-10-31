@@ -4,6 +4,7 @@ import { createRequire } from "node:module";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { _electron as electron, expect, test } from "@playwright/test";
+import { compatibilityQuote, fillCatalogFixture, saveBusinessScenario } from "./business-fixture";
 
 const require = createRequire(resolve("apps/desktop/package.json"));
 test("desktop settings and HTTP adapter support inquiry plus two saved revisions, differences, failures and reopen", async () => {
@@ -102,26 +103,30 @@ test("desktop settings and HTTP adapter support inquiry plus two saved revisions
       );
     await page.screenshot({ path: ".runtime/model-settings.png" });
     await page.getByRole("link", { name: "资料与报价" }).click();
-    await page.getByRole("button", { name: "保存演示场景" }).click();
+    await saveBusinessScenario(page);
     await expect(page.getByText("场景版本 1", { exact: true })).toBeVisible();
-    await page.getByRole("button", { name: "填入合成 CSV 样本" }).click();
+    await fillCatalogFixture(page);
     await page.getByRole("button", { name: "解析并预览" }).click();
     await expect(page.getByRole("table", { name: "CSV 导入预览" })).toBeVisible();
     await page.getByRole("button", { name: "确认发布此批次" }).click();
-    await expect(page.getByRole("checkbox", { name: "选择 DEMO-TEE", exact: true })).toBeVisible();
-    await page.getByLabel("询盘客户", { exact: true }).fill("合成买家");
     await page
-      .getByLabel("交给模型理解的询盘")
-      .fill("请提供100件 DEMO-TEE 报价，付款和交期待确认。");
-    await page.getByRole("button", { name: "理解询盘并保存 V1" }).click();
+      .getByRole("navigation")
+      .getByRole("link", { name: "单据工作台", exact: true })
+      .click();
+    await page.getByText("手工填写报价", { exact: true }).click();
+    await expect(page.getByRole("checkbox", { name: "选择 DEMO-TEE", exact: true })).toBeVisible();
+    expect(
+      (await compatibilityQuote(page, "请提供100件 DEMO-TEE 报价，付款和交期待确认。", "合成买家"))
+        .ok,
+    ).toBe(true);
     await expect(page.getByTestId("goods-total")).toHaveText("900.00 USD");
-    await page.getByLabel("本轮修改要求").fill("数量改为120件");
-    await page.getByRole("button", { name: "理解修改并保存 V2" }).click();
+    expect((await compatibilityQuote(page, "数量改为120件")).ok).toBe(true);
     await expect(page.getByTestId("goods-total")).toHaveText("1080.00 USD");
     await expect(page.getByRole("region", { name: "报价版本差异" })).toContainText("100");
     await expect(page.getByRole("region", { name: "报价版本差异" })).toContainText("120");
-    await page.getByLabel("本轮修改要求").fill("付款改为30%预付、70%发货前付清，确认后30天交货");
-    await page.getByRole("button", { name: "理解修改并保存 V3" }).click();
+    expect(
+      (await compatibilityQuote(page, "付款改为30%预付、70%发货前付清，确认后30天交货")).ok,
+    ).toBe(true);
     await expect(page.getByRole("heading", { name: "合成买家 · 草稿 V3" })).toBeVisible();
     expect(thirdHasHistory).toBe(true);
     await expect(page.getByRole("region", { name: "报价版本差异" })).toContainText("30%预付");
@@ -131,6 +136,7 @@ test("desktop settings and HTTP adapter support inquiry plus two saved revisions
     const v3Checks = page.getByRole("region", { name: "报价 V3 规则检查" });
     await v3Checks.getByRole("button", { name: "检查并保存报告" }).click();
     await expect(v3Checks).toContainText("2 项待核实");
+    await page.getByText("本版本回复草稿 · 未审核", { exact: true }).click();
     const reply = page.getByRole("region", { name: "报价 V3 客户回复草稿" });
     const replyText = reply.getByLabel("客户回复正文");
     await expect(replyText).toHaveValue(/Saved check report:/);
@@ -195,7 +201,7 @@ test("desktop settings and HTTP adapter support inquiry plus two saved revisions
       await page.getByRole("button", { name: "关闭提示", exact: true }).first().click();
     await page.screenshot({ path: ".runtime/quote-agent-diff.png" });
     await page.getByLabel("选择报价与版本").selectOption(v1.id);
-    await expect(page.getByRole("button", { name: "理解修改并保存 V2" })).toBeDisabled();
+    await expect(page.getByRole("button", { name: "发送" })).toBeDisabled();
     await expect(page.getByTestId("goods-total")).toHaveText("900.00 USD");
     const v1Reply = page.getByRole("region", { name: "报价 V1 客户回复草稿" });
     await expect(v1Reply.getByLabel("客户回复正文")).toHaveValue(/900.00 USD/);
@@ -203,17 +209,16 @@ test("desktop settings and HTTP adapter support inquiry plus two saved revisions
     expect(saved.data.quotes.every((q) => q.status === "draft")).toBe(true);
     await page.getByLabel("选择报价与版本").selectOption(v3.id);
     mode = "invalid";
-    await page.getByLabel("本轮修改要求").fill("交期改40天");
-    await page.getByRole("button", { name: "理解修改并保存 V4" }).click();
-    await expect(
-      page.getByRole("region", { name: "DeepSeek 询盘与对话" }).getByRole("alert"),
-    ).toContainText("模型建议未通过字段校验");
+    expect((await compatibilityQuote(page, "交期改40天")).ok).toBe(false);
+    await expect(page.getByRole("region", { name: "任务记录" })).toContainText(
+      "模型建议未通过字段校验",
+    );
     mode = "auth";
     const failedRun = page
-      .getByRole("region", { name: "模型运行记录" })
-      .getByRole("article")
+      .getByRole("region", { name: "任务记录" })
+      .locator(".conversation-turn")
       .filter({ hasText: "交期改40天" });
-    await failedRun.getByRole("button", { name: "重试此运行（会再次调用模型）" }).click();
+    await failedRun.getByRole("button", { name: "重试" }).click();
     await expect(failedRun).toContainText("模型鉴权失败");
     const after = await page.evaluate(() => window.tradequote.getTrade());
     expect(after.ok && after.data.quotes.length).toBe(3);
@@ -229,12 +234,15 @@ test("desktop settings and HTTP adapter support inquiry plus two saved revisions
     await app.close();
     app = await launch();
     const reopened = await app.firstWindow();
-    await reopened.getByRole("link", { name: "资料与报价" }).click();
+    await reopened
+      .getByRole("navigation")
+      .getByRole("link", { name: "单据工作台", exact: true })
+      .click();
+    await reopened.getByText("手工填写报价", { exact: true }).click();
     await expect(reopened.getByRole("heading", { name: "合成买家 · 草稿 V3" })).toBeVisible();
     await expect(reopened.getByTestId("goods-total")).toHaveText("1080.00 USD");
-    await expect(reopened.getByRole("region", { name: "DeepSeek 询盘与对话" })).toContainText(
-      "数量改为120件",
-    );
+    await expect(reopened.getByRole("region", { name: "任务记录" })).toContainText("数量改为120件");
+    await reopened.getByText("本版本回复草稿 · 未审核", { exact: true }).click();
     await expect(
       reopened.getByRole("region", { name: "报价 V3 客户回复草稿" }).getByLabel("客户回复正文"),
     ).toHaveValue(englishDraft);

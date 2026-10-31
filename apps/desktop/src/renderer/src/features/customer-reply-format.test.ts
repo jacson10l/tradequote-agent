@@ -107,7 +107,7 @@ it("freezes exact English template text for a saved quote with unknown pricing",
     No saved check report; terms and rule coverage remain unverified.
 
     Frozen product sources:
-    SYNTHETIC-PANEL · 合成商品.csv · SHA-256 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa · Source status: Synthetic demonstration data · 2099-12-31 · row Unknown
+    SYNTHETIC-PANEL · 合成商品.csv · SHA-256 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa · Source status: Unverified source; not for transactions · 2099-12-31 · row Unknown
 
     This draft has not been approved or sent."
   `);
@@ -134,7 +134,7 @@ it("freezes exact German template text for a saved quote with unknown pricing", 
     Kein gespeicherter Prüfbericht; Bedingungen und Regelabdeckung sind ungeprüft.
 
     Festgehaltene Produktquellen:
-    SYNTHETIC-PANEL · 合成商品.csv · SHA-256 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa · Quellenstatus: Synthetische Demonstrationsdaten · 2099-12-31 · row Unbekannt
+    SYNTHETIC-PANEL · 合成商品.csv · SHA-256 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa · Quellenstatus: Nicht bestätigte Quelle; nicht für Transaktionen · 2099-12-31 · row Unbekannt
 
     Dieser Entwurf wurde weder genehmigt noch versendet."
   `);

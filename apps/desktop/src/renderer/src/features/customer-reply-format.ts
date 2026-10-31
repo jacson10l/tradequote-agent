@@ -24,7 +24,7 @@ const wording = {
     terms:
       "Terms and product names are reproduced in their original language; review translations before external use.",
     notSent: "This draft has not been approved or sent.",
-    synthetic: "Synthetic demonstration data",
+    synthetic: "Unverified source; not for transactions",
     user: "User-provided data; authenticity not verified",
     sourceStatus: "Source status",
   },
@@ -50,7 +50,7 @@ const wording = {
     terms:
       "Bedingungen und Produktnamen bleiben in der Originalsprache; Übersetzungen vor externer Verwendung prüfen.",
     notSent: "Dieser Entwurf wurde weder genehmigt noch versendet.",
-    synthetic: "Synthetische Demonstrationsdaten",
+    synthetic: "Nicht bestätigte Quelle; nicht für Transaktionen",
     user: "Vom Nutzer bereitgestellte Daten; Echtheit ungeprüft",
     sourceStatus: "Quellenstatus",
   },

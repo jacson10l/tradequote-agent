@@ -6,6 +6,7 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { _electron as electron, expect, test } from "@playwright/test";
 import { build } from "vite";
+import { fillCatalogFixture, saveBusinessScenario } from "./business-fixture";
 
 const require = createRequire(resolve("apps/desktop/package.json"));
 let toolsDirectory: string;
@@ -63,11 +64,16 @@ test("human saved-quote check persists both sources, paired feedback and immutab
     await page.getByRole("button", { name: "创建工作区", exact: true }).click();
     await expect(page.getByText("已保存至本机 · 版本 1")).toBeVisible();
     await page.getByRole("link", { name: "资料与报价" }).click();
-    await page.getByRole("button", { name: "保存演示场景" }).click();
+    await saveBusinessScenario(page);
     await expect(page.getByText("场景版本 1", { exact: true })).toBeVisible();
-    await page.getByRole("button", { name: "填入合成 CSV 样本" }).click();
+    await fillCatalogFixture(page);
     await page.getByRole("button", { name: "解析并预览" }).click();
     await page.getByRole("button", { name: "确认发布此批次" }).click();
+    await page
+      .getByRole("navigation")
+      .getByRole("link", { name: "单据工作台", exact: true })
+      .click();
+    await page.getByText("手工填写报价", { exact: true }).click();
     await page.getByLabel("客户名称").fill("合成检查买方");
     await page.getByLabel("原始询盘").fill("100件，付款和交期待人工确认");
     await page.getByRole("checkbox", { name: "选择 DEMO-TEE", exact: true }).check();
@@ -90,11 +96,15 @@ test("human saved-quote check persists both sources, paired feedback and immutab
     const seeded = fixture(directory, "seed");
     app = await launch(directory);
     page = await app.firstWindow();
-    await page.getByRole("link", { name: "资料与报价" }).click();
+    await page
+      .getByRole("navigation")
+      .getByRole("link", { name: "单据工作台", exact: true })
+      .click();
     const region = page.getByRole("region", { name: "报价 V1 规则检查" });
     await expect(region).toContainText("2 项待核实");
     await region.getByRole("button", { name: "检查并保存报告" }).click();
     await expect(region).toContainText("1 项阻断 · 1 项提醒 · 0 项待核实");
+    await page.getByText("本版本回复草稿 · 未审核", { exact: true }).click();
     const reply = page.getByRole("region", { name: "报价 V1 客户回复草稿" });
     await expect(reply.getByLabel("客户回复正文")).toHaveValue(/\[block\]/);
     await expect(reply.getByLabel("客户回复正文")).toHaveValue(/\[warning\]/);
@@ -179,7 +189,10 @@ test("human saved-quote check persists both sources, paired feedback and immutab
     const revised = fixture(directory, "revise").quote;
     app = await launch(directory);
     page = await app.firstWindow();
-    await page.getByRole("link", { name: "资料与报价" }).click();
+    await page
+      .getByRole("navigation")
+      .getByRole("link", { name: "单据工作台", exact: true })
+      .click();
     const v2Checks = page.getByRole("region", { name: "报价 V2 规则检查" });
     await expect(v2Checks).toContainText("当前版本尚无检查报告");
     await v2Checks.getByRole("button", { name: "检查并保存报告" }).click();
@@ -188,6 +201,7 @@ test("human saved-quote check persists both sources, paired feedback and immutab
     await expect(
       v2Checks.getByText("本报告采用的知识与来源 · 1 个知识段落", { exact: true }),
     ).toBeVisible();
+    await page.getByText("本版本回复草稿 · 未审核", { exact: true }).click();
     const revisedReply = page.getByRole("region", { name: "报价 V2 客户回复草稿" });
     await expect(revisedReply.getByLabel("客户回复正文")).toHaveValue(/Unreviewed draft/);
     await expect(revisedReply.getByLabel("客户回复正文")).not.toHaveValue(/\[block\]/);
@@ -230,7 +244,10 @@ test("desktop transaction failure saves no partial report, retries explicitly, a
   let app = await launch(directory);
   try {
     let page = await app.firstWindow();
-    await page.getByRole("link", { name: "资料与报价" }).click();
+    await page
+      .getByRole("navigation")
+      .getByRole("link", { name: "单据工作台", exact: true })
+      .click();
     const region = page.getByRole("region", { name: "报价 V1 规则检查" });
     await expect(region).toContainText("当前版本尚无检查报告");
     await region.getByRole("button", { name: "检查并保存报告" }).click();
@@ -242,7 +259,10 @@ test("desktop transaction failure saves no partial report, retries explicitly, a
     fixture(directory, "repair");
     app = await launch(directory);
     page = await app.firstWindow();
-    await page.getByRole("link", { name: "资料与报价" }).click();
+    await page
+      .getByRole("navigation")
+      .getByRole("link", { name: "单据工作台", exact: true })
+      .click();
     await page.getByRole("button", { name: "检查并保存报告" }).click();
     await expect(page.getByRole("region", { name: "报价 V1 规则检查" })).toContainText(
       "1 项阻断 · 1 项提醒",
@@ -267,7 +287,10 @@ test("desktop transaction failure saves no partial report, retries explicitly, a
     fixture(directory, "withdraw-source");
     app = await launch(directory);
     page = await app.firstWindow();
-    await page.getByRole("link", { name: "资料与报价" }).click();
+    await page
+      .getByRole("navigation")
+      .getByRole("link", { name: "单据工作台", exact: true })
+      .click();
     const historical = page.getByRole("region", { name: "报价 V1 规则检查" });
     await expect(historical).toContainText("1 项阻断 · 1 项提醒");
     await historical.getByRole("button", { name: "检查并保存报告" }).click();

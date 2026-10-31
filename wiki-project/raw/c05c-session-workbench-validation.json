@@ -1,0 +1,211 @@
+{
+  "status": "passed",
+  "scope": "C05c C-side session completion, persistent read lifecycle and business chat; A/B facts/confirmation semantics remain open",
+  "date": "2026-10-31",
+  "branch": "codex/c-codex-harness",
+  "taskBase": "24771fb8eb9c0ae80f29b7f9653794e3ba2886be",
+  "environment": {
+    "os": "macOS 26.4 arm64",
+    "node": "22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2",
+    "codex": "0.166.0-alpha.5.1"
+  },
+  "computerUse": {
+    "driver": "mcp__cua_repl native Electron AX/click/setValue/pressKey and actual screenshots",
+    "host": "tests/fixtures/codex-provider-host.cjs",
+    "configuration": "normal production Main saved DeepSeek configuration, unchanged; no secret inspection or local model fallback",
+    "workspace": "采购报价验收（非交易）",
+    "business": "synthetic isolated .runtime/c05c-computer-use/data, no production business database",
+    "source": {
+      "file": "采购商品价目表.csv",
+      "sourceStatus": "synthetic",
+      "sha256": "c4236689ff0c41f55244cedd5d1c3d0785f7832e517ba01af06615c5c6f9664b"
+    },
+    "observations": [
+      {
+        "step": "fresh business UI",
+        "result": "scenario fields blank, no sample import button; no runtime/provider badges or descriptions; explicit source nature retained"
+      },
+      {
+        "step": "clarification",
+        "runId": "56d08ab8-d507-4609-a2d8-642275f5672f",
+        "toolCount": 1,
+        "initialStatus": "waiting_input",
+        "question": "Q-BAG quantity, unknown payment/delivery"
+      },
+      {
+        "step": "answer100piece",
+        "runId": "07b7feca-343b-4751-a5f5-b5ed05c0b387",
+        "parentRunId": "56d08ab8-d507-4609-a2d8-642275f5672f",
+        "toolCount": 8,
+        "status": "completed",
+        "revisionId": "0c095eed-3077-4f6c-b991-68ad325ebcb2",
+        "goodsTotal": "900.00",
+        "currency": "USD",
+        "result": "parent resolved, original question retained, continuation control removed; user answer rendered once as its own role"
+      },
+      {
+        "step": "read cancellation",
+        "runId": "bca2016d-2558-4c0c-a885-4cb9777bea13",
+        "attempt": 1,
+        "toolCount": 3,
+        "status": "cancelled",
+        "result": "explicit Stop; no new quote, V1 remains900.00"
+      },
+      {
+        "step": "cancelled read reopen/retry",
+        "runId": "bca2016d-2558-4c0c-a885-4cb9777bea13",
+        "attempt": 2,
+        "toolCount": 7,
+        "status": "completed",
+        "preview": {
+          "sku": "Q-BOARD",
+          "quantity": "20",
+          "unit": "m2",
+          "goodsTotal": "250.00",
+          "currency": "USD"
+        },
+        "result": "cancelled fact persisted on reopen; no auto resend; explicit Retry completed. Result retained across another reopen."
+      },
+      {
+        "step": "active read exit/reopen",
+        "runId": "c945115b-de6f-4e32-966c-2169adf60b43",
+        "attempt": 1,
+        "status": "interrupted",
+        "result": "native quit while running; reopen discovers interruption, no auto resend; previous completed250.00 result persists"
+      },
+      {
+        "step": "interrupted read explicit retry",
+        "runId": "c945115b-de6f-4e32-966c-2169adf60b43",
+        "attempt": 2,
+        "toolCount": 6,
+        "status": "completed",
+        "preview": {
+          "sku": "Q-BAG",
+          "quantity": "120",
+          "unit": "piece",
+          "goodsTotal": "1080.00",
+          "currency": "USD"
+        },
+        "result": "actual current V1 remains100piece900.00, no write"
+      },
+      {
+        "step": "business presentation",
+        "result": "native AX and screenshot show separate user gray bubbles and assistant facts; current900.00 vs read1080.00; no internal field/policy/model output in primary read reply; evidence collapsed"
+      },
+      {
+        "step": "B confirmation semantic observation",
+        "result": "V1 payment/delivery display待确认 but pending list lacks those two items; retained as B-01, not declared fixed"
+      },
+      {
+        "step": "final renderer reload",
+        "result": "completed facts and original quotation remain visible after final reload; no new task automatically created"
+      }
+    ]
+  },
+  "implementation": [
+    "host-controlled agent.continue and structured question/answer history",
+    "transactional successful ancestor resolution with original clarification retained",
+    "recursive ancestor/descendant branch and retry/cancel guards",
+    "read commands/results/progress use existing durable run/event/control tables, no migration",
+    "cancel persists before abort; stale results ignored; restart only discovers; explicit retries",
+    "product tasks require saved configuration, no local connection fallback",
+    "focused runs beyond page20 followed independently and actual quotation refreshed",
+    "business-only role chat and read facts; no demo defaults or old model form; frozen source facts retained"
+  ],
+  "checks": [
+    {
+      "command": "pnpm exec vitest run packages/infrastructure/src/session-lifecycle.test.ts",
+      "exitCode": 0,
+      "result": "10/10 lifecycle regression tests after red reproduction",
+      "localLog": "/tmp/c05c-read-replay-green.log"
+    },
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "result": "passed",
+      "localLog": "/tmp/c05c-typecheck-final.log"
+    },
+    {
+      "command": "pnpm build",
+      "exitCode": 0,
+      "result": "main/preload/renderer passed; chunk-size warning retained",
+      "localLog": "/tmp/c05c-build-final.log"
+    },
+    {
+      "command": "pnpm test",
+      "exitCode": 0,
+      "result": "58 test files passed,2 opt-in files skipped;535 tests passed,3 live skipped; native provider proof separately Computer Use",
+      "localLog": "/tmp/c05c-unit-last.log"
+    },
+    {
+      "command": "pnpm exec playwright test --grep-invert 'real Codex completes'",
+      "exitCode": 0,
+      "result": "12/12 real Electron regression tests; HTTP responses are explicit fixtures, not native model certification",
+      "localLog": "/tmp/c05c-electron-last.log"
+    },
+    {
+      "command": "pnpm typecheck (final)",
+      "exitCode": 0,
+      "result": "passed",
+      "localLog": "/tmp/c05c-typecheck-last.log"
+    },
+    {
+      "command": "pnpm build (final)",
+      "exitCode": 0,
+      "result": "main/preload/renderer passed; existing chunk-size warning",
+      "localLog": "/tmp/c05c-build-last.log"
+    },
+    {
+      "command": "pnpm wiki:generate",
+      "exitCode": 0,
+      "result": "273 source files;5 generated pages",
+      "localLog": "/tmp/c05c-wiki-generate-last.log"
+    },
+    {
+      "command": "pnpm check",
+      "exitCode": 0,
+      "result": "Biome passed;6 engineering tests passed;module boundaries passed;read-only generated index and Wiki lint passed (270 Markdown/241 semantic/all270 reachable)",
+      "localLog": "/tmp/c05c-check-last.log"
+    },
+    {
+      "command": "pnpm wiki:test",
+      "exitCode": 0,
+      "result": "36/36 maintenance regressions passed",
+      "localLog": "/tmp/c05c-wiki-test-last.log"
+    },
+    {
+      "command": "pnpm wiki:sync --base 24771fb8eb9c0ae80f29b7f9653794e3ba2886be",
+      "exitCode": 0,
+      "result": "passed;58 source files,17 knowledge pages,3 tasks,errors[]",
+      "localLog": "/tmp/c05c-sync1.log"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "no whitespace errors"
+    }
+  ],
+  "preservedFailures": [
+    "initial red lifecycle and UI cases",
+    "review counterexamples: stale branch retry, lost assistant question, max-length input, page21 progress and quotation refresh, intermediate node cancellation",
+    "raw native read summary exposed internal keys/policy; replaced with validated business facts and replayed stored result",
+    "cancelled legacy-read replay returned obsolete clarification; red then fixed cancellation precedence",
+    "old desktop forms/names/detail visibility/bridge order assertions adapted while retaining transport/business invariants",
+    "one duplicate empty-workspace JSX guard caused compile/build failure; corrected before completion",
+    "initial check had3 formatting errors; initial Wiki regression35/36 due combined task headings, fixed without weakening checks"
+  ],
+  "review": {
+    "kind": "independent read-only agent",
+    "final": "branch guards and focused quotation refresh confirmed closed; no new concrete issue found in revised patches; reviewer did not run local tests",
+    "evidenceReview": "Final independent read-only review inspected implementation, Wiki and listed local logs:535 unit/3 live skipped,12 Electron,36 Wiki,check and fixed-base sync agree; no concrete mismatch found. Not a rerun or B/human signoff."
+  },
+  "remaining": [
+    "A-01 actual original sources/version/provenance and A-02 published applicable coverage",
+    "B-01 explicit confirmation state and B-02 run contract/release compatibility review",
+    "only saved deepseek-flash and macOS verified; Windows/signed package not run",
+    "historical frozen quotes/data unchanged; no old-binary forward compatibility claim",
+    "local candidate unpushed/unmerged; no external messages or human signoff"
+  ]
+}

@@ -57,7 +57,7 @@ function AppContent({ client }: { client: DesktopClient }) {
         </nav>
         <div className="sidebar-footer" title="本地数据 · 人工审核">
           <span className="dot" />
-          本地数据 · 人工审核<p>询报价 · 模型辅助草稿</p>
+          本地数据 · 人工审核<p>询报价 · 报价草稿</p>
         </div>
       </aside>
       <main tabIndex={-1} aria-label="工作内容">

@@ -2,6 +2,8 @@ import { randomUUID } from "node:crypto";
 import {
   type AgentCommand,
   AgentCommandSchema,
+  type AgentReadCommand,
+  type AgentReadResult,
   type AgentRun,
   ClarificationSchema,
   failure,
@@ -20,6 +22,8 @@ import {
 import { TradeFault } from "@tradequote/domain";
 import { AgentExecutor } from "./agent-executor";
 import type { RunTicket } from "./agent-run-store";
+import { CatalogQuoteReadService } from "./catalog-quote-read-service";
+import { CodexHarness } from "./codex-harness";
 import type { DeepSeekProvider } from "./deepseek";
 import { DeepSeekProvider as DefaultProvider } from "./deepseek";
 import type { SqliteWorkspaceRepository } from "./index";
@@ -51,6 +55,7 @@ export class AgentRunCoordinator {
     private readonly repository: SqliteWorkspaceRepository,
     private readonly provider?: (credentials: ModelCredentials) => Pick<DeepSeekProvider, "json">,
     private readonly observeFailure?: FailureObserver,
+    private readonly codex = new CodexHarness(),
   ) {
     this.store = repository.runStore();
     this.generator = new AgentExecutor(repository, provider);
@@ -66,7 +71,11 @@ export class AgentRunCoordinator {
       if (command.method === "agent.get") return ok(this.store.get(command.payload.runId));
       if (command.method === "agent.list") return ok(this.store.list(command.payload));
       const effect =
-        command.method === "agent.start" ? this.store.start(command) : this.store.control(command);
+        command.method === "agent.start"
+          ? this.store.start(command)
+          : command.method === "agent.continue"
+            ? this.store.continue(command)
+            : this.store.control(command);
       // Storage commits first. Replayed controls contain no effects.
       if (effect.abort) {
         const active = this.active.get(effect.abort.runId);
@@ -117,6 +126,31 @@ export class AgentRunCoordinator {
       return fault(error);
     }
   }
+  async executeReadLegacy(
+    command: AgentReadCommand,
+    credentials?: ModelCredentials,
+  ): Promise<AgentReadResult> {
+    const result = this.execute(
+      {
+        schemaVersion: 1,
+        requestId: command.requestId,
+        idempotencyKey: command.requestId,
+        method: "agent.start",
+        payload: { method: "agent.read", payload: command.payload },
+      },
+      credentials,
+    );
+    if (!result.ok) return result;
+    if (!("runId" in result.data)) return failure("STORAGE_ERROR", "查询任务身份缺失");
+    const pending = this.active.get(result.data.runId);
+    const run = pending ? await pending.promise : this.store.get(result.data.runId);
+    if (run.status === "cancelled") return failure("CANCELLED", "查询已取消");
+    if (run.readResult && ["completed", "waiting_input"].includes(run.status))
+      return ok(run.readResult);
+    return run.error
+      ? { ok: false, error: run.error }
+      : failure("CAPABILITY_UNAVAILABLE", "请在工作台查看任务后重试");
+  }
   private dispatch(job: { runId: string; attempt: number }, credentials?: ModelCredentials) {
     const claimed = this.store.claim(job.runId, job.attempt, this.sessionId);
     if (!claimed.ticket) return;
@@ -145,18 +179,54 @@ export class AgentRunCoordinator {
     try {
       if (overloaded)
         throw new TradeFault("CAPABILITY_UNAVAILABLE", "已有模型请求运行中，请稍后显式重试");
+      const isCodex = run.command.payload.executionMode === "codex_harness";
       if (!credentials) throw new TradeFault("MODEL_AUTH_FAILED", "请先保存模型设置");
+      if (run.command.method === "agent.read") {
+        const result = await new CatalogQuoteReadService(
+          this.repository,
+          this.provider,
+          undefined,
+          this.codex,
+        ).execute(
+          {
+            schemaVersion: 1,
+            requestId: run.command.requestId,
+            method: "agent.read",
+            payload: run.command.payload,
+          },
+          credentials,
+          {
+            cancellation,
+            clarificationHistory: run.clarificationHistory,
+            onObservation: (observation) => {
+              this.store.recordReadObservation(ticket, observation);
+            },
+          },
+        );
+        if (!result.ok) throw new TradeFault(result.error.code, result.error.message);
+        return this.store.completeRead(ticket, result.data);
+      }
       if (cancellation.aborted || this.closed) return this.store.get(run.runId);
-      if (run.command.payload.executionMode === "tool_loop")
+      if (run.command.payload.executionMode === "tool_loop" || isCodex)
         return await new QuoteToolAgent(
           this.repository,
           this.store,
-          this.provider?.(credentials) ?? new DefaultProvider(credentials),
+          credentials
+            ? (this.provider?.(credentials) ?? new DefaultProvider(credentials))
+            : {
+                json: async () => {
+                  throw new TradeFault("ACTION_NOT_ALLOWED", "Codex 任务不能使用 DeepSeek 回退");
+                },
+              },
           ticket,
           run.command,
-          credentials.model,
+          isCodex ? "codex-harness" : credentials!.model,
           this.observeFailure,
+          isCodex ? this.codex : undefined,
+          isCodex ? credentials : undefined,
+          run.clarificationHistory,
         ).run(cancellation);
+      if (!credentials) throw new TradeFault("MODEL_AUTH_FAILED", "请先保存模型设置");
       const deadline = AbortSignal.timeout(50000);
       const signal = AbortSignal.any([cancellation, deadline]);
       let onAbort = () => {};
@@ -175,7 +245,7 @@ export class AgentRunCoordinator {
       let output: unknown;
       try {
         output = await Promise.race([
-          this.generator.propose(run.command, credentials, signal),
+          this.generator.propose(run.command, credentials, signal, run.clarificationHistory),
           aborted,
         ]);
       } finally {

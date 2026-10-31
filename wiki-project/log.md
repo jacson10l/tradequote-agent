@@ -1169,3 +1169,49 @@ C最终稳定性：真实DeepSeek五轮连续通过，每轮7检查点/3次业�
 2026-10-31 C实际开发启动修复，base=83014be，codex/c-dev-origin-fix。用户主目录为654fecc；隔离Electron配置http根URL无/返回ACTION_NOT_ALLOWED，带/成功。先新增双地址回归，红灯1失败/1通过；Main规范化rendererUrl后重跑。来源身份与精确页面限制保留；生产代码、回归、知识/任务/状态/日志同批，实际命令证据raw/c-dev-origin-fix.json。未改主目录或删除真实数据。
 
 C开发地址修复最终：typecheck/build退出0，Electron12/12（含两种HTTP根地址）通过；pnpm check、索引/lint、83014be基线sync与diff检查通过。保留来源校验，不自动合入共同分支或关闭用户旧实例。
+
+
+## 2026-10-31 C05 Codex Harness纠偏与工作台迁移（验证进行中）
+
+独立codex/c-codex-harness，taskBase24771fb8eb9c0ae80f29b7f9653794e3ba2886be。实际Codex原生工具驱动V1及500数量修订、取消/失败重开显式重试已取得独立运行证据；正式Electron已走通主链，正在收口布局与原回归定位。复用业务工具、事务/幂等/恢复；页面职责按用户最新决定调整。基础协议/预览与独立评审问题均有回归，失败不删。A来源版本、B未确认条款状态及DeepSeek兼容仍分开待证。详见[[C05CodexHarness与单据工作台]]、[[C05-CodexHarness纠偏与工作台迁移]]。最终命令/退出码将在本次任务证据中追加。
+
+
+## 2026-10-31 C05本机纵向验收收口
+
+2026-10-31 C05本机切片已验证：真实Codex原生工具900.00→500数量4500.00 USD，首次工具后取消/失败重开显式重试，正式工作台Electron专项1/1、原桌面12/12和单元514通过，显式Codex3/3另验。工作台为业务入口，对话/单据独立滚动，资料页保留导入/发布/来源/历史；原业务工具/事务完整复用。独立Agent复核问题已修正，本机证据raw/c05-codex-workbench-validation.json。整体仍active：DeepSeek兼容未证，A来源版本与B契约/条款确认状态待业务复核；“未确认”不在pending已合成复现且未修复。codex/c-codex-harness，taskBase24771fb，未推送/合入。详见[[C05CodexHarness与单据工作台]]、[[C05-CodexHarness纠偏与工作台迁移]]。
+
+类型/构建/Biome/工程边界、Wiki生成与只读check/lint/固定24771fb基线sync、36项维护回归结果统一见raw/c05-codex-workbench-validation.json。MCP配置合并与虚拟transport的初轮失败保留；实际名称盘点与线程禁用已通过真实重验，不保留认证内容或完整日志。知识页、任务页、ADR0030与覆盖映射同步。
+
+## 2026-10-31 C05b 保存DeepSeek与Computer Use复验
+
+沿用独立codex/c-codex-harness与taskBase24771fb8eb9c0ae80f29b7f9653794e3ba2886be，保留C05全部原证据。用户明确继续验证现有配置；生产Main受控状态/密钥快照接到Codex原生Responses，仅子进程env传Key，不读密钥原文/生产业务库，不改全局配置。当前保存deepseek-flash通过Chat控制与真正Codex工具turn，其他型号不外推。Computer Use以cua_repl直接操作隔离业务/会话的正式Electron：缺项追问→100件900.00→500件4500.00/差异、来源/检查/English草稿、600件取消、重开；20m2只读250.00不改当前V2。首次阶段失败保留，经显式重试恢复。
+
+修复已注册但当前阶段不可用工具直接结束turn、自动运行检查未在单据/回复显示、重试IPC期间父工作台未锁竞态及失真文案；仍用原工具/规则/事务和12次预算，不复制业务流程。独立只读复核提出重试竞态，修正后复核未见新增具体问题。类型/构建、完整单元520通过/3显式live跳过、原Electron12/12及延迟重试4/4通过。Wiki初轮保留35/36和lint失败：业务状态文字触发占位规则，已改准确叙述，不改检查器或断言；最终门禁另在证据追加。新重试fixture类型初错和红绿结果均保留。知识页、任务、ADR0031、导航和验收宿主覆盖同步；CONTEXT只保留实质新增/历史说明，既有行尾保留。
+
+详见[[C05b-DeepSeek兼容与电脑验收]]、[[C05CodexHarness与单据工作台]]、[[0031-DeepSeek原生Responses与运行报告复用]]，逐命令/实际观察见raw/c05b-deepseek-computer-use.json。B非空“未确认”状态、A真实业务资料/覆盖与人员签认、只读公开取消/持久恢复及旧澄清历史连续性继续active；Windows/最终签名包未验。不推送、不合入，不宣称整体已无偏离。
+
+C05b最终门禁追加：pnpm check退出0（Biome、6工程测试、边界、只读生成校验与Wiki lint），维护36/36，固定24771fb8eb9c0ae80f29b7f9653794e3ba2886be同步36源码/13知识页/2任务通过，git diff --check退出0。raw/c05b-deepseek-computer-use.json置passed仅指本轮验证范围，remaining明确保留产品缺口，任务仍active。
+
+C05b最终记录时一次文本写入规范化了既有log前缀行尾，同步检查准确拒绝APPEND_ONLY_LOG_REQUIRED；已按基线恢复所有不变行的原始字节，追加证据全保留，重跑固定基线sync退出0。该失败与修正亦保存在本轮raw证据，不修改检查器。
+
+## 2026-10-31 C05c 澄清收口、只读持久恢复与业务聊天
+
+沿用独立codex/c-codex-harness，taskBase24771fb8eb9c0ae80f29b7f9653794e3ba2886be，保留C05/C05b证据。agent.continue从宿主继承业务命令并独立保存问题/答案，成功同事务resolved祖先；递归检查祖先/后代和分支，阻止旧分支重试/取消中间节点后重复保存。只读用原运行/控制/步骤/outbox，不新增迁移；取消先存再abort、晚到不覆盖、结果重开保留/活动发现interrupted、仅显式retry；旧兼容read同键取消回放不返回过时问题。所有新业务任务必须保存配置，不用本机连接兜底。
+
+工作台去掉内核标签/配置说明与旧模型表单，用户/助手角色分明，过程折叠、输入固定；后页当前任务独立跟随且刷新真实报价。资料业务配置默认空白，测试显式填表；演示标签改成业务确认限制，冻结旧来源不改。电脑实测发现只读自由回答带内部字段，主回复改成已校验工具事实，不靠关键词遮盖或删除原持久结果。A/B交接逐项列输入/材料/验收，不发送消息或代签。
+
+Computer Use原生Electron＋正式Main保存配置、独立业务/Chromium会话：Q-BAG缺项→补100件保存V1 900.00且原问题解决；只读3工具后停止→重开已取消→显式retry 7工具得20m2 250.00；另次运行中退出→重开interrupted且前结果保留→显式retry 6工具得120件1080.00，原单仍900.00。角色/气泡/业务摘要与无内核/演示默认经AX和截图核对。B条款待确认未进清单仍实际可见，明确留B-01，未冒称修复。
+
+最终535单元通过/3显式live跳过、12正式Electron回归、36Wiki维护、typecheck/build/check（6工程/边界/只读check/lint）通过。初轮旧文案/角色/入口定位失败、重复空工作区JSX导致编译失败、三文件格式、Wiki任务合并标题35/36均保留并纠正；无门禁弱化。独立只读Agent提出的6类边界问题先红后绿，最新分支/分页修复复核已闭环；未代跑本机或代签人员。固定基线sync最后追加。
+
+详见[[C05c会话生命周期与业务对话]]、[[C05c-会话收口与只读持久运行]]、[[0032-业务会话关联与统一只读运行]]及[[C05c-AB业务依据与契约交接]]。逐命令/实际运行ID/退出码见raw/c05c-session-workbench-validation.json；A来源/覆盖、B确认语义/契约非作者复核与Windows/签名安装仍分列未完。不推送、不合入，不把C技术闭环冒充整个产品验收。
+
+C05c最终同步追加：固定24771fb8eb9c0ae80f29b7f9653794e3ba2886be基线sync通过，58源码/17知识页/3任务，errors为空；git diff --check退出0。raw/c05c-session-workbench-validation.json置passed仅指本轮C修复/本机与电脑验收；候选公共契约接收及A/B交接仍active，未推送/合入。
+
+C05c交接前独立只读复核已核对代码/Wiki和本机日志535/12/36、check/固定基线sync一致，未见具体缺口；不代替B/人员签认。最终原生窗口重载仍保留完成结果与原900.00报价，无自动新任务。
+
+## 2026-10-31 C05独立候选提交推送与暖色回调开工
+
+负责人明确授权整轮C代码/Wiki一起提交推送codex/c-codex-harness，禁止合入集成；随后指定任务面板恢复原暖色。本轮去掉白底覆盖，复用surface-warm=#FFF8E0，Computer Use重载截图已确认，角色气泡、输入区和900/250/1080持久事实保持。新增[[C05交付与AB接手]]、[[C05-候选提交推送与暖色回调]]集中A/B责任/取用/验证与接口边界；固定基线仍24771fb8eb9c0ae80f29b7f9653794e3ba2886be。提交/远端结果及最终本机证据后续追加，不提前宣称推送成功。
+
+C05提交前新鲜复验535单元/3显式live跳过、12Electron、36维护及typecheck/build/check全部退出0；Wiki只读check/lint与固定24771fb8eb9c0ae80f29b7f9653794e3ba2886be同步通过（58源码/19知识页/4任务）。独立只读复核已核对63项暂存源码SHA256/OID/bytes、总摘要、三份旧证据hash及本机日志全相符，暖色与角色布局一致；不代替B/人员签认。便携证据raw/c05-delivery-validation.json随代码和Wiki同次暂存提交。

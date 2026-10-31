@@ -1,0 +1,135 @@
+{
+  "status": "passed",
+  "scope": "C05 actual Codex harness and Electron workbench slice; does not certify A/B business facts or DeepSeek compatibility",
+  "taskBase": "24771fb8eb9c0ae80f29b7f9653794e3ba2886be",
+  "branch": "codex/c-codex-harness",
+  "date": "2026-10-31",
+  "environment": {
+    "os": "macOS-26.4-arm64-arm-64bit",
+    "architecture": "arm64",
+    "node": "22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2",
+    "codex": "0.166.0-alpha.5.1"
+  },
+  "checks": [
+    {
+      "command": "pnpm test",
+      "exitCode": 0,
+      "result": "Test Files  57 passed | 2 skipped (59)\n      Tests  514 passed | 3 skipped (517)",
+      "evidence": "captured local command output; synthetic fixture only"
+    },
+    {
+      "command": "TRADEQUOTE_VERIFY_CODEX=1 ELECTRON_RUN_AS_NODE=1 <Electron> node_modules/vitest/vitest.mjs run packages/infrastructure/src/codex-harness.integration.test.ts packages/infrastructure/src/codex-isolation.integration.test.ts",
+      "exitCode": 0,
+      "result": "Test Files  2 passed (2)\n      Tests  3 passed (3)",
+      "evidence": "captured local command output; synthetic fixture only"
+    },
+    {
+      "command": "pnpm build",
+      "exitCode": 0,
+      "result": "✓ built in 89ms\n✓ built in 29ms\n✓ built in 298ms",
+      "evidence": "captured local command output; synthetic fixture only"
+    },
+    {
+      "command": "TRADEQUOTE_VERIFY_CODEX=1 pnpm exec playwright test tests/e2e/codex-workbench.spec.ts",
+      "exitCode": 0,
+      "result": "✓  1 tests/e2e/codex-workbench.spec.ts:8:1 › real Codex completes a business goal from the Electron workbench, revises 500, queries and cancels (1.3m)\n  1 passed (1.4m)",
+      "evidence": "captured local command output; synthetic fixture only"
+    },
+    {
+      "command": "pnpm exec playwright test --grep-invert \"real Codex completes\"",
+      "exitCode": 0,
+      "result": "✓   1 tests/e2e/agent-recovery.spec.ts:9:1 › R20 real worker SIGKILL, restart discovery, explicit retry, cancellation and immutable saved receipts (3.8s)\n  ✓   2 tests/e2e/feedback.spec.ts:8:1 › desktop feedback floats above content and recovers through the notification action (1.5s)\n  ✓   3 tests/e2e/model-evaluation.spec.ts:9:1 › formal model settings explicitly start isolated evaluations, cancel, preserve redacted fixture reports and never replay on reopen (8.1s)\n  ✓   4 tests/e2e/multistep-agent.spec.ts:13:1 › formal multistep loop saves validated V1/V2/V3, shows blocking sources, survives worker kill and explicitly retries (3.8s)\n  ✓   5 tests/e2e/quote-agent.spec.ts:9:1 › desktop settings and HTTP adapter support inquiry plus two saved revisions, differences, failures and reopen (5.4s)\n  ✓   6 tests/e2e/quote-checks.spec.ts:56:1 › human saved-quote check persists both sources, paired feedback and immutable V1/V2 history across restart (5.1s)\n  ✓   7 tests/e2e/quote-checks.spec.ts:238:1 › desktop transaction failure saves no partial report, retries explicitly, and preserves old reports after source withdrawal (3.5s)\n  ✓   8 tests/e2e/quote-v1.spec.ts:11:1 › real desktop imports CSV with confirmation, saves deterministic V1 and reopens frozen evidence (3.1s)\n  ✓   9 tests/e2e/read-assistant.spec.ts:9:1 › formal desktop read assistant executes four real tools, shows facts, guards missing tools and never saves (4.4s)\n  ✓  10 tests/e2e/workspace.spec.ts:14:3 › development renderer normalizes root URL (trailing slash: false) and supports the real desktop bridge (1.4s)\n  ✓  11 tests/e2e/workspace.spec.ts:14:3 › development renderer normalizes root URL (trailing slash: true) and supports the real desktop bridge (1.1s)\n  ✓  12 tests/e2e/workspace.spec.ts:45:1 › real desktop persists workspace, validates IPC, handles conflict and reopens (4.8s)\n  12 passed (48.2s)",
+      "evidence": "captured local command output; synthetic fixture only"
+    },
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "result": "> tradequote-agent@0.1.0 typecheck /Users/jason/.codex/worktrees/c-codex-harness/tradequote-agent\n> tsc --noEmit"
+    },
+    {
+      "command": "pnpm check",
+      "exitCode": 0,
+      "result": "> tradequote-agent@0.1.0 check /Users/jason/.codex/worktrees/c-codex-harness/tradequote-agent\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 196 files in 78ms. No fixes applied.\nTAP version 13\n# Subtest: renderer cannot reach Node, database or desktop internals through import forms\nok 1 - renderer cannot reach Node, database or desktop internals through import forms\n  ---\n  duration_ms: 7.749875\n  type: 'test'\n  ...\n# Subtest: pure modules use public contracts while other platform dependencies are rejected\nok 2 - pure modules use public contracts while other platform dependencies are rejected\n  ---\n  duration_ms: 1.934291\n  type: 'test'\n  ...\n# Subtest: domain permits exact pure decimal dependency without opening contracts or SDK imports\nok 3 - domain permits exact pure decimal dependency without opening contracts or SDK imports\n  ---\n  duration_ms: 0.476792\n  type: 'test'\n  ...\n# Subtest: committed icon resources match their source manifest\nok 4 - committed icon resources match their source manifest\n  ---\n  duration_ms: 2.252291\n  type: 'test'\n  ...\n# Subtest: editing either SVG or packaged icon without generation blocks the build\nok 5 - editing either SVG or packaged icon without generation blocks the build\n  ---\n  duration_ms: 5.532542\n  type: 'test'\n  ...\n# Subtest: macOS native process and runtime display TradeQuote while upstream Electron stays intact\nok 6 - macOS native process and runtime display TradeQuote while upstream Electron stays intact\n  ---\n  duration_ms: 460.849458\n  type: 'test'\n  ...\n1..6\n# tests 6\n# suites 0\n# pass 6\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 516.682292\nModule boundaries passed\n\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-codex-harness/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 270,\n  \"lines\": 73437,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 264,\n  \"semantic\": 235,\n  \"reachable\": 264\n}"
+    },
+    {
+      "command": "pnpm wiki:test",
+      "exitCode": 0,
+      "result": "# tests 36\n# pass 36\n# fail 0\n# duration_ms 33546.832958"
+    },
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "exitCode": 0,
+      "result": "{\n  \"mode\": \"check\",\n  \"files\": 270,\n  \"lines\": 73437,\n  \"generated\": 5,\n  \"excluded\": 23\n}"
+    },
+    {
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exitCode": 0,
+      "result": "{\n  \"status\": \"passed\",\n  \"markdown\": 264,\n  \"semantic\": 235,\n  \"reachable\": 264\n}"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 24771fb8eb9c0ae80f29b7f9653794e3ba2886be",
+      "exitCode": 0,
+      "result": "{\n  \"base\": \"24771fb8eb9c0ae80f29b7f9653794e3ba2886be\",\n  \"status\": \"passed\",\n  \"codeFiles\": 31,\n  \"knowledgePages\": 10,\n  \"tasks\": 1,\n  \"errors\": []\n}"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": ""
+    }
+  ],
+  "historicalFailures": [
+    {
+      "scope": "initial native run",
+      "result": "V1 completed with five real tools; V2 failed ACTION_NOT_ALLOWED before write because apply_patch conflicted with builtin name; fixed with tradequote_ prefix"
+    },
+    {
+      "scope": "new preview regression",
+      "result": "3 failed / 19 passed before preview persistence; 26 focused passed after correction"
+    },
+    {
+      "scope": "read-tool recovery regression",
+      "result": "invalid arguments then corrected query reproduced final-schema failure; failed observation now recorded; focused regression passes"
+    },
+    {
+      "scope": "first Electron migration runs",
+      "result": "old page selectors, region/complementary role, hidden reply detail and old scroll assertion failed; updated to match new behavior and full 12 desktop regressions passed"
+    },
+    {
+      "scope": "synthetic MCP configuration",
+      "result": "empty mcp_servers override retained original configuration; inventory plus per-thread disabling removes external tools; initialization may still start configured connections"
+    },
+    {
+      "scope": "host MCP transport",
+      "result": "thread/start rejected virtual transport while disabling servers without full transport data; disabled entries now have inert valid stdio shape; real 3 native checks and Electron rerun passed"
+    }
+  ],
+  "unconfirmedTerms": {
+    "payment": "未确认",
+    "delivery": "未确认",
+    "paymentPending": false,
+    "deliveryPending": false,
+    "source": "synthetic isolated fixture"
+  },
+  "review": {
+    "kind": "independent read-only agent technical review",
+    "findingsFixed": [
+      "signal-exit cleanup",
+      "restore understand/revise clarification after reload",
+      "record invalid read attempts",
+      "lock continuation while executing",
+      "require actual model identity",
+      "clear clarification when switching quotation"
+    ],
+    "humanBusinessSignoff": "not performed"
+  },
+  "notVerified": [
+    "DeepSeek as a Codex provider or reuse of existing DeepSeek credentials/endpoint",
+    "A real source/version and business coverage signoff",
+    "B explicit term confirmation semantics; reproduced bug remains",
+    "Windows and signed installer delivery"
+  ],
+  "screenshot": ".runtime/codex-workbench-real.png",
+  "finishedAt": "2026-10-31T09:41:13.665899+00:00"
+}

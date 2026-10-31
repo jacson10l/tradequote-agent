@@ -1,0 +1,499 @@
+{
+  "status": "passed",
+  "scope": "fresh macOS candidate validation with restored warm task panel; publication is separately recorded after real push",
+  "date": "2026-10-31",
+  "branch": "codex/c-codex-harness",
+  "taskBase": "24771fb8eb9c0ae80f29b7f9653794e3ba2886be",
+  "baselineTree": "3f7ce61cd0ae1053c5bbd9ce68b39010e4358467",
+  "environment": {
+    "os": "macOS26.4",
+    "architecture": "arm64",
+    "node": "22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2",
+    "codex": "0.166.0-alpha.5.1"
+  },
+  "checks": [
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "result": "tsc --noEmit passed"
+    },
+    {
+      "command": "pnpm test",
+      "exitCode": 0,
+      "result": "58 files passed,2 opt-in files skipped;535 tests passed,3 live tests skipped"
+    },
+    {
+      "command": "pnpm build",
+      "exitCode": 0,
+      "result": "main/preload/renderer passed; existing >500kB chunk warning retained"
+    },
+    {
+      "command": "pnpm exec playwright test --grep-invert 'real Codex completes'",
+      "exitCode": 0,
+      "result": "12/12 real Electron regressions passed; HTTP provider cases explicitly fixtures"
+    },
+    {
+      "command": "pnpm check",
+      "exitCode": 0,
+      "result": "Biome passed;6 engineering tests;module boundaries;generated-index read-only check and Wiki lint passed"
+    },
+    {
+      "command": "pnpm wiki:test",
+      "exitCode": 0,
+      "result": "36/36 maintenance regressions passed"
+    },
+    {
+      "command": "pnpm wiki:generate",
+      "exitCode": 0,
+      "result": "273 source files;5 generated pages"
+    },
+    {
+      "command": "git diff --cached --check",
+      "exitCode": 0,
+      "result": "no whitespace errors"
+    },
+    {
+      "command": "pnpm wiki:check (after handoff packet)",
+      "exitCode": 0,
+      "result": "273 source files;272 Markdown/243 semantic/all272 reachable"
+    },
+    {
+      "command": "pnpm wiki:sync --base 24771fb8eb9c0ae80f29b7f9653794e3ba2886be",
+      "exitCode": 0,
+      "result": "58 source files,19 knowledge pages,4 tasks,errors[]"
+    }
+  ],
+  "sourceSnapshot": {
+    "representation": "SHA256 of canonical Git index blobs, including changed source/design/readme/coverage config and dependency pins; excludes Wiki evidence self-reference",
+    "fileCount": 63,
+    "manifestSha256": "26cd3c71bc145114a7d4a064f9e82e4e93e36fb632ed1fe20ec882d4972f387e",
+    "files": [
+      {
+        "path": ".node-version",
+        "sha256": "4137094e7792cb49fe1afddc3f87208f0ef4adfef7d3acd1def0198786d393c2",
+        "gitBlobOid": "85e502778f623f5950dd0115cb1f9c501d0a76ab",
+        "bytes": 8
+      },
+      {
+        "path": "DESIGN.md",
+        "sha256": "c4d06a5dea021a0a744027a4b33c51a49d6001db27675079e167f897d24c3345",
+        "gitBlobOid": "c2ce3633fdc7633747f55dce116d2277b96798f7",
+        "bytes": 10452
+      },
+      {
+        "path": "README.md",
+        "sha256": "fdd2d2734f05ab9d132b79ba122a28fdf66d00cc78d470bddc3001683725e468",
+        "gitBlobOid": "6f6eff0eccae3de78e9ff3eee9da85f83f98599e",
+        "bytes": 17000
+      },
+      {
+        "path": "apps/desktop/src/main/index.ts",
+        "sha256": "9af72198006429a80874bbd40f82eb1fc5ef217e67fd2ed7a91e25c30ed3b2ce",
+        "gitBlobOid": "db10f1c4d5bbf2852b5a939350fb76e8e3859f77",
+        "bytes": 13913
+      },
+      {
+        "path": "apps/desktop/src/preload/contracts.test.ts",
+        "sha256": "7f91097a1099d9b72e848ed5e83b95ea555bb7b4a709b3a906175f0938f53c02",
+        "gitBlobOid": "b365e88ade64c219c6cf26f174ebcc59ff2bff18",
+        "bytes": 19175
+      },
+      {
+        "path": "apps/desktop/src/preload/index.ts",
+        "sha256": "2496d82f0896e328c74ad1ac22475d29bf77cdaeeb97fb4e8019ee7ca7bc6f80",
+        "gitBlobOid": "357e0a72877b739c4172d1cea4ce1cb2346c44ed",
+        "bytes": 8453
+      },
+      {
+        "path": "apps/desktop/src/renderer/src/App.tsx",
+        "sha256": "31e29b4debf4279a6939d5bba7ffc1d2ea1f9934f184d0855a7131736ffde078",
+        "gitBlobOid": "00bf4a4f29e90eb377d47f14a83a6afb9c1ad2fa",
+        "bytes": 3176
+      },
+      {
+        "path": "apps/desktop/src/renderer/src/features/agent-runs.test.tsx",
+        "sha256": "624cc6ca11cded801046e6831f76acf2480226ea6b2a195e209a60bd58f7ee8d",
+        "gitBlobOid": "0f427a2d06002c334757be5948b58e46e075f447",
+        "bytes": 7848
+      },
+      {
+        "path": "apps/desktop/src/renderer/src/features/agent-runs.tsx",
+        "sha256": "a3e4cf4be294bc3e6c9e98c1729b3a2046ba2d8ee2dd65b16f076bdb8e585ab3",
+        "gitBlobOid": "b93249e50430d71b894139c019ed4f47ebc5b926",
+        "bytes": 13643
+      },
+      {
+        "path": "apps/desktop/src/renderer/src/features/customer-reply-format.test.ts",
+        "sha256": "c9db9dd10e9c273329aa291c0dc2393580a290d4fb3cb6bc60718b80d94d3c19",
+        "gitBlobOid": "5ea517c864ef1dc875fecc8564aa57ad31dc1213",
+        "bytes": 6415
+      },
+      {
+        "path": "apps/desktop/src/renderer/src/features/customer-reply-format.ts",
+        "sha256": "0f0c2e4e32bc89c1c48a92c00fe8bbdcbb7e7a7026ff40601ec7d960e117f55d",
+        "gitBlobOid": "e14f563fc6c43411d694e2b49b18d7b4525ae2b6",
+        "bytes": 6212
+      },
+      {
+        "path": "apps/desktop/src/renderer/src/features/customer-reply.test.tsx",
+        "sha256": "62cd34d325ab7c60e3e9026c4d19c718ac700a199e7cf0840a2e981cad633c74",
+        "gitBlobOid": "8dda1cf8c2d1c8c691ddf2b42b5fb07148cf545a",
+        "bytes": 5186
+      },
+      {
+        "path": "apps/desktop/src/renderer/src/features/customer-reply.tsx",
+        "sha256": "298eefe035e74d400c7f324e7189684bd8efb335d64b3b79d6c71e2d99999f70",
+        "gitBlobOid": "bb5df5abd4771408d3f0d63af648c01135ca5717",
+        "bytes": 2956
+      },
+      {
+        "path": "apps/desktop/src/renderer/src/features/model-evaluation.tsx",
+        "sha256": "599789a3a060079545e09085f12b86d831911047a3590658f0c9255912039a51",
+        "gitBlobOid": "60768d5d5db3316783accee45cbac426b0e6ccb1",
+        "bytes": 13159
+      },
+      {
+        "path": "apps/desktop/src/renderer/src/features/model-settings.tsx",
+        "sha256": "85b596e215c735128fa6f436108a34cc1ced73a45fd64d289cfcfc1fe87c9eb0",
+        "gitBlobOid": "312cf39948102b68df667c63f8104d867cdab9c7",
+        "bytes": 5668
+      },
+      {
+        "path": "apps/desktop/src/renderer/src/features/quote-agent.tsx",
+        "sha256": "40b2f9641b53ba0c81a72c9ad614f401437b28cca86c206acc5d3ff5c6611112",
+        "gitBlobOid": "66a112b8cb3c3f6961a102b35e04abf4d5cfe2be",
+        "bytes": 10195
+      },
+      {
+        "path": "apps/desktop/src/renderer/src/features/quote-checks.test.tsx",
+        "sha256": "a9fd89a2e39857c1a1ed3fcfb5cdcfd4125102fb8f7cdb91a95fe2298a28f90a",
+        "gitBlobOid": "13cfcc75780c8d5f7a59a3ef1b81ff185fff6d77",
+        "bytes": 18177
+      },
+      {
+        "path": "apps/desktop/src/renderer/src/features/quote-checks.tsx",
+        "sha256": "b65b0e12243204d740cbbe88992e0a2371a703a737ff105b33fa341354897621",
+        "gitBlobOid": "0ff41aa0b2fd45cf29e156e5d183979924de12db",
+        "bytes": 15921
+      },
+      {
+        "path": "apps/desktop/src/renderer/src/features/quotes.tsx",
+        "sha256": "6a0d2ad1ca18835bc5ecfd315b09052a5081b9f8ff0b5dcb53d561c7b7078352",
+        "gitBlobOid": "6409439ff5fcca33ad757cf90c80ed26bd2bf47c",
+        "bytes": 24997
+      },
+      {
+        "path": "apps/desktop/src/renderer/src/features/read-assistant.tsx",
+        "sha256": "d75113e5b89cf61ad71c28b761f04606353d47633b4177c92833be2216546a89",
+        "gitBlobOid": "dbb696b833ad4e3d4d4f5b49cda9148fe12efe00",
+        "bytes": 7201
+      },
+      {
+        "path": "apps/desktop/src/renderer/src/features/run-events.test.tsx",
+        "sha256": "d28eb6f445adf76616ab28762666e60ddfd3b9c4217f8c08cbfb577a145a2cb3",
+        "gitBlobOid": "c35ddeff4663c21fe8190c0cc53e86209427bdaf",
+        "bytes": 2963
+      },
+      {
+        "path": "apps/desktop/src/renderer/src/features/run-events.tsx",
+        "sha256": "dd40afbe01ea10a819a43ff4b3043b52884d96ac6184bc0a3e7edf0bd64266a7",
+        "gitBlobOid": "993762c66bb20b296a0d347ac0f521e0c552f80f",
+        "bytes": 4001
+      },
+      {
+        "path": "apps/desktop/src/renderer/src/features/workbench.test.tsx",
+        "sha256": "6a2803dd91cbc6475ddab9aa933b5822a31d6a80b30c87c9eebbd16407eb4ecb",
+        "gitBlobOid": "6e2f68b1034340532df342005c3d02630f6be119",
+        "bytes": 12072
+      },
+      {
+        "path": "apps/desktop/src/renderer/src/features/workbench.tsx",
+        "sha256": "544a26fbdf9e16181d2ccc32acd8f22f03d4510ab46ff6ec44da27b682e589bf",
+        "gitBlobOid": "5bbc1392245c28b142c9b4a0a2422eb62d982061",
+        "bytes": 16664
+      },
+      {
+        "path": "apps/desktop/src/renderer/src/features/workspace.tsx",
+        "sha256": "24d05d6c284a1d2e99e6c6f0c4d655df8ce77c3a6372afd40fe8fe88b45bfe43",
+        "gitBlobOid": "44cbedfb8abf937dcb5ac3b4d91180f3e68404e4",
+        "bytes": 5009
+      },
+      {
+        "path": "apps/desktop/src/renderer/src/theme.css",
+        "sha256": "e1de2dcf9e36228283c4de611c257596214063eed75be62d812ddba1c418d5bc",
+        "gitBlobOid": "11def6fd2009e0a5f9255acee7ef6dd878c2cf9d",
+        "bytes": 11027
+      },
+      {
+        "path": "apps/desktop/src/workers/business.ts",
+        "sha256": "3a4121b57f0cfd89d54abaa9dffde05b0add9ba54ee1f1cfe8802382f51a1390",
+        "gitBlobOid": "7b66ed3490e55e9e5df9d2d6fc268593061f3507",
+        "bytes": 3397
+      },
+      {
+        "path": "package.json",
+        "sha256": "879a4fc8bc3dd02e1e2af038668f5159dd5b086821f7a2b4831de38d25eb549b",
+        "gitBlobOid": "969dfca2fef8c7cf4a4d61f656d869fc922dece9",
+        "bytes": 2109
+      },
+      {
+        "path": "packages/contracts/src/agent.ts",
+        "sha256": "b97003903adc8e934279e97aeb1d87c7507db3c064276c2fa6e5865152bdaa60",
+        "gitBlobOid": "de6983faeaa3be409999880222debd7dc59d852d",
+        "bytes": 3929
+      },
+      {
+        "path": "packages/contracts/src/events.ts",
+        "sha256": "8b1086bec8317591e3c293a0d87aa4020eb3d26cfcb42646c41a5a1b9f035cb3",
+        "gitBlobOid": "041306f59ae1c4d91f23a30a6cce7f70a956b4a9",
+        "bytes": 1954
+      },
+      {
+        "path": "packages/contracts/src/pending-client.ts",
+        "sha256": "0767cc4a497bb105dde8ff870574be82e247e2c18ad516a8db704acb7a63a40b",
+        "gitBlobOid": "48f766a7a766fcf8e9be37c81b4c655b27e657b5",
+        "bytes": 2721
+      },
+      {
+        "path": "packages/contracts/src/read-tools.ts",
+        "sha256": "cdcab0d6104a8b3fd315601bdddceefe6151d83c0325ec74c76d12cea31807d1",
+        "gitBlobOid": "d3f74ac8f58f9ad519d8f593567eb7db2a24ad21",
+        "bytes": 4332
+      },
+      {
+        "path": "packages/contracts/src/runs.ts",
+        "sha256": "7a6576a7ef2dd2ee0f6ef7a94aa1549894bef5113eb41def5dae9d11536e488c",
+        "gitBlobOid": "a7d31ecaafbd0ffd73a367c9b01108dce7e930ed",
+        "bytes": 7595
+      },
+      {
+        "path": "packages/domain/src/agent-run.ts",
+        "sha256": "d630ff2915df2fc653e3581a947977e826195cc2d787655951215ba64f2996fa",
+        "gitBlobOid": "1e7e4d0d16960376a2915fa4c89864829da51d2a",
+        "bytes": 1351
+      },
+      {
+        "path": "packages/domain/src/trade.ts",
+        "sha256": "f28a73b9f3c64ec1a78b910616bf186c52d9d307d3cc01f171ac861abff0f70e",
+        "gitBlobOid": "353d331af872631614a51d7c28f78b77eddefe07",
+        "bytes": 5640
+      },
+      {
+        "path": "packages/infrastructure/src/agent-executor.ts",
+        "sha256": "9b2ee6f68ab37cdc534482fa14c85ed76142cccc7dc638a3d0fe7d4c7cfb1802",
+        "gitBlobOid": "ef236cae1cd8c9ab49e1eacb2662fbd1e662cb34",
+        "bytes": 9110
+      },
+      {
+        "path": "packages/infrastructure/src/agent-run-coordinator.ts",
+        "sha256": "54b4e764e9dda902ce3e0ba72b46f9b19759b0b7d8bbcaf0d728a54d212ded15",
+        "gitBlobOid": "48a2a8f9829f954ec6dfc7f4d35af7564c75d574",
+        "bytes": 11873
+      },
+      {
+        "path": "packages/infrastructure/src/agent-run-store.ts",
+        "sha256": "aede2c3d488161b4b9ca31bfffb3590ce1b743af9e46e792a80e5be702e27553",
+        "gitBlobOid": "9823b4ba8cc8f01cb8d470ad38186d219326d164",
+        "bytes": 35430
+      },
+      {
+        "path": "packages/infrastructure/src/catalog-quote-read-agent.ts",
+        "sha256": "1067767f735be7591292f8f2a3175922ce954b6e36945058ec104136868b9226",
+        "gitBlobOid": "760944282fde1f3054e001378f05aaea957487d1",
+        "bytes": 10106
+      },
+      {
+        "path": "packages/infrastructure/src/catalog-quote-read-service.ts",
+        "sha256": "91c07cf04953e5cc96adcc9290e92b95ef9d0318be403d6c5fa05da3f674509d",
+        "gitBlobOid": "d356a517570a03442a54930e50951b2aafc0ca5e",
+        "bytes": 6288
+      },
+      {
+        "path": "packages/infrastructure/src/codex-harness.integration.test.ts",
+        "sha256": "ac90a74fb20f392060829da1fd77f9ae614d0d4a1a8b0396473d1bd3608acfb3",
+        "gitBlobOid": "62d0539e74e76aa46636b0472e07548de10e28a5",
+        "bytes": 6898
+      },
+      {
+        "path": "packages/infrastructure/src/codex-harness.test.ts",
+        "sha256": "7552b20678d4825795a48c8b4344034f500aee536f477b5ff9c0d4347ba87767",
+        "gitBlobOid": "24b6828cb2a23242e732685462bca0a8feabdef8",
+        "bytes": 7480
+      },
+      {
+        "path": "packages/infrastructure/src/codex-harness.ts",
+        "sha256": "ea5d5a73a9795b3e0a9d406ae01dba2fc1245bb6729431b48b265d3644ee3c7f",
+        "gitBlobOid": "70451049e39aa7d1960f073b5bf221a9f5da4160",
+        "bytes": 18740
+      },
+      {
+        "path": "packages/infrastructure/src/codex-isolation.integration.test.ts",
+        "sha256": "01e8ff92f60c4cc07475cfa1bac3e9000de4f8f0d61fe96a6d19c1387b44ba26",
+        "gitBlobOid": "59315b88d2b031c62bb477d8b9a344831b7f83a1",
+        "bytes": 3666
+      },
+      {
+        "path": "packages/infrastructure/src/codex-read-recovery.test.ts",
+        "sha256": "d0fc6f7720790a084ecafa28a0be86fd49826a70fd7768f4b2d089c3c125264d",
+        "gitBlobOid": "ac5dace099d5f6497df5efb3273dd5519809aec6",
+        "bytes": 1494
+      },
+      {
+        "path": "packages/infrastructure/src/quote-tool-agent.test.ts",
+        "sha256": "3367919b7c170912283c5246f5149b31d7a292faf5e476f965098733ca1828e7",
+        "gitBlobOid": "81324ec59748b0cc4495d900bd6cd5639b54aca5",
+        "bytes": 27805
+      },
+      {
+        "path": "packages/infrastructure/src/quote-tool-agent.ts",
+        "sha256": "2f4cddf49fa9d0335a8d9a4760f4d3f9a381975f1cdef310e64e72e368b3e50e",
+        "gitBlobOid": "5ed6aa0c71dd87517ef008c40042eec05e458923",
+        "bytes": 20376
+      },
+      {
+        "path": "packages/infrastructure/src/session-lifecycle.test.ts",
+        "sha256": "8ca2a2034011e03d8be401cdafc5dcd83e397a3ef2cc43250285645b6e41e4e5",
+        "gitBlobOid": "278a1dfb3173345cb30ee1a598ca625637a626d3",
+        "bytes": 14526
+      },
+      {
+        "path": "pnpm-lock.yaml",
+        "sha256": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe",
+        "gitBlobOid": "f4320f8b1fa66202c9d26917de4523f5a25c546f",
+        "bytes": 152790
+      },
+      {
+        "path": "tests/e2e/agent-recovery.spec.ts",
+        "sha256": "b3521662226b4ab1569c6f343f183d1699f99c5d217d317a7a79508e39695f2e",
+        "gitBlobOid": "d281ed0ec0b5361aaf3e99e9ff19eb4bfc28f7b1",
+        "bytes": 9981
+      },
+      {
+        "path": "tests/e2e/business-fixture.ts",
+        "sha256": "6571b366aa08f10193046064b7c2ed93ff1916e3816a1cfefa2ab11fcd0c374e",
+        "gitBlobOid": "b7e2c9e9595ebd9e06669a919bd03ec1e64e80b7",
+        "bytes": 2529
+      },
+      {
+        "path": "tests/e2e/codex-workbench.spec.ts",
+        "sha256": "b55f98ddf3e70293399a4360c02e00270575bd554a012a8866d62049b1f5f61b",
+        "gitBlobOid": "7be5048a3a7eda2395f519aceee286ba1629e2db",
+        "bytes": 5378
+      },
+      {
+        "path": "tests/e2e/feedback.spec.ts",
+        "sha256": "3822ec80d17e2263a1fad3e0e1da0c2d3a64fc99e7be38dfe26d48753ed268f9",
+        "gitBlobOid": "7a9a96eaf51fe477dea9d2e3e2ef3ccee4da18de",
+        "bytes": 4378
+      },
+      {
+        "path": "tests/e2e/model-evaluation.spec.ts",
+        "sha256": "2613ba0f722f4aa53bd9eb32f2400e3e3d1b1389900479753261015b93ab4d87",
+        "gitBlobOid": "dd6298ce926497e9dcedc03bfec56751870065ff",
+        "bytes": 12010
+      },
+      {
+        "path": "tests/e2e/multistep-agent.spec.ts",
+        "sha256": "48f09b38841bb997a0d86f783ee67939dd671bafd7646f039097a72a7f2a31c9",
+        "gitBlobOid": "51f545ed42f4599ea34fc16ae870406b25cc578d",
+        "bytes": 11052
+      },
+      {
+        "path": "tests/e2e/quote-agent.spec.ts",
+        "sha256": "fbc971ad02a7a836ee25392cb9a432cd17a86dbbf283df0b5cc584fdc919a405",
+        "gitBlobOid": "850ead4967a4e7c8b586b4fe304b291ce7944806",
+        "bytes": 13196
+      },
+      {
+        "path": "tests/e2e/quote-checks.spec.ts",
+        "sha256": "cdc4d09e51e8700d791ce93452766d0c8c4c12d6db9816daed603fb1afe412d0",
+        "gitBlobOid": "713c0e1746342dcd905c19f6c0ee1c5350a41c25",
+        "bytes": 15202
+      },
+      {
+        "path": "tests/e2e/quote-v1.spec.ts",
+        "sha256": "3a7131af3c3026845aacf0395f82b0304d7ed7459863f39707b6d1cfceb1bf23",
+        "gitBlobOid": "53ff307ca1a073e00df830707c6d8bdabd0862ac",
+        "bytes": 7696
+      },
+      {
+        "path": "tests/e2e/read-assistant.spec.ts",
+        "sha256": "56f1507029837bdee761d83c7b2dd0f22990d28f9d63eaacff1615a61008486c",
+        "gitBlobOid": "e2ab82c9f80452ed4ede9b48a0b273222844cbd5",
+        "bytes": 10361
+      },
+      {
+        "path": "tests/e2e/workspace.spec.ts",
+        "sha256": "c7b59787ac35835d692995a967e39e216c36c7cda2718d599b5a2b577d23abf9",
+        "gitBlobOid": "84239b670e61b8f091423c79de475a8a2652a3c2",
+        "bytes": 14882
+      },
+      {
+        "path": "tests/fixtures/codex-provider-host.cjs",
+        "sha256": "f895a04dc26a8c9459aa27cc850a38dc27da66620bf40aef49fb1e353508c5b0",
+        "gitBlobOid": "4f2bfe73ad10c961f8e838e39f848a1bb72cef4c",
+        "bytes": 951
+      },
+      {
+        "path": "tests/fixtures/run-crash-child.ts",
+        "sha256": "0df0e8b78d08570b6c7678273b848b6a30cb6e59213ac1ed9212ae33adb990d7",
+        "gitBlobOid": "d0cdf15382c0c20bb091ad40222c96fba0c2ec89",
+        "bytes": 4147
+      },
+      {
+        "path": "wiki-project/scripts/wiki-config.json",
+        "sha256": "cc1d29a8cf346e504cba6fdafda34d81dec54d5f22e11037ed87ab49ab6a9cf4",
+        "gitBlobOid": "a8cd6114511c259d19f62a632d0e2228f360c4b9",
+        "bytes": 76211
+      }
+    ]
+  },
+  "warmDesktopProof": {
+    "method": "mcp__cua_repl actual native Electron reload and screenshot",
+    "css": "inherits --surface-warm #FFF8E0; removes later white override",
+    "observed": "warm right task panel, gray user bubbles and white composer; existing900.00 quotation plus250.00/1080.00 read facts remain; no new model request",
+    "newTests": "no implementation-mirroring CSS test; actual build, desktop regressions and native visual verification"
+  },
+  "priorEvidence": [
+    {
+      "path": "wiki-project/raw/c05-codex-workbench-validation.json",
+      "sha256": "6727c022226164a30487f0fc860787383db588c40bf34bded6398eb772929576",
+      "scope": "preserved prior native/Computer Use evidence, not rerun by current packaging check"
+    },
+    {
+      "path": "wiki-project/raw/c05b-deepseek-computer-use.json",
+      "sha256": "4829d667a9d2294ae3c33e064805cd839f5335666cb8b92de7c105ac2fade642",
+      "scope": "preserved prior native/Computer Use evidence, not rerun by current packaging check"
+    },
+    {
+      "path": "wiki-project/raw/c05c-session-workbench-validation.json",
+      "sha256": "ea266d536ee8cc36fb3307cdedebec26e9481a236dc0513fb13465d90c78f225",
+      "scope": "preserved prior native/Computer Use evidence, not rerun by current packaging check"
+    }
+  ],
+  "publication": {
+    "authorization": "explicit user instruction: commit/push code and Wiki on independent branch; do not merge integration",
+    "stateAtValidation": "before material commit/push",
+    "receiptPath": "wiki-project/raw/c05-delivery-receipt.json",
+    "integrationRefObservedBefore": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+    "remoteTarget": "refs/heads/codex/c-codex-harness",
+    "forcePush": false,
+    "mergeIntegration": false
+  },
+  "handoff": "wiki-project/wiki/C05交付与AB接手.md",
+  "remaining": [
+    "A-01 real source originals/version/provenance",
+    "A-02 applicable published rule coverage",
+    "B-01 explicit confirmation semantics for nonempty unknown placeholders",
+    "B-02 public run/read/continue contract review and release compatibility",
+    "only saved deepseek-flash previously verified; no all-model certification",
+    "Windows/signed installer not verified; no integration merge or human signoff"
+  ],
+  "review": {
+    "kind": "independent read-only agent",
+    "result": "63 source snapshot SHA256/OID/bytes and manifest match Git index;3 historical evidence hashes match;actual local535/12/36/build/type/check logs agree;warm CSS correctly inherited",
+    "limitation": "not B/human business signoff; reviewer did not mutate files or push"
+  }
+}

@@ -2,8 +2,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   type DesktopClient,
-  demoCatalogCsv,
-  demoScenario,
   QuoteInputSchema,
   type QuoteSnapshot,
   type Scenario,
@@ -18,9 +16,7 @@ import { Link } from "react-router-dom";
 import { Button } from "../shared/button";
 import { useMessage } from "../shared/message";
 import { Notification } from "../shared/notification";
-import { CustomerReply } from "./customer-reply";
-import { QuoteAgent, QuoteDifference } from "./quote-agent";
-import { QuoteChecks } from "./quote-checks";
+
 import { useWorkspace } from "./workspace";
 
 export function QuotesPage({ client }: { client: DesktopClient }) {
@@ -96,7 +92,7 @@ function QuoteWorkspace({ client }: { client: DesktopClient }) {
             ? "已确认发布商品资料"
             : command.method === "catalog.stage"
               ? "预览已保存，请核对后确认发布"
-              : "演示场景已保存",
+              : "业务场景已保存",
       );
       await queries.invalidateQueries({ queryKey: ["trade"] });
     },
@@ -154,23 +150,11 @@ function QuoteWorkspace({ client }: { client: DesktopClient }) {
           })
         }
       />
-      <DraftForm
-        board={board}
-        busy={mutation.isPending}
-        onSave={(payload) => mutation.mutate({ ...common(), method: "quote.createV1", payload })}
-      />
-      <QuoteAgent
-        client={client}
-        board={board}
-        selected={saved}
-        onSaved={(result) => {
-          queries.setQueryData(["trade"], result.data);
-          setSelectedQuote(result.evidenceIds[0] ?? null);
-          void queries.invalidateQueries({ queryKey: ["trade"] });
-        }}
-      />
+      <Button asChild>
+        <Link to="/">进入工作台处理业务</Link>
+      </Button>
       <section className="panel space-y-4">
-        <h2>已保存的报价草稿</h2>
+        <h2>历史报价查询</h2>
         {board.quotes.length === 0 ? (
           <p className="description">保存后可在这里查看冻结的商品、价格依据和待确认事项。</p>
         ) : (
@@ -190,9 +174,9 @@ function QuoteWorkspace({ client }: { client: DesktopClient }) {
             {saved && (
               <>
                 <SavedQuote quote={saved} />
-                <QuoteChecks key={saved.id} quote={saved} client={client} />
-                <CustomerReply key={`reply-${saved.id}`} quote={saved} client={client} />
-                <QuoteDifference key={saved.id} quote={saved} quotes={board.quotes} />
+                <Button asChild>
+                  <Link to={`/?quote=${saved.id}`}>在工作台继续处理此报价</Link>
+                </Button>
               </>
             )}
           </>
@@ -226,20 +210,28 @@ function ScenarioForm({
           locales: scenario.locales,
           sourceStatus: scenario.sourceStatus,
         }
-      : demoScenario,
+      : {
+          name: "",
+          targetUser: "",
+          platform: "",
+          market: "",
+          category: "",
+          locales: [],
+          sourceStatus: "user_provided",
+        },
   });
   // Stored metadata is deliberately not submitted as editable scenario input.
   const submit = form.handleSubmit((data) => onSave(data));
   return (
     <section className="panel">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2>1 · 演示场景</h2>
+        <h2>1 · 业务场景</h2>
         <Button variant="outline" disabled={busy || reloading} onClick={onReload}>
           重新加载资料与报价
         </Button>
       </div>
       <p className="description">
-        工作流：询盘到报价；买家变更到复核。首轮先完成手工报价。配置可替换，平台规则和文化适配尚未验证。
+        配置适用的平台、市场、品类和语言。日常询盘、报价与变更在单据工作台处理；资料发布和规则覆盖仍需人工核对。
       </p>
       <form onSubmit={submit} className="space-y-4 mt-4">
         <div className="grid gap-4 md:grid-cols-2">
@@ -249,7 +241,7 @@ function ScenarioForm({
               ["targetUser", "目标用户与岗位"],
               ["platform", "目标平台 / 场景"],
               ["market", "目标市场"],
-              ["category", "演示品类"],
+              ["category", "商品品类"],
             ] as const
           ).map(([key, label]) => (
             <div key={key}>
@@ -276,13 +268,13 @@ function ScenarioForm({
           <div>
             <label htmlFor="scenario-source">场景来源</label>
             <select id="scenario-source" {...form.register("sourceStatus")}>
-              <option value="synthetic">合成演示配置</option>
+              <option value="synthetic">未核实配置（不可用于交易）</option>
               <option value="user_provided">用户提供（规则仍待验证）</option>
             </select>
           </div>
         </div>
         <Button type="submit" disabled={busy}>
-          保存演示场景
+          保存业务场景
         </Button>
         {scenario && <span className="status-badge ml-3">场景版本 {scenario.version}</span>}
       </form>
@@ -341,17 +333,6 @@ function CatalogPanel({
         >
           选择 CSV 文件
         </Button>
-        <Button
-          variant="outline"
-          disabled={busy}
-          onClick={() => {
-            setCsv(demoCatalogCsv);
-            setSourceName("合成演示商品.csv");
-            setSourceStatus("synthetic");
-          }}
-        >
-          填入合成 CSV 样本
-        </Button>
       </div>
       <form
         className="space-y-4"
@@ -380,7 +361,7 @@ function CatalogPanel({
                 setSourceStatus(event.target.value === "synthetic" ? "synthetic" : "user_provided")
               }
             >
-              <option value="synthetic">合成演示资料</option>
+              <option value="synthetic">未核实资料（不可用于交易）</option>
               <option value="user_provided">用户提供资料（人工核对）</option>
             </select>
           </div>
@@ -415,7 +396,7 @@ function CatalogPanel({
             ))}
           </select>
           <p className="sample-note">
-            {batch.sourceStatus === "synthetic" ? "合成演示资料" : "用户提供资料"} ·{" "}
+            {batch.sourceStatus === "synthetic" ? "未核实资料（不可用于交易）" : "用户提供资料"} ·{" "}
             {batch.status === "published" ? "已人工确认发布" : "尚未发布，不用于报价"} · 来源
             SHA-256：<span className="break-all">{batch.sourceHash}</span>
           </p>
@@ -475,7 +456,7 @@ function CatalogPanel({
     </section>
   );
 }
-function DraftForm({
+export function DraftForm({
   board,
   busy,
   onSave,
@@ -625,7 +606,7 @@ function DraftForm({
     </section>
   );
 }
-function SavedQuote({ quote }: { quote: QuoteSnapshot }) {
+export function SavedQuote({ quote }: { quote: QuoteSnapshot }) {
   return (
     <article className="space-y-4" aria-label="已保存报价详情">
       <div className="section-heading">
@@ -685,8 +666,11 @@ function SavedQuote({ quote }: { quote: QuoteSnapshot }) {
         <strong data-testid="goods-total">
           {quote.goodsTotal ?? "未知"} {quote.currency}
         </strong>
-        <small>不是完整应付总额 · 确定性计算并保存</small>
+        <small>未含运费、税费及其他费用</small>
       </div>
+      <p>
+        付款条款：{quote.payment || "待确认"} · 交期与交货条件：{quote.delivery || "待确认"}
+      </p>
       <div className="sample-note">
         <h3>待确认事项</h3>
         <ul>
@@ -706,7 +690,7 @@ function SavedQuote({ quote }: { quote: QuoteSnapshot }) {
         ))}
         <p>{quote.calculationPolicy}</p>
       </details>
-      <Button disabled title="正式审批与导出将在后续接入">
+      <Button disabled title="当前报价暂不可提交审核">
         提交人工审核
       </Button>
     </article>

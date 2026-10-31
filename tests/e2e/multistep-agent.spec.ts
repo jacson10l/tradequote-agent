@@ -8,6 +8,7 @@ import { join, resolve } from "node:path";
 import { promisify } from "node:util";
 import { _electron as electron, expect, test } from "@playwright/test";
 import { build } from "vite";
+import { compatibilityQuote } from "./business-fixture";
 
 const require = createRequire(resolve("apps/desktop/package.json"));
 test("formal multistep loop saves validated V1/V2/V3, shows blocking sources, survives worker kill and explicitly retries", async () => {
@@ -140,42 +141,69 @@ test("formal multistep loop saves validated V1/V2/V3, shows blocking sources, su
         model: "synthetic-model",
       }),
     );
-    await page.getByRole("link", { name: "资料与报价" }).click();
     await page
-      .getByRole("checkbox", { name: "多步工具报价（读取、核价、规则校验后保存）" })
-      .check();
-    await page.getByLabel("询盘客户", { exact: true }).fill("合成多步买方");
-    await page.getByLabel("交给模型理解的询盘").fill("100件 DEMO-TEE，付款T/T，30天交货");
-    await page.getByRole("button", { name: "理解询盘并保存 V1" }).click();
+      .getByRole("navigation")
+      .getByRole("link", { name: "单据工作台", exact: true })
+      .click();
+    await page.getByText("手工填写报价", { exact: true }).click();
+
+    expect(
+      (await compatibilityQuote(page, "100件 DEMO-TEE，付款T/T，30天交货", "合成多步买方", true))
+        .ok,
+    ).toBe(true);
     await expect(page.getByTestId("goods-total")).toHaveText("900.00 USD");
-    await page.getByLabel("本轮修改要求").fill("改为120件");
-    await page.getByRole("button", { name: "理解修改并保存 V2" }).click();
+    expect((await compatibilityQuote(page, "改为120件", undefined, true)).ok).toBe(true);
     await expect(page.getByTestId("goods-total")).toHaveText("1080.00 USD");
-    await page.getByLabel("本轮修改要求").fill("30%预付，余款发货前");
-    await page.getByRole("button", { name: "理解修改并保存 V3" }).click();
+    expect((await compatibilityQuote(page, "30%预付，余款发货前", undefined, true)).ok).toBe(true);
     await expect(page.getByRole("heading", { name: "合成多步买方 · 草稿 V3" })).toBeVisible();
     const saved = await page.evaluate(() => window.tradequote.getTrade());
     if (!saved.ok) throw new Error("synthetic board");
     expect(saved.data.quotes).toHaveLength(3);
-    const history = page.getByRole("region", { name: "模型运行记录" });
-    await expect(history.getByText("已保存草稿检查（非审批）")).toHaveCount(3);
+    const history = page.getByRole("region", { name: "任务记录" });
+    const completed = await page.evaluate(() =>
+      window.tradequote.listAgentRuns({
+        schemaVersion: 1,
+        requestId: crypto.randomUUID(),
+        method: "agent.list",
+        payload: { limit: 100 },
+      }),
+    );
+    expect(
+      completed.ok &&
+        completed.data.runs.filter((run) => run.validation?.kind === "saved_revision"),
+    ).toHaveLength(3);
     mode = "block";
-    await page.getByLabel("交给模型理解的询盘").fill("阻断验收：100件 DEMO-TEE，不提供付款");
-    await page.getByRole("button", { name: "理解询盘并保存 V1" }).click();
-    await expect(
-      page.getByRole("region", { name: "DeepSeek 询盘与对话" }).getByRole("alert"),
-    ).toBeVisible();
-    const blocked = history.getByRole("article").filter({ hasText: "阻断验收：" }).first();
+    expect(
+      (await compatibilityQuote(page, "阻断验收：100件 DEMO-TEE，不提供付款", "阻断买方", true)).ok,
+    ).toBe(false);
+    const blocked = history.locator(".conversation-turn").filter({ hasText: "阻断验收：" }).first();
+    await blocked.getByText(/^处理记录 ·/).click();
     await expect(blocked).toContainText("付款条款为空，阻断保存");
-    await expect(blocked).toContainText("核价预览检查（未保存）");
     await expect(blocked).toContainText(source.sourceRevisionId);
     await expect(blocked).toContainText(source.sourceHash);
-    await expect(blocked).toContainText("合成来源");
     const afterBlock = await page.evaluate(() => window.tradequote.getTrade());
     expect(afterBlock.ok && afterBlock.data.quotes).toEqual(saved.data.quotes);
     mode = "hold";
-    await page.getByLabel("本轮修改要求").fill("付款改T/T发货前付，恢复验收");
-    await page.getByRole("button", { name: "理解修改并保存 V4" }).click();
+    await page.evaluate(async () => {
+      const board = await window.tradequote.getTrade();
+      if (!board.ok || !board.data.quotes[0]) throw Error("fixture");
+      const q = board.data.quotes[0];
+      return window.tradequote.startAgentRun({
+        schemaVersion: 1,
+        requestId: crypto.randomUUID(),
+        idempotencyKey: crypto.randomUUID(),
+        method: "agent.start",
+        payload: {
+          method: "agent.revise",
+          payload: {
+            executionMode: "tool_loop",
+            baseId: q.id,
+            expectedVersion: q.version,
+            instruction: "付款改T/T发货前付，恢复验收",
+          },
+        },
+      });
+    });
     await expect.poll(() => waiting).toBe(1);
     await app.evaluate(({ app }) => {
       const metric = app
@@ -189,10 +217,15 @@ test("formal multistep loop saves validated V1/V2/V3, shows blocking sources, su
     await app.close();
     app = await launch();
     page = await app.firstWindow();
-    await page.getByRole("link", { name: "资料与报价" }).click();
+    await page
+      .getByRole("navigation")
+      .getByRole("link", { name: "单据工作台", exact: true })
+      .click();
+    await page.getByText("手工填写报价", { exact: true }).click();
+
     const interrupted = page
-      .getByRole("region", { name: "模型运行记录" })
-      .getByRole("article")
+      .getByRole("region", { name: "任务记录" })
+      .locator(".conversation-turn")
       .filter({ hasText: "恢复验收" })
       .first();
     await expect(interrupted).toContainText("已中断");
@@ -205,10 +238,10 @@ test("formal multistep loop saves validated V1/V2/V3, shows blocking sources, su
       }),
     );
     mode = "ok";
-    await interrupted.getByRole("button", { name: "重试此运行（会再次调用模型）" }).click();
-    await expect(interrupted).toContainText("草稿已保存");
-    await expect(interrupted).toContainText("第 2 次尝试");
-    await expect(interrupted).toContainText("已保存草稿检查（非审批）");
+    await interrupted.getByRole("button", { name: "重试" }).click();
+    await expect(interrupted).toContainText("已完成");
+    await expect(interrupted).toContainText("第 2 次处理");
+    await interrupted.getByText(/^处理记录 ·/).click();
     const final = await page.evaluate(() => window.tradequote.getTrade());
     if (!final.ok) throw new Error("synthetic read");
     expect(final.data.quotes).toHaveLength(4);
@@ -233,7 +266,7 @@ test("formal multistep loop saves validated V1/V2/V3, shows blocking sources, su
             run.toolSteps?.at(-1)?.ok,
         ),
     ).toBe(true);
-    await interrupted.getByText(/实际工具步骤/).click();
+
     await interrupted.scrollIntoViewIfNeeded();
     await page.screenshot({ path: ".runtime/multistep-agent.png" });
   } finally {

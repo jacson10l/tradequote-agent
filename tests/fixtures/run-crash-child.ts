@@ -40,6 +40,7 @@ const id = randomUUID();
 const validated =
   point.startsWith("validated-") || point === "inside-final-step" || point === "inside-validation";
 let proof: DraftAuthorization | undefined;
+if (run.command.method === "agent.read") throw new Error("not a quote fixture");
 if (validated) {
   const at = new Date().toISOString();
   const board = repo.executeTrade(

@@ -71,8 +71,8 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
         BrowserWindow.getAllWindows()[0]?.setContentSize(nextWidth, 800);
       }, width);
       for (const [route, ready] of [
-        ["单据工作台", "报价单据"],
-        ["资料与报价", "1 · 演示场景"],
+        ["单据工作台", "当前报价"],
+        ["资料与报价", "1 · 业务场景"],
         ["模型设置", "DeepSeek 连接与凭据"],
         ["工作区设置", "工作区设置"],
       ] as const) {
@@ -112,6 +112,7 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
       bridge: [
         "cancelAgentRun",
         "checkQuote",
+        "continueAgentRun",
         "createQuoteV1",
         "createWorkspace",
         "executeKnowledgeBuild",
@@ -246,8 +247,9 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
     });
     expect(invalid.ok).toBe(false);
     await page.getByRole("link", { name: "单据工作台" }).click();
-    await page.getByRole("button", { name: "查看合成样例" }).click();
-    await expect(page.getByRole("button", { name: "提交人工审核" })).toBeDisabled();
+    await expect(page.getByRole("complementary", { name: "工作台任务对话" })).not.toContainText(
+      "Codex harness",
+    );
     await page.screenshot({ path: "output/playwright/m1-workbench.png", fullPage: true });
     // macOS may clamp large windows to its work area; record actual native sizes.
     const nativeMeasurements: { requested: readonly number[]; actual: number[] }[] = [];
@@ -318,8 +320,8 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
     await main.evaluate((element) => {
       element.scrollTop = element.scrollHeight;
     });
-    await expect(page.getByRole("button", { name: "发送给 Agent" })).toBeVisible();
-    expect(await main.evaluate((element) => element.scrollTop)).toBeGreaterThan(0);
+    await expect(page.getByRole("button", { name: "发送" })).toBeInViewport();
+    expect(await main.evaluate((element) => element.scrollTop)).toBe(0);
     expect(
       await page.evaluate(() => {
         const root = document.getElementById("root");

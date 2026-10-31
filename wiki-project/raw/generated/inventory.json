@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "1d8b3cfd6c560b83d347153684ba7623d99492d4daec6035e143d7e7b66a116c",
+    "wiki-config.json": "cc1d29a8cf346e504cba6fdafda34d81dec54d5f22e11037ed87ab49ab6a9cf4",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -85,9 +85,9 @@
     {
       "path": "DESIGN.md",
       "type": "md",
-      "lines": 102,
-      "bytes": 9439,
-      "sha256": "fa95a1042cb0ef40751fb640d67927a2c5f072321eb4b69b60844f236a4480a8",
+      "lines": 108,
+      "bytes": 10452,
+      "sha256": "c4d06a5dea021a0a744027a4b33c51a49d6001db27675079e167f897d24c3345",
       "role": "当前视觉规范",
       "pages": [
         "wiki/decisions/0001-Mistral工作台风格.md"
@@ -96,15 +96,16 @@
     {
       "path": "README.md",
       "type": "md",
-      "lines": 140,
-      "bytes": 15947,
-      "sha256": "2a0b3df895b2b77b915d69e2426da822d4d7d76d0d9d1df8232025051cebb3a0",
+      "lines": 144,
+      "bytes": 17000,
+      "sha256": "fdd2d2734f05ab9d132b79ba122a28fdf66d00cc78d470bddc3001683725e468",
       "role": "项目入口与协作约束",
       "pages": [
         "wiki/项目状态.md",
         "wiki/Wiki 工作流与任务记录.md",
         "wiki/C03持久事件与桌面重连.md",
-        "wiki/C04收口与验收边界.md"
+        "wiki/C04收口与验收边界.md",
+        "wiki/C05CodexHarness与单据工作台.md"
       ]
     },
     {
@@ -214,9 +215,9 @@
     {
       "path": "apps/desktop/src/main/index.ts",
       "type": "ts",
-      "lines": 341,
-      "bytes": 13853,
-      "sha256": "9e6e38842c8ae37c7b2cc7761504b520cc99924deebb2b4599e3ec2695262396",
+      "lines": 343,
+      "bytes": 13913,
+      "sha256": "9af72198006429a80874bbd40f82eb1fc5ef217e67fd2ed7a91e25c30ed3b2ce",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md",
@@ -224,7 +225,8 @@
         "wiki/C04正式设置评估入口.md",
         "wiki/C03持久事件与桌面重连.md",
         "wiki/C已保存报价检查桌面切片.md",
-        "wiki/C客户回复草稿桌面切片.md"
+        "wiki/C客户回复草稿桌面切片.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
@@ -258,9 +260,9 @@
     {
       "path": "apps/desktop/src/preload/contracts.test.ts",
       "type": "ts",
-      "lines": 493,
-      "bytes": 19032,
-      "sha256": "5439353da7a35afd5250fe5f8542fadf46d7ef15adb4675ddc65919e5491ba2b",
+      "lines": 495,
+      "bytes": 19175,
+      "sha256": "7f91097a1099d9b72e848ed5e83b95ea555bb7b4a709b3a906175f0938f53c02",
       "role": "B00 preload and mock capability gate without new IPC",
       "pages": [
         "wiki/首批并行接口约定.md",
@@ -270,22 +272,24 @@
         "wiki/C02c统一运行与写账本.md",
         "wiki/C04正式设置评估入口.md",
         "wiki/C03持久事件与桌面重连.md",
-        "wiki/C已保存报价检查桌面切片.md"
+        "wiki/C已保存报价检查桌面切片.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
       "path": "apps/desktop/src/preload/index.ts",
       "type": "ts",
-      "lines": 196,
-      "bytes": 8365,
-      "sha256": "d296a0e7d9c50c2b1c5e60c22ecfad5b166233f9cc6801afc7e519736678b30a",
+      "lines": 197,
+      "bytes": 8453,
+      "sha256": "2496d82f0896e328c74ad1ac22475d29bf77cdaeeb97fb4e8019ee7ca7bc6f80",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md",
         "wiki/C02c统一运行与写账本.md",
         "wiki/C04正式设置评估入口.md",
         "wiki/C03持久事件与桌面重连.md",
-        "wiki/C已保存报价检查桌面切片.md"
+        "wiki/C已保存报价检查桌面切片.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
@@ -303,11 +307,12 @@
       "path": "apps/desktop/src/renderer/src/App.tsx",
       "type": "tsx",
       "lines": 75,
-      "bytes": 3182,
-      "sha256": "56fbf1a39cbfd9ab4e252bd00a9e6f5f5c9c896715167c263e4b410b6088d500",
+      "bytes": 3176,
+      "sha256": "31e29b4debf4279a6939d5bba7ffc1d2ea1f9934f184d0855a7131736ffde078",
       "role": "M1 React workspace form and document layout",
       "pages": [
-        "wiki/M1工作台.md"
+        "wiki/M1工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
@@ -324,35 +329,38 @@
     {
       "path": "apps/desktop/src/renderer/src/features/agent-runs.test.tsx",
       "type": "tsx",
-      "lines": 120,
-      "bytes": 5037,
-      "sha256": "4fae96d33d6cbfe7efcb921cdebe79ee3a2b5d6c9879673ca67e6226e6fa3d43",
+      "lines": 204,
+      "bytes": 7848,
+      "sha256": "624cc6ca11cded801046e6831f76acf2480226ea6b2a195e209a60bd58f7ee8d",
       "role": "持久运行发现不自动收费、控制丢响应重放与跨页状态刷新回归",
       "pages": [
         "wiki/C02c统一运行与写账本.md",
         "wiki/M1验证与协作.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
       "path": "apps/desktop/src/renderer/src/features/agent-runs.tsx",
       "type": "tsx",
-      "lines": 294,
-      "bytes": 10347,
-      "sha256": "0bae8c5f27429266beddb22cbfc0f0ac26dce739fdfcd1ae7595037e7f7c82e6",
+      "lines": 386,
+      "bytes": 13643,
+      "sha256": "a3e4cf4be294bc3e6c9e98c1729b3a2046ba2d8ee2dd65b16f076bdb8e585ab3",
       "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
       "pages": [
         "wiki/C02c统一运行与写账本.md",
         "wiki/C02c多步报价工具闭环.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
       "path": "apps/desktop/src/renderer/src/features/customer-reply-format.test.ts",
       "type": "ts",
       "lines": 141,
-      "bytes": 6386,
-      "sha256": "76f232305fff5ff2976cc58d3938a8851a0e0bc478264382fd1e58660987104c",
+      "bytes": 6415,
+      "sha256": "c9db9dd10e9c273329aa291c0dc2393580a290d4fb3cb6bc60718b80d94d3c19",
       "role": "C本地确定性英德回复草稿、版本报告绑定及测试/设计",
       "pages": [
         "wiki/C客户回复草稿桌面切片.md"
@@ -362,8 +370,8 @@
       "path": "apps/desktop/src/renderer/src/features/customer-reply-format.ts",
       "type": "ts",
       "lines": 155,
-      "bytes": 6183,
-      "sha256": "7fe1e36e698fd6bbeb992c291d2ec3304fd1f2cd559dbabfe7d80e57458cee67",
+      "bytes": 6212,
+      "sha256": "0f0c2e4e32bc89c1c48a92c00fe8bbdcbb7e7a7026ff40601ec7d960e117f55d",
       "role": "C本地确定性英德回复草稿、版本报告绑定及测试/设计",
       "pages": [
         "wiki/C客户回复草稿桌面切片.md"
@@ -372,9 +380,9 @@
     {
       "path": "apps/desktop/src/renderer/src/features/customer-reply.test.tsx",
       "type": "tsx",
-      "lines": 71,
-      "bytes": 3556,
-      "sha256": "1ca5f76cde9aea04634c2b6af8490ee2c1000031dd8abc89da46a7b5c7ef07e4",
+      "lines": 119,
+      "bytes": 5186,
+      "sha256": "62cd34d325ab7c60e3e9026c4d19c718ac700a199e7cf0840a2e981cad633c74",
       "role": "C本地确定性英德回复草稿、版本报告绑定及测试/设计",
       "pages": [
         "wiki/C客户回复草稿桌面切片.md"
@@ -383,49 +391,53 @@
     {
       "path": "apps/desktop/src/renderer/src/features/customer-reply.tsx",
       "type": "tsx",
-      "lines": 71,
-      "bytes": 2754,
-      "sha256": "cfb8a09fbd70b6e81063e24994645126d9f3f98298d9a7f23d9521be37d50c1e",
+      "lines": 86,
+      "bytes": 2956,
+      "sha256": "298eefe035e74d400c7f324e7189684bd8efb335d64b3b79d6c71e2d99999f70",
       "role": "C本地确定性英德回复草稿、版本报告绑定及测试/设计",
       "pages": [
-        "wiki/C客户回复草稿桌面切片.md"
+        "wiki/C客户回复草稿桌面切片.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
       "path": "apps/desktop/src/renderer/src/features/model-evaluation.tsx",
       "type": "tsx",
       "lines": 342,
-      "bytes": 13168,
-      "sha256": "efff886d6251889d97bc494d003562a2634690184a6e6032f85142b49ec5608f",
+      "bytes": 13159,
+      "sha256": "599789a3a060079545e09085f12b86d831911047a3590658f0c9255912039a51",
       "role": "C04正式评估入口、公开契约与生命周期验证",
       "pages": [
         "wiki/C04正式设置评估入口.md",
-        "wiki/C04失败阶段诊断与二轮收敛.md"
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
       "path": "apps/desktop/src/renderer/src/features/model-settings.tsx",
       "type": "tsx",
-      "lines": 161,
-      "bytes": 5677,
-      "sha256": "9d0a172e4d82ec2aaa837a77efb714c0cf69551cd54382b0d2483f69519c7931",
+      "lines": 160,
+      "bytes": 5668,
+      "sha256": "85b596e215c735128fa6f436108a34cc1ced73a45fd64d289cfcfc1fe87c9eb0",
       "role": "正式模型设置交互",
       "pages": [
         "wiki/M4模型与报价修订.md",
-        "wiki/C04正式设置评估入口.md"
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
       "path": "apps/desktop/src/renderer/src/features/quote-agent.tsx",
       "type": "tsx",
-      "lines": 278,
-      "bytes": 10107,
-      "sha256": "4c054651882e92947391b643e9e3c77872fb7f025ff4b393f0ca532c53849878",
+      "lines": 280,
+      "bytes": 10195,
+      "sha256": "40b2f9641b53ba0c81a72c9ad614f401437b28cca86c206acc5d3ff5c6611112",
       "role": "询盘两轮修订和真实版本差异",
       "pages": [
         "wiki/M4模型与报价修订.md",
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C05CodexHarness与单据工作台.md"
       ]
     },
     {
@@ -442,51 +454,58 @@
     {
       "path": "apps/desktop/src/renderer/src/features/quote-checks.test.tsx",
       "type": "tsx",
-      "lines": 378,
-      "bytes": 17449,
-      "sha256": "b4b2d6f0ef0b744ec6908c2bfd423207f875dc020db3ba06c9c7f030afafa792",
+      "lines": 399,
+      "bytes": 18177,
+      "sha256": "a9fd89a2e39857c1a1ed3fcfb5cdcfd4125102fb8f7cdb91a95fe2298a28f90a",
       "role": "B01 component and saved-quote mounting behavior regression",
       "pages": [
         "wiki/B规则检查实现.md",
-        "wiki/C已保存报价检查桌面切片.md"
+        "wiki/C已保存报价检查桌面切片.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
       "path": "apps/desktop/src/renderer/src/features/quote-checks.tsx",
       "type": "tsx",
-      "lines": 342,
-      "bytes": 15202,
-      "sha256": "9f881f12c472a826c22b37ea0542df8767ca9b7b6ca349e4a664ebb02bb716a1",
+      "lines": 366,
+      "bytes": 15921,
+      "sha256": "b65b0e12243204d740cbbe88992e0a2371a703a737ff105b33fa341354897621",
       "role": "B01 read-only report UI, shared risks and field annotations, version isolation",
       "pages": [
         "wiki/B规则检查实现.md",
         "wiki/C已保存报价检查桌面切片.md",
-        "wiki/C客户回复草稿桌面切片.md"
+        "wiki/C客户回复草稿桌面切片.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
       "path": "apps/desktop/src/renderer/src/features/quotes.tsx",
       "type": "tsx",
-      "lines": 714,
-      "bytes": 25626,
-      "sha256": "aab3c89871c5eb115d1ee5474e18d8a66f6f46a4d078978d984e8d8eaacabf29",
+      "lines": 698,
+      "bytes": 24997,
+      "sha256": "6a0d2ad1ca18835bc5ecfd315b09052a5081b9f8ff0b5dcb53d561c7b7078352",
       "role": "Scenario form, confirmed CSV import and persisted quote V1 UI",
       "pages": [
         "wiki/M2真实报价V1.md",
         "wiki/B规则检查实现.md",
-        "wiki/C客户回复草稿桌面切片.md"
+        "wiki/C客户回复草稿桌面切片.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
       "path": "apps/desktop/src/renderer/src/features/read-assistant.tsx",
       "type": "tsx",
-      "lines": 352,
-      "bytes": 12606,
-      "sha256": "bcd9eebdccbb2b3597de1208930947145b8a69d5a76744e445612890757181da",
+      "lines": 219,
+      "bytes": 7201,
+      "sha256": "d75113e5b89cf61ad71c28b761f04606353d47633b4177c92833be2216546a89",
       "role": "桌面只读任务/范围、实际结果与来源展示",
       "pages": [
         "wiki/C02b桌面只读助手.md",
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
@@ -516,21 +535,23 @@
       "type": "tsx",
       "lines": 81,
       "bytes": 2963,
-      "sha256": "8f6d091394102b05756953c40bddafc4b3e8f006ee176231a54f73d3d9a70e1c",
+      "sha256": "d28eb6f445adf76616ab28762666e60ddfd3b9c4217f8c08cbfb577a145a2cb3",
       "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
       "pages": [
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
       "path": "apps/desktop/src/renderer/src/features/run-events.tsx",
       "type": "tsx",
-      "lines": 125,
-      "bytes": 4110,
-      "sha256": "c6a039e0dbe8c4fe08382a51fc72befa9447da06a5d6505c03305275f1003049",
+      "lines": 122,
+      "bytes": 4001,
+      "sha256": "dd40afbe01ea10a819a43ff4b3043b52884d96ac6184bc0a3e7edf0bd64266a7",
       "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
       "pages": [
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
@@ -545,14 +566,28 @@
       ]
     },
     {
+      "path": "apps/desktop/src/renderer/src/features/workbench.test.tsx",
+      "type": "tsx",
+      "lines": 364,
+      "bytes": 12072,
+      "sha256": "6a2803dd91cbc6475ddab9aa933b5822a31d6a80b30c87c9eebbd16407eb4ecb",
+      "role": "C05 Codex原生协议、隔离与工作台业务回归",
+      "pages": [
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
+      ]
+    },
+    {
       "path": "apps/desktop/src/renderer/src/features/workbench.tsx",
       "type": "tsx",
-      "lines": 160,
-      "bytes": 6667,
-      "sha256": "2fe17e9ab2597dbf4fce4e636b471316c4f72ea9a42a05cff27af2e791dbd607",
+      "lines": 440,
+      "bytes": 16664,
+      "sha256": "544a26fbdf9e16181d2ccc32acd8f22f03d4510ab46ff6ec44da27b682e589bf",
       "role": "M1 React workspace form and document layout",
       "pages": [
-        "wiki/M1工作台.md"
+        "wiki/M1工作台.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
@@ -569,12 +604,13 @@
     {
       "path": "apps/desktop/src/renderer/src/features/workspace.tsx",
       "type": "tsx",
-      "lines": 142,
-      "bytes": 5073,
-      "sha256": "67ab0007c81cc45fb98679eec59be77f6eb71ecce9eb50229391c6771b3379b1",
+      "lines": 140,
+      "bytes": 5009,
+      "sha256": "24d05d6c284a1d2e99e6c6f0c4d655df8ce77c3a6372afd40fe8fe88b45bfe43",
       "role": "M1 React workspace form and document layout",
       "pages": [
-        "wiki/M1工作台.md"
+        "wiki/M1工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
@@ -646,26 +682,29 @@
     {
       "path": "apps/desktop/src/renderer/src/theme.css",
       "type": "css",
-      "lines": 506,
-      "bytes": 8651,
-      "sha256": "f93d301988f7b32871c32394526ea4634cc46be292d189a27970e53e9a053e74",
+      "lines": 633,
+      "bytes": 11027,
+      "sha256": "e1de2dcf9e36228283c4de611c257596214063eed75be62d812ddba1c418d5bc",
       "role": "M1 React workspace form and document layout",
       "pages": [
-        "wiki/M1工作台.md"
+        "wiki/M1工作台.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
       "path": "apps/desktop/src/workers/business.ts",
       "type": "ts",
-      "lines": 101,
-      "bytes": 3534,
-      "sha256": "807c41e0ecfbf5fd64d6897631c4d97aa582715e44bb8b201858dc59fb1351ac",
+      "lines": 96,
+      "bytes": 3397,
+      "sha256": "3a4121b57f0cfd89d54abaa9dffde05b0add9ba54ee1f1cfe8802382f51a1390",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md",
         "wiki/C02c统一运行与写账本.md",
         "wiki/C03持久事件与桌面重连.md",
-        "wiki/C已保存报价检查桌面切片.md"
+        "wiki/C已保存报价检查桌面切片.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
@@ -1385,12 +1424,13 @@
       "path": "packages/contracts/src/agent.ts",
       "type": "ts",
       "lines": 106,
-      "bytes": 3897,
-      "sha256": "866e1eb9ecc12c9fe1e1c8f7bd3f5d48a822b352f9cab810dc2108d6dfc78044",
+      "bytes": 3929,
+      "sha256": "b97003903adc8e934279e97aeb1d87c7507db3c064276c2fa6e5865152bdaa60",
       "role": "模型设置与询盘受限修改严格契约",
       "pages": [
         "wiki/M4模型与报价修订.md",
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C05CodexHarness与单据工作台.md"
       ]
     },
     {
@@ -1441,13 +1481,14 @@
     {
       "path": "packages/contracts/src/events.ts",
       "type": "ts",
-      "lines": 69,
-      "bytes": 1940,
-      "sha256": "31750559ec77d7345508aa912557b1a676424b36102337d1d3c77fe4e6c1d8ac",
+      "lines": 70,
+      "bytes": 1954,
+      "sha256": "8b1086bec8317591e3c293a0d87aa4020eb3d26cfcb42646c41a5a1b9f035cb3",
       "role": "Strict shared value, patch, approval and event contract foundation",
       "pages": [
         "wiki/M1接口与持久化.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
@@ -1609,15 +1650,16 @@
     {
       "path": "packages/contracts/src/pending-client.ts",
       "type": "ts",
-      "lines": 50,
-      "bytes": 2637,
-      "sha256": "fd807ea3c592125298b49928a9d28766030f00b7fbdfa950a97c69d818ebab20",
+      "lines": 51,
+      "bytes": 2721,
+      "sha256": "0767cc4a497bb105dde8ff870574be82e247e2c18ad516a8db704acb7a63a40b",
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
         "wiki/首批并行接口约定.md",
         "wiki/B00a知识Wiki公共协议.md",
         "wiki/B00a知识整理与维护协议.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
@@ -1657,13 +1699,14 @@
     {
       "path": "packages/contracts/src/read-tools.ts",
       "type": "ts",
-      "lines": 109,
-      "bytes": 4274,
-      "sha256": "d6321c746a53ee483b433dd1d7dad01524424632ede1f01d289c148c42825569",
+      "lines": 110,
+      "bytes": 4332,
+      "sha256": "cdcab0d6104a8b3fd315601bdddceefe6151d83c0325ec74c76d12cea31807d1",
       "role": "独立只读命令、四工具统一投影与严格结果",
       "pages": [
         "wiki/C02b桌面只读助手.md",
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C05CodexHarness与单据工作台.md"
       ]
     },
     {
@@ -1704,13 +1747,15 @@
     {
       "path": "packages/contracts/src/runs.ts",
       "type": "ts",
-      "lines": 133,
-      "bytes": 5587,
-      "sha256": "2747b9846b42abcd24c1a2b3fd73d21f64fa5e21ffc832b67de73ac2b2fd890f",
+      "lines": 177,
+      "bytes": 7595,
+      "sha256": "7a6576a7ef2dd2ee0f6ef7a94aa1549894bef5113eb41def5dae9d11536e488c",
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
         "wiki/首批并行接口约定.md",
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
@@ -1771,12 +1816,13 @@
     {
       "path": "packages/domain/src/agent-run.ts",
       "type": "ts",
-      "lines": 36,
-      "bytes": 1261,
-      "sha256": "b6b7b7629e523c0636d5c4a5841409b20ce420a111bb4fec006db7d2ca43e8ed",
+      "lines": 38,
+      "bytes": 1351,
+      "sha256": "d630ff2915df2fc653e3581a947977e826195cc2d787655951215ba64f2996fa",
       "role": "C01a纯运行状态转换与终态边界",
       "pages": [
-        "wiki/C运行恢复实现.md"
+        "wiki/C运行恢复实现.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
@@ -1878,11 +1924,12 @@
       "path": "packages/domain/src/trade.ts",
       "type": "ts",
       "lines": 153,
-      "bytes": 5661,
-      "sha256": "004c559d3ce9da2a5ad65d0ffa7fa26889f5402da7156d7bbd83b267035a4581",
+      "bytes": 5640,
+      "sha256": "f28a73b9f3c64ec1a78b910616bf186c52d9d307d3cc01f171ac861abff0f70e",
       "role": "Deterministic tier pricing, unknown amounts and human-only V1 service",
       "pages": [
-        "wiki/M2真实报价V1.md"
+        "wiki/M2真实报价V1.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
@@ -1959,14 +2006,15 @@
     {
       "path": "packages/infrastructure/src/agent-executor.ts",
       "type": "ts",
-      "lines": 182,
-      "bytes": 8915,
-      "sha256": "2d8aeba21616f4a20400d9f9c1b56361273c80cc0865208169e2af53b05124a4",
+      "lines": 185,
+      "bytes": 9110,
+      "sha256": "9b2ee6f68ab37cdc534482fa14c85ed76142cccc7dc638a3d0fe7d4c7cfb1802",
       "role": "有界模型执行与提交前版本复核",
       "pages": [
         "wiki/M4模型与报价修订.md",
         "wiki/C运行恢复实现.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
@@ -1983,15 +2031,17 @@
     {
       "path": "packages/infrastructure/src/agent-run-coordinator.ts",
       "type": "ts",
-      "lines": 214,
-      "bytes": 9104,
-      "sha256": "17e9c26bffd8f7952e9671bfb6f1f6565e40c9c485997b038c5688dfe97bf93c",
+      "lines": 284,
+      "bytes": 11873,
+      "sha256": "54b4e764e9dda902ce3e0ba72b46f9b19759b0b7d8bbcaf0d728a54d212ded15",
       "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
       "pages": [
         "wiki/C02c统一运行与写账本.md",
         "wiki/C02c多步报价工具闭环.md",
         "wiki/C04失败阶段诊断与二轮收敛.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
@@ -2022,15 +2072,17 @@
     {
       "path": "packages/infrastructure/src/agent-run-store.ts",
       "type": "ts",
-      "lines": 724,
-      "bytes": 27842,
-      "sha256": "4915b96095467fc84cc41d60f11948a5d69549b83f9dd467158d43a85de4127a",
+      "lines": 906,
+      "bytes": 35430,
+      "sha256": "aede2c3d488161b4b9ca31bfffb3590ce1b743af9e46e792a80e5be702e27553",
       "role": "持久运行存储、票据、控制重放与同连接报价原子提交",
       "pages": [
         "wiki/C02c持久运行与写入前置.md",
         "wiki/C02c统一运行与写账本.md",
         "wiki/C02c多步报价工具闭环.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
@@ -2085,14 +2137,15 @@
     {
       "path": "packages/infrastructure/src/catalog-quote-read-agent.ts",
       "type": "ts",
-      "lines": 240,
-      "bytes": 9963,
-      "sha256": "cd4abf0963ab1c2c922a9ae94122db3eec1feefdbb2f971d785a970d441c684d",
+      "lines": 242,
+      "bytes": 10106,
+      "sha256": "1067767f735be7591292f8f2a3175922ce954b6e36945058ec104136868b9226",
       "role": "C02b真实商品报价只读适配、来源快照、范围核价与无写入回归",
       "pages": [
         "wiki/C02b商品与报价只读工具.md",
         "wiki/M4模型与报价修订.md",
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
@@ -2110,13 +2163,15 @@
     {
       "path": "packages/infrastructure/src/catalog-quote-read-service.ts",
       "type": "ts",
-      "lines": 76,
-      "bytes": 3203,
-      "sha256": "a369c9744d7e375d55afb8c330fff224ad0f4b317360b4adeb2ab029b2a8cfc2",
+      "lines": 156,
+      "bytes": 6288,
+      "sha256": "91c07cf04953e5cc96adcc9290e92b95ef9d0318be403d6c5fa05da3f674509d",
       "role": "正式Worker只读服务、宿主范围/时钟、在途门禁",
       "pages": [
         "wiki/C02b桌面只读助手.md",
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
@@ -2164,6 +2219,62 @@
       "role": "B01不可变报告存取、完整消费回读校验与同事务幂等",
       "pages": [
         "wiki/B规则检查实现.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/codex-harness.integration.test.ts",
+      "type": "ts",
+      "lines": 191,
+      "bytes": 6898,
+      "sha256": "ac90a74fb20f392060829da1fd77f9ae614d0d4a1a8b0396473d1bd3608acfb3",
+      "role": "C05 Codex原生工具与工作台纵向验收",
+      "pages": [
+        "wiki/C05CodexHarness与单据工作台.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/codex-harness.test.ts",
+      "type": "ts",
+      "lines": 203,
+      "bytes": 7480,
+      "sha256": "7552b20678d4825795a48c8b4344034f500aee536f477b5ff9c0d4347ba87767",
+      "role": "C05 Codex原生工具与工作台纵向验收",
+      "pages": [
+        "wiki/C05CodexHarness与单据工作台.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/codex-harness.ts",
+      "type": "ts",
+      "lines": 457,
+      "bytes": 18740,
+      "sha256": "ea5d5a73a9795b3e0a9d406ae01dba2fc1245bb6729431b48b265d3644ee3c7f",
+      "role": "C05 Codex原生工具与工作台纵向验收",
+      "pages": [
+        "wiki/C05CodexHarness与单据工作台.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/codex-isolation.integration.test.ts",
+      "type": "ts",
+      "lines": 90,
+      "bytes": 3666,
+      "sha256": "01e8ff92f60c4cc07475cfa1bac3e9000de4f8f0d61fe96a6d19c1387b44ba26",
+      "role": "C05 Codex原生工具与工作台纵向验收",
+      "pages": [
+        "wiki/C05CodexHarness与单据工作台.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/codex-read-recovery.test.ts",
+      "type": "ts",
+      "lines": 34,
+      "bytes": 1494,
+      "sha256": "d0fc6f7720790a084ecafa28a0be86fd49826a70fd7768f4b2d089c3c125264d",
+      "role": "C05 Codex原生工具与工作台纵向验收",
+      "pages": [
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
@@ -2486,27 +2597,31 @@
       "path": "packages/infrastructure/src/quote-tool-agent.test.ts",
       "type": "ts",
       "lines": 670,
-      "bytes": 27783,
-      "sha256": "e7caf45a318dd6beefbf4ae56f0fbeff48172e01c022a3175b0766f5ea0cbc1d",
+      "bytes": 27805,
+      "sha256": "3367919b7c170912283c5246f5149b31d7a292faf5e476f965098733ca1828e7",
       "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
       "pages": [
         "wiki/C02c多步报价工具闭环.md",
-        "wiki/C04剩余失败证据与收敛.md"
+        "wiki/C04剩余失败证据与收敛.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/quote-tool-agent.ts",
       "type": "ts",
-      "lines": 436,
-      "bytes": 18681,
-      "sha256": "8cb2edf9a8e97fb9952feded3f7c7f8da51f9540ae186373fb4279fad62e1a6d",
+      "lines": 470,
+      "bytes": 20376,
+      "sha256": "2f4cddf49fa9d0335a8d9a4760f4d3f9a381975f1cdef310e64e72e368b3e50e",
       "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
       "pages": [
         "wiki/C02c多步报价工具闭环.md",
         "wiki/C04失败收敛与本地回归.md",
         "wiki/C04失败阶段诊断与二轮收敛.md",
         "wiki/C04剩余失败证据与收敛.md",
-        "wiki/C04动作与澄清失败收敛.md"
+        "wiki/C04动作与澄清失败收敛.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
@@ -2571,6 +2686,17 @@
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/session-lifecycle.test.ts",
+      "type": "ts",
+      "lines": 386,
+      "bytes": 14526,
+      "sha256": "8ca2a2034011e03d8be401cdafc5dcd83e397a3ef2cc43250285645b6e41e4e5",
+      "role": "C05c会话收口/只读生命周期与业务对话验收",
+      "pages": [
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
@@ -2878,13 +3004,38 @@
     {
       "path": "tests/e2e/agent-recovery.spec.ts",
       "type": "ts",
-      "lines": 232,
-      "bytes": 9865,
-      "sha256": "83c3e222f364bfec45809fc257696b5f7089bc8aa6c17f1f356f7e243d3c55d1",
+      "lines": 245,
+      "bytes": 9981,
+      "sha256": "b3521662226b4ab1569c6f343f183d1699f99c5d217d317a7a79508e39695f2e",
       "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
       "pages": [
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
+      ]
+    },
+    {
+      "path": "tests/e2e/business-fixture.ts",
+      "type": "ts",
+      "lines": 70,
+      "bytes": 2529,
+      "sha256": "6571b366aa08f10193046064b7c2ed93ff1916e3816a1cfefa2ab11fcd0c374e",
+      "role": "C05c会话收口/只读生命周期与业务对话验收",
+      "pages": [
+        "wiki/C05c会话生命周期与业务对话.md"
+      ]
+    },
+    {
+      "path": "tests/e2e/codex-workbench.spec.ts",
+      "type": "ts",
+      "lines": 103,
+      "bytes": 5378,
+      "sha256": "b55f98ddf3e70293399a4360c02e00270575bd554a012a8866d62049b1f5f61b",
+      "role": "C05 Codex原生工具与工作台纵向验收",
+      "pages": [
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
@@ -2892,92 +3043,104 @@
       "type": "ts",
       "lines": 105,
       "bytes": 4378,
-      "sha256": "4f0f6659c8455ffd38b44df740b79dcfb7e2380f413c4a635243b5f39e6746b2",
+      "sha256": "3822ec80d17e2263a1fad3e0e1da0c2d3a64fc99e7be38dfe26d48753ed268f9",
       "role": "Actual Electron notification layout, zoom, recovery and message regression",
       "pages": [
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/C05CodexHarness与单据工作台.md"
       ]
     },
     {
       "path": "tests/e2e/model-evaluation.spec.ts",
       "type": "ts",
       "lines": 266,
-      "bytes": 12018,
-      "sha256": "626c1238203698679ac45c35076b2df66036916dad799f2a5cceeb4b2cc89288",
+      "bytes": 12010,
+      "sha256": "2613ba0f722f4aa53bd9eb32f2400e3e3d1b1389900479753261015b93ab4d87",
       "role": "C04正式评估入口、公开契约与生命周期验证",
       "pages": [
         "wiki/C04正式设置评估入口.md",
         "wiki/C04失败阶段诊断与二轮收敛.md",
-        "wiki/C04剩余失败证据与收敛.md"
+        "wiki/C04剩余失败证据与收敛.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
       "path": "tests/e2e/multistep-agent.spec.ts",
       "type": "ts",
-      "lines": 246,
-      "bytes": 10696,
-      "sha256": "57c97d566021e42d39ae1f3769d2ab9d12d25c432c66997b5e4c653310fe2b75",
+      "lines": 279,
+      "bytes": 11052,
+      "sha256": "48f09b38841bb997a0d86f783ee67939dd671bafd7646f039097a72a7f2a31c9",
       "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
       "pages": [
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
       "path": "tests/e2e/quote-agent.spec.ts",
       "type": "ts",
-      "lines": 254,
-      "bytes": 13124,
-      "sha256": "bd13ecdc42734978953eb441fb1d0026df742a84fddf077803d96f2c4c7a0cdf",
+      "lines": 262,
+      "bytes": 13196,
+      "sha256": "fbc971ad02a7a836ee25392cb9a432cd17a86dbbf283df0b5cc584fdc919a405",
       "role": "真实Electron加HTTP替身两轮报价验收",
       "pages": [
         "wiki/M4模型与报价修订.md",
         "wiki/M1验证与协作.md",
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C客户回复草稿桌面切片.md"
+        "wiki/C客户回复草稿桌面切片.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
       "path": "tests/e2e/quote-checks.spec.ts",
       "type": "ts",
-      "lines": 294,
-      "bytes": 14536,
-      "sha256": "adf6f7538e1fa01d150fbaedeff9b791b16a00ad2513a5472b2b8ac9c8f5bcec",
+      "lines": 317,
+      "bytes": 15202,
+      "sha256": "cdc4d09e51e8700d791ce93452766d0c8c4c12d6db9816daed603fb1afe412d0",
       "role": "C实际Electron保存报价/人工检查/完整来源消费/双反馈/重开和原子失败验证",
       "pages": [
         "wiki/C已保存报价检查桌面切片.md",
-        "wiki/C客户回复草稿桌面切片.md"
+        "wiki/C客户回复草稿桌面切片.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
       "path": "tests/e2e/quote-v1.spec.ts",
       "type": "ts",
-      "lines": 131,
-      "bytes": 7443,
-      "sha256": "be9154201599813a45f3d6c643cf2e483b2b52a840cc24cbb675ee24116df4e4",
+      "lines": 142,
+      "bytes": 7696,
+      "sha256": "3a7131af3c3026845aacf0395f82b0304d7ed7459863f39707b6d1cfceb1bf23",
       "role": "Quote V1 amount, source, transaction, migration and real Electron regression evidence",
       "pages": [
         "wiki/M2真实报价V1.md",
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
       "path": "tests/e2e/read-assistant.spec.ts",
       "type": "ts",
-      "lines": 244,
-      "bytes": 11701,
-      "sha256": "7e9c5934d205874d254c791ff3471238402f9644fd67dc0fd3beb9b2035db09b",
+      "lines": 260,
+      "bytes": 10361,
+      "sha256": "56f1507029837bdee761d83c7b2dd0f22990d28f9d63eaacff1615a61008486c",
       "role": "正式Electron四工具、错误边界、来源/金额/重开验收",
       "pages": [
         "wiki/C02b桌面只读助手.md",
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {
       "path": "tests/e2e/workspace.spec.ts",
       "type": "ts",
-      "lines": 350,
-      "bytes": 14904,
-      "sha256": "413c0b58f2cf97bd14ade492281f2dce7dd1613198741dd934ad04bae9c5190e",
+      "lines": 352,
+      "bytes": 14882,
+      "sha256": "c7b59787ac35835d692995a967e39e216c36c7cda2718d599b5a2b577d23abf9",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md",
@@ -2986,7 +3149,20 @@
         "wiki/C02c统一运行与写账本.md",
         "wiki/C04正式设置评估入口.md",
         "wiki/C03持久事件与桌面重连.md",
-        "wiki/C已保存报价检查桌面切片.md"
+        "wiki/C已保存报价检查桌面切片.md",
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C05c会话生命周期与业务对话.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/codex-provider-host.cjs",
+      "type": "cjs",
+      "lines": 22,
+      "bytes": 951,
+      "sha256": "f895a04dc26a8c9459aa27cc850a38dc27da66620bf40aef49fb1e353508c5b0",
+      "role": "C05b正式设置原生Codex与独立Electron电脑验收宿主",
+      "pages": [
+        "wiki/C05CodexHarness与单据工作台.md"
       ]
     },
     {
@@ -3135,13 +3311,14 @@
     {
       "path": "tests/fixtures/run-crash-child.ts",
       "type": "ts",
-      "lines": 100,
-      "bytes": 4066,
-      "sha256": "4a08d5c406ac5bb58d9f887eda4982322dcdcd0a48ea76819b83bad5dd5711f6",
+      "lines": 101,
+      "bytes": 4147,
+      "sha256": "0df0e8b78d08570b6c7678273b848b6a30cb6e59213ac1ed9212ae33adb990d7",
       "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
       "pages": [
         "wiki/C02c统一运行与写账本.md",
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C05c会话生命周期与业务对话.md"
       ]
     },
     {

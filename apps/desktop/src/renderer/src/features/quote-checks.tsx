@@ -4,6 +4,7 @@ import {
   type CheckIssue,
   CheckListResultSchema,
   type CheckReport,
+  CheckReportSchema,
   CheckResultSchema,
   type QuoteSnapshot,
 } from "@tradequote/contracts";
@@ -66,8 +67,22 @@ export async function loadQuoteChecks(client: CheckClient, quote: QuoteSnapshot)
   );
 }
 
+/** The host persists these reports in AgentRun; validate the same frozen quote identity. */
+export function matchingRunReport(quote: QuoteSnapshot, input: unknown): CheckReport | undefined {
+  const parsed = CheckReportSchema.safeParse(input);
+  return parsed.success && matchesQuote(parsed.data, quote) ? parsed.data : undefined;
+}
+
 /** Only the human button writes; rule evaluation and the complete transaction live in the Worker. */
-export function QuoteChecks({ quote, client }: { quote: QuoteSnapshot; client: CheckClient }) {
+export function QuoteChecks({
+  quote,
+  client,
+  runReport,
+}: {
+  quote: QuoteSnapshot;
+  client: CheckClient;
+  runReport?: CheckReport | undefined;
+}) {
   const prefix = useId();
   const fieldRefs = useRef<Partial<Record<Field, HTMLElement | null>>>({});
   const [activeIssue, setActiveIssue] = useState<string | null>(null);
@@ -144,7 +159,14 @@ export function QuoteChecks({ quote, client }: { quote: QuoteSnapshot; client: C
       return loadQuoteChecks(client, quote);
     },
   });
-  const reports = query.isSuccess ? query.data : [];
+  const fromRun = matchingRunReport(quote, runReport);
+  const reports = query.isSuccess
+    ? query.data.length
+      ? query.data
+      : fromRun
+        ? [fromRun]
+        : []
+    : [];
   const report = reports.find((item) => item.reportId === selectedReport) ?? reports[0];
   return (
     <section
@@ -174,7 +196,9 @@ export function QuoteChecks({ quote, client }: { quote: QuoteSnapshot; client: C
         </div>
       </div>
       <p className="description">
-        人工触发后保存本版本的检查报告；检查不修改报价，也不代表审批通过。
+        {fromRun && report?.reportId === fromRun.reportId
+          ? "本版本检查已保存，可按需复查。修改报价后需重新检查；检查不代表审批通过。"
+          : "人工触发后保存本版本的检查报告；检查不修改报价，也不代表审批通过。"}
       </p>
       {query.isPending && <p role="status">正在读取当前版本的检查报告…</p>}
       {query.isError && (
@@ -209,7 +233,7 @@ export function QuoteChecks({ quote, client }: { quote: QuoteSnapshot; client: C
           </p>
           {report.issues.some((issue) =>
             issue.evidence.some((item) => item.sourceStatus === "synthetic"),
-          ) && <p className="sample-note">含合成规则来源 · 仅供演示，实际资料与适用性仍需核实。</p>}
+          ) && <p className="sample-note">规则来源未经业务确认，请核实后使用。</p>}
           <div className="flex flex-wrap gap-3 text-sm" aria-label="规则覆盖">
             {report.coverage.map((entry) => (
               <span key={entry.category}>

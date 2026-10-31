@@ -15,7 +15,9 @@ export function QuoteAgent({
   board,
   selected,
   onSaved,
+  showRuns = true,
 }: {
+  showRuns?: boolean;
   client: DesktopClient;
   board: TradeBoard;
   selected: QuoteSnapshot | undefined;
@@ -176,7 +178,7 @@ export function QuoteAgent({
         </p>
       )}
       {notice && <p role="status">{notice}</p>}
-      <AgentRuns client={client} onSaved={onSaved} refreshToken={busy} />
+      {showRuns && <AgentRuns client={client} onSaved={onSaved} refreshToken={busy} />}
       {turns.length > 0 && (
         <div className="space-y-4" aria-label="已保存对话记录">
           <h3>已保存的对话</h3>
@@ -271,7 +273,7 @@ export function QuoteDifference({
         </table>
       </div>
       <p className="description">
-        来源与计价规则沿用旧快照；每个新版本均为未审核草稿，规则与平台适配仍待接入。
+        来源与计价规则沿用旧快照；每个新版本均为未审核草稿，检查结果请核对本版本报告，平台适用性仍需确认。
       </p>
     </section>
   );

@@ -11,7 +11,6 @@ import {
 import { createTradeService, createWorkspaceService } from "@tradequote/domain";
 import {
   AgentRunCoordinator,
-  CatalogQuoteReadService,
   DeepSeekProvider,
   SqliteWorkspaceRepository,
   WorkerOwnership,
@@ -24,10 +23,6 @@ const repository = new SqliteWorkspaceRepository(database);
 const service = createWorkspaceService(repository);
 const tradeService = createTradeService(repository);
 const agent = new AgentRunCoordinator(
-  repository,
-  (c) => new DeepSeekProvider(c, fetch, process.argv[3]),
-);
-const reader = new CatalogQuoteReadService(
   repository,
   (c) => new DeepSeekProvider(c, fetch, process.argv[3]),
 );
@@ -73,7 +68,7 @@ process.parentPort.on("message", async (event: { data: unknown }) => {
   }
   const readCommand = AgentReadCommandSchema.safeParse(command);
   if (readCommand.success) {
-    const result = await reader.execute(readCommand.data, parsed.data.credentials);
+    const result = await agent.executeReadLegacy(readCommand.data, parsed.data.credentials);
     process.parentPort?.postMessage({ id, result });
     return;
   }

@@ -107,7 +107,7 @@ export function calculateQuoteV1(
     scenario.sourceStatus === "synthetic" ||
     lines.some((line) => line.product.sourceStatus === "synthetic")
   )
-    pending.push("包含合成演示配置或商品资料，不可用于真实交易承诺");
+    pending.push("来源未经业务确认，不可用于交易承诺");
   const goodsTotal = lines.some((line) => line.amount === null)
     ? null
     : lines

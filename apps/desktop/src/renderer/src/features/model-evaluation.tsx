@@ -150,7 +150,7 @@ export function ModelEvaluationPanel({
     void execute(command);
   }
   return (
-    <section className="panel space-y-4" aria-label="C04 模型评估">
+    <section className="panel space-y-4" aria-label="模型评估">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2>模型评估与脱敏报告</h2>
         <Button variant="outline" disabled={busy} onClick={() => void refresh()}>
@@ -168,7 +168,7 @@ export function ModelEvaluationPanel({
         disabled={busy || running}
         onChange={(e) => setMode(e.target.value as "fixture" | "deepseek")}
       >
-        <option value="fixture">合成 fixture（不请求 DeepSeek）</option>
+        <option value="fixture">本地检查（不连接服务）</option>
         <option value="deepseek">真实 DeepSeek（使用已保存配置）</option>
       </select>
       {mode === "deepseek" ? (

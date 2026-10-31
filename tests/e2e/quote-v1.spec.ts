@@ -3,6 +3,7 @@ import { createRequire } from "node:module";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { _electron as electron, expect, test } from "@playwright/test";
+import { saveBusinessScenario } from "./business-fixture";
 
 const demoCatalogCsv =
   "sku,name,category,unit,currency,min_quantity,unit_price,valid_until,description\nDEMO-TEE,桌面测试上衣,合成服装,piece,USD,1,10,2099-12-31,脱敏合成样本\nDEMO-TEE,桌面测试上衣,合成服装,piece,USD,100,9,2099-12-31,脱敏合成样本";
@@ -26,7 +27,7 @@ test("real desktop imports CSV with confirmation, saves deterministic V1 and reo
     await page.getByRole("button", { name: "创建工作区", exact: true }).click();
     await expect(page.getByText("已保存至本机 · 版本 1")).toBeVisible();
     await page.getByRole("link", { name: "资料与报价" }).click();
-    await page.getByRole("button", { name: "保存演示场景" }).click();
+    await saveBusinessScenario(page);
     await expect(page.getByText("场景版本 1", { exact: true })).toBeVisible();
     // Substitute only the OS picker interaction; main still reads/validates an actual UTF-8 file.
     await app.evaluate(({ dialog }, path) => {
@@ -38,9 +39,10 @@ test("real desktop imports CSV with confirmation, saves deterministic V1 and reo
     await page.getByLabel("资料性质").selectOption("synthetic");
     await page.getByRole("button", { name: "解析并预览" }).click();
     await expect(page.getByRole("table", { name: "CSV 导入预览" })).toContainText("DEMO-TEE");
-    await expect(page.getByRole("button", { name: "计算并保存报价 V1" })).toBeDisabled();
+    await expect(page.getByRole("button", { name: "确认发布此批次" })).toBeEnabled();
     await page.getByRole("button", { name: "确认发布此批次" }).click();
-    await expect(page.getByRole("checkbox", { name: "选择 DEMO-TEE", exact: true })).toBeVisible();
+    const published = await page.evaluate(() => window.tradequote.getTrade());
+    expect(published.ok && published.data.products.length).toBe(1);
     // Reimporting an older identical source selects that exact batch, not a newer invalid preview.
     await page.getByLabel("CSV 原文").fill("sku,name\nBROKEN,missing columns");
     await page.getByRole("button", { name: "解析并预览" }).click();
@@ -50,6 +52,11 @@ test("real desktop imports CSV with confirmation, saves deterministic V1 and reo
     await page.getByRole("button", { name: "解析并预览" }).click();
     await expect(page.getByRole("table", { name: "CSV 导入预览" })).toContainText("DEMO-TEE");
     await expect(page.getByRole("button", { name: "确认发布此批次" })).toBeDisabled();
+    await page
+      .getByRole("navigation")
+      .getByRole("link", { name: "单据工作台", exact: true })
+      .click();
+    await page.getByText("手工填写报价", { exact: true }).click();
     await page.getByLabel("客户名称").fill("合成海外买家");
     await page.getByLabel("原始询盘").fill("请提供100件上衣报价，包装和运费待确认。");
     await page.getByRole("checkbox", { name: "选择 DEMO-TEE", exact: true }).check();
@@ -62,7 +69,7 @@ test("real desktop imports CSV with confirmation, saves deterministic V1 and reo
     await expect(page.getByRole("article", { name: "已保存报价详情" })).toContainText("原文行 3");
     await expect(page.getByRole("button", { name: "提交人工审核" })).toBeDisabled();
     await page.getByRole("button", { name: "计算并保存报价 V1" }).click();
-    await expect(page.getByText("报价草稿 V1 已保存至本机", { exact: true })).toBeVisible();
+
     const count = await page.evaluate(async () => {
       const result = await window.tradequote.getTrade();
       return result.ok ? result.data.quotes.length : -1;
@@ -99,8 +106,12 @@ test("real desktop imports CSV with confirmation, saves deterministic V1 and reo
       ).ok;
     });
     expect(injection).toBe(false);
+    await page
+      .getByRole("navigation")
+      .getByRole("link", { name: "资料与报价", exact: true })
+      .click();
     await page.getByLabel("目标市场").fill("其他演示市场");
-    await page.getByRole("button", { name: "保存演示场景" }).click();
+    await saveBusinessScenario(page);
     await expect(page.getByText("场景版本 2", { exact: true })).toBeVisible();
     await expect(page.getByRole("article", { name: "已保存报价详情" })).toContainText(
       "德国（演示市场）",
