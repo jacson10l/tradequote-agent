@@ -90,3 +90,5 @@
 - URL: https://www.alibaba.com/product-detail/Eco-Friendly-Melamine-Faced-MDF-Decor_1600614614202.html
 
 > 注：本 SKU 为 2026-10-31 第二次截图替换的商品（原第一次截图的 Xinlida E0 未取到 product_id，已作废不用，对应截图已删除）。
+
+> 隔离说明（2026-11-01）：本 SKU 页面仅为区间价（¥38.99–238.12）+ 样品价 ¥66.19，无确定普通阶梯单价，不适用确定性核价。已按 C 的 A1313-02 建议从 `catalog_converted.csv` 隔离（目录 286→285 行、83→82 SKU）。本采集记录与截图 `mdf-real-07-melamine-faced-decor-18mm.png` 完整保留作为来源证据；待普通规格/数量报价确认后再议是否回补普通阶梯。

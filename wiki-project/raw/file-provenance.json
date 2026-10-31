@@ -27,19 +27,19 @@
     {
       "source": "demo-data-catalog:MANIFEST.md",
       "copy": "wiki-project/demo_data/MANIFEST.md",
-      "sha256": "d6aa459c7c1de2d82da95cc395bb7a48605342ef512579b7db23af042f67d169",
+      "sha256": "2d3ab3da4ab0bdb1e2d8b2ffcf3e226c00833d0e58228f62d1fe814c868a4a64",
       "status": "demo-data-manifest"
     },
     {
       "source": "demo-data-catalog:SOURCE-PROVENANCE.md",
       "copy": "wiki-project/demo_data/SOURCE-PROVENANCE.md",
-      "sha256": "4c856f62e07af6aa7bff3b0867258f9b3d139dbeff0161537446a0569da1a63a",
+      "sha256": "9e820ee6df2c5bd489a3877f2adf51e288549b28004872e52e481f3aacc5055b",
       "status": "demo-data-source-provenance"
     },
     {
       "source": "demo-data-catalog:source-archive/MDF-REAL-DATA.md",
       "copy": "wiki-project/demo_data/source-archive/MDF-REAL-DATA.md",
-      "sha256": "f5c39c71e1fad30efc643e77bc34e4be036d2079d454da673c94b793a32208eb",
+      "sha256": "e2ec68185300dc94eb5422c80ed831a689b65efb4bd13116c94c3fe8d8b8cafd",
       "status": "demo-data-source-archive"
     },
     {

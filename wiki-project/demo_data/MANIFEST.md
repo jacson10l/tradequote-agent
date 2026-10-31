@@ -1,13 +1,13 @@
 # 演示数据包清单（demo_data）
 
-本目录为演示（demo）报价闭环的目录数据包。按 C 的演示冻结要求：**主演示只用已验证小样本，全量目录（286 行、83 SKU、单一 CNY）仅作备用扩充源，不作主演示。**
+本目录为演示（demo）报价闭环的目录数据包。按 C 的演示冻结要求：**主演示只用已验证小样本，全量目录（285 行、82 SKU、单一 CNY）仅作备用扩充源，不作主演示。**
 
 ## 文件与角色
 
 | 文件 | 角色 | 说明 |
 | --- | --- | --- |
 | `catalog_demo.csv` | **主演示（冻结）** | 14 行、4 个 SKU 的小样本，覆盖 3 品类 × 单一 CNY × 2 单位（piece/sheet）× 阶梯价 |
-| `catalog_converted.csv` | **备用、非主演示** | 286 行、83 个 SKU 的全量目录（服装 70 / 板材 6 / 紧固件 7），仅作备用与扩充源 |
+| `catalog_converted.csv` | **备用、非主演示** | 285 行、82 个 SKU 的全量目录（服装 70 / 板材 5 / 紧固件 7），仅作备用与扩充源 |
 | `demo_products_sources.csv` | **字段来源映射** | 80 行真实采集映射（product_id → 页面原文/供应商/价格阶梯/冲突标记），覆盖服装 2 SKU |
 | `SOURCE-PROVENANCE.md` | **来源映射清单** | 4 个 SKU 的来源证据链与口径声明（服装/板材/紧固件均真实采集，附合成占位的历史物证） |
 | `demo_check_rules.csv` | 规则库 | 31 条；其中 `category=platform_policy` 15 条（13 条 `OFFICIAL_VERIFIED` + 2 条 `NOT_MODELLED_YET` 占位）。2026-10-31 按国际站发品规则修正：7 改、删 1 条臆造引用（`R-PL-HS-MISSING`）、增 6 条必填字段规则。校验见 `reports/csv-compliance-alibaba-2026-10-31.md` 第五节 |
@@ -31,6 +31,8 @@
   字段来源映射见 `demo_products_sources.csv`（含材质/克重/认证原文 + 冲突标记）。
 - **板材（1601359234640 等 6 个）为真实采集**：2026-10-31 人工在 alibaba.com 截图商品页，
   截图归档于 `source-archive/`，字段映射见 `source-archive/MDF-REAL-DATA.md`。
+  其中 1 个（`1600614614202` 三聚氰胺贴面 MDF）为区间价，已从确定性核价目录 `catalog_converted.csv`
+  隔离（证据仍保留于 `source-archive/MDF-REAL-DATA.md` 第 7 条），其余 5 个进入目录。
 - **紧固件（1600593893760 等 7 个）为真实采集**：2026-10-31 人工在 alibaba.com 截图商品页，
   截图归档于 `source-archive/`，字段映射见 `source-archive/BOLT-REAL-DATA.md`。
 - 每行 `description` 末尾固定携带「供应商 / 来源(URL) / 采集日期」三段来源标注；
@@ -45,5 +47,5 @@
 
 ## 已知待核对（不阻塞冻结）
 
-- 全量目录中 SKU `1600614614202`（三聚氰胺贴面 MDF 装饰板）页面仅为区间价 ¥38.99–238.12 + 样品价 ¥66.19，无确定普通阶梯单价；已按「样品价隔离」处理：`unit_price`/`min_quantity` 置空（unknown），样品价标注「禁止进入普通报价」，待来源确认后再补普通阶梯。
+- 全量目录中 SKU `1600614614202`（三聚氰胺贴面 MDF 装饰板）页面仅为区间价 ¥38.99–238.12 + 样品价 ¥66.19，无确定普通阶梯单价，不适用于确定性核价。已按 C 的 A1313-02 建议**将该 SKU 从 `catalog_converted.csv` 隔离**（目录现为 285 行 / 82 SKU，可被 `parseCatalogCsv` 零 issue 解析）；其真实采集证据（截图 `mdf-real-07-melamine-faced-decor-18mm.png`、`MDF-REAL-DATA.md` 第 7 条 MOQ=1 / 区间价 / 样品价记录）完整保留，待普通规格/数量报价确认后再议是否回补普通阶梯。
 - 全量目录存在 title 与 `材质` 声明不一致的边界样本（如 1600150945402 标题写「95 棉 5 氨纶」而 `材质` 记「100% Cotton」，以及若干 `材质:Undeclared`）。若演示需要「规则命中/校正」流程的触发样例，可从备用目录取用，具体规则语义由 B 定义。

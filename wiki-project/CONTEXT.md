@@ -2,6 +2,8 @@
 
 2026-11-01 C07独立分支：菜单职责与客户正文分离已实现；沿用A4c622d0小目录13行/4SKU，实际DeepSeek→Codex工具完成300/500件V1/V2和重开。单测539通过/3跳过，Electron12通过/1跳过；Wiki check/sync通过、Cue最终8页私有导入与备注已核对，整体因A/B签认及Cue持久连接仍active。A大目录第268行空MOQ与来源签认、B拟议条款pending缺失仍开放。基线450e945；无推送合入，见[[C07业务资料与路演收口]]、[[C07-业务资料与路演收口]]。
 
+2026-11-01 A在独立分支 codex/a06-source-evidence（基线集成分支 7688d39）处理来源证据缺口「大目录第 268 行 MOQ」：SKU 1600614614202（三聚氰胺贴面 MDF）为区间价（¥38.99–238.12）+ 样品价 ¥66.19，不适用确定性核价。按 C 的 A1313-02 隔离该 SKU，catalog_converted.csv 286 行/83 SKU → 285 行/82 SKU，经产品 parseCatalogCsv 实测 0 issue、285 行全收；采集证据与截图保留于 source-archive/MDF-REAL-DATA.md。服装原始快照（登录墙 not collected）、valid_until 依据、认证/供应商有效期、人工发布复核仍未完成（不代签）。
+
 2026-10-31C独立候选代码/Wiki已同次提交d62570a3c91890cc2aeb7ed8f971b275aaeac713并普通推送origin/codex/c-codex-harness，远端回读一致；集成仍观察为654fecc4d93e4630ed4a0cf42f261d0d432e23d3，本次未合入。包含最后暖色回调与新鲜535/12/36和全部门禁；便携验证raw/c05-delivery-validation.json绑定63项Git源码指纹，实际推送回执raw/c05-delivery-receipt.json。A/B按[[C05交付与AB接手]]取用固定材料，业务/契约签认仍见[[C05c-AB业务依据与契约交接]]；回执提交只补Wiki状态，最终分支头另回读。
 
 2026-10-31负责人授权C整轮代码/Wiki提交推送独立codex/c-codex-harness，仍禁止合入集成。任务面板按最新截图恢复统一暖色#FFF8E0，Computer Use已确认；取用步骤、A/B可领取事项和便携证据集中[[C05交付与AB接手]]，提交/远端回执见[[C05-候选提交推送与暖色回调]]。旧“仅本地/不推送”均为此前历史时点。
