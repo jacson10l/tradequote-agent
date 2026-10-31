@@ -10,13 +10,11 @@
 | 归档文件名 | 对应商品 | 真实 product_id |
 | --- | --- | --- |
 | mdf-real-01-gloss-mdf-board.jpg | Gloss MDF Board（高光中密度纤维板） | 1601359234640 |
-| mdf-real-07-glossy-furniture.jpg | 与 #1 同一商品（合并） | 1601359234640 |
 | mdf-real-02-sublimation-placemat.jpg | 中纤板升华餐垫（sublimation placemat） | 1601385909818 |
 | mdf-real-04-raw-mdf-beijing.jpg | 原木 MDF 1220×2440 1-30mm | 1601639031491 |
 | mdf-real-05-3mm-natural-veneer.jpg | 3mm 天然单板 MDF 制造商 | 1601583725738 |
 | mdf-real-06-ultra-thin-waterproof.png | 超薄防水 MDF 板 3mm/6mm | 1601634742061 |
-| mdf-real-06-melamine-faced-decor-18mm.png | 环保三聚氰胺贴面 MDF 装饰板 18mm（第二次截图替换） | 1600614614202 |
-| mdf-real-03-modern-e0-xinlida.png | 现代设计 E0 MDF 12/15/18mm（Xinlida） | 已作废（未取到 ID，由 #6 melamine 替换） |
+| mdf-real-07-melamine-faced-decor-18mm.png | 环保三聚氰胺贴面 MDF 装饰板 18mm | 1600614614202 |
 
 ## 逐条真实字段
 
@@ -79,7 +77,7 @@
 - 品种: 高密度纤维板/硬质纤维板；认证: FSC® 认证；已售 500
 - URL: https://www.alibaba.com/product-detail/High-Quality-Ultra-Thin-MDF-Sheets_1601634742061.html
 
-### 6. 环保三聚氰胺贴面 MDF 装饰板 18mm（替换品，2026-10-31 第二次截图）
+### 7. 环保三聚氰胺贴面 MDF 装饰板 18mm（2026-10-31 第二次截图）
 - product_id: 1600614614202
 - 标题(zh): 环保型三聚氰胺贴面MDF装饰板18毫米，可定制尺寸和颜色，低甲醛防潮家居家具
 - 标题(en): Eco-friendly Melamine Faced MDF Decor Board 18mm Customizable Size and Color Low-formaldehyde
@@ -91,4 +89,4 @@
 - 表面: 三聚氰胺贴面；环保: E1 低甲醛防潮；用途: 家居家具/室内
 - URL: https://www.alibaba.com/product-detail/Eco-Friendly-Melamine-Faced-MDF-Decor_1600614614202.html
 
-> 注：本 SKU 为 2026-10-31 第二次截图替换的商品（原第一次截图的 Xinlida E0 未取到 product_id，已作废不用）。
+> 注：本 SKU 为 2026-10-31 第二次截图替换的商品（原第一次截图的 Xinlida E0 未取到 product_id，已作废不用，对应截图已删除）。

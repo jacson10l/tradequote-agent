@@ -9,7 +9,7 @@
 | `catalog_demo.csv` | **主演示（冻结）** | 14 行、4 个 SKU 的小样本，覆盖 3 品类 × 2 币种 × 3 单位 × 阶梯价 |
 | `catalog_converted.csv` | **备用、非主演示** | 300 行、86 个 SKU 的全量目录，仅作备用与扩充源 |
 | `demo_products_sources.csv` | **字段来源映射** | 80 行真实采集映射（product_id → 页面原文/供应商/价格阶梯/冲突标记），覆盖服装 2 SKU |
-| `SOURCE-PROVENANCE.md` | **来源映射清单** | 4 个 SKU 的来源证据链与口径声明（真实采集 vs 合成占位分层） |
+| `SOURCE-PROVENANCE.md` | **来源映射清单** | 4 个 SKU 的来源证据链与口径声明（服装/板材/紧固件均真实采集，附合成占位的历史物证） |
 | `demo_check_rules.csv` | 规则库 | 31 条；其中 `category=platform_policy` 15 条（13 条 `OFFICIAL_VERIFIED` + 2 条 `NOT_MODELLED_YET` 占位）。2026-10-31 按国际站发品规则修正：7 改、删 1 条臆造引用（`R-PL-HS-MISSING`）、增 6 条必填字段规则。校验见 `reports/csv-compliance-alibaba-2026-10-31.md` 第五节 |
 
 ## 主演示样本构成（catalog_demo.csv）
@@ -25,7 +25,7 @@
 
 ## 来源性质说明（重要）
 
-主演示 4 个 SKU 来源**分层**，非全部合成、也非全部真实，详见 `SOURCE-PROVENANCE.md`：
+主演示 4 个 SKU 来源**均为真实采集**（服装/板材/紧固件三层），详见 `SOURCE-PROVENANCE.md`：
 
 - **服装 2 SKU（1601053415993 / 1601926123092）为真实采集**：来源为阿里国际站真实商品页 URL，
   字段来源映射见 `demo_products_sources.csv`（含材质/克重/认证原文 + 冲突标记）。

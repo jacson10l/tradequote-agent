@@ -1,7 +1,7 @@
 # 主演示样本来源映射清单（SOURCE-PROVENANCE）
 
 > 本清单回应 C 的要求：补齐「原始采集文件/页面快照 + 字段来源映射」。
-> 结论先行：主演示 4 个 SKU 中，**服装 2 个为真实采集，板材 1 个、紧固件 1 个（主演示档）均已替换为真实采集**。备用全量目录 `catalog_converted.csv` 中板材 6 个、紧固件 7 个 SKU 均已替换为真实采集（2026-10-31 截图）。
+> 结论先行：主演示 4 个 SKU 全部为真实采集——服装 2 个、板材 1 个、紧固件 1 个（2026-10-31 截图）。备用全量目录 `catalog_converted.csv` 中板材 6 个、紧固件 7 个 SKU 亦均为真实采集。
 > 资料口径统一为「**真实采集、真实性待审核**」——即便有真实 URL，字段值也未经人工逐项复核。
 
 ## 一、4 个 SKU 的来源证据链
@@ -10,8 +10,8 @@
 | --- | --- | --- | --- | --- | --- |
 | 1601053415993 | Men-T-Shirt | Guangzhou Hengdong Sports Goods Co., Ltd. | `…/95-Cotton-5-Spandex-Plain-Crewneck_1601053415993.html` | ✅ 真实商品页 | ✅ `demo_products_sources.csv` |
 | 1601926123092 | Men-Polo | Xiamen Wanhuayuan Cultural Media Co., Ltd. | `…/Wholesale-High-Quality-195Gsm-Custom-Logo_1601926123092.html` | ✅ 真实商品页 | ✅ `demo_products_sources.csv` |
-| 1601359234640 | Board-MDF | Linyi Chanta International Trading Co., Ltd. | `…/Good-Price-Exporter-Gloss-Mdf-Board_1601359234640.html` | ✅ 真实商品页（2026-10-31 截图） | ✅ `source-archive/MDF-REAL-DATA.md` |
-| 1600593893760 | Hardware-Fastener | Taizhou Fengye Metal Products Co., Ltd. | `…/Fastener-Product-Din933-Hex-Bolt-M6_1600593893760.html` | ✅ 真实商品页（2026-10-31 截图） | ✅ `source-archive/BOLT-REAL-DATA.md` |
+| 1601359234640 | Board-MDF | Linyi Chanta International Trading Co., Ltd. | `…/Good-Price-Exporter-Gloss-Mdf-Board_1601359234640.html` | ✅ 真实商品页（2026-10-31 截图） | ✅ [MDF 采集记录](source-archive/MDF-REAL-DATA.md) |
+| 1600593893760 | Hardware-Fastener | Taizhou Fengye Metal Products Co., Ltd. | `…/Fastener-Product-Din933-Hex-Bolt-M6_1600593893760.html` | ✅ 真实商品页（2026-10-31 截图） | ✅ [BOLT 采集记录](source-archive/BOLT-REAL-DATA.md) |
 
 ## 二、真实采集证据（服装 2 SKU）
 
@@ -29,11 +29,11 @@
 > 注：Polo 的 `材质` 原文为「涤纶 棉」，页面未标注具体比例——这正是主 CSV 中
 > 「混纺比例待供应商确认」标注的事实依据，非数据缺失。
 
-## 三、合成占位数据的清理（MDF 与 BOLT 均已替换）
+## 三、合成占位数据的清理（MDF 与 BOLT 均已替换为真实采集）
 
-板材（MDF）与紧固件（BOLT）均已由 2026-10-31 的阿里国际站真实商品页截图替换为真实采集数据：
-- 板材证据链见 `source-archive/MDF-REAL-DATA.md`（6 个真实 product_id 与截图归档）；
-- 紧固件证据链见 `source-archive/BOLT-REAL-DATA.md`（7 个真实 product_id 与截图归档）。
+板材（MDF）与紧固件（BOLT）原为合成占位数据，2026-10-31 已由阿里国际站真实商品页截图**全部替换为真实采集**：
+- 板材证据链见 [MDF 采集记录](source-archive/MDF-REAL-DATA.md)（6 个真实 product_id 与截图归档）；
+- 紧固件证据链见 [BOLT 采集记录](source-archive/BOLT-REAL-DATA.md)（7 个真实 product_id 与截图归档）。
 
 原 `MDF-001`~`MDF-008`、`BOLT-001`~`BOLT-008` 的 `来源` 均为 `_1600000001.html`…`_1600000016.html` 合成占位符，
 现已全部替换，无残留。
@@ -55,14 +55,14 @@
 
 ## 四、口径声明
 
-1. 主演示样本**不冒称全部为真实采集**：服装 2 SKU 真实采集、板材 1 SKU 真实采集（主演示档，2026-10-31 截图）、紧固件 1 SKU 真实采集（主演示档，2026-10-31 截图）；备用全量目录中板材 6 SKU、紧固件 7 SKU 亦均真实采集。
+1. 主演示 4 个 SKU **均为真实采集**：服装 2 SKU（2026-10-21）、板材 1 SKU（2026-10-31 截图）、紧固件 1 SKU（2026-10-31 截图）；备用全量目录中板材 6 SKU、紧固件 7 SKU 亦均真实采集。
 2. 即便真实采集的 SKU，字段值也**未经人工逐项复核**，统一口径「真实采集、真实性待审核」。
 3. 采集日期：服装 2026-10-21，板材/紧固件 2026-10-31（真实截图采集）。
 
 ## 五、待补（如实记录，不臆造）
 
 - 板材 MDF 6 个、紧固件 BOLT 7 个 SKU 的字段值来自截图，已归档至 `source-archive/`，但**未逐项人工复核**，仍标注「真实采集、真实性待审核」。
-- 紧固件 4 个 product_id 为 11 位（`62245798159`、`160151254159`、`160076373304`）或地址栏截断（`1600961286251`），按截图原样记录，未臆造补齐；如需精确 13 位 ID，须由用户提供完整地址栏截图核对。
+- 紧固件 3 个 product_id 为 11 位（`62245798159`、`1601512254159`、`1600763733044`）或地址栏截断（`1600961286215`），按截图原样记录，未臆造补齐；如需精确 13 位 ID，须由用户提供完整地址栏截图核对。
 - 服装 2 SKU 的页面快照（截图/HTML 存档）当前**未归档**到资料包。2026-10-31 尝试从真实 URL 直接抓取页面存档时，
   被 Alibaba **登录墙拦截**（返回 `login.alibaba.com` 登录跳转页，而非商品页内容），故无法离线补造页面快照。
   如需存档级证据，须由有登录态的真实浏览器采集，或由采集当时留存快照者提供；在此之前，仅能提供

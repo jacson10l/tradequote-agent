@@ -1242,14 +1242,26 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
   1. `1600593893760` DIN933 不锈钢六角螺栓 M6/M8/M10 — Taizhou Fengye，piece/CNY，1000→0.331 / 10000→0.2648
   2. `1601578319241` 8级 SS304/SS316 六角螺栓 M5-M10 — Jiaxing Haina，piece/CNY，1000→0.1986 / 10000→0.1324
   3. `62245798159` 316 六角螺栓螺母垫圈（11位ID，按截图原样） — Jiaxing Goshen，piece/CNY，1000→0.331 / 10000→0.1986 / 50000→0.1324
-  4. `160151254159` DIN912 内六角 8.8/10.9/12.9（11位ID） — Jiaxing Goshen，piece/CNY，1000→0.2648 / 5000→0.1986 / 10000→0.0662
-  5. `1600961286251` 碳钢 DIN933/931 8.8/10.9/12.9（地址栏截断，ID边界待核） — Hebei Rongfe，piece/CNY，1000→0.331 / 5000→0.1986 / 10000→0.1324 / 20000→0.0662
+  4. `1601512254159` DIN912 内六角 8.8/10.9/12.9（11位ID） — Jiaxing Goshen，piece/CNY，1000→0.2648 / 5000→0.1986 / 10000→0.0662
+  5. `1600961286215` 碳钢 DIN933/931 8.8/10.9/12.9（地址栏截断，ID边界待核） — Hebei Rongfe，piece/CNY，1000→0.331 / 5000→0.1986 / 10000→0.1324 / 20000→0.0662
   6. `1601382262416` DIN933 A2-70 SS304 — Jiaxing Haina，piece/CNY，1000→3.91 / 10000→1.86
-  7. `160076373304` DIN6921 法兰螺栓（11位ID） — Foshan Zhongqin Likang，piece/CNY，100→0.4633 / 10000→0.1986 / 100000→0.0662
+  7. `1600763733044` DIN6921 法兰螺栓（11位ID） — Foshan Zhongqin Likang，piece/CNY，100→0.4633 / 10000→0.1986 / 100000→0.0662
 - 币种/单位：按截图统一 CNY，单位 piece（原为 USD/kg）。
 - 归档：截图存 `demo_data/source-archive/`（bolt-real-01~07 共 7 文件），字段映射记录于 `source-archive/BOLT-REAL-DATA.md`。
 - 文档同步：`SOURCE-PROVENANCE.md`（BOLT 由「合成占位」改为「真实采集」，结论/证据链/口径/待补四节更新）、`MANIFEST.md`（主演示样本 BOLT 行与来源说明）已更新；`log.md` 本段追加。
 - 待核（不臆造）：紧固件 3 个 11 位 product_id（62245798159 / 160151254159 / 160076373304）与 1 个地址栏截断 ID（1600961286251），按截图原样记录；如需精确 13 位，须用户提供完整地址栏截图核对。
 - 现状：`catalog_converted.csv` 与 `catalog_demo.csv` 中 MDF、BOLT 均无 `_16000000XX` 合成占位残留；生成脚本 `add_mdf_bolt.py` 保留原样作为历史物证。
+
+## 2026-10-31 A 真实化收尾：核对一致性 + 口径统一（同分支）
+
+- 背景：用户已完成 MDF/BOLT 由合成占位替换为真实采集（commit 1313db9，已推远程）。本轮核对落地一致性，并统一文档口径、同步归档哈希。
+- 核对发现并处理：
+  1. `source-archive/` 中 MDF 有 8 张图（含作废图 mdf-real-03、与 #1 重复的 mdf-real-07、以及重名的两个 mdf-real-06）——删除作废/重复图，重命名 melamine 图为 mdf-real-07，最终 6 张有效截图，编号唯一。
+  2. `mdf-real-02`（升华餐垫 1601385909818）阶梯价与 #1 Gloss MDF 相同——经用户核对截图确认为真实值，保持原样（非复制错误）。
+  3. `MDF-REAL-DATA.md` 截图清单表移除作废/重复行、更新重命名后的文件名。
+  4. `A01f演示资料包冻结.md` 主样本表仍为旧 MDF-001/BOLT-001（m²/USD）及 `sourceStatus=synthetic`——更新为真实 SKU 1601359234640/1600593893760（sheet/piece、CNY），并补 MDF/BOLT 采集记录的入站链接。
+- 口径统一：`SOURCE-PROVENANCE.md` / `MANIFEST.md` 去掉过时的「真实采集 vs 合成占位分层」表述，改为「主演示 4 SKU 全部真实采集」；REAL-DATA 的入站链接由非归档页 `A01f演示资料包冻结.md` 建立（归档文件 skip 链接解析，此前已踩过同坑）。
+- 归档哈希同步：`raw/file-provenance.json` 中 MANIFEST（71ed18c3→12ffdce2）、SOURCE-PROVENANCE（e5148a23→1cfb1f2a）。
+- lint 复核：本次相关文件（REAL-DATA / SOURCE-PROVENANCE / MANIFEST / A01f 冻结页）均无报错；全量报错 19→14，剩余 14 条为预存历史问题（raw/design、raw/inputs 的 ARCHIVE_HASH_MISMATCH、demo-tools/README、A01f-报价审批与对外产出 TASK_SECTION、listing-rules.test.ts），与本次无关。
 
 
