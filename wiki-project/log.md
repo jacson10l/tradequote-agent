@@ -1162,3 +1162,12 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 - 验证：pnpm typecheck 0；vitest maintenance-evidence.test.ts 12/12；vitest wiki-store.test.ts 28/28。固定 SHA 0acbf86。
 - 已知缺口：source.validity_confirmed / source.integrity_reverified / issue.review_decision 三类证据无持久化事实暂不可产；source_withdrawn 仅能 knowledge.revision_published resolve 但该证据绑定要求 knowledge 目标，来源目标问题实际只能走 dismiss，需 B 确认矩阵语义。
 - 注：本机 Windows 沙箱无法建 symlink，storage.test.ts/worker-migration-gates.test.ts 两处 symlink 反例在 pnpm test 全量下报 EPERM，与本次改动无关；quote-delivery.ts 属 A 无关的在制改动，code-index 覆盖未登记。
+
+## 2026-10-31 CSV 对照国际站发品规则审计 + 平台规则建模（只读审计 + 规则库追加）
+
+- 用户提供 rulechannel.alibaba.com/icbu#/rules 与 onetouch.alibaba.com，要求检验 demo_data CSV 合规性。规则正文取自阿里官方域名规则全文（阿里巴巴国际站规则 第21-33条）与《商品信息滥发处罚规则解读》；规则中心为 SPA 只取到目录，一达通为履约平台不约束发品字段（仅与 HS 编码/报关相关）。
+- 结论：不合规。`catalog_converted.csv` 300 行 = 86 唯一 SKU 的阶梯价展开（每 SKU 3-4 行，标题/描述行内完全相同）→ 按行导入即命中第 33 条重复铺货；70/86 标题为中文；类目为自定义标签非平台叶子类目；缺关键词/图片/发货期/HS/包装/供货总量等必填字段；币种 USD16+CNY70 混排。
+- 数据层：3 SKU 标 100% Cotton 但标题含氨纶/涤纶（1600150945402/1601080586046/1600879969600）；37/80 conflict_flag=YES；36/80 certs 含 CE 与「供应商由 Intertek 认证」；300/300 描述内嵌供应商主体+来源 URL；16 孤立 SKU（MDF/BOLT-001~008）无来源无阶梯价；5 孤儿 product_id。
+- 审计报告落在 `reports/csv-compliance-alibaba-2026-10-31.md`（新建 reports/ 目录，不入 wiki-project，不触发 P0 wiki-sync）。
+- 规则库追加：`demo_data/demo_check_rules.csv` 18→26 条，新增 8 条 platform_policy（OFFICIAL_VERIFIED）——R-PL-TITLE-ZH(中文标题,BLOCK,70)、R-PL-CAT-LEAF(非叶子类目,BLOCK,86)、R-PL-DUP-SKU(同SKU多行重复铺货,BLOCK,84)、R-PL-MOQ-REAL(低MOQ/低价真实可成交,REVIEW,45)、R-PL-3RD-PARTY(描述含第三方主体/外链,BLOCK,86)、R-PL-FIBRE-100(成分100%声称冲突,BLOCK,3)、R-PL-CURR-MIX(币种混排,WARN,16)、R-PL-HS-MISSING(缺HS编码,WARN,86)；dataset_hits 为真实命中数，BOM/换行/原18条保持。
+- 工程缺口（待决策，未改动）：运行时规则类别枚举 RuleCategorySchema=z.enum(["commercial_terms","platform_guidance"]) 与 CSV 的 category 值域（platform_policy/target_country_regulation/contract_terms/internal_template/cultural_sensitivity）不一致，两套命名体系未打通；CSV 为演示数据，代码层才是运行时契约。要让系统真正拦截上述违规，需在 TS 契约层建模对应规则，属更大改动，未在本轮擅自扩展。
