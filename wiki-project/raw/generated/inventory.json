@@ -37,9 +37,9 @@
     {
       "path": ".gitignore",
       "type": ".gitignore",
-      "lines": 66,
-      "bytes": 958,
-      "sha256": "c19d57dbb9108a728a095f298fe55a34a36158b3f02ebc7f6269c8aa05e21f3c",
+      "lines": 69,
+      "bytes": 1021,
+      "sha256": "85b717f79dc4ab7ec22c5810d58525cdc34bc7627c32e4f6a321adece1c63109",
       "role": "运行数据与依赖排除",
       "pages": [
         "wiki/配置路径与敏感信息.md"
