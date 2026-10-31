@@ -1350,6 +1350,13 @@
         "wiki/B00a知识整理与维护协议.md"
       ]
     },
+    "packages/contracts/src/maintenance-evidence.test.ts": {
+      "role": "维护证据资格正反例：工作区/版本/时点/目标绑定、不可裁决事实与同键异参拒绝",
+      "pages": [
+        "wiki/B维护证据资格与规则样例.md",
+        "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
     "packages/infrastructure/src/check-lineage-integration.test.ts": {
       "role": "B historical report and multi-source consumption upgrade/reopen evidence",
       "pages": [

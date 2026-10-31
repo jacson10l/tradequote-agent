@@ -1286,48 +1286,62 @@ it("A01e-1b: maintenance write retries replay the first result and event identit
   repo.close();
 });
 
-it("A01e-2: getMaintenance 稳定分页，resolveMaintenance 按 OCC 推进生命周期", async () => {
+it("A01e-2: getMaintenance 稳定分页，resolveMaintenance 按 B 资格政策推进生命周期", async () => {
   const file = join(temp(), "wiki-maintenance-resolve.sqlite");
   const { repo, workspaceId } = openRepo(file);
-  for (const source of [
-    await stageSource(repo, workspaceId),
-    await stageSource(repo, workspaceId),
-  ]) {
-    expect(
-      (
-        await repo.executeWikiMaintenance(
-          write("source.withdraw", {
-            sourceRevisionId: source.sourceRevisionId,
-            expectedLifecycleVersion: 1,
-            note: "撤回",
-          }),
-          host(workspaceId),
-        )
-      ).ok,
-    ).toBe(true);
-  }
 
-  const first = maintenancePageOf(
+  // 来源 v1 → v2（parent=v1）构成一条 source.revised 证据，且 v1 被标记 source_updated。
+  // v2 用更晚的宿主时钟暂存，使证据 occurredAt 严格晚于问题的 lastDetectedAt。
+  const v1 = await stageSource(repo, workspaceId);
+  const staged = await repo.executeWiki(
+    write("source.stage", {
+      sourceId: v1.sourceId,
+      expectedVersion: v1.version,
+      label: v1.label,
+      sourceStatus: v1.sourceStatus,
+      mediaType: v1.mediaType,
+      sourceText: "更新后的合成来源",
+      acquiredAt: v1.acquiredAt,
+      sourceUri: null,
+      permissionNote: v1.permissionNote,
+      validity: VALIDITY,
+    }),
+    { ...host(workspaceId), now: LATER },
+  );
+  const v2 = (staged as { ok: true; data: { kind: "sourceRevision"; revision: WikiSourceRevision } })
+    .data.revision;
+  expect(v2.version).toBe(2);
+
+  // analyzeImpact 登记 source_updated 问题，目标为来源 v1。
+  expect(
+    (
+      await repo.executeWikiMaintenance(
+        write("wiki.analyzeImpact", {
+          target: {
+            kind: "source",
+            sourceId: v1.sourceId,
+            sourceRevisionId: v1.sourceRevisionId,
+            artifactHash: v1.artifactHash,
+          },
+          reason: "source_updated",
+          replacementRevisionId: v2.sourceRevisionId,
+        }),
+        host(workspaceId),
+      )
+    ).ok,
+  ).toBe(true);
+
+  const page = maintenancePageOf(
     await repo.executeWikiMaintenance(
-      read("wiki.getMaintenance", { kinds: [], states: [], limit: 1, cursor: null }),
+      read("wiki.getMaintenance", { kinds: [], states: [], limit: 10, cursor: null }),
       host(workspaceId),
     ),
   );
-  expect(first.issues).toHaveLength(1);
-  expect(first.nextCursor).not.toBeNull();
-  const second = maintenancePageOf(
-    await repo.executeWikiMaintenance(
-      read("wiki.getMaintenance", { kinds: [], states: [], limit: 1, cursor: first.nextCursor }),
-      host(workspaceId),
-    ),
-  );
-  expect(second.issues).toHaveLength(1);
-  expect(second.issues[0]!.issueId).not.toBe(first.issues[0]!.issueId);
+  expect(page.issues).toHaveLength(1);
+  const issueId = page.issues[0]!.issueId;
+  expect(page.issues[0]).toMatchObject({ kind: "source_updated", state: "open" });
 
-  const issueId = first.issues[0]!.issueId;
-  const issueTarget = first.issues[0]!.target;
-  const resolveEvidenceId =
-    issueTarget.kind === "source" ? issueTarget.sourceRevisionId : issueTarget.revisionId;
+  // 版本冲突：expectedIssueVersion 落后即拒。
   expect(
     await repo.executeWikiMaintenance(
       write("wiki.resolveMaintenance", {
@@ -1355,16 +1369,30 @@ it("A01e-2: getMaintenance 稳定分页，resolveMaintenance 按 OCC 推进生�
   );
   expect(started).toMatchObject({ state: "in_progress", issueVersion: 2 });
 
+  // resolve 须以 source.revised 证据（来源 v2，替换目标 v1）；v1 自身无前驱、非证据，被权威读取拒绝。
+  expect(
+    await repo.executeWikiMaintenance(
+      write("wiki.resolveMaintenance", {
+        issueId,
+        expectedIssueVersion: 2,
+        action: "resolve",
+        note: "用来源自身充当证据",
+        evidenceIds: [v1.sourceRevisionId],
+      }),
+      { ...host(workspaceId), now: LATER },
+    ),
+  ).toMatchObject({ ok: false, error: { code: "NOT_FOUND" } });
+
   const resolved = maintenanceIssueOf(
     await repo.executeWikiMaintenance(
       write("wiki.resolveMaintenance", {
         issueId,
         expectedIssueVersion: 2,
         action: "resolve",
-        note: "已处理",
-        evidenceIds: [resolveEvidenceId],
+        note: "已由 v2 更新解决",
+        evidenceIds: [v2.sourceRevisionId],
       }),
-      host(workspaceId),
+      { ...host(workspaceId), now: LATER },
     ),
   );
   expect(resolved).toMatchObject({ state: "resolved", issueVersion: 3 });
@@ -1377,11 +1405,11 @@ it("A01e-2: getMaintenance 稳定分页，resolveMaintenance 按 OCC 推进生�
         expectedIssueVersion: 3,
         action: "resolve",
         note: "再处理",
-        evidenceIds: [randomUUID()],
+        evidenceIds: [v2.sourceRevisionId],
       }),
-      host(workspaceId),
+      { ...host(workspaceId), now: LATER },
     ),
-  ).toMatchObject({ ok: false, error: { code: "ACTION_NOT_ALLOWED" } });
+  ).toMatchObject({ ok: false, error: { code: "REVISION_CONFLICT" } });
   repo.close();
 });
 

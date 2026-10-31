@@ -1,6 +1,7 @@
 import { createHash, randomUUID } from "node:crypto";
 import {
   CheckReportSchema,
+  evaluateMaintenanceResolution,
   failure,
   type KnowledgeCitation,
   type KnowledgeImpactItem,
@@ -23,6 +24,8 @@ import {
   KnowledgeLintReviewInputExchangeSchema,
   type KnowledgeMaintenanceLifecycleEvent,
   type KnowledgeMaintenanceResult,
+  type MaintenanceEvidence,
+  MaintenanceEvidenceSchema,
   type MaintenanceIssue,
   MaintenanceIssueSchema,
   type MaintenancePage,
@@ -60,6 +63,7 @@ import {
   type WikiSourceState,
   type WikiStageInput,
   WikiStageInputSchema,
+  type WikiValidity,
   wikiSourceSetPayload,
 } from "@tradequote/contracts";
 import type Database from "better-sqlite3";
@@ -162,42 +166,6 @@ function citationMatches(c: KnowledgeCitation, r: WikiRevision): boolean {
     );
   });
 }
-
-/** M04：维护处理证据白名单。证据必须是同工作区、绑定问题目标与版本的已存事实/
- *  执行回执（来源版本/知识版本/lint 回执/消费/影响报告/索引重建），禁止用任意
- *  UUID 冒充执行证据。 */
-type EvidenceFact =
-  | {
-      type: "sourceRevision";
-      workspaceId: string;
-      sourceId: string;
-      sourceRevisionId: string;
-      artifactHash: string;
-    }
-  | {
-      type: "wikiRevision";
-      workspaceId: string;
-      revisionId: string;
-      contentHash: string;
-      sourceSetHash: string;
-    }
-  | {
-      type: "lintReceipt";
-      workspaceId: string;
-      revisionId: string;
-      contentHash: string;
-      sourceSetHash: string;
-      outcome: "passed" | "blocked" | "unknown";
-    }
-  | {
-      type: "consumption";
-      workspaceId: string;
-      consumerKind: string;
-      consumerEntityId: string;
-      consumerRevisionId: string;
-    }
-  | { type: "impactReport"; workspaceId: string; status: string }
-  | { type: "indexRebuild"; workspaceId: string; status: string };
 
 /** A01c SQLite wiki store: B00a P0 source/wiki/lifecycle/consumption persistence and
  *  the retrieval/citation/consumption read-write paths. Immutable revision rows are
@@ -1580,131 +1548,118 @@ export class SqliteWikiStore {
     return KnowledgeImpactReportSchema.safeParse(parsed).success ? parsed : null;
   }
 
-  /** M04：按白名单回读处理证据事实；未命中任一白名单表即返回 null。 */
-  private readEvidenceFact(evidenceId: string): EvidenceFact | null {
+  /** M04/B：按证据资格白名单回读「已发生事实」为 MaintenanceEvidence。
+   *  六类可作 resolveMaintenance 证据的事实里，本存储当前能产出三类：
+   *  knowledge.revision_published（已发布知识版本，取生命周期发布事件）、
+   *  source.revised（来源修订，取带前驱的版本行）、index.rebuilt（索引重建完成）。
+   *  候选/模型提案/报价/审批、生命周期事件、lint 回执/消费/影响报告均不是证据 → null。
+   *  validity_confirmed / integrity_reverified / review_decision 暂缺持久化事实 → null。 */
+  private readMaintenanceEvidence(evidenceId: string): MaintenanceEvidence | null {
+    const published = this.db
+      .prepare(
+        `SELECT w.workspace_id AS workspace_id, w.document_id AS document_id, w.version AS version,
+                w.revision_id AS revision_id, w.content_hash AS content_hash, w.source_set_hash AS source_set_hash,
+                l.data_json AS lifecycle_json
+           FROM knowledge_wiki w
+           JOIN knowledge_lifecycle l ON l.revision_id = w.revision_id
+          WHERE w.revision_id=? AND l.state='published'`,
+      )
+      .get(evidenceId) as
+      | {
+          workspace_id: string;
+          document_id: string;
+          version: number;
+          revision_id: string;
+          content_hash: string;
+          source_set_hash: string;
+          lifecycle_json: string;
+        }
+      | undefined;
+    if (published) {
+      const lifecycle = JSON.parse(published.lifecycle_json) as {
+        publication?: { actorId?: string; occurredAt?: string };
+      } | null;
+      const pub = lifecycle?.publication;
+      if (!pub?.actorId || !pub?.occurredAt) return null;
+      const candidate: MaintenanceEvidence = {
+        kind: "knowledge.revision_published",
+        workspaceId: published.workspace_id,
+        evidenceId: published.revision_id,
+        occurredAt: pub.occurredAt,
+        actorId: pub.actorId,
+        revision: {
+          documentId: published.document_id,
+          revisionId: published.revision_id,
+          version: published.version,
+          contentHash: published.content_hash,
+          sourceSetHash: published.source_set_hash,
+          publishedAt: pub.occurredAt,
+        },
+      };
+      return MaintenanceEvidenceSchema.safeParse(candidate).success ? candidate : null;
+    }
     const src = this.db
       .prepare(
-        "SELECT workspace_id, source_id, source_revision_id, artifact_hash FROM knowledge_source WHERE source_revision_id=?",
+        "SELECT workspace_id, source_id, version, parent_revision_id, source_revision_id, artifact_hash, created_at, data_json FROM knowledge_source WHERE source_revision_id=?",
       )
       .get(evidenceId) as
       | {
           workspace_id: string;
           source_id: string;
+          version: number;
+          parent_revision_id: string | null;
           source_revision_id: string;
           artifact_hash: string;
+          created_at: string;
+          data_json: string;
         }
       | undefined;
-    if (src)
-      return {
-        type: "sourceRevision",
+    if (src) {
+      const parsed = JSON.parse(src.data_json) as { validity?: WikiValidity } | null;
+      const validity = parsed?.validity;
+      if (!validity) return null;
+      // source.revised 须有前驱版本（previousSourceRevisionId 绑定被替换的旧版本）。
+      if (src.parent_revision_id === null) return null;
+      const candidate: MaintenanceEvidence = {
+        kind: "source.revised",
         workspaceId: src.workspace_id,
-        sourceId: src.source_id,
-        sourceRevisionId: src.source_revision_id,
-        artifactHash: src.artifact_hash,
+        evidenceId: src.source_revision_id,
+        occurredAt: src.created_at,
+        actorId: "system",
+        source: {
+          sourceId: src.source_id,
+          sourceRevisionId: src.source_revision_id,
+          previousSourceRevisionId: src.parent_revision_id,
+          artifactHash: src.artifact_hash,
+          validity,
+        },
       };
-    const wiki = this.db
-      .prepare(
-        "SELECT workspace_id, revision_id, content_hash, source_set_hash FROM knowledge_wiki WHERE revision_id=?",
-      )
-      .get(evidenceId) as
-      | { workspace_id: string; revision_id: string; content_hash: string; source_set_hash: string }
-      | undefined;
-    if (wiki)
-      return {
-        type: "wikiRevision",
-        workspaceId: wiki.workspace_id,
-        revisionId: wiki.revision_id,
-        contentHash: wiki.content_hash,
-        sourceSetHash: wiki.source_set_hash,
-      };
-    const lint = this.db
-      .prepare(
-        "SELECT workspace_id, revision_id, content_hash, source_set_hash, outcome FROM knowledge_lint WHERE receipt_id=?",
-      )
-      .get(evidenceId) as
-      | {
-          workspace_id: string;
-          revision_id: string;
-          content_hash: string;
-          source_set_hash: string;
-          outcome: "passed" | "blocked" | "unknown";
-        }
-      | undefined;
-    if (lint)
-      return {
-        type: "lintReceipt",
-        workspaceId: lint.workspace_id,
-        revisionId: lint.revision_id,
-        contentHash: lint.content_hash,
-        sourceSetHash: lint.source_set_hash,
-        outcome: lint.outcome,
-      };
-    const consumption = this.db
-      .prepare(
-        "SELECT workspace_id, consumer_kind, consumer_entity_id, consumer_revision_id FROM knowledge_consumption WHERE consumption_id=?",
-      )
-      .get(evidenceId) as
-      | {
-          workspace_id: string;
-          consumer_kind: string;
-          consumer_entity_id: string;
-          consumer_revision_id: string;
-        }
-      | undefined;
-    if (consumption)
-      return {
-        type: "consumption",
-        workspaceId: consumption.workspace_id,
-        consumerKind: consumption.consumer_kind,
-        consumerEntityId: consumption.consumer_entity_id,
-        consumerRevisionId: consumption.consumer_revision_id,
-      };
-    const impact = this.db
-      .prepare("SELECT workspace_id, data_json FROM knowledge_impact_report WHERE report_id=?")
-      .get(evidenceId) as { workspace_id: string; data_json: string } | undefined;
-    if (impact)
-      return {
-        type: "impactReport",
-        workspaceId: impact.workspace_id,
-        status: (JSON.parse(impact.data_json) as KnowledgeImpactReport).status,
-      };
+      return MaintenanceEvidenceSchema.safeParse(candidate).success ? candidate : null;
+    }
     const rebuild = this.db
       .prepare("SELECT workspace_id, data_json FROM knowledge_index_rebuild WHERE rebuild_id=?")
       .get(evidenceId) as { workspace_id: string; data_json: string } | undefined;
-    if (rebuild)
-      return {
-        type: "indexRebuild",
+    if (rebuild) {
+      const parsed = JSON.parse(rebuild.data_json) as KnowledgeIndexRebuild | null;
+      if (!parsed || parsed.status !== "completed" || parsed.result === null) return null;
+      const result = parsed.result;
+      const candidate: MaintenanceEvidence = {
+        kind: "index.rebuilt",
         workspaceId: rebuild.workspace_id,
-        status: (JSON.parse(rebuild.data_json) as KnowledgeIndexRebuild).status,
+        evidenceId: parsed.rebuildId,
+        occurredAt: parsed.updatedAt,
+        actorId: "system",
+        index: {
+          index: result.index,
+          generation: result.generation,
+          indexedSeq: result.indexedSeq,
+          authoritativeSeq: result.authoritativeSeq,
+        },
       };
-    return null;
-  }
-
-  /** M04：证据须绑定问题目标与版本（同一来源/知识/消费身份及固定版本）。 */
-  private evidenceBindsTarget(fact: EvidenceFact, target: MaintenanceTarget): boolean {
-    switch (target.kind) {
-      case "source":
-        return (
-          fact.type === "sourceRevision" &&
-          fact.sourceId === target.sourceId &&
-          fact.sourceRevisionId === target.sourceRevisionId &&
-          fact.artifactHash === target.artifactHash
-        );
-      case "knowledge":
-        return (
-          (fact.type === "wikiRevision" || fact.type === "lintReceipt") &&
-          fact.revisionId === target.revisionId &&
-          fact.contentHash === target.contentHash &&
-          fact.sourceSetHash === target.sourceSetHash
-        );
-      case "consumer":
-        return (
-          fact.type === "consumption" &&
-          fact.consumerKind === target.consumerKind &&
-          fact.consumerEntityId === target.entityId &&
-          fact.consumerRevisionId === target.revisionId
-        );
+      return MaintenanceEvidenceSchema.safeParse(candidate).success ? candidate : null;
     }
+    // lint 回执 / 消费 / 影响报告 / 生命周期事件：非证据，返回 null。
+    return null;
   }
 
   /** 按 dedupKey 幂等登记维护问题；已存在只刷新 lastDetectedAt，不重开也不改版本。 */
@@ -1978,42 +1933,38 @@ export class SqliteWikiStore {
         if (!workspaceId) return failure("NOT_FOUND", "请先创建工作区");
         const issue = this.readMaintenanceIssue(input.issueId);
         if (!issue) return failure("NOT_FOUND", "维护问题不存在");
-        if (issue.workspaceId !== workspaceId)
-          return failure("SOURCE_CONFLICT", "维护问题工作区不一致");
-        if (issue.issueVersion !== input.expectedIssueVersion)
-          return failure(
-            "REVISION_CONFLICT",
-            `维护问题当前版本为 v${issue.issueVersion}，与提交的 expectedIssueVersion 不一致`,
-          );
+        // B 资格政策：把 evidenceIds 解析为「已发生事实」证据（权威读取）。
+        //  生命周期事件、候选/模型提案/报价/审批、lint/消费/影响报告不在此列。
+        //  resolve/dismiss 必须每条证据都可解析且决定性；start_review 不关闭问题，
+        //  证据为参考性，未解析的事实跳过（由裁决器只校验同工作区）。
+        const evidence: MaintenanceEvidence[] = [];
+        for (const id of input.evidenceIds) {
+          const fact = this.readMaintenanceEvidence(id);
+          if (fact) evidence.push(fact);
+          else if (input.action !== "start_review")
+            return failure("NOT_FOUND", `处理证据 ${id} 不存在或不属于六类证据事实`);
+        }
+        // B 资格政策：事务内首错判定（actor/workspace/version/state/证据资格/绑定/时点）。
+        const verdict = evaluateMaintenanceResolution({
+          workspaceId,
+          actorId: context.actorId,
+          origin: context.origin,
+          action: input.action,
+          issue,
+          expectedIssueVersion: input.expectedIssueVersion,
+          resolvedAt: context.now,
+          evidence,
+        });
+        if (!verdict.ok)
+          return failure(verdict.code, `${verdict.message}（${verdict.reason}）`);
         let nextState: MaintenanceIssue["state"];
         let resolution: MaintenanceIssue["resolution"];
         let eventType: KnowledgeMaintenanceLifecycleEvent["type"];
         if (input.action === "start_review") {
-          if (issue.state !== "open")
-            return failure("ACTION_NOT_ALLOWED", "仅未处理问题可进入处理");
           nextState = "in_progress";
           resolution = null;
           eventType = "maintenance.in_progress";
         } else {
-          if (issue.state !== "open" && issue.state !== "in_progress")
-            return failure("ACTION_NOT_ALLOWED", "仅未处理或处理中的问题可解决/关闭");
-          // M04：处理证据必须是白名单内的已存事实/执行回执，同工作区且至少一条绑定问题目标与版本。
-          const facts = input.evidenceIds.map((id) => this.readEvidenceFact(id));
-          for (let i = 0; i < facts.length; i++) {
-            const fact = facts[i];
-            if (!fact)
-              return failure(
-                "NOT_FOUND",
-                `处理证据 ${input.evidenceIds[i]} 不存在或类型不在白名单`,
-              );
-            if (fact.workspaceId !== workspaceId)
-              return failure(
-                "SOURCE_CONFLICT",
-                `处理证据 ${input.evidenceIds[i]} 与维护问题工作区不一致`,
-              );
-          }
-          if (!facts.some((fact) => fact !== null && this.evidenceBindsTarget(fact, issue.target)))
-            return failure("SOURCE_CONFLICT", "处理证据未绑定维护问题的目标与版本");
           nextState = input.action === "resolve" ? "resolved" : "dismissed";
           resolution = {
             action: input.action,
