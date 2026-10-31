@@ -85,10 +85,11 @@ h3 {
 }
 small {
   color: #6a6a6a;
+  font-size: 13px;
 }
 label {
   display: block;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   margin-bottom: 8px;
 }
@@ -133,7 +134,7 @@ textarea:disabled {
 }
 .brand small {
   display: block;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 400;
   color: #6a6a6a;
   letter-spacing: 0.5px;
@@ -176,15 +177,21 @@ nav a {
   border-radius: 8px;
   text-decoration: none;
 }
+nav a:hover {
+  background: #f5f5f5;
+}
 nav a.active {
   background: #fff0c2;
   font-weight: 600;
+}
+nav a.active:hover {
+  background: #fff0c2;
 }
 .sidebar-footer {
   margin-top: auto;
   padding-top: 20px;
   flex: none;
-  font-size: 11px;
+  font-size: 12px;
   color: #6a6a6a;
 }
 .sidebar-footer p {
@@ -216,7 +223,7 @@ main > * {
 }
 .status-badge {
   white-space: nowrap;
-  font-size: 11px;
+  font-size: 12px;
   padding: 4px 8px;
   border: 1px solid #e5e5e5;
   border-radius: 5px;
@@ -316,7 +323,7 @@ main > * {
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 12px;
+  font-size: 13px;
   min-width: 430px;
 }
 th {
