@@ -1235,3 +1235,7 @@ C05提交前新鲜复验535单元/3显式live跳过、12Electron、36维护及ty
 2026-10-31下一轮[[C06下一轮ABC任务书]]与A06/B06/C06任务已建立；独立codex/c06-abc-readiness，taskBase=1d140ed2003ccee7a45c23b25417b174753e3d2f。A5c69b70已只读核对80行/两个SKU/说明hash，原件缺失和真实性待审核不收口；B显式条款/契约复核仍待。C先审计、冻结契约包、适配旧验收脚本并执行本机准备回归，后续隔离组合等待A/B固定材料；不合入集成、不发送消息、不代签。
 
 2026-10-31 C06独立准备验证：535单元/12Electron fixture、typecheck/build/check及固定1d140ed Wiki sync通过，277 Markdown/248语义全部可达。真实专项显式关闭后1 skipped，未收费重跑；独立计划复核Approved。A来源hash/12契约hash与历史前缀已核对，证据raw/c06-preparation-validation.json；组合和A/B未完项仍active。沿用既有C独立共享授权提交/普通推送codex/c06-abc-readiness，不合入集成、不代签。
+
+2026-10-31 A1313db9新归档只读接收：远端1313db918ca5b3847217a6f97ad72129b33cb187，22文件/15图；主样本13行可解析，大目录286行/83SKU被现有解析器拒绝，混合268 CRLF+19 LF；前版及仅统一行尾诊断副本通过。样品66.19误作普通价、两份登记hash失配、统计/ID说明不一致交A修复，见[[C06-A1313资料接收复核]]和raw/c06-a1313-intake.json。A新来源证据部分补齐，真实性/服装快照/规则及B条款仍待；基线d8e83bc，C无产品改动、不合入、不重发模型。
+
+2026-10-31 A1313复核记录收口：C文档/工程check、生成/只读Wiki（278 Markdown全部可达）、真实d8e83bc sync/diff-check通过；独立只读审阅Approved且22 blob指纹匹配。A大目录接收失败仍needs_fix，样品价与hash问题不绕过；原产品/迁移0变更，不重跑收费模型或旧535/12/36。随C06独立分支提交/普通推送，不合入集成。
