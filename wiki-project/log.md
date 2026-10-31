@@ -1159,3 +1159,10 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 - 本机门禁：`pnpm typecheck` 退出 0；`npx biome check packages/infrastructure/probes/` 退出 0；`npx vitest run packages/infrastructure/src/wiki-store.test.ts` 24/24 退出 0；`npx vitest run --config packages/infrastructure/probes/a01e-contract.vitest.config.ts` 退出 1（预期：16/18 偏离，明细见 raw JSON）；`node wiki-project/scripts/build-code-index.mjs . --check` 退出 0；`node wiki-project/scripts/lint-wiki.mjs .` 退出 0（252 Markdown/224 语义/252 可达）；`node wiki-project/scripts/check-wiki-sync.mjs . --base a184a56` 退出 0；`node scripts/check-boundaries.mjs` 退出 0。
 - 维护工具回归如实记录：`node --test wiki-project/scripts/wiki-sync.test.mjs` 11/11 退出 0；`node --test wiki-project/scripts/wiki-tools.test.mjs` 0/25 通过、25 失败，全部为 `source fixture was not installed`——该测试用 LF 正则改写 `wiki-project/wiki/项目状态.md` 的 sources，而基线 a184a56 该文件即 CRLF；在 /tmp 基线 worktree 复跑同样 0/25，确认是既有 CRLF 环境问题、与本轮映射改动无关；本轮不修复（跨文件换行属 C 边界），也不宣称通过。
 - 未复核 A 的 P2 提交；未跑桌面 IPC/E2E、全量 pnpm check 与 Windows；未修改 A 分支、未推送/合入/代签；人工审核/发布/撤回/业务签认仍未发生。A 给出新固定提交后按同一探针重跑，并补来源失效后新引用与消费、历史快照回读、报告与消费同事务回滚三类用例。
+
+## 2026-10-31 B 推送回执：codex/b01-a01e-contract-review
+
+- 负责人要求推送后执行：`git push -u origin codex/b01-a01e-contract-review`，退出 0，远端新建分支并设上游跟踪。
+- 推送提交 `00f3691835cc8e4261136da427b630f3e921c738`（`00f3691`），内含首轮 `a184a56`。远端校验：`git ls-remote --heads origin codex/b01-a01e-contract-review` 返回同 SHA；`git status -sb` 无 ahead/behind。
+- 未建 PR、未合入、未代签；未推其他分支。C 的 `318341e`（`codex/c-demo-catalog-desktop-intake`）推送前已在远端并与本地同 SHA，未重复推送；仓库另有 26 个仅本地的历史 `codex/c-*` 分支，属他人/历史范围，未触碰。
+- 回执写入任务页 [[B00a-业务Wiki契约补充]]，原“未推送”表述同步更正。结论不变：不通过仅对 `267f087`/`dac69db` 有效，`46939c3` 与 P2 未复核；桌面/E2E/Windows 与人工签认未做。

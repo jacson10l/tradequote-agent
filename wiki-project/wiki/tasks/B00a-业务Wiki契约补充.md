@@ -125,4 +125,20 @@ A 在另一开发者机器，不在本机聊天。已在 [A01b PR #6 对齐评�
 | `node --test wiki-project/scripts/wiki-sync.test.mjs` | 0，11/11 |
 | `node --test wiki-project/scripts/wiki-tools.test.mjs` | 25 失败（0 通过）：测试夹具用 LF 正则改写 CRLF 的 `项目状态.md`；基线 a184a56 的 /tmp worktree 复跑同样 0/25，属既有 CRLF 未修，本轮不冒充通过 |
 
-未复核 46939c3 及任何 P2 提交；未跑桌面/IPC/E2E 与全量 `pnpm check`；未修改 A 分支、未推送/合入/代签。任务保持 active，A 给出新固定提交后按同一探针重跑并补三类新用例。
+未复核 46939c3 及任何 P2 提交；未跑桌面/IPC/E2E 与全量 `pnpm check`；未修改 A 分支、未合入/代签；推送回执见下节。任务保持 active，A 给出新固定提交后按同一探针重跑并补三类新用例。
+
+## 2026-10-31 推送回执（B）
+
+负责人要求推送后执行，仅推本人任务分支，未建 PR、未合入、未代签。
+
+| 项 | 实际值 |
+|---|---|
+| 远端 | `origin` = `https://github.com/jacson10l/tradequote-agent.git` |
+| 分支 | `codex/b01-a01e-contract-review`（新建远端分支，已设上游跟踪） |
+| 提交 | `00f3691835cc8e4261136da427b630f3e921c738`（`00f3691`，含 `a184a56` 首轮复核） |
+| 命令 | `git push -u origin codex/b01-a01e-contract-review`，退出 0 |
+| 校验 | `git ls-remote --heads origin` 返回同 SHA `00f3691835cc…`；`git status -sb` 无 ahead/behind，工作区干净 |
+
+`318341e`（C 的 `codex/c-demo-catalog-desktop-intake`）在推送前已存在于远端且与本地同 SHA，本轮未重复推送。本仓库另有 26 个仅本地存在的历史 `codex/c-*` 分支，不属本轮范围，未推送。
+
+推送不改变结论：本轮“不通过”仍只对 `267f087`/`dac69db` 有效，`46939c3` 及 P2 提交未复核；桌面、E2E、Windows 与人工签认均未做。
