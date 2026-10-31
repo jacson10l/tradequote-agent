@@ -434,7 +434,7 @@ it("R15 upgrades real v3 records through unified A lineage without rewriting old
   migrate(old);
   migrate(old);
   expect(JSON.stringify(snapshot())).toBe(before);
-  expect(old.pragma("user_version", { simple: true })).toBe(8);
+  expect(old.pragma("user_version", { simple: true })).toBe(11);
   expect(
     old
       .prepare(
@@ -536,7 +536,7 @@ it("upgrades a real v6 run/control/write-receipt database to unified v8 without 
   old = new Database(path);
   migrate(old);
   migrate(old);
-  expect(old.pragma("user_version", { simple: true })).toBe(8);
+  expect(old.pragma("user_version", { simple: true })).toBe(11);
   expect(snapshot()).toBe(before);
   const upgraded = new SqliteWorkspaceRepository(path);
   try {

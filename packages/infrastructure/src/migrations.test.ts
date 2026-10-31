@@ -37,8 +37,8 @@ it.each(inputs)(
         );
       expect(identify(db).lineage).toBe(lineage);
       migrate(db);
-      expect(identify(db).lineage).toBe("unified");
-      expect(db.pragma("user_version", { simple: true })).toBe(8);
+      expect(identify(db).lineage).toBe("a01f");
+      expect(db.pragma("user_version", { simple: true })).toBe(11);
       expect(
         db
           .prepare(
@@ -85,7 +85,7 @@ it.each(["first", "c-v6"])(
       expect(() => migrate(db, broken)).toThrow();
       expect(schema(db)).toEqual(before);
       migrate(db);
-      expect(identify(db).lineage).toBe("unified");
+      expect(identify(db).lineage).toBe("a01f");
     } finally {
       db.close();
     }

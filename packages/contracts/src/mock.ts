@@ -37,7 +37,7 @@ export const readonlyMockClient: DesktopClient = {
   getWorkspace: async () => success(mockWorkspace),
   getTrade: async () => ({
     ok: true,
-    data: { scenario: null, batches: [], products: [], quotes: [], turns: [] },
+    data: { scenario: null, batches: [], products: [], quotes: [], turns: [], approvals: [] },
     warnings: [],
     evidenceIds: [],
   }),
@@ -45,6 +45,7 @@ export const readonlyMockClient: DesktopClient = {
   stageCatalog: async () => failure("CAPABILITY_UNAVAILABLE", "只读样例不能保存"),
   publishCatalog: async () => failure("CAPABILITY_UNAVAILABLE", "只读样例不能保存"),
   createQuoteV1: async () => failure("CAPABILITY_UNAVAILABLE", "只读样例不能保存"),
+  approveQuote: async () => failure("CAPABILITY_UNAVAILABLE", "只读样例不能保存"),
   pickCatalogCsv: async () => ({ status: "cancelled" }),
   createWorkspace: async () => failure("CAPABILITY_UNAVAILABLE", "只读样例不能保存"),
   renameWorkspace: async () => failure("CAPABILITY_UNAVAILABLE", "只读样例不能保存"),

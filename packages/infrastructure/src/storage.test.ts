@@ -80,14 +80,14 @@ it("migration failure rolls back and future schema refuses downgrade", () => {
   const db = new Database(join(temp(), "workspace.sqlite"));
   try {
     migrate(db);
-    expect(db.pragma("user_version", { simple: true })).toBe(8);
+    expect(db.pragma("user_version", { simple: true })).toBe(11);
     expect(() =>
       migrate(db, [
         ...MIGRATION_STEPS,
         { lineage: "common", version: 99, sql: "CREATE TABLE partial(id TEXT); INVALID SQL;" },
       ]),
     ).toThrow();
-    expect(db.pragma("user_version", { simple: true })).toBe(8);
+    expect(db.pragma("user_version", { simple: true })).toBe(11);
     expect(db.prepare("SELECT name FROM sqlite_master WHERE name='partial'").get()).toBeUndefined();
     db.pragma("user_version=99");
     expect(() => migrate(db)).toThrow(MigrationLineageError);

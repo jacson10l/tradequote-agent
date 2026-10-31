@@ -61,6 +61,15 @@ export const ImportIssueSchema = z.strictObject({
   field: z.string(),
   message: z.string(),
 });
+// 发品（listing）合规校验结果：与结构校验 ImportIssue 分离，携带平台规则严重度。
+// 不阻塞 catalog.publish（结构性错误才阻塞），仅供发品前置门禁与界面展示。
+export const ListingIssueSchema = z.strictObject({
+  ruleId: z.string().min(1).max(200),
+  severity: z.enum(["block", "warn", "review"]),
+  row: z.number().int().positive(),
+  field: z.string().min(1).max(200),
+  message: z.string().min(1).max(2000),
+});
 export const ImportBatchSchema = z.strictObject({
   id: z.uuid(),
   sourceName: text,
@@ -70,6 +79,7 @@ export const ImportBatchSchema = z.strictObject({
   createdAt: z.iso.datetime(),
   rows: z.array(CatalogRowSchema).max(500),
   issues: z.array(ImportIssueSchema).max(1000),
+  listingIssues: z.array(ListingIssueSchema).max(1000).optional(),
 });
 export const ProductSchema = z.strictObject({
   id: z.uuid(),
@@ -161,14 +171,42 @@ export const AgentTurnSchema = z.strictObject({
   model: z.string().max(128),
   createdAt: z.iso.datetime(),
 });
+// 对外产出：由已审批报价确定性渲染，不依赖模型。金额、条款与来源均取自冻结快照，
+// 只做语言/格式映射，不新增业务语义。
+export const DeliveryKindSchema = z.enum(["summary", "reply"]);
+export const QuoteDeliverySchema = z.strictObject({
+  id: z.uuid(),
+  quoteId: z.uuid(),
+  revisionId: z.uuid(),
+  locale: LocaleSchema,
+  kind: DeliveryKindSchema,
+  subject: text,
+  body: z.string().trim().min(1).max(16000),
+  generatedAt: z.iso.datetime(),
+  syntheticBoundary: z.boolean(),
+});
+export const QuoteApprovalSchema = z.strictObject({
+  id: z.uuid(),
+  quoteId: z.uuid(),
+  revisionId: z.uuid(),
+  quoteVersion: z.number().int().positive(),
+  approvedBy: z.string().trim().min(1).max(200),
+  note: z.string().trim().max(2000),
+  approvedAt: z.iso.datetime(),
+  deliveries: z.array(QuoteDeliverySchema),
+});
 export type QuoteSnapshot = z.infer<typeof QuoteSnapshotSchema>;
 export type AgentTurn = z.infer<typeof AgentTurnSchema>;
+export type DeliveryKind = z.infer<typeof DeliveryKindSchema>;
+export type QuoteDelivery = z.infer<typeof QuoteDeliverySchema>;
+export type QuoteApproval = z.infer<typeof QuoteApprovalSchema>;
 export const TradeBoardSchema = z.strictObject({
   scenario: ScenarioSchema.nullable(),
   batches: z.array(ImportBatchSchema),
   products: z.array(ProductSchema),
   quotes: z.array(QuoteSnapshotSchema),
   turns: z.array(AgentTurnSchema).default([]),
+  approvals: z.array(QuoteApprovalSchema).default([]),
 });
 const envelope = { schemaVersion: z.literal(1), requestId: z.uuid() };
 const write = { ...envelope, idempotencyKey: z.uuid() };
@@ -197,6 +235,16 @@ export const TradeCommandSchema = z.discriminatedUnion("method", [
     payload: z.strictObject({ batchId: z.uuid(), sourceHash: z.string().regex(/^[a-f0-9]{64}$/) }),
   }),
   z.strictObject({ ...write, method: z.literal("quote.createV1"), payload: QuoteInputSchema }),
+  z.strictObject({
+    ...write,
+    method: z.literal("quote.approve"),
+    payload: z.strictObject({
+      quoteId: z.uuid(),
+      revisionId: z.uuid(),
+      approvedBy: z.string().trim().min(1).max(200),
+      note: z.string().trim().max(2000),
+    }),
+  }),
 ]);
 // Same error envelope as the workspace boundary; no untyped transport payloads.
 export const TradeResultSchema = z.discriminatedUnion("ok", [
@@ -235,6 +283,7 @@ export type ScenarioInput = z.infer<typeof ScenarioInputSchema>;
 export type Scenario = z.infer<typeof ScenarioSchema>;
 export type CatalogRow = z.infer<typeof CatalogRowSchema>;
 export type ImportIssue = z.infer<typeof ImportIssueSchema>;
+export type ListingIssue = z.infer<typeof ListingIssueSchema>;
 export type ImportBatch = z.infer<typeof ImportBatchSchema>;
 export type Product = z.infer<typeof ProductSchema>;
 export type QuoteInput = z.infer<typeof QuoteInputSchema>;
@@ -252,5 +301,6 @@ export interface TradeClient {
     command: Extract<TradeCommand, { method: "catalog.publish" }>,
   ): Promise<TradeResult>;
   createQuoteV1(command: Extract<TradeCommand, { method: "quote.createV1" }>): Promise<TradeResult>;
+  approveQuote(command: Extract<TradeCommand, { method: "quote.approve" }>): Promise<TradeResult>;
   pickCatalogCsv(): Promise<CsvSelection>;
 }

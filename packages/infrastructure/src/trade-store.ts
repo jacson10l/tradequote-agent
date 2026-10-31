@@ -7,6 +7,7 @@ import {
   type ImportBatch,
   ImportBatchSchema,
   ProductSchema,
+  QuoteApprovalSchema,
   QuoteSnapshotSchema,
   QuoteV1Schema,
   type RevisionProposal,
@@ -19,7 +20,14 @@ import {
   type Understanding,
   UnderstandingSchema,
 } from "@tradequote/contracts";
-import { calculateQuoteV1, reviseQuote, sortedTiers, TradeFault } from "@tradequote/domain";
+import {
+  approveQuote,
+  calculateQuoteV1,
+  reviseQuote,
+  sortedTiers,
+  TradeFault,
+  validateListingCompliance,
+} from "@tradequote/domain";
 import type Database from "better-sqlite3";
 import { parseCatalogCsv } from "./catalog-csv";
 
@@ -34,13 +42,25 @@ export class TradeStore {
       )
       .get(workspaceId) as JsonRow | undefined;
     const read = (
-      table: "catalog_batch" | "catalog_product" | "quote_v1" | "quote_revision" | "agent_turn",
+      table:
+        | "catalog_batch"
+        | "catalog_product"
+        | "quote_v1"
+        | "quote_revision"
+        | "agent_turn"
+        | "quote_approval",
     ) =>
       (
         this.db
           .prepare(`SELECT data_json FROM ${table} WHERE workspace_id=? ORDER BY rowid DESC`)
           .all(workspaceId) as JsonRow[]
       ).map((row) => JSON.parse(row.data_json));
+    const approvals =
+      this.db
+        .prepare("SELECT 1 FROM sqlite_master WHERE type='table' AND name='quote_approval'")
+        .get() !== undefined
+        ? read("quote_approval").map((value) => QuoteApprovalSchema.parse(value))
+        : [];
     return {
       scenario: scenario ? ScenarioSchema.parse(JSON.parse(scenario.data_json)) : null,
       batches: read("catalog_batch").map((value) => ImportBatchSchema.parse(value)),
@@ -49,6 +69,7 @@ export class TradeStore {
         QuoteSnapshotSchema.parse(value),
       ),
       turns: read("agent_turn").map((value) => AgentTurnSchema.parse(value)),
+      approvals,
     };
   }
   replay(command: AgentCommand): TradeResult | null {
@@ -253,6 +274,7 @@ export class TradeStore {
               status: "staged",
               createdAt: now,
               ...parsed,
+              listingIssues: validateListingCompliance(parsed.rows),
             };
             entityId = batch.id;
             this.db
@@ -326,6 +348,32 @@ export class TradeStore {
             this.db
               .prepare("INSERT INTO quote_v1 VALUES (?,?,?,?,?)")
               .run(quote.id, workspace.id, quote.scenario.id, hash(json), json);
+            break;
+          }
+          case "quote.approve": {
+            const quote = current.quotes.find((q) => q.id === command.payload.quoteId);
+            if (!quote || quote.id !== command.payload.revisionId)
+              throw new TradeFault("NOT_FOUND", "报价不存在或修订版本不匹配，请重新加载");
+            const approval = QuoteApprovalSchema.parse(
+              approveQuote(
+                quote,
+                { approvedBy: command.payload.approvedBy, note: command.payload.note },
+                { id: randomUUID(), approvedAt: now },
+              ),
+            );
+            entityId = approval.id;
+            const json = JSON.stringify(approval);
+            this.db
+              .prepare("INSERT INTO quote_approval VALUES (?,?,?,?,?,?,?)")
+              .run(
+                approval.id,
+                workspace.id,
+                approval.quoteId,
+                approval.revisionId,
+                approval.quoteVersion,
+                hash(json),
+                json,
+              );
             break;
           }
         }

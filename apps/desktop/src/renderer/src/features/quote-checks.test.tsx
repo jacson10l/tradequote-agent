@@ -236,6 +236,7 @@ it("mounts the report beside the actual saved quote without writing or opening a
         products: [checksQuote.lines[0]!.product],
         quotes: [checksQuote],
         turns: [],
+        approvals: [],
       },
       warnings: [],
       evidenceIds: [],
@@ -258,7 +259,7 @@ it("mounts the report beside the actual saved quote without writing or opening a
     checksQuote.number,
   );
   expect(screen.getByTestId("goods-total")).toHaveTextContent("未知 USD");
-  expect(screen.getByRole("button", { name: "提交人工审核" })).toBeDisabled();
+  expect(screen.getByRole("button", { name: "提交人工审核并生成对外产出" })).toBeEnabled();
 });
 
 it("revalidates cached data when quote identity metadata changes", async () => {

@@ -185,6 +185,7 @@ const client: DesktopClient = {
   stageCatalog: (command) => invokeTrade({ ...command, method: "catalog.stage" }),
   publishCatalog: (command) => invokeTrade({ ...command, method: "catalog.publish" }),
   createQuoteV1: (command) => invokeTrade({ ...command, method: "quote.createV1" }),
+  approveQuote: (command) => invokeTrade({ ...command, method: "quote.approve" }),
   pickCatalogCsv: async () => {
     try {
       return CsvSelectionSchema.parse(await ipcRenderer.invoke("catalog.pickCsv"));

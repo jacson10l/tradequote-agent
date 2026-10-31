@@ -5,6 +5,7 @@ import {
   demoCatalogCsv,
   demoScenario,
   QuoteInputSchema,
+  type QuoteApproval,
   type QuoteSnapshot,
   type Scenario,
   type ScenarioInput,
@@ -77,6 +78,8 @@ function QuoteWorkspace({ client }: { client: DesktopClient }) {
           return client.publishCatalog(command);
         case "quote.createV1":
           return client.createQuoteV1(command);
+        case "quote.approve":
+          return client.approveQuote(command);
       }
     },
     onSuccess: async (result, command) => {
@@ -91,11 +94,13 @@ function QuoteWorkspace({ client }: { client: DesktopClient }) {
       message.success(
         command.method === "quote.createV1"
           ? "报价草稿 V1 已保存至本机"
-          : command.method === "catalog.publish"
-            ? "已确认发布商品资料"
-            : command.method === "catalog.stage"
-              ? "预览已保存，请核对后确认发布"
-              : "演示场景已保存",
+          : command.method === "quote.approve"
+            ? "报价已批准，对外产出已生成"
+            : command.method === "catalog.publish"
+              ? "已确认发布商品资料"
+              : command.method === "catalog.stage"
+                ? "预览已保存，请核对后确认发布"
+                : "演示场景已保存",
       );
       await queries.invalidateQueries({ queryKey: ["trade"] });
     },
@@ -188,7 +193,23 @@ function QuoteWorkspace({ client }: { client: DesktopClient }) {
             </select>
             {saved && (
               <>
-                <SavedQuote quote={saved} />
+                <SavedQuote
+                  quote={saved}
+                  approval={board.approvals.find((a) => a.revisionId === saved.id)}
+                  onApprove={(approvedBy, note) =>
+                    mutation.mutate({
+                      ...common(),
+                      method: "quote.approve",
+                      payload: {
+                        quoteId: saved.id,
+                        revisionId: saved.id,
+                        approvedBy,
+                        note,
+                      },
+                    })
+                  }
+                  busy={mutation.isPending}
+                />
                 <QuoteChecks key={saved.id} quote={saved} client={client} />
                 <QuoteDifference key={saved.id} quote={saved} quotes={board.quotes} />
               </>
@@ -623,14 +644,29 @@ function DraftForm({
     </section>
   );
 }
-function SavedQuote({ quote }: { quote: QuoteSnapshot }) {
+function SavedQuote({
+  quote,
+  approval,
+  busy,
+  onApprove,
+}: {
+  quote: QuoteSnapshot;
+  approval: QuoteApproval | undefined;
+  busy: boolean;
+  onApprove: (approvedBy: string, note: string) => void;
+}) {
+  const [approvedBy, setApprovedBy] = useState("主管");
+  const [note, setNote] = useState("");
+  const message = useMessage();
   return (
     <article className="space-y-4" aria-label="已保存报价详情">
       <div className="section-heading">
         <h3>
           {quote.buyer} · 草稿 V{quote.version}
         </h3>
-        <span className="status-badge">已保存 · 未审核</span>
+        <span className="status-badge">
+          {approval ? `已批准 · ${approval.approvedBy}` : "已保存 · 未审核"}
+        </span>
       </div>
       <p className="break-all">
         {quote.number} · {quote.createdAt}
@@ -704,9 +740,72 @@ function SavedQuote({ quote }: { quote: QuoteSnapshot }) {
         ))}
         <p>{quote.calculationPolicy}</p>
       </details>
-      <Button disabled title="正式审批、规则校验与导出将在后续接入">
-        提交人工审核
-      </Button>
+      {approval ? (
+        <ApprovalOutput approval={approval} />
+      ) : (
+        <form
+          className="space-y-3"
+          onSubmit={(event) => {
+            event.preventDefault();
+            if (!approvedBy.trim()) {
+              message.error("请填写审核人");
+              return;
+            }
+            onApprove(approvedBy.trim(), note.trim());
+          }}
+        >
+          <div className="grid gap-4 md:grid-cols-2">
+            <div>
+              <label htmlFor="approve-by">审核人</label>
+              <input
+                id="approve-by"
+                value={approvedBy}
+                maxLength={200}
+                onChange={(event) => setApprovedBy(event.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="approve-note">审核备注（可选）</label>
+              <input
+                id="approve-note"
+                value={note}
+                maxLength={2000}
+                onChange={(event) => setNote(event.target.value)}
+              />
+            </div>
+          </div>
+          <p className="description">
+            轻量审批：人工确认后生成对外产出（RFQ 摘要 + 客户回复）。规则检查与合成边界不阻塞演示闭环，
+            但产出会明确标注「未核验」。
+          </p>
+          <Button type="submit" disabled={busy}>
+            提交人工审核并生成对外产出
+          </Button>
+        </form>
+      )}
     </article>
+  );
+}
+function ApprovalOutput({ approval }: { approval: QuoteApproval }) {
+  return (
+    <section className="space-y-4" aria-label="对外产出">
+      <div className="section-heading">
+        <h3>对外产出（审批生成）</h3>
+        <span className="status-badge">合成演示 · 未核验</span>
+      </div>
+      <p>
+        批准于 {approval.approvedAt} · {approval.approvedBy}
+        {approval.note ? ` · 备注：${approval.note}` : ""}
+      </p>
+      {approval.deliveries.map((delivery) => (
+        <details key={delivery.id} open={delivery.kind === "reply"}>
+          <summary>
+            {delivery.locale} · {delivery.kind === "summary" ? "RFQ 摘要" : "客户回复"} ·{" "}
+            {delivery.subject}
+          </summary>
+          <pre className="whitespace-pre-wrap break-words text-sm">{delivery.body}</pre>
+        </details>
+      ))}
+    </section>
   );
 }

@@ -237,7 +237,7 @@ for (const version of [3, 5, 6, 7] as const)
         );
       else expect(after[table]).toEqual(before[table]);
     }
-    expect(f.db.pragma("user_version", { simple: true })).toBe(8);
+    expect(f.db.pragma("user_version", { simple: true })).toBe(11);
     const ledger = rows(f.db, "migration_registry");
     const frozen = snapshot(f.db, businessTables);
     const controls = rows(f.db, "agent_run_control");

@@ -115,7 +115,7 @@ it("upgrades populated B7 with immutable multi-source report/consumption/old led
     for (let i = 0; i < 2; i++) {
       repo = new SqliteWorkspaceRepository(file);
       db = new Database(file);
-      expect(db.pragma("user_version", { simple: true })).toBe(8);
+      expect(db.pragma("user_version", { simple: true })).toBe(11);
       expect(
         db
           .prepare(

@@ -425,11 +425,11 @@ it("fails explicitly without the A-installed report schema and never installs or
   expect(
     f.database().prepare("SELECT name FROM sqlite_master WHERE name='quote_check_report'").get(),
   ).toBeUndefined();
-  expect(f.database().pragma("user_version", { simple: true })).toBe(8);
+  expect(f.database().pragma("user_version", { simple: true })).toBe(11);
   f.database().exec(checkReportTableSql);
   expect(data(f.list())).toEqual([]);
   expect(f.check().ok).toBe(true);
-  expect(f.database().pragma("user_version", { simple: true })).toBe(8);
+  expect(f.database().pragma("user_version", { simple: true })).toBe(11);
 });
 
 it.each(["version", "rootId", "parentId"])(

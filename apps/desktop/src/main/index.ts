@@ -246,6 +246,7 @@ else {
         "catalog.stage",
         "catalog.publish",
         "quote.createV1",
+        "quote.approve",
         "quote.check",
         "quote.getChecks",
         "agent.understand",

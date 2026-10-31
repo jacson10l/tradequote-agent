@@ -356,10 +356,31 @@ CREATE TABLE knowledge_index_markdown (
 );
 `,
   },
+  {
+    // A01f：报价审批与对外产出。审批事实与产出均为不可变追加，
+    // 不改写 quote_v1/quote_revision 的不可变快照；轻量审批不阻塞于知识规则检查。
+    lineage: "common",
+    version: 11,
+    sql: `
+CREATE TABLE quote_approval (
+  id TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL REFERENCES workspace(id),
+  quote_id TEXT NOT NULL,
+  revision_id TEXT NOT NULL,
+  quote_version INTEGER NOT NULL CHECK(quote_version > 0),
+  content_hash TEXT NOT NULL,
+  data_json TEXT NOT NULL,
+  UNIQUE(workspace_id, quote_id, revision_id)
+);
+CREATE INDEX quote_approval_history ON quote_approval(workspace_id, quote_id, quote_version DESC);
+CREATE TRIGGER quote_approval_no_update BEFORE UPDATE ON quote_approval BEGIN SELECT RAISE(ABORT, 'IMMUTABLE_APPROVAL'); END;
+CREATE TRIGGER quote_approval_no_delete BEFORE DELETE ON quote_approval BEGIN SELECT RAISE(ABORT, 'IMMUTABLE_APPROVAL'); END;
+`,
+  },
 ];
 
-/** 统一目标 user_version。8 不与任何历史谱系编号冲突。 */
-export const UNIFIED_USER_VERSION = 8;
+/** 统一目标 user_version。11 不与任何历史谱系编号冲突（common:11 为 A01f 审批/产出能力）。 */
+export const UNIFIED_USER_VERSION = 11;
 
 /** 可定向向前追加的已知谱系；其余一律安全拒绝。 */
 export const UPGRADEABLE_LINEAGES: ReadonlySet<MigrationLineage> = new Set<MigrationLineage>([
@@ -377,6 +398,7 @@ export const UPGRADEABLE_LINEAGES: ReadonlySet<MigrationLineage> = new Set<Migra
   "a-v10",
   "b-v7",
   "unified",
+  "a01f",
 ]);
 
 export class MigrationLineageError extends Error {

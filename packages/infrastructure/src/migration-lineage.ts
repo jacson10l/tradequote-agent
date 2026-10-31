@@ -40,6 +40,7 @@ export type MigrationLineage =
   | "a-v10"
   | "b-v7"
   | "unified"
+  | "a01f"
   | "mixed"
   | "tampered"
   | "unknown";
@@ -619,6 +620,54 @@ export const CAPABILITIES: CapabilitySpec[] = [
       },
     ],
   },
+  {
+    // A01f：报价审批与对外产出（不可变追加，不改写报价快照）。
+    lineage: "common",
+    version: 11,
+    tables: ["quote_approval"],
+    indexes: [{ name: "quote_approval_history", table: "quote_approval" }],
+    triggers: [
+      {
+        name: "quote_approval_no_update",
+        table: "quote_approval",
+        raises: true,
+        event: "UPDATE",
+        when: null,
+      },
+      {
+        name: "quote_approval_no_delete",
+        table: "quote_approval",
+        raises: true,
+        event: "DELETE",
+        when: null,
+      },
+    ],
+    columns: {
+      quote_approval: [
+        "id",
+        "workspace_id",
+        "quote_id",
+        "revision_id",
+        "quote_version",
+        "content_hash",
+        "data_json",
+      ],
+    },
+    foreignKeys: [
+      {
+        table: "quote_approval",
+        from: "workspace_id",
+        toTable: "workspace",
+        to: "id",
+      },
+    ],
+    tableConstraints: [
+      {
+        table: "quote_approval",
+        pattern: /UNIQUE\s*\(\s*workspace_id\s*,\s*quote_id\s*,\s*revision_id\s*\)/i,
+      },
+    ],
+  },
 ];
 
 export type CapabilityId = `${CapabilityLineage}:${number}`;
@@ -911,6 +960,7 @@ const LINEAGE_VERSION: Record<MigrationLineage, number> = {
   "a-v10": 10,
   "b-v7": 7,
   unified: 8,
+  a01f: 11,
   mixed: -1,
   tampered: -1,
   unknown: -1,
@@ -957,6 +1007,23 @@ function classifyPresent(present: CapabilityId[]): MigrationLineage {
     [
       "c-run:5,c-run:6,c-run:7,check-report:7,common:1,common:2,common:3,common:4,knowledge-wiki:10,knowledge-wiki:6,knowledge-wiki:8,knowledge-wiki:9",
       "unified",
+    ],
+    // A01f：含 common:11（审批/产出）的完整状态。common:11 字典序位于 common:1 与 common:2 之间。
+    [
+      "c-run:5,c-run:6,c-run:7,check-report:7,common:1,common:11,common:2,common:3,common:4,knowledge-wiki:6",
+      "a01f",
+    ],
+    [
+      "c-run:5,c-run:6,c-run:7,check-report:7,common:1,common:11,common:2,common:3,common:4,knowledge-wiki:6,knowledge-wiki:8",
+      "a01f",
+    ],
+    [
+      "c-run:5,c-run:6,c-run:7,check-report:7,common:1,common:11,common:2,common:3,common:4,knowledge-wiki:6,knowledge-wiki:8,knowledge-wiki:9",
+      "a01f",
+    ],
+    [
+      "c-run:5,c-run:6,c-run:7,check-report:7,common:1,common:11,common:2,common:3,common:4,knowledge-wiki:10,knowledge-wiki:6,knowledge-wiki:8,knowledge-wiki:9",
+      "a01f",
     ],
   ]);
   if (expected.has(key)) return expected.get(key)!;
