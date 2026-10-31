@@ -1,0 +1,83 @@
+{
+  "date": "2026-10-31",
+  "role": "C",
+  "codeSha": "77f14632b81b6d06b544a007e6414a09c625f710",
+  "dataSha": "11826e4dedb6df1c2593fe061f8b7517527a3c73",
+  "environment": {
+    "os": "macOS arm64",
+    "node": "22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2"
+  },
+  "build": {
+    "command": "pnpm build",
+    "exitCode": 0,
+    "output": "\n> tradequote-agent@0.1.0 build /Users/jason/.codex/worktrees/fee3/tradequote-agent\n> node scripts/check-icons.mjs && pnpm --filter @tradequote/desktop build\n\nApplication icons passed: SVG/1024 PNG/macOS ICNS/Windows ICO\n\n> @tradequote/desktop@0.1.0 build /Users/jason/.codex/worktrees/fee3/tradequote-agent/apps/desktop\n> electron-vite build\n\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 280 modules transformed.\nrendering chunks...\nout/main/evaluation.js                2.41 kB\nout/main/worker.js                    3.07 kB\nout/main/index.js                    26.21 kB\nout/main/chunks/public-JyM1wgsz.js   29.90 kB\nout/main/chunks/src-Bt_U5qYI.js     790.76 kB\n\n✓ built in 109ms\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 116 modules transformed.\nrendering chunks...\nout/preload/index.js  286.48 kB\n\n✓ built in 34ms\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 2120 modules transformed.\nrendering chunks...\nout/renderer/index.html                   0.64 kB\nout/renderer/assets/index-CKwX_z5s.css   15.94 kB\nout/renderer/assets/index-Dkp_l23Z.js   597.05 kB\n\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n✓ built in 358ms\n"
+  },
+  "initialHarnessFailure": {
+    "output": "node:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ '129.57'\n- '2060.00'\n\n    at file:///Users/jason/.codex/worktrees/fee3/tradequote-agent/.runtime/c-demo-quotes.mjs:22:95 {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: '129.57',\n  expected: '2060.00',\n  operator: 'strictEqual',\n  diff: 'simple'\n}\n\nNode.js v22.22.0\n",
+    "cause": "Assumed last list item was latest quote; fixed harness to identify newly created quote by ID; expected totals unchanged"
+  },
+  "probe": {
+    "argv": [
+      "node",
+      ".runtime/c-demo-quotes.mjs"
+    ],
+    "scriptUtf8": "import assert from 'node:assert/strict';\nimport {execFileSync} from 'node:child_process';\nimport {mkdtemp,rm} from 'node:fs/promises';\nimport {tmpdir} from 'node:os';\nimport {join,resolve} from 'node:path';\nimport {createRequire} from 'node:module';\nimport {_electron as electron,expect} from '@playwright/test';\nconst require=createRequire(resolve('apps/desktop/package.json'));\nconst csv=execFileSync('git',['show','11826e4dedb6df1c2593fe061f8b7517527a3c73:wiki-project/demo_data/catalog_demo.csv'],{encoding:'utf8'});\nconst directory=await mkdtemp(join(tmpdir(),'c-demo-quotes-'));\nconst launch=()=>electron.launch({executablePath:require('electron'),args:[resolve('apps/desktop/out/main/index.js')],env:{...process.env,ELECTRON_RUN_AS_NODE:'',TRADEQUOTE_TEST_DATA:directory}});\nconst cases=[['1601053415993','3','129.57'],['1601053415993','50','2060.00'],['1601053415993','100','3921.00'],['1601053415993','500','18605.00'],['1601926123092','5','124.60'],['1601926123092','500','11730.00'],['1601926123092','1000','22200.00'],['1601926123092','10000','210000.00'],['MDF-001','100','350.00'],['MDF-001','500','1600.00'],['MDF-001','1000','2950.00'],['BOLT-001','1','1.30'],['BOLT-001','5','5.50'],['BOLT-001','10','9.50']];\nlet app;\ntry{\n app=await launch();let page=await app.firstWindow();\n await page.getByRole('link',{name:'创建工作区',exact:true}).click();await page.getByLabel('工作区名称').fill('C独立报价路径');await page.getByRole('button',{name:'创建工作区',exact:true}).click();await expect(page.getByText('已保存至本机 · 版本 1')).toBeVisible();\n await page.getByRole('link',{name:'资料与报价'}).click();await page.getByRole('button',{name:'保存演示场景'}).click();await expect(page.getByText('场景版本 1',{exact:true})).toBeVisible();\n await page.getByLabel('CSV 原文').fill(csv);await page.getByLabel('资料名称').fill('catalog_demo.csv');await page.getByLabel('资料性质').selectOption('synthetic');await page.getByRole('button',{name:'解析并预览'}).click();await expect(page.getByRole('button',{name:'确认发布此批次'})).toBeEnabled();await page.getByRole('button',{name:'确认发布此批次'}).click();await expect(page.getByRole('checkbox',{name:'选择 MDF-001',exact:true})).toBeVisible();\n const saved=[];\n for(const [sku,quantity,total] of cases){\n const result=await page.evaluate(async ({sku,quantity})=>{const b=await window.tradequote.getTrade();if(!b.ok)throw Error('board');const p=b.data.products.find(p=>p.sku===sku);if(!p||!b.data.scenario)throw Error('fixture');return window.tradequote.createQuoteV1({schemaVersion:1,requestId:crypto.randomUUID(),idempotencyKey:crypto.randomUUID(),method:'quote.createV1',payload:{scenarioId:b.data.scenario.id,buyer:'C测试买方',inquiry:'仅技术验证',payment:'',delivery:'',lines:[{productId:p.id,quantity,unit:p.unit}]}});},{sku,quantity});\n assert.equal(result.ok,true,JSON.stringify(result));const q=result.data.quotes.find(q=>!saved.some(old=>old.id===q.id));assert.equal(q.goodsTotal,total);assert.equal(q.lines[0].tierMin,quantity);saved.push(q);\n }\n const mixed=await page.evaluate(async()=>{const b=await window.tradequote.getTrade();const picks=['1601053415993','MDF-001'].map(sku=>b.data.products.find(p=>p.sku===sku));return window.tradequote.createQuoteV1({schemaVersion:1,requestId:crypto.randomUUID(),idempotencyKey:crypto.randomUUID(),method:'quote.createV1',payload:{scenarioId:b.data.scenario.id,buyer:'C测试',inquiry:'混币拒绝',payment:'',delivery:'',lines:picks.map(p=>({productId:p.id,quantity:'100',unit:p.unit}))}});});\n assert.equal(mixed.ok,false);assert.equal(mixed.error.code,'VALIDATION_ERROR');\n const before=await page.evaluate(()=>window.tradequote.getTrade());assert.equal(before.data.quotes.length,14);\n await app.close();app=await launch();page=await app.firstWindow();await page.getByRole('link',{name:'资料与报价'}).click();await expect(page.getByRole('checkbox',{name:'选择 MDF-001',exact:true})).toBeVisible();\n const after=await page.evaluate(()=>window.tradequote.getTrade());assert.deepEqual(after.data.quotes,before.data.quotes);\n console.log(JSON.stringify({status:'passed',tierCases:cases,savedQuotes:14,mixedCurrency:'VALIDATION_ERROR; no new quote',restart:'all 14 quote snapshots byte-equivalent as JSON',scope:'UI import/publish; public preload/main/worker quote commands; real Electron restart; no FX/model call'}));\n}finally{if(app)await app.close();await rm(directory,{recursive:true,force:true});}\n",
+    "exitCode": 0,
+    "output": "{\"status\":\"passed\",\"tierCases\":[[\"1601053415993\",\"3\",\"129.57\"],[\"1601053415993\",\"50\",\"2060.00\"],[\"1601053415993\",\"100\",\"3921.00\"],[\"1601053415993\",\"500\",\"18605.00\"],[\"1601926123092\",\"5\",\"124.60\"],[\"1601926123092\",\"500\",\"11730.00\"],[\"1601926123092\",\"1000\",\"22200.00\"],[\"1601926123092\",\"10000\",\"210000.00\"],[\"MDF-001\",\"100\",\"350.00\"],[\"MDF-001\",\"500\",\"1600.00\"],[\"MDF-001\",\"1000\",\"2950.00\"],[\"BOLT-001\",\"1\",\"1.30\"],[\"BOLT-001\",\"5\",\"5.50\"],[\"BOLT-001\",\"10\",\"9.50\"]],\"savedQuotes\":14,\"mixedCurrency\":\"VALIDATION_ERROR; no new quote\",\"restart\":\"all 14 quote snapshots byte-equivalent as JSON\",\"scope\":\"UI import/publish; public preload/main/worker quote commands; real Electron restart; no FX/model call\"}\n"
+  },
+  "limits": [
+    "UI exercised for import/publish; quote commands through public preload/Main/Worker, not quote form controls",
+    "Mixed currencies intentionally rejected; no FX implementation",
+    "No real model, installation package, approvals or maintenance UI tested",
+    "A46939c3 observed on remote but not retested in this slice"
+  ],
+  "documentationChecks": [
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 255,\n  \"lines\": 70000,\n  \"generated\": 5,\n  \"excluded\": 12\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 255,\n  \"semantic\": 227,\n  \"reachable\": 255\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "77f14632b81b6d06b544a007e6414a09c625f710"
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"77f14632b81b6d06b544a007e6414a09c625f710\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "-c",
+        "core.whitespace=cr-at-eol",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}
