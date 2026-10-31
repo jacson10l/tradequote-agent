@@ -25,12 +25,46 @@ const severityStyles = {
   pending: "text-[var(--text-secondary)]",
 };
 
-const checkQueryKey = (quote: QuoteSnapshot) =>
+export const checkQueryKey = (quote: QuoteSnapshot) =>
   ["quote-checks", quote.workspaceId, quote.rootId ?? quote.id, quote.id, quote.version] as const;
 const matchesQuote = (report: CheckReport, quote: QuoteSnapshot) =>
   report.revisionId === quote.id &&
   report.quoteId === (quote.rootId ?? quote.id) &&
   report.quoteVersion === quote.version;
+
+export async function loadQuoteChecks(client: CheckClient, quote: QuoteSnapshot) {
+  let response: unknown;
+  try {
+    response = await client.getQuoteChecks({
+      schemaVersion: 1,
+      requestId: crypto.randomUUID(),
+      method: "quote.getChecks",
+      payload: { revisionId: quote.id },
+    });
+  } catch {
+    throw new Error("读取检查报告失败，请重试；当前条款仍待核实。");
+  }
+  const parsed = CheckListResultSchema.safeParse(response);
+  if (!parsed.success) throw new Error("检查报告内容无法校验，当前版本仍待核实。");
+  const result = parsed.data;
+  if (!result.ok)
+    throw new Error(
+      result.error.code === "CAPABILITY_UNAVAILABLE"
+        ? "检查报告暂时无法读取，当前版本的条款仍待核实；请重新读取报告。"
+        : result.error.message,
+    );
+  if (result.data.some((report) => !matchesQuote(report, quote))) {
+    throw new Error("检查报告与当前报价版本不一致，已停止展示。");
+  }
+  if (new Set(result.data.map((item) => item.reportId)).size !== result.data.length) {
+    throw new Error("报告列表包含重复标识，请重新读取。");
+  }
+  return [...result.data].sort(
+    (a, b) =>
+      Date.parse(b.checkedAt) - Date.parse(a.checkedAt) ||
+      (a.reportId < b.reportId ? -1 : a.reportId > b.reportId ? 1 : 0),
+  );
+}
 
 /** Only the human button writes; rule evaluation and the complete transaction live in the Worker. */
 export function QuoteChecks({ quote, client }: { quote: QuoteSnapshot; client: CheckClient }) {
@@ -107,37 +141,7 @@ export function QuoteChecks({ quote, client }: { quote: QuoteSnapshot; client: C
     retry: false,
     refetchOnWindowFocus: false,
     queryFn: async () => {
-      let response: unknown;
-      try {
-        response = await client.getQuoteChecks({
-          schemaVersion: 1,
-          requestId: crypto.randomUUID(),
-          method: "quote.getChecks",
-          payload: { revisionId: quote.id },
-        });
-      } catch {
-        throw new Error("读取检查报告失败，请重试；当前条款仍待核实。");
-      }
-      const parsed = CheckListResultSchema.safeParse(response);
-      if (!parsed.success) throw new Error("检查报告内容无法校验，当前版本仍待核实。");
-      const result = parsed.data;
-      if (!result.ok)
-        throw new Error(
-          result.error.code === "CAPABILITY_UNAVAILABLE"
-            ? "检查报告暂时无法读取，当前版本的条款仍待核实；请重新读取报告。"
-            : result.error.message,
-        );
-      if (result.data.some((report) => !matchesQuote(report, quote))) {
-        throw new Error("检查报告与当前报价版本不一致，已停止展示。");
-      }
-      if (new Set(result.data.map((item) => item.reportId)).size !== result.data.length) {
-        throw new Error("报告列表包含重复标识，请重新读取。");
-      }
-      return [...result.data].sort(
-        (a, b) =>
-          Date.parse(b.checkedAt) - Date.parse(a.checkedAt) ||
-          (a.reportId < b.reportId ? -1 : a.reportId > b.reportId ? 1 : 0),
-      );
+      return loadQuoteChecks(client, quote);
     },
   });
   const reports = query.isSuccess ? query.data : [];

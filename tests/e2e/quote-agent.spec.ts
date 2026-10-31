@@ -128,6 +128,60 @@ test("desktop settings and HTTP adapter support inquiry plus two saved revisions
     await page.getByLabel("对比基准版本").selectOption({ label: "V1" });
     await expect(page.getByRole("heading", { name: "V1 → V3 差异" })).toBeVisible();
     await expect(page.getByRole("region", { name: "报价版本差异" })).toContainText("1080.00");
+    const v3Checks = page.getByRole("region", { name: "报价 V3 规则检查" });
+    await v3Checks.getByRole("button", { name: "检查并保存报告" }).click();
+    await expect(v3Checks).toContainText("2 项待核实");
+    const reply = page.getByRole("region", { name: "报价 V3 客户回复草稿" });
+    const replyText = reply.getByLabel("客户回复正文");
+    await expect(replyText).toHaveValue(/Saved check report:/);
+    await expect(replyText).toHaveValue(/1080.00 USD/);
+    await expect(replyText).toHaveValue(/V3/);
+    await expect(replyText).toHaveValue(/\[pending\]/);
+    const englishDraft = await replyText.inputValue();
+    await app.evaluate(({ clipboard }) => clipboard.writeText("SYNTHETIC-COPY-CONTROL"));
+    await reply.getByRole("button", { name: "复制未审核草稿" }).click();
+    await expect(
+      page.getByText("已复制未审核草稿，请人工核对后使用", { exact: true }),
+    ).toBeVisible();
+    expect((await app.evaluate(({ clipboard }) => clipboard.readText())) === englishDraft).toBe(
+      true,
+    );
+    expect(
+      await page.evaluate(async () => {
+        try {
+          await navigator.clipboard.readText();
+          return false;
+        } catch {
+          return true;
+        }
+      }),
+    ).toBe(true);
+    expect(
+      await app.evaluate(async ({ BrowserWindow }) => {
+        const main = BrowserWindow.getAllWindows()[0];
+        if (!main) throw Error("main window missing");
+        const other = new BrowserWindow({
+          show: false,
+          webPreferences: { contextIsolation: true, nodeIntegration: false, sandbox: true },
+        });
+        try {
+          await other.loadURL(main.webContents.getURL());
+          return await other.webContents.executeJavaScript(
+            "navigator.clipboard.writeText('SYNTHETIC-UNTRUSTED').then(()=>false,()=>true)",
+          );
+        } finally {
+          other.destroy();
+        }
+      }),
+    ).toBe(true);
+    await reply.getByLabel("回复语言").selectOption("de");
+    await expect(replyText).toHaveValue(/Nicht geprüfter Entwurf/);
+    await expect(replyText).toHaveValue(/1080.00 USD/);
+    await expect(replyText).toHaveValue(/30%预付/);
+    await expect(replyText).toHaveValue(/SHA-256/);
+    await expect(page.getByRole("button", { name: "提交人工审核" })).toBeDisabled();
+    await reply.scrollIntoViewIfNeeded();
+    await page.screenshot({ path: ".runtime/customer-reply-de.png" });
     const saved = await page.evaluate(() => window.tradequote.getTrade());
     if (!saved.ok) throw new Error("read failed");
     expect(saved.data.quotes).toHaveLength(3);
@@ -143,6 +197,10 @@ test("desktop settings and HTTP adapter support inquiry plus two saved revisions
     await page.getByLabel("选择报价与版本").selectOption(v1.id);
     await expect(page.getByRole("button", { name: "理解修改并保存 V2" })).toBeDisabled();
     await expect(page.getByTestId("goods-total")).toHaveText("900.00 USD");
+    const v1Reply = page.getByRole("region", { name: "报价 V1 客户回复草稿" });
+    await expect(v1Reply.getByLabel("客户回复正文")).toHaveValue(/900.00 USD/);
+    await expect(v1Reply.getByLabel("客户回复正文")).toHaveValue(/No saved check report/);
+    expect(saved.data.quotes.every((q) => q.status === "draft")).toBe(true);
     await page.getByLabel("选择报价与版本").selectOption(v3.id);
     mode = "invalid";
     await page.getByLabel("本轮修改要求").fill("交期改40天");
@@ -177,6 +235,9 @@ test("desktop settings and HTTP adapter support inquiry plus two saved revisions
     await expect(reopened.getByRole("region", { name: "DeepSeek 询盘与对话" })).toContainText(
       "数量改为120件",
     );
+    await expect(
+      reopened.getByRole("region", { name: "报价 V3 客户回复草稿" }).getByLabel("客户回复正文"),
+    ).toHaveValue(englishDraft);
     await reopened
       .getByRole("navigation")
       .getByRole("link", { name: "模型设置", exact: true })

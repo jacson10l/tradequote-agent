@@ -95,6 +95,12 @@ test("human saved-quote check persists both sources, paired feedback and immutab
     await expect(region).toContainText("2 项待核实");
     await region.getByRole("button", { name: "检查并保存报告" }).click();
     await expect(region).toContainText("1 项阻断 · 1 项提醒 · 0 项待核实");
+    const reply = page.getByRole("region", { name: "报价 V1 客户回复草稿" });
+    await expect(reply.getByLabel("客户回复正文")).toHaveValue(/\[block\]/);
+    await expect(reply.getByLabel("客户回复正文")).toHaveValue(/\[warning\]/);
+    await expect(reply.getByLabel("客户回复正文")).toHaveValue(/Wiki /);
+    for (const sourceId of seeded.sources)
+      await expect(reply.getByLabel("客户回复正文")).toHaveValue(new RegExp(sourceId));
     const marker = region.getByRole("button", {
       name: "阻断 · 付款条款 · 【合成规则】合成付款条款缺失",
     });
@@ -182,6 +188,10 @@ test("human saved-quote check persists both sources, paired feedback and immutab
     await expect(
       v2Checks.getByText("本报告采用的知识与来源 · 1 个知识段落", { exact: true }),
     ).toBeVisible();
+    const revisedReply = page.getByRole("region", { name: "报价 V2 客户回复草稿" });
+    await expect(revisedReply.getByLabel("客户回复正文")).toHaveValue(/Unreviewed draft/);
+    await expect(revisedReply.getByLabel("客户回复正文")).not.toHaveValue(/\[block\]/);
+    await expect(revisedReply.getByLabel("客户回复正文")).toHaveValue(/Saved check report:/);
     await expect(page.getByTestId("goods-total")).toHaveText("900.00 USD");
     await page.getByLabel("选择报价与版本").selectOption(v1.id);
     await expect(page.getByRole("region", { name: "报价 V1 规则检查" })).toContainText(

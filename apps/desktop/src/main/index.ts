@@ -116,6 +116,25 @@ else {
         event.sender === window.webContents &&
         event.senderFrame === window.webContents.mainFrame &&
         event.senderFrame.url.split("#")[0] === rendererUrl.split("#")[0];
+      // Only the trusted application main frame may write sanitized clipboard text.
+      // Clipboard reads and every other browser permission remain denied.
+      const clipboardWriter = (
+        contents: Electron.WebContents | null,
+        permission: string,
+        details: { isMainFrame: boolean; requestingUrl?: string },
+      ) =>
+        !!window &&
+        contents === window.webContents &&
+        permission === "clipboard-sanitized-write" &&
+        details.isMainFrame &&
+        details.requestingUrl?.split("#")[0] === rendererUrl.split("#")[0];
+      session.defaultSession.setPermissionCheckHandler((contents, permission, _origin, details) =>
+        clipboardWriter(contents, permission, details),
+      );
+      session.defaultSession.setPermissionRequestHandler(
+        (contents, permission, callback, details) =>
+          callback(clipboardWriter(contents, permission, details)),
+      );
       for (const method of [
         "modelEvaluation.start",
         "modelEvaluation.list",

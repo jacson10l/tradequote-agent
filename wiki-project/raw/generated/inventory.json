@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "08ef25e1f0b79e8e09acd236b81aa57155027153d247bf1c35020f8a0e0e8669",
+    "wiki-config.json": "4250e88e481f55cac5e877b5a01729be7d8cee6498f7fe80a2300d8593792f71",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -214,16 +214,17 @@
     {
       "path": "apps/desktop/src/main/index.ts",
       "type": "ts",
-      "lines": 319,
-      "bytes": 12744,
-      "sha256": "a78f990dc5ebcc2e77f9d6a5bdfd54d932cdc6a3ae454f5eca1f1c57cd68605c",
+      "lines": 338,
+      "bytes": 13665,
+      "sha256": "b53a2df4b8752e76cc32bdf8dd00ebeb5bb7f0d2e8912580c24f7c9fa291f785",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md",
         "wiki/C02c统一运行与写账本.md",
         "wiki/C04正式设置评估入口.md",
         "wiki/C03持久事件与桌面重连.md",
-        "wiki/C已保存报价检查桌面切片.md"
+        "wiki/C已保存报价检查桌面切片.md",
+        "wiki/C客户回复草稿桌面切片.md"
       ]
     },
     {
@@ -347,6 +348,50 @@
       ]
     },
     {
+      "path": "apps/desktop/src/renderer/src/features/customer-reply-format.test.ts",
+      "type": "ts",
+      "lines": 141,
+      "bytes": 6386,
+      "sha256": "76f232305fff5ff2976cc58d3938a8851a0e0bc478264382fd1e58660987104c",
+      "role": "C本地确定性英德回复草稿、版本报告绑定及测试/设计",
+      "pages": [
+        "wiki/C客户回复草稿桌面切片.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/customer-reply-format.ts",
+      "type": "ts",
+      "lines": 155,
+      "bytes": 6183,
+      "sha256": "7fe1e36e698fd6bbeb992c291d2ec3304fd1f2cd559dbabfe7d80e57458cee67",
+      "role": "C本地确定性英德回复草稿、版本报告绑定及测试/设计",
+      "pages": [
+        "wiki/C客户回复草稿桌面切片.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/customer-reply.test.tsx",
+      "type": "tsx",
+      "lines": 71,
+      "bytes": 3556,
+      "sha256": "1ca5f76cde9aea04634c2b6af8490ee2c1000031dd8abc89da46a7b5c7ef07e4",
+      "role": "C本地确定性英德回复草稿、版本报告绑定及测试/设计",
+      "pages": [
+        "wiki/C客户回复草稿桌面切片.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/customer-reply.tsx",
+      "type": "tsx",
+      "lines": 71,
+      "bytes": 2754,
+      "sha256": "cfb8a09fbd70b6e81063e24994645126d9f3f98298d9a7f23d9521be37d50c1e",
+      "role": "C本地确定性英德回复草稿、版本报告绑定及测试/设计",
+      "pages": [
+        "wiki/C客户回复草稿桌面切片.md"
+      ]
+    },
+    {
       "path": "apps/desktop/src/renderer/src/features/model-evaluation.tsx",
       "type": "tsx",
       "lines": 342,
@@ -409,25 +454,27 @@
     {
       "path": "apps/desktop/src/renderer/src/features/quote-checks.tsx",
       "type": "tsx",
-      "lines": 338,
-      "bytes": 15188,
-      "sha256": "3210484fce567315acbc15d8f15c0c462810a4b23b596e51bd7c275bb69f71f9",
+      "lines": 342,
+      "bytes": 15202,
+      "sha256": "9f881f12c472a826c22b37ea0542df8767ca9b7b6ca349e4a664ebb02bb716a1",
       "role": "B01 read-only report UI, shared risks and field annotations, version isolation",
       "pages": [
         "wiki/B规则检查实现.md",
-        "wiki/C已保存报价检查桌面切片.md"
+        "wiki/C已保存报价检查桌面切片.md",
+        "wiki/C客户回复草稿桌面切片.md"
       ]
     },
     {
       "path": "apps/desktop/src/renderer/src/features/quotes.tsx",
       "type": "tsx",
-      "lines": 712,
-      "bytes": 25501,
-      "sha256": "3ea86fe555610093bc5edee254a2821dac79d21fdcec1960ca3a884e6046c5b1",
+      "lines": 714,
+      "bytes": 25626,
+      "sha256": "aab3c89871c5eb115d1ee5474e18d8a66f6f46a4d078978d984e8d8eaacabf29",
       "role": "Scenario form, confirmed CSV import and persisted quote V1 UI",
       "pages": [
         "wiki/M2真实报价V1.md",
-        "wiki/B规则检查实现.md"
+        "wiki/B规则检查实现.md",
+        "wiki/C客户回复草稿桌面切片.md"
       ]
     },
     {
@@ -653,6 +700,28 @@
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md"
+      ]
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-31-customer-reply-drafts.md",
+      "type": "md",
+      "lines": 67,
+      "bytes": 5265,
+      "sha256": "2cdfacb6b5b0a71b5a7b107ae90b4a1352bcdb6033b2dd253423df7e16758f6b",
+      "role": "C本地确定性英德回复草稿、版本报告绑定及测试/设计",
+      "pages": [
+        "wiki/C客户回复草稿桌面切片.md"
+      ]
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-31-customer-reply-drafts-design.md",
+      "type": "md",
+      "lines": 25,
+      "bytes": 2908,
+      "sha256": "1846d51ebb8d5e00cc4f3bb0445ecfb34016091ced35e67cc2a80aa7e18cb261",
+      "role": "C本地确定性英德回复草稿、版本报告绑定及测试/设计",
+      "pages": [
+        "wiki/C客户回复草稿桌面切片.md"
       ]
     },
     {
@@ -2845,25 +2914,27 @@
     {
       "path": "tests/e2e/quote-agent.spec.ts",
       "type": "ts",
-      "lines": 193,
-      "bytes": 10157,
-      "sha256": "bae5f5de3af87c36b753fc65a1dc0af21c230503781c927026d6b05a07bb92ff",
+      "lines": 254,
+      "bytes": 13124,
+      "sha256": "bd13ecdc42734978953eb441fb1d0026df742a84fddf077803d96f2c4c7a0cdf",
       "role": "真实Electron加HTTP替身两轮报价验收",
       "pages": [
         "wiki/M4模型与报价修订.md",
         "wiki/M1验证与协作.md",
-        "wiki/C02c统一运行与写账本.md"
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C客户回复草稿桌面切片.md"
       ]
     },
     {
       "path": "tests/e2e/quote-checks.spec.ts",
       "type": "ts",
-      "lines": 284,
-      "bytes": 13682,
-      "sha256": "2c448bfdf6875d3215f2725058ccfc88b0cedacf09aa02d79a3b38111e69c923",
+      "lines": 294,
+      "bytes": 14536,
+      "sha256": "adf6f7538e1fa01d150fbaedeff9b791b16a00ad2513a5472b2b8ac9c8f5bcec",
       "role": "C实际Electron保存报价/人工检查/完整来源消费/双反馈/重开和原子失败验证",
       "pages": [
-        "wiki/C已保存报价检查桌面切片.md"
+        "wiki/C已保存报价检查桌面切片.md",
+        "wiki/C客户回复草稿桌面切片.md"
       ]
     },
     {

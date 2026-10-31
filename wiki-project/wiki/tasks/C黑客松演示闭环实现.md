@@ -1,0 +1,35 @@
+---
+title: C黑客松演示闭环实现
+type: task
+status: active
+updated: 2026-10-31
+sources:
+  - conversation:用户批准本地确定性英德模板及最小设计并要求开始实现
+  - wiki-repo:wiki/C客户回复草稿桌面切片.md:1
+---
+
+# C黑客松演示闭环实现
+
+## 目标
+
+C补齐可见客户回复草稿并在真实Electron验证两轮修订、规则反馈和重开。taskBase=e49bb0e；独立分支codex/c-customer-reply，沿用C独立工作目录。macOS arm64/Node22.22.0/pnpm10.13.1/Electron44.9.2。
+
+## 范围
+
+已批准英德本地模板，纯文本格式化、当前版本报告绑定、复制、规则来源提示；不实现模型翻译、正式产出保存、审批、外发或PDF。见[[C客户回复草稿桌面切片]]和[[黑客松演示封板目标与ABC分工]]。
+
+## 验收
+
+英德切换保持确定性金额及原始条款；null不变零；错版本、重复、读取失败及无报告均不显示通过。V1/V3切换、新报告更新和重开无报告串用，复制与不批准行为在真实Electron验证。
+
+## 改动
+
+新增customer-reply-format及其单元测试、customer-reply面板及组件测试；抽取既有loadQuoteChecks和queryKey供两面板复用；quotes.tsx挂载。扩展quote-agent和quote-checks Electron测试，覆盖pending/block/warning、完整固定来源和版本隔离。设计/计划保留在docs/superpowers下；正文、任务、映射、导航及日志同批更新。
+
+## 验证
+
+记录实际命令/退出码和失败尝试至raw/c-hackathon-demo-validation.json。聚焦初次红灯是formatter未实现，组件首次失败为toHaveValue不支持非对称matcher，修正成value精确断言；不得将测试语法失败归因产品。最终本机typecheck/build退出0，聚焦28/28、全量单测505/505、实际Electron11/11通过。维护回归首次25项fixture失败，规范项目状态页CRLF为LF后36/36通过；保留原失败。德语真实Electron截图已查看，模板可读，原始中文条款明确保留，消息提示未遮挡正文。所有测试使用合成数据/HTTP替身，不计现场真实DeepSeek验收。最终工程及Wiki门禁见同一raw的finalChecks。
+
+## 未完成项
+
+完整黑客松资料冻结、两条现场真实模型彩排、备用录屏、人工语言和业务确认仍待；维护入口继续关闭，B政策/A实现另线推进，不阻塞本轮演示。

@@ -18,6 +18,7 @@ import { Link } from "react-router-dom";
 import { Button } from "../shared/button";
 import { useMessage } from "../shared/message";
 import { Notification } from "../shared/notification";
+import { CustomerReply } from "./customer-reply";
 import { QuoteAgent, QuoteDifference } from "./quote-agent";
 import { QuoteChecks } from "./quote-checks";
 import { useWorkspace } from "./workspace";
@@ -190,6 +191,7 @@ function QuoteWorkspace({ client }: { client: DesktopClient }) {
               <>
                 <SavedQuote quote={saved} />
                 <QuoteChecks key={saved.id} quote={saved} client={client} />
+                <CustomerReply key={`reply-${saved.id}`} quote={saved} client={client} />
                 <QuoteDifference key={saved.id} quote={saved} quotes={board.quotes} />
               </>
             )}
@@ -704,7 +706,7 @@ function SavedQuote({ quote }: { quote: QuoteSnapshot }) {
         ))}
         <p>{quote.calculationPolicy}</p>
       </details>
-      <Button disabled title="正式审批、规则校验与导出将在后续接入">
+      <Button disabled title="正式审批与导出将在后续接入">
         提交人工审核
       </Button>
     </article>
