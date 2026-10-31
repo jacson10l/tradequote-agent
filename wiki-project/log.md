@@ -1157,3 +1157,9 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 2026-10-31 C实现英德本地回复草稿，三类规则反馈及来源报告绑定；报价金额/原文保持，未审核不外发，当前封板仍待整场真实模型彩排。见[[C客户回复草稿桌面切片]]、[[C黑客松演示闭环实现]]。
 
 C英德回复草稿最终本机：类型/构建0、聚焦28/28、全量505/505、实际Electron11/11、维护36/36通过；首次复制被权限策略拒绝及25fixture行尾失败均保留。仅受信任主frame写剪贴板，读取及其它窗口拒绝；实际正文/版本/来源与重开控制通过。整体黑客松仍active，真实模型现场与最终主演示资料待彩排。
+
+2026-10-31 C整场彩排增量（taskBase=be4e574，codex/c-hackathon-rehearsal）：从A035e5f8接收14行冻结CSV，新增显式真实/替身模式彩排与仅验收Worker数据库重定向；正式Main设置不变，不读取密钥/真实库。源码、知识/任务/状态/映射同批，初次录屏缺Playwright ffmpeg1013已安装；后续验收断言调试保留原尝试至raw/c-hackathon-rehearsal.json。人工发布、业务/语言签认、正式审批/PDF和安装验收仍待。
+
+C整场彩排实际结果：fixture与deepseek命令均退出0，各7检查点通过；真实模式deepseek-flash，V1=3921.00 CNY，V2/V3=18605.00 CNY，付款/交期双反馈校正后0问题，旧V1与重开不改写。复制断言等待Electron异步readText且仅返回布尔值。typecheck/build退出0、Electron11/11退出0；初次check与wiki:test35/36失败为新冻结清单缺入链，已补链接并复跑。备用MP4及冻结演示库本机保留，raw/c-hackathon-rehearsal.json记录实际尝试与最终门禁。
+
+C最终稳定性：真实DeepSeek五轮连续通过，每轮7检查点/3次业务操作，各用全新隔离业务库；无自动重试，合计15次操作，token/费用未知。fixture一轮通过；冻结演示库启动回读3版本/V3=18605.00 CNY，MP4解码退出0。最终typecheck/build、Electron11/11、工程6/6、Wiki36/36、索引/lint/sync均通过；原失败记录保留。维护、审批和外发保持关闭，人工业务/语言及非作者复核仍待。

@@ -1,0 +1,745 @@
+{
+  "taskBase": "be4e5749f48f2e5abc3095f086b35883887581e3",
+  "branch": "codex/c-hackathon-rehearsal",
+  "environment": {
+    "os": "macOS-26.4-arm64-arm-64bit",
+    "node": "v22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2"
+  },
+  "rehearsals": [
+    {
+      "status": "failed",
+      "mode": "fixture",
+      "syntheticData": true,
+      "humanKnowledgePublication": false,
+      "model": null,
+      "csv": {
+        "sourceCommit": "035e5f802d9dd1ec4e73ddf0ae3754b65e8b0c37",
+        "sha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+      },
+      "startedAt": "2026-10-31T07:44:57.632Z",
+      "checks": [],
+      "failure": {
+        "name": "TimeoutError",
+        "lastPassed": null
+      },
+      "finishedAt": "2026-10-31T07:45:58.657Z",
+      "artifactDirectory": ".runtime/hackathon-fixture-4VCUmn",
+      "videoCount": 0,
+      "videoDirectory": ".runtime/hackathon-fixture-4VCUmn/video"
+    },
+    {
+      "status": "failed",
+      "mode": "fixture",
+      "syntheticData": true,
+      "humanKnowledgePublication": false,
+      "model": "synthetic HTTP adapter",
+      "csv": {
+        "sourceCommit": "035e5f802d9dd1ec4e73ddf0ae3754b65e8b0c37",
+        "sha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+      },
+      "startedAt": "2026-10-31T07:47:50.513Z",
+      "checks": [
+        {
+          "name": "fresh isolated workspace",
+          "status": "passed"
+        },
+        {
+          "name": "14 rows / 4 SKUs imported via preview and explicit publish",
+          "status": "passed",
+          "csvSha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+        },
+        {
+          "name": "V1 100 x 39.21 = 3921.00 CNY; paired rule feedback and fixed sources",
+          "status": "passed"
+        },
+        {
+          "name": "V2 500 x 37.21 = 18605.00 CNY; tier change/diff/recheck",
+          "status": "passed"
+        },
+        {
+          "name": "V3 normal case; no rule issues; V1 immutable; all versions draft",
+          "status": "passed"
+        }
+      ],
+      "failure": {
+        "name": "Error",
+        "lastPassed": "V3 normal case; no rule issues; V1 immutable; all versions draft"
+      },
+      "finishedAt": "2026-10-31T07:48:09.114Z",
+      "artifactDirectory": ".runtime/hackathon-fixture-HdgtXk",
+      "videoCount": 2,
+      "videoDirectory": ".runtime/hackathon-fixture-HdgtXk/video"
+    },
+    {
+      "status": "failed",
+      "mode": "fixture",
+      "syntheticData": true,
+      "humanKnowledgePublication": false,
+      "model": "synthetic HTTP adapter",
+      "csv": {
+        "sourceCommit": "035e5f802d9dd1ec4e73ddf0ae3754b65e8b0c37",
+        "sha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+      },
+      "startedAt": "2026-10-31T07:48:42.033Z",
+      "checks": [
+        {
+          "name": "fresh isolated workspace",
+          "status": "passed"
+        },
+        {
+          "name": "14 rows / 4 SKUs imported via preview and explicit publish",
+          "status": "passed",
+          "csvSha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+        },
+        {
+          "name": "V1 100 x 39.21 = 3921.00 CNY; paired rule feedback and fixed sources",
+          "status": "passed"
+        },
+        {
+          "name": "V2 500 x 37.21 = 18605.00 CNY; tier change/diff/recheck",
+          "status": "passed"
+        },
+        {
+          "name": "V3 normal case; no rule issues; V1 immutable; all versions draft",
+          "status": "passed"
+        }
+      ],
+      "failure": {
+        "name": "AssertionError",
+        "lastPassed": "V3 normal case; no rule issues; V1 immutable; all versions draft"
+      },
+      "finishedAt": "2026-10-31T07:48:57.633Z",
+      "artifactDirectory": ".runtime/hackathon-fixture-1wILry",
+      "videoCount": 2,
+      "videoDirectory": ".runtime/hackathon-fixture-1wILry/video"
+    },
+    {
+      "status": "failed",
+      "mode": "fixture",
+      "syntheticData": true,
+      "humanKnowledgePublication": false,
+      "model": "synthetic HTTP adapter",
+      "csv": {
+        "sourceCommit": "035e5f802d9dd1ec4e73ddf0ae3754b65e8b0c37",
+        "sha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+      },
+      "startedAt": "2026-10-31T07:49:41.236Z",
+      "checks": [
+        {
+          "name": "fresh isolated workspace",
+          "status": "passed"
+        },
+        {
+          "name": "14 rows / 4 SKUs imported via preview and explicit publish",
+          "status": "passed",
+          "csvSha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+        },
+        {
+          "name": "V1 100 x 39.21 = 3921.00 CNY; paired rule feedback and fixed sources",
+          "status": "passed"
+        },
+        {
+          "name": "V2 500 x 37.21 = 18605.00 CNY; tier change/diff/recheck",
+          "status": "passed"
+        },
+        {
+          "name": "V3 normal case; no rule issues; V1 immutable; all versions draft",
+          "status": "passed"
+        }
+      ],
+      "failure": {
+        "name": "AssertionError",
+        "lastPassed": "V3 normal case; no rule issues; V1 immutable; all versions draft"
+      },
+      "finishedAt": "2026-10-31T07:49:56.168Z",
+      "artifactDirectory": ".runtime/hackathon-fixture-3FZuhj",
+      "videoCount": 2,
+      "videoDirectory": ".runtime/hackathon-fixture-3FZuhj/video"
+    },
+    {
+      "status": "failed",
+      "mode": "fixture",
+      "syntheticData": true,
+      "humanKnowledgePublication": false,
+      "model": "synthetic HTTP adapter",
+      "csv": {
+        "sourceCommit": "035e5f802d9dd1ec4e73ddf0ae3754b65e8b0c37",
+        "sha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+      },
+      "startedAt": "2026-10-31T07:50:41.789Z",
+      "checks": [
+        {
+          "name": "fresh isolated workspace",
+          "status": "passed"
+        },
+        {
+          "name": "14 rows / 4 SKUs imported via preview and explicit publish",
+          "status": "passed",
+          "csvSha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+        },
+        {
+          "name": "V1 100 x 39.21 = 3921.00 CNY; paired rule feedback and fixed sources",
+          "status": "passed"
+        },
+        {
+          "name": "V2 500 x 37.21 = 18605.00 CNY; tier change/diff/recheck",
+          "status": "passed"
+        },
+        {
+          "name": "V3 normal case; no rule issues; V1 immutable; all versions draft",
+          "status": "passed"
+        }
+      ],
+      "failure": {
+        "name": "AssertionError",
+        "lastPassed": "V3 normal case; no rule issues; V1 immutable; all versions draft"
+      },
+      "finishedAt": "2026-10-31T07:50:57.147Z",
+      "artifactDirectory": ".runtime/hackathon-fixture-PFTIJV",
+      "videoCount": 2,
+      "videoDirectory": ".runtime/hackathon-fixture-PFTIJV/video"
+    },
+    {
+      "status": "failed",
+      "mode": "fixture",
+      "syntheticData": true,
+      "humanKnowledgePublication": false,
+      "model": "synthetic HTTP adapter",
+      "csv": {
+        "sourceCommit": "035e5f802d9dd1ec4e73ddf0ae3754b65e8b0c37",
+        "sha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+      },
+      "startedAt": "2026-10-31T07:51:42.537Z",
+      "checks": [
+        {
+          "name": "fresh isolated workspace",
+          "status": "passed"
+        },
+        {
+          "name": "14 rows / 4 SKUs imported via preview and explicit publish",
+          "status": "passed",
+          "csvSha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+        },
+        {
+          "name": "V1 100 x 39.21 = 3921.00 CNY; paired rule feedback and fixed sources",
+          "status": "passed"
+        },
+        {
+          "name": "V2 500 x 37.21 = 18605.00 CNY; tier change/diff/recheck",
+          "status": "passed"
+        },
+        {
+          "name": "V3 normal case; no rule issues; V1 immutable; all versions draft",
+          "status": "passed"
+        }
+      ],
+      "failure": {
+        "name": "Error",
+        "lastPassed": "V3 normal case; no rule issues; V1 immutable; all versions draft"
+      },
+      "finishedAt": "2026-10-31T07:51:57.465Z",
+      "artifactDirectory": ".runtime/hackathon-fixture-QRxWK6",
+      "videoCount": 2,
+      "videoDirectory": ".runtime/hackathon-fixture-QRxWK6/video"
+    },
+    {
+      "status": "failed",
+      "mode": "fixture",
+      "syntheticData": true,
+      "humanKnowledgePublication": false,
+      "model": "synthetic HTTP adapter",
+      "csv": {
+        "sourceCommit": "035e5f802d9dd1ec4e73ddf0ae3754b65e8b0c37",
+        "sha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+      },
+      "startedAt": "2026-10-31T07:54:42.050Z",
+      "checks": [
+        {
+          "name": "fresh isolated workspace",
+          "status": "passed"
+        },
+        {
+          "name": "14 rows / 4 SKUs imported via preview and explicit publish",
+          "status": "passed",
+          "csvSha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+        },
+        {
+          "name": "V1 100 x 39.21 = 3921.00 CNY; paired rule feedback and fixed sources",
+          "status": "passed"
+        },
+        {
+          "name": "V2 500 x 37.21 = 18605.00 CNY; tier change/diff/recheck",
+          "status": "passed"
+        },
+        {
+          "name": "V3 normal case; no rule issues; V1 immutable; all versions draft",
+          "status": "passed"
+        }
+      ],
+      "failure": {
+        "name": "Error",
+        "lastPassed": "V3 normal case; no rule issues; V1 immutable; all versions draft"
+      },
+      "finishedAt": "2026-10-31T07:54:58.380Z",
+      "artifactDirectory": ".runtime/hackathon-fixture-VNUZH5",
+      "videoCount": 2,
+      "videoDirectory": ".runtime/hackathon-fixture-VNUZH5/video"
+    },
+    {
+      "status": "failed",
+      "mode": "fixture",
+      "syntheticData": true,
+      "humanKnowledgePublication": false,
+      "model": "synthetic HTTP adapter",
+      "csv": {
+        "sourceCommit": "035e5f802d9dd1ec4e73ddf0ae3754b65e8b0c37",
+        "sha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+      },
+      "startedAt": "2026-10-31T07:55:42.461Z",
+      "checks": [
+        {
+          "name": "fresh isolated workspace",
+          "status": "passed"
+        },
+        {
+          "name": "14 rows / 4 SKUs imported via preview and explicit publish",
+          "status": "passed",
+          "csvSha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+        },
+        {
+          "name": "V1 100 x 39.21 = 3921.00 CNY; paired rule feedback and fixed sources",
+          "status": "passed"
+        },
+        {
+          "name": "V2 500 x 37.21 = 18605.00 CNY; tier change/diff/recheck",
+          "status": "passed"
+        },
+        {
+          "name": "V3 normal case; no rule issues; V1 immutable; all versions draft",
+          "status": "passed"
+        }
+      ],
+      "failure": {
+        "name": "Error",
+        "lastPassed": "V3 normal case; no rule issues; V1 immutable; all versions draft"
+      },
+      "finishedAt": "2026-10-31T07:55:57.228Z",
+      "artifactDirectory": ".runtime/hackathon-fixture-vfPjKW",
+      "videoCount": 2,
+      "videoDirectory": ".runtime/hackathon-fixture-vfPjKW/video"
+    },
+    {
+      "status": "passed",
+      "mode": "fixture",
+      "syntheticData": true,
+      "humanKnowledgePublication": false,
+      "model": "synthetic HTTP adapter",
+      "csv": {
+        "sourceCommit": "035e5f802d9dd1ec4e73ddf0ae3754b65e8b0c37",
+        "sha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+      },
+      "startedAt": "2026-10-31T07:56:40.056Z",
+      "checks": [
+        {
+          "name": "fresh isolated workspace",
+          "status": "passed"
+        },
+        {
+          "name": "14 rows / 4 SKUs imported via preview and explicit publish",
+          "status": "passed",
+          "csvSha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+        },
+        {
+          "name": "V1 100 x 39.21 = 3921.00 CNY; paired rule feedback and fixed sources",
+          "status": "passed"
+        },
+        {
+          "name": "V2 500 x 37.21 = 18605.00 CNY; tier change/diff/recheck",
+          "status": "passed"
+        },
+        {
+          "name": "V3 normal case; no rule issues; V1 immutable; all versions draft",
+          "status": "passed"
+        },
+        {
+          "name": "EN/DE unreviewed drafts, unchanged amounts/terms/source hash, copy and approval closed",
+          "status": "passed"
+        },
+        {
+          "name": "reopen V3 and original V1 reports/drafts; no automatic model replay",
+          "status": "passed"
+        }
+      ],
+      "finishedAt": "2026-10-31T07:57:00.027Z",
+      "artifactDirectory": ".runtime/hackathon-fixture-HWm1uC",
+      "videoCount": 3,
+      "videoDirectory": ".runtime/hackathon-fixture-HWm1uC/video"
+    },
+    {
+      "status": "passed",
+      "mode": "deepseek",
+      "syntheticData": true,
+      "humanKnowledgePublication": false,
+      "model": "deepseek-flash",
+      "csv": {
+        "sourceCommit": "035e5f802d9dd1ec4e73ddf0ae3754b65e8b0c37",
+        "sha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+      },
+      "startedAt": "2026-10-31T07:57:34.742Z",
+      "checks": [
+        {
+          "name": "fresh isolated workspace",
+          "status": "passed"
+        },
+        {
+          "name": "14 rows / 4 SKUs imported via preview and explicit publish",
+          "status": "passed",
+          "csvSha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+        },
+        {
+          "name": "V1 100 x 39.21 = 3921.00 CNY; paired rule feedback and fixed sources",
+          "status": "passed"
+        },
+        {
+          "name": "V2 500 x 37.21 = 18605.00 CNY; tier change/diff/recheck",
+          "status": "passed"
+        },
+        {
+          "name": "V3 normal case; no rule issues; V1 immutable; all versions draft",
+          "status": "passed"
+        },
+        {
+          "name": "EN/DE unreviewed drafts, unchanged amounts/terms/source hash, copy and approval closed",
+          "status": "passed"
+        },
+        {
+          "name": "reopen V3 and original V1 reports/drafts; no automatic model replay",
+          "status": "passed"
+        }
+      ],
+      "finishedAt": "2026-10-31T07:58:00.493Z",
+      "artifactDirectory": ".runtime/hackathon-deepseek-tJtFLp",
+      "videoCount": 3,
+      "videoDirectory": ".runtime/hackathon-deepseek-tJtFLp/video"
+    },
+    {
+      "status": "passed",
+      "mode": "deepseek",
+      "syntheticData": true,
+      "humanKnowledgePublication": false,
+      "model": "deepseek-flash",
+      "csv": {
+        "sourceCommit": "035e5f802d9dd1ec4e73ddf0ae3754b65e8b0c37",
+        "sha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+      },
+      "startedAt": "2026-10-31T08:09:42.479Z",
+      "checks": [
+        {
+          "name": "fresh isolated workspace",
+          "status": "passed"
+        },
+        {
+          "name": "14 rows / 4 SKUs imported via preview and explicit publish",
+          "status": "passed",
+          "csvSha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+        },
+        {
+          "name": "V1 100 x 39.21 = 3921.00 CNY; paired rule feedback and fixed sources",
+          "status": "passed"
+        },
+        {
+          "name": "V2 500 x 37.21 = 18605.00 CNY; tier change/diff/recheck",
+          "status": "passed"
+        },
+        {
+          "name": "V3 normal case; no rule issues; V1 immutable; all versions draft",
+          "status": "passed"
+        },
+        {
+          "name": "EN/DE unreviewed drafts, unchanged amounts/terms/source hash, copy and approval closed",
+          "status": "passed"
+        },
+        {
+          "name": "reopen V3 and original V1 reports/drafts; no automatic model replay",
+          "status": "passed"
+        }
+      ],
+      "finishedAt": "2026-10-31T08:10:06.970Z",
+      "artifactDirectory": ".runtime/hackathon-deepseek-10O1Gx",
+      "videoCount": 3,
+      "videoDirectory": ".runtime/hackathon-deepseek-10O1Gx/video"
+    },
+    {
+      "status": "passed",
+      "mode": "deepseek",
+      "syntheticData": true,
+      "humanKnowledgePublication": false,
+      "model": "deepseek-flash",
+      "csv": {
+        "sourceCommit": "035e5f802d9dd1ec4e73ddf0ae3754b65e8b0c37",
+        "sha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+      },
+      "startedAt": "2026-10-31T08:10:07.359Z",
+      "checks": [
+        {
+          "name": "fresh isolated workspace",
+          "status": "passed"
+        },
+        {
+          "name": "14 rows / 4 SKUs imported via preview and explicit publish",
+          "status": "passed",
+          "csvSha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+        },
+        {
+          "name": "V1 100 x 39.21 = 3921.00 CNY; paired rule feedback and fixed sources",
+          "status": "passed"
+        },
+        {
+          "name": "V2 500 x 37.21 = 18605.00 CNY; tier change/diff/recheck",
+          "status": "passed"
+        },
+        {
+          "name": "V3 normal case; no rule issues; V1 immutable; all versions draft",
+          "status": "passed"
+        },
+        {
+          "name": "EN/DE unreviewed drafts, unchanged amounts/terms/source hash, copy and approval closed",
+          "status": "passed"
+        },
+        {
+          "name": "reopen V3 and original V1 reports/drafts; no automatic model replay",
+          "status": "passed"
+        }
+      ],
+      "finishedAt": "2026-10-31T08:10:31.137Z",
+      "artifactDirectory": ".runtime/hackathon-deepseek-OmHPZW",
+      "videoCount": 3,
+      "videoDirectory": ".runtime/hackathon-deepseek-OmHPZW/video"
+    },
+    {
+      "status": "passed",
+      "mode": "deepseek",
+      "syntheticData": true,
+      "humanKnowledgePublication": false,
+      "model": "deepseek-flash",
+      "csv": {
+        "sourceCommit": "035e5f802d9dd1ec4e73ddf0ae3754b65e8b0c37",
+        "sha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+      },
+      "startedAt": "2026-10-31T08:10:31.535Z",
+      "checks": [
+        {
+          "name": "fresh isolated workspace",
+          "status": "passed"
+        },
+        {
+          "name": "14 rows / 4 SKUs imported via preview and explicit publish",
+          "status": "passed",
+          "csvSha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+        },
+        {
+          "name": "V1 100 x 39.21 = 3921.00 CNY; paired rule feedback and fixed sources",
+          "status": "passed"
+        },
+        {
+          "name": "V2 500 x 37.21 = 18605.00 CNY; tier change/diff/recheck",
+          "status": "passed"
+        },
+        {
+          "name": "V3 normal case; no rule issues; V1 immutable; all versions draft",
+          "status": "passed"
+        },
+        {
+          "name": "EN/DE unreviewed drafts, unchanged amounts/terms/source hash, copy and approval closed",
+          "status": "passed"
+        },
+        {
+          "name": "reopen V3 and original V1 reports/drafts; no automatic model replay",
+          "status": "passed"
+        }
+      ],
+      "finishedAt": "2026-10-31T08:10:54.968Z",
+      "artifactDirectory": ".runtime/hackathon-deepseek-jku5v7",
+      "videoCount": 3,
+      "videoDirectory": ".runtime/hackathon-deepseek-jku5v7/video"
+    },
+    {
+      "status": "passed",
+      "mode": "deepseek",
+      "syntheticData": true,
+      "humanKnowledgePublication": false,
+      "model": "deepseek-flash",
+      "csv": {
+        "sourceCommit": "035e5f802d9dd1ec4e73ddf0ae3754b65e8b0c37",
+        "sha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+      },
+      "startedAt": "2026-10-31T08:10:55.346Z",
+      "checks": [
+        {
+          "name": "fresh isolated workspace",
+          "status": "passed"
+        },
+        {
+          "name": "14 rows / 4 SKUs imported via preview and explicit publish",
+          "status": "passed",
+          "csvSha256": "7c13afc110c1cd7a6e31eb0ef94f6c0acd08b164b2a9669e9aee11bc9f4bf89b"
+        },
+        {
+          "name": "V1 100 x 39.21 = 3921.00 CNY; paired rule feedback and fixed sources",
+          "status": "passed"
+        },
+        {
+          "name": "V2 500 x 37.21 = 18605.00 CNY; tier change/diff/recheck",
+          "status": "passed"
+        },
+        {
+          "name": "V3 normal case; no rule issues; V1 immutable; all versions draft",
+          "status": "passed"
+        },
+        {
+          "name": "EN/DE unreviewed drafts, unchanged amounts/terms/source hash, copy and approval closed",
+          "status": "passed"
+        },
+        {
+          "name": "reopen V3 and original V1 reports/drafts; no automatic model replay",
+          "status": "passed"
+        }
+      ],
+      "finishedAt": "2026-10-31T08:11:19.233Z",
+      "artifactDirectory": ".runtime/hackathon-deepseek-swpSBM",
+      "videoCount": 3,
+      "videoDirectory": ".runtime/hackathon-deepseek-swpSBM/video"
+    }
+  ],
+  "attemptNotes": [
+    "Initial video startup lacked Playwright ffmpeg1013; ffmpeg1011 existed. pnpm exec playwright install ffmpeg exit0 corrected local prerequisite.",
+    "Fixture rehearsal initial English-label assertion used uppercase UNREVIEWED instead of actual Unreviewed draft; harness corrected, no product change.",
+    "Clipboard exact equality initially compared an asynchronous Electron read Promise with text. Diagnostic startsWith likewise rejected non-string; harness now awaits read and exports a boolean only. No clipboard contents serialized.",
+    "Initial pnpm check exit1 / wiki:test35of36 due new C-FROZEN-MANIFEST missing inbound link. Added a relevant semantic link; final rerun recorded separately.",
+    "Initial evidence exported automatic Playwright video filenames; privacy lint interpreted the at-sign as PERSONAL_EMAIL. Replaced those names with actual video count/directory, retaining merged MP4 hashes. No real address involved."
+  ],
+  "checks": [
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm build",
+      "exitCode": 0,
+      "note": "Existing Vite chunk-size warning; no installer validation."
+    },
+    {
+      "command": "pnpm exec playwright test",
+      "exitCode": 0,
+      "passed": 11,
+      "durationSeconds": 46.2
+    },
+    {
+      "command": "node --check scripts/rehearse-hackathon.mjs && node --check tests/fixtures/rehearsal-host.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "frozen demo host via Playwright and public trade.get",
+      "exitCode": 0,
+      "note": "3 saved versions; V3 goodsTotal18605.00 CNY; no model action requested."
+    }
+  ],
+  "limitations": [
+    "Synthetic CSV / synthetic published rule projections; no actual supplier or platform truth asserted.",
+    "Actual model business operations use saved settings via production Main; no credential reads or real database queries by rehearsal script.",
+    "Five real-model rehearsals passed; human semantic signoff and non-author review remain pending.",
+    "Formal approval, external sending, PDF, installation and Windows unverified."
+  ],
+  "finalChecks": [
+    {
+      "command": "pnpm check",
+      "exitCode": 1,
+      "stdout": "\n> tradequote-agent@0.1.0 check /Users/jason/.codex/worktrees/c-a24-maintenance-reverify/tradequote-agent\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 189 files in 86ms. No fixes applied.\nTAP version 13\n# Subtest: renderer cannot reach Node, database or desktop internals through import forms\nok 1 - renderer cannot reach Node, database or desktop internals through import forms\n  ---\n  duration_ms: 7.53275\n  type: 'test'\n  ...\n# Subtest: pure modules use public contracts while other platform dependencies are rejected\nok 2 - pure modules use public contracts while other platform dependencies are rejected\n  ---\n  duration_ms: 1.778959\n  type: 'test'\n  ...\n# Subtest: domain permits exact pure decimal dependency without opening contracts or SDK imports\nok 3 - domain permits exact pure decimal dependency without opening contracts or SDK imports\n  ---\n  duration_ms: 0.431791\n  type: 'test'\n  ...\n# Subtest: committed icon resources match their source manifest\nok 4 - committed icon resources match their source manifest\n  ---\n  duration_ms: 1.92075\n  type: 'test'\n  ...\n# Subtest: editing either SVG or packaged icon without generation blocks the build\nok 5 - editing either SVG or packaged icon without generation blocks the build\n  ---\n  duration_ms: 5.893875\n  type: 'test'\n  ...\n# Subtest: macOS native process and runtime display TradeQuote while upstream Electron stays intact\nok 6 - macOS native process and runtime display TradeQuote while upstream Electron stays intact\n  ---\n  duration_ms: 512.141375\n  type: 'test'\n  ...\n1..6\n# tests 6\n# suites 0\n# pass 6\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 566.714459\nModule boundaries passed\n\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-a24-maintenance-reverify/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 263,\n  \"lines\": 71889,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n ELIFECYCLE  Command failed with exit code 1.\n ELIFECYCLE  Command failed with exit code 1.\n",
+      "stderr": "wiki-project/raw/c-hackathon-rehearsal.json: PERSONAL_EMAIL\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be4e574",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"be4e5749f48f2e5abc3095f086b35883887581e3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 3,\n  \"knowledgePages\": 5,\n  \"tasks\": 1,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "pnpm wiki:test",
+      "exitCode": 1,
+      "stdout": "\n> tradequote-agent@0.1.0 wiki:test /Users/jason/.codex/worktrees/c-a24-maintenance-reverify/tradequote-agent\n> node --test wiki-project/scripts/wiki-tools.test.mjs wiki-project/scripts/wiki-sync.test.mjs\n\nTAP version 13\n# Subtest: runtime version pin is a mandatory Wiki-synchronized configuration change\nok 1 - runtime version pin is a mandatory Wiki-synchronized configuration change\n  ---\n  duration_ms: 1.469125\n  type: 'test'\n  ...\n# Subtest: code with related knowledge, task and appended log passes\nok 2 - code with related knowledge, task and appended log passes\n  ---\n  duration_ms: 0.32525\n  type: 'test'\n  ...\n# Subtest: generated snapshots alone cannot satisfy knowledge/task/log changes\nok 3 - generated snapshots alone cannot satisfy knowledge/task/log changes\n  ---\n  duration_ms: 0.095542\n  type: 'test'\n  ...\n# Subtest: metadata-only or whitespace-only edits cannot satisfy semantic update\nok 4 - metadata-only or whitespace-only edits cannot satisfy semantic update\n  ---\n  duration_ms: 0.115042\n  type: 'test'\n  ...\n# Subtest: each source needs its own mapped knowledge, unrelated pages do not suffice\nok 5 - each source needs its own mapped knowledge, unrelated pages do not suffice\n  ---\n  duration_ms: 0.188625\n  type: 'test'\n  ...\n# Subtest: deleted source uses baseline mapping; unknown source fails\nok 6 - deleted source uses baseline mapping; unknown source fails\n  ---\n  duration_ms: 0.205167\n  type: 'test'\n  ...\n# Subtest: history rewrite and removed task do not pass\nok 7 - history rewrite and removed task do not pass\n  ---\n  duration_ms: 0.091708\n  type: 'test'\n  ...\n# Subtest: Wiki maintenance code requires workflow knowledge, not generated data\nok 8 - Wiki maintenance code requires workflow knowledge, not generated data\n  ---\n  duration_ms: 0.680834\n  type: 'test'\n  ...\n# Subtest: ordinary documentation-only edits do not trigger code delivery check\nok 9 - ordinary documentation-only edits do not trigger code delivery check\n  ---\n  duration_ms: 0.334208\n  type: 'test'\n  ...\n# Subtest: real Git baseline includes committed, unstaged and untracked sources\nok 10 - real Git baseline includes committed, unstaged and untracked sources\n  ---\n  duration_ms: 204.863125\n  type: 'test'\n  ...\n# Subtest: SVG assets require semantic Wiki, task and append-only log changes\nok 11 - SVG assets require semantic Wiki, task and append-only log changes\n  ---\n  duration_ms: 0.128625\n  type: 'test'\n  ...\n# Subtest: same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\nnot ok 12 - same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\n  ---\n  duration_ms: 1953.516333\n  type: 'test'\n  location: '/Users/jason/.codex/worktrees/c-a24-maintenance-reverify/tradequote-agent/wiki-project/scripts/wiki-tools.test.mjs:52:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    wiki-project/raw/c-hackathon-rehearsal.json: PERSONAL_EMAIL\n    \n    \n    1 !== 0\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected: 0\n  actual: 1\n  operator: 'strictEqual'\n  stack: |-\n    TestContext.<anonymous> (file:///Users/jason/.codex/worktrees/c-a24-maintenance-reverify/tradequote-agent/wiki-project/scripts/wiki-tools.test.mjs:61:10)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.start (node:internal/test_runner/test:944:17)\n    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)\n  ...\n# Subtest: source drift fails without writes; generation repairs snapshot while preserving ingest baseline\nok 13 - source drift fails without writes; generation repairs snapshot while preserving ingest baseline\n  ---\n  duration_ms: 938.701084\n  type: 'test'\n  ...\n# Subtest: explicit ingest records a non-Git project honestly\nok 14 - explicit ingest records a non-Git project honestly\n  ---\n  duration_ms: 698.156125\n  type: 'test'\n  ...\n# Subtest: tool inventory names come from definitions, not nested headers/output/schema fields\nok 15 - tool inventory names come from definitions, not nested headers/output/schema fields\n  ---\n  duration_ms: 444.659709\n  type: 'test'\n  ...\n# Subtest: new unclassified source fails; missing knowledge target and stale mapping fail\nok 16 - new unclassified source fails; missing knowledge target and stale mapping fail\n  ---\n  duration_ms: 584.856209\n  type: 'test'\n  ...\n# Subtest: generated coverage tampering is detected by lint and remains untouched\nok 17 - generated coverage tampering is detected by lint and remains untouched\n  ---\n  duration_ms: 1354.248625\n  type: 'test'\n  ...\n# Subtest: sensitive filename is excluded before read; external source symlink is not followed\nok 18 - sensitive filename is excluded before read; external source symlink is not followed\n  ---\n  duration_ms: 475.403542\n  type: 'test'\n  ...\n# Subtest: Wiki and generated-output symlinks cannot write outside project\nok 19 - Wiki and generated-output symlinks cannot write outside project\n  ---\n  duration_ms: 473.839542\n  type: 'test'\n  ...\n# Subtest: missing schema field\nok 20 - missing schema field\n  ---\n  duration_ms: 1266.62075\n  type: 'test'\n  ...\n# Subtest: bad type\nok 21 - bad type\n  ---\n  duration_ms: 1290.589375\n  type: 'test'\n  ...\n# Subtest: bad date\nok 22 - bad date\n  ---\n  duration_ms: 1285.300625\n  type: 'test'\n  ...\n# Subtest: bad status\nok 23 - bad status\n  ---\n  duration_ms: 1302.048625\n  type: 'test'\n  ...\n# Subtest: missing wiki target\nok 24 - missing wiki target\n  ---\n  duration_ms: 1486.976875\n  type: 'test'\n  ...\n# Subtest: missing markdown target\nok 25 - missing markdown target\n  ---\n  duration_ms: 1338.5715\n  type: 'test'\n  ...\n# Subtest: invalid source line\nok 26 - invalid source line\n  ---\n  duration_ms: 1261.41025\n  type: 'test'\n  ...\n# Subtest: verified without code evidence\nok 27 - verified without code evidence\n  ---\n  duration_ms: 1259.294709\n  type: 'test'\n  ...\n# Subtest: source escaping project\nok 28 - source escaping project\n  ---\n  duration_ms: 1295.020375\n  type: 'test'\n  ...\n# Subtest: unfilled placeholder\nok 29 - unfilled placeholder\n  ---\n  duration_ms: 1275.309292\n  type: 'test'\n  ...\n# Subtest: all sources are validated even after a valid implementation source\nok 30 - all sources are validated even after a valid implementation source\n  ---\n  duration_ms: 1267.165334\n  type: 'test'\n  ...\n# Subtest: orphan pages and duplicate basenames are rejected\nok 31 - orphan pages and duplicate basenames are rejected\n  ---\n  duration_ms: 2328.849417\n  type: 'test'\n  ...\n# Subtest: completed task requires actual verification record\nok 32 - completed task requires actual verification record\n  ---\n  duration_ms: 1284.965917\n  type: 'test'\n  ...\n# Subtest: archived source cannot bypass inspection through silent changes\nok 33 - archived source cannot bypass inspection through silent changes\n  ---\n  duration_ms: 1269.324833\n  type: 'test'\n  ...\n# Subtest: source references cannot open excluded runtime data\nok 34 - source references cannot open excluded runtime data\n  ---\n  duration_ms: 1261.928\n  type: 'test'\n  ...\n# Subtest: new JSON evidence is checked and sensitive Wiki filenames are rejected before read\nok 35 - new JSON evidence is checked and sensitive Wiki filenames are rejected before read\n  ---\n  duration_ms: 1472.189375\n  type: 'test'\n  ...\n# Subtest: secret/JWT/private-key/PII detections redact the value in diagnostics\nok 36 - secret/JWT/private-key/PII detections redact the value in diagnostics\n  ---\n  duration_ms: 4556.789875\n  type: 'test'\n  ...\n1..36\n# tests 36\n# suites 0\n# pass 35\n# fail 1\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 33493.361\n ELIFECYCLE  Command failed with exit code 1.\n",
+      "stderr": ""
+    },
+    {
+      "command": "pnpm check",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 check /Users/jason/.codex/worktrees/c-a24-maintenance-reverify/tradequote-agent\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 189 files in 68ms. No fixes applied.\nTAP version 13\n# Subtest: renderer cannot reach Node, database or desktop internals through import forms\nok 1 - renderer cannot reach Node, database or desktop internals through import forms\n  ---\n  duration_ms: 7.965958\n  type: 'test'\n  ...\n# Subtest: pure modules use public contracts while other platform dependencies are rejected\nok 2 - pure modules use public contracts while other platform dependencies are rejected\n  ---\n  duration_ms: 1.863042\n  type: 'test'\n  ...\n# Subtest: domain permits exact pure decimal dependency without opening contracts or SDK imports\nok 3 - domain permits exact pure decimal dependency without opening contracts or SDK imports\n  ---\n  duration_ms: 0.426291\n  type: 'test'\n  ...\n# Subtest: committed icon resources match their source manifest\nok 4 - committed icon resources match their source manifest\n  ---\n  duration_ms: 1.498084\n  type: 'test'\n  ...\n# Subtest: editing either SVG or packaged icon without generation blocks the build\nok 5 - editing either SVG or packaged icon without generation blocks the build\n  ---\n  duration_ms: 5.623417\n  type: 'test'\n  ...\n# Subtest: macOS native process and runtime display TradeQuote while upstream Electron stays intact\nok 6 - macOS native process and runtime display TradeQuote while upstream Electron stays intact\n  ---\n  duration_ms: 519.980584\n  type: 'test'\n  ...\n1..6\n# tests 6\n# suites 0\n# pass 6\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 574.705875\nModule boundaries passed\n\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-a24-maintenance-reverify/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 263,\n  \"lines\": 71889,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 259,\n  \"semantic\": 230,\n  \"reachable\": 259\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be4e574",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"be4e5749f48f2e5abc3095f086b35883887581e3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 3,\n  \"knowledgePages\": 5,\n  \"tasks\": 1,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "pnpm wiki:test",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 wiki:test /Users/jason/.codex/worktrees/c-a24-maintenance-reverify/tradequote-agent\n> node --test wiki-project/scripts/wiki-tools.test.mjs wiki-project/scripts/wiki-sync.test.mjs\n\nTAP version 13\n# Subtest: runtime version pin is a mandatory Wiki-synchronized configuration change\nok 1 - runtime version pin is a mandatory Wiki-synchronized configuration change\n  ---\n  duration_ms: 1.48\n  type: 'test'\n  ...\n# Subtest: code with related knowledge, task and appended log passes\nok 2 - code with related knowledge, task and appended log passes\n  ---\n  duration_ms: 0.328834\n  type: 'test'\n  ...\n# Subtest: generated snapshots alone cannot satisfy knowledge/task/log changes\nok 3 - generated snapshots alone cannot satisfy knowledge/task/log changes\n  ---\n  duration_ms: 0.096125\n  type: 'test'\n  ...\n# Subtest: metadata-only or whitespace-only edits cannot satisfy semantic update\nok 4 - metadata-only or whitespace-only edits cannot satisfy semantic update\n  ---\n  duration_ms: 0.118375\n  type: 'test'\n  ...\n# Subtest: each source needs its own mapped knowledge, unrelated pages do not suffice\nok 5 - each source needs its own mapped knowledge, unrelated pages do not suffice\n  ---\n  duration_ms: 0.187292\n  type: 'test'\n  ...\n# Subtest: deleted source uses baseline mapping; unknown source fails\nok 6 - deleted source uses baseline mapping; unknown source fails\n  ---\n  duration_ms: 0.206542\n  type: 'test'\n  ...\n# Subtest: history rewrite and removed task do not pass\nok 7 - history rewrite and removed task do not pass\n  ---\n  duration_ms: 0.677542\n  type: 'test'\n  ...\n# Subtest: Wiki maintenance code requires workflow knowledge, not generated data\nok 8 - Wiki maintenance code requires workflow knowledge, not generated data\n  ---\n  duration_ms: 0.144834\n  type: 'test'\n  ...\n# Subtest: ordinary documentation-only edits do not trigger code delivery check\nok 9 - ordinary documentation-only edits do not trigger code delivery check\n  ---\n  duration_ms: 0.356708\n  type: 'test'\n  ...\n# Subtest: real Git baseline includes committed, unstaged and untracked sources\nok 10 - real Git baseline includes committed, unstaged and untracked sources\n  ---\n  duration_ms: 192.983208\n  type: 'test'\n  ...\n# Subtest: SVG assets require semantic Wiki, task and append-only log changes\nok 11 - SVG assets require semantic Wiki, task and append-only log changes\n  ---\n  duration_ms: 0.130583\n  type: 'test'\n  ...\n# Subtest: same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\nok 12 - same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\n  ---\n  duration_ms: 2300.233167\n  type: 'test'\n  ...\n# Subtest: source drift fails without writes; generation repairs snapshot while preserving ingest baseline\nok 13 - source drift fails without writes; generation repairs snapshot while preserving ingest baseline\n  ---\n  duration_ms: 924.198\n  type: 'test'\n  ...\n# Subtest: explicit ingest records a non-Git project honestly\nok 14 - explicit ingest records a non-Git project honestly\n  ---\n  duration_ms: 672.176125\n  type: 'test'\n  ...\n# Subtest: tool inventory names come from definitions, not nested headers/output/schema fields\nok 15 - tool inventory names come from definitions, not nested headers/output/schema fields\n  ---\n  duration_ms: 425.289083\n  type: 'test'\n  ...\n# Subtest: new unclassified source fails; missing knowledge target and stale mapping fail\nok 16 - new unclassified source fails; missing knowledge target and stale mapping fail\n  ---\n  duration_ms: 584.080334\n  type: 'test'\n  ...\n# Subtest: generated coverage tampering is detected by lint and remains untouched\nok 17 - generated coverage tampering is detected by lint and remains untouched\n  ---\n  duration_ms: 1344.951583\n  type: 'test'\n  ...\n# Subtest: sensitive filename is excluded before read; external source symlink is not followed\nok 18 - sensitive filename is excluded before read; external source symlink is not followed\n  ---\n  duration_ms: 425.52825\n  type: 'test'\n  ...\n# Subtest: Wiki and generated-output symlinks cannot write outside project\nok 19 - Wiki and generated-output symlinks cannot write outside project\n  ---\n  duration_ms: 469.369083\n  type: 'test'\n  ...\n# Subtest: missing schema field\nok 20 - missing schema field\n  ---\n  duration_ms: 1265.988917\n  type: 'test'\n  ...\n# Subtest: bad type\nok 21 - bad type\n  ---\n  duration_ms: 1284.9095\n  type: 'test'\n  ...\n# Subtest: bad date\nok 22 - bad date\n  ---\n  duration_ms: 1283.295542\n  type: 'test'\n  ...\n# Subtest: bad status\nok 23 - bad status\n  ---\n  duration_ms: 1278.058\n  type: 'test'\n  ...\n# Subtest: missing wiki target\nok 24 - missing wiki target\n  ---\n  duration_ms: 1268.142542\n  type: 'test'\n  ...\n# Subtest: missing markdown target\nok 25 - missing markdown target\n  ---\n  duration_ms: 1274.519125\n  type: 'test'\n  ...\n# Subtest: invalid source line\nok 26 - invalid source line\n  ---\n  duration_ms: 1296.280208\n  type: 'test'\n  ...\n# Subtest: verified without code evidence\nok 27 - verified without code evidence\n  ---\n  duration_ms: 1268.062958\n  type: 'test'\n  ...\n# Subtest: source escaping project\nok 28 - source escaping project\n  ---\n  duration_ms: 1383.6575\n  type: 'test'\n  ...\n# Subtest: unfilled placeholder\nok 29 - unfilled placeholder\n  ---\n  duration_ms: 1303.383292\n  type: 'test'\n  ...\n# Subtest: all sources are validated even after a valid implementation source\nok 30 - all sources are validated even after a valid implementation source\n  ---\n  duration_ms: 1272.21075\n  type: 'test'\n  ...\n# Subtest: orphan pages and duplicate basenames are rejected\nok 31 - orphan pages and duplicate basenames are rejected\n  ---\n  duration_ms: 2322.347333\n  type: 'test'\n  ...\n# Subtest: completed task requires actual verification record\nok 32 - completed task requires actual verification record\n  ---\n  duration_ms: 1241.506875\n  type: 'test'\n  ...\n# Subtest: archived source cannot bypass inspection through silent changes\nok 33 - archived source cannot bypass inspection through silent changes\n  ---\n  duration_ms: 1303.476584\n  type: 'test'\n  ...\n# Subtest: source references cannot open excluded runtime data\nok 34 - source references cannot open excluded runtime data\n  ---\n  duration_ms: 1288.532917\n  type: 'test'\n  ...\n# Subtest: new JSON evidence is checked and sensitive Wiki filenames are rejected before read\nok 35 - new JSON evidence is checked and sensitive Wiki filenames are rejected before read\n  ---\n  duration_ms: 1459.091959\n  type: 'test'\n  ...\n# Subtest: secret/JWT/private-key/PII detections redact the value in diagnostics\nok 36 - secret/JWT/private-key/PII detections redact the value in diagnostics\n  ---\n  duration_ms: 4386.500375\n  type: 'test'\n  ...\n1..36\n# tests 36\n# suites 0\n# pass 36\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 33393.590625\n",
+      "stderr": ""
+    }
+  ],
+  "backupVideos": [
+    {
+      "mode": "fixture",
+      "file": ".runtime/hackathon-fixture-HWm1uC/fixture-rehearsal.mp4",
+      "sha256": "29fd9bbcf2d78f4dd873cf582af63b4295e7ad26d4181b47e57b48f5a7daeb16",
+      "decodeExitCode": 0,
+      "probe": {
+        "programs": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "width": 1380,
+            "height": 900
+          }
+        ],
+        "format": {
+          "duration": "16.400000",
+          "size": "1399488"
+        }
+      }
+    },
+    {
+      "mode": "deepseek",
+      "file": ".runtime/hackathon-deepseek-tJtFLp/deepseek-rehearsal.mp4",
+      "sha256": "1a582974a38bfffa3b06c1b8b4752fbd5e28b6fa6278089420fda592252dc0bd",
+      "decodeExitCode": 0,
+      "probe": {
+        "programs": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "width": 1380,
+            "height": 900
+          }
+        ],
+        "format": {
+          "duration": "21.800000",
+          "size": "1238800"
+        }
+      }
+    }
+  ],
+  "stability": {
+    "mode": "deepseek",
+    "completedRounds": 5,
+    "passedRounds": 5,
+    "businessOperations": 15,
+    "separateIsolatedWorkspaces": true,
+    "automaticRetry": false,
+    "tokenUsage": null,
+    "cost": null
+  }
+}

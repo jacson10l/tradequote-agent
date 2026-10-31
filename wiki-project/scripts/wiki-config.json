@@ -1889,6 +1889,18 @@
       "pages": [
         "wiki/C客户回复草稿桌面切片.md"
       ]
+    },
+    "scripts/rehearse-hackathon.mjs": {
+      "role": "C黑客松真实/替身Electron彩排、冻结样本、视频和公开业务校验",
+      "pages": [
+        "wiki/C黑客松整场彩排与恢复.md"
+      ]
+    },
+    "tests/fixtures/rehearsal-host.cjs": {
+      "role": "仅验收宿主：保留正式凭据入口，隔离Business Worker业务库",
+      "pages": [
+        "wiki/C黑客松整场彩排与恢复.md"
+      ]
     }
   }
 }

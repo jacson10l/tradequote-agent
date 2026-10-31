@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "4250e88e481f55cac5e877b5a01729be7d8cee6498f7fe80a2300d8593792f71",
+    "wiki-config.json": "1d8b3cfd6c560b83d347153684ba7623d99492d4daec6035e143d7e7b66a116c",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -2854,6 +2854,17 @@
       ]
     },
     {
+      "path": "scripts/rehearse-hackathon.mjs",
+      "type": "mjs",
+      "lines": 365,
+      "bytes": 16148,
+      "sha256": "23b042869d658b22c6368077a9ccd6c86e7aae01b80b40471541d3e3b0c6f7ad",
+      "role": "C黑客松真实/替身Electron彩排、冻结样本、视频和公开业务校验",
+      "pages": [
+        "wiki/C黑客松整场彩排与恢复.md"
+      ]
+    },
+    {
       "path": "scripts/test-unit.mjs",
       "type": "mjs",
       "lines": 11,
@@ -3108,6 +3119,17 @@
       "role": "仅测试离线合成已发布知识投影、故障注入和只读业务数据库检查",
       "pages": [
         "wiki/C已保存报价检查桌面切片.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/rehearsal-host.cjs",
+      "type": "cjs",
+      "lines": 31,
+      "bytes": 1248,
+      "sha256": "a804b203bdda3898356be5b099fb803ce9d3b714930e2ecce3387e7ab150b0be",
+      "role": "仅验收宿主：保留正式凭据入口，隔离Business Worker业务库",
+      "pages": [
+        "wiki/C黑客松整场彩排与恢复.md"
       ]
     },
     {
