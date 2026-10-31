@@ -8,19 +8,19 @@
   --color-primary: var(--action);
   --color-primary-foreground: #fff;
   --color-action-hover: #ad3004;
-  --color-border: #e5e5e5;
+  --color-border: #e8e5df;
   --color-input: #8a8a8a;
   --color-disabled: #ededed;
 }
 :root {
-  --canvas: #fffaeb;
+  --canvas: #f2efe9;
   --surface: #fff;
-  --surface-muted: #fafafa;
-  --surface-warm: #fff8e0;
+  --surface-muted: #f5f3ef;
+  --surface-warm: #fff4e0;
   --text: #1f1f1f;
   --text-muted: #6a6a6a;
   --text-secondary: #4a4a4a;
-  --border: #e5e5e5;
+  --border: #e8e5df;
   --danger: #b42318;
   --success: #216e39;
   --action: #cc3a05;
@@ -57,6 +57,8 @@ input,
 select,
 textarea {
   -webkit-app-region: no-drag;
+  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease,
+    box-shadow 120ms ease;
 }
 button,
 a {
@@ -104,7 +106,7 @@ textarea {
   color: var(--text);
 }
 textarea:disabled {
-  background: #fafafa;
+  background: #f5f3ef;
   resize: none;
 }
 .app-shell {
@@ -117,7 +119,7 @@ textarea:disabled {
 }
 .sidebar {
   background: white;
-  border-right: 1px solid #e5e5e5;
+  border-right: 1px solid #e8e5df;
   display: flex;
   flex-direction: column;
   padding: 24px 16px;
@@ -155,7 +157,7 @@ textarea:disabled {
   flex-shrink: 1;
   font-size: 12px;
   color: #4a4a4a;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e8e5df;
   overflow: hidden;
 }
 .workspace-label span {
@@ -178,7 +180,7 @@ nav a {
   text-decoration: none;
 }
 nav a:hover {
-  background: #f5f5f5;
+  background: #f5f3ef;
 }
 nav a.active {
   background: #fff0c2;
@@ -224,11 +226,22 @@ main > * {
 .status-badge {
   white-space: nowrap;
   font-size: 12px;
-  padding: 4px 8px;
-  border: 1px solid #e5e5e5;
-  border-radius: 5px;
+  padding: 4px 10px;
+  border: 1px solid #e8e5df;
+  border-radius: 999px;
   background: white;
   color: #6a6a6a;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.status-badge::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #b4b2a9;
+  flex: none;
 }
 .workbench-grid {
   display: grid;
@@ -238,9 +251,10 @@ main > * {
 }
 .panel {
   background: white;
-  border: 1px solid #e5e5e5;
+  border: 1px solid #e8e5df;
   border-radius: 12px;
   padding: 24px;
+  box-shadow: 0 1px 3px rgba(31, 31, 31, 0.05);
 }
 .document {
   display: flex;
@@ -254,7 +268,7 @@ main > * {
   gap: 12px;
   align-items: center;
   padding-bottom: 16px;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e8e5df;
 }
 .empty-state {
   margin: auto;
@@ -271,7 +285,7 @@ main > * {
   height: 66px;
   display: grid;
   place-items: center;
-  background: #fff8e0;
+  background: #fff4e0;
   color: #cc3a05;
   margin: 0 auto 20px;
   border-radius: 16px;
@@ -281,7 +295,7 @@ main > * {
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid #e8e5df;
   padding-top: 16px;
   margin-top: auto;
   font-size: 12px;
@@ -290,7 +304,7 @@ main > * {
 .agent-panel {
   background: var(--surface-warm);
   padding: 20px;
-  border: 1px solid #e5e5e5;
+  border: 1px solid #e8e5df;
   border-radius: 12px;
   display: flex;
   flex-direction: column;
@@ -312,7 +326,7 @@ main > * {
 }
 .sample-note {
   color: #8a4b08;
-  background: #fff8e0;
+  background: #fff4e0;
   font-size: 12px;
   padding: 10px;
   margin-top: 16px;
@@ -325,21 +339,21 @@ table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  border: 1px solid #e5e5e5;
+  border: 1px solid #e8e5df;
   border-radius: 8px;
   overflow: hidden;
   font-size: 13px;
   min-width: 430px;
 }
 th {
-  background: #fafafa;
+  background: #f5f3ef;
   font-weight: 500;
   text-align: left;
 }
 th,
 td {
   padding: 12px 8px;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e8e5df;
 }
 .numeric {
   text-align: right;
@@ -351,12 +365,14 @@ td {
   margin-top: 24px;
   text-align: right;
   font-size: 12px;
+  font-variant-numeric: tabular-nums;
 }
 .basis strong {
   font-size: 16px;
+  font-variant-numeric: tabular-nums;
 }
 .inset {
-  border: 1px solid #e5e5e5;
+  border: 1px solid #e8e5df;
   border-radius: 8px;
   padding: 12px;
   font-size: 12px;
