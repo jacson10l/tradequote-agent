@@ -1231,3 +1231,7 @@ C05提交前新鲜复验535单元/3显式live跳过、12Electron、36维护及ty
 2026-10-31 C05配色续改：用户决定恢复白色任务对话和输入区，用户消息采用当前暖色，橙框常驻，其他不变。独立codex/c-codex-harness，真实基线f21f4034b49b4c2a1a7067a2c30e34e3db7c297a；验证/交付续记[[C05d-输入区常驻边框与背景]]，原证据与A/B未完项保留，不合入集成。
 
 2026-10-31白底与暖色用户气泡已在实际Electron重载、聚焦/失焦验证；build/typecheck/check/generate及固定f21f403同步/diff-check全部0，check含6工程与273 Markdown全部可达。证据raw/c05e-white-chat-validation.json，原证据/历史log保留，无新增源码映射或维护算法变化；随同Wiki推送C独立分支。
+
+2026-10-31下一轮[[C06下一轮ABC任务书]]与A06/B06/C06任务已建立；独立codex/c06-abc-readiness，taskBase=1d140ed2003ccee7a45c23b25417b174753e3d2f。A5c69b70已只读核对80行/两个SKU/说明hash，原件缺失和真实性待审核不收口；B显式条款/契约复核仍待。C先审计、冻结契约包、适配旧验收脚本并执行本机准备回归，后续隔离组合等待A/B固定材料；不合入集成、不发送消息、不代签。
+
+2026-10-31 C06独立准备验证：535单元/12Electron fixture、typecheck/build/check及固定1d140ed Wiki sync通过，277 Markdown/248语义全部可达。真实专项显式关闭后1 skipped，未收费重跑；独立计划复核Approved。A来源hash/12契约hash与历史前缀已核对，证据raw/c06-preparation-validation.json；组合和A/B未完项仍active。沿用既有C独立共享授权提交/普通推送codex/c06-abc-readiness，不合入集成、不代签。

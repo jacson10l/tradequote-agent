@@ -73,18 +73,23 @@ test("real Codex completes a business goal from the Electron workbench, revises 
       runs.data.runs.every((run) => run.toolSteps?.some((step) => step.tool === "calculate_quote")),
     ).toBe(true);
     await page.screenshot({ path: ".runtime/codex-workbench-real.png", fullPage: true });
+    const beforeRead = await page.evaluate(() => window.tradequote.getTrade());
+    expect(beforeRead.ok).toBe(true);
     await page.getByLabel("仅查询与试算，不保存报价").check();
-    await page
-      .getByLabel("业务目标或补充说明")
-      .fill("查询DEMO-TEE价格来源，只查询，不保存任何报价。使用业务工具查商品后总结。");
+    const readInstruction =
+      "查询DEMO-TEE价格来源并试算120 piece，只查询，不保存任何报价。使用业务工具查商品并核价后总结。";
+    await page.getByLabel("业务目标或补充说明").fill(readInstruction);
     await page.getByRole("button", { name: "发送" }).click();
-    await expect(page.getByRole("region", { name: "任务记录" })).toContainText("未保存新版本", {
+    const readTurn = page.locator(".conversation-turn").filter({ hasText: readInstruction });
+    await expect(readTurn.getByRole("article", { name: "助手回复" })).toContainText("1080.00 USD", {
       timeout: 150000,
     });
+    await expect(readTurn.getByText("已完成", { exact: true })).toBeVisible();
+    expect(await page.evaluate(() => window.tradequote.getTrade())).toEqual(beforeRead);
     await page.getByLabel("仅查询与试算，不保存报价").uncheck();
     await page.getByLabel("业务目标或补充说明").fill("数量改为600 piece，保存新版本");
     await page.getByRole("button", { name: "发送" }).click();
-    const active = page.getByRole("article").filter({ hasText: "数量改为600 piece" }).first();
+    const active = page.locator(".conversation-turn").filter({ hasText: "数量改为600 piece" });
     await active.getByRole("button", { name: "停止" }).click();
     await expect(active).toContainText("已取消");
     await app.close();

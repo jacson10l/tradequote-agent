@@ -3029,9 +3029,9 @@
     {
       "path": "tests/e2e/codex-workbench.spec.ts",
       "type": "ts",
-      "lines": 103,
-      "bytes": 5378,
-      "sha256": "b55f98ddf3e70293399a4360c02e00270575bd554a012a8866d62049b1f5f61b",
+      "lines": 108,
+      "bytes": 5824,
+      "sha256": "4b5170c406a61cfd6209c0cb3944eee359b20c2107c87b741e707897921558e7",
       "role": "C05 Codex原生工具与工作台纵向验收",
       "pages": [
         "wiki/C05CodexHarness与单据工作台.md",

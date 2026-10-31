@@ -1,0 +1,105 @@
+{
+  "status": "observed",
+  "scope": "Read-only C intake, not acceptance of original source authenticity or of A maintenance code",
+  "aCommit": "5c69b708ea796addd39493e4daaded66b9955c08",
+  "aBranch": "codex/a01-maintenance-evidence",
+  "cBase": "1d140ed2003ccee7a45c23b25417b174753e3d2f",
+  "commitChangedFiles": [
+    "wiki-project/demo_data/SOURCE-PROVENANCE.md",
+    "wiki-project/log.md",
+    "wiki-project/raw/file-provenance.json"
+  ],
+  "files": [
+    {
+      "path": "wiki-project/demo_data/SOURCE-PROVENANCE.md",
+      "bytes": 4833,
+      "sha256": "e5148a23f45a3fb4a35100f45968bf5707125eeb82f9a5e88d7bf918198d27c9"
+    },
+    {
+      "path": "wiki-project/demo_data/demo_products_sources.csv",
+      "bytes": 30351,
+      "sha256": "159b17d49b0c827f9952b24dad03a3dcfd43d3b4f099cd660b3e2219741c33b5"
+    },
+    {
+      "path": "wiki-project/demo_data/catalog_demo.csv",
+      "bytes": 6357,
+      "sha256": "d9df548cd2159ca16a95f9c0ca9c975609c88004b530177099f98db6d90ee3e7"
+    },
+    {
+      "path": "wiki-project/demo_data/MANIFEST.md",
+      "bytes": 3746,
+      "sha256": "71ed18c35a228247eab8c833b2409d10c52c029cf088e7e429db365b1061ce43"
+    },
+    {
+      "path": "wiki-project/scripts/demo-tools/add_mdf_bolt.py",
+      "bytes": 10241,
+      "sha256": "28384e8eb0429e00b8337057a043ea426af337bfc07ec0d2fd3958396cffacbf"
+    },
+    {
+      "path": "wiki-project/raw/file-provenance.json",
+      "bytes": 1853,
+      "sha256": "5fbcb276860e54a5336cac7d5fd13713b7502171fdd007c5c4f81884934d5ae4"
+    }
+  ],
+  "registeredProvenanceHash": "e5148a23f45a3fb4a35100f45968bf5707125eeb82f9a5e88d7bf918198d27c9",
+  "canonicalProvenanceHash": "e5148a23f45a3fb4a35100f45968bf5707125eeb82f9a5e88d7bf918198d27c9",
+  "registeredHashMatchesGitBlob": true,
+  "sourceRows": 80,
+  "uniqueProductIds": 80,
+  "selectedRows": [
+    {
+      "csvLine": 7,
+      "product_id": "1601053415993",
+      "source_url": "https://www.alibaba.com/product-detail/95-Cotton-5-Spandex-Plain-Crewneck_1601053415993.html",
+      "material_page_raw": "95% cotton 5% spandex",
+      "gsm_page_raw": "180克",
+      "supplier_company": "Guangzhou Hengdong Sports Goods Co., Ltd.",
+      "supplier_years_location": "6年 CN Guangdong Guangzhou",
+      "price_tiers_cny": "3-49->¥43.19;50-99->¥41.20;100-499->¥39.21;500+->¥37.21",
+      "packing_size_cm": "20X10X2",
+      "packing_weight_kg": "0.3",
+      "lead_time_days": "1-30->7;31-500->20;501-3000->30;>3000->待定",
+      "certs_page_raw": "CE",
+      "sold_qty": "296",
+      "conflict_flag": "NO",
+      "conflict_type": "",
+      "conflict_evidence": "",
+      "emptyFields": [
+        "conflict_type",
+        "conflict_evidence"
+      ]
+    },
+    {
+      "csvLine": 18,
+      "product_id": "1601926123092",
+      "source_url": "https://www.alibaba.com/product-detail/Wholesale-High-Quality-195Gsm-Custom-Logo_1601926123092.html",
+      "material_page_raw": "涤纶 棉",
+      "gsm_page_raw": "195克",
+      "supplier_company": "Xiamen Wanhuayuan Cultural Media Co., Ltd.",
+      "supplier_years_location": "2年 CN Fujian Xiamen",
+      "price_tiers_cny": "5-499->¥24.92;500-999->¥23.46;1000-9999->¥22.20;10000+->¥21.00",
+      "packing_size_cm": "35X30X2",
+      "packing_weight_kg": "0.35",
+      "lead_time_days": "1-2000->15;>2000->待定",
+      "certs_page_raw": "",
+      "sold_qty": "",
+      "conflict_flag": "NO",
+      "conflict_type": "",
+      "conflict_evidence": "",
+      "emptyFields": [
+        "certs_page_raw",
+        "sold_qty",
+        "conflict_type",
+        "conflict_evidence"
+      ]
+    }
+  ],
+  "knownSnapshotFiles": [],
+  "findings": [
+    "Both selected source rows exist; each field remains reported extraction until originals and human checks arrive. Empty cells are unknown, not evidence of confirmed absence.",
+    "Generator contains hard-coded placeholder URLs, dimensions/exchange-rate/weight estimates. Synthetic classification supported by A declaration and generator, not inferred from URL digit length.",
+    "No snapshot identified by SKU filename in pinned tree; absence of all generically named captures not independently proved. A reports repository-wide absence and login wall; C did not repeat network/login capture.",
+    "A reports remaining lint errors. Their pre-existing attribution and whole branch acceptance are not verified by this intake.",
+    "No A files copied into product, no merge/cherry-pick, no publishing or historical snapshot rewrite."
+  ]
+}

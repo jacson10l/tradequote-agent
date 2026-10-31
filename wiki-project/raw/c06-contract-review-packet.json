@@ -1,0 +1,78 @@
+{
+  "status": "prepared",
+  "sourceCommit": "1d140ed2003ccee7a45c23b25417b174753e3d2f",
+  "businessMaterialCommit": "d62570a3c91890cc2aeb7ed8f971b275aaeac713",
+  "reviewOwner": "B",
+  "reviewState": "not_signed_off",
+  "scope": "C05 public run/read/continue contracts and call sites; no new B confirmation fields invented",
+  "files": [
+    {
+      "path": "packages/contracts/src/runs.ts",
+      "sha256": "7a6576a7ef2dd2ee0f6ef7a94aa1549894bef5113eb41def5dae9d11536e488c",
+      "bytes": 7595
+    },
+    {
+      "path": "packages/contracts/src/events.ts",
+      "sha256": "8b1086bec8317591e3c293a0d87aa4020eb3d26cfcb42646c41a5a1b9f035cb3",
+      "bytes": 1954
+    },
+    {
+      "path": "packages/contracts/src/read-tools.ts",
+      "sha256": "cdcab0d6104a8b3fd315601bdddceefe6151d83c0325ec74c76d12cea31807d1",
+      "bytes": 4332
+    },
+    {
+      "path": "packages/contracts/src/trade.ts",
+      "sha256": "0db1014867a220b8c14b24f1dc8d18a03f06fdfeb7a0e5f6d6f811a8d730db19",
+      "bytes": 8992
+    },
+    {
+      "path": "packages/contracts/src/pending-client.ts",
+      "sha256": "0767cc4a497bb105dde8ff870574be82e247e2c18ad516a8db704acb7a63a40b",
+      "bytes": 2721
+    },
+    {
+      "path": "packages/contracts/src/mock.ts",
+      "sha256": "697963d7744b4fb6c8e43f7ae6b37d929888fa50c401c41293417a721f3fc5ce",
+      "bytes": 14466
+    },
+    {
+      "path": "apps/desktop/src/preload/index.ts",
+      "sha256": "2496d82f0896e328c74ad1ac22475d29bf77cdaeeb97fb4e8019ee7ca7bc6f80",
+      "bytes": 8453
+    },
+    {
+      "path": "apps/desktop/src/main/index.ts",
+      "sha256": "9af72198006429a80874bbd40f82eb1fc5ef217e67fd2ed7a91e25c30ed3b2ce",
+      "bytes": 13913
+    },
+    {
+      "path": "apps/desktop/src/workers/business.ts",
+      "sha256": "3a4121b57f0cfd89d54abaa9dffde05b0add9ba54ee1f1cfe8802382f51a1390",
+      "bytes": 3397
+    },
+    {
+      "path": "packages/infrastructure/src/agent-run-store.ts",
+      "sha256": "aede2c3d488161b4b9ca31bfffb3590ce1b743af9e46e792a80e5be702e27553",
+      "bytes": 35430
+    },
+    {
+      "path": "packages/infrastructure/src/agent-run-coordinator.ts",
+      "sha256": "54b4e764e9dda902ce3e0ba72b46f9b19759b0b7d8bbcaf0d728a54d212ded15",
+      "bytes": 11873
+    },
+    {
+      "path": "packages/infrastructure/src/session-lifecycle.test.ts",
+      "sha256": "8ca2a2034011e03d8be401cdafc5dcd83e397a3ef2cc43250285645b6e41e4e5",
+      "bytes": 14526
+    }
+  ],
+  "questions": [
+    "continued success resolves ancestors atomically, failure/cancel does not",
+    "read results/cancel/interrupted never create quote revisions",
+    "idempotency, superseded-branch retry and committed-quote evidence",
+    "old JSON readable by new code; new JSON/old binaries explicitly bounded",
+    "Main/preload/Worker/mock match public types; model cannot self-assert human confirmation"
+  ],
+  "verificationCommand": "node --input-type=module: git show sourceCommit:path -> sha256 compare each file; inspect semantic behavior and attached tests separately"
+}
