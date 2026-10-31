@@ -334,3 +334,7 @@ B00a P1远端交接：[PR #8](https://github.com/jacson10l/tradequote-agent/pull
 
 推送前复跑：探针 `96c11fa` 上 28/28 通过（`missingCaseIds: []`）；`build-code-index --check` 0；`lint-wiki` 106 页/90 语义页全可达；`check-wiki-sync --base 87f05e3` 通过（12 代码文件、9 知识页、2 任务）。同轮修正上一段对 `wiki-tools.test.mjs` 失败原因的表述：实际是 fixture 复制阶段 `EIO, Access is denied`（沙箱禁写 `%TEMP%`），不是 `source fixture was not installed` 断言失败。
 推送操作需要一条更正记录：回执提交时在 P1 分支上执行了不带 refspec 的 `git push`，该命令按其上游把 `codex/b00a-p1-knowledge-build-maintenance` 一起推进到 `a90371d`，等于移动了 PR #8 的评审指针。随即用 `--force-with-lease`（租约锚定 `a90371d`）把远端该分支退回 `19d60a8`，并把 `a90371d` 正常快进到增量分支；本地 P1 分支同步回到 `19d60a8`，后续只在 `codex/b-maintenance-evidence-increment` 上工作。当前远端：增量分支 `a90371d`、P1 分支 `19d60a8`。教训：堆叠分支必须显式写 refspec（例如 `git push origin HEAD:refs/heads/<分支>`），不要在待评审分支上执行裸 `git push`。
+
+## 2026-10-31 事件证据线：B 政策交付 A（三方并行）
+
+C 转达三方并行分工（B 定政策 → A 实现 → C 复验），并确认快照项已针对 `fdd571a` 复验通过（记录 `66cc22b`）、无需返工。B 的资格政策前两轮已落地，本轮把「政策交付给 A」写成固定锚点：政策与契约/Wiki 同批固定在 `codex/b-maintenance-evidence-increment` = `56f702f`。A 实现写入事务的三个验收点写入 [[B00a-P1知识整理与维护契约]] 的「政策交付给 A」：① 权威读取（`evidenceIds` 只解析到六类证据事件、不得指向生命周期事件）；② 工作区/目标版本绑定（证据 workspace 等于问题工作区、逐类针对固定目标版本、交换对象不可改写且 issueVersion +1）；③ 资格核验（事务内 `evaluateMaintenanceResolution` 首错判定、任一失败整体回滚）。正反例 EVID-01～12 是 A 回归最小契约面。B 侧无剩余政策缺口，转 A 实现与 C 复验。
