@@ -1,0 +1,63 @@
+{
+  "status": "passed",
+  "scope": "C final ABC integration on macOS; A06 source-data intake, A01 renderer UI, B07 contract review, customer reply pending boundary, and MVP desktop regression",
+  "date": "2026-11-01",
+  "branch": "codex/m1-abc-integration",
+  "environment": {
+    "platform": "macOS",
+    "node": "22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2"
+  },
+  "checks": [
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "result": "TypeScript noEmit passed"
+    },
+    {
+      "command": "pnpm build",
+      "exitCode": 0,
+      "result": "Main, preload, and renderer built; existing renderer chunk-size warning retained"
+    },
+    {
+      "command": "pnpm check",
+      "exitCode": 0,
+      "result": "Biome, engineering boundary tests, executable checks, and Wiki check passed"
+    },
+    {
+      "command": "pnpm wiki:test",
+      "exitCode": 0,
+      "result": "36 Wiki maintenance tests passed"
+    },
+    {
+      "command": "ELECTRON_RUN_AS_NODE=1 electron vitest run --maxWorkers=1 --fileParallelism=false",
+      "exitCode": 0,
+      "result": "62 files passed, 2 skipped; 566 tests passed, 3 skipped"
+    },
+    {
+      "command": "pnpm test:e2e",
+      "exitCode": 0,
+      "result": "12 Electron tests passed, 1 skipped"
+    },
+    {
+      "command": "check-wiki-sync.mjs . --base ffaca36fb76f232fe2334df88e6ab22ae7e4acf0",
+      "exitCode": 0,
+      "result": "codeFiles=3, knowledgePages=4, tasks=2, errors=[]"
+    }
+  ],
+  "manualAcceptance": {
+    "ready": true,
+    "requiredFlow": "Import catalog, create V1, revise V2/V3, reopen, inspect pending terms, and review the customer reply draft",
+    "mustRemainVisible": [
+      "source and pending evidence",
+      "the isolated interval-price SKU decision",
+      "Quotation V3 as a draft requiring confirmation",
+      "freight, tax, approval, sending, and commercial-offer limitations"
+    ]
+  },
+  "limits": [
+    "Windows and signed installer are not verified.",
+    "Formal approval/PDF, real platform-rule validation, supplier business sign-off, and manual publication of source materials remain outside automated completion."
+  ]
+}

@@ -1612,3 +1612,10 @@ B07 已按 `0f837e35e0592050917a0c0f4914ca43f2fe9b64` 接收并合入集成分�
 - Wiki 同步：新增任务页 [[2026-10-31-A01-UI样式优化]]（type=task），知识页 [[M1工作台]] 追加「UI 样式优化（2026-10-31）」小节，本日志追加。
 - 验证：pnpm typecheck / build / check / wiki:test 退出 0；check-wiki-sync --base 7688d3991dcf6fe4fb56132559ae02bd808857ea 返回 status=passed；git diff --check 退出 0；三个提交 diff 均保持 LF 无 CRLF 污染。浏览器静态预览（vite + readonly mock client + headless Chrome 截图）已实看表格圆角衔接、工作区居中、徽章圆点、暖灰层次。
 - 边界：未走深色侧边栏/冷灰背景等更高阶科技感方向（用户选「只做微调」保留暖橙基调）；未做真实 Electron 多尺寸/系统缩放回归；临时预览文件（preview-main.tsx / preview.html / vite.preview-build.config.mjs / .preview-dist）已清理未入库。生成的头像图 generated-images/ 为独立任务产物，与本次无关，保持未跟踪。
+
+## 2026-11-01 C ABC 合入 A06/A01 后进入人工 MVP 验收
+
+- 合入 `origin/codex/a06-source-evidence` 的 `ffbf5ecd7ce447001fe185e1aa8fe3f7d47b16e0`：隔离区间价/样品价 SKU，目录收口为 285 行/82 SKU，解析 0 issue，保留来源证据与未完成业务审核项。
+- 合入 `origin/codex/a01-maintenance-evidence` 的 `5d308241c17b25f953d05ec5d8032c905cee4903`：渲染层 UI 优化和 P0 Wiki 收尾；只保留与当前集成分支一致的导航、样式和工作区布局改动。
+- 最终集成提交 `77f74cc` 已完成 macOS 自动化复验：typecheck/build/check/wiki 回归通过，串行完整单测 566/3，Electron 12/1；并发单测曾出现 Worker 输出截断，单独及串行复跑通过。
+- 当前阶段转入人工 MVP 验收，路径为导入资料→生成 V1→修订 V2/V3→重开→核对 pending→检查 `Quotation · V3` 客户回复草稿。正式审批/发送、真实资料发布、认证/有效期、Windows/签名包和真实供应商签认不计为完成。

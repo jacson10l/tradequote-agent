@@ -3,6 +3,8 @@ title: C集成-ABC合并与后续分工
 type: task
 status: active
 updated: 2026-11-01
+verification:
+  - wiki-repo:raw/c-integration-mvp-validation.json:1
 sources:
   - conversation:用户要求先合并推送再重新确定ABC任务
   - packages/domain/src/trade.ts:1
@@ -21,10 +23,11 @@ sources:
 
 ## 范围
 
-- 集成基线：`codex/m1-foundation` 的 `654fecc4d93e4630ed4a0cf42f261d0d432e23d3`。
+- 集成基线：`codex/m1-foundation` 的 `654fecc4d93e4630ed4a0cf42f261d0d432e23d3`；当前集成分支最终提交为 `77f74cc`。
 - A 固定交付：`4c622d04e1ae483b6c8649e09146f71b35ba33a9`。
 - B 固定交付：`a4f2ba685b29438fd013373a146d40a68a093e68`。
 - C07 候选：`8b53b1a`，统一合入 `codex/m1-abc-integration`；未将历史 WIP 分支无差别合入。
+- A06 来源收口：`ffbf5ecd7ce447001fe185e1aa8fe3f7d47b16e0`；A01 UI 收口：`5d308241c17b25f953d05ec5d8032c905cee4903`。
 
 ## 验收
 
@@ -38,23 +41,25 @@ sources:
 - 修正 Electron bridge 期望名单、Wiki 源码覆盖映射、历史 demo-tools 文档重名、任务页导航和领域层 Node 依赖；报价对外产出 ID 改为审批 UUID 的确定性派生。
 - 为 B 复核探针补齐 `QUOTE-01`～`QUOTE-06` 稳定案例 ID，保持其 18 项覆盖门禁有效。
 - 修正 `quote-delivery.ts` 的客户回复渲染：未确认付款/交期不再把内部占位词直接输出，新增确定性回归测试。
+- 合入 A06 的区间价 SKU 隔离和大目录 MOQ 收口；合入 A01 的渲染层图标、可读性、表格圆角、工作区布局与暖灰层次优化，并保留其 Wiki/P0 证据。
 
 ## 验证
 
 - `pnpm typecheck`：通过。
 - `pnpm build`：通过；保留既有 renderer chunk 大于 500 kB 的提示。
-- 低并发完整单测：561 通过、3 跳过；与 Electron 并行时曾出现 Worker 输出截断，串行复跑通过。
+- 串行完整单测：566 通过、3 跳过；并发尝试曾出现 Worker 输出截断，单独复跑及串行复跑通过。
 - `pnpm test:e2e`：12 通过、1 跳过。
-- `pnpm check`、`pnpm wiki:check`、`pnpm wiki:test`：通过；Wiki 294 个 Markdown 全部可达、260 个语义页。
-- 固定基线同步：在追加本页和日志后执行并通过，退出码为 0。
+- `pnpm check`、`pnpm wiki:check`、`pnpm wiki:test`：通过；Wiki 298 个 Markdown 全部可达、264 个语义页。
+- `node wiki-project/scripts/check-wiki-sync.mjs . --base ffaca36fb76f232fe2334df88e6ab22ae7e4acf0`：通过，`codeFiles=3`、`knowledgePages=4`、`tasks=2`、`errors=[]`。
+- `pnpm wiki:generate`、`git diff --check`：通过；最终远端回读与本地提交一致。
 - B07 合入后，C 定向 domain 回归测试 `5/5` 通过；客户回复测试覆盖未确认词屏蔽和已确认条款保留。
 
 ## 未完成项
 
-- A 的固定交付已完成，不重复分配 C06 修正；仅保留来源证据的真实业务缺口：大目录第 268 行 MOQ、服装原始快照、`valid_until` 原始依据、认证/供应商有效期和人工发布复核。
+- A 的固定交付已完成，不重复分配 C06 修正；A06 已隔离区间价 SKU 并使目录 285 行/82 SKU 可解析，但服装原始快照、`valid_until` 原始依据、认证/供应商有效期和人工发布复核仍需人工确认。
 - B 的固定契约开发已完成，不重复开发；仅做集成后的非作者复核，重点验证 V1/V2/V3 与重开后的付款/交期 `pending`、正常规则案例和客户回复业务语义。
-- C 已完成集成分支的最终提交与推送；后续负责统一路演演示路径、最终交接和人工验收准备，不把 A/B 已完成工作重新改写成新任务。
+- C 已完成集成分支的最终提交与推送；自动化 MVP 门禁已收口，当前转入人工验收、路演演示和最终交接，不把 A/B 已完成工作重新改写成新任务。
 - `Quotation · V3` 是 C 的客户回复运行产物，不另拆成 B 的提交；运费、税费、审批发送和商业要约仍需人工确认。
-- 仍需在 C 本轮 macOS 集成门禁中复跑完整单测、Electron、Wiki 回归和构建后再推送。
+- 人工验收必须明确：真实资料发布/认证/有效期尚未签认；Windows、签名安装包、正式审批/PDF、真实平台规则和真实供应商业务签认仍是后置风险。
 
 关联：[[C07业务资料与路演收口]]、[[B对C运行契约非作者审阅]]、[[B条款确认语义冻结与C运行契约审阅]]、[[项目状态]]。
