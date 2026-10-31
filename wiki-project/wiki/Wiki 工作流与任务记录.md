@@ -274,3 +274,10 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 ## 2026-10-27 A01e固定接收
 
 本次A01e接收对八个infra源码/测试增加[[Ae7a9439接收与P1接线阻断复核]]覆盖；A原迁移探针位于Wiki/scripts，按既有维护脚本指纹机制检查，不误登记为业务源码；没有新业务文件或新权限。复制B两份原raw/知识/任务为原文，A/C旧同名证据不覆盖，原307份raw和旧log前缀保持。脚本为A更新的十能力探针原字节，实际输出单存C新raw，Wiki工具算法不变；映射/维护增量运行维护回归、生成/check/lint和真实739基线sync。WIP含明确P1失败，不标done、不放行。
+
+
+## 2026-10-31 显式探针套件与覆盖映射（B）
+
+本轮为 B 的 A01e 契约复核新增两个受管文件：`packages/infrastructure/probes/a01e-contract.probe.ts`（18 项 contract/expected/actual/conforms 观察）与 `packages/infrastructure/probes/a01e-contract.vitest.config.ts`（只含该探针的 include）。映射到[[B对A01e八维护方法的契约语义复核]]、[[B00a知识整理与维护协议]]与[[M1验证与协作]]；沿用既有“显式诊断与常规 unit 分开报告”的约定，探针文件不在 `vitest.config.ts` 的 include 内，`pnpm test` 不会执行它，必须显式传 `--config`。
+
+约定：探针“红”可以是结论本身（已复现的契约偏差），但必须在任务页写清 18 项中多少符合、多少偏离，并把 JSON 中的 `failing` 编号与结论表对齐；不得把探针结果当作 A 的正式回归通过记录，也不得为了让套件变绿而删断言。产物 `raw/b01-a01e-contract-probe.json` 每次覆盖，换基线复核时另存。映射变动仍运行生成、只读 check、lint、`--base a184a56` 真实基线 sync 与维护回归。

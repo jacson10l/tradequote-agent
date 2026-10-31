@@ -36,7 +36,7 @@
       "meaning": "临时探针，不在交付中；用真实 SqliteWorkspaceRepository 复现语义偏差"
     }
   ],
-  "probeSource": "packages/infrastructure/src/b01-a01e-probe.test.ts（临时，提交前删除）",
+  "probeSource": "已废止的临时探针（提交前删除）；可复跑版本见 packages/infrastructure/probes/a01e-contract.probe.ts",
   "probes": {
     "replay": {
       "first": "ok",
@@ -77,7 +77,8 @@
       "returnedEventId": "721f4f73-6cf9-4d03-928f-93dd9e1c2c09",
       "outboxMatches": false,
       "outboxRows": 7,
-      "payloadEventIdsMatchOwnRow": 0
+      "payloadEventIdsMatchOwnRow": 0,
+      "note": "eventId 存在于 payload，但与 outbox 行 id 不同；按返回 id 查询命中 0。"
     },
     "index": {
       "rebuildStatus": "completed",
@@ -141,5 +142,15 @@
       "exitCode": 0,
       "result": "Module boundaries passed"
     }
+  ],
+  "correctedAt": "2026-10-31",
+  "supersededBy": "raw/b01-a01e-contract-probe.json",
+  "corrections": [
+    "P04/事件身份：eventId 已写入 outbox payload，缺口是与 outbox 行 event_id 不一致、不能按返回 id 回放，不是完全未持久化；原表 B-A01E-02 标题“撤回事件身份不入库”作废。",
+    "索引状态：getIndexStatus 已按 indexedSeq<authoritativeSeq 派生 stale，原“state 永远不是 stale”作废；缺的是 rebuilding/failed、投影构建与切换前校验。",
+    "去重：查询按 workspace_id 过滤且表上有 UNIQUE(workspace_id,dedup_key)，跨工作区不会合并；真实缺陷是键材料缺触发事实与规范化，同一事实分裂为 2 条。",
+    "迁移：knowledge_maintenance_issue 无 issue_version 列本身不是缺陷；问题是缺 DB 级不可变/版本约束却被当作审计证据。",
+    "工作区：单工作区库未复现越权；可观测的只是 getImpact/getIndexRebuild 不比对 context.workspaceId，按演进风险记录，不列阻断。",
+    "公共 Exchange：无调用点本身不等于产品错误；按“不变量是否实际缺失”判定，见复核页第六节。"
   ]
 }

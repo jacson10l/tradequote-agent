@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "08ef25e1f0b79e8e09acd236b81aa57155027153d247bf1c35020f8a0e0e8669",
+    "wiki-config.json": "88cacb9c204c9ba353a60867ab23f13913700137f44f2dccdedbcf2e63673528",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -1860,6 +1860,31 @@
       "pages": [
         "wiki/M1接口与持久化.md",
         "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/probes/a01e-contract.probe.ts",
+      "type": "ts",
+      "lines": 772,
+      "bytes": 30434,
+      "sha256": "f167b862f4ac2e245ef699f97fcce84d56fd3c5ca1d22bcb269e25996e9537c7",
+      "role": "B A01e 八维护方法契约一致性探针：逐项 expected/actual/conforms，显式诊断不冒充常规测试",
+      "pages": [
+        "wiki/B对A01e八维护方法的契约语义复核.md",
+        "wiki/B00a知识整理与维护协议.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/probes/a01e-contract.vitest.config.ts",
+      "type": "ts",
+      "lines": 8,
+      "bytes": 272,
+      "sha256": "4f266e696025670fd0a99bfca6fc9f0978707661fbf8cac87eb9c738d0daeaf5",
+      "role": "显式运行 A01e 契约探针，和正常 unit 分别报告，禁止把已知偏差藏为通过",
+      "pages": [
+        "wiki/B对A01e八维护方法的契约语义复核.md",
+        "wiki/M1验证与协作.md"
       ]
     },
     {

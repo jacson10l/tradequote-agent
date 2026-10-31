@@ -7,6 +7,9 @@ sources:
   - conversation:用户指定B优先交付B00aP0解锁A01c且P1另交
   - wiki-repo:wiki/B对A01e八维护方法的契约语义复核.md:1
   - wiki-repo:raw/b01-a01e-contract-review.json:1
+  - wiki-repo:raw/b01-a01e-contract-probe.json:1
+  - packages/infrastructure/probes/a01e-contract.probe.ts:1
+  - packages/infrastructure/probes/a01e-contract.vitest.config.ts:1
   - packages/infrastructure/src/wiki-store.ts:1439
   - packages/contracts/src/knowledge-wiki.ts:1
   - packages/contracts/src/wiki-integrity.ts:1
@@ -101,3 +104,25 @@ A 在另一开发者机器，不在本机聊天。已在 [A01b PR #6 对齐评�
 任务保持 active；A 的 A01e 任务页与 A01c 页由 A 自己更新。B 未改 A 分支、未推送/合入/代签，未跑桌面/IPC/E2E 与全量 pnpm check。
 
 本机门禁（macOS 26.4 arm64、Node v22.22.2）：wiki-store.test.ts 24/24 退出 0；代码索引 `--check` 退出 0（255 文件）；lint-wiki 退出 0（252 Markdown/224 语义页/252 可达）；check-wiki-sync `--base 267f087` 退出 0（codeFiles 0）；check-boundaries 退出 0。仅文档与 Wiki 变更，未跑桌面、E2E 与全量 pnpm check。
+
+## 2026-10-31 第二轮：措辞收敛、可复跑探针与正反例（B）
+
+首轮把若干“实现方式不同”写成了“事实缺失”，本轮按代码与实测逐条更正，并交付可复跑证据；更正项与依据见 [[B对A01e八维护方法的契约语义复核]] 的“本轮更正”表：eventId 已在 outbox payload（缺口是与行 id 不一致、不能按 id 回放）、getIndexStatus 已派生 stale、去重查询与唯一约束已按 workspace 隔离、无 issue_version 列本身不算错、单工作区库未复现越权、Exchange 无调用点不等于产品错误。首轮证据 [raw/b01-a01e-contract-review.json](../../raw/b01-a01e-contract-review.json) 保留原观察，追加 `corrections` 与 `supersededBy` 说明，不删除历史。
+
+新增可复跑探针 `packages/infrastructure/probes/a01e-contract.probe.ts` 与独立配置 `a01e-contract.vitest.config.ts`（不进常规 unit 套件）。18 项观察逐条记录 contract/expected/actual/conforms，产物 [raw/b01-a01e-contract-probe.json](../../raw/b01-a01e-contract-probe.json)。本轮实测 16 项偏离、2 项符合（P11 重扫不重开、P16 索引 stale 派生）；探针“红”是预期结果，用来锁定证据，不是套件损坏。
+
+六类政策裁定与确定性正反例已写入复核页：幂等与 OCC 顺序（I1–I5）、处理证据白名单与目标归属（E1–E5 及按 kind 的表）、结案与重扫（R1–R5）、快照生命周期（S1–S5）、影响覆盖与未知消费者（C1–C6，B 裁定 relations 属扫描面）、公共校验器按不变量判定。样例裁定补充可复现要求：固定 revisionId/contentHash/阈值、双方版本对、与真实数据隔离；fixture 标识不能充当处理证据。
+
+验证（macOS 26.4 arm64、宿主 Node v22.22.2、pnpm 10.13.1，未运行 Electron）：
+
+| 命令 | 退出码/结果 |
+|---|---|
+| `npx vitest run --config packages/infrastructure/probes/a01e-contract.vitest.config.ts` | 1（预期：16/18 偏离，明细见 raw JSON） |
+| `npx vitest run packages/infrastructure/src/wiki-store.test.ts` | 0，24/24 |
+| `pnpm typecheck` | 0 |
+| `npx biome check packages/infrastructure/probes/` | 0 |
+| `node scripts/check-boundaries.mjs` | 0 |
+| `node --test wiki-project/scripts/wiki-sync.test.mjs` | 0，11/11 |
+| `node --test wiki-project/scripts/wiki-tools.test.mjs` | 25 失败（0 通过）：测试夹具用 LF 正则改写 CRLF 的 `项目状态.md`；基线 a184a56 的 /tmp worktree 复跑同样 0/25，属既有 CRLF 未修，本轮不冒充通过 |
+
+未复核 46939c3 及任何 P2 提交；未跑桌面/IPC/E2E 与全量 `pnpm check`；未修改 A 分支、未推送/合入/代签。任务保持 active，A 给出新固定提交后按同一探针重跑并补三类新用例。
