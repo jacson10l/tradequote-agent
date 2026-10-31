@@ -42,7 +42,7 @@ sources:
 ## 验证
 
 - `reviseQuote` 回归测试：`revision.test.ts` 3 项通过。
-- `packages/domain` + `packages/contracts` 定向全量：18 文件 151 项通过（含新增 3 项）。
+- `packages/domain` + `packages/contracts` 定向全量：19 文件 154 项通过（含新增 3 项）。
 - Windows 10 22H2 本机缺 VS C++ 未编译 better-sqlite3，`pnpm build`、Electron 集成、`test:e2e`、完整门禁（`pnpm check`/`wiki:check`/`wiki:test`）**未运行**；以 C 的 macOS 结果为准，不冒称完成。
 
 ## 未完成项
