@@ -33,7 +33,7 @@
     {
       "source": "demo-data-catalog:SOURCE-PROVENANCE.md",
       "copy": "wiki-project/demo_data/SOURCE-PROVENANCE.md",
-      "sha256": "ec3cf5af8271eda2da3bf98e21dc81fc10b018bd5e6bba0bf86a53bfd0616cf0",
+      "sha256": "e5148a23f45a3fb4a35100f45968bf5707125eeb82f9a5e88d7bf918198d27c9",
       "status": "demo-data-source-provenance"
     }
   ],

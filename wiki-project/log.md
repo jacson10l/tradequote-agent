@@ -1211,3 +1211,10 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 - A 补齐来源映射：新增 `demo_data/SOURCE-PROVENANCE.md`，明确 4 个 SKU 来源分层——服装 2 SKU（1601053415993/1601926123092）真实采集（有真实 URL + demo_products_sources.csv 映射）；板材/紧固件 2 SKU（MDF-001/BOLT-001）合成占位（URL 为 _16000000XX.html 占位符，无真实页面、无来源映射）。
 - 口径统一为「真实采集、真实性待审核」；MANIFEST.md 来源性质说明由「全部合成」改为分层表述，并在文件清单补列 demo_products_sources.csv 与 SOURCE-PROVENANCE.md。
 - 边界：本轮仅数据与文档（SOURCE-PROVENANCE.md + MANIFEST 口径），不含维护分支其他功能代码，符合 C「只接收明确数据与文档、不整条合入维护分支」的要求。
+
+## 2026-10-31 A 补证收尾：合成占位物证 + 页面快照客观说明（同分支）
+
+- 针对 C「补齐原始采集文件/页面快照」，A 全仓核查：字段来源映射已有（`demo_products_sources.csv`，80 行真实 product_id）；页面快照/HTML 存档全仓无、且 2026-10-31 从真实 URL 抓取被 Alibaba 登录墙拦截（返回 login_jump 页），无法离线补造，如实记录不伪造。
+- 补「合成占位」直接物证：`wiki-project/scripts/demo-tools/add_mdf_bolt.py` 中 MDF/BOLT 的 source_url 全为 `_1600000001.html`…`_1600000016.html` 编造占位 URL，脚本头自述「来源=搜索结果页归纳」，证明 MDF-001/BOLT-001 非真实详情页采集。
+- 将上述物证与快照客观说明写入 `demo_data/SOURCE-PROVENANCE.md` 第三/五节；同步 `raw/file-provenance.json` 中 SOURCE-PROVENANCE 哈希（ec3cf5af→e5148a23）。
+- lint 复核：SOURCE-PROVENANCE.md / MANIFEST.md 均无报错；剩余 ARCHIVE_HASH_MISMATCH / demo-tools README / A01f TASK_SECTION / listing-rules.test.ts 均为预存历史问题，与本次无关。
