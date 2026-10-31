@@ -9,43 +9,14 @@
   ],
   "probe": "b-contract-review-probe",
   "probeVersion": 1,
-  "reason": "B证据资格/规则样例/探针复核（最终）",
-  "generatedAt": "2026-10-31T04:02:42.975Z",
-  "startedAt": "2026-10-31T04:02:41.081Z",
+  "reason": "B证据资格/规则样例/探针复核（提交后固定源码）",
+  "generatedAt": "2026-10-31T04:03:18.245Z",
+  "startedAt": "2026-10-31T04:03:16.266Z",
   "source": {
-    "commit": "19d60a8436fc72faf2780cbe1e5f77aeb043b863",
+    "commit": "488764481989059f566274657a542192577b9187",
     "branch": "codex/b00a-p1-knowledge-build-maintenance",
-    "worktree": "dirty",
-    "dirtyPaths": [
-      "ackage.json",
-      "packages/contracts/src/knowledge-maintenance.ts",
-      "packages/contracts/src/knowledge.ts",
-      "packages/domain/src/index.ts",
-      "wiki-project/CONTEXT.md",
-      "wiki-project/index.md",
-      "wiki-project/log.md",
-      "wiki-project/raw/generated/inventory.json",
-      "\"wiki-project/raw/generated/\\344\\273\\243\\347\\240\\201\\346\\270\\205\\345\\215\\225.md\"",
-      "\"wiki-project/raw/generated/\\345\\221\\275\\344\\273\\244\\344\\270\\216\\350\\277\\220\\350\\241\\214\\346\\227\\266\\346\\270\\205\\345\\215\\225.md\"",
-      "\"wiki-project/raw/generated/\\346\\272\\220\\347\\240\\201\\345\\277\\253\\347\\205\\247.md\"",
-      "\"wiki-project/raw/generated/\\346\\272\\220\\347\\240\\201\\350\\246\\206\\347\\233\\226\\347\\237\\251\\351\\230\\265.md\"",
-      "wiki-project/scripts/wiki-config.json",
-      "\"wiki-project/wiki/B00a\\347\\237\\245\\350\\257\\206\\346\\225\\264\\347\\220\\206\\344\\270\\216\\347\\273\\264\\346\\212\\244\\345\\215\\217\\350\\256\\256.md\"",
-      "\"wiki-project/wiki/M1\\345\\267\\245\\347\\250\\213\\345\\237\\272\\347\\272\\277.md\"",
-      "\"wiki-project/wiki/M1\\346\\216\\245\\345\\217\\243\\344\\270\\216\\346\\214\\201\\344\\271\\205\\345\\214\\226.md\"",
-      "\"wiki-project/wiki/Wiki \\345\\267\\245\\344\\275\\234\\346\\265\\201\\344\\270\\216\\344\\273\\273\\345\\212\\241\\350\\256\\260\\345\\275\\225.md\"",
-      "\"wiki-project/wiki/tasks/B00a-P1\\347\\237\\245\\350\\257\\206\\346\\225\\264\\347\\220\\206\\344\\270\\216\\347\\273\\264\\346\\212\\244\\345\\245\\221\\347\\272\\246.md\"",
-      "\"wiki-project/wiki/tasks/B01-\\350\\247\\204\\345\\210\\231\\346\\243\\200\\346\\237\\245\\344\\270\\216\\345\\217\\214\\345\\217\\215\\351\\246\\210.md\"",
-      "\"wiki-project/wiki/\\351\\246\\226\\346\\211\\271\\345\\271\\266\\350\\241\\214\\346\\216\\245\\345\\217\\243\\347\\272\\246\\345\\256\\232.md\"",
-      "packages/contracts/src/maintenance-evidence.test.ts",
-      "packages/domain/src/quote-checks.samples.ts",
-      "packages/domain/src/quote-checks.test.ts",
-      "packages/domain/src/quote-checks.ts",
-      "scripts/contract-review-probe.mjs",
-      "scripts/contract-review-probe.test.mjs",
-      "wiki-project/raw/b-contract-probe.json",
-      "\"wiki-project/wiki/B\\347\\273\\264\\346\\212\\244\\350\\257\\201\\346\\215\\256\\350\\265\\204\\346\\240\\274\\344\\270\\216\\350\\247\\204\\345\\210\\231\\346\\240\\267\\344\\276\\213.md\""
-    ],
+    "worktree": "clean",
+    "dirtyPaths": [],
     "files": [
       {
         "role": "test",
@@ -162,7 +133,7 @@
       "title": "B00a P1 maintenance protocols only issues a passed P0 receipt for complete unblocked checks",
       "file": "packages/contracts/src/knowledge-maintenance.test.ts",
       "status": "passed",
-      "durationMs": 9.939899999999966,
+      "durationMs": 11.227499999999964,
       "failure": null
     },
     {
@@ -170,7 +141,7 @@
       "title": "B00a P1 maintenance protocols rejects duplicate/omitted checks, receipt mismatch and hidden blocking issues",
       "file": "packages/contracts/src/knowledge-maintenance.test.ts",
       "status": "passed",
-      "durationMs": 3.1625999999999976,
+      "durationMs": 3.1041999999999916,
       "failure": null
     },
     {
@@ -178,7 +149,7 @@
       "title": "B00a P1 maintenance protocols requires issue-versioned human resolution evidence and preserves original detected facts",
       "file": "packages/contracts/src/knowledge-maintenance.test.ts",
       "status": "passed",
-      "durationMs": 4.591000000000008,
+      "durationMs": 3.9751999999999725,
       "failure": null
     },
     {
@@ -186,7 +157,7 @@
       "title": "B00a P1 maintenance protocols never loops or rewinds maintenance pagination after live filtering removes all items",
       "file": "packages/contracts/src/knowledge-maintenance.test.ts",
       "status": "passed",
-      "durationMs": 4.124900000000025,
+      "durationMs": 3.028599999999983,
       "failure": null
     },
     {
@@ -194,7 +165,7 @@
       "title": "B00a P1 maintenance protocols distinguishes complete empty influence from unknown/partial/failed influence",
       "file": "packages/contracts/src/knowledge-maintenance.test.ts",
       "status": "passed",
-      "durationMs": 4.633500000000026,
+      "durationMs": 2.4192999999999074,
       "failure": null
     },
     {
@@ -202,7 +173,7 @@
       "title": "B00a P1 maintenance protocols binds influence pages to one immutable report and excludes fabricated failure results",
       "file": "packages/contracts/src/knowledge-maintenance.test.ts",
       "status": "passed",
-      "durationMs": 5.129099999999994,
+      "durationMs": 5.2649000000000115,
       "failure": null
     },
     {
@@ -210,7 +181,7 @@
       "title": "B00a P1 maintenance protocols cannot hide known first-page impact or package unknown consumers as complete",
       "file": "packages/contracts/src/knowledge-maintenance.test.ts",
       "status": "passed",
-      "durationMs": 3.284999999999968,
+      "durationMs": 5.373399999999947,
       "failure": null
     },
     {
@@ -218,7 +189,7 @@
       "title": "B00a P1 maintenance protocols makes missing/stale/failed projection explicit instead of reporting ready",
       "file": "packages/contracts/src/knowledge-maintenance.test.ts",
       "status": "passed",
-      "durationMs": 1.6408999999999878,
+      "durationMs": 2.9184999999999945,
       "failure": null
     },
     {
@@ -226,7 +197,7 @@
       "title": "B00a P1 maintenance protocols fences index swaps by current job/generation/source snapshot without rewriting authority",
       "file": "packages/contracts/src/knowledge-maintenance.test.ts",
       "status": "passed",
-      "durationMs": 3.1099000000000387,
+      "durationMs": 6.378100000000018,
       "failure": null
     },
     {
@@ -234,7 +205,7 @@
       "title": "B00a P1 maintenance protocols keeps all maintenance capabilities unavailable to legacy transports and host authority out of requests",
       "file": "packages/contracts/src/knowledge-maintenance.test.ts",
       "status": "passed",
-      "durationMs": 21.584899999999948,
+      "durationMs": 14.017600000000016,
       "failure": null
     },
     {
@@ -242,7 +213,7 @@
       "title": "B maintenance evidence qualification EVID-01 resolve accepts only a newer published revision of the same document",
       "file": "packages/contracts/src/maintenance-evidence.test.ts",
       "status": "passed",
-      "durationMs": 13.101200000000063,
+      "durationMs": 14.799099999999953,
       "failure": null
     },
     {
@@ -250,7 +221,7 @@
       "title": "B maintenance evidence qualification EVID-02 resolve covers source revision, integrity reverify, index rebuild and duplicate merge",
       "file": "packages/contracts/src/maintenance-evidence.test.ts",
       "status": "passed",
-      "durationMs": 1,
+      "durationMs": 0.9823000000000093,
       "failure": null
     },
     {
@@ -258,7 +229,7 @@
       "title": "B maintenance evidence qualification EVID-03 rejects cross-workspace evidence and cross-workspace requests",
       "file": "packages/contracts/src/maintenance-evidence.test.ts",
       "status": "passed",
-      "durationMs": 1.475500000000011,
+      "durationMs": 1.7042999999999893,
       "failure": null
     },
     {
@@ -266,7 +237,7 @@
       "title": "B maintenance evidence qualification EVID-04 rejects evidence that predates the latest detection",
       "file": "packages/contracts/src/maintenance-evidence.test.ts",
       "status": "passed",
-      "durationMs": 0.568300000000022,
+      "durationMs": 0.8318000000000438,
       "failure": null
     },
     {
@@ -274,7 +245,7 @@
       "title": "B maintenance evidence qualification EVID-05 rejects republishing the same revision/content as a fix",
       "file": "packages/contracts/src/maintenance-evidence.test.ts",
       "status": "passed",
-      "durationMs": 0.23419999999998709,
+      "durationMs": 0.4534999999999627,
       "failure": null
     },
     {
@@ -282,7 +253,7 @@
       "title": "B maintenance evidence qualification EVID-06 rejects dismiss by fact and resolve by mere adjudication",
       "file": "packages/contracts/src/maintenance-evidence.test.ts",
       "status": "passed",
-      "durationMs": 0.3673999999999751,
+      "durationMs": 0.3909999999999627,
       "failure": null
     },
     {
@@ -290,7 +261,7 @@
       "title": "B maintenance evidence qualification EVID-07 rejects decisions bound to another issue version or to itself",
       "file": "packages/contracts/src/maintenance-evidence.test.ts",
       "status": "passed",
-      "durationMs": 0.3345999999999094,
+      "durationMs": 0.3431000000000495,
       "failure": null
     },
     {
@@ -298,7 +269,7 @@
       "title": "B maintenance evidence qualification EVID-08 rejects unknown validity and unborn sources as resolution",
       "file": "packages/contracts/src/maintenance-evidence.test.ts",
       "status": "passed",
-      "durationMs": 0.4115000000000464,
+      "durationMs": 0.4212999999999738,
       "failure": null
     },
     {
@@ -306,7 +277,7 @@
       "title": "B maintenance evidence qualification EVID-09 rejects non-human actors, stale issue versions, closed issues and duplicate evidence",
       "file": "packages/contracts/src/maintenance-evidence.test.ts",
       "status": "passed",
-      "durationMs": 0.8898999999998978,
+      "durationMs": 0.6791000000000622,
       "failure": null
     },
     {
@@ -314,7 +285,7 @@
       "title": "B maintenance evidence qualification EVID-10 rejects exchanges that rewrite identity, jump versions or mismatch the event",
       "file": "packages/contracts/src/maintenance-evidence.test.ts",
       "status": "passed",
-      "durationMs": 11.739299999999957,
+      "durationMs": 5.510999999999967,
       "failure": null
     },
     {
@@ -322,7 +293,7 @@
       "title": "B maintenance evidence qualification EVID-11 binds idempotency to one payload and separates same-key replay from same-key new args",
       "file": "packages/contracts/src/maintenance-evidence.test.ts",
       "status": "passed",
-      "durationMs": 2.9447000000000116,
+      "durationMs": 1.990699999999947,
       "failure": null
     },
     {
@@ -330,7 +301,7 @@
       "title": "B maintenance evidence qualification EVID-12 rejects fabricated evidence records and keeps the eligibility matrix total",
       "file": "packages/contracts/src/maintenance-evidence.test.ts",
       "status": "passed",
-      "durationMs": 6.982300000000009,
+      "durationMs": 11.054300000000012,
       "failure": null
     },
     {
@@ -338,7 +309,7 @@
       "title": "B01 quote rule samples and double feedback QUOTE-01 keeps the sample set synthetic, fixed and explicitly versioned",
       "file": "packages/domain/src/quote-checks.test.ts",
       "status": "passed",
-      "durationMs": 3.28389999999996,
+      "durationMs": 3.0698999999999614,
       "failure": null
     },
     {
@@ -346,7 +317,7 @@
       "title": "B01 quote rule samples and double feedback QUOTE-02 reports a payment-ratio literal violation and the packaging conflict without picking a side",
       "file": "packages/domain/src/quote-checks.test.ts",
       "status": "passed",
-      "durationMs": 14.316100000000006,
+      "durationMs": 13.524700000000053,
       "failure": null
     },
     {
@@ -354,7 +325,7 @@
       "title": "B01 quote rule samples and double feedback QUOTE-03 treats a clean quote as checked-and-clear only when rules actually applied",
       "file": "packages/domain/src/quote-checks.test.ts",
       "status": "passed",
-      "durationMs": 0.6983000000000175,
+      "durationMs": 0.8491999999999962,
       "failure": null
     },
     {
@@ -362,7 +333,7 @@
       "title": "B01 quote rule samples and double feedback QUOTE-04 never turns missing coverage into an all-clear report",
       "file": "packages/domain/src/quote-checks.test.ts",
       "status": "passed",
-      "durationMs": 1.0300000000000296,
+      "durationMs": 1.4035000000000082,
       "failure": null
     },
     {
@@ -370,7 +341,7 @@
       "title": "B01 quote rule samples and double feedback QUOTE-05 matches full-width, case and surrounding-space variants deterministically",
       "file": "packages/domain/src/quote-checks.test.ts",
       "status": "passed",
-      "durationMs": 2.7543000000000006,
+      "durationMs": 2.6889000000001033,
       "failure": null
     },
     {
@@ -378,7 +349,7 @@
       "title": "B01 quote rule samples and double feedback QUOTE-06 keeps V1 results immutable and gives V2 a new revision-bound report",
       "file": "packages/domain/src/quote-checks.test.ts",
       "status": "passed",
-      "durationMs": 2.775800000000004,
+      "durationMs": 1.1345000000000027,
       "failure": null
     }
   ],

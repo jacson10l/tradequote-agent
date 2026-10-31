@@ -325,4 +325,4 @@ B00a P1远端交接：[PR #8](https://github.com/jacson10l/tradequote-agent/pull
 
 探针：scripts/contract-review-probe.mjs 固定运行证据资格/既有P1维护契约/报价样例三套件，记录 commit、分支、dirty、逐文件 SHA-256、Node/平台、完整命令、逐case结果与声明式覆盖轴；scripts/contract-review-probe.test.mjs 仅跑 --list 守门并加入 pnpm check（根 package.json 一行，需 C 复核）。
 
-本机验证（Windows 10 22H2、Node 22.22.2、pnpm 10.13.1）：typecheck 0；vitest packages/contracts+packages/domain 13文件/89项 0；探针 28/28 退出0，证据 raw/b-contract-probe.json（含 commit 19d60a8、逐文件 hash）；biome 改动文件 0。pnpm install 因本机缺 VS C++ 未构建 better-sqlite3，Electron ABI 的 pnpm test/test:e2e/build 与 macOS 验收均未运行，不写成通过。A 的写入事务/证据查表与 C 的接线仍待。
+本机验证（Windows 10 22H2、Node 22.22.2、pnpm 10.13.1）：typecheck 0；vitest packages/contracts+packages/domain 13文件/89项 0；探针 28/28 退出0，证据 raw/b-contract-probe.json（含 commit、逐文件 hash）；biome 改动文件 0。pnpm install 因本机缺 VS C++ 未构建 better-sqlite3，Electron ABI 的 pnpm test/test:e2e/build 与 macOS 验收均未运行，不写成通过。A 的写入事务/证据查表与 C 的接线仍待。
