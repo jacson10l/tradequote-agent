@@ -1,0 +1,261 @@
+{
+  "status": "passed",
+  "scope": "B intake of A documentation-only receipt and role clarification; no new source combination or product rerun",
+  "taskBase": "c154ee69d3f0669ce843021172d8c71b8e1c7dae",
+  "fixedAReceipt": "ec6b729cdaf15174930409e50c174d8cc4c3d37c",
+  "aReceiptParent": "a2b050eb74f52dc10916645bcc7a2dead02f9a72",
+  "recordedAt": "2026-10-26T07:22:38.301Z",
+  "environment": {
+    "platform": "win32",
+    "arch": "x64",
+    "node": "v22.22.0"
+  },
+  "sixWikiArtifacts": {
+    "wiki-project/CONTEXT.md": {
+      "blob": "e347cc452f767a542d9883b320c002c1d43efa55",
+      "sha256": "f28aed679384bbd576e3c68db9877327be2d67015cc3af6f57aa45fd76cad58b"
+    },
+    "wiki-project/log.md": {
+      "blob": "9bf246be3b754eaac332aafc4a6394ddd7bac6ab",
+      "sha256": "112260f16ea7ff76f979d248568c6f8162c57c44076cd3d0cb422c24688d3d23"
+    },
+    "wiki-project/wiki/A01-迁移验证计划.md": {
+      "blob": "a966df02e3afb36c6244e5e7f8dc1dc75a6ef4bf",
+      "sha256": "c5188616c9590ec1943d0d59f54d9943bee27899fe2e82843023155cc541f5b9"
+    },
+    "wiki-project/wiki/A对C前置验证失败修正回复.md": {
+      "blob": "9b6eba96a297e4796a89b8ff50f6e8c459597e38",
+      "sha256": "2a718a40eccd423f8f0ed4113ae15752ae3ebdf60fb9b9331ab7b1023e85917c"
+    },
+    "wiki-project/wiki/tasks/A01-知识发布与来源查询.md": {
+      "blob": "550c73c5b59def9d890821e4d7a19d97caa20bdb",
+      "sha256": "f5065ed4628b0b3e30a70544283926eb627dfbac24f6d7dd9b5473e04f8b55e8"
+    },
+    "wiki-project/wiki/项目状态.md": {
+      "blob": "af340bc6f953c0a3ff1a6d840fa13333847913c5",
+      "sha256": "42778af32791b66835bcefe0f981b153b94a79df74a59a4a2012d79ac780daed"
+    }
+  },
+  "aReceiptNonWikiDiff": "",
+  "testedCombination": {
+    "a": "a2b050eb74f52dc10916645bcc7a2dead02f9a72",
+    "b": "7f8afe6a0849da3f198bf5bf3be32180053f082d",
+    "c": "03b16b76ceb336d9f37692ee8b51046e90f328a0",
+    "codeSha": "ceec0ee4e329d891aad1855a42414256762e367c",
+    "evidenceCommit": "c154ee69d3f0669ce843021172d8c71b8e1c7dae",
+    "unchangedEvidence": "wiki-project/raw/b-a910-c03-combination-validation.json"
+  },
+  "checks": [
+    {
+      "name": "A remote receipt head",
+      "executable": "git",
+      "args": [
+        "ls-remote",
+        "--heads",
+        "origin",
+        "refs/heads/codex/a01-migration-lineage"
+      ],
+      "startedAt": "2026-10-26T07:22:38.302Z",
+      "finishedAt": "2026-10-26T07:22:40.512Z",
+      "exit_code": 0,
+      "stdout": "ec6b729cdaf15174930409e50c174d8cc4c3d37c\trefs/heads/codex/a01-migration-lineage\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki generate",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-26T07:23:43.205Z",
+      "finishedAt": "2026-10-26T07:23:43.590Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 250,\n  \"lines\": 65704,\n  \"generated\": 5,\n  \"excluded\": 12\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki readonly",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "startedAt": "2026-10-26T07:23:43.591Z",
+      "finishedAt": "2026-10-26T07:23:43.977Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 250,\n  \"lines\": 65704,\n  \"generated\": 5,\n  \"excluded\": 12\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki lint",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-26T07:23:43.977Z",
+      "finishedAt": "2026-10-26T07:23:45.515Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 241,\n  \"semantic\": 213,\n  \"reachable\": 241\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki sync increment",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "c154ee69d3f0669ce843021172d8c71b8e1c7dae"
+      ],
+      "startedAt": "2026-10-26T07:23:45.516Z",
+      "finishedAt": "2026-10-26T07:23:45.904Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"c154ee69d3f0669ce843021172d8c71b8e1c7dae\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki sync cumulative",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "7f8afe6a0849da3f198bf5bf3be32180053f082d"
+      ],
+      "startedAt": "2026-10-26T07:23:45.904Z",
+      "finishedAt": "2026-10-26T07:23:55.091Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"7f8afe6a0849da3f198bf5bf3be32180053f082d\",\n  \"status\": \"passed\",\n  \"codeFiles\": 91,\n  \"knowledgePages\": 139,\n  \"tasks\": 50,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "diff whitespace",
+      "executable": "git",
+      "args": [
+        "diff",
+        "--check",
+        "c154ee69d3f0669ce843021172d8c71b8e1c7dae"
+      ],
+      "startedAt": "2026-10-26T07:23:55.091Z",
+      "finishedAt": "2026-10-26T07:23:55.178Z",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "notRun": [
+    "No repeat of unchanged nine-file121, full unit, build or engineering tests",
+    "No repeat of maintenance regression: tools and coverage unchanged",
+    "No C independent new-combination or full M/F/J/desktop/macOS acceptance",
+    "No human publication/personnel signoff/business acceptance",
+    "No push/merge/real model/external messages"
+  ],
+  "overallMigrationApproved": false,
+  "runnerAttempts": [
+    {
+      "phase": "intake",
+      "exit_code": 1,
+      "error": "Git default quoted non-ASCII file names caused strict path classification assertion; corrected to NUL-separated git diff --name-only -z without changing source or acceptance."
+    },
+    {
+      "phase": "check",
+      "exit_code": 1,
+      "error": "Dependent evidence file absent after initial intake assertion (ENOENT); rerun only after successful intake."
+    }
+  ],
+  "preservation": {
+    "oldRawCount": 288,
+    "rawMismatches": [],
+    "oldLogBytePrefixPreserved": true,
+    "nonWikiChanges": ""
+  },
+  "previousVerificationAttempts": [
+    {
+      "name": "wiki generate",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-26T07:22:40.619Z",
+      "finishedAt": "2026-10-26T07:22:41.024Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 250,\n  \"lines\": 65704,\n  \"generated\": 5,\n  \"excluded\": 12\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki readonly",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "startedAt": "2026-10-26T07:22:41.024Z",
+      "finishedAt": "2026-10-26T07:22:41.391Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 250,\n  \"lines\": 65704,\n  \"generated\": 5,\n  \"excluded\": 12\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki lint",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-26T07:22:41.391Z",
+      "finishedAt": "2026-10-26T07:22:42.970Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 241,\n  \"semantic\": 213,\n  \"reachable\": 241\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki sync increment",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "c154ee69d3f0669ce843021172d8c71b8e1c7dae"
+      ],
+      "startedAt": "2026-10-26T07:22:42.970Z",
+      "finishedAt": "2026-10-26T07:22:43.366Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"c154ee69d3f0669ce843021172d8c71b8e1c7dae\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki sync cumulative",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "7f8afe6a0849da3f198bf5bf3be32180053f082d"
+      ],
+      "startedAt": "2026-10-26T07:22:43.366Z",
+      "finishedAt": "2026-10-26T07:22:52.525Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"7f8afe6a0849da3f198bf5bf3be32180053f082d\",\n  \"status\": \"passed\",\n  \"codeFiles\": 91,\n  \"knowledgePages\": 139,\n  \"tasks\": 50,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "diff whitespace",
+      "executable": "git",
+      "args": [
+        "diff",
+        "--check",
+        "c154ee69d3f0669ce843021172d8c71b8e1c7dae"
+      ],
+      "startedAt": "2026-10-26T07:22:52.525Z",
+      "finishedAt": "2026-10-26T07:22:52.608Z",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}

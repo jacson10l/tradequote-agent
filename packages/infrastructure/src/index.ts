@@ -1,27 +1,57 @@
 import { createHash, randomUUID } from "node:crypto";
-import { mkdirSync } from "node:fs";
+import { existsSync, mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import {
+  type CheckListResult,
+  type CheckResult,
   type Command,
   type ExecutionContext,
   failure,
   ResultSchema,
   type TradeCommand,
+  type WikiHostContext,
   WorkspaceSchema,
 } from "@tradequote/contracts";
-import { transitionWorkspace, type WorkspaceRepository } from "@tradequote/domain";
+import {
+  createKnowledgeMaintenanceService,
+  createKnowledgeService,
+  createWikiService,
+  transitionWorkspace,
+  type WorkspaceRepository,
+} from "@tradequote/domain";
 import Database from "better-sqlite3";
 import { drizzle } from "drizzle-orm/better-sqlite3";
-import { migrate } from "./migrations";
+import { AgentRunStore } from "./agent-run-store";
+import { CheckStore } from "./check-store";
+import { SqliteKnowledgeStore } from "./knowledge-store";
+import { identify, migrate } from "./migrations";
 import { workspace } from "./schema";
 import { TradeStore } from "./trade-store";
+import { SqliteWikiCheckSource } from "./wiki-check-source";
+import { SqliteWikiStore } from "./wiki-store";
 
 export { FileArtifactStore } from "./artifacts";
+
+/**
+ * 迁移谱系只读预检：在打开读写连接（及 WAL）之前识别并拒绝非升级谱系，
+ * 保证“拒绝不改库”——仅创建目录，不产生读写连接、不创建 -wal/-shm、不写任何行。
+ */
+function preflightMigration(file: string): void {
+  if (!existsSync(file)) return; // 全新库：读写打开会创建，migrate() 按 empty 谱系处理
+  const ro = new Database(file, { readonly: true });
+  try {
+    identify(ro);
+  } finally {
+    ro.close();
+  }
+}
+
 export class SqliteWorkspaceRepository implements WorkspaceRepository {
   private readonly db: Database.Database;
   private readonly orm: ReturnType<typeof drizzle>;
   constructor(file: string) {
     mkdirSync(dirname(file), { recursive: true });
+    preflightMigration(file);
     this.db = new Database(file);
     try {
       this.db.pragma("foreign_keys = ON");
@@ -87,6 +117,32 @@ export class SqliteWorkspaceRepository implements WorkspaceRepository {
   executeTrade(command: TradeCommand, context: ExecutionContext) {
     return new TradeStore(this.db).execute(command, context);
   }
+  executeKnowledge(command: unknown, context: ExecutionContext) {
+    return createKnowledgeService(new SqliteKnowledgeStore(this.db)).execute(command, context);
+  }
+  executeWiki(command: unknown, context: WikiHostContext) {
+    return createWikiService(new SqliteWikiStore(this.db)).execute(command, context);
+  }
+  executeWikiMaintenance(command: unknown, context: WikiHostContext) {
+    return createKnowledgeMaintenanceService(new SqliteWikiStore(this.db)).execute(
+      command,
+      context,
+    );
+  }
+  executeChecks(command: unknown, context: ExecutionContext): CheckResult | CheckListResult {
+    return new CheckStore(this.db, new SqliteWikiCheckSource(this.db)).execute(command, context);
+  }
+  runStore() {
+    return new AgentRunStore(this.db);
+  }
+  /** 维护入口：对知识版本跑一次真实 lint 并落库不可变回执（审核前置事实）。
+   *  不经过 WikiCommand 路由，返回回执或 null（版本不存在）。 */
+  runWikiLint(
+    revisionId: string,
+    context: WikiHostContext,
+  ): ReturnType<SqliteWikiStore["runLint"]> {
+    return new SqliteWikiStore(this.db).runLint(revisionId, context);
+  }
   agentReplay(command: import("@tradequote/contracts").AgentCommand) {
     return new TradeStore(this.db).replay(command);
   }
@@ -105,6 +161,10 @@ export class SqliteWorkspaceRepository implements WorkspaceRepository {
 }
 
 export { AgentExecutor } from "./agent-executor";
+export { AgentRunCoordinator } from "./agent-run-coordinator";
+export { CatalogQuoteReadService } from "./catalog-quote-read-service";
 export { DeepSeekProvider } from "./deepseek";
-
+export { SqliteKnowledgeStore } from "./knowledge-store";
 export { ModelSettingsStore } from "./model-settings";
+export { SqliteWikiStore } from "./wiki-store";
+export { WorkerOwnership } from "./worker-ownership";

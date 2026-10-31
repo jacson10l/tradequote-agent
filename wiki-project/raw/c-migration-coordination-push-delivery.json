@@ -1,0 +1,358 @@
+{
+  "status": "passed",
+  "scope": "Authorized push of one C coordination branch for A/B read access, no merge or signoff",
+  "recordedAt": "2026-10-23T19:01:28.364124+08:00",
+  "authorization": "User explicitly requested pushing codex/c-migration-coordination-draft to origin and syncing Wiki; no merge/signature/automatic messages/real model retest",
+  "taskBase": "fd4b72859e63931986424d6c66ee48fd12d81a60",
+  "repository": "https://github.com/jacson10l/tradequote-agent",
+  "branch": "codex/c-migration-coordination-draft",
+  "remoteRef": "refs/heads/codex/c-migration-coordination-draft",
+  "verifiedRemoteDraftHead": "fd4b72859e63931986424d6c66ee48fd12d81a60",
+  "diagnosticCommit": "d99f2b32def756b6b4d4cc99fca75dd9511436d5",
+  "diagnosticIsAncestorOfRemote": true,
+  "branchUrl": "https://github.com/jacson10l/tradequote-agent/tree/codex/c-migration-coordination-draft",
+  "artifacts": {
+    "coordinationDraft": {
+      "commit": "fd4b72859e63931986424d6c66ee48fd12d81a60",
+      "path": "wiki-project/wiki/C迁移协调请求草稿-AB谱系兼容.md",
+      "url": "https://github.com/jacson10l/tradequote-agent/blob/fd4b72859e63931986424d6c66ee48fd12d81a60/wiki-project/wiki/C迁移协调请求草稿-AB谱系兼容.md",
+      "sha256": "d330ce5493c8a63bd909a27a71bf301e022e0ee57ba3981cd155f9ffab67f632"
+    },
+    "diagnosticSummary": {
+      "commit": "d99f2b32def756b6b4d4cc99fca75dd9511436d5",
+      "path": "wiki-project/wiki/B01固定提交接收与迁移兼容诊断.md",
+      "url": "https://github.com/jacson10l/tradequote-agent/blob/d99f2b32def756b6b4d4cc99fca75dd9511436d5/wiki-project/wiki/B01固定提交接收与迁移兼容诊断.md",
+      "sha256": "262df7f57bb6659b4d869e6de95030ff38b8cfaa3a5cf9b62a4add43ad28a7eb"
+    },
+    "diagnosticEvidence": {
+      "commit": "d99f2b32def756b6b4d4cc99fca75dd9511436d5",
+      "path": "wiki-project/raw/c-b01-migration-compatibility-probe.json",
+      "url": "https://github.com/jacson10l/tradequote-agent/blob/d99f2b32def756b6b4d4cc99fca75dd9511436d5/wiki-project/raw/c-b01-migration-compatibility-probe.json",
+      "sha256": "834c091fb66aecb2b4467fd4f599356cee6800f53232f3129f204db044c1932c"
+    }
+  },
+  "checks": [
+    {
+      "command": "pnpm wiki:check",
+      "argv": [
+        "pnpm",
+        "wiki:check"
+      ],
+      "startedAt": "2026-10-23T18:59:26.423833+08:00",
+      "finishedAt": "2026-10-23T18:59:27.942274+08:00",
+      "durationSeconds": 1.518,
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 192,\n  \"semantic\": 164,\n  \"reachable\": 192\n}\n",
+      "outputSha256": "c55d6efd54fcdd711b8647fa8cd5c5c45e83d200f286d8e7190828c7bd48eb9d"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+      ],
+      "startedAt": "2026-10-23T18:59:28.017226+08:00",
+      "finishedAt": "2026-10-23T18:59:28.965435+08:00",
+      "durationSeconds": 0.948,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 91,\n  \"knowledgePages\": 99,\n  \"tasks\": 34,\n  \"errors\": []\n}\n",
+      "outputSha256": "0610a1786faec711ccb88b59611a4a28d1506ad58aa09cb26239b9a3ccaedbe5"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce"
+      ],
+      "startedAt": "2026-10-23T18:59:29.006779+08:00",
+      "finishedAt": "2026-10-23T18:59:29.921730+08:00",
+      "durationSeconds": 0.915,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 97,\n  \"knowledgePages\": 114,\n  \"tasks\": 42,\n  \"errors\": []\n}\n",
+      "outputSha256": "bd3e8ede8220d043733d5e1821f29db23b443677eadc0c28a8a0a870722f9279"
+    },
+    {
+      "command": "git ls-remote --heads origin refs/heads/codex/c-migration-coordination-draft",
+      "argv": [
+        "git",
+        "ls-remote",
+        "--heads",
+        "origin",
+        "refs/heads/codex/c-migration-coordination-draft"
+      ],
+      "startedAt": "2026-10-23T18:59:29.961894+08:00",
+      "finishedAt": "2026-10-23T18:59:31.402994+08:00",
+      "durationSeconds": 1.441,
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "git ls-remote --heads origin refs/heads/codex/c-migration-coordination-draft",
+      "argv": [
+        "git",
+        "ls-remote",
+        "--heads",
+        "origin",
+        "refs/heads/codex/c-migration-coordination-draft"
+      ],
+      "startedAt": "2026-10-23T19:00:18.664161+08:00",
+      "finishedAt": "2026-10-23T19:00:20.015575+08:00",
+      "durationSeconds": 1.351,
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "git -c http.version=HTTP/1.1 -c http.postBuffer=524288000 push --porcelain --no-follow-tags --set-upstream origin refs/heads/codex/c-migration-coordination-draft:refs/heads/codex/c-migration-coordination-draft",
+      "argv": [
+        "git",
+        "-c",
+        "http.version=HTTP/1.1",
+        "-c",
+        "http.postBuffer=524288000",
+        "push",
+        "--porcelain",
+        "--no-follow-tags",
+        "--set-upstream",
+        "origin",
+        "refs/heads/codex/c-migration-coordination-draft:refs/heads/codex/c-migration-coordination-draft"
+      ],
+      "startedAt": "2026-10-23T19:00:20.063474+08:00",
+      "finishedAt": "2026-10-23T19:00:24.103086+08:00",
+      "durationSeconds": 4.039,
+      "exitCode": 0,
+      "output": "remote: \nremote: Create a pull request for 'codex/c-migration-coordination-draft' on GitHub by visiting:        \nremote:      https://github.com/jacson10l/tradequote-agent/pull/new/codex/c-migration-coordination-draft        \nremote: \nTo https://github.com/jacson10l/tradequote-agent.git\n*\trefs/heads/codex/c-migration-coordination-draft:refs/heads/codex/c-migration-coordination-draft\t[new branch]\nbranch 'codex/c-migration-coordination-draft' set up to track 'origin/codex/c-migration-coordination-draft'.\nDone\n",
+      "outputSha256": "8676f6e334f5faad76e76799e50daba889208da90a794381ae50175b13cb4677"
+    },
+    {
+      "command": "git ls-remote --heads origin refs/heads/codex/c-migration-coordination-draft",
+      "argv": [
+        "git",
+        "ls-remote",
+        "--heads",
+        "origin",
+        "refs/heads/codex/c-migration-coordination-draft"
+      ],
+      "startedAt": "2026-10-23T19:00:24.152521+08:00",
+      "finishedAt": "2026-10-23T19:00:25.446721+08:00",
+      "durationSeconds": 1.294,
+      "exitCode": 0,
+      "output": "fd4b72859e63931986424d6c66ee48fd12d81a60\trefs/heads/codex/c-migration-coordination-draft\n",
+      "outputSha256": "5829016d285fc38b8afce8b1d2f82336695c0be04b6f7b520b0a599473fcd442"
+    },
+    {
+      "command": "git merge-base --is-ancestor d99f2b32def756b6b4d4cc99fca75dd9511436d5 origin/codex/c-migration-coordination-draft",
+      "argv": [
+        "git",
+        "merge-base",
+        "--is-ancestor",
+        "d99f2b32def756b6b4d4cc99fca75dd9511436d5",
+        "origin/codex/c-migration-coordination-draft"
+      ],
+      "startedAt": "2026-10-23T19:01:27.988966+08:00",
+      "finishedAt": "2026-10-23T19:01:28.028682+08:00",
+      "durationSeconds": 0.039,
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "git rev-parse origin/codex/c-migration-coordination-draft",
+      "argv": [
+        "git",
+        "rev-parse",
+        "origin/codex/c-migration-coordination-draft"
+      ],
+      "startedAt": "2026-10-23T19:01:28.174559+08:00",
+      "finishedAt": "2026-10-23T19:01:28.194529+08:00",
+      "durationSeconds": 0.019,
+      "exitCode": 0,
+      "output": "fd4b72859e63931986424d6c66ee48fd12d81a60\n",
+      "outputSha256": "77ff01a538cdc12ba09f55c7a8ead3a4c7a891e81a715b6cdae2194040ac50bd"
+    }
+  ],
+  "attempts": [
+    {
+      "command": "pnpm wiki:check",
+      "argv": [
+        "pnpm",
+        "wiki:check"
+      ],
+      "startedAt": "2026-10-23T18:59:26.423833+08:00",
+      "finishedAt": "2026-10-23T18:59:27.942274+08:00",
+      "durationSeconds": 1.518,
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 192,\n  \"semantic\": 164,\n  \"reachable\": 192\n}\n",
+      "outputSha256": "c55d6efd54fcdd711b8647fa8cd5c5c45e83d200f286d8e7190828c7bd48eb9d"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+      ],
+      "startedAt": "2026-10-23T18:59:28.017226+08:00",
+      "finishedAt": "2026-10-23T18:59:28.965435+08:00",
+      "durationSeconds": 0.948,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 91,\n  \"knowledgePages\": 99,\n  \"tasks\": 34,\n  \"errors\": []\n}\n",
+      "outputSha256": "0610a1786faec711ccb88b59611a4a28d1506ad58aa09cb26239b9a3ccaedbe5"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce"
+      ],
+      "startedAt": "2026-10-23T18:59:29.006779+08:00",
+      "finishedAt": "2026-10-23T18:59:29.921730+08:00",
+      "durationSeconds": 0.915,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 97,\n  \"knowledgePages\": 114,\n  \"tasks\": 42,\n  \"errors\": []\n}\n",
+      "outputSha256": "bd3e8ede8220d043733d5e1821f29db23b443677eadc0c28a8a0a870722f9279"
+    },
+    {
+      "command": "git ls-remote --heads origin refs/heads/codex/c-migration-coordination-draft",
+      "argv": [
+        "git",
+        "ls-remote",
+        "--heads",
+        "origin",
+        "refs/heads/codex/c-migration-coordination-draft"
+      ],
+      "startedAt": "2026-10-23T18:59:29.961894+08:00",
+      "finishedAt": "2026-10-23T18:59:31.402994+08:00",
+      "durationSeconds": 1.441,
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "git push --porcelain --no-follow-tags --set-upstream origin refs/heads/codex/c-migration-coordination-draft:refs/heads/codex/c-migration-coordination-draft",
+      "argv": [
+        "git",
+        "push",
+        "--porcelain",
+        "--no-follow-tags",
+        "--set-upstream",
+        "origin",
+        "refs/heads/codex/c-migration-coordination-draft:refs/heads/codex/c-migration-coordination-draft"
+      ],
+      "startedAt": "2026-10-23T18:59:31.451428+08:00",
+      "finishedAt": "2026-10-23T18:59:33.799391+08:00",
+      "durationSeconds": 2.348,
+      "exitCode": 1,
+      "output": "error: RPC failed; HTTP 400 curl 22 The requested URL returned error: 400\nsend-pack: unexpected disconnect while reading sideband packet\nfatal: the remote end hung up unexpectedly\nDone\n",
+      "outputSha256": "55446d2ccd96b1aba70cebf6c8da28fd35786fc3eff0ba35d1c821711dd6dda7"
+    },
+    {
+      "command": "git ls-remote --heads origin refs/heads/codex/c-migration-coordination-draft",
+      "argv": [
+        "git",
+        "ls-remote",
+        "--heads",
+        "origin",
+        "refs/heads/codex/c-migration-coordination-draft"
+      ],
+      "startedAt": "2026-10-23T19:00:18.664161+08:00",
+      "finishedAt": "2026-10-23T19:00:20.015575+08:00",
+      "durationSeconds": 1.351,
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "git -c http.version=HTTP/1.1 -c http.postBuffer=524288000 push --porcelain --no-follow-tags --set-upstream origin refs/heads/codex/c-migration-coordination-draft:refs/heads/codex/c-migration-coordination-draft",
+      "argv": [
+        "git",
+        "-c",
+        "http.version=HTTP/1.1",
+        "-c",
+        "http.postBuffer=524288000",
+        "push",
+        "--porcelain",
+        "--no-follow-tags",
+        "--set-upstream",
+        "origin",
+        "refs/heads/codex/c-migration-coordination-draft:refs/heads/codex/c-migration-coordination-draft"
+      ],
+      "startedAt": "2026-10-23T19:00:20.063474+08:00",
+      "finishedAt": "2026-10-23T19:00:24.103086+08:00",
+      "durationSeconds": 4.039,
+      "exitCode": 0,
+      "output": "remote: \nremote: Create a pull request for 'codex/c-migration-coordination-draft' on GitHub by visiting:        \nremote:      https://github.com/jacson10l/tradequote-agent/pull/new/codex/c-migration-coordination-draft        \nremote: \nTo https://github.com/jacson10l/tradequote-agent.git\n*\trefs/heads/codex/c-migration-coordination-draft:refs/heads/codex/c-migration-coordination-draft\t[new branch]\nbranch 'codex/c-migration-coordination-draft' set up to track 'origin/codex/c-migration-coordination-draft'.\nDone\n",
+      "outputSha256": "8676f6e334f5faad76e76799e50daba889208da90a794381ae50175b13cb4677"
+    },
+    {
+      "command": "git ls-remote --heads origin refs/heads/codex/c-migration-coordination-draft",
+      "argv": [
+        "git",
+        "ls-remote",
+        "--heads",
+        "origin",
+        "refs/heads/codex/c-migration-coordination-draft"
+      ],
+      "startedAt": "2026-10-23T19:00:24.152521+08:00",
+      "finishedAt": "2026-10-23T19:00:25.446721+08:00",
+      "durationSeconds": 1.294,
+      "exitCode": 0,
+      "output": "fd4b72859e63931986424d6c66ee48fd12d81a60\trefs/heads/codex/c-migration-coordination-draft\n",
+      "outputSha256": "5829016d285fc38b8afce8b1d2f82336695c0be04b6f7b520b0a599473fcd442"
+    },
+    {
+      "command": "git merge-base --is-ancestor d99f2b32def756b6b4d4cc99fca75dd9511436d5 origin/codex/c-migration-coordination-draft",
+      "argv": [
+        "git",
+        "merge-base",
+        "--is-ancestor",
+        "d99f2b32def756b6b4d4cc99fca75dd9511436d5",
+        "origin/codex/c-migration-coordination-draft"
+      ],
+      "startedAt": "2026-10-23T19:01:27.988966+08:00",
+      "finishedAt": "2026-10-23T19:01:28.028682+08:00",
+      "durationSeconds": 0.039,
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "git rev-parse origin/codex/c-migration-coordination-draft",
+      "argv": [
+        "git",
+        "rev-parse",
+        "origin/codex/c-migration-coordination-draft"
+      ],
+      "startedAt": "2026-10-23T19:01:28.174559+08:00",
+      "finishedAt": "2026-10-23T19:01:28.194529+08:00",
+      "durationSeconds": 0.019,
+      "exitCode": 0,
+      "output": "fd4b72859e63931986424d6c66ee48fd12d81a60\n",
+      "outputSha256": "77ff01a538cdc12ba09f55c7a8ead3a4c7a891e81a715b6cdae2194040ac50bd"
+    }
+  ],
+  "initialFailure": "HTTP400 RPC disconnect; verified branch still absent before retry; ordinary retry using per-command HTTP/1.1/postBuffer succeeded",
+  "retryConfigScope": "HTTP options supplied with git -c for the retry only; no persistent HTTP settings written; --set-upstream established tracking of the authorized branch; no force or tag push",
+  "wikiFollowup": "Append local Wiki delivery record on same authorized branch, then push it normally; final full branch head supplied in handoff output after remote verification",
+  "notPerformed": [
+    "Merge into integration/main",
+    "PR creation/reviewer request/comment/message",
+    "Personnel signature or migration decision",
+    "Historical migration changes",
+    "Product/migration rerun or real model evaluation"
+  ],
+  "humanSignoffs": "unchanged_pending",
+  "compatibility": "false_unresolved"
+}

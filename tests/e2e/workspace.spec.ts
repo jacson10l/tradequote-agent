@@ -3,7 +3,11 @@ import { createRequire } from "node:module";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { _electron as electron, expect, test } from "@playwright/test";
-import { mockWikiCommands } from "../../packages/contracts/src/mock";
+import {
+  mockKnowledgeBuildCommands,
+  mockKnowledgeMaintenanceCommands,
+  mockWikiCommands,
+} from "../../packages/contracts/src/mock";
 
 const require = createRequire(resolve("apps/desktop/package.json"));
 test("development renderer runs with React refresh and the real desktop bridge", async () => {
@@ -97,17 +101,24 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
         "checkQuote",
         "createQuoteV1",
         "createWorkspace",
+        "executeKnowledgeBuild",
         "executeWiki",
+        "executeWikiMaintenance",
         "getAgentRun",
+        "getAgentRunEvents",
         "getKnowledgeRevision",
         "getQuoteChecks",
         "getTrade",
         "getWorkspace",
+        "listAgentRuns",
+        "modelEvaluation",
         "modelSettings",
+        "onAgentRunEvents",
         "pickCatalogCsv",
         "publishCatalog",
         "publishKnowledge",
         "queryKnowledge",
+        "readAgent",
         "renameWorkspace",
         "retryAgentRun",
         "reviseQuote",
@@ -121,7 +132,6 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
     });
     const pendingCapabilities = await page.evaluate(async () => {
       const read = { schemaVersion: 1 as const, requestId: crypto.randomUUID() };
-      const write = { ...read, idempotencyKey: crypto.randomUUID() };
       return Promise.all([
         window.tradequote.queryKnowledge({
           ...read,
@@ -131,23 +141,6 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
             at: "2026-10-21T00:00:00.000Z",
           },
         }),
-        window.tradequote.checkQuote({
-          ...write,
-          method: "quote.check",
-          payload: { revisionId: crypto.randomUUID() },
-        }),
-        window.tradequote.startAgentRun({
-          ...write,
-          method: "agent.start",
-          payload: {
-            method: "agent.understand",
-            payload: {
-              scenarioId: crypto.randomUUID(),
-              buyer: "合成测试",
-              inquiry: "仅验证未接入门禁",
-            },
-          },
-        }),
       ]);
     });
     for (const result of pendingCapabilities)
@@ -155,6 +148,19 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
         ok: false,
         error: { code: "CAPABILITY_UNAVAILABLE", retryable: false },
       });
+    const missingCheck = await page.evaluate(() =>
+      window.tradequote.checkQuote({
+        schemaVersion: 1,
+        requestId: crypto.randomUUID(),
+        idempotencyKey: crypto.randomUUID(),
+        method: "quote.check",
+        payload: { revisionId: crypto.randomUUID() },
+      }),
+    );
+    expect(missingCheck).toMatchObject({
+      ok: false,
+      error: { code: "NOT_FOUND", retryable: false },
+    });
     const wikiResults = await page.evaluate(
       async (commands) =>
         Promise.all(commands.map((command) => window.tradequote.executeWiki(command))),
@@ -177,6 +183,26 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
       ok: false,
       error: { code: "VALIDATION_ERROR", retryable: false },
     });
+    const p1Results = await page.evaluate(
+      async ({ build, maintenance }) =>
+        Promise.all([
+          ...build.map((command) => window.tradequote.executeKnowledgeBuild(command)),
+          ...maintenance.map((command) => window.tradequote.executeWikiMaintenance(command)),
+        ]),
+      { build: mockKnowledgeBuildCommands, maintenance: mockKnowledgeMaintenanceCommands },
+    );
+    expect(p1Results).toHaveLength(15);
+    for (const result of p1Results)
+      expect(result).toMatchObject({
+        ok: false,
+        error: { code: "CAPABILITY_UNAVAILABLE", retryable: false },
+      });
+    const p1Invalid = await page.evaluate(
+      async (command) =>
+        window.tradequote.executeKnowledgeBuild(Object.assign({}, command, { origin: "human_ui" })),
+      mockKnowledgeBuildCommands[0]!,
+    );
+    expect(p1Invalid).toMatchObject({ ok: false, error: { code: "VALIDATION_ERROR" } });
     // Exercise the same public bridge from a second operation while the form is stale.
     const external = await page.evaluate(async () =>
       window.tradequote.renameWorkspace({

@@ -1,0 +1,41 @@
+{
+  "status": "known_gaps",
+  "scope": "Synthetic acceptance boundaries against A b9a0af7 plus B type adaptations; no user database",
+  "observations": [
+    {
+      "case": "synthetic_unrecognized_6",
+      "observedError": "MIGRATION_LINEAGE_REJECTED:unknown",
+      "schemaUnchanged": true
+    },
+    {
+      "case": "ledger_with_missing_immutable_trigger",
+      "observedError": "MIGRATION_LINEAGE_REJECTED:tampered",
+      "schemaUnchanged": true
+    },
+    {
+      "case": "same_name_noop_trigger",
+      "observedError": null,
+      "schemaUnchanged": true
+    },
+    {
+      "case": "legacy_ledger_claims_absent_knowledge",
+      "observedError": null,
+      "schemaUnchanged": false
+    },
+    {
+      "case": "unknown_legacy_ledger_version",
+      "observedError": null,
+      "schemaUnchanged": true
+    },
+    {
+      "case": "registry_corruption_at_readonly_preflight",
+      "observedError": null,
+      "schemaUnchanged": true
+    },
+    {
+      "case": "registry_reject_preserves_disk_bytes",
+      "observedError": "MIGRATION_LINEAGE_REJECTED:tampered",
+      "schemaUnchanged": false
+    }
+  ]
+}

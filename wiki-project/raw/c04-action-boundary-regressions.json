@@ -1,0 +1,496 @@
+{
+  "scope": "synthetic_boundary_reconstructions_not_real_payload_replay",
+  "realRequests": 0,
+  "providerValidation": "fixture_only",
+  "caseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496",
+  "status": "passed",
+  "rows": [
+    {
+      "id": "apparel-en-v2",
+      "kind": "semantic",
+      "category": "apparel",
+      "language": "en",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 6,
+      "elapsedMs": 114,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ],
+      "diagnostics": [
+        {
+          "stage": "action_schema",
+          "tool": null,
+          "category": "action_field_type",
+          "disposition": "feedback",
+          "modelCall": 2,
+          "errorCode": "MODEL_INVALID_OUTPUT"
+        }
+      ]
+    },
+    {
+      "id": "apparel-en-v3",
+      "kind": "semantic",
+      "category": "apparel",
+      "language": "en",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 5,
+      "elapsedMs": 76,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "panel-en-v1",
+      "kind": "semantic",
+      "category": "panel",
+      "language": "en",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 7,
+      "elapsedMs": 31,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ],
+      "diagnostics": [
+        {
+          "stage": "clarification",
+          "tool": null,
+          "category": "clarification_before_read",
+          "disposition": "feedback",
+          "modelCall": 1,
+          "errorCode": "MISSING_FACTS"
+        }
+      ]
+    },
+    {
+      "id": "panel-en-v2",
+      "kind": "semantic",
+      "category": "panel",
+      "language": "en",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 5,
+      "elapsedMs": 23,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "panel-en-v3",
+      "kind": "semantic",
+      "category": "panel",
+      "language": "en",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 5,
+      "elapsedMs": 180,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "draft_only",
+          "passed": true
+        },
+        {
+          "id": "product",
+          "passed": true
+        },
+        {
+          "id": "quantity",
+          "passed": true
+        },
+        {
+          "id": "unit",
+          "passed": true
+        },
+        {
+          "id": "terms",
+          "passed": true
+        },
+        {
+          "id": "amount",
+          "passed": true
+        },
+        {
+          "id": "sources",
+          "passed": true
+        },
+        {
+          "id": "validation",
+          "passed": true
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "clarification-zh",
+      "kind": "clarification",
+      "category": null,
+      "language": "zh",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": "MISSING_FACTS",
+      "expectedErrorCode": null,
+      "modelCalls": 2,
+      "elapsedMs": 17,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "no_late_write",
+          "passed": true
+        }
+      ],
+      "diagnostics": [
+        {
+          "stage": "clarification",
+          "tool": null,
+          "category": "clarification_before_read",
+          "disposition": "feedback",
+          "modelCall": 1,
+          "errorCode": "MISSING_FACTS"
+        },
+        {
+          "stage": "clarification",
+          "tool": null,
+          "category": "clarification_before_read",
+          "disposition": "stopped",
+          "modelCall": 2,
+          "errorCode": "MISSING_FACTS"
+        }
+      ]
+    },
+    {
+      "id": "clarification-en",
+      "kind": "clarification",
+      "category": null,
+      "language": "en",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": "MISSING_FACTS",
+      "expectedErrorCode": null,
+      "modelCalls": 2,
+      "elapsedMs": 16,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "no_late_write",
+          "passed": true
+        }
+      ],
+      "diagnostics": [
+        {
+          "stage": "clarification",
+          "tool": null,
+          "category": "clarification_before_read",
+          "disposition": "feedback",
+          "modelCall": 1,
+          "errorCode": "MISSING_FACTS"
+        },
+        {
+          "stage": "clarification",
+          "tool": null,
+          "category": "clarification_before_read",
+          "disposition": "stopped",
+          "modelCall": 2,
+          "errorCode": "MISSING_FACTS"
+        }
+      ]
+    },
+    {
+      "id": "clarification-de",
+      "kind": "clarification",
+      "category": null,
+      "language": "de",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": "MISSING_FACTS",
+      "expectedErrorCode": null,
+      "modelCalls": 2,
+      "elapsedMs": 15,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "no_late_write",
+          "passed": true
+        }
+      ],
+      "diagnostics": [
+        {
+          "stage": "clarification",
+          "tool": null,
+          "category": "clarification_before_read",
+          "disposition": "feedback",
+          "modelCall": 1,
+          "errorCode": "MISSING_FACTS"
+        },
+        {
+          "stage": "clarification",
+          "tool": null,
+          "category": "clarification_before_read",
+          "disposition": "stopped",
+          "modelCall": 2,
+          "errorCode": "MISSING_FACTS"
+        }
+      ]
+    },
+    {
+      "id": "rule-block",
+      "kind": "rule_block",
+      "category": "apparel",
+      "language": "en",
+      "status": "passed",
+      "reason": "observed",
+      "errorCode": "RULE_BLOCKED",
+      "expectedErrorCode": "RULE_BLOCKED",
+      "modelCalls": 6,
+      "elapsedMs": 32,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": true
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "no_late_write",
+          "passed": true
+        }
+      ],
+      "diagnostics": [
+        {
+          "stage": "provider",
+          "tool": null,
+          "category": "content_json",
+          "disposition": "stopped",
+          "modelCall": 6,
+          "errorCode": "MODEL_INVALID_OUTPUT"
+        },
+        {
+          "stage": "tool_execution",
+          "tool": "validate_quote",
+          "category": "rule_block",
+          "disposition": "stopped",
+          "modelCall": 6,
+          "errorCode": "RULE_BLOCKED"
+        }
+      ]
+    }
+  ],
+  "totalEvaluationRows": 48
+}

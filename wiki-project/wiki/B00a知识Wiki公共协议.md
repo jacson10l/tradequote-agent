@@ -2,7 +2,7 @@
 title: B00a知识Wiki公共协议
 type: interface
 status: observed
-updated: 2026-10-22
+updated: 2026-10-24
 sources:
   - packages/contracts/src/knowledge-wiki.ts:1
   - packages/contracts/src/wiki-integrity.ts:1
@@ -105,3 +105,24 @@ P1 的 KnowledgeBuildRun/Proposal、完整 lint/maintenance/impact/index/rebuild
 ## 本机整仓收口修正
 
 workspace Electron 现有精确桥接列表同步 executeWiki，并直接从真实隔离 Electron 桥接执行全部 12 个合法未接入请求和额外宿主字段反例。A01a 合成 JSON 在共同基线不符合 Biome，本 PR 仅按 Biome 重新排版数组；parsed JSON 与 taskBase 逐值相同，原件/规则/来源 hash 与业务语义不变，不重写 A 的知识样本。Wiki 回归在文件稳定、重新生成机械清单之后执行，避免一边编辑源码一边复制基线导致 GENERATED_DRIFT。
+
+## 2026-10-23 B01 消费实现与公共类型修正
+
+补导出WikiCitationResolveInput、WikiEligibility、WikiIneligibilityReason及WikiSearchHit，基础设施使用公共类型而不新增zod依赖。原schemaVersion/KnowledgeCitation身份语义不变；检查结果通过可选wikiCitations和逐原件evidence完整传递这些协议，旧报告不强制迁移。
+
+本地检查报告按不可变artifact登记消费，entity/revision均为reportId，contentHash绑定已保存报告；A登记入口验证真实报价或报告的版本/hash，拒绝虚构消费。报告与消费同连接事务，而不是异步executeWiki之后补写。此artifact是SQLite报告，不表示PDF/最终批准或blob导出完成。接口取舍及待A/C复核见 [[0016-检查报告消费与稀疏迁移]]；实际52项聚焦及平台边界见 [[2026-10-23-B01新Wiki存储联调]]。
+
+## 迁移谱系收敛附带的类型导出
+
+迁移谱系收敛（codex/a01-migration-lineage）把 `WikiCitationResolveInput` 从 schema-only 推断类型改为显式导出 `export type WikiCitationResolveInput = z.infer<typeof WikiCitationResolveInputSchema>`，供 infrastructure 的 wiki-store resolveCitation 端口按公开契约直接引用，消除 TS2724 类型错误；不改变 schema 语义或 B00a 协议行为。
+
+## C集成候选中的P0并存核对
+
+2026-10-23实际fetch/gh核对共同头654fecc已纳入P0 PR #7，[[C集成候选与依赖收口]]仅在独立候选组合其契约。knowledge-wiki.ts、wiki-integrity.ts、knowledge-wiki.test.ts保持共同头字节，公共index/pending-client同时保留C运行事件/评估与WikiClient.executeWiki不可用门禁；mock及preload/真实Electron保留12个方法的合法不可用/非法拒绝。Runtime/Worker没有开放Wiki新命令；旧A01b范围不能因此冒充P0通用知识服务。P1 PR #8现已改向共同分支但未合入，本候选未测试P1，历史C技术复核和A待签分开，见[[C集成候选-依赖与非作者签认]]。
+
+
+## 2026-10-25 B固定新组合适配
+
+本次组合去掉A/B自动合并形成的重复WikiCitationResolveInput类型声明，保持单一schema推断导出，DTO无新增字段。contracts/index与pending-client保留B P0/P1及C run/event/read/evaluation方法并集；P1/新Wiki未接正式Worker白名单，合法未实现仍能力不可用，不伪造lint/review已保存。
+
+详见[[B新固定组合与回归范围]]、[[B01-新固定组合回归]]及raw/b-a910-c03-combination-validation.json。

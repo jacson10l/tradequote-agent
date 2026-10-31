@@ -1,0 +1,440 @@
+{
+  "status": "passed",
+  "scope": "C independent macOS baseline verification of fixed B composition; full migration/business/desktop integration and human acceptance NOT completed",
+  "candidate": "f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd",
+  "checks": [
+    {
+      "argv": [
+        "node",
+        ".runtime/build-probe.mjs"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "environmentOverrides": {},
+      "startedAt": "2026-10-26T08:16:28.283192+00:00",
+      "finishedAt": "2026-10-26T08:16:31.252238+00:00",
+      "exitCode": 0,
+      "stdout": "Bundled unchanged fixed combination infrastructure entry\n",
+      "stderr": "",
+      "stdoutSha256": "be4c8fb54c7153a3c948b5c27e9f12af71ed8511cbc2e9afe232902203a862eb",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        ".runtime/core-audit.mjs"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "environmentOverrides": {},
+      "startedAt": "2026-10-26T08:17:26.759164+00:00",
+      "finishedAt": "2026-10-26T08:17:27.909940+00:00",
+      "exitCode": 0,
+      "stdout": "[{\"path\":\"packages/infrastructure/src/migration-lineage.ts\",\"aSha256\":\"29ff1c4cdad66155cd0f36c4c9cb97f617be943ad05705c7a541fa2f1369d7bd\",\"candidateSha256\":\"de13ea2bdb1ccf26471663c162b6613eb116c2090ec41d16b9d05d3926f1aec8\",\"normalizedAstSha256\":\"f371353bfc84499781ebf31c611fcb2a10076cf828ed4e3c08c85b9cd6c502a3\",\"equivalent\":true},{\"path\":\"packages/infrastructure/src/migrations.ts\",\"aSha256\":\"d4b135275c277920fadfb6520a3a9590372e2d479e1a1fe49bb768922a9efb8c\",\"candidateSha256\":\"b469d9a09072510994b5d8eccab5d5ec6ec13ec79ffcf8980c92dae0d47734c0\",\"normalizedAstSha256\":\"0b0099e3312168da67c8ad47335b46d1efa8e3ea4a702658043711fe3fb0aef6\",\"equivalent\":true},{\"path\":\"packages/infrastructure/src/migration-ledger.test.ts\",\"aSha256\":\"91cc431730b3ac9ff89e912e9f8ed66dcb3d9968326a58d6a3f978f0b71ca162\",\"candidateSha256\":\"74b270d76d18b361c684b34250f282bfb257550bcf18fd1015b8a3e3b8b7b7ff\",\"normalizedAstSha256\":\"258e72dfc5ae4ada6b16e6f0bd4974aa223ef5868c316aebb96c1a6c665c65af\",\"equivalent\":true}]\n",
+      "stderr": "",
+      "stdoutSha256": "717ef529ff4c7d9515cc7c305f527c6fa3cb60843b3e400aa859315bbbd61fbe",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "test:e2e"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "environmentOverrides": {},
+      "startedAt": "2026-10-26T08:23:46.139205+00:00",
+      "finishedAt": "2026-10-26T08:25:02.905627+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 test:e2e /Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent\n> pnpm build && playwright test\n\n\n> tradequote-agent@0.1.0 build /Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent\n> node scripts/check-icons.mjs && pnpm --filter @tradequote/desktop build\n\nApplication icons passed: SVG/1024 PNG/macOS ICNS/Windows ICO\n\n> @tradequote/desktop@0.1.0 build /Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent/apps/desktop\n> electron-vite build\n\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 279 modules transformed.\nrendering chunks...\nout/main/evaluation.js                2.41 kB\nout/main/worker.js                    2.80 kB\nout/main/index.js                    26.17 kB\nout/main/chunks/public-D4aKJ8-0.js   29.90 kB\nout/main/chunks/src-oVQpvCuf.js     740.17 kB\n\n✓ built in 268ms\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 116 modules transformed.\nrendering chunks...\nout/preload/index.js  285.02 kB\n\n✓ built in 57ms\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 2120 modules transformed.\nrendering chunks...\nout/renderer/index.html                   0.64 kB\nout/renderer/assets/index-CKwX_z5s.css   15.94 kB\nout/renderer/assets/index-Cri8MQtj.js   594.44 kB\n\n✓ built in 1.08s\n\nRunning 9 tests using 1 worker\n\n  ✓  1 tests/e2e/agent-recovery.spec.ts:9:1 › R20 real worker SIGKILL, restart discovery, explicit retry, cancellation and immutable saved receipts (10.1s)\n  ✓  2 tests/e2e/feedback.spec.ts:8:1 › desktop feedback floats above content and recovers through the notification action (3.5s)\n  ✓  3 tests/e2e/model-evaluation.spec.ts:9:1 › formal model settings explicitly start isolated evaluations, cancel, preserve redacted fixture reports and never replay on reopen (14.1s)\n  ✓  4 tests/e2e/multistep-agent.spec.ts:13:1 › formal multistep loop saves validated V1/V2/V3, shows blocking sources, survives worker kill and explicitly retries (8.1s)\n  ✓  5 tests/e2e/quote-agent.spec.ts:9:1 › desktop settings and HTTP adapter support inquiry plus two saved revisions, differences, failures and reopen (7.0s)\n  ✓  6 tests/e2e/quote-v1.spec.ts:11:1 › real desktop imports CSV with confirmation, saves deterministic V1 and reopens frozen evidence (6.8s)\n  ✓  7 tests/e2e/read-assistant.spec.ts:9:1 › formal desktop read assistant executes four real tools, shows facts, guards missing tools and never saves (7.1s)\n  ✓  8 tests/e2e/workspace.spec.ts:13:1 › development renderer runs with React refresh and the real desktop bridge (4.0s)\n  ✓  9 tests/e2e/workspace.spec.ts:38:1 › real desktop persists workspace, validates IPC, handles conflict and reopens (8.5s)\n\n  9 passed (1.2m)\n",
+      "stderr": "[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n[WebServer] (node:41077) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (node:41079) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:\n[WebServer]   - ESM syntax in a file loaded as CommonJS (vite.renderer.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\n[WebServer]   - ESM syntax in a file loaded as CommonJS (electron.vite.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\n[WebServer] Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.\n(node:41086) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+      "stdoutSha256": "b1bfa014cbcca46e71a632165a66b97dd844d5f1f6d35653fc1fd284f72f58c8",
+      "stderrSha256": "636ab960fef5d5bb2d79116d07d89a6011308ac6b5fcd583a60ea74e17b35871"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--config",
+        ".runtime/diagnostic/playwright.config.ts"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "environmentOverrides": {},
+      "startedAt": "2026-10-26T08:22:04.879233+00:00",
+      "finishedAt": "2026-10-26T08:22:23.702951+00:00",
+      "exitCode": 0,
+      "stdout": "\nRunning 2 tests using 1 worker\n\n  ✓  1 .runtime/diagnostic/multistep-agent.spec.ts:13:1 › formal multistep loop saves validated V1/V2/V3, shows blocking sources, survives worker kill and explicitly retries (9.8s)\n  ✓  2 .runtime/diagnostic/quote-agent.spec.ts:9:1 › desktop settings and HTTP adapter support inquiry plus two saved revisions, differences, failures and reopen (5.9s)\n\n  2 passed (18.0s)\n",
+      "stderr": "[WebServer] (node:40443) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (node:40445) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:\n[WebServer]   - ESM syntax in a file loaded as CommonJS (vite.renderer.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\n[WebServer]   - ESM syntax in a file loaded as CommonJS (electron.vite.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\n[WebServer] Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.\n(node:40455) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+      "stdoutSha256": "85ffe26bef8c9eddb887d14ad5c2fdc866f2a7b957ad25c0de85bc03ca66cf18",
+      "stderrSha256": "00c18b181f296535c39b961275dccedeae24b74088393def4bbc07412248fbdd"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "check"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "environmentOverrides": {},
+      "startedAt": "2026-10-26T08:17:42.313728+00:00",
+      "finishedAt": "2026-10-26T08:17:52.635209+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 check /Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 178 files in 160ms. No fixes applied.\nTAP version 13\n# Subtest: renderer cannot reach Node, database or desktop internals through import forms\nok 1 - renderer cannot reach Node, database or desktop internals through import forms\n  ---\n  duration_ms: 30.536917\n  type: 'test'\n  ...\n# Subtest: pure modules use public contracts while other platform dependencies are rejected\nok 2 - pure modules use public contracts while other platform dependencies are rejected\n  ---\n  duration_ms: 10.583125\n  type: 'test'\n  ...\n# Subtest: domain permits exact pure decimal dependency without opening contracts or SDK imports\nok 3 - domain permits exact pure decimal dependency without opening contracts or SDK imports\n  ---\n  duration_ms: 2.4025\n  type: 'test'\n  ...\n# Subtest: committed icon resources match their source manifest\nok 4 - committed icon resources match their source manifest\n  ---\n  duration_ms: 4.993291\n  type: 'test'\n  ...\n# Subtest: editing either SVG or packaged icon without generation blocks the build\nok 5 - editing either SVG or packaged icon without generation blocks the build\n  ---\n  duration_ms: 20.887625\n  type: 'test'\n  ...\n# Subtest: macOS native process and runtime display TradeQuote while upstream Electron stays intact\nok 6 - macOS native process and runtime display TradeQuote while upstream Electron stays intact\n  ---\n  duration_ms: 5127.990833\n  type: 'test'\n  ...\n1..6\n# tests 6\n# suites 0\n# pass 6\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 5231.91575\nModule boundaries passed\n\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 250,\n  \"lines\": 65704,\n  \"generated\": 5,\n  \"excluded\": 11\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 241,\n  \"semantic\": 213,\n  \"reachable\": 241\n}\n",
+      "stderr": "",
+      "stdoutSha256": "cf797465be5f0d959f7c68e986712f89e683697207dd162663b2105722f64598",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "exec",
+        "biome",
+        "format",
+        "--write",
+        "tests/e2e/quote-agent.spec.ts",
+        "tests/e2e/multistep-agent.spec.ts"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "environmentOverrides": {},
+      "startedAt": "2026-10-26T08:25:37.326004+00:00",
+      "finishedAt": "2026-10-26T08:25:37.877048+00:00",
+      "exitCode": 0,
+      "stdout": "Formatted 2 files in 23ms. Fixed 2 files.\n",
+      "stderr": "",
+      "stdoutSha256": "248247598d85adcfafe85495cf9010b7d72795b97998c56c9ec9c69b3373122e",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "install",
+        "--frozen-lockfile"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "environmentOverrides": {},
+      "startedAt": "2026-10-26T08:15:30.653079+00:00",
+      "finishedAt": "2026-10-26T08:15:48.261856+00:00",
+      "exitCode": 0,
+      "stdout": "Scope: all 5 workspace projects\nLockfile is up to date, resolution step is skipped\nProgress: resolved 1, reused 0, downloaded 0, added 0\nPackages: +435\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n   ╭──────────────────────────────────────────╮\n   │                                          │\n   │   Update available! 10.13.1 → 12.15.0.   │\n   │   Changelog: https://pnpm.io/v/12.15.0   │\n   │     To update, run: pnpm self-update     │\n   │                                          │\n   ╰──────────────────────────────────────────╯\n\nProgress: resolved 435, reused 150, downloaded 0, added 0\nProgress: resolved 435, reused 433, downloaded 0, added 81\nProgress: resolved 435, reused 434, downloaded 0, added 154\nProgress: resolved 435, reused 435, downloaded 0, added 300\nProgress: resolved 435, reused 435, downloaded 0, added 426\nProgress: resolved 435, reused 435, downloaded 0, added 431\nProgress: resolved 435, reused 435, downloaded 0, added 433\nProgress: resolved 435, reused 435, downloaded 0, added 435, done\n\ndevDependencies:\n+ @babel/parser 7.29.9\n+ @biomejs/biome 2.5.15\n+ @playwright/test 1.64.1\n+ @testing-library/dom 10.4.1\n+ @testing-library/jest-dom 7.0.1\n+ @testing-library/react 16.3.3\n+ @testing-library/user-event 14.6.8\n+ @types/better-sqlite3 9.6.0\n+ @types/node 24.19.2\n+ @types/react 19.3.0\n+ @types/react-dom 19.3.0\n+ jsdom 26.1.0\n+ typescript 7.0.2\n+ vite 8.3.4\n+ vitest 5.0.5\n\n╭ Warning ─────────────────────────────────────────────────────────────────────╮\n│                                                                              │\n│   Ignored build scripts: electron-winstaller.                                │\n│   Run \"pnpm approve-builds\" to pick which dependencies should be allowed     │\n│   to run scripts.                                                            │\n│                                                                              │\n╰──────────────────────────────────────────────────────────────────────────────╯\n\n. postinstall$ node scripts/prepare-electron.mjs && pnpm native:rebuild\n. postinstall: Downloading Electron binary...\n. postinstall: Electron executable ready\n. postinstall: > tradequote-agent@0.1.0 native:rebuild /Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent\n. postinstall: > pnpm --filter @tradequote/desktop exec electron-builder install-app-deps\n. postinstall:   • electron-builder  version=26.15.3\n. postinstall:   • loaded configuration  file=package.json (\"build\" field)\n. postinstall:   • packageManager not detected by file, falling back to environment detection  resolvedPackageManager=pnpm detected=/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent\n. postinstall:   • detected workspace root for project using packageManager field  pm=pnpm config=pnpm@10.13.1 resolved=/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent projectDir=/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent/apps/desktop\n. postinstall:   • executing @electron/rebuild  electronVersion=44.9.2 arch=arm64 buildFromSource=false workspaceRoot=/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent projectDir=./ appDir=./\n. postinstall:   • installing native dependencies  arch=arm64\n. postinstall:   • preparing       moduleName=better-sqlite3 arch=arm64\n. postinstall:   • finished        moduleName=better-sqlite3 arch=arm64\n. postinstall:   • completed installing native dependencies\n. postinstall: Done\nDone in 17.5s using pnpm v10.13.1\n",
+      "stderr": "",
+      "stdoutSha256": "579c573cb7f5592d46e2b9f17fa4083a35f4c547426ad3a3508829e79b6d9706",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        ".runtime/locator-audit.mjs"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "environmentOverrides": {},
+      "startedAt": "2026-10-26T08:25:37.985401+00:00",
+      "finishedAt": "2026-10-26T08:25:38.242613+00:00",
+      "exitCode": 0,
+      "stdout": "[{\"path\":\"tests/e2e/quote-agent.spec.ts\",\"originalSha256\":\"43f7b90244f352c8efb29fb87423cf818a05c3a42f7bc175eca1eed53fb76e49\",\"executedScopedSha256\":\"843f02c7495c0c1d4335e94dfd258279bf8f8276fee9646e878aaa6cc2d2b2c0\",\"finalSha256\":\"bae5f5de3af87c36b753fc65a1dc0af21c230503781c927026d6b05a07bb92ff\",\"onlyBusinessRegionScopeAndFormattingChanged\":true},{\"path\":\"tests/e2e/multistep-agent.spec.ts\",\"originalSha256\":\"6b827af0d1f544d97799d5f9d7b612a03943516143a773db6fa31bc856ffba50\",\"executedScopedSha256\":\"ed3bca613cf5feb74c5dcc52f98e32e3fad521b4691960f3d0f2b15d6355f080\",\"finalSha256\":\"57c97d566021e42d39ae1f3769d2ab9d12d25c432c66997b5e4c653310fe2b75\",\"onlyBusinessRegionScopeAndFormattingChanged\":true}]\n",
+      "stderr": "",
+      "stdoutSha256": "876a283cd13b712645f7321f6eadf6e2ffe79bb753375917df79b4a5202ad2e2",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent/node_modules/.pnpm/electron@44.9.2/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron",
+        ".runtime/a-probe/matrix.cjs"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "environmentOverrides": {
+        "ELECTRON_RUN_AS_NODE": "1",
+        "NODE_PATH": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent/packages/infrastructure/node_modules"
+      },
+      "startedAt": "2026-10-26T08:17:15.705651+00:00",
+      "finishedAt": "2026-10-26T08:17:19.268938+00:00",
+      "exitCode": 0,
+      "stdout": "{\"status\":\"partial_matrix_passed\",\"summary\":{\"total\":107,\"passed\":107,\"failed\":[]},\"cases\":[{\"id\":\"M01-empty\",\"expectationMet\":true},{\"id\":\"M02-common1\",\"expectationMet\":true},{\"id\":\"M02-common2\",\"expectationMet\":true},{\"id\":\"M02-common3\",\"expectationMet\":true},{\"id\":\"M03-a4\",\"expectationMet\":true},{\"id\":\"M04-c5\",\"expectationMet\":true},{\"id\":\"M05-c6\",\"expectationMet\":true},{\"id\":\"M06-c7\",\"expectationMet\":true},{\"id\":\"M07-a6\",\"expectationMet\":true},{\"id\":\"M08-b7\",\"expectationMet\":true},{\"id\":\"M09-unified\",\"expectationMet\":true},{\"id\":\"M09-L01-unknown-legacy-row\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M09-L02-duplicate-legacy-identity\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M10-C6-mislabelled-B7\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:unknown\",\"lineage\":\"unknown\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:unknown\",\"lineage\":\"unknown\"},\"actualBehavior\":null},{\"id\":\"M11-unknown-v6\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:unknown\",\"lineage\":\"unknown\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:unknown\",\"lineage\":\"unknown\"},\"actualBehavior\":null},{\"id\":\"M12-new-ledger-unknown-identity\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M12-high-version\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:unknown\",\"lineage\":\"unknown\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:unknown\",\"lineage\":\"unknown\"},\"actualBehavior\":null},{\"id\":\"M13-Y01-unreachable-real-RAISE\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M13-Y02-trigger-wrong-target-table\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M13-Y03-index-wrong-target-table\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M13-control-genuine-trigger-delete\",\"expectationMet\":true},{\"id\":\"M13-control-genuine-write-unique\",\"expectationMet\":true},{\"id\":\"M14-migration-no-invented-events\",\"expectationMet\":true},{\"id\":\"F01-empty-before_registry_ddl\",\"expectationMet\":true},{\"id\":\"F01-empty-after_ddl\",\"expectationMet\":true},{\"id\":\"F01-empty-before_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-empty-after_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-empty-before_version\",\"expectationMet\":true},{\"id\":\"F01-empty-after_version\",\"expectationMet\":true},{\"id\":\"F01-empty-before_commit\",\"expectationMet\":true},{\"id\":\"F01-empty-after_commit\",\"expectationMet\":true},{\"id\":\"F01-common1-before_registry_ddl\",\"expectationMet\":true},{\"id\":\"F01-common1-after_ddl\",\"expectationMet\":true},{\"id\":\"F01-common1-before_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-common1-after_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-common1-before_version\",\"expectationMet\":true},{\"id\":\"F01-common1-after_version\",\"expectationMet\":true},{\"id\":\"F01-common1-before_commit\",\"expectationMet\":true},{\"id\":\"F01-common1-after_commit\",\"expectationMet\":true},{\"id\":\"F01-common2-before_registry_ddl\",\"expectationMet\":true},{\"id\":\"F01-common2-after_ddl\",\"expectationMet\":true},{\"id\":\"F01-common2-before_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-common2-after_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-common2-before_version\",\"expectationMet\":true},{\"id\":\"F01-common2-after_version\",\"expectationMet\":true},{\"id\":\"F01-common2-before_commit\",\"expectationMet\":true},{\"id\":\"F01-common2-after_commit\",\"expectationMet\":true},{\"id\":\"F01-common3-before_registry_ddl\",\"expectationMet\":true},{\"id\":\"F01-common3-after_ddl\",\"expectationMet\":true},{\"id\":\"F01-common3-before_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-common3-after_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-common3-before_version\",\"expectationMet\":true},{\"id\":\"F01-common3-after_version\",\"expectationMet\":true},{\"id\":\"F01-common3-before_commit\",\"expectationMet\":true},{\"id\":\"F01-common3-after_commit\",\"expectationMet\":true},{\"id\":\"F01-a4-before_registry_ddl\",\"expectationMet\":true},{\"id\":\"F01-a4-after_ddl\",\"expectationMet\":true},{\"id\":\"F01-a4-before_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-a4-after_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-a4-before_version\",\"expectationMet\":true},{\"id\":\"F01-a4-after_version\",\"expectationMet\":true},{\"id\":\"F01-a4-before_commit\",\"expectationMet\":true},{\"id\":\"F01-a4-after_commit\",\"expectationMet\":true},{\"id\":\"F01-c5-before_registry_ddl\",\"expectationMet\":true},{\"id\":\"F01-c5-after_ddl\",\"expectationMet\":true},{\"id\":\"F01-c5-before_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-c5-after_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-c5-before_version\",\"expectationMet\":true},{\"id\":\"F01-c5-after_version\",\"expectationMet\":true},{\"id\":\"F01-c5-before_commit\",\"expectationMet\":true},{\"id\":\"F01-c5-after_commit\",\"expectationMet\":true},{\"id\":\"F01-c6-before_registry_ddl\",\"expectationMet\":true},{\"id\":\"F01-c6-after_ddl\",\"expectationMet\":true},{\"id\":\"F01-c6-before_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-c6-after_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-c6-before_version\",\"expectationMet\":true},{\"id\":\"F01-c6-after_version\",\"expectationMet\":true},{\"id\":\"F01-c6-before_commit\",\"expectationMet\":true},{\"id\":\"F01-c6-after_commit\",\"expectationMet\":true},{\"id\":\"F01-c7-before_registry_ddl\",\"expectationMet\":true},{\"id\":\"F01-c7-after_ddl\",\"expectationMet\":true},{\"id\":\"F01-c7-before_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-c7-after_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-c7-before_version\",\"expectationMet\":true},{\"id\":\"F01-c7-after_version\",\"expectationMet\":true},{\"id\":\"F01-c7-before_commit\",\"expectationMet\":true},{\"id\":\"F01-c7-after_commit\",\"expectationMet\":true},{\"id\":\"F01-a6-before_registry_ddl\",\"expectationMet\":true},{\"id\":\"F01-a6-after_ddl\",\"expectationMet\":true},{\"id\":\"F01-a6-before_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-a6-after_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-a6-before_version\",\"expectationMet\":true},{\"id\":\"F01-a6-after_version\",\"expectationMet\":true},{\"id\":\"F01-a6-before_commit\",\"expectationMet\":true},{\"id\":\"F01-a6-after_commit\",\"expectationMet\":true},{\"id\":\"F01-b7-before_registry_ddl\",\"expectationMet\":true},{\"id\":\"F01-b7-after_ddl\",\"expectationMet\":true},{\"id\":\"F01-b7-before_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-b7-after_ledger_insert\",\"expectationMet\":true},{\"id\":\"F01-b7-before_version\",\"expectationMet\":true},{\"id\":\"F01-b7-after_version\",\"expectationMet\":true},{\"id\":\"F01-b7-before_commit\",\"expectationMet\":true},{\"id\":\"F01-b7-after_commit\",\"expectationMet\":true},{\"id\":\"F02-C7-after_ddl\",\"expectationMet\":true},{\"id\":\"F02-C7-after_ledger_insert\",\"expectationMet\":true},{\"id\":\"F02-C7-before_commit\",\"expectationMet\":true},{\"id\":\"F02-C7-after_commit\",\"expectationMet\":true}]}\n",
+      "stderr": "",
+      "stdoutSha256": "77fcbb29f93a43971a2b0b223d52505f14003260faaf8ac4a40bfa57876ccb40",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent/node_modules/.pnpm/electron@44.9.2/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron",
+        ".runtime/a-probe/native.cjs"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "environmentOverrides": {
+        "ELECTRON_RUN_AS_NODE": "1",
+        "NODE_PATH": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent/packages/infrastructure/node_modules"
+      },
+      "startedAt": "2026-10-26T08:17:13.477486+00:00",
+      "finishedAt": "2026-10-26T08:17:13.823677+00:00",
+      "exitCode": 0,
+      "stdout": "{\"status\":\"passed\",\"environment\":{\"platform\":\"darwin\",\"arch\":\"arm64\",\"node\":\"v24.22.0\",\"electron\":\"44.9.2\",\"sqlite\":\"3.53.4\"},\"summary\":{\"total\":12,\"passed\":12,\"failed\":[]},\"cases\":[{\"id\":\"N01_C0_upgrade\",\"expectationMet\":true,\"error\":null,\"harnessError\":null},{\"id\":\"N02_C5_upgrade\",\"expectationMet\":true,\"error\":null,\"harnessError\":null},{\"id\":\"N03_C6_upgrade\",\"expectationMet\":true,\"error\":null,\"harnessError\":null},{\"id\":\"N04_C7_upgrade\",\"expectationMet\":true,\"error\":null,\"harnessError\":null},{\"id\":\"N05_B7_upgrade\",\"expectationMet\":true,\"error\":null,\"harnessError\":null},{\"id\":\"N06_missing_report_trigger\",\"expectationMet\":true,\"error\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"harnessError\":null},{\"id\":\"N07_missing_run_required_column\",\"expectationMet\":true,\"error\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"harnessError\":null},{\"id\":\"N08_noop_immutable_trigger\",\"expectationMet\":true,\"error\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"harnessError\":null},{\"id\":\"N09_nonunique_write_index\",\"expectationMet\":true,\"error\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"harnessError\":null},{\"id\":\"N10_corrupt_registry_preflight\",\"expectationMet\":true,\"error\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"harnessError\":null},{\"id\":\"N11_legacy_ledger_schema_contradiction\",\"expectationMet\":true,\"error\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"harnessError\":null},{\"id\":\"N12_bad_sql_rollback\",\"expectationMet\":true,\"error\":{\"name\":\"SqliteError\",\"message\":\"near \\\"INVALID\\\": syntax error\",\"lineage\":null},\"harnessError\":null}]}\n",
+      "stderr": "",
+      "stdoutSha256": "7288319060a6a3fe0b432b96b0a88f22f4cb4486420a6e0f2e3ebd2dfd98701b",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent/node_modules/.pnpm/electron@44.9.2/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron",
+        ".runtime/a-probe/m13.cjs"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "environmentOverrides": {
+        "ELECTRON_RUN_AS_NODE": "1",
+        "NODE_PATH": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent/packages/infrastructure/node_modules"
+      },
+      "startedAt": "2026-10-26T08:17:13.900222+00:00",
+      "finishedAt": "2026-10-26T08:17:13.999509+00:00",
+      "exitCode": 0,
+      "stdout": "{\"status\":\"passed\",\"summary\":{\"total\":4,\"passed\":4,\"failed\":[]},\"cases\":[{\"id\":\"M13-X01\",\"control\":{\"guardRejectedOperation\":true,\"error\":{\"name\":\"SqliteError\",\"message\":\"IMMUTABLE_TOOL_STEP\",\"lineage\":null},\"behavior\":null},\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"migrationError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"behavior\":null,\"behaviorError\":null,\"expectationMet\":true},{\"id\":\"M13-X02\",\"control\":{\"guardRejectedOperation\":true,\"error\":{\"name\":\"SqliteError\",\"message\":\"UNIQUE constraint failed: agent_write_call.run_id, agent_write_call.attempt\",\"lineage\":null},\"behavior\":null},\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"migrationError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"behavior\":null,\"behaviorError\":null,\"expectationMet\":true},{\"id\":\"M13-X03\",\"control\":{\"guardRejectedOperation\":true,\"error\":{\"name\":\"SqliteError\",\"message\":\"FOREIGN KEY constraint failed\",\"lineage\":null},\"behavior\":null},\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"migrationError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"behavior\":null,\"behaviorError\":null,\"expectationMet\":true},{\"id\":\"M13-X04\",\"control\":{\"guardRejectedOperation\":true,\"error\":{\"name\":\"SqliteError\",\"message\":\"CHECK constraint failed: attempt>0\",\"lineage\":null},\"behavior\":null},\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"migrationError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"behavior\":null,\"behaviorError\":null,\"expectationMet\":true}]}\n",
+      "stderr": "",
+      "stdoutSha256": "6fcf6ec5f38da5e11f2c09c5676e3340e1ea196da5bbf528e23ec9a55c12706b",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent/node_modules/.pnpm/electron@44.9.2/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron",
+        ".runtime/a-probe/m13-variants.cjs"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "environmentOverrides": {
+        "ELECTRON_RUN_AS_NODE": "1",
+        "NODE_PATH": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent/packages/infrastructure/node_modules"
+      },
+      "startedAt": "2026-10-26T08:17:14.072367+00:00",
+      "finishedAt": "2026-10-26T08:17:14.200487+00:00",
+      "exitCode": 0,
+      "stdout": "{\"status\":\"passed\",\"summary\":{\"total\":5,\"passed\":5,\"failed\":[]},\"cases\":[{\"id\":\"M13-X05\",\"control\":{\"guardRejectedOperation\":true,\"error\":{\"name\":\"SqliteError\",\"message\":\"IMMUTABLE_TOOL_STEP\",\"lineage\":null},\"behavior\":null},\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"migrationError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"behavior\":null,\"behaviorError\":null,\"expectationMet\":true},{\"id\":\"M13-X06\",\"control\":{\"guardRejectedOperation\":true,\"error\":{\"name\":\"SqliteError\",\"message\":\"UNIQUE constraint failed: agent_write_call.run_id, agent_write_call.attempt\",\"lineage\":null},\"behavior\":null},\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"migrationError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"behavior\":null,\"behaviorError\":null,\"expectationMet\":true},{\"id\":\"M13-X07\",\"control\":{\"guardRejectedOperation\":true,\"error\":{\"name\":\"SqliteError\",\"message\":\"UNIQUE constraint failed: agent_write_call.run_id, agent_write_call.attempt\",\"lineage\":null},\"behavior\":null},\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"migrationError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"behavior\":null,\"behaviorError\":null,\"expectationMet\":true},{\"id\":\"M13-X08\",\"control\":{\"guardRejectedOperation\":true,\"error\":{\"name\":\"SqliteError\",\"message\":\"IMMUTABLE_TOOL_STEP\",\"lineage\":null},\"behavior\":null},\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"migrationError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"behavior\":null,\"behaviorError\":null,\"expectationMet\":true},{\"id\":\"M13-X09\",\"control\":{\"guardRejectedOperation\":true,\"error\":{\"name\":\"SqliteError\",\"message\":\"CHECK constraint failed: attempt>0\",\"lineage\":null},\"behavior\":null},\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"migrationError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"behavior\":null,\"behaviorError\":null,\"expectationMet\":true}]}\n",
+      "stderr": "",
+      "stdoutSha256": "63426f74cba450657971b1f185b0a8b593471373f5cec9b7773bf7abac25f617",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent/node_modules/.pnpm/electron@44.9.2/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron",
+        ".runtime/a-probe/m13-extra.cjs"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "environmentOverrides": {
+        "ELECTRON_RUN_AS_NODE": "1",
+        "NODE_PATH": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent/packages/infrastructure/node_modules"
+      },
+      "startedAt": "2026-10-26T08:17:14.281909+00:00",
+      "finishedAt": "2026-10-26T08:17:14.395235+00:00",
+      "exitCode": 0,
+      "stdout": "{\"status\":\"passed\",\"summary\":{\"total\":2,\"passed\":2,\"failed\":[]},\"cases\":[{\"id\":\"M13-X10\",\"control\":{\"guardRejectedOperation\":true,\"error\":{\"name\":\"SqliteError\",\"message\":\"IMMUTABLE_TOOL_STEP\",\"lineage\":null},\"behavior\":null},\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"migrationError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"behavior\":null,\"behaviorError\":null,\"expectationMet\":true},{\"id\":\"M13-X11\",\"control\":{\"guardRejectedOperation\":true,\"error\":{\"name\":\"SqliteError\",\"message\":\"UNIQUE constraint failed: agent_write_call.run_id, agent_write_call.attempt\",\"lineage\":null},\"behavior\":null},\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"migrationError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"behavior\":null,\"behaviorError\":null,\"expectationMet\":true}]}\n",
+      "stderr": "",
+      "stdoutSha256": "f2e0ce6f50bda6e86993b1406497cad9e9ab93b09c01a6002dc87ec329c46a78",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent/node_modules/.pnpm/electron@44.9.2/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron",
+        ".runtime/a-probe/m13-boundary.cjs"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "environmentOverrides": {
+        "ELECTRON_RUN_AS_NODE": "1",
+        "NODE_PATH": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent/packages/infrastructure/node_modules"
+      },
+      "startedAt": "2026-10-26T08:17:14.478131+00:00",
+      "finishedAt": "2026-10-26T08:17:14.776612+00:00",
+      "exitCode": 0,
+      "stdout": "{\"status\":\"partial_matrix_passed\",\"summary\":{\"total\":7,\"passed\":7,\"failed\":[]},\"cases\":[{\"id\":\"M13-Y04a-raise-where-zero\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M13-Y04b-raise-limit-zero\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M13-Y05-update-of-nonexistent-column\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M13-Y06-after-delete-raise-ignore\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M13-control-genuine-trigger-update\",\"expectationMet\":true},{\"id\":\"M13-control-genuine-trigger-delete\",\"expectationMet\":true},{\"id\":\"M13-control-genuine-write-unique\",\"expectationMet\":true}]}\n",
+      "stderr": "",
+      "stdoutSha256": "99af3d509b08b71f5d9134c9e1ac37538cbccd1534456462930d94d06be52f46",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent/node_modules/.pnpm/electron@44.9.2/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron",
+        ".runtime/a-probe/m13-lexical.cjs"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "environmentOverrides": {
+        "ELECTRON_RUN_AS_NODE": "1",
+        "NODE_PATH": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent/packages/infrastructure/node_modules"
+      },
+      "startedAt": "2026-10-26T08:17:14.862843+00:00",
+      "finishedAt": "2026-10-26T08:17:15.110286+00:00",
+      "exitCode": 0,
+      "stdout": "{\"status\":\"partial_matrix_passed\",\"summary\":{\"total\":6,\"passed\":6,\"failed\":[]},\"cases\":[{\"id\":\"M13-Y07-comment-spoofed-body\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M13-Y08-comment-separated-update-of\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M13-Y09-comment-spoofed-event\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M13-control-genuine-trigger-update\",\"expectationMet\":true},{\"id\":\"M13-control-genuine-trigger-delete\",\"expectationMet\":true},{\"id\":\"M13-control-genuine-write-unique\",\"expectationMet\":true}]}\n",
+      "stderr": "",
+      "stdoutSha256": "061d7fb87a597ed74437be13e74538cb64a46e5eded3beb52d5537e9c057f96a",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent/node_modules/.pnpm/electron@44.9.2/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron",
+        ".runtime/a-probe/m13-identifier.cjs"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "environmentOverrides": {
+        "ELECTRON_RUN_AS_NODE": "1",
+        "NODE_PATH": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent/packages/infrastructure/node_modules"
+      },
+      "startedAt": "2026-10-26T08:17:15.281411+00:00",
+      "finishedAt": "2026-10-26T08:17:15.492025+00:00",
+      "exitCode": 0,
+      "stdout": "{\"status\":\"partial_matrix_passed\",\"summary\":{\"total\":3,\"passed\":3,\"failed\":[]},\"cases\":[{\"id\":\"M13-Y10-bracket-identifier-fake-check\",\"expectationMet\":true,\"identifyError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"repositoryError\":{\"name\":\"MigrationLineageError\",\"message\":\"MIGRATION_LINEAGE_REJECTED:tampered\",\"lineage\":\"tampered\"},\"actualBehavior\":null},{\"id\":\"M13-control-genuine-real-check\",\"expectationMet\":true},{\"id\":\"M13-control-bracket-extra-real-check\",\"expectationMet\":true}]}\n",
+      "stderr": "",
+      "stdoutSha256": "d649f3137a0e06e75bdfff785dc825fe5007da1269aafd5c5fa93e91e4d5dabb",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent/node_modules/.pnpm/electron@44.9.2/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/contracts/src/checks.test.ts",
+        "packages/contracts/src/knowledge-wiki.test.ts",
+        "packages/contracts/src/knowledge-build.test.ts",
+        "packages/contracts/src/knowledge-maintenance.test.ts",
+        "packages/contracts/src/knowledge-lint-review.test.ts",
+        "packages/infrastructure/src/wiki-store.test.ts",
+        "packages/infrastructure/src/check-store.test.ts",
+        "packages/infrastructure/src/check-lineage-integration.test.ts",
+        "packages/infrastructure/src/wiki-check-integration.test.ts"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "environmentOverrides": {
+        "ELECTRON_RUN_AS_NODE": "1",
+        "NODE_PATH": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent/packages/infrastructure/node_modules"
+      },
+      "startedAt": "2026-10-26T08:16:26.895624+00:00",
+      "finishedAt": "2026-10-26T08:16:38.583136+00:00",
+      "exitCode": 0,
+      "stdout": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent\n\n\n Test Files  9 passed (9)\n      Tests  121 passed (121)\n   Start at  16:16:31\n   Duration  7.39s (import 48%, transform 34%, tests 18%)\n\n",
+      "stderr": "",
+      "stdoutSha256": "d6139d65a17fa9504d900a4fe684fab7563d023b9303800988e951d7752a8f49",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "python3",
+        ".runtime/provenance.py"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "environmentOverrides": {},
+      "startedAt": "2026-10-26T08:19:21.122008+00:00",
+      "finishedAt": "2026-10-26T08:19:31.212704+00:00",
+      "exitCode": 0,
+      "stdout": "{\"sourceChecks\": [{\"name\": \"typecheck\", \"head\": \"ceec0ee4e329d891aad1855a42414256762e367c\", \"recordedExitCode\": 0, \"sourceHashCount\": 9, \"nonWikiWorkingChanges\": \"\"}, {\"name\": \"native identity\", \"head\": \"ceec0ee4e329d891aad1855a42414256762e367c\", \"recordedExitCode\": 0, \"sourceHashCount\": 9, \"nonWikiWorkingChanges\": \"\"}, {\"name\": \"fixed combination nine-file regression\", \"head\": \"ceec0ee4e329d891aad1855a42414256762e367c\", \"recordedExitCode\": 0, \"sourceHashCount\": 9, \"nonWikiWorkingChanges\": \"\"}, {\"name\": \"full unit suite\", \"head\": \"ceec0ee4e329d891aad1855a42414256762e367c\", \"recordedExitCode\": 1, \"sourceHashCount\": 9, \"nonWikiWorkingChanges\": \"\"}, {\"name\": \"build\", \"head\": \"ceec0ee4e329d891aad1855a42414256762e367c\", \"recordedExitCode\": 0, \"sourceHashCount\": 9, \"nonWikiWorkingChanges\": \"\"}, {\"name\": \"wiki generate\", \"head\": \"ceec0ee4e329d891aad1855a42414256762e367c\", \"recordedExitCode\": 0, \"sourceHashCount\": 9, \"nonWikiWorkingChanges\": \"\"}, {\"name\": \"wiki readonly\", \"head\": \"ceec0ee4e329d891aad1855a42414256762e367c\", \"recordedExitCode\": 0, \"sourceHashCount\": 9, \"nonWikiWorkingChanges\": \"\"}, {\"name\": \"wiki lint\", \"head\": \"ceec0ee4e329d891aad1855a42414256762e367c\", \"recordedExitCode\": 0, \"sourceHashCount\": 9, \"nonWikiWorkingChanges\": \"\"}, {\"name\": \"wiki sync\", \"head\": \"ceec0ee4e329d891aad1855a42414256762e367c\", \"recordedExitCode\": 0, \"sourceHashCount\": 9, \"nonWikiWorkingChanges\": \"\"}, {\"name\": \"wiki regression\", \"head\": \"ceec0ee4e329d891aad1855a42414256762e367c\", \"recordedExitCode\": 1, \"sourceHashCount\": 9, \"nonWikiWorkingChanges\": \"\"}, {\"name\": \"diff whitespace\", \"head\": \"ceec0ee4e329d891aad1855a42414256762e367c\", \"recordedExitCode\": 0, \"sourceHashCount\": 9, \"nonWikiWorkingChanges\": \"\"}, {\"name\": \"engineering check\", \"head\": \"ceec0ee4e329d891aad1855a42414256762e367c\", \"recordedExitCode\": 1, \"sourceHashCount\": 9, \"nonWikiWorkingChanges\": \"\"}, {\"name\": \"wiki regression\", \"head\": \"ceec0ee4e329d891aad1855a42414256762e367c\", \"recordedExitCode\": 1, \"sourceHashCount\": 9, \"nonWikiWorkingChanges\": \"\"}, {\"name\": \"engineering check\", \"head\": \"ceec0ee4e329d891aad1855a42414256762e367c\", \"recordedExitCode\": 0, \"sourceHashCount\": 9, \"nonWikiWorkingChanges\": \"\"}, {\"name\": \"wiki generate\", \"head\": \"ceec0ee4e329d891aad1855a42414256762e367c\", \"recordedExitCode\": 0, \"sourceHashCount\": 9, \"nonWikiWorkingChanges\": \"\"}, {\"name\": \"wiki readonly\", \"head\": \"ceec0ee4e329d891aad1855a42414256762e367c\", \"recordedExitCode\": 0, \"sourceHashCount\": 9, \"nonWikiWorkingChanges\": \"\"}, {\"name\": \"wiki lint\", \"head\": \"ceec0ee4e329d891aad1855a42414256762e367c\", \"recordedExitCode\": 0, \"sourceHashCount\": 9, \"nonWikiWorkingChanges\": \"\"}, {\"name\": \"wiki sync\", \"head\": \"ceec0ee4e329d891aad1855a42414256762e367c\", \"recordedExitCode\": 0, \"sourceHashCount\": 9, \"nonWikiWorkingChanges\": \"\"}, {\"name\": \"diff whitespace\", \"head\": \"ceec0ee4e329d891aad1855a42414256762e367c\", \"recordedExitCode\": 0, \"sourceHashCount\": 9, \"nonWikiWorkingChanges\": \"\"}], \"oldRaw\": [{\"source\": \"a\", \"commit\": \"a2b050eb74f52dc10916645bcc7a2dead02f9a72\", \"count\": 78, \"mismatches\": []}, {\"source\": \"b\", \"commit\": \"7f8afe6a0849da3f198bf5bf3be32180053f082d\", \"count\": 108, \"mismatches\": []}, {\"source\": \"c\", \"commit\": \"03b16b76ceb336d9f37692ee8b51046e90f328a0\", \"count\": 254, \"mismatches\": []}], \"logChecks\": [{\"source\": \"a\", \"commit\": \"a2b050eb74f52dc10916645bcc7a2dead02f9a72\", \"nonemptyLinesPreservedInOrder\": true, \"bytePrefixPreserved\": false}, {\"source\": \"b\", \"commit\": \"7f8afe6a0849da3f198bf5bf3be32180053f082d\", \"nonemptyLinesPreservedInOrder\": true, \"bytePrefixPreserved\": true}, {\"source\": \"c\", \"commit\": \"03b16b76ceb336d9f37692ee8b51046e90f328a0\", \"nonemptyLinesPreservedInOrder\": true, \"bytePrefixPreserved\": false}], \"BOriginalFiles\": [{\"path\": \"wiki-project/wiki/B新固定组合与回归范围.md\", \"sha256\": \"44569bb4817e388a2d116310ed6c3841b2570222318b212ed3a6590d62efb664\", \"blob\": \"03336e33aff668f65af9f99751914a92201e3960\", \"fixedUrl\": \"https://github.com/jacson10l/tradequote-agent/blob/f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd/wiki-project/wiki/B新固定组合与回归范围.md\"}, {\"path\": \"wiki-project/wiki/tasks/B01-新固定组合回归.md\", \"sha256\": \"e8669dda2b9524d77fad2a649f64fba4d9a259eff25377f0964d0729c62b43e6\", \"blob\": \"346987e5fda5b635df69aae55a95ba351c7b0d93\", \"fixedUrl\": \"https://github.com/jacson10l/tradequote-agent/blob/f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd/wiki-project/wiki/tasks/B01-新固定组合回归.md\"}, {\"path\": \"wiki-project/raw/b-a910-c03-combination-validation.json\", \"sha256\": \"34274595ad4ce36982ea94e5dba49cd42f2d0e0703d33c2ceac16f4f32fce\n",
+      "stderr": "",
+      "stdoutSha256": "b590f3d0ac0dfdc64b0d080b9ec93fd1ea745d984ac67e4ed1dccdd9b0765caf",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "typecheck"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "environmentOverrides": {},
+      "startedAt": "2026-10-26T08:23:47.257375+00:00",
+      "finishedAt": "2026-10-26T08:23:50.493265+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 typecheck /Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent\n> tsc --noEmit\n\n",
+      "stderr": "",
+      "stdoutSha256": "478e282e6336b5ec214677d612c251d9827e87cb7c64e0a7583affc7c0d55f41",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "typecheck"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "environmentOverrides": {},
+      "startedAt": "2026-10-26T08:16:26.859493+00:00",
+      "finishedAt": "2026-10-26T08:16:37.479992+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 typecheck /Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent\n> tsc --noEmit\n\n",
+      "stderr": "",
+      "stdoutSha256": "478e282e6336b5ec214677d612c251d9827e87cb7c64e0a7583affc7c0d55f41",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "test"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "environmentOverrides": {},
+      "startedAt": "2026-10-26T08:17:19.311659+00:00",
+      "finishedAt": "2026-10-26T08:17:42.205787+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 test /Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent\n> node scripts/test-unit.mjs\n\n\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent\n\n\n Test Files  51 passed (51)\n      Tests  455 passed (455)\n   Start at  16:17:20\n   Duration  22.01s (tests 53%, import 36%, transform 6%, environment 4%)\n\n    Isolate  51 workers spawned · ~568ms startup each (spawn + environment, per file)\n             at least ~2.65s faster with isolate: false — reuses workers across files instead of one per file\n\n",
+      "stderr": "",
+      "stdoutSha256": "e3c15bc65ab7217c54dc2cb23e159236bf87b1c534faf304040cf74000635c26",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "wiki:test"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "environmentOverrides": {},
+      "startedAt": "2026-10-26T08:17:52.691478+00:00",
+      "finishedAt": "2026-10-26T08:18:34.453623+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 wiki:test /Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent\n> node --test wiki-project/scripts/wiki-tools.test.mjs wiki-project/scripts/wiki-sync.test.mjs\n\nTAP version 13\n# Subtest: runtime version pin is a mandatory Wiki-synchronized configuration change\nok 1 - runtime version pin is a mandatory Wiki-synchronized configuration change\n  ---\n  duration_ms: 1.530208\n  type: 'test'\n  ...\n# Subtest: code with related knowledge, task and appended log passes\nok 2 - code with related knowledge, task and appended log passes\n  ---\n  duration_ms: 0.417791\n  type: 'test'\n  ...\n# Subtest: generated snapshots alone cannot satisfy knowledge/task/log changes\nok 3 - generated snapshots alone cannot satisfy knowledge/task/log changes\n  ---\n  duration_ms: 0.116917\n  type: 'test'\n  ...\n# Subtest: metadata-only or whitespace-only edits cannot satisfy semantic update\nok 4 - metadata-only or whitespace-only edits cannot satisfy semantic update\n  ---\n  duration_ms: 0.128417\n  type: 'test'\n  ...\n# Subtest: each source needs its own mapped knowledge, unrelated pages do not suffice\nok 5 - each source needs its own mapped knowledge, unrelated pages do not suffice\n  ---\n  duration_ms: 0.202208\n  type: 'test'\n  ...\n# Subtest: deleted source uses baseline mapping; unknown source fails\nok 6 - deleted source uses baseline mapping; unknown source fails\n  ---\n  duration_ms: 0.214709\n  type: 'test'\n  ...\n# Subtest: history rewrite and removed task do not pass\nok 7 - history rewrite and removed task do not pass\n  ---\n  duration_ms: 0.647083\n  type: 'test'\n  ...\n# Subtest: Wiki maintenance code requires workflow knowledge, not generated data\nok 8 - Wiki maintenance code requires workflow knowledge, not generated data\n  ---\n  duration_ms: 0.115459\n  type: 'test'\n  ...\n# Subtest: ordinary documentation-only edits do not trigger code delivery check\nok 9 - ordinary documentation-only edits do not trigger code delivery check\n  ---\n  duration_ms: 0.388625\n  type: 'test'\n  ...\n# Subtest: real Git baseline includes committed, unstaged and untracked sources\nok 10 - real Git baseline includes committed, unstaged and untracked sources\n  ---\n  duration_ms: 244.271417\n  type: 'test'\n  ...\n# Subtest: SVG assets require semantic Wiki, task and append-only log changes\nok 11 - SVG assets require semantic Wiki, task and append-only log changes\n  ---\n  duration_ms: 0.148166\n  type: 'test'\n  ...\n# Subtest: same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\nok 12 - same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\n  ---\n  duration_ms: 2192.662666\n  type: 'test'\n  ...\n# Subtest: source drift fails without writes; generation repairs snapshot while preserving ingest baseline\nok 13 - source drift fails without writes; generation repairs snapshot while preserving ingest baseline\n  ---\n  duration_ms: 1606.751583\n  type: 'test'\n  ...\n# Subtest: explicit ingest records a non-Git project honestly\nok 14 - explicit ingest records a non-Git project honestly\n  ---\n  duration_ms: 1226.789458\n  type: 'test'\n  ...\n# Subtest: tool inventory names come from definitions, not nested headers/output/schema fields\nok 15 - tool inventory names come from definitions, not nested headers/output/schema fields\n  ---\n  duration_ms: 760.414875\n  type: 'test'\n  ...\n# Subtest: new unclassified source fails; missing knowledge target and stale mapping fail\nok 16 - new unclassified source fails; missing knowledge target and stale mapping fail\n  ---\n  duration_ms: 1101.476208\n  type: 'test'\n  ...\n# Subtest: generated coverage tampering is detected by lint and remains untouched\nok 17 - generated coverage tampering is detected by lint and remains untouched\n  ---\n  duration_ms: 2365.166625\n  type: 'test'\n  ...\n# Subtest: sensitive filename is excluded before read; external source symlink is not followed\nok 18 - sensitive filename is excluded before read; external source symlink is not followed\n  ---\n  duration_ms: 839.935625\n  type: 'test'\n  ...\n# Subtest: Wiki and generated-output symlinks cannot write outside project\nok 19 - Wiki and generated-output symlinks cannot write outside project\n  ---\n  duration_ms: 735.524584\n  type: 'test'\n  ...\n# Subtest: missing schema field\nok 20 - missing schema field\n  ---\n  duration_ms: 1371.181958\n  type: 'test'\n  ...\n# Subtest: bad type\nok 21 - bad type\n  ---\n  duration_ms: 1492.04375\n  type: 'test'\n  ...\n# Subtest: bad date\nok 22 - bad date\n  ---\n  duration_ms: 1997.712125\n  type: 'test'\n  ...\n# Subtest: bad status\nok 23 - bad status\n  ---\n  duration_ms: 1953.793042\n  type: 'test'\n  ...\n# Subtest: missing wiki target\nok 24 - missing wiki target\n  ---\n  duration_ms: 1561.533291\n  type: 'test'\n  ...\n# Subtest: missing markdown target\nok 25 - missing markdown target\n  ---\n  duration_ms: 1144.54\n  type: 'test'\n  ...\n# Subtest: invalid source line\nok 26 - invalid source line\n  ---\n  duration_ms: 1284.992083\n  type: 'test'\n  ...\n# Subtest: verified without code evidence\nok 27 - verified without code evidence\n  ---\n  duration_ms: 1226.667792\n  type: 'test'\n  ...\n# Subtest: source escaping project\nok 28 - source escaping project\n  ---\n  duration_ms: 1198.039583\n  type: 'test'\n  ...\n# Subtest: unfilled placeholder\nok 29 - unfilled placeholder\n  ---\n  duration_ms: 1681.668167\n  type: 'test'\n  ...\n# Subtest: all sources are validated even after a valid implementation source\nok 30 - all sources are validated even after a valid implementation source\n  ---\n  duration_ms: 2038.421375\n  type: 'test'\n  ...\n# Subtest: orphan pages and duplicate basenames are rejected\nok 31 - orphan pages and duplicate basenames are rejected\n  ---\n  duration_ms: 2581.78075\n  type: 'test'\n  ...\n# Subtest: completed task requires actual verification record\nok 32 - completed task requires actual verification record\n  ---\n  duration_ms: 1259.99825\n  type: 'test'\n  ...\n# Subtest: archived source cannot bypass inspection through silent changes\nok 33 - archived source cannot bypass inspection through silent changes\n  ---\n  duration_ms: 1170.200542\n  type: 'test'\n  ...\n# Subtest: source references cannot open excluded runtime data\nok 34 - source references cannot open excluded runtime data\n  ---\n  duration_ms: 1149.218459\n  type: 'test'\n  ...\n# Subtest: new JSON evidence is checked and sensitive Wiki filenames are rejected before read\nok 35 - new JSON evidence is checked and sensitive Wiki filenames are rejected before read\n  ---\n  duration_ms: 1642.399375\n  type: 'test'\n  ...\n# Subtest: secret/JWT/private-key/PII detections redact the value in diagnostics\nok 36 - secret/JWT/private-key/PII detections redact the value in diagnostics\n  ---\n  duration_ms: 5818.781167\n  type: 'test'\n  ...\n1..36\n# tests 36\n# suites 0\n# pass 36\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 41470.6705\n",
+      "stderr": "",
+      "stdoutSha256": "59fbeeaeffe0f3407dbdec18827965c2e219b84f365225cd21e90d5e886a2be0",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "historicalFailedRuns": [
+    {
+      "argv": [
+        "node",
+        ".runtime/core-audit.mjs"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "environmentOverrides": {},
+      "startedAt": "2026-10-26T08:17:14.524059+00:00",
+      "finishedAt": "2026-10-26T08:17:14.651061+00:00",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "node:child_process:283\n    validateObject(options, 'options');\n    ^\n\nTypeError [ERR_INVALID_ARG_TYPE]: The \"options\" argument must be of type object. Received type string ('utf8')\n    at normalizeExecFileArgs (node:child_process:283:5)\n    at execFileSync (node:child_process:942:30)\n    at file:///Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent/.runtime/core-audit.mjs:14:10\n    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:665:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  code: 'ERR_INVALID_ARG_TYPE'\n}\n\nNode.js v22.22.0\n",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "93a400333fd18063130330409264db133586e849904a1fcc6930e5a689950ea0"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "test:e2e"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "environmentOverrides": {},
+      "startedAt": "2026-10-26T08:19:31.199426+00:00",
+      "finishedAt": "2026-10-26T08:20:37.910798+00:00",
+      "exitCode": 1,
+      "stdout": "\n> tradequote-agent@0.1.0 test:e2e /Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent\n> pnpm build && playwright test\n\n\n> tradequote-agent@0.1.0 build /Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent\n> node scripts/check-icons.mjs && pnpm --filter @tradequote/desktop build\n\nApplication icons passed: SVG/1024 PNG/macOS ICNS/Windows ICO\n\n> @tradequote/desktop@0.1.0 build /Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent/apps/desktop\n> electron-vite build\n\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 279 modules transformed.\nrendering chunks...\nout/main/evaluation.js                2.41 kB\nout/main/worker.js                    2.80 kB\nout/main/index.js                    26.17 kB\nout/main/chunks/public-D4aKJ8-0.js   29.90 kB\nout/main/chunks/src-oVQpvCuf.js     740.17 kB\n\n✓ built in 218ms\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 116 modules transformed.\nrendering chunks...\nout/preload/index.js  285.02 kB\n\n✓ built in 67ms\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 2120 modules transformed.\nrendering chunks...\nout/renderer/index.html                   0.64 kB\nout/renderer/assets/index-CKwX_z5s.css   15.94 kB\nout/renderer/assets/index-Cri8MQtj.js   594.44 kB\n\n✓ built in 926ms\n\nRunning 9 tests using 1 worker\n\n  ✓  1 tests/e2e/agent-recovery.spec.ts:9:1 › R20 real worker SIGKILL, restart discovery, explicit retry, cancellation and immutable saved receipts (7.8s)\n  ✓  2 tests/e2e/feedback.spec.ts:8:1 › desktop feedback floats above content and recovers through the notification action (2.3s)\n  ✓  3 tests/e2e/model-evaluation.spec.ts:9:1 › formal model settings explicitly start isolated evaluations, cancel, preserve redacted fixture reports and never replay on reopen (10.9s)\n  ✘  4 tests/e2e/multistep-agent.spec.ts:13:1 › formal multistep loop saves validated V1/V2/V3, shows blocking sources, survives worker kill and explicitly retries (3.6s)\n  ✘  5 tests/e2e/quote-agent.spec.ts:9:1 › desktop settings and HTTP adapter support inquiry plus two saved revisions, differences, failures and reopen (6.2s)\n  ✓  6 tests/e2e/quote-v1.spec.ts:11:1 › real desktop imports CSV with confirmation, saves deterministic V1 and reopens frozen evidence (7.7s)\n  ✓  7 tests/e2e/read-assistant.spec.ts:9:1 › formal desktop read assistant executes four real tools, shows facts, guards missing tools and never saves (5.9s)\n  ✓  8 tests/e2e/workspace.spec.ts:13:1 › development renderer runs with React refresh and the real desktop bridge (2.4s)\n  ✓  9 tests/e2e/workspace.spec.ts:38:1 › real desktop persists workspace, validates IPC, handles conflict and reopens (7.7s)\n\n\n  1) tests/e2e/multistep-agent.spec.ts:13:1 › formal multistep loop saves validated V1/V2/V3, shows blocking sources, survives worker kill and explicitly retries \n\n    Error: expect(locator).toBeVisible() failed\n\n    Locator: getByRole('alert')\n    Expected: visible\n    Error: strict mode violation: getByRole('alert') resolved to 3 elements:\n        1) <p role=\"alert\" class=\"error-box\">检查服务尚未接入，当前版本的条款仍待核实。</p> aka getByRole('region', { name: '报价 V1 规则检查' }).getByText('检查服务尚未接入，当前版本的条款仍待核实。')\n        2) <p role=\"alert\" class=\"error-box\">检查服务尚未接入，当前版本的条款仍待核实。</p> aka getByRole('region', { name: '报价 V2 规则检查' }).getByText('检查服务尚未接入，当前版本的条款仍待核实。')\n        3) <p role=\"alert\" class=\"error-box\">检查服务尚未接入，当前版本的条款仍待核实。</p> aka getByRole('region', { name: '报价 V3 规则检查' }).getByText('检查服务尚未接入，当前版本的条款仍待核实。')\n\n    Call log:\n      - Expect \"toBeVisible\" getByRole('alert') with timeout 5000ms\n      - waiting for getByRole('alert')\n\n\n      163 |     await page.getByLabel(\"交给模型理解的询盘\").fill(\"阻断验收：100件 DEMO-TEE，不提供付款\");\n      164 |     await page.getByRole(\"button\", { name: \"理解询盘并保存 V1\" }).click();\n    > 165 |     await expect(page.getByRole(\"alert\")).toBeVisible();\n          |                                           ^\n      166 |     const blocked = history.getByRole(\"article\").filter({ hasText: \"阻断验收：\" }).first();\n      167 |     await expect(blocked).toContainText(\"付款条款为空，阻断保存\");\n      168 |     await expect(blocked).toContainText(\"核价预览检查（未保存）\");\n        at /Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent/tests/e2e/multistep-agent.spec.ts:165:43\n\n    Error Context: .runtime/e2e/multistep-agent-formal-mul-63a1d-kill-and-explicitly-retries/error-context.md\n\n  2) tests/e2e/quote-agent.spec.ts:9:1 › desktop settings and HTTP adapter support inquiry plus two saved revisions, differences, failures and reopen \n\n    Error: expect(locator).toContainText(expected) failed\n\n    Locator: getByRole('alert')\n    Expected substring: \"模型建议未通过字段校验\"\n    Error: strict mode violation: getByRole('alert') resolved to 5 elements:\n        1) <p role=\"alert\" class=\"error-box\">检查服务尚未接入，当前版本的条款仍待核实。</p> aka getByText('检查服务尚未接入，当前版本的条款仍待核实。').first()\n        2) <p role=\"alert\" class=\"error-box\">检查服务尚未接入，当前版本的条款仍待核实。</p> aka getByRole('region', { name: '报价 V2 规则检查' }).getByText('检查服务尚未接入，当前版本的条款仍待核实。')\n        3) <p role=\"alert\" class=\"error-box\">检查服务尚未接入，当前版本的条款仍待核实。</p> aka getByText('检查服务尚未接入，当前版本的条款仍待核实。').nth(2)\n        4) <p role=\"alert\" class=\"error-box\">检查服务尚未接入，当前版本的条款仍待核实。</p> aka getByText('检查服务尚未接入，当前版本的条款仍待核实。').nth(3)\n        5) <p role=\"alert\" class=\"error-box\">检查服务尚未接入，当前版本的条款仍待核实。</p> aka getByText('检查服务尚未接入，当前版本的条款仍待核实。').nth(4)\n\n    Call log:\n      - Expect \"toContainText\" getByRole('alert') with timeout 5000ms\n      - waiting for getByRole('alert')\n\n\n      148 |     await page.getByLabel(\"本轮修改要求\").fill(\"交期改40天\");\n      149 |     await page.getByRole(\"button\", { name: \"理解修改并保存 V4\" }).click();\n    > 150 |     await expect(page.getByRole(\"alert\")).toContainText(\"模型建议未通过字段校验\");\n          |                                           ^\n      151 |     mode = \"auth\";\n      152 |     const failedRun = page\n      153 |       .getByRole(\"region\", { name: \"模型运行记录\" })\n        at /Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent/tests/e2e/quote-agent.spec.ts:150:43\n\n    Error Context: .runtime/e2e/quote-agent-desktop-settin-d4c95-erences-failures-and-reopen/error-context.md\n\n  2 failed\n    tests/e2e/multistep-agent.spec.ts:13:1 › formal multistep loop saves validated V1/V2/V3, shows blocking sources, survives worker kill and explicitly retries \n    tests/e2e/quote-agent.spec.ts:9:1 › desktop settings and HTTP adapter support inquiry plus two saved revisions, differences, failures and reopen \n  7 passed (1.0m)\n ELIFECYCLE  Command failed with exit code 1.\n",
+      "stderr": "[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n[WebServer] (node:39504) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (node:39505) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:\n[WebServer]   - ESM syntax in a file loaded as CommonJS (vite.renderer.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\n[WebServer]   - ESM syntax in a file loaded as CommonJS (electron.vite.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\n[WebServer] Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.\n(node:39514) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:39659) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:39699) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+      "stdoutSha256": "dad6dd9becc2be2eae4a51112ffb5e4db61beddf382cee3f43168253dd0bf25d",
+      "stderrSha256": "556b1c98f4fb1c1acb08376b6fdbc38579efbb2ec357ed63563b0c59dd68513b"
+    }
+  ],
+  "results": {
+    "nineFile": "121/121",
+    "unit": "455/455",
+    "wikiRegression": "36/36",
+    "engineering": "6/6",
+    "native": "12/12",
+    "X01_X11": "11/11",
+    "sixthRound": "7/7 including controls",
+    "seventhRound": "6/6 including controls",
+    "Y10": "3/3 including controls",
+    "matrix": "107/107 including selected 80 faults and 4 SIGKILL checkpoints",
+    "originalFixedE2E": "7/9, two global alert locator strict-mode failures",
+    "scopedDiagnostic": "2/2",
+    "officialE2EAfterCTestLocatorFix": "9/9 including build",
+    "typecheck": 0,
+    "productionSourceChanged": false
+  },
+  "remaining": [
+    "Complete M/F/J migration matrix and all new-composition business fixtures",
+    "New knowledge/check/P1 Main/Worker/preload desktop wiring and real lint persistence/review service",
+    "Actual human review/publish/withdraw/signoff and business acceptance",
+    "Real model calls, signed/packaged installer acceptance, new Windows rerun",
+    "Push, merge or external task messages"
+  ]
+}

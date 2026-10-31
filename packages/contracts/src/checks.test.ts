@@ -11,7 +11,9 @@ import {
 } from "./index";
 import {
   mockKnowledgeRevision as knowledge,
+  mockWikiCommands,
   mockWorkspace,
+  readonlyMockClient,
   mockCheckReport as report,
 } from "./mock";
 
@@ -58,6 +60,35 @@ const quote: QuoteSnapshot = {
   calculationPolicy: "sales-tiers-v1/line-half-up/goods-only",
 };
 describe("B00 quote checks boundary", () => {
+  it("A-W08: unavailable failures agree across the public helper, mock and pending Wiki client", async () => {
+    const review = mockWikiCommands.find((command) => command.method === "wiki.review")!;
+    const results = [
+      failure("CAPABILITY_UNAVAILABLE", "能力尚未接入"),
+      await readonlyMockClient.createWorkspace({
+        schemaVersion: 1,
+        requestId: id,
+        idempotencyKey: id,
+        method: "workspace.create",
+        payload: { name: "合成工作区" },
+      }),
+      await readonlyMockClient.executeWiki(review),
+    ];
+    for (const result of results)
+      expect(result).toMatchObject({
+        ok: false,
+        error: { code: "CAPABILITY_UNAVAILABLE", retryable: false, issues: [] },
+      });
+    const invalidReview = { ...review, unexpected: true };
+    expect(await readonlyMockClient.executeWiki(invalidReview)).toMatchObject({
+      ok: false,
+      error: { code: "VALIDATION_ERROR", retryable: false },
+    });
+    expect(failure("REVISION_CONFLICT", "基线已变化", 2).error).toMatchObject({
+      code: "REVISION_CONFLICT",
+      retryable: false,
+      currentAggregateVersion: 2,
+    });
+  });
   it("accepts V1 without rootId, retains unknown amounts and explicit test time", () => {
     const input = {
       quote,

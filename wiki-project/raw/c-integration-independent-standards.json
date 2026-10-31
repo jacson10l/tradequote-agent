@@ -1,0 +1,294 @@
+{
+  "schemaVersion": 1,
+  "axis": "Standards",
+  "candidate": "9e067bf0114e0d2b27f7b65ea4ecc07042405499",
+  "base": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+  "mergeSpecificBase": "9e8695b88f3e5d306f6aeeb362d21524818a3d12",
+  "scope": {
+    "diff": "git diff 654fecc4d93e4630ed4a0cf42f261d0d432e23d3...9e067bf0114e0d2b27f7b65ea4ecc07042405499",
+    "log": "git log 654fecc4d93e4630ed4a0cf42f261d0d432e23d3..9e067bf0114e0d2b27f7b65ea4ecc07042405499 --oneline",
+    "commits": 26,
+    "reviewedMergeDelta": "git diff 9e8695b88f3e5d306f6aeeb362d21524818a3d12..9e067bf0114e0d2b27f7b65ea4ecc07042405499",
+    "immutableCommittedBlobs": true
+  },
+  "recordedAt": "2026-10-23T04:57:08.887778+00:00",
+  "standardsSources": [
+    "AGENTS.md",
+    "wiki-project/AGENTS.md",
+    "CONTRIBUTING.md",
+    "DESIGN.md",
+    "wiki-project/wiki/Wiki 工作流与任务记录.md",
+    "wiki-project/wiki/首批并行接口约定.md",
+    "wiki-project/wiki/C集成候选评审说明.md",
+    "wiki-project/wiki/C集成候选与依赖收口.md",
+    "wiki-project/wiki/C02c统一运行与写账本.md",
+    "wiki-project/wiki/C03持久事件与桌面重连.md",
+    "wiki-project/wiki/C04收口与验收边界.md",
+    "wiki-project/wiki/tasks/C集成候选-准备与组合验证.md",
+    "wiki-project/wiki/tasks/C集成候选-依赖与非作者签认.md"
+  ],
+  "reviewedFiles": {
+    "sourceRead": [
+      "packages/contracts/src/index.ts",
+      "packages/contracts/src/pending-client.ts",
+      "packages/contracts/src/runs.ts",
+      "packages/contracts/src/run-events.ts",
+      "packages/contracts/src/read-tools.ts",
+      "packages/contracts/src/knowledge.ts",
+      "packages/domain/src/knowledge.ts",
+      "packages/domain/src/quote-checks.ts",
+      "packages/infrastructure/src/agent-executor.ts",
+      "packages/infrastructure/src/agent-run-coordinator.ts",
+      "packages/infrastructure/src/agent-run-store.ts",
+      "packages/infrastructure/src/worker-ownership.ts",
+      "packages/infrastructure/src/run-event-store.ts",
+      "packages/infrastructure/src/quote-draft-plan.ts",
+      "packages/infrastructure/src/quote-tool-agent.ts",
+      "packages/infrastructure/src/read-tool-runtime.ts",
+      "packages/infrastructure/src/knowledge-store.ts",
+      "packages/infrastructure/src/catalog-quote-read-agent.ts",
+      "packages/infrastructure/src/catalog-quote-read-service.ts",
+      "packages/infrastructure/src/deepseek.ts",
+      "packages/infrastructure/src/evaluation/runner.ts",
+      "packages/infrastructure/src/evaluation/report.ts",
+      "packages/infrastructure/src/evaluation/workspace.ts",
+      "apps/desktop/src/main/index.ts",
+      "apps/desktop/src/main/worker-client.ts",
+      "apps/desktop/src/main/evaluation-host.ts",
+      "apps/desktop/src/preload/index.ts",
+      "apps/desktop/src/workers/business.ts",
+      "apps/desktop/src/workers/evaluation.ts",
+      "apps/desktop/src/renderer/src/features/agent-runs.tsx",
+      "apps/desktop/src/renderer/src/features/run-events.tsx",
+      "apps/desktop/src/renderer/src/features/run-event-feed.ts",
+      "apps/desktop/src/renderer/src/features/model-evaluation.tsx",
+      "packages/infrastructure/src/evaluation/diagnostics.test.ts"
+    ],
+    "diffsOrFocusedSections": [
+      "packages/infrastructure/src/trade-store.ts",
+      "packages/infrastructure/src/migrations.ts",
+      "packages/infrastructure/src/agent-run-store.test.ts",
+      "packages/infrastructure/src/agent-run-coordinator.test.ts",
+      "packages/infrastructure/src/quote-tool-agent.test.ts",
+      "packages/infrastructure/src/run-event-store.test.ts",
+      "packages/domain/src/quote-checks.test.ts",
+      "apps/desktop/src/preload/contracts.test.ts",
+      "apps/desktop/src/main/evaluation-host.test.ts",
+      "apps/desktop/src/renderer/src/App.tsx",
+      "apps/desktop/src/renderer/src/features/read-assistant.tsx",
+      "apps/desktop/src/renderer/src/features/model-settings.tsx",
+      "apps/desktop/src/renderer/src/features/quote-agent.tsx",
+      "apps/desktop/electron.vite.config.ts",
+      "packages/infrastructure/package.json",
+      "packages/infrastructure/src/evaluation/evaluation.test.ts",
+      "vitest.config.ts",
+      "scripts/test-unit.mjs"
+    ]
+  },
+  "findings": [
+    {
+      "id": "STD-001",
+      "priority": "P2",
+      "category": "required-local-validation-gate",
+      "title": "Full fixture diagnostics test exceeds the normal suite timeout",
+      "file": "packages/infrastructure/src/evaluation/diagnostics.test.ts",
+      "startLine": 5,
+      "endLine": 10,
+      "trigger": "Run the unchanged candidate through strict full pnpm test with the repository default Vitest concurrency and timeout.",
+      "impact": "The required local unit-test gate repeatedly exits 1 at 293/294 tests; a focused one-test pass cannot establish a passing full-suite delivery gate. This is test/validation reliability evidence, not a demonstrated quotation or business-logic defect.",
+      "sourceEvidence": [
+        "diagnostics.test.ts:5-10 invokes the entire 48-case evaluateC04 fixture and closes at line86 without an explicit timeout.",
+        "vitest.config.ts supplies no timeout override.",
+        "evaluation.test.ts:45-81 invokes the same full fixture with a 20000ms test budget."
+      ],
+      "executionEvidence": {
+        "attribution": "Independent evidence-review agent results relayed by parent; this Standards agent did not rerun tests.",
+        "strictFullRuns": [
+          {
+            "exitCode": 1,
+            "filesPassed": 39,
+            "filesTotal": 40,
+            "testsPassed": 293,
+            "testsTotal": 294,
+            "failedTest": "diagnostics.test.ts:5",
+            "timeoutMs": 5000,
+            "observedTestDurationMs": 11092
+          },
+          {
+            "exitCode": 1,
+            "filesPassed": 39,
+            "filesTotal": 40,
+            "testsPassed": 293,
+            "testsTotal": 294,
+            "failedTest": "diagnostics.test.ts:5",
+            "timeoutMs": 5000,
+            "observedTestDurationMs": 7466,
+            "externalElectronHashCheckConcurrency": false
+          },
+          {
+            "exitCode": 1,
+            "filesPassed": 39,
+            "filesTotal": 40,
+            "testsPassed": 293,
+            "testsTotal": 294,
+            "failedTest": "diagnostics.test.ts:5",
+            "timeoutMs": 5000,
+            "observedTestDurationMs": 11022,
+            "startedAt": "2026-10-23T04:59:35.212Z",
+            "finishedAt": "2026-10-23T05:00:00.785Z",
+            "durationSeconds": 25.573,
+            "externalElectronHashCheckConcurrency": false,
+            "evidenceSource": "/Users/jason/.codex/worktrees/c-integration-review/tradequote-agent/.runtime/c-independent-review/evidence.json"
+          }
+        ],
+        "isolatedRun": {
+          "testsPassed": 1,
+          "testsTotal": 1,
+          "durationSeconds": 3.07
+        },
+        "earlierPassingFullRun": "Overlapped Electron and is disclosed as noncanonical; does not erase strict full-run failures.",
+        "finalStrictFullRun": {
+          "exitCode": 1,
+          "filesPassed": 39,
+          "filesTotal": 40,
+          "testsPassed": 293,
+          "testsTotal": 294,
+          "failedTest": "diagnostics.test.ts:5",
+          "timeoutMs": 5000,
+          "observedTestDurationMs": 11022,
+          "startedAt": "2026-10-23T04:59:35.212Z",
+          "finishedAt": "2026-10-23T05:00:00.785Z",
+          "durationSeconds": 25.573,
+          "externalElectronHashCheckConcurrency": false,
+          "evidenceSource": "/Users/jason/.codex/worktrees/c-integration-review/tradequote-agent/.runtime/c-independent-review/evidence.json"
+        },
+        "finalEvidenceStatus": "changes_required"
+      },
+      "documentedRule": {
+        "path": "AGENTS.md",
+        "quote": "失败必须修复后才能交付。",
+        "supportingPath": "CONTRIBUTING.md",
+        "supportingQuote": "验证必须是实际执行结果，未运行如实记录。未通过要求不得标 done。"
+      },
+      "recommendation": "Resolve or explicitly scope the full-suite timeout and obtain a canonical passing pnpm test at the pinned candidate/revised commit before treating the local validation gate as satisfied; preserve failures. Do not infer a production defect or silently increase production budgets."
+    }
+  ],
+  "hardViolations": [
+    {
+      "findingId": "STD-001",
+      "scope": "Required delivery validation gate is not reproducibly passing; no separate production-source standard breach proven."
+    }
+  ],
+  "smellJudgements": [],
+  "checkedEvidence": [
+    {
+      "kind": "manual-source-and-test-body-review",
+      "details": [
+        "AgentRunStore uses immediate outer transactions and same db for TradeStore/receipts/outbox/journal; stale execution/session/attempt checks precede writes.",
+        "Coordinator start/control persists before dispatch/abort; recovery marks unfinished runs interrupted and never dispatches; BusinessWorker waits actual exit before replacement.",
+        "QuoteToolAgent uses deterministic draftPlan/checkDraft and host candidate/validation IDs; commitValidatedWrite rechecks quote/source facts and published rule stamp before commit.",
+        "Main trusted window/frame/url and strict method schemas; preload validates requests/replies; renderer uses DesktopClient only.",
+        "Knowledge stage/publish policy checks human_ui; published revisions/quotes/turns/committed write receipts/tool steps protected by immutable triggers.",
+        "Report/diagnostics whitelist fields; credentials ephemeral to trusted host/provider/worker; model errors normalized without raw provider or SQL exception bytes.",
+        "Focused assertions inspected for atomic rollback, lost replies, cancellation/retry fencing, unknown amounts, rule block, source change, immutable history, listener release and zero auto requests."
+      ]
+    },
+    {
+      "kind": "independent-read-only-committed-blob-audit",
+      "file": ".runtime/c-independent-review/standards-preservation.json",
+      "result": {
+        "candidate": "9e067bf0114e0d2b27f7b65ea4ecc07042405499",
+        "headMatches": true,
+        "trackedWorkingTreeClean": true,
+        "protectedHashCount": 93,
+        "protectedHashMismatches": [],
+        "rawPreservation": [
+          {
+            "ref": "9e8695b88f3e5d306f6aeeb362d21524818a3d12",
+            "rawCount": 131,
+            "mismatches": [],
+            "nonemptyLogLinesPreservedInOrder": true,
+            "exactLogPrefix": false
+          },
+          {
+            "ref": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+            "rawCount": 77,
+            "mismatches": [],
+            "nonemptyLogLinesPreservedInOrder": true,
+            "exactLogPrefix": true
+          }
+        ],
+        "b00aP0ByteIdentity": {
+          "packages/contracts/src/knowledge-wiki.ts": true,
+          "packages/contracts/src/wiki-integrity.ts": true,
+          "packages/contracts/src/knowledge-wiki.test.ts": true
+        },
+        "commitCount": 26
+      }
+    },
+    {
+      "kind": "coverage-union-audit",
+      "missingPairs": [],
+      "passed": true
+    },
+    {
+      "kind": "author-records-inspected-not-independent-replay",
+      "files": [
+        "wiki-project/raw/c-integration-validation.json",
+        "wiki-project/raw/c-integration-preservation.json"
+      ],
+      "details": "Read exact command/exit/output and source-hash evidence; did not treat green author summaries as proof of behavior. Preparation task done remains separate from active signoff task."
+    },
+    {
+      "kind": "additional-focused-source-assessment",
+      "findingId": "STD-001",
+      "files": [
+        "packages/infrastructure/src/evaluation/diagnostics.test.ts",
+        "packages/infrastructure/src/evaluation/evaluation.test.ts",
+        "packages/infrastructure/src/evaluation/report.ts",
+        "vitest.config.ts",
+        "scripts/test-unit.mjs"
+      ],
+      "details": "Independently read committed source after parent supplied repeated full-suite timeout evidence. No tests or tracked changes performed."
+    }
+  ],
+  "notCheckedLimits": [
+    "Not every changed file or historical endpoint was read end to end; targeted standards review prioritizes runtime/store/contracts/IPC/evaluation safety.",
+    "No broad unit, typecheck, build, wiki gate, fixture suite or actual Electron suite replay in this agent; separate reviewer owns replay.",
+    "No real model calls, credential reads, customer workspace/database access, external messages/reviews, push, merge or human/A/B/business signoff.",
+    "Windows, signed installation, A01c migration integration, B00a P1, complete B01 and long-history outbox performance remain documented exclusions.",
+    "No new confirmed issue required an isolated runtime reproduction."
+  ],
+  "report": "One P2 Standards validation finding: packages/infrastructure/src/evaluation/diagnostics.test.ts:5-10 runs the complete 48-case fixture under the default 5000ms timeout. All three unchanged strict full pnpm test runs failed at this test (39/40 files,293/294 tests; observed11092ms,7466ms,11022ms). The final run alone took25.573s and exited1; isolated1/1 success does not satisfy the full gate. AGENTS.md requires failed checks to be repaired before delivery; CONTRIBUTING.md requires actual validation and prohibits done when requirements have not passed. Required validation remains changes_required. This is test/validation unreliability, not a proven business-logic defect. No other hard source-standard or smell findings confirmed. A/B and human-business signoffs remain pending.",
+  "classification": "agent technical review only; not A/B or human-business approval",
+  "updatedAt": "2026-10-23T05:03:28.810831+00:00",
+  "assessmentHistory": [
+    {
+      "recordedAt": "2026-10-23T05:00:21.624847+00:00",
+      "report": "P2 validation finding: diagnostics.test.ts:5-10 executes the entire 48-case fixture under the default 5-second test timeout, unlike evaluation.test.ts:45-81 which assigns the same full evaluation 20 seconds. Two unchanged strict pnpm test runs exited 1 (39/40 files, 293/294 tests), timing out this test at observed 11092ms and 7466ms; the latter had no concurrent Electron/hash/check run. Isolated 1/1 in 3.07s does not replace the full gate. AGENTS.md requires failed checks to be repaired before delivery; CONTRIBUTING.md requires actual validation and prohibits done when requirements have not passed. Resolve and obtain canonical full-suite evidence before delivery; preserve both failures. This establishes test/validation unreliability, not a business-logic bug. Final strict replay remains pending. No other hard source-standard violations or smell findings confirmed. A/B and human-business signoffs remain pending.",
+      "finalStrictFullRun": "Pending at assessment; parent/evidence reviewer must append final result, retaining both failures."
+    }
+  ],
+  "addenda": [
+    {
+      "recordedAt": "2026-10-23T05:03:28.810831+00:00",
+      "kind": "final-third-replay-result",
+      "fact": {
+        "exitCode": 1,
+        "filesPassed": 39,
+        "filesTotal": 40,
+        "testsPassed": 293,
+        "testsTotal": 294,
+        "failedTest": "diagnostics.test.ts:5",
+        "timeoutMs": 5000,
+        "observedTestDurationMs": 11022,
+        "startedAt": "2026-10-23T04:59:35.212Z",
+        "finishedAt": "2026-10-23T05:00:00.785Z",
+        "durationSeconds": 25.573,
+        "externalElectronHashCheckConcurrency": false,
+        "evidenceSource": "/Users/jason/.codex/worktrees/c-integration-review/tradequote-agent/.runtime/c-independent-review/evidence.json"
+      },
+      "assessment": "Final third strict full-suite run also fails; prior pending assessment superseded by this addendum. No further tests or source edits performed."
+    }
+  ]
+}

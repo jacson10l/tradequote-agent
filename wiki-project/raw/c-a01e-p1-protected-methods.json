@@ -1,0 +1,17 @@
+{
+  "baseline": "739961a6aecf379bbdd785e9fd3bfe115ee6ade1",
+  "inputA": "e7a94392af5816c4e9d7f01885bde40189030432",
+  "protectedBMethodASTHashes": {
+    "registerConsumption": "00e871acac25f83124861b5c9c1924a4e0a11ab4f308b6f26508b220bcb051a7",
+    "getConsumption": "0cdae79ebd1463e99312e8687bd76dfc3c064808452f28d23394c3ba93392fc0",
+    "readSourceRevision": "4cb4961cd5e95b31b5e92f1415423adb45daa5e39432cd4117e9e896910f85e6"
+  },
+  "importedAMethodASTHashes": {
+    "runLint": "fce06657da368836fc11d9facb4f320e360ef5ae531f099c1c4aebdc096f79e2",
+    "lintOutcome": "a11634bceb4841248f8a5d2da4d42e061091d640e2dea2b90efdf66b516dd8a9",
+    "review": "6878329e7874b8f7c929e872d6b906406a2956e5f76341576bdafad9ae11f4a0",
+    "publish": "8d10f40b06af257b96574a6a4e4eaf417c041413800ddeabbafddeab4388b9f1",
+    "withdraw": "a7be51be000a26fb0384815aa42f4aec1619ff4f3c681d992027750507ed4069",
+    "readLintReceipt": "b4332e1994a33e7c0b897e70d96f317c0416da5d9490cb0e4e53d4e0e49d6d9e"
+  }
+}

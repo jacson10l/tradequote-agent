@@ -1,0 +1,101 @@
+{
+  "status": "failed",
+  "recordedAt": "2026-10-21T19:19:07.659781+08:00",
+  "taskBase": "4324dc85bdd00657831f7428496c60e5332bb428",
+  "integrationBase": "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+  "branch": "codex/c02b-desktop-read-tools",
+  "environment": {
+    "os": "Darwin",
+    "architecture": "arm64",
+    "node": "22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2"
+  },
+  "scope": "Formal agent.read contract/Main/Worker/preload/UI for four real read-only catalog/quote/calculation tools; no knowledge/rule registration or durable run/write tools. Synthetic model actions over isolated loopback HTTP; real Electron/SQLite/pricing.",
+  "checks": [
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 typecheck /Users/jason/.codex/worktrees/c-runtime-roadmap/tradequote-agent\n> tsc --noEmit\n\n"
+    },
+    {
+      "command": "pnpm test",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 test /Users/jason/.codex/worktrees/c-runtime-roadmap/tradequote-agent\n> node scripts/test-unit.mjs\n\n\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-runtime-roadmap/tradequote-agent\n\n\n Test Files  21 passed (21)\n      Tests  104 passed (104)\n   Start at  19:19:08\n   Duration  2.57s (import 64%, tests 19%, environment 11%, transform 6%, worker 1%)\n\n    Isolate  21 workers spawned · ~357ms startup each (spawn + environment, per file)\n             at least ~477ms faster with isolate: false — reuses workers across files instead of one per file\n\n"
+    },
+    {
+      "command": "pnpm wiki:test",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:test /Users/jason/.codex/worktrees/c-runtime-roadmap/tradequote-agent\n> node --test wiki-project/scripts/wiki-tools.test.mjs wiki-project/scripts/wiki-sync.test.mjs\n\nTAP version 13\n# Subtest: runtime version pin is a mandatory Wiki-synchronized configuration change\nok 1 - runtime version pin is a mandatory Wiki-synchronized configuration change\n  ---\n  duration_ms: 1.550916\n  type: 'test'\n  ...\n# Subtest: code with related knowledge, task and appended log passes\nok 2 - code with related knowledge, task and appended log passes\n  ---\n  duration_ms: 0.338458\n  type: 'test'\n  ...\n# Subtest: generated snapshots alone cannot satisfy knowledge/task/log changes\nok 3 - generated snapshots alone cannot satisfy knowledge/task/log changes\n  ---\n  duration_ms: 0.097041\n  type: 'test'\n  ...\n# Subtest: metadata-only or whitespace-only edits cannot satisfy semantic update\nok 4 - metadata-only or whitespace-only edits cannot satisfy semantic update\n  ---\n  duration_ms: 0.110584\n  type: 'test'\n  ...\n# Subtest: each source needs its own mapped knowledge, unrelated pages do not suffice\nok 5 - each source needs its own mapped knowledge, unrelated pages do not suffice\n  ---\n  duration_ms: 0.186167\n  type: 'test'\n  ...\n# Subtest: deleted source uses baseline mapping; unknown source fails\nok 6 - deleted source uses baseline mapping; unknown source fails\n  ---\n  duration_ms: 0.288125\n  type: 'test'\n  ...\n# Subtest: history rewrite and removed task do not pass\nok 7 - history rewrite and removed task do not pass\n  ---\n  duration_ms: 0.172167\n  type: 'test'\n  ...\n# Subtest: Wiki maintenance code requires workflow knowledge, not generated data\nok 8 - Wiki maintenance code requires workflow knowledge, not generated data\n  ---\n  duration_ms: 0.779209\n  type: 'test'\n  ...\n# Subtest: ordinary documentation-only edits do not trigger code delivery check\nok 9 - ordinary documentation-only edits do not trigger code delivery check\n  ---\n  duration_ms: 0.377125\n  type: 'test'\n  ...\n# Subtest: real Git baseline includes committed, unstaged and untracked sources\nok 10 - real Git baseline includes committed, unstaged and untracked sources\n  ---\n  duration_ms: 489.554333\n  type: 'test'\n  ...\n# Subtest: SVG assets require semantic Wiki, task and append-only log changes\nok 11 - SVG assets require semantic Wiki, task and append-only log changes\n  ---\n  duration_ms: 0.2525\n  type: 'test'\n  ...\n# Subtest: same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\nok 12 - same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\n  ---\n  duration_ms: 2571.484541\n  type: 'test'\n  ...\n# Subtest: source drift fails without writes; generation repairs snapshot while preserving ingest baseline\nok 13 - source drift fails without writes; generation repairs snapshot while preserving ingest baseline\n  ---\n  duration_ms: 1038.765958\n  type: 'test'\n  ...\n# Subtest: explicit ingest records a non-Git project honestly\nok 14 - explicit ingest records a non-Git project honestly\n  ---\n  duration_ms: 556.53275\n  type: 'test'\n  ...\n# Subtest: tool inventory names come from definitions, not nested headers/output/schema fields\nok 15 - tool inventory names come from definitions, not nested headers/output/schema fields\n  ---\n  duration_ms: 342.045375\n  type: 'test'\n  ...\n# Subtest: new unclassified source fails; missing knowledge target and stale mapping fail\nok 16 - new unclassified source fails; missing knowledge target and stale mapping fail\n  ---\n  duration_ms: 432.081916\n  type: 'test'\n  ...\n# Subtest: generated coverage tampering is detected by lint and remains untouched\nok 17 - generated coverage tampering is detected by lint and remains untouched\n  ---\n  duration_ms: 485.7985\n  type: 'test'\n  ...\n# Subtest: sensitive filename is excluded before read; external source symlink is not followed\nok 18 - sensitive filename is excluded before read; external source symlink is not followed\n  ---\n  duration_ms: 266.213583\n  type: 'test'\n  ...\n# Subtest: Wiki and generated-output symlinks cannot write outside project\nok 19 - Wiki and generated-output symlinks cannot write outside project\n  ---\n  duration_ms: 307.32825\n  type: 'test'\n  ...\n# Subtest: missing schema field\nok 20 - missing schema field\n  ---\n  duration_ms: 556.805292\n  type: 'test'\n  ...\n# Subtest: bad type\nok 21 - bad type\n  ---\n  duration_ms: 398.670333\n  type: 'test'\n  ...\n# Subtest: bad date\nok 22 - bad date\n  ---\n  duration_ms: 571.726167\n  type: 'test'\n  ...\n# Subtest: bad status\nok 23 - bad status\n  ---\n  duration_ms: 1316.853959\n  type: 'test'\n  ...\n# Subtest: missing wiki target\nok 24 - missing wiki target\n  ---\n  duration_ms: 820.90525\n  type: 'test'\n  ...\n# Subtest: missing markdown target\nok 25 - missing markdown target\n  ---\n  duration_ms: 891.385541\n  type: 'test'\n  ...\n# Subtest: invalid source line\nok 26 - invalid source line\n  ---\n  duration_ms: 1087.43425\n  type: 'test'\n  ...\n# Subtest: verified without code evidence\nok 27 - verified without code evidence\n  ---\n  duration_ms: 542.362333\n  type: 'test'\n  ...\n# Subtest: source escaping project\nok 28 - source escaping project\n  ---\n  duration_ms: 594.986584\n  type: 'test'\n  ...\n# Subtest: unfilled placeholder\nok 29 - unfilled placeholder\n  ---\n  duration_ms: 597.984167\n  type: 'test'\n  ...\n# Subtest: all sources are validated even after a valid implementation source\nok 30 - all sources are validated even after a valid implementation source\n  ---\n  duration_ms: 1014.016417\n  type: 'test'\n  ...\n# Subtest: orphan pages and duplicate basenames are rejected\nok 31 - orphan pages and duplicate basenames are rejected\n  ---\n  duration_ms: 1626.546458\n  type: 'test'\n  ...\n# Subtest: completed task requires actual verification record\nok 32 - completed task requires actual verification record\n  ---\n  duration_ms: 481.89225\n  type: 'test'\n  ...\n# Subtest: archived source cannot bypass inspection through silent changes\nok 33 - archived source cannot bypass inspection through silent changes\n  ---\n  duration_ms: 532.643417\n  type: 'test'\n  ...\n# Subtest: source references cannot open excluded runtime data\nok 34 - source references cannot open excluded runtime data\n  ---\n  duration_ms: 547.128625\n  type: 'test'\n  ...\n# Subtest: new JSON evidence is checked and sensitive Wiki filenames are rejected before read\nok 35 - new JSON evidence is checked and sensitive Wiki filenames are rejected before read\n  ---\n  duration_ms: 1152.520625\n  type: 'test'\n  ...\n# Subtest: secret/JWT/private-key/PII detections redact the value in diagnostics\nok 36 - secret/JWT/private-key/PII detections redact the value in diagnostics\n  ---\n  duration_ms: 2152.523584\n  type: 'test'\n  ...\n1..36\n# tests 36\n# suites 0\n# pass 36\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 20973.850584\n"
+    },
+    {
+      "command": "pnpm test:e2e",
+      "exitCode": 1,
+      "output": "\n> tradequote-agent@0.1.0 test:e2e /Users/jason/.codex/worktrees/c-runtime-roadmap/tradequote-agent\n> pnpm build && playwright test\n\n\n> tradequote-agent@0.1.0 build /Users/jason/.codex/worktrees/c-runtime-roadmap/tradequote-agent\n> node scripts/check-icons.mjs && pnpm --filter @tradequote/desktop build\n\nApplication icons passed: SVG/1024 PNG/macOS ICNS/Windows ICO\n\n> @tradequote/desktop@0.1.0 build /Users/jason/.codex/worktrees/c-runtime-roadmap/tradequote-agent/apps/desktop\n> electron-vite build\n\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 248 modules transformed.\nrendering chunks...\nout/main/worker.js                 1.65 kB\nout/main/index.js                  9.87 kB\nout/main/chunks/src-Ct8HARnr.js  517.97 kB\n\n✓ built in 98ms\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 110 modules transformed.\nrendering chunks...\nout/preload/index.js  212.60 kB\n\n✓ built in 38ms\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 2108 modules transformed.\nrendering chunks...\nout/renderer/index.html                   0.64 kB\nout/renderer/assets/index-CwRFx4ey.css   14.34 kB\nout/renderer/assets/index-ChkPJuht.js   523.66 kB\n\n✓ built in 339ms\n\nRunning 6 tests using 1 worker\n\n  ✓  1 tests/e2e/feedback.spec.ts:8:1 › desktop feedback floats above content and recovers through the notification action (2.9s)\n  ✓  2 tests/e2e/quote-agent.spec.ts:9:1 › desktop settings and HTTP adapter support inquiry plus two saved revisions, differences, failures and reopen (4.8s)\n  ✓  3 tests/e2e/quote-v1.spec.ts:11:1 › real desktop imports CSV with confirmation, saves deterministic V1 and reopens frozen evidence (3.9s)\n  ✓  4 tests/e2e/read-assistant.spec.ts:9:1 › formal desktop read assistant executes four real tools, shows facts, guards missing tools and never saves (4.1s)\n  ✓  5 tests/e2e/workspace.spec.ts:8:1 › development renderer runs with React refresh and the real desktop bridge (2.1s)\n  ✘  6 tests/e2e/workspace.spec.ts:33:1 › real desktop persists workspace, validates IPC, handles conflict and reopens (2.5s)\n\n\n  1) tests/e2e/workspace.spec.ts:33:1 › real desktop persists workspace, validates IPC, handles conflict and reopens \n\n    Error: expect(received).toEqual(expected) // deep equality\n\n    - Expected  - 0\n    + Received  + 1\n\n    @@ -12,10 +12,11 @@\n          \"modelSettings\",\n          \"pickCatalogCsv\",\n          \"publishCatalog\",\n          \"publishKnowledge\",\n          \"queryKnowledge\",\n    +     \"readAgent\",\n          \"renameWorkspace\",\n          \"retryAgentRun\",\n          \"reviseQuote\",\n          \"saveScenario\",\n          \"stageCatalog\",\n\n      91 |         node: typeof Reflect.get(window, \"require\"),\n      92 |       })),\n    > 93 |     ).toEqual({\n         |       ^\n      94 |       bridge: [\n      95 |         \"cancelAgentRun\",\n      96 |         \"checkQuote\",\n        at /Users/jason/.codex/worktrees/c-runtime-roadmap/tradequote-agent/tests/e2e/workspace.spec.ts:93:7\n\n    Error Context: .runtime/e2e/workspace-real-desktop-per-ee011-andles-conflict-and-reopens/error-context.md\n\n  1 failed\n    tests/e2e/workspace.spec.ts:33:1 › real desktop persists workspace, validates IPC, handles conflict and reopens \n  5 passed (22.2s)\n ELIFECYCLE  Command failed with exit code 1.\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n[WebServer] (node:16675) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (node:16690) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:\n[WebServer]   - ESM syntax in a file loaded as CommonJS (vite.renderer.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\n[WebServer]   - ESM syntax in a file loaded as CommonJS (electron.vite.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\n[WebServer] Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.\n(node:16719) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    },
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs .",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"generate\",\n  \"files\": 169,\n  \"lines\": 43211,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n"
+    },
+    {
+      "command": "pnpm check",
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 check /Users/jason/.codex/worktrees/c-runtime-roadmap/tradequote-agent\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 100 files in 60ms. No fixes applied.\nTAP version 13\n# Subtest: renderer cannot reach Node, database or desktop internals through import forms\nok 1 - renderer cannot reach Node, database or desktop internals through import forms\n  ---\n  duration_ms: 13.100334\n  type: 'test'\n  ...\n# Subtest: pure modules use public contracts while other platform dependencies are rejected\nok 2 - pure modules use public contracts while other platform dependencies are rejected\n  ---\n  duration_ms: 5.76925\n  type: 'test'\n  ...\n# Subtest: domain permits exact pure decimal dependency without opening contracts or SDK imports\nok 3 - domain permits exact pure decimal dependency without opening contracts or SDK imports\n  ---\n  duration_ms: 1.143042\n  type: 'test'\n  ...\n# Subtest: committed icon resources match their source manifest\nok 4 - committed icon resources match their source manifest\n  ---\n  duration_ms: 4.4585\n  type: 'test'\n  ...\n# Subtest: editing either SVG or packaged icon without generation blocks the build\nok 5 - editing either SVG or packaged icon without generation blocks the build\n  ---\n  duration_ms: 22.131\n  type: 'test'\n  ...\n# Subtest: macOS native process and runtime display TradeQuote while upstream Electron stays intact\nok 6 - macOS native process and runtime display TradeQuote while upstream Electron stays intact\n  ---\n  duration_ms: 854.987541\n  type: 'test'\n  ...\n1..6\n# tests 6\n# suites 0\n# pass 6\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 1101.583875\nModule boundaries passed\n\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-runtime-roadmap/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 169,\n  \"lines\": 43211,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 103,\n  \"semantic\": 87,\n  \"reachable\": 103\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 4324dc85bdd00657831f7428496c60e5332bb428",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"4324dc85bdd00657831f7428496c60e5332bb428\",\n  \"status\": \"passed\",\n  \"codeFiles\": 18,\n  \"knowledgePages\": 16,\n  \"tasks\": 2,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 24,\n  \"knowledgePages\": 26,\n  \"tasks\": 5,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "command": "git diff --cached --check",
+      "exitCode": 0,
+      "output": ""
+    }
+  ],
+  "notRun": [
+    "Real DeepSeek account/model semantics: no actual account credentials read or used",
+    "Knowledge/rule services: search_knowledge and validate_quote remain unregistered",
+    "C01b R01-R20 recovery, public cancellation/events and C02c write ledger: not implemented",
+    "Windows, signed installers and installation/upgrade acceptance: postponed"
+  ],
+  "visualReview": {
+    "initialFinding": "Existing basis style right-aligned facts/source text; replaced with independent left-aligned result sections and numeric amount cells.",
+    "initialScreenshotsPreserved": [
+      ".runtime/c02b-read-desktop-initial.png",
+      ".runtime/c02b-read-narrow-initial.png"
+    ],
+    "finalScreenshotsPendingReview": true
+  },
+  "summary": {
+    "unitTests": 104,
+    "newUnitTests": 12,
+    "electronTests": 6,
+    "newElectronTests": 1,
+    "engineeringTests": 6,
+    "wikiToolTests": 36,
+    "formalReadEntryWired": true,
+    "businessWritesByReadEntry": false,
+    "registeredReadTools": [
+      "search_catalog",
+      "get_product_revisions",
+      "get_quote",
+      "calculate_quote (only with saved scenario)"
+    ],
+    "unregisteredTools": [
+      "search_knowledge",
+      "validate_quote"
+    ]
+  }
+}

@@ -1,0 +1,255 @@
+{
+  "scope": "Synthetic probes only, not captured real payload replay; early unconditional block experiment rejected; original expectations preserved",
+  "taskBase": "5afc425a0a9e54ed696bdd79ab5e2f974344c0bf",
+  "checks": [
+    {
+      "command": "node .runtime/test-target.mjs packages/infrastructure/src/evaluation/action-regressions.test.ts",
+      "exitCode": 1,
+      "recordedAt": "2026-10-22T19:25:36.144479+08:00",
+      "output": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c04-action-failures/tradequote-agent\n\n ❯ packages/infrastructure/src/evaluation/action-regressions.test.ts (9 tests | 8 failed) 1149ms\n   × three observed failure boundaries recover under original business checks, without replaying real payloads 1143ms\n   × classifies action_shape with no input values or field paths 2ms\n   × classifies action_shape with no input values or field paths 1ms\n   × classifies action_kind with no input values or field paths 0ms\n   × classifies action_missing_field with no input values or field paths 0ms\n   × classifies action_field_type with no input values or field paths 0ms\n   × classifies action_unknown_field with no input values or field paths 0ms\n   × classifies action_invalid_value with no input values or field paths 0ms\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/evaluation/action-regressions.test.ts > three observed failure boundaries recover under original business checks, without replaying real payloads\nAssertionError: apparel-en-v2: expected { id: 'apparel-en-v2', …(11) } to match object { Object (status, reason) }\n(10 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  {\n    \"reason\": \"observed\",\n-   \"status\": \"passed\",\n+   \"status\": \"failed\",\n  }\n\n ❯ packages/infrastructure/src/evaluation/action-regressions.test.ts:46:23\n     44|     for (const id of [\"apparel-en-v2\", \"panel-en-v1\", \"rule-block\", \"a…\n     45|       const row = r.rows.find((v) => v.id === id)!;\n     46|       expect(row, id).toMatchObject({ status: \"passed\", reason: \"obser…\n       |                       ^\n     47|       expect(row.checks.every((c) => c.passed), id).toBe(true);\n     48|     }\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯\n\n FAIL  packages/infrastructure/src/evaluation/action-regressions.test.ts > classifies action_shape with no input values or field paths\n FAIL  packages/infrastructure/src/evaluation/action-regressions.test.ts > classifies action_shape with no input values or field paths\nAssertionError: expected [ { stage: 'action_schema', …(5) } ] to deeply equal [ { stage: 'action_schema', …(5) } ]\n\n- Expected\n+ Received\n\n@@ -1,8 +1,8 @@\n  [\n    {\n-     \"category\": \"action_shape\",\n+     \"category\": \"invalid_action\",\n      \"disposition\": \"stopped\",\n      \"errorCode\": \"MODEL_INVALID_OUTPUT\",\n      \"modelCall\": 1,\n      \"stage\": \"action_schema\",\n      \"tool\": null,\n\n ❯ packages/infrastructure/src/evaluation/action-regressions.test.ts:74:23\n     72|   await expect(runtime.run(\"Synthetic action boundary\")).rejects.toMat…\n     73|   expect(json).toHaveBeenCalledTimes(1);\n     74|   expect(diagnostics).toEqual([{ stage: \"action_schema\", tool: null, c…\n       |                       ^\n     75|   expect(JSON.stringify(diagnostics)).not.toContain(\"SYNTHETIC_PRIVATE…\n     76| });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯\n\n FAIL  packages/infrastructure/src/evaluation/action-regressions.test.ts > classifies action_kind with no input values or field paths\nAssertionError: expected [ { stage: 'action_schema', …(5) } ] to deeply equal [ { stage: 'action_schema', …(5) } ]\n\n- Expected\n+ Received\n\n@@ -1,8 +1,8 @@\n  [\n    {\n-     \"category\": \"action_kind\",\n+     \"category\": \"invalid_action\",\n      \"disposition\": \"stopped\",\n      \"errorCode\": \"MODEL_INVALID_OUTPUT\",\n      \"modelCall\": 1,\n      \"stage\": \"action_schema\",\n      \"tool\": null,\n\n ❯ packages/infrastructure/src/evaluation/action-regressions.test.ts:74:23\n     72|   await expect(runtime.run(\"Synthetic action boundary\")).rejects.toMat…\n     73|   expect(json).toHaveBeenCalledTimes(1);\n     74|   expect(diagnostics).toEqual([{ stage: \"action_schema\", tool: null, c…\n       |                       ^\n     75|   expect(JSON.stringify(diagnostics)).not.toContain(\"SYNTHETIC_PRIVATE…\n     76| });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯\n\n FAIL  packages/infrastructure/src/evaluation/action-regressions.test.ts > classifies action_missing_field with no input values or field paths\nAssertionError: expected [ { stage: 'action_schema', …(5) } ] to deeply equal [ { stage: 'action_schema', …(5) } ]\n\n- Expected\n+ Received\n\n@@ -1,8 +1,8 @@\n  [\n    {\n-     \"category\": \"action_missing_field\",\n+     \"category\": \"invalid_action\",\n      \"disposition\": \"stopped\",\n      \"errorCode\": \"MODEL_INVALID_OUTPUT\",\n      \"modelCall\": 1,\n      \"stage\": \"action_schema\",\n      \"tool\": null,\n\n ❯ packages/infrastructure/src/evaluation/action-regressions.test.ts:74:23\n     72|   await expect(runtime.run(\"Synthetic action boundary\")).rejects.toMat…\n     73|   expect(json).toHaveBeenCalledTimes(1);\n     74|   expect(diagnostics).toEqual([{ stage: \"action_schema\", tool: null, c…\n       |                       ^\n     75|   expect(JSON.stringify(diagnostics)).not.toContain(\"SYNTHETIC_PRIVATE…\n     76| });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯\n\n FAIL  packages/infrastructure/src/evaluation/action-regressions.test.ts > classifies action_field_type with no input values or field paths\nAssertionError: expected [ { stage: 'action_schema', …(5) } ] to deeply equal [ { stage: 'action_schema', …(5) } ]\n\n- Expected\n+ Received\n\n@@ -1,8 +1,8 @@\n  [\n    {\n-     \"category\": \"action_field_type\",\n+     \"category\": \"invalid_action\",\n      \"disposition\": \"stopped\",\n      \"errorCode\": \"MODEL_INVALID_OUTPUT\",\n      \"modelCall\": 1,\n      \"stage\": \"action_schema\",\n      \"tool\": null,\n\n ❯ packages/infrastructure/src/evaluation/action-regressions.test.ts:74:23\n     72|   await expect(runtime.run(\"Synthetic action boundary\")).rejects.toMat…\n     73|   expect(json).toHaveBeenCalledTimes(1);\n     74|   expect(diagnostics).toEqual([{ stage: \"action_schema\", tool: null, c…\n       |                       ^\n     75|   expect(JSON.stringify(diagnostics)).not.toContain(\"SYNTHETIC_PRIVATE…\n     76| });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯\n\n FAIL  packages/infrastructure/src/evaluation/action-regressions.test.ts > classifies action_unknown_field with no input values or field paths\nAssertionError: expected [ { stage: 'action_schema', …(5) } ] to deeply equal [ { stage: 'action_schema', …(5) } ]\n\n- Expected\n+ Received\n\n@@ -1,8 +1,8 @@\n  [\n    {\n-     \"category\": \"action_unknown_field\",\n+     \"category\": \"invalid_action\",\n      \"disposition\": \"stopped\",\n      \"errorCode\": \"MODEL_INVALID_OUTPUT\",\n      \"modelCall\": 1,\n      \"stage\": \"action_schema\",\n      \"tool\": null,\n\n ❯ packages/infrastructure/src/evaluation/action-regressions.test.ts:74:23\n     72|   await expect(runtime.run(\"Synthetic action boundary\")).rejects.toMat…\n     73|   expect(json).toHaveBeenCalledTimes(1);\n     74|   expect(diagnostics).toEqual([{ stage: \"action_schema\", tool: null, c…\n       |                       ^\n     75|   expect(JSON.stringify(diagnostics)).not.toContain(\"SYNTHETIC_PRIVATE…\n     76| });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯\n\n FAIL  packages/infrastructure/src/evaluation/action-regressions.test.ts > classifies action_invalid_value with no input values or field paths\nAssertionError: expected [ { stage: 'action_schema', …(5) } ] to deeply equal [ { stage: 'action_schema', …(5) } ]\n\n- Expected\n+ Received\n\n@@ -1,8 +1,8 @@\n  [\n    {\n-     \"category\": \"action_invalid_value\",\n+     \"category\": \"invalid_action\",\n      \"disposition\": \"stopped\",\n      \"errorCode\": \"MODEL_INVALID_OUTPUT\",\n      \"modelCall\": 1,\n      \"stage\": \"action_schema\",\n      \"tool\": null,\n\n ❯ packages/infrastructure/src/evaluation/action-regressions.test.ts:74:23\n     72|   await expect(runtime.run(\"Synthetic action boundary\")).rejects.toMat…\n     73|   expect(json).toHaveBeenCalledTimes(1);\n     74|   expect(diagnostics).toEqual([{ stage: \"action_schema\", tool: null, c…\n       |                       ^\n     75|   expect(JSON.stringify(diagnostics)).not.toContain(\"SYNTHETIC_PRIVATE…\n     76| });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯\n\n\n Test Files  1 failed (1)\n      Tests  8 failed | 1 passed (9)\n   Start at  19:25:34\n   Duration  1.74s (tests 71%, import 18%, transform 11%)\n\n"
+    },
+    {
+      "command": "node .runtime/test-target.mjs packages/infrastructure/src/evaluation/action-regressions.test.ts",
+      "exitCode": 1,
+      "recordedAt": "2026-10-22T19:25:37.691753+08:00",
+      "output": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c04-action-failures/tradequote-agent\n\n ❯ packages/infrastructure/src/evaluation/action-regressions.test.ts (9 tests | 8 failed) 764ms\n   × three observed failure boundaries recover under original business checks, without replaying real payloads 758ms\n   × classifies action_shape with no input values or field paths 2ms\n   × classifies action_shape with no input values or field paths 1ms\n   × classifies action_kind with no input values or field paths 0ms\n   × classifies action_missing_field with no input values or field paths 0ms\n   × classifies action_field_type with no input values or field paths 0ms\n   × classifies action_unknown_field with no input values or field paths 0ms\n   × classifies action_invalid_value with no input values or field paths 0ms\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/evaluation/action-regressions.test.ts > three observed failure boundaries recover under original business checks, without replaying real payloads\nAssertionError: apparel-en-v2: expected { id: 'apparel-en-v2', …(11) } to match object { Object (status, reason) }\n(10 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  {\n    \"reason\": \"observed\",\n-   \"status\": \"passed\",\n+   \"status\": \"failed\",\n  }\n\n ❯ packages/infrastructure/src/evaluation/action-regressions.test.ts:46:23\n     44|     for (const id of [\"apparel-en-v2\", \"panel-en-v1\", \"rule-block\", \"a…\n     45|       const row = r.rows.find((v) => v.id === id)!;\n     46|       expect(row, id).toMatchObject({ status: \"passed\", reason: \"obser…\n       |                       ^\n     47|       expect(row.checks.every((c) => c.passed), id).toBe(true);\n     48|     }\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯\n\n FAIL  packages/infrastructure/src/evaluation/action-regressions.test.ts > classifies action_shape with no input values or field paths\n FAIL  packages/infrastructure/src/evaluation/action-regressions.test.ts > classifies action_shape with no input values or field paths\nAssertionError: expected [ { stage: 'action_schema', …(5) } ] to deeply equal [ { stage: 'action_schema', …(5) } ]\n\n- Expected\n+ Received\n\n@@ -1,8 +1,8 @@\n  [\n    {\n-     \"category\": \"action_shape\",\n+     \"category\": \"invalid_action\",\n      \"disposition\": \"stopped\",\n      \"errorCode\": \"MODEL_INVALID_OUTPUT\",\n      \"modelCall\": 1,\n      \"stage\": \"action_schema\",\n      \"tool\": null,\n\n ❯ packages/infrastructure/src/evaluation/action-regressions.test.ts:74:23\n     72|   await expect(runtime.run(\"Synthetic action boundary\")).rejects.toMat…\n     73|   expect(json).toHaveBeenCalledTimes(1);\n     74|   expect(diagnostics).toEqual([{ stage: \"action_schema\", tool: null, c…\n       |                       ^\n     75|   expect(JSON.stringify(diagnostics)).not.toContain(\"SYNTHETIC_PRIVATE…\n     76| });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯\n\n FAIL  packages/infrastructure/src/evaluation/action-regressions.test.ts > classifies action_kind with no input values or field paths\nAssertionError: expected [ { stage: 'action_schema', …(5) } ] to deeply equal [ { stage: 'action_schema', …(5) } ]\n\n- Expected\n+ Received\n\n@@ -1,8 +1,8 @@\n  [\n    {\n-     \"category\": \"action_kind\",\n+     \"category\": \"invalid_action\",\n      \"disposition\": \"stopped\",\n      \"errorCode\": \"MODEL_INVALID_OUTPUT\",\n      \"modelCall\": 1,\n      \"stage\": \"action_schema\",\n      \"tool\": null,\n\n ❯ packages/infrastructure/src/evaluation/action-regressions.test.ts:74:23\n     72|   await expect(runtime.run(\"Synthetic action boundary\")).rejects.toMat…\n     73|   expect(json).toHaveBeenCalledTimes(1);\n     74|   expect(diagnostics).toEqual([{ stage: \"action_schema\", tool: null, c…\n       |                       ^\n     75|   expect(JSON.stringify(diagnostics)).not.toContain(\"SYNTHETIC_PRIVATE…\n     76| });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯\n\n FAIL  packages/infrastructure/src/evaluation/action-regressions.test.ts > classifies action_missing_field with no input values or field paths\nAssertionError: expected [ { stage: 'action_schema', …(5) } ] to deeply equal [ { stage: 'action_schema', …(5) } ]\n\n- Expected\n+ Received\n\n@@ -1,8 +1,8 @@\n  [\n    {\n-     \"category\": \"action_missing_field\",\n+     \"category\": \"invalid_action\",\n      \"disposition\": \"stopped\",\n      \"errorCode\": \"MODEL_INVALID_OUTPUT\",\n      \"modelCall\": 1,\n      \"stage\": \"action_schema\",\n      \"tool\": null,\n\n ❯ packages/infrastructure/src/evaluation/action-regressions.test.ts:74:23\n     72|   await expect(runtime.run(\"Synthetic action boundary\")).rejects.toMat…\n     73|   expect(json).toHaveBeenCalledTimes(1);\n     74|   expect(diagnostics).toEqual([{ stage: \"action_schema\", tool: null, c…\n       |                       ^\n     75|   expect(JSON.stringify(diagnostics)).not.toContain(\"SYNTHETIC_PRIVATE…\n     76| });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯\n\n FAIL  packages/infrastructure/src/evaluation/action-regressions.test.ts > classifies action_field_type with no input values or field paths\nAssertionError: expected [ { stage: 'action_schema', …(5) } ] to deeply equal [ { stage: 'action_schema', …(5) } ]\n\n- Expected\n+ Received\n\n@@ -1,8 +1,8 @@\n  [\n    {\n-     \"category\": \"action_field_type\",\n+     \"category\": \"invalid_action\",\n      \"disposition\": \"stopped\",\n      \"errorCode\": \"MODEL_INVALID_OUTPUT\",\n      \"modelCall\": 1,\n      \"stage\": \"action_schema\",\n      \"tool\": null,\n\n ❯ packages/infrastructure/src/evaluation/action-regressions.test.ts:74:23\n     72|   await expect(runtime.run(\"Synthetic action boundary\")).rejects.toMat…\n     73|   expect(json).toHaveBeenCalledTimes(1);\n     74|   expect(diagnostics).toEqual([{ stage: \"action_schema\", tool: null, c…\n       |                       ^\n     75|   expect(JSON.stringify(diagnostics)).not.toContain(\"SYNTHETIC_PRIVATE…\n     76| });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯\n\n FAIL  packages/infrastructure/src/evaluation/action-regressions.test.ts > classifies action_unknown_field with no input values or field paths\nAssertionError: expected [ { stage: 'action_schema', …(5) } ] to deeply equal [ { stage: 'action_schema', …(5) } ]\n\n- Expected\n+ Received\n\n@@ -1,8 +1,8 @@\n  [\n    {\n-     \"category\": \"action_unknown_field\",\n+     \"category\": \"invalid_action\",\n      \"disposition\": \"stopped\",\n      \"errorCode\": \"MODEL_INVALID_OUTPUT\",\n      \"modelCall\": 1,\n      \"stage\": \"action_schema\",\n      \"tool\": null,\n\n ❯ packages/infrastructure/src/evaluation/action-regressions.test.ts:74:23\n     72|   await expect(runtime.run(\"Synthetic action boundary\")).rejects.toMat…\n     73|   expect(json).toHaveBeenCalledTimes(1);\n     74|   expect(diagnostics).toEqual([{ stage: \"action_schema\", tool: null, c…\n       |                       ^\n     75|   expect(JSON.stringify(diagnostics)).not.toContain(\"SYNTHETIC_PRIVATE…\n     76| });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯\n\n FAIL  packages/infrastructure/src/evaluation/action-regressions.test.ts > classifies action_invalid_value with no input values or field paths\nAssertionError: expected [ { stage: 'action_schema', …(5) } ] to deeply equal [ { stage: 'action_schema', …(5) } ]\n\n- Expected\n+ Received\n\n@@ -1,8 +1,8 @@\n  [\n    {\n-     \"category\": \"action_invalid_value\",\n+     \"category\": \"invalid_action\",\n      \"disposition\": \"stopped\",\n      \"errorCode\": \"MODEL_INVALID_OUTPUT\",\n      \"modelCall\": 1,\n      \"stage\": \"action_schema\",\n      \"tool\": null,\n\n ❯ packages/infrastructure/src/evaluation/action-regressions.test.ts:74:23\n     72|   await expect(runtime.run(\"Synthetic action boundary\")).rejects.toMat…\n     73|   expect(json).toHaveBeenCalledTimes(1);\n     74|   expect(diagnostics).toEqual([{ stage: \"action_schema\", tool: null, c…\n       |                       ^\n     75|   expect(JSON.stringify(diagnostics)).not.toContain(\"SYNTHETIC_PRIVATE…\n     76| });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯\n\n\n Test Files  1 failed (1)\n      Tests  8 failed | 1 passed (9)\n   Start at  19:25:36\n   Duration  1.17s (tests 73%, import 24%, transform 3%)\n\n"
+    },
+    {
+      "command": "node .runtime/test-target.mjs packages/infrastructure/src/evaluation/action-regressions.test.ts",
+      "exitCode": 1,
+      "recordedAt": "2026-10-22T19:26:16.724109+08:00",
+      "output": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c04-action-failures/tradequote-agent\n\n ❯ packages/infrastructure/src/evaluation/action-regressions.test.ts (9 tests | 1 failed) 1213ms\n   × three observed failure boundaries recover under original business checks, without replaying real payloads 1209ms\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/evaluation/action-regressions.test.ts > three observed failure boundaries recover under original business checks, without replaying real payloads\nAssertionError: expected 'failed' to be 'passed' // Object.is equality\n\nExpected: \"passed\"\nReceived: \"failed\"\n\n ❯ packages/infrastructure/src/evaluation/action-regressions.test.ts:53:22\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n\n Test Files  1 failed (1)\n      Tests  1 failed | 8 passed (9)\n   Start at  19:26:14\n   Duration  1.99s (tests 67%, import 26%, transform 7%)\n\n"
+    },
+    {
+      "command": "node .runtime/test-target.mjs packages/infrastructure/src/quote-tool-agent.test.ts packages/infrastructure/src/evaluation/retest-regressions.test.ts packages/infrastructure/src/evaluation/failure-regressions.test.ts packages/infrastructure/src/evaluation/remaining-regressions.test.ts packages/infrastructure/src/evaluation/diagnostics.test.ts packages/infrastructure/src/read-tool-runtime.test.ts",
+      "exitCode": 1,
+      "recordedAt": "2026-10-22T19:26:44.680570+08:00",
+      "output": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c04-action-failures/tradequote-agent\n\n ❯ packages/infrastructure/src/evaluation/failure-regressions.test.ts (14 tests | 1 failed) 2741ms\n   × C04 reconstructed rule-block preserves business expectations after bounded model correction 112ms\n ❯ packages/infrastructure/src/quote-tool-agent.test.ts (22 tests | 3 failed) 4082ms\n   × blocking rules reject the actual write and retain the exact preview report without a quote 68ms\n   × persists clarification with its preview facts and refuses automatic retry of the same incomplete input 154ms\n   × uses rule feedback to correct a candidate within the same bounded loop and saves only the final validated draft 102ms\n ❯ packages/infrastructure/src/evaluation/diagnostics.test.ts (1 test | 1 failed) 5116ms\n   × exports bounded enum-only failure evidence while accepting unchanged legacy rows 5115ms\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/quote-tool-agent.test.ts > blocking rules reject the actual write and retain the exact preview report without a quote\nAssertionError: expected { …(7) } to match object { tool: 'create_draft', …(2) }\n(4 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  {\n-   \"errorCode\": \"RULE_BLOCKED\",\n-   \"ok\": false,\n-   \"tool\": \"create_draft\",\n+   \"errorCode\": null,\n+   \"ok\": true,\n+   \"tool\": \"validate_quote\",\n  }\n\n ❯ packages/infrastructure/src/quote-tool-agent.test.ts:262:33\n    260|   expect(f.counts().quote_v1).toBe(0);\n    261|   expect(f.db.prepare(\"SELECT * FROM agent_write_call\").all()).toHaveL…\n    262|   expect(run.toolSteps?.at(-1)).toMatchObject({\n       |                                 ^\n    263|     tool: \"create_draft\",\n    264|     ok: false,\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯\n\n FAIL  packages/infrastructure/src/quote-tool-agent.test.ts > persists clarification with its preview facts and refuses automatic retry of the same incomplete input\nAssertionError: expected { ok: false, error: { …(4) } } to match object { ok: false, …(1) }\n(3 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  {\n    \"error\": {\n-     \"code\": \"MISSING_FACTS\",\n+     \"code\": \"RULE_BLOCKED\",\n    },\n    \"ok\": false,\n  }\n\n ❯ packages/infrastructure/src/quote-tool-agent.test.ts:530:5\n    528|   expect(\n    529|     await coordinator.executeLegacy({ ...input, ...input.payload }, cr…\n    530|   ).toMatchObject({ ok: false, error: { code: \"MISSING_FACTS\" } });\n       |     ^\n    531|   const run = f.store.list().runs[0]!;\n    532|   expect(run).toMatchObject({ status: \"waiting_input\", clarification: …\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯\n\n FAIL  packages/infrastructure/src/quote-tool-agent.test.ts > uses rule feedback to correct a candidate within the same bounded loop and saves only the final validated draft\nAssertionError: expected false to be true // Object.is equality\n\n- Expected\n+ Received\n\n- true\n+ false\n\n ❯ packages/infrastructure/src/quote-tool-agent.test.ts:615:93\n    613|   const coordinator = new AgentRunCoordinator(f.repo, () => ({ json })…\n    614|     input = start(f);\n    615|   expect((await coordinator.executeLegacy({ ...input, ...input.payload…\n       |                                                                                             ^\n    616|     true,\n    617|   );\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯\n\n FAIL  packages/infrastructure/src/evaluation/diagnostics.test.ts > exports bounded enum-only failure evidence while accepting unchanged legacy rows\nError: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".\n ❯ packages/infrastructure/src/evaluation/diagnostics.test.ts:5:1\n      3| import { evaluateC04 } from \"./runner\";\n      4|\n      5| it(\"exports bounded enum-only failure evidence while accepting unchang…\n       | ^\n      6|   const network = vi\n      7|     .spyOn(globalThis, \"fetch\")\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯\n\n FAIL  packages/infrastructure/src/evaluation/failure-regressions.test.ts > C04 reconstructed rule-block preserves business expectations after bounded model correction\nAssertionError: expected false to be true // Object.is equality\n\n- Expected\n+ Received\n\n- true\n+ false\n\n ❯ packages/infrastructure/src/evaluation/failure-regressions.test.ts:225:24\n    223|         }\n    224|       }\n    225|       expect(injected).toBe(true);\n       |                        ^\n    226|       expect(network).not.toHaveBeenCalled();\n    227|     } finally {\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯\n\n\n Test Files  3 failed | 3 passed (6)\n      Tests  5 failed | 70 passed (75)\n   Start at  19:26:36\n   Duration  8.58s (tests 55%, import 37%, transform 8%)\n\n"
+    },
+    {
+      "command": "node .runtime/test-target.mjs packages/infrastructure/src/evaluation/action-regressions.test.ts packages/infrastructure/src/quote-tool-agent.test.ts packages/infrastructure/src/evaluation/failure-regressions.test.ts packages/infrastructure/src/evaluation/diagnostics.test.ts --maxWorkers=1",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T19:27:35.909114+08:00",
+      "output": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c04-action-failures/tradequote-agent\n\n\n Test Files  4 passed (4)\n      Tests  46 passed (46)\n   Start at  19:27:30\n   Duration  5.02s (tests 68%, import 29%, transform 3%)\n\n    Isolate  4 workers spawned · ~138ms startup each (spawn + environment, per file)\n             at least ~414ms faster with isolate: false — reuses workers across files instead of one per file\n\n"
+    },
+    {
+      "command": "pnpm check",
+      "exitCode": 1,
+      "recordedAt": "2026-10-22T19:31:25.105403+08:00",
+      "output": "\n> tradequote-agent@0.1.0 check /Users/jason/.codex/worktrees/c04-action-failures/tradequote-agent\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\npackages/infrastructure/src/evaluation/action-regressions.test.ts format ━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Formatter would have printed the following content:\n  \n    321 321 │   \n    322 322 │   it(\"content_json without a verified rule block remains a single hard failure\", async () => {\n    323     │ - ··const·transport·=·vi\n    324     │ - ····.fn<typeof·fetch>()\n    325     │ - ····.mockResolvedValue(\n    326     │ - ······new·Response(\n    327     │ - ········JSON.stringify({\n    328     │ - ··········choices:·[\n    329     │ - ············{·finish_reason:·\"stop\",·message:·{·content:·\"SYNTHETIC_PRIVATE_INVALID_JSON\"·}·},\n    330     │ - ··········],\n    331     │ - ········}),\n    332     │ - ······),\n    333     │ - ····);\n        323 │ + ··const·transport·=·vi.fn<typeof·fetch>().mockResolvedValue(\n        324 │ + ····new·Response(\n        325 │ + ······JSON.stringify({\n        326 │ + ········choices:·[\n        327 │ + ··········{·finish_reason:·\"stop\",·message:·{·content:·\"SYNTHETIC_PRIVATE_INVALID_JSON\"·}·},\n        328 │ + ········],\n        329 │ + ······}),\n        330 │ + ····),\n        331 │ + ··);\n    334 332 │     const diagnostics: FailureDiagnostic[] = [];\n    335 333 │     const runtime = new ToolLoopRuntime(\n  \n\nChecked 141 files in 141ms. No fixes applied.\nFound 1 error.\ncheck ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Some errors were emitted while running checks.\n  \n\n ELIFECYCLE  Command failed with exit code 1.\n"
+    }
+  ],
+  "beforeRows": [
+    {
+      "id": "apparel-en-v2",
+      "kind": "semantic",
+      "category": "apparel",
+      "language": "en",
+      "status": "failed",
+      "reason": "observed",
+      "errorCode": "MODEL_INVALID_OUTPUT",
+      "expectedErrorCode": null,
+      "modelCalls": 2,
+      "elapsedMs": 4,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": false
+        },
+        {
+          "id": "revision_count",
+          "passed": false
+        },
+        {
+          "id": "draft_only",
+          "passed": false
+        },
+        {
+          "id": "product",
+          "passed": false
+        },
+        {
+          "id": "quantity",
+          "passed": false
+        },
+        {
+          "id": "unit",
+          "passed": false
+        },
+        {
+          "id": "terms",
+          "passed": false
+        },
+        {
+          "id": "amount",
+          "passed": false
+        },
+        {
+          "id": "sources",
+          "passed": false
+        },
+        {
+          "id": "validation",
+          "passed": false
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ],
+      "diagnostics": [
+        {
+          "stage": "action_schema",
+          "tool": null,
+          "category": "invalid_action",
+          "disposition": "stopped",
+          "modelCall": 2,
+          "errorCode": "MODEL_INVALID_OUTPUT"
+        }
+      ]
+    },
+    {
+      "id": "apparel-en-v3",
+      "kind": "semantic",
+      "category": "apparel",
+      "language": "en",
+      "status": "not_run",
+      "reason": "prior_step_failed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 0,
+      "elapsedMs": 0,
+      "checks": []
+    },
+    {
+      "id": "panel-en-v1",
+      "kind": "semantic",
+      "category": "panel",
+      "language": "en",
+      "status": "failed",
+      "reason": "observed",
+      "errorCode": "MISSING_FACTS",
+      "expectedErrorCode": null,
+      "modelCalls": 1,
+      "elapsedMs": 2,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": false
+        },
+        {
+          "id": "revision_count",
+          "passed": false
+        },
+        {
+          "id": "draft_only",
+          "passed": false
+        },
+        {
+          "id": "product",
+          "passed": false
+        },
+        {
+          "id": "quantity",
+          "passed": false
+        },
+        {
+          "id": "unit",
+          "passed": false
+        },
+        {
+          "id": "terms",
+          "passed": false
+        },
+        {
+          "id": "amount",
+          "passed": false
+        },
+        {
+          "id": "sources",
+          "passed": false
+        },
+        {
+          "id": "validation",
+          "passed": false
+        },
+        {
+          "id": "immutable_history",
+          "passed": true
+        }
+      ],
+      "diagnostics": [
+        {
+          "stage": "clarification",
+          "tool": null,
+          "category": "missing_facts",
+          "disposition": "stopped",
+          "modelCall": 1,
+          "errorCode": "MISSING_FACTS"
+        }
+      ]
+    },
+    {
+      "id": "panel-en-v2",
+      "kind": "semantic",
+      "category": "panel",
+      "language": "en",
+      "status": "not_run",
+      "reason": "prior_step_failed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 0,
+      "elapsedMs": 0,
+      "checks": []
+    },
+    {
+      "id": "panel-en-v3",
+      "kind": "semantic",
+      "category": "panel",
+      "language": "en",
+      "status": "not_run",
+      "reason": "prior_step_failed",
+      "errorCode": null,
+      "expectedErrorCode": null,
+      "modelCalls": 0,
+      "elapsedMs": 0,
+      "checks": []
+    },
+    {
+      "id": "rule-block",
+      "kind": "rule_block",
+      "category": "apparel",
+      "language": "en",
+      "status": "failed",
+      "reason": "observed",
+      "errorCode": "MODEL_INVALID_OUTPUT",
+      "expectedErrorCode": "RULE_BLOCKED",
+      "modelCalls": 6,
+      "elapsedMs": 12,
+      "checks": [
+        {
+          "id": "outcome",
+          "passed": false
+        },
+        {
+          "id": "revision_count",
+          "passed": true
+        },
+        {
+          "id": "no_late_write",
+          "passed": true
+        }
+      ],
+      "diagnostics": [
+        {
+          "stage": "provider",
+          "tool": null,
+          "category": "content_json",
+          "disposition": "stopped",
+          "modelCall": 6,
+          "errorCode": "MODEL_INVALID_OUTPUT"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,189 @@
+{
+  "status": "passed",
+  "scope": "C documentation recheck closeout only, original type/N cases pass but M13 and A-W08 remain failed",
+  "taskBase": "6f9287bbe81516faea8d884b2ba405e49d7b5d40",
+  "branch": "codex/c-a-lineage-revalidation",
+  "clientDate": "2026-10-24",
+  "startedAt": "2026-10-23T16:25:47.686022+00:00",
+  "checks": [
+    {
+      "argv": [
+        "python3",
+        "-c",
+        "import pathlib,json,hashlib,subprocess\nr=pathlib.Path.cwd();h=lambda b:hashlib.sha256(b).hexdigest();s=json.loads((r/'.runtime/c-a-recheck-preservation.json').read_text())\nfor p,v in {**s['nonWikiSha256'],**s['oldRawSha256']}.items():assert h((r/p).read_bytes())==v,p\nassert h((r/'wiki-project/log.md').read_bytes()[:s['logPrefixBytes']])==s['logPrefixSha256']\nfor n in ['C集成-迁移方案执行与联合验收','C集成候选-依赖与非作者签认','C04-收口签认']:assert 'status: active' in (r/'wiki-project/wiki/tasks'/(n+'.md')).read_text()\na=json.loads((r/'wiki-project/raw/c-a-lineage-recheck-intake.json').read_text());n=json.loads((r/'wiki-project/raw/c-a-lineage-recheck-native.json').read_text());m=json.loads((r/'wiki-project/raw/c-a-lineage-recheck-m13.json').read_text())\nassert a['actualCommands']['typecheck']['exitCode']==0 and a['actualCommands']['original12']['exitCode']==0 and a['actualCommands']['ledgerTests']['exitCode']==0\nassert n['status']=='passed' and n['summary']['passed']==12 and not n['summary']['failed']\nassert a['actualCommands']['M13']['exitCode']==1 and a['actualCommands']['infrastructure']['exitCode']==1\nassert m['status']=='failed' and m['summary']['passed']==0 and len(m['summary']['failed'])==4\nassert all(c['control']['guardRejectedOperation'] and c['identifyError'] is None and c['migrationError'] is None and c['behaviorError'] is None and c['after']['version']==8 for c in m['cases'])\nfor cmd in a['actualCommands'].values():\n for k in ['stdout','stderr','output']:\n  if k in cmd:assert h(cmd[k].encode())==cmd[k+'Sha256']\nassert all(x['match'] for x in a['sqlFingerprints'])\nassert subprocess.check_output(['git','rev-parse','codex/c-a-lineage-validation']).decode().strip()=='6f9287bbe81516faea8d884b2ba405e49d7b5d40'\nassert '部分执行失败' in (r/'wiki-project/wiki/C迁移联合验证用例.md').read_text()\nprint(json.dumps(dict(status='passed',nonWikiPreserved=len(s['nonWikiSha256']),oldRawPreserved=len(s['oldRawSha256']),logPrefixBytes=s['logPrefixBytes'],original12Passed=True,M13FailureEvidencePreserved=True,personExecutionTasksActive=True,priorBranchUnchanged=True)))\n"
+      ],
+      "startedAt": "2026-10-23T16:25:47.686184+00:00",
+      "finishedAt": "2026-10-23T16:25:47.807816+00:00",
+      "exitCode": 0,
+      "output": "{\"status\": \"passed\", \"nonWikiPreserved\": 228, \"oldRawPreserved\": 198, \"logPrefixBytes\": 111322, \"original12Passed\": true, \"M13FailureEvidencePreserved\": true, \"personExecutionTasksActive\": true, \"priorBranchUnchanged\": true}\n",
+      "outputSha256": "385d00020f306701a66e268491ab97d2e6842e0633a03a39c252fffb9c05f7f0"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-23T16:25:47.808493+00:00",
+      "finishedAt": "2026-10-23T16:25:47.987838+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"generate\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 6\n}\n",
+      "outputSha256": "6a3e1709991b78e42869a1a8ccb647033396075edd3b7529074b2008dd665be1"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "startedAt": "2026-10-23T16:25:47.988387+00:00",
+      "finishedAt": "2026-10-23T16:25:48.154093+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 6\n}\n",
+      "outputSha256": "989c0d7bed58055cd73ba84f2a1b90acb451c9e9b55e9ade31bacb0278f4dd42"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-23T16:25:48.154678+00:00",
+      "finishedAt": "2026-10-23T16:25:48.716433+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 202,\n  \"semantic\": 174,\n  \"reachable\": 202\n}\n",
+      "outputSha256": "f2487b1711279ad6ce8e82dfa20b07c1faead70d9d560ef79bf6744c9af69e1e"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "6f9287bbe81516faea8d884b2ba405e49d7b5d40"
+      ],
+      "startedAt": "2026-10-23T16:25:48.717011+00:00",
+      "finishedAt": "2026-10-23T16:25:48.843428+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"6f9287bbe81516faea8d884b2ba405e49d7b5d40\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "outputSha256": "1a58e2f8d9bd02a2b60e843713ccf0a66bc36ee6545ae9aa5b47b0abcf12c1a1"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+      ],
+      "startedAt": "2026-10-23T16:25:48.844010+00:00",
+      "finishedAt": "2026-10-23T16:25:49.731849+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 91,\n  \"knowledgePages\": 109,\n  \"tasks\": 39,\n  \"errors\": []\n}\n",
+      "outputSha256": "1600a8afa83179431876151875bbc6af3529ee9222741f078b8b404d7c72b97e"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce"
+      ],
+      "startedAt": "2026-10-23T16:25:49.732663+00:00",
+      "finishedAt": "2026-10-23T16:25:50.750728+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 97,\n  \"knowledgePages\": 124,\n  \"tasks\": 47,\n  \"errors\": []\n}\n",
+      "outputSha256": "7eb9ac78a7f68feba61bf29f5ced66eb1817bf03e90c66b66539cd80c56ff5cf"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check",
+        "6f9287bbe81516faea8d884b2ba405e49d7b5d40"
+      ],
+      "startedAt": "2026-10-23T16:25:50.751386+00:00",
+      "finishedAt": "2026-10-23T16:25:50.765926+00:00",
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "startedAt": "2026-10-23T16:25:50.766431+00:00",
+      "finishedAt": "2026-10-23T16:25:50.775903+00:00",
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "startedAt": "2026-10-23T16:27:10.831108+00:00",
+      "finishedAt": "2026-10-23T16:27:11.087861+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 6\n}\n",
+      "outputSha256": "989c0d7bed58055cd73ba84f2a1b90acb451c9e9b55e9ade31bacb0278f4dd42"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-23T16:27:11.087968+00:00",
+      "finishedAt": "2026-10-23T16:27:11.824725+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 202,\n  \"semantic\": 174,\n  \"reachable\": 202\n}\n",
+      "outputSha256": "f2487b1711279ad6ce8e82dfa20b07c1faead70d9d560ef79bf6744c9af69e1e"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "6f9287bbe81516faea8d884b2ba405e49d7b5d40"
+      ],
+      "startedAt": "2026-10-23T16:27:11.824809+00:00",
+      "finishedAt": "2026-10-23T16:27:11.965067+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"6f9287bbe81516faea8d884b2ba405e49d7b5d40\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "outputSha256": "1a58e2f8d9bd02a2b60e843713ccf0a66bc36ee6545ae9aa5b47b0abcf12c1a1"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check",
+        "6f9287bbe81516faea8d884b2ba405e49d7b5d40"
+      ],
+      "startedAt": "2026-10-23T16:27:11.965139+00:00",
+      "finishedAt": "2026-10-23T16:27:11.991988+00:00",
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "productConclusion": "original_cases_addressed_M13_changes_required",
+  "notRun": [
+    "complete 29-case C plan",
+    "new combined source/desktop wiring",
+    "Electron UI/macOS joint full suite",
+    "B final adaptation/P1",
+    "human signoff",
+    "push/merge/PR/messages/real model requests"
+  ],
+  "finishedAt": "2026-10-23T16:25:50.776431+00:00"
+}

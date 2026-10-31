@@ -3,21 +3,36 @@ import { type AgentClient, AgentCommandSchema, ModelCredentialsSchema } from "./
 export * from "./agent";
 
 import { z } from "zod";
-import type { CheckClient } from "./checks";
+import {
+  type CheckClient,
+  CheckCommandSchema,
+  CheckListResultSchema,
+  CheckResultSchema,
+} from "./checks";
 import type { KnowledgeClient } from "./knowledge";
+import type { KnowledgeBuildClient } from "./knowledge-build";
+import type { KnowledgeMaintenanceClient } from "./knowledge-maintenance";
 import type { WikiClient } from "./knowledge-wiki";
+import type { ModelEvaluationClient } from "./model-evaluation";
 import { IssueSchema } from "./protocol";
-import type { RunClient } from "./runs";
+import { AgentReadCommandSchema, AgentReadResultSchema, type ReadAgentClient } from "./read-tools";
+import { type RunClient, RunCommandSchema, RunListResultSchema, RunResultSchema } from "./runs";
 
 export * from "./checks";
 export * from "./knowledge";
+export * from "./knowledge-build";
+export * from "./knowledge-maintenance";
 export * from "./knowledge-wiki";
+export * from "./model-evaluation";
 export { unavailableFirstBatchClient } from "./pending-client";
 export { FailureSchema, IssueSchema, PublicErrorSchema } from "./protocol";
+export * from "./read-tools";
+export * from "./run-events";
 export * from "./runs";
 export * from "./wiki-integrity";
 
 import { ErrorCodeSchema } from "./errors";
+import { type RunEventsClient, RunEventsCommandSchema, RunEventsResultSchema } from "./run-events";
 import { type TradeClient, TradeCommandSchema, TradeResultSchema } from "./trade";
 
 export { ErrorCodeSchema } from "./errors";
@@ -75,7 +90,12 @@ export function failure(
     error: {
       code,
       message,
-      retryable: code === "CAPABILITY_UNAVAILABLE",
+      // Missing capability needs implementation/wiring; repeating the request cannot enable it.
+      // Run retry permission is decided separately by the run state machine.
+
+      // CAPABILITY_UNAVAILABLE 是"能力尚未接入"而非瞬时故障，重试同一请求不会成功（A-W08）。
+      // 与 pending-client.ts 及 B00a 协议（retryable=false）一致。
+      retryable: false,
       issues: [],
       ...(currentAggregateVersion === undefined ? {} : { currentAggregateVersion }),
     },
@@ -89,8 +109,13 @@ export interface DesktopClient
     AgentClient,
     KnowledgeClient,
     WikiClient,
+    KnowledgeBuildClient,
+    KnowledgeMaintenanceClient,
     CheckClient,
-    RunClient {
+    RunClient,
+    RunEventsClient,
+    ReadAgentClient,
+    ModelEvaluationClient {
   getWorkspace(): Promise<WorkspaceResult>;
   createWorkspace(command: CreateWorkspace): Promise<WorkspaceResult>;
   renameWorkspace(command: RenameWorkspace): Promise<WorkspaceResult>;
@@ -103,8 +128,21 @@ export const RuntimeCommandSchema = z.union([
   CommandSchema,
   TradeCommandSchema,
   AgentCommandSchema,
+  AgentReadCommandSchema,
+  RunCommandSchema,
+  RunEventsCommandSchema,
+  CheckCommandSchema,
 ]);
-export const RuntimeResultSchema = z.union([ResultSchema, TradeResultSchema]);
+export const RuntimeResultSchema = z.union([
+  ResultSchema,
+  TradeResultSchema,
+  AgentReadResultSchema,
+  RunResultSchema,
+  RunListResultSchema,
+  RunEventsResultSchema,
+  CheckResultSchema,
+  CheckListResultSchema,
+]);
 export type RuntimeCommand = z.infer<typeof RuntimeCommandSchema>;
 export type RuntimeResult = z.infer<typeof RuntimeResultSchema>;
 export const WorkerRequestSchema = z.strictObject({

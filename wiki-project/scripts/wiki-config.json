@@ -6,7 +6,15 @@
     "experiments/m0-reuse/evidence/install-initial.log",
     "experiments/m0-reuse/evidence/install-pinned.log",
     "experiments/m0-reuse/evidence/solivio.tap",
-    ".node-version"
+    ".node-version",
+    "tests/fixtures/knowledge/sources/src-platform-bottle-capacity.txt",
+    "tests/fixtures/knowledge/sources/src-platform-lamp-spec.txt",
+    "tests/fixtures/knowledge/sources/src-platform-listing-style.txt",
+    "tests/fixtures/knowledge/sources/src-platform-rfq-style.txt",
+    "tests/fixtures/knowledge/sources/src-terms-fibre-conflict.txt",
+    "tests/fixtures/knowledge/sources/src-terms-incoterms-scope.txt",
+    "tests/fixtures/knowledge/sources/src-terms-payment-split.txt",
+    "tests/fixtures/knowledge/sources/src-terms-validity.txt"
   ],
   "exclusionPolicy": [
     "Wiki 自身不递归采集为应用源码；维护脚本另存指纹",
@@ -20,7 +28,9 @@
     "raw/inputs/项目构建技术栈.md",
     "raw/inputs/外贸询报价协同 Agent 完整产品与实施方案.md",
     "raw/design/mistral-original.md",
-    "raw/design/claude-original.md"
+    "raw/design/claude-original.md",
+    "demo_data/MANIFEST.md",
+    "demo_data/SOURCE-PROVENANCE.md"
   ],
   "required": [
     "README.md",
@@ -64,14 +74,18 @@
       "role": "项目入口与协作约束",
       "pages": [
         "wiki/项目状态.md",
-        "wiki/Wiki 工作流与任务记录.md"
+        "wiki/Wiki 工作流与任务记录.md",
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C04收口与验收边界.md"
       ]
     },
     "AGENTS.md": {
       "role": "项目入口与协作约束",
       "pages": [
         "wiki/项目状态.md",
-        "wiki/Wiki 工作流与任务记录.md"
+        "wiki/Wiki 工作流与任务记录.md",
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C04收口与验收边界.md"
       ]
     },
     "DESIGN.md": {
@@ -474,7 +488,8 @@
     "apps/desktop/electron.vite.config.ts": {
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     "apps/desktop/package.json": {
@@ -486,19 +501,30 @@
     "apps/desktop/src/main/index.ts": {
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     "apps/desktop/src/main/worker-client.ts": {
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     "apps/desktop/src/preload/index.ts": {
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     "apps/desktop/src/renderer/index.html": {
@@ -564,7 +590,10 @@
     "apps/desktop/src/workers/business.ts": {
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     "biome.json": {
@@ -576,7 +605,8 @@
     "package.json": {
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/C04模型评估与脱敏报告.md"
       ]
     },
     "packages/contracts/package.json": {
@@ -588,21 +618,29 @@
     "packages/contracts/src/contracts.test.ts": {
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     "packages/contracts/src/index.ts": {
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     "packages/contracts/src/mock.ts": {
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     "packages/domain/package.json": {
@@ -620,13 +658,17 @@
     "packages/domain/src/index.ts": {
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/A01c检索引用实现.md",
+        "wiki/B规则检查实现.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     "packages/infrastructure/package.json": {
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     "packages/infrastructure/src/artifacts.ts": {
@@ -638,13 +680,44 @@
     "packages/infrastructure/src/index.ts": {
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/A01c检索引用实现.md",
+        "wiki/A01-追加迁移设计.md",
+        "wiki/B谱系账本适配与P1回执交接.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
+      ]
+    },
+    "packages/infrastructure/src/migration-lineage.ts": {
+      "role": "迁移谱系识别与拒绝边界（纯函数，只读）",
+      "pages": [
+        "wiki/decisions/0029-迁移谱系统一与拒绝边界.md",
+        "wiki/A01-迁移谱系支持与拒绝矩阵.md",
+        "wiki/B谱系账本适配与P1回执交接.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
+      ]
+    },
+    "packages/infrastructure/src/migration-ledger.test.ts": {
+      "role": "迁移账本一致性定向回归（N10/N11 拒绝前置）",
+      "pages": [
+        "wiki/A01-迁移验证计划.md",
+        "wiki/M1验证与协作.md",
+        "wiki/A对C前置验证失败修正回复.md"
       ]
     },
     "packages/infrastructure/src/migrations.ts": {
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/A01c检索引用实现.md",
+        "wiki/decisions/0029-迁移谱系统一与拒绝边界.md",
+        "wiki/A01-迁移谱系支持与拒绝矩阵.md",
+        "wiki/A01-追加迁移设计.md",
+        "wiki/A01-迁移验证计划.md",
+        "wiki/B谱系账本适配与P1回执交接.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
       ]
     },
     "packages/infrastructure/src/schema.ts": {
@@ -656,7 +729,8 @@
     "packages/infrastructure/src/storage.test.ts": {
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/A01-迁移验证计划.md"
       ]
     },
     "playwright.config.ts": {
@@ -693,7 +767,12 @@
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     "tsconfig.json": {
@@ -783,7 +862,8 @@
     "packages/contracts/src/events.ts": {
       "role": "Strict shared value, patch, approval and event contract foundation",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     "packages/contracts/src/errors.ts": {
@@ -819,7 +899,8 @@
     "apps/desktop/src/renderer/src/features/quotes.tsx": {
       "role": "Scenario form, confirmed CSV import and persisted quote V1 UI",
       "pages": [
-        "wiki/M2真实报价V1.md"
+        "wiki/M2真实报价V1.md",
+        "wiki/B规则检查实现.md"
       ]
     },
     "packages/domain/src/trade.test.ts": {
@@ -833,7 +914,8 @@
       "role": "Quote V1 amount, source, transaction, migration and real Electron regression evidence",
       "pages": [
         "wiki/M2真实报价V1.md",
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/A01-迁移验证计划.md"
       ]
     },
     "tests/e2e/quote-v1.spec.ts": {
@@ -888,7 +970,8 @@
     "packages/contracts/src/agent.ts": {
       "role": "模型设置与询盘受限修改严格契约",
       "pages": [
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     "packages/domain/src/revision.ts": {
@@ -901,14 +984,16 @@
       "role": "有界模型执行与提交前版本复核",
       "pages": [
         "wiki/M4模型与报价修订.md",
-        "wiki/C运行恢复实现.md"
+        "wiki/C运行恢复实现.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     "packages/infrastructure/src/deepseek.ts": {
       "role": "官方DeepSeek JSON网络适配和失败边界",
       "pages": [
         "wiki/M4模型与报价修订.md",
-        "wiki/C运行恢复实现.md"
+        "wiki/C运行恢复实现.md",
+        "wiki/C04剩余失败证据与收敛.md"
       ]
     },
     "packages/infrastructure/src/model-settings.ts": {
@@ -922,7 +1007,9 @@
       "pages": [
         "wiki/M4模型与报价修订.md",
         "wiki/M1验证与协作.md",
-        "wiki/C运行恢复实现.md"
+        "wiki/C运行恢复实现.md",
+        "wiki/A01-迁移验证计划.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     "packages/infrastructure/src/deepseek.test.ts": {
@@ -943,20 +1030,24 @@
     "apps/desktop/src/renderer/src/features/model-settings.tsx": {
       "role": "正式模型设置交互",
       "pages": [
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     "apps/desktop/src/renderer/src/features/quote-agent.tsx": {
       "role": "询盘两轮修订和真实版本差异",
       "pages": [
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     "tests/e2e/quote-agent.spec.ts": {
       "role": "真实Electron加HTTP替身两轮报价验收",
       "pages": [
         "wiki/M4模型与报价修订.md",
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     "packages/contracts/src/knowledge.ts": {
@@ -974,7 +1065,8 @@
     "packages/contracts/src/runs.ts": {
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
-        "wiki/首批并行接口约定.md"
+        "wiki/首批并行接口约定.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     "packages/contracts/src/protocol.ts": {
@@ -987,7 +1079,9 @@
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
         "wiki/首批并行接口约定.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     "packages/contracts/src/knowledge.test.ts": {
@@ -1005,7 +1099,9 @@
     "packages/contracts/src/runs.test.ts": {
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
-        "wiki/首批并行接口约定.md"
+        "wiki/首批并行接口约定.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     "apps/desktop/src/preload/contracts.test.ts": {
@@ -1013,7 +1109,12 @@
       "pages": [
         "wiki/首批并行接口约定.md",
         "wiki/M1工程基线.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     "packages/domain/src/agent-run.ts": {
@@ -1026,6 +1127,53 @@
       "role": "C01a取消提交顺序、中断、显式重试与澄清状态测试",
       "pages": [
         "wiki/C运行恢复实现.md"
+      ]
+    },
+    "packages/domain/src/knowledge.ts": {
+      "role": "A01b知识审核发布服务：human_ui门禁与方法分发",
+      "pages": [
+        "wiki/A知识发布实现.md"
+      ]
+    },
+    "packages/infrastructure/src/knowledge-store.ts": {
+      "role": "A01b知识版本SQLite存储：hash绑定、原地发布、幂等与不可变",
+      "pages": [
+        "wiki/A知识发布实现.md"
+      ]
+    },
+    "packages/infrastructure/src/knowledge-store.test.ts": {
+      "role": "A01b知识存储回归：发布门禁、幂等、版本、scope与不可变",
+      "pages": [
+        "wiki/A知识发布实现.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "packages/domain/src/wiki.ts": {
+      "role": "A01c检索引用服务：B00a P0来源门禁与方法分发",
+      "pages": [
+        "wiki/A01c检索引用实现.md"
+      ]
+    },
+    "packages/domain/src/wiki-maintenance.ts": {
+      "role": "A01c知识维护服务：wiki.lint/wiki.getLintReport 公共端口与来源门禁",
+      "pages": [
+        "wiki/A01c检索引用实现.md",
+        "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
+    "packages/infrastructure/src/wiki-store.ts": {
+      "role": "A01c检索引用SQLite存储：检索/引用/消费与候选暂存",
+      "pages": [
+        "wiki/A01c检索引用实现.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
+      ]
+    },
+    "packages/infrastructure/src/wiki-store.test.ts": {
+      "role": "A01c检索引用回归：不回退、分页、引用闭环与消费事务",
+      "pages": [
+        "wiki/A01c检索引用实现.md",
+        "wiki/M1验证与协作.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
       ]
     },
     "experiments/product-walkthrough/index.html": {
@@ -1050,7 +1198,9 @@
       "role": "A01合成知识候选样本，非已发布或已验收规则",
       "pages": [
         "wiki/A业务LLMWiki方案.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/A知识发布实现.md",
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/双参考项目功能对照与C开发路线.md"
       ]
     },
     "packages/contracts/src/knowledge-wiki.ts": {
@@ -1069,6 +1219,643 @@
       "role": "B00a P0 authority, provenance, historical-read, validity and pagination negative regressions",
       "pages": [
         "wiki/B00a知识Wiki公共协议.md"
+      ]
+    },
+    "packages/domain/src/quote-checks.ts": {
+      "role": "B01 pure quote rule checks, applicability and fixed evidence",
+      "pages": [
+        "wiki/B规则检查实现.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    "packages/domain/src/quote-checks.test.ts": {
+      "role": "B01 pure rule behavior, stable identities and immutable reports regression",
+      "pages": [
+        "wiki/B规则检查实现.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/quote-checks.tsx": {
+      "role": "B01 read-only report UI, shared risks and field annotations, version isolation",
+      "pages": [
+        "wiki/B规则检查实现.md",
+        "wiki/C已保存报价检查桌面切片.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/quote-checks.test.tsx": {
+      "role": "B01 component and saved-quote mounting behavior regression",
+      "pages": [
+        "wiki/B规则检查实现.md",
+        "wiki/C已保存报价检查桌面切片.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/quote-checks.fixture.ts": {
+      "role": "Explicit synthetic B01 report and quote fixtures for tests and visual preview only",
+      "pages": [
+        "wiki/B规则检查实现.md"
+      ]
+    },
+    "packages/infrastructure/src/check-store.ts": {
+      "role": "B01不可变报告存取、完整消费回读校验与同事务幂等",
+      "pages": [
+        "wiki/B规则检查实现.md"
+      ]
+    },
+    "packages/infrastructure/src/check-store.test.ts": {
+      "role": "B01 真实 SQLite 历史/故障原子性/不可变性与版本隔离回归",
+      "pages": [
+        "wiki/B规则检查实现.md"
+      ]
+    },
+    "packages/domain/src/wiki-quote-checks.ts": {
+      "role": "B00a完整多来源检查适配与旧规则语义复用",
+      "pages": [
+        "wiki/B规则检查实现.md"
+      ]
+    },
+    "packages/infrastructure/src/check-report-schema.ts": {
+      "role": "迁移7不可变检查报告表与版本约束",
+      "pages": [
+        "wiki/B规则检查实现.md",
+        "wiki/M1接口与持久化.md"
+      ]
+    },
+    "packages/infrastructure/src/migrations.test.ts": {
+      "role": "稀疏迁移账本、迟交5、历史库升级、SQL指纹与原子回滚",
+      "pages": [
+        "wiki/M1接口与持久化.md",
+        "wiki/M1验证与协作.md",
+        "wiki/B谱系账本适配与P1回执交接.md"
+      ]
+    },
+    "packages/infrastructure/src/wiki-check-source.ts": {
+      "role": "同连接搜索解析、多来源hash与提交前复核、报告消费登记",
+      "pages": [
+        "wiki/B规则检查实现.md",
+        "wiki/A01c检索引用实现.md"
+      ]
+    },
+    "packages/infrastructure/src/wiki-check-integration.test.ts": {
+      "role": "A真实查询到B报告消费的端口联调、故障与历史回归",
+      "pages": [
+        "wiki/B规则检查实现.md",
+        "wiki/M1验证与协作.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
+      ]
+    },
+    "packages/infrastructure/src/wiki-test.fixture.ts": {
+      "role": "明确合成A+B来源/候选和测试发布投影，非产品审核入口",
+      "pages": [
+        "wiki/A01c检索引用实现.md",
+        "wiki/M1验证与协作.md",
+        "wiki/B谱系账本适配与P1回执交接.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
+      ]
+    },
+    "packages/infrastructure/probes/migration-lineage.probe.ts": {
+      "role": "B迁移协调已知红色合成诊断：未知6和账本/schema漂移，不是真实C谱系",
+      "pages": [
+        "wiki/B01迁移协调回复与接口冻结.md",
+        "wiki/M1验证与协作.md",
+        "wiki/B谱系账本适配与P1回执交接.md"
+      ]
+    },
+    "packages/infrastructure/probes/vitest.config.ts": {
+      "role": "显式运行迁移诊断，和正常unit分别报告，禁止将红色诊断藏为通过",
+      "pages": [
+        "wiki/B01迁移协调回复与接口冻结.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    "packages/contracts/src/knowledge-build.ts": {
+      "role": "P1 frozen knowledge proposals, separate runs and host candidate transaction contracts",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
+    "packages/contracts/src/knowledge-build.test.ts": {
+      "role": "P1 proposal authority, run receipt, retry fencing and stable pagination negative tests",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
+    "packages/contracts/src/knowledge-maintenance.ts": {
+      "role": "P1 lint, deduplicated maintenance, influence analysis and fenced index reconstruction contracts",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
+    "packages/contracts/src/knowledge-maintenance.test.ts": {
+      "role": "P1 unknown/failure reports, human resolution, paging and stale projection negative tests",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
+    "packages/contracts/src/maintenance-evidence.test.ts": {
+      "role": "维护证据资格正反例：工作区/版本/时点/目标绑定、不可裁决事实与同键异参拒绝",
+      "pages": [
+        "wiki/B维护证据资格与规则样例.md",
+        "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
+    "packages/infrastructure/src/check-lineage-integration.test.ts": {
+      "role": "B historical report and multi-source consumption upgrade/reopen evidence",
+      "pages": [
+        "wiki/B谱系账本适配与P1回执交接.md",
+        "wiki/B规则检查实现.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
+      ]
+    },
+    "packages/contracts/src/knowledge-lint-review.test.ts": {
+      "role": "P1 persisted lint receipt to P0 review consistency boundary",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md",
+        "wiki/B谱系账本适配与P1回执交接.md"
+      ]
+    },
+    "packages/infrastructure/src/read-tool-runtime.ts": {
+      "role": "C02a受限只读工具循环、预算取消与真实业务计算回归",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C04失败收敛与本地回归.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04剩余失败证据与收敛.md",
+        "wiki/C04动作与澄清失败收敛.md"
+      ]
+    },
+    "packages/infrastructure/src/read-tool-runtime.test.ts": {
+      "role": "C02a受限只读工具循环、预算取消与真实业务计算回归",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C04失败收敛与本地回归.md"
+      ]
+    },
+    "tests/fixtures/knowledge/sources/src-platform-bottle-capacity.txt": {
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    "tests/fixtures/knowledge/sources/src-platform-lamp-spec.txt": {
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    "tests/fixtures/knowledge/sources/src-platform-listing-style.txt": {
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    "tests/fixtures/knowledge/sources/src-platform-rfq-style.txt": {
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    "tests/fixtures/knowledge/sources/src-terms-fibre-conflict.txt": {
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    "tests/fixtures/knowledge/sources/src-terms-incoterms-scope.txt": {
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    "tests/fixtures/knowledge/sources/src-terms-payment-split.txt": {
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    "tests/fixtures/knowledge/sources/src-terms-validity.txt": {
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    "packages/infrastructure/src/catalog-quote-read-agent.ts": {
+      "role": "C02b真实商品报价只读适配、来源快照、范围核价与无写入回归",
+      "pages": [
+        "wiki/C02b商品与报价只读工具.md",
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    "packages/infrastructure/src/catalog-quote-read-agent.test.ts": {
+      "role": "C02b真实商品报价只读适配、来源快照、范围核价与无写入回归",
+      "pages": [
+        "wiki/C02b商品与报价只读工具.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    "packages/contracts/src/read-tools.ts": {
+      "role": "独立只读命令、四工具统一投影与严格结果",
+      "pages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    "packages/contracts/src/read-tools.test.ts": {
+      "role": "只读命令/Worker联合与字段/范围/结果注入拒绝",
+      "pages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    "packages/infrastructure/src/catalog-quote-read-service.ts": {
+      "role": "正式Worker只读服务、宿主范围/时钟、在途门禁",
+      "pages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    "packages/infrastructure/src/catalog-quote-read-service.test.ts": {
+      "role": "真实仓库服务鉴权、在途去重与失败释放",
+      "pages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    "apps/desktop/src/main/worker-client.test.ts": {
+      "role": "只读传输deadline、结果校验和退出不重发",
+      "pages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/read-assistant.tsx": {
+      "role": "桌面只读任务/范围、实际结果与来源展示",
+      "pages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    "tests/e2e/read-assistant.spec.ts": {
+      "role": "正式Electron四工具、错误边界、来源/金额/重开验收",
+      "pages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    "packages/infrastructure/src/agent-run-store.ts": {
+      "role": "持久运行存储、票据、控制重放与同连接报价原子提交",
+      "pages": [
+        "wiki/C02c持久运行与写入前置.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    "packages/infrastructure/src/agent-run-store.test.ts": {
+      "role": "真实SQLite运行恢复前置、故障回滚、版本凭据与升级回归",
+      "pages": [
+        "wiki/C02c持久运行与写入前置.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/agent-runs.tsx": {
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    "packages/infrastructure/src/agent-run-coordinator.test.ts": {
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    "packages/infrastructure/src/agent-run-coordinator.ts": {
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    "packages/infrastructure/src/agent-run-recovery.test.ts": {
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    "packages/infrastructure/src/testing/run-fixture.ts": {
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    "packages/infrastructure/src/worker-ownership.ts": {
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    "tests/e2e/agent-recovery.spec.ts": {
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    "tests/fixtures/run-crash-child.ts": {
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/agent-runs.test.tsx": {
+      "role": "持久运行发现不自动收费、控制丢响应重放与跨页状态刷新回归",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/M1验证与协作.md",
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    "packages/infrastructure/src/quote-draft-plan.ts": {
+      "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
+      "pages": [
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    "packages/infrastructure/src/quote-tool-agent.test.ts": {
+      "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
+      "pages": [
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C04剩余失败证据与收敛.md"
+      ]
+    },
+    "packages/infrastructure/src/quote-tool-agent.ts": {
+      "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
+      "pages": [
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C04失败收敛与本地回归.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04剩余失败证据与收敛.md",
+        "wiki/C04动作与澄清失败收敛.md"
+      ]
+    },
+    "tests/e2e/multistep-agent.spec.ts": {
+      "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
+      "pages": [
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    "tests/fixtures/multistep-seed.ts": {
+      "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
+      "pages": [
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    "packages/infrastructure/src/evaluation/cases.ts": {
+      "role": "C04独立模型评估、故障矩阵与脱敏报告",
+      "pages": [
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    "packages/infrastructure/src/evaluation/evaluation.test.ts": {
+      "role": "C04独立模型评估、故障矩阵与脱敏报告",
+      "pages": [
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    "packages/infrastructure/src/evaluation/fixture-model.ts": {
+      "role": "C04独立模型评估、故障矩阵与脱敏报告",
+      "pages": [
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    "packages/infrastructure/src/evaluation/report.ts": {
+      "role": "C04独立模型评估、故障矩阵与脱敏报告",
+      "pages": [
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md"
+      ]
+    },
+    "packages/infrastructure/src/evaluation/runner.ts": {
+      "role": "C04独立模型评估、故障矩阵与脱敏报告",
+      "pages": [
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04剩余失败证据与收敛.md"
+      ]
+    },
+    "packages/infrastructure/src/evaluation/workspace.ts": {
+      "role": "C04独立模型评估、故障矩阵与脱敏报告",
+      "pages": [
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    "scripts/evaluate-model.mjs": {
+      "role": "C04独立模型评估、故障矩阵与脱敏报告",
+      "pages": [
+        "wiki/C04模型评估与脱敏报告.md"
+      ]
+    },
+    "apps/desktop/src/main/evaluation-host.ts": {
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    "apps/desktop/src/main/evaluation-host.test.ts": {
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    "apps/desktop/src/workers/evaluation.ts": {
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/model-evaluation.tsx": {
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md"
+      ]
+    },
+    "packages/contracts/src/model-evaluation.ts": {
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04剩余失败证据与收敛.md",
+        "wiki/C04动作与澄清失败收敛.md"
+      ]
+    },
+    "packages/infrastructure/src/evaluation/public.ts": {
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    "packages/infrastructure/src/evaluation/worker-protocol.ts": {
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    "tests/e2e/model-evaluation.spec.ts": {
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04剩余失败证据与收敛.md"
+      ]
+    },
+    "packages/infrastructure/src/evaluation/failure-regressions.test.ts": {
+      "role": "C04六项失败类合成重建回归及受限纠正停止条件，非真实响应重放",
+      "pages": [
+        "wiki/C04失败收敛与本地回归.md",
+        "wiki/C04模型评估与脱敏报告.md"
+      ]
+    },
+    "packages/infrastructure/src/evaluation/diagnostics.test.ts": {
+      "role": "C04枚举诊断隐私与兼容、八失败合成重建和停止边界回归",
+      "pages": [
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04动作与澄清失败收敛.md"
+      ]
+    },
+    "packages/infrastructure/src/evaluation/retest-regressions.test.ts": {
+      "role": "C04枚举诊断隐私与兼容、八失败合成重建和停止边界回归",
+      "pages": [
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04模型评估与脱敏报告.md"
+      ]
+    },
+    "packages/infrastructure/src/evaluation/remaining-regressions.test.ts": {
+      "role": "C04三项剩余失败边界的合成重建、Provider首错清理和共享一次纠正回归",
+      "pages": [
+        "wiki/C04剩余失败证据与收敛.md",
+        "wiki/C04模型评估与脱敏报告.md"
+      ]
+    },
+    "packages/infrastructure/src/evaluation/action-regressions.test.ts": {
+      "role": "C04动作/澄清/规则阻断合成回归",
+      "pages": [
+        "wiki/C04动作与澄清失败收敛.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/run-event-feed.test.ts": {
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/run-event-feed.ts": {
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/run-events.test.tsx": {
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/run-events.tsx": {
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/run-tool-labels.ts": {
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    "packages/contracts/src/run-events.test.ts": {
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    "packages/contracts/src/run-events.ts": {
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    "packages/infrastructure/src/run-event-store.test.ts": {
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    "packages/infrastructure/src/run-event-store.ts": {
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    "packages/domain/src/quote-checks-runtime-compat.test.ts": {
+      "role": "Preserved C fixed runtime quote-check compatibility regression against B public evaluator",
+      "pages": [
+        "wiki/B规则检查实现.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    "packages/infrastructure/src/worker-migration-gates.test.ts": {
+      "role": "C领域有效共同v3/C5/C6/C7升级回放、真实Worker互斥和启动拒绝验证",
+      "pages": [
+        "wiki/C领域旧库回放与Worker启动门禁.md"
+      ]
+    },
+    "tests/fixtures/worker-gates-host.ts": {
+      "role": "仅测试的隔离Electron宿主，调用生产UtilityProcess与Main业务客户端验证启动恢复门禁",
+      "pages": [
+        "wiki/C领域旧库回放与Worker启动门禁.md"
+      ]
+    },
+    "tests/e2e/quote-checks.spec.ts": {
+      "role": "C实际Electron保存报价/人工检查/完整来源消费/双反馈/重开和原子失败验证",
+      "pages": [
+        "wiki/C已保存报价检查桌面切片.md"
+      ]
+    },
+    "tests/fixtures/quote-checks-data.ts": {
+      "role": "仅测试离线合成已发布知识投影、故障注入和只读业务数据库检查",
+      "pages": [
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     }
   }

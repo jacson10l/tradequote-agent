@@ -1,0 +1,206 @@
+{
+  "status": "passed",
+  "scope": "C two-E2E-locator fix and scoped fixed-combination evidence/Wiki delivery gates; not full project acceptance",
+  "taskBase": "f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd",
+  "sharedMergeBase": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+  "checks": [
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "startedAt": "2026-10-26T08:42:35.283781+00:00",
+      "finishedAt": "2026-10-26T08:42:35.517711+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 250,\n  \"lines\": 65708,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n",
+      "stderr": "",
+      "stdoutSha256": "3d9710bb1fad9c8d1ba0904517d35d6f8f3384908c04e3dc9c504b9f6d81f63f",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "typecheck"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "startedAt": "2026-10-26T08:42:35.518152+00:00",
+      "finishedAt": "2026-10-26T08:42:37.214278+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 typecheck /Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent\n> tsc --noEmit\n\n",
+      "stderr": "",
+      "stdoutSha256": "478e282e6336b5ec214677d612c251d9827e87cb7c64e0a7583affc7c0d55f41",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "check"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "startedAt": "2026-10-26T08:42:37.214899+00:00",
+      "finishedAt": "2026-10-26T08:42:42.570784+00:00",
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 check /Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 178 files in 73ms. No fixes applied.\nTAP version 13\n# Subtest: renderer cannot reach Node, database or desktop internals through import forms\nok 1 - renderer cannot reach Node, database or desktop internals through import forms\n  ---\n  duration_ms: 14.682209\n  type: 'test'\n  ...\n# Subtest: pure modules use public contracts while other platform dependencies are rejected\nok 2 - pure modules use public contracts while other platform dependencies are rejected\n  ---\n  duration_ms: 3.179917\n  type: 'test'\n  ...\n# Subtest: domain permits exact pure decimal dependency without opening contracts or SDK imports\nok 3 - domain permits exact pure decimal dependency without opening contracts or SDK imports\n  ---\n  duration_ms: 0.712666\n  type: 'test'\n  ...\n# Subtest: committed icon resources match their source manifest\nok 4 - committed icon resources match their source manifest\n  ---\n  duration_ms: 2.906458\n  type: 'test'\n  ...\n# Subtest: editing either SVG or packaged icon without generation blocks the build\nok 5 - editing either SVG or packaged icon without generation blocks the build\n  ---\n  duration_ms: 11.350834\n  type: 'test'\n  ...\n# Subtest: macOS native process and runtime display TradeQuote while upstream Electron stays intact\nok 6 - macOS native process and runtime display TradeQuote while upstream Electron stays intact\n  ---\n  duration_ms: 718.114584\n  type: 'test'\n  ...\n1..6\n# tests 6\n# suites 0\n# pass 6\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 799.731875\nModule boundaries passed\n\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 250,\n  \"lines\": 65708,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 243,\n  \"semantic\": 215,\n  \"reachable\": 243\n}\n",
+      "stderr": "",
+      "stdoutSha256": "ce1e827a15d5c0b3302cfde5b861c894e7e5df17fe057cbe9a3f9f90dcf8546c",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "startedAt": "2026-10-26T08:42:42.571987+00:00",
+      "finishedAt": "2026-10-26T08:42:42.829202+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 250,\n  \"lines\": 65708,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n",
+      "stderr": "",
+      "stdoutSha256": "02300834f65454ea12e8dec367fbe77879b3c15ce886c43123a8aa771751fa91",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "startedAt": "2026-10-26T08:42:42.830036+00:00",
+      "finishedAt": "2026-10-26T08:42:44.090158+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 243,\n  \"semantic\": 215,\n  \"reachable\": 243\n}\n",
+      "stderr": "",
+      "stdoutSha256": "b913b53fc8372c2fbe535faac272aedc3a4cc6626d3c367568fc9bcecfeb22bd",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "startedAt": "2026-10-26T08:42:44.090890+00:00",
+      "finishedAt": "2026-10-26T08:42:44.300744+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd\",\n  \"status\": \"passed\",\n  \"codeFiles\": 2,\n  \"knowledgePages\": 10,\n  \"tasks\": 3,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "stdoutSha256": "1396b0a6f49dc4e6640ff2696706b86df46e5fa74e9d034710b36ac413ee60dd",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "7f8afe6a0849da3f198bf5bf3be32180053f082d"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "startedAt": "2026-10-26T08:42:44.301246+00:00",
+      "finishedAt": "2026-10-26T08:42:46.179759+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"7f8afe6a0849da3f198bf5bf3be32180053f082d\",\n  \"status\": \"passed\",\n  \"codeFiles\": 91,\n  \"knowledgePages\": 141,\n  \"tasks\": 51,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "stdoutSha256": "1a0e3cc77cf34839c3120c70fcd6ea7a5983e44cacf06170619868a1459cdf54",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "startedAt": "2026-10-26T08:42:46.180539+00:00",
+      "finishedAt": "2026-10-26T08:42:47.651394+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 122,\n  \"knowledgePages\": 154,\n  \"tasks\": 55,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "stdoutSha256": "b0fb12c20ca57fe85bc6adea662de38292b1846ae49847ea133b6d7d8a6ff5b8",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "be53b98"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "startedAt": "2026-10-26T08:42:47.652011+00:00",
+      "finishedAt": "2026-10-26T08:42:49.106875+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 127,\n  \"knowledgePages\": 166,\n  \"tasks\": 62,\n  \"errors\": []\n}\n",
+      "stderr": "",
+      "stdoutSha256": "564316a16420d2c3192aa6ad849beb5085d5c635e49ffd1444aec8cf0e90ef60",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "startedAt": "2026-10-26T08:42:49.107646+00:00",
+      "finishedAt": "2026-10-26T08:42:49.127702+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-b-f4c9dfc-validation/tradequote-agent",
+      "startedAt": "2026-10-26T08:42:49.128357+00:00",
+      "finishedAt": "2026-10-26T08:42:49.140372+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "preservation": {
+    "sourceCount": 253,
+    "allowedE2EChanges": [
+      {
+        "path": "tests/e2e/quote-agent.spec.ts",
+        "originalSha256": "43f7b90244f352c8efb29fb87423cf818a05c3a42f7bc175eca1eed53fb76e49",
+        "executedScopedSha256": "843f02c7495c0c1d4335e94dfd258279bf8f8276fee9646e878aaa6cc2d2b2c0",
+        "finalSha256": "bae5f5de3af87c36b753fc65a1dc0af21c230503781c927026d6b05a07bb92ff",
+        "onlyBusinessRegionScopeAndFormattingChanged": true
+      },
+      {
+        "path": "tests/e2e/multistep-agent.spec.ts",
+        "originalSha256": "6b827af0d1f544d97799d5f9d7b612a03943516143a773db6fa31bc856ffba50",
+        "executedScopedSha256": "ed3bca613cf5feb74c5dcc52f98e32e3fad521b4691960f3d0f2b15d6355f080",
+        "finalSha256": "57c97d566021e42d39ae1f3769d2ab9d12d25c432c66997b5e4c653310fe2b75",
+        "onlyBusinessRegionScopeAndFormattingChanged": true
+      }
+    ],
+    "unexpectedSourceChanges": [],
+    "oldRawCount": 290,
+    "oldRawChanged": [],
+    "oldLogBytes": 201094,
+    "oldLogFullBytePrefixPreserved": true
+  },
+  "finishedAt": "2026-10-26T08:42:49.202676+00:00"
+}

@@ -1,0 +1,31 @@
+{
+  "status": "changes_requested",
+  "receivedAt": "2026-10-22T01:30:58.110121+08:00",
+  "reviewerRole": "C independent technical review, not human T00 or A sign-off",
+  "sourceSnapshotSha256": {
+    "packages/contracts/src/knowledge-build.ts": "392fdf2164e96463b2a30cc0c78ac23086a41e0849d6993f77a9ff667dc74d81",
+    "packages/contracts/src/knowledge-maintenance.ts": "a855b068c9bb1c955cbc2de6e4096de22c11a2c6d14c2da944e8c6cd4ef584d5"
+  },
+  "findings": [
+    {
+      "priority": "P2",
+      "summary": "Transition schema omitted fail; legal queued/running failure could not be represented."
+    },
+    {
+      "priority": "P2",
+      "summary": "Completed impact page accepted unknown consumer state."
+    },
+    {
+      "priority": "P2",
+      "summary": "Initial terminal impact page could hide known nonzero results."
+    }
+  ],
+  "clarification": "Choose monotonic indexedSeq: a currently fenced rebuild must not roll the projection back.",
+  "reviewerReportedChecks": {
+    "command": "pnpm exec vitest run packages/contracts/src/knowledge-build.test.ts packages/contracts/src/knowledge-maintenance.test.ts apps/desktop/src/preload/contracts.test.ts",
+    "exitCode": 0,
+    "files": 3,
+    "tests": 26
+  },
+  "scope": "Review findings were independently reproduced by C; the passing pre-review tests did not cover these cases."
+}

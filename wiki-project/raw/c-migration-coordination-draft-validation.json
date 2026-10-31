@@ -1,0 +1,266 @@
+{
+  "status": "passed",
+  "taskBase": "d99f2b32def756b6b4d4cc99fca75dd9511436d5",
+  "scope": "Local AB migration coordination draft and Wiki checks only, not migration implementation or signoff",
+  "checks": [
+    {
+      "command": "python3 .runtime/c-migration-coordination-draft/audit.py",
+      "argv": [
+        "python3",
+        ".runtime/c-migration-coordination-draft/audit.py"
+      ],
+      "startedAt": "2026-10-23T17:48:58.026495+08:00",
+      "finishedAt": "2026-10-23T17:49:00.184551+08:00",
+      "durationSeconds": 2.158,
+      "exitCode": 0,
+      "output": "{\"status\": \"passed\", \"scope\": \"Draft reference/retention audit only; no migration execution or accepted plan\", \"base\": \"d99f2b32def756b6b4d4cc99fca75dd9511436d5\", \"draft\": \"wiki-project/wiki/C迁移协调请求草稿-AB谱系兼容.md\", \"draftSha256\": \"e46fb90431b2a1a2a7201f8156523cb4fc5441ceb54aa2f0ed0ac14e83acd507\", \"probeSha256\": \"834c091fb66aecb2b4467fd4f599356cee6800f53232f3129f204db044c1932c\", \"sixCasesReferenced\": [\"C_v7_to_B_v7\", \"B_v7_to_C_v7\", \"C_v6_to_B_v7\", \"C_v5_to_B_v7\", \"B_v7_to_B_v7_control\", \"C_v7_to_C_v7_control\"], \"migrationSourceHashesMatchFrozenGitObjects\": true, \"fourConflictSqlFingerprintsReferenced\": true, \"M1ThroughM8Present\": true, \"fullCommitRefsResolved\": [\"330bff76615147ea9c2729cb144a18873a5251d0\", \"45fa03d57d6fc405c2438c3b187f87838355a88b\", \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\", \"6c76fb991f3135d6a48362c1b242e46af6641817\", \"b256dd1d219cbf9f4a4264e19a980e194180dc14\", \"d99f2b32def756b6b4d4cc99fca75dd9511436d5\", \"dc0f034216e51b0da3dc22c910b27938aeef2f46\", \"dd42b055efd409fa3c332c6cb1997c7a7638ca62\", \"e6af0b2d0cfe86af3abd45180dd56750db86b214\"], \"sourceHashesPreserved\": 225, \"oldNonGeneratedRawFilesByteIdentical\": 184, \"oldLogPrefixBytes\": 102143, \"pendingTasksRemainActive\": true, \"priorRequestDraftsRemainDraftUnsent\": true, \"oldPendingAndDraftContentPreservedAsPrefix\": true, \"protectedRefsUnchanged\": {\"codex/c-b01-remote-intake\": \"d99f2b32def756b6b4d4cc99fca75dd9511436d5\", \"codex/c-b01-dependency-update\": \"c39b87f51590d8c40c938de52434340735022343\", \"codex/c-signoff-request-drafts\": \"cfce704ff27b8b1913110418cf8c4b16ea48aa43\", \"codex/c-handoff-independent-review\": \"dc0f034216e51b0da3dc22c910b27938aeef2f46\", \"codex/c-integration-handoff\": \"b256dd1d219cbf9f4a4264e19a980e194180dc14\", \"codex/c-diagnostics-p2-fix\": \"45fa03d57d6fc405c2438c3b187f87838355a88b\", \"codex/m1-foundation\": \"56c909e21aefa484b6805bf9afc7c94b0e1d4576\", \"origin/codex/m1-foundation\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\", \"origin/codex/b01-wiki-integration\": \"6c76fb991f3135d6a48362c1b242e46af6641817\"}, \"historicalMigrationChanged\": false, \"newProbeMigrationOrModelExecution\": false, \"planChosenOrSignaturesFilled\": false, \"outboundOperations\": []}\n",
+      "outputSha256": "1b2ca1e0363e844aec89fa2d49eebc482472c078ca7cbf9536d71cc213a6cae3"
+    },
+    {
+      "command": "pnpm wiki:generate",
+      "argv": [
+        "pnpm",
+        "wiki:generate"
+      ],
+      "startedAt": "2026-10-23T17:49:00.224461+08:00",
+      "finishedAt": "2026-10-23T17:49:00.646019+08:00",
+      "durationSeconds": 0.421,
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:generate /Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs .\n\n{\n  \"mode\": \"generate\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n",
+      "outputSha256": "eab7fbe263dd998bf9cc3794887cfe4f6c11520b68861ce62307ee0780068dba"
+    },
+    {
+      "command": "pnpm wiki:check",
+      "argv": [
+        "pnpm",
+        "wiki:check"
+      ],
+      "startedAt": "2026-10-23T17:49:00.685272+08:00",
+      "finishedAt": "2026-10-23T17:49:01.553477+08:00",
+      "durationSeconds": 0.868,
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 192,\n  \"semantic\": 164,\n  \"reachable\": 192\n}\n",
+      "outputSha256": "c55d6efd54fcdd711b8647fa8cd5c5c45e83d200f286d8e7190828c7bd48eb9d"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base d99f2b32def756b6b4d4cc99fca75dd9511436d5",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "d99f2b32def756b6b4d4cc99fca75dd9511436d5"
+      ],
+      "startedAt": "2026-10-23T17:49:01.592858+08:00",
+      "finishedAt": "2026-10-23T17:49:01.674190+08:00",
+      "durationSeconds": 0.081,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"d99f2b32def756b6b4d4cc99fca75dd9511436d5\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "outputSha256": "b5b2fe07fc110c61981aeac95ada0e92f23789d142cf349c626bc6b5181674a8"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+      ],
+      "startedAt": "2026-10-23T17:49:01.713722+08:00",
+      "finishedAt": "2026-10-23T17:49:02.503662+08:00",
+      "durationSeconds": 0.79,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 91,\n  \"knowledgePages\": 99,\n  \"tasks\": 34,\n  \"errors\": []\n}\n",
+      "outputSha256": "0610a1786faec711ccb88b59611a4a28d1506ad58aa09cb26239b9a3ccaedbe5"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce"
+      ],
+      "startedAt": "2026-10-23T17:49:02.541606+08:00",
+      "finishedAt": "2026-10-23T17:49:03.413069+08:00",
+      "durationSeconds": 0.871,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 97,\n  \"knowledgePages\": 114,\n  \"tasks\": 42,\n  \"errors\": []\n}\n",
+      "outputSha256": "bd3e8ede8220d043733d5e1821f29db23b443677eadc0c28a8a0a870722f9279"
+    },
+    {
+      "command": "git diff --check",
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "startedAt": "2026-10-23T17:49:03.459443+08:00",
+      "finishedAt": "2026-10-23T17:49:03.474495+08:00",
+      "durationSeconds": 0.015,
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "python3 .runtime/c-migration-coordination-draft/audit.py",
+      "argv": [
+        "python3",
+        ".runtime/c-migration-coordination-draft/audit.py"
+      ],
+      "startedAt": "2026-10-23T17:49:54.774037+08:00",
+      "finishedAt": "2026-10-23T17:49:56.569909+08:00",
+      "durationSeconds": 1.796,
+      "exitCode": 0,
+      "output": "{\"status\": \"passed\", \"scope\": \"Draft reference/retention audit only; no migration execution or accepted plan\", \"base\": \"d99f2b32def756b6b4d4cc99fca75dd9511436d5\", \"draft\": \"wiki-project/wiki/C迁移协调请求草稿-AB谱系兼容.md\", \"draftSha256\": \"d330ce5493c8a63bd909a27a71bf301e022e0ee57ba3981cd155f9ffab67f632\", \"probeSha256\": \"834c091fb66aecb2b4467fd4f599356cee6800f53232f3129f204db044c1932c\", \"sixCasesReferenced\": [\"C_v7_to_B_v7\", \"B_v7_to_C_v7\", \"C_v6_to_B_v7\", \"C_v5_to_B_v7\", \"B_v7_to_B_v7_control\", \"C_v7_to_C_v7_control\"], \"migrationSourceHashesMatchFrozenGitObjects\": true, \"fourConflictSqlFingerprintsReferenced\": true, \"M1ThroughM8Present\": true, \"fullCommitRefsResolved\": [\"330bff76615147ea9c2729cb144a18873a5251d0\", \"45fa03d57d6fc405c2438c3b187f87838355a88b\", \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\", \"6c76fb991f3135d6a48362c1b242e46af6641817\", \"b256dd1d219cbf9f4a4264e19a980e194180dc14\", \"d99f2b32def756b6b4d4cc99fca75dd9511436d5\", \"dc0f034216e51b0da3dc22c910b27938aeef2f46\", \"dd42b055efd409fa3c332c6cb1997c7a7638ca62\", \"e6af0b2d0cfe86af3abd45180dd56750db86b214\"], \"sourceHashesPreserved\": 225, \"oldNonGeneratedRawFilesByteIdentical\": 184, \"oldLogPrefixBytes\": 102143, \"pendingTasksRemainActive\": true, \"priorRequestDraftsRemainDraftUnsent\": true, \"oldPendingAndDraftContentPreservedAsPrefix\": true, \"protectedRefsUnchanged\": {\"codex/c-b01-remote-intake\": \"d99f2b32def756b6b4d4cc99fca75dd9511436d5\", \"codex/c-b01-dependency-update\": \"c39b87f51590d8c40c938de52434340735022343\", \"codex/c-signoff-request-drafts\": \"cfce704ff27b8b1913110418cf8c4b16ea48aa43\", \"codex/c-handoff-independent-review\": \"dc0f034216e51b0da3dc22c910b27938aeef2f46\", \"codex/c-integration-handoff\": \"b256dd1d219cbf9f4a4264e19a980e194180dc14\", \"codex/c-diagnostics-p2-fix\": \"45fa03d57d6fc405c2438c3b187f87838355a88b\", \"codex/m1-foundation\": \"56c909e21aefa484b6805bf9afc7c94b0e1d4576\", \"origin/codex/m1-foundation\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\", \"origin/codex/b01-wiki-integration\": \"6c76fb991f3135d6a48362c1b242e46af6641817\"}, \"historicalMigrationChanged\": false, \"newProbeMigrationOrModelExecution\": false, \"planChosenOrSignaturesFilled\": false, \"outboundOperations\": []}\n",
+      "outputSha256": "454bd2bc737e66833cf3440ad9c3060e5e4fe0da8cd87398483429c6249a0302"
+    },
+    {
+      "command": "pnpm wiki:check",
+      "argv": [
+        "pnpm",
+        "wiki:check"
+      ],
+      "startedAt": "2026-10-23T17:50:25.376412+08:00",
+      "finishedAt": "2026-10-23T17:50:26.352311+08:00",
+      "durationSeconds": 0.977,
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 192,\n  \"semantic\": 164,\n  \"reachable\": 192\n}\n",
+      "outputSha256": "c55d6efd54fcdd711b8647fa8cd5c5c45e83d200f286d8e7190828c7bd48eb9d"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base d99f2b32def756b6b4d4cc99fca75dd9511436d5",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "d99f2b32def756b6b4d4cc99fca75dd9511436d5"
+      ],
+      "startedAt": "2026-10-23T17:50:26.392929+08:00",
+      "finishedAt": "2026-10-23T17:50:26.479955+08:00",
+      "durationSeconds": 0.087,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"d99f2b32def756b6b4d4cc99fca75dd9511436d5\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "outputSha256": "b5b2fe07fc110c61981aeac95ada0e92f23789d142cf349c626bc6b5181674a8"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+      ],
+      "startedAt": "2026-10-23T17:50:26.519006+08:00",
+      "finishedAt": "2026-10-23T17:50:27.373016+08:00",
+      "durationSeconds": 0.855,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 91,\n  \"knowledgePages\": 99,\n  \"tasks\": 34,\n  \"errors\": []\n}\n",
+      "outputSha256": "0610a1786faec711ccb88b59611a4a28d1506ad58aa09cb26239b9a3ccaedbe5"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce"
+      ],
+      "startedAt": "2026-10-23T17:50:27.411818+08:00",
+      "finishedAt": "2026-10-23T17:50:28.486508+08:00",
+      "durationSeconds": 1.076,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 97,\n  \"knowledgePages\": 114,\n  \"tasks\": 42,\n  \"errors\": []\n}\n",
+      "outputSha256": "bd3e8ede8220d043733d5e1821f29db23b443677eadc0c28a8a0a870722f9279"
+    },
+    {
+      "command": "git diff --check",
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "startedAt": "2026-10-23T17:50:28.532979+08:00",
+      "finishedAt": "2026-10-23T17:50:28.550390+08:00",
+      "durationSeconds": 0.017,
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "recordedAt": "2026-10-23T17:50:28.550441+08:00",
+  "branch": "codex/c-migration-coordination-draft",
+  "draftAuditAndPreservation": {
+    "status": "passed",
+    "scope": "Draft reference/retention audit only; no migration execution or accepted plan",
+    "base": "d99f2b32def756b6b4d4cc99fca75dd9511436d5",
+    "draft": "wiki-project/wiki/C迁移协调请求草稿-AB谱系兼容.md",
+    "draftSha256": "d330ce5493c8a63bd909a27a71bf301e022e0ee57ba3981cd155f9ffab67f632",
+    "probeSha256": "834c091fb66aecb2b4467fd4f599356cee6800f53232f3129f204db044c1932c",
+    "sixCasesReferenced": [
+      "C_v7_to_B_v7",
+      "B_v7_to_C_v7",
+      "C_v6_to_B_v7",
+      "C_v5_to_B_v7",
+      "B_v7_to_B_v7_control",
+      "C_v7_to_C_v7_control"
+    ],
+    "migrationSourceHashesMatchFrozenGitObjects": true,
+    "fourConflictSqlFingerprintsReferenced": true,
+    "M1ThroughM8Present": true,
+    "fullCommitRefsResolved": [
+      "330bff76615147ea9c2729cb144a18873a5251d0",
+      "45fa03d57d6fc405c2438c3b187f87838355a88b",
+      "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+      "6c76fb991f3135d6a48362c1b242e46af6641817",
+      "b256dd1d219cbf9f4a4264e19a980e194180dc14",
+      "d99f2b32def756b6b4d4cc99fca75dd9511436d5",
+      "dc0f034216e51b0da3dc22c910b27938aeef2f46",
+      "dd42b055efd409fa3c332c6cb1997c7a7638ca62",
+      "e6af0b2d0cfe86af3abd45180dd56750db86b214"
+    ],
+    "sourceHashesPreserved": 225,
+    "oldNonGeneratedRawFilesByteIdentical": 184,
+    "oldLogPrefixBytes": 102143,
+    "pendingTasksRemainActive": true,
+    "priorRequestDraftsRemainDraftUnsent": true,
+    "oldPendingAndDraftContentPreservedAsPrefix": true,
+    "protectedRefsUnchanged": {
+      "codex/c-b01-remote-intake": "d99f2b32def756b6b4d4cc99fca75dd9511436d5",
+      "codex/c-b01-dependency-update": "c39b87f51590d8c40c938de52434340735022343",
+      "codex/c-signoff-request-drafts": "cfce704ff27b8b1913110418cf8c4b16ea48aa43",
+      "codex/c-handoff-independent-review": "dc0f034216e51b0da3dc22c910b27938aeef2f46",
+      "codex/c-integration-handoff": "b256dd1d219cbf9f4a4264e19a980e194180dc14",
+      "codex/c-diagnostics-p2-fix": "45fa03d57d6fc405c2438c3b187f87838355a88b",
+      "codex/m1-foundation": "56c909e21aefa484b6805bf9afc7c94b0e1d4576",
+      "origin/codex/m1-foundation": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+      "origin/codex/b01-wiki-integration": "6c76fb991f3135d6a48362c1b242e46af6641817"
+    },
+    "historicalMigrationChanged": false,
+    "newProbeMigrationOrModelExecution": false,
+    "planChosenOrSignaturesFilled": false,
+    "outboundOperations": []
+  },
+  "semanticReview": "Six cases, source/SQL fingerprints and A/B responsibilities read against frozen evidence; proposals not selected or implemented",
+  "migrationCompatible": false,
+  "planSelection": "pending_actual_A_B_C_coordination",
+  "draftState": "local_unsent_draft",
+  "personnelSignoffs": "unchanged_pending",
+  "historicalMigrationChange": false,
+  "newProbeOrProductOrModelExecution": false,
+  "outboundOperations": [],
+  "notRun": [
+    "Migration or compatibility implementation",
+    "Six diagnostic cases rerun",
+    "New full business suite",
+    "New independent review",
+    "Human signoff/publication",
+    "Push/shared merge/external sends",
+    "Real model retest"
+  ]
+}

@@ -1,0 +1,211 @@
+{
+  "status": "material_pushed_and_verified",
+  "scope": "Public fixed combination handoff and push receipt; not C independent acceptance",
+  "taskBase": "ee71a0f62bef9d9de97bdc449b686ac11e2f0620",
+  "branch": "codex/b-a910-c03-combination",
+  "materialCommit": "ee71a0f62bef9d9de97bdc449b686ac11e2f0620",
+  "recordedAt": "2026-10-26T08:04:55.591Z",
+  "push": {
+    "executable": "git",
+    "args": [
+      "push",
+      "--set-upstream",
+      "origin",
+      "HEAD:refs/heads/codex/b-a910-c03-combination"
+    ],
+    "exit_code": 0,
+    "kind": "ordinary new branch; no force"
+  },
+  "materialReceipt": {
+    "status": "ordinary_push_and_remote_readback_verified",
+    "pushExitCode": 0,
+    "readbackExitCode": 0,
+    "branch": "codex/b-a910-c03-combination",
+    "finalFullSha": "ee71a0f62bef9d9de97bdc449b686ac11e2f0620",
+    "remoteReadback": "ee71a0f62bef9d9de97bdc449b686ac11e2f0620\trefs/heads/codex/b-a910-c03-combination",
+    "remoteMatchesLocal": true,
+    "workingTreeClean": true,
+    "containsRequestedEe71": true,
+    "testedCodeSha": "ceec0ee4e329d891aad1855a42414256762e367c",
+    "nonWikiDiffFromTestedCode": "",
+    "fixedSources": {
+      "a": "a2b050eb74f52dc10916645bcc7a2dead02f9a72",
+      "aImplementation": "910e6260af0c4d84471e665da7656dbf8133aae7",
+      "b": "7f8afe6a0849da3f198bf5bf3be32180053f082d",
+      "c": "03b16b76ceb336d9f37692ee8b51046e90f328a0"
+    },
+    "finalResults": {
+      "classification": "B author validation on fixed new combination only",
+      "fixedCombinationCodeCommit": "ceec0ee4e329d891aad1855a42414256762e367c",
+      "sourceTreeIds": {
+        "packages": "c42c4faf3ed85f315c9c69eeffe59c1ebd14de33",
+        "apps": "4979eb6ee9cbd22d451ca28ba600f9ca9c8dfbf0",
+        "scripts": "54ada764a3e3e509a6b47007cd2aa9793e62b722",
+        "tests": "92e1be677db262196c5ecf168df8c90195b1c5ff",
+        "package.json": "969dfca2fef8c7cf4a4d61f656d869fc922dece9",
+        "pnpm-lock.yaml": "f4320f8b1fa66202c9d26917de4523f5a25c546f"
+      },
+      "sourceChangesAfterFixedCode": "",
+      "typecheck": {
+        "exit_code": 0
+      },
+      "nineFile": {
+        "passed": 121,
+        "total": 121,
+        "exit_code": 0
+      },
+      "fullUnit": {
+        "passed": 454,
+        "total": 455,
+        "exit_code": 1,
+        "remaining": "Windows file symlink EPERM in storage.test.ts; assertion unchanged"
+      },
+      "build": {
+        "exit_code": 0,
+        "warning": "renderer chunk >500kB; no desktop acceptance"
+      },
+      "engineering": {
+        "exit_code": 0,
+        "passed": 5,
+        "skipped": 1,
+        "skippedScope": "macOS native executable test"
+      },
+      "wiki": {
+        "generate": 0,
+        "readonly": 0,
+        "lint": 0,
+        "sync": 0,
+        "codeFiles": 91,
+        "taskBase": "7f8afe6a0849da3f198bf5bf3be32180053f082d"
+      },
+      "wikiRegression": {
+        "passed": 34,
+        "total": 36,
+        "exit_code": 1,
+        "remaining": "two existing Windows symlink EPERM cases; no skip or product test weakening"
+      },
+      "preservation": "wiki-project/raw/b-a910-c03-combination-preservation.json",
+      "overallMigrationApproved": false
+    },
+    "artifacts": {
+      "wiki-project/wiki/B新固定组合与回归范围.md": {
+        "blob": "9a9a98b932d74c7a3932435d47831ae9eec70f0e",
+        "sha256": "bca176df75b24a5f07a8a6130bc68f7d6c9cc51c54aa1c5d6f4b0ecf7c6c7b7d"
+      },
+      "wiki-project/wiki/tasks/B01-新固定组合回归.md": {
+        "blob": "8476b42711d55323e27d154680709388ab894672",
+        "sha256": "29b7b2f77acbb069bf2a01316c102b9dd26c4fdf2630147fecdae3dfe3991a1d"
+      },
+      "wiki-project/raw/b-a910-c03-combination-validation.json": {
+        "blob": "59700e40bfc6504ee4422168d2cbea5f7b3d4909",
+        "sha256": "34274595ad4ce36982ea94e5dba49cd42f2d0e0703d33c2ceac16f4f32fce805"
+      },
+      "wiki-project/raw/b-a910-c03-combination-preservation.json": {
+        "blob": "0d4a5dd17f4f17a37dd2bed9600ebf304779d0e1",
+        "sha256": "c0bfc7a2a57793583cc603769ff5904ab2c7942ccb3ca9df29a86a2d94e647ec"
+      },
+      "wiki-project/raw/b-ec6b729-status-intake.json": {
+        "blob": "08fa2ef115499bcb00c5c17012294a876a4909aa",
+        "sha256": "8b1404076935deb09466fc08d82a56cf03b89e16feb7a72337f8a0318f222f9d"
+      }
+    },
+    "verifiedAt": "2026-10-26T08:02:40.114Z",
+    "overallMigrationApproved": false
+  },
+  "checks": [
+    {
+      "name": "material remote readback",
+      "executable": "git",
+      "args": [
+        "ls-remote",
+        "--heads",
+        "origin",
+        "refs/heads/codex/b-a910-c03-combination"
+      ],
+      "startedAt": "2026-10-26T08:04:53.283Z",
+      "finishedAt": "2026-10-26T08:04:55.477Z",
+      "exit_code": 0,
+      "stdout": "ee71a0f62bef9d9de97bdc449b686ac11e2f0620\trefs/heads/codex/b-a910-c03-combination\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki generate",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-26T08:04:55.686Z",
+      "finishedAt": "2026-10-26T08:04:56.077Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 250,\n  \"lines\": 65704,\n  \"generated\": 5,\n  \"excluded\": 12\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki readonly",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "startedAt": "2026-10-26T08:04:56.078Z",
+      "finishedAt": "2026-10-26T08:04:56.450Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 250,\n  \"lines\": 65704,\n  \"generated\": 5,\n  \"excluded\": 12\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki lint",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-26T08:04:56.450Z",
+      "finishedAt": "2026-10-26T08:04:57.996Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 241,\n  \"semantic\": 213,\n  \"reachable\": 241\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki sync",
+      "executable": "D:\\code\\tradequote-agent-b01\\.runtime\\node22\\node.exe",
+      "args": [
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "ee71a0f62bef9d9de97bdc449b686ac11e2f0620"
+      ],
+      "startedAt": "2026-10-26T08:04:57.996Z",
+      "finishedAt": "2026-10-26T08:04:58.375Z",
+      "exit_code": 0,
+      "stdout": "{\n  \"base\": \"ee71a0f62bef9d9de97bdc449b686ac11e2f0620\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "diff whitespace",
+      "executable": "git",
+      "args": [
+        "diff",
+        "--check",
+        "ee71a0f62bef9d9de97bdc449b686ac11e2f0620"
+      ],
+      "startedAt": "2026-10-26T08:04:58.375Z",
+      "finishedAt": "2026-10-26T08:04:58.455Z",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "note": "This file records the ee71a0f material push. A later ordinary documentation commit persists this receipt and is independently pushed/read back; its final SHA is returned in the final handoff rather than replacing the original tested-code/material SHA.",
+  "productTestsNotRerun": true,
+  "overallMigrationApproved": false,
+  "preservation": {
+    "oldRawCount": 289,
+    "rawMismatches": [],
+    "oldLogBytePrefixPreserved": true,
+    "nonWikiChanges": ""
+  },
+  "handoffChecksStatus": "passed"
+}

@@ -1,0 +1,141 @@
+{
+  "status": "passed",
+  "recordedAt": "2026-10-25T11:04:34.948Z",
+  "fixed": {
+    "a": "a2b050eb74f52dc10916645bcc7a2dead02f9a72",
+    "b": "7f8afe6a0849da3f198bf5bf3be32180053f082d",
+    "c": "03b16b76ceb336d9f37692ee8b51046e90f328a0"
+  },
+  "aCore": [
+    {
+      "path": "packages/infrastructure/src/migration-lineage.ts",
+      "aSha256": "29ff1c4cdad66155cd0f36c4c9cb97f617be943ad05705c7a541fa2f1369d7bd",
+      "combinedSha256": "de13ea2bdb1ccf26471663c162b6613eb116c2090ec41d16b9d05d3926f1aec8",
+      "normalizedAstSha256": "f371353bfc84499781ebf31c611fcb2a10076cf828ed4e3c08c85b9cd6c502a3",
+      "astEquivalentIgnoringLayoutCommentsAndImportOrder": true
+    },
+    {
+      "path": "packages/infrastructure/src/migrations.ts",
+      "aSha256": "d4b135275c277920fadfb6520a3a9590372e2d479e1a1fe49bb768922a9efb8c",
+      "combinedSha256": "b469d9a09072510994b5d8eccab5d5ec6ec13ec79ffcf8980c92dae0d47734c0",
+      "normalizedAstSha256": "d6f4a0bd792344c78ae3f0311e21e18e86389dd5b551ec553e145884f1106155",
+      "astEquivalentIgnoringLayoutCommentsAndImportOrder": true
+    },
+    {
+      "path": "packages/infrastructure/src/migration-ledger.test.ts",
+      "aSha256": "91cc431730b3ac9ff89e912e9f8ed66dcb3d9968326a58d6a3f978f0b71ca162",
+      "combinedSha256": "74b270d76d18b361c684b34250f282bfb257550bcf18fd1015b8a3e3b8b7b7ff",
+      "normalizedAstSha256": "c3285d68049a765fb985f4e84102eaeb8d771ba8a6604caa5ac64d14a57b1e7f",
+      "astEquivalentIgnoringLayoutCommentsAndImportOrder": true
+    }
+  ],
+  "nineSqlValuesUnchanged": [
+    {
+      "lineage": "common",
+      "version": 1,
+      "sqlSha256": "9e95979532306333f9f07037ce7e0841931d6e8c0b3d885208d63f4eb7360cb1"
+    },
+    {
+      "lineage": "common",
+      "version": 2,
+      "sqlSha256": "519f17179c501d08270a48eee562b6593eed6598bd0081692e437fbe7c53b723"
+    },
+    {
+      "lineage": "common",
+      "version": 3,
+      "sqlSha256": "a9fe17a0719962fa3dc4099cc51f35ada314bdbb7a15e6aecde91c58c0cabe42"
+    },
+    {
+      "lineage": "common",
+      "version": 4,
+      "sqlSha256": "b4e559a6acc383d064b04e2f0412c0863d526e94f80c79e25a00de81abb74980"
+    },
+    {
+      "lineage": "c-run",
+      "version": 5,
+      "sqlSha256": "6d511fff5eaa85e1198898d7c5cec392ed18461b110cecaf92553e4ff8ce0493"
+    },
+    {
+      "lineage": "c-run",
+      "version": 6,
+      "sqlSha256": "3d3c9da475f6a11d2d381de54a07396dc6dabaf8d780edebc0657f497bb47dfb"
+    },
+    {
+      "lineage": "c-run",
+      "version": 7,
+      "sqlSha256": "268beab4bd70f403d62877153abf2df0c6f574bde852b77c1cfe7a63808d87fa"
+    },
+    {
+      "lineage": "knowledge-wiki",
+      "version": 6,
+      "sqlSha256": "5184461756e3a389588182c1e9e497f34bfc7442bbf4d7ff8a09cdb458f49f66"
+    },
+    {
+      "lineage": "check-report",
+      "version": 7,
+      "sqlSha256": "927ce55cc67a6ec655cff131a67af33f9fdc7f83372d4247ab65467d91144602"
+    }
+  ],
+  "preserved": {
+    "a": {
+      "rawCount": 78,
+      "mismatches": [],
+      "archived": {
+        "wiki-project/raw/a01-migration-lineage-probe.json": "wiki-project/raw/a01-migration-lineage-probe-a2b050e.json"
+      },
+      "logNonemptyLinesPreservedInOrder": true,
+      "logBytePrefixPreserved": false
+    },
+    "b": {
+      "rawCount": 108,
+      "mismatches": [],
+      "archived": {},
+      "logNonemptyLinesPreservedInOrder": true,
+      "logBytePrefixPreserved": true
+    },
+    "c": {
+      "rawCount": 254,
+      "mismatches": [],
+      "archived": {},
+      "logNonemptyLinesPreservedInOrder": true,
+      "logBytePrefixPreserved": false
+    }
+  },
+  "intake": {
+    "wiki-project/wiki/B组合固定材料接收与状态滞后.md": {
+      "blob": "d6e74d72b3e47bbe4c4fb6994af16bee5a7132a5",
+      "sha256": "360f111873468447a8e93a1edbcbefea8b4b3cc86ec0478e2985f76700b392de"
+    },
+    "wiki-project/raw/c-b-combination-intake.json": {
+      "blob": "8e7518e5edd07a2f29e5fd19af70facd4f051936",
+      "sha256": "35f911d043e22730faedceb669011b921065c755b1d1900a702c124ddac5b35a",
+      "status": "received_with_stale_migration_status"
+    },
+    "wiki-project/raw/c-a910e626-matrix.json": {
+      "blob": "dbf8d977864127d67146c8a3ef6e7415eff1a1a3",
+      "sha256": "476fd9d5077a0a31702605e621a05a7304be17a3a094c025561a2936a1c5fdcb",
+      "summary": {
+        "total": 107,
+        "passed": 107,
+        "failed": []
+      },
+      "status": "partial_matrix_passed",
+      "ACommit": "910e6260af0c4d84471e665da7656dbf8133aae7",
+      "scriptHashVerified": true
+    },
+    "wiki-project/raw/c-a910e626-identifier.json": {
+      "blob": "51d45866968c4061399fbf8944f9b7889a517932",
+      "sha256": "fd498701f498fff4deb15c9544ecb7c9bffa3fb5328f20cbbae6c3d14cea7d51",
+      "summary": {
+        "total": 3,
+        "passed": 3,
+        "failed": []
+      },
+      "status": "partial_matrix_passed",
+      "ACommit": "910e6260af0c4d84471e665da7656dbf8133aae7",
+      "scriptHashVerified": true
+    }
+  },
+  "taskBase": "7f8afe6a0849da3f198bf5bf3be32180053f082d",
+  "overallMigrationApproved": false
+}

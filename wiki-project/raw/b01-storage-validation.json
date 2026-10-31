@@ -1,0 +1,310 @@
+{
+  "status": "partial",
+  "clientDate": "2026-10-22",
+  "recordedAt": "2026-10-22T10:43:30.038Z",
+  "taskBase": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+  "branch": "codex/b01-rules-feedback",
+  "remoteIntegrationHead": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+  "scope": "Third B01 slice: worker-internal B00 report storage candidate and unnumbered table proposal. Real SQLite tests install candidate DDL explicitly; production migrations/exports/IPC/new Wiki adaptation and consumption are not enabled.",
+  "environment": {
+    "os": "win32",
+    "release": "10.0.19045",
+    "architecture": "x64",
+    "node": "22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2",
+    "taskLocalTempDirectory": ".runtime/test-temp",
+    "gitCeilingDirectories": ".runtime/test-temp"
+  },
+  "testedSourceSha256": {
+    "packages/infrastructure/src/check-store.ts": "d17ef36ebfcb690f9bad49918f1bc318402ff653054e72137dc0783ae15b00ca",
+    "packages/infrastructure/src/check-store.test.ts": "5c067106af8f206fcad2e432815379914b557c6d7091dd08ddf7ea6c287ae8dc",
+    "packages/domain/src/quote-checks.ts": "353ca379a22f7d30464ec9af69b4c6d5d9b2e3a33831d687ba5124a7180dde90",
+    "packages/domain/src/quote-checks.test.ts": "6e4298203c1654ee8a98765a474e0e3f456be56ba3b73dcbc170cad30f4aff23",
+    "apps/desktop/src/renderer/src/features/quote-checks.tsx": "c8b070da782e2beb8f07c62a50e6a065e9c2e3898b85422e58fd58591c85f931",
+    "apps/desktop/src/renderer/src/features/quote-checks.test.tsx": "06b8d1797fdc8a5d99d02902660a997f7af2783161c9fe12613944f4a82ee790",
+    "apps/desktop/src/renderer/src/features/quote-checks.fixture.ts": "12b217b6dae7d3dcb37e5e4de300e4e74b08101c527eed46cba76eebe2049dc6",
+    "apps/desktop/src/renderer/src/features/quotes.tsx": "3ea86fe555610093bc5edee254a2821dac79d21fdcec1960ca3a884e6046c5b1"
+  },
+  "testedWikiConfigSha256": "41c38c07668e7b994be9b37a908b152fd3e6d2a8bc371310b737a812268f1c13",
+  "previousEvidenceSha256": {
+    "wiki-project/raw/b01-rules-validation.json": "3839877b25f5287c8b022421b812d25a4a19b06c7a89b821f68013889a836298",
+    "wiki-project/raw/b01-ui-validation.json": "5461076ef33d453b69ddee696438f4c5885276d0a1baca3afb79c758b594fb85"
+  },
+  "protectedFilesUnchanged": [
+    "packages/infrastructure/src/migrations.ts",
+    "packages/infrastructure/src/index.ts",
+    "packages/infrastructure/src/schema.ts",
+    "packages/infrastructure/src/trade-store.ts",
+    "packages/infrastructure/src/storage.test.ts",
+    "packages/contracts/src/checks.ts",
+    "packages/contracts/src/knowledge-wiki.ts",
+    "packages/contracts/src/pending-client.ts",
+    "packages/contracts/src/index.ts",
+    "apps/desktop/src/preload/index.ts",
+    "apps/desktop/src/main/index.ts",
+    "package.json",
+    "pnpm-lock.yaml"
+  ],
+  "protectedFilesChanged": [],
+  "results": {
+    "newStorageTests": 22,
+    "fullUnitPassed": 144,
+    "fullUnitFailed": 1,
+    "engineeringPassed": 5,
+    "engineeringSkipped": 1,
+    "engineeringFailed": 0,
+    "wikiRegressionPassed": 34,
+    "wikiRegressionFailed": 2
+  },
+  "checks": [
+    {
+      "command": "pnpm build",
+      "phase": "build",
+      "chunk_id": "e56901",
+      "wall_time_seconds": 4.4487156,
+      "exit_code": 0,
+      "original_token_count": 349,
+      "output": "\n> tradequote-agent@0.1.0 build D:\\code\\tradequote-agent-b01\n> node scripts/check-icons.mjs && pnpm --filter @tradequote/desktop build\n\nApplication icons passed: SVG/1024 PNG/macOS ICNS/Windows ICO\n\n> @tradequote/desktop@0.1.0 build D:\\code\\tradequote-agent-b01\\apps\\desktop\n> electron-vite build\n\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 247 modules transformed.\nrendering chunks...\nout/main/worker.js                 1.26 kB\nout/main/index.js                  9.54 kB\nout/main/chunks/src-04G5dT4e.js  510.98 kB\n\n✓ built in 446ms\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 111 modules transformed.\nrendering chunks...\nout/preload/index.js  230.70 kB\n\n✓ built in 151ms\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 2109 modules transformed.\nrendering chunks...\nout/renderer/index.html                   0.64 kB\nout/renderer/assets/index-ptglloFo.css   15.26 kB\nout/renderer/assets/index-BzJ1MdKQ.js   533.48 kB\n\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n✓ built in 1.14s\n"
+    },
+    {
+      "command": "pnpm test",
+      "phase": "full-unit",
+      "chunk_id": "c9db6c",
+      "wall_time_seconds": 6.2914171,
+      "exit_code": 1,
+      "original_token_count": 368,
+      "output": "\n> tradequote-agent@0.1.0 test D:\\code\\tradequote-agent-b01\n> node scripts/test-unit.mjs\n\n\n RUN  v5.0.5 D:/code/tradequote-agent-b01\n\n ❯ packages/infrastructure/src/storage.test.ts (4 tests | 1 failed) 125ms\n   × stores immutable content hashes and rejects traversal, tampering and symlinks 22ms\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/storage.test.ts > stores immutable content hashes and rejects traversal, tampering and symlinks\nError: EPERM: operation not permitted, symlink 'D:\\code\\tradequote-agent-b01\\.runtime\\test-temp\\tradequote-test-6M6nzs\\169e73adeeb9ee2cbf78b5878c95ebef88d580774a6005a367c8e35458658027' -> 'D:\\code\\tradequote-agent-b01\\.runtime\\test-temp\\tradequote-test-6M6nzs\\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'\n ❯ packages/infrastructure/src/storage.test.ts:107:3\n    105|   expect(await store.verifyHash(id)).toBe(false);\n    106|   const other = \"a\".repeat(64);\n    107|   symlinkSync(join(root, id), join(root, other));\n       |   ^\n    108|   await expect(store.readById(other)).rejects.toThrow(\"ARTIFACT_NOT_RE…\n    109| });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n\n Test Files  1 failed | 19 passed (20)\n      Tests  1 failed | 144 passed (145)\n   Start at  18:37:11\n   Duration  4.45s (import 50%, tests 19%, environment 16%, transform 13%, worker 1%)\n\n ELIFECYCLE  Test failed. See above for more details.\n"
+    },
+    {
+      "command": "pnpm exec vitest run packages/infrastructure/src/check-store.test.ts; pnpm typecheck",
+      "phase": "focused-typecheck",
+      "chunk_id": "c9e634",
+      "wall_time_seconds": 6.815486,
+      "exit_code": 0,
+      "original_token_count": 65,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01\n\n\n Test Files  1 passed (1)\n      Tests  22 passed (22)\n   Start at  18:37:11\n   Duration  3.57s (import 63%, tests 30%, transform 7%)\n\n\n> tradequote-agent@0.1.0 typecheck D:\\code\\tradequote-agent-b01\n> tsc --noEmit\n\n"
+    },
+    {
+      "command": "git diff --check; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; git diff --cached --check",
+      "phase": "diff-check",
+      "chunk_id": "933add",
+      "wall_time_seconds": 0.5937518,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+      "phase": "wiki-sync",
+      "chunk_id": "75c86d",
+      "wall_time_seconds": 1.2124785,
+      "exit_code": 0,
+      "original_token_count": 38,
+      "output": "{\n  \"base\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 10,\n  \"knowledgePages\": 5,\n  \"tasks\": 1,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "pnpm check",
+      "phase": "engineering",
+      "chunk_id": "8f6c9e",
+      "wall_time_seconds": 3.3366401,
+      "exit_code": 0,
+      "original_token_count": 528,
+      "output": "\n> tradequote-agent@0.1.0 check D:\\code\\tradequote-agent-b01\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 99 files in 43ms. No fixes applied.\nTAP version 13\n# Subtest: renderer cannot reach Node, database or desktop internals through import forms\nok 1 - renderer cannot reach Node, database or desktop internals through import forms\n  ---\n  duration_ms: 13.6349\n  type: 'test'\n  ...\n# Subtest: pure modules use public contracts while other platform dependencies are rejected\nok 2 - pure modules use public contracts while other platform dependencies are rejected\n  ---\n  duration_ms: 2.801\n  type: 'test'\n  ...\n# Subtest: domain permits exact pure decimal dependency without opening contracts or SDK imports\nok 3 - domain permits exact pure decimal dependency without opening contracts or SDK imports\n  ---\n  duration_ms: 1.0307\n  type: 'test'\n  ...\n# Subtest: committed icon resources match their source manifest\nok 4 - committed icon resources match their source manifest\n  ---\n  duration_ms: 3.1326\n  type: 'test'\n  ...\n# Subtest: editing either SVG or packaged icon without generation blocks the build\nok 5 - editing either SVG or packaged icon without generation blocks the build\n  ---\n  duration_ms: 16.9567\n  type: 'test'\n  ...\n# Subtest: macOS native process and runtime display TradeQuote while upstream Electron stays intact\nok 6 - macOS native process and runtime display TradeQuote while upstream Electron stays intact # SKIP\n  ---\n  duration_ms: 1.7512\n  type: 'test'\n  ...\n1..6\n# tests 6\n# suites 0\n# pass 5\n# fail 0\n# cancelled 0\n# skipped 1\n# todo 0\n# duration_ms 226.5666\nModule boundaries passed\n\n> tradequote-agent@0.1.0 wiki:check D:\\code\\tradequote-agent-b01\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 163,\n  \"lines\": 45215,\n  \"generated\": 5,\n  \"excluded\": 21\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 104,\n  \"semantic\": 88,\n  \"reachable\": 104\n}\n"
+    },
+    {
+      "command": "pnpm wiki:test",
+      "phase": "wiki-regression",
+      "chunk_id": "6afc1d",
+      "wall_time_seconds": 0.0000093,
+      "session_id": 39489,
+      "original_token_count": 1575,
+      "output": "\n> tradequote-agent@0.1.0 wiki:test D:\\code\\tradequote-agent-b01\n> node --test wiki-project/scripts/wiki-tools.test.mjs wiki-project/scripts/wiki-sync.test.mjs\n\nTAP version 13\n# Subtest: runtime version pin is a mandatory Wiki-synchronized configuration change\nok 1 - runtime version pin is a mandatory Wiki-synchronized configuration change\n  ---\n  duration_ms: 2.717\n  type: 'test'\n  ...\n# Subtest: code with related knowledge, task and appended log passes\nok 2 - code with related knowledge, task and appended log passes\n  ---\n  duration_ms: 0.5283\n  type: 'test'\n  ...\n# Subtest: generated snapshots alone cannot satisfy knowledge/task/log changes\nok 3 - generated snapshots alone cannot satisfy knowledge/task/log changes\n  ---\n  duration_ms: 0.1913\n  type: 'test'\n  ...\n# Subtest: metadata-only or whitespace-only edits cannot satisfy semantic update\nok 4 - metadata-only or whitespace-only edits cannot satisfy semantic update\n  ---\n  duration_ms: 0.3057\n  type: 'test'\n  ...\n# Subtest: each source needs its own mapped knowledge, unrelated pages do not suffice\nok 5 - each source needs its own mapped knowledge, unrelated pages do not suffice\n  ---\n  duration_ms: 0.2281\n  type: 'test'\n  ...\n# Subtest: deleted source uses baseline mapping; unknown source fails\nok 6 - deleted source uses baseline mapping; unknown source fails\n  ---\n  duration_ms: 0.2838\n  type: 'test'\n  ...\n# Subtest: history rewrite and removed task do not pass\nok 7 - history rewrite and removed task do not pass\n  ---\n  duration_ms: 1.4069\n  type: 'test'\n  ...\n# Subtest: Wiki maintenance code requires workflow knowledge, not generated data\nok 8 - Wiki maintenance code requires workflow knowledge, not generated data\n  ---\n  duration_ms: 0.2246\n  type: 'test'\n  ...\n# Subtest: ordinary documentation-only edits do not trigger code delivery check\nok 9 - ordinary documentation-only edits do not trigger code delivery check\n  ---\n  duration_ms: 0.3811\n  type: 'test'\n  ...\n# Subtest: real Git baseline includes committed, unstaged and untracked sources\nok 10 - real Git baseline includes committed, unstaged and untracked sources\n  ---\n  duration_ms: 1283.158\n  type: 'test'\n  ...\n# Subtest: SVG assets require semantic Wiki, task and append-only log changes\nok 11 - SVG assets require semantic Wiki, task and append-only log changes\n  ---\n  duration_ms: 0.2392\n  type: 'test'\n  ...\n# Subtest: same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\nok 12 - same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\n  ---\n  duration_ms: 2598.9454\n  type: 'test'\n  ...\n# Subtest: source drift fails without writes; generation repairs snapshot while preserving ingest baseline\nok 13 - source drift fails without writes; generation repairs snapshot while preserving ingest baseline\n  ---\n  duration_ms: 1161.755\n  type: 'test'\n  ...\n# Subtest: explicit ingest records a non-Git project honestly\nok 14 - explicit ingest records a non-Git project honestly\n  ---\n  duration_ms: 1031.551\n  type: 'test'\n  ...\n# Subtest: tool inventory names come from definitions, not nested headers/output/schema fields\nok 15 - tool inventory names come from definitions, not nested headers/output/schema fields\n  ---\n  duration_ms: 586.7678\n  type: 'test'\n  ...\n# Subtest: new unclassified source fails; missing knowledge target and stale mapping fail\nok 16 - new unclassified source fails; missing knowledge target and stale mapping fail\n  ---\n  duration_ms: 839.7626\n  type: 'test'\n  ...\n# Subtest: generated coverage tampering is detected by lint and remains untouched\nok 17 - generated coverage tampering is detected by lint and remains untouched\n  ---\n  duration_ms: 968.6648\n  type: 'test'\n  ...\n# Subtest: sensitive filename is excluded before read; external source symlink is not followed\nnot ok 18 - sensitive filename is excluded before read; external source symlink is not followed\n  ---\n  duration_ms: 319.6343\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b01\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:129:1'\n  failureType: 'testCodeFailure'\n  error: \"EPERM: operation not permitted, symlink 'D:\\\\code\\\\tradequote-agent-b01\\\\.runtime\\\\test-temp\\\\tradequote-private-fixture-f2TxiR\\\\external.ts' -> 'D:\\\\code\\\\tradequote-agent-b01\\\\.runtime\\\\test-temp\\\\tradequote-wiki-test-2De9Sz\\\\linked.ts'\"\n  code: 'EPERM'\n  stack: |-\n    Object.symlinkSync (node:fs:1892:11)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b01/wiki-project/scripts/wiki-tools.test.mjs:137:6)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n    Test.postRun (node:internal/test_runner/test:1173:19)\n    Test.run (node:internal/test_runner/test:1101:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)\n  ...\n# Subtest: Wiki and generated-output symlinks cannot write outside project\nnot ok 19 - Wiki and generated-output symlinks cannot write outside project\n  ---\n  duration_ms: 322.1676\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b01\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:143:1'\n  failureType: 'testCodeFailure'\n  error: \"EPERM: operation not permitted, symlink 'D:\\\\code\\\\tradequote-agent-b01\\\\.runtime\\\\test-temp\\\\tradequote-wiki-outside-ojVJvq' -> 'D:\\\\code\\\\tradequote-agent-b01\\\\.runtime\\\\test-temp\\\\tradequote-wiki-test-JVUa8m\\\\wiki-project\\\\raw\\\\generated'\"\n  code: 'EPERM'\n  stack: |-\n    Object.symlinkSync (node:fs:1892:11)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b01/wiki-project/scripts/wiki-tools.test.mjs:149:6)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n    Test.postRun (node:internal/test_runner/test:1173:19)\n    Test.run (node:internal/test_runner/test:1101:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)\n  ...\n# Subtest: missing schema field\nok 20 - missing schema field\n  ---\n  duration_ms: 904.9147\n  type: 'test'\n  ...\n# Subtest: bad type\nok 21 - bad type\n  ---\n  duration_ms: 903.7448\n  type: 'test'\n  ...\n# Subtest: bad date\nok 22 - bad date\n  ---\n  duration_ms: 901.3472\n  type: 'test'\n  ...\n# Subtest: bad status\nok 23 - bad status\n  ---\n  duration_ms: 907.523\n  type: 'test'\n  ...\n# Subtest: missing wiki target\nok 24 - missing wiki target\n  ---\n  duration_ms: 895.869\n  type: 'test'\n  ...\n# Subtest: missing markdown target\nok 25 - missing markdown target\n  ---\n  duration_ms: 905.2046\n  type: 'test'\n  ...\n# Subtest: invalid source line\nok 26 - invalid source line\n  ---\n  duration_ms: 905.9534\n  type: 'test'\n  ...\n# Subtest: verified without code evidence\nok 27 - verified without code evidence\n  ---\n  duration_ms: 963.1619\n  type: 'test'\n  ...\n# Subtest: source escaping project\nok 28 - source escaping project\n  ---\n  duration_ms: 905.8025\n  type: 'test'\n  ...\n# Subtest: unfilled placeholder\nok 29 - unfilled placeholder\n  ---\n  duration_ms: 921.3003\n  type: 'test'\n  ...\n# Subtest: all sources are validated even after a valid implementation source\nok 30 - all sources are validated even after a valid implementation source\n  ---\n  duration_ms: 908.7341\n  type: 'test'\n  ...\n# Subtest: orphan pages and duplicate basenames are rejected\nok 31 - orphan pages and duplicate basenames are rejected\n  ---\n  duration_ms: 1494.2126\n  type: 'test'\n  ...\n# Subtest: completed task requires actual verification record\nok 32 - completed task requires actual verification record\n  ---\n  duration_ms: 903.557\n  type: 'test'\n  ...\n# Subtest: archived source cannot bypass inspection through silent changes\nok 33 - archived source cannot bypass inspection through silent changes\n  ---\n  duration_ms: 912.7813\n  type: 'test'\n  ...\n# Subtest: source references cannot open excluded runtime data\nok 34 - source references cannot open excluded runtime data\n  ---\n  duration_ms: 888.9973\n  type: 'test'\n  ...\n# Subtest: new JSON evidence is checked and sensitive Wiki filenames are rejected before read\nok 35 - new JSON evidence is checked and sensitive Wiki filenames are rejected before read\n  ---\n  duration_ms: 1163.4508\n  type: 'test'\n  ...\n# Subtest: secret/JWT/private-key/PII detections redact the value in diagnostics\nok 36 - secret/JWT/private-key/PII detections redact the value in diagnostics\n  ---\n  duration_ms: 2661.6885\n  type: 'test'\n  ...\n1..36\n# tests 36\n# suites 0\n# pass 34\n# fail 2\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 26100.1936\n ELIFECYCLE  Command failed with exit code 1.\n",
+      "exit_code": 1
+    }
+  ],
+  "developmentAttempts": [
+    {
+      "phase": "first-roundtrip-green",
+      "chunk_id": "a035ac",
+      "wall_time_seconds": 2.3748374,
+      "exit_code": 0,
+      "original_token_count": 47,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01\n\n\n Test Files  1 passed (1)\n      Tests  1 passed (1)\n   Start at  18:26:45\n   Duration  1.07s (import 70%, transform 21%, tests 8%, worker 1%)\n\n"
+    },
+    {
+      "phase": "replay-red",
+      "chunk_id": "cd5956",
+      "wall_time_seconds": 2.3577536,
+      "exit_code": 1,
+      "original_token_count": 726,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01\n\n ❯ packages/infrastructure/src/check-store.test.ts (2 tests | 1 failed) 107ms\n   × replays the first committed report and time after a lost response without querying knowledge again 40ms\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/check-store.test.ts > replays the first committed report and time after a lost response without querying knowledge again\nAssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, data: { …(8) }, …(2) }\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"checkedAt\": \"2026-10-22T10:00:00.000Z\",\n-     \"coverage\": [\n-       {\n-         \"appliedRuleIds\": [],\n-         \"category\": \"commercial_terms\",\n-         \"status\": \"pending\",\n-       },\n-       {\n-         \"appliedRuleIds\": [],\n-         \"category\": \"platform_guidance\",\n-         \"status\": \"pending\",\n+   \"error\": {\n+     \"code\": \"STORAGE_ERROR\",\n+     \"issues\": [],\n+     \"message\": \"本地检查报告读取或保存失败，请重试\",\n+     \"retryable\": false,\n    },\n-     ],\n-     \"issues\": [\n-       {\n-         \"category\": \"commercial_terms\",\n-         \"checkId\": \"9b2936b4-5ac0-457f-80dd-b11dbbbedc0e:coverage:commercial_terms\",\n-         \"evidence\": [],\n-         \"fieldPath\": \"scenario.platform\",\n-         \"message\": \"缺少适用的商务条款规则，尚未核实\",\n-         \"severity\": \"pending\",\n-         \"suggestedAction\": \"人工确认并发布适用规则后重新检查\",\n-       },\n-       {\n-         \"category\": \"platform_guidance\",\n-         \"checkId\": \"9b2936b4-5ac0-457f-80dd-b11dbbbedc0e:coverage:platform_guidance\",\n-         \"evidence\": [],\n-         \"fieldPath\": \"scenario.platform\",\n-         \"message\": \"缺少适用的平台指引规则，尚未核实\",\n-         \"severity\": \"pending\",\n-         \"suggestedAction\": \"人工确认并发布适用规则后重新检查\",\n-       },\n-     ],\n-     \"quoteId\": \"9b2936b4-5ac0-457f-80dd-b11dbbbedc0e\",\n-     \"quoteVersion\": 1,\n-     \"reportId\": \"946b4a7d-935b-4c86-8cec-7bf2e9d3ec9b\",\n-     \"revisionId\": \"9b2936b4-5ac0-457f-80dd-b11dbbbedc0e\",\n-     \"ruleRevisionIds\": [],\n-   },\n-   \"evidenceIds\": [\n-     \"946b4a7d-935b-4c86-8cec-7bf2e9d3ec9b\",\n-   ],\n-   \"ok\": true,\n-   \"warnings\": [],\n+   \"ok\": false,\n  }\n\n ❯ packages/infrastructure/src/check-store.test.ts:169:62\n    167|   f.failKnowledge();\n    168|   f.reopen();\n    169|   expect(f.check({ ...f.command, requestId: randomUUID() })).toEqual(f…\n       |                                                              ^\n    170|   expect(data(f.list())).toEqual([data(first)]);\n    171|   for (const actor of [\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n\n Test Files  1 failed (1)\n      Tests  1 failed | 1 passed (2)\n   Start at  18:27:14\n   Duration  1.05s (import 73%, transform 13%, tests 13%, worker 1%)\n\n"
+    },
+    {
+      "phase": "replay-green",
+      "chunk_id": "2ceeb5",
+      "wall_time_seconds": 2.3791771,
+      "exit_code": 0,
+      "original_token_count": 48,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01\n\n\n Test Files  1 passed (1)\n      Tests  2 passed (2)\n   Start at  18:27:49\n   Duration  1.07s (import 73%, transform 14%, tests 12%, worker 1%)\n\n"
+    },
+    {
+      "phase": "invalid-knowledge-red",
+      "chunk_id": "ad07a4",
+      "wall_time_seconds": 2.4819492,
+      "exit_code": 1,
+      "original_token_count": 622,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01\n\n ❯ packages/infrastructure/src/check-store.test.ts (5 tests | 3 failed) 194ms\n   × rejects hash knowledge without saving a misleading report 38ms\n   × rejects staged knowledge without saving a misleading report 25ms\n   × rejects duplicate_document knowledge without saving a misleading report 26ms\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/check-store.test.ts > rejects hash knowledge without saving a misleading report\nAssertionError: expected { ok: true, data: { …(8) }, …(2) } to match object { ok: false, …(1) }\n(11 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  {\n-   \"error\": {\n-     \"code\": \"SOURCE_CONFLICT\",\n-   },\n-   \"ok\": false,\n+   \"ok\": true,\n  }\n\n ❯ packages/infrastructure/src/check-store.test.ts:212:21\n    210|     : kind === \"staged\" ? { ...revision, status: \"staged\" as const, pu…\n    211|   f.setKnowledge(kind === \"duplicate_document\" ? [revision, { ...revis…\n    212|   expect(f.check()).toMatchObject({ ok: false, error: { code: \"SOURCE_…\n       |                     ^\n    213|   expect(data(f.list())).toEqual([]);\n    214|   f.setKnowledge([revision]);\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯\n\n FAIL  packages/infrastructure/src/check-store.test.ts > rejects staged knowledge without saving a misleading report\n FAIL  packages/infrastructure/src/check-store.test.ts > rejects duplicate_document knowledge without saving a misleading report\nAssertionError: expected { ok: false, error: { …(4) } } to match object { ok: false, …(1) }\n(3 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  {\n    \"error\": {\n-     \"code\": \"SOURCE_CONFLICT\",\n+     \"code\": \"STORAGE_ERROR\",\n    },\n    \"ok\": false,\n  }\n\n ❯ packages/infrastructure/src/check-store.test.ts:212:21\n    210|     : kind === \"staged\" ? { ...revision, status: \"staged\" as const, pu…\n    211|   f.setKnowledge(kind === \"duplicate_document\" ? [revision, { ...revis…\n    212|   expect(f.check()).toMatchObject({ ok: false, error: { code: \"SOURCE_…\n       |                     ^\n    213|   expect(data(f.list())).toEqual([]);\n    214|   f.setKnowledge([revision]);\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯\n\n\n Test Files  1 failed (1)\n      Tests  3 failed | 2 passed (5)\n   Start at  18:28:32\n   Duration  1.20s (import 67%, tests 20%, transform 12%, worker 1%)\n\n"
+    },
+    {
+      "phase": "invalid-knowledge-green",
+      "chunk_id": "5b6a5c",
+      "wall_time_seconds": 2.3751441,
+      "exit_code": 0,
+      "original_token_count": 48,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01\n\n\n Test Files  1 passed (1)\n      Tests  5 passed (5)\n   Start at  18:28:57\n   Duration  1.13s (import 67%, tests 20%, transform 12%, worker 1%)\n\n"
+    },
+    {
+      "phase": "atomic-rollback",
+      "chunk_id": "599a61",
+      "wall_time_seconds": 2.5662608000000002,
+      "exit_code": 0,
+      "original_token_count": 48,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01\n\n\n Test Files  1 passed (1)\n      Tests  8 passed (8)\n   Start at  18:29:45\n   Duration  1.25s (import 61%, tests 27%, transform 12%, worker 1%)\n\n"
+    },
+    {
+      "phase": "corrupt-report-red",
+      "chunk_id": "59fe93",
+      "wall_time_seconds": 2.6609808,
+      "exit_code": 1,
+      "original_token_count": 434,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01\n\n ❯ packages/infrastructure/src/check-store.test.ts (12 tests | 3 failed) 377ms\n   × refuses corrupted report_id report history and its replay receipt 34ms\n   × refuses corrupted quote_version report history and its replay receipt 29ms\n   × refuses corrupted checked_at report history and its replay receipt 24ms\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/check-store.test.ts > refuses corrupted report_id report history and its replay receipt\n FAIL  packages/infrastructure/src/check-store.test.ts > refuses corrupted quote_version report history and its replay receipt\n FAIL  packages/infrastructure/src/check-store.test.ts > refuses corrupted checked_at report history and its replay receipt\nAssertionError: expected { ok: true, data: [ { …(8) } ], …(2) } to match object { ok: false, …(1) }\n(3 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  {\n-   \"error\": {\n-     \"code\": \"STORAGE_ERROR\",\n-   },\n-   \"ok\": false,\n+   \"ok\": true,\n  }\n\n ❯ packages/infrastructure/src/check-store.test.ts:245:20\n    243|   const actualColumn = column === \"hash\" ? \"content_hash\" : column;\n    244|   f.database().prepare(`UPDATE quote_check_report SET ${actualColumn}=…\n    245|   expect(f.list()).toMatchObject({ ok: false, error: { code: \"STORAGE_…\n       |                    ^\n    246|   expect(f.check()).toMatchObject({ ok: false, error: { code: \"STORAGE…\n    247| });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯\n\n\n Test Files  1 failed (1)\n      Tests  3 failed | 9 passed (12)\n   Start at  18:30:14\n   Duration  1.36s (import 55%, tests 34%, transform 11%, worker 1%)\n\n"
+    },
+    {
+      "phase": "corrupt-report-green",
+      "chunk_id": "a6e116",
+      "wall_time_seconds": 2.691602,
+      "exit_code": 0,
+      "original_token_count": 48,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01\n\n\n Test Files  1 passed (1)\n      Tests  12 passed (12)\n   Start at  18:30:35\n   Duration  1.37s (import 55%, tests 34%, transform 10%, worker 1%)\n\n"
+    },
+    {
+      "phase": "version-history",
+      "chunk_id": "a79dec",
+      "wall_time_seconds": 2.653187,
+      "exit_code": 0,
+      "original_token_count": 48,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01\n\n\n Test Files  1 passed (1)\n      Tests  13 passed (13)\n   Start at  18:31:22\n   Duration  1.35s (import 53%, tests 36%, transform 11%, worker 1%)\n\n"
+    },
+    {
+      "phase": "schema-identity-red",
+      "chunk_id": "6a00f2",
+      "wall_time_seconds": 2.7571099,
+      "exit_code": 1,
+      "original_token_count": 309,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01\n\n ❯ packages/infrastructure/src/check-store.test.ts (14 tests | 1 failed) 461ms\n   × enforces immutable reports and refuses a report attached to a nonexistent quote version at the database boundary 32ms\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/check-store.test.ts > enforces immutable reports and refuses a report attached to a nonexistent quote version at the database boundary\nAssertionError: expected [Function] to throw an error\n\n- Expected:\nnull\n\n+ Received:\nundefined\n\n ❯ packages/infrastructure/src/check-store.test.ts:287:42\n    285|     INSERT INTO quote_check_report(report_id,workspace_id,quote_id,rev…\n    286|     SELECT ?,workspace_id,quote_id,revision_id,999,checked_at,content_…\n    287|   `).run(randomUUID(), report.reportId)).toThrow(\"INVALID_CHECK_REVISI…\n       |                                          ^\n    288|   expect(data(f.list())).toEqual([report]);\n    289| });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n\n Test Files  1 failed (1)\n      Tests  1 failed | 13 passed (14)\n   Start at  18:31:50\n   Duration  1.49s (import 52%, tests 37%, transform 10%)\n\n"
+    },
+    {
+      "phase": "schema-identity-green",
+      "chunk_id": "ba7bb6",
+      "wall_time_seconds": 2.6533277,
+      "exit_code": 0,
+      "original_token_count": 45,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01\n\n\n Test Files  1 passed (1)\n      Tests  14 passed (14)\n   Start at  18:32:13\n   Duration  1.37s (import 52%, tests 37%, transform 10%)\n\n"
+    },
+    {
+      "phase": "untrusted-command",
+      "chunk_id": "411396",
+      "wall_time_seconds": 2.8338514999999997,
+      "exit_code": 0,
+      "original_token_count": 45,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01\n\n\n Test Files  1 passed (1)\n      Tests  15 passed (15)\n   Start at  18:32:49\n   Duration  1.47s (import 51%, tests 39%, transform 10%)\n\n"
+    },
+    {
+      "phase": "migration-gate",
+      "chunk_id": "f72dd9",
+      "wall_time_seconds": 2.7247631,
+      "exit_code": 0,
+      "original_token_count": 45,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01\n\n\n Test Files  1 passed (1)\n      Tests  16 passed (16)\n   Start at  18:33:06\n   Duration  1.44s (import 50%, tests 40%, transform 10%)\n\n"
+    },
+    {
+      "phase": "quote-identity-red",
+      "chunk_id": "70624c",
+      "wall_time_seconds": 2.8764249,
+      "exit_code": 1,
+      "original_token_count": 471,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01\n\n ❯ packages/infrastructure/src/check-store.test.ts (19 tests | 3 failed) 589ms\n   × rejects a stored quote with inconsistent version metadata even if its JSON hash was recomputed 32ms\n   × rejects a stored quote with inconsistent rootId metadata even if its JSON hash was recomputed 27ms\n   × rejects a stored quote with inconsistent parentId metadata even if its JSON hash was recomputed 27ms\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/check-store.test.ts > rejects a stored quote with inconsistent version metadata even if its JSON hash was recomputed\n FAIL  packages/infrastructure/src/check-store.test.ts > rejects a stored quote with inconsistent rootId metadata even if its JSON hash was recomputed\n FAIL  packages/infrastructure/src/check-store.test.ts > rejects a stored quote with inconsistent parentId metadata even if its JSON hash was recomputed\nAssertionError: expected { ok: true, data: [], …(2) } to match object { ok: false, …(1) }\n(3 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  {\n-   \"error\": {\n-     \"code\": \"STORAGE_ERROR\",\n-   },\n-   \"ok\": false,\n+   \"ok\": true,\n  }\n\n ❯ packages/infrastructure/src/check-store.test.ts:321:20\n    319|   const digest = createHash(\"sha256\").update(json, \"utf8\").digest(\"hex…\n    320|   f.database().prepare(\"UPDATE quote_v1 SET data_json=?,content_hash=?…\n    321|   expect(f.list()).toMatchObject({ ok: false, error: { code: \"STORAGE_…\n       |                    ^\n    322|   expect(f.check()).toMatchObject({ ok: false, error: { code: \"STORAGE…\n    323| });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯\n\n\n Test Files  1 failed (1)\n      Tests  3 failed | 16 passed (19)\n   Start at  18:33:41\n   Duration  1.60s (import 47%, tests 43%, transform 10%)\n\n"
+    },
+    {
+      "phase": "quote-identity-green",
+      "chunk_id": "0d29c6",
+      "wall_time_seconds": 2.8054106,
+      "exit_code": 0,
+      "original_token_count": 45,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01\n\n\n Test Files  1 passed (1)\n      Tests  19 passed (19)\n   Start at  18:34:09\n   Duration  1.49s (import 48%, tests 43%, transform 9%)\n\n"
+    },
+    {
+      "phase": "format-typecheck",
+      "chunk_id": "b4e17a",
+      "wall_time_seconds": 2.5339783000000002,
+      "exit_code": 0,
+      "original_token_count": 31,
+      "output": "Checked 2 files in 12ms. Fixed 2 files.\n\n> tradequote-agent@0.1.0 typecheck D:\\code\\tradequote-agent-b01\n> tsc --noEmit\n\n"
+    },
+    {
+      "phase": "unknown-money",
+      "chunk_id": "af817c",
+      "wall_time_seconds": 2.8361144,
+      "exit_code": 0,
+      "original_token_count": 45,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01\n\n\n Test Files  1 passed (1)\n      Tests  20 passed (20)\n   Start at  18:35:02\n   Duration  1.55s (import 45%, tests 44%, transform 10%)\n\n"
+    },
+    {
+      "phase": "missing-dependency",
+      "chunk_id": "d6fbe7",
+      "wall_time_seconds": 2.9319011,
+      "exit_code": 0,
+      "original_token_count": 45,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01\n\n\n Test Files  1 passed (1)\n      Tests  21 passed (21)\n   Start at  18:35:22\n   Duration  1.62s (import 46%, tests 45%, transform 9%)\n\n"
+    },
+    {
+      "phase": "shared-key-namespace",
+      "chunk_id": "7508da",
+      "wall_time_seconds": 2.885418,
+      "exit_code": 0,
+      "original_token_count": 45,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01\n\n\n Test Files  1 passed (1)\n      Tests  22 passed (22)\n   Start at  18:35:45\n   Duration  1.59s (tests 46%, import 45%, transform 9%)\n\n"
+    }
+  ],
+  "initialAttempts": [
+    {
+      "command": "pnpm exec vitest run packages/infrastructure/src/check-store.test.ts (initial red)",
+      "exitCode": 1,
+      "outputExcerpt": "Cannot find module './check-store' imported from check-store.test.ts"
+    },
+    {
+      "command": "Direct PowerShell Electron invocation before using pnpm exec vitest",
+      "notes": "Root electron path was unavailable; app-local direct GUI executable returned no output and was not counted as test validation."
+    }
+  ],
+  "preservation": {
+    "previousNonGeneratedRawCompared": 82,
+    "previousRawChanged": [],
+    "previousLogExactPrefixPreserved": true
+  },
+  "notRun": [
+    "macOS validation",
+    "Non-author A/C review",
+    "A real knowledge service/new Wiki source consumption integration",
+    "Production report migration upgrade/rollback (not assigned or installed)",
+    "New Electron report flow (not wired; unchanged earlier five launch failures remain in b01-ui-validation.json)"
+  ],
+  "limitations": [
+    "Current registered migrations remain 1-3; A must allocate and register a continuous sequence and wire its single connection.",
+    "B00 single-source KnowledgeRepository is used only at the candidate host seam; new Wiki multi-source/eligibility/consumption must be integrated before production exposure.",
+    "The knowledge reader must use the injected DB connection; TypeScript cannot prove connection identity.",
+    "Existing Windows symlink EPERM unit and two Wiki regression failures are retained; no failure-driven skips or privilege changes. One unchanged macOS-only engineering test is skipped by the existing platform condition.",
+    "No commit/push/PR/merge performed. Overall B01 remains active."
+  ]
+}

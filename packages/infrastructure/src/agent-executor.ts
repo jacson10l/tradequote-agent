@@ -60,6 +60,82 @@ export class AgentExecutor {
     active.controller.abort();
     return true;
   }
+  /** Shared bounded model context; no writes or process-local deduplication. */
+  async propose(
+    command: AgentCommand,
+    credentials: ModelCredentials,
+    signal: AbortSignal,
+  ): Promise<unknown> {
+    const result = this.repository.executeTrade(
+      { schemaVersion: 1, requestId: command.requestId, method: "trade.get" },
+      { actorId: "local-user", origin: "human_ui" },
+    );
+    if (!result.ok) throw new TradeFault(result.error.code, result.error.message);
+    const board = result.data;
+    let context: unknown;
+    const messages: ModelMessage[] = [{ role: "system", content: prompt }];
+    if (command.method === "agent.understand") {
+      if (!board.scenario || board.scenario.id !== command.payload.scenarioId)
+        throw new TradeFault("REVISION_CONFLICT", "场景已变化，请重新加载");
+      if (!board.products.length) throw new TradeFault("MISSING_FACTS", "请先确认发布商品资料");
+      if (board.products.length > 50)
+        throw new TradeFault(
+          "VALIDATION_ERROR",
+          "当前模型切片最多支持 50 个已发布商品，请先使用较小的演示资料集",
+        );
+      context = {
+        mode: "understand",
+        scenario: board.scenario,
+        products: board.products.map((p) => ({
+          id: p.id,
+          sku: p.sku,
+          name: p.name,
+          unit: p.unit,
+          category: p.category,
+          description: p.description,
+        })),
+        ...command.payload,
+      };
+    } else {
+      const base = board.quotes.find((q) => q.id === command.payload.baseId);
+      if (!base) throw new TradeFault("NOT_FOUND", "请先选择已保存报价");
+      const rootId = base.rootId ?? base.id;
+      if (
+        base.version !== command.payload.expectedVersion ||
+        board.quotes.some((q) => (q.rootId ?? q.id) === rootId && q.version > base.version)
+      )
+        throw new TradeFault("REVISION_CONFLICT", "选择的是历史版本，请重新加载并选择最新版本");
+      const turns = board.turns
+        .filter((t) => t.rootId === rootId)
+        .reverse()
+        .slice(-6);
+      for (const turn of turns)
+        messages.push(
+          { role: "user", content: turn.instruction },
+          { role: "assistant", content: JSON.stringify({ summary: turn.summary }) },
+        );
+      context = {
+        mode: "revise",
+        scenario: base.scenario,
+        buyer: base.buyer,
+        inquiry: base.inquiry,
+        payment: base.payment,
+        delivery: base.delivery,
+        lines: base.lines.map((l) => ({
+          productId: l.product.id,
+          sku: l.product.sku,
+          name: l.product.name,
+          quantity: l.quantity,
+          unit: l.product.unit,
+        })),
+        instruction: command.payload.instruction,
+      };
+    }
+    messages.push({ role: "user", content: JSON.stringify(context) });
+    if (Buffer.byteLength(JSON.stringify(messages), "utf8") > 100000)
+      throw new TradeFault("VALIDATION_ERROR", "对话上下文过长，请缩短询盘或商品描述");
+    return await this.provider(credentials).json(messages, signal);
+  }
   private async run(
     command: AgentCommand,
     credentials: ModelCredentials | undefined,
@@ -70,75 +146,7 @@ export class AgentExecutor {
       if (replay) return replay;
       if (!credentials)
         return failure("MODEL_AUTH_FAILED", "请先在模型设置中保存 DeepSeek API Key 和模型 ID");
-      const result = this.repository.executeTrade(
-        { schemaVersion: 1, requestId: command.requestId, method: "trade.get" },
-        { actorId: "local-user", origin: "human_ui" },
-      );
-      if (!result.ok) return result;
-      const board = result.data;
-      let context: unknown;
-      const messages: ModelMessage[] = [{ role: "system", content: prompt }];
-      if (command.method === "agent.understand") {
-        if (!board.scenario || board.scenario.id !== command.payload.scenarioId)
-          return failure("REVISION_CONFLICT", "场景已变化，请重新加载");
-        if (!board.products.length) return failure("MISSING_FACTS", "请先确认发布商品资料");
-        if (board.products.length > 50)
-          return failure(
-            "VALIDATION_ERROR",
-            "当前模型切片最多支持 50 个已发布商品，请先使用较小的演示资料集",
-          );
-        context = {
-          mode: "understand",
-          scenario: board.scenario,
-          products: board.products.map((p) => ({
-            id: p.id,
-            sku: p.sku,
-            name: p.name,
-            unit: p.unit,
-            category: p.category,
-            description: p.description,
-          })),
-          ...command.payload,
-        };
-      } else {
-        const base = board.quotes.find((q) => q.id === command.payload.baseId);
-        if (!base) return failure("NOT_FOUND", "请先选择已保存报价");
-        const rootId = base.rootId ?? base.id;
-        if (
-          base.version !== command.payload.expectedVersion ||
-          board.quotes.some((q) => (q.rootId ?? q.id) === rootId && q.version > base.version)
-        )
-          return failure("REVISION_CONFLICT", "选择的是历史版本，请重新加载并选择最新版本");
-        const turns = board.turns
-          .filter((t) => t.rootId === rootId)
-          .reverse()
-          .slice(-6);
-        for (const turn of turns)
-          messages.push(
-            { role: "user", content: turn.instruction },
-            { role: "assistant", content: JSON.stringify({ summary: turn.summary }) },
-          );
-        context = {
-          mode: "revise",
-          scenario: base.scenario,
-          buyer: base.buyer,
-          inquiry: base.inquiry,
-          payment: base.payment,
-          delivery: base.delivery,
-          lines: base.lines.map((l) => ({
-            productId: l.product.id,
-            sku: l.product.sku,
-            name: l.product.name,
-            quantity: l.quantity,
-            unit: l.product.unit,
-          })),
-          instruction: command.payload.instruction,
-        };
-      }
-      messages.push({ role: "user", content: JSON.stringify(context) });
-      if (Buffer.byteLength(JSON.stringify(messages), "utf8") > 100000)
-        return failure("VALIDATION_ERROR", "对话上下文过长，请缩短询盘或商品描述");
-      const output = await this.provider(credentials).json(messages, attempt.controller.signal);
+      const output = await this.propose(command, credentials, attempt.controller.signal);
       // Even a provider that ignores abort cannot submit a late result.
       if (attempt.controller.signal.aborted)
         return failure("CANCELLED", "请求已取消，未提交新版本");

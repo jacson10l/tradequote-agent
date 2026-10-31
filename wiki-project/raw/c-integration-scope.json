@@ -1,0 +1,1195 @@
+{
+  "status": "observed",
+  "target": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+  "taskBase": "9e8695b88f3e5d306f6aeeb362d21524818a3d12",
+  "scope": "Working candidate source/test/config differences against fixed target; final docs/generated hashes excluded to avoid evidence self-reference",
+  "sourceFiles": [
+    {
+      "path": "AGENTS.md",
+      "added": 1,
+      "deleted": 1,
+      "sha256": "cd764ff10c866f8e7af2661cf0c051d3c1d6a211704a82df10ae33dd6d5024da",
+      "knowledgePages": [
+        "wiki/项目状态.md",
+        "wiki/Wiki 工作流与任务记录.md",
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C04收口与验收边界.md"
+      ]
+    },
+    {
+      "path": "README.md",
+      "added": 38,
+      "deleted": 6,
+      "sha256": "2a0b3df895b2b77b915d69e2426da822d4d7d76d0d9d1df8232025051cebb3a0",
+      "knowledgePages": [
+        "wiki/项目状态.md",
+        "wiki/Wiki 工作流与任务记录.md",
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C04收口与验收边界.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/electron.vite.config.ts",
+      "added": 5,
+      "deleted": 1,
+      "sha256": "680c6bba3b6ba2649d51672ccf2c3d5f53e51b0896492cad584d01717e7ce209",
+      "knowledgePages": [
+        "wiki/M1工程基线.md",
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/main/evaluation-host.test.ts",
+      "added": 212,
+      "deleted": 0,
+      "sha256": "ba953e314be4d4f85fa144bbf8ec0b535c62c93720bc8b956a447a534ff031b0",
+      "knowledgePages": [
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/main/evaluation-host.ts",
+      "added": 335,
+      "deleted": 0,
+      "sha256": "8c8549f257d6b77b6a94f80328577a3c3135af5b8c7eeb158efc4b82866a4442",
+      "knowledgePages": [
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/main/index.ts",
+      "added": 108,
+      "deleted": 4,
+      "sha256": "26adab79e1074255a3c3e3431819a53faea445d29f29dfb6a3a8f887247a3104",
+      "knowledgePages": [
+        "wiki/M1工程基线.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/main/worker-client.test.ts",
+      "added": 141,
+      "deleted": 0,
+      "sha256": "cd65896abdfd09eafdd3d8f081f71fbf6fca1cff7cbfdcd1c486ac23933d3803",
+      "knowledgePages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/main/worker-client.ts",
+      "added": 156,
+      "deleted": 22,
+      "sha256": "d7f8a5b8050a484481ff7bce4a2436d4a310f6cfe2f96e8d62edd6cde3a23515",
+      "knowledgePages": [
+        "wiki/M1工程基线.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/preload/contracts.test.ts",
+      "added": 200,
+      "deleted": 4,
+      "sha256": "b9809d7619f115644d3dfa490b248a283397b4c78493683e00dc23e49479bb07",
+      "knowledgePages": [
+        "wiki/首批并行接口约定.md",
+        "wiki/M1工程基线.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/B00a知识Wiki公共协议.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/preload/index.ts",
+      "added": 87,
+      "deleted": 0,
+      "sha256": "3a3f788d3b10dc08d28531131e0ed76fc47e8fec037b8e4597786a13a93aee19",
+      "knowledgePages": [
+        "wiki/M1工程基线.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/App.tsx",
+      "added": 7,
+      "deleted": 1,
+      "sha256": "56fbf1a39cbfd9ab4e252bd00a9e6f5f5c9c896715167c263e4b410b6088d500",
+      "knowledgePages": [
+        "wiki/M1工作台.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/agent-runs.test.tsx",
+      "added": 120,
+      "deleted": 0,
+      "sha256": "4fae96d33d6cbfe7efcb921cdebe79ee3a2b5d6c9879673ca67e6226e6fa3d43",
+      "knowledgePages": [
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/M1验证与协作.md",
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/agent-runs.tsx",
+      "added": 294,
+      "deleted": 0,
+      "sha256": "0bae8c5f27429266beddb22cbfc0f0ac26dce739fdfcd1ae7595037e7f7c82e6",
+      "knowledgePages": [
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/model-evaluation.tsx",
+      "added": 342,
+      "deleted": 0,
+      "sha256": "efff886d6251889d97bc494d003562a2634690184a6e6032f85142b49ec5608f",
+      "knowledgePages": [
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/model-settings.tsx",
+      "added": 30,
+      "deleted": 7,
+      "sha256": "9d0a172e4d82ec2aaa837a77efb714c0cf69551cd54382b0d2483f69519c7931",
+      "knowledgePages": [
+        "wiki/M4模型与报价修订.md",
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/quote-agent.tsx",
+      "added": 24,
+      "deleted": 1,
+      "sha256": "4c054651882e92947391b643e9e3c77872fb7f025ff4b393f0ca532c53849878",
+      "knowledgePages": [
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/read-assistant.tsx",
+      "added": 352,
+      "deleted": 0,
+      "sha256": "bcd9eebdccbb2b3597de1208930947145b8a69d5a76744e445612890757181da",
+      "knowledgePages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/run-event-feed.test.ts",
+      "added": 70,
+      "deleted": 0,
+      "sha256": "1ee5e929b5c8d00f626b7522c67c917bcbf247de4f6e67cb0d5399151e03d805",
+      "knowledgePages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/run-event-feed.ts",
+      "added": 29,
+      "deleted": 0,
+      "sha256": "6920131bb773b3cb2e214d6db2b10c03ed21ebbc5bfd7107081840ee80abf973",
+      "knowledgePages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/run-events.test.tsx",
+      "added": 81,
+      "deleted": 0,
+      "sha256": "8f6d091394102b05756953c40bddafc4b3e8f006ee176231a54f73d3d9a70e1c",
+      "knowledgePages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/run-events.tsx",
+      "added": 125,
+      "deleted": 0,
+      "sha256": "c6a039e0dbe8c4fe08382a51fc72befa9447da06a5d6505c03305275f1003049",
+      "knowledgePages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/run-tool-labels.ts",
+      "added": 11,
+      "deleted": 0,
+      "sha256": "95db38681cfe2b036c376bf7a9481ff242c89ed666ec61905ce2e91c8149fd7f",
+      "knowledgePages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/workers/business.ts",
+      "added": 67,
+      "deleted": 5,
+      "sha256": "2732a2c062379f3a43edbc7ca3571253c958261bb0ef8371bdd2eba11ff2bedd",
+      "knowledgePages": [
+        "wiki/M1工程基线.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/workers/evaluation.ts",
+      "added": 60,
+      "deleted": 0,
+      "sha256": "a4104e39bc32a3e1193f50fb42d4f8cc263a08652541d1ade7e718a5b5f99f90",
+      "knowledgePages": [
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
+      "path": "package.json",
+      "added": 1,
+      "deleted": 0,
+      "sha256": "879a4fc8bc3dd02e1e2af038668f5159dd5b086821f7a2b4831de38d25eb549b",
+      "knowledgePages": [
+        "wiki/M1工程基线.md",
+        "wiki/C04模型评估与脱敏报告.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/agent.ts",
+      "added": 2,
+      "deleted": 0,
+      "sha256": "866e1eb9ecc12c9fe1e1c8f7bd3f5d48a822b352f9cab810dc2108d6dfc78044",
+      "knowledgePages": [
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/events.ts",
+      "added": 9,
+      "deleted": 0,
+      "sha256": "31750559ec77d7345508aa912557b1a676424b36102337d1d3c77fe4e6c1d8ac",
+      "knowledgePages": [
+        "wiki/M1接口与持久化.md",
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/index.ts",
+      "added": 22,
+      "deleted": 3,
+      "sha256": "ee10116ad40601eae305ad74d4349d2fd8f4197854a2fecafc250cf5dd73e0c5",
+      "knowledgePages": [
+        "wiki/M1接口与持久化.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/B00a知识Wiki公共协议.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/mock.ts",
+      "added": 15,
+      "deleted": 0,
+      "sha256": "f6780fc4b9d327a6e410ee665409057edd0adfa837426e503a362224fc6afdcc",
+      "knowledgePages": [
+        "wiki/M1接口与持久化.md",
+        "wiki/C04正式设置评估入口.md",
+        "wiki/B00a知识Wiki公共协议.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/model-evaluation.ts",
+      "added": 302,
+      "deleted": 0,
+      "sha256": "2668a9de01266516f784ddaa8e1495547a731036150fb1b602ab8d0a76d6c91c",
+      "knowledgePages": [
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04剩余失败证据与收敛.md",
+        "wiki/C04动作与澄清失败收敛.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/pending-client.ts",
+      "added": 9,
+      "deleted": 1,
+      "sha256": "76d6ab43b00e88844dd624a79f2bcfdb5adeb239611dffb6649da211f4707cfa",
+      "knowledgePages": [
+        "wiki/首批并行接口约定.md",
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/B00a知识Wiki公共协议.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/read-tools.test.ts",
+      "added": 100,
+      "deleted": 0,
+      "sha256": "089bf3010b35975441ef54ae8e7bef5684865825db6dbdd41efaf7513057b20f",
+      "knowledgePages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/read-tools.ts",
+      "added": 109,
+      "deleted": 0,
+      "sha256": "d6321c746a53ee483b433dd1d7dad01524424632ede1f01d289c148c42825569",
+      "knowledgePages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/run-events.test.ts",
+      "added": 69,
+      "deleted": 0,
+      "sha256": "f6c077eaae03f9954f1c9a5af78e82ff075937e97b0b3f2d2009064f79550ba7",
+      "knowledgePages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/run-events.ts",
+      "added": 55,
+      "deleted": 0,
+      "sha256": "df8544c42fd8b49d029dae40e99949024f4f2fdcfb949da96b97e33e48e2cb63",
+      "knowledgePages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/runs.test.ts",
+      "added": 98,
+      "deleted": 4,
+      "sha256": "7c00d955ed9db9e4e8266c7e7ec20c1c9710e1fa7c3713b58f154a931507a9fb",
+      "knowledgePages": [
+        "wiki/首批并行接口约定.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/runs.ts",
+      "added": 66,
+      "deleted": 1,
+      "sha256": "2747b9846b42abcd24c1a2b3fd73d21f64fa5e21ffc832b67de73ac2b2fd890f",
+      "knowledgePages": [
+        "wiki/首批并行接口约定.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "packages/domain/src/index.ts",
+      "added": 2,
+      "deleted": 0,
+      "sha256": "2e6876a4b4435392a8dad5b31ba39fe88dec01f9b11fb61634275d0c06268b87",
+      "knowledgePages": [
+        "wiki/M1接口与持久化.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "packages/domain/src/knowledge.ts",
+      "added": 51,
+      "deleted": 0,
+      "sha256": "ae52d505e67d3ec6ac388397fe102dec020a8057dbb67bb4bad1770398dd9779",
+      "knowledgePages": [
+        "wiki/A知识发布实现.md"
+      ]
+    },
+    {
+      "path": "packages/domain/src/quote-checks.test.ts",
+      "added": 171,
+      "deleted": 0,
+      "sha256": "2022a5b0196516e9d3d7c1175cbfb924704c2497a41327aa48d839013f390f48",
+      "knowledgePages": [
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "packages/domain/src/quote-checks.ts",
+      "added": 97,
+      "deleted": 0,
+      "sha256": "551cda444f4996a7cfc0a98b541b922a4c637f7b560c7cf0aeafdafc77151b85",
+      "knowledgePages": [
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/package.json",
+      "added": 6,
+      "deleted": 2,
+      "sha256": "64917b3f08bb7f8b231eb2df6418913358c0ce778513aea2ea72413e8eda5d48",
+      "knowledgePages": [
+        "wiki/M1接口与持久化.md",
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/agent-executor.ts",
+      "added": 77,
+      "deleted": 69,
+      "sha256": "2d8aeba21616f4a20400d9f9c1b56361273c80cc0865208169e2af53b05124a4",
+      "knowledgePages": [
+        "wiki/M4模型与报价修订.md",
+        "wiki/C运行恢复实现.md",
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/agent-run-coordinator.test.ts",
+      "added": 227,
+      "deleted": 0,
+      "sha256": "c0c75db5a910e4c982d79014b85b526b8c8c1f17c58db45293ca71373f4de82b",
+      "knowledgePages": [
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/agent-run-coordinator.ts",
+      "added": 214,
+      "deleted": 0,
+      "sha256": "17e9c26bffd8f7952e9671bfb6f1f6565e40c9c485997b038c5688dfe97bf93c",
+      "knowledgePages": [
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/agent-run-recovery.test.ts",
+      "added": 194,
+      "deleted": 0,
+      "sha256": "b5fd5397da1063f2eb9e02612896db69ae7a13ffd18170131548c6709915a836",
+      "knowledgePages": [
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/agent-run-store.test.ts",
+      "added": 547,
+      "deleted": 0,
+      "sha256": "45b7c55f24d8ca4e69e145edbb0aec4357a7e1cc5e5758e697a7bcfc143dcf5f",
+      "knowledgePages": [
+        "wiki/C02c持久运行与写入前置.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/agent-run-store.ts",
+      "added": 724,
+      "deleted": 0,
+      "sha256": "4915b96095467fc84cc41d60f11948a5d69549b83f9dd467158d43a85de4127a",
+      "knowledgePages": [
+        "wiki/C02c持久运行与写入前置.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/agent.test.ts",
+      "added": 3,
+      "deleted": 3,
+      "sha256": "b44cb87687b8d6ad5fc377a4edeafd5d33105b30ddd287404fa3cca9ef542773",
+      "knowledgePages": [
+        "wiki/M4模型与报价修订.md",
+        "wiki/M1验证与协作.md",
+        "wiki/C运行恢复实现.md",
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/catalog-quote-read-agent.test.ts",
+      "added": 521,
+      "deleted": 0,
+      "sha256": "7bff73b798e88df70e6f7c89c4dd32611c9ef9f464cc406671b0db9bb90f65b3",
+      "knowledgePages": [
+        "wiki/C02b商品与报价只读工具.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/catalog-quote-read-agent.ts",
+      "added": 240,
+      "deleted": 0,
+      "sha256": "cd4abf0963ab1c2c922a9ae94122db3eec1feefdbb2f971d785a970d441c684d",
+      "knowledgePages": [
+        "wiki/C02b商品与报价只读工具.md",
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/catalog-quote-read-service.test.ts",
+      "added": 124,
+      "deleted": 0,
+      "sha256": "8d2e9441f9d7493efe7e1c9bd86b913fe2f5ec3003246b45b7b2990da996f34e",
+      "knowledgePages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/catalog-quote-read-service.ts",
+      "added": 76,
+      "deleted": 0,
+      "sha256": "a369c9744d7e375d55afb8c330fff224ad0f4b317360b4adeb2ab029b2a8cfc2",
+      "knowledgePages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/deepseek.ts",
+      "added": 53,
+      "deleted": 9,
+      "sha256": "3d303dfcce2fb6baf5bb68444076d0220ddec84256cd23a2fb37cf833d8fad95",
+      "knowledgePages": [
+        "wiki/M4模型与报价修订.md",
+        "wiki/C运行恢复实现.md",
+        "wiki/C04剩余失败证据与收敛.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/action-regressions.test.ts",
+      "added": 356,
+      "deleted": 0,
+      "sha256": "49bd1755c9f132f2eaee0399ca365f361631b946c9905409c3b478bbf9154cad",
+      "knowledgePages": [
+        "wiki/C04动作与澄清失败收敛.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/cases.ts",
+      "added": 81,
+      "deleted": 0,
+      "sha256": "02c65c86806043ae4cce208bd8620cc8057a93aebaaf9b4977ec42c758d8a590",
+      "knowledgePages": [
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/diagnostics.test.ts",
+      "added": 86,
+      "deleted": 0,
+      "sha256": "dbe425c76a6851315b4bd4f289734c23d016e20c34962dffae17497f84dc0f63",
+      "knowledgePages": [
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04动作与澄清失败收敛.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/evaluation.test.ts",
+      "added": 178,
+      "deleted": 0,
+      "sha256": "15cf228209139c1daa87e3deed6eaa6596833c0153250ab8b71cb1cd9d4d069f",
+      "knowledgePages": [
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/failure-regressions.test.ts",
+      "added": 328,
+      "deleted": 0,
+      "sha256": "3878a6e0edba8e876d8f2dd5c8320b1d3a0b4fdfe1477fefe154fb67281f5842",
+      "knowledgePages": [
+        "wiki/C04失败收敛与本地回归.md",
+        "wiki/C04模型评估与脱敏报告.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/fixture-model.ts",
+      "added": 136,
+      "deleted": 0,
+      "sha256": "6b8a0244b192cae1010667738ae18e35f8e3054e322c4963878d687ef07f9554",
+      "knowledgePages": [
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/public.ts",
+      "added": 5,
+      "deleted": 0,
+      "sha256": "9b5c8ac8185e9416205e6cf7c3053f4d3e3a8398a1980d08f92a57283db75330",
+      "knowledgePages": [
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/remaining-regressions.test.ts",
+      "added": 386,
+      "deleted": 0,
+      "sha256": "a94d852b31852dbe8a572f63a942489b510ae1d5becf7693b0db5e7bd362cb86",
+      "knowledgePages": [
+        "wiki/C04剩余失败证据与收敛.md",
+        "wiki/C04模型评估与脱敏报告.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/report.ts",
+      "added": 43,
+      "deleted": 0,
+      "sha256": "43e7eb33799b03e22001c69948a1de84265e5c31c9795b1dd4344b8334e13e9e",
+      "knowledgePages": [
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/retest-regressions.test.ts",
+      "added": 330,
+      "deleted": 0,
+      "sha256": "e494bdddfed3d2816ffdb10f885ca4e6677bfa384b508491df33c48ea64e0c99",
+      "knowledgePages": [
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04模型评估与脱敏报告.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/runner.ts",
+      "added": 514,
+      "deleted": 0,
+      "sha256": "b4e7c3a5b855a10488c391d7ca729327e4032853f0781e5c7a9691498b9214ea",
+      "knowledgePages": [
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04剩余失败证据与收敛.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/worker-protocol.ts",
+      "added": 29,
+      "deleted": 0,
+      "sha256": "470e31072f3266f1b7d0f90ad85c25bfc18fb456773ebac6dfa8b5ef64fe461e",
+      "knowledgePages": [
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/workspace.ts",
+      "added": 153,
+      "deleted": 0,
+      "sha256": "cce7503a32a1a301ebbf617bae5a9a075d2004497b382b343502a2cc0d406ea8",
+      "knowledgePages": [
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/index.ts",
+      "added": 17,
+      "deleted": 2,
+      "sha256": "a444fa7dce563871740b28ff895df2b5e9fde9034bbb78c6d82000f2e82c3dac",
+      "knowledgePages": [
+        "wiki/M1接口与持久化.md",
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/knowledge-store.test.ts",
+      "added": 343,
+      "deleted": 0,
+      "sha256": "fee50bad8d8b4c7ca62cd26e7141cb30940bebbb09c1ed74ba2dbd16e72bf5c8",
+      "knowledgePages": [
+        "wiki/A知识发布实现.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/knowledge-store.ts",
+      "added": 235,
+      "deleted": 0,
+      "sha256": "b1911824a09c918e7fab6b26a85de54a3251f7651634a82a9587c6b1ec42cf41",
+      "knowledgePages": [
+        "wiki/A知识发布实现.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/migrations.ts",
+      "added": 89,
+      "deleted": 0,
+      "sha256": "77edfac30380627a201859e5f19b4c2d41a2b9eb5239cd796fd13e735a556775",
+      "knowledgePages": [
+        "wiki/M1接口与持久化.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/quote-draft-plan.ts",
+      "added": 124,
+      "deleted": 0,
+      "sha256": "87111b9a887346454a449f46a186acd4fee2d1e74602c2dc91b4ffc7e6a669ef",
+      "knowledgePages": [
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/quote-tool-agent.test.ts",
+      "added": 670,
+      "deleted": 0,
+      "sha256": "e7caf45a318dd6beefbf4ae56f0fbeff48172e01c022a3175b0766f5ea0cbc1d",
+      "knowledgePages": [
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C04剩余失败证据与收敛.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/quote-tool-agent.ts",
+      "added": 436,
+      "deleted": 0,
+      "sha256": "8cb2edf9a8e97fb9952feded3f7c7f8da51f9540ae186373fb4279fad62e1a6d",
+      "knowledgePages": [
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C04失败收敛与本地回归.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04剩余失败证据与收敛.md",
+        "wiki/C04动作与澄清失败收敛.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/read-tool-runtime.test.ts",
+      "added": 316,
+      "deleted": 0,
+      "sha256": "65af2ad4ea3c72fe69345f3f4c1da5b38e703147f00152f0b16765de65c5b4ef",
+      "knowledgePages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C04失败收敛与本地回归.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/read-tool-runtime.ts",
+      "added": 487,
+      "deleted": 0,
+      "sha256": "8abe7c62a66c6bbd65bb5a7ec8f7cd9a4f138c756f091539d7eb35c560163bc0",
+      "knowledgePages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C04失败收敛与本地回归.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04剩余失败证据与收敛.md",
+        "wiki/C04动作与澄清失败收敛.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/run-event-store.test.ts",
+      "added": 147,
+      "deleted": 0,
+      "sha256": "fc5264e6c20f8d61634b6fa1ecff2f414c7b296635258508a7aca434c7a76abf",
+      "knowledgePages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/run-event-store.ts",
+      "added": 115,
+      "deleted": 0,
+      "sha256": "a5a0d22336ad865e3e9ce174d84b56f9ec43de3534af5387544082e35b141b3e",
+      "knowledgePages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/storage.test.ts",
+      "added": 18,
+      "deleted": 2,
+      "sha256": "ba7e4bb41e26c7a77cf0d10a7347c791ee32cb225f6c0e2aeebca5f573a4067c",
+      "knowledgePages": [
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/testing/run-fixture.ts",
+      "added": 132,
+      "deleted": 0,
+      "sha256": "4ad7343744bbee59768aee6ca67eff982b60622d5b1dee72a0466426e906f583",
+      "knowledgePages": [
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/trade-store.ts",
+      "added": 39,
+      "deleted": 0,
+      "sha256": "16331aa99c17ed064ca9b9287687d746310ea5d6a42d2f18c01521c7fa73d480",
+      "knowledgePages": [
+        "wiki/M2真实报价V1.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/worker-ownership.ts",
+      "added": 24,
+      "deleted": 0,
+      "sha256": "670f8ba2dc2648b63042936ade3ee7e3351cd81e574ef2bf79737316d996680f",
+      "knowledgePages": [
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "added": 3,
+      "deleted": 0,
+      "sha256": "da2efba096f026dc93b7fc7cfaaedd28b142d17bbeadbaffcf75ea2be287ccbe",
+      "knowledgePages": [
+        "wiki/M1工程基线.md"
+      ]
+    },
+    {
+      "path": "scripts/evaluate-model.mjs",
+      "added": 76,
+      "deleted": 0,
+      "sha256": "3363703bd1b3eb02b677e14bad99005d4f096223d1ca4b84bfb2a3a7ac4fcbbb",
+      "knowledgePages": [
+        "wiki/C04模型评估与脱敏报告.md"
+      ]
+    },
+    {
+      "path": "tests/e2e/agent-recovery.spec.ts",
+      "added": 232,
+      "deleted": 0,
+      "sha256": "83c3e222f364bfec45809fc257696b5f7089bc8aa6c17f1f356f7e243d3c55d1",
+      "knowledgePages": [
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "tests/e2e/model-evaluation.spec.ts",
+      "added": 266,
+      "deleted": 0,
+      "sha256": "626c1238203698679ac45c35076b2df66036916dad799f2a5cceeb4b2cc89288",
+      "knowledgePages": [
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04剩余失败证据与收敛.md"
+      ]
+    },
+    {
+      "path": "tests/e2e/multistep-agent.spec.ts",
+      "added": 244,
+      "deleted": 0,
+      "sha256": "6b827af0d1f544d97799d5f9d7b612a03943516143a773db6fa31bc856ffba50",
+      "knowledgePages": [
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "tests/e2e/quote-agent.spec.ts",
+      "added": 7,
+      "deleted": 3,
+      "sha256": "43f7b90244f352c8efb29fb87423cf818a05c3a42f7bc175eca1eed53fb76e49",
+      "knowledgePages": [
+        "wiki/M4模型与报价修订.md",
+        "wiki/M1验证与协作.md",
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    {
+      "path": "tests/e2e/read-assistant.spec.ts",
+      "added": 244,
+      "deleted": 0,
+      "sha256": "7e9c5934d205874d254c791ff3471238402f9644fd67dc0fd3beb9b2035db09b",
+      "knowledgePages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    {
+      "path": "tests/e2e/workspace.spec.ts",
+      "added": 5,
+      "deleted": 12,
+      "sha256": "b8d3bf9d7e2052420b59e3f6d5a1bd06d11ef967baa9e7df50b8df15df3a8f2b",
+      "knowledgePages": [
+        "wiki/M1验证与协作.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/B00a知识Wiki公共协议.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/multistep-seed.ts",
+      "added": 96,
+      "deleted": 0,
+      "sha256": "9b4269ef603dc25a068dc2653e3b72eb23e8aa270fdeb1f2ddba9399b0ab0c61",
+      "knowledgePages": [
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/run-crash-child.ts",
+      "added": 100,
+      "deleted": 0,
+      "sha256": "4a08d5c406ac5bb58d9f887eda4982322dcdcd0a48ea76819b83bad5dd5711f6",
+      "knowledgePages": [
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    }
+  ],
+  "sourceFileCount": 92,
+  "wikiPaths": [
+    "wiki-project/CONTEXT.md",
+    "wiki-project/index.md",
+    "wiki-project/log.md",
+    "wiki-project/raw/c-integration-dependency-audit.json",
+    "wiki-project/raw/c-integration-fixture-report.json",
+    "wiki-project/raw/c-integration-fixture-report.md",
+    "wiki-project/raw/c-integration-initial-validation.json",
+    "wiki-project/raw/c-integration-migration-probe.json",
+    "wiki-project/raw/c-integration-multistep.png",
+    "wiki-project/raw/c-integration-preservation.json",
+    "wiki-project/raw/c-integration-recovery.png",
+    "wiki-project/raw/c-integration-scope.json",
+    "wiki-project/raw/c-integration-validation.json",
+    "wiki-project/raw/c-runtime-initial-validation.json",
+    "wiki-project/raw/c-runtime-validation.json",
+    "wiki-project/raw/c01b-dependency-audit.json",
+    "wiki-project/raw/c01b-dependency-validation.json",
+    "wiki-project/raw/c02b-desktop-initial-validation.json",
+    "wiki-project/raw/c02b-desktop-validation.json",
+    "wiki-project/raw/c02b-initial-validation.json",
+    "wiki-project/raw/c02b-validation.json",
+    "wiki-project/raw/c02c-multistep-dependencies.json",
+    "wiki-project/raw/c02c-multistep-initial-validation.json",
+    "wiki-project/raw/c02c-multistep-validation.json",
+    "wiki-project/raw/c02c-prerequisites-initial-validation.json",
+    "wiki-project/raw/c02c-prerequisites-validation.json",
+    "wiki-project/raw/c02c-runtime-initial-validation.json",
+    "wiki-project/raw/c02c-runtime-validation.json",
+    "wiki-project/raw/c03-dependency-audit.json",
+    "wiki-project/raw/c03-fixture-report.json",
+    "wiki-project/raw/c03-fixture-report.md",
+    "wiki-project/raw/c03-initial-validation.json",
+    "wiki-project/raw/c03-validation.json",
+    "wiki-project/raw/c04-action-boundary-regressions.json",
+    "wiki-project/raw/c04-action-fixture-report.json",
+    "wiki-project/raw/c04-action-fixture-report.md",
+    "wiki-project/raw/c04-action-initial-validation.json",
+    "wiki-project/raw/c04-action-retest-deepseek-report.json",
+    "wiki-project/raw/c04-action-retest-deepseek-report.md",
+    "wiki-project/raw/c04-action-retest-launch-observation.json",
+    "wiki-project/raw/c04-action-retest-observation.json",
+    "wiki-project/raw/c04-action-retest-validation.json",
+    "wiki-project/raw/c04-action-validation.json",
+    "wiki-project/raw/c04-convergence-fixture-report.json",
+    "wiki-project/raw/c04-convergence-fixture-report.md",
+    "wiki-project/raw/c04-convergence-initial-validation.json",
+    "wiki-project/raw/c04-convergence-validation.json",
+    "wiki-project/raw/c04-deepseek-report.json",
+    "wiki-project/raw/c04-desktop-initial-validation.json",
+    "wiki-project/raw/c04-desktop-validation.json",
+    "wiki-project/raw/c04-diagnostic-retest-deepseek-report.json",
+    "wiki-project/raw/c04-diagnostic-retest-deepseek-report.md",
+    "wiki-project/raw/c04-diagnostic-retest-launch-observation.json",
+    "wiki-project/raw/c04-diagnostic-retest-observation.json",
+    "wiki-project/raw/c04-diagnostic-retest-prestart-validation.json",
+    "wiki-project/raw/c04-diagnostic-retest-validation.json",
+    "wiki-project/raw/c04-diagnostics-fixture-report.json",
+    "wiki-project/raw/c04-diagnostics-fixture-report.md",
+    "wiki-project/raw/c04-diagnostics-initial-validation.json",
+    "wiki-project/raw/c04-diagnostics-validation.json",
+    "wiki-project/raw/c04-eight-reconstructed-regressions.json",
+    "wiki-project/raw/c04-fixture-report.json",
+    "wiki-project/raw/c04-initial-validation.json",
+    "wiki-project/raw/c04-model-select-validation.json",
+    "wiki-project/raw/c04-remaining-fixture-report.json",
+    "wiki-project/raw/c04-remaining-fixture-report.md",
+    "wiki-project/raw/c04-remaining-initial-validation.json",
+    "wiki-project/raw/c04-remaining-validation.json",
+    "wiki-project/raw/c04-retest-deepseek-report.json",
+    "wiki-project/raw/c04-retest-deepseek-report.md",
+    "wiki-project/raw/c04-retest-observation.json",
+    "wiki-project/raw/c04-retest-validation.json",
+    "wiki-project/raw/c04-three-boundary-regressions.json",
+    "wiki-project/raw/c04-three-retest-deepseek-report.json",
+    "wiki-project/raw/c04-three-retest-deepseek-report.md",
+    "wiki-project/raw/c04-three-retest-initial-validation.json",
+    "wiki-project/raw/c04-three-retest-launch-observation.json",
+    "wiki-project/raw/c04-three-retest-observation.json",
+    "wiki-project/raw/c04-three-retest-validation.json",
+    "wiki-project/raw/c04-user-deepseek-report.json",
+    "wiki-project/raw/c04-user-deepseek-report.md",
+    "wiki-project/raw/c04-user-deepseek-validation.json",
+    "wiki-project/raw/c04-user-run-observation.json",
+    "wiki-project/raw/c04-validation.json",
+    "wiki-project/raw/generated/inventory.json",
+    "wiki-project/raw/generated/代码清单.md",
+    "wiki-project/raw/generated/命令与运行时清单.md",
+    "wiki-project/raw/generated/源码快照.md",
+    "wiki-project/raw/generated/源码覆盖矩阵.md",
+    "wiki-project/scripts/wiki-config.json",
+    "wiki-project/wiki/02-技术选型与架构.md",
+    "wiki-project/wiki/04-接口与Agent契约.md",
+    "wiki-project/wiki/05-三人分工与开发步骤.md",
+    "wiki-project/wiki/A业务LLMWiki方案.md",
+    "wiki-project/wiki/A知识发布实现.md",
+    "wiki-project/wiki/B00a知识Wiki公共协议.md",
+    "wiki-project/wiki/C01b存储接口与事务方案.md",
+    "wiki-project/wiki/C01b恢复测试用例.md",
+    "wiki-project/wiki/C02b商品与报价只读工具.md",
+    "wiki-project/wiki/C02b桌面只读助手.md",
+    "wiki-project/wiki/C02c多步报价工具闭环.md",
+    "wiki-project/wiki/C02c持久运行与写入前置.md",
+    "wiki-project/wiki/C02c统一运行与写账本.md",
+    "wiki-project/wiki/C03持久事件与桌面重连.md",
+    "wiki-project/wiki/C04三项修复真实复测.md",
+    "wiki-project/wiki/C04修复分支真实复测.md",
+    "wiki-project/wiki/C04剩余失败证据与收敛.md",
+    "wiki-project/wiki/C04动作与澄清失败收敛.md",
+    "wiki-project/wiki/C04动作修复真实复测.md",
+    "wiki-project/wiki/C04失败收敛与本地回归.md",
+    "wiki-project/wiki/C04失败阶段诊断与二轮收敛.md",
+    "wiki-project/wiki/C04收口与验收边界.md",
+    "wiki-project/wiki/C04模型评估与脱敏报告.md",
+    "wiki-project/wiki/C04正式设置评估入口.md",
+    "wiki-project/wiki/C04真实验证状态核对.md",
+    "wiki-project/wiki/C04阶段证据真实复测.md",
+    "wiki-project/wiki/C运行恢复实现.md",
+    "wiki-project/wiki/C集成候选与依赖收口.md",
+    "wiki-project/wiki/C集成候选评审说明.md",
+    "wiki-project/wiki/M1工作台.md",
+    "wiki-project/wiki/M1工程基线.md",
+    "wiki-project/wiki/M1接口与持久化.md",
+    "wiki-project/wiki/M1验证与协作.md",
+    "wiki-project/wiki/M2真实报价V1.md",
+    "wiki-project/wiki/M4模型与报价修订.md",
+    "wiki-project/wiki/Wiki 工作流与任务记录.md",
+    "wiki-project/wiki/decisions/0016-受限只读工具循环分阶段接入.md",
+    "wiki-project/wiki/decisions/0017-只读业务快照与核价预览.md",
+    "wiki-project/wiki/decisions/0018-独立只读命令与桌面接线.md",
+    "wiki-project/wiki/decisions/0019-运行存储前置与同连接保存点.md",
+    "wiki-project/wiki/decisions/0020-独占Worker与草稿写账本.md",
+    "wiki-project/wiki/decisions/0021-多步候选授权与规则校验.md",
+    "wiki-project/wiki/decisions/0022-评估隔离与结果脱敏.md",
+    "wiki-project/wiki/decisions/0023-显式评估宿主与独立进程.md",
+    "wiki-project/wiki/decisions/0024-同次草稿运行内受限纠正.md",
+    "wiki-project/wiki/decisions/0025-枚举失败证据与前置步骤纠正.md",
+    "wiki-project/wiki/decisions/0026-阶段工具提示与细粒度失败分类.md",
+    "wiki-project/wiki/decisions/0027-动作纠正与阻断解释故障归因.md",
+    "wiki-project/wiki/decisions/0028-事务事件日志与只读重连.md",
+    "wiki-project/wiki/tasks/A01-知识发布与来源查询.md",
+    "wiki-project/wiki/tasks/B01-规则检查与双反馈.md",
+    "wiki-project/wiki/tasks/C01-Agent运行恢复与集成.md",
+    "wiki-project/wiki/tasks/C01b-依赖就绪核查.md",
+    "wiki-project/wiki/tasks/C02a-受限只读工具循环.md",
+    "wiki-project/wiki/tasks/C02b-Worker与桌面只读入口.md",
+    "wiki-project/wiki/tasks/C02b-商品与报价只读工具.md",
+    "wiki-project/wiki/tasks/C02c-多步报价工具闭环.md",
+    "wiki-project/wiki/tasks/C02c-持久运行与写入前置.md",
+    "wiki-project/wiki/tasks/C02c-统一调度与强杀恢复.md",
+    "wiki-project/wiki/tasks/C03-持久事件与桌面重连.md",
+    "wiki-project/wiki/tasks/C04-三项修复真实复测核对.md",
+    "wiki-project/wiki/tasks/C04-三项失败回归与最小修复.md",
+    "wiki-project/wiki/tasks/C04-修复分支真实复测核对.md",
+    "wiki-project/wiki/tasks/C04-动作修复真实复测核对.md",
+    "wiki-project/wiki/tasks/C04-动作澄清与规则失败收敛.md",
+    "wiki-project/wiki/tasks/C04-失败收敛.md",
+    "wiki-project/wiki/tasks/C04-失败阶段证据与八项回归.md",
+    "wiki-project/wiki/tasks/C04-收口签认.md",
+    "wiki-project/wiki/tasks/C04-模型下拉选择.md",
+    "wiki-project/wiki/tasks/C04-正式设置与显式真实评估.md",
+    "wiki-project/wiki/tasks/C04-真实验证状态与报告核对.md",
+    "wiki-project/wiki/tasks/C04-评估样本与脱敏报告.md",
+    "wiki-project/wiki/tasks/C04-阶段证据真实复测核对.md",
+    "wiki-project/wiki/tasks/C集成候选-依赖与非作者签认.md",
+    "wiki-project/wiki/tasks/C集成候选-准备与组合验证.md",
+    "wiki-project/wiki/三人并行开发交接.md",
+    "wiki-project/wiki/双参考项目功能对照与C开发路线.md",
+    "wiki-project/wiki/运行时能力地图.md",
+    "wiki-project/wiki/项目状态.md",
+    "wiki-project/wiki/首批并行接口约定.md"
+  ],
+  "wikiPathCount": 170,
+  "nonWikiDeltaFromTaskBase": [
+    {
+      "path": "README.md",
+      "added": 8,
+      "deleted": 0
+    },
+    {
+      "path": "apps/desktop/src/preload/contracts.test.ts",
+      "added": 33,
+      "deleted": 0
+    },
+    {
+      "path": "experiments/product-walkthrough/README.md",
+      "added": 95,
+      "deleted": 0
+    },
+    {
+      "path": "experiments/product-walkthrough/check.mjs",
+      "added": 566,
+      "deleted": 0
+    },
+    {
+      "path": "experiments/product-walkthrough/index.html",
+      "added": 353,
+      "deleted": 0
+    },
+    {
+      "path": "packages/contracts/src/index.ts",
+      "added": 4,
+      "deleted": 0
+    },
+    {
+      "path": "packages/contracts/src/knowledge-wiki.test.ts",
+      "added": 587,
+      "deleted": 0
+    },
+    {
+      "path": "packages/contracts/src/knowledge-wiki.ts",
+      "added": 724,
+      "deleted": 0
+    },
+    {
+      "path": "packages/contracts/src/mock.ts",
+      "added": 139,
+      "deleted": 0
+    },
+    {
+      "path": "packages/contracts/src/pending-client.ts",
+      "added": 4,
+      "deleted": 1
+    },
+    {
+      "path": "packages/contracts/src/wiki-integrity.ts",
+      "added": 64,
+      "deleted": 0
+    },
+    {
+      "path": "tests/e2e/workspace.spec.ts",
+      "added": 24,
+      "deleted": 0
+    }
+  ],
+  "sourceCommitList": "wiki-project/raw/c-integration-dependency-audit.json",
+  "reviewGroups": "wiki-project/wiki/C集成候选评审说明.md"
+}

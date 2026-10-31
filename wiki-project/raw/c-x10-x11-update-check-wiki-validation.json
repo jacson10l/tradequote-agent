@@ -1,0 +1,180 @@
+{
+  "status": "passed",
+  "scope": "documentation_and_remote_check_only",
+  "taskBase": "abda94e90bf54786937510b802eb5d2479e01412",
+  "checks": [
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-24T16:39:23.145278+00:00",
+      "finishedAt": "2026-10-24T16:39:23.355200+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 6\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "startedAt": "2026-10-24T16:39:23.355575+00:00",
+      "finishedAt": "2026-10-24T16:39:23.520840+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 6\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-24T16:39:23.521242+00:00",
+      "finishedAt": "2026-10-24T16:39:24.122476+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 207,\n  \"semantic\": 179,\n  \"reachable\": 207\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "abda94e90bf54786937510b802eb5d2479e01412"
+      ],
+      "startedAt": "2026-10-24T16:39:24.122983+00:00",
+      "finishedAt": "2026-10-24T16:39:24.258913+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"abda94e90bf54786937510b802eb5d2479e01412\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check",
+        "abda94e90bf54786937510b802eb5d2479e01412"
+      ],
+      "startedAt": "2026-10-24T16:39:24.259301+00:00",
+      "finishedAt": "2026-10-24T16:39:24.271850+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "startedAt": "2026-10-24T16:39:24.272189+00:00",
+      "finishedAt": "2026-10-24T16:39:24.280516+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/build-code-index.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-24T16:40:02.750976+00:00",
+      "finishedAt": "2026-10-24T16:40:02.932645+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"generate\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 6\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/build-code-index.mjs",
+        ".",
+        "--check"
+      ],
+      "startedAt": "2026-10-24T16:40:02.933041+00:00",
+      "finishedAt": "2026-10-24T16:40:03.099609+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 6\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/lint-wiki.mjs",
+        "."
+      ],
+      "startedAt": "2026-10-24T16:40:03.100193+00:00",
+      "finishedAt": "2026-10-24T16:40:03.693384+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"markdown\": 207,\n  \"semantic\": 179,\n  \"reachable\": 207\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "abda94e90bf54786937510b802eb5d2479e01412"
+      ],
+      "startedAt": "2026-10-24T16:40:03.693973+00:00",
+      "finishedAt": "2026-10-24T16:40:03.775614+00:00",
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"abda94e90bf54786937510b802eb5d2479e01412\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check",
+        "abda94e90bf54786937510b802eb5d2479e01412"
+      ],
+      "startedAt": "2026-10-24T16:40:03.776076+00:00",
+      "finishedAt": "2026-10-24T16:40:03.788311+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "startedAt": "2026-10-24T16:40:03.788720+00:00",
+      "finishedAt": "2026-10-24T16:40:03.797087+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "priorAttempts": [
+    {
+      "name": "initial_preservation_audit",
+      "exitCode": 1,
+      "result": "old raw files unchanged; log trailing whitespace altered by text append; restored exact baseline prefix before retry"
+    },
+    {
+      "name": "path_scope_audit",
+      "exitCode": 1,
+      "result": "git default quoted non-ASCII paths failed prefix comparison; use NUL-delimited paths without display quoting; no source change occurred"
+    }
+  ],
+  "preservation": {
+    "oldRawFilesUnchanged": 213,
+    "logPrefixBytesUnchanged": 118609,
+    "onlyWikiChanged": true,
+    "exitCode": 0
+  },
+  "finishedAt": "2026-10-24T16:40:22.702914+00:00"
+}

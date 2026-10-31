@@ -1,0 +1,74 @@
+{
+  "status": "material_pushed_and_remote_verified",
+  "taskBase": "5cdb2b15ddb267f9eea8d169a0dbe0c55c56f465",
+  "branch": "codex/b-combination-regression-ready",
+  "authorization": "User authorized ordinary push of preserved 5cdb2b1 and status correction; no force push or merge",
+  "checks": [
+    {
+      "name": "fixed material HEAD",
+      "executable": "git",
+      "args": [
+        "rev-parse",
+        "HEAD"
+      ],
+      "startedAt": "2026-10-25T05:02:40.506Z",
+      "finishedAt": "2026-10-25T05:02:40.574Z",
+      "exit_code": 0,
+      "stdout": "0a716a4822eb3c7c3f5ca176a8c5949d4564891a\n",
+      "stderr": ""
+    },
+    {
+      "name": "preserved original B material ancestry",
+      "executable": "git",
+      "args": [
+        "merge-base",
+        "--is-ancestor",
+        "5cdb2b15ddb267f9eea8d169a0dbe0c55c56f465",
+        "HEAD"
+      ],
+      "startedAt": "2026-10-25T05:02:40.576Z",
+      "finishedAt": "2026-10-25T05:02:40.643Z",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "name": "ordinary push",
+      "executable": "git",
+      "args": [
+        "push",
+        "--set-upstream",
+        "origin",
+        "HEAD:refs/heads/codex/b-combination-regression-ready"
+      ],
+      "startedAt": "2026-10-25T05:02:40.643Z",
+      "finishedAt": "2026-10-25T05:02:43.818Z",
+      "exit_code": 0,
+      "stdout": "branch 'codex/b-combination-regression-ready' set up to track 'origin/codex/b-combination-regression-ready'.\n",
+      "stderr": "remote: \nremote: Create a pull request for 'codex/b-combination-regression-ready' on GitHub by visiting:        \nremote:      https://github.com/jacson10l/tradequote-agent/pull/new/codex/b-combination-regression-ready        \nremote: \nTo https://github.com/jacson10l/tradequote-agent.git\n * [new branch]      HEAD -> codex/b-combination-regression-ready\n"
+    },
+    {
+      "name": "remote readback",
+      "executable": "git",
+      "args": [
+        "ls-remote",
+        "--heads",
+        "origin",
+        "refs/heads/codex/b-combination-regression-ready"
+      ],
+      "startedAt": "2026-10-25T05:02:43.819Z",
+      "finishedAt": "2026-10-25T05:02:45.988Z",
+      "exit_code": 0,
+      "stdout": "0a716a4822eb3c7c3f5ca176a8c5949d4564891a\trefs/heads/codex/b-combination-regression-ready\n",
+      "stderr": ""
+    }
+  ],
+  "validation": "wiki-project/raw/b-combination-fixed-handoff-validation.json",
+  "wiki": "wiki-project/wiki/B组合验证准备与固定输入.md",
+  "task": "wiki-project/wiki/tasks/B01-谱系账本适配与P1回执.md",
+  "overallMigrationApproved": false,
+  "materialCommit": "0a716a4822eb3c7c3f5ca176a8c5949d4564891a",
+  "verifiedRemoteSha": "0a716a4822eb3c7c3f5ca176a8c5949d4564891a",
+  "remoteMatchesLocal": true,
+  "note": "This receipt records the material commit push. A subsequent normal commit persists the receipt; final branch HEAD is verified again and returned separately, rather than pretending this payload SHA is the final branch SHA."
+}

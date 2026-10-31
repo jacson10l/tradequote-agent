@@ -87,7 +87,7 @@ test("desktop settings and HTTP adapter support inquiry plus two saved revisions
     await expect(page.getByText("已保存至本机 · 版本 1")).toBeVisible();
     await page.getByRole("navigation").getByRole("link", { name: "模型设置", exact: true }).click();
     await page.getByLabel("DeepSeek API Key", { exact: false }).fill("synthetic-e2e-key");
-    await page.getByLabel("模型 ID", { exact: true }).fill("synthetic-model");
+    await page.getByRole("combobox", { name: "模型", exact: true }).selectOption("deepseek-flash");
     await page.getByRole("button", { name: "保存模型设置", exact: true }).click();
     await expect(page.getByLabel("DeepSeek API Key", { exact: false })).toHaveValue("");
     await page.getByRole("button", { name: "测试已保存的连接" }).click();
@@ -147,10 +147,16 @@ test("desktop settings and HTTP adapter support inquiry plus two saved revisions
     mode = "invalid";
     await page.getByLabel("本轮修改要求").fill("交期改40天");
     await page.getByRole("button", { name: "理解修改并保存 V4" }).click();
-    await expect(page.getByRole("alert")).toContainText("模型建议未通过字段校验");
+    await expect(
+      page.getByRole("region", { name: "DeepSeek 询盘与对话" }).getByRole("alert"),
+    ).toContainText("模型建议未通过字段校验");
     mode = "auth";
-    await page.getByRole("button", { name: "理解修改并保存 V4" }).click();
-    await expect(page.getByRole("alert")).toContainText("模型鉴权失败");
+    const failedRun = page
+      .getByRole("region", { name: "模型运行记录" })
+      .getByRole("article")
+      .filter({ hasText: "交期改40天" });
+    await failedRun.getByRole("button", { name: "重试此运行（会再次调用模型）" }).click();
+    await expect(failedRun).toContainText("模型鉴权失败");
     const after = await page.evaluate(() => window.tradequote.getTrade());
     expect(after.ok && after.data.quotes.length).toBe(3);
     expect(calls).toBe(6);

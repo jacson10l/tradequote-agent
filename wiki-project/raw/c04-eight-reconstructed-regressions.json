@@ -1,0 +1,129 @@
+{
+  "scope": "synthetic_reconstructed_regressions_not_real_payload_replay",
+  "providerValidation": "fixture_only",
+  "realRequests": 0,
+  "plannedCases": 8,
+  "observedCases": 8,
+  "cases": [
+    {
+      "id": "apparel-zh-v3",
+      "status": "passed",
+      "modelCallsIncludingPrerequisites": 17,
+      "diagnostics": [
+        {
+          "stage": "completion",
+          "tool": null,
+          "category": "premature_complete",
+          "disposition": "feedback",
+          "modelCall": 2,
+          "errorCode": "ACTION_NOT_ALLOWED"
+        }
+      ]
+    },
+    {
+      "id": "apparel-de-v2",
+      "status": "passed",
+      "modelCallsIncludingPrerequisites": 12,
+      "diagnostics": [
+        {
+          "stage": "tool_input",
+          "tool": "calculate_quote",
+          "category": "quantity_format",
+          "disposition": "feedback",
+          "modelCall": 2,
+          "errorCode": "MODEL_INVALID_OUTPUT"
+        }
+      ]
+    },
+    {
+      "id": "panel-zh-v1",
+      "status": "passed",
+      "modelCallsIncludingPrerequisites": 7,
+      "diagnostics": [
+        {
+          "stage": "tool_execution",
+          "tool": "search_knowledge",
+          "category": "calculate_first",
+          "disposition": "feedback",
+          "modelCall": 3,
+          "errorCode": "ACTION_NOT_ALLOWED"
+        }
+      ]
+    },
+    {
+      "id": "panel-en-v1",
+      "status": "passed",
+      "modelCallsIncludingPrerequisites": 7,
+      "diagnostics": [
+        {
+          "stage": "tool_execution",
+          "tool": "validate_quote",
+          "category": "knowledge_first",
+          "disposition": "feedback",
+          "modelCall": 4,
+          "errorCode": "ACTION_NOT_ALLOWED"
+        }
+      ]
+    },
+    {
+      "id": "panel-de-v3",
+      "status": "passed",
+      "modelCallsIncludingPrerequisites": 17,
+      "diagnostics": [
+        {
+          "stage": "completion",
+          "tool": null,
+          "category": "premature_complete",
+          "disposition": "feedback",
+          "modelCall": 2,
+          "errorCode": "ACTION_NOT_ALLOWED"
+        }
+      ]
+    },
+    {
+      "id": "fastener-zh-v1",
+      "status": "passed",
+      "modelCallsIncludingPrerequisites": 7,
+      "diagnostics": [
+        {
+          "stage": "completion",
+          "tool": null,
+          "category": "premature_complete",
+          "disposition": "feedback",
+          "modelCall": 3,
+          "errorCode": "ACTION_NOT_ALLOWED"
+        }
+      ]
+    },
+    {
+      "id": "fastener-en-v1",
+      "status": "passed",
+      "modelCallsIncludingPrerequisites": 7,
+      "diagnostics": [
+        {
+          "stage": "completion",
+          "tool": null,
+          "category": "premature_complete",
+          "disposition": "feedback",
+          "modelCall": 3,
+          "errorCode": "ACTION_NOT_ALLOWED"
+        }
+      ]
+    },
+    {
+      "id": "fastener-de-v1",
+      "status": "passed",
+      "modelCallsIncludingPrerequisites": 7,
+      "diagnostics": [
+        {
+          "stage": "completion",
+          "tool": null,
+          "category": "premature_complete",
+          "disposition": "feedback",
+          "modelCall": 3,
+          "errorCode": "ACTION_NOT_ALLOWED"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "status": "pushed_for_review",
+  "clientDate": "2026-10-23",
+  "recordedAt": "2026-10-23T06:32:08.606Z",
+  "authorization": "用户：帮我推送",
+  "branch": "codex/b01-wiki-integration",
+  "codeCommit": "330bff76615147ea9c2729cb144a18873a5251d0",
+  "verifiedRemoteCodeCommit": "330bff76615147ea9c2729cb144a18873a5251d0",
+  "codeCommitPushed": true,
+  "merged": false,
+  "pullRequestCreated": false,
+  "authorIdentity": "Inherited from existing B commit 19d60a8 using git -c for this invocation; no persistent identity setting changed.",
+  "scope": "Code, semantic Wiki, generated inventory, synthetic screenshots and validation evidence. Follow-up delivery documentation is committed separately on the same branch.",
+  "validationRecord": "wiki-project/raw/b01-wiki-integration-validation.json",
+  "prePushChecks": [
+    {
+      "command": "verified source/config SHA-256 against stored validation",
+      "exit_code": 0,
+      "sourceFiles": 27
+    },
+    {
+      "command": "pnpm wiki:check",
+      "exit_code": 0
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+      "exit_code": 0
+    },
+    {
+      "command": "git diff --cached --check",
+      "exit_code": 0
+    }
+  ],
+  "attempts": [
+    {
+      "command": "git commit",
+      "exit_code": 128,
+      "reason": "Author identity unknown; resolved by reusing the established B author for the invocation."
+    },
+    {
+      "command": "git push --set-upstream origin codex/b01-wiki-integration",
+      "exit_code": 0
+    }
+  ],
+  "checks": [
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "exit_code": 0,
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 175,\n  \"lines\": 48288,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exit_code": 0,
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 108,\n  \"semantic\": 92,\n  \"reachable\": 108\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+      "exit_code": 0,
+      "output": "{\n  \"base\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 29,\n  \"knowledgePages\": 13,\n  \"tasks\": 3,\n  \"errors\": []\n}\n"
+    }
+  ],
+  "remaining": [
+    "macOS local verification",
+    "non-author A/C review",
+    "A human Wiki publication and C desktop IPC integration",
+    "existing Windows symlink failures: unit 1, Wiki regression 2"
+  ]
+}

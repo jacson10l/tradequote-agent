@@ -1,0 +1,289 @@
+{
+  "status": "passed",
+  "taskBase": "c39b87f51590d8c40c938de52434340735022343",
+  "scope": "C artifact intake, compatibility diagnosis and Wiki record checks only; B product acceptance not run",
+  "checks": [
+    {
+      "argv": [
+        "git",
+        "ls-remote",
+        "--heads",
+        "origin",
+        "refs/heads/codex/b01-wiki-integration"
+      ],
+      "startedAt": "2026-10-23T15:35:34.764572+08:00",
+      "finishedAt": "2026-10-23T15:35:36.135389+08:00",
+      "durationSeconds": 1.37,
+      "exitCode": 0,
+      "output": "6c76fb991f3135d6a48362c1b242e46af6641817\trefs/heads/codex/b01-wiki-integration\n",
+      "outputSha256": "002ec06e02ec4726abbd167e6e40a1bd272f133d711463bd55938e6fc89f09b6"
+    },
+    {
+      "argv": [
+        "git",
+        "fetch",
+        "--no-tags",
+        "origin",
+        "refs/heads/codex/b01-wiki-integration:refs/remotes/origin/codex/b01-wiki-integration"
+      ],
+      "startedAt": "2026-10-23T15:35:36.136402+08:00",
+      "finishedAt": "2026-10-23T15:35:38.173395+08:00",
+      "durationSeconds": 2.037,
+      "exitCode": 0,
+      "output": "From https://github.com/jacson10l/tradequote-agent\n * [new branch]      codex/b01-wiki-integration -> origin/codex/b01-wiki-integration\n",
+      "outputSha256": "34e6f9ae33fefeea91ef18d126b5cd8a34cf2b8d8c558fcec067dd4a37b9e7c0"
+    },
+    {
+      "command": "ELECTRON_RUN_AS_NODE=1 electron .runtime/c-b01-remote-intake/migration-probe.mjs",
+      "argv": [
+        ".runtime/c-b01-remote-intake/migration-probe.mjs"
+      ],
+      "environmentOverride": {
+        "ELECTRON_RUN_AS_NODE": "1"
+      },
+      "startedAt": "2026-10-23T07:40:18.429Z",
+      "finishedAt": "2026-10-23T07:40:18.830Z",
+      "durationSeconds": 0.4,
+      "exitCode": 0,
+      "output": "{\"status\":\"passed\",\"compatible\":false,\"cases\":[{\"name\":\"C_v7_to_B_v7\",\"error\":{\"code\":null,\"message\":\"UNKNOWN_LEGACY_MIGRATION_SEQUENCE\"},\"schemaUnchanged\":true,\"version\":7},{\"name\":\"B_v7_to_C_v7\",\"error\":null,\"schemaUnchanged\":true,\"version\":7},{\"name\":\"C_v6_to_B_v7\",\"error\":null,\"schemaUnchanged\":false,\"version\":7},{\"name\":\"C_v5_to_B_v7\",\"error\":{\"code\":null,\"message\":\"UNKNOWN_LEGACY_MIGRATION_SEQUENCE\"},\"schemaUnchanged\":true,\"version\":5},{\"name\":\"B_v7_to_B_v7_control\",\"error\":null,\"schemaUnchanged\":true,\"version\":7},{\"name\":\"C_v7_to_C_v7_control\",\"error\":null,\"schemaUnchanged\":true,\"version\":7}]}\n",
+      "outputSha256": "10efb00d095c73114abc7ce6fb60697056dd53de7a6261632487639d58cc4555"
+    },
+    {
+      "command": "python3 .runtime/c-b01-remote-intake/audit.py",
+      "argv": [
+        "python3",
+        ".runtime/c-b01-remote-intake/audit.py"
+      ],
+      "startedAt": "2026-10-23T15:54:16.642054+08:00",
+      "finishedAt": "2026-10-23T15:54:18.719690+08:00",
+      "durationSeconds": 2.077,
+      "exitCode": 0,
+      "output": "{\"status\": \"passed\", \"scope\": \"C intake record consistency and preservation, not B full acceptance\", \"BHead\": \"6c76fb991f3135d6a48362c1b242e46af6641817\", \"BSourceHashesVerified\": 27, \"syntheticMigrationCases\": 6, \"migrationCompatible\": false, \"CSourceHashesPreserved\": 225, \"oldRawFilesByteIdentical\": 181, \"oldLogPrefixBytes\": 100228, \"humanTasksRemainActive\": true, \"requestDraftsRemainDraftUnsent\": true, \"oldHumanTaskAndDraftContentPreservedAsPrefix\": true, \"protectedRefsUnchanged\": {\"codex/c-b01-dependency-update\": \"c39b87f51590d8c40c938de52434340735022343\", \"codex/c-signoff-request-drafts\": \"cfce704ff27b8b1913110418cf8c4b16ea48aa43\", \"codex/c-handoff-independent-review\": \"dc0f034216e51b0da3dc22c910b27938aeef2f46\", \"codex/c-integration-handoff\": \"b256dd1d219cbf9f4a4264e19a980e194180dc14\", \"codex/c-diagnostics-p2-fix\": \"45fa03d57d6fc405c2438c3b187f87838355a88b\", \"codex/m1-foundation\": \"56c909e21aefa484b6805bf9afc7c94b0e1d4576\", \"origin/codex/m1-foundation\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\"}, \"BOnlyFetchedNoMerge\": true, \"newRealModelOrFullBMacOSAcceptance\": \"not_run\"}\n",
+      "outputSha256": "cbfabacee6fa5e959b7860b57eb17ed54f603c4a0a10a8642b11fbd7f99d0ddb"
+    },
+    {
+      "command": "pnpm wiki:generate",
+      "argv": [
+        "pnpm",
+        "wiki:generate"
+      ],
+      "startedAt": "2026-10-23T15:54:18.762404+08:00",
+      "finishedAt": "2026-10-23T15:54:19.172582+08:00",
+      "durationSeconds": 0.41,
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:generate /Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs .\n\n{\n  \"mode\": \"generate\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n",
+      "outputSha256": "eab7fbe263dd998bf9cc3794887cfe4f6c11520b68861ce62307ee0780068dba"
+    },
+    {
+      "command": "pnpm wiki:check",
+      "argv": [
+        "pnpm",
+        "wiki:check"
+      ],
+      "startedAt": "2026-10-23T15:54:19.213034+08:00",
+      "finishedAt": "2026-10-23T15:54:20.079457+08:00",
+      "durationSeconds": 0.866,
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 190,\n  \"semantic\": 162,\n  \"reachable\": 190\n}\n",
+      "outputSha256": "5290658ec359904244746607208a2c346423075f10234f54d4367d5a6c7528ab"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base c39b87f51590d8c40c938de52434340735022343",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "c39b87f51590d8c40c938de52434340735022343"
+      ],
+      "startedAt": "2026-10-23T15:54:20.119601+08:00",
+      "finishedAt": "2026-10-23T15:54:20.202141+08:00",
+      "durationSeconds": 0.082,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"c39b87f51590d8c40c938de52434340735022343\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "outputSha256": "801ffbbd8a87f654ca71621574bde321b770fada4b8a0bbc9e93354cc45270dc"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+      ],
+      "startedAt": "2026-10-23T15:54:20.244198+08:00",
+      "finishedAt": "2026-10-23T15:54:21.064148+08:00",
+      "durationSeconds": 0.82,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 91,\n  \"knowledgePages\": 97,\n  \"tasks\": 33,\n  \"errors\": []\n}\n",
+      "outputSha256": "f6374c7a93c0b8f8ec05f737df06c11e26eb4926533be7f082c72c441c0f5a6c"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce"
+      ],
+      "startedAt": "2026-10-23T15:54:21.102835+08:00",
+      "finishedAt": "2026-10-23T15:54:22.046457+08:00",
+      "durationSeconds": 0.943,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 97,\n  \"knowledgePages\": 112,\n  \"tasks\": 41,\n  \"errors\": []\n}\n",
+      "outputSha256": "3ca1390b294273e057e5ff5f3372d7d853b744dded2b331d5ba59986aef3b408"
+    },
+    {
+      "command": "git diff --check",
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "startedAt": "2026-10-23T15:54:22.085998+08:00",
+      "finishedAt": "2026-10-23T15:54:22.098952+08:00",
+      "durationSeconds": 0.013,
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "pnpm wiki:check",
+      "argv": [
+        "pnpm",
+        "wiki:check"
+      ],
+      "startedAt": "2026-10-23T15:55:45.231332+08:00",
+      "finishedAt": "2026-10-23T15:55:46.185742+08:00",
+      "durationSeconds": 0.954,
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 190,\n  \"semantic\": 162,\n  \"reachable\": 190\n}\n",
+      "outputSha256": "5290658ec359904244746607208a2c346423075f10234f54d4367d5a6c7528ab"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base c39b87f51590d8c40c938de52434340735022343",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "c39b87f51590d8c40c938de52434340735022343"
+      ],
+      "startedAt": "2026-10-23T15:55:46.225788+08:00",
+      "finishedAt": "2026-10-23T15:55:46.313245+08:00",
+      "durationSeconds": 0.087,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"c39b87f51590d8c40c938de52434340735022343\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n",
+      "outputSha256": "801ffbbd8a87f654ca71621574bde321b770fada4b8a0bbc9e93354cc45270dc"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+      ],
+      "startedAt": "2026-10-23T15:55:46.351775+08:00",
+      "finishedAt": "2026-10-23T15:55:47.135540+08:00",
+      "durationSeconds": 0.784,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 91,\n  \"knowledgePages\": 97,\n  \"tasks\": 33,\n  \"errors\": []\n}\n",
+      "outputSha256": "f6374c7a93c0b8f8ec05f737df06c11e26eb4926533be7f082c72c441c0f5a6c"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce"
+      ],
+      "startedAt": "2026-10-23T15:55:47.175100+08:00",
+      "finishedAt": "2026-10-23T15:55:48.165791+08:00",
+      "durationSeconds": 0.991,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 97,\n  \"knowledgePages\": 112,\n  \"tasks\": 41,\n  \"errors\": []\n}\n",
+      "outputSha256": "3ca1390b294273e057e5ff5f3372d7d853b744dded2b331d5ba59986aef3b408"
+    },
+    {
+      "command": "git diff --check",
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "startedAt": "2026-10-23T15:55:48.207840+08:00",
+      "finishedAt": "2026-10-23T15:55:48.223138+08:00",
+      "durationSeconds": 0.015,
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "recordedAt": "2026-10-23T15:55:48.223190+08:00",
+  "branch": "codex/c-b01-remote-intake",
+  "receivedBCode": "330bff76615147ea9c2729cb144a18873a5251d0",
+  "receivedBHead": "6c76fb991f3135d6a48362c1b242e46af6641817",
+  "auditAndPreservation": {
+    "status": "passed",
+    "scope": "C intake record consistency and preservation, not B full acceptance",
+    "BHead": "6c76fb991f3135d6a48362c1b242e46af6641817",
+    "BSourceHashesVerified": 27,
+    "syntheticMigrationCases": 6,
+    "migrationCompatible": false,
+    "CSourceHashesPreserved": 225,
+    "oldRawFilesByteIdentical": 181,
+    "oldLogPrefixBytes": 100228,
+    "humanTasksRemainActive": true,
+    "requestDraftsRemainDraftUnsent": true,
+    "oldHumanTaskAndDraftContentPreservedAsPrefix": true,
+    "protectedRefsUnchanged": {
+      "codex/c-b01-dependency-update": "c39b87f51590d8c40c938de52434340735022343",
+      "codex/c-signoff-request-drafts": "cfce704ff27b8b1913110418cf8c4b16ea48aa43",
+      "codex/c-handoff-independent-review": "dc0f034216e51b0da3dc22c910b27938aeef2f46",
+      "codex/c-integration-handoff": "b256dd1d219cbf9f4a4264e19a980e194180dc14",
+      "codex/c-diagnostics-p2-fix": "45fa03d57d6fc405c2438c3b187f87838355a88b",
+      "codex/m1-foundation": "56c909e21aefa484b6805bf9afc7c94b0e1d4576",
+      "origin/codex/m1-foundation": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+    },
+    "BOnlyFetchedNoMerge": true,
+    "newRealModelOrFullBMacOSAcceptance": "not_run"
+  },
+  "migrationCompatible": false,
+  "migrationResolutionImplemented": false,
+  "successfulProbeMeans": "Six expected incompatibility/control observations matched; not product acceptance",
+  "initialProbeSetupFailure": {
+    "command": "ELECTRON_RUN_AS_NODE=1 electron .runtime/c-b01-remote-intake/migration-probe.mjs",
+    "argv": [
+      ".runtime/c-b01-remote-intake/migration-probe.mjs"
+    ],
+    "environmentOverride": {
+      "ELECTRON_RUN_AS_NODE": "1"
+    },
+    "startedAt": "2026-10-23T07:39:54.349Z",
+    "finishedAt": "2026-10-23T07:39:54.577Z",
+    "durationSeconds": 0.223,
+    "exitCode": 1,
+    "output": "node:internal/modules/package_json_reader:331\n  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);\n        ^\n\nError [ERR_MODULE_NOT_FOUND]: Cannot find package 'better-sqlite3' imported from /Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent/.runtime/c-b01-remote-intake/migration-probe.mjs\n    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)\n    at packageResolve (node:internal/modules/esm/resolve:797:25)\n    at moduleResolve (node:internal/modules/esm/resolve:886:18)\n    at defaultResolve (node:internal/modules/esm/resolve:1019:11)\n    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)\n    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)\n    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)\n    at #resolve (node:internal/modules/esm/loader:687:17)\n    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)\n    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {\n  code: 'ERR_MODULE_NOT_FOUND'\n}\n\nNode.js v24.22.0\n",
+    "outputSha256": "ba28f2d235b556e07f098e7aeca8309e9b59ac3b2f9730a07590e2aeae2efc29"
+  },
+  "initialConnectorErrors": {
+    "330bff7": "404_NOT_FOUND",
+    "6c76fb9": "404_NOT_FOUND"
+  },
+  "fullBMacOSOrIndependentReview": "not_run",
+  "personnelSignoffs": "unchanged_pending",
+  "productionChangesOrMerge": false,
+  "notRun": [
+    "New B macOS full unit/build/Electron/Wiki regression",
+    "Full non-author Standards/Spec review",
+    "Human publication/business acceptance",
+    "Real model test",
+    "Push/shared merge/PR/outbound messages"
+  ]
+}

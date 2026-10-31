@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-27",
+  "taskBase": "739961a6aecf379bbdd785e9fd3bfe115ee6ade1",
+  "inputA": "e7a94392af5816c4e9d7f01885bde40189030432",
+  "aImplementation": "b05a049",
+  "inputB": "e5f6b1a2a4d03a83ea5264c8a4f9f524f62461b2",
+  "oldRawFilesUnchanged": 307,
+  "oldLogPrefixBytesUnchanged": 205566,
+  "oldSqlFingerprints": [
+    "9e95979532306333f9f07037ce7e0841931d6e8c0b3d885208d63f4eb7360cb1",
+    "519f17179c501d08270a48eee562b6593eed6598bd0081692e437fbe7c53b723",
+    "a9fe17a0719962fa3dc4099cc51f35ada314bdbb7a15e6aecde91c58c0cabe42",
+    "b4e559a6acc383d064b04e2f0412c0863d526e94f80c79e25a00de81abb74980",
+    "6d511fff5eaa85e1198898d7c5cec392ed18461b110cecaf92553e4ff8ce0493",
+    "3d3c9da475f6a11d2d381de54a07396dc6dabaf8d780edebc0657f497bb47dfb",
+    "268beab4bd70f403d62877153abf2df0c6f574bde852b77c1cfe7a63808d87fa",
+    "5184461756e3a389588182c1e9e497f34bfc7442bbf4d7ff8a09cdb458f49f66",
+    "927ce55cc67a6ec655cff131a67af33f9fdc7f83372d4247ab65467d91144602"
+  ],
+  "targetCapabilities": 10,
+  "targetUserVersion": 8,
+  "protectedSourceHashes": {
+    "packages/infrastructure/src/check-store.ts": "e633f2600e002679954374be2c3cf47d049e2c3e068266ce945ad3aab34e18c6",
+    "packages/infrastructure/src/wiki-check-source.ts": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+    "packages/infrastructure/src/agent-run-store.ts": "4915b96095467fc84cc41d60f11948a5d69549b83f9dd467158d43a85de4127a",
+    "packages/infrastructure/src/worker-ownership.ts": "7d78c8a5f38a818c90f950f2cc41930159b12ebde870bae1658bf6bf1e8e0423",
+    "apps/desktop/src/main/index.ts": "a78f990dc5ebcc2e77f9d6a5bdfd54d932cdc6a3ae454f5eca1f1c57cd68605c",
+    "apps/desktop/src/workers/business.ts": "807c41e0ecfbf5fd64d6897631c4d97aa582715e44bb8b201858dc59fb1351ac",
+    "apps/desktop/src/preload/index.ts": "d296a0e7d9c50c2b1c5e60c22ecfad5b166233f9cc6801afc7e519736678b30a",
+    "apps/desktop/src/renderer/src/features/quote-checks.tsx": "3210484fce567315acbc15d8f15c0c462810a4b23b596e51bd7c275bb69f71f9"
+  },
+  "composition": "Normalized three-way merge of ec6b729..e7a9439 onto C739; keep B consumer guards and C public exports, shared seedPublished; use public WikiCommand payload schemas instead of duplicate private shapes. B two test files imported exactly. No new Wiki/maintenance UI capability enabled.",
+  "review": "C independent technical intake; not human business acceptance. No pushes or messages to other chats.",
+  "importedMigrationProbe": "A e7a9439 wiki-project/scripts/a01-migration-lineage-probe.mjs imported exactly; old raw not overwritten, C rerun saved separately."
+}

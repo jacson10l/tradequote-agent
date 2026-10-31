@@ -1,0 +1,2786 @@
+{
+  "candidate": "9e067bf0114e0d2b27f7b65ea4ecc07042405499",
+  "targetBase": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+  "cumulativeBase": "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+  "timezone": "Asia/Shanghai (UTC+08:00)",
+  "checks": [
+    {
+      "argv": [
+        "pnpm",
+        "install",
+        "--frozen-lockfile"
+      ],
+      "command": "pnpm install --frozen-lockfile",
+      "startedAt": "2026-10-23T04:54:12.886Z",
+      "finishedAt": "2026-10-23T04:54:24.425Z",
+      "startedAtAsiaShanghai": "2026-10-23T12:54:12.886+08:00",
+      "finishedAtAsiaShanghai": "2026-10-23T12:54:24.425+08:00",
+      "durationSeconds": 11.539,
+      "exitCode": 0,
+      "signal": null,
+      "output": "Scope: all 5 workspace projects\nLockfile is up to date, resolution step is skipped\nProgress: resolved 1, reused 0, downloaded 0, added 0\nPackages: +435\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\nProgress: resolved 435, reused 435, downloaded 0, added 118\nProgress: resolved 435, reused 435, downloaded 0, added 235\nProgress: resolved 435, reused 435, downloaded 0, added 429\nProgress: resolved 435, reused 435, downloaded 0, added 433\nProgress: resolved 435, reused 435, downloaded 0, added 435, done\n\ndevDependencies:\n+ @babel/parser 7.29.9\n+ @biomejs/biome 2.5.15\n+ @playwright/test 1.64.1\n+ @testing-library/dom 10.4.1\n+ @testing-library/jest-dom 7.0.1\n+ @testing-library/react 16.3.3\n+ @testing-library/user-event 14.6.8\n+ @types/better-sqlite3 9.6.0\n+ @types/node 24.19.2\n+ @types/react 19.3.0\n+ @types/react-dom 19.3.0\n+ jsdom 26.1.0\n+ typescript 7.0.2\n+ vite 8.3.4\n+ vitest 5.0.5\n\n╭ Warning ─────────────────────────────────────────────────────────────────────╮\n│                                                                              │\n│   Ignored build scripts: electron-winstaller.                                │\n│   Run \"pnpm approve-builds\" to pick which dependencies should be allowed     │\n│   to run scripts.                                                            │\n│                                                                              │\n╰──────────────────────────────────────────────────────────────────────────────╯\n\n. postinstall$ node scripts/prepare-electron.mjs && pnpm native:rebuild\n. postinstall: Downloading Electron binary...\n. postinstall: Electron executable ready\n. postinstall: > tradequote-agent@0.1.0 native:rebuild /Users/jason/.codex/worktrees/c-integration-review/tradequote-agent\n. postinstall: > pnpm --filter @tradequote/desktop exec electron-builder install-app-deps\n. postinstall:   • electron-builder  version=26.15.3\n. postinstall:   • loaded configuration  file=package.json (\"build\" field)\n. postinstall:   • packageManager not detected by file, falling back to environment detection  resolvedPackageManager=pnpm detected=/Users/jason/.codex/worktrees/c-integration-review/tradequote-agent\n. postinstall:   • detected workspace root for project using packageManager field  pm=pnpm config=pnpm@10.13.1 resolved=/Users/jason/.codex/worktrees/c-integration-review/tradequote-agent projectDir=/Users/jason/.codex/worktrees/c-integration-review/tradequote-agent/apps/desktop\n. postinstall:   • executing @electron/rebuild  electronVersion=44.9.2 arch=arm64 buildFromSource=false workspaceRoot=/Users/jason/.codex/worktrees/c-integration-review/tradequote-agent projectDir=./ appDir=./\n. postinstall:   • installing native dependencies  arch=arm64\n. postinstall:   • preparing       moduleName=better-sqlite3 arch=arm64\n. postinstall:   • finished        moduleName=better-sqlite3 arch=arm64\n. postinstall:   • completed installing native dependencies\n. postinstall: Done\nDone in 11.4s using pnpm v10.13.1\n",
+      "outputSha256": "8be12613d3e57c21e92b64384dce0331185f8207d757aecb869df616cab789b4"
+    },
+    {
+      "argv": [
+        "node",
+        "-e",
+        "console.log(JSON.stringify({node:process.version,arch:process.arch,platform:process.platform,os:require(\"child_process\").execFileSync(\"sw_vers\",[\"-productVersion\"],{encoding:\"utf8\"}).trim(),pnpm:require(\"child_process\").execFileSync(\"pnpm\",[\"--version\"],{encoding:\"utf8\"}).trim(),electron:require(\"./apps/desktop/node_modules/electron/package.json\").version,head:require(\"child_process\").execFileSync(\"git\",[\"rev-parse\",\"HEAD\"],{encoding:\"utf8\"}).trim(),status:require(\"child_process\").execFileSync(\"git\",[\"status\",\"--short\"],{encoding:\"utf8\"})}))"
+      ],
+      "command": "node -e console.log(JSON.stringify({node:process.version,arch:process.arch,platform:process.platform,os:require(\"child_process\").execFileSync(\"sw_vers\",[\"-productVersion\"],{encoding:\"utf8\"}).trim(),pnpm:require(\"child_process\").execFileSync(\"pnpm\",[\"--version\"],{encoding:\"utf8\"}).trim(),electron:require(\"./apps/desktop/node_modules/electron/package.json\").version,head:require(\"child_process\").execFileSync(\"git\",[\"rev-parse\",\"HEAD\"],{encoding:\"utf8\"}).trim(),status:require(\"child_process\").execFileSync(\"git\",[\"status\",\"--short\"],{encoding:\"utf8\"})}))",
+      "startedAt": "2026-10-23T04:54:31.671Z",
+      "finishedAt": "2026-10-23T04:54:31.930Z",
+      "startedAtAsiaShanghai": "2026-10-23T12:54:31.671+08:00",
+      "finishedAtAsiaShanghai": "2026-10-23T12:54:31.930+08:00",
+      "durationSeconds": 0.259,
+      "exitCode": 0,
+      "signal": null,
+      "output": "{\"node\":\"v22.22.0\",\"arch\":\"arm64\",\"platform\":\"darwin\",\"os\":\"26.4\",\"pnpm\":\"10.13.1\",\"electron\":\"44.9.2\",\"head\":\"9e067bf0114e0d2b27f7b65ea4ecc07042405499\",\"status\":\"\"}\n",
+      "outputSha256": "78eb79edf7748851886741fd4b2ef36ccd3ec1f5f29cb766ec0016cd49ba213c"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "typecheck"
+      ],
+      "command": "pnpm typecheck",
+      "startedAt": "2026-10-23T04:54:31.968Z",
+      "finishedAt": "2026-10-23T04:54:35.221Z",
+      "startedAtAsiaShanghai": "2026-10-23T12:54:31.968+08:00",
+      "finishedAtAsiaShanghai": "2026-10-23T12:54:35.221+08:00",
+      "durationSeconds": 3.253,
+      "exitCode": 0,
+      "signal": null,
+      "output": "\n> tradequote-agent@0.1.0 typecheck /Users/jason/.codex/worktrees/c-integration-review/tradequote-agent\n> tsc --noEmit\n\n",
+      "outputSha256": "e37ac364e013eadfadf7f83c6eec2687e2c662adba871f3ac99892bda104ec58"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "test"
+      ],
+      "command": "pnpm test",
+      "startedAt": "2026-10-23T04:54:35.290Z",
+      "finishedAt": "2026-10-23T04:55:02.878Z",
+      "startedAtAsiaShanghai": "2026-10-23T12:54:35.290+08:00",
+      "finishedAtAsiaShanghai": "2026-10-23T12:55:02.878+08:00",
+      "durationSeconds": 27.588,
+      "exitCode": 0,
+      "signal": null,
+      "output": "\n> tradequote-agent@0.1.0 test /Users/jason/.codex/worktrees/c-integration-review/tradequote-agent\n> node scripts/test-unit.mjs\n\n\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-integration-review/tradequote-agent\n\n\n Test Files  40 passed (40)\n      Tests  294 passed (294)\n   Start at  12:54:41\n   Duration  21.20s (tests 56%, import 33%, transform 6%, environment 4%)\n\n    Isolate  40 workers spawned · ~670ms startup each (spawn + environment, per file)\n             at least ~2.31s faster with isolate: false — reuses workers across files instead of one per file\n\n",
+      "outputSha256": "27fd0d9c728a22d02ff24e7ff88f82e5751a1a85a2575e0a22318bc4e4be5c8d",
+      "classification": "noncanonical_initial_run_overlapped_e2e",
+      "recordingNote": "Recovered byte-exact from tool result after first version of recorder raced with concurrent e2e recorder; recovered SHA equals original tool output."
+    },
+    {
+      "argv": [
+        "pnpm",
+        "test:e2e"
+      ],
+      "command": "pnpm test:e2e",
+      "startedAt": "2026-10-23T04:54:48.545Z",
+      "finishedAt": "2026-10-23T04:56:03.614Z",
+      "startedAtAsiaShanghai": "2026-10-23T12:54:48.545+08:00",
+      "finishedAtAsiaShanghai": "2026-10-23T12:56:03.614+08:00",
+      "durationSeconds": 75.069,
+      "exitCode": 0,
+      "signal": null,
+      "output": "\n> tradequote-agent@0.1.0 test:e2e /Users/jason/.codex/worktrees/c-integration-review/tradequote-agent\n> pnpm build && playwright test\n\n\n> tradequote-agent@0.1.0 build /Users/jason/.codex/worktrees/c-integration-review/tradequote-agent\n> node scripts/check-icons.mjs && pnpm --filter @tradequote/desktop build\n\nApplication icons passed: SVG/1024 PNG/macOS ICNS/Windows ICO\n\n> @tradequote/desktop@0.1.0 build /Users/jason/.codex/worktrees/c-integration-review/tradequote-agent/apps/desktop\n> electron-vite build\n\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 270 modules transformed.\nrendering chunks...\nout/main/evaluation.js                2.41 kB\nout/main/worker.js                    2.80 kB\nout/main/index.js                    26.17 kB\nout/main/chunks/public-BgrN3gNx.js   29.90 kB\nout/main/chunks/src-QFXo1MOf.js     634.30 kB\n\n✓ built in 612ms\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 114 modules transformed.\nrendering chunks...\nout/preload/index.js  249.39 kB\n\n✓ built in 235ms\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 2117 modules transformed.\nrendering chunks...\nout/renderer/index.html                   0.64 kB\nout/renderer/assets/index-CI5t_4ai.css   14.89 kB\nout/renderer/assets/index-BaAuQ3b7.js   563.47 kB\n\n✓ built in 1.58s\n\nRunning 9 tests using 1 worker\n\n  ✓  1 tests/e2e/agent-recovery.spec.ts:9:1 › R20 real worker SIGKILL, restart discovery, explicit retry, cancellation and immutable saved receipts (11.1s)\n  ✓  2 tests/e2e/feedback.spec.ts:8:1 › desktop feedback floats above content and recovers through the notification action (4.0s)\n  ✓  3 tests/e2e/model-evaluation.spec.ts:9:1 › formal model settings explicitly start isolated evaluations, cancel, preserve redacted fixture reports and never replay on reopen (9.7s)\n  ✓  4 tests/e2e/multistep-agent.spec.ts:13:1 › formal multistep loop saves validated V1/V2/V3, shows blocking sources, survives worker kill and explicitly retries (6.5s)\n  ✓  5 tests/e2e/quote-agent.spec.ts:9:1 › desktop settings and HTTP adapter support inquiry plus two saved revisions, differences, failures and reopen (4.4s)\n  ✓  6 tests/e2e/quote-v1.spec.ts:11:1 › real desktop imports CSV with confirmation, saves deterministic V1 and reopens frozen evidence (4.4s)\n  ✓  7 tests/e2e/read-assistant.spec.ts:9:1 › formal desktop read assistant executes four real tools, shows facts, guards missing tools and never saves (5.0s)\n  ✓  8 tests/e2e/workspace.spec.ts:9:1 › development renderer runs with React refresh and the real desktop bridge (2.4s)\n  ✓  9 tests/e2e/workspace.spec.ts:34:1 › real desktop persists workspace, validates IPC, handles conflict and reopens (6.3s)\n\n  9 passed (1.0m)\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n[WebServer] (node:3403) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (node:3404) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:\n[WebServer]   - ESM syntax in a file loaded as CommonJS (vite.renderer.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\n[WebServer]   - ESM syntax in a file loaded as CommonJS (electron.vite.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\n[WebServer] Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.\n(node:3416) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+      "outputSha256": "7e80f3ce09a09dd5bd98157f1d7f54e2eda86ad6575b707e80dfc9292c6493ef",
+      "classification": "noncanonical_initial_run_overlapped_unit"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "test"
+      ],
+      "command": "pnpm test",
+      "startedAt": "2026-10-23T04:56:14.997Z",
+      "finishedAt": "2026-10-23T04:56:41.673Z",
+      "startedAtAsiaShanghai": "2026-10-23T12:56:14.997+08:00",
+      "finishedAtAsiaShanghai": "2026-10-23T12:56:41.673+08:00",
+      "durationSeconds": 26.676,
+      "exitCode": 1,
+      "signal": null,
+      "output": "\n> tradequote-agent@0.1.0 test /Users/jason/.codex/worktrees/c-integration-review/tradequote-agent\n> node scripts/test-unit.mjs\n\n\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-integration-review/tradequote-agent\n\n ❯ packages/infrastructure/src/evaluation/diagnostics.test.ts (1 test | 1 failed) 11094ms\n   × exports bounded enum-only failure evidence while accepting unchanged legacy rows 11092ms\n\n Test Files  1 failed | 39 passed (40)\n      Tests  1 failed | 293 passed (294)\n   Start at  12:56:15\n   Duration  26.01s (tests 58%, import 35%, transform 4%, environment 3%)\n\n    Isolate  40 workers spawned · ~583ms startup each (spawn + environment, per file)\n             at least ~2.01s faster with isolate: false — reuses workers across files instead of one per file\n\n ELIFECYCLE  Test failed. See above for more details.\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/evaluation/diagnostics.test.ts > exports bounded enum-only failure evidence while accepting unchanged legacy rows\nError: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".\n ❯ packages/infrastructure/src/evaluation/diagnostics.test.ts:5:1\n      3| import { evaluateC04 } from \"./runner\";\n      4|\n      5| it(\"exports bounded enum-only failure evidence while accepting unchang…\n       | ^\n      6|   const network = vi\n      7|     .spyOn(globalThis, \"fetch\")\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n",
+      "outputSha256": "63955bd2c11f3b0af7f1fc3596eac9d799808cdf4631f1e9d684e768c6bf1fd3",
+      "classification": "full_suite_failure_preserved"
+    },
+    {
+      "argv": [
+        "node",
+        ".runtime/c-independent-review/audit.mjs"
+      ],
+      "command": "node .runtime/c-independent-review/audit.mjs",
+      "startedAt": "2026-10-23T04:56:16.553Z",
+      "finishedAt": "2026-10-23T04:56:40.646Z",
+      "startedAtAsiaShanghai": "2026-10-23T12:56:16.553+08:00",
+      "finishedAtAsiaShanghai": "2026-10-23T12:56:40.646+08:00",
+      "durationSeconds": 24.093,
+      "exitCode": 0,
+      "signal": null,
+      "output": "{\n  \"recordedAt\": \"2026-10-23T04:56:40.627Z\",\n  \"snapshots\": {\n    \"source\": {\n      \"count\": 225,\n      \"mismatches\": [],\n      \"scopeMissing\": [],\n      \"scopeExtra\": []\n    },\n    \"bundle\": {\n      \"count\": 9,\n      \"mismatches\": []\n    },\n    \"protected\": {\n      \"count\": 93,\n      \"mismatches\": []\n    }\n  },\n  \"provenance\": {\n    \"source\": {\n      \"count\": 25,\n      \"exactMatch\": true\n    },\n    \"target\": {\n      \"count\": 8,\n      \"exactMatch\": true\n    },\n    \"candidateParents\": [\n      \"9e8695b88f3e5d306f6aeeb362d21524818a3d12\",\n      \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\"\n    ],\n    \"mergeBase\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\"\n  },\n  \"scope\": {\n    \"fullChangedFiles\": 262,\n    \"nonWikiCount\": 92,\n    \"wikiCount\": 170,\n    \"sourceClaimExact\": true,\n    \"wikiMissing\": [],\n    \"wikiExtra\": [],\n    \"taskBaseDeltaExact\": true\n  },\n  \"preservation\": [\n    {\n      \"ref\": \"9e8695b88f3e5d306f6aeeb362d21524818a3d12\",\n      \"oldRawCount\": 131,\n      \"rawMismatches\": [],\n      \"logBytes\": 76286,\n      \"logExactPrefix\": false,\n      \"uniqueHistoryBytePreserved\": true,\n      \"nonemptyLinesInOrder\": true,\n      \"coverageMissing\": []\n    },\n    {\n      \"ref\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n      \"oldRawCount\": 77,\n      \"rawMismatches\": [],\n      \"logBytes\": 48238,\n      \"logExactPrefix\": true,\n      \"uniqueHistoryBytePreserved\": true,\n      \"nonemptyLinesInOrder\": true,\n      \"coverageMissing\": []\n    }\n  ],\n  \"checkOutputs\": [\n    {\n      \"command\": \"pnpm typecheck\",\n      \"exitCode\": 0,\n      \"outputHashValid\": true\n    },\n    {\n      \"command\": \"pnpm test\",\n      \"exitCode\": 0,\n      \"outputHashValid\": true\n    },\n    {\n      \"command\": \"node .runtime/c-integration/migration-probe.mjs\",\n      \"exitCode\": 0,\n      \"outputHashValid\": true\n    },\n    {\n      \"command\": \"pnpm test:e2e\",\n      \"exitCode\": 0,\n      \"outputHashValid\": true\n    },\n    {\n      \"command\": \"gh pr view 8 --repo jacson10l/tradequote-agent --json number,state,baseRefName,headRefName,headRefOid,reviewDecision,mergedAt,url,reviews,reviewRequests\",\n      \"exitCode\": 0,\n      \"outputHashValid\": true\n    },\n    {\n      \"command\": \"gh pr view 7 --repo jacson10l/tradequote-agent --json number,state,baseRefName,headRefName,headRefOid,reviewDecision,mergedAt,url\",\n      \"exitCode\": 0,\n      \"outputHashValid\": true\n    },\n    {\n      \"command\": \"gh pr list --repo jacson10l/tradequote-agent --state all --head codex/a01c-knowledge-search --json number,state,baseRefName,headRefName,url\",\n      \"exitCode\": 0,\n      \"outputHashValid\": true\n    },\n    {\n      \"command\": \"pnpm eval:model --mode fixture --output .runtime/c-integration-fixture-report\",\n      \"exitCode\": 0,\n      \"outputHashValid\": true\n    },\n    {\n      \"command\": \"node experiments/product-walkthrough/check.mjs\",\n      \"exitCode\": 0,\n      \"outputHashValid\": true\n    },\n    {\n      \"command\": \"gh pr view 9 --repo jacson10l/tradequote-agent --json number,state,baseRefName,headRefName,headRefOid,reviewDecision,mergedAt,url,reviews,reviewRequests\",\n      \"exitCode\": 0,\n      \"outputHashValid\": true\n    },\n    {\n      \"command\": \"python3 .runtime/c-integration/preservation.py\",\n      \"exitCode\": 0,\n      \"outputHashValid\": true\n    },\n    {\n      \"command\": \"pnpm wiki:generate\",\n      \"exitCode\": 0,\n      \"outputHashValid\": true\n    },\n    {\n      \"command\": \"pnpm wiki:check\",\n      \"exitCode\": 0,\n      \"outputHashValid\": true\n    },\n    {\n      \"command\": \"pnpm check\",\n      \"exitCode\": 0,\n      \"outputHashValid\": true\n    },\n    {\n      \"command\": \"pnpm wiki:test\",\n      \"exitCode\": 0,\n      \"outputHashValid\": true\n    },\n    {\n      \"command\": \"node wiki-project/scripts/check-wiki-sync.mjs . --base 654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n      \"exitCode\": 0,\n      \"outputHashValid\": true\n    },\n    {\n      \"command\": \"node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n      \"exitCode\": 0,\n      \"outputHashValid\": true\n    },\n    {\n      \"command\": \"git diff --check\",\n      \"exitCode\": 0,\n      \"outputHashValid\": true\n    },\n    {\n      \"command\": \"git diff --cached --check\",\n      \"exitCode\": 0,\n      \"outputHashValid\": true\n    }\n  ],\n  \"prSnapshots\": {\n    \"7\": {\n      \"equal\": true,\n      \"value\": {\n        \"baseRefName\": \"codex/m1-foundation\",\n        \"headRefName\": \"codex/b00a-knowledge-wiki-contracts\",\n        \"headRefOid\": \"ae1af9d3ab2d560847be6df6bdc6346bb6f27f58\",\n        \"mergedAt\": \"2026-10-21T18:32:33Z\",\n        \"number\": 7,\n        \"reviewDecision\": \"APPROVED\",\n        \"state\": \"MERGED\",\n        \"url\": \"https://github.com/jacson10l/tradequote-agent/pull/7\"\n      }\n    },\n    \"8\": {\n      \"equal\": true,\n      \"value\": {\n        \"baseRefName\": \"codex/m1-foundation\",\n        \"headRefName\": \"codex/b00a-p1-knowledge-build-maintenance\",\n        \"headRefOid\": \"19d60a8436fc72faf2780cbe1e5f77aeb043b863\",\n        \"mergedAt\": null,\n        \"number\": 8,\n        \"reviewDecision\": \"\",\n        \"reviewRequests\": [\n          {\n            \"__typename\": \"User\",\n            \"login\": \"ssyyy31\"\n          }\n        ],\n        \"reviews\": [],\n        \"state\": \"OPEN\",\n        \"url\": \"https://github.com/jacson10l/tradequote-agent/pull/8\"\n      }\n    },\n    \"9\": {\n      \"equal\": true,\n      \"value\": {\n        \"baseRefName\": \"codex/a01b-knowledge-store\",\n        \"headRefName\": \"codex/a01c-knowledge-search\",\n        \"headRefOid\": \"dd42b055efd409fa3c332c6cb1997c7a7638ca62\",\n        \"mergedAt\": null,\n        \"number\": 9,\n        \"reviewDecision\": \"\",\n        \"reviewRequests\": [],\n        \"reviews\": [],\n        \"state\": \"OPEN\",\n        \"url\": \"https://github.com/jacson10l/tradequote-agent/pull/9\"\n      }\n    }\n  },\n  \"realReports\": [\n    {\n      \"file\": \"wiki-project/raw/c04-action-fixture-report.json\",\n      \"sha256\": \"cf8108b905edc8c6e5211acc98c004e4604f145558ccdf9a7cfcc5455788b853\",\n      \"mode\": \"fixture\",\n      \"status\": \"passed\",\n      \"providerValidation\": \"fixture_only\",\n      \"syntheticData\": true,\n      \"realRequests\": 0,\n      \"modelCalls\": 189,\n      \"caseSetHash\": \"75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496\",\n      \"rows\": 48,\n      \"semantic\": 27,\n      \"semanticPassed\": 27,\n      \"fixtureOnly\": 0\n    },\n    {\n      \"file\": \"wiki-project/raw/c04-action-retest-deepseek-report.json\",\n      \"sha256\": \"db73d5e3ba48a55723e3fbe907f0c4cea7695983828ba9132837004a8f10639e\",\n      \"mode\": \"deepseek\",\n      \"status\": \"passed\",\n      \"providerValidation\": \"observed\",\n      \"syntheticData\": true,\n      \"realRequests\": 168,\n      \"modelCalls\": 168,\n      \"caseSetHash\": \"75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496\",\n      \"rows\": 48,\n      \"semantic\": 27,\n      \"semanticPassed\": 27,\n      \"fixtureOnly\": 0\n    },\n    {\n      \"file\": \"wiki-project/raw/c04-convergence-fixture-report.json\",\n      \"sha256\": \"b3da266f447391ef2cb02141dbe4bec0e42d98b841c4f2dc0f9736a54f3cf87d\",\n      \"mode\": \"fixture\",\n      \"status\": \"passed\",\n      \"providerValidation\": \"fixture_only\",\n      \"syntheticData\": true,\n      \"realRequests\": 0,\n      \"modelCalls\": 186,\n      \"caseSetHash\": \"75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496\",\n      \"rows\": 48,\n      \"semantic\": 27,\n      \"semanticPassed\": 27,\n      \"fixtureOnly\": 0\n    },\n    {\n      \"file\": \"wiki-project/raw/c04-deepseek-report.json\",\n      \"sha256\": \"2c062d6248bf2d115c4984bb859917caa25109ea95fb1aa29c0789a20b3b990f\",\n      \"mode\": \"deepseek\",\n      \"status\": \"not_run\",\n      \"providerValidation\": \"not_run\",\n      \"syntheticData\": true,\n      \"realRequests\": 0,\n      \"modelCalls\": 0,\n      \"caseSetHash\": \"75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496\",\n      \"rows\": 48,\n      \"semantic\": 27,\n      \"semanticPassed\": 0,\n      \"fixtureOnly\": 0\n    },\n    {\n      \"file\": \"wiki-project/raw/c04-diagnostic-retest-deepseek-report.json\",\n      \"sha256\": \"da63a4c0da81bed026e3c3a55e0fec1e89e7e4e231c01aeb9a31b4dc260271c4\",\n      \"mode\": \"deepseek\",\n      \"status\": \"failed\",\n      \"providerValidation\": \"observed\",\n      \"syntheticData\": true,\n      \"realRequests\": 145,\n      \"modelCalls\": 145,\n      \"caseSetHash\": \"75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496\",\n      \"rows\": 48,\n      \"semantic\": 27,\n      \"semanticPassed\": 19,\n      \"fixtureOnly\": 0\n    },\n    {\n      \"file\": \"wiki-project/raw/c04-diagnostics-fixture-report.json\",\n      \"sha256\": \"71374521c54272fb19a8cc479ec3227c60e90d46d51ae1a4e918b7b2174dc201\",\n      \"mode\": \"fixture\",\n      \"status\": \"passed\",\n      \"providerValidation\": \"fixture_only\",\n      \"syntheticData\": true,\n      \"realRequests\": 0,\n      \"modelCalls\": 186,\n      \"caseSetHash\": \"75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496\",\n      \"rows\": 48,\n      \"semantic\": 27,\n      \"semanticPassed\": 27,\n      \"fixtureOnly\": 0\n    },\n    {\n      \"file\": \"wiki-project/raw/c04-fixture-report.json\",\n      \"sha256\": \"654b1d273dd9bad8f7fab247a5bf5b6759534f60207e4532dc25e083af4729dc\",\n      \"mode\": \"fixture\",\n      \"status\": \"passed\",\n      \"providerValidation\": \"fixture_only\",\n      \"syntheticData\": true,\n      \"realRequests\": 0,\n      \"modelCalls\": 186,\n      \"caseSetHash\": \"75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496\",\n      \"rows\": 48,\n      \"semantic\": 27,\n      \"semanticPassed\": 27,\n      \"fixtureOnly\": 0\n    },\n    {\n      \"file\": \"wiki-project/raw/c04-remaining-fixture-report.json\",\n      \"sha256\": \"01f7e4e70ed006df7b123a3054d885b11dfc1028552d1fb1b012921d778312bb\",\n      \"mode\": \"fixture\",\n      \"status\": \"passed\",\n      \"providerValidation\": \"fixture_only\",\n      \"syntheticData\": true,\n      \"realRequests\": 0,\n      \"modelCalls\": 186,\n      \"caseSetHash\": \"75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496\",\n      \"rows\": 48,\n      \"semantic\": 27,\n      \"semanticPassed\": 27,\n      \"fixtureOnly\": 0\n    },\n    {\n      \"file\": \"wiki-project/raw/c04-retest-deepseek-report.json\",\n      \"sha256\": \"56af5ce7e69bc1629d6db735d73cd7b43519a8b8a6b1c0d057817abc24ae20bf\",\n      \"mode\": \"deepseek\",\n      \"status\": \"failed\",\n      \"providerValidation\": \"observed\",\n      \"syntheticData\": true,\n      \"realRequests\": 82,\n      \"modelCalls\": 82,\n      \"caseSetHash\": \"75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496\",\n      \"rows\": 48,\n      \"semantic\": 27,\n      \"semanticPassed\": 8,\n      \"fixtureOnly\": 0\n    },\n    {\n      \"file\": \"wiki-project/raw/c04-three-retest-deepseek-report.json\",\n      \"sha256\": \"64af39c296857cc0c7b6d50aa30a162f248bb75f48afcdbafc2c638401053f1e\",\n      \"mode\": \"deepseek\",\n      \"status\": \"failed\",\n      \"providerValidation\": \"observed\",\n      \"syntheticData\": true,\n      \"realRequests\": 136,\n      \"modelCalls\": 136,\n      \"caseSetHash\": \"75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496\",\n      \"rows\": 48,\n      \"semantic\": 27,\n      \"semanticPassed\": 22,\n      \"fixtureOnly\": 0\n    },\n    {\n      \"file\": \"wiki-project/raw/c04-user-deepseek-report.json\",\n      \"sha256\": \"64bcb2aab3c257003ac1c43df05ffe0d6724334156e10a0bd4cd524c46518e2b\",\n      \"mode\": \"deepseek\",\n      \"status\": \"failed\",\n      \"providerValidation\": \"observed\",\n      \"syntheticData\": true,\n      \"realRequests\": 104,\n      \"modelCalls\": 104,\n      \"caseSetHash\": \"75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496\",\n      \"rows\": 48,\n      \"semantic\": 27,\n      \"semanticPassed\": 14,\n      \"fixtureOnly\": 0\n    }\n  ],\n  \"fixture\": {\n    \"mode\": \"fixture\",\n    \"status\": \"passed\",\n    \"syntheticData\": true,\n    \"realRequests\": 0,\n    \"modelCalls\": 189,\n    \"rows\": 48,\n    \"allRowsPassed\": true\n  },\n  \"errors\": []\n}\n",
+      "outputSha256": "45e51a0e2391b5051b6b08da19ad2d30a0afba84ebd4772adeecb3c7396f7f1f"
+    },
+    {
+      "argv": [
+        "node",
+        ".runtime/c-independent-review/prepare-probe.mjs"
+      ],
+      "command": "node .runtime/c-independent-review/prepare-probe.mjs",
+      "startedAt": "2026-10-23T04:56:31.844Z",
+      "finishedAt": "2026-10-23T04:56:32.593Z",
+      "startedAtAsiaShanghai": "2026-10-23T12:56:31.844+08:00",
+      "finishedAtAsiaShanghai": "2026-10-23T12:56:32.593+08:00",
+      "durationSeconds": 0.749,
+      "exitCode": 0,
+      "signal": null,
+      "output": "{\n  \"sourceRef\": \"dd42b055efd409fa3c332c6cb1997c7a7638ca62\",\n  \"sourcePath\": \"packages/infrastructure/src/migrations.ts\",\n  \"sourceSha256\": \"13c4a45e7b77247500964f6b4ac2ac19e178c4cc16275e46d2af2ac28f6eed9c\",\n  \"claimedSourceSha256\": \"13c4a45e7b77247500964f6b4ac2ac19e178c4cc16275e46d2af2ac28f6eed9c\",\n  \"originalScriptSha256\": \"92f641246daf29cf8ed2f6c18381925d33d976e069396ef95649457df718ed3f\",\n  \"claimedOriginalScriptSha256\": \"92f641246daf29cf8ed2f6c18381925d33d976e069396ef95649457df718ed3f\",\n  \"adjustedScriptSha256\": \"0411e06419210f6639972fd8bf082ef2796b691eb93e0b21285e6c6574d5ee28\",\n  \"onlyAdjustment\": {\n    \"from\": \"wiki-project/raw/c-integration-migration-probe.json\",\n    \"to\": \".runtime/c-independent-review/migration-probe.json\",\n    \"reason\": \"Preserve tracked committed artifact; all databases remain :memory:\"\n  }\n}\n",
+      "outputSha256": "fbbf5a1b74dc3426f0a2bf792fbc95e528c63c8b9047e5c2107c685585fa037e"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "test"
+      ],
+      "command": "pnpm test",
+      "startedAt": "2026-10-23T04:57:02.064Z",
+      "finishedAt": "2026-10-23T04:57:23.546Z",
+      "startedAtAsiaShanghai": "2026-10-23T12:57:02.064+08:00",
+      "finishedAtAsiaShanghai": "2026-10-23T12:57:23.546+08:00",
+      "durationSeconds": 21.482,
+      "exitCode": 1,
+      "signal": null,
+      "output": "\n> tradequote-agent@0.1.0 test /Users/jason/.codex/worktrees/c-integration-review/tradequote-agent\n> node scripts/test-unit.mjs\n\n\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-integration-review/tradequote-agent\n\n ❯ packages/infrastructure/src/evaluation/diagnostics.test.ts (1 test | 1 failed) 7468ms\n   × exports bounded enum-only failure evidence while accepting unchanged legacy rows 7466ms\n\n Test Files  1 failed | 39 passed (40)\n      Tests  1 failed | 293 passed (294)\n   Start at  12:57:02\n   Duration  20.53s (tests 60%, import 33%, environment 4%, transform 2%)\n\n    Isolate  40 workers spawned · ~597ms startup each (spawn + environment, per file)\n             at least ~2.06s faster with isolate: false — reuses workers across files instead of one per file\n\n ELIFECYCLE  Test failed. See above for more details.\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/evaluation/diagnostics.test.ts > exports bounded enum-only failure evidence while accepting unchanged legacy rows\nError: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".\n ❯ packages/infrastructure/src/evaluation/diagnostics.test.ts:5:1\n      3| import { evaluateC04 } from \"./runner\";\n      4|\n      5| it(\"exports bounded enum-only failure evidence while accepting unchang…\n       | ^\n      6|   const network = vi\n      7|     .spyOn(globalThis, \"fetch\")\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n",
+      "outputSha256": "d542193deae2f39bef21ef7e03bf11478b201facfbc3d621e9cf0d3f715d9e7f",
+      "classification": "full_suite_failure_preserved"
+    },
+    {
+      "argv": [
+        "node",
+        ".runtime/c-independent-review/target-test.mjs"
+      ],
+      "command": "node .runtime/c-independent-review/target-test.mjs",
+      "startedAt": "2026-10-23T04:57:42.320Z",
+      "finishedAt": "2026-10-23T04:57:45.971Z",
+      "startedAtAsiaShanghai": "2026-10-23T12:57:42.320+08:00",
+      "finishedAtAsiaShanghai": "2026-10-23T12:57:45.971+08:00",
+      "durationSeconds": 3.651,
+      "exitCode": 0,
+      "signal": null,
+      "output": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-integration-review/tradequote-agent\n\n\n Test Files  1 passed (1)\n      Tests  1 passed (1)\n   Start at  12:57:42\n   Duration  3.07s (tests 87%, import 10%, transform 2%)\n\n",
+      "outputSha256": "8b42f10b19a288a59bed23613b8f7f56e9999415c8168559866e2bf33247eb04",
+      "classification": "focused_diagnostic_only"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "test:e2e"
+      ],
+      "command": "pnpm test:e2e",
+      "startedAt": "2026-10-23T04:57:46.040Z",
+      "finishedAt": "2026-10-23T04:58:57.445Z",
+      "startedAtAsiaShanghai": "2026-10-23T12:57:46.040+08:00",
+      "finishedAtAsiaShanghai": "2026-10-23T12:58:57.445+08:00",
+      "durationSeconds": 71.405,
+      "exitCode": 0,
+      "signal": null,
+      "output": "\n> tradequote-agent@0.1.0 test:e2e /Users/jason/.codex/worktrees/c-integration-review/tradequote-agent\n> pnpm build && playwright test\n\n\n> tradequote-agent@0.1.0 build /Users/jason/.codex/worktrees/c-integration-review/tradequote-agent\n> node scripts/check-icons.mjs && pnpm --filter @tradequote/desktop build\n\nApplication icons passed: SVG/1024 PNG/macOS ICNS/Windows ICO\n\n> @tradequote/desktop@0.1.0 build /Users/jason/.codex/worktrees/c-integration-review/tradequote-agent/apps/desktop\n> electron-vite build\n\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 270 modules transformed.\nrendering chunks...\nout/main/evaluation.js                2.41 kB\nout/main/worker.js                    2.80 kB\nout/main/index.js                    26.17 kB\nout/main/chunks/public-BgrN3gNx.js   29.90 kB\nout/main/chunks/src-QFXo1MOf.js     634.30 kB\n\n✓ built in 278ms\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 114 modules transformed.\nrendering chunks...\nout/preload/index.js  249.39 kB\n\n✓ built in 57ms\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 2117 modules transformed.\nrendering chunks...\nout/renderer/index.html                   0.64 kB\nout/renderer/assets/index-CI5t_4ai.css   14.89 kB\nout/renderer/assets/index-BaAuQ3b7.js   563.47 kB\n\n✓ built in 580ms\n\nRunning 9 tests using 1 worker\n\n  ✓  1 tests/e2e/agent-recovery.spec.ts:9:1 › R20 real worker SIGKILL, restart discovery, explicit retry, cancellation and immutable saved receipts (5.4s)\n  ✓  2 tests/e2e/feedback.spec.ts:8:1 › desktop feedback floats above content and recovers through the notification action (4.3s)\n  ✓  3 tests/e2e/model-evaluation.spec.ts:9:1 › formal model settings explicitly start isolated evaluations, cancel, preserve redacted fixture reports and never replay on reopen (19.1s)\n  ✓  4 tests/e2e/multistep-agent.spec.ts:13:1 › formal multistep loop saves validated V1/V2/V3, shows blocking sources, survives worker kill and explicitly retries (8.5s)\n  ✓  5 tests/e2e/quote-agent.spec.ts:9:1 › desktop settings and HTTP adapter support inquiry plus two saved revisions, differences, failures and reopen (9.8s)\n  ✓  6 tests/e2e/quote-v1.spec.ts:11:1 › real desktop imports CSV with confirmation, saves deterministic V1 and reopens frozen evidence (4.6s)\n  ✓  7 tests/e2e/read-assistant.spec.ts:9:1 › formal desktop read assistant executes four real tools, shows facts, guards missing tools and never saves (5.6s)\n  ✓  8 tests/e2e/workspace.spec.ts:9:1 › development renderer runs with React refresh and the real desktop bridge (2.1s)\n  ✓  9 tests/e2e/workspace.spec.ts:34:1 › real desktop persists workspace, validates IPC, handles conflict and reopens (4.9s)\n\n  9 passed (1.1m)\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n[WebServer] (node:7647) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (node:7648) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:\n[WebServer]   - ESM syntax in a file loaded as CommonJS (vite.renderer.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\n[WebServer]   - ESM syntax in a file loaded as CommonJS (electron.vite.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\n[WebServer] Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.\n(node:7669) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+      "outputSha256": "8a18264b069e8a987644b380be78aff3e5b09d3140407ee3bb9074371b4d5be7"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "eval:model",
+        "--mode",
+        "fixture",
+        "--output",
+        ".runtime/c-independent-review/fixture"
+      ],
+      "command": "pnpm eval:model --mode fixture --output .runtime/c-independent-review/fixture",
+      "startedAt": "2026-10-23T04:58:57.573Z",
+      "finishedAt": "2026-10-23T04:58:59.717Z",
+      "startedAtAsiaShanghai": "2026-10-23T12:58:57.573+08:00",
+      "finishedAtAsiaShanghai": "2026-10-23T12:58:59.717+08:00",
+      "durationSeconds": 2.144,
+      "exitCode": 0,
+      "signal": null,
+      "output": "\n> tradequote-agent@0.1.0 eval:model /Users/jason/.codex/worktrees/c-integration-review/tradequote-agent\n> node scripts/evaluate-model.mjs --mode fixture --output .runtime/c-independent-review/fixture\n\n{\"mode\":\"fixture\",\"status\":\"passed\",\"cases\":48,\"modelCalls\":189,\"realRequests\":0}\n",
+      "outputSha256": "69d1f9859e247a578934bb582d644de45a74e2240772482b03e3aa4a2ddcee4d"
+    },
+    {
+      "argv": [
+        "node",
+        "experiments/product-walkthrough/check.mjs"
+      ],
+      "command": "node experiments/product-walkthrough/check.mjs",
+      "startedAt": "2026-10-23T04:58:59.757Z",
+      "finishedAt": "2026-10-23T04:59:00.192Z",
+      "startedAtAsiaShanghai": "2026-10-23T12:58:59.757+08:00",
+      "finishedAtAsiaShanghai": "2026-10-23T12:59:00.192+08:00",
+      "durationSeconds": 0.435,
+      "exitCode": 0,
+      "signal": null,
+      "output": "TAP version 13\n# Subtest: standalone artifact has no remote executable assets or network calls\nok 1 - standalone artifact has no remote executable assets or network calls\n  ---\n  duration_ms: 3.315917\n  type: 'test'\n  ...\n# Subtest: quantity tiers, line rounding, and explicitly unknown fees\nok 2 - quantity tiers, line rounding, and explicitly unknown fees\n  ---\n  duration_ms: 32.58925\n  type: 'test'\n  ...\n# Subtest: missing prices, expired sources and MOQ stay unknown\nok 3 - missing prices, expired sources and MOQ stay unknown\n  ---\n  duration_ms: 2.810125\n  type: 'test'\n  ...\n# Subtest: cost margin differs from markup and fees add once\nok 4 - cost margin differs from markup and fees add once\n  ---\n  duration_ms: 3.713167\n  type: 'test'\n  ...\n# Subtest: new revisions preserve old facts and frozen market applicability\nok 5 - new revisions preserve old facts and frozen market applicability\n  ---\n  duration_ms: 2.540625\n  type: 'test'\n  ...\n# Subtest: withdrawn newest knowledge does not resurrect an older version\nok 6 - withdrawn newest knowledge does not resurrect an older version\n  ---\n  duration_ms: 2.281125\n  type: 'test'\n  ...\n# Subtest: approval is scoped to output; regeneration and revision do not inherit it\nok 7 - approval is scoped to output; regeneration and revision do not inherit it\n  ---\n  duration_ms: 3.441541\n  type: 'test'\n  ...\n# Subtest: an artifact with superseded source needs review even when rule coverage exists\nok 8 - an artifact with superseded source needs review even when rule coverage exists\n  ---\n  duration_ms: 3.843834\n  type: 'test'\n  ...\n# Subtest: known synthetic clauses have demo translations and unknown clauses stay explicit\nok 9 - known synthetic clauses have demo translations and unknown clauses stay explicit\n  ---\n  duration_ms: 3.440917\n  type: 'test'\n  ...\n# Subtest: CSV preview catches headers, duplicate tiers and null price\nok 10 - CSV preview catches headers, duplicate tiers and null price\n  ---\n  duration_ms: 3.365834\n  type: 'test'\n  ...\n# Subtest: unsupported multi-part instructions do not apply a partial quantity update\nok 11 - unsupported multi-part instructions do not apply a partial quantity update\n  ---\n  duration_ms: 4.009667\n  type: 'test'\n  ...\n# Subtest: cancel before response saves nothing; explicit retry commits once\nok 12 - cancel before response saves nothing; explicit retry commits once\n  ---\n  duration_ms: 5.385041\n  type: 'test'\n  ...\n# Subtest: timeout leaves state intact and old-base retry cannot overwrite newer work\nok 13 - timeout leaves state intact and old-base retry cannot overwrite newer work\n  ---\n  duration_ms: 6.037333\n  type: 'test'\n  ...\n# Subtest: backup restores unfinished run as interrupted and rejects invalid identifiers\nok 14 - backup restores unfinished run as interrupted and rejects invalid identifiers\n  ---\n  duration_ms: 2.600667\n  type: 'test'\n  ...\n# Subtest: escaped user text cannot become executable output markup\nok 15 - escaped user text cannot become executable output markup\n  ---\n  duration_ms: 2.178667\n  type: 'test'\n  ...\n# Subtest: new quotes never invent packaging; only the explicit seed contains it\nok 16 - new quotes never invent packaging; only the explicit seed contains it\n  ---\n  duration_ms: 2.24275\n  type: 'test'\n  ...\n# Subtest: revisions and history restore inherit the quote scenario after defaults change\nok 17 - revisions and history restore inherit the quote scenario after defaults change\n  ---\n  duration_ms: 2.45675\n  type: 'test'\n  ...\n# Subtest: inquiry extraction ties fields to exact original spans and published product facts\nok 18 - inquiry extraction ties fields to exact original spans and published product facts\n  ---\n  duration_ms: 4.447375\n  type: 'test'\n  ...\n# Subtest: ambiguous product, invalid units, duplicate clauses and unsupported text require clarification\nok 19 - ambiguous product, invalid units, duplicate clauses and unsupported text require clarification\n  ---\n  duration_ms: 4.91325\n  type: 'test'\n  ...\n# Subtest: confirmed inquiry commits once and captures its original scenario during delay\nok 20 - confirmed inquiry commits once and captures its original scenario during delay\n  ---\n  duration_ms: 5.5545\n  type: 'test'\n  ...\n# Subtest: cancelled or stale inquiry evidence cannot create a quotation\nok 21 - cancelled or stale inquiry evidence cannot create a quotation\n  ---\n  duration_ms: 6.261959\n  type: 'test'\n  ...\n# Subtest: publishing different text in the same knowledge category never grants a passing check\nok 22 - publishing different text in the same knowledge category never grants a passing check\n  ---\n  duration_ms: 3.122833\n  type: 'test'\n  ...\n# Subtest: supported output scenes differ in structure without changing amounts or exposing cost\nok 23 - supported output scenes differ in structure without changing amounts or exposing cost\n  ---\n  duration_ms: 2.61775\n  type: 'test'\n  ...\n# Subtest: unsupported language produces no artifact and unknown platform cannot imply approval readiness\nok 24 - unsupported language produces no artifact and unknown platform cannot imply approval readiness\n  ---\n  duration_ms: 3.293625\n  type: 'test'\n  ...\n# Subtest: German display localizes decimals and unknown values without changing quote facts\nok 25 - German display localizes decimals and unknown values without changing quote facts\n  ---\n  duration_ms: 2.38475\n  type: 'test'\n  ...\n# Subtest: packaging proposal and acceptance never masquerade as procurement confirmation\nok 26 - packaging proposal and acceptance never masquerade as procurement confirmation\n  ---\n  duration_ms: 4.854167\n  type: 'test'\n  ...\n# Subtest: packaging confirmation adds a decimal fee exactly once and is bound to quantity\nok 27 - packaging confirmation adds a decimal fee exactly once and is bound to quantity\n  ---\n  duration_ms: 5.093916\n  type: 'test'\n  ...\n# Subtest: unknown, included and zero packaging costs require distinct evidence\nok 28 - unknown, included and zero packaging costs require distinct evidence\n  ---\n  duration_ms: 6.558125\n  type: 'test'\n  ...\n# Subtest: rejecting proposals preserves requested text; unsupported product has no invented suggestion\nok 29 - rejecting proposals preserves requested text; unsupported product has no invented suggestion\n  ---\n  duration_ms: 4.809125\n  type: 'test'\n  ...\n# Subtest: explicit market changes preserve defaults and history, invalidate confirmations and rerun checks\nok 30 - explicit market changes preserve defaults and history, invalidate confirmations and rerun checks\n  ---\n  duration_ms: 7.478291\n  type: 'test'\n  ...\n# Subtest: stale packaging confirmation and stale suggestions cannot overwrite newer facts\nok 31 - stale packaging confirmation and stale suggestions cannot overwrite newer facts\n  ---\n  duration_ms: 5.739334\n  type: 'test'\n  ...\n# Subtest: legacy packaging stays unconfirmed and malformed packaging backups are rejected\nok 32 - legacy packaging stays unconfirmed and malformed packaging backups are rejected\n  ---\n  duration_ms: 4.143\n  type: 'test'\n  ...\n# Subtest: editing packaging text cannot retain an earlier procurement confirmation\nok 33 - editing packaging text cannot retain an earlier procurement confirmation\n  ---\n  duration_ms: 4.339666\n  type: 'test'\n  ...\n# Subtest: market intent and procurement prerequisites reject without saving any partial revision\nok 34 - market intent and procurement prerequisites reject without saving any partial revision\n  ---\n  duration_ms: 5.9735\n  type: 'test'\n  ...\n# Subtest: fee confirmation expires on quantity, currency, delivery, packaging and fee edits\nok 35 - fee confirmation expires on quantity, currency, delivery, packaging and fee edits\n  ---\n  duration_ms: 69.535333\n  type: 'test'\n  ...\n# Subtest: quantity revision validates units and rejects the entire mixed request\nok 36 - quantity revision validates units and rejects the entire mixed request\n  ---\n  duration_ms: 17.079208\n  type: 'test'\n  ...\n# Subtest: untranslated terms block submission and are actionable output tasks\nok 37 - untranslated terms block submission and are actionable output tasks\n  ---\n  duration_ms: 17.257459\n  type: 'test'\n  ...\n# Subtest: unconfirmed packaging is explicitly conditional in RFQ and email\nok 38 - unconfirmed packaging is explicitly conditional in RFQ and email\n  ---\n  duration_ms: 5.482125\n  type: 'test'\n  ...\n# Subtest: missing or changed terminology and legacy profiles remain visible blockers\nok 39 - missing or changed terminology and legacy profiles remain visible blockers\n  ---\n  duration_ms: 18.191584\n  type: 'test'\n  ...\n# Subtest: send confirmation revalidates artifact, version and current evidence\nok 40 - send confirmation revalidates artifact, version and current evidence\n  ---\n  duration_ms: 27.257\n  type: 'test'\n  ...\n# Subtest: rejection targets only a current submitted artifact and permits resubmission\nok 41 - rejection targets only a current submitted artifact and permits resubmission\n  ---\n  duration_ms: 8.729041\n  type: 'test'\n  ...\n# Subtest: invalidated approvals are historical and cannot enable approved download\nok 42 - invalidated approvals are historical and cannot enable approved download\n  ---\n  duration_ms: 6.94325\n  type: 'test'\n  ...\n# Subtest: zero FX cannot turn a quotation into a free offer or enter a backup\nok 43 - zero FX cannot turn a quotation into a free offer or enter a backup\n  ---\n  duration_ms: 3.119625\n  type: 'test'\n  ...\n# Subtest: old output history remains reachable before the next revision has an artifact\nok 44 - old output history remains reachable before the next revision has an artifact\n  ---\n  duration_ms: 4.885792\n  type: 'test'\n  ...\n# Subtest: overview distinguishes historical approval and sending from current readiness\nok 45 - overview distinguishes historical approval and sending from current readiness\n  ---\n  duration_ms: 10.995208\n  type: 'test'\n  ...\n1..45\n# tests 45\n# suites 0\n# pass 45\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 386.936958\n",
+      "outputSha256": "9a27b5e46aabc1eef3f49442b87e3b850bd295416e294a5af765ccef597b0146"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "check"
+      ],
+      "command": "pnpm check",
+      "startedAt": "2026-10-23T04:59:00.240Z",
+      "finishedAt": "2026-10-23T04:59:08.548Z",
+      "startedAtAsiaShanghai": "2026-10-23T12:59:00.240+08:00",
+      "finishedAtAsiaShanghai": "2026-10-23T12:59:08.548+08:00",
+      "durationSeconds": 8.308,
+      "exitCode": 0,
+      "signal": null,
+      "output": "\n> tradequote-agent@0.1.0 check /Users/jason/.codex/worktrees/c-integration-review/tradequote-agent\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 153 files in 38ms. No fixes applied.\nTAP version 13\n# Subtest: renderer cannot reach Node, database or desktop internals through import forms\nok 1 - renderer cannot reach Node, database or desktop internals through import forms\n  ---\n  duration_ms: 7.677208\n  type: 'test'\n  ...\n# Subtest: pure modules use public contracts while other platform dependencies are rejected\nok 2 - pure modules use public contracts while other platform dependencies are rejected\n  ---\n  duration_ms: 1.767333\n  type: 'test'\n  ...\n# Subtest: domain permits exact pure decimal dependency without opening contracts or SDK imports\nok 3 - domain permits exact pure decimal dependency without opening contracts or SDK imports\n  ---\n  duration_ms: 0.514291\n  type: 'test'\n  ...\n# Subtest: committed icon resources match their source manifest\nok 4 - committed icon resources match their source manifest\n  ---\n  duration_ms: 2.2015\n  type: 'test'\n  ...\n# Subtest: editing either SVG or packaged icon without generation blocks the build\nok 5 - editing either SVG or packaged icon without generation blocks the build\n  ---\n  duration_ms: 6.154333\n  type: 'test'\n  ...\n# Subtest: macOS native process and runtime display TradeQuote while upstream Electron stays intact\nok 6 - macOS native process and runtime display TradeQuote while upstream Electron stays intact\n  ---\n  duration_ms: 3957.134917\n  type: 'test'\n  ...\n1..6\n# tests 6\n# suites 0\n# pass 6\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 4013.949167\nModule boundaries passed\n\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-integration-review/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 172,\n  \"semantic\": 145,\n  \"reachable\": 172\n}\n",
+      "outputSha256": "cff9a9430f1df7c7d4b682b8257ef82a4731abd1002e71d0036ff90870a70549"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "wiki:test"
+      ],
+      "command": "pnpm wiki:test",
+      "startedAt": "2026-10-23T04:59:08.588Z",
+      "finishedAt": "2026-10-23T04:59:27.730Z",
+      "startedAtAsiaShanghai": "2026-10-23T12:59:08.588+08:00",
+      "finishedAtAsiaShanghai": "2026-10-23T12:59:27.730+08:00",
+      "durationSeconds": 19.142,
+      "exitCode": 0,
+      "signal": null,
+      "output": "\n> tradequote-agent@0.1.0 wiki:test /Users/jason/.codex/worktrees/c-integration-review/tradequote-agent\n> node --test wiki-project/scripts/wiki-tools.test.mjs wiki-project/scripts/wiki-sync.test.mjs\n\nTAP version 13\n# Subtest: runtime version pin is a mandatory Wiki-synchronized configuration change\nok 1 - runtime version pin is a mandatory Wiki-synchronized configuration change\n  ---\n  duration_ms: 1.469667\n  type: 'test'\n  ...\n# Subtest: code with related knowledge, task and appended log passes\nok 2 - code with related knowledge, task and appended log passes\n  ---\n  duration_ms: 0.328375\n  type: 'test'\n  ...\n# Subtest: generated snapshots alone cannot satisfy knowledge/task/log changes\nok 3 - generated snapshots alone cannot satisfy knowledge/task/log changes\n  ---\n  duration_ms: 0.094958\n  type: 'test'\n  ...\n# Subtest: metadata-only or whitespace-only edits cannot satisfy semantic update\nok 4 - metadata-only or whitespace-only edits cannot satisfy semantic update\n  ---\n  duration_ms: 0.113791\n  type: 'test'\n  ...\n# Subtest: each source needs its own mapped knowledge, unrelated pages do not suffice\nok 5 - each source needs its own mapped knowledge, unrelated pages do not suffice\n  ---\n  duration_ms: 0.18525\n  type: 'test'\n  ...\n# Subtest: deleted source uses baseline mapping; unknown source fails\nok 6 - deleted source uses baseline mapping; unknown source fails\n  ---\n  duration_ms: 0.204125\n  type: 'test'\n  ...\n# Subtest: history rewrite and removed task do not pass\nok 7 - history rewrite and removed task do not pass\n  ---\n  duration_ms: 0.641958\n  type: 'test'\n  ...\n# Subtest: Wiki maintenance code requires workflow knowledge, not generated data\nok 8 - Wiki maintenance code requires workflow knowledge, not generated data\n  ---\n  duration_ms: 0.081292\n  type: 'test'\n  ...\n# Subtest: ordinary documentation-only edits do not trigger code delivery check\nok 9 - ordinary documentation-only edits do not trigger code delivery check\n  ---\n  duration_ms: 0.322292\n  type: 'test'\n  ...\n# Subtest: real Git baseline includes committed, unstaged and untracked sources\nok 10 - real Git baseline includes committed, unstaged and untracked sources\n  ---\n  duration_ms: 295.109541\n  type: 'test'\n  ...\n# Subtest: SVG assets require semantic Wiki, task and append-only log changes\nok 11 - SVG assets require semantic Wiki, task and append-only log changes\n  ---\n  duration_ms: 0.16925\n  type: 'test'\n  ...\n# Subtest: same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\nok 12 - same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\n  ---\n  duration_ms: 2787.783791\n  type: 'test'\n  ...\n# Subtest: source drift fails without writes; generation repairs snapshot while preserving ingest baseline\nok 13 - source drift fails without writes; generation repairs snapshot while preserving ingest baseline\n  ---\n  duration_ms: 930.60125\n  type: 'test'\n  ...\n# Subtest: explicit ingest records a non-Git project honestly\nok 14 - explicit ingest records a non-Git project honestly\n  ---\n  duration_ms: 681.264208\n  type: 'test'\n  ...\n# Subtest: tool inventory names come from definitions, not nested headers/output/schema fields\nok 15 - tool inventory names come from definitions, not nested headers/output/schema fields\n  ---\n  duration_ms: 318.290917\n  type: 'test'\n  ...\n# Subtest: new unclassified source fails; missing knowledge target and stale mapping fail\nok 16 - new unclassified source fails; missing knowledge target and stale mapping fail\n  ---\n  duration_ms: 465.761167\n  type: 'test'\n  ...\n# Subtest: generated coverage tampering is detected by lint and remains untouched\nok 17 - generated coverage tampering is detected by lint and remains untouched\n  ---\n  duration_ms: 619.13525\n  type: 'test'\n  ...\n# Subtest: sensitive filename is excluded before read; external source symlink is not followed\nok 18 - sensitive filename is excluded before read; external source symlink is not followed\n  ---\n  duration_ms: 320.008708\n  type: 'test'\n  ...\n# Subtest: Wiki and generated-output symlinks cannot write outside project\nok 19 - Wiki and generated-output symlinks cannot write outside project\n  ---\n  duration_ms: 354.480167\n  type: 'test'\n  ...\n# Subtest: missing schema field\nok 20 - missing schema field\n  ---\n  duration_ms: 572.457625\n  type: 'test'\n  ...\n# Subtest: bad type\nok 21 - bad type\n  ---\n  duration_ms: 575.455917\n  type: 'test'\n  ...\n# Subtest: bad date\nok 22 - bad date\n  ---\n  duration_ms: 581.328458\n  type: 'test'\n  ...\n# Subtest: bad status\nok 23 - bad status\n  ---\n  duration_ms: 575.855208\n  type: 'test'\n  ...\n# Subtest: missing wiki target\nok 24 - missing wiki target\n  ---\n  duration_ms: 582.812834\n  type: 'test'\n  ...\n# Subtest: missing markdown target\nok 25 - missing markdown target\n  ---\n  duration_ms: 653.943\n  type: 'test'\n  ...\n# Subtest: invalid source line\nok 26 - invalid source line\n  ---\n  duration_ms: 695.172792\n  type: 'test'\n  ...\n# Subtest: verified without code evidence\nok 27 - verified without code evidence\n  ---\n  duration_ms: 607.362042\n  type: 'test'\n  ...\n# Subtest: source escaping project\nok 28 - source escaping project\n  ---\n  duration_ms: 603.218417\n  type: 'test'\n  ...\n# Subtest: unfilled placeholder\nok 29 - unfilled placeholder\n  ---\n  duration_ms: 705.980917\n  type: 'test'\n  ...\n# Subtest: all sources are validated even after a valid implementation source\nok 30 - all sources are validated even after a valid implementation source\n  ---\n  duration_ms: 686.167125\n  type: 'test'\n  ...\n# Subtest: orphan pages and duplicate basenames are rejected\nok 31 - orphan pages and duplicate basenames are rejected\n  ---\n  duration_ms: 1095.950917\n  type: 'test'\n  ...\n# Subtest: completed task requires actual verification record\nok 32 - completed task requires actual verification record\n  ---\n  duration_ms: 647.451166\n  type: 'test'\n  ...\n# Subtest: archived source cannot bypass inspection through silent changes\nok 33 - archived source cannot bypass inspection through silent changes\n  ---\n  duration_ms: 604.385167\n  type: 'test'\n  ...\n# Subtest: source references cannot open excluded runtime data\nok 34 - source references cannot open excluded runtime data\n  ---\n  duration_ms: 582.9155\n  type: 'test'\n  ...\n# Subtest: new JSON evidence is checked and sensitive Wiki filenames are rejected before read\nok 35 - new JSON evidence is checked and sensitive Wiki filenames are rejected before read\n  ---\n  duration_ms: 733.356333\n  type: 'test'\n  ...\n# Subtest: secret/JWT/private-key/PII detections redact the value in diagnostics\nok 36 - secret/JWT/private-key/PII detections redact the value in diagnostics\n  ---\n  duration_ms: 1854.033292\n  type: 'test'\n  ...\n1..36\n# tests 36\n# suites 0\n# pass 36\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 18901.633333\n",
+      "outputSha256": "5e61767eec943dee11470ab6c6c71c7dc03c5497e803a5730422dba28cf854b0"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+      ],
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+      "startedAt": "2026-10-23T04:59:27.771Z",
+      "finishedAt": "2026-10-23T04:59:28.449Z",
+      "startedAtAsiaShanghai": "2026-10-23T12:59:27.771+08:00",
+      "finishedAtAsiaShanghai": "2026-10-23T12:59:28.449+08:00",
+      "durationSeconds": 0.678,
+      "exitCode": 0,
+      "signal": null,
+      "output": "{\n  \"base\": \"654fecc4d93e4630ed4a0cf42f261d0d432e23d3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 91,\n  \"knowledgePages\": 80,\n  \"tasks\": 26,\n  \"errors\": []\n}\n",
+      "outputSha256": "2976e2a67e6ea64443025da86a35270fe0c3388f23c98d9226edfce2f68a9994"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce"
+      ],
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+      "startedAt": "2026-10-23T04:59:28.490Z",
+      "finishedAt": "2026-10-23T04:59:29.276Z",
+      "startedAtAsiaShanghai": "2026-10-23T12:59:28.490+08:00",
+      "finishedAtAsiaShanghai": "2026-10-23T12:59:29.276+08:00",
+      "durationSeconds": 0.786,
+      "exitCode": 0,
+      "signal": null,
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 97,\n  \"knowledgePages\": 95,\n  \"tasks\": 34,\n  \"errors\": []\n}\n",
+      "outputSha256": "2e300baa9fe3ead8918f744820cec3b60dc9968b0122ac4c1c2f27f2d8b9bea7"
+    },
+    {
+      "argv": [
+        "node",
+        ".runtime/c-integration/migration-probe.mjs"
+      ],
+      "command": "node .runtime/c-integration/migration-probe.mjs",
+      "startedAt": "2026-10-23T04:59:29.315Z",
+      "finishedAt": "2026-10-23T04:59:29.775Z",
+      "startedAtAsiaShanghai": "2026-10-23T12:59:29.315+08:00",
+      "finishedAtAsiaShanghai": "2026-10-23T12:59:29.775+08:00",
+      "durationSeconds": 0.46,
+      "exitCode": 0,
+      "signal": null,
+      "output": "{\"status\":\"passed\",\"cases\":[{\"direction\":\"A6_to_C7\",\"outcome\":\"rejected\",\"errorCode\":\"SQLITE_ERROR\",\"expectationConfirmed\":true},{\"direction\":\"C6_to_A6\",\"outcome\":\"returned_success\",\"errorCode\":null,\"expectationConfirmed\":true},{\"direction\":\"C7_to_A6\",\"outcome\":\"rejected\",\"errorCode\":\"DATABASE_NEWER_THAN_APPLICATION\",\"expectationConfirmed\":true},{\"direction\":\"C7_to_C7\",\"outcome\":\"returned_success\",\"errorCode\":null,\"expectationConfirmed\":true}]}\n",
+      "outputSha256": "a536694a4633dbfa2f1ef0ac137f72fe688eb17619c4ce728901dd48f2768b84"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "test"
+      ],
+      "command": "pnpm test",
+      "startedAt": "2026-10-23T04:59:35.212Z",
+      "finishedAt": "2026-10-23T05:00:00.785Z",
+      "startedAtAsiaShanghai": "2026-10-23T12:59:35.212+08:00",
+      "finishedAtAsiaShanghai": "2026-10-23T13:00:00.785+08:00",
+      "durationSeconds": 25.573,
+      "exitCode": 1,
+      "signal": null,
+      "output": "\n> tradequote-agent@0.1.0 test /Users/jason/.codex/worktrees/c-integration-review/tradequote-agent\n> node scripts/test-unit.mjs\n\n\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-integration-review/tradequote-agent\n\n ❯ packages/infrastructure/src/evaluation/diagnostics.test.ts (1 test | 1 failed) 11023ms\n   × exports bounded enum-only failure evidence while accepting unchanged legacy rows 11022ms\n\n Test Files  1 failed | 39 passed (40)\n      Tests  1 failed | 293 passed (294)\n   Start at  12:59:35\n   Duration  24.84s (tests 64%, import 28%, environment 6%, transform 2%, worker 1%)\n\n    Isolate  40 workers spawned · ~851ms startup each (spawn + environment, per file)\n             at least ~2.93s faster with isolate: false — reuses workers across files instead of one per file\n\n ELIFECYCLE  Test failed. See above for more details.\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/evaluation/diagnostics.test.ts > exports bounded enum-only failure evidence while accepting unchanged legacy rows\nError: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".\n ❯ packages/infrastructure/src/evaluation/diagnostics.test.ts:5:1\n      3| import { evaluateC04 } from \"./runner\";\n      4|\n      5| it(\"exports bounded enum-only failure evidence while accepting unchang…\n       | ^\n      6|   const network = vi\n      7|     .spyOn(globalThis, \"fetch\")\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n",
+      "outputSha256": "6c791cfa5c94440910420ee7a20eaf7bb7e85fcb873bafd07a4fe0ed94320d86",
+      "classification": "full_suite_failure_preserved"
+    },
+    {
+      "argv": [
+        "node",
+        ".runtime/c-independent-review/verify-reports.mjs"
+      ],
+      "command": "node .runtime/c-independent-review/verify-reports.mjs",
+      "startedAt": "2026-10-23T05:00:35.208Z",
+      "finishedAt": "2026-10-23T05:00:36.332Z",
+      "startedAtAsiaShanghai": "2026-10-23T13:00:35.208+08:00",
+      "finishedAtAsiaShanghai": "2026-10-23T13:00:36.332+08:00",
+      "durationSeconds": 1.124,
+      "exitCode": 0,
+      "signal": null,
+      "output": "{\n  \"reports\": [\n    {\n      \"name\": \"wiki-project/raw/c-integration-fixture-report\",\n      \"strictSchema\": true,\n      \"markdownExact\": true,\n      \"jsonSha256\": \"046c06042a101acd222f551907e71c7fedf1fc28771d3fe840bf0249a489cf3a\",\n      \"markdownSha256\": \"19c3d967c190b551ae8918a134fb2e4de4eb43c42b02e1d3c23e76a4dc15458f\",\n      \"statusCounts\": {\n        \"passed\": 48\n      },\n      \"businessPassed\": 31,\n      \"fixtureOnlyNotRun\": 0\n    },\n    {\n      \"name\": \".runtime/c-independent-review/fixture\",\n      \"strictSchema\": true,\n      \"markdownExact\": true,\n      \"jsonSha256\": \"4fcba4a1ca96e920ca28542d298a13c4ed839c70e4bd45875e8af4edb064d7c6\",\n      \"markdownSha256\": \"19c3d967c190b551ae8918a134fb2e4de4eb43c42b02e1d3c23e76a4dc15458f\",\n      \"statusCounts\": {\n        \"passed\": 48\n      },\n      \"businessPassed\": 31,\n      \"fixtureOnlyNotRun\": 0\n    },\n    {\n      \"name\": \"wiki-project/raw/c04-action-retest-deepseek-report\",\n      \"strictSchema\": true,\n      \"markdownExact\": true,\n      \"jsonSha256\": \"db73d5e3ba48a55723e3fbe907f0c4cea7695983828ba9132837004a8f10639e\",\n      \"markdownSha256\": \"3404d04cc9988df64fe2c5441cd5e0364de5fae6e77968bb46e2e65357ec52fa\",\n      \"statusCounts\": {\n        \"passed\": 31,\n        \"not_run\": 17\n      },\n      \"businessPassed\": 31,\n      \"fixtureOnlyNotRun\": 17\n    }\n  ],\n  \"fixtureNormalizedEqual\": true,\n  \"probe\": {\n    \"rawSha256\": \"7c35f9c67c82f0f0aaa563f2f9aacf00f132994f528d27ffcd4773758eb7bc53\",\n    \"rawJSONParseable\": true,\n    \"normalization\": null,\n    \"normalizedEqual\": true,\n    \"result\": {\n      \"status\": \"passed\",\n      \"scope\": \"Synthetic in-memory compatibility diagnostic, not approval to integrate A01c or a claim of compatibility\",\n      \"cases\": [\n        {\n          \"direction\": \"A6_to_C7\",\n          \"outcome\": \"rejected\",\n          \"errorCode\": \"SQLITE_ERROR\",\n          \"before\": {\n            \"version\": 6,\n            \"tables\": [\n              \"agent_turn\",\n              \"catalog_batch\",\n              \"catalog_product\",\n              \"idempotency\",\n              \"job\",\n              \"knowledge_consumption\",\n              \"knowledge_lifecycle\",\n              \"knowledge_revision\",\n              \"knowledge_source\",\n              \"knowledge_wiki\",\n              \"outbox\",\n              \"quote_revision\",\n              \"quote_v1\",\n              \"scenario_revision\",\n              \"source\",\n              \"sqlite_sequence\",\n              \"workspace\"\n            ]\n          },\n          \"after\": {\n            \"version\": 6,\n            \"tables\": [\n              \"agent_turn\",\n              \"catalog_batch\",\n              \"catalog_product\",\n              \"idempotency\",\n              \"job\",\n              \"knowledge_consumption\",\n              \"knowledge_lifecycle\",\n              \"knowledge_revision\",\n              \"knowledge_source\",\n              \"knowledge_wiki\",\n              \"outbox\",\n              \"quote_revision\",\n              \"quote_v1\",\n              \"scenario_revision\",\n              \"source\",\n              \"sqlite_sequence\",\n              \"workspace\"\n            ]\n          },\n          \"expectationConfirmed\": true\n        },\n        {\n          \"direction\": \"C6_to_A6\",\n          \"outcome\": \"returned_success\",\n          \"errorCode\": null,\n          \"before\": {\n            \"version\": 6,\n            \"tables\": [\n              \"agent_run\",\n              \"agent_run_control\",\n              \"agent_turn\",\n              \"agent_write_call\",\n              \"catalog_batch\",\n              \"catalog_product\",\n              \"idempotency\",\n              \"job\",\n              \"knowledge_revision\",\n              \"outbox\",\n              \"quote_revision\",\n              \"quote_v1\",\n              \"scenario_revision\",\n              \"source\",\n              \"sqlite_sequence\",\n              \"workspace\"\n            ]\n          },\n          \"after\": {\n            \"version\": 6,\n            \"tables\": [\n              \"agent_run\",\n              \"agent_run_control\",\n              \"agent_turn\",\n              \"agent_write_call\",\n              \"catalog_batch\",\n              \"catalog_product\",\n              \"idempotency\",\n              \"job\",\n              \"knowledge_revision\",\n              \"outbox\",\n              \"quote_revision\",\n              \"quote_v1\",\n              \"scenario_revision\",\n              \"source\",\n              \"sqlite_sequence\",\n              \"workspace\"\n            ]\n          },\n          \"expectationConfirmed\": true\n        },\n        {\n          \"direction\": \"C7_to_A6\",\n          \"outcome\": \"rejected\",\n          \"errorCode\": \"DATABASE_NEWER_THAN_APPLICATION\",\n          \"before\": {\n            \"version\": 7,\n            \"tables\": [\n              \"agent_run\",\n              \"agent_run_control\",\n              \"agent_tool_step\",\n              \"agent_turn\",\n              \"agent_write_call\",\n              \"catalog_batch\",\n              \"catalog_product\",\n              \"idempotency\",\n              \"job\",\n              \"knowledge_revision\",\n              \"outbox\",\n              \"quote_revision\",\n              \"quote_v1\",\n              \"scenario_revision\",\n              \"source\",\n              \"sqlite_sequence\",\n              \"workspace\"\n            ]\n          },\n          \"after\": {\n            \"version\": 7,\n            \"tables\": [\n              \"agent_run\",\n              \"agent_run_control\",\n              \"agent_tool_step\",\n              \"agent_turn\",\n              \"agent_write_call\",\n              \"catalog_batch\",\n              \"catalog_product\",\n              \"idempotency\",\n              \"job\",\n              \"knowledge_revision\",\n              \"outbox\",\n              \"quote_revision\",\n              \"quote_v1\",\n              \"scenario_revision\",\n              \"source\",\n              \"sqlite_sequence\",\n              \"workspace\"\n            ]\n          },\n          \"expectationConfirmed\": true\n        },\n        {\n          \"direction\": \"C7_to_C7\",\n          \"outcome\": \"returned_success\",\n          \"errorCode\": null,\n          \"before\": {\n            \"version\": 7,\n            \"tables\": [\n              \"agent_run\",\n              \"agent_run_control\",\n              \"agent_tool_step\",\n              \"agent_turn\",\n              \"agent_write_call\",\n              \"catalog_batch\",\n              \"catalog_product\",\n              \"idempotency\",\n              \"job\",\n              \"knowledge_revision\",\n              \"outbox\",\n              \"quote_revision\",\n              \"quote_v1\",\n              \"scenario_revision\",\n              \"source\",\n              \"sqlite_sequence\",\n              \"workspace\"\n            ]\n          },\n          \"after\": {\n            \"version\": 7,\n            \"tables\": [\n              \"agent_run\",\n              \"agent_run_control\",\n              \"agent_tool_step\",\n              \"agent_turn\",\n              \"agent_write_call\",\n              \"catalog_batch\",\n              \"catalog_product\",\n              \"idempotency\",\n              \"job\",\n              \"knowledge_revision\",\n              \"outbox\",\n              \"quote_revision\",\n              \"quote_v1\",\n              \"scenario_revision\",\n              \"source\",\n              \"sqlite_sequence\",\n              \"workspace\"\n            ]\n          },\n          \"expectationConfirmed\": true\n        }\n      ]\n    }\n  },\n  \"afterAllTests\": {\n    \"source\": [],\n    \"bundle\": [],\n    \"scopeSourceHashes\": []\n  },\n  \"gitStatus\": \"\",\n  \"head\": \"9e067bf0114e0d2b27f7b65ea4ecc07042405499\",\n  \"ignoredEvidence\": \".runtime/c-independent-review/evidence.json\\n.runtime/c-integration/migration-probe.mjs\\n\",\n  \"historicalP1Review\": {\n    \"keys\": [\n      \"status\",\n      \"receivedAt\",\n      \"reviewerRole\",\n      \"reviewerThreadId\",\n      \"originalFindings\",\n      \"closedP2\",\n      \"clarificationVerified\",\n      \"reviewerReportedChecks\",\n      \"remainingInScopeBlockers\",\n      \"notCovered\",\n      \"sourceSnapshotSha256\"\n    ],\n    \"status\": \"passed_in_C_scope\"\n  }\n}\n",
+      "outputSha256": "f8ecfae2c48faed4726f84dd92acc3f7fd659115b8f0a05a9368b8053b30de1c"
+    }
+  ],
+  "findings": [
+    {
+      "priority": "P2",
+      "title": "Full unit suite cannot reproducibly satisfy its unchanged diagnostics timeout",
+      "file": "packages/infrastructure/src/evaluation/diagnostics.test.ts",
+      "startLine": 5,
+      "endLine": 11,
+      "observed": "Three full pnpm test reruns fail this one test with Error: Test timed out in 5000ms; 39/40 files and 293/294 tests pass. Two of these runs had no other command from this reviewer executing concurrently. The focused unchanged test passes in 3.07s and initial overlapped full suite passed; green full-suite validation is therefore not independently reliable.",
+      "interpretation": "Results are consistent with suite-load timing sensitivity; this is an inference, not proof of the root cause or a semantic production failure.",
+      "requiredFollowup": "Investigate and resolve the full-suite timing failure, rerun the pinned full pnpm test, and preserve these failures. Do not replace full validation with the focused pass or change behavior expectations merely to obtain green."
+    }
+  ],
+  "limitations": [
+    "No real model calls or user databases; approvals and manual semantic acceptance remain pending.",
+    "Passing broad checks cannot establish absence of semantic defects; static reviewers report separately.",
+    "PR #7/#8/#9 information was verified against committed command outputs only; no network/API refresh or authorization access. P1 historical C-scope review exists locally and is not A approval.",
+    "C04 real 31/31 and 168 attempts remain historical strict synthetic-input reports; current review made zero real provider requests and did not reproduce provider semantics or approve manual language quality.",
+    "Migration status=passed reproduces incompatibility (A6->C7 reject/rollback; C6->A6 silently skips knowledge schema; C7->A6 rejects downgrade; C7->C7 unchanged). It is not migration approval or compatibility.",
+    "Run date is 2026-10-23 Asia/Shanghai, the same date as candidate evidence; clock was not mocked or weakened. Replayed fixtures match committed normalized outcomes and exact Markdown; only timing fields differ.",
+    "Unsigned/development Electron tests do not validate signed installer delivery; Windows and final installation remain unverified/postponed.",
+    "Initial bootstrap/inspection commands are in the tool transcript; all validation commands and full outputs are recorded here. No tracked source, documentation, lockfile, ref or branch was modified."
+  ],
+  "recordedAt": "2026-10-23T05:02:10.582Z",
+  "status": "changes_required",
+  "environment": {
+    "os": "macOS 26.4",
+    "arch": "arm64",
+    "node": "22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2",
+    "cwd": "/Users/jason/.codex/worktrees/c-integration-review/tradequote-agent",
+    "initialHead": "9e067bf0114e0d2b27f7b65ea4ecc07042405499",
+    "initialTrackedStatus": "clean",
+    "finalHead": "9e067bf0114e0d2b27f7b65ea4ecc07042405499",
+    "finalTrackedStatus": ""
+  },
+  "executionDeviation": {
+    "description": "Initial unit/e2e overlapped from 12:54:48.545 to 12:55:02.878 +08 because a yielded tool session was mistaken for completion. Both passed but neither is the canonical independent sequential validation. Sequential e2e and three subsequent full-unit runs are separately retained.",
+    "canonicalOrder": "Install; typecheck; noncanonical first unit/e2e; full unit with read-only process-heavy audit concurrent (failed); full unit alone (failed); focused diagnostics test alone (passed); e2e/build; fixture; HTML; check/Wiki; Wiki tests; fixed target sync; cumulative sync; migration probe; final full unit alone (failed); report/source/bundle verification.",
+    "noTimeoutOrSourceEdits": true
+  },
+  "summary": {
+    "frozenInstall": 0,
+    "typecheck": 0,
+    "fullUnitRuns": {
+      "initialOverlap": {
+        "files": 40,
+        "passed": 294,
+        "failed": 0,
+        "exitCode": 0
+      },
+      "subsequent": [
+        {
+          "startedAt": "2026-10-23T04:56:14.997Z",
+          "passed": 293,
+          "failed": 1,
+          "exitCode": 1,
+          "diagnosticsTestMs": 11092,
+          "concurrentOwnActivity": "read-only hash/provenance audit"
+        },
+        {
+          "startedAt": "2026-10-23T04:57:02.064Z",
+          "passed": 293,
+          "failed": 1,
+          "exitCode": 1,
+          "diagnosticsTestMs": 7466,
+          "concurrentOwnActivity": "none"
+        },
+        {
+          "startedAt": "2026-10-23T04:59:35.212Z",
+          "passed": 293,
+          "failed": 1,
+          "exitCode": 1,
+          "diagnosticsTestMs": 11022,
+          "concurrentOwnActivity": "none"
+        }
+      ],
+      "focusedTest": {
+        "passed": 1,
+        "exitCode": 0,
+        "note": "Diagnostic only, not a full-suite substitute"
+      }
+    },
+    "electronSequential": {
+      "passed": 9,
+      "failed": 0,
+      "includesBuild": true,
+      "exitCode": 0
+    },
+    "fixture": {
+      "passed": 48,
+      "modelCalls": 189,
+      "realRequests": 0,
+      "exitCode": 0
+    },
+    "html": {
+      "passed": 45,
+      "exitCode": 0
+    },
+    "engineering": {
+      "passed": 6,
+      "exitCode": 0
+    },
+    "wikiRegression": {
+      "passed": 36,
+      "exitCode": 0
+    },
+    "wikiReadOnly": {
+      "files": 225,
+      "markdown": 172,
+      "semantic": 145,
+      "reachable": 172,
+      "exitCode": 0
+    },
+    "targetSync": {
+      "codeFiles": 91,
+      "knowledgePages": 80,
+      "tasks": 26,
+      "exitCode": 0
+    },
+    "cumulativeSync": {
+      "codeFiles": 97,
+      "knowledgePages": 95,
+      "tasks": 34,
+      "exitCode": 0
+    },
+    "migrationDiagnostic": {
+      "directions": 4,
+      "exitCode": 0,
+      "compatible": false
+    }
+  },
+  "hashAudits": {
+    "recordedAt": "2026-10-23T04:56:40.627Z",
+    "snapshots": {
+      "source": {
+        "count": 225,
+        "mismatches": [],
+        "scopeMissing": [],
+        "scopeExtra": []
+      },
+      "bundle": {
+        "count": 9,
+        "mismatches": []
+      },
+      "protected": {
+        "count": 93,
+        "mismatches": []
+      }
+    },
+    "provenance": {
+      "source": {
+        "count": 25,
+        "exactMatch": true,
+        "rows": [
+          {
+            "commit": "4a56a42ceae83ec44783d9046ae7d4d3696bbda4",
+            "parents": [
+              "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce"
+            ],
+            "subject": "feat(agent): add bounded read tool runtime and complete C roadmap"
+          },
+          {
+            "commit": "4324dc85bdd00657831f7428496c60e5332bb428",
+            "parents": [
+              "4a56a42ceae83ec44783d9046ae7d4d3696bbda4"
+            ],
+            "subject": "feat(agent): connect catalog and quote read adapters"
+          },
+          {
+            "commit": "644c5ed87b8afbfdd61f5e7d76e621473b0935db",
+            "parents": [
+              "4324dc85bdd00657831f7428496c60e5332bb428"
+            ],
+            "subject": "feat(desktop): connect C02b read tools through Worker and assistant UI"
+          },
+          {
+            "commit": "5621db0debc183e3112f084fd0bb3b6eff865ab8",
+            "parents": [
+              "e0f933657c2438642b006fd1a5549fe7dc683ccd"
+            ],
+            "subject": "test(knowledge): add A01a synthetic fixtures aligned to B00 contract"
+          },
+          {
+            "commit": "268eb3f3672d30fc7dcf1944e0bb04f826bd4e7e",
+            "parents": [
+              "5621db0debc183e3112f084fd0bb3b6eff865ab8"
+            ],
+            "subject": "feat(knowledge): A01b store, service and tests against B00 contract"
+          },
+          {
+            "commit": "5551ef333520b295aefb23f7c7bd5dd6a73068eb",
+            "parents": [
+              "268eb3f3672d30fc7dcf1944e0bb04f826bd4e7e"
+            ],
+            "subject": "fix(knowledge): query fallback, stable revisionId and workspace scoping"
+          },
+          {
+            "commit": "0f613b823a42d03c524e69b4fef459be9b998f44",
+            "parents": [
+              "5551ef333520b295aefb23f7c7bd5dd6a73068eb"
+            ],
+            "subject": "docs(wiki): A01b 知识发布实现 P0 Wiki 同步"
+          },
+          {
+            "commit": "67c69c75af0883d21a876d79f05c560dc5bd52ac",
+            "parents": [
+              "644c5ed87b8afbfdd61f5e7d76e621473b0935db",
+              "0f613b823a42d03c524e69b4fef459be9b998f44"
+            ],
+            "subject": "feat(agent): add durable run storage prerequisites for C02c"
+          },
+          {
+            "commit": "4c0978556007217c84aa7e6e7d65a234c7b20d3c",
+            "parents": [
+              "67c69c75af0883d21a876d79f05c560dc5bd52ac"
+            ],
+            "subject": "feat(agent): coordinate durable runs and fence worker lifecycle"
+          },
+          {
+            "commit": "0ccd72f8720479e2b689aeee521532bf585fc8bf",
+            "parents": [
+              "4c0978556007217c84aa7e6e7d65a234c7b20d3c"
+            ],
+            "subject": "feat(agent): execute validated multistep quotation tools"
+          },
+          {
+            "commit": "febd14db7748cc41455cbd31ee3d6ada58e644ef",
+            "parents": [
+              "0ccd72f8720479e2b689aeee521532bf585fc8bf"
+            ],
+            "subject": "feat(eval): add isolated C04 fixtures and redacted reports"
+          },
+          {
+            "commit": "0ff63cd09423bc446c5a7d00564d585aa1b8c123",
+            "parents": [
+              "febd14db7748cc41455cbd31ee3d6ada58e644ef"
+            ],
+            "subject": "feat(desktop): run C04 evaluations from saved model settings"
+          },
+          {
+            "commit": "df74abe4d6304925e1c4ab5cf85178e6e026f50f",
+            "parents": [
+              "0ff63cd09423bc446c5a7d00564d585aa1b8c123"
+            ],
+            "subject": "fix(desktop): select DeepSeek models from dropdown"
+          },
+          {
+            "commit": "44dcbceb3d9f6355dbafd5091b9053369ce56317",
+            "parents": [
+              "df74abe4d6304925e1c4ab5cf85178e6e026f50f"
+            ],
+            "subject": "docs(c04): distinguish connection probe from real evaluation"
+          },
+          {
+            "commit": "b231181d2f284236fc2f6dc4d14c064ff4b6bd68",
+            "parents": [
+              "44dcbceb3d9f6355dbafd5091b9053369ce56317"
+            ],
+            "subject": "docs(c04): audit user-started DeepSeek evaluation and redacted reports"
+          },
+          {
+            "commit": "1e9c134a589d97d15f98d4e576ca634766569bd7",
+            "parents": [
+              "b231181d2f284236fc2f6dc4d14c064ff4b6bd68"
+            ],
+            "subject": "fix(agent): bound C04 draft failure correction"
+          },
+          {
+            "commit": "3a476a396ade45e7592a2a147cc571baeb715d54",
+            "parents": [
+              "1e9c134a589d97d15f98d4e576ca634766569bd7"
+            ],
+            "subject": "docs(c04): audit user-started DeepSeek repair retest"
+          },
+          {
+            "commit": "885c474724f3578f7588d2184eea93c05a7f5d6d",
+            "parents": [
+              "3a476a396ade45e7592a2a147cc571baeb715d54"
+            ],
+            "subject": "fix(c04): add enum failure evidence and bounded prerequisite correction"
+          },
+          {
+            "commit": "4d13e475277bb71746088f923aabab8a0920e789",
+            "parents": [
+              "885c474724f3578f7588d2184eea93c05a7f5d6d"
+            ],
+            "subject": "docs(c04): record diagnostics desktop launch awaiting explicit retest"
+          },
+          {
+            "commit": "b28b702abf8874e962b71bfcd5ede45485d9b6e6",
+            "parents": [
+              "4d13e475277bb71746088f923aabab8a0920e789"
+            ],
+            "subject": "docs(c04): audit explicit diagnostics DeepSeek retest and remaining failures"
+          },
+          {
+            "commit": "28b9f726e7f04204976e954bc3f543cb0a944668",
+            "parents": [
+              "b28b702abf8874e962b71bfcd5ede45485d9b6e6"
+            ],
+            "subject": "fix(c04): narrow step menus and retain precise failure evidence"
+          },
+          {
+            "commit": "5afc425a0a9e54ed696bdd79ab5e2f974344c0bf",
+            "parents": [
+              "28b9f726e7f04204976e954bc3f543cb0a944668"
+            ],
+            "subject": "docs(c04): audit explicit three-failure retest and new regressions"
+          },
+          {
+            "commit": "fd7703c60ac67740989a08492e2b8c7fb0be12a0",
+            "parents": [
+              "5afc425a0a9e54ed696bdd79ab5e2f974344c0bf"
+            ],
+            "subject": "fix(c04): bound action correction and retain verified rule blocks"
+          },
+          {
+            "commit": "64f2e2decc196395b7e0d6c44c0c9d1fb23eac1e",
+            "parents": [
+              "fd7703c60ac67740989a08492e2b8c7fb0be12a0"
+            ],
+            "subject": "docs(c04): verify user-started fd7703c DeepSeek retest"
+          },
+          {
+            "commit": "9e8695b88f3e5d306f6aeeb362d21524818a3d12",
+            "parents": [
+              "64f2e2decc196395b7e0d6c44c0c9d1fb23eac1e"
+            ],
+            "subject": "feat(c03): persist run events and recover desktop subscriptions"
+          }
+        ]
+      },
+      "target": {
+        "count": 8,
+        "exactMatch": true,
+        "rows": [
+          {
+            "commit": "b8f518c1edb3924079ba36d906e391294b222c0f",
+            "parents": [
+              "e0f933657c2438642b006fd1a5549fe7dc683ccd"
+            ],
+            "subject": "feat: add product manual and interactive quotation walkthrough"
+          },
+          {
+            "commit": "a14d79f6248162a1b72e44f0548020dd9099e117",
+            "parents": [
+              "b8f518c1edb3924079ba36d906e391294b222c0f",
+              "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce"
+            ],
+            "subject": "Merge remote-tracking branch 'origin/codex/m1-foundation' into codex/project-product-manual"
+          },
+          {
+            "commit": "4412c8fb4cc50dbcff5112ee0774f901342a9edb",
+            "parents": [
+              "a14d79f6248162a1b72e44f0548020dd9099e117"
+            ],
+            "subject": "fix: align overview readiness and integration wiki coverage"
+          },
+          {
+            "commit": "8f7c7d9dab1dd5abddd9c1fd1bc12b58ff4e7277",
+            "parents": [
+              "4412c8fb4cc50dbcff5112ee0774f901342a9edb"
+            ],
+            "subject": "docs: preserve integration validation and independent review evidence"
+          },
+          {
+            "commit": "56c909e21aefa484b6805bf9afc7c94b0e1d4576",
+            "parents": [
+              "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+              "8f7c7d9dab1dd5abddd9c1fd1bc12b58ff4e7277"
+            ],
+            "subject": "Merge pull request #4 from jacson10l/codex/project-product-manual"
+          },
+          {
+            "commit": "26421ab5bf93f74b20d5888f0e1ff3b48b9bfc36",
+            "parents": [
+              "56c909e21aefa484b6805bf9afc7c94b0e1d4576"
+            ],
+            "subject": "feat(contracts): define B00a P0 knowledge wiki retrieval and citations"
+          },
+          {
+            "commit": "ae1af9d3ab2d560847be6df6bdc6346bb6f27f58",
+            "parents": [
+              "26421ab5bf93f74b20d5888f0e1ff3b48b9bfc36"
+            ],
+            "subject": "docs(wiki): record B00a PR handoff and pending A review"
+          },
+          {
+            "commit": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+            "parents": [
+              "56c909e21aefa484b6805bf9afc7c94b0e1d4576",
+              "ae1af9d3ab2d560847be6df6bdc6346bb6f27f58"
+            ],
+            "subject": "Merge pull request #7 from jacson10l/codex/b00a-knowledge-wiki-contracts"
+          }
+        ]
+      },
+      "candidateParents": [
+        "9e8695b88f3e5d306f6aeeb362d21524818a3d12",
+        "654fecc4d93e4630ed4a0cf42f261d0d432e23d3"
+      ],
+      "mergeBase": "be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce"
+    },
+    "scope": {
+      "fullChangedFiles": 262,
+      "nonWikiCount": 92,
+      "wikiCount": 170,
+      "fullInventory": [
+        {
+          "path": "AGENTS.md",
+          "added": 1,
+          "deleted": 1
+        },
+        {
+          "path": "README.md",
+          "added": 38,
+          "deleted": 6
+        },
+        {
+          "path": "apps/desktop/electron.vite.config.ts",
+          "added": 5,
+          "deleted": 1
+        },
+        {
+          "path": "apps/desktop/src/main/evaluation-host.test.ts",
+          "added": 212,
+          "deleted": 0
+        },
+        {
+          "path": "apps/desktop/src/main/evaluation-host.ts",
+          "added": 335,
+          "deleted": 0
+        },
+        {
+          "path": "apps/desktop/src/main/index.ts",
+          "added": 108,
+          "deleted": 4
+        },
+        {
+          "path": "apps/desktop/src/main/worker-client.test.ts",
+          "added": 141,
+          "deleted": 0
+        },
+        {
+          "path": "apps/desktop/src/main/worker-client.ts",
+          "added": 156,
+          "deleted": 22
+        },
+        {
+          "path": "apps/desktop/src/preload/contracts.test.ts",
+          "added": 200,
+          "deleted": 4
+        },
+        {
+          "path": "apps/desktop/src/preload/index.ts",
+          "added": 87,
+          "deleted": 0
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/App.tsx",
+          "added": 7,
+          "deleted": 1
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/features/agent-runs.test.tsx",
+          "added": 120,
+          "deleted": 0
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/features/agent-runs.tsx",
+          "added": 294,
+          "deleted": 0
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/features/model-evaluation.tsx",
+          "added": 342,
+          "deleted": 0
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/features/model-settings.tsx",
+          "added": 30,
+          "deleted": 7
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/features/quote-agent.tsx",
+          "added": 24,
+          "deleted": 1
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/features/read-assistant.tsx",
+          "added": 352,
+          "deleted": 0
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/features/run-event-feed.test.ts",
+          "added": 70,
+          "deleted": 0
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/features/run-event-feed.ts",
+          "added": 29,
+          "deleted": 0
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/features/run-events.test.tsx",
+          "added": 81,
+          "deleted": 0
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/features/run-events.tsx",
+          "added": 125,
+          "deleted": 0
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/features/run-tool-labels.ts",
+          "added": 11,
+          "deleted": 0
+        },
+        {
+          "path": "apps/desktop/src/workers/business.ts",
+          "added": 67,
+          "deleted": 5
+        },
+        {
+          "path": "apps/desktop/src/workers/evaluation.ts",
+          "added": 60,
+          "deleted": 0
+        },
+        {
+          "path": "package.json",
+          "added": 1,
+          "deleted": 0
+        },
+        {
+          "path": "packages/contracts/src/agent.ts",
+          "added": 2,
+          "deleted": 0
+        },
+        {
+          "path": "packages/contracts/src/events.ts",
+          "added": 9,
+          "deleted": 0
+        },
+        {
+          "path": "packages/contracts/src/index.ts",
+          "added": 22,
+          "deleted": 3
+        },
+        {
+          "path": "packages/contracts/src/mock.ts",
+          "added": 15,
+          "deleted": 0
+        },
+        {
+          "path": "packages/contracts/src/model-evaluation.ts",
+          "added": 302,
+          "deleted": 0
+        },
+        {
+          "path": "packages/contracts/src/pending-client.ts",
+          "added": 9,
+          "deleted": 1
+        },
+        {
+          "path": "packages/contracts/src/read-tools.test.ts",
+          "added": 100,
+          "deleted": 0
+        },
+        {
+          "path": "packages/contracts/src/read-tools.ts",
+          "added": 109,
+          "deleted": 0
+        },
+        {
+          "path": "packages/contracts/src/run-events.test.ts",
+          "added": 69,
+          "deleted": 0
+        },
+        {
+          "path": "packages/contracts/src/run-events.ts",
+          "added": 55,
+          "deleted": 0
+        },
+        {
+          "path": "packages/contracts/src/runs.test.ts",
+          "added": 98,
+          "deleted": 4
+        },
+        {
+          "path": "packages/contracts/src/runs.ts",
+          "added": 66,
+          "deleted": 1
+        },
+        {
+          "path": "packages/domain/src/index.ts",
+          "added": 2,
+          "deleted": 0
+        },
+        {
+          "path": "packages/domain/src/knowledge.ts",
+          "added": 51,
+          "deleted": 0
+        },
+        {
+          "path": "packages/domain/src/quote-checks.test.ts",
+          "added": 171,
+          "deleted": 0
+        },
+        {
+          "path": "packages/domain/src/quote-checks.ts",
+          "added": 97,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/package.json",
+          "added": 6,
+          "deleted": 2
+        },
+        {
+          "path": "packages/infrastructure/src/agent-executor.ts",
+          "added": 77,
+          "deleted": 69
+        },
+        {
+          "path": "packages/infrastructure/src/agent-run-coordinator.test.ts",
+          "added": 227,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/agent-run-coordinator.ts",
+          "added": 214,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/agent-run-recovery.test.ts",
+          "added": 194,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/agent-run-store.test.ts",
+          "added": 547,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/agent-run-store.ts",
+          "added": 724,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/agent.test.ts",
+          "added": 3,
+          "deleted": 3
+        },
+        {
+          "path": "packages/infrastructure/src/catalog-quote-read-agent.test.ts",
+          "added": 521,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/catalog-quote-read-agent.ts",
+          "added": 240,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/catalog-quote-read-service.test.ts",
+          "added": 124,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/catalog-quote-read-service.ts",
+          "added": 76,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/deepseek.ts",
+          "added": 53,
+          "deleted": 9
+        },
+        {
+          "path": "packages/infrastructure/src/evaluation/action-regressions.test.ts",
+          "added": 356,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/evaluation/cases.ts",
+          "added": 81,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/evaluation/diagnostics.test.ts",
+          "added": 86,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/evaluation/evaluation.test.ts",
+          "added": 178,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/evaluation/failure-regressions.test.ts",
+          "added": 328,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/evaluation/fixture-model.ts",
+          "added": 136,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/evaluation/public.ts",
+          "added": 5,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/evaluation/remaining-regressions.test.ts",
+          "added": 386,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/evaluation/report.ts",
+          "added": 43,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/evaluation/retest-regressions.test.ts",
+          "added": 330,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/evaluation/runner.ts",
+          "added": 514,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/evaluation/worker-protocol.ts",
+          "added": 29,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/evaluation/workspace.ts",
+          "added": 153,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/index.ts",
+          "added": 17,
+          "deleted": 2
+        },
+        {
+          "path": "packages/infrastructure/src/knowledge-store.test.ts",
+          "added": 343,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/knowledge-store.ts",
+          "added": 235,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/migrations.ts",
+          "added": 89,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/quote-draft-plan.ts",
+          "added": 124,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/quote-tool-agent.test.ts",
+          "added": 670,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/quote-tool-agent.ts",
+          "added": 436,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/read-tool-runtime.test.ts",
+          "added": 316,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/read-tool-runtime.ts",
+          "added": 487,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/run-event-store.test.ts",
+          "added": 147,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/run-event-store.ts",
+          "added": 115,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/storage.test.ts",
+          "added": 18,
+          "deleted": 2
+        },
+        {
+          "path": "packages/infrastructure/src/testing/run-fixture.ts",
+          "added": 132,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/trade-store.ts",
+          "added": 39,
+          "deleted": 0
+        },
+        {
+          "path": "packages/infrastructure/src/worker-ownership.ts",
+          "added": 24,
+          "deleted": 0
+        },
+        {
+          "path": "pnpm-lock.yaml",
+          "added": 3,
+          "deleted": 0
+        },
+        {
+          "path": "scripts/evaluate-model.mjs",
+          "added": 76,
+          "deleted": 0
+        },
+        {
+          "path": "tests/e2e/agent-recovery.spec.ts",
+          "added": 232,
+          "deleted": 0
+        },
+        {
+          "path": "tests/e2e/model-evaluation.spec.ts",
+          "added": 266,
+          "deleted": 0
+        },
+        {
+          "path": "tests/e2e/multistep-agent.spec.ts",
+          "added": 244,
+          "deleted": 0
+        },
+        {
+          "path": "tests/e2e/quote-agent.spec.ts",
+          "added": 7,
+          "deleted": 3
+        },
+        {
+          "path": "tests/e2e/read-assistant.spec.ts",
+          "added": 244,
+          "deleted": 0
+        },
+        {
+          "path": "tests/e2e/workspace.spec.ts",
+          "added": 5,
+          "deleted": 12
+        },
+        {
+          "path": "tests/fixtures/multistep-seed.ts",
+          "added": 96,
+          "deleted": 0
+        },
+        {
+          "path": "tests/fixtures/run-crash-child.ts",
+          "added": 100,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/CONTEXT.md",
+          "added": 54,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/index.md",
+          "added": 49,
+          "deleted": 2
+        },
+        {
+          "path": "wiki-project/log.md",
+          "added": 221,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c-integration-dependency-audit.json",
+          "added": 642,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c-integration-fixture-report.json",
+          "added": 2425,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c-integration-fixture-report.md",
+          "added": 84,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c-integration-initial-validation.json",
+          "added": 39,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c-integration-migration-probe.json",
+          "added": 204,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c-integration-multistep.png",
+          "added": null,
+          "deleted": null
+        },
+        {
+          "path": "wiki-project/raw/c-integration-preservation.json",
+          "added": 130,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c-integration-recovery.png",
+          "added": null,
+          "deleted": null
+        },
+        {
+          "path": "wiki-project/raw/c-integration-scope.json",
+          "added": 1195,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c-integration-validation.json",
+          "added": 623,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c-runtime-initial-validation.json",
+          "added": 33,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c-runtime-validation.json",
+          "added": 121,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c01b-dependency-audit.json",
+          "added": 227,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c01b-dependency-validation.json",
+          "added": 44,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c02b-desktop-initial-validation.json",
+          "added": 101,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c02b-desktop-validation.json",
+          "added": 293,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c02b-initial-validation.json",
+          "added": 17,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c02b-validation.json",
+          "added": 135,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c02c-multistep-dependencies.json",
+          "added": 43,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c02c-multistep-initial-validation.json",
+          "added": 78,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c02c-multistep-validation.json",
+          "added": 156,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c02c-prerequisites-initial-validation.json",
+          "added": 26,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c02c-prerequisites-validation.json",
+          "added": 105,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c02c-runtime-initial-validation.json",
+          "added": 69,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c02c-runtime-validation.json",
+          "added": 150,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c03-dependency-audit.json",
+          "added": 22,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c03-fixture-report.json",
+          "added": 2425,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c03-fixture-report.md",
+          "added": 84,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c03-initial-validation.json",
+          "added": 35,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c03-validation.json",
+          "added": 389,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-action-boundary-regressions.json",
+          "added": 496,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-action-fixture-report.json",
+          "added": 2425,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-action-fixture-report.md",
+          "added": 84,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-action-initial-validation.json",
+          "added": 255,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-action-retest-deepseek-report.json",
+          "added": 1984,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-action-retest-deepseek-report.md",
+          "added": 69,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-action-retest-launch-observation.json",
+          "added": 143,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-action-retest-observation.json",
+          "added": 863,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-action-retest-validation.json",
+          "added": 1212,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-action-validation.json",
+          "added": 242,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-convergence-fixture-report.json",
+          "added": 2201,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-convergence-fixture-report.md",
+          "added": 58,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-convergence-initial-validation.json",
+          "added": 62,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-convergence-validation.json",
+          "added": 167,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-deepseek-report.json",
+          "added": 645,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-desktop-initial-validation.json",
+          "added": 53,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-desktop-validation.json",
+          "added": 172,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-diagnostic-retest-deepseek-report.json",
+          "added": 1855,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-diagnostic-retest-deepseek-report.md",
+          "added": 78,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-diagnostic-retest-launch-observation.json",
+          "added": 92,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-diagnostic-retest-observation.json",
+          "added": 1554,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-diagnostic-retest-prestart-validation.json",
+          "added": 51,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-diagnostic-retest-validation.json",
+          "added": 2338,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-diagnostics-fixture-report.json",
+          "added": 2401,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-diagnostics-fixture-report.md",
+          "added": 81,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-diagnostics-initial-validation.json",
+          "added": 62,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-diagnostics-validation.json",
+          "added": 195,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-eight-reconstructed-regressions.json",
+          "added": 129,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-fixture-report.json",
+          "added": 2201,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-initial-validation.json",
+          "added": 51,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-model-select-validation.json",
+          "added": 129,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-remaining-fixture-report.json",
+          "added": 2401,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-remaining-fixture-report.md",
+          "added": 81,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-remaining-initial-validation.json",
+          "added": 54,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-remaining-validation.json",
+          "added": 196,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-retest-deepseek-report.json",
+          "added": 1417,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-retest-deepseek-report.md",
+          "added": 58,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-retest-observation.json",
+          "added": 571,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-retest-validation.json",
+          "added": 1059,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-three-boundary-regressions.json",
+          "added": 141,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-three-retest-deepseek-report.json",
+          "added": 1847,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-three-retest-deepseek-report.md",
+          "added": 68,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-three-retest-initial-validation.json",
+          "added": 12,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-three-retest-launch-observation.json",
+          "added": 118,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-three-retest-observation.json",
+          "added": 843,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-three-retest-validation.json",
+          "added": 1346,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-user-deepseek-report.json",
+          "added": 1552,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-user-deepseek-report.md",
+          "added": 58,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-user-deepseek-validation.json",
+          "added": 596,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-user-run-observation.json",
+          "added": 109,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/c04-validation.json",
+          "added": 143,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/raw/generated/inventory.json",
+          "added": 992,
+          "deleted": 115
+        },
+        {
+          "path": "wiki-project/raw/generated/代码清单.md",
+          "added": 100,
+          "deleted": 31
+        },
+        {
+          "path": "wiki-project/raw/generated/命令与运行时清单.md",
+          "added": 56,
+          "deleted": 39
+        },
+        {
+          "path": "wiki-project/raw/generated/源码快照.md",
+          "added": 101,
+          "deleted": 32
+        },
+        {
+          "path": "wiki-project/raw/generated/源码覆盖矩阵.md",
+          "added": 97,
+          "deleted": 28
+        },
+        {
+          "path": "wiki-project/scripts/wiki-config.json",
+          "added": 570,
+          "deleted": 30
+        },
+        {
+          "path": "wiki-project/wiki/02-技术选型与架构.md",
+          "added": 4,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/04-接口与Agent契约.md",
+          "added": 12,
+          "deleted": 4
+        },
+        {
+          "path": "wiki-project/wiki/05-三人分工与开发步骤.md",
+          "added": 3,
+          "deleted": 1
+        },
+        {
+          "path": "wiki-project/wiki/A业务LLMWiki方案.md",
+          "added": 4,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/A知识发布实现.md",
+          "added": 40,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/B00a知识Wiki公共协议.md",
+          "added": 4,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/C01b存储接口与事务方案.md",
+          "added": 6,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/C01b恢复测试用例.md",
+          "added": 13,
+          "deleted": 1
+        },
+        {
+          "path": "wiki-project/wiki/C02b商品与报价只读工具.md",
+          "added": 67,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/C02b桌面只读助手.md",
+          "added": 63,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/C02c多步报价工具闭环.md",
+          "added": 84,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/C02c持久运行与写入前置.md",
+          "added": 65,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/C02c统一运行与写账本.md",
+          "added": 65,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/C03持久事件与桌面重连.md",
+          "added": 65,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/C04三项修复真实复测.md",
+          "added": 85,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/C04修复分支真实复测.md",
+          "added": 85,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/C04剩余失败证据与收敛.md",
+          "added": 62,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/C04动作与澄清失败收敛.md",
+          "added": 46,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/C04动作修复真实复测.md",
+          "added": 76,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/C04失败收敛与本地回归.md",
+          "added": 53,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/C04失败阶段诊断与二轮收敛.md",
+          "added": 85,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/C04收口与验收边界.md",
+          "added": 31,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/C04模型评估与脱敏报告.md",
+          "added": 82,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/C04正式设置评估入口.md",
+          "added": 78,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/C04真实验证状态核对.md",
+          "added": 69,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/C04阶段证据真实复测.md",
+          "added": 104,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/C运行恢复实现.md",
+          "added": 5,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/C集成候选与依赖收口.md",
+          "added": 70,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/C集成候选评审说明.md",
+          "added": 60,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/M1工作台.md",
+          "added": 26,
+          "deleted": 1
+        },
+        {
+          "path": "wiki-project/wiki/M1工程基线.md",
+          "added": 15,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/M1接口与持久化.md",
+          "added": 36,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/M1验证与协作.md",
+          "added": 44,
+          "deleted": 1
+        },
+        {
+          "path": "wiki-project/wiki/M2真实报价V1.md",
+          "added": 11,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/M4模型与报价修订.md",
+          "added": 67,
+          "deleted": 2
+        },
+        {
+          "path": "wiki-project/wiki/Wiki 工作流与任务记录.md",
+          "added": 72,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/decisions/0016-受限只读工具循环分阶段接入.md",
+          "added": 39,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/decisions/0017-只读业务快照与核价预览.md",
+          "added": 39,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/decisions/0018-独立只读命令与桌面接线.md",
+          "added": 40,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/decisions/0019-运行存储前置与同连接保存点.md",
+          "added": 35,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/decisions/0020-独占Worker与草稿写账本.md",
+          "added": 38,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/decisions/0021-多步候选授权与规则校验.md",
+          "added": 38,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/decisions/0022-评估隔离与结果脱敏.md",
+          "added": 33,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/decisions/0023-显式评估宿主与独立进程.md",
+          "added": 35,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/decisions/0024-同次草稿运行内受限纠正.md",
+          "added": 35,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/decisions/0025-枚举失败证据与前置步骤纠正.md",
+          "added": 36,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/decisions/0026-阶段工具提示与细粒度失败分类.md",
+          "added": 35,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/decisions/0027-动作纠正与阻断解释故障归因.md",
+          "added": 35,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/decisions/0028-事务事件日志与只读重连.md",
+          "added": 39,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/tasks/A01-知识发布与来源查询.md",
+          "added": 14,
+          "deleted": 4
+        },
+        {
+          "path": "wiki-project/wiki/tasks/B01-规则检查与双反馈.md",
+          "added": 6,
+          "deleted": 1
+        },
+        {
+          "path": "wiki-project/wiki/tasks/C01-Agent运行恢复与集成.md",
+          "added": 13,
+          "deleted": 1
+        },
+        {
+          "path": "wiki-project/wiki/tasks/C01b-依赖就绪核查.md",
+          "added": 45,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/tasks/C02a-受限只读工具循环.md",
+          "added": 48,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/tasks/C02b-Worker与桌面只读入口.md",
+          "added": 51,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/tasks/C02b-商品与报价只读工具.md",
+          "added": 48,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/tasks/C02c-多步报价工具闭环.md",
+          "added": 52,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/tasks/C02c-持久运行与写入前置.md",
+          "added": 51,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/tasks/C02c-统一调度与强杀恢复.md",
+          "added": 49,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/tasks/C03-持久事件与桌面重连.md",
+          "added": 45,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/tasks/C04-三项修复真实复测核对.md",
+          "added": 48,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/tasks/C04-三项失败回归与最小修复.md",
+          "added": 41,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/tasks/C04-修复分支真实复测核对.md",
+          "added": 48,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/tasks/C04-动作修复真实复测核对.md",
+          "added": 43,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/tasks/C04-动作澄清与规则失败收敛.md",
+          "added": 40,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/tasks/C04-失败收敛.md",
+          "added": 47,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/tasks/C04-失败阶段证据与八项回归.md",
+          "added": 47,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/tasks/C04-收口签认.md",
+          "added": 39,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/tasks/C04-模型下拉选择.md",
+          "added": 44,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/tasks/C04-正式设置与显式真实评估.md",
+          "added": 52,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/tasks/C04-真实验证状态与报告核对.md",
+          "added": 45,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/tasks/C04-评估样本与脱敏报告.md",
+          "added": 50,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/tasks/C04-阶段证据真实复测核对.md",
+          "added": 46,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/tasks/C集成候选-依赖与非作者签认.md",
+          "added": 46,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/tasks/C集成候选-准备与组合验证.md",
+          "added": 39,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/三人并行开发交接.md",
+          "added": 11,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/双参考项目功能对照与C开发路线.md",
+          "added": 185,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/运行时能力地图.md",
+          "added": 14,
+          "deleted": 0
+        },
+        {
+          "path": "wiki-project/wiki/项目状态.md",
+          "added": 112,
+          "deleted": 2
+        },
+        {
+          "path": "wiki-project/wiki/首批并行接口约定.md",
+          "added": 27,
+          "deleted": 0
+        }
+      ],
+      "sourceClaimExact": true,
+      "wikiMissing": [],
+      "wikiExtra": [],
+      "taskBaseDeltaExact": true
+    },
+    "preservation": [
+      {
+        "ref": "9e8695b88f3e5d306f6aeeb362d21524818a3d12",
+        "oldRawCount": 131,
+        "rawMismatches": [],
+        "logBytes": 76286,
+        "logExactPrefix": false,
+        "uniqueHistoryBytePreserved": true,
+        "nonemptyLinesInOrder": true,
+        "coverageMissing": []
+      },
+      {
+        "ref": "654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+        "oldRawCount": 77,
+        "rawMismatches": [],
+        "logBytes": 48238,
+        "logExactPrefix": true,
+        "uniqueHistoryBytePreserved": true,
+        "nonemptyLinesInOrder": true,
+        "coverageMissing": []
+      }
+    ],
+    "checkOutputs": [
+      {
+        "command": "pnpm typecheck",
+        "exitCode": 0,
+        "outputHashValid": true
+      },
+      {
+        "command": "pnpm test",
+        "exitCode": 0,
+        "outputHashValid": true
+      },
+      {
+        "command": "node .runtime/c-integration/migration-probe.mjs",
+        "exitCode": 0,
+        "outputHashValid": true
+      },
+      {
+        "command": "pnpm test:e2e",
+        "exitCode": 0,
+        "outputHashValid": true
+      },
+      {
+        "command": "gh pr view 8 --repo jacson10l/tradequote-agent --json number,state,baseRefName,headRefName,headRefOid,reviewDecision,mergedAt,url,reviews,reviewRequests",
+        "exitCode": 0,
+        "outputHashValid": true
+      },
+      {
+        "command": "gh pr view 7 --repo jacson10l/tradequote-agent --json number,state,baseRefName,headRefName,headRefOid,reviewDecision,mergedAt,url",
+        "exitCode": 0,
+        "outputHashValid": true
+      },
+      {
+        "command": "gh pr list --repo jacson10l/tradequote-agent --state all --head codex/a01c-knowledge-search --json number,state,baseRefName,headRefName,url",
+        "exitCode": 0,
+        "outputHashValid": true
+      },
+      {
+        "command": "pnpm eval:model --mode fixture --output .runtime/c-integration-fixture-report",
+        "exitCode": 0,
+        "outputHashValid": true
+      },
+      {
+        "command": "node experiments/product-walkthrough/check.mjs",
+        "exitCode": 0,
+        "outputHashValid": true
+      },
+      {
+        "command": "gh pr view 9 --repo jacson10l/tradequote-agent --json number,state,baseRefName,headRefName,headRefOid,reviewDecision,mergedAt,url,reviews,reviewRequests",
+        "exitCode": 0,
+        "outputHashValid": true
+      },
+      {
+        "command": "python3 .runtime/c-integration/preservation.py",
+        "exitCode": 0,
+        "outputHashValid": true
+      },
+      {
+        "command": "pnpm wiki:generate",
+        "exitCode": 0,
+        "outputHashValid": true
+      },
+      {
+        "command": "pnpm wiki:check",
+        "exitCode": 0,
+        "outputHashValid": true
+      },
+      {
+        "command": "pnpm check",
+        "exitCode": 0,
+        "outputHashValid": true
+      },
+      {
+        "command": "pnpm wiki:test",
+        "exitCode": 0,
+        "outputHashValid": true
+      },
+      {
+        "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+        "exitCode": 0,
+        "outputHashValid": true
+      },
+      {
+        "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+        "exitCode": 0,
+        "outputHashValid": true
+      },
+      {
+        "command": "git diff --check",
+        "exitCode": 0,
+        "outputHashValid": true
+      },
+      {
+        "command": "git diff --cached --check",
+        "exitCode": 0,
+        "outputHashValid": true
+      }
+    ],
+    "prSnapshots": {
+      "7": {
+        "equal": true,
+        "value": {
+          "baseRefName": "codex/m1-foundation",
+          "headRefName": "codex/b00a-knowledge-wiki-contracts",
+          "headRefOid": "ae1af9d3ab2d560847be6df6bdc6346bb6f27f58",
+          "mergedAt": "2026-10-21T18:32:33Z",
+          "number": 7,
+          "reviewDecision": "APPROVED",
+          "state": "MERGED",
+          "url": "https://github.com/jacson10l/tradequote-agent/pull/7"
+        }
+      },
+      "8": {
+        "equal": true,
+        "value": {
+          "baseRefName": "codex/m1-foundation",
+          "headRefName": "codex/b00a-p1-knowledge-build-maintenance",
+          "headRefOid": "19d60a8436fc72faf2780cbe1e5f77aeb043b863",
+          "mergedAt": null,
+          "number": 8,
+          "reviewDecision": "",
+          "reviewRequests": [
+            {
+              "__typename": "User",
+              "login": "ssyyy31"
+            }
+          ],
+          "reviews": [],
+          "state": "OPEN",
+          "url": "https://github.com/jacson10l/tradequote-agent/pull/8"
+        }
+      },
+      "9": {
+        "equal": true,
+        "value": {
+          "baseRefName": "codex/a01b-knowledge-store",
+          "headRefName": "codex/a01c-knowledge-search",
+          "headRefOid": "dd42b055efd409fa3c332c6cb1997c7a7638ca62",
+          "mergedAt": null,
+          "number": 9,
+          "reviewDecision": "",
+          "reviewRequests": [],
+          "reviews": [],
+          "state": "OPEN",
+          "url": "https://github.com/jacson10l/tradequote-agent/pull/9"
+        }
+      }
+    },
+    "realReports": [
+      {
+        "file": "wiki-project/raw/c04-action-fixture-report.json",
+        "sha256": "cf8108b905edc8c6e5211acc98c004e4604f145558ccdf9a7cfcc5455788b853",
+        "mode": "fixture",
+        "status": "passed",
+        "providerValidation": "fixture_only",
+        "syntheticData": true,
+        "realRequests": 0,
+        "modelCalls": 189,
+        "caseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496",
+        "rows": 48,
+        "semantic": 27,
+        "semanticPassed": 27,
+        "fixtureOnly": 0
+      },
+      {
+        "file": "wiki-project/raw/c04-action-retest-deepseek-report.json",
+        "sha256": "db73d5e3ba48a55723e3fbe907f0c4cea7695983828ba9132837004a8f10639e",
+        "mode": "deepseek",
+        "status": "passed",
+        "providerValidation": "observed",
+        "syntheticData": true,
+        "realRequests": 168,
+        "modelCalls": 168,
+        "caseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496",
+        "rows": 48,
+        "semantic": 27,
+        "semanticPassed": 27,
+        "fixtureOnly": 0
+      },
+      {
+        "file": "wiki-project/raw/c04-convergence-fixture-report.json",
+        "sha256": "b3da266f447391ef2cb02141dbe4bec0e42d98b841c4f2dc0f9736a54f3cf87d",
+        "mode": "fixture",
+        "status": "passed",
+        "providerValidation": "fixture_only",
+        "syntheticData": true,
+        "realRequests": 0,
+        "modelCalls": 186,
+        "caseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496",
+        "rows": 48,
+        "semantic": 27,
+        "semanticPassed": 27,
+        "fixtureOnly": 0
+      },
+      {
+        "file": "wiki-project/raw/c04-deepseek-report.json",
+        "sha256": "2c062d6248bf2d115c4984bb859917caa25109ea95fb1aa29c0789a20b3b990f",
+        "mode": "deepseek",
+        "status": "not_run",
+        "providerValidation": "not_run",
+        "syntheticData": true,
+        "realRequests": 0,
+        "modelCalls": 0,
+        "caseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496",
+        "rows": 48,
+        "semantic": 27,
+        "semanticPassed": 0,
+        "fixtureOnly": 0
+      },
+      {
+        "file": "wiki-project/raw/c04-diagnostic-retest-deepseek-report.json",
+        "sha256": "da63a4c0da81bed026e3c3a55e0fec1e89e7e4e231c01aeb9a31b4dc260271c4",
+        "mode": "deepseek",
+        "status": "failed",
+        "providerValidation": "observed",
+        "syntheticData": true,
+        "realRequests": 145,
+        "modelCalls": 145,
+        "caseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496",
+        "rows": 48,
+        "semantic": 27,
+        "semanticPassed": 19,
+        "fixtureOnly": 0
+      },
+      {
+        "file": "wiki-project/raw/c04-diagnostics-fixture-report.json",
+        "sha256": "71374521c54272fb19a8cc479ec3227c60e90d46d51ae1a4e918b7b2174dc201",
+        "mode": "fixture",
+        "status": "passed",
+        "providerValidation": "fixture_only",
+        "syntheticData": true,
+        "realRequests": 0,
+        "modelCalls": 186,
+        "caseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496",
+        "rows": 48,
+        "semantic": 27,
+        "semanticPassed": 27,
+        "fixtureOnly": 0
+      },
+      {
+        "file": "wiki-project/raw/c04-fixture-report.json",
+        "sha256": "654b1d273dd9bad8f7fab247a5bf5b6759534f60207e4532dc25e083af4729dc",
+        "mode": "fixture",
+        "status": "passed",
+        "providerValidation": "fixture_only",
+        "syntheticData": true,
+        "realRequests": 0,
+        "modelCalls": 186,
+        "caseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496",
+        "rows": 48,
+        "semantic": 27,
+        "semanticPassed": 27,
+        "fixtureOnly": 0
+      },
+      {
+        "file": "wiki-project/raw/c04-remaining-fixture-report.json",
+        "sha256": "01f7e4e70ed006df7b123a3054d885b11dfc1028552d1fb1b012921d778312bb",
+        "mode": "fixture",
+        "status": "passed",
+        "providerValidation": "fixture_only",
+        "syntheticData": true,
+        "realRequests": 0,
+        "modelCalls": 186,
+        "caseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496",
+        "rows": 48,
+        "semantic": 27,
+        "semanticPassed": 27,
+        "fixtureOnly": 0
+      },
+      {
+        "file": "wiki-project/raw/c04-retest-deepseek-report.json",
+        "sha256": "56af5ce7e69bc1629d6db735d73cd7b43519a8b8a6b1c0d057817abc24ae20bf",
+        "mode": "deepseek",
+        "status": "failed",
+        "providerValidation": "observed",
+        "syntheticData": true,
+        "realRequests": 82,
+        "modelCalls": 82,
+        "caseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496",
+        "rows": 48,
+        "semantic": 27,
+        "semanticPassed": 8,
+        "fixtureOnly": 0
+      },
+      {
+        "file": "wiki-project/raw/c04-three-retest-deepseek-report.json",
+        "sha256": "64af39c296857cc0c7b6d50aa30a162f248bb75f48afcdbafc2c638401053f1e",
+        "mode": "deepseek",
+        "status": "failed",
+        "providerValidation": "observed",
+        "syntheticData": true,
+        "realRequests": 136,
+        "modelCalls": 136,
+        "caseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496",
+        "rows": 48,
+        "semantic": 27,
+        "semanticPassed": 22,
+        "fixtureOnly": 0
+      },
+      {
+        "file": "wiki-project/raw/c04-user-deepseek-report.json",
+        "sha256": "64bcb2aab3c257003ac1c43df05ffe0d6724334156e10a0bd4cd524c46518e2b",
+        "mode": "deepseek",
+        "status": "failed",
+        "providerValidation": "observed",
+        "syntheticData": true,
+        "realRequests": 104,
+        "modelCalls": 104,
+        "caseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496",
+        "rows": 48,
+        "semantic": 27,
+        "semanticPassed": 14,
+        "fixtureOnly": 0
+      }
+    ],
+    "fixture": {
+      "mode": "fixture",
+      "status": "passed",
+      "syntheticData": true,
+      "realRequests": 0,
+      "modelCalls": 189,
+      "rows": 48,
+      "allRowsPassed": true
+    },
+    "errors": []
+  },
+  "reportAudit": {
+    "reports": [
+      {
+        "name": "wiki-project/raw/c-integration-fixture-report",
+        "strictSchema": true,
+        "markdownExact": true,
+        "jsonSha256": "046c06042a101acd222f551907e71c7fedf1fc28771d3fe840bf0249a489cf3a",
+        "markdownSha256": "19c3d967c190b551ae8918a134fb2e4de4eb43c42b02e1d3c23e76a4dc15458f",
+        "statusCounts": {
+          "passed": 48
+        },
+        "businessPassed": 31,
+        "fixtureOnlyNotRun": 0
+      },
+      {
+        "name": ".runtime/c-independent-review/fixture",
+        "strictSchema": true,
+        "markdownExact": true,
+        "jsonSha256": "4fcba4a1ca96e920ca28542d298a13c4ed839c70e4bd45875e8af4edb064d7c6",
+        "markdownSha256": "19c3d967c190b551ae8918a134fb2e4de4eb43c42b02e1d3c23e76a4dc15458f",
+        "statusCounts": {
+          "passed": 48
+        },
+        "businessPassed": 31,
+        "fixtureOnlyNotRun": 0
+      },
+      {
+        "name": "wiki-project/raw/c04-action-retest-deepseek-report",
+        "strictSchema": true,
+        "markdownExact": true,
+        "jsonSha256": "db73d5e3ba48a55723e3fbe907f0c4cea7695983828ba9132837004a8f10639e",
+        "markdownSha256": "3404d04cc9988df64fe2c5441cd5e0364de5fae6e77968bb46e2e65357ec52fa",
+        "statusCounts": {
+          "passed": 31,
+          "not_run": 17
+        },
+        "businessPassed": 31,
+        "fixtureOnlyNotRun": 17
+      }
+    ],
+    "fixtureNormalizedEqual": true,
+    "probe": {
+      "rawSha256": "7c35f9c67c82f0f0aaa563f2f9aacf00f132994f528d27ffcd4773758eb7bc53",
+      "rawJSONParseable": true,
+      "normalization": null,
+      "normalizedEqual": true,
+      "result": {
+        "status": "passed",
+        "scope": "Synthetic in-memory compatibility diagnostic, not approval to integrate A01c or a claim of compatibility",
+        "cases": [
+          {
+            "direction": "A6_to_C7",
+            "outcome": "rejected",
+            "errorCode": "SQLITE_ERROR",
+            "before": {
+              "version": 6,
+              "tables": [
+                "agent_turn",
+                "catalog_batch",
+                "catalog_product",
+                "idempotency",
+                "job",
+                "knowledge_consumption",
+                "knowledge_lifecycle",
+                "knowledge_revision",
+                "knowledge_source",
+                "knowledge_wiki",
+                "outbox",
+                "quote_revision",
+                "quote_v1",
+                "scenario_revision",
+                "source",
+                "sqlite_sequence",
+                "workspace"
+              ]
+            },
+            "after": {
+              "version": 6,
+              "tables": [
+                "agent_turn",
+                "catalog_batch",
+                "catalog_product",
+                "idempotency",
+                "job",
+                "knowledge_consumption",
+                "knowledge_lifecycle",
+                "knowledge_revision",
+                "knowledge_source",
+                "knowledge_wiki",
+                "outbox",
+                "quote_revision",
+                "quote_v1",
+                "scenario_revision",
+                "source",
+                "sqlite_sequence",
+                "workspace"
+              ]
+            },
+            "expectationConfirmed": true
+          },
+          {
+            "direction": "C6_to_A6",
+            "outcome": "returned_success",
+            "errorCode": null,
+            "before": {
+              "version": 6,
+              "tables": [
+                "agent_run",
+                "agent_run_control",
+                "agent_turn",
+                "agent_write_call",
+                "catalog_batch",
+                "catalog_product",
+                "idempotency",
+                "job",
+                "knowledge_revision",
+                "outbox",
+                "quote_revision",
+                "quote_v1",
+                "scenario_revision",
+                "source",
+                "sqlite_sequence",
+                "workspace"
+              ]
+            },
+            "after": {
+              "version": 6,
+              "tables": [
+                "agent_run",
+                "agent_run_control",
+                "agent_turn",
+                "agent_write_call",
+                "catalog_batch",
+                "catalog_product",
+                "idempotency",
+                "job",
+                "knowledge_revision",
+                "outbox",
+                "quote_revision",
+                "quote_v1",
+                "scenario_revision",
+                "source",
+                "sqlite_sequence",
+                "workspace"
+              ]
+            },
+            "expectationConfirmed": true
+          },
+          {
+            "direction": "C7_to_A6",
+            "outcome": "rejected",
+            "errorCode": "DATABASE_NEWER_THAN_APPLICATION",
+            "before": {
+              "version": 7,
+              "tables": [
+                "agent_run",
+                "agent_run_control",
+                "agent_tool_step",
+                "agent_turn",
+                "agent_write_call",
+                "catalog_batch",
+                "catalog_product",
+                "idempotency",
+                "job",
+                "knowledge_revision",
+                "outbox",
+                "quote_revision",
+                "quote_v1",
+                "scenario_revision",
+                "source",
+                "sqlite_sequence",
+                "workspace"
+              ]
+            },
+            "after": {
+              "version": 7,
+              "tables": [
+                "agent_run",
+                "agent_run_control",
+                "agent_tool_step",
+                "agent_turn",
+                "agent_write_call",
+                "catalog_batch",
+                "catalog_product",
+                "idempotency",
+                "job",
+                "knowledge_revision",
+                "outbox",
+                "quote_revision",
+                "quote_v1",
+                "scenario_revision",
+                "source",
+                "sqlite_sequence",
+                "workspace"
+              ]
+            },
+            "expectationConfirmed": true
+          },
+          {
+            "direction": "C7_to_C7",
+            "outcome": "returned_success",
+            "errorCode": null,
+            "before": {
+              "version": 7,
+              "tables": [
+                "agent_run",
+                "agent_run_control",
+                "agent_tool_step",
+                "agent_turn",
+                "agent_write_call",
+                "catalog_batch",
+                "catalog_product",
+                "idempotency",
+                "job",
+                "knowledge_revision",
+                "outbox",
+                "quote_revision",
+                "quote_v1",
+                "scenario_revision",
+                "source",
+                "sqlite_sequence",
+                "workspace"
+              ]
+            },
+            "after": {
+              "version": 7,
+              "tables": [
+                "agent_run",
+                "agent_run_control",
+                "agent_tool_step",
+                "agent_turn",
+                "agent_write_call",
+                "catalog_batch",
+                "catalog_product",
+                "idempotency",
+                "job",
+                "knowledge_revision",
+                "outbox",
+                "quote_revision",
+                "quote_v1",
+                "scenario_revision",
+                "source",
+                "sqlite_sequence",
+                "workspace"
+              ]
+            },
+            "expectationConfirmed": true
+          }
+        ]
+      }
+    },
+    "afterAllTests": {
+      "source": [],
+      "bundle": [],
+      "scopeSourceHashes": []
+    },
+    "gitStatus": "",
+    "head": "9e067bf0114e0d2b27f7b65ea4ecc07042405499",
+    "ignoredEvidence": ".runtime/c-independent-review/evidence.json\n.runtime/c-integration/migration-probe.mjs\n",
+    "historicalP1Review": {
+      "status": "passed_in_C_scope",
+      "receivedAt": "2026-10-22T01:34:03.713629+08:00",
+      "reviewerRole": "C independent technical review, not A storage approval or human T00",
+      "reviewerThreadId": "01a15f0d-4b20-7220-b406-349a3d4a7145",
+      "originalFindings": "wiki-project/raw/b00a-p1-review-findings.json",
+      "closedP2": [
+        "Ordinary queued/running fail transition",
+        "Unknown consumer cannot be reported complete",
+        "Initial terminal impact page cannot hide known items"
+      ],
+      "clarificationVerified": "Index commit cannot reduce indexedSeq",
+      "reviewerReportedChecks": [
+        {
+          "command": "pnpm exec vitest run packages/contracts/src/knowledge-build.test.ts packages/contracts/src/knowledge-maintenance.test.ts apps/desktop/src/preload/contracts.test.ts",
+          "exitCode": 0,
+          "files": 3,
+          "tests": 28
+        },
+        {
+          "command": "Vite ssrLoadModule negative-case replay",
+          "observed": {
+            "runningToFail": true,
+            "queuedToFail": true,
+            "completedWithUnknownConsumer": false,
+            "partialWithUnknownConsumer": true,
+            "knownNonzeroInitialEmptyTerminalPage": false,
+            "index100To90": false
+          }
+        }
+      ],
+      "remainingInScopeBlockers": [],
+      "notCovered": [
+        "A source/storage/business semantics and transaction implementation review",
+        "Business execution and maintenance engines",
+        "Merge or A01c/A01d/A01e unlock"
+      ],
+      "sourceSnapshotSha256": {
+        "packages/contracts/src/knowledge-build.ts": "41c644866d1c337cd35584bbf784210715d864438bf3c00ea40ba729ae580916",
+        "packages/contracts/src/knowledge-maintenance.ts": "c6cc2135ef04df9479d362360c0b58c6c7ca8540d31fbeaf360bf716e90f8e60"
+      }
+    }
+  },
+  "probeScriptAudit": {
+    "sourceRef": "dd42b055efd409fa3c332c6cb1997c7a7638ca62",
+    "sourcePath": "packages/infrastructure/src/migrations.ts",
+    "sourceSha256": "13c4a45e7b77247500964f6b4ac2ac19e178c4cc16275e46d2af2ac28f6eed9c",
+    "claimedSourceSha256": "13c4a45e7b77247500964f6b4ac2ac19e178c4cc16275e46d2af2ac28f6eed9c",
+    "originalScriptSha256": "92f641246daf29cf8ed2f6c18381925d33d976e069396ef95649457df718ed3f",
+    "claimedOriginalScriptSha256": "92f641246daf29cf8ed2f6c18381925d33d976e069396ef95649457df718ed3f",
+    "adjustedScriptSha256": "0411e06419210f6639972fd8bf082ef2796b691eb93e0b21285e6c6574d5ee28",
+    "onlyAdjustment": {
+      "from": "wiki-project/raw/c-integration-migration-probe.json",
+      "to": ".runtime/c-independent-review/migration-probe.json",
+      "reason": "Preserve tracked committed artifact; all databases remain :memory:"
+    }
+  },
+  "evidenceArtifacts": {
+    "wiki-project/raw/c-integration-validation.json": {
+      "bytes": 74831,
+      "sha256": "2d884c227610ecca830df2efb9a6bc31517a620dbb4d0ff971fafa04a13d5bff"
+    },
+    "wiki-project/raw/c-integration-dependency-audit.json": {
+      "bytes": 25499,
+      "sha256": "ba9965a397b4e545d31e8d23b05a89b7d5d0ca06a09fe3d686b79604d58c7270"
+    },
+    "wiki-project/raw/c-integration-scope.json": {
+      "bytes": 42977,
+      "sha256": "59021da7505851bba843dcaded1ab62e3196fa7d0ffc63f1cd8fb4e7998b8b8d"
+    },
+    "wiki-project/raw/c-integration-preservation.json": {
+      "bytes": 12270,
+      "sha256": "e49defd1336f8d6cd87fd0fe65cc250e7db1762c3c292e6adbd2abd32c854e4e"
+    },
+    "wiki-project/raw/c-integration-migration-probe.json": {
+      "bytes": 4856,
+      "sha256": "7c35f9c67c82f0f0aaa563f2f9aacf00f132994f528d27ffcd4773758eb7bc53"
+    },
+    "wiki-project/raw/c-integration-fixture-report.json": {
+      "bytes": 49907,
+      "sha256": "046c06042a101acd222f551907e71c7fedf1fc28771d3fe840bf0249a489cf3a"
+    },
+    "wiki-project/raw/c-integration-fixture-report.md": {
+      "bytes": 5162,
+      "sha256": "19c3d967c190b551ae8918a134fb2e4de4eb43c42b02e1d3c23e76a4dc15458f"
+    },
+    "wiki-project/raw/c04-action-retest-deepseek-report.json": {
+      "bytes": 40479,
+      "sha256": "db73d5e3ba48a55723e3fbe907f0c4cea7695983828ba9132837004a8f10639e"
+    },
+    "wiki-project/raw/c04-action-retest-deepseek-report.md": {
+      "bytes": 3641,
+      "sha256": "3404d04cc9988df64fe2c5441cd5e0364de5fae6e77968bb46e2e65357ec52fa"
+    }
+  },
+  "signingStatus": {
+    "technicalEvidenceOnly": true,
+    "A": false,
+    "B": false,
+    "humanBusinessAcceptance": false,
+    "nonAuthorApprovalNotGranted": true,
+    "taskStates": {
+      "C集成候选-准备与组合验证": "done historical preparation",
+      "C集成候选-依赖与非作者签认": "active",
+      "C04-收口签认": "active"
+    }
+  },
+  "finalConclusion": "Independent technical evidence audit is complete; candidate requires follow-up because full pnpm test failed on three unchanged reruns. This is not A/B/manual approval."
+}

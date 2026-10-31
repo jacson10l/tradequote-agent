@@ -1,0 +1,1295 @@
+{
+  "status": "changes_required",
+  "ACommit": "1c890dc77ecba2cfb949c5e69908dc81bdacc692",
+  "environment": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "node": "v24.22.0",
+    "electron": "44.9.2"
+  },
+  "scope": "C native production migration/repository input matrix expansion. SQL-level synthetic row preservation; JSON payloads explicitly marked SQL fixtures, NOT domain-valid business acceptance or combined A/B/C runtime.",
+  "cases": [
+    {
+      "id": "M13-Y10-bracket-identifier-fake-check",
+      "expected": "readonly identify and actual repository must reject; no upgrade, no registry writes; file and directory unchanged",
+      "before": {
+        "version": 7,
+        "objects": [
+          {
+            "type": "index",
+            "name": "agent_run_discovery",
+            "tbl_name": "agent_run",
+            "sql": "CREATE INDEX agent_run_discovery ON agent_run(workspace_id, json_extract(data_json, '$.createdAt'), run_id)"
+          },
+          {
+            "type": "index",
+            "name": "agent_write_once",
+            "tbl_name": "agent_write_call",
+            "sql": "CREATE UNIQUE INDEX agent_write_once ON agent_write_call(run_id,attempt) WHERE status IN ('prepared','committed')"
+          },
+          {
+            "type": "index",
+            "name": "knowledge_revision_document",
+            "tbl_name": "knowledge_revision",
+            "sql": "CREATE INDEX knowledge_revision_document ON knowledge_revision(document_id, version DESC)"
+          },
+          {
+            "type": "table",
+            "name": "agent_run",
+            "tbl_name": "agent_run",
+            "sql": "CREATE TABLE agent_run (\n  run_id TEXT PRIMARY KEY,\n  workspace_id TEXT NOT NULL REFERENCES workspace(id),\n  operation_key TEXT NOT NULL,\n  request_hash TEXT NOT NULL,\n  data_json TEXT NOT NULL CHECK(json_valid(data_json)),\n  execution_id TEXT,\n  worker_session_id TEXT,\n  UNIQUE(workspace_id, operation_key),\n  CHECK(json_extract(data_json, '$.runId') = run_id),\n  CHECK(json_extract(data_json, '$.operationKey') = operation_key),\n  CHECK((json_extract(data_json, '$.status') = 'running') = (execution_id IS NOT NULL AND worker_session_id IS NOT NULL))\n)"
+          },
+          {
+            "type": "table",
+            "name": "agent_run_control",
+            "tbl_name": "agent_run_control",
+            "sql": "CREATE TABLE agent_run_control (\n  workspace_id TEXT NOT NULL REFERENCES workspace(id),\n  control_key TEXT NOT NULL,\n  request_hash TEXT NOT NULL,\n  result_json TEXT NOT NULL CHECK(json_valid(result_json)),\n  PRIMARY KEY(workspace_id, control_key)\n)"
+          },
+          {
+            "type": "table",
+            "name": "agent_tool_step",
+            "tbl_name": "agent_tool_step",
+            "sql": "CREATE TABLE agent_tool_step (\n  run_id TEXT NOT NULL REFERENCES agent_run(run_id),\n  attempt INTEGER NOT NULL,\n  tool_call_id TEXT NOT NULL,\n  ordinal INTEGER NOT NULL,\n  data_json TEXT NOT NULL CHECK(json_valid(data_json)),\n  PRIMARY KEY(run_id,attempt,tool_call_id),\n  UNIQUE(run_id,attempt,ordinal)\n)"
+          },
+          {
+            "type": "table",
+            "name": "agent_turn",
+            "tbl_name": "agent_turn",
+            "sql": "CREATE TABLE agent_turn (id TEXT PRIMARY KEY, workspace_id TEXT NOT NULL REFERENCES workspace(id), data_json TEXT NOT NULL)"
+          },
+          {
+            "type": "table",
+            "name": "agent_write_call",
+            "tbl_name": "agent_write_call",
+            "sql": "CREATE TABLE agent_write_call (\n  run_id TEXT NOT NULL REFERENCES agent_run(run_id),\n  tool_call_id TEXT NOT NULL,\n  attempt INTEGER NOT NULL,\n  execution_id TEXT NOT NULL,\n  worker_session_id TEXT NOT NULL,\n  tool_name TEXT NOT NULL CHECK(tool_name IN ('create_draft','apply_patch')),\n  request_hash TEXT NOT NULL,\n  input_json TEXT NOT NULL CHECK(json_valid(input_json)),\n  status TEXT NOT NULL CHECK(status IN ('prepared','committed','abandoned')),\n  revision_id TEXT, validation_json TEXT CHECK(validation_json IS NULL OR json_valid(validation_json)),\n  [CHECK(attempt>0)] TEXT, PRIMARY KEY(run_id,tool_call_id),\n  CHECK((status='committed') = (revision_id IS NOT NULL))\n)"
+          },
+          {
+            "type": "table",
+            "name": "catalog_batch",
+            "tbl_name": "catalog_batch",
+            "sql": "CREATE TABLE catalog_batch (id TEXT PRIMARY KEY, workspace_id TEXT NOT NULL REFERENCES workspace(id), source_hash TEXT NOT NULL, source_status TEXT NOT NULL, raw_csv TEXT NOT NULL, data_json TEXT NOT NULL, UNIQUE(workspace_id,source_hash,source_status))"
+          },
+          {
+            "type": "table",
+            "name": "catalog_product",
+            "tbl_name": "catalog_product",
+            "sql": "CREATE TABLE catalog_product (id TEXT PRIMARY KEY, workspace_id TEXT NOT NULL REFERENCES workspace(id), batch_id TEXT NOT NULL REFERENCES catalog_batch(id), sku TEXT NOT NULL, data_json TEXT NOT NULL, UNIQUE(workspace_id,sku))"
+          },
+          {
+            "type": "table",
+            "name": "idempotency",
+            "tbl_name": "idempotency",
+            "sql": "CREATE TABLE idempotency (key TEXT PRIMARY KEY, request_hash TEXT NOT NULL, result_json TEXT NOT NULL)"
+          },
+          {
+            "type": "table",
+            "name": "job",
+            "tbl_name": "job",
+            "sql": "CREATE TABLE job (id TEXT PRIMARY KEY, workspace_id TEXT NOT NULL REFERENCES workspace(id), kind TEXT NOT NULL, status TEXT NOT NULL CHECK(status IN ('queued','running','completed','failed','interrupted')), attempts INTEGER NOT NULL DEFAULT 0, next_attempt_at TEXT)"
+          },
+          {
+            "type": "table",
+            "name": "knowledge_revision",
+            "tbl_name": "knowledge_revision",
+            "sql": "CREATE TABLE knowledge_revision (\n  id TEXT PRIMARY KEY,\n  workspace_id TEXT NOT NULL REFERENCES workspace(id),\n  document_id TEXT NOT NULL,\n  version INTEGER NOT NULL CHECK(version>0),\n  status TEXT NOT NULL CHECK(status IN ('staged','published')),\n  source_hash TEXT NOT NULL CHECK(length(source_hash)=64),\n  created_at TEXT NOT NULL,\n  published_at TEXT,\n  data_json TEXT NOT NULL\n)"
+          },
+          {
+            "type": "table",
+            "name": "outbox",
+            "tbl_name": "outbox",
+            "sql": "CREATE TABLE outbox (seq INTEGER PRIMARY KEY AUTOINCREMENT, event_id TEXT NOT NULL UNIQUE, workspace_id TEXT NOT NULL REFERENCES workspace(id), type TEXT NOT NULL, payload_json TEXT NOT NULL, context_json TEXT NOT NULL, created_at TEXT NOT NULL)"
+          },
+          {
+            "type": "table",
+            "name": "quote_revision",
+            "tbl_name": "quote_revision",
+            "sql": "CREATE TABLE quote_revision (id TEXT PRIMARY KEY, workspace_id TEXT NOT NULL REFERENCES workspace(id), root_id TEXT NOT NULL REFERENCES quote_v1(id), parent_id TEXT NOT NULL UNIQUE, version INTEGER NOT NULL CHECK(version>1), content_hash TEXT NOT NULL, data_json TEXT NOT NULL, UNIQUE(root_id,version))"
+          },
+          {
+            "type": "table",
+            "name": "quote_v1",
+            "tbl_name": "quote_v1",
+            "sql": "CREATE TABLE quote_v1 (id TEXT PRIMARY KEY, workspace_id TEXT NOT NULL REFERENCES workspace(id), scenario_id TEXT NOT NULL REFERENCES scenario_revision(id), content_hash TEXT NOT NULL, data_json TEXT NOT NULL)"
+          },
+          {
+            "type": "table",
+            "name": "scenario_revision",
+            "tbl_name": "scenario_revision",
+            "sql": "CREATE TABLE scenario_revision (id TEXT PRIMARY KEY, workspace_id TEXT NOT NULL REFERENCES workspace(id), version INTEGER NOT NULL, data_json TEXT NOT NULL, UNIQUE(workspace_id,version))"
+          },
+          {
+            "type": "table",
+            "name": "source",
+            "tbl_name": "source",
+            "sql": "CREATE TABLE source (id TEXT PRIMARY KEY, workspace_id TEXT NOT NULL REFERENCES workspace(id), artifact_id TEXT NOT NULL, status TEXT NOT NULL CHECK(status IN ('staged','published','rejected')))"
+          },
+          {
+            "type": "table",
+            "name": "workspace",
+            "tbl_name": "workspace",
+            "sql": "CREATE TABLE workspace (slot INTEGER PRIMARY KEY CHECK(slot=1), id TEXT NOT NULL UNIQUE, name TEXT NOT NULL, version INTEGER NOT NULL CHECK(version>0), created_at TEXT NOT NULL)"
+          },
+          {
+            "type": "trigger",
+            "name": "agent_tool_step_no_delete",
+            "tbl_name": "agent_tool_step",
+            "sql": "CREATE TRIGGER agent_tool_step_no_delete BEFORE DELETE ON agent_tool_step BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "agent_tool_step_no_update",
+            "tbl_name": "agent_tool_step",
+            "sql": "CREATE TRIGGER agent_tool_step_no_update BEFORE UPDATE ON agent_tool_step BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "agent_turn_no_delete",
+            "tbl_name": "agent_turn",
+            "sql": "CREATE TRIGGER agent_turn_no_delete BEFORE DELETE ON agent_turn BEGIN SELECT RAISE(ABORT, 'IMMUTABLE_TURN'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "agent_turn_no_update",
+            "tbl_name": "agent_turn",
+            "sql": "CREATE TRIGGER agent_turn_no_update BEFORE UPDATE ON agent_turn BEGIN SELECT RAISE(ABORT, 'IMMUTABLE_TURN'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "agent_write_committed_no_update",
+            "tbl_name": "agent_write_call",
+            "sql": "CREATE TRIGGER agent_write_committed_no_update BEFORE UPDATE ON agent_write_call WHEN OLD.status='committed' BEGIN SELECT RAISE(ABORT,'IMMUTABLE_WRITE_RECEIPT'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "agent_write_no_delete",
+            "tbl_name": "agent_write_call",
+            "sql": "CREATE TRIGGER agent_write_no_delete BEFORE DELETE ON agent_write_call BEGIN SELECT RAISE(ABORT,'IMMUTABLE_WRITE_RECEIPT'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "knowledge_revision_no_delete",
+            "tbl_name": "knowledge_revision",
+            "sql": "CREATE TRIGGER knowledge_revision_no_delete BEFORE DELETE ON knowledge_revision BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "knowledge_revision_no_update",
+            "tbl_name": "knowledge_revision",
+            "sql": "CREATE TRIGGER knowledge_revision_no_update BEFORE UPDATE ON knowledge_revision WHEN OLD.status='published' BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "quote_revision_no_delete",
+            "tbl_name": "quote_revision",
+            "sql": "CREATE TRIGGER quote_revision_no_delete BEFORE DELETE ON quote_revision BEGIN SELECT RAISE(ABORT, 'IMMUTABLE_QUOTE'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "quote_revision_no_update",
+            "tbl_name": "quote_revision",
+            "sql": "CREATE TRIGGER quote_revision_no_update BEFORE UPDATE ON quote_revision BEGIN SELECT RAISE(ABORT, 'IMMUTABLE_QUOTE'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "quote_v1_no_delete",
+            "tbl_name": "quote_v1",
+            "sql": "CREATE TRIGGER quote_v1_no_delete BEFORE DELETE ON quote_v1 BEGIN SELECT RAISE(ABORT, 'IMMUTABLE_QUOTE'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "quote_v1_no_update",
+            "tbl_name": "quote_v1",
+            "sql": "CREATE TRIGGER quote_v1_no_update BEFORE UPDATE ON quote_v1 BEGIN SELECT RAISE(ABORT, 'IMMUTABLE_QUOTE'); END"
+          }
+        ],
+        "rows": {
+          "agent_run": [
+            {
+              "run_id": "run-queued",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "operation_key": "op-queued",
+              "request_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "data_json": "{\"syntheticSQLFixture\":true,\"runId\":\"run-queued\",\"operationKey\":\"op-queued\",\"status\":\"queued\",\"attempt\":1,\"createdAt\":\"2026-10-25T00:00:00.000Z\",\"committedRevisionId\":null}",
+              "execution_id": null,
+              "worker_session_id": null
+            },
+            {
+              "run_id": "run-running",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "operation_key": "op-running",
+              "request_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "data_json": "{\"syntheticSQLFixture\":true,\"runId\":\"run-running\",\"operationKey\":\"op-running\",\"status\":\"running\",\"attempt\":1,\"createdAt\":\"2026-10-25T00:00:00.000Z\",\"committedRevisionId\":null}",
+              "execution_id": "execution-original",
+              "worker_session_id": "session-original"
+            },
+            {
+              "run_id": "run-waiting_input",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "operation_key": "op-waiting_input",
+              "request_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "data_json": "{\"syntheticSQLFixture\":true,\"runId\":\"run-waiting_input\",\"operationKey\":\"op-waiting_input\",\"status\":\"waiting_input\",\"attempt\":1,\"createdAt\":\"2026-10-25T00:00:00.000Z\",\"committedRevisionId\":null}",
+              "execution_id": null,
+              "worker_session_id": null
+            },
+            {
+              "run_id": "run-completed",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "operation_key": "op-completed",
+              "request_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "data_json": "{\"syntheticSQLFixture\":true,\"runId\":\"run-completed\",\"operationKey\":\"op-completed\",\"status\":\"completed\",\"attempt\":1,\"createdAt\":\"2026-10-25T00:00:00.000Z\",\"committedRevisionId\":\"revision-3\"}",
+              "execution_id": null,
+              "worker_session_id": null
+            },
+            {
+              "run_id": "run-failed",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "operation_key": "op-failed",
+              "request_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "data_json": "{\"syntheticSQLFixture\":true,\"runId\":\"run-failed\",\"operationKey\":\"op-failed\",\"status\":\"failed\",\"attempt\":1,\"createdAt\":\"2026-10-25T00:00:00.000Z\",\"committedRevisionId\":null}",
+              "execution_id": null,
+              "worker_session_id": null
+            },
+            {
+              "run_id": "run-cancelled",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "operation_key": "op-cancelled",
+              "request_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "data_json": "{\"syntheticSQLFixture\":true,\"runId\":\"run-cancelled\",\"operationKey\":\"op-cancelled\",\"status\":\"cancelled\",\"attempt\":1,\"createdAt\":\"2026-10-25T00:00:00.000Z\",\"committedRevisionId\":null}",
+              "execution_id": null,
+              "worker_session_id": null
+            },
+            {
+              "run_id": "run-interrupted",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "operation_key": "op-interrupted",
+              "request_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "data_json": "{\"syntheticSQLFixture\":true,\"runId\":\"run-interrupted\",\"operationKey\":\"op-interrupted\",\"status\":\"interrupted\",\"attempt\":1,\"createdAt\":\"2026-10-25T00:00:00.000Z\",\"committedRevisionId\":null}",
+              "execution_id": null,
+              "worker_session_id": null
+            }
+          ],
+          "agent_run_control": [
+            {
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "control_key": "control-queued",
+              "request_hash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+              "result_json": "{\"syntheticSQLFixture\":true,\"status\":\"queued\"}"
+            },
+            {
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "control_key": "control-running",
+              "request_hash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+              "result_json": "{\"syntheticSQLFixture\":true,\"status\":\"running\"}"
+            },
+            {
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "control_key": "control-waiting_input",
+              "request_hash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+              "result_json": "{\"syntheticSQLFixture\":true,\"status\":\"waiting_input\"}"
+            },
+            {
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "control_key": "control-completed",
+              "request_hash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+              "result_json": "{\"syntheticSQLFixture\":true,\"status\":\"completed\"}"
+            },
+            {
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "control_key": "control-failed",
+              "request_hash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+              "result_json": "{\"syntheticSQLFixture\":true,\"status\":\"failed\"}"
+            },
+            {
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "control_key": "control-cancelled",
+              "request_hash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+              "result_json": "{\"syntheticSQLFixture\":true,\"status\":\"cancelled\"}"
+            },
+            {
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "control_key": "control-interrupted",
+              "request_hash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+              "result_json": "{\"syntheticSQLFixture\":true,\"status\":\"interrupted\"}"
+            }
+          ],
+          "agent_tool_step": [
+            {
+              "run_id": "run-completed",
+              "attempt": 1,
+              "tool_call_id": "step-1-1",
+              "ordinal": 1,
+              "data_json": "{\"syntheticSQLFixture\":true,\"attempt\":1,\"ordinal\":1}"
+            },
+            {
+              "run_id": "run-completed",
+              "attempt": 1,
+              "tool_call_id": "step-1-2",
+              "ordinal": 2,
+              "data_json": "{\"syntheticSQLFixture\":true,\"attempt\":1,\"ordinal\":2}"
+            },
+            {
+              "run_id": "run-completed",
+              "attempt": 2,
+              "tool_call_id": "step-2-1",
+              "ordinal": 1,
+              "data_json": "{\"syntheticSQLFixture\":true,\"attempt\":2,\"ordinal\":1}"
+            },
+            {
+              "run_id": "run-completed",
+              "attempt": 2,
+              "tool_call_id": "step-2-2",
+              "ordinal": 2,
+              "data_json": "{\"syntheticSQLFixture\":true,\"attempt\":2,\"ordinal\":2}"
+            }
+          ],
+          "agent_turn": [
+            {
+              "id": "turn-original",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "data_json": "{ \"syntheticSQLFixture\": true, \"text\": \"不改写 Ü\" }"
+            }
+          ],
+          "agent_write_call": [
+            {
+              "run_id": "run-running",
+              "tool_call_id": "call-prepared",
+              "attempt": 1,
+              "execution_id": "execution-original",
+              "worker_session_id": "session-original",
+              "tool_name": "create_draft",
+              "request_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "input_json": "{ \"syntheticSQLFixture\": true, \"amount\": \"900.00\" }",
+              "status": "prepared",
+              "revision_id": null,
+              "validation_json": "{\"syntheticSQLFixture\":true,\"policy\":\"original\"}",
+              "CHECK(attempt>0)": null
+            },
+            {
+              "run_id": "run-completed",
+              "tool_call_id": "call-committed",
+              "attempt": 1,
+              "execution_id": "execution-original",
+              "worker_session_id": "session-original",
+              "tool_name": "create_draft",
+              "request_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "input_json": "{ \"syntheticSQLFixture\": true, \"amount\": \"900.00\" }",
+              "status": "committed",
+              "revision_id": "revision-3",
+              "validation_json": "{\"syntheticSQLFixture\":true,\"policy\":\"original\"}",
+              "CHECK(attempt>0)": null
+            },
+            {
+              "run_id": "run-failed",
+              "tool_call_id": "call-abandoned",
+              "attempt": 1,
+              "execution_id": "execution-original",
+              "worker_session_id": "session-original",
+              "tool_name": "create_draft",
+              "request_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "input_json": "{ \"syntheticSQLFixture\": true, \"amount\": \"900.00\" }",
+              "status": "abandoned",
+              "revision_id": null,
+              "validation_json": "{\"syntheticSQLFixture\":true,\"policy\":\"original\"}",
+              "CHECK(attempt>0)": null
+            }
+          ],
+          "catalog_batch": [
+            {
+              "id": "batch-original",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "source_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "source_status": "synthetic",
+              "raw_csv": "sku,price\nSYNTHETIC,9.00\n",
+              "data_json": "{\"synthetic\":true}"
+            }
+          ],
+          "catalog_product": [
+            {
+              "id": "product-original",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "batch_id": "batch-original",
+              "sku": "SYNTHETIC",
+              "data_json": "{\"synthetic\":true,\"unitPrice\":\"9.00\"}"
+            }
+          ],
+          "idempotency": [
+            {
+              "key": "synthetic-success",
+              "request_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "result_json": "{ \"synthetic\": \"保留 Ä Decimal 900.00\", \"unknown\": null }"
+            }
+          ],
+          "job": [
+            {
+              "id": "job-original",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "kind": "synthetic",
+              "status": "completed",
+              "attempts": 1,
+              "next_attempt_at": null
+            }
+          ],
+          "knowledge_revision": [
+            {
+              "id": "knowledge-staged",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "document_id": "document-staged",
+              "version": 1,
+              "status": "staged",
+              "source_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              "created_at": "2026-10-25T00:00:00.000Z",
+              "published_at": null,
+              "data_json": "{\"syntheticSQLFixture\":true,\"state\":\"staged\"}"
+            },
+            {
+              "id": "knowledge-published",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "document_id": "document-published",
+              "version": 1,
+              "status": "published",
+              "source_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              "created_at": "2026-10-25T00:00:00.000Z",
+              "published_at": "2026-10-25T00:00:00.000Z",
+              "data_json": "{\"syntheticSQLFixture\":true,\"state\":\"published\"}"
+            }
+          ],
+          "outbox": [
+            {
+              "seq": 1,
+              "event_id": "synthetic-global-0",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "type": "agent.run.event.v1",
+              "payload_json": "{\"syntheticSQLFixture\":true,\"runId\":\"run-completed\",\"seq\":1}",
+              "context_json": "{\"synthetic\":true}",
+              "created_at": "2026-10-25T00:00:00.000Z"
+            },
+            {
+              "seq": 2,
+              "event_id": "synthetic-global-1",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "type": "synthetic.other",
+              "payload_json": "{\"syntheticSQLFixture\":true,\"runId\":\"run-completed\",\"seq\":1}",
+              "context_json": "{\"synthetic\":true}",
+              "created_at": "2026-10-25T00:00:00.000Z"
+            },
+            {
+              "seq": 3,
+              "event_id": "synthetic-global-2",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "type": "agent.run.event.v1",
+              "payload_json": "{\"syntheticSQLFixture\":true,\"runId\":\"run-running\",\"seq\":1}",
+              "context_json": "{\"synthetic\":true}",
+              "created_at": "2026-10-25T00:00:00.000Z"
+            }
+          ],
+          "quote_revision": [
+            {
+              "id": "revision-2",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "root_id": "quote-original",
+              "parent_id": "quote-original",
+              "version": 2,
+              "content_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+              "data_json": "{\"syntheticSQLFixture\":true,\"version\":2,\"goodsTotal\":\"900.00\",\"unknown\":null}"
+            },
+            {
+              "id": "revision-3",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "root_id": "quote-original",
+              "parent_id": "revision-2",
+              "version": 3,
+              "content_hash": "3333333333333333333333333333333333333333333333333333333333333333",
+              "data_json": "{\"syntheticSQLFixture\":true,\"version\":3,\"goodsTotal\":\"900.00\",\"unknown\":null}"
+            }
+          ],
+          "quote_v1": [
+            {
+              "id": "quote-original",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "scenario_id": "scenario-original",
+              "content_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "data_json": "{ \"syntheticSQLFixture\": true, \"goodsTotal\": \"900.00\", \"unknown\": null }"
+            }
+          ],
+          "scenario_revision": [
+            {
+              "id": "scenario-original",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "version": 1,
+              "data_json": "{\"synthetic\":true,\"locale\":\"de\",\"unknown\":null}"
+            }
+          ],
+          "source": [
+            {
+              "id": "source-original",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "artifact_id": "synthetic-artifact",
+              "status": "published"
+            }
+          ],
+          "workspace": [
+            {
+              "slot": 1,
+              "id": "00000000-0000-4000-8000-000000000001",
+              "name": "SYNTHETIC SQL preservation fixture",
+              "version": 1,
+              "created_at": "2026-10-25T00:00:00.000Z"
+            }
+          ]
+        },
+        "foreignKeys": []
+      },
+      "after": {
+        "version": 8,
+        "objects": [
+          {
+            "type": "index",
+            "name": "agent_run_discovery",
+            "tbl_name": "agent_run",
+            "sql": "CREATE INDEX agent_run_discovery ON agent_run(workspace_id, json_extract(data_json, '$.createdAt'), run_id)"
+          },
+          {
+            "type": "index",
+            "name": "agent_write_once",
+            "tbl_name": "agent_write_call",
+            "sql": "CREATE UNIQUE INDEX agent_write_once ON agent_write_call(run_id,attempt) WHERE status IN ('prepared','committed')"
+          },
+          {
+            "type": "index",
+            "name": "knowledge_lifecycle_state",
+            "tbl_name": "knowledge_lifecycle",
+            "sql": "CREATE INDEX knowledge_lifecycle_state ON knowledge_lifecycle(state)"
+          },
+          {
+            "type": "index",
+            "name": "knowledge_revision_document",
+            "tbl_name": "knowledge_revision",
+            "sql": "CREATE INDEX knowledge_revision_document ON knowledge_revision(document_id, version DESC)"
+          },
+          {
+            "type": "index",
+            "name": "knowledge_source_document",
+            "tbl_name": "knowledge_source",
+            "sql": "CREATE INDEX knowledge_source_document ON knowledge_source(source_id, version DESC)"
+          },
+          {
+            "type": "index",
+            "name": "knowledge_wiki_document",
+            "tbl_name": "knowledge_wiki",
+            "sql": "CREATE INDEX knowledge_wiki_document ON knowledge_wiki(document_id, version DESC)"
+          },
+          {
+            "type": "index",
+            "name": "quote_check_report_history",
+            "tbl_name": "quote_check_report",
+            "sql": "CREATE INDEX quote_check_report_history ON quote_check_report(workspace_id,revision_id,checked_at DESC,report_id)"
+          },
+          {
+            "type": "table",
+            "name": "agent_run",
+            "tbl_name": "agent_run",
+            "sql": "CREATE TABLE agent_run (\n  run_id TEXT PRIMARY KEY,\n  workspace_id TEXT NOT NULL REFERENCES workspace(id),\n  operation_key TEXT NOT NULL,\n  request_hash TEXT NOT NULL,\n  data_json TEXT NOT NULL CHECK(json_valid(data_json)),\n  execution_id TEXT,\n  worker_session_id TEXT,\n  UNIQUE(workspace_id, operation_key),\n  CHECK(json_extract(data_json, '$.runId') = run_id),\n  CHECK(json_extract(data_json, '$.operationKey') = operation_key),\n  CHECK((json_extract(data_json, '$.status') = 'running') = (execution_id IS NOT NULL AND worker_session_id IS NOT NULL))\n)"
+          },
+          {
+            "type": "table",
+            "name": "agent_run_control",
+            "tbl_name": "agent_run_control",
+            "sql": "CREATE TABLE agent_run_control (\n  workspace_id TEXT NOT NULL REFERENCES workspace(id),\n  control_key TEXT NOT NULL,\n  request_hash TEXT NOT NULL,\n  result_json TEXT NOT NULL CHECK(json_valid(result_json)),\n  PRIMARY KEY(workspace_id, control_key)\n)"
+          },
+          {
+            "type": "table",
+            "name": "agent_tool_step",
+            "tbl_name": "agent_tool_step",
+            "sql": "CREATE TABLE agent_tool_step (\n  run_id TEXT NOT NULL REFERENCES agent_run(run_id),\n  attempt INTEGER NOT NULL,\n  tool_call_id TEXT NOT NULL,\n  ordinal INTEGER NOT NULL,\n  data_json TEXT NOT NULL CHECK(json_valid(data_json)),\n  PRIMARY KEY(run_id,attempt,tool_call_id),\n  UNIQUE(run_id,attempt,ordinal)\n)"
+          },
+          {
+            "type": "table",
+            "name": "agent_turn",
+            "tbl_name": "agent_turn",
+            "sql": "CREATE TABLE agent_turn (id TEXT PRIMARY KEY, workspace_id TEXT NOT NULL REFERENCES workspace(id), data_json TEXT NOT NULL)"
+          },
+          {
+            "type": "table",
+            "name": "agent_write_call",
+            "tbl_name": "agent_write_call",
+            "sql": "CREATE TABLE agent_write_call (\n  run_id TEXT NOT NULL REFERENCES agent_run(run_id),\n  tool_call_id TEXT NOT NULL,\n  attempt INTEGER NOT NULL,\n  execution_id TEXT NOT NULL,\n  worker_session_id TEXT NOT NULL,\n  tool_name TEXT NOT NULL CHECK(tool_name IN ('create_draft','apply_patch')),\n  request_hash TEXT NOT NULL,\n  input_json TEXT NOT NULL CHECK(json_valid(input_json)),\n  status TEXT NOT NULL CHECK(status IN ('prepared','committed','abandoned')),\n  revision_id TEXT, validation_json TEXT CHECK(validation_json IS NULL OR json_valid(validation_json)),\n  [CHECK(attempt>0)] TEXT, PRIMARY KEY(run_id,tool_call_id),\n  CHECK((status='committed') = (revision_id IS NOT NULL))\n)"
+          },
+          {
+            "type": "table",
+            "name": "catalog_batch",
+            "tbl_name": "catalog_batch",
+            "sql": "CREATE TABLE catalog_batch (id TEXT PRIMARY KEY, workspace_id TEXT NOT NULL REFERENCES workspace(id), source_hash TEXT NOT NULL, source_status TEXT NOT NULL, raw_csv TEXT NOT NULL, data_json TEXT NOT NULL, UNIQUE(workspace_id,source_hash,source_status))"
+          },
+          {
+            "type": "table",
+            "name": "catalog_product",
+            "tbl_name": "catalog_product",
+            "sql": "CREATE TABLE catalog_product (id TEXT PRIMARY KEY, workspace_id TEXT NOT NULL REFERENCES workspace(id), batch_id TEXT NOT NULL REFERENCES catalog_batch(id), sku TEXT NOT NULL, data_json TEXT NOT NULL, UNIQUE(workspace_id,sku))"
+          },
+          {
+            "type": "table",
+            "name": "idempotency",
+            "tbl_name": "idempotency",
+            "sql": "CREATE TABLE idempotency (key TEXT PRIMARY KEY, request_hash TEXT NOT NULL, result_json TEXT NOT NULL)"
+          },
+          {
+            "type": "table",
+            "name": "job",
+            "tbl_name": "job",
+            "sql": "CREATE TABLE job (id TEXT PRIMARY KEY, workspace_id TEXT NOT NULL REFERENCES workspace(id), kind TEXT NOT NULL, status TEXT NOT NULL CHECK(status IN ('queued','running','completed','failed','interrupted')), attempts INTEGER NOT NULL DEFAULT 0, next_attempt_at TEXT)"
+          },
+          {
+            "type": "table",
+            "name": "knowledge_consumption",
+            "tbl_name": "knowledge_consumption",
+            "sql": "CREATE TABLE knowledge_consumption (\n  consumption_id TEXT PRIMARY KEY,\n  workspace_id TEXT NOT NULL REFERENCES workspace(id),\n  consumer_kind TEXT NOT NULL CHECK(consumer_kind IN ('quote','artifact')),\n  consumer_entity_id TEXT NOT NULL,\n  consumer_revision_id TEXT NOT NULL,\n  registered_at TEXT NOT NULL,\n  data_json TEXT NOT NULL,\n  UNIQUE(consumer_kind, consumer_entity_id, consumer_revision_id)\n)"
+          },
+          {
+            "type": "table",
+            "name": "knowledge_lifecycle",
+            "tbl_name": "knowledge_lifecycle",
+            "sql": "CREATE TABLE knowledge_lifecycle (\n  revision_id TEXT PRIMARY KEY REFERENCES knowledge_wiki(revision_id),\n  lifecycle_version INTEGER NOT NULL CHECK(lifecycle_version>0),\n  state TEXT NOT NULL CHECK(state IN ('candidate','approved','rejected','published','withdrawn')),\n  data_json TEXT NOT NULL\n)"
+          },
+          {
+            "type": "table",
+            "name": "knowledge_revision",
+            "tbl_name": "knowledge_revision",
+            "sql": "CREATE TABLE knowledge_revision (\n  id TEXT PRIMARY KEY,\n  workspace_id TEXT NOT NULL REFERENCES workspace(id),\n  document_id TEXT NOT NULL,\n  version INTEGER NOT NULL CHECK(version>0),\n  status TEXT NOT NULL CHECK(status IN ('staged','published')),\n  source_hash TEXT NOT NULL CHECK(length(source_hash)=64),\n  created_at TEXT NOT NULL,\n  published_at TEXT,\n  data_json TEXT NOT NULL\n)"
+          },
+          {
+            "type": "table",
+            "name": "knowledge_source",
+            "tbl_name": "knowledge_source",
+            "sql": "CREATE TABLE knowledge_source (\n  source_revision_id TEXT PRIMARY KEY,\n  workspace_id TEXT NOT NULL REFERENCES workspace(id),\n  source_id TEXT NOT NULL,\n  version INTEGER NOT NULL CHECK(version>0),\n  parent_revision_id TEXT,\n  state TEXT NOT NULL CHECK(state IN ('active','withdrawn')),\n  lifecycle_version INTEGER NOT NULL CHECK(lifecycle_version>0),\n  artifact_hash TEXT NOT NULL CHECK(length(artifact_hash)=64),\n  created_at TEXT NOT NULL,\n  data_json TEXT NOT NULL,\n  UNIQUE(source_id, version)\n)"
+          },
+          {
+            "type": "table",
+            "name": "knowledge_wiki",
+            "tbl_name": "knowledge_wiki",
+            "sql": "CREATE TABLE knowledge_wiki (\n  revision_id TEXT PRIMARY KEY,\n  workspace_id TEXT NOT NULL REFERENCES workspace(id),\n  document_id TEXT NOT NULL,\n  version INTEGER NOT NULL CHECK(version>0),\n  parent_revision_id TEXT,\n  content_hash TEXT NOT NULL CHECK(length(content_hash)=64),\n  source_set_hash TEXT NOT NULL CHECK(length(source_set_hash)=64),\n  created_at TEXT NOT NULL,\n  data_json TEXT NOT NULL,\n  UNIQUE(document_id, version)\n)"
+          },
+          {
+            "type": "table",
+            "name": "migration_registry",
+            "tbl_name": "migration_registry",
+            "sql": "CREATE TABLE migration_registry(lineage TEXT NOT NULL, version INTEGER NOT NULL, sql_hash TEXT NOT NULL, applied_at TEXT NOT NULL, PRIMARY KEY(lineage, version))"
+          },
+          {
+            "type": "table",
+            "name": "outbox",
+            "tbl_name": "outbox",
+            "sql": "CREATE TABLE outbox (seq INTEGER PRIMARY KEY AUTOINCREMENT, event_id TEXT NOT NULL UNIQUE, workspace_id TEXT NOT NULL REFERENCES workspace(id), type TEXT NOT NULL, payload_json TEXT NOT NULL, context_json TEXT NOT NULL, created_at TEXT NOT NULL)"
+          },
+          {
+            "type": "table",
+            "name": "quote_check_report",
+            "tbl_name": "quote_check_report",
+            "sql": "CREATE TABLE quote_check_report (\n  report_id TEXT PRIMARY KEY,\n  workspace_id TEXT NOT NULL REFERENCES workspace(id),\n  quote_id TEXT NOT NULL REFERENCES quote_v1(id),\n  revision_id TEXT NOT NULL,\n  quote_version INTEGER NOT NULL CHECK(quote_version > 0),\n  checked_at TEXT NOT NULL,\n  content_hash TEXT NOT NULL,\n  data_json TEXT NOT NULL\n)"
+          },
+          {
+            "type": "table",
+            "name": "quote_revision",
+            "tbl_name": "quote_revision",
+            "sql": "CREATE TABLE quote_revision (id TEXT PRIMARY KEY, workspace_id TEXT NOT NULL REFERENCES workspace(id), root_id TEXT NOT NULL REFERENCES quote_v1(id), parent_id TEXT NOT NULL UNIQUE, version INTEGER NOT NULL CHECK(version>1), content_hash TEXT NOT NULL, data_json TEXT NOT NULL, UNIQUE(root_id,version))"
+          },
+          {
+            "type": "table",
+            "name": "quote_v1",
+            "tbl_name": "quote_v1",
+            "sql": "CREATE TABLE quote_v1 (id TEXT PRIMARY KEY, workspace_id TEXT NOT NULL REFERENCES workspace(id), scenario_id TEXT NOT NULL REFERENCES scenario_revision(id), content_hash TEXT NOT NULL, data_json TEXT NOT NULL)"
+          },
+          {
+            "type": "table",
+            "name": "scenario_revision",
+            "tbl_name": "scenario_revision",
+            "sql": "CREATE TABLE scenario_revision (id TEXT PRIMARY KEY, workspace_id TEXT NOT NULL REFERENCES workspace(id), version INTEGER NOT NULL, data_json TEXT NOT NULL, UNIQUE(workspace_id,version))"
+          },
+          {
+            "type": "table",
+            "name": "source",
+            "tbl_name": "source",
+            "sql": "CREATE TABLE source (id TEXT PRIMARY KEY, workspace_id TEXT NOT NULL REFERENCES workspace(id), artifact_id TEXT NOT NULL, status TEXT NOT NULL CHECK(status IN ('staged','published','rejected')))"
+          },
+          {
+            "type": "table",
+            "name": "workspace",
+            "tbl_name": "workspace",
+            "sql": "CREATE TABLE workspace (slot INTEGER PRIMARY KEY CHECK(slot=1), id TEXT NOT NULL UNIQUE, name TEXT NOT NULL, version INTEGER NOT NULL CHECK(version>0), created_at TEXT NOT NULL)"
+          },
+          {
+            "type": "trigger",
+            "name": "agent_tool_step_no_delete",
+            "tbl_name": "agent_tool_step",
+            "sql": "CREATE TRIGGER agent_tool_step_no_delete BEFORE DELETE ON agent_tool_step BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "agent_tool_step_no_update",
+            "tbl_name": "agent_tool_step",
+            "sql": "CREATE TRIGGER agent_tool_step_no_update BEFORE UPDATE ON agent_tool_step BEGIN SELECT RAISE(ABORT,'IMMUTABLE_TOOL_STEP'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "agent_turn_no_delete",
+            "tbl_name": "agent_turn",
+            "sql": "CREATE TRIGGER agent_turn_no_delete BEFORE DELETE ON agent_turn BEGIN SELECT RAISE(ABORT, 'IMMUTABLE_TURN'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "agent_turn_no_update",
+            "tbl_name": "agent_turn",
+            "sql": "CREATE TRIGGER agent_turn_no_update BEFORE UPDATE ON agent_turn BEGIN SELECT RAISE(ABORT, 'IMMUTABLE_TURN'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "agent_write_committed_no_update",
+            "tbl_name": "agent_write_call",
+            "sql": "CREATE TRIGGER agent_write_committed_no_update BEFORE UPDATE ON agent_write_call WHEN OLD.status='committed' BEGIN SELECT RAISE(ABORT,'IMMUTABLE_WRITE_RECEIPT'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "agent_write_no_delete",
+            "tbl_name": "agent_write_call",
+            "sql": "CREATE TRIGGER agent_write_no_delete BEFORE DELETE ON agent_write_call BEGIN SELECT RAISE(ABORT,'IMMUTABLE_WRITE_RECEIPT'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "knowledge_consumption_no_delete",
+            "tbl_name": "knowledge_consumption",
+            "sql": "CREATE TRIGGER knowledge_consumption_no_delete BEFORE DELETE ON knowledge_consumption BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE_CONSUMPTION'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "knowledge_consumption_no_update",
+            "tbl_name": "knowledge_consumption",
+            "sql": "CREATE TRIGGER knowledge_consumption_no_update BEFORE UPDATE ON knowledge_consumption BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE_CONSUMPTION'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "knowledge_revision_no_delete",
+            "tbl_name": "knowledge_revision",
+            "sql": "CREATE TRIGGER knowledge_revision_no_delete BEFORE DELETE ON knowledge_revision BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "knowledge_revision_no_update",
+            "tbl_name": "knowledge_revision",
+            "sql": "CREATE TRIGGER knowledge_revision_no_update BEFORE UPDATE ON knowledge_revision WHEN OLD.status='published' BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "knowledge_wiki_no_delete",
+            "tbl_name": "knowledge_wiki",
+            "sql": "CREATE TRIGGER knowledge_wiki_no_delete BEFORE DELETE ON knowledge_wiki BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE_WIKI'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "knowledge_wiki_no_update",
+            "tbl_name": "knowledge_wiki",
+            "sql": "CREATE TRIGGER knowledge_wiki_no_update BEFORE UPDATE ON knowledge_wiki BEGIN SELECT RAISE(ABORT,'IMMUTABLE_KNOWLEDGE_WIKI'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "quote_check_report_no_delete",
+            "tbl_name": "quote_check_report",
+            "sql": "CREATE TRIGGER quote_check_report_no_delete BEFORE DELETE ON quote_check_report\nBEGIN SELECT RAISE(ABORT, 'IMMUTABLE_CHECK_REPORT'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "quote_check_report_no_update",
+            "tbl_name": "quote_check_report",
+            "sql": "CREATE TRIGGER quote_check_report_no_update BEFORE UPDATE ON quote_check_report\nBEGIN SELECT RAISE(ABORT, 'IMMUTABLE_CHECK_REPORT'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "quote_check_report_revision",
+            "tbl_name": "quote_check_report",
+            "sql": "CREATE TRIGGER quote_check_report_revision BEFORE INSERT ON quote_check_report\nWHEN NOT (\n  (NEW.quote_version=1 AND NEW.quote_id=NEW.revision_id AND EXISTS (\n    SELECT 1 FROM quote_v1 WHERE id=NEW.revision_id AND workspace_id=NEW.workspace_id\n  )) OR (NEW.quote_version>1 AND EXISTS (\n    SELECT 1 FROM quote_revision r JOIN quote_v1 q ON q.id=r.root_id\n    WHERE r.id=NEW.revision_id AND r.root_id=NEW.quote_id AND r.version=NEW.quote_version\n      AND r.workspace_id=NEW.workspace_id AND q.workspace_id=NEW.workspace_id\n  ))\n)\nBEGIN SELECT RAISE(ABORT, 'INVALID_CHECK_REVISION'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "quote_revision_no_delete",
+            "tbl_name": "quote_revision",
+            "sql": "CREATE TRIGGER quote_revision_no_delete BEFORE DELETE ON quote_revision BEGIN SELECT RAISE(ABORT, 'IMMUTABLE_QUOTE'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "quote_revision_no_update",
+            "tbl_name": "quote_revision",
+            "sql": "CREATE TRIGGER quote_revision_no_update BEFORE UPDATE ON quote_revision BEGIN SELECT RAISE(ABORT, 'IMMUTABLE_QUOTE'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "quote_v1_no_delete",
+            "tbl_name": "quote_v1",
+            "sql": "CREATE TRIGGER quote_v1_no_delete BEFORE DELETE ON quote_v1 BEGIN SELECT RAISE(ABORT, 'IMMUTABLE_QUOTE'); END"
+          },
+          {
+            "type": "trigger",
+            "name": "quote_v1_no_update",
+            "tbl_name": "quote_v1",
+            "sql": "CREATE TRIGGER quote_v1_no_update BEFORE UPDATE ON quote_v1 BEGIN SELECT RAISE(ABORT, 'IMMUTABLE_QUOTE'); END"
+          }
+        ],
+        "rows": {
+          "agent_run": [
+            {
+              "run_id": "run-queued",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "operation_key": "op-queued",
+              "request_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "data_json": "{\"syntheticSQLFixture\":true,\"runId\":\"run-queued\",\"operationKey\":\"op-queued\",\"status\":\"queued\",\"attempt\":1,\"createdAt\":\"2026-10-25T00:00:00.000Z\",\"committedRevisionId\":null}",
+              "execution_id": null,
+              "worker_session_id": null
+            },
+            {
+              "run_id": "run-running",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "operation_key": "op-running",
+              "request_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "data_json": "{\"syntheticSQLFixture\":true,\"runId\":\"run-running\",\"operationKey\":\"op-running\",\"status\":\"running\",\"attempt\":1,\"createdAt\":\"2026-10-25T00:00:00.000Z\",\"committedRevisionId\":null}",
+              "execution_id": "execution-original",
+              "worker_session_id": "session-original"
+            },
+            {
+              "run_id": "run-waiting_input",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "operation_key": "op-waiting_input",
+              "request_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "data_json": "{\"syntheticSQLFixture\":true,\"runId\":\"run-waiting_input\",\"operationKey\":\"op-waiting_input\",\"status\":\"waiting_input\",\"attempt\":1,\"createdAt\":\"2026-10-25T00:00:00.000Z\",\"committedRevisionId\":null}",
+              "execution_id": null,
+              "worker_session_id": null
+            },
+            {
+              "run_id": "run-completed",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "operation_key": "op-completed",
+              "request_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "data_json": "{\"syntheticSQLFixture\":true,\"runId\":\"run-completed\",\"operationKey\":\"op-completed\",\"status\":\"completed\",\"attempt\":1,\"createdAt\":\"2026-10-25T00:00:00.000Z\",\"committedRevisionId\":\"revision-3\"}",
+              "execution_id": null,
+              "worker_session_id": null
+            },
+            {
+              "run_id": "run-failed",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "operation_key": "op-failed",
+              "request_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "data_json": "{\"syntheticSQLFixture\":true,\"runId\":\"run-failed\",\"operationKey\":\"op-failed\",\"status\":\"failed\",\"attempt\":1,\"createdAt\":\"2026-10-25T00:00:00.000Z\",\"committedRevisionId\":null}",
+              "execution_id": null,
+              "worker_session_id": null
+            },
+            {
+              "run_id": "run-cancelled",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "operation_key": "op-cancelled",
+              "request_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "data_json": "{\"syntheticSQLFixture\":true,\"runId\":\"run-cancelled\",\"operationKey\":\"op-cancelled\",\"status\":\"cancelled\",\"attempt\":1,\"createdAt\":\"2026-10-25T00:00:00.000Z\",\"committedRevisionId\":null}",
+              "execution_id": null,
+              "worker_session_id": null
+            },
+            {
+              "run_id": "run-interrupted",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "operation_key": "op-interrupted",
+              "request_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "data_json": "{\"syntheticSQLFixture\":true,\"runId\":\"run-interrupted\",\"operationKey\":\"op-interrupted\",\"status\":\"interrupted\",\"attempt\":1,\"createdAt\":\"2026-10-25T00:00:00.000Z\",\"committedRevisionId\":null}",
+              "execution_id": null,
+              "worker_session_id": null
+            }
+          ],
+          "agent_run_control": [
+            {
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "control_key": "control-queued",
+              "request_hash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+              "result_json": "{\"syntheticSQLFixture\":true,\"status\":\"queued\"}"
+            },
+            {
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "control_key": "control-running",
+              "request_hash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+              "result_json": "{\"syntheticSQLFixture\":true,\"status\":\"running\"}"
+            },
+            {
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "control_key": "control-waiting_input",
+              "request_hash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+              "result_json": "{\"syntheticSQLFixture\":true,\"status\":\"waiting_input\"}"
+            },
+            {
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "control_key": "control-completed",
+              "request_hash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+              "result_json": "{\"syntheticSQLFixture\":true,\"status\":\"completed\"}"
+            },
+            {
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "control_key": "control-failed",
+              "request_hash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+              "result_json": "{\"syntheticSQLFixture\":true,\"status\":\"failed\"}"
+            },
+            {
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "control_key": "control-cancelled",
+              "request_hash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+              "result_json": "{\"syntheticSQLFixture\":true,\"status\":\"cancelled\"}"
+            },
+            {
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "control_key": "control-interrupted",
+              "request_hash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+              "result_json": "{\"syntheticSQLFixture\":true,\"status\":\"interrupted\"}"
+            }
+          ],
+          "agent_tool_step": [
+            {
+              "run_id": "run-completed",
+              "attempt": 1,
+              "tool_call_id": "step-1-1",
+              "ordinal": 1,
+              "data_json": "{\"syntheticSQLFixture\":true,\"attempt\":1,\"ordinal\":1}"
+            },
+            {
+              "run_id": "run-completed",
+              "attempt": 1,
+              "tool_call_id": "step-1-2",
+              "ordinal": 2,
+              "data_json": "{\"syntheticSQLFixture\":true,\"attempt\":1,\"ordinal\":2}"
+            },
+            {
+              "run_id": "run-completed",
+              "attempt": 2,
+              "tool_call_id": "step-2-1",
+              "ordinal": 1,
+              "data_json": "{\"syntheticSQLFixture\":true,\"attempt\":2,\"ordinal\":1}"
+            },
+            {
+              "run_id": "run-completed",
+              "attempt": 2,
+              "tool_call_id": "step-2-2",
+              "ordinal": 2,
+              "data_json": "{\"syntheticSQLFixture\":true,\"attempt\":2,\"ordinal\":2}"
+            }
+          ],
+          "agent_turn": [
+            {
+              "id": "turn-original",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "data_json": "{ \"syntheticSQLFixture\": true, \"text\": \"不改写 Ü\" }"
+            }
+          ],
+          "agent_write_call": [
+            {
+              "run_id": "run-running",
+              "tool_call_id": "call-prepared",
+              "attempt": 1,
+              "execution_id": "execution-original",
+              "worker_session_id": "session-original",
+              "tool_name": "create_draft",
+              "request_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "input_json": "{ \"syntheticSQLFixture\": true, \"amount\": \"900.00\" }",
+              "status": "prepared",
+              "revision_id": null,
+              "validation_json": "{\"syntheticSQLFixture\":true,\"policy\":\"original\"}",
+              "CHECK(attempt>0)": null
+            },
+            {
+              "run_id": "run-completed",
+              "tool_call_id": "call-committed",
+              "attempt": 1,
+              "execution_id": "execution-original",
+              "worker_session_id": "session-original",
+              "tool_name": "create_draft",
+              "request_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "input_json": "{ \"syntheticSQLFixture\": true, \"amount\": \"900.00\" }",
+              "status": "committed",
+              "revision_id": "revision-3",
+              "validation_json": "{\"syntheticSQLFixture\":true,\"policy\":\"original\"}",
+              "CHECK(attempt>0)": null
+            },
+            {
+              "run_id": "run-failed",
+              "tool_call_id": "call-abandoned",
+              "attempt": 1,
+              "execution_id": "execution-original",
+              "worker_session_id": "session-original",
+              "tool_name": "create_draft",
+              "request_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "input_json": "{ \"syntheticSQLFixture\": true, \"amount\": \"900.00\" }",
+              "status": "abandoned",
+              "revision_id": null,
+              "validation_json": "{\"syntheticSQLFixture\":true,\"policy\":\"original\"}",
+              "CHECK(attempt>0)": null
+            }
+          ],
+          "catalog_batch": [
+            {
+              "id": "batch-original",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "source_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "source_status": "synthetic",
+              "raw_csv": "sku,price\nSYNTHETIC,9.00\n",
+              "data_json": "{\"synthetic\":true}"
+            }
+          ],
+          "catalog_product": [
+            {
+              "id": "product-original",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "batch_id": "batch-original",
+              "sku": "SYNTHETIC",
+              "data_json": "{\"synthetic\":true,\"unitPrice\":\"9.00\"}"
+            }
+          ],
+          "idempotency": [
+            {
+              "key": "synthetic-success",
+              "request_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "result_json": "{ \"synthetic\": \"保留 Ä Decimal 900.00\", \"unknown\": null }"
+            }
+          ],
+          "job": [
+            {
+              "id": "job-original",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "kind": "synthetic",
+              "status": "completed",
+              "attempts": 1,
+              "next_attempt_at": null
+            }
+          ],
+          "knowledge_consumption": [],
+          "knowledge_lifecycle": [],
+          "knowledge_revision": [
+            {
+              "id": "knowledge-staged",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "document_id": "document-staged",
+              "version": 1,
+              "status": "staged",
+              "source_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              "created_at": "2026-10-25T00:00:00.000Z",
+              "published_at": null,
+              "data_json": "{\"syntheticSQLFixture\":true,\"state\":\"staged\"}"
+            },
+            {
+              "id": "knowledge-published",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "document_id": "document-published",
+              "version": 1,
+              "status": "published",
+              "source_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              "created_at": "2026-10-25T00:00:00.000Z",
+              "published_at": "2026-10-25T00:00:00.000Z",
+              "data_json": "{\"syntheticSQLFixture\":true,\"state\":\"published\"}"
+            }
+          ],
+          "knowledge_source": [],
+          "knowledge_wiki": [],
+          "migration_registry": [
+            {
+              "lineage": "common",
+              "version": 1,
+              "sql_hash": "9e95979532306333f9f07037ce7e0841931d6e8c0b3d885208d63f4eb7360cb1",
+              "applied_at": "2026-10-25T08:01:29.813Z"
+            },
+            {
+              "lineage": "common",
+              "version": 2,
+              "sql_hash": "519f17179c501d08270a48eee562b6593eed6598bd0081692e437fbe7c53b723",
+              "applied_at": "2026-10-25T08:01:29.813Z"
+            },
+            {
+              "lineage": "common",
+              "version": 3,
+              "sql_hash": "a9fe17a0719962fa3dc4099cc51f35ada314bdbb7a15e6aecde91c58c0cabe42",
+              "applied_at": "2026-10-25T08:01:29.813Z"
+            },
+            {
+              "lineage": "common",
+              "version": 4,
+              "sql_hash": "b4e559a6acc383d064b04e2f0412c0863d526e94f80c79e25a00de81abb74980",
+              "applied_at": "2026-10-25T08:01:29.813Z"
+            },
+            {
+              "lineage": "c-run",
+              "version": 5,
+              "sql_hash": "6d511fff5eaa85e1198898d7c5cec392ed18461b110cecaf92553e4ff8ce0493",
+              "applied_at": "2026-10-25T08:01:29.813Z"
+            },
+            {
+              "lineage": "c-run",
+              "version": 6,
+              "sql_hash": "3d3c9da475f6a11d2d381de54a07396dc6dabaf8d780edebc0657f497bb47dfb",
+              "applied_at": "2026-10-25T08:01:29.813Z"
+            },
+            {
+              "lineage": "c-run",
+              "version": 7,
+              "sql_hash": "268beab4bd70f403d62877153abf2df0c6f574bde852b77c1cfe7a63808d87fa",
+              "applied_at": "2026-10-25T08:01:29.813Z"
+            },
+            {
+              "lineage": "knowledge-wiki",
+              "version": 6,
+              "sql_hash": "5184461756e3a389588182c1e9e497f34bfc7442bbf4d7ff8a09cdb458f49f66",
+              "applied_at": "2026-10-25T08:01:29.813Z"
+            },
+            {
+              "lineage": "check-report",
+              "version": 7,
+              "sql_hash": "927ce55cc67a6ec655cff131a67af33f9fdc7f83372d4247ab65467d91144602",
+              "applied_at": "2026-10-25T08:01:29.813Z"
+            }
+          ],
+          "outbox": [
+            {
+              "seq": 1,
+              "event_id": "synthetic-global-0",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "type": "agent.run.event.v1",
+              "payload_json": "{\"syntheticSQLFixture\":true,\"runId\":\"run-completed\",\"seq\":1}",
+              "context_json": "{\"synthetic\":true}",
+              "created_at": "2026-10-25T00:00:00.000Z"
+            },
+            {
+              "seq": 2,
+              "event_id": "synthetic-global-1",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "type": "synthetic.other",
+              "payload_json": "{\"syntheticSQLFixture\":true,\"runId\":\"run-completed\",\"seq\":1}",
+              "context_json": "{\"synthetic\":true}",
+              "created_at": "2026-10-25T00:00:00.000Z"
+            },
+            {
+              "seq": 3,
+              "event_id": "synthetic-global-2",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "type": "agent.run.event.v1",
+              "payload_json": "{\"syntheticSQLFixture\":true,\"runId\":\"run-running\",\"seq\":1}",
+              "context_json": "{\"synthetic\":true}",
+              "created_at": "2026-10-25T00:00:00.000Z"
+            }
+          ],
+          "quote_check_report": [],
+          "quote_revision": [
+            {
+              "id": "revision-2",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "root_id": "quote-original",
+              "parent_id": "quote-original",
+              "version": 2,
+              "content_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+              "data_json": "{\"syntheticSQLFixture\":true,\"version\":2,\"goodsTotal\":\"900.00\",\"unknown\":null}"
+            },
+            {
+              "id": "revision-3",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "root_id": "quote-original",
+              "parent_id": "revision-2",
+              "version": 3,
+              "content_hash": "3333333333333333333333333333333333333333333333333333333333333333",
+              "data_json": "{\"syntheticSQLFixture\":true,\"version\":3,\"goodsTotal\":\"900.00\",\"unknown\":null}"
+            }
+          ],
+          "quote_v1": [
+            {
+              "id": "quote-original",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "scenario_id": "scenario-original",
+              "content_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "data_json": "{ \"syntheticSQLFixture\": true, \"goodsTotal\": \"900.00\", \"unknown\": null }"
+            }
+          ],
+          "scenario_revision": [
+            {
+              "id": "scenario-original",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "version": 1,
+              "data_json": "{\"synthetic\":true,\"locale\":\"de\",\"unknown\":null}"
+            }
+          ],
+          "source": [
+            {
+              "id": "source-original",
+              "workspace_id": "00000000-0000-4000-8000-000000000001",
+              "artifact_id": "synthetic-artifact",
+              "status": "published"
+            }
+          ],
+          "workspace": [
+            {
+              "slot": 1,
+              "id": "00000000-0000-4000-8000-000000000001",
+              "name": "SYNTHETIC SQL preservation fixture",
+              "version": 1,
+              "created_at": "2026-10-25T00:00:00.000Z"
+            }
+          ]
+        },
+        "foreignKeys": []
+      },
+      "identifyError": null,
+      "repositoryError": null,
+      "bytesBefore": "f3991e5a82eada485208198b33ed669ea2bfaea73d3e5b7a5a38701d27bbb5d7",
+      "bytesAfter": "020bb1e4a9e8b0b1447264fd420e80d94d579a12f1228fa4c66aa7fcfcaa1a15",
+      "filesBefore": [
+        "synthetic.sqlite"
+      ],
+      "filesAfter": [
+        "synthetic.sqlite"
+      ],
+      "actualBehavior": {
+        "before": 0,
+        "changes": 1,
+        "after": [
+          {
+            "run_id": "run-running",
+            "tool_call_id": "synthetic-attempt-zero",
+            "attempt": 0,
+            "status": "prepared"
+          }
+        ]
+      },
+      "expectationMet": false
+    },
+    {
+      "id": "M13-control-genuine-real-check",
+      "expected": "valid C7 opens; actual CHECK rejects attempt zero",
+      "rejected": {
+        "name": "SqliteError",
+        "message": "CHECK constraint failed: attempt>0",
+        "lineage": null
+      },
+      "expectationMet": true
+    },
+    {
+      "id": "M13-control-bracket-extra-real-check",
+      "expected": "valid C7 opens; actual CHECK rejects attempt zero",
+      "rejected": {
+        "name": "SqliteError",
+        "message": "CHECK constraint failed: attempt>0",
+        "lineage": null
+      },
+      "expectationMet": true
+    }
+  ],
+  "remaining": [
+    "M02-M08 domain-valid business fixture acceptance",
+    "M14 coordinator recovery separation",
+    "complete F01-F07 checkpoints/process/crash/worker/transaction tests",
+    "J01-J08 and desktop D01-D12",
+    "new combined source and human business acceptance"
+  ],
+  "summary": {
+    "total": 3,
+    "passed": 2,
+    "failed": [
+      "M13-Y10-bracket-identifier-fake-check"
+    ]
+  },
+  "compatible": false,
+  "recordedAt": "2026-10-25T08:01:29.831Z",
+  "scriptUtf8": "const fs = require('node:fs');\nconst path = require('node:path');\nconst crypto = require('node:crypto');\nconst { createRequire } = require('node:module');\nconst { spawnSync } = require('node:child_process');\nconst Database = createRequire(path.resolve('packages/infrastructure/package.json'))('better-sqlite3');\nconst { SqliteWorkspaceRepository } = require('../a-built/a-index.cjs');\nconst sha = x => crypto.createHash('sha256').update(x).digest('hex');\nconst error = e => ({ name: e.name, message: e.message, lineage: e.lineage ?? null });\nconst assert = (x, label) => { if (!x) throw Error(label); };\nconst stamp = '2026-10-25T00:00:00.000Z';\nconst wid = '00000000-0000-4000-8000-000000000001';\nconst root = path.join(__dirname, 'm13-identifier-fixtures');\nfs.mkdirSync(root, { recursive: true });\nconst snap = db => {\n  const objects = db.prepare(\"SELECT type,name,tbl_name,sql FROM sqlite_master WHERE name NOT LIKE 'sqlite_%' ORDER BY type,name\").all();\n  const rows = Object.fromEntries(objects.filter(x => x.type === 'table').map(x => [x.name, db.prepare('SELECT * FROM \"' + x.name.replaceAll('\"', '\"\"') + '\" ORDER BY rowid').all()]));\n  return { version: db.pragma('user_version', { simple: true }), objects, rows, foreignKeys: db.pragma('foreign_key_check') };\n};\nconst table = (db, name) => !!db.prepare(\"SELECT 1 FROM sqlite_master WHERE type='table' AND name=?\").get(name);\nconst rowsPreserved = (before, after) => Object.entries(before.rows).every(([t, rows]) => {\n  const afterRows = after.rows[t];\n  return afterRows && afterRows.length === rows.length && JSON.stringify(rows) === JSON.stringify(afterRows.map(row => Object.fromEntries(Object.keys(rows[0] ?? row).map(k => [k, row[k]]))));\n});\nfunction faultConnection(db, hook) {\n  return new Proxy(db, { get(target, key) {\n    if (key === 'exec') return sql => { if (sql.startsWith('CREATE TABLE IF NOT EXISTS migration_registry')) hook('before_registry_ddl'); const value = target.exec(sql); hook('after_ddl'); return value; };\n    if (key === 'prepare') return sql => { const statement = target.prepare(sql); if (!sql.startsWith('INSERT INTO migration_registry')) return statement; return new Proxy(statement, { get(s, k) { if (k === 'run') return (...args) => { hook('before_ledger_insert'); const result = s.run(...args); hook('after_ledger_insert'); return result; }; const v = s[k]; return typeof v === 'function' ? v.bind(s) : v; } }); };\n    if (key === 'pragma') return (...args) => { const writing = /^user_version\\s*=\\s*8$/i.test(args[0]); if (writing) hook('before_version'); const value = target.pragma(...args); if (writing) hook('after_version'); return value; };\n    if (key === 'transaction') return fn => { const tx = target.transaction(() => { fn(); hook('before_commit'); }); return { immediate: () => { const value = tx.immediate(); hook('after_commit'); return value; } }; };\n    const value = target[key]; return typeof value === 'function' ? value.bind(target) : value;\n  } });\n}\nfunction populate(db) {\n  if (!table(db, 'workspace')) return;\n  db.prepare('INSERT INTO workspace VALUES(1,?,?,1,?)').run(wid, 'SYNTHETIC SQL preservation fixture', stamp);\n  db.prepare('INSERT INTO idempotency VALUES(?,?,?)').run('synthetic-success', 'a'.repeat(64), '{ \"synthetic\": \"保留 Ä Decimal 900.00\", \"unknown\": null }');\n  db.prepare('INSERT INTO source VALUES(?,?,?,?)').run('source-original', wid, 'synthetic-artifact', 'published');\n  db.prepare('INSERT INTO job VALUES(?,?,?,?,?,?)').run('job-original', wid, 'synthetic', 'completed', 1, null);\n  const event = db.prepare('INSERT INTO outbox(event_id,workspace_id,type,payload_json,context_json,created_at) VALUES(?,?,?,?,?,?)');\n  for (let i = 0; i < 3; i++) event.run('synthetic-global-' + i, wid, i === 1 ? 'synthetic.other' : 'agent.run.event.v1', JSON.stringify({ syntheticSQLFixture: true, runId: i === 2 ? 'run-running' : 'run-completed', seq: i === 2 ? 1 : 1 }), '{\"synthetic\":true}', stamp);\n  if (table(db, 'scenario_revision')) {\n    db.prepare('INSERT INTO scenario_revision VALUES(?,?,?,?)').run('scenario-original', wid, 1, '{\"synthetic\":true,\"locale\":\"de\",\"unknown\":null}');\n    db.prepare('INSERT INTO catalog_batch VALUES(?,?,?,?,?,?)').run('batch-original', wid, 'b'.repeat(64), 'synthetic', 'sku,price\\nSYNTHETIC,9.00\\n', '{\"synthetic\":true}');\n    db.prepare('INSERT INTO catalog_product VALUES(?,?,?,?,?)').run('product-original', wid, 'batch-original', 'SYNTHETIC', '{\"synthetic\":true,\"unitPrice\":\"9.00\"}');\n    db.prepare('INSERT INTO quote_v1 VALUES(?,?,?,?,?)').run('quote-original', wid, 'scenario-original', 'c'.repeat(64), '{ \"syntheticSQLFixture\": true, \"goodsTotal\": \"900.00\", \"unknown\": null }');\n  }\n  if (table(db, 'quote_revision')) {\n    for (const v of [2, 3]) db.prepare('INSERT INTO quote_revision VALUES(?,?,?,?,?,?,?)').run('revision-' + v, wid, 'quote-original', v === 2 ? 'quote-original' : 'revision-2', v, String(v).repeat(64), JSON.stringify({ syntheticSQLFixture: true, version: v, goodsTotal: '900.00', unknown: null }));\n    db.prepare('INSERT INTO agent_turn VALUES(?,?,?)').run('turn-original', wid, '{ \"syntheticSQLFixture\": true, \"text\": \"不改写 Ü\" }');\n  }\n  if (table(db, 'knowledge_revision')) for (const state of ['staged', 'published']) db.prepare('INSERT INTO knowledge_revision VALUES(?,?,?,?,?,?,?,?,?)').run('knowledge-' + state, wid, 'document-' + state, 1, state, 'd'.repeat(64), stamp, state === 'published' ? stamp : null, JSON.stringify({ syntheticSQLFixture: true, state }));\n  if (table(db, 'agent_run')) {\n    for (const status of ['queued', 'running', 'waiting_input', 'completed', 'failed', 'cancelled', 'interrupted']) {\n      const data = { syntheticSQLFixture: true, runId: 'run-' + status, operationKey: 'op-' + status, status, attempt: 1, createdAt: stamp, committedRevisionId: status === 'completed' ? 'revision-3' : null };\n      db.prepare('INSERT INTO agent_run VALUES(?,?,?,?,?,?,?)').run(data.runId, wid, data.operationKey, 'e'.repeat(64), JSON.stringify(data), status === 'running' ? 'execution-original' : null, status === 'running' ? 'session-original' : null);\n      db.prepare('INSERT INTO agent_run_control VALUES(?,?,?,?)').run(wid, 'control-' + status, 'f'.repeat(64), JSON.stringify({ syntheticSQLFixture: true, status }));\n    }\n  }\n  if (table(db, 'agent_write_call')) {\n    const columns = db.pragma('table_info(agent_write_call)').map(x => x.name);\n    for (const [status, run] of [['prepared', 'running'], ['committed', 'completed'], ['abandoned', 'failed']]) {\n      const data = ['run-' + run, 'call-' + status, 1, 'execution-original', 'session-original', 'create_draft', 'a'.repeat(64), '{ \"syntheticSQLFixture\": true, \"amount\": \"900.00\" }', status, status === 'committed' ? 'revision-3' : null];\n      if (columns.includes('validation_json')) data.push('{\"syntheticSQLFixture\":true,\"policy\":\"original\"}');\n      db.prepare('INSERT INTO agent_write_call VALUES(' + data.map(() => '?').join(',') + ')').run(...data);\n    }\n  }\n  if (table(db, 'agent_tool_step')) for (const attempt of [1, 2]) for (const ordinal of [1, 2]) db.prepare('INSERT INTO agent_tool_step VALUES(?,?,?,?,?)').run('run-completed', attempt, `step-${attempt}-${ordinal}`, ordinal, JSON.stringify({ syntheticSQLFixture: true, attempt, ordinal }));\n  if (table(db, 'knowledge_source')) {\n    for (const id of ['source-a', 'source-b']) db.prepare('INSERT INTO knowledge_source VALUES(?,?,?,?,?,?,?,?,?,?)').run(id + '-v1', wid, id, 1, null, 'active', 1, 'a'.repeat(64), stamp, JSON.stringify({ syntheticSQLFixture: true, source: id, original: 'Quelle 保留' }));\n    db.prepare('INSERT INTO knowledge_wiki VALUES(?,?,?,?,?,?,?,?,?)').run('wiki-v1', wid, 'wiki-document', 1, null, 'b'.repeat(64), 'c'.repeat(64), stamp, '{\"syntheticSQLFixture\":true,\"sourceRefs\":[\"source-a-v1\",\"source-b-v1\"]}');\n    db.prepare('INSERT INTO knowledge_lifecycle VALUES(?,?,?,?)').run('wiki-v1', 2, 'published', '{\"syntheticSQLFixture\":true,\"original\":true}');\n    db.prepare('INSERT INTO knowledge_consumption VALUES(?,?,?,?,?,?,?)').run('consumption-original', wid, 'artifact', 'report-original', 'report-original', stamp, '{\"syntheticSQLFixture\":true,\"sourceRefs\":[\"source-a-v1\",\"source-b-v1\"]}');\n  }\n  if (table(db, 'quote_check_report')) db.prepare('INSERT INTO quote_check_report VALUES(?,?,?,?,?,?,?,?)').run('report-original', wid, 'quote-original', 'revision-3', 3, stamp, 'd'.repeat(64), '{ \"syntheticSQLFixture\": true, \"checkedAt\": \"2026-10-25T00:00:00.000Z\", \"sourceRefs\": [\"source-a-v1\",\"source-b-v1\"] }');\n}\n(async () => {\n  const A = await import('./a-migrations.mjs'), C = await import('./c-migrations.mjs'), B = await import('./b-migrations.mjs');\n  if (process.argv[2] === '--crash') {\n    const file = process.argv[3], stage = process.argv[4], marker = process.argv[5];\n    const db = new Database(file); db.pragma('foreign_keys=ON'); db.pragma('journal_mode=WAL'); db.pragma('synchronous=FULL');\n    A.migrate(faultConnection(db, actual => { if (actual === stage) { fs.writeFileSync(marker, JSON.stringify({ stage, reached: true })); process.kill(process.pid, 'SIGKILL'); } }));\n    throw Error('crash barrier was not reached');\n  }\n  const report = { status: 'running', ACommit: '1c890dc77ecba2cfb949c5e69908dc81bdacc692', environment: { platform: process.platform, arch: process.arch, node: process.version, electron: process.versions.electron }, scope: 'C native production migration/repository input matrix expansion. SQL-level synthetic row preservation; JSON payloads explicitly marked SQL fixtures, NOT domain-valid business acceptance or combined A/B/C runtime.', cases: [], remaining: ['M02-M08 domain-valid business fixture acceptance', 'M14 coordinator recovery separation', 'complete F01-F07 checkpoints/process/crash/worker/transaction tests', 'J01-J08 and desktop D01-D12', 'new combined source and human business acceptance'] };\n  const emit = () => fs.writeFileSync(path.join(__dirname, 'm13-identifier-report.json'), JSON.stringify(report, null, 2) + '\\n');\n  const run = (id, expected, fn) => { let x; try { x = fn(); } catch (e) { x = { expectationMet: false, harnessError: error(e) }; } report.cases.push({ id, expected, ...x }); emit(); };\n  const seed = (db, route) => {\n    if (route.startsWith('c') || route.startsWith('common') || route === 'a4') C.migrate(db, C.migrations.slice(0, Number(route.match(/\\d+/)[0])));\n    if (route === 'a6') B.migrate(db, B.migrations.filter(s => s.version <= 6));\n    if (route === 'b7') B.migrate(db);\n    if (route === 'unified') A.migrate(db);\n  };\n  function refusal(id, route, mutate, observation) { run(id, 'readonly identify and actual repository must reject; no upgrade, no registry writes; file and directory unchanged', () => {\n    const dir = fs.mkdtempSync(path.join(root, id + '-')), file = path.join(dir, 'synthetic.sqlite'); let db = new Database(file); db.pragma('foreign_keys=ON'); seed(db, route); populate(db); mutate(db); const before = snap(db); db.close(); const bytesBefore = sha(fs.readFileSync(file)), filesBefore = fs.readdirSync(dir).sort();\n    let identifyError = null; db = new Database(file, { readonly: true }); try { A.identify(db); } catch (e) { identifyError = error(e); } db.close();\n    let repositoryError = null, repo; try { repo = new SqliteWorkspaceRepository(file); } catch (e) { repositoryError = error(e); } finally { repo?.close(); }\n    const bytesAfter = sha(fs.readFileSync(file)), filesAfter = fs.readdirSync(dir).sort(); db = new Database(file, { readonly: true }); const after = snap(db); db.close();\n    let actualBehavior = null; if (!repositoryError && observation) { db = new Database(file); db.pragma('foreign_keys=ON'); try { actualBehavior = observation(db); } catch (e) { actualBehavior = { error: error(e) }; } db.close(); }\n    return { before, after, identifyError, repositoryError, bytesBefore, bytesAfter, filesBefore, filesAfter, actualBehavior, expectationMet: !!identifyError && !!repositoryError && JSON.stringify(before) === JSON.stringify(after) && bytesBefore === bytesAfter && JSON.stringify(filesBefore) === JSON.stringify(filesAfter) };\n  }); }\n\n  function rebuildWrite(db, keepCheck) {\n    const object=db.prepare(\"SELECT sql FROM sqlite_master WHERE type='table' AND name='agent_write_call'\").get();\n    const rows=db.prepare('SELECT * FROM agent_write_call ORDER BY rowid').all();\n    const columns=db.pragma('table_info(agent_write_call)').map(x=>x.name);\n    const companions=db.prepare(\"SELECT sql FROM sqlite_master WHERE tbl_name='agent_write_call' AND type IN ('trigger','index') AND sql IS NOT NULL ORDER BY type,name\").all();\n    let sql=object.sql;\n    if(!keepCheck){assert(sql.includes('attempt INTEGER NOT NULL CHECK(attempt>0)'), 'original check expected');sql=sql.replace('attempt INTEGER NOT NULL CHECK(attempt>0)', 'attempt INTEGER NOT NULL');}\n    sql=sql.replace('PRIMARY KEY(run_id,tool_call_id)', '[CHECK(attempt>0)] TEXT, PRIMARY KEY(run_id,tool_call_id)');\n    assert(sql.includes('[CHECK(attempt>0)]'), 'quoted decoy column expected');\n    db.exec('DROP TABLE agent_write_call');db.exec(sql);\n    const insert=db.prepare('INSERT INTO agent_write_call('+columns.join(',')+') VALUES('+columns.map(()=>'?').join(',')+')');\n    for(const row of rows)insert.run(...columns.map(x=>row[x]));\n    for(const item of companions)db.exec(item.sql);\n  }\n  const insertAttemptZero = db => {\n    const before=db.prepare('SELECT COUNT(*) n FROM agent_write_call WHERE attempt=0').get().n;\n    const result=db.prepare('INSERT INTO agent_write_call(run_id,tool_call_id,attempt,execution_id,worker_session_id,tool_name,request_hash,input_json,status) VALUES(?,?,?,?,?,?,?,?,?)').run('run-running','synthetic-attempt-zero',0,'execution-original','session-original','create_draft','a'.repeat(64),'{\"syntheticSQLFixture\":true}', 'prepared');\n    return {before,changes:result.changes,after:db.prepare('SELECT run_id,tool_call_id,attempt,status FROM agent_write_call WHERE attempt=0').all()};\n  };\n  refusal('M13-Y10-bracket-identifier-fake-check', 'c7', db=>rebuildWrite(db,false), insertAttemptZero);\n  for(const quoted of [false,true])run('M13-control-'+(quoted?'bracket-extra-real-check':'genuine-real-check'), 'valid C7 opens; actual CHECK rejects attempt zero', ()=>{\n    const db=new Database(':memory:');db.pragma('foreign_keys=ON');seed(db,'c7');populate(db);if(quoted)rebuildWrite(db,true);A.identify(db);A.migrate(db);let rejected=null;try{insertAttemptZero(db);}catch(e){rejected=error(e);}db.close();return {rejected,expectationMet:!!rejected&&rejected.message.includes('CHECK constraint failed')};\n  });\n  report.summary = { total: report.cases.length, passed: report.cases.filter(x => x.expectationMet).length, failed: report.cases.filter(x => !x.expectationMet).map(x => x.id) };\n  report.status = report.summary.failed.length ? 'changes_required' : 'partial_matrix_passed'; report.compatible = false; report.recordedAt = new Date().toISOString(); report.scriptUtf8 = fs.readFileSync(__filename, 'utf8'); report.scriptSha256 = sha(report.scriptUtf8); emit(); console.log(JSON.stringify({ status: report.status, summary: report.summary, cases: report.cases.map(x => ({ id: x.id, expectationMet: x.expectationMet, identifyError: x.identifyError, repositoryError: x.repositoryError, actualBehavior: x.actualBehavior, harnessError: x.harnessError })) })); process.exitCode = report.summary.failed.length ? 1 : 0;\n})().catch(e => { console.error(e); process.exitCode = 2; });\n",
+  "scriptSha256": "9ebf9cfaf14910b69928a81d9bcd51e1436334f31b5327a6de9b946c92fecb68"
+}

@@ -1,0 +1,51 @@
+{
+  "status": "passed",
+  "scope": "Desktop launch, pre-start observation, documentation checks and historical preservation only; real re-evaluation pending user explicit start.",
+  "realEvaluationStatus": "not_run",
+  "taskBase": "885c474724f3578f7588d2184eea93c05a7f5d6d",
+  "branch": "codex/c04-failure-diagnostics",
+  "recordedAt": "2026-10-22T17:30:37.296894+08:00",
+  "preservation": {
+    "rawFilesByteIdentical": 99,
+    "oldLogPrefixBytes": 63377,
+    "changedOutsideWiki": []
+  },
+  "checks": [
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs .",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T17:29:51.469289+08:00",
+      "output": "{\n  \"mode\": \"generate\",\n  \"files\": 208,\n  \"lines\": 52694,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T17:30:01.970710+08:00",
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 208,\n  \"lines\": 52694,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T17:30:02.351090+08:00",
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 136,\n  \"semantic\": 116,\n  \"reachable\": 136\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 885c474724f3578f7588d2184eea93c05a7f5d6d",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T17:30:01.853508+08:00",
+      "output": "{\n  \"base\": \"885c474724f3578f7588d2184eea93c05a7f5d6d\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T17:30:03.000591+08:00",
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 79,\n  \"knowledgePages\": 59,\n  \"tasks\": 18,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T17:30:34.127028+08:00",
+      "output": ""
+    }
+  ]
+}

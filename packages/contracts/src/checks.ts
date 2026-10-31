@@ -4,6 +4,7 @@ import {
   PublishedKnowledgeRevisionSchema,
   RuleCategorySchema,
 } from "./knowledge";
+import { KnowledgeCitationSchema, WikiCitationResolutionSchema } from "./knowledge-wiki";
 import { readEnvelope, resultSchema, writeEnvelope } from "./protocol";
 import { QuoteSnapshotSchema } from "./trade";
 
@@ -20,6 +21,21 @@ export const CheckCoverageSchema = z
     (value) => (value.status === "pending") === (value.appliedRuleIds.length === 0),
     "无适用规则必须待确认",
   );
+export const WikiCheckEvidenceSchema = KnowledgeEvidenceSchema.safeExtend({
+  citation: KnowledgeCitationSchema,
+  referenceId: z.uuid(),
+}).refine(
+  (value) =>
+    value.revisionId === value.citation.revisionId &&
+    value.citation.sourceRefs.some(
+      (ref) =>
+        ref.referenceId === value.referenceId &&
+        ref.artifactHash === value.sourceHash &&
+        ref.location.start === value.location.start &&
+        ref.location.end === value.location.end,
+    ),
+  "报告来源须保留准确的完整知识引用",
+);
 export const CheckIssueSchema = z
   .strictObject({
     checkId: z.string().min(1).max(200),
@@ -28,7 +44,7 @@ export const CheckIssueSchema = z
     fieldPath: z.enum(["payment", "delivery", "scenario.platform"]),
     message: z.string().trim().min(1).max(2000),
     suggestedAction: z.string().trim().min(1).max(2000),
-    evidence: z.array(KnowledgeEvidenceSchema).max(100),
+    evidence: z.array(z.union([WikiCheckEvidenceSchema, KnowledgeEvidenceSchema])).max(100),
   })
   .refine(
     (value) =>
@@ -44,6 +60,7 @@ export const CheckReportSchema = z
     revisionId: z.uuid(),
     quoteVersion: z.number().int().positive(),
     checkedAt: z.iso.datetime(),
+    wikiCitations: z.array(KnowledgeCitationSchema).max(100).optional(),
     ruleRevisionIds: z
       .array(z.uuid())
       .refine(
@@ -66,6 +83,38 @@ export const CheckReportSchema = z
   })
   .superRefine((report, context) => {
     const invalid = (message: string) => context.addIssue({ code: "custom", message });
+    if (report.wikiCitations) {
+      const citations = report.wikiCitations;
+      if (
+        new Set(citations.map((c) => `${c.revisionId}:${c.sectionId}`)).size !== citations.length ||
+        citations.some((c) => !report.ruleRevisionIds.includes(c.revisionId)) ||
+        report.ruleRevisionIds.some((id) => !citations.some((c) => c.revisionId === id))
+      )
+        invalid("报告须完整保留所有已应用规则段落的引用");
+      for (const issue of report.issues)
+        for (const evidence of issue.evidence) {
+          if (
+            !("citation" in evidence) ||
+            !citations.some((c) => JSON.stringify(c) === JSON.stringify(evidence.citation))
+          )
+            invalid("Wiki规则问题不得降级或丢失来源引用");
+        }
+      for (const issue of report.issues) {
+        const referenced = new Map<string, (typeof citations)[number]>();
+        const refs = new Set<string>();
+        for (const evidence of issue.evidence)
+          if ("citation" in evidence) {
+            const key = `${evidence.citation.revisionId}:${evidence.citation.sectionId}`;
+            referenced.set(key, evidence.citation);
+            if (refs.has(`${key}:${evidence.referenceId}`)) invalid("问题来源定位不能重复");
+            refs.add(`${key}:${evidence.referenceId}`);
+          }
+        for (const [key, citation] of referenced)
+          if (citation.sourceRefs.some((ref) => !refs.has(`${key}:${ref.referenceId}`)))
+            invalid("问题批注须展示规则段落的全部来源");
+      }
+    } else if (report.issues.some((issue) => issue.evidence.some((e) => "citation" in e)))
+      invalid("Wiki来源须同时登记在报告引用集合");
     if (report.quoteVersion === 1 && report.quoteId !== report.revisionId)
       invalid("V1根ID须为自身revisionId");
     for (const coverage of report.coverage) {
@@ -104,6 +153,13 @@ export const QuoteCheckInputSchema = z.strictObject({
   reportId: z.uuid(),
   checkedAt: z.iso.datetime(),
 });
+export const QuoteWikiCheckInputSchema = z.strictObject({
+  quote: QuoteSnapshotSchema,
+  resolutions: z.array(WikiCitationResolutionSchema).max(100),
+  reportId: z.uuid(),
+  checkedAt: z.iso.datetime(),
+});
+export type QuoteWikiCheckInput = z.infer<typeof QuoteWikiCheckInputSchema>;
 export const CheckCommandSchema = z.discriminatedUnion("method", [
   z.strictObject({
     ...writeEnvelope,

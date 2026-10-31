@@ -3,12 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "exports": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./evaluation": "./src/evaluation/public.ts"
+  },
   "dependencies": {
     "@tradequote/contracts": "workspace:*",
     "@tradequote/domain": "workspace:*",
     "better-sqlite3": "13.0.3",
     "csv-parse": "7.0.3",
-    "drizzle-orm": "0.45.4"
+    "drizzle-orm": "0.45.4",
+    "zod": "4.6.7"
   }
 }

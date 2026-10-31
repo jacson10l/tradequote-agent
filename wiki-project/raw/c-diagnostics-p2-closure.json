@@ -1,0 +1,169 @@
+{
+  "status": "passed",
+  "recordedAt": "2026-10-23T13:26:32.958209+08:00",
+  "findingId": "STD-001",
+  "priority": "P2",
+  "technicalStatus": "closed",
+  "fixCommit": "e6af0b2d0cfe86af3abd45180dd56750db86b214",
+  "base": "29f5b94b9ef6d46a9934e366df6022cc1a0f50c3",
+  "originalFrozenCandidate": "9e067bf0114e0d2b27f7b65ea4ecc07042405499",
+  "oldReviewEvidenceUnchanged": true,
+  "axes": {
+    "Standards": {
+      "reviewer": "/root/p2_standards_close",
+      "findings": 0,
+      "decision": "closed",
+      "report": "wiki-project/raw/c-diagnostics-p2-standards-review.json"
+    },
+    "Spec": {
+      "reviewer": "/root/p2_spec_close",
+      "findings": 0,
+      "recommendation": "close_if_Standards_default_full_replay_and_final_Wiki_pass",
+      "report": "wiki-project/raw/c-diagnostics-p2-spec-review.json"
+    }
+  },
+  "independentDefaultFullUnitReplay": {
+    "files": 40,
+    "tests": 294,
+    "exitCode": 0,
+    "startedAtAsiaShanghai": "2026-10-23T13:21:46.204402+08:00",
+    "finishedAtAsiaShanghai": "2026-10-23T13:22:07.131961+08:00",
+    "durationSeconds": 20.929,
+    "flagsEnvironmentOrConcurrencyOverride": false
+  },
+  "checks": [
+    {
+      "command": "pnpm test",
+      "argv": [
+        "pnpm",
+        "test"
+      ],
+      "cwd": "/Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent",
+      "candidate": "e6af0b2d0cfe86af3abd45180dd56750db86b214",
+      "headBefore": "e6af0b2d0cfe86af3abd45180dd56750db86b214",
+      "statusBefore": "",
+      "startedAt": "2026-10-23T05:21:46.204402+00:00",
+      "finishedAt": "2026-10-23T05:22:07.131961+00:00",
+      "startedAtAsiaShanghai": "2026-10-23T13:21:46.204402+08:00",
+      "finishedAtAsiaShanghai": "2026-10-23T13:22:07.131961+08:00",
+      "durationSeconds": 20.929,
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 test /Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent\n> node scripts/test-unit.mjs\n\n\n RUN  v5.0.5 /Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent\n\n\n Test Files  40 passed (40)\n      Tests  294 passed (294)\n   Start at  13:21:47\n   Duration  20.02s (tests 55%, import 35%, transform 5%, environment 4%)\n\n    Isolate  40 workers spawned · ~539ms startup each (spawn + environment, per file)\n             at least ~1.86s faster with isolate: false — reuses workers across files instead of one per file\n\n",
+      "outputSha256": "65b775fbc6d00bdcd371ffc24ef6d9741a1572820e4e34061c8819c58556c93e",
+      "noAddedFlagsOrEnvironmentOverrides": true,
+      "targetedSubstitution": false,
+      "attempt": 1,
+      "headAfter": "e6af0b2d0cfe86af3abd45180dd56750db86b214",
+      "statusAfter": ""
+    },
+    {
+      "argv": [
+        "pnpm",
+        "wiki:check"
+      ],
+      "command": "pnpm wiki:check",
+      "startedAt": "2026-10-23T05:22:31.717885+00:00",
+      "finishedAt": "2026-10-23T05:22:32.752001+00:00",
+      "durationSeconds": 1.034,
+      "exitCode": 0,
+      "output": "\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-diagnostics-p2-fix/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 225,\n  \"lines\": 57386,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 177,\n  \"semantic\": 149,\n  \"reachable\": 177\n}\n",
+      "outputSha256": "2b32acee8e5de797af3b53138419911f62145d9b6a6810f0be51ca45395ca869"
+    },
+    {
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "29f5b94b9ef6d46a9934e366df6022cc1a0f50c3"
+      ],
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 29f5b94b9ef6d46a9934e366df6022cc1a0f50c3",
+      "startedAt": "2026-10-23T05:22:32.752141+00:00",
+      "finishedAt": "2026-10-23T05:22:32.892800+00:00",
+      "durationSeconds": 0.141,
+      "exitCode": 0,
+      "output": "{\n  \"base\": \"29f5b94b9ef6d46a9934e366df6022cc1a0f50c3\",\n  \"status\": \"passed\",\n  \"codeFiles\": 1,\n  \"knowledgePages\": 6,\n  \"tasks\": 1,\n  \"errors\": []\n}\n",
+      "outputSha256": "30034405544d0e19b5a04c46dc0f42653c33bfbd708dbdf8983f61dd31756893"
+    },
+    {
+      "argv": [
+        "node",
+        "--version"
+      ],
+      "command": "node --version",
+      "startedAt": "2026-10-23T05:22:32.892891+00:00",
+      "finishedAt": "2026-10-23T05:22:32.909742+00:00",
+      "durationSeconds": 0.017,
+      "exitCode": 0,
+      "output": "v22.22.0\n",
+      "outputSha256": "c414f17896fa3ddfbd81ec3e6037beef712f6ec9200decd2d47c9c1e1594385a"
+    },
+    {
+      "argv": [
+        "pnpm",
+        "--version"
+      ],
+      "command": "pnpm --version",
+      "startedAt": "2026-10-23T05:22:32.909822+00:00",
+      "finishedAt": "2026-10-23T05:22:33.090250+00:00",
+      "durationSeconds": 0.18,
+      "exitCode": 0,
+      "output": "10.13.1\n",
+      "outputSha256": "a732d8657d4605be863422ad9499a6b49b2948d1412475b66bc6e2ecba66414d"
+    },
+    {
+      "argv": [
+        "node",
+        "-p",
+        "JSON.stringify({platform:process.platform,arch:process.arch})"
+      ],
+      "command": "node -p JSON.stringify({platform:process.platform,arch:process.arch})",
+      "startedAt": "2026-10-23T05:22:33.090338+00:00",
+      "finishedAt": "2026-10-23T05:22:33.124514+00:00",
+      "durationSeconds": 0.034,
+      "exitCode": 0,
+      "output": "{\"platform\":\"darwin\",\"arch\":\"arm64\"}\n",
+      "outputSha256": "9b7019adf46a4badbcd4400b3d97a2c837ce44c2f31deba6550039ca220633b4"
+    },
+    {
+      "argv": [
+        "sw_vers"
+      ],
+      "command": "sw_vers",
+      "startedAt": "2026-10-23T05:22:33.124591+00:00",
+      "finishedAt": "2026-10-23T05:22:33.135249+00:00",
+      "durationSeconds": 0.011,
+      "exitCode": 0,
+      "output": "ProductName:\t\tmacOS\nProductVersion:\t\t26.4\nBuildVersion:\t\t25E246\n",
+      "outputSha256": "e2deba389e19794c5cd424461917cd41d23e3e3590a68cd8d0a27f35f295e34e"
+    }
+  ],
+  "reportSha256": {
+    "wiki-project/raw/c-diagnostics-p2-standards-review.json": "4b4df783b13a03a7943714e8477d242d5650c03869c2becf8d763ac916af1be8",
+    "wiki-project/raw/c-diagnostics-p2-spec-review.json": "68e8a6be11051672a7cdbf6f09c108c50cf8cd26e09e3d5c6252a740a1cd9adb"
+  },
+  "assertionCallbackAndProductionBudgetsUnchanged": true,
+  "scope": "Technical closure of STD-001 for revised fix source only; original9e067bf failure report remains historical; no A/B/business human or merge approval",
+  "signatures": {
+    "A": "pending_actual_person",
+    "B": "pending_actual_person",
+    "businessHuman": "pending_actual_person"
+  },
+  "notRun": [
+    "New real provider evaluation",
+    "Windows/signed installation"
+  ],
+  "noPushOrSharedMerge": true,
+  "finalWikiValidation": "wiki-project/raw/c-diagnostics-p2-closeout-validation.json",
+  "finalWikiConditionsMet": true,
+  "closureScope": "STD-001 P2 technical fix only; not A/B, business-human or shared-merge approval",
+  "finalWikiCommands": [
+    "pnpm wiki:generate",
+    "pnpm wiki:check",
+    "node wiki-project/scripts/check-wiki-sync.mjs . --base 29f5b94b9ef6d46a9934e366df6022cc1a0f50c3",
+    "node wiki-project/scripts/check-wiki-sync.mjs . --base 654fecc4d93e4630ed4a0cf42f261d0d432e23d3",
+    "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+    "git diff --check"
+  ],
+  "frozenFixRawFilesByteIdentical": 167
+}

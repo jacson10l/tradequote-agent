@@ -1,0 +1,141 @@
+{
+  "scope": "synthetic_boundary_reconstructions_not_real_payload_replay",
+  "providerValidation": "fixture_only",
+  "realRequests": 0,
+  "cases": [
+    {
+      "id": "apparel-zh-v1",
+      "passed": true,
+      "diagnostics": [
+        {
+          "stage": "evaluation_check",
+          "tool": null,
+          "category": "payment_mismatch",
+          "disposition": "stopped",
+          "modelCall": 6,
+          "errorCode": "VALIDATION_ERROR"
+        },
+        {
+          "stage": "evaluation_check",
+          "tool": null,
+          "category": "delivery_mismatch",
+          "disposition": "stopped",
+          "modelCall": 6,
+          "errorCode": "VALIDATION_ERROR"
+        }
+      ]
+    },
+    {
+      "id": "panel-de-v2-empty-response",
+      "passed": true,
+      "diagnostics": [
+        {
+          "stage": "provider",
+          "tool": null,
+          "category": "empty_response",
+          "disposition": "stopped",
+          "modelCall": 1,
+          "errorCode": "MODEL_INVALID_OUTPUT"
+        }
+      ]
+    },
+    {
+      "id": "panel-de-v2-encoding",
+      "passed": true,
+      "diagnostics": [
+        {
+          "stage": "provider",
+          "tool": null,
+          "category": "response_encoding",
+          "disposition": "stopped",
+          "modelCall": 1,
+          "errorCode": "MODEL_INVALID_OUTPUT"
+        }
+      ]
+    },
+    {
+      "id": "panel-de-v2-shape",
+      "passed": true,
+      "diagnostics": [
+        {
+          "stage": "provider",
+          "tool": null,
+          "category": "response_envelope",
+          "disposition": "stopped",
+          "modelCall": 1,
+          "errorCode": "MODEL_INVALID_OUTPUT"
+        }
+      ]
+    },
+    {
+      "id": "panel-de-v2-empty-content",
+      "passed": true,
+      "diagnostics": [
+        {
+          "stage": "provider",
+          "tool": null,
+          "category": "empty_content",
+          "disposition": "stopped",
+          "modelCall": 1,
+          "errorCode": "MODEL_INVALID_OUTPUT"
+        }
+      ]
+    },
+    {
+      "id": "panel-de-v2-content",
+      "passed": true,
+      "diagnostics": [
+        {
+          "stage": "provider",
+          "tool": null,
+          "category": "content_json",
+          "disposition": "stopped",
+          "modelCall": 1,
+          "errorCode": "MODEL_INVALID_OUTPUT"
+        }
+      ]
+    },
+    {
+      "id": "panel-de-v2-truncated",
+      "passed": true,
+      "diagnostics": [
+        {
+          "stage": "provider",
+          "tool": null,
+          "category": "response_truncated",
+          "disposition": "stopped",
+          "modelCall": 1,
+          "errorCode": "MODEL_INVALID_OUTPUT"
+        }
+      ]
+    },
+    {
+      "id": "panel-de-v2-envelope",
+      "passed": true,
+      "diagnostics": [
+        {
+          "stage": "provider",
+          "tool": null,
+          "category": "response_json",
+          "disposition": "stopped",
+          "modelCall": 1,
+          "errorCode": "MODEL_INVALID_OUTPUT"
+        }
+      ]
+    },
+    {
+      "id": "fastener-de-v1",
+      "passed": true,
+      "diagnostics": [
+        {
+          "stage": "clarification",
+          "tool": null,
+          "category": "missing_facts",
+          "disposition": "feedback",
+          "modelCall": 3,
+          "errorCode": "MISSING_FACTS"
+        }
+      ]
+    }
+  ]
+}

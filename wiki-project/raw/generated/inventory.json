@@ -13,21 +13,21 @@
   },
   "scope": "project files only; wiki tooling hashes are provenance, not recursively indexed application source",
   "toolchain": {
-    "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
-    "wiki-lib.mjs": "2923cf1ead299acb7521b3ba526384a312d20018af3d1f87ea7da10837f25422",
-    "wiki-config.json": "549bd6c983688e23a88c3030c989c913e0bcd3a147f113cdaa3e66d5eeeff3f9",
-    "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
-    "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
-    "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
-    "wiki-sync.test.mjs": "99ac93030102b49a2d580392cb1c98c922406c4b10779ef49a95bc2a10806ebb"
+    "build-code-index.mjs": "4e5b1a0bfe9151ffb92c7ba6089b6205363cdc7eff8cc2b24b3983014248bceb",
+    "wiki-lib.mjs": "b3d0957c0240b68d7a1e5c2e0311458c8c08b6322b84330d80ea4c7acad2c195",
+    "wiki-config.json": "1478ad8aa38fa8f605befdfc47b1fe3508c539d0a01c43de99ee3a48dc5af98a",
+    "lint-wiki.mjs": "2e94b99626c96b9639699ffd408c6ccec512eb75030165ddef64711d91786d9f",
+    "wiki-tools.test.mjs": "366282472c9f3c1e63c7457636ab7a0c54fdf3af394cd36466bfbdfdf24e2b88",
+    "check-wiki-sync.mjs": "2ec23c3f1c33124ef76dd351dbf00b74d9fc756f846d531d740fdd379b34c2e4",
+    "wiki-sync.test.mjs": "2d96c240857a7c2c969c576715db33fd1f49fba1d27de468d44e9f7f6d4a871e"
   },
   "files": [
     {
       "path": ".github/pull_request_template.md",
       "type": "md",
       "lines": 23,
-      "bytes": 1017,
-      "sha256": "3b70de6244c0b2ef06f6e5fc4cbd10985555606c455873a61f8907c2dac24c38",
+      "bytes": 1040,
+      "sha256": "7354c62102b84ca77749e74812e42abfe5cd06f20ebba08f5911b26412dbd2c5",
       "role": "Mandatory Wiki delivery policy and PR/CI enforcement",
       "pages": [
         "wiki/Wiki 工作流与任务记录.md",
@@ -37,9 +37,9 @@
     {
       "path": ".gitignore",
       "type": ".gitignore",
-      "lines": 66,
-      "bytes": 958,
-      "sha256": "c19d57dbb9108a728a095f298fe55a34a36158b3f02ebc7f6269c8aa05e21f3c",
+      "lines": 67,
+      "bytes": 970,
+      "sha256": "302fe67e1e4838d91eee027ffbe777047797683d2845c562626f31d4f6c12fbf",
       "role": "运行数据与依赖排除",
       "pages": [
         "wiki/配置路径与敏感信息.md"
@@ -49,8 +49,8 @@
       "path": ".node-version",
       "type": ".node-version",
       "lines": 1,
-      "bytes": 8,
-      "sha256": "4137094e7792cb49fe1afddc3f87208f0ef4adfef7d3acd1def0198786d393c2",
+      "bytes": 9,
+      "sha256": "d5c443923c520c3b47efc014f1ba0a866c67c87c60bd2cab8fdf1cd6be2a659d",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md"
@@ -60,20 +60,22 @@
       "path": "AGENTS.md",
       "type": "md",
       "lines": 53,
-      "bytes": 6040,
-      "sha256": "75d16847cf761e54462e2f0242cc06db5206eef3b31d158dc452c80519958bba",
+      "bytes": 6222,
+      "sha256": "f26bb7b466a730840f45ef3be6062689a1bcd6e44ae92275c562e8b45d402ab2",
       "role": "项目入口与协作约束",
       "pages": [
         "wiki/项目状态.md",
-        "wiki/Wiki 工作流与任务记录.md"
+        "wiki/Wiki 工作流与任务记录.md",
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C04收口与验收边界.md"
       ]
     },
     {
       "path": "CONTRIBUTING.md",
       "type": "md",
       "lines": 47,
-      "bytes": 4628,
-      "sha256": "5b4cf14ceef34cf2470d3aca8dbb4cc9fc62f31a9530d19f2d0f03555ad96153",
+      "bytes": 4675,
+      "sha256": "19d4f3f29c93e12877f25c98628c4893083227b10dc8ca14b1a2d11f9144a007",
       "role": "Mandatory Wiki delivery policy and PR/CI enforcement",
       "pages": [
         "wiki/Wiki 工作流与任务记录.md",
@@ -84,8 +86,8 @@
       "path": "DESIGN.md",
       "type": "md",
       "lines": 102,
-      "bytes": 9439,
-      "sha256": "fa95a1042cb0ef40751fb640d67927a2c5f072321eb4b69b60844f236a4480a8",
+      "bytes": 9541,
+      "sha256": "42873c2f203e517ef5c8814b5dd0e9983e767b69e1dfc546a8a40ee70e0eefb1",
       "role": "当前视觉规范",
       "pages": [
         "wiki/decisions/0001-Mistral工作台风格.md"
@@ -94,21 +96,23 @@
     {
       "path": "README.md",
       "type": "md",
-      "lines": 108,
-      "bytes": 10033,
-      "sha256": "553a9eab45b80b59dfdd6ebae5c5b69db5dc0a88b40af39611491c551ad09425",
+      "lines": 140,
+      "bytes": 16087,
+      "sha256": "720db4c08f4ca16fb31d3337c46bb0442146e2756a721f0e94b91ed0fc73cf48",
       "role": "项目入口与协作约束",
       "pages": [
         "wiki/项目状态.md",
-        "wiki/Wiki 工作流与任务记录.md"
+        "wiki/Wiki 工作流与任务记录.md",
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C04收口与验收边界.md"
       ]
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
       "type": "md",
       "lines": 25,
-      "bytes": 1948,
-      "sha256": "d3a2ed0cf6e3d4708f0911ea19c4818381aae8ff874ae1c560260690690cb906",
+      "bytes": 1973,
+      "sha256": "a04a039cd23ab1d74b508a0cddab544e790c5d8d1fe8b555766568dd5f6eb6c9",
       "role": "复用来源与许可边界",
       "pages": [
         "wiki/decisions/0002-上游复用方式.md",
@@ -119,8 +123,8 @@
       "path": "UPSTREAM.md",
       "type": "md",
       "lines": 37,
-      "bytes": 3674,
-      "sha256": "48bc39fff11f7b9cda06b09cc26d182c42c0d75edaeff43b9a4804c63e9e3435",
+      "bytes": 3711,
+      "sha256": "d299227eddc4c02bc4255c90a068e4a536696543d9c1c230fa7a1d65203d9bc5",
       "role": "复用来源与许可边界",
       "pages": [
         "wiki/decisions/0002-上游复用方式.md",
@@ -131,8 +135,8 @@
       "path": "apps/desktop/components.json",
       "type": "json",
       "lines": 20,
-      "bytes": 417,
-      "sha256": "f305dbf36301bc8c6446996238b6ae89efa30212d59c13e7c138a1f9c39e033a",
+      "bytes": 437,
+      "sha256": "fd89618a1fcc3661df99dba3e413f0eba6f5d27e4663a2d2845449e50d1cf63c",
       "role": "M1 React workspace form and document layout",
       "pages": [
         "wiki/M1工作台.md"
@@ -141,20 +145,21 @@
     {
       "path": "apps/desktop/electron.vite.config.ts",
       "type": "ts",
-      "lines": 34,
-      "bytes": 998,
-      "sha256": "90b5a825722635b7a774fe3e4714f2ec946ae143c3d621058273d921c6da4f14",
+      "lines": 38,
+      "bytes": 1125,
+      "sha256": "12f0c8ecd14d0ea327572116b2c652a871628c2068a6714f24baedd7b1aba2b2",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     {
       "path": "apps/desktop/package.json",
       "type": "json",
       "lines": 70,
-      "bytes": 1733,
-      "sha256": "6231b8f8abad4467c39a4feb5ffa55b71d3b8d185ba4cf99f70cf40521072d90",
+      "bytes": 1803,
+      "sha256": "8daca0b0f8fa86fecee9dc4d18c006adfdbfe460eed173239103d5adfe57b800",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md"
@@ -164,8 +169,8 @@
       "path": "apps/desktop/resources/icon-manifest.json",
       "type": "json",
       "lines": 6,
-      "bytes": 332,
-      "sha256": "97f03314731ed7abe6d3083f9a16cd347ec4ed33b38d01fdf100959f698dba92",
+      "bytes": 338,
+      "sha256": "aa440af2c49adf28e4483cf49e368abcf83d617e9d651bcaf61c5eb6209db4ed",
       "role": "Project-owned application icons, reproducible generation and build drift gate",
       "pages": [
         "wiki/M1工程基线.md",
@@ -176,8 +181,8 @@
       "path": "apps/desktop/resources/icon.svg",
       "type": "svg",
       "lines": 6,
-      "bytes": 508,
-      "sha256": "9b85cf6c4db85077a00b6111bedd826bb9ef64e31a1e4f665c3f4ec9dbe11530",
+      "bytes": 514,
+      "sha256": "f06fb4723f4e8a2ee4a5f7d09688f7edb06c57997eae30afcd562e40bbe0503c",
       "role": "Project-owned application icons, reproducible generation and build drift gate",
       "pages": [
         "wiki/M1工程基线.md",
@@ -185,57 +190,109 @@
       ]
     },
     {
+      "path": "apps/desktop/src/main/evaluation-host.test.ts",
+      "type": "ts",
+      "lines": 212,
+      "bytes": 8615,
+      "sha256": "ed8145b0fb36ceef68be36e77a37e0182d9dbeb532a60f070d1c0ce30cd71be7",
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/main/evaluation-host.ts",
+      "type": "ts",
+      "lines": 335,
+      "bytes": 12854,
+      "sha256": "6403c4d5b1f5248e63903533032fee34bfc18192e5aaa09ef3d93532aa40ef97",
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
       "path": "apps/desktop/src/main/index.ts",
       "type": "ts",
-      "lines": 213,
-      "bytes": 8914,
-      "sha256": "83ffa5d5e72a2b2c0eb44e682ba27f3055c1d5f6f82961eef3a3666f22e9a3ea",
+      "lines": 319,
+      "bytes": 13063,
+      "sha256": "83e04df845efafc4c74c0bb5e4c17dbfdfc04d2a4fa6205c83b907e733de5955",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C已保存报价检查桌面切片.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/main/worker-client.test.ts",
+      "type": "ts",
+      "lines": 141,
+      "bytes": 5447,
+      "sha256": "2475c7e407bf706b4585c19509d50a0bf8d8a8da086a4a5c152139331383a5ae",
+      "role": "只读传输deadline、结果校验和退出不重发",
+      "pages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     {
       "path": "apps/desktop/src/main/worker-client.ts",
       "type": "ts",
-      "lines": 67,
-      "bytes": 2312,
-      "sha256": "33dff4597a9395f02eaf778ca4291c1d1d70f779e88a41572da2eac5a52f5229",
+      "lines": 201,
+      "bytes": 6854,
+      "sha256": "4ab93f641daeec42c08ab25e1593238b7338a6f334ee752620aa70fd968761ac",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     {
       "path": "apps/desktop/src/preload/contracts.test.ts",
       "type": "ts",
-      "lines": 148,
-      "bytes": 5822,
-      "sha256": "7fa753e7bc0fd54be0b55551059139ca5e6c85360bd4bb429af2f7a003340ba3",
+      "lines": 493,
+      "bytes": 19525,
+      "sha256": "4743d7977c1ae3fe13ddaba57fe3d70f5f3493466496f9cb7c18023e382bb8d2",
       "role": "B00 preload and mock capability gate without new IPC",
       "pages": [
         "wiki/首批并行接口约定.md",
         "wiki/M1工程基线.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     {
       "path": "apps/desktop/src/preload/index.ts",
       "type": "ts",
-      "lines": 74,
-      "bytes": 3261,
-      "sha256": "c0b1eb4e4d0f2623d44cfe13b582e9623526089b6ef6cd7ecadd6112d9baa234",
+      "lines": 196,
+      "bytes": 8561,
+      "sha256": "a528c1f06a0b83a2c4f66db7a85ca1633ea5968f7ccd6e45af570067f706de35",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     {
       "path": "apps/desktop/src/renderer/index.html",
       "type": "html",
       "lines": 2,
-      "bytes": 541,
-      "sha256": "24207e5b44efc06b3910caf75174aa62591e07b66c9ae3f72e9b0b7818517e68",
+      "bytes": 543,
+      "sha256": "544a2f72686725cd01c0019d1932f5b060e43ea73f8712a1eed04b429af401e7",
       "role": "M1 React workspace form and document layout",
       "pages": [
         "wiki/M1工作台.md"
@@ -244,9 +301,9 @@
     {
       "path": "apps/desktop/src/renderer/src/App.tsx",
       "type": "tsx",
-      "lines": 69,
-      "bytes": 2828,
-      "sha256": "7861bbd63c7a688263d14d931a68ea9aae85e50281d3ae7f92358ae031286c89",
+      "lines": 75,
+      "bytes": 3257,
+      "sha256": "dad183dfb7c58ee617e11f09e321cfbddef380d71665f164738b3afc476f5c18",
       "role": "M1 React workspace form and document layout",
       "pages": [
         "wiki/M1工作台.md"
@@ -256,52 +313,196 @@
       "path": "apps/desktop/src/renderer/src/env.d.ts",
       "type": "ts",
       "lines": 7,
-      "bytes": 136,
-      "sha256": "7344c4297c0d02600bcfc6a685c1606f0ca8e98156b1ac11b7fa03d3fc5cf554",
+      "bytes": 143,
+      "sha256": "db630a7eb97836ad49689b6ed6248999aff78e931a5525da127af7a5b96ecc1e",
       "role": "M1 React workspace form and document layout",
       "pages": [
         "wiki/M1工作台.md"
       ]
     },
     {
+      "path": "apps/desktop/src/renderer/src/features/agent-runs.test.tsx",
+      "type": "tsx",
+      "lines": 120,
+      "bytes": 5157,
+      "sha256": "806e2d4a64f74d8ff08ad744c8ccfed2f3a808c1dfcca32877d4e10ad2db1189",
+      "role": "持久运行发现不自动收费、控制丢响应重放与跨页状态刷新回归",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/M1验证与协作.md",
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/agent-runs.tsx",
+      "type": "tsx",
+      "lines": 294,
+      "bytes": 10641,
+      "sha256": "50f64770280fd963b1fc848bf81712faee2d4b8786c1fb82fbbdf39267996975",
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/model-evaluation.tsx",
+      "type": "tsx",
+      "lines": 342,
+      "bytes": 13510,
+      "sha256": "7f9e94de06b85cacfcbcb96a0599410d36a817b3781016abb0ac89aeb84927b5",
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md"
+      ]
+    },
+    {
       "path": "apps/desktop/src/renderer/src/features/model-settings.tsx",
       "type": "tsx",
-      "lines": 138,
-      "bytes": 4780,
-      "sha256": "0d0bb8b70d58f7f9fdb18fd4b2d49a10bb176904d004f94d2ef553d8e0f3bab6",
+      "lines": 161,
+      "bytes": 5838,
+      "sha256": "97e872305cef3c5fad84cc6e8cc9a006304f994ba1af6127c6bbdc2302ecbeae",
       "role": "正式模型设置交互",
       "pages": [
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     {
       "path": "apps/desktop/src/renderer/src/features/quote-agent.tsx",
       "type": "tsx",
-      "lines": 255,
-      "bytes": 9282,
-      "sha256": "d28d6d15e9606b52656b0a8847ad17a23af100c46240ae9d7ba5ee9bf5347a31",
+      "lines": 278,
+      "bytes": 10385,
+      "sha256": "1cbfd652780e5822fa293800a7e9d8ebf488b91e49266b4156764523fb51a36c",
       "role": "询盘两轮修订和真实版本差异",
       "pages": [
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/quote-checks.fixture.ts",
+      "type": "ts",
+      "lines": 131,
+      "bytes": 4395,
+      "sha256": "26b39ab699e00614c4c4fa59c6f324625f6a6b66eebb197b4e5f3d5e48010dc9",
+      "role": "Explicit synthetic B01 report and quote fixtures for tests and visual preview only",
+      "pages": [
+        "wiki/B规则检查实现.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/quote-checks.test.tsx",
+      "type": "tsx",
+      "lines": 378,
+      "bytes": 17827,
+      "sha256": "2d8efe563acda45af2b778180aa48dd2852b75832f827d6c7bf880a03fcf5e0a",
+      "role": "B01 component and saved-quote mounting behavior regression",
+      "pages": [
+        "wiki/B规则检查实现.md",
+        "wiki/C已保存报价检查桌面切片.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/quote-checks.tsx",
+      "type": "tsx",
+      "lines": 338,
+      "bytes": 15526,
+      "sha256": "8d7d02fc195e7d8749e843c10d1e193790a7d95308809b8482b46505094d3ae7",
+      "role": "B01 read-only report UI, shared risks and field annotations, version isolation",
+      "pages": [
+        "wiki/B规则检查实现.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     {
       "path": "apps/desktop/src/renderer/src/features/quotes.tsx",
       "type": "tsx",
-      "lines": 713,
-      "bytes": 25499,
-      "sha256": "47bb4cd1be82dc3d5203b0fbd382200ba978cda85fd43038b122eff2a1092a84",
+      "lines": 712,
+      "bytes": 26213,
+      "sha256": "d8a0ee6644975787ea782134ea769d2a9e79a09984347ac47869cfc74a9f9ff7",
       "role": "Scenario form, confirmed CSV import and persisted quote V1 UI",
       "pages": [
-        "wiki/M2真实报价V1.md"
+        "wiki/M2真实报价V1.md",
+        "wiki/B规则检查实现.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/read-assistant.tsx",
+      "type": "tsx",
+      "lines": 352,
+      "bytes": 12958,
+      "sha256": "1cd12ba2f22e7ba00ee84508b0102d50ec41f179ffcc2b2de43682393a126ac7",
+      "role": "桌面只读任务/范围、实际结果与来源展示",
+      "pages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/run-event-feed.test.ts",
+      "type": "ts",
+      "lines": 70,
+      "bytes": 2639,
+      "sha256": "4f613327e36acced9c2afba469c721696c8808a12e87a2d1f4e885b0e108185e",
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/run-event-feed.ts",
+      "type": "ts",
+      "lines": 29,
+      "bytes": 1116,
+      "sha256": "444024d37b8223c2199b7856851d362a45a902503d53fea3a9a2f70ac3875dd9",
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/run-events.test.tsx",
+      "type": "tsx",
+      "lines": 81,
+      "bytes": 3044,
+      "sha256": "91e10c6710a6f9d61cc47253c546cacae99ae39b66947cd87135659c643a70f4",
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/run-events.tsx",
+      "type": "tsx",
+      "lines": 125,
+      "bytes": 4235,
+      "sha256": "343c1c3b1b5a12daf675ed022f23abb066c80a9209ca43305c4861bb7aa65378",
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/run-tool-labels.ts",
+      "type": "ts",
+      "lines": 11,
+      "bytes": 419,
+      "sha256": "b923969ba2ec7d13f3c799dbe8aa356bb0343e012998baa20dcef109998e74ba",
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     {
       "path": "apps/desktop/src/renderer/src/features/workbench.tsx",
       "type": "tsx",
       "lines": 160,
-      "bytes": 6667,
-      "sha256": "2fe17e9ab2597dbf4fce4e636b471316c4f72ea9a42a05cff27af2e791dbd607",
+      "bytes": 6827,
+      "sha256": "eeb7f8ffce4f29a40ef3c2251c6b91a03c796f5197b5c1233b1326a8a82ef8ee",
       "role": "M1 React workspace form and document layout",
       "pages": [
         "wiki/M1工作台.md"
@@ -311,8 +512,8 @@
       "path": "apps/desktop/src/renderer/src/features/workspace.test.tsx",
       "type": "tsx",
       "lines": 82,
-      "bytes": 4478,
-      "sha256": "88694a0d278d9226bedd2558c548afc44e093da3b71629795f5b0e7953b447f3",
+      "bytes": 4560,
+      "sha256": "02c389ad7e27e54c3d5224a26e33296ae3a140e56cc820f760a7b1f1c75ea2bc",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md"
@@ -322,8 +523,8 @@
       "path": "apps/desktop/src/renderer/src/features/workspace.tsx",
       "type": "tsx",
       "lines": 142,
-      "bytes": 5073,
-      "sha256": "67ab0007c81cc45fb98679eec59be77f6eb71ecce9eb50229391c6771b3379b1",
+      "bytes": 5215,
+      "sha256": "b21ee4ee44252cf926c1a802b249d47d7beb1650d16bd013abdbedcfe27e64f6",
       "role": "M1 React workspace form and document layout",
       "pages": [
         "wiki/M1工作台.md"
@@ -333,8 +534,8 @@
       "path": "apps/desktop/src/renderer/src/main.tsx",
       "type": "tsx",
       "lines": 21,
-      "bytes": 682,
-      "sha256": "848356834679a4834d66ffd94a1811ea06d29a86242d08f9fdd75ee159229ff2",
+      "bytes": 703,
+      "sha256": "7ad9027bb6c639c886c8c585f01f84894befd9024d92505fbe9fd35e448e36a8",
       "role": "M1 React workspace form and document layout",
       "pages": [
         "wiki/M1工作台.md"
@@ -344,8 +545,8 @@
       "path": "apps/desktop/src/renderer/src/shared/button.tsx",
       "type": "tsx",
       "lines": 27,
-      "bytes": 1039,
-      "sha256": "ecd13d6eef74a2e8fe57afb46913f3b4d76e343459fe100dd5a58ef7443de1ec",
+      "bytes": 1066,
+      "sha256": "684ace0a59a4d7b7cf165d39ffc0df36dd4a8a846a64c002dc0d6816060dbfde",
       "role": "M1 React workspace form and document layout",
       "pages": [
         "wiki/M1工作台.md"
@@ -355,8 +556,8 @@
       "path": "apps/desktop/src/renderer/src/shared/feedback.test.tsx",
       "type": "tsx",
       "lines": 93,
-      "bytes": 3221,
-      "sha256": "b9090059b97707b52f59ef4c190fd3218a3e5ab6baac7bd1ac52e94c6e57370c",
+      "bytes": 3314,
+      "sha256": "932a5a005810095ea372a10366bc8c3234ca362bfea5a602283f20880aedd58c",
       "role": "Feedback lifetime, retry, accessibility roles and dismissal regression",
       "pages": [
         "wiki/M1验证与协作.md"
@@ -366,8 +567,8 @@
       "path": "apps/desktop/src/renderer/src/shared/message.tsx",
       "type": "tsx",
       "lines": 92,
-      "bytes": 3075,
-      "sha256": "a6a6629c917ef65b9fce08a1891c828e14aad6eb954a8ec54328d12917676314",
+      "bytes": 3167,
+      "sha256": "ee7d20e4ef9dfcea8d6b31b29690d91b8dbf1c158ad848018b8f6a9d3eac615a",
       "role": "Shared transient message provider, deduplication and timer lifecycle",
       "pages": [
         "wiki/M1工作台.md"
@@ -377,8 +578,8 @@
       "path": "apps/desktop/src/renderer/src/shared/notification.tsx",
       "type": "tsx",
       "lines": 39,
-      "bytes": 1247,
-      "sha256": "8d69a14807c96e7f8c0f0beedb6f7cf294fa8e601eca5fb81ac78a12b4eba59f",
+      "bytes": 1286,
+      "sha256": "68ec6fd8e71894f72fb6d85133b5d28b1df4903652b4715f6891674a2d125a18",
       "role": "Persistent actionable notification rendered outside document flow",
       "pages": [
         "wiki/M1工作台.md"
@@ -388,8 +589,8 @@
       "path": "apps/desktop/src/renderer/src/shared/utils.ts",
       "type": "ts",
       "lines": 5,
-      "bytes": 168,
-      "sha256": "e5deb74f072d9ebd9efe7f8c50b8bbac1fc5fc023493cde0d4262c1bf22e2ea3",
+      "bytes": 173,
+      "sha256": "5251d82c672c2ffb2ff3f49be31f7fea664ac58646973d1ac6e9f9ddd4215667",
       "role": "M1 React workspace form and document layout",
       "pages": [
         "wiki/M1工作台.md"
@@ -399,8 +600,8 @@
       "path": "apps/desktop/src/renderer/src/theme.css",
       "type": "css",
       "lines": 506,
-      "bytes": 8651,
-      "sha256": "f93d301988f7b32871c32394526ea4634cc46be292d189a27970e53e9a053e74",
+      "bytes": 9157,
+      "sha256": "1e7179eccea39478a2a61069918362031d56623f779a01406aafc8abb82593a2",
       "role": "M1 React workspace form and document layout",
       "pages": [
         "wiki/M1工作台.md"
@@ -409,20 +610,34 @@
     {
       "path": "apps/desktop/src/workers/business.ts",
       "type": "ts",
-      "lines": 29,
-      "bytes": 1410,
-      "sha256": "d0f3218e631e2c997d26d523c3b687662d7f62947c5dc5fc411d8672778fb7ec",
+      "lines": 101,
+      "bytes": 3635,
+      "sha256": "93de79de94875dbee88b565672bbc1217ca2910c0a0fe7d98aaeeba4a2f9b08c",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C已保存报价检查桌面切片.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/workers/evaluation.ts",
+      "type": "ts",
+      "lines": 60,
+      "bytes": 2473,
+      "sha256": "355ab1afc0e587e39d7c43df02dd933dc05685e80091405ee26cd10c9177528b",
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     {
       "path": "apps/desktop/vite.renderer.config.ts",
       "type": "ts",
       "lines": 7,
-      "bytes": 259,
-      "sha256": "02e944731769f189ce04303d59e35a29c16b11d1f880a37453cdfb08291162dc",
+      "bytes": 266,
+      "sha256": "c19cd6c3ffbe4f0dcf6c9c1e80e9dfc4f26acfd536f3d059179737ecb3870a12",
       "role": "Prepare fresh Electron binary and isolate renderer-only test server",
       "pages": [
         "wiki/M1工程基线.md",
@@ -433,8 +648,8 @@
       "path": "biome.json",
       "type": "json",
       "lines": 18,
-      "bytes": 536,
-      "sha256": "5bf6f342a42c8624062bbc96815738428032425483bcd95790a4977565adae75",
+      "bytes": 554,
+      "sha256": "538df7901fd6ae9e8359cc2a7aa13eee53e0548f2de79b153b930f2e35f0cda0",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md"
@@ -444,8 +659,8 @@
       "path": "experiments/m0-platform/README.md",
       "type": "md",
       "lines": 33,
-      "bytes": 3299,
-      "sha256": "022b9a290b938799107d3c2946a4e9d42579385da7539bddf21aac477f5da8ed",
+      "bytes": 3332,
+      "sha256": "642150326221772fd2858f7ff3927b3c810e0b4728cb5622f0c04d2567856c29",
       "role": "平台探针生命周期与验证编排",
       "pages": [
         "wiki/M0平台验证记录.md",
@@ -456,8 +671,8 @@
       "path": "experiments/m0-platform/business-tools.mjs",
       "type": "mjs",
       "lines": 37,
-      "bytes": 1707,
-      "sha256": "407a158b43e1e41ec1914b5268959585b6780c262b56df6160310c617af215b0",
+      "bytes": 1744,
+      "sha256": "3dd679bffbb951c553f2a782f69a8a72d6b4f9590a59d2fe2a1757109b71234a",
       "role": "被否决的 Electron Harness 候选复现",
       "pages": [
         "wiki/M0平台验证记录.md",
@@ -468,8 +683,8 @@
       "path": "experiments/m0-platform/contracts.test.ts",
       "type": "ts",
       "lines": 22,
-      "bytes": 1683,
-      "sha256": "22b51e6acdb740c7bbe1e072f69138dadcbfa0562247764f2a49c53840ca2433",
+      "bytes": 1705,
+      "sha256": "3bfc9b2fac05cfc88a47b7da70e40f261a282a69d547f02b52a734a714fab3cc",
       "role": "T00 部分可执行边界契约与拒绝测试",
       "pages": [
         "wiki/M0契约评审准备.md",
@@ -480,8 +695,8 @@
       "path": "experiments/m0-platform/contracts.ts",
       "type": "ts",
       "lines": 13,
-      "bytes": 1258,
-      "sha256": "7fa0a23cde8085475be9fc6e1e66e59adb9554c5a7df6d64b6b36ffdcd74f770",
+      "bytes": 1271,
+      "sha256": "5de930be8f05c63cda5459cffa3fdc370f71b156878d92dfe61cadb32c249f0a",
       "role": "T00 部分可执行边界契约与拒绝测试",
       "pages": [
         "wiki/M0契约评审准备.md",
@@ -492,8 +707,8 @@
       "path": "experiments/m0-platform/evidence/dependencies.json",
       "type": "json",
       "lines": 280,
-      "bytes": 6902,
-      "sha256": "01c706cb33b9073ea7952094446113cac6046de4044cfd23621d6daf526f0c2d",
+      "bytes": 7182,
+      "sha256": "1766ebaa10c54bd2f0d6f82f24d9761ae7e560be495ff3d57d680eb29db8a9a2",
       "role": "本轮平台合成实验结果与版本证据",
       "pages": [
         "wiki/M0平台验证记录.md",
@@ -504,8 +719,8 @@
       "path": "experiments/m0-platform/evidence/desktop.json",
       "type": "json",
       "lines": 529,
-      "bytes": 14198,
-      "sha256": "81aa166a686ae15f1db168317409a809a602993d937090308e1d4bdc0b9c3dbe",
+      "bytes": 14727,
+      "sha256": "d4b97e7152eee480118baea8df44aaa6b5d3b723e3a4064d61ef94675481300f",
       "role": "本轮平台合成实验结果与版本证据",
       "pages": [
         "wiki/M0平台验证记录.md",
@@ -516,8 +731,8 @@
       "path": "experiments/m0-platform/evidence/initial-desktop.json",
       "type": "json",
       "lines": 164,
-      "bytes": 9308,
-      "sha256": "f19d2417476ee2d2bbf1c5ca16c6c3888f40fa65dac88c861dabf0944397c8de",
+      "bytes": 9472,
+      "sha256": "1a790810442dc6f1698ca02f748204e68d2a4277e536e28674c1d4e6314bb16f",
       "role": "本轮平台合成实验结果与版本证据",
       "pages": [
         "wiki/M0平台验证记录.md",
@@ -528,8 +743,8 @@
       "path": "experiments/m0-platform/evidence/initial-packaged.json",
       "type": "json",
       "lines": 228,
-      "bytes": 6027,
-      "sha256": "0665419886221aa49adeb9206760bb0bb47c7ddf1aee412774599a26eaaa68d2",
+      "bytes": 6255,
+      "sha256": "ad097e3dbc67a705d1231f41e28773332ecdb512ba80fcfddec9e9de7cddbf52",
       "role": "本轮平台合成实验结果与版本证据",
       "pages": [
         "wiki/M0平台验证记录.md",
@@ -540,8 +755,8 @@
       "path": "experiments/m0-platform/evidence/package-initial.json",
       "type": "json",
       "lines": 8,
-      "bytes": 485,
-      "sha256": "3ef5f9a54a5ff8e93d107b9ac2353e78fc4f4fedc54213281c774c8376b698d7",
+      "bytes": 493,
+      "sha256": "ee2f6421430da3d42ecef7c3140704f9101018b4cd1dcbee76b833059363a45a",
       "role": "本轮平台合成实验结果与版本证据",
       "pages": [
         "wiki/M0平台验证记录.md",
@@ -552,8 +767,8 @@
       "path": "experiments/m0-platform/evidence/packaged.json",
       "type": "json",
       "lines": 529,
-      "bytes": 14197,
-      "sha256": "aab8acec34726c7973e0d33554f8c007596376380cc3b222b26fc386891f53d0",
+      "bytes": 14726,
+      "sha256": "bd78f64b793e29e2a7fe8aba2ca17c98a32aaf225a66754bf6acb60bdcad06ce",
       "role": "本轮平台合成实验结果与版本证据",
       "pages": [
         "wiki/M0平台验证记录.md",
@@ -564,8 +779,8 @@
       "path": "experiments/m0-platform/evidence/validation.json",
       "type": "json",
       "lines": 188,
-      "bytes": 9210,
-      "sha256": "dcf3a7309244823ec354c40ec6316973721d9df85f70016473b877450ecaed3c",
+      "bytes": 9398,
+      "sha256": "d4bc07c21989693e11d00a2a3db421cfde7b45c7c143491f5764a678ccfefc85",
       "role": "本轮命令退出码、源码指纹与已选路径验证汇总",
       "pages": [
         "wiki/M0平台验证记录.md",
@@ -576,8 +791,8 @@
       "path": "experiments/m0-platform/executor-probe.mjs",
       "type": "mjs",
       "lines": 42,
-      "bytes": 4137,
-      "sha256": "6175ccde3aabd34da5466dbba4241e1d5042ba6d544135ebbb93be4c7e8d5ab4",
+      "bytes": 4179,
+      "sha256": "ec29d2ca6929ceea67dcafb0bccf1b0bca58ee54e02da022778ef14a2a9ad2d1",
       "role": "最小工具执行器与 SQLite/取消/错误分支验证",
       "pages": [
         "wiki/运行时能力地图.md",
@@ -588,8 +803,8 @@
       "path": "experiments/m0-platform/executor.mjs",
       "type": "mjs",
       "lines": 21,
-      "bytes": 1176,
-      "sha256": "10815cef982b0280c798c349014090dd0505bd3c59cf4fec13ad321401506a66",
+      "bytes": 1197,
+      "sha256": "ff8ea3fb17d8822d9578ad8e837cd5697f7229dce7d972171c1d8ad90d3843ff",
       "role": "最小工具执行器与 SQLite/取消/错误分支验证",
       "pages": [
         "wiki/运行时能力地图.md",
@@ -600,8 +815,8 @@
       "path": "experiments/m0-platform/harness-desktop.mjs",
       "type": "mjs",
       "lines": 207,
-      "bytes": 11615,
-      "sha256": "cb94cc67c8a9dbfa0c4192576c07614179aa5345525d288f36af971e7a94151b",
+      "bytes": 11822,
+      "sha256": "0535b9200cf0be5b50776892fab802398294324ec7b18fb9af13fe9227347c16",
       "role": "被否决的 Electron Harness 候选复现",
       "pages": [
         "wiki/M0平台验证记录.md",
@@ -612,8 +827,8 @@
       "path": "experiments/m0-platform/main.cjs",
       "type": "cjs",
       "lines": 92,
-      "bytes": 8461,
-      "sha256": "e747590410376486886b08529fc78f4a1aca25b7cd9ad5305b447798a5f07e34",
+      "bytes": 8553,
+      "sha256": "ce2008eda64834e1416f25d1622d39ead0f64fdc51c738920656b4ef99a5093e",
       "role": "平台探针生命周期与验证编排",
       "pages": [
         "wiki/M0平台验证记录.md",
@@ -624,8 +839,8 @@
       "path": "experiments/m0-platform/model-provider.mjs",
       "type": "mjs",
       "lines": 25,
-      "bytes": 1753,
-      "sha256": "288187f70b6d7306ce89dbfcd4283cdf0a4318dd5c528223ec70ed080bb8188b",
+      "bytes": 1778,
+      "sha256": "4bc3b238bb7fa0dbfee2c979925a985bdc6b63d3d78b0ce2b0aeee6b7f48feab",
       "role": "桌面模型设置与凭据隔离验证",
       "pages": [
         "wiki/模型服务设置验证.md",
@@ -636,8 +851,8 @@
       "path": "experiments/m0-platform/package.json",
       "type": "json",
       "lines": 85,
-      "bytes": 1989,
-      "sha256": "6077e544417a8ba673b4e24221819e45662965e56a531a157e75a0ab015c84eb",
+      "bytes": 2074,
+      "sha256": "d52973dc961fa04558487de1a26afa171fad00598f3fec198815c841d402ae13",
       "role": "平台探针精确依赖与构建配置",
       "pages": [
         "wiki/M0平台验证记录.md",
@@ -648,8 +863,8 @@
       "path": "experiments/m0-platform/parsers.mjs",
       "type": "mjs",
       "lines": 63,
-      "bytes": 5774,
-      "sha256": "9c90634d76eab91ab614a990aff65a09463794cee97adec072fd264c48d1dba5",
+      "bytes": 5837,
+      "sha256": "1333517c2ef22fce5786f9aa6fd666662c2d03fcfba3ed59ab43f9707082ab4b",
       "role": "合成文件解析、来源位置与 PDF 引擎对照",
       "pages": [
         "wiki/M0平台验证记录.md",
@@ -660,8 +875,8 @@
       "path": "experiments/m0-platform/pdf-probe.mjs",
       "type": "mjs",
       "lines": 29,
-      "bytes": 2970,
-      "sha256": "4f88f2bb2c894bc4ba2d60dbff4ad56a997db2a88e66dd0e587645046ee46d19",
+      "bytes": 2999,
+      "sha256": "42c2298603e574b0b9fe8539d9a5d3d7fa0a07794bde421308aabfd97c88ce90",
       "role": "合成文件解析、来源位置与 PDF 引擎对照",
       "pages": [
         "wiki/M0平台验证记录.md",
@@ -672,8 +887,8 @@
       "path": "experiments/m0-platform/pnpm-lock.yaml",
       "type": "yaml",
       "lines": 13113,
-      "bytes": 757870,
-      "sha256": "b5c5a459b7d5e01f9d25d92872049e7622701318c06dda40f9029afecdada048",
+      "bytes": 770983,
+      "sha256": "26fc8e8da6b8128d53ef5484419f819e72e50e9601425147b6c538778f93d657",
       "role": "平台探针精确依赖与构建配置",
       "pages": [
         "wiki/M0平台验证记录.md",
@@ -684,8 +899,8 @@
       "path": "experiments/m0-platform/settings-preload.cjs",
       "type": "cjs",
       "lines": 8,
-      "bytes": 387,
-      "sha256": "95419aa4293adb8d1ffd30d04c92c0fde14d049f426e853b463c7111d1528dbf",
+      "bytes": 395,
+      "sha256": "2eef916e60752996cbb486406b1927d9cfbf5e966f8f335957ad3950fdd80cac",
       "role": "桌面模型设置与凭据隔离验证",
       "pages": [
         "wiki/模型服务设置验证.md",
@@ -696,8 +911,8 @@
       "path": "experiments/m0-platform/settings.cjs",
       "type": "cjs",
       "lines": 51,
-      "bytes": 4444,
-      "sha256": "8a13345e217ff71eddf05b3ff3331044ea56cbf1f0ef9c7dbbca6c64011bd401",
+      "bytes": 4495,
+      "sha256": "f80f5dd6ad343dbe0cf9c6ee22698a774957ad53345d075421dccbedd1889c15",
       "role": "桌面模型设置与凭据隔离验证",
       "pages": [
         "wiki/模型服务设置验证.md",
@@ -708,8 +923,8 @@
       "path": "experiments/m0-platform/settings.css",
       "type": "css",
       "lines": 1,
-      "bytes": 2286,
-      "sha256": "b168919cf42e60c40249779c9b6141399b9c82f8045338fde69b8daf3298f55c",
+      "bytes": 2287,
+      "sha256": "273ef89ea5877bac31fae6abd45a8c980aa63e1c49f3fe4cc162dc90922b9c3a",
       "role": "桌面模型设置与凭据隔离验证",
       "pages": [
         "wiki/模型服务设置验证.md",
@@ -720,8 +935,8 @@
       "path": "experiments/m0-platform/settings.html",
       "type": "html",
       "lines": 9,
-      "bytes": 2351,
-      "sha256": "1e42ecf1a4c463f66637e978a73de69f96cbf29d1b7b0789e9a3d28d5cae385f",
+      "bytes": 2360,
+      "sha256": "bee610fd073c43b2f55fd380fc6a1674f03e5674dda32de21cd400a6d9e997c7",
       "role": "桌面模型设置与凭据隔离验证",
       "pages": [
         "wiki/模型服务设置验证.md",
@@ -732,8 +947,8 @@
       "path": "experiments/m0-platform/settings.js",
       "type": "js",
       "lines": 11,
-      "bytes": 2757,
-      "sha256": "aef6c794c47ee32b19ea6d283a73c5e2b22bfa18d2e3152f4347ff8e86042f3e",
+      "bytes": 2768,
+      "sha256": "f52fc8427ccdbab51deebef5facac4a5c51fc137432a8d39153b92a48af711f7",
       "role": "桌面模型设置与凭据隔离验证",
       "pages": [
         "wiki/模型服务设置验证.md",
@@ -744,8 +959,8 @@
       "path": "experiments/m0-platform/storage.mjs",
       "type": "mjs",
       "lines": 68,
-      "bytes": 5010,
-      "sha256": "fc28e40cc2efcc771265e9072471438bbefa7186e0c68336d66f0b2a0262d7e6",
+      "bytes": 5078,
+      "sha256": "9a869be7af41fd4189b11a1f32786799ce63c4f2876bec964bcff6ab2afb8851",
       "role": "真实 SQLite 原子性、迁移与持久幂等探针",
       "pages": [
         "wiki/数据持久化与状态.md",
@@ -756,8 +971,8 @@
       "path": "experiments/m0-platform/tsconfig.json",
       "type": "json",
       "lines": 16,
-      "bytes": 248,
-      "sha256": "915e1147936c2efedd51f453904dc746d3f5a60136fcb84cb6968b03a97c961a",
+      "bytes": 264,
+      "sha256": "ec26aa7233829cc49ab3011d974925cd8dc26f974ec66b0ef0a6902bd8f85ebc",
       "role": "平台探针精确依赖与构建配置",
       "pages": [
         "wiki/M0平台验证记录.md",
@@ -768,8 +983,8 @@
       "path": "experiments/m0-platform/verify.mjs",
       "type": "mjs",
       "lines": 29,
-      "bytes": 2821,
-      "sha256": "9cc2a0843a0c2d23d53357a34958134285ef0b1c80728396f90791ffa19d2edf",
+      "bytes": 2850,
+      "sha256": "38a01c7bfb774c1550481486729398359e18791b83a862753c621288b767b29a",
       "role": "平台探针生命周期与验证编排",
       "pages": [
         "wiki/M0平台验证记录.md",
@@ -780,8 +995,8 @@
       "path": "experiments/m0-platform/worker.mjs",
       "type": "mjs",
       "lines": 19,
-      "bytes": 1437,
-      "sha256": "8c6e23f2e29cc970b99facdfabd4f734c5ef09bf51f06a4b0365cabbde4f22dd",
+      "bytes": 1456,
+      "sha256": "41b91b7ac40ebf89f1b8b3f4bf94a93bc3eb61fc799f868711d5053f4923edb4",
       "role": "平台探针生命周期与验证编排",
       "pages": [
         "wiki/M0平台验证记录.md",
@@ -792,8 +1007,8 @@
       "path": "experiments/m0-reuse/README.md",
       "type": "md",
       "lines": 36,
-      "bytes": 2852,
-      "sha256": "b57776814c4e95a1f2f255a6669dabd43622fe05c36a1af66a9cf387472a34bb",
+      "bytes": 2888,
+      "sha256": "6ff46684f37bc5ca228c8aa3efb4480388d66e76b0f46f4f32d283b71ce2f296",
       "role": "探针运行入口与限制",
       "pages": [
         "wiki/系统架构.md",
@@ -804,8 +1019,8 @@
       "path": "experiments/m0-reuse/business-tools.mjs",
       "type": "mjs",
       "lines": 37,
-      "bytes": 1707,
-      "sha256": "407a158b43e1e41ec1914b5268959585b6780c262b56df6160310c617af215b0",
+      "bytes": 1744,
+      "sha256": "3dd679bffbb951c553f2a782f69a8a72d6b4f9590a59d2fe2a1757109b71234a",
       "role": "受控业务工具桥接",
       "pages": [
         "wiki/运行时能力地图.md",
@@ -816,8 +1031,8 @@
       "path": "experiments/m0-reuse/collect-evidence.mjs",
       "type": "mjs",
       "lines": 47,
-      "bytes": 3023,
-      "sha256": "bd7a527e11b2e11ba7db6dd7ded2ca219518ee74d4448a1fb67c9a16a4f6a172",
+      "bytes": 3070,
+      "sha256": "d8c93b3a5156099710f6ac419c33b0ffb33d40bcac8b471d17f0116d14ac72a8",
       "role": "验证与证据收集",
       "pages": [
         "wiki/测试与验证地图.md",
@@ -828,8 +1043,8 @@
       "path": "experiments/m0-reuse/evidence/docs-check.json",
       "type": "json",
       "lines": 30,
-      "bytes": 2302,
-      "sha256": "7391e6c8c94e1b38b5ca8bd169a6b167a681e510e104f7de7f7018d9ed0b43fb",
+      "bytes": 2332,
+      "sha256": "de048f76ea9d4c215147d941ecee397e12696ac9595b57aa74f9da7bb0b37c67",
       "role": "既有 M0 实验记录；历史快照不随本轮重写",
       "pages": [
         "wiki/测试与验证地图.md",
@@ -840,8 +1055,8 @@
       "path": "experiments/m0-reuse/evidence/harness.json",
       "type": "json",
       "lines": 287,
-      "bytes": 6015,
-      "sha256": "fea07a9daef630042bf5db4cd0cd99cb7d227ca4e31d532ca18ced18fb4d66b2",
+      "bytes": 6302,
+      "sha256": "61029d25dcc943fbdbd3882d63ef85d06ceb76f53c7105b8b648d5de72a7ebb6",
       "role": "既有 M0 实验记录；历史快照不随本轮重写",
       "pages": [
         "wiki/测试与验证地图.md",
@@ -852,8 +1067,8 @@
       "path": "experiments/m0-reuse/evidence/harness.stdout.log",
       "type": "log",
       "lines": 287,
-      "bytes": 6015,
-      "sha256": "fea07a9daef630042bf5db4cd0cd99cb7d227ca4e31d532ca18ced18fb4d66b2",
+      "bytes": 6302,
+      "sha256": "61029d25dcc943fbdbd3882d63ef85d06ceb76f53c7105b8b648d5de72a7ebb6",
       "role": "既有 M0 实验记录；历史快照不随本轮重写",
       "pages": [
         "wiki/测试与验证地图.md",
@@ -864,8 +1079,8 @@
       "path": "experiments/m0-reuse/evidence/install-frozen.log",
       "type": "log",
       "lines": 4,
-      "bytes": 105,
-      "sha256": "c0c17af0f79cc264a42dab2cc3edbb1a156ad6e484128f962f1867611696d1b8",
+      "bytes": 109,
+      "sha256": "1f5f2a30d37c7449178324c125707298f785f7120d9a695819e7edb7b68896a1",
       "role": "既有 M0 实验记录；历史快照不随本轮重写",
       "pages": [
         "wiki/测试与验证地图.md",
@@ -876,8 +1091,8 @@
       "path": "experiments/m0-reuse/evidence/install-initial.log",
       "type": "log",
       "lines": 51,
-      "bytes": 2659,
-      "sha256": "9aeb5be10c9dcf99ede3deb243383c869ff0221ff65a223853dc7da97f7bb136",
+      "bytes": 2710,
+      "sha256": "7f6bd68dab72a766ef9d3127f005000d3827f93e3364bda6c3b5cacfd93aadbc",
       "role": "既有 M0 实验记录；历史快照不随本轮重写",
       "pages": [
         "wiki/测试与验证地图.md",
@@ -888,8 +1103,8 @@
       "path": "experiments/m0-reuse/evidence/install-pinned.log",
       "type": "log",
       "lines": 8,
-      "bytes": 316,
-      "sha256": "b840b1e85d922de1d16425aa0a8440b293cdb06adb9f64d211133cc6ca01df1c",
+      "bytes": 324,
+      "sha256": "a54832cf8406c37f529659c5640565816dfabb4bff6dc6b0619432ebea67c7ef",
       "role": "既有 M0 实验记录；历史快照不随本轮重写",
       "pages": [
         "wiki/测试与验证地图.md",
@@ -900,8 +1115,8 @@
       "path": "experiments/m0-reuse/evidence/solivio.tap",
       "type": "tap",
       "lines": 76,
-      "bytes": 2130,
-      "sha256": "d46738c494c53e0c9f2646045a01c1369727a1a8248ea59b0d86024b86ed7b6e",
+      "bytes": 2206,
+      "sha256": "2a25734317d2d4912da993e99aa1a480f124f9797877d4da85ab579798bf74dd",
       "role": "既有 M0 实验记录；历史快照不随本轮重写",
       "pages": [
         "wiki/测试与验证地图.md",
@@ -912,8 +1127,8 @@
       "path": "experiments/m0-reuse/evidence/source-audit.json",
       "type": "json",
       "lines": 80,
-      "bytes": 2794,
-      "sha256": "ab9ce7fec1d88295c25a6de01d3b60760b48ddc7bd272ea2b4d2506dfe987fe0",
+      "bytes": 2874,
+      "sha256": "f1c4685674bee65e65b33bb21e7bf3a617920807bc2db3d93ad3c012f5bddfa0",
       "role": "既有 M0 实验记录；历史快照不随本轮重写",
       "pages": [
         "wiki/测试与验证地图.md",
@@ -924,8 +1139,8 @@
       "path": "experiments/m0-reuse/evidence/summary.json",
       "type": "json",
       "lines": 60,
-      "bytes": 2008,
-      "sha256": "5b3f59ac7cbb4fcd742100bb6594af7e0df18f8d05ac372bef18f8bdb5e84177",
+      "bytes": 2068,
+      "sha256": "1e4579dcbdd9f4e45e3100b46f3468bc97efc6c33e16575d114dec8024c6c8ce",
       "role": "既有 M0 实验记录；历史快照不随本轮重写",
       "pages": [
         "wiki/测试与验证地图.md",
@@ -936,8 +1151,8 @@
       "path": "experiments/m0-reuse/harness-probe.mjs",
       "type": "mjs",
       "lines": 213,
-      "bytes": 11803,
-      "sha256": "26ab53f7229aa7fbea3bf9ca5ddfa048f7217c6422259e0161e2f9725e1debf0",
+      "bytes": 12016,
+      "sha256": "67dfe5940e15725b9fe5759445dad4fb38f25e36b7a64738e0fb53ed9d7a3f55",
       "role": "模型与业务fixture、进程生命周期",
       "pages": [
         "wiki/运行时能力地图.md",
@@ -949,8 +1164,8 @@
       "path": "experiments/m0-reuse/package.json",
       "type": "json",
       "lines": 27,
-      "bytes": 605,
-      "sha256": "240ae732f9f7230c362ce97ece60091d691169f6a8b9215e6244331796848ab4",
+      "bytes": 632,
+      "sha256": "dc81accedaebd9d7745a003aecc9476120b60015355a62803097959b321d423e",
       "role": "直接依赖、脚本与完整依赖解析",
       "pages": [
         "wiki/系统架构.md",
@@ -961,8 +1176,8 @@
       "path": "experiments/m0-reuse/pnpm-lock.yaml",
       "type": "yaml",
       "lines": 8941,
-      "bytes": 627097,
-      "sha256": "b77283095fb0744e995a5d04ee4e0b266cc2dd93711ac22640cc780d4278d873",
+      "bytes": 636038,
+      "sha256": "70e4e869b7d356b5da9b4857e1a9bd97bc8dca31cce5a791b1ffcba93d109821",
       "role": "直接依赖、脚本与完整依赖解析",
       "pages": [
         "wiki/系统架构.md",
@@ -973,8 +1188,8 @@
       "path": "experiments/m0-reuse/solivio.test.ts",
       "type": "ts",
       "lines": 74,
-      "bytes": 3632,
-      "sha256": "aefcb6885bfcccd3874309619973609c9a85e0e6fe01fca08a03fa32330f606d",
+      "bytes": 3706,
+      "sha256": "17c9a625384e1d1b57546857122b625ca12b79ce90cb4607b226ec4e5cb9c756",
       "role": "验证与证据收集",
       "pages": [
         "wiki/测试与验证地图.md",
@@ -985,8 +1200,8 @@
       "path": "experiments/m0-reuse/vendor/harness/LICENSE",
       "type": "LICENSE",
       "lines": 21,
-      "bytes": 1065,
-      "sha256": "ebb4f09972aee8608be255debaf78451a68e95c290f55c240dec2ecfa16ea6be",
+      "bytes": 1086,
+      "sha256": "e5b182b2fccc24c632788ed1e86a45e7a927d801bdf11c1b6b2a831854678826",
       "role": "第三方许可与副本指纹",
       "pages": [
         "wiki/decisions/0002-上游复用方式.md",
@@ -997,8 +1212,8 @@
       "path": "experiments/m0-reuse/vendor/solivio/LICENSE",
       "type": "LICENSE",
       "lines": 21,
-      "bytes": 1077,
-      "sha256": "f31d38ecceaeb198007ae8641b3b3f37a522946abc11b9ca544afa33e5ef86d6",
+      "bytes": 1098,
+      "sha256": "c1c18b6f4ef52d4489c439f3ab88010738db6f92a6d0d78044a4de692ff317b6",
       "role": "第三方许可与副本指纹",
       "pages": [
         "wiki/decisions/0002-上游复用方式.md",
@@ -1009,8 +1224,8 @@
       "path": "experiments/m0-reuse/vendor/solivio/offerTotals.ts",
       "type": "ts",
       "lines": 7,
-      "bytes": 329,
-      "sha256": "8bb05eeff51c438ee8f8efa05fa25d3eac5e67ed37de85532f581785286f9b27",
+      "bytes": 336,
+      "sha256": "62be96793edd826a1d1d2ff4eaa16bb3693b6c2eb7955a86a372e0ca2b98456a",
       "role": "原样上游行为刻画对象",
       "pages": [
         "wiki/技术验证记录.md",
@@ -1021,8 +1236,8 @@
       "path": "experiments/m0-reuse/vendor/solivio/productParser.ts",
       "type": "ts",
       "lines": 203,
-      "bytes": 5840,
-      "sha256": "2ccb2e11e62463ba4c3f538d747ed8ce84a9ae23f1a493bf3407fa0b7079f80c",
+      "bytes": 6043,
+      "sha256": "0ac39e3d428b7a147a2622cff186056639184182428311b102563f7179dfe9f4",
       "role": "原样上游行为刻画对象",
       "pages": [
         "wiki/技术验证记录.md",
@@ -1033,8 +1248,8 @@
       "path": "experiments/m0-reuse/vendor/solivio/provenance.json",
       "type": "json",
       "lines": 24,
-      "bytes": 893,
-      "sha256": "b171a002d573643cde2e4f3d511b97dbec1af22c1b9870fd6e0908985514be56",
+      "bytes": 917,
+      "sha256": "3a0681093ecd338cdf61934fcb4a951f972e114c6128d8716324858f20639168",
       "role": "第三方许可与副本指纹",
       "pages": [
         "wiki/decisions/0002-上游复用方式.md",
@@ -1045,8 +1260,8 @@
       "path": "experiments/product-walkthrough/README.md",
       "type": "md",
       "lines": 95,
-      "bytes": 11364,
-      "sha256": "331d13be97813c934e40562fdfde8cefe8af6ef67672ddb09a4371e8808d04a0",
+      "bytes": 11459,
+      "sha256": "38f586bf5eaf55f2da6c1238e8b3ad5089dfc4464397d1b57c54d648b73e18d4",
       "role": "Local walkthrough launch scope and operation guide",
       "pages": [
         "wiki/产品交互演示.md"
@@ -1056,8 +1271,8 @@
       "path": "experiments/product-walkthrough/check.mjs",
       "type": "mjs",
       "lines": 566,
-      "bytes": 33513,
-      "sha256": "9d67cda1944219ba0d184b41f0dc5c8cd218cef3106ede8cdf2788ed61d4e8f5",
+      "bytes": 34079,
+      "sha256": "9fa791c9f9e8070a03d41004ae2d0cdce78002e7a3f98c446d2512f68fcf5230",
       "role": "Prototype amount version approval recovery regression checks",
       "pages": [
         "wiki/产品交互演示.md"
@@ -1067,8 +1282,8 @@
       "path": "experiments/product-walkthrough/index.html",
       "type": "html",
       "lines": 353,
-      "bytes": 142718,
-      "sha256": "dc4cd6419dbe202e69455184076c6ad86cfd310afe6638de7b64b8d47a12869e",
+      "bytes": 143071,
+      "sha256": "9d22d4487a6e0d4bea4a2db95c43fb2e8d6eb473ff70d573872b678ff41a8b63",
       "role": "Standalone synthetic product interaction walkthrough",
       "pages": [
         "wiki/产品交互演示.md"
@@ -1077,20 +1292,21 @@
     {
       "path": "package.json",
       "type": "json",
-      "lines": 46,
-      "bytes": 2056,
-      "sha256": "681da811b57a6fd125b406705da03da07bc204886587137fd9a6030cfbd7b8a1",
+      "lines": 47,
+      "bytes": 2156,
+      "sha256": "66bb0ec2cd15316ef636101d303b99fafcab6ab1a19858a0226f92f7ff13fd26",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
-        "wiki/M1工程基线.md"
+        "wiki/M1工程基线.md",
+        "wiki/C04模型评估与脱敏报告.md"
       ]
     },
     {
       "path": "packages/contracts/package.json",
       "type": "json",
       "lines": 13,
-      "bytes": 220,
-      "sha256": "41ca23b0867b7585eb3856e98a3b0f7065ab9359b785e643aa441fae2f495992",
+      "bytes": 233,
+      "sha256": "089ebbdcf104e48b2793473c1034f8b7a7834c75f56c675a06473217a8e02642",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md"
@@ -1099,20 +1315,21 @@
     {
       "path": "packages/contracts/src/agent.ts",
       "type": "ts",
-      "lines": 104,
-      "bytes": 3785,
-      "sha256": "4736b53e37965fc4248643227edce063ea74dd6da1b2c38a428b96e884ca2384",
+      "lines": 106,
+      "bytes": 4003,
+      "sha256": "980a8124cd8cc17b2b8d95efa01113705611d9135b23e400467f6ca9c1e8ad68",
       "role": "模型设置与询盘受限修改严格契约",
       "pages": [
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     {
       "path": "packages/contracts/src/checks.test.ts",
       "type": "ts",
-      "lines": 179,
-      "bytes": 6002,
-      "sha256": "b24404f6158c2bcf6678872dd582048a95f72c4c3cdaada52dc14eddcd34234b",
+      "lines": 210,
+      "bytes": 7413,
+      "sha256": "66cb67699c95a512cdb62ba1e026380d22a439a373502b89ce46ec83aa410bf1",
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
         "wiki/首批并行接口约定.md"
@@ -1121,9 +1338,9 @@
     {
       "path": "packages/contracts/src/checks.ts",
       "type": "ts",
-      "lines": 136,
-      "bytes": 5101,
-      "sha256": "245b0d26cb04520502a886c080e0248a01b0c83e5635d47fd5c57cb2bb9ada61",
+      "lines": 192,
+      "bytes": 8023,
+      "sha256": "7dee8c84228acebe6f96385e041ce388841964996133b331e6d689ffb3414749",
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
         "wiki/首批并行接口约定.md"
@@ -1132,20 +1349,21 @@
     {
       "path": "packages/contracts/src/contracts.test.ts",
       "type": "ts",
-      "lines": 55,
-      "bytes": 1989,
-      "sha256": "bf1004d647ae3fe93a82bb06624f40bc6616ece3a8b0361a1a72f47838e91495",
+      "lines": 88,
+      "bytes": 3188,
+      "sha256": "d7be01c0aa6b5619d1f2b0b45d3f24d4392746d67030b068bddf3e0c4e3a62d3",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     {
       "path": "packages/contracts/src/errors.ts",
       "type": "ts",
       "lines": 22,
-      "bytes": 457,
-      "sha256": "d32775cc72c00c252becf483ba5fcd6f89494568d8edf86d003ba4a52a6a6efd",
+      "bytes": 479,
+      "sha256": "e030d6b6c30605f9734b860db556e39ceaffafdaccb9c053e198edd07710e09f",
       "role": "Strict shared value, patch, approval and event contract foundation",
       "pages": [
         "wiki/M1接口与持久化.md"
@@ -1154,20 +1372,21 @@
     {
       "path": "packages/contracts/src/events.ts",
       "type": "ts",
-      "lines": 60,
-      "bytes": 1710,
-      "sha256": "f1279f0c7732f44d8a0b1b1d2b16225ed91189808042e08f80b9a10ac7764c5a",
+      "lines": 69,
+      "bytes": 2009,
+      "sha256": "66e73edd033bff582d8608b0abdaecfe29bc9f1aac008dd7344e78bb1153c946",
       "role": "Strict shared value, patch, approval and event contract foundation",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     {
       "path": "packages/contracts/src/foundation.test.ts",
       "type": "ts",
       "lines": 149,
-      "bytes": 6018,
-      "sha256": "1fa9a6beac36b07ad438fce581d93a1c4f5feff73ec5c7d8e0a94be0c38fbd59",
+      "bytes": 6167,
+      "sha256": "c7aaa10472b5fbbf70b778b04015a68705b546e302f7a2dbd2c4188a3195c17e",
       "role": "M1 icon drift and untrusted shared-contract regression checks",
       "pages": [
         "wiki/M1验证与协作.md"
@@ -1176,21 +1395,82 @@
     {
       "path": "packages/contracts/src/index.ts",
       "type": "ts",
-      "lines": 136,
-      "bytes": 4632,
-      "sha256": "ab37ce2308e66ac1222eba46a5e9e96289515b59294d3e7a6ab6f9d7b6a97e79",
+      "lines": 174,
+      "bytes": 6220,
+      "sha256": "aebc6d0d2e52bf625d9d378dbbc02c2b346a7eef5fe22e9d27f493b1a85664f8",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C已保存报价检查桌面切片.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/knowledge-build.test.ts",
+      "type": "ts",
+      "lines": 461,
+      "bytes": 16532,
+      "sha256": "c50a7d851ecd3f6191cab547aa967aa3c83aafdb95cd14573d97fb9e8ed13723",
+      "role": "P1 proposal authority, run receipt, retry fencing and stable pagination negative tests",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/knowledge-build.ts",
+      "type": "ts",
+      "lines": 584,
+      "bytes": 23422,
+      "sha256": "aab4b15f4eddbac4aa8731624d5fd6cc7bc000ef910d17306aff97cb224feda6",
+      "role": "P1 frozen knowledge proposals, separate runs and host candidate transaction contracts",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/knowledge-lint-review.test.ts",
+      "type": "ts",
+      "lines": 215,
+      "bytes": 6751,
+      "sha256": "def008ab91ccb4f80ae0a700390c833bf02406718ddc00d7bb6d1d3c5a1cb462",
+      "role": "P1 persisted lint receipt to P0 review consistency boundary",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md",
+        "wiki/B谱系账本适配与P1回执交接.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/knowledge-maintenance.test.ts",
+      "type": "ts",
+      "lines": 433,
+      "bytes": 14195,
+      "sha256": "06be99542a43b0080bab8503c47f15fd8c7a74a8762aef7353aed471feaa34fd",
+      "role": "P1 unknown/failure reports, human resolution, paging and stale projection negative tests",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/knowledge-maintenance.ts",
+      "type": "ts",
+      "lines": 566,
+      "bytes": 22522,
+      "sha256": "9508865f1703c0e3bc0195c9e70a64bce15a0d8da2559cf4a6606226748b78c6",
+      "role": "P1 lint, deduplicated maintenance, influence analysis and fenced index reconstruction contracts",
+      "pages": [
+        "wiki/B00a知识整理与维护协议.md"
       ]
     },
     {
       "path": "packages/contracts/src/knowledge-wiki.test.ts",
       "type": "ts",
       "lines": 587,
-      "bytes": 21230,
-      "sha256": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+      "bytes": 21817,
+      "sha256": "f02327eaf49caf866731358c952cab569754d80c81fd2cb17c9880e0972d8f5a",
       "role": "B00a P0 authority, provenance, historical-read, validity and pagination negative regressions",
       "pages": [
         "wiki/B00a知识Wiki公共协议.md"
@@ -1199,9 +1479,9 @@
     {
       "path": "packages/contracts/src/knowledge-wiki.ts",
       "type": "ts",
-      "lines": 724,
-      "bytes": 28668,
-      "sha256": "7d9177f877175d18f9fa0df2135dae1d5cec9adf8316bdaa7bcd2c5426e5ff07",
+      "lines": 728,
+      "bytes": 29702,
+      "sha256": "9898af32707c20ade9971e940a6a0d8f0268c6634d70c52942585e6d948ffc9d",
       "role": "B00a P0 versioned Markdown, source, review, retrieval, citation and consumption protocols",
       "pages": [
         "wiki/B00a知识Wiki公共协议.md"
@@ -1211,8 +1491,8 @@
       "path": "packages/contracts/src/knowledge.test.ts",
       "type": "ts",
       "lines": 160,
-      "bytes": 6460,
-      "sha256": "f72bec14d85e47b55bf3e5417bf564c16e3a3b109563383b65762d4efcb3d232",
+      "bytes": 6620,
+      "sha256": "0aea27e23482b0c3015f2455686df7ba56eea90e2d488cab9139e0df486dc22c",
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
         "wiki/首批并行接口约定.md"
@@ -1222,8 +1502,8 @@
       "path": "packages/contracts/src/knowledge.ts",
       "type": "ts",
       "lines": 177,
-      "bytes": 6842,
-      "sha256": "be970620289068a323502ad19e6cc25c753273d951c7e590b2d07097254ff169",
+      "bytes": 7019,
+      "sha256": "824adad417da5b249fb415ad6d5946c4a592da3cbfa73e5633cf7e316765d620",
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
         "wiki/首批并行接口约定.md"
@@ -1232,33 +1512,51 @@
     {
       "path": "packages/contracts/src/mock.ts",
       "type": "ts",
-      "lines": 285,
-      "bytes": 9640,
-      "sha256": "2192a814cc876f40ebe96c15b13630c64b32a17d0df7955da5254a2800c7fa5a",
+      "lines": 418,
+      "bytes": 14884,
+      "sha256": "b4107630d7492d335dbcd9799976705dda9138764c2eb38323759708dd46cd70",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md",
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/model-evaluation.ts",
+      "type": "ts",
+      "lines": 302,
+      "bytes": 10008,
+      "sha256": "994c8e4d835acea8973532ba40c42c3f9d505b53dda38ecedf24909ad09aaa2c",
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04剩余失败证据与收敛.md",
+        "wiki/C04动作与澄清失败收敛.md"
       ]
     },
     {
       "path": "packages/contracts/src/pending-client.ts",
       "type": "ts",
-      "lines": 33,
-      "bytes": 1889,
-      "sha256": "77191cf315e337b05d59add688f0185976949f7fcf6eb02ded65a1372eda94b0",
+      "lines": 50,
+      "bytes": 2687,
+      "sha256": "5d242f9a95ad48fa5d923cd3637e96ef59600aa37b3000201fe3ebf0e513bfcd",
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
         "wiki/首批并行接口约定.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     {
       "path": "packages/contracts/src/protocol.ts",
       "type": "ts",
       "lines": 20,
-      "bytes": 770,
-      "sha256": "fbc109ab817d98fc5f3a0d91340b06889d5bf996399e2bf1abe34e831fa4091b",
+      "bytes": 790,
+      "sha256": "3ee18acf8fab4163d367268f7051c4326085885da9b57ed12c08962abaeee8bb",
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
         "wiki/首批并行接口约定.md"
@@ -1268,41 +1566,90 @@
       "path": "packages/contracts/src/quote.ts",
       "type": "ts",
       "lines": 51,
-      "bytes": 2039,
-      "sha256": "2bf774f409a5152597286fba042200403489f244e02a14fc9296ebbbcb54476d",
+      "bytes": 2090,
+      "sha256": "7f4d172a37ef03e558e0d9912e632d72560935bcd201f6869d25469f4a7258d3",
       "role": "Strict shared value, patch, approval and event contract foundation",
       "pages": [
         "wiki/M1接口与持久化.md"
       ]
     },
     {
+      "path": "packages/contracts/src/read-tools.test.ts",
+      "type": "ts",
+      "lines": 100,
+      "bytes": 3777,
+      "sha256": "83ad98b1e2ecb47f572f269903eb4eb2256f2542e319c7e5422985ebdce15fda",
+      "role": "只读命令/Worker联合与字段/范围/结果注入拒绝",
+      "pages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/read-tools.ts",
+      "type": "ts",
+      "lines": 109,
+      "bytes": 4383,
+      "sha256": "6cacb62ca1221047df5b1b2c11729cf34eb29fe9e0ead5cc1210a1736a0859ab",
+      "role": "独立只读命令、四工具统一投影与严格结果",
+      "pages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/run-events.test.ts",
+      "type": "ts",
+      "lines": 69,
+      "bytes": 2348,
+      "sha256": "3e38be7c8620580746f54091cbd96e035fc2efa971f1d083e1932bc646857057",
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/run-events.ts",
+      "type": "ts",
+      "lines": 55,
+      "bytes": 2396,
+      "sha256": "80eb19c67c05ece947abc662371c33153c785055b218f80c75254e85870f1070",
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
       "path": "packages/contracts/src/runs.test.ts",
       "type": "ts",
-      "lines": 110,
-      "bytes": 4397,
-      "sha256": "c677e714c750675855c7443af9aa7a4183eec1f44ce8097256ac11f23502925c",
+      "lines": 204,
+      "bytes": 7593,
+      "sha256": "f2f351e600e29163a3d4d3471ccc6d0c186bdc83acb189a72b0c255987ea0ff3",
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
-        "wiki/首批并行接口约定.md"
+        "wiki/首批并行接口约定.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     {
       "path": "packages/contracts/src/runs.ts",
       "type": "ts",
-      "lines": 68,
-      "bytes": 3102,
-      "sha256": "2ce637912077f4a3cafa8e36eab059b214d053666e00e69b832044bf32265f51",
+      "lines": 133,
+      "bytes": 5720,
+      "sha256": "2e233abc7778e2c0b28e1746f93059b2e2043a18fcd1ca0719cab548a1b54f7a",
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
-        "wiki/首批并行接口约定.md"
+        "wiki/首批并行接口约定.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     {
       "path": "packages/contracts/src/trade.ts",
       "type": "ts",
       "lines": 256,
-      "bytes": 8992,
-      "sha256": "0db1014867a220b8c14b24f1dc8d18a03f06fdfeb7a0e5f6d6f811a8d730db19",
+      "bytes": 9248,
+      "sha256": "f6c419d531a44aabe3b17c229fcd442becf7053ee3ece01e7d5f61e9804f2e78",
       "role": "Strict scenario, catalog publication and quote V1 command/data contracts",
       "pages": [
         "wiki/M2真实报价V1.md"
@@ -1312,8 +1659,8 @@
       "path": "packages/contracts/src/values.ts",
       "type": "ts",
       "lines": 99,
-      "bytes": 2940,
-      "sha256": "34717b5a2b80ae973945f17c883404bb76564520e1802c8fb796b7ffa5888664",
+      "bytes": 3039,
+      "sha256": "65d00ceb15b7ccaf6661298249c581cad54b14b399da7583d15b9179809eb571",
       "role": "Strict shared value, patch, approval and event contract foundation",
       "pages": [
         "wiki/M1接口与持久化.md"
@@ -1323,8 +1670,8 @@
       "path": "packages/contracts/src/wiki-integrity.ts",
       "type": "ts",
       "lines": 64,
-      "bytes": 3036,
-      "sha256": "c18f3d7a1aa73d56ff5b77dc9af73d53b60e8d2717e92bc135a42ed391c2ab31",
+      "bytes": 3100,
+      "sha256": "b6b69b8510050695c89dca7fe563489eb2cebb8f05e10135cab0187fef552c5a",
       "role": "B00a exact UTF-8 content, source-set and excerpt integrity verification",
       "pages": [
         "wiki/B00a知识Wiki公共协议.md"
@@ -1334,8 +1681,8 @@
       "path": "packages/domain/package.json",
       "type": "json",
       "lines": 11,
-      "bytes": 223,
-      "sha256": "f47fa235c78a1376fd27c75a5aeccc534771b654a4850fa901ce1e9a544780ed",
+      "bytes": 234,
+      "sha256": "40bb612c8e4ec3eff1319be0848ef1b8e91e1257175a8ec51fe59d0cc83598f9",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md"
@@ -1345,8 +1692,8 @@
       "path": "packages/domain/src/agent-run.test.ts",
       "type": "ts",
       "lines": 37,
-      "bytes": 2024,
-      "sha256": "cd167c7dfde6113e6e58275a59660eaf7fb64468255b2054beadf4e8a0686838",
+      "bytes": 2061,
+      "sha256": "af389cdb2914662dfacc12935ebe06b7a3500fa9595db2701c4f0da86e134ae5",
       "role": "C01a取消提交顺序、中断、显式重试与澄清状态测试",
       "pages": [
         "wiki/C运行恢复实现.md"
@@ -1356,8 +1703,8 @@
       "path": "packages/domain/src/agent-run.ts",
       "type": "ts",
       "lines": 36,
-      "bytes": 1261,
-      "sha256": "b6b7b7629e523c0636d5c4a5841409b20ce420a111bb4fec006db7d2ca43e8ed",
+      "bytes": 1297,
+      "sha256": "e79aa7cda87bcfe1177b1074c201829908e6c8088aa9c7a506968f5142c4b95c",
       "role": "C01a纯运行状态转换与终态边界",
       "pages": [
         "wiki/C运行恢复实现.md"
@@ -1367,8 +1714,8 @@
       "path": "packages/domain/src/domain.test.ts",
       "type": "ts",
       "lines": 36,
-      "bytes": 1332,
-      "sha256": "0dc4f1f113ff0f2feadf7d7b772a5e840d2b4938ccbed6315c2b59b9284a7d0b",
+      "bytes": 1368,
+      "sha256": "cd325608b0066aec059d9a27168879200246354b4116c65850f83f7bda896777",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md"
@@ -1377,20 +1724,70 @@
     {
       "path": "packages/domain/src/index.ts",
       "type": "ts",
-      "lines": 65,
-      "bytes": 2315,
-      "sha256": "818a9237921282e9c03e3343d53f926ed5ef2b7c5c8cbe376788ea646ea1c2f8",
+      "lines": 70,
+      "bytes": 2621,
+      "sha256": "5109791c08ee73895daa9d31d7210850a0ff4d8f6bf8fb62d4d38a1943598594",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/A01c检索引用实现.md",
+        "wiki/B规则检查实现.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "packages/domain/src/knowledge.ts",
+      "type": "ts",
+      "lines": 51,
+      "bytes": 2169,
+      "sha256": "cacade81ec3453c740dc7925622474f5e8135db5614114d7de7350d34da2d9ef",
+      "role": "A01b知识审核发布服务：human_ui门禁与方法分发",
+      "pages": [
+        "wiki/A知识发布实现.md"
+      ]
+    },
+    {
+      "path": "packages/domain/src/quote-checks-runtime-compat.test.ts",
+      "type": "ts",
+      "lines": 174,
+      "bytes": 6291,
+      "sha256": "20f18e0fb95610227e5852095dc31eb4bf6b19b10edc569bb6e038a7f296e34f",
+      "role": "Preserved C fixed runtime quote-check compatibility regression against B public evaluator",
+      "pages": [
+        "wiki/B规则检查实现.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "packages/domain/src/quote-checks.test.ts",
+      "type": "ts",
+      "lines": 356,
+      "bytes": 13317,
+      "sha256": "a431e792a7fbb0b0fb69e225dbb31fef39bed5a8e42509246ad106d03b14c3f2",
+      "role": "B01 pure rule behavior, stable identities and immutable reports regression",
+      "pages": [
+        "wiki/B规则检查实现.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "packages/domain/src/quote-checks.ts",
+      "type": "ts",
+      "lines": 105,
+      "bytes": 4276,
+      "sha256": "c54024fab136ee8aa857794a70fee2508baccd19362710028d58296fcb735262",
+      "role": "B01 pure quote rule checks, applicability and fixed evidence",
+      "pages": [
+        "wiki/B规则检查实现.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     {
       "path": "packages/domain/src/revision.ts",
       "type": "ts",
       "lines": 54,
-      "bytes": 1767,
-      "sha256": "7053d2fa8daac80f4a0bd1c90990cd09dfb804e8e76284e4a35fda9d8738f57f",
+      "bytes": 1821,
+      "sha256": "60b02c04e2a5c1d9a673fe4b0ddce9bd8e68d2dbe88b00dc372d33460db2bd09",
       "role": "不可变报价修订与确定性重算",
       "pages": [
         "wiki/M4模型与报价修订.md"
@@ -1400,8 +1797,8 @@
       "path": "packages/domain/src/trade.test.ts",
       "type": "ts",
       "lines": 183,
-      "bytes": 6321,
-      "sha256": "c5eee9865b335cafff5ac4bf3b0544ecb48fdf0bf88275ad8aead51ef4c626dc",
+      "bytes": 6504,
+      "sha256": "bb266a30d2673f435f4ef27f621ee407960e671d0106e648517e0d97ed7264f7",
       "role": "Quote V1 amount, source, transaction, migration and real Electron regression evidence",
       "pages": [
         "wiki/M2真实报价V1.md",
@@ -1412,55 +1809,182 @@
       "path": "packages/domain/src/trade.ts",
       "type": "ts",
       "lines": 153,
-      "bytes": 5661,
-      "sha256": "004c559d3ce9da2a5ad65d0ffa7fa26889f5402da7156d7bbd83b267035a4581",
+      "bytes": 5814,
+      "sha256": "c0299b32887e52f5cab122b9258f8b5e73b47f1ff404b82572a70706e9e37c28",
       "role": "Deterministic tier pricing, unknown amounts and human-only V1 service",
       "pages": [
         "wiki/M2真实报价V1.md"
       ]
     },
     {
+      "path": "packages/domain/src/wiki-maintenance.ts",
+      "type": "ts",
+      "lines": 94,
+      "bytes": 4116,
+      "sha256": "fc823e782667fba8fd8becd8d782ae80bb7aaf8d7ea07b470c444ef7e24a7098",
+      "role": "A01c知识维护服务：wiki.lint/wiki.getLintReport 公共端口与来源门禁",
+      "pages": [
+        "wiki/A01c检索引用实现.md",
+        "wiki/B00a知识整理与维护协议.md"
+      ]
+    },
+    {
+      "path": "packages/domain/src/wiki-quote-checks.ts",
+      "type": "ts",
+      "lines": 104,
+      "bytes": 4028,
+      "sha256": "e580b74bd40b92a925ddb4915c34e9d91034585092f52e55fca132e71fe98ef2",
+      "role": "B00a完整多来源检查适配与旧规则语义复用",
+      "pages": [
+        "wiki/B规则检查实现.md"
+      ]
+    },
+    {
+      "path": "packages/domain/src/wiki.ts",
+      "type": "ts",
+      "lines": 92,
+      "bytes": 4314,
+      "sha256": "9b52dd7025efa298b72defc24510bc9de9f18a3deff4f25891ee6b409c91a504",
+      "role": "A01c检索引用服务：B00a P0来源门禁与方法分发",
+      "pages": [
+        "wiki/A01c检索引用实现.md"
+      ]
+    },
+    {
       "path": "packages/infrastructure/package.json",
       "type": "json",
-      "lines": 14,
-      "bytes": 331,
-      "sha256": "e329f7bbdae26b0d7300193fdd3af33596e2ca69d7a94c02d0a59839e1b3fa3c",
+      "lines": 18,
+      "bytes": 434,
+      "sha256": "02537a4198a545e199f86372d17df2ac04af13cf953fda951457a4836a9cb7af",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/probes/migration-lineage.probe.ts",
+      "type": "ts",
+      "lines": 119,
+      "bytes": 5063,
+      "sha256": "aedad3b4f3114f1bd1dfe4ee645728f52e9e708f8020d2849fc08a8e0dc03871",
+      "role": "B迁移协调已知红色合成诊断：未知6和账本/schema漂移，不是真实C谱系",
+      "pages": [
+        "wiki/B01迁移协调回复与接口冻结.md",
+        "wiki/M1验证与协作.md",
+        "wiki/B谱系账本适配与P1回执交接.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/probes/vitest.config.ts",
+      "type": "ts",
+      "lines": 8,
+      "bytes": 284,
+      "sha256": "bf1ccd390a7e9b66fc855bbce311c85719d1d82cc3f726637584658877d61969",
+      "role": "显式运行迁移诊断，和正常unit分别报告，禁止将红色诊断藏为通过",
+      "pages": [
+        "wiki/B01迁移协调回复与接口冻结.md",
+        "wiki/M1验证与协作.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/agent-executor.ts",
       "type": "ts",
-      "lines": 174,
-      "bytes": 8693,
-      "sha256": "2f2c962e2f17a5ddb62782a88ac37fef4e5e29565f035418c8286e577e8318d2",
+      "lines": 182,
+      "bytes": 9097,
+      "sha256": "33975839d4f79b9ffca4ed939ad9710bba4e93b18e76293da6c312c1dd380d32",
       "role": "有界模型执行与提交前版本复核",
       "pages": [
         "wiki/M4模型与报价修订.md",
-        "wiki/C运行恢复实现.md"
+        "wiki/C运行恢复实现.md",
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/agent-run-coordinator.test.ts",
+      "type": "ts",
+      "lines": 227,
+      "bytes": 10285,
+      "sha256": "b01db75f436ac037318d765e39a43b20ffef5f834dce117985d87c9aa1587e09",
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/agent-run-coordinator.ts",
+      "type": "ts",
+      "lines": 214,
+      "bytes": 9318,
+      "sha256": "c9714d3cb77819f43de3de8abcc0d52b2c75f72ad2d8c8155b9a0d69d2ac3fb8",
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/agent-run-recovery.test.ts",
+      "type": "ts",
+      "lines": 194,
+      "bytes": 7320,
+      "sha256": "8b6064b8277c48b29cec452729cdcf360bf9171b62c2feb5e085547fc2318628",
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/agent-run-store.test.ts",
+      "type": "ts",
+      "lines": 547,
+      "bytes": 21248,
+      "sha256": "f770a71d8748452d2b0fb5a65dc6b3e3e720e95d715cf9791716d6f8207ad200",
+      "role": "真实SQLite运行恢复前置、故障回滚、版本凭据与升级回归",
+      "pages": [
+        "wiki/C02c持久运行与写入前置.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/agent-run-store.ts",
+      "type": "ts",
+      "lines": 724,
+      "bytes": 28566,
+      "sha256": "61a7188edec7f0a6abba0249a387be7415576baf20be4a3c541ec3aadcf85cf5",
+      "role": "持久运行存储、票据、控制重放与同连接报价原子提交",
+      "pages": [
+        "wiki/C02c持久运行与写入前置.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C03持久事件与桌面重连.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/agent.test.ts",
       "type": "ts",
       "lines": 443,
-      "bytes": 16607,
-      "sha256": "e3420dacb60402614eeed5799b5124942592a8597671280864087c414c2645a6",
+      "bytes": 17099,
+      "sha256": "ec5cb969f0516afd875a2f677c7f526ec9866f467de43a3815ccba401aa1e05f",
       "role": "修订幂等冲突事务与迁移验收",
       "pages": [
         "wiki/M4模型与报价修订.md",
         "wiki/M1验证与协作.md",
-        "wiki/C运行恢复实现.md"
+        "wiki/C运行恢复实现.md",
+        "wiki/A01-迁移验证计划.md",
+        "wiki/C02c统一运行与写账本.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/artifacts.ts",
       "type": "ts",
       "lines": 55,
-      "bytes": 2009,
-      "sha256": "d6851af2499345a59022d90d229866293f18f2d881a1ae9e1d22c29299a66a5f",
+      "bytes": 2064,
+      "sha256": "f351edc05efe8d7d53346cb416fcb62cb0dc55f0c5a5f2b536fd27c08e1488c9",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md"
@@ -1470,19 +1994,115 @@
       "path": "packages/infrastructure/src/catalog-csv.ts",
       "type": "ts",
       "lines": 78,
-      "bytes": 2906,
-      "sha256": "5de70b0f38da41b9fcf226cee6a669cce2d3b484b89d9075f817bbecfb5eac2c",
+      "bytes": 2984,
+      "sha256": "561de2cc3b651f490547285bcfa1e89e7bf6e0173b2f62404b0bc5b329fc92aa",
       "role": "Bounded UTF-8 CSV parsing, row provenance and staged validation",
       "pages": [
         "wiki/M2真实报价V1.md"
       ]
     },
     {
+      "path": "packages/infrastructure/src/catalog-quote-read-agent.test.ts",
+      "type": "ts",
+      "lines": 521,
+      "bytes": 19441,
+      "sha256": "f38ae88ee41ec11d1d90c395ba14a2f935297523c882b5a780ce3992454ee991",
+      "role": "C02b真实商品报价只读适配、来源快照、范围核价与无写入回归",
+      "pages": [
+        "wiki/C02b商品与报价只读工具.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/catalog-quote-read-agent.ts",
+      "type": "ts",
+      "lines": 240,
+      "bytes": 10203,
+      "sha256": "b63addc0ad2f88fa82a7f549827c838b9bfc4bdee9910dff3a1d40229140ce70",
+      "role": "C02b真实商品报价只读适配、来源快照、范围核价与无写入回归",
+      "pages": [
+        "wiki/C02b商品与报价只读工具.md",
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/catalog-quote-read-service.test.ts",
+      "type": "ts",
+      "lines": 124,
+      "bytes": 4906,
+      "sha256": "ca97b63cc49e5e8b595f902c5d08c7847a2389a5f59eca4b68752e32da9a1058",
+      "role": "真实仓库服务鉴权、在途去重与失败释放",
+      "pages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/catalog-quote-read-service.ts",
+      "type": "ts",
+      "lines": 76,
+      "bytes": 3279,
+      "sha256": "c21a144a5941e076bb4e8b66b4d50283305f63877124960c48edb9b906249e09",
+      "role": "正式Worker只读服务、宿主范围/时钟、在途门禁",
+      "pages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/check-lineage-integration.test.ts",
+      "type": "ts",
+      "lines": 187,
+      "bytes": 6719,
+      "sha256": "915c08888e8941831745f0e8cf9aae1f83a70b4aef0a04374556f99da7237768",
+      "role": "B historical report and multi-source consumption upgrade/reopen evidence",
+      "pages": [
+        "wiki/B谱系账本适配与P1回执交接.md",
+        "wiki/B规则检查实现.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/check-report-schema.ts",
+      "type": "ts",
+      "lines": 29,
+      "bytes": 1480,
+      "sha256": "fd4252240d208b91d9ec2ee231b09b5f0fa3be602fae91b2fb46812c1dcbfecd",
+      "role": "迁移7不可变检查报告表与版本约束",
+      "pages": [
+        "wiki/B规则检查实现.md",
+        "wiki/M1接口与持久化.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/check-store.test.ts",
+      "type": "ts",
+      "lines": 552,
+      "bytes": 20387,
+      "sha256": "2de825cfb61f55e2c3e6fe2e5ed8455793e367a2492e8729e406a9738dd99e66",
+      "role": "B01 真实 SQLite 历史/故障原子性/不可变性与版本隔离回归",
+      "pages": [
+        "wiki/B规则检查实现.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/check-store.ts",
+      "type": "ts",
+      "lines": 283,
+      "bytes": 11842,
+      "sha256": "4c0344c43092e5e2c0cf7bac0cb8a1b2873422f1ffdf630d0a3b87862418e8d5",
+      "role": "B01不可变报告存取、完整消费回读校验与同事务幂等",
+      "pages": [
+        "wiki/B规则检查实现.md"
+      ]
+    },
+    {
       "path": "packages/infrastructure/src/deepseek.test.ts",
       "type": "ts",
       "lines": 143,
-      "bytes": 5466,
-      "sha256": "c9e794cec9f77f8b03ac75fb6a6555dc665ac65771915c243f71b2668c27fe7b",
+      "bytes": 5609,
+      "sha256": "8b59631d37cb08c9fff06989f3e3abb1e45adf31272c852ac66230846125c9b2",
       "role": "模型HTTP失败和超时回归",
       "pages": [
         "wiki/M4模型与报价修订.md",
@@ -1493,43 +2113,278 @@
     {
       "path": "packages/infrastructure/src/deepseek.ts",
       "type": "ts",
-      "lines": 85,
-      "bytes": 3674,
-      "sha256": "1064655c57bdef24fdabccdf9fe27bd31fec821f3491990b1ec3bfa994f340ee",
+      "lines": 129,
+      "bytes": 5263,
+      "sha256": "2797fe182e71a3142cfb5fbcfa34e1ade45a778c6cd410313d81c00b8a8bed32",
       "role": "官方DeepSeek JSON网络适配和失败边界",
       "pages": [
         "wiki/M4模型与报价修订.md",
-        "wiki/C运行恢复实现.md"
+        "wiki/C运行恢复实现.md",
+        "wiki/C04剩余失败证据与收敛.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/action-regressions.test.ts",
+      "type": "ts",
+      "lines": 356,
+      "bytes": 13323,
+      "sha256": "0b674d7f889d03d4588f15e5811adfbd70622f35cff22669a5cc3007f24121fd",
+      "role": "C04动作/澄清/规则阻断合成回归",
+      "pages": [
+        "wiki/C04动作与澄清失败收敛.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/cases.ts",
+      "type": "ts",
+      "lines": 81,
+      "bytes": 3383,
+      "sha256": "cd2f8a80ba2f23b5bfea61a2d026d310ad33c287dd75eef6080c591c67b3e464",
+      "role": "C04独立模型评估、故障矩阵与脱敏报告",
+      "pages": [
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/diagnostics.test.ts",
+      "type": "ts",
+      "lines": 86,
+      "bytes": 2950,
+      "sha256": "41d48d21858ac48cf5162b8f35e217fd01bb5898f8f0146a9aec45a3abc84061",
+      "role": "C04枚举诊断隐私与兼容、八失败合成重建和停止边界回归",
+      "pages": [
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04动作与澄清失败收敛.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/evaluation.test.ts",
+      "type": "ts",
+      "lines": 178,
+      "bytes": 8366,
+      "sha256": "17f6b2308edb742170b6b8e5db65fc39937c09704cc86d813173b05eee043672",
+      "role": "C04独立模型评估、故障矩阵与脱敏报告",
+      "pages": [
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/failure-regressions.test.ts",
+      "type": "ts",
+      "lines": 328,
+      "bytes": 13375,
+      "sha256": "608c56d022aecf19b5e472739873d1c78832c8c480a19d81ad97752506b34d2d",
+      "role": "C04六项失败类合成重建回归及受限纠正停止条件，非真实响应重放",
+      "pages": [
+        "wiki/C04失败收敛与本地回归.md",
+        "wiki/C04模型评估与脱敏报告.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/fixture-model.ts",
+      "type": "ts",
+      "lines": 136,
+      "bytes": 5952,
+      "sha256": "a78ccc5bd7ad511c26bfbadd45dcd6cc42a512daac9d51550ffdc7ace24e5ae8",
+      "role": "C04独立模型评估、故障矩阵与脱敏报告",
+      "pages": [
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/public.ts",
+      "type": "ts",
+      "lines": 5,
+      "bytes": 281,
+      "sha256": "6b39b58fc476b6ba837083697f06167557222b5811140743f3b886a512d31945",
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/remaining-regressions.test.ts",
+      "type": "ts",
+      "lines": 386,
+      "bytes": 13800,
+      "sha256": "dd9c470164e4ee6513232784f61d0bd8162a9047c363ec4993bb20c24286d326",
+      "role": "C04三项剩余失败边界的合成重建、Provider首错清理和共享一次纠正回归",
+      "pages": [
+        "wiki/C04剩余失败证据与收敛.md",
+        "wiki/C04模型评估与脱敏报告.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/report.ts",
+      "type": "ts",
+      "lines": 43,
+      "bytes": 1896,
+      "sha256": "6b13db9aef9648775eaf1b9b74cd5c1188dabb98f3ab0b8a68ce813e0200c362",
+      "role": "C04独立模型评估、故障矩阵与脱敏报告",
+      "pages": [
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/retest-regressions.test.ts",
+      "type": "ts",
+      "lines": 330,
+      "bytes": 12619,
+      "sha256": "58112a8dff3efbb59ac62c7f621ff1b5ae91b670669874db72c092ee8c1a3c64",
+      "role": "C04枚举诊断隐私与兼容、八失败合成重建和停止边界回归",
+      "pages": [
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04模型评估与脱敏报告.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/runner.ts",
+      "type": "ts",
+      "lines": 514,
+      "bytes": 20314,
+      "sha256": "15e2471f83eb990c2e9c88b3a215a763345052a527249fa9f2431668beb31bb4",
+      "role": "C04独立模型评估、故障矩阵与脱敏报告",
+      "pages": [
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04剩余失败证据与收敛.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/worker-protocol.ts",
+      "type": "ts",
+      "lines": 29,
+      "bytes": 1192,
+      "sha256": "5b244305d7d01a4cbdf853c530a07a3de5311aa2b4288c8ccef5ce26a64d3fc0",
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/evaluation/workspace.ts",
+      "type": "ts",
+      "lines": 153,
+      "bytes": 4823,
+      "sha256": "3dba914d6600671d1f54c7b3ab6a74376306fc1b2ec773f2ed0c184e0ccbde94",
+      "role": "C04独立模型评估、故障矩阵与脱敏报告",
+      "pages": [
+        "wiki/C04模型评估与脱敏报告.md",
+        "wiki/C04正式设置评估入口.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/index.ts",
       "type": "ts",
-      "lines": 110,
-      "bytes": 3969,
-      "sha256": "9d89016e1c32ef51f2a984329a032c5201be231561d9f0b786e20a8687886495",
+      "lines": 170,
+      "bytes": 6386,
+      "sha256": "51cd33d9dcb513a817cb9bc677784e1cc0e3f4711256087b1d7c0e8d038f638f",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/A01c检索引用实现.md",
+        "wiki/A01-追加迁移设计.md",
+        "wiki/B谱系账本适配与P1回执交接.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/knowledge-store.test.ts",
+      "type": "ts",
+      "lines": 343,
+      "bytes": 12986,
+      "sha256": "ee7271610c8b1d6d77c0b20f5cf471b81fcc2d0c73ffb99732c7d56cf87a6f4b",
+      "role": "A01b知识存储回归：发布门禁、幂等、版本、scope与不可变",
+      "pages": [
+        "wiki/A知识发布实现.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/knowledge-store.ts",
+      "type": "ts",
+      "lines": 235,
+      "bytes": 9767,
+      "sha256": "ba1e7a3fd3af5b97af44eba0ae5f0aec2e1c291f8736950e31bd1f354b6fa9fa",
+      "role": "A01b知识版本SQLite存储：hash绑定、原地发布、幂等与不可变",
+      "pages": [
+        "wiki/A知识发布实现.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/migration-ledger.test.ts",
+      "type": "ts",
+      "lines": 100,
+      "bytes": 4219,
+      "sha256": "888db91b709f9fcc4f7da3a6fa329ade87d1d287ee5810d7b7ffd35cfd0a8245",
+      "role": "迁移账本一致性定向回归（N10/N11 拒绝前置）",
+      "pages": [
+        "wiki/A01-迁移验证计划.md",
+        "wiki/M1验证与协作.md",
+        "wiki/A对C前置验证失败修正回复.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/migration-lineage.ts",
+      "type": "ts",
+      "lines": 1044,
+      "bytes": 35067,
+      "sha256": "a64e319fbe8155b670e27013b7a2719983fb9a68d41627989ed5fdb9e8455f07",
+      "role": "迁移谱系识别与拒绝边界（纯函数，只读）",
+      "pages": [
+        "wiki/decisions/0029-迁移谱系统一与拒绝边界.md",
+        "wiki/A01-迁移谱系支持与拒绝矩阵.md",
+        "wiki/B谱系账本适配与P1回执交接.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/migrations.test.ts",
+      "type": "ts",
+      "lines": 121,
+      "bytes": 4668,
+      "sha256": "b4bdbf9eabf2778ea252de1c56dc15a6700dbe885fe3f4f180045c8f86e4bf89",
+      "role": "稀疏迁移账本、迟交5、历史库升级、SQL指纹与原子回滚",
+      "pages": [
+        "wiki/M1接口与持久化.md",
+        "wiki/M1验证与协作.md",
+        "wiki/B谱系账本适配与P1回执交接.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/migrations.ts",
       "type": "ts",
-      "lines": 48,
-      "bytes": 3648,
-      "sha256": "60c9638fcdaf75b0dc36197987190af61408794583600b0f42aa501a5dd9618c",
+      "lines": 582,
+      "bytes": 25335,
+      "sha256": "eb94b3a14d93bf26b59a10e2f8b2ccbab079a9a3bbb62ba70182621957ecd7d2",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
-        "wiki/M1接口与持久化.md"
+        "wiki/M1接口与持久化.md",
+        "wiki/A01c检索引用实现.md",
+        "wiki/decisions/0029-迁移谱系统一与拒绝边界.md",
+        "wiki/A01-迁移谱系支持与拒绝矩阵.md",
+        "wiki/A01-追加迁移设计.md",
+        "wiki/A01-迁移验证计划.md",
+        "wiki/B谱系账本适配与P1回执交接.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/model-settings.test.ts",
       "type": "ts",
       "lines": 54,
-      "bytes": 2645,
-      "sha256": "e4c474d20076fa974209d6d90f793b3e6599db8953fa782574cd4c797a80707d",
+      "bytes": 2699,
+      "sha256": "87d6bf7883fd930ca26d8ac431d11c756b8b36d5f35947d0b40d48adb7c86fbc",
       "role": "凭据生命周期与不回显回归",
       "pages": [
         "wiki/M4模型与报价修订.md",
@@ -1540,19 +2395,110 @@
       "path": "packages/infrastructure/src/model-settings.ts",
       "type": "ts",
       "lines": 98,
-      "bytes": 3152,
-      "sha256": "58e744665a869d56b99bde97174c8b643fe46bb0dfd49d0cf4bdd12df39f85f5",
+      "bytes": 3250,
+      "sha256": "d32c2c0cb9353e027289e5f81992a3140c0e256f894e70712099fe63c8e6e8c9",
       "role": "主进程凭据加密持久化与内存回退",
       "pages": [
         "wiki/M4模型与报价修订.md"
       ]
     },
     {
+      "path": "packages/infrastructure/src/quote-draft-plan.ts",
+      "type": "ts",
+      "lines": 124,
+      "bytes": 4702,
+      "sha256": "b7978b4f1a21ee4dfe8e8d3b9aa34127bd68f825dca043af2aeacd3568be37e2",
+      "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
+      "pages": [
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/quote-tool-agent.test.ts",
+      "type": "ts",
+      "lines": 670,
+      "bytes": 28453,
+      "sha256": "08647133abe492cdcf08a63849064adca09e73acaa3a9ef9c7da3dded49bd4a4",
+      "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
+      "pages": [
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C04剩余失败证据与收敛.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/quote-tool-agent.ts",
+      "type": "ts",
+      "lines": 436,
+      "bytes": 19117,
+      "sha256": "5c83c2b4531613d2a44b5de0b92fbe8becb617d4148fbf8e9dbccb82b279798b",
+      "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
+      "pages": [
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C04失败收敛与本地回归.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04剩余失败证据与收敛.md",
+        "wiki/C04动作与澄清失败收敛.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/read-tool-runtime.test.ts",
+      "type": "ts",
+      "lines": 316,
+      "bytes": 12748,
+      "sha256": "17d4fdf4f8e5b595241c0db58d3fd9cd39cab471c30b46a01f5da0d8452f3442",
+      "role": "C02a受限只读工具循环、预算取消与真实业务计算回归",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C04失败收敛与本地回归.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/read-tool-runtime.ts",
+      "type": "ts",
+      "lines": 487,
+      "bytes": 21280,
+      "sha256": "5a3a84e12ba319c78e070d8127c2a31a00706b6257725cb0510687ef7b62b895",
+      "role": "C02a受限只读工具循环、预算取消与真实业务计算回归",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/M4模型与报价修订.md",
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C04失败收敛与本地回归.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04剩余失败证据与收敛.md",
+        "wiki/C04动作与澄清失败收敛.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/run-event-store.test.ts",
+      "type": "ts",
+      "lines": 147,
+      "bytes": 6064,
+      "sha256": "92b42c14f4813b4d52cb26885d9d11ae124b8717fbed2a8d24cf1a0d48138482",
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/run-event-store.ts",
+      "type": "ts",
+      "lines": 115,
+      "bytes": 4403,
+      "sha256": "e12faeb1a0ecf370b128d7c4c62aa0d62b25b63336e798a5875c7e9e604d9d7d",
+      "role": "C03持久运行事件、分页/通知/桌面重连及实际回归",
+      "pages": [
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
       "path": "packages/infrastructure/src/schema.ts",
       "type": "ts",
       "lines": 8,
-      "bytes": 317,
-      "sha256": "6f85244e7724211edf94a80329b31253ccc6318f4c81579b3d5fbc7e7e8b8ec5",
+      "bytes": 325,
+      "sha256": "df97a7daefb83c8e2464477ce4db525ff5e18f4ff18c919924790e27124f2b20",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md"
@@ -1561,43 +2507,143 @@
     {
       "path": "packages/infrastructure/src/storage.test.ts",
       "type": "ts",
-      "lines": 109,
-      "bytes": 4258,
-      "sha256": "e1faa8c74097cda9fdfea54b6259136a6ecbe79fb3aaaa703d1fe19033b338ce",
+      "lines": 147,
+      "bytes": 5989,
+      "sha256": "90669a4dcfd90adcf733c9e54db61d27a079cae974066ddc30dbb899f2146fa2",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/A01-迁移验证计划.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/testing/run-fixture.ts",
+      "type": "ts",
+      "lines": 132,
+      "bytes": 3781,
+      "sha256": "1cb1dff12e23c82b14fcd07bb11cecc9445d5d2ac01ea618c2ac1c4fc70b0d37",
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/trade-store.test.ts",
       "type": "ts",
       "lines": 345,
-      "bytes": 11685,
-      "sha256": "f65d67b8d9f648c02dfb4003d3c5fbca80b8d4f35c0d88f7120129525fce3507",
+      "bytes": 12027,
+      "sha256": "f9a410f36e96435faab9a2da0e8c006f3e487d40b58d1915ae9f6b1067abbab1",
       "role": "Quote V1 amount, source, transaction, migration and real Electron regression evidence",
       "pages": [
         "wiki/M2真实报价V1.md",
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/A01-迁移验证计划.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/trade-store.ts",
       "type": "ts",
-      "lines": 319,
-      "bytes": 13451,
-      "sha256": "06f6cd2b2cf55e507b2b8e64f9f934eb26fc9cdb122bda68e91f3afbd615d0f8",
+      "lines": 358,
+      "bytes": 15786,
+      "sha256": "cd536adf3591397b5bb03dadc0464498944f0f067d42b529917603a3475636d3",
       "role": "Atomic scenario/catalog/immutable quote V1 storage and retries",
       "pages": [
         "wiki/M2真实报价V1.md"
       ]
     },
     {
+      "path": "packages/infrastructure/src/wiki-check-integration.test.ts",
+      "type": "ts",
+      "lines": 553,
+      "bytes": 21817,
+      "sha256": "75745b04386022ec474a3e8a076a3c78898291968fca722d1780105e92046a21",
+      "role": "A真实查询到B报告消费的端口联调、故障与历史回归",
+      "pages": [
+        "wiki/B规则检查实现.md",
+        "wiki/M1验证与协作.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/wiki-check-source.ts",
+      "type": "ts",
+      "lines": 148,
+      "bytes": 5803,
+      "sha256": "f989589cc37cf3f3a4e1e3daa2a69c2bffa86303003b082645e00769f7fe1073",
+      "role": "同连接搜索解析、多来源hash与提交前复核、报告消费登记",
+      "pages": [
+        "wiki/B规则检查实现.md",
+        "wiki/A01c检索引用实现.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/wiki-store.test.ts",
+      "type": "ts",
+      "lines": 1813,
+      "bytes": 61883,
+      "sha256": "49dc0983ac675410536fc16a553b9316beda44d2496bf997648eb769d978fb71",
+      "role": "A01c检索引用回归：不回退、分页、引用闭环与消费事务",
+      "pages": [
+        "wiki/A01c检索引用实现.md",
+        "wiki/M1验证与协作.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/wiki-store.ts",
+      "type": "ts",
+      "lines": 2482,
+      "bytes": 102179,
+      "sha256": "6c2952075ec937c37619b695857b2a456220ff6aae341c2f0c78ef8b8cc9ebc8",
+      "role": "A01c检索引用SQLite存储：检索/引用/消费与候选暂存",
+      "pages": [
+        "wiki/A01c检索引用实现.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/wiki-test.fixture.ts",
+      "type": "ts",
+      "lines": 251,
+      "bytes": 7667,
+      "sha256": "87bc4660b7c1ae7e7b47091a2cb8d6a2916ec26ab1d93948a90481ea036a9b60",
+      "role": "明确合成A+B来源/候选和测试发布投影，非产品审核入口",
+      "pages": [
+        "wiki/A01c检索引用实现.md",
+        "wiki/M1验证与协作.md",
+        "wiki/B谱系账本适配与P1回执交接.md",
+        "wiki/Ae7a9439接收与P1接线阻断复核.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/worker-migration-gates.test.ts",
+      "type": "ts",
+      "lines": 378,
+      "bytes": 16061,
+      "sha256": "59374f9a2edaaed3279fc95fd1c6421cc1f9eb176febdb329016f20b2eb8575e",
+      "role": "C领域有效共同v3/C5/C6/C7升级回放、真实Worker互斥和启动拒绝验证",
+      "pages": [
+        "wiki/C领域旧库回放与Worker启动门禁.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/worker-ownership.ts",
+      "type": "ts",
+      "lines": 29,
+      "bytes": 1229,
+      "sha256": "4d9138235d9789e92a69202651897b8b5c84b7676a00531b28dc6769183f09ac",
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    {
       "path": "playwright.config.ts",
       "type": "ts",
       "lines": 13,
-      "bytes": 367,
-      "sha256": "0b5e9c9f38c24342ece97060cc823ebade6fd633db1fc27b9684745fe2dabe40",
+      "bytes": 380,
+      "sha256": "f68e52bb5df56860fbd0fab3e798fb180f87a39dc499ebd1624d9ecec7f914c5",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md"
@@ -1606,9 +2652,9 @@
     {
       "path": "pnpm-lock.yaml",
       "type": "yaml",
-      "lines": 4769,
-      "bytes": 152731,
-      "sha256": "6208233795f3aa72b8a4ee9cbf40e4e74e15adc6409f6dc15a4f5b6e7d91262f",
+      "lines": 4772,
+      "bytes": 157562,
+      "sha256": "0a4096cf339e788fbd541c3573707b6c6a780eee645526378c136ef2b52fc3cd",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md"
@@ -1618,8 +2664,8 @@
       "path": "pnpm-workspace.yaml",
       "type": "yaml",
       "lines": 7,
-      "bytes": 103,
-      "sha256": "51e1598cb46ee6a4ab77051208999ea3c6001a4d28a0c5a9a5476aa25dd3232e",
+      "bytes": 110,
+      "sha256": "70a0b548d667964adb538d040f049ee63d08fe292a4d7f2a53e0574b570454a5",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md"
@@ -1629,8 +2675,8 @@
       "path": "scripts/check-boundaries.mjs",
       "type": "mjs",
       "lines": 79,
-      "bytes": 3113,
-      "sha256": "f982a24b257df398957dc0e1ad75f620461875f30966acc9ba4055f65173d79f",
+      "bytes": 3192,
+      "sha256": "fabe6edc4d4df68ef253d6b83c22c2a3addc2e98e9e1b8f55effcd151bc8f616",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md"
@@ -1640,8 +2686,8 @@
       "path": "scripts/check-boundaries.test.mjs",
       "type": "mjs",
       "lines": 48,
-      "bytes": 1741,
-      "sha256": "314267b4fdf20a8ef7b8b3ce3f3f4cbdd76e892c08f4a4b41e37b1c68f01b93d",
+      "bytes": 1789,
+      "sha256": "bb162c884a292944cd76701524a65d254824130cdbd78d068d63447aced37cb0",
       "role": "Negative tests for renderer and domain module boundaries",
       "pages": [
         "wiki/M1验证与协作.md"
@@ -1651,8 +2697,8 @@
       "path": "scripts/check-icons.mjs",
       "type": "mjs",
       "lines": 31,
-      "bytes": 1511,
-      "sha256": "6a6f33a19455a20ad7f4659a0b5365a0b76bbac12da0643d44c277b4f57e0678",
+      "bytes": 1542,
+      "sha256": "aae92e555c260bc7e8affc42eaaf2b09c8a3d81e07da92819472a59533b01673",
       "role": "Project-owned application icons, reproducible generation and build drift gate",
       "pages": [
         "wiki/M1工程基线.md",
@@ -1663,8 +2709,8 @@
       "path": "scripts/check-icons.test.mjs",
       "type": "mjs",
       "lines": 23,
-      "bytes": 1001,
-      "sha256": "deaf14ade5a150ae2362a7f7f7af8046021b437a2d13e4e2a1d5f52fb376d129",
+      "bytes": 1024,
+      "sha256": "67dd4a7537e4fed8fad31fe52989035f8bb81b0e41321504c103bb23b1694c39",
       "role": "M1 icon drift and untrusted shared-contract regression checks",
       "pages": [
         "wiki/M1验证与协作.md"
@@ -1674,8 +2720,8 @@
       "path": "scripts/desktop-executable.mjs",
       "type": "mjs",
       "lines": 62,
-      "bytes": 2139,
-      "sha256": "6574fd8f9c7e9fee0e18a632f02ea58f19b1fc7c8f97c529da9b5baf02e5257c",
+      "bytes": 2201,
+      "sha256": "89fe0515612ba2c5ca1da7ccf74c5227d05efffd815d0a35474c5cdc6b3bc673",
       "role": "macOS developer application display name and Electron launcher isolation",
       "pages": [
         "wiki/M1工程基线.md"
@@ -1685,8 +2731,8 @@
       "path": "scripts/desktop-executable.test.mjs",
       "type": "mjs",
       "lines": 70,
-      "bytes": 2794,
-      "sha256": "aa01d73351c783c8025868eb8dfc6cb64c7e203ae81b80af7464547fa77fabd6",
+      "bytes": 2864,
+      "sha256": "a867de56369f681da61283fef9f1e4f0f017e4598badcae1861da854d4fa51e5",
       "role": "Native macOS application name and upstream bundle integrity regression",
       "pages": [
         "wiki/M1验证与协作.md"
@@ -1696,19 +2742,30 @@
       "path": "scripts/dev-desktop.mjs",
       "type": "mjs",
       "lines": 22,
-      "bytes": 978,
-      "sha256": "1e6972206c183db47bba889ebe064c5f365850245afc637202cc209ae7bb28f5",
+      "bytes": 1000,
+      "sha256": "c37fb914fa9653feb10dc43b1664d86be16ce9ab3837bd760037cac2a3eeccba",
       "role": "macOS developer application display name and Electron launcher isolation",
       "pages": [
         "wiki/M1工程基线.md"
       ]
     },
     {
+      "path": "scripts/evaluate-model.mjs",
+      "type": "mjs",
+      "lines": 76,
+      "bytes": 2837,
+      "sha256": "baea2187134a963cb503a7f001a0286bb44fdc4aab16de5eb643045238813114",
+      "role": "C04独立模型评估、故障矩阵与脱敏报告",
+      "pages": [
+        "wiki/C04模型评估与脱敏报告.md"
+      ]
+    },
+    {
       "path": "scripts/generate-icons.cjs",
       "type": "cjs",
       "lines": 83,
-      "bytes": 3198,
-      "sha256": "2c38f7e828c626684481cf5cd784a6a8027a31c3295854a026b8b157ff626a3f",
+      "bytes": 3281,
+      "sha256": "1b61afefb9e58f1b8d01d292fd10f4b538571c08c25ed582491780f413c87601",
       "role": "Project-owned application icons, reproducible generation and build drift gate",
       "pages": [
         "wiki/M1工程基线.md",
@@ -1719,8 +2776,8 @@
       "path": "scripts/prepare-electron.mjs",
       "type": "mjs",
       "lines": 8,
-      "bytes": 425,
-      "sha256": "118a68821ebb8187e711d8f1eb2abbb33cd35411b26a66e124f5c1815925817d",
+      "bytes": 433,
+      "sha256": "637d6b7c817b5aaa1cd6de6a838cc55730d394c0f6367da2bce703e1f526358c",
       "role": "Prepare fresh Electron binary and isolate renderer-only test server",
       "pages": [
         "wiki/M1工程基线.md",
@@ -1731,42 +2788,90 @@
       "path": "scripts/test-unit.mjs",
       "type": "mjs",
       "lines": 11,
-      "bytes": 487,
-      "sha256": "979afb12282bdc74a3a6bf3633cd4b6f206e18df23dd5436093c9db23666ec5b",
+      "bytes": 498,
+      "sha256": "474b621bd0fd7a4bb3e76117e561fb4c46caba67080bd119884f2f0da0c9c4e9",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md"
       ]
     },
     {
+      "path": "tests/e2e/agent-recovery.spec.ts",
+      "type": "ts",
+      "lines": 232,
+      "bytes": 10097,
+      "sha256": "0bb4fe23618fa91fe58991c070d697c075d44bc807f2c0496c1a9be93e8efc4b",
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C03持久事件与桌面重连.md"
+      ]
+    },
+    {
       "path": "tests/e2e/feedback.spec.ts",
       "type": "ts",
       "lines": 105,
-      "bytes": 4378,
-      "sha256": "4f0f6659c8455ffd38b44df740b79dcfb7e2380f413c4a635243b5f39e6746b2",
+      "bytes": 4483,
+      "sha256": "18d205b91156e132888e1cf6b0b303766d975f1ea60cadf8ba94569152ad70b3",
       "role": "Actual Electron notification layout, zoom, recovery and message regression",
       "pages": [
         "wiki/M1验证与协作.md"
       ]
     },
     {
+      "path": "tests/e2e/model-evaluation.spec.ts",
+      "type": "ts",
+      "lines": 266,
+      "bytes": 12284,
+      "sha256": "20ed7e2a7f6522cb9c4398af83a1d117fa168afa77fd99e9b7be010b3f104952",
+      "role": "C04正式评估入口、公开契约与生命周期验证",
+      "pages": [
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C04失败阶段诊断与二轮收敛.md",
+        "wiki/C04剩余失败证据与收敛.md"
+      ]
+    },
+    {
+      "path": "tests/e2e/multistep-agent.spec.ts",
+      "type": "ts",
+      "lines": 246,
+      "bytes": 10942,
+      "sha256": "a45e644a5e834d7a42c8b9ff5d8e0ecb1f76b499acfee6afe5943fba3d2af8ee",
+      "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
+      "pages": [
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
       "path": "tests/e2e/quote-agent.spec.ts",
       "type": "ts",
-      "lines": 187,
-      "bytes": 9896,
-      "sha256": "350d7ef57a529cad73e7042b6ea2323fb3c8360c3d74728894c69b5761bc746d",
+      "lines": 193,
+      "bytes": 10350,
+      "sha256": "9828aa6ee7b3862c1954a2436a6e4866e0f8420050b2b1b58350e95ee0908326",
       "role": "真实Electron加HTTP替身两轮报价验收",
       "pages": [
         "wiki/M4模型与报价修订.md",
-        "wiki/M1验证与协作.md"
+        "wiki/M1验证与协作.md",
+        "wiki/C02c统一运行与写账本.md"
+      ]
+    },
+    {
+      "path": "tests/e2e/quote-checks.spec.ts",
+      "type": "ts",
+      "lines": 284,
+      "bytes": 13966,
+      "sha256": "6e549d6f772ecab4a230544fc082eb5b8ec3458362051d7479698db3b221bd13",
+      "role": "C实际Electron保存报价/人工检查/完整来源消费/双反馈/重开和原子失败验证",
+      "pages": [
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     {
       "path": "tests/e2e/quote-v1.spec.ts",
       "type": "ts",
       "lines": 131,
-      "bytes": 7443,
-      "sha256": "be9154201599813a45f3d6c643cf2e483b2b52a840cc24cbb675ee24116df4e4",
+      "bytes": 7574,
+      "sha256": "a099dda0dc15871613f931f73b47970c04bf04ab67a3544c2303e66c90056330",
       "role": "Quote V1 amount, source, transaction, migration and real Electron regression evidence",
       "pages": [
         "wiki/M2真实报价V1.md",
@@ -1774,35 +2879,195 @@
       ]
     },
     {
+      "path": "tests/e2e/read-assistant.spec.ts",
+      "type": "ts",
+      "lines": 244,
+      "bytes": 11945,
+      "sha256": "892b6a6b722cd0f940a6c909edb91771b9b31f1512f9e514d75b3a05b08701ff",
+      "role": "正式Electron四工具、错误边界、来源/金额/重开验收",
+      "pages": [
+        "wiki/C02b桌面只读助手.md",
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
+    {
       "path": "tests/e2e/workspace.spec.ts",
       "type": "ts",
-      "lines": 311,
-      "bytes": 13133,
-      "sha256": "38d3c2c1b435e818964d83351ee052867b11c013afa293783419662f349398c0",
+      "lines": 337,
+      "bytes": 14484,
+      "sha256": "6a6091bc7f1d9eafe07b5bdbb7a12e13b801a46972ae3d4e6e418fbf7c08049f",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/B00a知识整理与维护协议.md",
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C04正式设置评估入口.md",
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C已保存报价检查桌面切片.md"
       ]
     },
     {
       "path": "tests/fixtures/knowledge/knowledge-drafts.a01a.json",
       "type": "json",
       "lines": 217,
-      "bytes": 8577,
-      "sha256": "a3e4b7e6e7f4b98ce0ad3b22c7fc651d564c89bfa9d5fb61014752c2d87d1c80",
+      "bytes": 8794,
+      "sha256": "dbfe0a2bb33613a3dd3a8b74282ee9d81a0ec4b55fb5f366825f2afc0d40fc55",
       "role": "A01合成知识候选样本，非已发布或已验收规则",
       "pages": [
         "wiki/A业务LLMWiki方案.md",
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/A知识发布实现.md",
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/双参考项目功能对照与C开发路线.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/knowledge/sources/src-platform-bottle-capacity.txt",
+      "type": "txt",
+      "lines": 1,
+      "bytes": 90,
+      "sha256": "ca37f967fcd9b63f5e657a775fedb5af4744e5561350a2df45b46b1ce7214b3a",
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/knowledge/sources/src-platform-lamp-spec.txt",
+      "type": "txt",
+      "lines": 1,
+      "bytes": 108,
+      "sha256": "e986d0ad86e63880658eee6ca9d32bb0379d6abf96bee0e132e5bde184528a7b",
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/knowledge/sources/src-platform-listing-style.txt",
+      "type": "txt",
+      "lines": 1,
+      "bytes": 99,
+      "sha256": "898a0151550331875a23918a18ae0f3b7e12dacb25d423502247acfe216290c7",
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/knowledge/sources/src-platform-rfq-style.txt",
+      "type": "txt",
+      "lines": 1,
+      "bytes": 114,
+      "sha256": "ef913e1a5959b96bf29a6e081e3d794f3b86c1af4ac999255763400c4036220e",
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/knowledge/sources/src-terms-fibre-conflict.txt",
+      "type": "txt",
+      "lines": 1,
+      "bytes": 135,
+      "sha256": "72bda78797f240d6f045a0db6a6bfaf7f1ee368821b4302f5ed1c0475d0a061d",
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/knowledge/sources/src-terms-incoterms-scope.txt",
+      "type": "txt",
+      "lines": 1,
+      "bytes": 135,
+      "sha256": "d59841c9134a8107cba2f84a042e8202f7ae3cb47edfaedd8f0cdff26430c9ae",
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/knowledge/sources/src-terms-payment-split.txt",
+      "type": "txt",
+      "lines": 1,
+      "bytes": 127,
+      "sha256": "08c46fb7e3b1294465ad668f458d10e3fed680b93f0073718c31ae07b16a80b1",
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/knowledge/sources/src-terms-validity.txt",
+      "type": "txt",
+      "lines": 1,
+      "bytes": 102,
+      "sha256": "cc4144f499624c24cfc948b9a79ae15fbe8753b5df7f3bb81a5710593713f4a9",
+      "role": "A01已合入合成知识测试来源与B00缺口资产，非已实现服务",
+      "pages": [
+        "wiki/双参考项目功能对照与C开发路线.md",
+        "wiki/A业务LLMWiki方案.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/multistep-seed.ts",
+      "type": "ts",
+      "lines": 96,
+      "bytes": 3353,
+      "sha256": "0278f02a0092e96957d4a61e17447a5a377b85dd036057267844553368906f1a",
+      "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
+      "pages": [
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/quote-checks-data.ts",
+      "type": "ts",
+      "lines": 138,
+      "bytes": 4859,
+      "sha256": "0685a7b2538f82d8702b80fb1ac5b86e63bff245a2c71764aeb27c4b9cd3c5a9",
+      "role": "仅测试离线合成已发布知识投影、故障注入和只读业务数据库检查",
+      "pages": [
+        "wiki/C已保存报价检查桌面切片.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/run-crash-child.ts",
+      "type": "ts",
+      "lines": 100,
+      "bytes": 4166,
+      "sha256": "a15eed0db9e22ff76d49a1058a4714e8ce82bcda23bb47c006b738e60ad94d2c",
+      "role": "C02c生产运行协调、Worker独占生命周期、草稿写调用账本及真实崩溃/桌面恢复验收",
+      "pages": [
+        "wiki/C02c统一运行与写账本.md",
+        "wiki/C02c多步报价工具闭环.md"
+      ]
+    },
+    {
+      "path": "tests/fixtures/worker-gates-host.ts",
+      "type": "ts",
+      "lines": 206,
+      "bytes": 7088,
+      "sha256": "54fb79f6ba2b1bffc23cb3804b344299cb6c06c6c67c3d61950016ef740ea6fd",
+      "role": "仅测试的隔离Electron宿主，调用生产UtilityProcess与Main业务客户端验证启动恢复门禁",
+      "pages": [
+        "wiki/C领域旧库回放与Worker启动门禁.md"
       ]
     },
     {
       "path": "tsconfig.json",
       "type": "json",
       "lines": 23,
-      "bytes": 682,
-      "sha256": "47469018f139e3558effd6f5fd9646216d7dfed51db00c3cc9d6a1ded15dd4d9",
+      "bytes": 705,
+      "sha256": "73ded4d30e3cdb282929efe1accd5c64e4fbaca981f8b628c15ac4cbcd18b6fc",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md"
@@ -1812,8 +3077,8 @@
       "path": "vitest.config.ts",
       "type": "ts",
       "lines": 7,
-      "bytes": 203,
-      "sha256": "21f58cc356752e31f46ef4142bdb5eb6b3598ac0d19a5dfdc2bf68f944b983ca",
+      "bytes": 210,
+      "sha256": "92346786e8801877ad4af8cae212021760f4b21c9c04fd53da5e5dac8e20551f",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md"

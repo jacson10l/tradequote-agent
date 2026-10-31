@@ -15,7 +15,7 @@ import { afterEach, expect, it, vi } from "vitest";
 import { AgentExecutor } from "./agent-executor";
 import { DeepSeekProvider } from "./deepseek";
 import { SqliteWorkspaceRepository } from "./index";
-import { migrate, migrations } from "./migrations";
+import { migrate, seedTo } from "./migrations";
 
 const cleanup: (() => void)[] = [];
 afterEach(() => {
@@ -252,13 +252,13 @@ it("rolls back quote, dialogue, audit and idempotency together then safely retri
     db.close();
   }
 });
-it("migration 3 preserves stored V1 bytes", () => {
+it("migration preserves stored V1 bytes", () => {
   const dir = mkdtempSync(join(tmpdir(), "tq-old-v1-"));
   cleanup.push(() => rmSync(dir, { recursive: true, force: true }));
   const file = join(dir, "old.sqlite");
   const db = new Database(file);
   try {
-    migrate(db, migrations.slice(0, 2));
+    seedTo(db, { lineage: "common", version: 2 });
     // Legacy row bytes are untouched even when later snapshots use a broader read schema.
     const id = randomUUID();
     db.prepare("INSERT INTO workspace VALUES (1,?,?,1,?)").run(
@@ -277,7 +277,7 @@ it("migration 3 preserves stored V1 bytes", () => {
       original,
     );
     migrate(db);
-    expect(db.pragma("user_version", { simple: true })).toBe(3);
+    expect(db.pragma("user_version", { simple: true })).toBe(11);
     expect(db.prepare("SELECT data_json,content_hash FROM quote_v1").get()).toEqual({
       data_json: original,
       content_hash: "frozen-hash",
@@ -428,8 +428,8 @@ it("does not accept cancellation after commit and replays a lost response withou
   const agent = new AgentExecutor(f.repo, () => ({ json }));
   const pending = agent.execute(f.command, creds);
   resolve(f.understanding);
-  // The commit continuation executes first, before pending-map cleanup.
-  await Promise.resolve();
+  // Wait for the shared proposal continuation and actual synchronous commit.
+  await vi.waitFor(() => expect(f.read().quotes).toHaveLength(1));
   expect(f.read().quotes).toHaveLength(1);
   expect(agent.cancel(f.command.idempotencyKey)).toBe(false);
   const saved = await pending;

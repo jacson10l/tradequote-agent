@@ -1,0 +1,898 @@
+{
+  "status": "passed",
+  "scope": "A01c migration lineage identification & append matrix probe; synthetic in-memory only; proves identification classification and capability-append shape, not business acceptance",
+  "recordedAt": "2026-10-27T04:43:23.771Z",
+  "environment": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "node": "v22.22.0",
+    "db": "node:sqlite (:memory:)"
+  },
+  "sources": {
+    "identification": "packages/infrastructure/src/migration-lineage.ts",
+    "sqlMirroredFrom": "packages/infrastructure/src/migrations.ts (MIGRATION_STEPS)",
+    "originalEvidence": "d99f2b32def756b6b4d4cc99fca75dd9511436d5"
+  },
+  "fingerprints": {
+    "common:1": {
+      "got": "9e95979532306333f9f07037ce7e0841931d6e8c0b3d885208d63f4eb7360cb1",
+      "known": "9e95979532306333f9f07037ce7e0841931d6e8c0b3d885208d63f4eb7360cb1",
+      "match": true
+    },
+    "common:2": {
+      "got": "519f17179c501d08270a48eee562b6593eed6598bd0081692e437fbe7c53b723",
+      "known": "519f17179c501d08270a48eee562b6593eed6598bd0081692e437fbe7c53b723",
+      "match": true
+    },
+    "common:3": {
+      "got": "a9fe17a0719962fa3dc4099cc51f35ada314bdbb7a15e6aecde91c58c0cabe42",
+      "known": "a9fe17a0719962fa3dc4099cc51f35ada314bdbb7a15e6aecde91c58c0cabe42",
+      "match": true
+    },
+    "common:4": {
+      "got": "b4e559a6acc383d064b04e2f0412c0863d526e94f80c79e25a00de81abb74980",
+      "known": "b4e559a6acc383d064b04e2f0412c0863d526e94f80c79e25a00de81abb74980",
+      "match": true
+    },
+    "c-run:5": {
+      "got": "6d511fff5eaa85e1198898d7c5cec392ed18461b110cecaf92553e4ff8ce0493",
+      "known": "6d511fff5eaa85e1198898d7c5cec392ed18461b110cecaf92553e4ff8ce0493",
+      "match": true
+    },
+    "c-run:6": {
+      "got": "3d3c9da475f6a11d2d381de54a07396dc6dabaf8d780edebc0657f497bb47dfb",
+      "known": "3d3c9da475f6a11d2d381de54a07396dc6dabaf8d780edebc0657f497bb47dfb",
+      "match": true
+    },
+    "c-run:7": {
+      "got": "268beab4bd70f403d62877153abf2df0c6f574bde852b77c1cfe7a63808d87fa",
+      "known": "268beab4bd70f403d62877153abf2df0c6f574bde852b77c1cfe7a63808d87fa",
+      "match": true
+    },
+    "knowledge-wiki:6": {
+      "got": "5184461756e3a389588182c1e9e497f34bfc7442bbf4d7ff8a09cdb458f49f66",
+      "known": "5184461756e3a389588182c1e9e497f34bfc7442bbf4d7ff8a09cdb458f49f66",
+      "match": true
+    },
+    "check-report:7": {
+      "got": "927ce55cc67a6ec655cff131a67af33f9fdc7f83372d4247ab65467d91144602",
+      "known": "927ce55cc67a6ec655cff131a67af33f9fdc7f83372d4247ab65467d91144602",
+      "match": true
+    },
+    "knowledge-wiki:8": {
+      "got": "32942f9e99a6159002a5f19904a44bb6a7b3afd28b60cdaa553b6f06d280448f",
+      "known": "32942f9e99a6159002a5f19904a44bb6a7b3afd28b60cdaa553b6f06d280448f",
+      "match": true
+    }
+  },
+  "cases": [
+    {
+      "name": "empty",
+      "userVersion": 0,
+      "lineage": "empty",
+      "expect": "empty",
+      "pass": true,
+      "present": [],
+      "partial": []
+    },
+    {
+      "name": "common-v1",
+      "userVersion": 1,
+      "lineage": "common-v1",
+      "expect": "common-v1",
+      "pass": true,
+      "present": [
+        "common:1"
+      ],
+      "partial": []
+    },
+    {
+      "name": "common-v2",
+      "userVersion": 2,
+      "lineage": "common-v2",
+      "expect": "common-v2",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2"
+      ],
+      "partial": []
+    },
+    {
+      "name": "common-v3",
+      "userVersion": 3,
+      "lineage": "common-v3",
+      "expect": "common-v3",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3"
+      ],
+      "partial": []
+    },
+    {
+      "name": "a01b-v4",
+      "userVersion": 4,
+      "lineage": "a01b-v4",
+      "expect": "a01b-v4",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4"
+      ],
+      "partial": []
+    },
+    {
+      "name": "c-v5",
+      "userVersion": 5,
+      "lineage": "c-v5",
+      "expect": "c-v5",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5"
+      ],
+      "partial": []
+    },
+    {
+      "name": "c-v6",
+      "userVersion": 6,
+      "lineage": "c-v6",
+      "expect": "c-v6",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": []
+    },
+    {
+      "name": "c-v7",
+      "userVersion": 7,
+      "lineage": "c-v7",
+      "expect": "c-v7",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6",
+        "c-run:7"
+      ],
+      "partial": []
+    },
+    {
+      "name": "a-v6",
+      "userVersion": 6,
+      "lineage": "a-v6",
+      "expect": "a-v6",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "knowledge-wiki:6"
+      ],
+      "partial": []
+    },
+    {
+      "name": "a-v8",
+      "userVersion": 8,
+      "lineage": "a-v8",
+      "expect": "a-v8",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "knowledge-wiki:6",
+        "knowledge-wiki:8"
+      ],
+      "partial": []
+    },
+    {
+      "name": "b-v7",
+      "userVersion": 7,
+      "lineage": "b-v7",
+      "expect": "b-v7",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "knowledge-wiki:6",
+        "check-report:7"
+      ],
+      "partial": []
+    },
+    {
+      "name": "unified",
+      "userVersion": 8,
+      "lineage": "unified",
+      "expect": "unified",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6",
+        "c-run:7",
+        "knowledge-wiki:6",
+        "check-report:7",
+        "knowledge-wiki:8"
+      ],
+      "partial": []
+    },
+    {
+      "name": "mixed-crun+report",
+      "userVersion": 7,
+      "lineage": "mixed",
+      "expect": "mixed",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6",
+        "c-run:7",
+        "check-report:7"
+      ],
+      "partial": []
+    },
+    {
+      "name": "tampered-missing-trigger",
+      "userVersion": 6,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4"
+      ],
+      "partial": [
+        "knowledge-wiki:6"
+      ]
+    },
+    {
+      "name": "unknown-v6",
+      "userVersion": 6,
+      "lineage": "unknown",
+      "expect": "unknown",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4"
+      ],
+      "partial": []
+    },
+    {
+      "name": "unknown-newer",
+      "userVersion": 9,
+      "lineage": "unknown",
+      "expect": "unknown",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6",
+        "c-run:7",
+        "knowledge-wiki:6",
+        "check-report:7",
+        "knowledge-wiki:8"
+      ],
+      "partial": []
+    },
+    {
+      "name": "tampered-missing-report-trigger",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "knowledge-wiki:6"
+      ],
+      "partial": [
+        "check-report:7"
+      ]
+    },
+    {
+      "name": "tampered-renamed-request-hash-N07",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:6",
+        "c-run:7"
+      ],
+      "partial": [
+        "c-run:5"
+      ]
+    },
+    {
+      "name": "tampered-empty-trigger-N08",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-nonunique-index-N09",
+      "userVersion": 6,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5"
+      ],
+      "partial": [
+        "c-run:6"
+      ]
+    },
+    {
+      "name": "tampered-constant-when-M13-X01",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-constant-where-M13-X02",
+      "userVersion": 6,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5"
+      ],
+      "partial": [
+        "c-run:6"
+      ]
+    },
+    {
+      "name": "tampered-missing-fk-M13-X03",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-missing-check-M13-X04",
+      "userVersion": 6,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5"
+      ],
+      "partial": [
+        "c-run:6"
+      ]
+    },
+    {
+      "name": "tampered-constant-when-comparison-M13-X05",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-constant-where-comparison-M13-X06",
+      "userVersion": 6,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5"
+      ],
+      "partial": [
+        "c-run:6"
+      ]
+    },
+    {
+      "name": "tampered-index-extra-column-M13-X07",
+      "userVersion": 6,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5"
+      ],
+      "partial": [
+        "c-run:6"
+      ]
+    },
+    {
+      "name": "tampered-trigger-event-M13-X08",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-check-in-comment-M13-X09",
+      "userVersion": 6,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5"
+      ],
+      "partial": [
+        "c-run:6"
+      ]
+    },
+    {
+      "name": "tampered-raise-string-literal-M13-X10",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-predicate-case-M13-X11",
+      "userVersion": 6,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5"
+      ],
+      "partial": [
+        "c-run:6"
+      ]
+    },
+    {
+      "name": "tampered-unreachable-raise-M13-Y01",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-wrong-table-trigger-M13-Y02",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-wrong-table-index-M13-Y03",
+      "userVersion": 6,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5"
+      ],
+      "partial": [
+        "c-run:6"
+      ]
+    },
+    {
+      "name": "tampered-raise-where-suppressed-M13-Y04a",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-raise-limit-suppressed-M13-Y04b",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-update-of-column-M13-Y05",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-after-ignore-raise-M13-Y06",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-comment-forged-body-M13-Y07",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-comment-split-update-of-M13-Y08",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-comment-forged-event-M13-Y09",
+      "userVersion": 7,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6"
+      ],
+      "partial": [
+        "c-run:7"
+      ]
+    },
+    {
+      "name": "tampered-bracket-identifier-check-M13-Y10",
+      "userVersion": 6,
+      "lineage": "tampered",
+      "expect": "tampered",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5"
+      ],
+      "partial": [
+        "c-run:6"
+      ]
+    },
+    {
+      "name": "valid-extra-bracket-column-with-real-check",
+      "userVersion": 7,
+      "lineage": "c-v7",
+      "expect": "c-v7",
+      "pass": true,
+      "present": [
+        "common:1",
+        "common:2",
+        "common:3",
+        "common:4",
+        "c-run:5",
+        "c-run:6",
+        "c-run:7"
+      ],
+      "partial": []
+    }
+  ],
+  "append": [
+    {
+      "lineage": "empty",
+      "before": "empty",
+      "after": "unified",
+      "allCapabilitiesPresent": true,
+      "userVersion": 8,
+      "pass": true
+    },
+    {
+      "lineage": "common-v1",
+      "before": "common-v1",
+      "after": "unified",
+      "allCapabilitiesPresent": true,
+      "userVersion": 8,
+      "pass": true
+    },
+    {
+      "lineage": "common-v2",
+      "before": "common-v2",
+      "after": "unified",
+      "allCapabilitiesPresent": true,
+      "userVersion": 8,
+      "pass": true
+    },
+    {
+      "lineage": "common-v3",
+      "before": "common-v3",
+      "after": "unified",
+      "allCapabilitiesPresent": true,
+      "userVersion": 8,
+      "pass": true
+    },
+    {
+      "lineage": "a01b-v4",
+      "before": "a01b-v4",
+      "after": "unified",
+      "allCapabilitiesPresent": true,
+      "userVersion": 8,
+      "pass": true
+    },
+    {
+      "lineage": "c-v5",
+      "before": "c-v5",
+      "after": "unified",
+      "allCapabilitiesPresent": true,
+      "userVersion": 8,
+      "pass": true
+    },
+    {
+      "lineage": "c-v6",
+      "before": "c-v6",
+      "after": "unified",
+      "allCapabilitiesPresent": true,
+      "userVersion": 8,
+      "pass": true
+    },
+    {
+      "lineage": "c-v7",
+      "before": "c-v7",
+      "after": "unified",
+      "allCapabilitiesPresent": true,
+      "userVersion": 8,
+      "pass": true
+    },
+    {
+      "lineage": "a-v6",
+      "before": "a-v6",
+      "after": "unified",
+      "allCapabilitiesPresent": true,
+      "userVersion": 8,
+      "pass": true
+    },
+    {
+      "lineage": "a-v8",
+      "before": "a-v8",
+      "after": "unified",
+      "allCapabilitiesPresent": true,
+      "userVersion": 8,
+      "pass": true
+    },
+    {
+      "lineage": "b-v7",
+      "before": "b-v7",
+      "after": "unified",
+      "allCapabilitiesPresent": true,
+      "userVersion": 8,
+      "pass": true
+    }
+  ],
+  "enforcement": [
+    {
+      "control": "c-v7 agent_tool_step_no_delete rejects DELETE",
+      "rejected": true
+    },
+    {
+      "control": "c-v6 agent_write_once rejects duplicate prepared",
+      "rejected": true
+    }
+  ],
+  "summary": {
+    "fingerprintMatch": true,
+    "allCasesPass": true,
+    "allAppendPass": true,
+    "allEnforcementPass": true,
+    "caseFailures": [],
+    "appendFailures": [],
+    "enforcementFailures": [],
+    "fpFailures": []
+  },
+  "compatible": false
+}

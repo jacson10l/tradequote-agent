@@ -1,5 +1,6 @@
 import {
   type AgentCommand,
+  AgentCommandSchema,
   type DesktopClient,
   type QuoteSnapshot,
   type TradeBoard,
@@ -8,6 +9,7 @@ import {
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../shared/button";
+import { AgentRuns } from "./agent-runs";
 export function QuoteAgent({
   client,
   board,
@@ -19,6 +21,7 @@ export function QuoteAgent({
   selected: QuoteSnapshot | undefined;
   onSaved: (result: Extract<TradeResult, { ok: true }>) => void;
 }) {
+  const [toolLoop, setToolLoop] = useState(false);
   const [buyer, setBuyer] = useState("");
   const [inquiry, setInquiry] = useState("");
   const [instruction, setInstruction] = useState("");
@@ -35,6 +38,10 @@ export function QuoteAgent({
     .slice()
     .reverse();
   async function run(command: AgentCommand) {
+    command = AgentCommandSchema.parse({
+      ...command,
+      payload: { ...command.payload, ...(toolLoop ? { executionMode: "tool_loop" } : {}) },
+    });
     const fingerprint = JSON.stringify({ method: command.method, payload: command.payload });
     const key = keys.current.get(fingerprint) ?? crypto.randomUUID();
     keys.current.set(fingerprint, key);
@@ -72,6 +79,15 @@ export function QuoteAgent({
         先到 <Link to="/model">模型设置</Link>{" "}
         保存并测试连接。运行后将发送相关业务文本，生成未经审核的草稿；金额由本地业务模块计算。
       </p>
+      <label className="flex items-center gap-2">
+        <input
+          type="checkbox"
+          checked={toolLoop}
+          disabled={busy}
+          onChange={(event) => setToolLoop(event.target.checked)}
+        />
+        多步工具报价（读取、核价、规则校验后保存）
+      </label>
       <form
         className="space-y-4"
         onSubmit={(e) => {
@@ -147,13 +163,20 @@ export function QuoteAgent({
           </form>
         </>
       )}
-      {busy && <p role="status">模型正在理解需求，最长约 45 秒；保存后才会显示新版本。</p>}
+      {busy && (
+        <p role="status">
+          {toolLoop
+            ? "模型正在逐步读取、核价与校验，最长约120秒；运行记录可取消。"
+            : "模型正在理解需求，最长约45秒；保存后才会显示新版本。"}
+        </p>
+      )}
       {error && (
         <p role="alert" className="error-box">
           {error}
         </p>
       )}
       {notice && <p role="status">{notice}</p>}
+      <AgentRuns client={client} onSaved={onSaved} refreshToken={busy} />
       {turns.length > 0 && (
         <div className="space-y-4" aria-label="已保存对话记录">
           <h3>已保存的对话</h3>

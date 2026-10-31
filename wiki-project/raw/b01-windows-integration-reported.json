@@ -1,0 +1,70 @@
+{
+  "status": "observed",
+  "recordedAt": "2026-10-23T14:14:34.930869+08:00",
+  "source": "Human user forwarded B status in this conversation, 2026-10-23",
+  "evidenceClass": "reported_not_independently_verified_by_C",
+  "clipboardTransportHeaderOmitted": true,
+  "reportedBranch": "codex/b01-wiki-integration",
+  "reportedWorkspace": "D:/code/tradequote-agent-b01-integration",
+  "reportedCommit": null,
+  "reportedWorkingChanges": "uncommitted_and_unpushed",
+  "reportedCapabilities": [
+    "A to B storage integration",
+    "complete multiple-source citations",
+    "report and consumption in one transaction",
+    "reopen",
+    "idempotency",
+    "rollback",
+    "version isolation",
+    "migration execution records added"
+  ],
+  "reportedValidation": {
+    "focused": {
+      "passed": 52,
+      "total": 52
+    },
+    "typecheck": "passed_reported",
+    "build": "passed_reported",
+    "engineeringChecks": "passed_reported",
+    "wikiSync": "passed_reported",
+    "fullUnit": {
+      "passed": 181,
+      "total": 182,
+      "notFullyPassed": true
+    },
+    "wikiRegression": {
+      "passed": 34,
+      "total": 36,
+      "notFullyPassed": true
+    },
+    "remainingFailures": "B reports original Windows symbolic-link permission failures; exact logs not yet inspected by C"
+  },
+  "reportedEvidencePaths": [
+    "D:/code/tradequote-agent-b01-integration/wiki-project/wiki/B规则检查实现.md",
+    "D:/code/tradequote-agent-b01-integration/wiki-project/wiki/tasks/2026-10-23-B01新Wiki存储联调.md",
+    "D:/code/tradequote-agent-b01-integration/wiki-project/raw/b01-wiki-integration-validation.json"
+  ],
+  "reportedDesktopRemaining": [
+    "C entry wiring",
+    "A manual publication",
+    "macOS acceptance"
+  ],
+  "CObservation": {
+    "sourceArtifactsRead": false,
+    "WindowsPathsAccessibleHere": false,
+    "localB01BranchRefFound": false,
+    "localRemoteTrackingB01RefFound": false,
+    "fetchPerformed": false,
+    "noClaimAboutCurrentServerRefs": true,
+    "BCodeImported": false,
+    "macOSValidationOfBChanges": "not_run",
+    "signatureStateChanged": false
+  },
+  "rawStatusText": "已跑通A→B存储联调：完整多来源引用、报告与消费同事务、重开、幂等、回滚及版本隔离，并补齐迁移执行记录。聚焦52/52；类型、构建、工程检查和Wiki同步通过。全量181/182、Wiki回归34/36；剩余均为原Windows符号链接权限失败。代码与Wiki保存在codex/b01-wiki-integration，未提交或推送。C尚无新远端接线代码；完整桌面链路仍待C入口、A人工发布及macOS验收。",
+  "restrictions": [
+    "No signature",
+    "No automatic sending",
+    "No push or shared merge",
+    "No new real model evaluation"
+  ]
+}

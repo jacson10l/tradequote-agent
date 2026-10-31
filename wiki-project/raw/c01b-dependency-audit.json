@@ -1,0 +1,227 @@
+{
+  "recordedAt": "2026-10-21T18:13:59.919394+08:00",
+  "taskBase": "e0f933657c2438642b006fd1a5549fe7dc683ccd",
+  "branch": "codex/c01b-dependency-audit",
+  "environment": {
+    "os": "Darwin",
+    "architecture": "arm64",
+    "node": "22.22.0",
+    "pnpm": "10.13.1"
+  },
+  "readyForImplementation": false,
+  "scope": "Dependency audit only; no application, migration, contract or test changes. Remote published refs and common baseline checked; unpublished local A/B work is not accepted as a ready dependency.",
+  "observations": [
+    {
+      "command": [
+        "git",
+        "fetch",
+        "origin"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "From https://github.com/jacson10l/tradequote-agent\n   e0f9336..be53b98  codex/m1-foundation -> origin/codex/m1-foundation\n"
+    },
+    {
+      "command": [
+        "git",
+        "ls-remote",
+        "--heads",
+        "origin"
+      ],
+      "exitCode": 0,
+      "stdout": "544ea51fab3d980baf1401bd6ad2a90f56373f4b\trefs/heads/codex/a01-knowledge-publish\n4e8c66366c05468ee133134dc4399aeb5971d1e3\trefs/heads/codex/b00-first-batch-contracts\n68455a35e21aa7563f12102b337f15f6f799a4aa\trefs/heads/codex/c01-agent-recovery\nbe53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\trefs/heads/codex/m1-foundation\nef14fc3c1838f3b605956dd00922a2517f9144a6\trefs/heads/main\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "gh",
+        "pr",
+        "list",
+        "--repo",
+        "jacson10l/tradequote-agent",
+        "--state",
+        "open",
+        "--json",
+        "number,title,headRefName,baseRefName,headRefOid"
+      ],
+      "exitCode": 0,
+      "stdout": "[]\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--name-status",
+        "e0f933657c2438642b006fd1a5549fe7dc683ccd...origin/codex/a01-knowledge-publish"
+      ],
+      "exitCode": 0,
+      "stdout": "A\ttests/fixtures/knowledge/knowledge-drafts.a01a.json\nA\ttests/fixtures/knowledge/sources/src-platform-bottle-capacity.txt\nA\ttests/fixtures/knowledge/sources/src-platform-lamp-spec.txt\nA\ttests/fixtures/knowledge/sources/src-platform-listing-style.txt\nA\ttests/fixtures/knowledge/sources/src-platform-rfq-style.txt\nA\ttests/fixtures/knowledge/sources/src-terms-fibre-conflict.txt\nA\ttests/fixtures/knowledge/sources/src-terms-incoterms-scope.txt\nA\ttests/fixtures/knowledge/sources/src-terms-payment-split.txt\nA\ttests/fixtures/knowledge/sources/src-terms-validity.txt\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "merge-base",
+        "--is-ancestor",
+        "4e8c66366c05468ee133134dc4399aeb5971d1e3",
+        "e0f933657c2438642b006fd1a5549fe7dc683ccd"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "merge-base",
+        "--is-ancestor",
+        "68455a35e21aa7563f12102b337f15f6f799a4aa",
+        "e0f933657c2438642b006fd1a5549fe7dc683ccd"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "status",
+        "--short"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "--version"
+      ],
+      "exitCode": 0,
+      "stdout": "v22.22.0\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "pnpm",
+        "--version"
+      ],
+      "exitCode": 0,
+      "stdout": "10.13.1\n",
+      "stderr": ""
+    }
+  ],
+  "sourceSnapshots": [
+    {
+      "ref": "e0f933657c2438642b006fd1a5549fe7dc683ccd",
+      "commit": "e0f933657c2438642b006fd1a5549fe7dc683ccd",
+      "path": "packages/contracts/src/runs.ts",
+      "sha256": "2ce637912077f4a3cafa8e36eab059b214d053666e00e69b832044bf32265f51"
+    },
+    {
+      "ref": "e0f933657c2438642b006fd1a5549fe7dc683ccd",
+      "commit": "e0f933657c2438642b006fd1a5549fe7dc683ccd",
+      "path": "packages/contracts/src/pending-client.ts",
+      "sha256": "159b71bd4d5e55fd52c480a2686cd59ded5398fc66eb133a35513bba6baf6496"
+    },
+    {
+      "ref": "e0f933657c2438642b006fd1a5549fe7dc683ccd",
+      "commit": "e0f933657c2438642b006fd1a5549fe7dc683ccd",
+      "path": "packages/contracts/src/runs.test.ts",
+      "sha256": "c677e714c750675855c7443af9aa7a4183eec1f44ce8097256ac11f23502925c"
+    },
+    {
+      "ref": "e0f933657c2438642b006fd1a5549fe7dc683ccd",
+      "commit": "e0f933657c2438642b006fd1a5549fe7dc683ccd",
+      "path": "packages/infrastructure/src/migrations.ts",
+      "sha256": "60c9638fcdaf75b0dc36197987190af61408794583600b0f42aa501a5dd9618c"
+    },
+    {
+      "ref": "e0f933657c2438642b006fd1a5549fe7dc683ccd",
+      "commit": "e0f933657c2438642b006fd1a5549fe7dc683ccd",
+      "path": "packages/infrastructure/src/index.ts",
+      "sha256": "9d89016e1c32ef51f2a984329a032c5201be231561d9f0b786e20a8687886495"
+    },
+    {
+      "ref": "e0f933657c2438642b006fd1a5549fe7dc683ccd",
+      "commit": "e0f933657c2438642b006fd1a5549fe7dc683ccd",
+      "path": "packages/infrastructure/src/trade-store.ts",
+      "sha256": "06f6cd2b2cf55e507b2b8e64f9f934eb26fc9cdb122bda68e91f3afbd615d0f8"
+    },
+    {
+      "ref": "origin/codex/b00-first-batch-contracts",
+      "commit": "4e8c66366c05468ee133134dc4399aeb5971d1e3",
+      "path": "packages/contracts/src/runs.ts",
+      "sha256": "2ce637912077f4a3cafa8e36eab059b214d053666e00e69b832044bf32265f51"
+    },
+    {
+      "ref": "origin/codex/b00-first-batch-contracts",
+      "commit": "4e8c66366c05468ee133134dc4399aeb5971d1e3",
+      "path": "packages/contracts/src/pending-client.ts",
+      "sha256": "159b71bd4d5e55fd52c480a2686cd59ded5398fc66eb133a35513bba6baf6496"
+    },
+    {
+      "ref": "origin/codex/b00-first-batch-contracts",
+      "commit": "4e8c66366c05468ee133134dc4399aeb5971d1e3",
+      "path": "packages/contracts/src/runs.test.ts",
+      "sha256": "c677e714c750675855c7443af9aa7a4183eec1f44ce8097256ac11f23502925c"
+    },
+    {
+      "ref": "origin/codex/b00-first-batch-contracts",
+      "commit": "4e8c66366c05468ee133134dc4399aeb5971d1e3",
+      "path": "packages/infrastructure/src/migrations.ts",
+      "sha256": "60c9638fcdaf75b0dc36197987190af61408794583600b0f42aa501a5dd9618c"
+    },
+    {
+      "ref": "origin/codex/b00-first-batch-contracts",
+      "commit": "4e8c66366c05468ee133134dc4399aeb5971d1e3",
+      "path": "packages/infrastructure/src/index.ts",
+      "sha256": "9d89016e1c32ef51f2a984329a032c5201be231561d9f0b786e20a8687886495"
+    },
+    {
+      "ref": "origin/codex/b00-first-batch-contracts",
+      "commit": "4e8c66366c05468ee133134dc4399aeb5971d1e3",
+      "path": "packages/infrastructure/src/trade-store.ts",
+      "sha256": "06f6cd2b2cf55e507b2b8e64f9f934eb26fc9cdb122bda68e91f3afbd615d0f8"
+    },
+    {
+      "ref": "origin/codex/a01-knowledge-publish",
+      "commit": "544ea51fab3d980baf1401bd6ad2a90f56373f4b",
+      "path": "packages/infrastructure/src/migrations.ts",
+      "sha256": "60c9638fcdaf75b0dc36197987190af61408794583600b0f42aa501a5dd9618c"
+    },
+    {
+      "ref": "origin/codex/a01-knowledge-publish",
+      "commit": "544ea51fab3d980baf1401bd6ad2a90f56373f4b",
+      "path": "packages/infrastructure/src/index.ts",
+      "sha256": "9d89016e1c32ef51f2a984329a032c5201be231561d9f0b786e20a8687886495"
+    },
+    {
+      "ref": "origin/codex/a01-knowledge-publish",
+      "commit": "544ea51fab3d980baf1401bd6ad2a90f56373f4b",
+      "path": "packages/infrastructure/src/trade-store.ts",
+      "sha256": "06f6cd2b2cf55e507b2b8e64f9f934eb26fc9cdb122bda68e91f3afbd615d0f8"
+    }
+  ],
+  "gates": [
+    {
+      "dependency": "B00 and C01a in common baseline",
+      "ready": true
+    },
+    {
+      "dependency": "B clarification, list and control replay agreement",
+      "ready": false
+    },
+    {
+      "dependency": "A migration predecessor sequence and same-connection run/quote transaction entry",
+      "ready": false
+    }
+  ],
+  "notRun": [
+    "C01b R01-R20 recovery tests: implementation not started",
+    "Application typecheck, unit, build, Electron: documentation-only change",
+    "Real DeepSeek, Windows, package installation"
+  ],
+  "toolFallback": "GitHub connector search_prs returned INVALID_ARGUMENT; open pull requests verified by local gh CLI."
+}

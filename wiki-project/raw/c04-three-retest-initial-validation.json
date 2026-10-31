@@ -1,0 +1,12 @@
+{
+  "status": "observed",
+  "scope": "Documentation-only initial gate failure, preserved after adding relevant implementation and entry links. No app/report/expectation changed.",
+  "checks": [
+    {
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exitCode": 1,
+      "recordedAt": "2026-10-22T18:50:53.195857+08:00",
+      "output": "wiki-project/wiki/tasks/C04-三项修复真实复测核对.md: NEEDS_TWO_RELATED_SEMANTIC_PAGES\n"
+    }
+  ]
+}

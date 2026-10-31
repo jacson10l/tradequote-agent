@@ -1,0 +1,1059 @@
+{
+  "status": "passed",
+  "realEvaluationStatus": "failed",
+  "recordedAt": "2026-10-22T08:47:58.102Z",
+  "scope": "Strict read-only audit and native exports passed; the real evaluation did not converge. User explicitly started exactly one new run; no agent start/retry/cancel/test or credential read.",
+  "taskBase": "1e9c134a589d97d15f98d4e576ca634766569bd7",
+  "branch": "codex/c04-failure-convergence",
+  "runRef": "c950e374907c",
+  "run": {
+    "runRef": "c950e374907c",
+    "requestedMode": "deepseek",
+    "mode": "deepseek",
+    "transport": "deepseek",
+    "status": "completed",
+    "startedAt": "2026-10-22T08:41:11.329Z",
+    "finishedAt": "2026-10-22T08:42:22.297Z",
+    "observedRows": 20,
+    "errorCode": null,
+    "hasReport": true
+  },
+  "launch": {
+    "launchedAt": "2026-10-22T08:39:16.097Z",
+    "testedSourceCommit": "1e9c134a589d97d15f98d4e576ca634766569bd7",
+    "branch": "codex/c04-failure-convergence",
+    "main": "/Users/jason/.codex/worktrees/c04-failure-convergence/tradequote-agent/apps/desktop/out/main/index.js",
+    "executable": "/Users/jason/.codex/worktrees/c04-failure-convergence/tradequote-agent/.runtime/desktop/TradeQuote.app/Contents/MacOS/Electron",
+    "mainSha256": "098a92b50dbfce72d703e69695b6ad27bcc188a6c86af7f7a3f89fccbcc2b285",
+    "fixtureConfiguration": false,
+    "providerRequestsInitiatedByAgent": 0
+  },
+  "report": {
+    "mode": "deepseek",
+    "status": "failed",
+    "providerValidation": "observed",
+    "model": "deepseek-flash",
+    "modelCalls": 82,
+    "realRequests": 82,
+    "usage": {
+      "tokens": null,
+      "cost": null,
+      "reason": "not_exposed_by_adapter"
+    },
+    "business": {
+      "passed": 12,
+      "failed": 8,
+      "not_run": 11,
+      "cancelled": 0
+    },
+    "fixtureOnlyNotRun": 17,
+    "caseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496"
+  },
+  "comparison": {
+    "sixFailures": [
+      {
+        "id": "apparel-de-v1",
+        "previousStatus": "failed",
+        "previousCode": "MODEL_INVALID_OUTPUT",
+        "previousReason": "observed",
+        "status": "passed",
+        "errorCode": null,
+        "reason": "observed",
+        "failedChecks": []
+      },
+      {
+        "id": "panel-en-v2",
+        "previousStatus": "failed",
+        "previousCode": "MODEL_INVALID_OUTPUT",
+        "previousReason": "observed",
+        "status": "not_run",
+        "errorCode": null,
+        "reason": "prior_step_failed",
+        "failedChecks": []
+      },
+      {
+        "id": "fastener-zh-v1",
+        "previousStatus": "failed",
+        "previousCode": "MISSING_FACTS",
+        "previousReason": "observed",
+        "status": "failed",
+        "errorCode": "ACTION_NOT_ALLOWED",
+        "reason": "observed",
+        "failedChecks": [
+          "outcome",
+          "revision_count",
+          "draft_only",
+          "product",
+          "quantity",
+          "unit",
+          "terms",
+          "amount",
+          "sources",
+          "validation"
+        ]
+      },
+      {
+        "id": "fastener-en-v1",
+        "previousStatus": "failed",
+        "previousCode": "ACTION_NOT_ALLOWED",
+        "previousReason": "observed",
+        "status": "failed",
+        "errorCode": "ACTION_NOT_ALLOWED",
+        "reason": "observed",
+        "failedChecks": [
+          "outcome",
+          "revision_count",
+          "draft_only",
+          "product",
+          "quantity",
+          "unit",
+          "terms",
+          "amount",
+          "sources",
+          "validation"
+        ]
+      },
+      {
+        "id": "fastener-de-v2",
+        "previousStatus": "failed",
+        "previousCode": "ACTION_NOT_ALLOWED",
+        "previousReason": "observed",
+        "status": "not_run",
+        "errorCode": null,
+        "reason": "prior_step_failed",
+        "failedChecks": []
+      },
+      {
+        "id": "rule-block",
+        "previousStatus": "failed",
+        "previousCode": "ACTION_NOT_ALLOWED",
+        "previousReason": "observed",
+        "status": "passed",
+        "errorCode": "RULE_BLOCKED",
+        "reason": "observed",
+        "failedChecks": []
+      }
+    ],
+    "eightSkipped": [
+      {
+        "id": "apparel-de-v2",
+        "previousStatus": "not_run",
+        "previousCode": null,
+        "previousReason": "prior_step_failed",
+        "status": "failed",
+        "errorCode": "MODEL_INVALID_OUTPUT",
+        "reason": "observed",
+        "failedChecks": [
+          "outcome",
+          "revision_count",
+          "draft_only",
+          "product",
+          "quantity",
+          "unit",
+          "terms",
+          "amount",
+          "sources",
+          "validation"
+        ]
+      },
+      {
+        "id": "apparel-de-v3",
+        "previousStatus": "not_run",
+        "previousCode": null,
+        "previousReason": "prior_step_failed",
+        "status": "not_run",
+        "errorCode": null,
+        "reason": "prior_step_failed",
+        "failedChecks": []
+      },
+      {
+        "id": "panel-en-v3",
+        "previousStatus": "not_run",
+        "previousCode": null,
+        "previousReason": "prior_step_failed",
+        "status": "not_run",
+        "errorCode": null,
+        "reason": "prior_step_failed",
+        "failedChecks": []
+      },
+      {
+        "id": "fastener-zh-v2",
+        "previousStatus": "not_run",
+        "previousCode": null,
+        "previousReason": "prior_step_failed",
+        "status": "not_run",
+        "errorCode": null,
+        "reason": "prior_step_failed",
+        "failedChecks": []
+      },
+      {
+        "id": "fastener-zh-v3",
+        "previousStatus": "not_run",
+        "previousCode": null,
+        "previousReason": "prior_step_failed",
+        "status": "not_run",
+        "errorCode": null,
+        "reason": "prior_step_failed",
+        "failedChecks": []
+      },
+      {
+        "id": "fastener-en-v2",
+        "previousStatus": "not_run",
+        "previousCode": null,
+        "previousReason": "prior_step_failed",
+        "status": "not_run",
+        "errorCode": null,
+        "reason": "prior_step_failed",
+        "failedChecks": []
+      },
+      {
+        "id": "fastener-en-v3",
+        "previousStatus": "not_run",
+        "previousCode": null,
+        "previousReason": "prior_step_failed",
+        "status": "not_run",
+        "errorCode": null,
+        "reason": "prior_step_failed",
+        "failedChecks": []
+      },
+      {
+        "id": "fastener-de-v3",
+        "previousStatus": "not_run",
+        "previousCode": null,
+        "previousReason": "prior_step_failed",
+        "status": "not_run",
+        "errorCode": null,
+        "reason": "prior_step_failed",
+        "failedChecks": []
+      }
+    ],
+    "previousPassesNotPassing": [
+      {
+        "id": "apparel-zh-v3",
+        "previousStatus": "passed",
+        "previousCode": null,
+        "previousReason": "observed",
+        "status": "failed",
+        "errorCode": "ACTION_NOT_ALLOWED",
+        "reason": "observed",
+        "failedChecks": [
+          "outcome",
+          "revision_count",
+          "draft_only",
+          "product",
+          "quantity",
+          "unit",
+          "terms",
+          "amount",
+          "sources",
+          "validation"
+        ]
+      },
+      {
+        "id": "panel-zh-v1",
+        "previousStatus": "passed",
+        "previousCode": null,
+        "previousReason": "observed",
+        "status": "failed",
+        "errorCode": "ACTION_NOT_ALLOWED",
+        "reason": "observed",
+        "failedChecks": [
+          "outcome",
+          "revision_count",
+          "draft_only",
+          "product",
+          "quantity",
+          "unit",
+          "terms",
+          "amount",
+          "sources",
+          "validation"
+        ]
+      },
+      {
+        "id": "panel-zh-v2",
+        "previousStatus": "passed",
+        "previousCode": null,
+        "previousReason": "observed",
+        "status": "not_run",
+        "errorCode": null,
+        "reason": "prior_step_failed",
+        "failedChecks": []
+      },
+      {
+        "id": "panel-zh-v3",
+        "previousStatus": "passed",
+        "previousCode": null,
+        "previousReason": "observed",
+        "status": "not_run",
+        "errorCode": null,
+        "reason": "prior_step_failed",
+        "failedChecks": []
+      },
+      {
+        "id": "panel-en-v1",
+        "previousStatus": "passed",
+        "previousCode": null,
+        "previousReason": "observed",
+        "status": "failed",
+        "errorCode": "ACTION_NOT_ALLOWED",
+        "reason": "observed",
+        "failedChecks": [
+          "outcome",
+          "revision_count",
+          "draft_only",
+          "product",
+          "quantity",
+          "unit",
+          "terms",
+          "amount",
+          "sources",
+          "validation"
+        ]
+      },
+      {
+        "id": "panel-de-v3",
+        "previousStatus": "passed",
+        "previousCode": null,
+        "previousReason": "observed",
+        "status": "failed",
+        "errorCode": "ACTION_NOT_ALLOWED",
+        "reason": "observed",
+        "failedChecks": [
+          "outcome",
+          "revision_count",
+          "draft_only",
+          "product",
+          "quantity",
+          "unit",
+          "terms",
+          "amount",
+          "sources",
+          "validation"
+        ]
+      },
+      {
+        "id": "fastener-de-v1",
+        "previousStatus": "passed",
+        "previousCode": null,
+        "previousReason": "observed",
+        "status": "failed",
+        "errorCode": "ACTION_NOT_ALLOWED",
+        "reason": "observed",
+        "failedChecks": [
+          "outcome",
+          "revision_count",
+          "draft_only",
+          "product",
+          "quantity",
+          "unit",
+          "terms",
+          "amount",
+          "sources",
+          "validation"
+        ]
+      }
+    ]
+  },
+  "nativeExports": {
+    "json": {
+      "bytes": 29700,
+      "sha256": "56af5ce7e69bc1629d6db735d73cd7b43519a8b8a6b1c0d057817abc24ae20bf",
+      "byteEqual": true
+    },
+    "markdown": {
+      "bytes": 3683,
+      "sha256": "5119ea2eba8e62ab2b5974c41285fc300bdc86fa1487f2989e5314f74367bcf0",
+      "byteEqual": true
+    }
+  },
+  "redaction": {
+    "strictSchema": true,
+    "fixedPlan": true,
+    "knownPublicModel": true,
+    "noRawPayloadCollection": true,
+    "noCredentialRead": true,
+    "internalControlKeysExcluded": true
+  },
+  "preservation": {
+    "rawFilesByteIdentical": 90,
+    "oldLogPrefixBytes": 59253,
+    "changedOutsideWiki": [],
+    "sourceSha256": {
+      "apps/desktop/src/main/index.ts": "b476d3159d8e2341c0a958bc1d1fba76d60d7d4297501aa291ea831b34658d4d",
+      "apps/desktop/src/main/evaluation-host.ts": "8c8549f257d6b77b6a94f80328577a3c3135af5b8c7eeb158efc4b82866a4442",
+      "apps/desktop/src/workers/evaluation.ts": "a4104e39bc32a3e1193f50fb42d4f8cc263a08652541d1ade7e718a5b5f99f90",
+      "packages/contracts/src/model-evaluation.ts": "fd41913cb03a8cc80052db48cc5887036b8bc252e02fc5993a8154ff453fff40",
+      "packages/infrastructure/src/evaluation/runner.ts": "20105c23e1628f98e18a74496e0b572e22d5d11bb802de241223b1201e845a55",
+      "packages/infrastructure/src/evaluation/report.ts": "01533d97d29db155e5f0fb52badbf5bbbca89419962b3777db01cbd869d6041e",
+      "packages/infrastructure/src/read-tool-runtime.ts": "0254bbcb2c14a39efbe473e2767a39ea9a286ea190dc33cf3e4165231ed92e84",
+      "packages/infrastructure/src/quote-tool-agent.ts": "4e5ebb8c36905961474bc186ae26411eb4cd28e39e68262d46e6e92f07c70db7"
+    }
+  },
+  "bundleSha256": {
+    "apps/desktop/out/main/index.js": "098a92b50dbfce72d703e69695b6ad27bcc188a6c86af7f7a3f89fccbcc2b285",
+    "apps/desktop/out/main/evaluation.js": "3c9f990b650eabadc8b2297b334024bc9e13a857ecb3433b2247e1658a095317",
+    "apps/desktop/out/main/chunks/public-CqOOwe_u.js": "9e2a5277fba860bcde1eb377b09289d42ccb598a8b1b7b3cae6edd624a8c1ecd",
+    "apps/desktop/out/main/chunks/src-CjC4fIcb.js": "ca1c94c25b260fa0655f914394e43161c97caeaba1b0933e46853dab23529011"
+  },
+  "observations": [
+    {
+      "observedAt": "2026-10-22T08:40:56.453Z",
+      "recordCount": 1,
+      "invalidRecords": 0,
+      "launchSourceCommit": "1e9c134a589d97d15f98d4e576ca634766569bd7",
+      "history": [
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [],
+      "reportSummary": null
+    },
+    {
+      "observedAt": "2026-10-22T08:41:21.559Z",
+      "recordCount": 2,
+      "invalidRecords": 0,
+      "launchSourceCommit": "1e9c134a589d97d15f98d4e576ca634766569bd7",
+      "history": [
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "running",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": null,
+          "observedRows": 1,
+          "errorCode": null,
+          "hasReport": false
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "running",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": null,
+          "observedRows": 1,
+          "errorCode": null,
+          "hasReport": false
+        }
+      ],
+      "reportSummary": null
+    },
+    {
+      "observedAt": "2026-10-22T08:42:48.439Z",
+      "recordCount": 2,
+      "invalidRecords": 0,
+      "launchSourceCommit": "1e9c134a589d97d15f98d4e576ca634766569bd7",
+      "history": [
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "reportSummary": {
+        "status": "failed",
+        "providerValidation": "observed",
+        "model": "deepseek-flash",
+        "modelCalls": 82,
+        "realRequests": 82,
+        "usage": {
+          "tokens": null,
+          "cost": null,
+          "reason": "not_exposed_by_adapter"
+        },
+        "caseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496",
+        "business": {
+          "passed": 12,
+          "failed": 8,
+          "not_run": 11,
+          "cancelled": 0
+        },
+        "failureInjection": {
+          "passed": 0,
+          "failed": 0,
+          "not_run": 17,
+          "cancelled": 0
+        },
+        "sixFailures": [
+          {
+            "id": "apparel-de-v1",
+            "previousStatus": "failed",
+            "previousCode": "MODEL_INVALID_OUTPUT",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "failedChecks": []
+          },
+          {
+            "id": "panel-en-v2",
+            "previousStatus": "failed",
+            "previousCode": "MODEL_INVALID_OUTPUT",
+            "previousReason": "observed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-zh-v1",
+            "previousStatus": "failed",
+            "previousCode": "MISSING_FACTS",
+            "previousReason": "observed",
+            "status": "failed",
+            "errorCode": "ACTION_NOT_ALLOWED",
+            "reason": "observed",
+            "failedChecks": [
+              "outcome",
+              "revision_count",
+              "draft_only",
+              "product",
+              "quantity",
+              "unit",
+              "terms",
+              "amount",
+              "sources",
+              "validation"
+            ]
+          },
+          {
+            "id": "fastener-en-v1",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "failed",
+            "errorCode": "ACTION_NOT_ALLOWED",
+            "reason": "observed",
+            "failedChecks": [
+              "outcome",
+              "revision_count",
+              "draft_only",
+              "product",
+              "quantity",
+              "unit",
+              "terms",
+              "amount",
+              "sources",
+              "validation"
+            ]
+          },
+          {
+            "id": "fastener-de-v2",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "rule-block",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": "RULE_BLOCKED",
+            "reason": "observed",
+            "failedChecks": []
+          }
+        ],
+        "eightSkipped": [
+          {
+            "id": "apparel-de-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "failed",
+            "errorCode": "MODEL_INVALID_OUTPUT",
+            "reason": "observed",
+            "failedChecks": [
+              "outcome",
+              "revision_count",
+              "draft_only",
+              "product",
+              "quantity",
+              "unit",
+              "terms",
+              "amount",
+              "sources",
+              "validation"
+            ]
+          },
+          {
+            "id": "apparel-de-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "panel-en-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-zh-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-zh-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-en-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-en-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-de-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          }
+        ]
+      }
+    },
+    {
+      "observedAt": "2026-10-22T08:44:13.632Z",
+      "recordCount": 2,
+      "invalidRecords": 0,
+      "launchSourceCommit": "1e9c134a589d97d15f98d4e576ca634766569bd7",
+      "history": [
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        },
+        {
+          "runRef": "ed4a5f242c9c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T07:39:00.150Z",
+          "finishedAt": "2026-10-22T07:40:46.351Z",
+          "observedRows": 23,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "newRuns": [
+        {
+          "runRef": "c950e374907c",
+          "requestedMode": "deepseek",
+          "mode": "deepseek",
+          "transport": "deepseek",
+          "status": "completed",
+          "startedAt": "2026-10-22T08:41:11.329Z",
+          "finishedAt": "2026-10-22T08:42:22.297Z",
+          "observedRows": 20,
+          "errorCode": null,
+          "hasReport": true
+        }
+      ],
+      "reportSummary": {
+        "status": "failed",
+        "providerValidation": "observed",
+        "model": "deepseek-flash",
+        "modelCalls": 82,
+        "realRequests": 82,
+        "usage": {
+          "tokens": null,
+          "cost": null,
+          "reason": "not_exposed_by_adapter"
+        },
+        "caseSetHash": "75b9fd1aa287bdfa63023f6834a2d0b977a1879dba0545fec1a5c58873ab1496",
+        "business": {
+          "passed": 12,
+          "failed": 8,
+          "not_run": 11,
+          "cancelled": 0
+        },
+        "failureInjection": {
+          "passed": 0,
+          "failed": 0,
+          "not_run": 17,
+          "cancelled": 0
+        },
+        "sixFailures": [
+          {
+            "id": "apparel-de-v1",
+            "previousStatus": "failed",
+            "previousCode": "MODEL_INVALID_OUTPUT",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": null,
+            "reason": "observed",
+            "failedChecks": []
+          },
+          {
+            "id": "panel-en-v2",
+            "previousStatus": "failed",
+            "previousCode": "MODEL_INVALID_OUTPUT",
+            "previousReason": "observed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-zh-v1",
+            "previousStatus": "failed",
+            "previousCode": "MISSING_FACTS",
+            "previousReason": "observed",
+            "status": "failed",
+            "errorCode": "ACTION_NOT_ALLOWED",
+            "reason": "observed",
+            "failedChecks": [
+              "outcome",
+              "revision_count",
+              "draft_only",
+              "product",
+              "quantity",
+              "unit",
+              "terms",
+              "amount",
+              "sources",
+              "validation"
+            ]
+          },
+          {
+            "id": "fastener-en-v1",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "failed",
+            "errorCode": "ACTION_NOT_ALLOWED",
+            "reason": "observed",
+            "failedChecks": [
+              "outcome",
+              "revision_count",
+              "draft_only",
+              "product",
+              "quantity",
+              "unit",
+              "terms",
+              "amount",
+              "sources",
+              "validation"
+            ]
+          },
+          {
+            "id": "fastener-de-v2",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "rule-block",
+            "previousStatus": "failed",
+            "previousCode": "ACTION_NOT_ALLOWED",
+            "previousReason": "observed",
+            "status": "passed",
+            "errorCode": "RULE_BLOCKED",
+            "reason": "observed",
+            "failedChecks": []
+          }
+        ],
+        "eightSkipped": [
+          {
+            "id": "apparel-de-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "failed",
+            "errorCode": "MODEL_INVALID_OUTPUT",
+            "reason": "observed",
+            "failedChecks": [
+              "outcome",
+              "revision_count",
+              "draft_only",
+              "product",
+              "quantity",
+              "unit",
+              "terms",
+              "amount",
+              "sources",
+              "validation"
+            ]
+          },
+          {
+            "id": "apparel-de-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "panel-en-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-zh-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-zh-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-en-v2",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-en-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          },
+          {
+            "id": "fastener-de-v3",
+            "previousStatus": "not_run",
+            "previousCode": null,
+            "previousReason": "prior_step_failed",
+            "status": "not_run",
+            "errorCode": null,
+            "reason": "prior_step_failed",
+            "failedChecks": []
+          }
+        ]
+      }
+    }
+  ],
+  "checks": [
+    {
+      "command": "node .runtime/c04-retest-audit.mjs",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T16:47:58.125009+08:00",
+      "output": "{\"status\":\"passed\",\"realEvaluationStatus\":\"failed\",\"realRequests\":82,\"sixFailures\":{\"passed\":2,\"failed\":2,\"not_run\":2,\"cancelled\":0},\"eightSkipped\":{\"passed\":0,\"failed\":1,\"not_run\":7,\"cancelled\":0},\"previousPassesNotPassing\":[{\"id\":\"apparel-zh-v3\",\"status\":\"failed\",\"errorCode\":\"ACTION_NOT_ALLOWED\"},{\"id\":\"panel-zh-v1\",\"status\":\"failed\",\"errorCode\":\"ACTION_NOT_ALLOWED\"},{\"id\":\"panel-zh-v2\",\"status\":\"not_run\",\"errorCode\":null},{\"id\":\"panel-zh-v3\",\"status\":\"not_run\",\"errorCode\":null},{\"id\":\"panel-en-v1\",\"status\":\"failed\",\"errorCode\":\"ACTION_NOT_ALLOWED\"},{\"id\":\"panel-de-v3\",\"status\":\"failed\",\"errorCode\":\"ACTION_NOT_ALLOWED\"},{\"id\":\"fastener-de-v1\",\"status\":\"failed\",\"errorCode\":\"ACTION_NOT_ALLOWED\"}],\"nativeExports\":{\"json\":{\"bytes\":29700,\"sha256\":\"56af5ce7e69bc1629d6db735d73cd7b43519a8b8a6b1c0d057817abc24ae20bf\",\"byteEqual\":true},\"markdown\":{\"bytes\":3683,\"sha256\":\"5119ea2eba8e62ab2b5974c41285fc300bdc86fa1487f2989e5314f74367bcf0\",\"byteEqual\":true}},\"preservation\":{\"oldRawFiles\":90,\"logPrefixBytes\":59253},\"sourceHashes\":8}\n"
+    },
+    {
+      "command": "pnpm wiki:generate",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T16:48:42.488251+08:00",
+      "output": "\n> tradequote-agent@0.1.0 wiki:generate /Users/jason/.codex/worktrees/c04-failure-convergence/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs .\n\n{\n  \"mode\": \"generate\",\n  \"files\": 206,\n  \"lines\": 52044,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T16:48:42.768029+08:00",
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 206,\n  \"lines\": 52044,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T16:48:42.996088+08:00",
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 130,\n  \"semantic\": 111,\n  \"reachable\": 130\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 1e9c134a589d97d15f98d4e576ca634766569bd7",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T16:48:42.705216+08:00",
+      "output": "{\n  \"base\": \"1e9c134a589d97d15f98d4e576ca634766569bd7\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base b231181d2f284236fc2f6dc4d14c064ff4b6bd68",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T16:48:42.849843+08:00",
+      "output": "{\n  \"base\": \"b231181d2f284236fc2f6dc4d14c064ff4b6bd68\",\n  \"status\": \"passed\",\n  \"codeFiles\": 5,\n  \"knowledgePages\": 12,\n  \"tasks\": 2,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T16:48:43.396957+08:00",
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 77,\n  \"knowledgePages\": 54,\n  \"tasks\": 16,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T16:48:44.151437+08:00",
+      "output": ""
+    },
+    {
+      "command": "node wiki-project/scripts/build-code-index.mjs . --check",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T16:50:36.201002+08:00",
+      "output": "{\n  \"mode\": \"check\",\n  \"files\": 206,\n  \"lines\": 52044,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/lint-wiki.mjs .",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T16:50:36.752206+08:00",
+      "output": "{\n  \"status\": \"passed\",\n  \"markdown\": 130,\n  \"semantic\": 111,\n  \"reachable\": 130\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 1e9c134a589d97d15f98d4e576ca634766569bd7",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T16:50:35.903175+08:00",
+      "output": "{\n  \"base\": \"1e9c134a589d97d15f98d4e576ca634766569bd7\",\n  \"status\": \"passed\",\n  \"codeFiles\": 0,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base b231181d2f284236fc2f6dc4d14c064ff4b6bd68",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T16:50:36.289082+08:00",
+      "output": "{\n  \"base\": \"b231181d2f284236fc2f6dc4d14c064ff4b6bd68\",\n  \"status\": \"passed\",\n  \"codeFiles\": 5,\n  \"knowledgePages\": 12,\n  \"tasks\": 2,\n  \"errors\": []\n}\n"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce",
+      "exitCode": 0,
+      "recordedAt": "2026-10-22T16:50:37.197418+08:00",
+      "output": "{\n  \"base\": \"be53b98adaa25883e7699ccbf7bda9c6fe1fb0ce\",\n  \"status\": \"passed\",\n  \"codeFiles\": 77,\n  \"knowledgePages\": 54,\n  \"tasks\": 16,\n  \"errors\": []\n}\n"
+    }
+  ],
+  "notRun": [
+    "Application source tests/build: unchanged since validated 1e9c134; prior 216 unit/9 Electron evidence not claimed as new runs",
+    "Windows",
+    "signed installation",
+    "non-author semantic review",
+    "Any additional paid evaluation"
+  ],
+  "initialHelperFailure": {
+    "action": "Append a documentation log with a Python stdin helper",
+    "exitCode": 1,
+    "reason": "Non-UTF-8 stdin source rejected before writes",
+    "resolution": "Used apply_patch for prose and an ASCII-only JSON copy helper; no app/test/report change"
+  }
+}

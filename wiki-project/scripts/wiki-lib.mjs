@@ -44,7 +44,7 @@ export function write(root, relative, text) {
   fs.writeFileSync(absolute, text);
 }
 
-const ignoredDirs = new Set(["wiki-project", ".git", "node_modules", ".runtime", ".scratch", ".cache", ".next", ".turbo", ".venv", "__pycache__", "dist", "build", "target", "coverage", "release", "out", ".ssh", ".aws", ".gnupg"]);
+const ignoredDirs = new Set(["wiki-project", ".git", ".workbuddy", "node_modules", ".runtime", ".scratch", ".cache", ".next", ".turbo", ".venv", "__pycache__", "dist", "build", "target", "coverage", "release", "out", ".ssh", ".aws", ".gnupg"]);
 export const sensitiveName = name => /^\.env(?:\.|$)/i.test(name)
   || /^(?:\.npmrc|\.pypirc|\.netrc|id_rsa|id_ed25519|credentials(?:\..*)?|secrets?(?:\..*)?|tokens?(?:\..*)?|cookies?(?:\..*)?|passwords?(?:\..*)?|auth\.json)$/i.test(name)
   || /\.(?:pem|key|p12|pfx|db|sqlite|sqlite3)(?:-wal|-shm)?$/i.test(name);

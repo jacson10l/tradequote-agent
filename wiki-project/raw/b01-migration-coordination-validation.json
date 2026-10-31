@@ -1,0 +1,206 @@
+{
+  "status": "partial",
+  "clientDate": "2026-10-23",
+  "taskBase": "6c76fb991f3135d6a48362c1b242e46af6641817",
+  "branch": "codex/b01-migration-coordination",
+  "environment": {
+    "os": "win32",
+    "node": "v22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2"
+  },
+  "coordinationInputs": {
+    "d99f2b3": "not found in fetched origin or local object database",
+    "fd4b728": "not found in fetched origin or local object database",
+    "note": "User summary available; C draft originals and A approved plan not yet available. No actual C lineage claimed tested."
+  },
+  "checks": [
+    {
+      "phase": "focused",
+      "command": "ELECTRON_RUN_AS_NODE=1 electron node_modules/vitest/vitest.mjs run packages/infrastructure/src/wiki-check-integration.test.ts packages/infrastructure/src/check-store.test.ts packages/contracts/src/checks.test.ts packages/infrastructure/src/migrations.test.ts",
+      "startedAt": "2026-10-23T10:54:14.019Z",
+      "finishedAt": "2026-10-23T10:54:16.661Z",
+      "exit_code": 1,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01-integration\n\n ❯ packages/infrastructure/src/wiki-check-integration.test.ts (21 tests | 2 failed) 1384ms\n   × refuses withdrawn evidence atomically while retaining old report replay 39ms\n   × keeps storage failures distinct from source conflicts and never exposes SQLite details 27ms\n\n Test Files  1 failed | 3 passed (4)\n      Tests  2 failed | 51 passed (53)\n   Start at  18:54:14\n   Duration  2.21s (tests 60%, import 33%, transform 6%, worker 1%)\n\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/wiki-check-integration.test.ts > refuses withdrawn evidence atomically while retaining old report replay\nAssertionError: expected { ok: false, error: { …(4) } } to match object { ok: false, error: { …(2) } }\n(2 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  {\n    \"error\": {\n-     \"code\": \"SOURCE_CONFLICT\",\n+     \"code\": \"STORAGE_ERROR\",\n      \"retryable\": false,\n    },\n    \"ok\": false,\n  }\n\n ❯ packages/infrastructure/src/wiki-check-integration.test.ts:251:69\n    249|         .run(JSON.stringify(revision), revision.revisionId);\n    250|     }\n    251|     expect(f.check({ ...f.command, idempotencyKey: randomUUID() })).to…\n       |                                                                     ^\n    252|       ok: false,\n    253|       error: { code: \"SOURCE_CONFLICT\", retryable: false },\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯\n\n FAIL  packages/infrastructure/src/wiki-check-integration.test.ts > keeps storage failures distinct from source conflicts and never exposes SQLite details\nSqliteError: FOREIGN KEY constraint failed\n ❯ Database.exec node_modules/.pnpm/better-sqlite3@13.0.3/node_modules/better-sqlite3/lib/methods/wrappers.js:9:14\n ❯ packages/infrastructure/src/wiki-check-integration.test.ts:449:8\n    447|   const f = fixture();\n    448|   await f.seed();\n    449|   f.db.exec(\"DROP TABLE knowledge_wiki\");\n       |        ^\n    450|   const result = f.check();\n    451|   expect(result).toMatchObject({ ok: false, error: { code: \"STORAGE_ER…\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯\n\n"
+    },
+    {
+      "phase": "focused",
+      "command": "ELECTRON_RUN_AS_NODE=1 electron node_modules/vitest/vitest.mjs run packages/infrastructure/src/wiki-check-integration.test.ts packages/infrastructure/src/check-store.test.ts packages/contracts/src/checks.test.ts packages/infrastructure/src/migrations.test.ts",
+      "startedAt": "2026-10-23T10:55:03.691Z",
+      "finishedAt": "2026-10-23T10:55:06.304Z",
+      "exit_code": 0,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01-integration\n\n\n Test Files  4 passed (4)\n      Tests  53 passed (53)\n   Start at  18:55:04\n   Duration  2.19s (tests 60%, import 33%, transform 6%, worker 1%)\n\n"
+    },
+    {
+      "phase": "probe",
+      "command": "ELECTRON_RUN_AS_NODE=1 electron node_modules/vitest/vitest.mjs run --config .runtime/migration-probe.config.mts",
+      "startedAt": "2026-10-23T10:55:47.772Z",
+      "finishedAt": "2026-10-23T10:55:48.436Z",
+      "exit_code": 1,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01-integration\n\n ❯ .runtime/migration-probe.test.ts (0 test)\n\n Test Files  1 failed (1)\n      Tests  no tests\n   Start at  18:55:48\n   Duration  217ms (worker 97%, environment 3%)\n\n\n⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  .runtime/migration-probe.test.ts [ .runtime/migration-probe.test.ts ]\nError: Cannot find package 'better-sqlite3' imported from D:/code/tradequote-agent-b01-integration/.runtime/migration-probe.test.ts\n ❯ .runtime/migration-probe.test.ts:2:1\n      1| import { writeFileSync } from 'node:fs';\n      2| import Database from 'better-sqlite3';\n       | ^\n      3| import { afterAll, expect, it } from 'vitest';\n      4| import { migrate, migrations } from '../packages/infrastructure/src/mi…\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n"
+    },
+    {
+      "phase": "probe",
+      "command": "ELECTRON_RUN_AS_NODE=1 electron node_modules/vitest/vitest.mjs run --config .runtime/migration-probe.config.mts",
+      "startedAt": "2026-10-23T10:56:04.591Z",
+      "finishedAt": "2026-10-23T10:56:05.289Z",
+      "exit_code": 1,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01-integration\n\n ❯ .runtime/migration-probe.test.ts (2 tests | 2 failed) 15ms\n   × proposed reject policy: synthetic_unrecognized_6 must not be accepted merely by version/hash 9ms\n   × proposed reject policy: ledger_with_missing_immutable_trigger must not be accepted merely by version/hash 3ms\n\n Test Files  1 failed (1)\n      Tests  2 failed (2)\n   Start at  18:56:04\n   Duration  276ms (transform 41%, import 34%, tests 19%, worker 6%)\n\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  .runtime/migration-probe.test.ts > proposed reject policy: synthetic_unrecognized_6 must not be accepted merely by version/hash\n FAIL  .runtime/migration-probe.test.ts > proposed reject policy: ledger_with_missing_immutable_trigger must not be accepted merely by version/hash\nAssertionError: unrecognized schema must be rejected before stamping current lineage: expected null not to be null\n ❯ .runtime/migration-probe.test.ts:21:92\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯\n\n"
+    },
+    {
+      "phase": "typecheck",
+      "command": "pnpm typecheck",
+      "startedAt": "2026-10-23T10:57:03.633Z",
+      "finishedAt": "2026-10-23T10:57:05.253Z",
+      "exit_code": 0,
+      "output": "\n> tradequote-agent@0.1.0 typecheck D:\\code\\tradequote-agent-b01-integration\n> tsc --noEmit\n\n"
+    },
+    {
+      "phase": "probe",
+      "command": "ELECTRON_RUN_AS_NODE=1 electron node_modules/vitest/vitest.mjs run --config packages/infrastructure/probes/vitest.config.ts",
+      "startedAt": "2026-10-23T10:57:05.344Z",
+      "finishedAt": "2026-10-23T10:57:06.019Z",
+      "exit_code": 1,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01-integration\n\n ❯ packages/infrastructure/probes/migration-lineage.probe.ts (2 tests | 2 failed) 15ms\n   × proposed reject policy: synthetic_unrecognized_6 must not be accepted merely by version/hash 9ms\n   × proposed reject policy: ledger_with_missing_immutable_trigger must not be accepted merely by version/hash 4ms\n\n Test Files  1 failed (1)\n      Tests  2 failed (2)\n   Start at  18:57:05\n   Duration  262ms (transform 45%, import 30%, tests 19%, worker 6%)\n\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/probes/migration-lineage.probe.ts > proposed reject policy: synthetic_unrecognized_6 must not be accepted merely by version/hash\n FAIL  packages/infrastructure/probes/migration-lineage.probe.ts > proposed reject policy: ledger_with_missing_immutable_trigger must not be accepted merely by version/hash\nAssertionError: unrecognized schema must be rejected before stamping current lineage: expected null not to be null\n ❯ packages/infrastructure/probes/migration-lineage.probe.ts:73:13\n     71|         error,\n     72|         \"unrecognized schema must be rejected before stamping current …\n     73|       ).not.toBeNull();\n       |             ^\n     74|       expect(schema()).toBe(before);\n     75|     } finally {\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯\n\n"
+    },
+    {
+      "phase": "check",
+      "command": "pnpm check",
+      "startedAt": "2026-10-23T11:00:35.376Z",
+      "finishedAt": "2026-10-23T11:00:38.286Z",
+      "exit_code": 0,
+      "output": "\n> tradequote-agent@0.1.0 check D:\\code\\tradequote-agent-b01-integration\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 113 files in 45ms. No fixes applied.\nTAP version 13\n# Subtest: renderer cannot reach Node, database or desktop internals through import forms\nok 1 - renderer cannot reach Node, database or desktop internals through import forms\n  ---\n  duration_ms: 11.9052\n  type: 'test'\n  ...\n# Subtest: pure modules use public contracts while other platform dependencies are rejected\nok 2 - pure modules use public contracts while other platform dependencies are rejected\n  ---\n  duration_ms: 2.7044\n  type: 'test'\n  ...\n# Subtest: domain permits exact pure decimal dependency without opening contracts or SDK imports\nok 3 - domain permits exact pure decimal dependency without opening contracts or SDK imports\n  ---\n  duration_ms: 0.6391\n  type: 'test'\n  ...\n# Subtest: committed icon resources match their source manifest\nok 4 - committed icon resources match their source manifest\n  ---\n  duration_ms: 3.0938\n  type: 'test'\n  ...\n# Subtest: editing either SVG or packaged icon without generation blocks the build\nok 5 - editing either SVG or packaged icon without generation blocks the build\n  ---\n  duration_ms: 17.618\n  type: 'test'\n  ...\n# Subtest: macOS native process and runtime display TradeQuote while upstream Electron stays intact\nok 6 - macOS native process and runtime display TradeQuote while upstream Electron stays intact # SKIP\n  ---\n  duration_ms: 1.5344\n  type: 'test'\n  ...\n1..6\n# tests 6\n# suites 0\n# pass 5\n# fail 0\n# cancelled 0\n# skipped 1\n# todo 0\n# duration_ms 207.078\nModule boundaries passed\n\n> tradequote-agent@0.1.0 wiki:check D:\\code\\tradequote-agent-b01-integration\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 177,\n  \"lines\": 48416,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 110,\n  \"semantic\": 94,\n  \"reachable\": 110\n}\n"
+    },
+    {
+      "phase": "sync",
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 6c76fb991f3135d6a48362c1b242e46af6641817",
+      "startedAt": "2026-10-23T11:00:38.378Z",
+      "finishedAt": "2026-10-23T11:00:39.385Z",
+      "exit_code": 0,
+      "output": "{\n  \"base\": \"6c76fb991f3135d6a48362c1b242e46af6641817\",\n  \"status\": \"passed\",\n  \"codeFiles\": 6,\n  \"knowledgePages\": 9,\n  \"tasks\": 2,\n  \"errors\": []\n}\n"
+    },
+    {
+      "phase": "focused",
+      "command": "ELECTRON_RUN_AS_NODE=1 electron node_modules/vitest/vitest.mjs run packages/infrastructure/src/wiki-check-integration.test.ts packages/infrastructure/src/check-store.test.ts packages/contracts/src/checks.test.ts packages/infrastructure/src/migrations.test.ts",
+      "startedAt": "2026-10-23T11:01:09.028Z",
+      "finishedAt": "2026-10-23T11:01:11.627Z",
+      "exit_code": 0,
+      "output": "\n RUN  v5.0.5 D:/code/tradequote-agent-b01-integration\n\n\n Test Files  4 passed (4)\n      Tests  53 passed (53)\n   Start at  19:01:09\n   Duration  2.17s (tests 60%, import 34%, transform 5%, worker 1%)\n\n"
+    },
+    {
+      "phase": "unit",
+      "command": "pnpm test",
+      "startedAt": "2026-10-23T11:01:11.721Z",
+      "finishedAt": "2026-10-23T11:01:17.507Z",
+      "exit_code": 1,
+      "output": "\n> tradequote-agent@0.1.0 test D:\\code\\tradequote-agent-b01-integration\n> node scripts/test-unit.mjs\n\n\n RUN  v5.0.5 D:/code/tradequote-agent-b01-integration\n\n ❯ packages/infrastructure/src/storage.test.ts (4 tests | 1 failed) 199ms\n   × stores immutable content hashes and rejects traversal, tampering and symlinks 39ms\n\n Test Files  1 failed | 23 passed (24)\n      Tests  1 failed | 183 passed (184)\n   Start at  19:01:12\n   Duration  4.45s (import 53%, tests 27%, environment 14%, transform 4%, worker 1%)\n\n    Isolate  24 workers spawned · ~619ms startup each (spawn + environment, per file)\n             at least ~372ms faster with isolate: false — reuses workers across files instead of one per file\n\n ELIFECYCLE  Test failed. See above for more details.\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  packages/infrastructure/src/storage.test.ts > stores immutable content hashes and rejects traversal, tampering and symlinks\nError: EPERM: operation not permitted, symlink 'D:\\code\\tradequote-agent-b01-integration\\.runtime\\test-temp\\tradequote-test-wR8L8S\\169e73adeeb9ee2cbf78b5878c95ebef88d580774a6005a367c8e35458658027' -> 'D:\\code\\tradequote-agent-b01-integration\\.runtime\\test-temp\\tradequote-test-wR8L8S\\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'\n ❯ packages/infrastructure/src/storage.test.ts:107:3\n    105|   expect(await store.verifyHash(id)).toBe(false);\n    106|   const other = \"a\".repeat(64);\n    107|   symlinkSync(join(root, id), join(root, other));\n       |   ^\n    108|   await expect(store.readById(other)).rejects.toThrow(\"ARTIFACT_NOT_RE…\n    109| });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n"
+    },
+    {
+      "phase": "build",
+      "command": "pnpm build",
+      "startedAt": "2026-10-23T11:01:17.600Z",
+      "finishedAt": "2026-10-23T11:01:19.962Z",
+      "exit_code": 0,
+      "output": "\n> tradequote-agent@0.1.0 build D:\\code\\tradequote-agent-b01-integration\n> node scripts/check-icons.mjs && pnpm --filter @tradequote/desktop build\n\nApplication icons passed: SVG/1024 PNG/macOS ICNS/Windows ICO\n\n> @tradequote/desktop@0.1.0 build D:\\code\\tradequote-agent-b01-integration\\apps\\desktop\n> electron-vite build\n\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 255 modules transformed.\nrendering chunks...\nout/main/worker.js                 1.26 kB\nout/main/index.js                  9.54 kB\nout/main/chunks/src-CUduJHcE.js  572.16 kB\n\n✓ built in 145ms\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 111 modules transformed.\nrendering chunks...\nout/preload/index.js  232.84 kB\n\n✓ built in 45ms\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 2109 modules transformed.\nrendering chunks...\nout/renderer/index.html                   0.64 kB\nout/renderer/assets/index-ptglloFo.css   15.26 kB\nout/renderer/assets/index-D4fbU389.js   534.88 kB\n\n✓ built in 379ms\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
+    },
+    {
+      "phase": "wiki",
+      "command": "pnpm wiki:test",
+      "startedAt": "2026-10-23T11:01:20.052Z",
+      "finishedAt": "2026-10-23T11:01:48.960Z",
+      "exit_code": 1,
+      "output": "\n> tradequote-agent@0.1.0 wiki:test D:\\code\\tradequote-agent-b01-integration\n> node --test wiki-project/scripts/wiki-tools.test.mjs wiki-project/scripts/wiki-sync.test.mjs\n\nTAP version 13\n# Subtest: runtime version pin is a mandatory Wiki-synchronized configuration change\nok 1 - runtime version pin is a mandatory Wiki-synchronized configuration change\n  ---\n  duration_ms: 1.9446\n  type: 'test'\n  ...\n# Subtest: code with related knowledge, task and appended log passes\nok 2 - code with related knowledge, task and appended log passes\n  ---\n  duration_ms: 0.3893\n  type: 'test'\n  ...\n# Subtest: generated snapshots alone cannot satisfy knowledge/task/log changes\nok 3 - generated snapshots alone cannot satisfy knowledge/task/log changes\n  ---\n  duration_ms: 0.1799\n  type: 'test'\n  ...\n# Subtest: metadata-only or whitespace-only edits cannot satisfy semantic update\nok 4 - metadata-only or whitespace-only edits cannot satisfy semantic update\n  ---\n  duration_ms: 0.281\n  type: 'test'\n  ...\n# Subtest: each source needs its own mapped knowledge, unrelated pages do not suffice\nok 5 - each source needs its own mapped knowledge, unrelated pages do not suffice\n  ---\n  duration_ms: 0.2201\n  type: 'test'\n  ...\n# Subtest: deleted source uses baseline mapping; unknown source fails\nok 6 - deleted source uses baseline mapping; unknown source fails\n  ---\n  duration_ms: 0.2634\n  type: 'test'\n  ...\n# Subtest: history rewrite and removed task do not pass\nok 7 - history rewrite and removed task do not pass\n  ---\n  duration_ms: 1.1438\n  type: 'test'\n  ...\n# Subtest: Wiki maintenance code requires workflow knowledge, not generated data\nok 8 - Wiki maintenance code requires workflow knowledge, not generated data\n  ---\n  duration_ms: 0.1685\n  type: 'test'\n  ...\n# Subtest: ordinary documentation-only edits do not trigger code delivery check\nok 9 - ordinary documentation-only edits do not trigger code delivery check\n  ---\n  duration_ms: 0.346\n  type: 'test'\n  ...\n# Subtest: real Git baseline includes committed, unstaged and untracked sources\nok 10 - real Git baseline includes committed, unstaged and untracked sources\n  ---\n  duration_ms: 1338.7892\n  type: 'test'\n  ...\n# Subtest: SVG assets require semantic Wiki, task and append-only log changes\nok 11 - SVG assets require semantic Wiki, task and append-only log changes\n  ---\n  duration_ms: 0.3382\n  type: 'test'\n  ...\n# Subtest: same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\nok 12 - same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\n  ---\n  duration_ms: 2578.6749\n  type: 'test'\n  ...\n# Subtest: source drift fails without writes; generation repairs snapshot while preserving ingest baseline\nok 13 - source drift fails without writes; generation repairs snapshot while preserving ingest baseline\n  ---\n  duration_ms: 1256.1305\n  type: 'test'\n  ...\n# Subtest: explicit ingest records a non-Git project honestly\nok 14 - explicit ingest records a non-Git project honestly\n  ---\n  duration_ms: 1140.9721\n  type: 'test'\n  ...\n# Subtest: tool inventory names come from definitions, not nested headers/output/schema fields\nok 15 - tool inventory names come from definitions, not nested headers/output/schema fields\n  ---\n  duration_ms: 649.3836\n  type: 'test'\n  ...\n# Subtest: new unclassified source fails; missing knowledge target and stale mapping fail\nok 16 - new unclassified source fails; missing knowledge target and stale mapping fail\n  ---\n  duration_ms: 867.1536\n  type: 'test'\n  ...\n# Subtest: generated coverage tampering is detected by lint and remains untouched\nok 17 - generated coverage tampering is detected by lint and remains untouched\n  ---\n  duration_ms: 1053.8817\n  type: 'test'\n  ...\n# Subtest: sensitive filename is excluded before read; external source symlink is not followed\nnot ok 18 - sensitive filename is excluded before read; external source symlink is not followed\n  ---\n  duration_ms: 355.976\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:129:1'\n  failureType: 'testCodeFailure'\n  error: \"EPERM: operation not permitted, symlink 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\.runtime\\\\test-temp\\\\tradequote-private-fixture-bQCOlm\\\\external.ts' -> 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\.runtime\\\\test-temp\\\\tradequote-wiki-test-vFlZpF\\\\linked.ts'\"\n  code: 'EPERM'\n  stack: |-\n    Object.symlinkSync (node:fs:1892:11)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b01-integration/wiki-project/scripts/wiki-tools.test.mjs:137:6)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n    Test.postRun (node:internal/test_runner/test:1173:19)\n    Test.run (node:internal/test_runner/test:1101:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)\n  ...\n# Subtest: Wiki and generated-output symlinks cannot write outside project\nnot ok 19 - Wiki and generated-output symlinks cannot write outside project\n  ---\n  duration_ms: 343.5668\n  type: 'test'\n  location: 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\wiki-project\\\\scripts\\\\wiki-tools.test.mjs:143:1'\n  failureType: 'testCodeFailure'\n  error: \"EPERM: operation not permitted, symlink 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\.runtime\\\\test-temp\\\\tradequote-wiki-outside-UKUVrg' -> 'D:\\\\code\\\\tradequote-agent-b01-integration\\\\.runtime\\\\test-temp\\\\tradequote-wiki-test-3eYY4N\\\\wiki-project\\\\raw\\\\generated'\"\n  code: 'EPERM'\n  stack: |-\n    Object.symlinkSync (node:fs:1892:11)\n    TestContext.<anonymous> (file:///D:/code/tradequote-agent-b01-integration/wiki-project/scripts/wiki-tools.test.mjs:149:6)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:744:18)\n    Test.postRun (node:internal/test_runner/test:1173:19)\n    Test.run (node:internal/test_runner/test:1101:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)\n  ...\n# Subtest: missing schema field\nok 20 - missing schema field\n  ---\n  duration_ms: 966.2785\n  type: 'test'\n  ...\n# Subtest: bad type\nok 21 - bad type\n  ---\n  duration_ms: 989.6394\n  type: 'test'\n  ...\n# Subtest: bad date\nok 22 - bad date\n  ---\n  duration_ms: 980.1458\n  type: 'test'\n  ...\n# Subtest: bad status\nok 23 - bad status\n  ---\n  duration_ms: 986.241\n  type: 'test'\n  ...\n# Subtest: missing wiki target\nok 24 - missing wiki target\n  ---\n  duration_ms: 971.7717\n  type: 'test'\n  ...\n# Subtest: missing markdown target\nok 25 - missing markdown target\n  ---\n  duration_ms: 988.1934\n  type: 'test'\n  ...\n# Subtest: invalid source line\nok 26 - invalid source line\n  ---\n  duration_ms: 964.3081\n  type: 'test'\n  ...\n# Subtest: verified without code evidence\nok 27 - verified without code evidence\n  ---\n  duration_ms: 997.5353\n  type: 'test'\n  ...\n# Subtest: source escaping project\nok 28 - source escaping project\n  ---\n  duration_ms: 996.616\n  type: 'test'\n  ...\n# Subtest: unfilled placeholder\nok 29 - unfilled placeholder\n  ---\n  duration_ms: 987.6292\n  type: 'test'\n  ...\n# Subtest: all sources are validated even after a valid implementation source\nok 30 - all sources are validated even after a valid implementation source\n  ---\n  duration_ms: 980.8332\n  type: 'test'\n  ...\n# Subtest: orphan pages and duplicate basenames are rejected\nok 31 - orphan pages and duplicate basenames are rejected\n  ---\n  duration_ms: 1627.2786\n  type: 'test'\n  ...\n# Subtest: completed task requires actual verification record\nok 32 - completed task requires actual verification record\n  ---\n  duration_ms: 982.4483\n  type: 'test'\n  ...\n# Subtest: archived source cannot bypass inspection through silent changes\nok 33 - archived source cannot bypass inspection through silent changes\n  ---\n  duration_ms: 986.5457\n  type: 'test'\n  ...\n# Subtest: source references cannot open excluded runtime data\nok 34 - source references cannot open excluded runtime data\n  ---\n  duration_ms: 997.182\n  type: 'test'\n  ...\n# Subtest: new JSON evidence is checked and sensitive Wiki filenames are rejected before read\nok 35 - new JSON evidence is checked and sensitive Wiki filenames are rejected before read\n  ---\n  duration_ms: 1279.1024\n  type: 'test'\n  ...\n# Subtest: secret/JWT/private-key/PII detections redact the value in diagnostics\nok 36 - secret/JWT/private-key/PII detections redact the value in diagnostics\n  ---\n  duration_ms: 2909.0178\n  type: 'test'\n  ...\n1..36\n# tests 36\n# suites 0\n# pass 34\n# fail 2\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 28024.5832\n ELIFECYCLE  Command failed with exit code 1.\n"
+    },
+    {
+      "phase": "check",
+      "command": "pnpm check",
+      "startedAt": "2026-10-23T11:03:00.593Z",
+      "finishedAt": "2026-10-23T11:03:03.501Z",
+      "exit_code": 0,
+      "output": "\n> tradequote-agent@0.1.0 check D:\\code\\tradequote-agent-b01-integration\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 113 files in 43ms. No fixes applied.\nTAP version 13\n# Subtest: renderer cannot reach Node, database or desktop internals through import forms\nok 1 - renderer cannot reach Node, database or desktop internals through import forms\n  ---\n  duration_ms: 11.9602\n  type: 'test'\n  ...\n# Subtest: pure modules use public contracts while other platform dependencies are rejected\nok 2 - pure modules use public contracts while other platform dependencies are rejected\n  ---\n  duration_ms: 2.3609\n  type: 'test'\n  ...\n# Subtest: domain permits exact pure decimal dependency without opening contracts or SDK imports\nok 3 - domain permits exact pure decimal dependency without opening contracts or SDK imports\n  ---\n  duration_ms: 0.6324\n  type: 'test'\n  ...\n# Subtest: committed icon resources match their source manifest\nok 4 - committed icon resources match their source manifest\n  ---\n  duration_ms: 3.5637\n  type: 'test'\n  ...\n# Subtest: editing either SVG or packaged icon without generation blocks the build\nok 5 - editing either SVG or packaged icon without generation blocks the build\n  ---\n  duration_ms: 17.134\n  type: 'test'\n  ...\n# Subtest: macOS native process and runtime display TradeQuote while upstream Electron stays intact\nok 6 - macOS native process and runtime display TradeQuote while upstream Electron stays intact # SKIP\n  ---\n  duration_ms: 1.4775\n  type: 'test'\n  ...\n1..6\n# tests 6\n# suites 0\n# pass 5\n# fail 0\n# cancelled 0\n# skipped 1\n# todo 0\n# duration_ms 209.5022\nModule boundaries passed\n\n> tradequote-agent@0.1.0 wiki:check D:\\code\\tradequote-agent-b01-integration\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 177,\n  \"lines\": 48416,\n  \"generated\": 5,\n  \"excluded\": 20\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 110,\n  \"semantic\": 94,\n  \"reachable\": 110\n}\n"
+    },
+    {
+      "phase": "sync",
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 6c76fb991f3135d6a48362c1b242e46af6641817",
+      "startedAt": "2026-10-23T11:03:03.590Z",
+      "finishedAt": "2026-10-23T11:03:04.606Z",
+      "exit_code": 0,
+      "output": "{\n  \"base\": \"6c76fb991f3135d6a48362c1b242e46af6641817\",\n  \"status\": \"passed\",\n  \"codeFiles\": 6,\n  \"knowledgePages\": 9,\n  \"tasks\": 2,\n  \"errors\": []\n}\n"
+    }
+  ],
+  "testedSourceSha256": {
+    "packages/infrastructure/src/index.ts": "8a2736399bd0abd6323f1477ffe90ea1ea767798ff76600a664b12ae53e5be5a",
+    "packages/infrastructure/src/wiki-check-source.ts": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+    "packages/infrastructure/src/wiki-check-integration.test.ts": "4183ab0abff5f54c288f549a7554c3aec3137af9d4402b23c842575f3062bbb7",
+    "packages/infrastructure/probes/migration-lineage.probe.ts": "ae5cb2ec16fa84611362dc1e4f59b129124a27680526898fb839c8f8d85cab7b",
+    "packages/infrastructure/probes/vitest.config.ts": "a13f7c6a881de93539eba7897f10359c7e7c14b7c551af5da0790f8998c94415"
+  },
+  "testedWikiConfigSha256": "664a41a3b32f2ac1beaac728081b11a9bacc9fcd50c6f378016ca7fc7f9ab0b3",
+  "results": {
+    "focusedPassed": 53,
+    "focusedFailed": 0,
+    "fullUnitPassed": 183,
+    "fullUnitFailed": 1,
+    "wikiRegressionPassed": 34,
+    "wikiRegressionFailed": 2,
+    "migrationDiagnosticPassed": 0,
+    "migrationDiagnosticFailed": 2
+  },
+  "migrationDiagnostic": {
+    "knownRed": true,
+    "fixed": false,
+    "realCLineageTested": false,
+    "policyApprovedByA": false,
+    "reproductionConfig": "packages/infrastructure/probes/vitest.config.ts"
+  },
+  "preservation": {
+    "oldRawFiles": 85,
+    "oldRawChanged": [],
+    "protectedFilesChanged": [],
+    "oldLogPrefixPreserved": true
+  },
+  "delivery": {
+    "phase": "validation_before_local_WIP_commit",
+    "localPreparation": true,
+    "committed": false,
+    "pushed": false,
+    "merged": false,
+    "formalIntegrationEnabled": false
+  },
+  "finalChecks": {
+    "focused": {
+      "exit_code": 0,
+      "finishedAt": "2026-10-23T11:01:11.627Z"
+    },
+    "typecheck": {
+      "exit_code": 0,
+      "finishedAt": "2026-10-23T10:57:05.253Z"
+    },
+    "unit": {
+      "exit_code": 1,
+      "finishedAt": "2026-10-23T11:01:17.507Z"
+    },
+    "build": {
+      "exit_code": 0,
+      "finishedAt": "2026-10-23T11:01:19.962Z"
+    },
+    "wiki": {
+      "exit_code": 1,
+      "finishedAt": "2026-10-23T11:01:48.960Z"
+    },
+    "check": {
+      "exit_code": 0,
+      "finishedAt": "2026-10-23T11:03:03.501Z"
+    },
+    "sync": {
+      "exit_code": 0,
+      "finishedAt": "2026-10-23T11:03:04.606Z"
+    },
+    "probe": {
+      "exit_code": 1,
+      "finishedAt": "2026-10-23T10:57:06.019Z"
+    }
+  },
+  "finalSourceHashesMatch": true,
+  "scope": "B public-port/error semantics preparation and known-red synthetic migration probes; draft originals missing, A migration plan unapproved, no final acceptance claim."
+}
