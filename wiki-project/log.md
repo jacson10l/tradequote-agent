@@ -1218,3 +1218,38 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 - 补「合成占位」直接物证：`wiki-project/scripts/demo-tools/add_mdf_bolt.py` 中 MDF/BOLT 的 source_url 全为 `_1600000001.html`…`_1600000016.html` 编造占位 URL，脚本头自述「来源=搜索结果页归纳」，证明 MDF-001/BOLT-001 非真实详情页采集。
 - 将上述物证与快照客观说明写入 `demo_data/SOURCE-PROVENANCE.md` 第三/五节；同步 `raw/file-provenance.json` 中 SOURCE-PROVENANCE 哈希（ec3cf5af→e5148a23）。
 - lint 复核：SOURCE-PROVENANCE.md / MANIFEST.md 均无报错；剩余 ARCHIVE_HASH_MISMATCH / demo-tools README / A01f TASK_SECTION / listing-rules.test.ts 均为预存历史问题，与本次无关。
+
+## 2026-10-31 A 替换 MDF 板材合成占位数据为真实采集（阿里国际站截图）
+
+- 背景：用户指出原 CSV 中「板材」为虚拟信息（合成占位），要求在 alibaba.com 截图真实商品并替换。原数据 `MDF-001`~`MDF-008` 的 `来源` 均为 `_1600000001.html`~`_1600000008.html` 编造占位 URL（`SOURCE-PROVENANCE.md` 已认定，生成脚本 `add_mdf_bolt.py` 为物证）。
+- 采集：用户提供 7 张真实商品页截图（其中第 1/7 张为同一商品「Gloss MDF Board」，合并），另第 6 个商品经二次截图替换为「三聚氰胺贴面 MDF 装饰板」。最终 6 个真实 SKU，字段以截图为准、不臆造。
+- 替换结果（`catalog_converted.csv` 板材段 8 SKU/24 行 → 6 SKU/18 行；`catalog_demo.csv` MDF-001 → 1601359234640）：
+  1. `1601359234640` Gloss MDF Board — Linyi Chanta Intl，sheet/CNY，500→40.51 / 5000→28.13 / 500000→13.11
+  2. `1601385909818` Free Sample Sublimation Placemat — Linyi Chanta Intl，sheet/CNY，同上三档
+  3. `1601639031491` Raw MDF 1220×2440 1-30mm（原木）— Beijing Green Technology，piece/CNY，1000→16.48 / 5000→14.50
+  4. `1601583725738` 3mm Wood Natural Veneer — Shandong Xinlida，piece/CNY，50→55.60 / 1000→43.02 / 10000→19.86
+  5. `1601634742061` Ultra-Thin Waterproof 3mm/6mm — Beijing Green Technology，sheet/CNY，500→11.98 / 2000→11.32 / 5000→10.66
+  6. `1600614614202` Melamine Faced Decor Board 18mm — Guangxi Hengxin Yiye Wood，piece/CNY，1→66.19（区间价 38.99–238.12）
+- 币种/单位：按截图统一为 CNY，单位 sheet 或 piece（原为 USD/m²）。
+- 归档：截图存 `demo_data/source-archive/`（mdf-real-01~06 共 7 文件），字段映射与逐条真实值记录于 `demo_data/source-archive/MDF-REAL-DATA.md`。
+- 文档同步：`SOURCE-PROVENANCE.md`（MDF 由「合成占位」改为「真实采集」分层表述）、`MANIFEST.md`（主演示样本表 MDF 行与来源说明）已更新。生成脚本 `add_mdf_bolt.py` 保留原样作为历史物证，未改（BOLT 紧固件仍为合成占位，不在本轮范围）。
+- 待补：板材 6 SKU 字段值未逐项人工复核，仍标「真实采集、真实性待审核」；BOLT-001 紧固件仍未替换。
+
+## 2026-10-31 A 替换 BOLT 紧固件合成占位数据为真实采集（阿里国际站截图）
+
+- 背景：延续板材替换，用户再提供 7 张六角螺栓（紧固件）真实商品页截图（每张顶部地址栏含完整 URL），要求替换 BOLT-001~008 合成占位数据，主演示档与全量档都要改。
+- 替换结果（`catalog_converted.csv` 紧固件段 8 SKU/24 行 → 7 SKU/19 行；`catalog_demo.csv` BOLT-001 → 1600593893760）：
+  1. `1600593893760` DIN933 不锈钢六角螺栓 M6/M8/M10 — Taizhou Fengye，piece/CNY，1000→0.331 / 10000→0.2648
+  2. `1601578319241` 8级 SS304/SS316 六角螺栓 M5-M10 — Jiaxing Haina，piece/CNY，1000→0.1986 / 10000→0.1324
+  3. `62245798159` 316 六角螺栓螺母垫圈（11位ID，按截图原样） — Jiaxing Goshen，piece/CNY，1000→0.331 / 10000→0.1986 / 50000→0.1324
+  4. `160151254159` DIN912 内六角 8.8/10.9/12.9（11位ID） — Jiaxing Goshen，piece/CNY，1000→0.2648 / 5000→0.1986 / 10000→0.0662
+  5. `1600961286251` 碳钢 DIN933/931 8.8/10.9/12.9（地址栏截断，ID边界待核） — Hebei Rongfe，piece/CNY，1000→0.331 / 5000→0.1986 / 10000→0.1324 / 20000→0.0662
+  6. `1601382262416` DIN933 A2-70 SS304 — Jiaxing Haina，piece/CNY，1000→3.91 / 10000→1.86
+  7. `160076373304` DIN6921 法兰螺栓（11位ID） — Foshan Zhongqin Likang，piece/CNY，100→0.4633 / 10000→0.1986 / 100000→0.0662
+- 币种/单位：按截图统一 CNY，单位 piece（原为 USD/kg）。
+- 归档：截图存 `demo_data/source-archive/`（bolt-real-01~07 共 7 文件），字段映射记录于 `source-archive/BOLT-REAL-DATA.md`。
+- 文档同步：`SOURCE-PROVENANCE.md`（BOLT 由「合成占位」改为「真实采集」，结论/证据链/口径/待补四节更新）、`MANIFEST.md`（主演示样本 BOLT 行与来源说明）已更新；`log.md` 本段追加。
+- 待核（不臆造）：紧固件 3 个 11 位 product_id（62245798159 / 160151254159 / 160076373304）与 1 个地址栏截断 ID（1600961286251），按截图原样记录；如需精确 13 位，须用户提供完整地址栏截图核对。
+- 现状：`catalog_converted.csv` 与 `catalog_demo.csv` 中 MDF、BOLT 均无 `_16000000XX` 合成占位残留；生成脚本 `add_mdf_bolt.py` 保留原样作为历史物证。
+
+
