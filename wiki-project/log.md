@@ -338,3 +338,5 @@ B00a P1远端交接：[PR #8](https://github.com/jacson10l/tradequote-agent/pull
 ## 2026-10-31 事件证据线：B 政策交付 A（三方并行）
 
 C 转达三方并行分工（B 定政策 → A 实现 → C 复验），并确认快照项已针对 `fdd571a` 复验通过（记录 `66cc22b`）、无需返工。B 的资格政策前两轮已落地，本轮把「政策交付给 A」写成固定锚点：政策与契约/Wiki 同批固定在 `codex/b-maintenance-evidence-increment` = `56f702f`。A 实现写入事务的三个验收点写入 [[B00a-P1知识整理与维护契约]] 的「政策交付给 A」：① 权威读取（`evidenceIds` 只解析到六类证据事件、不得指向生命周期事件）；② 工作区/目标版本绑定（证据 workspace 等于问题工作区、逐类针对固定目标版本、交换对象不可改写且 issueVersion +1）；③ 资格核验（事务内 `evaluateMaintenanceResolution` 首错判定、任一失败整体回滚）。正反例 EVID-01～12 是 A 回归最小契约面。B 侧无剩余政策缺口，转 A 实现与 C 复验。
+
+2026-10-31 B对A维护证据缺口裁定（codex/b-maintenance-evidence-increment，提交8b0d656）：A按cdf3342接入后暴露两处"缺口"，均裁定为预期设计。①三类证据（source.validity_confirmed/integrity_reverified/issue.review_decision）无持久化事实= P0/P1边界，契约不改，产生命令属P1维护实现，其中issue.review_decision是全部issue kind的dismiss唯一依据，列为P1第一优先级；②source_withdrawn只能dismiss=正确设计，resolve由["knowledge.revision_published"]置空（知识发布证据绑定知识目标，对来源目标命中evidence_target_mismatch），来源撤回是人工决策只允许issue.review_decision dismiss。详见[[B对A维护证据缺口裁定]]，维护入口保持关闭、不阻塞黑客松演示。
