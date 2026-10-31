@@ -1725,8 +1725,8 @@
       "path": "packages/domain/src/index.ts",
       "type": "ts",
       "lines": 70,
-      "bytes": 2691,
-      "sha256": "e30570b7eb6fa8a38ca764ddc508dd1ac1529ce348abe95b21e00a16b32142e0",
+      "bytes": 2621,
+      "sha256": "5109791c08ee73895daa9d31d7210850a0ff4d8f6bf8fb62d4d38a1943598594",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
@@ -2284,8 +2284,8 @@
       "path": "packages/infrastructure/src/index.ts",
       "type": "ts",
       "lines": 170,
-      "bytes": 6556,
-      "sha256": "126029986a4e158c31238ce65de729c4167fc8686edcb78324358f49c0bfed3c",
+      "bytes": 6386,
+      "sha256": "51cd33d9dcb513a817cb9bc677784e1cc0e3f4711256087b1d7c0e8d038f638f",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
@@ -2580,9 +2580,9 @@
     {
       "path": "packages/infrastructure/src/wiki-store.test.ts",
       "type": "ts",
-      "lines": 1697,
-      "bytes": 57808,
-      "sha256": "dc87d3bd1c917d2be6973b22d33fa4be6d83c25455a6a7ced4f2df56db11cd23",
+      "lines": 1725,
+      "bytes": 58833,
+      "sha256": "fc0cc382b9b7d9498870dd088dafd6b5673be50f0a28b7aba9493dc5529cd168",
       "role": "A01c检索引用回归：不回退、分页、引用闭环与消费事务",
       "pages": [
         "wiki/A01c检索引用实现.md",

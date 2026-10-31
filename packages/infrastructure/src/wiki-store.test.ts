@@ -1258,6 +1258,34 @@ it("A01e-1: source.withdraw 撤回来源并登记维护队列，重复撤回被�
   repo.close();
 });
 
+it("A01e-1b: maintenance write retries replay the first result and event identity", async () => {
+  const file = join(temp(), "wiki-maintenance-replay.sqlite");
+  const { repo, workspaceId } = openRepo(file);
+  const source = await stageSource(repo, workspaceId);
+  const command = write("source.withdraw", {
+    sourceRevisionId: source.sourceRevisionId,
+    expectedLifecycleVersion: 1,
+    note: "同键重试",
+  });
+  const first = await repo.executeWikiMaintenance(command, host(workspaceId));
+  const replay = await repo.executeWikiMaintenance(command, { ...host(workspaceId), now: LATER });
+  expect(replay).toEqual(first);
+  const db = new Database(file);
+  try {
+    expect(
+      db.prepare("SELECT COUNT(*) AS count FROM outbox WHERE type='source.withdrawn'").get(),
+    ).toEqual({ count: 1 });
+    expect(
+      db
+        .prepare("SELECT COUNT(*) AS count FROM idempotency WHERE key=?")
+        .get(command.idempotencyKey),
+    ).toEqual({ count: 1 });
+  } finally {
+    db.close();
+  }
+  repo.close();
+});
+
 it("A01e-2: getMaintenance 稳定分页，resolveMaintenance 按 OCC 推进生命周期", async () => {
   const file = join(temp(), "wiki-maintenance-resolve.sqlite");
   const { repo, workspaceId } = openRepo(file);
