@@ -8,6 +8,7 @@
 | --- | --- | --- |
 | `catalog_demo.csv` | **主演示（冻结）** | 14 行、4 个 SKU 的小样本，覆盖 3 品类 × 2 币种 × 3 单位 × 阶梯价 |
 | `catalog_converted.csv` | **备用、非主演示** | 300 行、86 个 SKU 的全量目录，仅作备用与扩充源 |
+| `demo_check_rules.csv` | 规则库 | 31 条；其中 `category=platform_policy` 15 条（13 条 `OFFICIAL_VERIFIED` + 2 条 `NOT_MODELLED_YET` 占位）。2026-10-31 按国际站发品规则修正：7 改、删 1 条臆造引用（`R-PL-HS-MISSING`）、增 6 条必填字段规则。校验见 `reports/csv-compliance-alibaba-2026-10-31.md` 第五节 |
 
 ## 主演示样本构成（catalog_demo.csv）
 

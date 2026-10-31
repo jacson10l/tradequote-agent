@@ -1171,3 +1171,36 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 - 审计报告落在 `reports/csv-compliance-alibaba-2026-10-31.md`（新建 reports/ 目录，不入 wiki-project，不触发 P0 wiki-sync）。
 - 规则库追加：`demo_data/demo_check_rules.csv` 18→26 条，新增 8 条 platform_policy（OFFICIAL_VERIFIED）——R-PL-TITLE-ZH(中文标题,BLOCK,70)、R-PL-CAT-LEAF(非叶子类目,BLOCK,86)、R-PL-DUP-SKU(同SKU多行重复铺货,BLOCK,84)、R-PL-MOQ-REAL(低MOQ/低价真实可成交,REVIEW,45)、R-PL-3RD-PARTY(描述含第三方主体/外链,BLOCK,86)、R-PL-FIBRE-100(成分100%声称冲突,BLOCK,3)、R-PL-CURR-MIX(币种混排,WARN,16)、R-PL-HS-MISSING(缺HS编码,WARN,86)；dataset_hits 为真实命中数，BOM/换行/原18条保持。
 - 工程缺口（待决策，未改动）：运行时规则类别枚举 RuleCategorySchema=z.enum(["commercial_terms","platform_guidance"]) 与 CSV 的 category 值域（platform_policy/target_country_regulation/contract_terms/internal_template/cultural_sensitivity）不一致，两套命名体系未打通；CSV 为演示数据，代码层才是运行时契约。要让系统真正拦截上述违规，需在 TS 契约层建模对应规则，属更大改动，未在本轮擅自扩展。
+
+## 2026-10-31 CSV 合规复核 v2（重读官方规则后的二次核对，只读）
+
+- 用户要求「认真阅读链接里的文档并再次检查 CSV 是否合规」。本轮实抓两个链接：`rulechannel.alibaba.com/icbu#/rules` 为前端路由，仅渲染出首屏 9 条目录（禁限售 2025-11-12、商品召回、类目资质准入、2026-10-30 新发的游乐设施销往欧盟合规要求等），**不含「商品信息发布」正文章节**；`onetouch.alibaba.com` 为履约平台（订单/结算/物流/数智报关/财税 + 四种出口方式），**不规定发品字段**。发品正文继续取自同域规则全文页第 21–33 条与官方《商品信息濫发处罚规则解读》。
+- 报告 `reports/csv-compliance-alibaba-2026-10-31.md` 就地重写为 v2，并新增「〇、相对 v1 的更正」4 条：①唯一标题 86→**85**（`1601786809324` 与 `1601712173722` 标题逐字相同，v1 漏掉的真实重复铺货信号）；②含 CE 的证书行 6→**18/80**（另 12 条混在 `CE;RoHS;REACH` 等组合串内）；③按行发品的后果补上门槛量化——300 行/86 实体=**214 条重复(71.3%)**，同时满足官方店铺级门槛（≥10% 且 ≥100）→ **整店 7 天搜索降权**；④「平台规则仅 2 条、一条都检不出」已过期（现 10 条 `platform_policy`），但「检不出」仍成立，原因换成工程层三条。
+- 新增复核结论（本轮首次给出）：8 条新规则的 `dataset_hits` **全部与独立复算一致**（70/86/84/45/86/3/16/86），但 **4 条引用站不住**——`R-PL-HS-MISSING` 的 `source_quote`「交易品须填写美国海关编码(HS码)；定制品可不填」在一达通首页不存在且报关口径错误（应为中国海关商品编码），属「标注 OFFICIAL_VERIFIED 的臆造引用」；`R-PL-TITLE-ZH` 引用的句子出自第 21 条(三) 而非第 24 条；`R-PL-3RD-PARTY` 引用的第 21/23 条推不出「描述不得含供应商名」；`R-PL-CURR-MIX` 的第 27 条无「统一币种」要求。本轮**未改动** `demo_check_rules.csv`（规则语义归 B，需 B 决定重取来源或降级后再改）。
+- 规则覆盖缺口量化：已覆盖 6 类（标题语言/类目/重复铺货/MOQ 与价格真实性/描述第三方信息/币种），**未覆盖 6 类**——关键词(25)、属性品牌型号产地尺码(26)、发货时间+包装+港口+付款方式+供货总量(27)、图片(28)、描述内容(29)、虚假证书宣称；即 A 层最致命的「缺 6 类必填字段」规则层一条未建。
+- 工程层三条硬证据：全仓 `grep -rn "demo_check_rules|catalog_converted|demo_data"` 在 apps/packages/experiments/scripts/tests 下**零命中**（无代码加载）；`packages/contracts/src/knowledge.ts:17` 的 `RuleCategorySchema` 仅 `commercial_terms|platform_guidance` 两值，与 CSV 五个 category 值不通，新 8 条无法过运行时校验；`packages/domain/src/quote-checks.ts` 校验对象是报价而非发品，无 listing 校验路径。对外只能称「规则库已成可审计条目」，不能称「系统已按国际站规则校验」。
+- 验证：`.runtime/audit_csv_compliance.py`、`.runtime/audit_csv_details.py` 只读跑通（9 份 CSV 全量解析 + 跨表 join）；数据文件与代码本轮零改动，未提交/推送；未登录商家后台、未真实发品、未核证书真实性、未联网核价。
+
+## 2026-10-31 CSV 合规 v3：规则库修正 + 引用/命中双校验（demo_data 数据改动）
+
+- 按用户「写好后再按照链接内容复核」执行：先修规则库，再做机械复核。`demo_data/demo_check_rules.csv` 26 → 31 条（7 改 / 1 删 / 6 增），BOM 与 LF 保持，其余 19 条字段值未动。
+- 7 改：`R-PL-TITLE-ZH`（引用句实为第 21 条(三) 非第 24 条，改双引并拆段）、`R-PL-CAT-LEAF`（原引用跳过"推荐类目仅供参考…"一句却当连续文本，拆段）、`R-PL-3RD-PARTY`（原引 21/23 推不出"不得含供应商名"，改述为"整段搬用第三方商品页并保留其公司名与来源URL"，落第 23 条+第 21 条(一)）、`R-PL-DUP-SKU`（判定语改为 N 行仅价格档不同→N-1 条同标题/类目/描述链接，补引第 33 条"近似"定义）、`R-PL-MOQ-REAL`（原引用含"…"且改写，换回处罚解读整句原文）、`R-PL-FIBRE-100`（`'100%'`→原文 `'100 %'`，补第 7(1) 条第二句与第 26 条）、`R-PL-CURR-MIX`（第 27 条无"统一币种"要求，引用改原文并改注解口径）。
+- 1 删：`R-PL-HS-MISSING`——其 `source_quote`「交易品须填写美国海关编码(HS码)；定制品可不填」在一达通首页不存在，且中国出口报关应为中国海关商品编码；报关需求留在报告 3.2，不进平台发品规则库。
+- 6 增（补齐此前"一条都没有"的必填字段类）：`R-PL-IMG-MISSING`(第28条,86)、`R-PL-KW-MISSING`(第25条,WARN,86)、`R-PL-ATTR-MISSING`(第26条,86)、`R-PL-SHIP-MISSING`(第27条,26)、`R-PL-DESC-METADATA`(第29条,86)、`R-PL-CERT-FAKE`(滥发解读第五类虚假证书,18)。
+- 校验一 引用可追溯：`.runtime/verify_rules.py` 把 13 条平台规则 `source_quote` 按 ` / ` 拆段、去空白标点后与语料子串比对（`icbu_rules_21_33.txt` 条款快照、`lanfa_02ade148.txt` 处罚解读、`eu_art7.txt`）→ **13/13 通过**。校验当场抓出 `R-PL-CAT-LEAF` 的拼接引用并修正，说明机械比对能发现通读遗漏。
+- 校验二 命中可复算：`.runtime/check_hits.py` 按各规则 `logic` 重算 `dataset_hits` → **13/13 一致**；过程中修正 3 个数字：`R-PL-MOQ-REAL` 45→**53**（logic 是"MOQ≤5 或 最低档价<5"，原值只算了一腿）、`R-PL-SHIP-MISSING` 35→**26**（原值含 10 个不在目录的 product；目录内 26=16 无来源+4 两者皆空+6 仅缺包装）、`R-PL-FIBRE-100` 粗算 6 校正为 **3**（粗算误伤"100% Polyester+标题写 100% 涤纶"的一致样本）。
+- 取数现状更新：第 21–33 条全文页 `activities.alibaba.com/.../terms-of-use/zh_cn.php` 现 302 到 www.alibaba.com 首页，正文已不可直接抓；规则中心详情页（`type=detail&ruleId=2047`）为 SPA 只返回空壳；EUR-Lex 直接下载返回 HTTP 202 空体。故正文证据为同官方 URL 的搜索索引快照，比对忽略标点，**不宣称标点逐字一致**。
+- 报告 `reports/csv-compliance-alibaba-2026-10-31.md` 更新为 v3（新增第〇节版本演进、第四节规则改动表、第五节双校验结果、第六节工程层三条、第八节剩余整改）。
+- 验证：`python .runtime/verify_rules.py` 退出 0（13/13）；`python .runtime/check_hits.py` 退出 0（13/13）；数据文件仅改 `demo_check_rules.csv`，其余 8 份未动；代码零改动。未连线运行时（`RuleCategorySchema` 仍 2 值、无代码加载 demo_data），故不得对外称"系统已按平台规则校验"。未提交/推送。
+- 注：工作区中 `demo_data/catalog_demo.csv` 的未提交改动早于本轮（mtime 2026-10-30 22:23，本轮未写入该文件），与本次规则修正无关，未处理。
+
+## 2026-10-31 CSV 合规 v4：主演示样本 catalog_demo.csv 字段表述规范化（保留真实值）
+
+- 用户明确「CSV 里的东西都是真实的」，要求「基于阿里国际站规则改 CSV」。本轮只做**字段表述规范化**，不改任何真实采集数值。
+- `catalog_demo.csv`（14 行 / 4 SKU）四处表述修正（数值列 sku/name/category/unit/currency/min_quantity/unit_price/valid_until 全部未动）：
+  1. `1601053415993` T恤：`材质:95% Cotton, 5% Spandex` → `95% Cotton, 5% Elastane (贸易名 Spandex)`（补 EU 1007/2011 Annex I No.43 标准纤维名）；`page certs: CE` → 追加「编号待核验；普通服装通常不适用CE」（对应滥发解读「虚假产品证书」）。
+  2. `1601926123092` Polo：`Polyester/Cotton (ratio not stated on page)` → 追加「混纺比例待供应商确认；须按重量降序列出全部纤维及百分比」（对应 EU 1007/2011 Art 9(1)）。
+  3. `MDF-001` 密度板：`环保:E1` → 追加「甲醛释放检测报告待核验」。
+  4. `BOLT-001` 螺栓：`规格:M8/M16` 后追加「计价单位说明:按卖家页 kg 计(平台紧固件惯例为 piece/件)」（保留 kg 真实计价，标注平台惯例差异）。
+- 新 SHA-256 `d9df548c…`（原冻结 `7c13afc1…`）。此为 A 侧合规修正，**未改动 C 的冻结 SHA 2c043834**；是否重新冻结/重跑由 C 决定。
+- 验证：数值列逐列比对 0 差异；description 仅追加合规标注；未改 demo_check_rules.csv（上轮 v3 已修）、未碰 17 个报价审批 WIP。
