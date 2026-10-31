@@ -1,0 +1,102 @@
+{
+  "date": "2026-10-31",
+  "role": "C",
+  "branch": "codex/c-demo-catalog-desktop-intake",
+  "head": "53db7241ea5e6b543a6e12842931f24f1e94c614",
+  "reviewedBase": "267f087490046955a0b4b1e6183caa163cc177c3",
+  "sourceDiffVs267f087": "(empty)",
+  "purpose": "Confirm the maintenance gate is still closed and that the saved C probes restore byte-identically, so re-verification after A's fix is mechanical.",
+  "environment": {
+    "platform": "darwin arm64",
+    "node": "v22.22.2",
+    "cwd": "/Users/jason/.codex/worktrees/fee3/tradequote-agent/",
+    "ansiStripped": true
+  },
+  "restoredProbes": {
+    "c-maintenance-boundary": {
+      "script": ".runtime/c-maintenance-boundary.test.ts",
+      "config": ".runtime/c-maintenance-boundary.config.ts",
+      "scriptSha256": "3b80e25f3b12d632b4b412e2d9aefc769a303f24e830e1a714521c72a08ae8b9",
+      "scriptSha256Matches": true,
+      "configSha256": "85c0347439b0aa66c9167195d7e597455222116731eae849e8acfc7a10408094",
+      "configSha256Matches": true
+    },
+    "c-maintenance-migration": {
+      "script": ".runtime/c-maintenance-migration.test.ts",
+      "config": ".runtime/c-maintenance-migration.config.ts",
+      "scriptSha256": "11572c58810a7fafe14e5c4347cf1cf91523359b03aa766f9e472efa321b7a7d",
+      "scriptSha256Matches": true,
+      "configSha256": "74d2049266b678a104148e9aa858c26e4c30cc642600e74f6fe957c9ea047255",
+      "configSha256Matches": true
+    }
+  },
+  "runs": [
+    {
+      "name": "c-maintenance-boundary",
+      "argv": [
+        "apps/desktop/node_modules/.bin/electron",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        ".runtime/c-maintenance-boundary.config.ts"
+      ],
+      "exitCode": 1,
+      "stdout": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/fee3/tradequote-agent\n\nstdout | .runtime/c-maintenance-boundary.test.ts > M01 replay source.withdraw: same key retains first result and all facts\nC_MAINT_REPLAY {\"method\":\"source.withdraw\",\"firstOk\":true,\"secondOk\":false,\"error\":\"REVISION_CONFLICT\",\"factsUnchanged\":true}\n\nstdout | .runtime/c-maintenance-boundary.test.ts > M01 replay wiki.analyzeImpact: same key retains first result and all facts\nC_MAINT_REPLAY {\"method\":\"wiki.analyzeImpact\",\"firstOk\":true,\"secondOk\":true,\"error\":null,\"factsUnchanged\":false}\n\nstdout | .runtime/c-maintenance-boundary.test.ts > M01 replay wiki.resolveMaintenance: same key retains first result and all facts\nC_MAINT_REPLAY {\"method\":\"wiki.resolveMaintenance\",\"firstOk\":true,\"secondOk\":false,\"error\":\"REVISION_CONFLICT\",\"factsUnchanged\":true}\n\nstdout | .runtime/c-maintenance-boundary.test.ts > M01 replay wiki.rebuildIndex: same key retains first result and all facts\nC_MAINT_REPLAY {\"method\":\"wiki.rebuildIndex\",\"firstOk\":true,\"secondOk\":false,\"error\":\"REVISION_CONFLICT\",\"factsUnchanged\":true}\n\nstdout | .runtime/c-maintenance-boundary.test.ts > M03 impact target sourceId: reject identity/hash inconsistent with saved source\nC_MAINT_BINDING {\"field\":\"sourceId\",\"ok\":true}\n\nstdout | .runtime/c-maintenance-boundary.test.ts > M03 impact target artifactHash: reject identity/hash inconsistent with saved source\nC_MAINT_BINDING {\"field\":\"artifactHash\",\"ok\":true}\n\nstdout | .runtime/c-maintenance-boundary.test.ts > M05: maintenance continuation rejects changed query binding\nC_MAINT_CURSOR {\"accepted\":true,\"exchangeValid\":false}\n\n ❯ .runtime/c-maintenance-boundary.test.ts (12 tests | 11 failed) 446ms\n   ✓ M00 control: public source withdrawal, queue and index status are reachable 44ms\n   × M01 replay source.withdraw: same key retains first result and all facts 23ms\n   × M01 replay wiki.analyzeImpact: same key retains first result and all facts 21ms\n   × M01 replay wiki.resolveMaintenance: same key retains first result and all facts 19ms\n   × M01 replay wiki.rebuildIndex: same key retains first result and all facts 34ms\n   × M02: index rebuild receipt operationKey binds request idempotencyKey 91ms\n   × M03 impact target sourceId: reject identity/hash inconsistent with saved source 39ms\n   × M03 impact target artifactHash: reject identity/hash inconsistent with saved source 30ms\n   × M04: resolve cannot accept an evidence UUID absent from authoritative storage 33ms\n   × M05: maintenance continuation rejects changed query binding 39ms\n   × M06: fixed snapshot never substitutes changed issue state on a later page 40ms\n   × M07: withdrawal and analysis of the same exact source fact share one issue 30ms\n\n Test Files  1 failed (1)\n      Tests  11 failed | 1 passed (12)\n   Start at  10:19:56\n   Duration  7.01s (import 75%, transform 17%, tests 7%)\n\n\n⎯⎯⎯⎯⎯⎯ Failed Tests 11 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  .runtime/c-maintenance-boundary.test.ts > M01 replay source.withdraw: same key retains first result and all facts\nAssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, data: { …(3) }, …(2) }\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"event\": {\n-       \"actorId\": \"synthetic-human\",\n-       \"entityId\": \"d1d5c7ab-8662-486a-8b2e-1b179ba7049d\",\n-       \"entityVersion\": 2,\n-       \"eventId\": \"e07977e0-7e70-4e26-aca6-ed09571180cf\",\n-       \"evidenceIds\": [\n-         \"d1d5c7ab-8662-486a-8b2e-1b179ba7049d\",\n-       ],\n-       \"note\": \"Synthetic withdrawal\",\n-       \"occurredAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"schemaVersion\": 1,\n-       \"type\": \"source.withdrawn\",\n-       \"workspaceId\": \"d62d7524-2e23-4d26-b24f-284a694a2a78\",\n+   \"error\": {\n+     \"code\": \"REVISION_CONFLICT\",\n+     \"issues\": [],\n+     \"message\": \"来源生命周期当前版本为 v2，与提交的 expectedLifecycleVersion 不一致\",\n+     \"retryable\": false,\n    },\n-     \"kind\": \"sourceWithdrawal\",\n-     \"state\": {\n-       \"changedAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"lifecycleVersion\": 2,\n-       \"sourceRevisionId\": \"d1d5c7ab-8662-486a-8b2e-1b179ba7049d\",\n-       \"state\": \"withdrawn\",\n-     },\n-   },\n-   \"evidenceIds\": [\n-     \"e07977e0-7e70-4e26-aca6-ed09571180cf\",\n-     \"d1d5c7ab-8662-486a-8b2e-1b179ba7049d\",\n-   ],\n-   \"ok\": true,\n-   \"warnings\": [],\n+   \"ok\": false,\n  }\n\n ❯ .runtime/c-maintenance-boundary.test.ts:46:445\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/11]⎯\n\n FAIL  .runtime/c-maintenance-boundary.test.ts > M01 replay wiki.analyzeImpact: same key retains first result and all facts\nAssertionError: expected { ok: true, data: { …(2) }, …(2) } to deeply equal { ok: true, data: { …(2) }, …(2) }\n\n- Expected\n+ Received\n\n@@ -1,12 +1,12 @@\n  {\n    \"data\": {\n      \"kind\": \"impactReport\",\n      \"report\": {\n-       \"checkedAt\": \"2026-10-27T00:00:00.000Z\",\n+       \"checkedAt\": \"2026-10-27T00:00:02.000Z\",\n        \"error\": null,\n-       \"reportId\": \"6272b1ab-6faa-4cb1-b845-39c016b6b864\",\n+       \"reportId\": \"68fc377d-2d94-47fe-9f87-84d463ca2adf\",\n        \"snapshotSeq\": 3,\n        \"status\": \"completed\",\n        \"subject\": {\n          \"reason\": \"withdrawn\",\n          \"replacementRevisionId\": null,\n@@ -21,10 +21,10 @@\n        \"unknownReasons\": [],\n        \"workspaceId\": \"827e8b88-aa71-4b6c-97eb-ca488f8d41b5\",\n      },\n    },\n    \"evidenceIds\": [\n-     \"6272b1ab-6faa-4cb1-b845-39c016b6b864\",\n+     \"68fc377d-2d94-47fe-9f87-84d463ca2adf\",\n    ],\n    \"ok\": true,\n    \"warnings\": [],\n  }\n\n ❯ .runtime/c-maintenance-boundary.test.ts:46:445\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/11]⎯\n\n FAIL  .runtime/c-maintenance-boundary.test.ts > M01 replay wiki.resolveMaintenance: same key retains first result and all facts\nAssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, data: { …(2) }, …(2) }\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"issue\": {\n-       \"dedupKey\": \"4be12af96cfe6e48b29d2e416b8d4a216ca86a6848bed9f16fb8ce69596f5ea9\",\n-       \"evidenceIds\": [\n-         \"654621b3-e8db-469d-ac0b-6922185e5c6f\",\n-       ],\n-       \"firstDetectedAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"issueId\": \"047bd61c-65e3-486c-b67e-6580d0c8d725\",\n-       \"issueVersion\": 2,\n-       \"kind\": \"source_withdrawn\",\n-       \"lastDetectedAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"message\": \"来源 v1 已撤回，依赖该来源的知识与消费需复核\",\n-       \"resolution\": null,\n-       \"severity\": \"warning\",\n-       \"state\": \"in_progress\",\n-       \"target\": {\n-         \"artifactHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n-         \"kind\": \"source\",\n-         \"sourceId\": \"70668fb8-0797-4747-a5e2-a9585414e34c\",\n-         \"sourceRevisionId\": \"654621b3-e8db-469d-ac0b-6922185e5c6f\",\n-       },\n-       \"workspaceId\": \"3bd39c82-8503-4ae7-94a7-d50c450183c4\",\n-     },\n-     \"kind\": \"maintenanceIssue\",\n+   \"error\": {\n+     \"code\": \"REVISION_CONFLICT\",\n+     \"issues\": [],\n+     \"message\": \"维护问题当前版本为 v2，与提交的 expectedIssueVersion 不一致\",\n+     \"retryable\": false,\n    },\n-   \"evidenceIds\": [\n-     \"047bd61c-65e3-486c-b67e-6580d0c8d725\",\n-   ],\n-   \"ok\": true,\n-   \"warnings\": [],\n+   \"ok\": false,\n  }\n\n ❯ .runtime/c-maintenance-boundary.test.ts:46:445\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/11]⎯\n\n FAIL  .runtime/c-maintenance-boundary.test.ts > M01 replay wiki.rebuildIndex: same key retains first result and all facts\nAssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, data: { …(2) }, …(2) }\n\n- Expected\n+ Received\n\n  {\n-   \"data\": {\n-     \"kind\": \"indexRebuild\",\n-     \"rebuild\": {\n-       \"createdAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"error\": null,\n-       \"index\": \"keyword\",\n-       \"operationKey\": \"47a61bac-3827-4b0c-9f59-a2a1ebac6f4c\",\n-       \"rebuildId\": \"e73e31da-2fb8-4573-9072-c640bc54afb7\",\n-       \"requestedSeq\": 2,\n-       \"result\": {\n-         \"authoritativeSeq\": 2,\n-         \"checkedAt\": \"2026-10-27T00:00:00.000Z\",\n-         \"error\": null,\n-         \"generation\": 1,\n-         \"index\": \"keyword\",\n-         \"indexedSeq\": 2,\n-         \"rebuildId\": null,\n-         \"state\": \"ready\",\n-         \"workspaceId\": \"426ff50c-56b0-4ff7-aab7-46df79950e52\",\n+   \"error\": {\n+     \"code\": \"REVISION_CONFLICT\",\n+     \"issues\": [],\n+     \"message\": \"索引当前代际为 1，与提交的 expectedGeneration 不一致\",\n+     \"retryable\": false,\n    },\n-       \"status\": \"completed\",\n-       \"targetGeneration\": 1,\n-       \"updatedAt\": \"2026-10-27T00:00:00.000Z\",\n-       \"workspaceId\": \"426ff50c-56b0-4ff7-aab7-46df79950e52\",\n-     },\n-   },\n-   \"evidenceIds\": [\n-     \"e73e31da-2fb8-4573-9072-c640bc54afb7\",\n-   ],\n-   \"ok\": true,\n-   \"warnings\": [],\n+   \"ok\": false,\n  }\n\n ❯ .runtime/c-maintenance-boundary.test.ts:46:445\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/11]⎯\n\n FAIL  .runtime/c-maintenance-boundary.test.ts > M02: index rebuild receipt operationKey binds request idempotencyKey\nAssertionError: expected 'd6c1afb6-fe77-4f98-b349-e5e80505359a' to be '30643f93-c7a1-4a7a-9ce1-6e80b80846a6' // Object.is equality\n\nExpected: \"30643f93-c7a1-4a7a-9ce1-6e80b80846a6\"\nReceived: \"d6c1afb6-fe77-4f98-b349-e5e80505359a\"\n\n ❯ .runtime/c-maintenance-boundary.test.ts:48:434\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/11]⎯\n\n FAIL  .runtime/c-maintenance-boundary.test.ts > M03 impact target sourceId: reject identity/hash inconsistent with saved source\n FAIL  .runtime/c-maintenance-boundary.test.ts > M03 impact target artifactHash: reject identity/hash inconsistent with saved source\nAssertionError: expected true to be false // Object.is equality\n\n- Expected\n+ Received\n\n- false\n+ true\n\n ❯ .runtime/c-maintenance-boundary.test.ts:49:477\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/11]⎯\n\n FAIL  .runtime/c-maintenance-boundary.test.ts > M04: resolve cannot accept an evidence UUID absent from authoritative storage\nAssertionError: expected true to be false // Object.is equality\n\n- Expected\n+ Received\n\n- false\n+ true\n\n ❯ .runtime/c-maintenance-boundary.test.ts:50:521\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/11]⎯\n\n FAIL  .runtime/c-maintenance-boundary.test.ts > M05: maintenance continuation rejects changed query binding\nAssertionError: expected true to be false // Object.is equality\n\n- Expected\n+ Received\n\n- false\n+ true\n\n ❯ .runtime/c-maintenance-boundary.test.ts:52:577\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/11]⎯\n\n FAIL  .runtime/c-maintenance-boundary.test.ts > M06: fixed snapshot never substitutes changed issue state on a later page\nAssertionError: expected { …(13) } to deeply equal { …(13) }\n\n- Expected\n+ Received\n\n@@ -3,17 +3,17 @@\n    \"evidenceIds\": [\n      \"4353c901-a99e-4ddd-a97f-3464e9391404\",\n    ],\n    \"firstDetectedAt\": \"2026-10-27T00:00:00.000Z\",\n    \"issueId\": \"f81836b3-eaea-4f5b-8aca-bdfe2ac22fde\",\n-   \"issueVersion\": 1,\n+   \"issueVersion\": 2,\n    \"kind\": \"source_withdrawn\",\n    \"lastDetectedAt\": \"2026-10-27T00:00:00.000Z\",\n    \"message\": \"来源 v1 已撤回，依赖该来源的知识与消费需复核\",\n    \"resolution\": null,\n    \"severity\": \"warning\",\n-   \"state\": \"open\",\n+   \"state\": \"in_progress\",\n    \"target\": {\n      \"artifactHash\": \"3a9ad6bb6250754a93fbf03e01bb73f0df811c09fb35df3f0e913387bdf0acd8\",\n      \"kind\": \"source\",\n      \"sourceId\": \"e420226a-d8f7-4989-a146-bc1b9884cbca\",\n      \"sourceRevisionId\": \"4353c901-a99e-4ddd-a97f-3464e9391404\",\n\n ❯ .runtime/c-maintenance-boundary.test.ts:53:813\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/11]⎯\n\n FAIL  .runtime/c-maintenance-boundary.test.ts > M07: withdrawal and analysis of the same exact source fact share one issue\nAssertionError: expected [ { …(13) }, { …(13) } ] to have a length of 1 but got 2\n\n- Expected\n+ Received\n\n- 1\n+ 2\n\n ❯ .runtime/c-maintenance-boundary.test.ts:54:398\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/11]⎯\n\n",
+      "summary": {
+        "tests": "11 failed | 1 passed (12)",
+        "files": "1 failed (1)",
+        "failureLines": 11
+      }
+    },
+    {
+      "name": "c-maintenance-migration",
+      "argv": [
+        "apps/desktop/node_modules/.bin/electron",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        ".runtime/c-maintenance-migration.config.ts"
+      ],
+      "exitCode": 1,
+      "stdout": "\n RUN  v5.0.5 /Users/jason/.codex/worktrees/fee3/tradequote-agent\n\nstdout | .runtime/c-maintenance-migration.test.ts > N9-01 knowledge_maintenance_issue: missing uniqueness is rejected before use\nC_N9_UNIQUE {\"table\":\"knowledge_maintenance_issue\",\"readonlyAccepted\":true,\"accepted\":true}\n\nstdout | .runtime/c-maintenance-migration.test.ts > N9-01 knowledge_index_status: missing uniqueness is rejected before use\nC_N9_UNIQUE {\"table\":\"knowledge_index_status\",\"readonlyAccepted\":true,\"accepted\":true}\n\n ❯ .runtime/c-maintenance-migration.test.ts (3 tests | 2 failed) 145ms\n   ✓ N9-00 control: valid maintenance schema reopens 67ms\n   × N9-01 knowledge_maintenance_issue: missing uniqueness is rejected before use 42ms\n   × N9-01 knowledge_index_status: missing uniqueness is rejected before use 35ms\n\n Test Files  1 failed (1)\n      Tests  2 failed | 1 passed (3)\n   Start at  10:20:04\n   Duration  6.96s (import 78%, transform 19%, tests 2%)\n\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  .runtime/c-maintenance-migration.test.ts > N9-01 knowledge_maintenance_issue: missing uniqueness is rejected before use\n FAIL  .runtime/c-maintenance-migration.test.ts > N9-01 knowledge_index_status: missing uniqueness is rejected before use\nAssertionError: expected { readonlyAccepted: true, …(1) } to deeply equal { readonlyAccepted: false, …(1) }\n\n- Expected\n+ Received\n\n  {\n-   \"accepted\": false,\n-   \"readonlyAccepted\": false,\n+   \"accepted\": true,\n+   \"readonlyAccepted\": true,\n  }\n\n ❯ .runtime/c-maintenance-migration.test.ts:34:1084\n\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯\n\n",
+      "summary": {
+        "tests": "2 failed | 1 passed (3)",
+        "files": "1 failed (1)",
+        "failureLines": 2
+      }
+    }
+  ],
+  "gate": {
+    "productionScope": [
+      "apps/desktop/src/*",
+      ":!apps/desktop/src/**/*.test.*",
+      ":!apps/desktop/src/**/*.fixture.*"
+    ],
+    "entryPattern": "KnowledgeMaintenance|executeWikiMaintenance|wiki\\.(lint|getMaintenance|resolveMaintenance|analyzeImpact|getImpact|getIndexStatus|rebuildIndex|getIndexRebuild)|source\\.withdraw",
+    "entryHits": [],
+    "entryHitCount": 0,
+    "readOnlyPattern": "wiki|knowledge|maintenance",
+    "readOnlyHits": [
+      "apps/desktop/src/renderer/src/features/quote-checks.tsx:217:          {report.wikiCitations && report.wikiCitations.length > 0 && (",
+      "apps/desktop/src/renderer/src/features/quote-checks.tsx:219:              <summary>本报告采用的知识与来源 · {report.wikiCitations.length} 个知识段落</summary>",
+      "apps/desktop/src/renderer/src/features/quote-checks.tsx:223:              {report.wikiCitations.map((citation) => (",
+      "apps/desktop/src/renderer/src/features/run-tool-labels.ts:6:  search_knowledge: \"读取适用知识\","
+    ],
+    "gateRegressionTests": [
+      "apps/desktop/src/preload/contracts.test.ts:36:  it(\"keeps knowledge services gated and readonly mock checks/runs unavailable\", async () => {",
+      "apps/desktop/src/preload/contracts.test.ts:351:describe(\"B00a P1 build/maintenance capability gates\", () => {"
+    ]
+  },
+  "conclusion": {
+    "gateClosed": true,
+    "productionReadOnlyHits": 4,
+    "failureCount": 13,
+    "passCount": 2
+  },
+  "notRun": [
+    "full pnpm test:e2e",
+    "desktop UI regression (no maintenance UI exists to exercise)",
+    "real maintenance resolve/impact flows against a new fixed A implementation"
+  ],
+  "generatedAt": "2026-10-31T01:20:12.111Z"
+}

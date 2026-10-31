@@ -1150,3 +1150,7 @@ C文档门禁补记：状态页CRLF导致Wiki工具初次11/36（25项fixture装
 ## 2026-10-31 C验证PR#10主样本Electron导入
 
 C在81e9c93固定桌面基线上，从origin/codex/demo-data-catalog头11826e4读取catalog_demo.csv至系统临时目录，冻结安装/SQLite ABI重建/`pnpm build`退出0；真实Electron文件选择入口、14行预览、人工发布及四SKU可选通过。只读CSV核验精确子集、单位/币种schema和价格阶梯通过。不创建报价、不覆盖业务规则/汇率/来源真实性结论；未跑全套e2e/打包验收。PR正文过时、MANIFEST将不同来源一概称合成，A待修。A01e 13项维护/迁移阻断保持active，未接新维护入口。完整证据raw/c-a267-demo-catalog-desktop-validation.json，知识/任务[[C267f087维护接收与剩余阻断]]、[[C集成-A267维护方法复验]]。
+
+## 2026-10-31 C固定门禁复核与复验配方
+
+用户明确B/C并行、维护Wiki的IPC/Worker/UI入口待A修复后再接线。C本轮不改产品代码，只做两件事并留证。入口门禁：`apps/desktop/src`生产源码排除`*.test.*`/`*.fixture.*`后，`KnowledgeMaintenance|executeWikiMaintenance|wiki.<维护方法>|source.withdraw`命中0条；同范围`wiki|knowledge|maintenance`仅4条只读引用（quote-checks.tsx的wikiCitations展示3条、run-tool-labels.ts的search_knowledge标签1条）；`apps/desktop/src/preload/contracts.test.ts:36`与`:351`门禁测试保留。复验配方：从raw/c-a267-maintenance-intake.json的newProbes恢复两套探针，四项sha256与记录逐字一致；`git diff 267f087..HEAD -- packages/ apps/`为空，基线源码等同A固定实现。原样复跑boundary 11 failed/1 passed、migration 2 failed/1 passed，合计13失败/2控制通过，与10-30同数，退出码均1；M01/M02/M03/M04/M05/M06/M07与N9的对应关系及B五关注点映射写入任务页。PR#10待A修正正文（仅写300行单文件）与MANIFEST来源分层口径，修正后C复核数据描述与桌面路径。资料冲突分级：BOLT-008价格只能待核对、标题与材质冲突可作规则命中样例但声明字段待核对、合成标签不证明来源真实。证据raw/c-a267-c-gate-and-reverify-recipe.json；任务[[C集成-A267维护方法复验]]。未跑完整e2e、未创建报价、未推送、未代A/B签字，13项仍红。
