@@ -98,7 +98,7 @@ function WorkspaceForm({
   const result = mutation.data;
   const error = result && !result.ok ? result.error : null;
   return (
-    <section className="panel max-w-2xl">
+    <section className="panel max-w-md mx-auto my-auto">
       <h1 className="sr-only">{workspace ? "工作区设置" : "创建工作区"}</h1>
       <form onSubmit={form.handleSubmit((data) => mutation.mutate(data))} className="space-y-4">
         <div>

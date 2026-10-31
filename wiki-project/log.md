@@ -1601,3 +1601,12 @@ B07 已按 `0f837e35e0592050917a0c0f4914ca43f2fe9b64` 接收并合入集成分�
 - 同步：`MANIFEST.md`、`SOURCE-PROVENANCE.md`、`MDF-REAL-DATA.md`、`A01f演示资料包冻结.md`、任务页 `A06-来源证据与适用规则包.md` 规模与隔离说明同步；`file-provenance.json` 三个 demo-data 登记 hash 更新并复验匹配（MANIFEST `2d3ab3da…`、SOURCE-PROVENANCE `9e820ee6…`、MDF-REAL-DATA `e2ec6818…`）。
 - 验证：`catalog_converted.csv` 经产品 `parseCatalogCsv` 实测 285 行/0 issue；临时验证测试已清理，未入库。
 - 仍未完成（如实保留，不代签）：服装原始快照（登录墙拦截 `not collected`）、`valid_until` 统一 `2027-12-31` 为内部默认值（无供应商/页面依据）、认证/供应商有效期真实性、人工发布/复核（`pending`）。
+
+## 2026-10-31 A01 UI 样式优化：图标/字号/表格圆角/工作区居中/暖灰配色（同分支）
+
+- 背景：C 复验 8eccee1（图标+字号+hover）判定「可接收但暂不能合入」，因未同步 wiki-project 违反 P0。A 在同分支 codex/a01-maintenance-evidence 追加交付，补齐知识页、任务页与日志，并补验证后提供新 SHA。
+- 提交序列：8eccee1（模型设置图标 Settings→Cpu、nav hover、字号调大）、155a857（表格表头圆角 + 卡片衔接）、8cb85c7（工作区设置居中 + 暖灰配色 + 徽章胶囊/等宽数字/120ms 过渡）。
+- 改动范围仅渲染层 App.tsx / theme.css / features/workspace.tsx，不涉业务逻辑、不新增依赖、不改橙黄品牌主色。暖灰配色为 --canvas #fffaeb→#f2efe9、--surface-muted #fafafa→#f5f3ef、--border #e5e5e5→#e8e5df、--surface-warm #fff8e0→#fff4e0；白卡片 .panel 加淡阴影浮起，消除「白茫茫一片」的空洞感。工作区设置页由贴左改为 max-w-md + mx-auto + my-auto 水平垂直居中。
+- Wiki 同步：新增任务页 [[2026-10-31-A01-UI样式优化]]（type=task），知识页 [[M1工作台]] 追加「UI 样式优化（2026-10-31）」小节，本日志追加。
+- 验证：pnpm typecheck / build / check / wiki:test 退出 0；check-wiki-sync --base 7688d3991dcf6fe4fb56132559ae02bd808857ea 返回 status=passed；git diff --check 退出 0；三个提交 diff 均保持 LF 无 CRLF 污染。浏览器静态预览（vite + readonly mock client + headless Chrome 截图）已实看表格圆角衔接、工作区居中、徽章圆点、暖灰层次。
+- 边界：未走深色侧边栏/冷灰背景等更高阶科技感方向（用户选「只做微调」保留暖橙基调）；未做真实 Electron 多尺寸/系统缩放回归；临时预览文件（preview-main.tsx / preview.html / vite.preview-build.config.mjs / .preview-dist）已清理未入库。生成的头像图 generated-images/ 为独立任务产物，与本次无关，保持未跟踪。
