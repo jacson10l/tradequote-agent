@@ -280,3 +280,7 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 ## 2026-10-31 维护工具排除 .workbuddy
 
 wiki-lib.mjs 的 ignoredDirs 增 .workbuddy（WorkBuddy IDE 项目数据目录），与 .git/.runtime/.cache 同类，避免其 memory 工作日志被源码覆盖扫描误纳管为未覆盖文件；.gitignore 同步排除。维护算法不变，仅排除一个 IDE 数据目录；见 [[A01e快照绑定与事件证据交接]]。
+
+## 2026-10-31 演示数据包 demo_data 归档登记
+
+`wiki-config.json` 的 `archivalMarkdown` 增 `demo_data/MANIFEST.md`：演示数据包（来自 `codex/demo-data-catalog` 分支，含 `catalog_demo.csv` 主样本、`catalog_converted.csv` 300 行备用、规则/询盘/商品配套 CSV 及生成脚本）的清单文件按归档来源文档处理，不参与文档导航；`raw/file-provenance.json` 同步登记其 sha256。导航算法不变，仅登记一个新归档清单，见 [[A01f演示资料包冻结]]。

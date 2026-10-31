@@ -28,7 +28,8 @@
     "raw/inputs/项目构建技术栈.md",
     "raw/inputs/外贸询报价协同 Agent 完整产品与实施方案.md",
     "raw/design/mistral-original.md",
-    "raw/design/claude-original.md"
+    "raw/design/claude-original.md",
+    "demo_data/MANIFEST.md"
   ],
   "required": [
     "README.md",

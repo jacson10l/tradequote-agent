@@ -23,6 +23,12 @@
       "copy": "wiki-project/raw/design/mistral-original.md",
       "sha256": "e56a8eeb44ed6e9522c59cd59ddf1d2ace9e435265cce25f8367b4e4b473f13d",
       "status": "current-design-reference"
+    },
+    {
+      "source": "demo-data-catalog:MANIFEST.md",
+      "copy": "wiki-project/demo_data/MANIFEST.md",
+      "sha256": "ab44d96af839468e49b3a8b1901b87b76515c381754de2e8270a39507d877b95",
+      "status": "demo-data-manifest"
     }
   ],
   "getdesign_cached_packages": [

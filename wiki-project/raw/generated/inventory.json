@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "4e5b1a0bfe9151ffb92c7ba6089b6205363cdc7eff8cc2b24b3983014248bceb",
     "wiki-lib.mjs": "b3d0957c0240b68d7a1e5c2e0311458c8c08b6322b84330d80ea4c7acad2c195",
-    "wiki-config.json": "08ef25e1f0b79e8e09acd236b81aa57155027153d247bf1c35020f8a0e0e8669",
+    "wiki-config.json": "1478ad8aa38fa8f605befdfc47b1fe3508c539d0a01c43de99ee3a48dc5af98a",
     "lint-wiki.mjs": "2e94b99626c96b9639699ffd408c6ccec512eb75030165ddef64711d91786d9f",
     "wiki-tools.test.mjs": "366282472c9f3c1e63c7457636ab7a0c54fdf3af394cd36466bfbdfdf24e2b88",
     "check-wiki-sync.mjs": "2ec23c3f1c33124ef76dd351dbf00b74d9fc756f846d531d740fdd379b34c2e4",
