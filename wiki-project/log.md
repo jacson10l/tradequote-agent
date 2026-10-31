@@ -1147,3 +1147,7 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 - 2026-10-31 A01e 新版复验补充：在 `codex/a01e-p3-fixes` 基于 `46939c32` 增加同键撤回回放/事件唯一性测试，维护聚焦 27/27、typecheck 0；Windows symlink EPERM 保留。
 - 2026-10-31 快照阻断修正：修复维护续页只按 snapshotId 读取而未核对 workspace/queryHash 的缺陷，新增 `resolved` 查询换绑反例，wiki-store 27/27、typecheck 0。
 - 2026-10-31 快照换绑原样反例回归（A01e-2c）：C 复验报告指出的「伪造换绑快照游标」反例——用 open 快照的 snapshotId 配 resolved 查询的 queryHash 与真实 afterIssueId 续页，此前会静默返回 open 事实绕过 resolved 过滤。A 核对确认 2a61261 的读回绑定核对（snapshot.workspace_id/query_hash 与当前请求一致）已正确堵住该反例；新增 A01e-2c 回归（伪造换绑反例 + 合法续页控制），并临时禁用核对验证反例确由该关卡通断。wiki-store 28/28、typecheck 0。
+
+2026-10-31 C固定fdd571a在macOS原样复跑快照换绑反例：额外5/5、A28/28、原维护12/12及迁移两组各3/3通过；完整单测496/496、build/typecheck退出0，快照技术阻断关闭。事件证据仍NOT_FOUND（1控制通过/1失败），待B资格政策及A权威事件读取/目标绑定修复；维护入口和整体接收不放行。详见[[Cfdd571a快照绑定独立复验]]、[[C集成-快照绑定修复接收]]，完整原文/命令见raw/c-fdd571a-reverify.json。
+
+本轮首次Wiki lint暴露新增C页type/相关链接及任务章节缺失，已补齐后复跑；原失败保留于raw/c-fdd571a-docs-validation.json的attempts，不替换或删除失败证据。
