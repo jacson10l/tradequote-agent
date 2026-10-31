@@ -1086,6 +1086,12 @@
         "wiki/M4模型与报价修订.md"
       ]
     },
+    "packages/domain/src/revision.test.ts": {
+      "role": "报价修订未确认条款 pending 继承回归测试",
+      "pages": [
+        "wiki/M4模型与报价修订.md"
+      ]
+    },
     "packages/infrastructure/src/agent-executor.ts": {
       "role": "有界模型执行与提交前版本复核",
       "pages": [

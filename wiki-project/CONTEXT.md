@@ -1,5 +1,7 @@
 # 当前上下文
 
+2026-11-01 B07契约集成非作者复核：从 origin/codex/m1-abc-integration 新建 codex/b07-contract-integration-review，核对集成分支（tip 7688d39，B 固定交付 a4f2ba6 已作为 201e471 父提交正确合入），补 reviseQuote 的 V1→V2→V3→重开 pending 回归测试（revision.test.ts 3 项），记录 quote-delivery.ts renderReply 缺 pending 标注为 C 后续修复项。见[[B对ABC集成非作者复核]]、[[B07契约集成非作者复核]]。
+
 2026-11-01 C07独立分支：菜单职责与客户正文分离已实现；沿用A4c622d0小目录13行/4SKU，实际DeepSeek→Codex工具完成300/500件V1/V2和重开。单测539通过/3跳过，Electron12通过/1跳过；Wiki check/sync通过、Cue最终8页私有导入与备注已核对，整体因A/B签认及Cue持久连接仍active。A大目录第268行空MOQ与来源签认、B拟议条款pending缺失仍开放。基线450e945；无推送合入，见[[C07业务资料与路演收口]]、[[C07-业务资料与路演收口]]。
 
 2026-10-31C独立候选代码/Wiki已同次提交d62570a3c91890cc2aeb7ed8f971b275aaeac713并普通推送origin/codex/c-codex-harness，远端回读一致；集成仍观察为654fecc4d93e4630ed4a0cf42f261d0d432e23d3，本次未合入。包含最后暖色回调与新鲜535/12/36和全部门禁；便携验证raw/c05-delivery-validation.json绑定63项Git源码指纹，实际推送回执raw/c05-delivery-receipt.json。A/B按[[C05交付与AB接手]]取用固定材料，业务/契约签认仍见[[C05c-AB业务依据与契约交接]]；回执提交只补Wiki状态，最终分支头另回读。

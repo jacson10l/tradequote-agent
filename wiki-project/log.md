@@ -1574,3 +1574,15 @@ C05提交前新鲜复验535单元/3显式live跳过、12Electron、36维护及ty
 本轮重新确定：A 不重复做已完成 C06 固定交付，仅处理来源证据缺口；B 不重复开发已完成契约，仅做非作者集成复核；C 负责最终提交/推送、MVP 路演收口与交接。Windows/签名包、正式审批/PDF、真实平台规则和人工业务签认仍未完成；详见[[C集成-ABC合并与后续分工]]。
 
 集成推送确认：提交 `0af16b2ba92b48c9cdedd8bda72bd086ef06c3a3` 已推送至 `origin/codex/m1-abc-integration`，`git ls-remote` 回读一致，工作区干净。C 的后续任务仅为路演收口、交接和人工验收准备；A/B 已完成的固定交付不重复分配。
+
+## 2026-11-01 B07 契约集成非作者复核
+
+C 完成 ABC 合并推送后，B 以非作者身份核对集成分支并补 `reviseQuote` 回归测试（从 `origin/codex/m1-abc-integration` 新建 `codex/b07-contract-integration-review`）。
+
+核对：集成分支 tip = `7688d3991dcf6fe4fb56132559ae02bd808857ea`，B 固定交付 `a4f2ba685b29438fd013373a146d40a68a093e68` 已作为合并提交 `201e471`（merge: integrate B contract semantics）的父提交正确合入，A `4c622d0`、C07 `8b53b1a` 亦在合并历史中。
+
+验证：新增 `packages/domain/src/revision.test.ts` 3 项回归测试——V1→V2→V3→重开后未确认付款/交期始终进入 pending、已确认真实条款修订后不进入 pending、无字段变化修订被拒绝。核心机制为 `reviseQuote` 复用 `calculateQuoteV1` 单点重算，版本演进不丢 pending。`packages/domain`+`packages/contracts` 定向全量 18 文件 151 项通过（含新增 3 项）。
+
+两个缺口：① `reviseQuote` 原无单元测试，本复核已补；② `quote-delivery.ts` 的 `renderReply` 用 `quote.payment || "to be confirmed"` 仅对空字符串降级，非空未确认措辞会直接作为条款输出且无 `Pending items` 列表，与 `renderSummary` 及前端 `customer-reply-format.ts` 不一致，记录为 C 后续修复项，B 不修改 C 生产逻辑。
+
+本机 Windows 缺 VS C++ 未编译 better-sqlite3，`pnpm build`、Electron 集成、`test:e2e`、完整门禁未运行，以 C 的 macOS 结果为准。详见 [[B对ABC集成非作者复核]]、[[B07契约集成非作者复核]]。
