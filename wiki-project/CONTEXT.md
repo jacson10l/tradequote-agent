@@ -1,5 +1,7 @@
 # 当前上下文
 
+- 2026-10-31 C独立复验A46939c3：旧13红及2控制转绿，原C/B25通过；默认494/494与类型/build通过。新增快照ID/queryHash换绑导致resolved查询返回open问题，4/5，迁移10主键拒绝3/3；维护接线继续门禁。见[[C46939c3维护修正版独立复验]]、[[C集成-A469维护修正版接收]]及raw/c-a469-reverify.json。
+
 2026-10-29 A在codex/a01e-p1-fixes（HEAD 0827476）实现B维护契约剩余八个方法source.withdraw/wiki.getMaintenance/wiki.resolveMaintenance/wiki.analyzeImpact/wiki.getImpact/wiki.getIndexStatus/wiki.rebuildIndex/wiki.getIndexRebuild，连同wiki.lint/wiki.getLintReport共十方法在SqliteWikiStore与createKnowledgeMaintenanceService落地；写方法走OCC、权威写入bumpSeq驱动索引陈旧。新增迁移knowledge-wiki:9（六表：knowledge_seq/knowledge_maintenance_issue/knowledge_impact_report/knowledge_impact_item/knowledge_index_status/knowledge_index_rebuild），谱系新增a-v9、unified纳入knowledge-wiki:9；索引列名index_kind（`index`为SQLite保留关键字）。本机typecheck退出0、wiki-store.test.ts 24/24（新增A01e-1～A01e-4/3b共5项）、check-boundaries退出0、check-lineage-integration/migration-ledger/migrations/wiki-check-integration 46/46、domain 39/39通过；仅预存在Windows symlink EPERM保留。B契约/语义复核、C原脚本复验与桌面接线、实际人员审核/发布/撤回/业务签认仍待；未推送/合入/代签。详见[[A01c检索引用实现]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-知识发布与来源查询]]。
 
 2026-10-28 A已以C新固定材料1f74e4a（codex/c-a01e-fixes-review）为基线，在codex/a01e-p1-fixes（HEAD 1c7158e，暂不合入）修正二轮独立P1验收1正常控制/8失败的九例S1～S5：旧成功键双指纹兼容、旧receipt-only兼容、报告问题身份唯一、完整报告公共端口、未知与工程交接。迁移谱系knowledge-wiki:8与DDL不变，无新谱系；旧成功事实/失败证据不删不改。本机typecheck退出0、wiki-store.test.ts 19/19、check-boundaries退出0、5改动文件Biome全绿；整仓pnpm check/wiki:check仍受本机工作区预存在CRLF与icon.svg漂移（C边界）影响，Electron ABI原生重建未复跑。B契约/语义复核、C原脚本复验与桌面接线、实际人员审核/发布/撤回/业务签认仍待；未推送/合入/代签。详见[[A01c检索引用实现]]、[[A01-知识发布与来源查询]]。

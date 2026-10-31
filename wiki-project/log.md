@@ -1144,3 +1144,10 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 - 迁移 knowledge-wiki:10 三表：knowledge_maintenance_snapshot、knowledge_index_keyword（PK(workspace_id,generation,keyword,document_id)）、knowledge_index_markdown（PK(workspace_id,generation,document_id)）。谱系新增 a-v10（common1～4 + knowledge-wiki:6/8/9/10），unified 同步纳入 knowledge-wiki:10；UPGRADEABLE_LINEAGES 增 a-v10、verifyLegacyLedger legacyMap 增 10→knowledge-wiki。classifyPresent 的 present 键按 sortIds 字典序，knowledge-wiki:10 排在 knowledge-wiki:6 之前（'1'<'6'），否则 a-v10/unified 被误判 mixed。
 - 测试：wiki-store.test.ts 新增 A01e-2b（首页冻结候选集/事实，续页读回冻结 open v1 而非并发 in_progress v2）、A01e-4b（rebuildIndex 实际物化 markdown/keyword 投影并原子切换）共 2 项，26/26；migrations 17/17、migration-ledger 5/5、wiki-check-integration 24/24、check-lineage-integration 1/1 全过；`tsc --noEmit` 退出 0；纯 Node 探针 a01-migration-lineage-probe.mjs 指纹/分类/追加/控制全过（v9/v10 指纹已纳入）。仅 storage.test.ts/worker-migration-gates.test.ts 预存在 Windows symlink EPERM 保留。
 - B 契约/语义复核、C 原脚本复验与桌面接线、实际人员审核/发布/撤回/业务签认仍待；本轮未推送/合入、未代签。详见 [[A01c检索引用实现]]、[[A01-迁移谱系支持与拒绝矩阵]]、[[A01-知识发布与来源查询]]。
+
+
+## C469修正版独立复验
+
+2026-10-31 C独立复验A46939c3：旧13红及2控制转绿，原C/B25通过；默认494/494与类型/build通过。新增快照ID/queryHash换绑导致resolved查询返回open问题，4/5，迁移10主键拒绝3/3；维护接线继续门禁。见[[C46939c3维护修正版独立复验]]、[[C集成-A469维护修正版接收]]及raw/c-a469-reverify.json。
+
+C469复验门禁最终记录：重建机械清单后pnpm check退出0、Wiki维护36/36、固定469基线同步与diff通过；现有Electron11/11。原13红转绿，额外快照换绑1红仍阻断维护入口；A修复与B新版政策复核后C再接线，不标整体完成。
