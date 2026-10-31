@@ -1215,3 +1215,9 @@ C05c交接前独立只读复核已核对代码/Wiki和本机日志535/12/36、ch
 负责人明确授权整轮C代码/Wiki一起提交推送codex/c-codex-harness，禁止合入集成；随后指定任务面板恢复原暖色。本轮去掉白底覆盖，复用surface-warm=#FFF8E0，Computer Use重载截图已确认，角色气泡、输入区和900/250/1080持久事实保持。新增[[C05交付与AB接手]]、[[C05-候选提交推送与暖色回调]]集中A/B责任/取用/验证与接口边界；固定基线仍24771fb8eb9c0ae80f29b7f9653794e3ba2886be。提交/远端结果及最终本机证据后续追加，不提前宣称推送成功。
 
 C05提交前新鲜复验535单元/3显式live跳过、12Electron、36维护及typecheck/build/check全部退出0；Wiki只读check/lint与固定24771fb8eb9c0ae80f29b7f9653794e3ba2886be同步通过（58源码/19知识页/4任务）。独立只读复核已核对63项暂存源码SHA256/OID/bytes、总摘要、三份旧证据hash及本机日志全相符，暖色与角色布局一致；不代替B/人员签认。便携证据raw/c05-delivery-validation.json随代码和Wiki同次暂存提交。
+
+## 2026-10-31 C05代码Wiki固定提交及独立远端推送回执
+
+代码、Wiki、任务/ADR/覆盖和便携验证包同次提交d62570a3c91890cc2aeb7ed8f971b275aaeac713（91文件），提交后63项canonical Git blob指纹、只读Wiki门禁和原24771fb固定基线同步均通过。普通git push --set-upstream origin HEAD:refs/heads/codex/c-codex-harness退出0新建独立分支，ls-remote回读完整SHA一致；集成前后均观察为654fecc4d93e4630ed4a0cf42f261d0d432e23d3，未合入/强推/建标签。暖色已真实Electron重载确认，最新本机535/12/36和全部门禁对应材料源码，A/B入口[[C05交付与AB接手]]，证据raw/c05-delivery-validation.json与raw/c05-delivery-receipt.json。
+
+本条回执仅补交付SHA/远端事实和当前状态，不改应用源码；回执自身提交后仍只普通推送相同C独立ref，并在交付回复回读最终分支头。A/B业务/契约签认继续active，Windows/安装未验，不以推送代替验收。

@@ -15,7 +15,7 @@ sources:
 
 ## 固定范围与取用
 
-仓库jacson10l/tradequote-agent，交付分支codex/c-codex-harness；本轮代码差异基线24771fb8eb9c0ae80f29b7f9653794e3ba2886be。包含C05原生Codex接入、C05b保存DeepSeek/电脑验收、C05c会话/只读生命周期与产品界面，以及负责人最后指定的暖色回调。代码、业务Wiki、任务、ADR、覆盖清单和脱敏证据同次提交；真实材料SHA及远端回读在推送后追加，不在准备阶段预写提交号。
+仓库jacson10l/tradequote-agent，交付分支codex/c-codex-harness；本轮代码差异基线24771fb8eb9c0ae80f29b7f9653794e3ba2886be。包含C05原生Codex接入、C05b保存DeepSeek/电脑验收、C05c会话/只读生命周期与产品界面，以及负责人最后指定的暖色回调。代码、业务Wiki、任务、ADR、覆盖清单和脱敏证据同次提交；固定代码/Wiki材料提交为d62570a3c91890cc2aeb7ed8f971b275aaeac713，已普通推送且远端回读完全一致；回执raw/c05-delivery-receipt.json绑定该提交与便携验证包。后续交付回执提交仅补Wiki状态，不改应用源码。
 
 集成分支codex/m1-foundation不在本次推送ref范围，不合入、不创建发布标签、不强推，也不代A/B签认。取用者应使用独立工作树/自己的任务分支，先按固定材料审查，不把整支C分支未经评审并入集成。原集成远端观察值654fecc4d93e4630ed4a0cf42f261d0d432e23d3，不与本轮差异基线混用。
 
@@ -94,3 +94,7 @@ JS
 普通单元跳过3个显式live测试；桌面回归的HTTP传输为明确fixture，不拿它们证明供应商。真实模型验证另走正式保存配置与隔离合成业务的显式入口，可能计费；当前只证实本机保存的deepseek-flash，不重发历史运行或复制作者凭据。Windows/最终签名安装未验，正式审批/导出、真实资料/规则和条款确认问题不因本次推送关闭。
 
 关联：[[C05CodexHarness与单据工作台]]、[[C05c会话生命周期与业务对话]]、[[C05c-AB业务依据与契约交接]]、[[0032-业务会话关联与统一只读运行]]。
+
+## 实际推送回执
+
+固定材料[d62570a3c91890cc2aeb7ed8f971b275aaeac713](https://github.com/jacson10l/tradequote-agent/commit/d62570a3c91890cc2aeb7ed8f971b275aaeac713)包含91个源/知识/测试/证据文件，63项canonical源码指纹已从Git HEAD独立核对。普通推送新建origin/codex/c-codex-harness后ls-remote回读同SHA；集成分支前后均观察为654fecc4d93e4630ed4a0cf42f261d0d432e23d3，本次未合入、不强推、不建标签。当前Wiki回执若推进分支头，A/B仍可固定材料SHA复跑，或在最新分支HEAD核对63项源码完全一致。
