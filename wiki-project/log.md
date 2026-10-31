@@ -328,3 +328,5 @@ B00a P1远端交接：[PR #8](https://github.com/jacson10l/tradequote-agent/pull
 本机验证（Windows 10 22H2、Node 22.22.2、pnpm 10.13.1）：typecheck 0；vitest packages/contracts+packages/domain 13文件/89项 0；探针 28/28 退出0，证据 raw/b-contract-probe.json（含 commit、逐文件 hash）；biome 改动文件 0。pnpm install 因本机缺 VS C++ 未构建 better-sqlite3，Electron ABI 的 pnpm test/test:e2e/build 与 macOS 验收均未运行，不写成通过。A 的写入事务/证据查表与 C 的接线仍待。
 
 同轮把本机助手状态目录 `.workbuddy/` 加入 .gitignore 并在 [[配置路径与敏感信息]] 说明其不是项目源码；本地记忆文件改用非托管扩展名，避免被源码扫描当作未登记 Markdown。
+
+本轮仅文档，未改生产代码、未合入、未代签。应 C 交接要求，B 在 [[B维护证据资格与规则样例]] 明确"事件 vs 证据"术语裁决：`wiki.resolveMaintenance` 的 `evidenceIds` 只解析到证据事件白名单（六类已发生事实，各自带 `evidenceId`），生命周期事件（`maintenance.*`/`source.withdrawn`/`index.rebuilt`）是问题状态流转的 append 记录、是处理动作的产出而非关闭依据；并补证据事件持久化字段、证据/生命周期事件绑定资格与首错顺序，供 A 立即实现。同步 [[B00a知识整理与维护协议]] 该段最小说明。维护工具回归测试 `wiki-tools.test.mjs` 25 项全部在 fixture 准备阶段失败（`EIO, Access is denied`，路径指向 `%TEMP%\tradequote-wiki-test-*`）：本沙箱不允许向系统临时目录递归复制仓库副本，用例在读取改动前即中断，与本次 `.workbuddy` 排除无关，也不是断言失败。

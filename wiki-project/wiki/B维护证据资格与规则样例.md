@@ -48,6 +48,16 @@ sources:
 
 结论：**dismiss 永远需要人工裁决记录**，事实事件只能证明"已修复"（resolve），不能证明"不必处理"。resolve 也不接受 false_positive/not_applicable；只有 duplicate 允许用 duplicate_of/superseded 结案。
 
+## 事件 vs 证据：术语裁决（A 实现必读）
+
+源码里有两个都叫"事件"但语义不同的实体，A 落库时必须分开两张表/两套身份，`wiki.resolveMaintenance` 的 `evidenceIds` **只解析到前者**：
+
+1. **证据事件（evidence，`MaintenanceEvidenceSchema`）**——`resolveMaintenance` 的**已存执行证据白名单**。六类已发生事实（`knowledge.revision_published` / `source.revised` / `source.validity_confirmed` / `source.integrity_reverified` / `index.rebuilt` / `issue.review_decision`），各自携带独立 `evidenceId`。请求里的 `evidenceIds` 必须能逐条解析到这类已存记录；解析不到（候选、模型提案、报价、审批、或指向生命周期事件）即 `evidence_not_decisive`/`evidence_kind_not_eligible`，不进入白名单。
+
+2. **生命周期事件（lifecycle event，`KnowledgeMaintenanceLifecycleEventSchema`）**——维护问题**自身状态流转**的 append 记录（`maintenance.discovered` / `in_progress` / `resolved` / `dismissed` / `source.withdrawn` / `index.rebuilt`）。它是 `MaintenanceResolutionExchangeSchema.event` 字段，是本次处理动作落库时**产出的结果**，不是 resolve/dismiss 的**依据**。它不能反过来充当证据白名单成员。
+
+两者不是一回事：证据事件回答"凭什么关闭"，生命周期事件回答"谁在何时把问题推进到哪一步"。`event.evidenceIds` 引用的是证据事件的 `evidenceId`（见下），不引用其他生命周期事件。
+
 ## 绑定与必须拒绝的情况
 
 `evaluateMaintenanceResolution` 是确定性首错判定，宿主必须在写入事务内调用；`MaintenanceResolutionExchangeSchema` 再把 before/after 问题、生命周期事件和证据绑成一个可校验的交换对象。
@@ -66,6 +76,13 @@ sources:
 | evidence_snapshot_mismatch | 裁决绑定的 issueId/issueVersion 不是当前版本 | REVISION_CONFLICT |
 | evidence_not_decisive | 重发同版本、重复裁决指向自身、裁决结果与动作不符 | VALIDATION_ERROR |
 | evidence_void | 确认的有效期未覆盖处理时点 | SOURCE_CONFLICT |
+
+A 的写入事务须同时满足：
+
+- **证据事件持久化**：六类证据各按自身字段落库（如 `knowledge.revision_published` 存 documentId/revisionId/version/contentHash/sourceSetHash/publishedAt），`evidenceId` 全局唯一、不可被篡改或复用；证据的 `workspaceId` 必须等于问题工作区。
+- **证据绑定**：每条证据必须针对问题的固定目标版本——发布证据同 documentId 且 revisionId/contentHash 不同于旧版本；来源更新证据的 `previousSourceRevisionId` 必须等于问题固定旧版本；完整性复核证据须匹配记录 hash；有效性确认须 confirmed 且区间覆盖处理时点；重建证据须 `indexedSeq === authoritativeSeq` 且 generation ≥ 1；裁决证据须绑定 issueId+issueVersion。
+- **生命周期事件绑定**：`event.workspaceId`/`entityId(=issueId)`/`entityVersion(=next.issueVersion，版本+1 后)`/`actorId`/`occurredAt(=resolvedAt)` 必须与本次处理一致；`event.evidenceIds` 与 intent 证据的 `evidenceId` 集合排序后逐字节一致；`event.type` 必须与动作对应（resolve→`maintenance.resolved`、dismiss→`maintenance.dismissed`、start_review→`maintenance.in_progress`）。
+- **首错顺序**：权限（actor_not_human）→ 工作区（workspace_mismatch / evidence_workspace_mismatch）→ 版本（issue_version_stale / issue_already_closed）→ 时点（evidence_predates_detection / evidence_after_resolution）→ kind（evidence_kind_not_eligible）→ 目标绑定（evidence_target_mismatch / evidence_snapshot_mismatch / evidence_not_decisive）→ 有效期（evidence_void）。任一步失败整体回滚，不产生半闭问题或孤儿证据。
 
 工作区来自宿主上下文而非请求体；问题版本、目标身份、首次发现时间、原始证据列表在交换对象中不可改写，`issueVersion` 必须恰好 +1，生命周期事件的 entityVersion/actor/occurredAt/evidenceIds 必须与本次处理一致。
 
