@@ -1,7 +1,10 @@
 import type { DesktopClient } from "@tradequote/contracts";
+import { Mic } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import petAvatar from "../../../../resources/pet-avatar.png";
 import { Button } from "../shared/button";
+import { PetMascot } from "./pet-mascot";
+import { useSpeechRecognition } from "./use-speech-recognition";
 
 type ChatTurn = { role: "user" | "assistant"; content: string };
 
@@ -14,6 +17,11 @@ export function PetAssistantPage({ client }: { client: DesktopClient }) {
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  const speech = useSpeechRecognition({
+    onTranscript: (text) => setMessage(text),
+    onError: (message) => setError(message),
+  });
 
   const envelope = {
     schemaVersion: 1 as const,
@@ -133,6 +141,7 @@ export function PetAssistantPage({ client }: { client: DesktopClient }) {
               报价助手 · 对话
             </h2>
           </div>
+          <PetMascot mood={busy ? "thinking" : "idle"} />
           <div className="pet-conversation" ref={scrollRef}>
             {turns.length === 0 ? (
               <p className="description">你好，我是 TradeQuote 的报价助手。有什么可以帮你？</p>
@@ -160,9 +169,26 @@ export function PetAssistantPage({ client }: { client: DesktopClient }) {
               onChange={(e) => setMessage(e.target.value)}
               placeholder="和助手聊聊，或询问产品使用问题……"
             />
-            <Button className="w-full" disabled={busy || !message.trim()}>
-              发送
-            </Button>
+            <div className="flex gap-3">
+              {speech.supported && (
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="flex-1"
+                  disabled={busy}
+                  onPointerDown={() => void speech.start()}
+                  onPointerUp={() => speech.stop()}
+                  onPointerLeave={() => speech.stop()}
+                  aria-pressed={speech.listening}
+                >
+                  <Mic size={16} />
+                  {speech.listening ? "正在听…松开发送" : "按住说话"}
+                </Button>
+              )}
+              <Button className="flex-1" disabled={busy || !message.trim()}>
+                发送
+              </Button>
+            </div>
           </form>
           {error && (
             <p role="alert" className="error-box">

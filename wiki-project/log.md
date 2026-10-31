@@ -1617,3 +1617,11 @@ C05提交前新鲜复验535单元/3显式live跳过、12Electron、36维护及ty
 - 素材精修：pet-mascot.png 去白边（白边像素 1558→568），pet-avatar.png 确认无瑕疵无水印。
 - 端到端验证：tsc 0；17 文件 biome 全过；全量单测 563 passed/11 skipped，2 失败为 Windows symlink 权限（EPERM，与本改动无关，预存在）；electron-vite build 成功；dev 启动窗口正常。
 - 方案三个 Phase 核心能力（视觉/记忆/对话含多轮历史+只读报价+摘要压缩）均已实现并验证；Phase 3 润色（动画/表情联动/语音）未纳入。
+
+## 2026-10-31 虚拟形象 Phase 3（待机动画 + 表情联动 + 语音，润色收尾）
+
+- 待机动画：theme.css 新增 @keyframes pet-idle（呼吸+上浮，3.2s，transform-origin 底部），尊重 prefers-reduced-motion。
+- 表情联动：新增共享组件 features/pet-mascot.tsx（PetMascot mood=idle/thinking/success），thinking 左右轻晃+「…」气泡、success 弹跳+「✓」气泡；无多表情贴图，用 CSS 变换+气泡表达状态（避免脸不一致）。接入 workbench（busy||executing→thinking，onSaved 触发 1.4s success）与 pet-assistant（busy→thinking）。
+- 语音：新增 features/use-speech-recognition.ts（封装 webkitSpeechRecognition，Chromium 内置零后端零 key），pet-assistant 加「按住说话」按钮（pointerdown 开始/pointerup+leave 停止，结果回填输入框）。
+- 关键判断：DeepSeek 官方 API 无 ASR 端点（已核实 api-docs.deepseek.com 仅 chat/completions），故语音走浏览器内置识别，不新增 IPC 对接不存在端点。
+- 验证：tsc 0；改动 5 文件 biome 全过；electron-vite build 成功（含 pet-mascot/pet-avatar）。全渲染层改动，dev 窗口 HMR 热更新。

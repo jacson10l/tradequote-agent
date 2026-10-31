@@ -3,11 +3,11 @@ import type { AgentRun, CheckReport, DesktopClient, TradeResult } from "@tradequ
 import { FileText, MessageSquare } from "lucide-react";
 import { useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import petMascot from "../../../../resources/pet-mascot.png";
 import { Button } from "../shared/button";
 import { Notification } from "../shared/notification";
 import { AgentRuns } from "./agent-runs";
 import { CustomerReply } from "./customer-reply";
+import { PetMascot } from "./pet-mascot";
 import { QuoteDifference } from "./quote-agent";
 import { QuoteChecks } from "./quote-checks";
 import { DraftForm, SavedQuote } from "./quotes";
@@ -27,6 +27,7 @@ export function Workbench({ client }: { client: DesktopClient }) {
   const [error, setError] = useState("");
   const manualKeys = useRef(new Map<string, string>());
   const [runReports, setRunReports] = useState<Record<string, CheckReport>>({});
+  const [mascotCelebrate, setMascotCelebrate] = useState(false);
 
   const clarification = useRef("");
   const activeRunId = useRef<string | null>(null);
@@ -53,6 +54,9 @@ export function Workbench({ client }: { client: DesktopClient }) {
       .sort((a, b) => b.version - a.version)[0];
   const onSaved = (result: Extract<TradeResult, { ok: true }>) => {
     queries.setQueryData(["trade"], result.data);
+    // 报价保存成功时，看板娘短暂庆祝。
+    setMascotCelebrate(true);
+    window.setTimeout(() => setMascotCelebrate(false), 1400);
     // Progress replays with no new version must not change the user's selected history.
     const id = result.evidenceIds.find((item) => result.data.quotes.some((q) => q.id === item));
     if (id) {
@@ -323,12 +327,10 @@ export function Workbench({ client }: { client: DesktopClient }) {
             </h2>
           </div>
           <div className="workbench-conversation">
-            <img
-              className="pet-mascot"
-              src={petMascot}
-              alt="报价助手趴在对话旁"
-              aria-hidden="true"
+            <PetMascot
+              mood={executing || busy ? "thinking" : mascotCelebrate ? "success" : "idle"}
             />
+
             {workspace.data ? (
               <AgentRuns
                 client={client}
