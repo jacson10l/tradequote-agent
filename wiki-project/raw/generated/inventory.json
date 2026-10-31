@@ -2869,9 +2869,9 @@
     {
       "path": "tests/e2e/quote-v1.spec.ts",
       "type": "ts",
-      "lines": 131,
-      "bytes": 7443,
-      "sha256": "be9154201599813a45f3d6c643cf2e483b2b52a840cc24cbb675ee24116df4e4",
+      "lines": 256,
+      "bytes": 19396,
+      "sha256": "721a7412aede8829f077c04f46b3e2850a9f63a4b740dc1603e7ce291a5259e1",
       "role": "Quote V1 amount, source, transaction, migration and real Electron regression evidence",
       "pages": [
         "wiki/M2真实报价V1.md",

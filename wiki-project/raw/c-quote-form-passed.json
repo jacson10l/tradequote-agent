@@ -1,0 +1,114 @@
+{
+  "status": "passed",
+  "scope": "C限定的报价表单回归子任务",
+  "base": "988e69f049bd0e98783446983e0bd6efca4fb05e",
+  "checks": [
+    {
+      "name": "build",
+      "argv": [
+        "pnpm",
+        "build"
+      ],
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 build /Users/jason/.codex/worktrees/c-a24-maintenance-reverify/tradequote-agent\n> node scripts/check-icons.mjs && pnpm --filter @tradequote/desktop build\n\nApplication icons passed: SVG/1024 PNG/macOS ICNS/Windows ICO\n\n> @tradequote/desktop@0.1.0 build /Users/jason/.codex/worktrees/c-a24-maintenance-reverify/tradequote-agent/apps/desktop\n> electron-vite build\n\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 280 modules transformed.\nrendering chunks...\nout/main/evaluation.js                2.41 kB\nout/main/worker.js                    3.07 kB\nout/main/index.js                    26.21 kB\nout/main/chunks/public-B-cYcMiK.js   29.90 kB\nout/main/chunks/src-Dr8ywo1b.js     804.73 kB\n\n✓ built in 102ms\nvite v8.3.4 building ssr environment for production...\ntransforming...\n✓ 116 modules transformed.\nrendering chunks...\nout/preload/index.js  286.48 kB\n\n✓ built in 53ms\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 2120 modules transformed.\nrendering chunks...\nout/renderer/index.html                   0.64 kB\nout/renderer/assets/index-CKwX_z5s.css   15.94 kB\nout/renderer/assets/index-Dkp_l23Z.js   597.05 kB\n\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n✓ built in 938ms\n"
+    },
+    {
+      "name": "focused-e2e",
+      "argv": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "tests/e2e/quote-v1.spec.ts"
+      ],
+      "exitCode": 0,
+      "stdout": "[WebServer] (node:32418) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (node:32435) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:\n[WebServer]   - ESM syntax in a file loaded as CommonJS (vite.renderer.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\n[WebServer]   - ESM syntax in a file loaded as CommonJS (electron.vite.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\n[WebServer] Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.\n\nRunning 2 tests using 1 worker\n\n(node:32450) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n  ✓  1 tests/e2e/quote-v1.spec.ts:12:1 › real desktop imports CSV with confirmation, saves deterministic V1 and reopens frozen evidence (5.0s)\n  ✓  2 tests/e2e/quote-v1.spec.ts:164:1 › frozen catalog form rolls back a failed save, retries once, prevents duplicates and reopens exact quotes (4.8s)\n\n  2 passed (12.4s)\n"
+    },
+    {
+      "name": "typecheck",
+      "argv": [
+        "pnpm",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 typecheck /Users/jason/.codex/worktrees/c-a24-maintenance-reverify/tradequote-agent\n> tsc --noEmit\n\n",
+      "stderr": ""
+    },
+    {
+      "name": "full-electron",
+      "argv": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test"
+      ],
+      "exitCode": 0,
+      "stdout": "\nRunning 12 tests using 1 worker\n\n  ✓   1 tests/e2e/agent-recovery.spec.ts:9:1 › R20 real worker SIGKILL, restart discovery, explicit retry, cancellation and immutable saved receipts (4.7s)\n  ✓   2 tests/e2e/feedback.spec.ts:8:1 › desktop feedback floats above content and recovers through the notification action (2.5s)\n  ✓   3 tests/e2e/model-evaluation.spec.ts:9:1 › formal model settings explicitly start isolated evaluations, cancel, preserve redacted fixture reports and never replay on reopen (7.8s)\n  ✓   4 tests/e2e/multistep-agent.spec.ts:13:1 › formal multistep loop saves validated V1/V2/V3, shows blocking sources, survives worker kill and explicitly retries (3.3s)\n  ✓   5 tests/e2e/quote-agent.spec.ts:9:1 › desktop settings and HTTP adapter support inquiry plus two saved revisions, differences, failures and reopen (3.3s)\n  ✓   6 tests/e2e/quote-checks.spec.ts:56:1 › human saved-quote check persists both sources, paired feedback and immutable V1/V2 history across restart (4.5s)\n  ✓   7 tests/e2e/quote-checks.spec.ts:215:1 › desktop transaction failure saves no partial report, retries explicitly, and preserves old reports after source withdrawal (3.7s)\n  ✓   8 tests/e2e/quote-v1.spec.ts:12:1 › real desktop imports CSV with confirmation, saves deterministic V1 and reopens frozen evidence (2.7s)\n  ✓   9 tests/e2e/quote-v1.spec.ts:164:1 › frozen catalog form rolls back a failed save, retries once, prevents duplicates and reopens exact quotes (3.8s)\n  ✓  10 tests/e2e/read-assistant.spec.ts:9:1 › formal desktop read assistant executes four real tools, shows facts, guards missing tools and never saves (3.5s)\n  ✓  11 tests/e2e/workspace.spec.ts:13:1 › development renderer runs with React refresh and the real desktop bridge (1.1s)\n  ✓  12 tests/e2e/workspace.spec.ts:38:1 › real desktop persists workspace, validates IPC, handles conflict and reopens (4.7s)\n\n  12 passed (47.7s)\n",
+      "stderr": "[WebServer] (node:32927) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (node:32930) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:\n[WebServer]   - ESM syntax in a file loaded as CommonJS (vite.renderer.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\n[WebServer]   - ESM syntax in a file loaded as CommonJS (electron.vite.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\n[WebServer] Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.\n(node:32946) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    },
+    {
+      "name": "generate",
+      "argv": [
+        "pnpm",
+        "wiki:generate"
+      ],
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 wiki:generate /Users/jason/.codex/worktrees/c-a24-maintenance-reverify/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs .\n\n{\n  \"mode\": \"generate\",\n  \"files\": 255,\n  \"lines\": 70893,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "engineering",
+      "argv": [
+        "pnpm",
+        "check"
+      ],
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 check /Users/jason/.codex/worktrees/c-a24-maintenance-reverify/tradequote-agent\n> biome check . && node --test scripts/check-boundaries.test.mjs scripts/check-icons.test.mjs scripts/desktop-executable.test.mjs && node scripts/check-boundaries.mjs && pnpm wiki:check\n\nChecked 183 files in 101ms. No fixes applied.\nTAP version 13\n# Subtest: renderer cannot reach Node, database or desktop internals through import forms\nok 1 - renderer cannot reach Node, database or desktop internals through import forms\n  ---\n  duration_ms: 8.275541\n  type: 'test'\n  ...\n# Subtest: pure modules use public contracts while other platform dependencies are rejected\nok 2 - pure modules use public contracts while other platform dependencies are rejected\n  ---\n  duration_ms: 1.832375\n  type: 'test'\n  ...\n# Subtest: domain permits exact pure decimal dependency without opening contracts or SDK imports\nok 3 - domain permits exact pure decimal dependency without opening contracts or SDK imports\n  ---\n  duration_ms: 0.418709\n  type: 'test'\n  ...\n# Subtest: committed icon resources match their source manifest\nok 4 - committed icon resources match their source manifest\n  ---\n  duration_ms: 2.150292\n  type: 'test'\n  ...\n# Subtest: editing either SVG or packaged icon without generation blocks the build\nok 5 - editing either SVG or packaged icon without generation blocks the build\n  ---\n  duration_ms: 6.252666\n  type: 'test'\n  ...\n# Subtest: macOS native process and runtime display TradeQuote while upstream Electron stays intact\nok 6 - macOS native process and runtime display TradeQuote while upstream Electron stays intact\n  ---\n  duration_ms: 4130.743\n  type: 'test'\n  ...\n1..6\n# tests 6\n# suites 0\n# pass 6\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 4184.5835\nModule boundaries passed\n\n> tradequote-agent@0.1.0 wiki:check /Users/jason/.codex/worktrees/c-a24-maintenance-reverify/tradequote-agent\n> node wiki-project/scripts/build-code-index.mjs . --check && node wiki-project/scripts/lint-wiki.mjs .\n\n{\n  \"mode\": \"check\",\n  \"files\": 255,\n  \"lines\": 70893,\n  \"generated\": 5,\n  \"excluded\": 23\n}\n{\n  \"status\": \"passed\",\n  \"markdown\": 255,\n  \"semantic\": 227,\n  \"reachable\": 255\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "wiki-tools",
+      "argv": [
+        "pnpm",
+        "wiki:test"
+      ],
+      "exitCode": 0,
+      "stdout": "\n> tradequote-agent@0.1.0 wiki:test /Users/jason/.codex/worktrees/c-a24-maintenance-reverify/tradequote-agent\n> node --test wiki-project/scripts/wiki-tools.test.mjs wiki-project/scripts/wiki-sync.test.mjs\n\nTAP version 13\n# Subtest: runtime version pin is a mandatory Wiki-synchronized configuration change\nok 1 - runtime version pin is a mandatory Wiki-synchronized configuration change\n  ---\n  duration_ms: 1.488583\n  type: 'test'\n  ...\n# Subtest: code with related knowledge, task and appended log passes\nok 2 - code with related knowledge, task and appended log passes\n  ---\n  duration_ms: 0.329834\n  type: 'test'\n  ...\n# Subtest: generated snapshots alone cannot satisfy knowledge/task/log changes\nok 3 - generated snapshots alone cannot satisfy knowledge/task/log changes\n  ---\n  duration_ms: 0.094792\n  type: 'test'\n  ...\n# Subtest: metadata-only or whitespace-only edits cannot satisfy semantic update\nok 4 - metadata-only or whitespace-only edits cannot satisfy semantic update\n  ---\n  duration_ms: 0.11\n  type: 'test'\n  ...\n# Subtest: each source needs its own mapped knowledge, unrelated pages do not suffice\nok 5 - each source needs its own mapped knowledge, unrelated pages do not suffice\n  ---\n  duration_ms: 0.186833\n  type: 'test'\n  ...\n# Subtest: deleted source uses baseline mapping; unknown source fails\nok 6 - deleted source uses baseline mapping; unknown source fails\n  ---\n  duration_ms: 0.208\n  type: 'test'\n  ...\n# Subtest: history rewrite and removed task do not pass\nok 7 - history rewrite and removed task do not pass\n  ---\n  duration_ms: 0.092584\n  type: 'test'\n  ...\n# Subtest: Wiki maintenance code requires workflow knowledge, not generated data\nok 8 - Wiki maintenance code requires workflow knowledge, not generated data\n  ---\n  duration_ms: 0.659125\n  type: 'test'\n  ...\n# Subtest: ordinary documentation-only edits do not trigger code delivery check\nok 9 - ordinary documentation-only edits do not trigger code delivery check\n  ---\n  duration_ms: 0.412334\n  type: 'test'\n  ...\n# Subtest: real Git baseline includes committed, unstaged and untracked sources\nok 10 - real Git baseline includes committed, unstaged and untracked sources\n  ---\n  duration_ms: 192.829584\n  type: 'test'\n  ...\n# Subtest: SVG assets require semantic Wiki, task and append-only log changes\nok 11 - SVG assets require semantic Wiki, task and append-only log changes\n  ---\n  duration_ms: 0.141417\n  type: 'test'\n  ...\n# Subtest: same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\nok 12 - same content deterministic; relocated root checks read-only; current Git HEAD does not invalidate baseline\n  ---\n  duration_ms: 2226.844542\n  type: 'test'\n  ...\n# Subtest: source drift fails without writes; generation repairs snapshot while preserving ingest baseline\nok 13 - source drift fails without writes; generation repairs snapshot while preserving ingest baseline\n  ---\n  duration_ms: 869.593125\n  type: 'test'\n  ...\n# Subtest: explicit ingest records a non-Git project honestly\nok 14 - explicit ingest records a non-Git project honestly\n  ---\n  duration_ms: 653.379833\n  type: 'test'\n  ...\n# Subtest: tool inventory names come from definitions, not nested headers/output/schema fields\nok 15 - tool inventory names come from definitions, not nested headers/output/schema fields\n  ---\n  duration_ms: 406.629542\n  type: 'test'\n  ...\n# Subtest: new unclassified source fails; missing knowledge target and stale mapping fail\nok 16 - new unclassified source fails; missing knowledge target and stale mapping fail\n  ---\n  duration_ms: 556.974417\n  type: 'test'\n  ...\n# Subtest: generated coverage tampering is detected by lint and remains untouched\nok 17 - generated coverage tampering is detected by lint and remains untouched\n  ---\n  duration_ms: 1341.679875\n  type: 'test'\n  ...\n# Subtest: sensitive filename is excluded before read; external source symlink is not followed\nok 18 - sensitive filename is excluded before read; external source symlink is not followed\n  ---\n  duration_ms: 403.272917\n  type: 'test'\n  ...\n# Subtest: Wiki and generated-output symlinks cannot write outside project\nok 19 - Wiki and generated-output symlinks cannot write outside project\n  ---\n  duration_ms: 458.913167\n  type: 'test'\n  ...\n# Subtest: missing schema field\nok 20 - missing schema field\n  ---\n  duration_ms: 1262.733334\n  type: 'test'\n  ...\n# Subtest: bad type\nok 21 - bad type\n  ---\n  duration_ms: 1257.742041\n  type: 'test'\n  ...\n# Subtest: bad date\nok 22 - bad date\n  ---\n  duration_ms: 1289.553333\n  type: 'test'\n  ...\n# Subtest: bad status\nok 23 - bad status\n  ---\n  duration_ms: 1322.234666\n  type: 'test'\n  ...\n# Subtest: missing wiki target\nok 24 - missing wiki target\n  ---\n  duration_ms: 1316.546791\n  type: 'test'\n  ...\n# Subtest: missing markdown target\nok 25 - missing markdown target\n  ---\n  duration_ms: 1309.930958\n  type: 'test'\n  ...\n# Subtest: invalid source line\nok 26 - invalid source line\n  ---\n  duration_ms: 1253.962792\n  type: 'test'\n  ...\n# Subtest: verified without code evidence\nok 27 - verified without code evidence\n  ---\n  duration_ms: 1258.4795\n  type: 'test'\n  ...\n# Subtest: source escaping project\nok 28 - source escaping project\n  ---\n  duration_ms: 1249.620292\n  type: 'test'\n  ...\n# Subtest: unfilled placeholder\nok 29 - unfilled placeholder\n  ---\n  duration_ms: 1292.240292\n  type: 'test'\n  ...\n# Subtest: all sources are validated even after a valid implementation source\nok 30 - all sources are validated even after a valid implementation source\n  ---\n  duration_ms: 1415.222167\n  type: 'test'\n  ...\n# Subtest: orphan pages and duplicate basenames are rejected\nok 31 - orphan pages and duplicate basenames are rejected\n  ---\n  duration_ms: 2303.1875\n  type: 'test'\n  ...\n# Subtest: completed task requires actual verification record\nok 32 - completed task requires actual verification record\n  ---\n  duration_ms: 1249.627625\n  type: 'test'\n  ...\n# Subtest: archived source cannot bypass inspection through silent changes\nok 33 - archived source cannot bypass inspection through silent changes\n  ---\n  duration_ms: 1377.849084\n  type: 'test'\n  ...\n# Subtest: source references cannot open excluded runtime data\nok 34 - source references cannot open excluded runtime data\n  ---\n  duration_ms: 1258.014625\n  type: 'test'\n  ...\n# Subtest: new JSON evidence is checked and sensitive Wiki filenames are rejected before read\nok 35 - new JSON evidence is checked and sensitive Wiki filenames are rejected before read\n  ---\n  duration_ms: 1467.832667\n  type: 'test'\n  ...\n# Subtest: secret/JWT/private-key/PII detections redact the value in diagnostics\nok 36 - secret/JWT/private-key/PII detections redact the value in diagnostics\n  ---\n  duration_ms: 4389.1705\n  type: 'test'\n  ...\n1..36\n# tests 36\n# suites 0\n# pass 36\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 33258.575666\n",
+      "stderr": ""
+    },
+    {
+      "name": "sync",
+      "argv": [
+        "node",
+        "wiki-project/scripts/check-wiki-sync.mjs",
+        ".",
+        "--base",
+        "988e69f049bd0e98783446983e0bd6efca4fb05e"
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"base\": \"988e69f049bd0e98783446983e0bd6efca4fb05e\",\n  \"status\": \"passed\",\n  \"codeFiles\": 1,\n  \"knowledgePages\": 5,\n  \"tasks\": 1,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "diff",
+      "argv": [
+        "git",
+        "-c",
+        "core.whitespace=cr-at-eol",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "attemptEvidence": "wiki-project/raw/c-quote-form-validation.json",
+  "limits": [
+    "all unit suite (test-only slice)",
+    "Windows",
+    "installer acceptance",
+    "network response loss",
+    "rapid double click in-flight"
+  ]
+}
