@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "date": "2026-10-31",
+  "taskBase": "f21f4034b49b4c2a1a7067a2c30e34e3db7c297a",
+  "branch": "codex/c-codex-harness",
+  "scope": "CSS-only: white conversation and composer, warm user bubbles, persistent orange outline unchanged",
+  "checks": [
+    {
+      "command": "pnpm build",
+      "exitCode": 0,
+      "result": "Main/preload/renderer built; existing chunk-size warning"
+    },
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "result": "TypeScript noEmit passed"
+    },
+    {
+      "command": "pnpm wiki:generate",
+      "exitCode": 0,
+      "result": "273 source files,5 generated artifacts"
+    },
+    {
+      "command": "pnpm check",
+      "exitCode": 0,
+      "result": "Biome,6 engineering tests,boundaries,read-only inventory and lint passed:273 Markdown/244 semantic/all reachable"
+    },
+    {
+      "command": "pnpm wiki:sync --base f21f4034b49b4c2a1a7067a2c30e34e3db7c297a",
+      "exitCode": 0,
+      "result": "1 CSS source,semantic knowledge/task/log synchronized,errors[]"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "No whitespace errors"
+    },
+    {
+      "command": "Computer Use native Electron reload / focus AX405 / blur heading AX336",
+      "exitCode": 0,
+      "result": "White panel and composer, warm user bubble visible; outline remains after blur AX223. Existing quote900 USD and read1080 USD unchanged; no message submitted or model execution."
+    }
+  ],
+  "sourceSnapshot": {
+    "path": "apps/desktop/src/renderer/src/theme.css",
+    "sha256": "01f0bffb51ce1e0c0fc8a9b01c6508ceb7e61d8df1192f3b12091ac39886c9c0"
+  },
+  "limits": [
+    "No business/API/data change. Previous validation packets retained.",
+    "No new mirror tests or full535/12/36 rerun for reversible CSS colors. Windows and signed package unverified.",
+    "A/B pending items and integration merge status unchanged."
+  ]
+}

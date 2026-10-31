@@ -1227,3 +1227,7 @@ C05提交前新鲜复验535单元/3显式live跳过、12Electron、36维护及ty
 负责人要求橙框常驻、仅修改白色输入背景，其余不动。同一独立候选从fc8c515450a8e0f90b30edda95cd1dab40056e28起，theme.css复用原2px action outline/3px offset常驻，并将composer/可编辑textarea改surface-warm，尺寸/文案/消息/按钮/禁用灰底保持。DESIGN、工作台知识、任务/导航同步，交接指纹命令固定原d62570a避免HEAD后续微调混淆；原证据/报价不改。实际桌面和本机门禁收尾见[[C05d-输入区常驻边框与背景]]。
 
 2026-10-31 C05d验证收口：Electron聚焦/失焦均有原橙框，输入区暖色，未重发模型。build/typecheck/check（6工程、边界、273源码清单与273 Markdown/244语义全部可达）/generate/fc8c515固定基线sync/diff-check均0；证据raw/c05d-composer-validation.json。仅1源码CSS，无新增源码/维护工具变化，原535/12/36未重跑，原证据固定d62570a；代码与Wiki同批提交到C独立分支，不合入集成。
+
+2026-10-31 C05配色续改：用户决定恢复白色任务对话和输入区，用户消息采用当前暖色，橙框常驻，其他不变。独立codex/c-codex-harness，真实基线f21f4034b49b4c2a1a7067a2c30e34e3db7c297a；验证/交付续记[[C05d-输入区常驻边框与背景]]，原证据与A/B未完项保留，不合入集成。
+
+2026-10-31白底与暖色用户气泡已在实际Electron重载、聚焦/失焦验证；build/typecheck/check/generate及固定f21f403同步/diff-check全部0，check含6工程与273 Markdown全部可达。证据raw/c05e-white-chat-validation.json，原证据/历史log保留，无新增源码映射或维护算法变化；随同Wiki推送C独立分支。
