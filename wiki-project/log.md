@@ -1585,3 +1585,35 @@ C05提交前新鲜复验535单元/3显式live跳过、12Electron、36维护及ty
 - 同步：`MANIFEST.md`、`SOURCE-PROVENANCE.md`、`MDF-REAL-DATA.md`、`A01f演示资料包冻结.md`、任务页 `A06-来源证据与适用规则包.md` 规模与隔离说明同步；`file-provenance.json` 三个 demo-data 登记 hash 更新并复验匹配（MANIFEST `2d3ab3da…`、SOURCE-PROVENANCE `9e820ee6…`、MDF-REAL-DATA `e2ec6818…`）。
 - 验证：`catalog_converted.csv` 经产品 `parseCatalogCsv` 实测 285 行/0 issue；临时验证测试已清理，未入库。
 - 仍未完成（如实保留，不代签）：服装原始快照（登录墙拦截 `not collected`）、`valid_until` 统一 `2027-12-31` 为内部默认值（无供应商/页面依据）、认证/供应商有效期真实性、人工发布/复核（`pending`）。
+
+## 2026-10-31 虚拟形象 Phase 0（视觉层）
+
+- 给询报价工作台新增橙色暖色 2D Q 版看板娘形象（虚拟形象与记忆方案见 [[虚拟形象与记忆方案]]）。Phase 0 仅改 renderer，无后端/存储改动。
+- 素材：圆形头像 `apps/desktop/resources/pet-avatar.png`（512×512，裁剪去水印）；趴姿小人 `apps/desktop/resources/pet-mascot.png`（抠透明背景）。生成素材保留于 `generated-images/`，含水印、待商用授权确认。
+- 代码：`model-settings.tsx` DeepSeek 区块加圆形头像；`workbench.tsx` 任务对话面板加趴姿小人；`theme.css` 加 `.pet-avatar`/`.pet-mascot` 样式（复用品牌橙/暖底变量）。
+- 验证：`tsc --noEmit` 退出 0，`biome check` 通过，`electron-vite build` 成功且 renderer 产物含两张 png（路径解析与打包正确）。
+- 未完成（不标 done）：抠图有轻微白边、头像与趴姿非同一张脸、Phase 1/2（记忆/对话）未实现、Windows 实际桌面渲染未验证。
+
+## 2026-10-31 虚拟形象 Phase 1/2（记忆存储 + 对话）
+
+- 实现虚拟形象记忆与对话闭环（方案见 [[虚拟形象与记忆方案]]）。跨 5 层：contracts 新增 pet.ts（PetPersona/PetMemory/PetCommand/PetClient，DesktopClient 增补，mock 补失败实现）；infrastructure 新增 pet-memory-store.ts（独立 pet-memory.db，人设人工审核、记忆有界滚动）+ DeepSeekProvider.chat()（纯文本非 JSON）；main/preload 注册 pet.* 4 个 IPC；renderer 新增 pet-assistant.tsx 对话页 + App 侧栏“报价助手”入口 + 样式。
+- 关键决策：独立数据库文件（不写业务 SQLite/不写 wiki-project）；人设人工审核、会话记忆免审；对话走独立上下文（不混业务事件/账本）。
+- 验证：tsc --noEmit 退出 0；改动文件 biome 全过；新增 pet-memory-store.test.ts（3 项）+ deepseek.test.ts chat 2 项，contracts 103、preload 9 全过；electron-vite build 成功。
+- 未完成（不标 done）：对话未接只读报价、记忆未做摘要压缩、对话单轮无多轮历史拼接、实际桌面运行与真实 DeepSeek 计费未验证。
+
+## 2026-10-31 虚拟形象 Phase 1/2 补齐（多轮历史 + 只读报价 + 摘要压缩）
+
+- 补齐上一轮记录的三项未完成。契约 pet.ts：pet.chat payload 增加 history（role/content 数组，上限 20，默认 []）；主进程 index.ts：新增 readOnlyQuoteContext()（worker.request trade.get + TradeBoardSchema 校验，提炼场景/商品数/报价数/客户摘要注入，只读降级），pet.chat 拼接 system + history + user；infra pet-memory-store.ts：新增 maybeSummarize()（fact≥30 时 chat 压缩为 summary 并删除旧 fact，幂等可重试）；renderer pet-assistant.tsx：send() 传最近 20 轮 history。
+- 验证：tsc 0；改动文件 biome 全过；pet-memory-store 测试 3→5 项（新增压缩触发/未达阈值不触发），相关测试 116 全过；electron-vite build 成功；dev 启动成功（窗口正常）。
+- 未完成：摘要压缩仍耦合在 pet.chat 内（未做定时/后台触发）；只读报价摘要较粗糙（未展开金额明细）；真实 DeepSeek 计费与多轮真机体验待用户实测。
+
+## 2026-10-31 虚拟形象 Phase 1/2 收尾（自主完成，全权限交付）
+
+- 只读报价摘要细化：主进程内联逻辑抽取为纯函数 summarizeQuoteBoard（packages/infrastructure/src/pet-quote-context.ts），展开每份报价编号/客户/总价币种/行数，goodsTotal null 标注"总价待定"严守未知不等于零；新增 pet-quote-context.test.ts 4 项。
+- 素材精修：pet-mascot.png 去白边（白边像素 1558→568，-63
+## 2026-10-31 虚拟形象 Phase 1/2 收尾（自主完成，全权限交付）
+
+- 只读报价摘要细化：主进程内联逻辑抽取为纯函数 summarizeQuoteBoard（packages/infrastructure/src/pet-quote-context.ts），展开每份报价编号/客户/总价币种/行数，goodsTotal null 标注"总价待定"严守未知不等于零；新增 pet-quote-context.test.ts 4 项。
+- 素材精修：pet-mascot.png 去白边（白边像素 1558→568），pet-avatar.png 确认无瑕疵无水印。
+- 端到端验证：tsc 0；17 文件 biome 全过；全量单测 563 passed/11 skipped，2 失败为 Windows symlink 权限（EPERM，与本改动无关，预存在）；electron-vite build 成功；dev 启动窗口正常。
+- 方案三个 Phase 核心能力（视觉/记忆/对话含多轮历史+只读报价+摘要压缩）均已实现并验证；Phase 3 润色（动画/表情联动/语音）未纳入。

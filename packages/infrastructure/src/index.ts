@@ -166,5 +166,7 @@ export { CatalogQuoteReadService } from "./catalog-quote-read-service";
 export { DeepSeekProvider } from "./deepseek";
 export { SqliteKnowledgeStore } from "./knowledge-store";
 export { ModelSettingsStore } from "./model-settings";
+export { PetMemoryStore } from "./pet-memory-store";
+export { summarizeQuoteBoard } from "./pet-quote-context";
 export { SqliteWikiStore } from "./wiki-store";
 export { WorkerOwnership } from "./worker-ownership";

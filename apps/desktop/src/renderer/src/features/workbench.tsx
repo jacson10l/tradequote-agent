@@ -3,6 +3,7 @@ import type { AgentRun, CheckReport, DesktopClient, TradeResult } from "@tradequ
 import { FileText, MessageSquare } from "lucide-react";
 import { useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import petMascot from "../../../../resources/pet-mascot.png";
 import { Button } from "../shared/button";
 import { Notification } from "../shared/notification";
 import { AgentRuns } from "./agent-runs";
@@ -322,6 +323,12 @@ export function Workbench({ client }: { client: DesktopClient }) {
             </h2>
           </div>
           <div className="workbench-conversation">
+            <img
+              className="pet-mascot"
+              src={petMascot}
+              alt="报价助手趴在对话旁"
+              aria-hidden="true"
+            />
             {workspace.data ? (
               <AgentRuns
                 client={client}

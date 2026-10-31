@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { mkdirSync } from "node:fs";
 import { open, writeFile } from "node:fs/promises";
 import { basename, extname, join } from "node:path";
@@ -6,10 +7,17 @@ import {
   failure,
   ModelEvaluationCommandSchema,
   ModelSettingsCommandSchema,
+  PetCommandSchema,
   RuntimeCommandSchema,
+  TradeBoardSchema,
 } from "@tradequote/contracts";
 import { TradeFault } from "@tradequote/domain";
-import { DeepSeekProvider, ModelSettingsStore } from "@tradequote/infrastructure";
+import {
+  DeepSeekProvider,
+  ModelSettingsStore,
+  PetMemoryStore,
+  summarizeQuoteBoard,
+} from "@tradequote/infrastructure";
 import {
   app,
   BrowserWindow,
@@ -34,9 +42,30 @@ if (!app.isPackaged && process.env.TRADEQUOTE_TEST_DATA) {
   mkdirSync(process.env.TRADEQUOTE_TEST_DATA, { recursive: true });
   app.setPath("userData", process.env.TRADEQUOTE_TEST_DATA);
 }
+/**
+ * 只读拉取当前工作区报价板，提炼成一段文本上下文供小人对话引用。
+ * 不写业务库、不触发任何写命令；worker 未就绪或读取失败时返回 undefined（降级）。
+ * 金额仅展示冻结快照中已确定的值；nullable 金额显式标注"待定"（见 summarizeQuoteBoard）。
+ */
+async function readOnlyQuoteContext(
+  worker: BusinessWorker | undefined,
+): Promise<string | undefined> {
+  if (!worker) return undefined;
+  const result = await worker.request({
+    schemaVersion: 1,
+    requestId: randomUUID(),
+    method: "trade.get",
+  });
+  if (!result.ok) return undefined;
+  const board = TradeBoardSchema.safeParse(result.data);
+  if (!board.success) return undefined;
+  return summarizeQuoteBoard(board.data);
+}
+
 const locked = app.requestSingleInstanceLock();
 let worker: BusinessWorker | undefined;
 let evaluation: ModelEvaluationHost | undefined;
+let petMemory: PetMemoryStore | undefined;
 let window: BrowserWindow | undefined;
 if (!locked) app.quit();
 else {
@@ -86,6 +115,8 @@ else {
         join(app.getPath("userData"), "workspaces", "default", "workspace.sqlite"),
         fixture,
       );
+      // 虚拟形象记忆：独立 pet-memory.db，与业务 SQLite 完全隔离。
+      petMemory = new PetMemoryStore(join(app.getPath("userData"), "pet-memory", "pet-memory.db"));
       // Chromium canonicalizes HTTP root URLs (including the trailing slash).
       // Compare against that same serialization while retaining exact-page checks.
       const rendererUrl = new URL(
@@ -229,6 +260,108 @@ else {
           }
         });
       }
+      ipcMain.handle("pet.getState", (event, input: unknown) => {
+        if (!trusted(event)) return failure("ACTION_NOT_ALLOWED", "调用来源不允许");
+        const parsed = PetCommandSchema.safeParse(input);
+        if (!parsed.success || parsed.data.method !== "pet.getState")
+          return failure("VALIDATION_ERROR", "虚拟形象请求字段不合法");
+        if (!petMemory) return failure("CAPABILITY_UNAVAILABLE", "虚拟形象记忆未就绪");
+        try {
+          return petMemory.getState();
+        } catch (error) {
+          return error instanceof TradeFault
+            ? failure(error.code, error.message)
+            : failure("STORAGE_ERROR", "虚拟形象记忆操作失败，请重试");
+        }
+      });
+      ipcMain.handle("pet.proposePersona", (event, input: unknown) => {
+        if (!trusted(event)) return failure("ACTION_NOT_ALLOWED", "调用来源不允许");
+        const parsed = PetCommandSchema.safeParse(input);
+        if (!parsed.success || parsed.data.method !== "pet.proposePersona")
+          return failure("VALIDATION_ERROR", "人设字段不合法");
+        if (!petMemory) return failure("CAPABILITY_UNAVAILABLE", "虚拟形象记忆未就绪");
+        try {
+          return petMemory.proposePersona(parsed.data.payload.content);
+        } catch (error) {
+          return error instanceof TradeFault
+            ? failure(error.code, error.message)
+            : failure("STORAGE_ERROR", "人设保存失败，请重试");
+        }
+      });
+      ipcMain.handle("pet.approvePersona", (event, input: unknown) => {
+        if (!trusted(event)) return failure("ACTION_NOT_ALLOWED", "调用来源不允许");
+        const parsed = PetCommandSchema.safeParse(input);
+        if (!parsed.success || parsed.data.method !== "pet.approvePersona")
+          return failure("VALIDATION_ERROR", "人设审核字段不合法");
+        if (!petMemory) return failure("CAPABILITY_UNAVAILABLE", "虚拟形象记忆未就绪");
+        try {
+          return petMemory.approvePersona(
+            parsed.data.payload.personaId,
+            parsed.data.payload.approvedBy,
+          );
+        } catch (error) {
+          return error instanceof TradeFault
+            ? failure(error.code, error.message)
+            : failure("STORAGE_ERROR", "人设审核失败，请重试");
+        }
+      });
+      ipcMain.handle("pet.chat", async (event, input: unknown) => {
+        if (!trusted(event)) return failure("ACTION_NOT_ALLOWED", "调用来源不允许");
+        const parsed = PetCommandSchema.safeParse(input);
+        if (!parsed.success || parsed.data.method !== "pet.chat")
+          return failure("VALIDATION_ERROR", "对话字段不合法");
+        const credentials = settings.getCredentials();
+        if (!credentials) return failure("MODEL_AUTH_FAILED", "请先在模型设置保存 API Key");
+        if (!petMemory) return failure("CAPABILITY_UNAVAILABLE", "虚拟形象记忆未就绪");
+        try {
+          const persona = petMemory.activePersona();
+          const state = petMemory.getState();
+          const systemParts: string[] = [];
+          if (persona)
+            systemParts.push(`你是 TradeQuote 的虚拟形象助手，人设如下：\n${persona.content}`);
+          else
+            systemParts.push(
+              "你是 TradeQuote 询报价工作台的虚拟形象助手，友好、专业、温暖。可回答用户关于产品使用的疑问，也可闲聊。",
+            );
+          const memoryLines = state.data.memories
+            .filter((m) => m.kind === "fact")
+            .map((m) => `- ${m.content}`)
+            .join("\n");
+          if (memoryLines) systemParts.push(`你记得关于用户的这些事：\n${memoryLines}`);
+          const summaryLines = state.data.memories
+            .filter((m) => m.kind === "summary")
+            .map((m) => `- ${m.content}`)
+            .join("\n");
+          if (summaryLines) systemParts.push(`你对这段关系的长期印象：\n${summaryLines}`);
+
+          // 只读报价上下文：尽力拉取当前工作区报价板，提炼摘要注入，不写业务库。
+          const quoteContext = await readOnlyQuoteContext(worker);
+          if (quoteContext) systemParts.push(quoteContext);
+
+          const provider = new DeepSeekProvider(credentials, fetch, fixture);
+          const messages = [
+            { role: "system" as const, content: systemParts.join("\n\n") },
+            ...parsed.data.payload.history.map((h) => ({ role: h.role, content: h.content })),
+            { role: "user" as const, content: parsed.data.payload.message },
+          ];
+          const reply = await provider.chat(messages);
+
+          // 会话记忆：记录本次用户提问（免审自动写，有界），必要时压缩为摘要。
+          petMemory.appendMemory("fact", `用户说：${parsed.data.payload.message.slice(0, 200)}`);
+          await petMemory.maybeSummarize(provider);
+
+          return {
+            ok: true,
+            data: { reply },
+            warnings: [],
+            evidenceIds: [],
+          };
+        } catch (error) {
+          return error instanceof TradeFault
+            ? failure(error.code, error.message)
+            : failure("CAPABILITY_UNAVAILABLE", "对话失败，请稍后重试");
+        }
+      });
       ipcMain.handle("catalog.pickCsv", async (event) => {
         if (!trusted(event) || !window) return { status: "error", message: "调用来源不允许" };
         const selected = await dialog.showOpenDialog(window, {
@@ -332,10 +465,15 @@ else {
   let quitting = false;
   let workerStopped = false;
   app.on("before-quit", (event) => {
-    if (workerStopped || (!worker && !evaluation)) return;
+    if (workerStopped || (!worker && !evaluation && !petMemory)) return;
     event.preventDefault();
     if (quitting) return;
     quitting = true;
+    try {
+      petMemory?.close();
+    } catch {
+      /* best effort */
+    }
     void Promise.all([worker?.close(), evaluation?.close()]).then(() => {
       workerStopped = true;
       app.quit();
