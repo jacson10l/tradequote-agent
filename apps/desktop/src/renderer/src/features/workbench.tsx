@@ -96,7 +96,7 @@ export function Workbench({ client }: { client: DesktopClient }) {
     setError("");
     try {
       if (!readOnly && !board.scenario) {
-        setError("请先在资料与报价保存业务场景并发布商品资料。");
+        setError("请先在工作区设置保存业务配置，并在资料与报价发布商品资料。");
         return;
       }
       if (!readOnly && !selected && !buyer.trim()) {

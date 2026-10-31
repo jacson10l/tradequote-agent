@@ -104,7 +104,6 @@ test("desktop settings and HTTP adapter support inquiry plus two saved revisions
     await page.screenshot({ path: ".runtime/model-settings.png" });
     await page.getByRole("link", { name: "资料与报价" }).click();
     await saveBusinessScenario(page);
-    await expect(page.getByText("场景版本 1", { exact: true })).toBeVisible();
     await fillCatalogFixture(page);
     await page.getByRole("button", { name: "解析并预览" }).click();
     await expect(page.getByRole("table", { name: "CSV 导入预览" })).toBeVisible();
@@ -139,10 +138,12 @@ test("desktop settings and HTTP adapter support inquiry plus two saved revisions
     await page.getByText("本版本回复草稿 · 未审核", { exact: true }).click();
     const reply = page.getByRole("region", { name: "报价 V3 客户回复草稿" });
     const replyText = reply.getByLabel("客户回复正文");
-    await expect(replyText).toHaveValue(/Saved check report:/);
+    await reply.getByText("内部核对依据", { exact: true }).click();
+    await expect(reply.getByLabel("内部核对记录")).toHaveValue(/Saved check report:/);
+    await expect(replyText).not.toHaveValue(/SHA-256|Saved check report:|\[pending\]/);
     await expect(replyText).toHaveValue(/1080.00 USD/);
     await expect(replyText).toHaveValue(/V3/);
-    await expect(replyText).toHaveValue(/\[pending\]/);
+    await expect(reply.getByLabel("内部核对记录")).toHaveValue(/\[pending\]/);
     const englishDraft = await replyText.inputValue();
     await app.evaluate(({ clipboard }) => clipboard.writeText("SYNTHETIC-COPY-CONTROL"));
     await reply.getByRole("button", { name: "复制未审核草稿" }).click();
@@ -181,10 +182,11 @@ test("desktop settings and HTTP adapter support inquiry plus two saved revisions
       }),
     ).toBe(true);
     await reply.getByLabel("回复语言").selectOption("de");
-    await expect(replyText).toHaveValue(/Nicht geprüfter Entwurf/);
+    await expect(reply.getByLabel("内部核对记录")).toHaveValue(/Nicht geprüfter Entwurf/);
     await expect(replyText).toHaveValue(/1080.00 USD/);
     await expect(replyText).toHaveValue(/30%预付/);
-    await expect(replyText).toHaveValue(/SHA-256/);
+    await expect(reply.getByLabel("内部核对记录")).toHaveValue(/SHA-256/);
+    await expect(replyText).not.toHaveValue(/SHA-256/);
     await expect(page.getByRole("button", { name: "提交人工审核" })).toBeDisabled();
     await reply.scrollIntoViewIfNeeded();
     await page.screenshot({ path: ".runtime/customer-reply-de.png" });
@@ -205,7 +207,7 @@ test("desktop settings and HTTP adapter support inquiry plus two saved revisions
     await expect(page.getByTestId("goods-total")).toHaveText("900.00 USD");
     const v1Reply = page.getByRole("region", { name: "报价 V1 客户回复草稿" });
     await expect(v1Reply.getByLabel("客户回复正文")).toHaveValue(/900.00 USD/);
-    await expect(v1Reply.getByLabel("客户回复正文")).toHaveValue(/No saved check report/);
+    await expect(v1Reply.getByLabel("内部核对记录")).toHaveValue(/No saved check report/);
     expect(saved.data.quotes.every((q) => q.status === "draft")).toBe(true);
     await page.getByLabel("选择报价与版本").selectOption(v3.id);
     mode = "invalid";

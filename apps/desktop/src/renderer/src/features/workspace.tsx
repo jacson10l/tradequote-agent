@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "../shared/button";
 import { useMessage } from "../shared/message";
 import { Notification } from "../shared/notification";
+import { BusinessSettings } from "./business-settings";
 
 export function useWorkspace(client: DesktopClient) {
   return useQuery({
@@ -42,11 +43,14 @@ export function WorkspacePage({ client }: { client: DesktopClient }) {
       </section>
     );
   return (
-    <WorkspaceForm
-      key={`${query.data?.id ?? "new"}-${query.data?.version ?? 0}`}
-      client={client}
-      workspace={query.data}
-    />
+    <div className="grid gap-4">
+      <WorkspaceForm
+        key={`${query.data?.id ?? "new"}-${query.data?.version ?? 0}`}
+        client={client}
+        workspace={query.data}
+      />
+      {query.data && <BusinessSettings client={client} />}
+    </div>
   );
 }
 function WorkspaceForm({

@@ -28,7 +28,6 @@ test("real desktop imports CSV with confirmation, saves deterministic V1 and reo
     await expect(page.getByText("已保存至本机 · 版本 1")).toBeVisible();
     await page.getByRole("link", { name: "资料与报价" }).click();
     await saveBusinessScenario(page);
-    await expect(page.getByText("场景版本 1", { exact: true })).toBeVisible();
     // Substitute only the OS picker interaction; main still reads/validates an actual UTF-8 file.
     await app.evaluate(({ dialog }, path) => {
       dialog.showOpenDialog = async () => ({ canceled: false, filePaths: [path] });
@@ -110,9 +109,12 @@ test("real desktop imports CSV with confirmation, saves deterministic V1 and reo
       .getByRole("navigation")
       .getByRole("link", { name: "资料与报价", exact: true })
       .click();
+    await page
+      .getByRole("navigation")
+      .getByRole("link", { name: "工作区设置", exact: true })
+      .click();
     await page.getByLabel("目标市场").fill("其他演示市场");
-    await saveBusinessScenario(page);
-    await expect(page.getByText("场景版本 2", { exact: true })).toBeVisible();
+    await saveBusinessScenario(page, 2);
     await expect(page.getByRole("article", { name: "已保存报价详情" })).toContainText(
       "德国（演示市场）",
     );
@@ -129,7 +131,15 @@ test("real desktop imports CSV with confirmation, saves deterministic V1 and reo
     const reopened = await app.firstWindow();
     await reopened.getByRole("link", { name: "资料与报价" }).click();
     await expect(reopened.getByTestId("goods-total")).toHaveText("900.00 USD");
+    await reopened
+      .getByRole("navigation")
+      .getByRole("link", { name: "工作区设置", exact: true })
+      .click();
     await expect(reopened.getByLabel("目标市场")).toHaveValue("其他演示市场");
+    await reopened
+      .getByRole("navigation")
+      .getByRole("link", { name: "资料与报价", exact: true })
+      .click();
     await expect(reopened.getByRole("article", { name: "已保存报价详情" })).toContainText(
       "德国（演示市场）",
     );

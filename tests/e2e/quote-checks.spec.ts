@@ -65,7 +65,6 @@ test("human saved-quote check persists both sources, paired feedback and immutab
     await expect(page.getByText("已保存至本机 · 版本 1")).toBeVisible();
     await page.getByRole("link", { name: "资料与报价" }).click();
     await saveBusinessScenario(page);
-    await expect(page.getByText("场景版本 1", { exact: true })).toBeVisible();
     await fillCatalogFixture(page);
     await page.getByRole("button", { name: "解析并预览" }).click();
     await page.getByRole("button", { name: "确认发布此批次" }).click();
@@ -106,11 +105,14 @@ test("human saved-quote check persists both sources, paired feedback and immutab
     await expect(region).toContainText("1 项阻断 · 1 项提醒 · 0 项待核实");
     await page.getByText("本版本回复草稿 · 未审核", { exact: true }).click();
     const reply = page.getByRole("region", { name: "报价 V1 客户回复草稿" });
-    await expect(reply.getByLabel("客户回复正文")).toHaveValue(/\[block\]/);
-    await expect(reply.getByLabel("客户回复正文")).toHaveValue(/\[warning\]/);
-    await expect(reply.getByLabel("客户回复正文")).toHaveValue(/Wiki /);
+    await expect(reply.getByLabel("客户回复正文")).toHaveValue(/900.00 USD/);
+    await expect(reply.getByLabel("客户回复正文")).not.toHaveValue(/\[block\]|SHA-256|Wiki /);
+    await reply.getByText("内部核对依据", { exact: true }).click();
+    await expect(reply.getByLabel("内部核对记录")).toHaveValue(/\[block\]/);
+    await expect(reply.getByLabel("内部核对记录")).toHaveValue(/\[warning\]/);
+    await expect(reply.getByLabel("内部核对记录")).toHaveValue(/Wiki /);
     for (const sourceId of seeded.sources)
-      await expect(reply.getByLabel("客户回复正文")).toHaveValue(new RegExp(sourceId));
+      await expect(reply.getByLabel("内部核对记录")).toHaveValue(new RegExp(sourceId));
     const marker = region.getByRole("button", {
       name: "阻断 · 付款条款 · 【合成规则】合成付款条款缺失",
     });
@@ -203,9 +205,9 @@ test("human saved-quote check persists both sources, paired feedback and immutab
     ).toBeVisible();
     await page.getByText("本版本回复草稿 · 未审核", { exact: true }).click();
     const revisedReply = page.getByRole("region", { name: "报价 V2 客户回复草稿" });
-    await expect(revisedReply.getByLabel("客户回复正文")).toHaveValue(/Unreviewed draft/);
+    await expect(revisedReply.getByLabel("内部核对记录")).toHaveValue(/Unreviewed draft/);
     await expect(revisedReply.getByLabel("客户回复正文")).not.toHaveValue(/\[block\]/);
-    await expect(revisedReply.getByLabel("客户回复正文")).toHaveValue(/Saved check report:/);
+    await expect(revisedReply.getByLabel("内部核对记录")).toHaveValue(/Saved check report:/);
     await expect(page.getByTestId("goods-total")).toHaveText("900.00 USD");
     await page.getByLabel("选择报价与版本").selectOption(v1.id);
     await expect(page.getByRole("region", { name: "报价 V1 规则检查" })).toContainText(

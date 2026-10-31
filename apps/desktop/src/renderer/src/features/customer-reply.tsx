@@ -45,9 +45,7 @@ export function CustomerReply({
         <h3>客户回复草稿 · V{quote.version}</h3>
         <span className="status-badge">未审核</span>
       </div>
-      <p className="description">
-        条款保留原文，请核对金额与所选语言后再使用。复制草稿不会发送或审批。
-      </p>
+      <p className="description">正文与当前报价版本一致。请核对商品、金额、条款和语言后再使用。</p>
       <label htmlFor={`${prefix}-language`}>回复语言</label>
       <select
         id={`${prefix}-language`}
@@ -67,12 +65,12 @@ export function CustomerReply({
         </div>
       )}
       <label htmlFor={`${prefix}-text`}>客户回复正文</label>
-      <textarea id={`${prefix}-text`} rows={18} readOnly value={draft.text} />
+      <textarea id={`${prefix}-text`} rows={18} readOnly value={draft.customerText} />
       <Button
         variant="outline"
         onClick={async () => {
           try {
-            await navigator.clipboard.writeText(draft.text);
+            await navigator.clipboard.writeText(draft.customerText);
             message.success("已复制未审核草稿，请人工核对后使用");
           } catch {
             message.error("复制失败，请选中正文手动复制");
@@ -81,6 +79,12 @@ export function CustomerReply({
       >
         复制未审核草稿
       </Button>
+      <details>
+        <summary>内部核对依据</summary>
+        <p className="description">包含检查记录和资料来源，仅供内部复核。</p>
+        <label htmlFor={`${prefix}-audit`}>内部核对记录</label>
+        <textarea id={`${prefix}-audit`} rows={12} readOnly value={draft.text} />
+      </details>
     </section>
   );
 }

@@ -1,7 +1,8 @@
-import type { Page } from "@playwright/test";
+import { expect, type Page } from "@playwright/test";
 import { demoCatalogCsv, demoScenario } from "../../packages/contracts/src/trade";
 /** Explicit synthetic fixture input; production UI never preloads these values. */
-export async function saveBusinessScenario(page: Page) {
+export async function saveBusinessScenario(page: Page, expectedVersion = 1) {
+  await page.getByRole("navigation").getByRole("link", { name: "工作区设置", exact: true }).click();
   const fields = {
     name: demoScenario.name,
     targetUser: demoScenario.targetUser,
@@ -17,6 +18,9 @@ export async function saveBusinessScenario(page: Page) {
     await page.locator("#scenario-locales").fill(demoScenario.locales.join(","));
   await page.locator("#scenario-source").selectOption("synthetic");
   await page.getByRole("button", { name: "保存业务场景", exact: true }).click();
+  await page.getByText("业务配置已保存", { exact: true }).waitFor({ state: "visible" });
+  await expect(page.getByText(`场景版本 ${expectedVersion}`, { exact: true })).toBeVisible();
+  await page.getByRole("navigation").getByRole("link", { name: "资料与报价", exact: true }).click();
 }
 export async function fillCatalogFixture(page: Page) {
   await page.getByLabel("CSV 原文").fill(demoCatalogCsv);

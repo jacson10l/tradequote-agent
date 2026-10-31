@@ -133,7 +133,6 @@ test("formal desktop read assistant executes four real tools, shows facts, guard
       .getByRole("link", { name: "资料与报价", exact: true })
       .click();
     await saveBusinessScenario(page);
-    await expect(page.getByText("场景版本 1", { exact: true })).toBeVisible();
     await fillCatalogFixture(page);
     await page.getByRole("button", { name: "解析并预览" }).click();
     await expect(page.getByRole("table", { name: "CSV 导入预览" })).toBeVisible();
@@ -151,7 +150,10 @@ test("formal desktop read assistant executes four real tools, shows facts, guard
     await expect(page.getByTestId("goods-total")).toHaveText("900.00 USD");
     const before = await page.evaluate(() => window.tradequote.getTrade());
     if (!before.ok || !before.data.quotes[0]) throw new Error("saved quote fixture");
-    await page.getByRole("navigation").getByRole("link", { name: "只读助手", exact: true }).click();
+    await expect(
+      page.getByRole("navigation").getByRole("link", { name: "只读助手", exact: true }),
+    ).toHaveCount(0);
+    await page.getByRole("checkbox", { name: "仅查询与试算，不保存报价" }).check();
     await expect(page.getByRole("checkbox", { name: "仅查询与试算，不保存报价" })).toBeChecked();
     const readLegacy = () =>
       page.evaluate(

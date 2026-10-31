@@ -144,9 +144,46 @@ export function createCustomerReplyDraft(
     "",
     w.notSent,
   ].join("\n");
+  const customerText = [
+    `${w.subject} · V${quote.version}`,
+    "",
+    `${w.greeting} ${quote.buyer},`,
+    language === "en"
+      ? "Thank you for your inquiry. Please review the proposed quotation below."
+      : "Vielen Dank für Ihre Anfrage. Bitte prüfen Sie den folgenden Angebotsentwurf.",
+    "",
+    ...quote.lines.map(
+      (line) =>
+        `${line.product.sku} · ${line.product.name}: ${line.quantity} ${line.product.unit} × ${line.unitPrice ?? w.unknown} ${quote.currency} = ${line.amount ?? w.unknown} ${quote.currency}`,
+    ),
+    `${w.goods}: ${quote.goodsTotal ?? w.unknown} ${quote.currency}`,
+    w.exclusions,
+    `${w.payment}: ${quote.payment || w.pending}`,
+    `${language === "en" ? "Proposed delivery (subject to confirmation)" : "Vorgesehene Lieferung (vorbehaltlich Bestätigung)"}: ${quote.delivery || w.pending}`,
+    language === "en"
+      ? "Product specifications and all terms above are proposed and require mutual confirmation."
+      : "Produktspezifikationen und alle obigen Bedingungen bedürfen der gegenseitigen Bestätigung.",
+    ...(quote.pending.length || quote.goodsTotal === null || !quote.payment || !quote.delivery
+      ? [
+          language === "en"
+            ? "Some details still require confirmation. Please confirm the specifications, payment and delivery arrangements with us."
+            : "Einige Angaben sind noch zu bestätigen. Bitte stimmen Sie Spezifikationen, Zahlung und Lieferung mit uns ab.",
+        ]
+      : []),
+    "",
+    quote.scenario.sourceStatus === "synthetic" ||
+    quote.lines.some(({ product }) => product.sourceStatus === "synthetic")
+      ? language === "en"
+        ? "For review only: this draft is not a commercial offer."
+        : "Nur zur Prüfung: Dieser Entwurf ist kein verbindliches Angebot."
+      : language === "en"
+        ? "Subject to verification of product and pricing information before acceptance."
+        : "Produkt- und Preisangaben müssen vor Annahme überprüft werden.",
+  ].join("\n");
   return {
     subject,
     text,
+    customerText,
     revisionId: quote.id,
     quoteVersion: quote.version,
     reportId: report?.reportId ?? null,

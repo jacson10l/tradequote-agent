@@ -71,7 +71,6 @@ test("R20 real worker SIGKILL, restart discovery, explicit retry, cancellation a
     );
     await page.getByRole("link", { name: "资料与报价" }).click();
     await saveBusinessScenario(page);
-    await expect(page.getByText("场景版本 1", { exact: true })).toBeVisible();
     await fillCatalogFixture(page);
     await page.getByRole("button", { name: "解析并预览" }).click();
     await page.getByRole("button", { name: "确认发布此批次" }).click();

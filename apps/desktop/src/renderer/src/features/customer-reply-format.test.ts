@@ -139,3 +139,56 @@ it("freezes exact German template text for a saved quote with unknown pricing", 
     Dieser Entwurf wurde weder genehmigt noch versendet."
   `);
 });
+
+it("keeps customer copy free of internal identifiers while preserving exact saved money and audit evidence", () => {
+  const quote = {
+    ...checksQuote,
+    number: `Q-${checksQuote.id}`,
+    goodsTotal: "1925.00",
+    payment: "30% deposit; 70% before dispatch",
+  };
+  for (const language of ["en", "de"] as const) {
+    const draft = createCustomerReplyDraft(quote, language, [checksReport]);
+    expect(draft.customerText).toContain("1925.00 USD");
+    expect(draft.customerText).toContain(quote.payment);
+    for (const internal of [
+      quote.id,
+      checksReport.reportId,
+      quote.lines[0]!.product.sourceHash,
+      "SHA-256",
+      "commercial_terms",
+      "Wiki",
+      "[block]",
+    ]) {
+      expect(draft.customerText).not.toContain(internal);
+    }
+    expect(draft.text).toContain(checksReport.reportId);
+    expect(draft.customerText).toContain(
+      language === "en" ? "not a commercial offer" : "kein verbindliches Angebot",
+    );
+  }
+});
+
+it("keeps unknown prices and conditional delivery explicit in customer copy even with clean checks", () => {
+  const draft = createCustomerReplyDraft(checksQuote, "en", [{ ...checksReport, issues: [] }]);
+  expect(draft.customerText).toContain("Unknown USD");
+  expect(draft.customerText).toContain("Proposed delivery (subject to confirmation)");
+  expect(draft.customerText).toContain("Some details still require confirmation");
+  expect(draft.status).toBe("unreviewed");
+});
+
+it("keeps scenario-only noncommercial limits in EN/DE even when all product sources are user-provided", () => {
+  const quote = structuredClone(checksQuote);
+  quote.lines.forEach((line) => {
+    line.product.sourceStatus = "user_provided";
+  });
+  quote.pending = ["来源未经业务确认，不可用于交易承诺"];
+  for (const language of ["en", "de"] as const) {
+    const draft = createCustomerReplyDraft(quote, language, [{ ...checksReport, issues: [] }]);
+    expect(draft.customerText).toContain(
+      language === "en" ? "not a commercial offer" : "kein verbindliches Angebot",
+    );
+    expect(draft.customerText).not.toContain("illustrative");
+    expect(draft.customerText).not.toContain("beispielhaft");
+  }
+});

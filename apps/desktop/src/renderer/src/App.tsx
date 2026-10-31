@@ -1,5 +1,5 @@
 import type { DesktopClient } from "@tradequote/contracts";
-import { FileText, Folder, LayoutDashboard, Search, Settings } from "lucide-react";
+import { FileText, Folder, LayoutDashboard, Settings } from "lucide-react";
 import { Navigate, NavLink, Route, Routes } from "react-router-dom";
 import brandIcon from "../../../resources/icon.svg";
 import { ModelSettingsPage } from "./features/model-settings";
@@ -45,10 +45,6 @@ function AppContent({ client }: { client: DesktopClient }) {
           <NavLink to="/workspace" aria-label="工作区设置" title="工作区设置">
             <Settings size={18} />
             <span className="nav-label">工作区设置</span>
-          </NavLink>
-          <NavLink to="/assistant" aria-label="只读助手" title="只读助手">
-            <Search size={18} />
-            <span className="nav-label">只读助手</span>
           </NavLink>
           <NavLink to="/model" aria-label="模型设置" title="模型设置">
             <Settings size={18} />

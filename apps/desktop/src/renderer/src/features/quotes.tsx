@@ -1,17 +1,12 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   type DesktopClient,
   QuoteInputSchema,
   type QuoteSnapshot,
-  type Scenario,
-  type ScenarioInput,
-  ScenarioInputSchema,
   type TradeBoard,
   type TradeWrite,
 } from "@tradequote/contracts";
 import { useRef, useState } from "react";
-import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { Button } from "../shared/button";
 import { useMessage } from "../shared/message";
@@ -60,20 +55,18 @@ function QuoteWorkspace({ client }: { client: DesktopClient }) {
     },
   });
   const mutation = useMutation({
-    mutationFn: async (input: TradeWrite) => {
+    mutationFn: async (
+      input: Extract<TradeWrite, { method: "catalog.stage" | "catalog.publish" }>,
+    ) => {
       const fingerprint = JSON.stringify({ method: input.method, payload: input.payload });
       const key = operations.current.get(fingerprint) ?? crypto.randomUUID();
       operations.current.set(fingerprint, key);
       const command = { ...input, idempotencyKey: key };
       switch (command.method) {
-        case "scenario.save":
-          return client.saveScenario(command);
         case "catalog.stage":
           return client.stageCatalog(command);
         case "catalog.publish":
           return client.publishCatalog(command);
-        case "quote.createV1":
-          return client.createQuoteV1(command);
       }
     },
     onSuccess: async (result, command) => {
@@ -82,17 +75,12 @@ function QuoteWorkspace({ client }: { client: DesktopClient }) {
         return;
       }
       queries.setQueryData(["trade"], result.data);
-      if (command.method === "quote.createV1") setSelectedQuote(result.evidenceIds[0] ?? null);
       if (command.method === "catalog.stage" || command.method === "catalog.publish")
         setSelectedBatch(result.evidenceIds[0] ?? "");
       message.success(
-        command.method === "quote.createV1"
-          ? "报价草稿 V1 已保存至本机"
-          : command.method === "catalog.publish"
-            ? "已确认发布商品资料"
-            : command.method === "catalog.stage"
-              ? "预览已保存，请核对后确认发布"
-              : "业务场景已保存",
+        command.method === "catalog.publish"
+          ? "已确认发布商品资料"
+          : "预览已保存，请核对后确认发布",
       );
       await queries.invalidateQueries({ queryKey: ["trade"] });
     },
@@ -121,20 +109,6 @@ function QuoteWorkspace({ client }: { client: DesktopClient }) {
   return (
     <div className="grid gap-4">
       <h1 className="sr-only">资料与报价</h1>
-      <ScenarioForm
-        key={board.scenario?.id ?? "new"}
-        scenario={board.scenario}
-        busy={mutation.isPending}
-        reloading={query.isFetching}
-        onReload={() => void query.refetch()}
-        onSave={(scenario) =>
-          mutation.mutate({
-            ...common(),
-            method: "scenario.save",
-            payload: { scenario, expectedVersion: board.scenario?.version ?? 0 },
-          })
-        }
-      />
       <CatalogPanel
         client={client}
         selectedBatch={selectedBatch}
@@ -185,102 +159,6 @@ function QuoteWorkspace({ client }: { client: DesktopClient }) {
     </div>
   );
 }
-function ScenarioForm({
-  scenario,
-  busy,
-  reloading,
-  onReload,
-  onSave,
-}: {
-  scenario: Scenario | null;
-  busy: boolean;
-  reloading: boolean;
-  onReload: () => void;
-  onSave: (input: ScenarioInput) => void;
-}) {
-  const form = useForm<ScenarioInput>({
-    resolver: zodResolver(ScenarioInputSchema),
-    defaultValues: scenario
-      ? {
-          name: scenario.name,
-          targetUser: scenario.targetUser,
-          platform: scenario.platform,
-          market: scenario.market,
-          category: scenario.category,
-          locales: scenario.locales,
-          sourceStatus: scenario.sourceStatus,
-        }
-      : {
-          name: "",
-          targetUser: "",
-          platform: "",
-          market: "",
-          category: "",
-          locales: [],
-          sourceStatus: "user_provided",
-        },
-  });
-  // Stored metadata is deliberately not submitted as editable scenario input.
-  const submit = form.handleSubmit((data) => onSave(data));
-  return (
-    <section className="panel">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2>1 · 业务场景</h2>
-        <Button variant="outline" disabled={busy || reloading} onClick={onReload}>
-          重新加载资料与报价
-        </Button>
-      </div>
-      <p className="description">
-        配置适用的平台、市场、品类和语言。日常询盘、报价与变更在单据工作台处理；资料发布和规则覆盖仍需人工核对。
-      </p>
-      <form onSubmit={submit} className="space-y-4 mt-4">
-        <div className="grid gap-4 md:grid-cols-2">
-          {(
-            [
-              ["name", "场景名称"],
-              ["targetUser", "目标用户与岗位"],
-              ["platform", "目标平台 / 场景"],
-              ["market", "目标市场"],
-              ["category", "商品品类"],
-            ] as const
-          ).map(([key, label]) => (
-            <div key={key}>
-              <label htmlFor={`scenario-${key}`}>{label}</label>
-              <input id={`scenario-${key}`} {...form.register(key)} />
-              <p className="field-error">{form.formState.errors[key]?.message}</p>
-            </div>
-          ))}
-          <div>
-            <label htmlFor="scenario-locales">目标语言（逗号分隔 BCP 47）</label>
-            <input
-              id="scenario-locales"
-              value={form.watch("locales").join(", ")}
-              onChange={(event) =>
-                form.setValue(
-                  "locales",
-                  event.target.value.split(",").map((v) => v.trim()),
-                  { shouldValidate: true },
-                )
-              }
-            />
-            <p className="field-error">{form.formState.errors.locales?.message}</p>
-          </div>
-          <div>
-            <label htmlFor="scenario-source">场景来源</label>
-            <select id="scenario-source" {...form.register("sourceStatus")}>
-              <option value="synthetic">未核实配置（不可用于交易）</option>
-              <option value="user_provided">用户提供（规则仍待验证）</option>
-            </select>
-          </div>
-        </div>
-        <Button type="submit" disabled={busy}>
-          保存业务场景
-        </Button>
-        {scenario && <span className="status-badge ml-3">场景版本 {scenario.version}</span>}
-      </form>
-    </section>
-  );
-}
 function CatalogPanel({
   selectedBatch,
   onSelectBatch,
@@ -306,7 +184,7 @@ function CatalogPanel({
   const batch = board.batches.find((entry) => entry.id === selectedBatch) ?? board.batches[0];
   return (
     <section className="panel space-y-4">
-      <h2>2 · 商品与价目表</h2>
+      <h2>商品与价目表</h2>
       <p className="description">
         UTF-8 CSV，最多 256 KiB / 500 行。列名固定，顺序可变；同 SKU
         多行表示数量档位。空价格保留未知。原文和行位置会随预览保存。
@@ -473,7 +351,7 @@ export function DraftForm({
   const message = useMessage();
   return (
     <section className="panel space-y-4">
-      <h2>3 · 建立报价草稿 V1</h2>
+      <h2>建立报价草稿</h2>
       <p className="description">
         仅使用已发布资料。按商品数量档位核价，每行 HALF_UP
         舍入后求和；仅计算商品金额，未含运税费。来源、场景和计算依据随草稿冻结。

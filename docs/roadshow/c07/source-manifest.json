@@ -1,0 +1,100 @@
+{
+  "aCommit": "4c622d04e1ae483b6c8649e09146f71b35ba33a9",
+  "intakeDate": "2026-10-31",
+  "catalogCopy": "byte-identical",
+  "catalogRows": 13,
+  "skus": ["1601053415993", "1601926123092", "1601359234640", "1600593893760"],
+  "files": [
+    {
+      "path": "wiki-project/demo_data/catalog_demo.csv",
+      "gitBlob": "344261ddf81ce7b571c122493cd71dd71a812ceb",
+      "bytes": 6020,
+      "sha256": "7e03f6749d77d3c3192ffa65b6faefe1753dcc5c3fb950693a8acdae6cab8926"
+    },
+    {
+      "path": "wiki-project/demo_data/catalog_converted.csv",
+      "gitBlob": "028ac4e3ff0eb28cebc352fdf38a1e9384d6467c",
+      "bytes": 120868,
+      "sha256": "24fe0bb12e53ed3f5996bfc729e9757553d51b60f324a9d993c463593b38c655"
+    },
+    {
+      "path": "wiki-project/demo_data/demo_products_sources.csv",
+      "gitBlob": "156afc2bc9e85a5b40c53fefec08e07f1b5055b7",
+      "bytes": 30351,
+      "sha256": "159b17d49b0c827f9952b24dad03a3dcfd43d3b4f099cd660b3e2219741c33b5"
+    },
+    {
+      "path": "wiki-project/demo_data/demo_business_templetes.csv",
+      "gitBlob": "4325890638f793fbdc870becea9676108f6df350",
+      "bytes": 5617,
+      "sha256": "353514cdcd3b6bcfff77537a43771078a5951890ad863b7c51902113e74433d9"
+    },
+    {
+      "path": "wiki-project/demo_data/SOURCE-PROVENANCE.md",
+      "gitBlob": "22ae00f0f92f9d83e8ade649214ffa8ae8152d80",
+      "bytes": 6926,
+      "sha256": "4c856f62e07af6aa7bff3b0867258f9b3d139dbeff0161537446a0569da1a63a"
+    },
+    {
+      "path": "wiki-project/demo_data/MANIFEST.md",
+      "gitBlob": "2813fa6a252281e1777466cd6a45860b415a3fce",
+      "bytes": 4152,
+      "sha256": "d6aa459c7c1de2d82da95cc395bb7a48605342ef512579b7db23af042f67d169"
+    },
+    {
+      "path": "wiki-project/demo_data/source-archive/MDF-REAL-DATA.md",
+      "gitBlob": "d6bd92786861edaf7f5fca7e007f03ee644ff5b0",
+      "bytes": 5623,
+      "sha256": "f5c39c71e1fad30efc643e77bc34e4be036d2079d454da673c94b793a32208eb"
+    },
+    {
+      "path": "wiki-project/demo_data/source-archive/BOLT-REAL-DATA.md",
+      "gitBlob": "f25d331e6a4c21f5cadaf3ca55e2de27cdb34aa5",
+      "bytes": 5160,
+      "sha256": "d1e8b82348d728bb973dae1411ca104454e42177cc23ecd5945418964489154f"
+    }
+  ],
+  "fieldMappings": [
+    {
+      "product_id": "1601053415993",
+      "source_url": "https://www.alibaba.com/product-detail/95-Cotton-5-Spandex-Plain-Crewneck_1601053415993.html",
+      "material_page_raw": "95% cotton 5% spandex",
+      "gsm_page_raw": "180克",
+      "supplier_company": "Guangzhou Hengdong Sports Goods Co., Ltd.",
+      "supplier_years_location": "6年 CN Guangdong Guangzhou",
+      "price_tiers_cny": "3-49->¥43.19;50-99->¥41.20;100-499->¥39.21;500+->¥37.21",
+      "packing_size_cm": "20X10X2",
+      "packing_weight_kg": "0.3",
+      "lead_time_days": "1-30->7;31-500->20;501-3000->30;>3000->待定",
+      "certs_page_raw": "CE",
+      "sold_qty": "296",
+      "conflict_flag": "NO",
+      "conflict_type": "",
+      "conflict_evidence": ""
+    },
+    {
+      "product_id": "1601926123092",
+      "source_url": "https://www.alibaba.com/product-detail/Wholesale-High-Quality-195Gsm-Custom-Logo_1601926123092.html",
+      "material_page_raw": "涤纶 棉",
+      "gsm_page_raw": "195克",
+      "supplier_company": "Xiamen Wanhuayuan Cultural Media Co., Ltd.",
+      "supplier_years_location": "2年 CN Fujian Xiamen",
+      "price_tiers_cny": "5-499->¥24.92;500-999->¥23.46;1000-9999->¥22.20;10000+->¥21.00",
+      "packing_size_cm": "35X30X2",
+      "packing_weight_kg": "0.35",
+      "lead_time_days": "1-2000->15;>2000->待定",
+      "certs_page_raw": "",
+      "sold_qty": "",
+      "conflict_flag": "NO",
+      "conflict_type": "",
+      "conflict_evidence": ""
+    }
+  ],
+  "limitations": [
+    "A称真实采集，C未在线复采或逐字段业务签认",
+    "服装原始页面快照仍缺；URL和抄录不等于供应商确认",
+    "valid_until沿用A转换值，不是供应商有效期承诺",
+    "询盘、付款、交期及目的市场为C编写的业务案例假设",
+    "认证原文不等于证书核验，规则适用性待B确认"
+  ]
+}

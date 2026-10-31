@@ -72,7 +72,7 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
       }, width);
       for (const [route, ready] of [
         ["单据工作台", "当前报价"],
-        ["资料与报价", "1 · 业务场景"],
+        ["资料与报价", "商品与价目表"],
         ["模型设置", "DeepSeek 连接与凭据"],
         ["工作区设置", "工作区设置"],
       ] as const) {
