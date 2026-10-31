@@ -14,7 +14,7 @@
   "scope": "project files only; wiki tooling hashes are provenance, not recursively indexed application source",
   "toolchain": {
     "build-code-index.mjs": "4e5b1a0bfe9151ffb92c7ba6089b6205363cdc7eff8cc2b24b3983014248bceb",
-    "wiki-lib.mjs": "8db9e9cfe65a5be328126797b5aa13e84f6bab2e44c825d2d3cdb6e1334df5a3",
+    "wiki-lib.mjs": "b3d0957c0240b68d7a1e5c2e0311458c8c08b6322b84330d80ea4c7acad2c195",
     "wiki-config.json": "08ef25e1f0b79e8e09acd236b81aa57155027153d247bf1c35020f8a0e0e8669",
     "lint-wiki.mjs": "2e94b99626c96b9639699ffd408c6ccec512eb75030165ddef64711d91786d9f",
     "wiki-tools.test.mjs": "366282472c9f3c1e63c7457636ab7a0c54fdf3af394cd36466bfbdfdf24e2b88",
@@ -37,9 +37,9 @@
     {
       "path": ".gitignore",
       "type": ".gitignore",
-      "lines": 66,
-      "bytes": 1024,
-      "sha256": "e7cad0afea09bba7f8cccef6bb19ceeac12ecb456fbd7d26d82a7794c451bd53",
+      "lines": 67,
+      "bytes": 970,
+      "sha256": "302fe67e1e4838d91eee027ffbe777047797683d2845c562626f31d4f6c12fbf",
       "role": "运行数据与依赖排除",
       "pages": [
         "wiki/配置路径与敏感信息.md"

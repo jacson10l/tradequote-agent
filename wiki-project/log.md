@@ -1147,3 +1147,4 @@ taskBase=f4c9dfcfd3f656bb57b83d33f9ce13db2d8089cd，B生产源码与ceec0ee一�
 - 2026-10-31 A01e 新版复验补充：在 `codex/a01e-p3-fixes` 基于 `46939c32` 增加同键撤回回放/事件唯一性测试，维护聚焦 27/27、typecheck 0；Windows symlink EPERM 保留。
 - 2026-10-31 快照阻断修正：修复维护续页只按 snapshotId 读取而未核对 workspace/queryHash 的缺陷，新增 `resolved` 查询换绑反例，wiki-store 27/27、typecheck 0。
 - 2026-10-31 快照换绑原样反例回归（A01e-2c）：C 复验报告指出的「伪造换绑快照游标」反例——用 open 快照的 snapshotId 配 resolved 查询的 queryHash 与真实 afterIssueId 续页，此前会静默返回 open 事实绕过 resolved 过滤。A 核对确认 2a61261 的读回绑定核对（snapshot.workspace_id/query_hash 与当前请求一致）已正确堵住该反例；新增 A01e-2c 回归（伪造换绑反例 + 合法续页控制），并临时禁用核对验证反例确由该关卡通断。wiki-store 28/28、typecheck 0。
+- 2026-10-31 交接文档：新增 [[A01e快照绑定与事件证据交接]]，逐项判定 C 两项待修项——第一项快照绑定校验 A 已修复（2a61261 + A01e-2c 反例回归，fdd571a 已推送）；第二项事件证据解析与资格核验归属 B 契约/资格政策（C 报告明确「执行资格政策仍由 B 明确」），A 待 B 明确后实现事件持久化表 + readEvidenceFact 事件分支 + evidenceBindsTarget 事件绑定。

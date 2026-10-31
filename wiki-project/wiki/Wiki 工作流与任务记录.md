@@ -276,3 +276,7 @@ M1 新增 .node-version 后，P0 检查也明确把该无扩展名配置识别�
 ## 2026-10-27 A01e固定接收
 
 本次A01e接收对八个infra源码/测试增加[[Ae7a9439接收与P1接线阻断复核]]覆盖；A原迁移探针位于Wiki/scripts，按既有维护脚本指纹机制检查，不误登记为业务源码；没有新业务文件或新权限。复制B两份原raw/知识/任务为原文，A/C旧同名证据不覆盖，原307份raw和旧log前缀保持。脚本为A更新的十能力探针原字节，实际输出单存C新raw，Wiki工具算法不变；映射/维护增量运行维护回归、生成/check/lint和真实739基线sync。WIP含明确P1失败，不标done、不放行。
+
+## 2026-10-31 维护工具排除 .workbuddy
+
+wiki-lib.mjs 的 ignoredDirs 增 .workbuddy（WorkBuddy IDE 项目数据目录），与 .git/.runtime/.cache 同类，避免其 memory 工作日志被源码覆盖扫描误纳管为未覆盖文件；.gitignore 同步排除。维护算法不变，仅排除一个 IDE 数据目录；见 [[A01e快照绑定与事件证据交接]]。

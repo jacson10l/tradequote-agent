@@ -3,6 +3,7 @@ node_modules/
 .scratch/
 .cache/
 .pnpm-store/
+.workbuddy/
 .DS_Store
 
 # Credentials and local configuration
