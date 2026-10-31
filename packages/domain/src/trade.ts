@@ -3,6 +3,7 @@ import {
   type ExecutionContext,
   failure,
   type ImportIssue,
+  isUnconfirmedTermText,
   type Product,
   type QuoteInput,
   type QuoteV1,
@@ -98,7 +99,11 @@ export function calculateQuoteV1(
   if (lines.some((line) => line.product.currency !== currency))
     throw new TradeFault("VALIDATION_ERROR", "同一草稿只能包含同币种商品；本阶段未接入汇率换算");
   if (!input.payment) pending.push("付款条款待确认");
+  else if (isUnconfirmedTermText(input.payment))
+    pending.push("付款条款待确认（已填写但未获人工确认）");
   if (!input.delivery) pending.push("交期与交货条件待确认");
+  else if (isUnconfirmedTermText(input.delivery))
+    pending.push("交期与交货条件待确认（已填写但未获人工确认）");
   pending.push(
     "运费、税费及其他费用未核定；商品合计不是完整应付总额",
     "平台与目标市场规则尚未核验；仅可保存草稿",

@@ -181,3 +181,32 @@ it("reports inconsistent SKU attributes and numerically duplicate tiers with sou
     ],
   );
 });
+it("keeps non-empty unconfirmed terms in pending instead of treating them as confirmed", () => {
+  for (const payment of ["待客户确认", "未确认", "未知", "来源缺失", "模型建议", "TBC"]) {
+    const quote = calculateQuoteV1(
+      { ...input, payment, delivery: "" },
+      scenario,
+      [product],
+      metadata,
+    );
+    expect(quote.pending.join(" ")).toContain("付款条款待确认");
+  }
+  for (const delivery of ["待客户确认", "未确认", "未知", "模型建议"]) {
+    const quote = calculateQuoteV1(
+      { ...input, payment: "", delivery },
+      scenario,
+      [product],
+      metadata,
+    );
+    expect(quote.pending.join(" ")).toContain("交期与交货条件待确认");
+  }
+  // A concrete term is still not confirmed — it just no longer carries the explicit
+  // "unconfirmed wording" marker; the field remains pending by the confirmation semantics.
+  const concrete = calculateQuoteV1(
+    { ...input, payment: "30%预付，70%发货前付清", delivery: "确认后30天" },
+    scenario,
+    [product],
+    metadata,
+  );
+  expect(concrete.pending.join(" ")).toContain("运费、税费及其他费用未核定");
+});

@@ -140,6 +140,7 @@ export type RuleCategory = z.infer<typeof RuleCategorySchema>;
 export type KnowledgeContent = z.infer<typeof KnowledgeContentSchema>;
 export type KnowledgeDraftInput = z.infer<typeof KnowledgeDraftInputSchema>;
 export type KnowledgeRevision = z.infer<typeof KnowledgeRevisionSchema>;
+export type PublishedKnowledgeRevision = z.infer<typeof PublishedKnowledgeRevisionSchema>;
 export type KnowledgeQuery = z.infer<typeof KnowledgeQuerySchema>;
 export type KnowledgeEvidence = z.infer<typeof KnowledgeEvidenceSchema>;
 export type KnowledgePublishInput = z.infer<typeof KnowledgePublishInputSchema>;

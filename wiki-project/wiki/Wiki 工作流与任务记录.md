@@ -52,6 +52,8 @@ node --check wiki-project/scripts/lint-wiki.mjs
 
 首次或需要新采集观察时显式 `--ingest`，更新来源清单中的基线区块和 baseline JSON。日常内容修改只运行普通生成器；`--check` 和 lint 全程只读，不自动修复、不刷新日期/HEAD，也不能同时传 --ingest。
 
+本轮 B 增量把探针及其自检一并登记覆盖（`scripts/contract-review-probe.mjs` 与 `scripts/contract-review-probe.test.mjs` 映射到 [[B维护证据资格与规则样例]] 与 [[测试与验证地图]]），并把 `maintenance-evidence.test.ts`、`quote-checks*.ts` 纳入职责表；探针输出 `raw/b-contract-probe.json` 属生成证据而非知识页，只作验证记录引用。
+
 Ingest：阅读改动→给新文件在 wiki-config.json 登记职责与知识页→核对对应语义页/任务/决定→生成→检查。新文件、修改 hash、错误覆盖目标和工具变动都会让漂移检查失败。不要仅修改机械快照掩盖语义遗漏。
 
 Query：先查索引、项目状态、当前任务与日志，再回源码核对关键事实；稳定结论写回已有页。文件与行号真实并不保证证据支持结论，代码语义仍需人工审阅。

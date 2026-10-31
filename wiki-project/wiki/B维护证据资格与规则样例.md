@@ -4,19 +4,21 @@ type: interface
 status: observed
 updated: 2026-10-31
 sources:
-  - packages/contracts/src/knowledge-maintenance.ts:524
-  - packages/contracts/src/knowledge-maintenance.ts:590
-  - packages/contracts/src/knowledge-maintenance.ts:701
-  - packages/contracts/src/knowledge-maintenance.ts:881
-  - packages/contracts/src/knowledge-maintenance.ts:935
+  - packages/contracts/src/knowledge-maintenance.ts:545
+  - packages/contracts/src/knowledge-maintenance.ts:656
+  - packages/contracts/src/knowledge-maintenance.ts:836
+  - packages/contracts/src/knowledge-maintenance.ts:882
+  - packages/contracts/src/knowledge-maintenance.ts:943
+  - packages/domain/src/quote-checks.ts:86
+  - packages/domain/src/quote-checks.samples.ts:13
   - packages/contracts/src/maintenance-evidence.test.ts:1
-  - packages/infrastructure/src/wiki-store.ts:1583
-  - packages/infrastructure/src/wiki-store.ts:1940
+  - packages/domain/src/quote-checks.test.ts:1
+  - scripts/contract-review-probe.mjs:1
 ---
 
 # B维护证据资格与规则样例
 
-本页记录维护问题 resolve/dismiss 的**事件证据资格**政策，以及 A 侧在 `wiki-store.ts` 的落地。规范背景见 [[B00a知识整理与维护协议]]，任务见 [[B00a-P1知识整理与维护契约]]。
+本页记录 B 本轮三项交付的可执行定义：维护问题 resolve/dismiss 的**事件证据资格**、可复跑的**复核探针**、以及报价**规则样例与双反馈回归**。全部为契约、纯函数、合成样例和探针脚本；没有实现维护引擎、检查存储、IPC 或界面，A/C 仍需在自己的写入事务与接线中调用。规范背景见 [[B00a知识整理与维护协议]]，报价任务见 [[B01-规则检查与双反馈]]。
 
 ## 证据资格：谁能关闭维护问题
 
@@ -34,7 +36,7 @@ sources:
 | 问题种类 | 可用 resolve 依据 | 可用 dismiss 依据 |
 |---|---|---|
 | source_updated | 知识新发布、来源更新 | 人工裁决 |
-| source_withdrawn | 知识新发布（移除该来源） | 人工裁决 |
+| source_withdrawn | （无自动 resolve 依据，仅 dismiss） | 人工裁决 |
 | expired | 知识新发布、来源更新、有效性确认 | 人工裁决 |
 | unknown_validity | 有效性确认、来源更新、知识新发布 | 人工裁决 |
 | conflict | 知识新发布（单一裁决版本） | 人工裁决 |
@@ -45,6 +47,22 @@ sources:
 | index_stale | 索引重建完成 | 人工裁决 |
 
 结论：**dismiss 永远需要人工裁决记录**，事实事件只能证明"已修复"（resolve），不能证明"不必处理"。resolve 也不接受 false_positive/not_applicable；只有 duplicate 允许用 duplicate_of/superseded 结案。
+
+### source_withdrawn 裁决（A 方案，2026-10-31）
+
+`source_withdrawn` 问题目标是来源（sourceId/sourceRevisionId），而 `knowledge.revision_published` 绑定的是知识目标（documentId/revisionId）。知识发布证据无法解析到来源目标问题（`bindingFailure` 要求 `target.kind === "knowledge"`，命中即 `evidence_target_mismatch`），因此这条 resolve 路径在实现上本就永远走不通，会造成"矩阵给了 resolve 依据但实际只能 dismiss"的假象。
+
+按 B 确认的 A 方案，`source_withdrawn.resolve` 明确为**空**（无自动 resolve 依据），只允许 `issue.review_decision` 人工裁决 dismiss。理由：来源撤回本质是人工决策（"该来源不再有效/不再使用"），用"知识发新版本"自动关闭会掩盖"来源本身为何撤回"这一关键事实，不如强制人工裁决更诚实。任何对 source_withdrawn 的 resolve 尝试都会被 `evidence_kind_not_eligible`（或 schema 层 `.min(1)` 空证据）拒绝。
+
+## 事件 vs 证据：术语裁决（A 实现必读）
+
+源码里有两个都叫"事件"但语义不同的实体，A 落库时必须分开两张表/两套身份，`wiki.resolveMaintenance` 的 `evidenceIds` **只解析到前者**：
+
+1. **证据事件（evidence，`MaintenanceEvidenceSchema`）**——`resolveMaintenance` 的**已存执行证据白名单**。六类已发生事实（`knowledge.revision_published` / `source.revised` / `source.validity_confirmed` / `source.integrity_reverified` / `index.rebuilt` / `issue.review_decision`），各自携带独立 `evidenceId`。请求里的 `evidenceIds` 必须能逐条解析到这类已存记录；解析不到（候选、模型提案、报价、审批、或指向生命周期事件）即 `evidence_not_decisive`/`evidence_kind_not_eligible`，不进入白名单。
+
+2. **生命周期事件（lifecycle event，`KnowledgeMaintenanceLifecycleEventSchema`）**——维护问题**自身状态流转**的 append 记录（`maintenance.discovered` / `in_progress` / `resolved` / `dismissed` / `source.withdrawn` / `index.rebuilt`）。它是 `MaintenanceResolutionExchangeSchema.event` 字段，是本次处理动作落库时**产出的结果**，不是 resolve/dismiss 的**依据**。它不能反过来充当证据白名单成员。
+
+两者不是一回事：证据事件回答"凭什么关闭"，生命周期事件回答"谁在何时把问题推进到哪一步"。`event.evidenceIds` 引用的是证据事件的 `evidenceId`（见下），不引用其他生命周期事件。
 
 ## 绑定与必须拒绝的情况
 
@@ -65,23 +83,20 @@ sources:
 | evidence_not_decisive | 重发同版本、重复裁决指向自身、裁决结果与动作不符 | VALIDATION_ERROR |
 | evidence_void | 确认的有效期未覆盖处理时点 | SOURCE_CONFLICT |
 
+A 的写入事务须同时满足：
+
+- **证据事件持久化**：六类证据各按自身字段落库（如 `knowledge.revision_published` 存 documentId/revisionId/version/contentHash/sourceSetHash/publishedAt），`evidenceId` 全局唯一、不可被篡改或复用；证据的 `workspaceId` 必须等于问题工作区。
+- **证据绑定**：每条证据必须针对问题的固定目标版本——发布证据同 documentId 且 revisionId/contentHash 不同于旧版本；来源更新证据的 `previousSourceRevisionId` 必须等于问题固定旧版本；完整性复核证据须匹配记录 hash；有效性确认须 confirmed 且区间覆盖处理时点；重建证据须 `indexedSeq === authoritativeSeq` 且 generation ≥ 1；裁决证据须绑定 issueId+issueVersion。
+- **生命周期事件绑定**：`event.workspaceId`/`entityId(=issueId)`/`entityVersion(=next.issueVersion，版本+1 后)`/`actorId`/`occurredAt(=resolvedAt)` 必须与本次处理一致；`event.evidenceIds` 与 intent 证据的 `evidenceId` 集合排序后逐字节一致；`event.type` 必须与动作对应（resolve→`maintenance.resolved`、dismiss→`maintenance.dismissed`、start_review→`maintenance.in_progress`）。
+- **首错顺序**：权限（actor_not_human）→ 工作区（workspace_mismatch / evidence_workspace_mismatch）→ 版本（issue_version_stale / issue_already_closed）→ 时点（evidence_predates_detection / evidence_after_resolution）→ kind（evidence_kind_not_eligible）→ 目标绑定（evidence_target_mismatch / evidence_snapshot_mismatch / evidence_not_decisive）→ 有效期（evidence_void）。任一步失败整体回滚，不产生半闭问题或孤儿证据。
+
 工作区来自宿主上下文而非请求体；问题版本、目标身份、首次发现时间、原始证据列表在交换对象中不可改写，`issueVersion` 必须恰好 +1，生命周期事件的 entityVersion/actor/occurredAt/evidenceIds 必须与本次处理一致。
 
 同键异参：`maintenanceResolutionPayload` 生成规范化幂等摘要（workspace/method/actor/origin/issueId/expectedIssueVersion/action/note + 去重排序后的 evidenceIds），**不含 requestId 与宿主时钟**；`MaintenanceResolutionReplaySchema` 只承认三种结果——无记录为 new、同键同参为 replay、同键异参为 idempotency_conflict。
 
-## A 侧落地（本分支）
+## 正反例（A 可直接运行）
 
-A 在 `wiki-store.ts` 将 `resolveMaintenance` 接入裁决器，三点验收如下：
-
-1. **权威读取**：`readMaintenanceEvidence` 把 `evidenceIds` 解析为六类证据事实之一；生命周期事件、候选/模型提案/报价/审批、lint 回执/消费/影响报告均返回 null，resolve/dismiss 直接以 `NOT_FOUND` 拒绝。
-2. **工作区/目标版本绑定**：证据工作区须等于问题工作区；逐类针对固定目标版本（`source.revised` 的 `previousSourceRevisionId` 绑定被替换旧版本、`knowledge.revision_published` 绑定同一 document 的新版本）。
-3. **资格核验**：事务内调用 `evaluateMaintenanceResolution`，首错判定，任一失败整体回滚（better-sqlite3 `.transaction().immediate()`）。
-
-当前存储可立即产出三类证据：`knowledge.revision_published`（取 `knowledge_lifecycle` 发布事件，含真实 actorId/occurredAt）、`source.revised`（取带前驱的来源版本行）、`index.rebuilt`（取 completed 的重建结果）。`source.validity_confirmed` / `source.integrity_reverified` / `issue.review_decision` 尚无持久化事实，暂不可产，属已知缺口。
-
-## 正反例（可直接运行）
-
-`packages/contracts/src/maintenance-evidence.test.ts` 中 EVID-01～12 是契约层的正反例；`wiki-store.test.ts` 的 A01e-2 是事务层回归：
+`packages/contracts/src/maintenance-evidence.test.ts` 中 EVID-01～12 是给 A 的正反例，同时被探针按 caseId 采集：
 
 | caseId | 场景 | 期望 |
 |---|---|---|
@@ -98,9 +113,32 @@ A 在 `wiki-store.ts` 将 `resolveMaintenance` 接入裁决器，三点验收如
 | EVID-11 | 同键同参回放、同键异参冲突 | 三种结果各自成立，错误组合被拒 |
 | EVID-12 | 伪造证据记录（未知 kind、索引未追平、裁决缺 canon） | schema 拒绝；矩阵覆盖全部问题种类 |
 
+## 报价规则样例与双反馈
+
+`evaluateQuoteChecks` 是纯函数：输入报价快照 + 调用方按本单解析到的已发布知识，输出 `CheckReport` 与逐条批注定位；风险标记和文本批注读同一份 `checkId`，不存在两套结果。
+
+样例固定为 `b01-quote-checks-samples-v1`（`quote-checks.samples.ts`），全部 UUID/hash/条款均为合成、标注"非真实供应商"，回归会断言版本串与 synthetic 来源，防止样例被静默改写。
+
+- **付款比例**：规则以字面 `100%` 禁止全额预付；`预付100%` 违规、`预付30%` 通过、`预付１００％`（全角）与 `100% T/T` 同样命中——匹配前做 NFKC、大小写折叠和空白压缩。**不做数值比较**：`预付三成`不会被推断为 30%。
+- **材质/包装冲突**：两个已发布版本复用同一 `ruleId` 但定义了不同字面与严重度。引擎不择一，输出 block 冲突批注并引用两个版本，提示人工裁决；这是"同键异参"在规则层的表现，不是材质库比对。
+- **未知覆盖**：本单没有任何适用范围匹配的已发布规则时，两类检查各出一条 pending 批注（定位 `scenario.platform`、无虚构来源、ruleRevisionIds 为空），绝不输出全部通过。
+- **版本不变**：V2 修复后生成绑定新 revisionId 的报告，V1 报告与输入知识在重复计算后逐字节不变，checkId 不复用。
+
+已知边界：合同字段目前只有 payment/delivery，`QuoteSnapshot` 也没有材质字段，因此本批不实现材质字段级校验；需要扩展字段和规则的，另立契约变更，不在此伪造。
+
+## 复核探针
+
+```sh
+node scripts/contract-review-probe.mjs --out wiki-project/raw/b-contract-probe.json
+node scripts/contract-review-probe.mjs --list
+```
+
+探针固定运行三份套件（证据资格、既有 P1 维护契约、报价规则样例），记录 `git rev-parse HEAD`、分支、工作区是否 dirty、被测源码与测试文件的 SHA-256、Node/平台版本、完整命令、逐 case 状态与失败信息；覆盖轴（权限、证据不匹配、同键异参、交换完整性、资格矩阵、报价样例）是**显式声明**的，删掉 case 会以 `missingCaseIds` 暴露而不是悄悄变少。结果写入 `wiki-project/raw/b-contract-probe.json`，含 `status`/`checks` 退出码与逐文件 hash（`role: test|source`），可直接作为本轮验证证据；`scripts/contract-review-probe.test.mjs` 只跑 `--list` 守卫声明覆盖，不重复启动 vitest。
+
 ## 未完成项
 
-- `source.validity_confirmed` / `source.integrity_reverified` / `issue.review_decision` 三类证据的持久化事实尚未落地，需新增可查询证据行与写入路径后方可产出。
-- `source.withdrawn` 类问题仅能以 `knowledge.revision_published` resolve，但该证据绑定要求 knowledge 目标，来源目标的问题实际只能走 dismiss（人工裁决），需 B 确认矩阵语义。
+- 维护写入、事务、证据查表、OCC 与 outbox 属 A 的实现；本页只给契约、判定函数和交换对象。
+- `quote.check` 业务编排、检查存储、面板与真实知识查询（A01）仍未接线，B01 只完成纯规则子切片。
+- 未执行 Electron 桌面路径与真实模型；本机 Windows 未能构建 better-sqlite3，infrastructure/Electron 套件未运行。
 
-关联：[[B00a知识整理与维护协议]]、[[B00a-P1知识整理与维护契约]]。
+关联：[[B00a知识整理与维护协议]]、[[B00a-P1知识整理与维护契约]]、[[B01-规则检查与双反馈]]、[[测试与验证地图]]。

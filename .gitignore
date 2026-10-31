@@ -65,3 +65,6 @@ output/playwright/
 **/.obsidian/workspace*.json
 **/.obsidian/cache/
 **/.obsidian/trash/
+
+# Local agent/assistant state, not project source
+.workbuddy/
