@@ -1154,3 +1154,7 @@ C在81e9c93固定桌面基线上，从origin/codex/demo-data-catalog头11826e4�
 ## 2026-10-31 C固定门禁复核与复验配方
 
 用户明确B/C并行、维护Wiki的IPC/Worker/UI入口待A修复后再接线。C本轮不改产品代码，只做两件事并留证。入口门禁：`apps/desktop/src`生产源码排除`*.test.*`/`*.fixture.*`后，`KnowledgeMaintenance|executeWikiMaintenance|wiki.<维护方法>|source.withdraw`命中0条；同范围`wiki|knowledge|maintenance`仅4条只读引用（quote-checks.tsx的wikiCitations展示3条、run-tool-labels.ts的search_knowledge标签1条）；`apps/desktop/src/preload/contracts.test.ts:36`与`:351`门禁测试保留。复验配方：从raw/c-a267-maintenance-intake.json的newProbes恢复两套探针，四项sha256与记录逐字一致；`git diff 267f087..HEAD -- packages/ apps/`为空，基线源码等同A固定实现。原样复跑boundary 11 failed/1 passed、migration 2 failed/1 passed，合计13失败/2控制通过，与10-30同数，退出码均1；M01/M02/M03/M04/M05/M06/M07与N9的对应关系及B五关注点映射写入任务页。PR#10待A修正正文（仅写300行单文件）与MANIFEST来源分层口径，修正后C复核数据描述与桌面路径。资料冲突分级：BOLT-008价格只能待核对、标题与材质冲突可作规则命中样例但声明字段待核对、合成标签不证明来源真实。证据raw/c-a267-c-gate-and-reverify-recipe.json；任务[[C集成-A267维护方法复验]]。未跑完整e2e、未创建报价、未推送、未代A/B签字，13项仍红。
+
+## 2026-10-31 C标注复核基线与A后续P2差值
+
+核对远端发现`origin/codex/a01e-p2-fixes`（PR #11）在`267f087`之上追加`46939c3`（提交说明：A01e M06快照隔离与rebuildIndex真实投影、knowledge-wiki:10），不在本轮C复跑基线内。任务页已加基线口径提醒：B按约定`267f087`给结论，A给出新的完整固定提交后C再跑同一配方；`46939c3`的局部修复不能当作13项关闭，本轮13红也不否定它。未对`46939c3`复跑，未推送。文档门禁复跑：生成check/lint/固定`267f087`基线sync均退出0。
