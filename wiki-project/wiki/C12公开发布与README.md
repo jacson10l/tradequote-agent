@@ -1,7 +1,7 @@
 ---
 title: C12公开发布与README
 type: process
-status: active
+status: observed
 updated: 2026-11-01
 sources:
   - wiki-repo:raw/c12-public-main-validation.json:1
@@ -38,3 +38,8 @@ main 成为公开默认入口，接收已验收集成成果；codex/m1-abc-integ
 公开操作仅改可见性，保留Actions停用、分支历史与既有协作者，不创建发布标签、上传安装包或删除分支。分享密钥不写README或Git。实际完成状态以 [[C12-main公开与README更新]] 及后续远端回读为准。
 
 关联 [[分支收口与共同基线]]、[[Wiki 工作流与任务记录]]、[[项目状态]]。
+
+
+## 2026-11-01 C12公开发布完成
+
+已将固定e33b68972a20d6c37270348fd3e5aeea2a2b3a32普通快进并原子推送至origin/main和origin/codex/m1-abc-integration，ls-remote两分支全SHA一致；原main历史完整保留。GitHub CLI可见性变更退出0，回读PUBLIC、默认main、MIT License，Actions仍disabled。无认证HTTPS读取仓库API、main的README与LICENSE均HTTP200，两个原文与本机逐字节一致。该任务已完成；下一文档提交仅保存回执，最终头部另行推送回读。代码能力和人工/Windows边界不变。证据见raw/c12-public-main-validation.json；关联[[C12公开发布与README]]、[[C12-main公开与README更新]]。

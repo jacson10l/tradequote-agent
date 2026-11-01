@@ -301,3 +301,8 @@ C封板技术稳定性补齐：真实deepseek-flash连续五轮、每轮7检查�
 
 
 2026-11-01 C12：用户授权集成分支同步main、GitHub公开、README更新，并选择MIT。独立codex/c12-public-main基于3f3332b，main独有0/集成独有213可快进。文档与许可准备中，实际发布状态待回读；main公开入口/集成验收分工见[[C12公开发布与README]]、[[C12-main公开与README更新]]。
+
+
+## 2026-11-01 C12公开发布完成
+
+已将固定e33b68972a20d6c37270348fd3e5aeea2a2b3a32普通快进并原子推送至origin/main和origin/codex/m1-abc-integration，ls-remote两分支全SHA一致；原main历史完整保留。GitHub CLI可见性变更退出0，回读PUBLIC、默认main、MIT License，Actions仍disabled。无认证HTTPS读取仓库API、main的README与LICENSE均HTTP200，两个原文与本机逐字节一致。该任务已完成；下一文档提交仅保存回执，最终头部另行推送回读。代码能力和人工/Windows边界不变。证据见raw/c12-public-main-validation.json；关联[[C12公开发布与README]]、[[C12-main公开与README更新]]。

@@ -1766,3 +1766,8 @@ C11最终维护回归 `pnpm wiki:test` 36/36通过、退出0；未修改工具�
 
 
 2026-11-01 C12文档门禁完成：frozen install、check含9工程、固定3f3332b sync与diff检查通过；维护最终36/36，初次依赖/ADR格式失败保留。独立复核的场景保存前提遗漏已修，README链接有效，历史3665对象常见密钥格式无命中。证据raw/c12-public-main-validation.json；远端推送/公开仍待执行。
+
+
+## 2026-11-01 C12公开发布完成
+
+已将固定e33b68972a20d6c37270348fd3e5aeea2a2b3a32普通快进并原子推送至origin/main和origin/codex/m1-abc-integration，ls-remote两分支全SHA一致；原main历史完整保留。GitHub CLI可见性变更退出0，回读PUBLIC、默认main、MIT License，Actions仍disabled。无认证HTTPS读取仓库API、main的README与LICENSE均HTTP200，两个原文与本机逐字节一致。该任务已完成；下一文档提交仅保存回执，最终头部另行推送回读。代码能力和人工/Windows边界不变。证据见raw/c12-public-main-validation.json；关联[[C12公开发布与README]]、[[C12-main公开与README更新]]。

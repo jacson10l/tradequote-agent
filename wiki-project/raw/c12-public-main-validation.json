@@ -41,6 +41,21 @@
       "command": "git diff --check",
       "exitCode": 0,
       "result": "passed"
+    },
+    {
+      "command": "git push --atomic origin codex/m1-abc-integration main and git ls-remote",
+      "exitCode": 0,
+      "result": "both remote refs e33b68972a20d6c37270348fd3e5aeea2a2b3a32"
+    },
+    {
+      "command": "gh repo edit --visibility public --accept-visibility-change-consequences; gh repo view; gh api actions/permissions",
+      "exitCode": 0,
+      "result": "PUBLIC / main / MIT; Actions remains disabled"
+    },
+    {
+      "command": "Unauthenticated urllib HTTPS repository and raw main README/LICENSE reads",
+      "exitCode": 0,
+      "result": "HTTP200; public/main/MIT; both raw files byte-identical to local"
     }
   ],
   "historyScan": {
@@ -53,8 +68,43 @@
   "review": "Independent Agent found missing business-scene save prerequisite; corrected and rechecked, no remaining findings",
   "initialFailures": [
     "First check lacked Electron dependency in fresh worktree; frozen install resolved environment",
-    "Initial ADR used unsupported accepted status and omitted required split sections; corrected; initial wiki regression 35/36, final 36/36"
+    "Initial ADR used unsupported accepted status and omitted required split sections; corrected; initial wiki regression 35/36, final 36/36",
+    "Final receipt lint required top-level status=passed for done verification; added the required field after completed checks and publication readback."
   ],
-  "publication": "pending authorized push and visibility change",
-  "productValidation": "C11 593/14/36 are fixed-version historical results; not rerun for this documentation-only task"
+  "publication": {
+    "status": "completed",
+    "publishedCommit": "e33b68972a20d6c37270348fd3e5aeea2a2b3a32",
+    "atomicPush": "git push --atomic origin codex/m1-abc-integration main exited 0",
+    "remoteBranchesEqual": true,
+    "visibilityCommand": "gh repo edit jacson10l/tradequote-agent --visibility public --accept-visibility-change-consequences exited 0",
+    "authenticatedReadback": {
+      "visibility": "PUBLIC",
+      "isPrivate": false,
+      "defaultBranch": "main",
+      "license": "MIT License",
+      "actionsEnabled": false
+    },
+    "anonymousReadback": {
+      "anonymousRepositoryHttp": 200,
+      "private": false,
+      "visibility": "public",
+      "defaultBranch": "main",
+      "license": "MIT",
+      "files": {
+        "README.md": {
+          "http": 200,
+          "sha256": "b53989abf958663b6518663cc49be98a97c8104856a69686b6e05dd8b3ebf6cc",
+          "matchesLocal": true
+        },
+        "LICENSE": {
+          "http": 200,
+          "sha256": "12c69194ae6fdacf6381f4668fa2077dac81cd2a18d43eca0c85df28cedb607f",
+          "matchesLocal": true
+        }
+      }
+    },
+    "receiptCommit": "This following documentation commit records completed publication; its final SHA is verified after pushing."
+  },
+  "productValidation": "C11 593/14/36 are fixed-version historical results; not rerun for this documentation-only task",
+  "status": "passed"
 }

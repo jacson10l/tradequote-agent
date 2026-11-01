@@ -1,8 +1,10 @@
 ---
 title: C12-main公开与README更新
 type: task
-status: active
+status: done
 updated: 2026-11-01
+verification:
+  - wiki-repo:raw/c12-public-main-validation.json:1
 sources:
   - wiki-repo:raw/c12-public-main-validation.json:1
   - conversation:用户明确授权main合并公开仓库更新README并选择MIT
@@ -35,7 +37,7 @@ README能力/命令/路径与源码一致；MIT不覆盖第三方独立权利；
 
 ## 未完成项
 
-文档门禁已通过；本任务尚待远端main同步、可见性改变与匿名回读。业务人工签认、Windows/签名安装包、正式审批/外发/PDF是保留的产品边界，不作为本次文档发布已经完成的能力。
+本任务的文档门禁、main同步、仓库公开、MIT识别及匿名回读已完成，详见末尾发布回执。业务人工签认、Windows/签名安装包、正式审批/外发/PDF是保留的产品边界，不作为本次文档发布已经完成的能力。
 
 关联 [[C12公开发布与README]]、[[0035-main公开入口与MIT许可]]。
 
@@ -43,3 +45,8 @@ README能力/命令/路径与源码一致；MIT不覆盖第三方独立权利；
 ## 文档准备完成证据
 
 已执行frozen install补齐独立worktree依赖；pnpm check（Biome、9项工程测试、Wiki只读check/lint）、固定3f3332b sync、diff --check均通过；覆盖映射维护回归最终36/36。README全部本地链接存在。独立Agent复核发现首次使用缺保存业务配置，已补齐“保存业务场景”和询盘客户，复核无剩余问题。初次缺Electron依赖和ADR格式失败保留，未减少测试。3665个历史blob常见密钥格式扫描无命中，不等同全面审计。具体命令/退出码与日志hash见raw/c12-public-main-validation.json。远端操作仍待执行。
+
+
+## 2026-11-01 C12公开发布完成
+
+已将固定e33b68972a20d6c37270348fd3e5aeea2a2b3a32普通快进并原子推送至origin/main和origin/codex/m1-abc-integration，ls-remote两分支全SHA一致；原main历史完整保留。GitHub CLI可见性变更退出0，回读PUBLIC、默认main、MIT License，Actions仍disabled。无认证HTTPS读取仓库API、main的README与LICENSE均HTTP200，两个原文与本机逐字节一致。该任务已完成；下一文档提交仅保存回执，最终头部另行推送回读。代码能力和人工/Windows边界不变。证据见raw/c12-public-main-validation.json；关联[[C12公开发布与README]]、[[C12-main公开与README更新]]。
