@@ -1,0 +1,120 @@
+{
+  "task": "C11 integration and fresh Cue receipt",
+  "codeCommit": "00022ce3fc6a6f2e233fbd5812b1f70ee42263ad",
+  "baseline": "491c027792b70ff2611d911126a3644b96cf15d6",
+  "localIntegrationBranch": "codex/m1-abc-integration",
+  "remoteStatus": "push and readback pending after this documentation commit",
+  "environment": {
+    "os": "macOS 26.4 arm64",
+    "node": "22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2"
+  },
+  "commands": [
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "result": "passed"
+    },
+    {
+      "command": "pnpm check",
+      "exitCode": 0,
+      "result": "Biome, engineering tests, boundaries and Wiki readonly check/lint passed"
+    },
+    {
+      "command": "pnpm wiki:sync --base 491c027792b70ff2611d911126a3644b96cf15d6",
+      "exitCode": 0,
+      "result": "passed"
+    },
+    {
+      "command": "pnpm wiki:test",
+      "exitCode": 0,
+      "result": "36 passed"
+    },
+    {
+      "command": "pnpm test",
+      "exitCode": 1,
+      "result": "592 passed, 1 failed, 3 skipped; quote-checks.test.tsx:256 findByRole wait failure; retained"
+    },
+    {
+      "command": "ELECTRON_RUN_AS_NODE=1 ./apps/desktop/node_modules/.bin/electron node_modules/vitest/vitest.mjs run --maxWorkers=1",
+      "exitCode": 0,
+      "result": "593 passed, 3 skipped, 74.95 seconds; no code, timeout or assertion changes"
+    },
+    {
+      "command": "pnpm test:e2e",
+      "exitCode": 0,
+      "result": "includes build; 14 passed, 1 skipped, 2.8 minutes"
+    }
+  ],
+  "concurrencyFailure": "Serial rerun passed; the first concurrent run failed. Root cause has not been conclusively established.",
+  "cue": {
+    "editorUrl": "https://cue.humanmeetsai.com/deck/0b01606d-f1ad-4aa5-ae81-c4cbea9a8162",
+    "slides": 8,
+    "speakerNotes": 8,
+    "method": "Fresh PPTX authored and imported through authenticated Cue UI, no Cue MCP connection",
+    "published": true,
+    "watchPageVerified": "Root opened published watch page, observed 1/8 and slide content; all eight slides visually reviewed",
+    "sharing": "Accessible with private share link without sign-in; share secret intentionally not committed",
+    "startup": "Actual Electron screenshot plus timing explanation, not embedded live video",
+    "sources": "Synthetic Electron acceptance screenshots, no real customer documents"
+  },
+  "artifacts": [
+    {
+      "localPath": "/Users/jason/Documents/code/tradequote-agent/.runtime/c11-cue/TradeQuote-Cue-20261101.pptx",
+      "sha256": "88b4acd9942b4eb9c41bf4872dffa730579531db260e1ef23feea87430eb5bb1",
+      "bytes": 1831619
+    },
+    {
+      "localPath": "/Users/jason/Documents/code/tradequote-agent/.runtime/c11-cue/TradeQuote-Cue-讲稿.md",
+      "sha256": "3f724f96f60e11bd436d055ebf57ffe83718083f2cf2f28ba8b6985985f775cc",
+      "bytes": 4429
+    },
+    {
+      "localPath": "/Users/jason/Documents/code/tradequote-agent/.runtime/c11-cue/cue-published.jpg",
+      "sha256": "ac9afd66675c9ab22fd41a9d6dc5b282c1a9a9e551b36884d4f17d9ba8a0d278",
+      "bytes": 57574
+    },
+    {
+      "localPath": "/Users/jason/Documents/code/tradequote-agent/.runtime/c11-cue/integration-check.log",
+      "sha256": "57d68158fd2622d6b9db19ee5b57234b9537198178a2bb0f5c7cd1c79a2c79c6",
+      "bytes": 2734
+    },
+    {
+      "localPath": "/Users/jason/Documents/code/tradequote-agent/.runtime/c11-cue/integration-e2e.log",
+      "sha256": "59dbfd1ac427b07bb1e5f444c8fa769ea0b13d6def6a4deab2c21f05935d3541",
+      "bytes": 5302
+    },
+    {
+      "localPath": "/Users/jason/Documents/code/tradequote-agent/.runtime/c11-cue/integration-typecheck.log",
+      "sha256": "6aa24b4410d9d857fb5d81ecf2381c1399d4d17eac01af226f9b33dd5d4a0bbd",
+      "bytes": 97
+    },
+    {
+      "localPath": "/Users/jason/Documents/code/tradequote-agent/.runtime/c11-cue/integration-unit-serial.log",
+      "sha256": "81a275ede343d1e8e4c37d59df7185bad3f6ec0a667e6a73ef8513e6c63482fd",
+      "bytes": 536
+    },
+    {
+      "localPath": "/Users/jason/Documents/code/tradequote-agent/.runtime/c11-cue/integration-unit.log",
+      "sha256": "92721b23d0f1b482c2bea4218d1392a1552fca9e7f27aa762e5fc6ca6afce762",
+      "bytes": 16451
+    },
+    {
+      "localPath": "/Users/jason/Documents/code/tradequote-agent/.runtime/c11-cue/integration-wiki-sync.log",
+      "sha256": "5c941288f468199f2edeeacb9052c3f3c89580e14aa9efaf1df5c2b38388aeb5",
+      "bytes": 331
+    },
+    {
+      "localPath": "/Users/jason/Documents/code/tradequote-agent/.runtime/c11-cue/integration-wiki-test.log",
+      "sha256": "2d177a26184e1a51f301cf59b36fe565dd710d92b04ceaea3d40b4183090215f",
+      "bytes": 6851
+    }
+  ],
+  "remaining": [
+    "remote push and readback",
+    "human business/language sign-off",
+    "Windows deferred"
+  ],
+  "review": "Independent Agent static review reported no P0/P1/P2, not human semantic approval"
+}
