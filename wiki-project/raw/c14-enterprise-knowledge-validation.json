@@ -89,7 +89,12 @@
     "published": 0,
     "existingQuoteSnapshotsUnchanged": true,
     "csvSha256": "0d73c71211cabcfd7775d4e6b0f4236b8849df108233a5195a5164ec37923fc9",
-    "backupCreated": true
+    "backupCreated": true,
+    "nativeUi": {
+      "nodes": 185,
+      "edges": 170,
+      "status": "visually verified in actual Electron workspace"
+    }
   },
   "failuresRetained": [
     "Original Wiki transport unavailable expectations corrected after enabling strict IPC",
@@ -102,5 +107,84 @@
     "Single-source bounded model organization, not full P1 multi-candidate recovery",
     "Windows/package/non-author business approval not verified",
     "Application data and backups remain local and are not committed"
-  ]
+  ],
+  "integration": {
+    "sha": "f4d2d15c1c4d71ffeca0db1270ed86aa2215910d",
+    "parent": "b09093fd3dc1a9e4bffcfb583f90f4d1b33948de",
+    "fileWhitelist": [
+      "DESIGN.md",
+      "README.md",
+      "apps/desktop/src/main/index.ts",
+      "apps/desktop/src/main/worker-client.ts",
+      "apps/desktop/src/preload/contracts.test.ts",
+      "apps/desktop/src/preload/index.ts",
+      "apps/desktop/src/renderer/src/features/enterprise-knowledge.tsx",
+      "apps/desktop/src/renderer/src/features/knowledge-graph-data.test.ts",
+      "apps/desktop/src/renderer/src/features/knowledge-graph-data.ts",
+      "apps/desktop/src/renderer/src/features/knowledge-graph.css",
+      "apps/desktop/src/renderer/src/features/knowledge-graph.tsx",
+      "apps/desktop/src/workers/business.ts",
+      "packages/contracts/src/index.ts",
+      "packages/contracts/src/knowledge-desktop.ts",
+      "packages/contracts/src/knowledge-maintenance.test.ts",
+      "packages/contracts/src/knowledge-wiki.test.ts",
+      "packages/contracts/src/pending-client.ts",
+      "packages/infrastructure/src/agent-run-store.ts",
+      "packages/infrastructure/src/enterprise-knowledge.test.ts",
+      "packages/infrastructure/src/enterprise-knowledge.ts",
+      "packages/infrastructure/src/enterprise-material.ts",
+      "packages/infrastructure/src/index.ts",
+      "packages/infrastructure/src/quote-draft-plan.ts",
+      "packages/infrastructure/src/quote-tool-agent.ts",
+      "packages/infrastructure/src/wiki-check-source.ts",
+      "tests/e2e/enterprise-real-model.spec.ts",
+      "tests/e2e/knowledge-graph.spec.ts",
+      "tests/e2e/workspace.spec.ts",
+      "wiki-project/CONTEXT.md",
+      "wiki-project/index.md",
+      "wiki-project/log.md",
+      "wiki-project/raw/c14-enterprise-knowledge-validation.json",
+      "wiki-project/raw/generated/inventory.json",
+      "\"wiki-project/raw/generated/\\344\\273\\243\\347\\240\\201\\346\\270\\205\\345\\215\\225.md\"",
+      "\"wiki-project/raw/generated/\\345\\221\\275\\344\\273\\244\\344\\270\\216\\350\\277\\220\\350\\241\\214\\346\\227\\266\\346\\270\\205\\345\\215\\225.md\"",
+      "\"wiki-project/raw/generated/\\346\\272\\220\\347\\240\\201\\345\\277\\253\\347\\205\\247.md\"",
+      "\"wiki-project/raw/generated/\\346\\272\\220\\347\\240\\201\\350\\246\\206\\347\\233\\226\\347\\237\\251\\351\\230\\265.md\"",
+      "wiki-project/scripts/wiki-config.json",
+      "\"wiki-project/wiki/C14\\344\\274\\201\\344\\270\\232\\347\\237\\245\\350\\257\\206\\351\\227\\255\\347\\216\\257\\346\\226\\271\\346\\241\\210.md\"",
+      "\"wiki-project/wiki/C15\\347\\237\\245\\350\\257\\206\\345\\205\\263\\347\\263\\273\\345\\233\\276\\350\\260\\261.md\"",
+      "\"wiki-project/wiki/Wiki \\345\\267\\245\\344\\275\\234\\346\\265\\201\\344\\270\\216\\344\\273\\273\\345\\212\\241\\350\\256\\260\\345\\275\\225.md\"",
+      "\"wiki-project/wiki/decisions/0036-\\344\\274\\201\\344\\270\\232\\347\\237\\245\\350\\257\\206\\351\\227\\255\\347\\216\\257\\344\\270\\216\\344\\270\\232\\345\\212\\241\\345\\233\\276\\350\\260\\261.md\"",
+      "\"wiki-project/wiki/tasks/C14-\\344\\274\\201\\344\\270\\232\\347\\237\\245\\350\\257\\206\\351\\227\\255\\347\\216\\257.md\"",
+      "\"wiki-project/wiki/\\351\\241\\271\\347\\233\\256\\347\\212\\266\\346\\200\\201.md\""
+    ],
+    "checks": [
+      {
+        "command": "pnpm typecheck",
+        "exitCode": 0,
+        "logSha256": "6aa24b4410d9d857fb5d81ecf2381c1399d4d17eac01af226f9b33dd5d4a0bbd"
+      },
+      {
+        "command": "pnpm check",
+        "exitCode": 0,
+        "logSha256": "6c65ef7bdd7025f66ee5949559d3efb5a5aad9c69e548f7a801e30c68845788d"
+      },
+      {
+        "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 4e24cca",
+        "exitCode": 0,
+        "logSha256": "63c6d64b33a7b62f0543e91b6305c2439fe597cfe12ee0be69638a532b4b7df8"
+      },
+      {
+        "command": "pnpm build",
+        "exitCode": 0,
+        "logSha256": "de44b290614536071e45b8fe87f87e885945b804d8643a0488b3ec5b66b9833f"
+      }
+    ],
+    "remoteReadback": {
+      "main": "f4d2d15c1c4d71ffeca0db1270ed86aa2215910d",
+      "codex/m1-abc-integration": "f4d2d15c1c4d71ffeca0db1270ed86aa2215910d",
+      "atomicPushExitCode": 0,
+      "lsRemoteExitCode": 0,
+      "fetchExitCode": 0
+    }
+  }
 }
