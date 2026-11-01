@@ -1771,3 +1771,10 @@ C11最终维护回归 `pnpm wiki:test` 36/36通过、退出0；未修改工具�
 ## 2026-11-01 C12公开发布完成
 
 已将固定e33b68972a20d6c37270348fd3e5aeea2a2b3a32普通快进并原子推送至origin/main和origin/codex/m1-abc-integration，ls-remote两分支全SHA一致；原main历史完整保留。GitHub CLI可见性变更退出0，回读PUBLIC、默认main、MIT License，Actions仍disabled。无认证HTTPS读取仓库API、main的README与LICENSE均HTTP200，两个原文与本机逐字节一致。该任务已完成；下一文档提交仅保存回执，最终头部另行推送回读。代码能力和人工/Windows边界不变。证据见raw/c12-public-main-validation.json；关联[[C12公开发布与README]]、[[C12-main公开与README更新]]。
+
+
+## 2026-11-01 C15 图谱紧急交付
+
+用户要求10分钟简易Obsidian式图谱并发布main。独立bc6ba9e任务分支实现实际工程Wiki双链及报价Wiki引用图，不伪造企业知识；C14留在独立分支。类型与定向图数据测试通过，其余检查继续；覆盖映射/导航/README/DESIGN同步。见[[C15知识关系图谱]]、[[C15-知识图谱紧急交付]]。
+
+2026-11-01 C15本机只读图谱：类型/定向1项/构建/原生Electron1项/工程与固定bc6ba9e同步检查通过；截图确认节点分布与搜索详情。初次缺关联页门禁失败保留，修复后通过；完整业务套件未重跑，C14仍独立进行中。

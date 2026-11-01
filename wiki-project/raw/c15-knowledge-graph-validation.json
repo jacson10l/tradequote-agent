@@ -1,0 +1,53 @@
+{
+  "task": "C15",
+  "baseline": "bc6ba9eaf27b67092a131a0eeabbbc9a397ee921",
+  "environment": "macOS arm64, Node 22.22.0, pnpm 10.13.1",
+  "scope": "read-only graph, no real model calls",
+  "checks": [
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "logSha256": "0c7ba9bc1901243441cb9a568151307b7c213f79931ecea5a0622523d037805d"
+    },
+    {
+      "command": "pnpm exec vitest run apps/desktop/src/renderer/src/features/knowledge-graph-data.test.ts",
+      "exitCode": 0,
+      "logSha256": "31fc4d4c5fcd1090b515fa8bafb20a58c6e4535fc7509b6f207808849e7cf61c"
+    },
+    {
+      "command": "pnpm build",
+      "exitCode": 0,
+      "logSha256": "b4ad0685f14f5207cb5a01eeecd28a3c35b1b58c9f5c0ff074c91ba8abfd1a8f"
+    },
+    {
+      "command": "pnpm exec playwright test tests/e2e/knowledge-graph.spec.ts",
+      "exitCode": 0,
+      "logSha256": "17c59d8cccb4b608ab15b8310b22e41e1b265c9cc0fb0245748a3098b990525a"
+    },
+    {
+      "command": "pnpm check",
+      "exitCode": 0,
+      "logSha256": "7a46dcd9012a8c7fcb6dd4d42df4acda21d9a05e811d756e60589a4b73057e7d"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base bc6ba9e",
+      "exitCode": 0,
+      "logSha256": "de101387d3875b354422daae3d86c306b2dae63b0a41f85bb42fc9857ffba2d1"
+    },
+    {
+      "command": "pnpm wiki:test",
+      "exitCode": 0,
+      "result": "36 passed",
+      "logSha256": "f8020bc61d022e2e921cd3323af7a59fa28be93021f6e392fbd3133e11cbc1a9"
+    }
+  ],
+  "earlierFailures": [
+    "Initial test before dependency installation: command unavailable; rerun passed",
+    "Initial Wiki lint and maintenance test: two related semantic links missing; corrected and rerun"
+  ],
+  "limits": [
+    "Full suite not rerun for this read-only UI slice",
+    "Windows/package/non-author acceptance not run",
+    "C14 enterprise knowledge closure remains separate and incomplete"
+  ]
+}
