@@ -1,4 +1,6 @@
 
+2026-11-01 C16已交付：浅色图谱修订91f58d9合入integration/main，集成check及固定ad00e1c同步通过；原子推送后ls-remote与fetch一致。见[[C16-图谱统一浅色主题]]。
+
 2026-11-01 C16：用户要求图谱统一工作台浅色主题，C从ad00e1c独立修订CSS/SVG主题变量；不修改数据/引用，验证进行中。见[[C16-图谱统一浅色主题]]。
 
 2026-11-01 C15图谱发布完成：3f39f7d在codex/m1-abc-integration复验typecheck/定向1项/check/固定bc6ba9e同步通过，main同SHA原子推送；ls-remote与fetch均一致。任务[[C15-知识图谱紧急交付]]已完成本轮简版范围；C14完整企业知识闭环仍独立进行中。

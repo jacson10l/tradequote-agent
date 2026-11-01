@@ -35,5 +35,21 @@
     "No full suite rerun for this color-only change",
     "Windows, packaged installer and independent reviewer not verified",
     "Existing large bundle build warning remains"
-  ]
+  ],
+  "integration": {
+    "commit": "91f58d956096a0e0693c9c4749c45b9de1e416fc",
+    "remoteReadback": "integration/main matched by ls-remote and fetch",
+    "checks": [
+      {
+        "command": "pnpm check",
+        "exitCode": 0,
+        "logSha256": "286b8b39404d6e0b641e3426a9023719e2bd653b71077108f5c8478525eb8cb5"
+      },
+      {
+        "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base ad00e1c",
+        "exitCode": 0,
+        "logSha256": "97b6301f15261c1dae8de95a1db2176abe852dff481c886e38fefb1438c99add"
+      }
+    ]
+  }
 }
