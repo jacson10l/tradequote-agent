@@ -53,9 +53,11 @@ describe("approved customer reply pending terms", () => {
     expect(body).not.toContain("来源缺失");
   });
 
-  it("preserves confirmed payment and delivery terms", () => {
+  it("does not treat free-text payment and delivery as confirmed", () => {
     const body = reply("30% prepayment, 70% before shipment", "FOB Shenzhen, 30 days");
-    expect(body).toContain("Payment terms: 30% prepayment, 70% before shipment.");
-    expect(body).toContain("Delivery: FOB Shenzhen, 30 days.");
+    expect(body).toContain("Payment terms: to be confirmed.");
+    expect(body).toContain("Delivery: to be confirmed.");
+    expect(body).not.toContain("30% prepayment, 70% before shipment");
+    expect(body).not.toContain("FOB Shenzhen, 30 days");
   });
 });

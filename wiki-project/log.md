@@ -1638,3 +1638,16 @@ B07 已按 `0f837e35e0592050917a0c0f4914ca43f2fe9b64` 接收并合入集成分�
 - 项目负责人明确将 `codex/m1-abc-integration` 作为唯一集成主分支和后续人工验收基线；A/B/C 所有最终交付必须合入该分支。
 - 规则已写入根目录 `AGENTS.md`、`README.md`、`CONTRIBUTING.md`，并同步 `CONTEXT.md` 与本轮 A/B 需求转达页。成员分支推送不等于最终交付，C 合入后必须回读远端并重跑适用门禁。
 - 后续澄清：V3 仅为可选验收步骤，不是版本上限；客户需求未满足时可以从最新版本继续生成 V4+，见[[MVP人工验收操作手册]]。更新后 `pnpm wiki:check`、`check-wiki-sync --base 87106d170f50d44af81b7594b1b6c3308f177be3` 和 `git diff --check` 均通过。
+
+## 2026-11-01 B08 拟议付款/交期 pending 契约修复
+
+- 响应 C08 转达，B08 将 `calculateQuoteV1` 的付款/交期判定改为 `classifyTermConfirmation`：空白进入待确认，任何非空自由文本在人工受控确认入口接入前均保持“已填写但未获人工确认”。
+- 新增 C07 英文反例及版本链回归：`30% deposit; 70% before dispatch`、`EXW Guangzhou, China; 21 days after deposit and specification confirmation`、`Proposed`、`Subject to supplier confirmation`，覆盖 V1→V2→V3→重开。
+- B08 固定交付为 `ec6426d`（生产修复）和 `8c18223`（Wiki同步），已从 `codex/b07-contract-integration-review` 接收；C 尚需复验 `quote-delivery.ts` 客户正文 pending 标注、人工受控确认入口边界及组合门禁。
+
+## 2026-11-01 C08 集成测试契约同步
+
+- B08 合入后复验发现主分支原有 `quote-delivery.test.ts` 仍把普通付款/交期自由文本当作已确认条款，和新的“非空文本默认 pending”契约冲突。
+- C 将该测试改为验证客户回复输出 `to be confirmed`，并确认未泄露普通自由文本；未新增人工确认 DTO，也未把尚未实现的确认入口写成完成。
+- 定向验证：`foundation`、`trade`、`revision`、`quote-delivery` 共 4 个测试文件、17 项通过；人工受控确认入口仍未接入，正式审批/外发/PDF、Windows/签名包仍不计为完成。
+- `pnpm test` 和单 worker 全量复验均为 566 通过、3 跳过，另有既有 `worker-migration-gates` v6 Unicode fixture 重放失败；该失败不属于 B08 条款改动，但全量自动门禁暂不能标绿。本轮 `pnpm check`、`pnpm typecheck`、`pnpm wiki:test` 36/36 和 `check-wiki-sync` 均通过。

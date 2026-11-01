@@ -200,13 +200,42 @@ it("keeps non-empty unconfirmed terms in pending instead of treating them as con
     );
     expect(quote.pending.join(" ")).toContain("交期与交货条件待确认");
   }
-  // A concrete term is still not confirmed — it just no longer carries the explicit
-  // "unconfirmed wording" marker; the field remains pending by the confirmation semantics.
+  // 具体条款（无论中文还是 C07 实际英文拟议文本）在未经人工受控确认入口之前，
+  // 同样必须保持待确认，绝不从 pending 消失——这是 B08 修复的核心语义。
+  for (const payment of [
+    "30%预付，70%发货前付清",
+    "30% deposit; 70% before dispatch",
+    "30% deposit; 70% before dispatch (proposed)",
+    "30% deposit; 70% before dispatch — subject to supplier confirmation",
+  ]) {
+    const quote = calculateQuoteV1(
+      { ...input, payment, delivery: "确认后30天" },
+      scenario,
+      [product],
+      metadata,
+    );
+    expect(quote.pending.join(" ")).toContain("付款条款待确认");
+  }
+  for (const delivery of [
+    "确认后30天",
+    "EXW Guangzhou, China; 21 days after deposit and specification confirmation",
+    "EXW Guangzhou, China; 21 days after deposit (subject to supplier confirmation)",
+  ]) {
+    const quote = calculateQuoteV1(
+      { ...input, payment: "", delivery },
+      scenario,
+      [product],
+      metadata,
+    );
+    expect(quote.pending.join(" ")).toContain("交期与交货条件待确认");
+  }
   const concrete = calculateQuoteV1(
     { ...input, payment: "30%预付，70%发货前付清", delivery: "确认后30天" },
     scenario,
     [product],
     metadata,
   );
+  expect(concrete.pending.join(" ")).toContain("付款条款待确认");
+  expect(concrete.pending.join(" ")).toContain("交期与交货条件待确认");
   expect(concrete.pending.join(" ")).toContain("运费、税费及其他费用未核定");
 });

@@ -52,7 +52,13 @@ sources:
 - `pnpm check`、`pnpm wiki:check`、`pnpm wiki:test`：通过；Wiki 298 个 Markdown 全部可达、264 个语义页。
 - `node wiki-project/scripts/check-wiki-sync.mjs . --base ffaca36fb76f232fe2334df88e6ab22ae7e4acf0`：通过，`codeFiles=3`、`knowledgePages=4`、`tasks=2`、`errors=[]`。
 - `pnpm wiki:generate`、`git diff --check`：通过；最终远端回读与本地提交一致。
-- B07 合入后，C 定向 domain 回归测试 `5/5` 通过；客户回复测试覆盖未确认词屏蔽和已确认条款保留。
+- B07/B08 合入后，C 定向 domain 回归测试需同时覆盖未确认词屏蔽，以及普通自由文本在没有人工确认事实时仍输出 `to be confirmed`；当前 DTO 未接入人工确认入口，因此不测试「已确认条款保留」路径。
+
+### B08 合并复验（2026-11-01）
+
+- 本轮定向复验：`foundation`、`trade`、`revision`、`quote-delivery` 共 4 个测试文件、17 项通过；`pnpm typecheck`、`pnpm check`、`pnpm wiki:check`、`pnpm wiki:test`（36/36）和 `check-wiki-sync --base 405f6f95995459276a856aa3125e9f08e5edc5a4` 通过。
+- `pnpm test` 及单 worker 全量复验均为 566 项通过、3 项跳过，另有既有 `worker-migration-gates` v6 历史 fixture 失败：Worker 重放把 `仅为工程演示不代表真实商品` 读成乱码，导致 JSON 快照不一致。该失败不涉及本次 B08 代码或客户回复测试，但在修复前不能宣称全量自动门禁绿色。
+- 本轮未重复执行 `pnpm build`、`pnpm test:e2e`；此前集成证据仍保留，但不替代本轮 B08 合入后的完整门禁。人工受控确认入口、正式审批/外发/PDF、Windows 和签名安装包仍未完成。
 
 ## 未完成项
 

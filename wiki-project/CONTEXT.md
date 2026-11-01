@@ -1,4 +1,6 @@
 # 当前上下文
+2026-11-01 B08拟议条款pending契约修复：响应C08转达，B在codex/b07-contract-integration-review修复calculateQuoteV1对付款/交期只依赖isUnconfirmedTermText固定词表、导致C07英文拟议文本（30% deposit; 70% before dispatch、EXW Guangzhou 21 days、Proposed、Subject to supplier confirmation）漏进pending的生产缺口。trade.ts改用classifyTermConfirmation（空白→blank，其余非空→pending_confirmation）；修正trade.test.ts/revision.test.ts把具体拟议条款当已确认条款的错误预期并补英文反例。C 集成后同步 quote-delivery.test.ts：在确认事实尚未进入 DTO 时，普通自由文本仍只能输出 `to be confirmed`。trade 7项/revision 4项/foundation 4项，加客户回复2项定向回归通过；人工受控确认入口仍未接入。见[[B08拟议条款pending契约修复]]、[[B07契约集成非作者复核]]。
+
 2026-11-01 B07契约集成非作者复核：从 origin/codex/m1-abc-integration 新建 codex/b07-contract-integration-review，核对集成分支（tip 7688d39，B 固定交付 a4f2ba6 已作为 201e471 父提交正确合入），补 reviseQuote 的 V1→V2→V3→重开 pending 回归测试（revision.test.ts 3 项），记录 quote-delivery.ts renderReply 缺 pending 标注为 C 后续修复项。见[[B对ABC集成非作者复核]]、[[B07契约集成非作者复核]]。
 
 

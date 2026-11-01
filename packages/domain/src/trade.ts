@@ -1,9 +1,9 @@
 import {
   type CatalogRow,
+  classifyTermConfirmation,
   type ExecutionContext,
   failure,
   type ImportIssue,
-  isUnconfirmedTermText,
   type Product,
   type QuoteInput,
   type QuoteV1,
@@ -98,12 +98,13 @@ export function calculateQuoteV1(
   if (!currency) throw new TradeFault("VALIDATION_ERROR", "至少选择一行商品");
   if (lines.some((line) => line.product.currency !== currency))
     throw new TradeFault("VALIDATION_ERROR", "同一草稿只能包含同币种商品；本阶段未接入汇率换算");
-  if (!input.payment) pending.push("付款条款待确认");
-  else if (isUnconfirmedTermText(input.payment))
-    pending.push("付款条款待确认（已填写但未获人工确认）");
-  if (!input.delivery) pending.push("交期与交货条件待确认");
-  else if (isUnconfirmedTermText(input.delivery))
-    pending.push("交期与交货条件待确认（已填写但未获人工确认）");
+  // 付款/交期条款：任何非空自由文本（含拟议、模型建议、待供应商确认等）在未经
+  // 明确人工受控确认入口之前，一律保持待确认，绝不从 pending 中消失。这与公共契约
+  // `classifyTermConfirmation` 的语义一致：非空文字不能自行证明已获人工确认。
+  if (classifyTermConfirmation(input.payment) === "blank") pending.push("付款条款待确认");
+  else pending.push("付款条款待确认（已填写但未获人工确认）");
+  if (classifyTermConfirmation(input.delivery) === "blank") pending.push("交期与交货条件待确认");
+  else pending.push("交期与交货条件待确认（已填写但未获人工确认）");
   pending.push(
     "运费、税费及其他费用未核定；商品合计不是完整应付总额",
     "平台与目标市场规则尚未核验；仅可保存草稿",

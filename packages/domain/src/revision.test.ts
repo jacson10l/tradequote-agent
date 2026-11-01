@@ -79,7 +79,37 @@ describe("reviseQuote 未确认条款 pending 继承（B07 非作者集成复核
     expect(reopened.pending.join(" ")).toContain("交期与交货条件待确认");
   });
 
-  it("已确认的真实条款在修订后不进入 pending", () => {
+  it("具体拟议条款在未经人工受控确认前，V1 及修订后始终进入 pending（含 C07 英文反例）", () => {
+    const v1 = calculateQuoteV1(
+      {
+        scenarioId: id,
+        buyer: "客户A",
+        inquiry: "询价",
+        payment: "30% deposit; 70% before dispatch",
+        delivery: "EXW Guangzhou, China; 21 days after deposit and specification confirmation",
+        lines: [{ productId: id, quantity: "5", unit: "piece" }],
+      },
+      scenario,
+      [product],
+      { id, workspaceId: id, createdAt: now },
+    );
+    // 具体拟议条款不等于供应商确认，必须保持 pending。
+    expect(v1.pending.join(" ")).toContain("付款条款待确认");
+    expect(v1.pending.join(" ")).toContain("交期与交货条件待确认");
+
+    const v2 = reviseQuote(
+      v1,
+      { patches: [{ op: "setQuantity", productId: id, quantity: "10" }], summary: "调整数量" },
+      { id: other, createdAt: now },
+    );
+    expect(v2.pending.join(" ")).toContain("付款条款待确认");
+    expect(v2.pending.join(" ")).toContain("交期与交货条件待确认");
+  });
+
+  it("明确经人工受控确认入口写入的真实条款，才可离开对应 pending", () => {
+    // 当前阶段 `QuoteInputSchema` 未携带人工确认事实字段；确认只能来自人工受控入口，
+    // 而非自由文本。此处锁定该契约语义：自由文本本身永远不能免除 pending。
+    // （人工确认入口尚未接入报价输入 DTO，属后续 C/公共契约接线项，见 B07 未完成项。）
     const v1 = calculateQuoteV1(
       {
         scenarioId: id,
@@ -93,16 +123,16 @@ describe("reviseQuote 未确认条款 pending 继承（B07 非作者集成复核
       [product],
       { id, workspaceId: id, createdAt: now },
     );
-    expect(v1.pending.join(" ")).not.toContain("付款条款待确认");
-    expect(v1.pending.join(" ")).not.toContain("交期与交货条件待确认");
+    expect(v1.pending.join(" ")).toContain("付款条款待确认");
+    expect(v1.pending.join(" ")).toContain("交期与交货条件待确认");
 
     const v2 = reviseQuote(
       v1,
       { patches: [{ op: "setQuantity", productId: id, quantity: "10" }], summary: "调整数量" },
       { id: other, createdAt: now },
     );
-    expect(v2.pending.join(" ")).not.toContain("付款条款待确认");
-    expect(v2.pending.join(" ")).not.toContain("交期与交货条件待确认");
+    expect(v2.pending.join(" ")).toContain("付款条款待确认");
+    expect(v2.pending.join(" ")).toContain("交期与交货条件待确认");
   });
 
   it("无字段变化的修订被拒绝，不产生新版本", () => {

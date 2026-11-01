@@ -35,7 +35,7 @@ sources:
 
 ## 改动
 
-- 新增 `packages/domain/src/revision.test.ts`：3 项回归测试（未确认条款 V1→V2→V3→重开始终 pending；已确认真实条款修订后不进入 pending；无字段变化修订被拒绝）。
+- 新增 `packages/domain/src/revision.test.ts`：3 项回归测试（未确认条款 V1→V2→V3→重开始终 pending；无字段变化修订被拒绝）。（复核早期第三项"已确认真实条款修订后不进入 pending"的预期有误——具体拟议条款未经人工受控确认应始终 pending，B08 已修正，见 [[B08拟议条款pending契约修复]]。）
 - `wiki-config.json` 为 `revision.test.ts` 登记覆盖映射（→ M4模型与报价修订.md）。
 - `M4模型与报价修订.md` 补充 pending 继承回归测试说明。
 

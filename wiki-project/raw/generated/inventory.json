@@ -2098,9 +2098,9 @@
     {
       "path": "packages/domain/src/quote-delivery.test.ts",
       "type": "ts",
-      "lines": 61,
-      "bytes": 2118,
-      "sha256": "a4c8af01af7ac74999bad1e08417c32ab0f854a4400bac4922ce8cc876607c3c",
+      "lines": 63,
+      "bytes": 2232,
+      "sha256": "e8fda06c10f358680261ae081ae1425a00d8246177816fc449f5c4edaad86101",
       "role": "审批后客户回复 pending 边界回归测试",
       "pages": [
         "wiki/M2真实报价V1.md",
@@ -2122,9 +2122,9 @@
     {
       "path": "packages/domain/src/revision.test.ts",
       "type": "ts",
-      "lines": 130,
-      "bytes": 4617,
-      "sha256": "558c20a1358784862a91a538f6378df1d25f54fab0a487a6e5218a1a2e4c3018",
+      "lines": 160,
+      "bytes": 6092,
+      "sha256": "73acfb936d3d6f39935889a6707dec12ba831130bccaa327ae9b5ecea371fa71",
       "role": "报价修订未确认条款 pending 继承回归测试",
       "pages": [
         "wiki/M4模型与报价修订.md"
@@ -2144,9 +2144,9 @@
     {
       "path": "packages/domain/src/trade.test.ts",
       "type": "ts",
-      "lines": 212,
-      "bytes": 7493,
-      "sha256": "62dcf56153c47618ea5bc9b907b93498a938b186f8b9ece468c5f742c980be30",
+      "lines": 241,
+      "bytes": 8591,
+      "sha256": "d4a43d549aa862b24b4a38cd6033b5a5533a3eaee3dfc412a9ba9bc44ecdf45d",
       "role": "Quote V1 amount, source, transaction, migration and real Electron regression evidence",
       "pages": [
         "wiki/M2真实报价V1.md",
@@ -2156,9 +2156,9 @@
     {
       "path": "packages/domain/src/trade.ts",
       "type": "ts",
-      "lines": 158,
-      "bytes": 5931,
-      "sha256": "197bd0569f86085a836010e99eff6b75d2f2f73883e6518e298c064b2e85a133",
+      "lines": 159,
+      "bytes": 6249,
+      "sha256": "4700c1c663a3317b24db0fb320aae282a598132c7623f0725e76a55c19c3879e",
       "role": "Deterministic tier pricing, unknown amounts and human-only V1 service",
       "pages": [
         "wiki/M2真实报价V1.md",
