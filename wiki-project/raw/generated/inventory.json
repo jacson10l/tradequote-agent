@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "b3d0957c0240b68d7a1e5c2e0311458c8c08b6322b84330d80ea4c7acad2c195",
-    "wiki-config.json": "a5e741f0e0bc20766eac9a43d09bdb55be85434430b9f849a2c96182648f1278",
+    "wiki-config.json": "4cc16589b31dca5fb5092633b25a9971e6498a9f3bcf977d49660edf9893e04b",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -42,7 +42,8 @@
       "sha256": "fd5b6046ee251fce8c1cd8262b640635640508716e1bb5dc515ca9c39be27938",
       "role": "运行数据与依赖排除",
       "pages": [
-        "wiki/配置路径与敏感信息.md"
+        "wiki/配置路径与敏感信息.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     {
@@ -227,7 +228,8 @@
         "wiki/C03持久事件与桌面重连.md",
         "wiki/C已保存报价检查桌面切片.md",
         "wiki/C客户回复草稿桌面切片.md",
-        "wiki/C05c会话生命周期与业务对话.md"
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     {
@@ -290,7 +292,8 @@
         "wiki/C04正式设置评估入口.md",
         "wiki/C03持久事件与桌面重连.md",
         "wiki/C已保存报价检查桌面切片.md",
-        "wiki/C05c会话生命周期与业务对话.md"
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     {
@@ -314,7 +317,8 @@
       "pages": [
         "wiki/M1工作台.md",
         "wiki/C05c会话生命周期与业务对话.md",
-        "wiki/C07业务资料与路演收口.md"
+        "wiki/C07业务资料与路演收口.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     {
@@ -440,7 +444,8 @@
       "pages": [
         "wiki/M4模型与报价修订.md",
         "wiki/C04正式设置评估入口.md",
-        "wiki/C05c会话生命周期与业务对话.md"
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     {
@@ -641,7 +646,8 @@
         "wiki/M1工作台.md",
         "wiki/C05CodexHarness与单据工作台.md",
         "wiki/C05c会话生命周期与业务对话.md",
-        "wiki/C07业务资料与路演收口.md"
+        "wiki/C07业务资料与路演收口.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     {
@@ -738,14 +744,15 @@
     {
       "path": "apps/desktop/src/renderer/src/theme.css",
       "type": "css",
-      "lines": 834,
-      "bytes": 15066,
-      "sha256": "71c8366290a42ab61e70370c434fd45046398e9088f934148deec4a99c09b465",
+      "lines": 837,
+      "bytes": 15078,
+      "sha256": "d6f676e76acb92a5f22af2254664687faffa2bb0a2c2d0848bb901a824f3413d",
       "role": "M1 React workspace form and document layout",
       "pages": [
         "wiki/M1工作台.md",
         "wiki/C05CodexHarness与单据工作台.md",
-        "wiki/C05c会话生命周期与业务对话.md"
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     {
@@ -1704,7 +1711,8 @@
         "wiki/C02c统一运行与写账本.md",
         "wiki/C04正式设置评估入口.md",
         "wiki/C03持久事件与桌面重连.md",
-        "wiki/C已保存报价检查桌面切片.md"
+        "wiki/C已保存报价检查桌面切片.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     {
@@ -1830,7 +1838,8 @@
         "wiki/M1接口与持久化.md",
         "wiki/B00a知识Wiki公共协议.md",
         "wiki/B00a知识整理与维护协议.md",
-        "wiki/C04正式设置评估入口.md"
+        "wiki/C04正式设置评估入口.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     {
@@ -2568,7 +2577,8 @@
       "pages": [
         "wiki/M4模型与报价修订.md",
         "wiki/M1验证与协作.md",
-        "wiki/C运行恢复实现.md"
+        "wiki/C运行恢复实现.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     {
@@ -2581,7 +2591,8 @@
       "pages": [
         "wiki/M4模型与报价修订.md",
         "wiki/C运行恢复实现.md",
-        "wiki/C04剩余失败证据与收敛.md"
+        "wiki/C04剩余失败证据与收敛.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     {
@@ -2754,7 +2765,8 @@
         "wiki/A01-追加迁移设计.md",
         "wiki/B谱系账本适配与P1回执交接.md",
         "wiki/C02c统一运行与写账本.md",
-        "wiki/Ae7a9439接收与P1接线阻断复核.md"
+        "wiki/Ae7a9439接收与P1接线阻断复核.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     {
