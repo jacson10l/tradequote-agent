@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "b3d0957c0240b68d7a1e5c2e0311458c8c08b6322b84330d80ea4c7acad2c195",
-    "wiki-config.json": "b47224e43478e9a7b3c67d9d61491fa165d8eb00304eb5f7eb916e2abda8ff83",
+    "wiki-config.json": "01dfb1dbb6452de677fd692c8875c044e9a2dee0175fadda6789087b3fa746d4",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -37,12 +37,13 @@
     {
       "path": ".gitignore",
       "type": ".gitignore",
-      "lines": 70,
-      "bytes": 1033,
-      "sha256": "0f29621c459758f3df300fa683c2ea323db0388ffa8244280e19273030606430",
+      "lines": 73,
+      "bytes": 1132,
+      "sha256": "fd5b6046ee251fce8c1cd8262b640635640508716e1bb5dc515ca9c39be27938",
       "role": "运行数据与依赖排除",
       "pages": [
-        "wiki/配置路径与敏感信息.md"
+        "wiki/配置路径与敏感信息.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     {
@@ -216,9 +217,9 @@
     {
       "path": "apps/desktop/src/main/index.ts",
       "type": "ts",
-      "lines": 344,
-      "bytes": 13938,
-      "sha256": "935314b12cf4b9908cc76430651a755ba42e0ee742cc38e9ea57239eecb183f4",
+      "lines": 482,
+      "bytes": 20479,
+      "sha256": "27f2f1d86e28df5bff8352713d21d6a3c2a65a7599bf134eb40734ff0b496795",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md",
@@ -227,7 +228,8 @@
         "wiki/C03持久事件与桌面重连.md",
         "wiki/C已保存报价检查桌面切片.md",
         "wiki/C客户回复草稿桌面切片.md",
-        "wiki/C05c会话生命周期与业务对话.md"
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     {
@@ -280,9 +282,9 @@
     {
       "path": "apps/desktop/src/preload/index.ts",
       "type": "ts",
-      "lines": 198,
-      "bytes": 8536,
-      "sha256": "52506619a874925d7ea61211383a8509373a9a1206309b922397e847523b3aa4",
+      "lines": 241,
+      "bytes": 10408,
+      "sha256": "10ae1d63e08ce6b6ae0d40de3a82243dc7715560e2d4abab6d0b14c26b34b80e",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md",
@@ -290,7 +292,8 @@
         "wiki/C04正式设置评估入口.md",
         "wiki/C03持久事件与桌面重连.md",
         "wiki/C已保存报价检查桌面切片.md",
-        "wiki/C05c会话生命周期与业务对话.md"
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     {
@@ -307,14 +310,15 @@
     {
       "path": "apps/desktop/src/renderer/src/App.tsx",
       "type": "tsx",
-      "lines": 74,
-      "bytes": 3077,
-      "sha256": "34f88d06cbf3bac504626fb828452a57045caa93166677e7b2b023e1735846c6",
+      "lines": 80,
+      "bytes": 3430,
+      "sha256": "66474d4685610e256137d39ac83bf2db083ca1a34ef78494c0a4e12b6309685d",
       "role": "M1 React workspace form and document layout",
       "pages": [
         "wiki/M1工作台.md",
         "wiki/C05c会话生命周期与业务对话.md",
-        "wiki/C07业务资料与路演收口.md"
+        "wiki/C07业务资料与路演收口.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     {
@@ -433,14 +437,39 @@
     {
       "path": "apps/desktop/src/renderer/src/features/model-settings.tsx",
       "type": "tsx",
-      "lines": 160,
-      "bytes": 5668,
-      "sha256": "85b596e215c735128fa6f436108a34cc1ced73a45fd64d289cfcfc1fe87c9eb0",
+      "lines": 166,
+      "bytes": 5918,
+      "sha256": "4b70229a3dd9c23f1118af1fedfe475db14fad9b8fcb010d5577f32447508e6b",
       "role": "正式模型设置交互",
       "pages": [
         "wiki/M4模型与报价修订.md",
         "wiki/C04正式设置评估入口.md",
-        "wiki/C05c会话生命周期与业务对话.md"
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/虚拟形象与记忆方案.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/pet-assistant.tsx",
+      "type": "tsx",
+      "lines": 246,
+      "bytes": 8180,
+      "sha256": "c979ec1f1638abb9689a967f6418d99d1179b3a70da3a90d78e09975200a91fa",
+      "role": "报价小人专属对话页：人设管理、多轮对话、按住说话语音转写",
+      "pages": [
+        "wiki/虚拟形象与记忆方案.md",
+        "wiki/pet/报价小人记忆.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/pet-mascot.tsx",
+      "type": "tsx",
+      "lines": 36,
+      "bytes": 1137,
+      "sha256": "53d9ae7791032c8710408d65948d91ce87b034029832b10f7e2dd179d79f4556",
+      "role": "报价小人看板娘组件：待机动画与表情状态联动（idle/thinking/success）",
+      "pages": [
+        "wiki/虚拟形象与记忆方案.md",
+        "wiki/pet/报价小人人设.md"
       ]
     },
     {
@@ -584,6 +613,17 @@
       ]
     },
     {
+      "path": "apps/desktop/src/renderer/src/features/use-speech-recognition.ts",
+      "type": "ts",
+      "lines": 88,
+      "bytes": 2807,
+      "sha256": "184b4b068f146eed6ee54e04ca79b5b075445aa04563eaa9f4dbe3cd19219ed3",
+      "role": "按住说话语音识别 hook（Web Speech API，零后端零 key）",
+      "pages": [
+        "wiki/虚拟形象与记忆方案.md"
+      ]
+    },
+    {
       "path": "apps/desktop/src/renderer/src/features/workbench.test.tsx",
       "type": "tsx",
       "lines": 368,
@@ -598,15 +638,16 @@
     {
       "path": "apps/desktop/src/renderer/src/features/workbench.tsx",
       "type": "tsx",
-      "lines": 440,
-      "bytes": 16685,
-      "sha256": "91ea1a450da074e74b3a6fca1503b6b7657c3b1687df545657cb03643edfe668",
+      "lines": 449,
+      "bytes": 17070,
+      "sha256": "b600e7f348a6d16858ea4ff8c7e5a065026ca8a1fd57910add9a9efb006ad79d",
       "role": "M1 React workspace form and document layout",
       "pages": [
         "wiki/M1工作台.md",
         "wiki/C05CodexHarness与单据工作台.md",
         "wiki/C05c会话生命周期与业务对话.md",
-        "wiki/C07业务资料与路演收口.md"
+        "wiki/C07业务资料与路演收口.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     {
@@ -727,14 +768,15 @@
     {
       "path": "apps/desktop/src/renderer/src/theme.css",
       "type": "css",
-      "lines": 761,
-      "bytes": 13591,
-      "sha256": "0e8e5008e9bf23cf9e54c3f23ef871a0e8499bda6b919102b8141843b63dba51",
+      "lines": 927,
+      "bytes": 16823,
+      "sha256": "edb11addaf3167ef39222cf78792d825c5a07cd052699d2582c6cb92d18eedd7",
       "role": "M1 React workspace form and document layout",
       "pages": [
         "wiki/M1工作台.md",
         "wiki/C05CodexHarness与单据工作台.md",
-        "wiki/C05c会话生命周期与业务对话.md"
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     {
@@ -1693,9 +1735,9 @@
     {
       "path": "packages/contracts/src/index.ts",
       "type": "ts",
-      "lines": 177,
-      "bytes": 6155,
-      "sha256": "e8bed9e297887f4e67bc6260ed6624d1d8560545ca1e382edf129580af5cb79f",
+      "lines": 180,
+      "bytes": 6233,
+      "sha256": "4709457583f039187b86524493dffda93ba654cc8faf568d441cba8beb5e6a82",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
@@ -1704,7 +1746,8 @@
         "wiki/C02c统一运行与写账本.md",
         "wiki/C04正式设置评估入口.md",
         "wiki/C03持久事件与桌面重连.md",
-        "wiki/C已保存报价检查桌面切片.md"
+        "wiki/C已保存报价检查桌面切片.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     {
@@ -1822,15 +1865,16 @@
     {
       "path": "packages/contracts/src/mock.ts",
       "type": "ts",
-      "lines": 419,
-      "bytes": 14572,
-      "sha256": "b09bbcf3db47c8b6a144983aa76563e0bcf0c459c51f9fd923bd757dcc344ed3",
+      "lines": 423,
+      "bytes": 14967,
+      "sha256": "027c167c89912afccafe5865ec4d1da88bdae15704a49580c0aff3e15929d9df",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
         "wiki/B00a知识Wiki公共协议.md",
         "wiki/B00a知识整理与维护协议.md",
-        "wiki/C04正式设置评估入口.md"
+        "wiki/C04正式设置评估入口.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     {
@@ -1860,6 +1904,18 @@
         "wiki/B00a知识整理与维护协议.md",
         "wiki/C03持久事件与桌面重连.md",
         "wiki/C05c会话生命周期与业务对话.md"
+      ]
+    },
+    {
+      "path": "packages/contracts/src/pet.ts",
+      "type": "ts",
+      "lines": 127,
+      "bytes": 3853,
+      "sha256": "00d41ba9b5beaf1afa5a3192950177b6c2bf593f5ca2341c74b666b23e1c7a19",
+      "role": "虚拟形象（报价小人）契约：人设/记忆/命令/对话结果 schema 与 PetClient",
+      "pages": [
+        "wiki/虚拟形象与记忆方案.md",
+        "wiki/pet/报价小人人设.md"
       ]
     },
     {
@@ -2162,7 +2218,8 @@
       "sha256": "73acfb936d3d6f39935889a6707dec12ba831130bccaa327ae9b5ecea371fa71",
       "role": "报价修订未确认条款 pending 继承回归测试",
       "pages": [
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/B对ABC集成非作者复核.md"
       ]
     },
     {
@@ -2548,27 +2605,29 @@
     {
       "path": "packages/infrastructure/src/deepseek.test.ts",
       "type": "ts",
-      "lines": 143,
-      "bytes": 5466,
-      "sha256": "c9e794cec9f77f8b03ac75fb6a6555dc665ac65771915c243f71b2668c27fe7b",
+      "lines": 171,
+      "bytes": 6525,
+      "sha256": "a66aca80cb3363fd25b912116bc3662cea81edae2eb36ec5c065e36574f145c6",
       "role": "模型HTTP失败和超时回归",
       "pages": [
         "wiki/M4模型与报价修订.md",
         "wiki/M1验证与协作.md",
-        "wiki/C运行恢复实现.md"
+        "wiki/C运行恢复实现.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     {
       "path": "packages/infrastructure/src/deepseek.ts",
       "type": "ts",
-      "lines": 129,
-      "bytes": 5134,
-      "sha256": "3d303dfcce2fb6baf5bb68444076d0220ddec84256cd23a2fb37cf833d8fad95",
+      "lines": 214,
+      "bytes": 8705,
+      "sha256": "11b4293b875dc7d544e1653a7587c871dd9a88b3267c48e94c1404148a40e61b",
       "role": "官方DeepSeek JSON网络适配和失败边界",
       "pages": [
         "wiki/M4模型与报价修订.md",
         "wiki/C运行恢复实现.md",
-        "wiki/C04剩余失败证据与收敛.md"
+        "wiki/C04剩余失败证据与收敛.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     {
@@ -2731,9 +2790,9 @@
     {
       "path": "packages/infrastructure/src/index.ts",
       "type": "ts",
-      "lines": 170,
-      "bytes": 6386,
-      "sha256": "51cd33d9dcb513a817cb9bc677784e1cc0e3f4711256087b1d7c0e8d038f638f",
+      "lines": 172,
+      "bytes": 6498,
+      "sha256": "304af01e0feffd53ecc96552ad53f7472348fdcaf88b1aff094d1a0d34df66c7",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
@@ -2741,7 +2800,8 @@
         "wiki/A01-追加迁移设计.md",
         "wiki/B谱系账本适配与P1回执交接.md",
         "wiki/C02c统一运行与写账本.md",
-        "wiki/Ae7a9439接收与P1接线阻断复核.md"
+        "wiki/Ae7a9439接收与P1接线阻断复核.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     {
@@ -2848,6 +2908,52 @@
       "role": "主进程凭据加密持久化与内存回退",
       "pages": [
         "wiki/M4模型与报价修订.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/pet-memory-store.test.ts",
+      "type": "ts",
+      "lines": 109,
+      "bytes": 4242,
+      "sha256": "0abc99d993faa4313098533b46e1eb214a578b2e78fc81722905ff96cdf311db",
+      "role": "报价小人记忆存储回归：人设审核/滚动上限/摘要压缩边界",
+      "pages": [
+        "wiki/虚拟形象与记忆方案.md",
+        "wiki/pet/报价小人记忆.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/pet-memory-store.ts",
+      "type": "ts",
+      "lines": 210,
+      "bytes": 7707,
+      "sha256": "05152f1e1162537a61b53e2b9ca288a95e80ea016f2ad75a11f9106107b80dca",
+      "role": "报价小人独立记忆存储：人设人工审核、记忆有界滚动与摘要压缩",
+      "pages": [
+        "wiki/虚拟形象与记忆方案.md",
+        "wiki/pet/报价小人记忆.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/pet-quote-context.test.ts",
+      "type": "ts",
+      "lines": 105,
+      "bytes": 2951,
+      "sha256": "1cb9f530f2f417d0a11bc82c14fb5a999393d1d777cb23796b6770f66a1e52ef",
+      "role": "报价小人只读报价摘要回归：空工作区/金额待定/币种/客户提炼",
+      "pages": [
+        "wiki/虚拟形象与记忆方案.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/pet-quote-context.ts",
+      "type": "ts",
+      "lines": 40,
+      "bytes": 1843,
+      "sha256": "c85bd56ce18035c06b99ae9689237dff5c899c022dedea82f9075b3f1fcc279b",
+      "role": "报价小人只读报价摘要提炼纯函数（编号/客户/金额币种/行数，未知不等于零）",
+      "pages": [
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     {

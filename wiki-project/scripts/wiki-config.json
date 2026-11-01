@@ -77,9 +77,24 @@
         "wiki/M2真实报价V1.md"
       ]
     },
-    "docs/roadshow/c07/cue-result.md": {"role": "C07 Cue私有导入、8页预览和接入边界", "pages": ["wiki/C07业务资料与路演收口.md"]},
-    "docs/roadshow/c07/source-manifest.json": {"role": "C07固定A资料来源、字段沿用和审核限制", "pages": ["wiki/C07业务资料与路演收口.md"]},
-    "docs/roadshow/c07/source-notes.md": {"role": "C07固定A资料来源、字段沿用和审核限制", "pages": ["wiki/C07业务资料与路演收口.md"]},
+    "docs/roadshow/c07/cue-result.md": {
+      "role": "C07 Cue私有导入、8页预览和接入边界",
+      "pages": [
+        "wiki/C07业务资料与路演收口.md"
+      ]
+    },
+    "docs/roadshow/c07/source-manifest.json": {
+      "role": "C07固定A资料来源、字段沿用和审核限制",
+      "pages": [
+        "wiki/C07业务资料与路演收口.md"
+      ]
+    },
+    "docs/roadshow/c07/source-notes.md": {
+      "role": "C07固定A资料来源、字段沿用和审核限制",
+      "pages": [
+        "wiki/C07业务资料与路演收口.md"
+      ]
+    },
     "docs/superpowers/plans/2026-10-31-c07-business-roadshow.md": {
       "role": "C07执行与实际验证计划",
       "pages": [
@@ -143,7 +158,8 @@
     ".gitignore": {
       "role": "运行数据与依赖排除",
       "pages": [
-        "wiki/配置路径与敏感信息.md"
+        "wiki/配置路径与敏感信息.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     "README.md": {
@@ -585,7 +601,8 @@
         "wiki/C03持久事件与桌面重连.md",
         "wiki/C已保存报价检查桌面切片.md",
         "wiki/C客户回复草稿桌面切片.md",
-        "wiki/C05c会话生命周期与业务对话.md"
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     "apps/desktop/src/main/worker-client.ts": {
@@ -605,7 +622,8 @@
         "wiki/C04正式设置评估入口.md",
         "wiki/C03持久事件与桌面重连.md",
         "wiki/C已保存报价检查桌面切片.md",
-        "wiki/C05c会话生命周期与业务对话.md"
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     "apps/desktop/src/renderer/index.html": {
@@ -619,7 +637,8 @@
       "pages": [
         "wiki/M1工作台.md",
         "wiki/C05c会话生命周期与业务对话.md",
-        "wiki/C07业务资料与路演收口.md"
+        "wiki/C07业务资料与路演收口.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     "apps/desktop/src/renderer/src/env.d.ts": {
@@ -634,7 +653,8 @@
         "wiki/M1工作台.md",
         "wiki/C05CodexHarness与单据工作台.md",
         "wiki/C05c会话生命周期与业务对话.md",
-        "wiki/C07业务资料与路演收口.md"
+        "wiki/C07业务资料与路演收口.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     "apps/desktop/src/renderer/src/features/workspace.test.tsx": {
@@ -675,7 +695,8 @@
       "pages": [
         "wiki/M1工作台.md",
         "wiki/C05CodexHarness与单据工作台.md",
-        "wiki/C05c会话生命周期与业务对话.md"
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     "apps/desktop/src/workers/business.ts": {
@@ -723,7 +744,8 @@
         "wiki/C02c统一运行与写账本.md",
         "wiki/C04正式设置评估入口.md",
         "wiki/C03持久事件与桌面重连.md",
-        "wiki/C已保存报价检查桌面切片.md"
+        "wiki/C已保存报价检查桌面切片.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     "packages/contracts/src/mock.ts": {
@@ -732,7 +754,8 @@
         "wiki/M1接口与持久化.md",
         "wiki/B00a知识Wiki公共协议.md",
         "wiki/B00a知识整理与维护协议.md",
-        "wiki/C04正式设置评估入口.md"
+        "wiki/C04正式设置评估入口.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     "packages/domain/package.json": {
@@ -777,7 +800,8 @@
         "wiki/A01-追加迁移设计.md",
         "wiki/B谱系账本适配与P1回执交接.md",
         "wiki/C02c统一运行与写账本.md",
-        "wiki/Ae7a9439接收与P1接线阻断复核.md"
+        "wiki/Ae7a9439接收与P1接线阻断复核.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     "packages/infrastructure/src/migration-lineage.ts": {
@@ -1061,19 +1085,30 @@
     },
     "docs/superpowers/plans/2026-11-01-startup-confetti.md": {
       "role": "Approved startup confetti design, test-first implementation and delivery boundaries",
-      "pages": ["wiki/桌面启动五彩纸屑.md"]
+      "pages": [
+        "wiki/桌面启动五彩纸屑.md"
+      ]
     },
     "apps/desktop/src/renderer/src/shared/startup-confetti.tsx": {
       "role": "Dedicated branded startup screen, confetti lifecycle, workbench fade-in and reduced-motion fallback",
-      "pages": ["wiki/桌面启动五彩纸屑.md", "wiki/M1工作台.md"]
+      "pages": [
+        "wiki/桌面启动五彩纸屑.md",
+        "wiki/M1工作台.md"
+      ]
     },
     "apps/desktop/src/renderer/src/shared/startup-confetti.test.tsx": {
       "role": "Startup particles and screen phase timing, inert workbench, high-DPI, reduced motion and cleanup regression",
-      "pages": ["wiki/桌面启动五彩纸屑.md", "wiki/M1验证与协作.md"]
+      "pages": [
+        "wiki/桌面启动五彩纸屑.md",
+        "wiki/M1验证与协作.md"
+      ]
     },
     "tests/e2e/startup-confetti.spec.ts": {
       "role": "Actual Electron dedicated startup brand, hidden workbench, ordered fade-in, reopen and reduced motion",
-      "pages": ["wiki/桌面启动五彩纸屑.md", "wiki/M1验证与协作.md"]
+      "pages": [
+        "wiki/桌面启动五彩纸屑.md",
+        "wiki/M1验证与协作.md"
+      ]
     },
     "apps/desktop/src/renderer/src/shared/feedback.test.tsx": {
       "role": "Feedback lifetime, retry, accessibility roles and dismissal regression",
@@ -1105,7 +1140,8 @@
     "packages/domain/src/revision.test.ts": {
       "role": "报价修订未确认条款 pending 继承回归测试",
       "pages": [
-        "wiki/M4模型与报价修订.md"
+        "wiki/M4模型与报价修订.md",
+        "wiki/B对ABC集成非作者复核.md"
       ]
     },
     "packages/infrastructure/src/agent-executor.ts": {
@@ -1122,7 +1158,8 @@
       "pages": [
         "wiki/M4模型与报价修订.md",
         "wiki/C运行恢复实现.md",
-        "wiki/C04剩余失败证据与收敛.md"
+        "wiki/C04剩余失败证据与收敛.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     "packages/infrastructure/src/model-settings.ts": {
@@ -1146,7 +1183,8 @@
       "pages": [
         "wiki/M4模型与报价修订.md",
         "wiki/M1验证与协作.md",
-        "wiki/C运行恢复实现.md"
+        "wiki/C运行恢复实现.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     "packages/infrastructure/src/model-settings.test.ts": {
@@ -1161,7 +1199,8 @@
       "pages": [
         "wiki/M4模型与报价修订.md",
         "wiki/C04正式设置评估入口.md",
-        "wiki/C05c会话生命周期与业务对话.md"
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/虚拟形象与记忆方案.md"
       ]
     },
     "apps/desktop/src/renderer/src/features/quote-agent.tsx": {
@@ -1761,8 +1800,7 @@
         "wiki/C02c统一运行与写账本.md",
         "wiki/C03持久事件与桌面重连.md",
         "wiki/C05CodexHarness与单据工作台.md",
-        "wiki/C05c会话生命周期与业务对话.md"
-      ,
+        "wiki/C05c会话生命周期与业务对话.md",
         "wiki/C07业务资料与路演收口.md"
       ]
     },
@@ -2192,6 +2230,59 @@
       "pages": [
         "wiki/B规则检查实现.md",
         "wiki/tasks/B06-条款确认与运行契约复核.md"
+      ]
+    },
+    "packages/contracts/src/pet.ts": {
+      "role": "虚拟形象（报价小人）契约：人设/记忆/命令/对话结果 schema 与 PetClient",
+      "pages": [
+        "wiki/虚拟形象与记忆方案.md",
+        "wiki/pet/报价小人人设.md"
+      ]
+    },
+    "packages/infrastructure/src/pet-memory-store.ts": {
+      "role": "报价小人独立记忆存储：人设人工审核、记忆有界滚动与摘要压缩",
+      "pages": [
+        "wiki/虚拟形象与记忆方案.md",
+        "wiki/pet/报价小人记忆.md"
+      ]
+    },
+    "packages/infrastructure/src/pet-memory-store.test.ts": {
+      "role": "报价小人记忆存储回归：人设审核/滚动上限/摘要压缩边界",
+      "pages": [
+        "wiki/虚拟形象与记忆方案.md",
+        "wiki/pet/报价小人记忆.md"
+      ]
+    },
+    "packages/infrastructure/src/pet-quote-context.ts": {
+      "role": "报价小人只读报价摘要提炼纯函数（编号/客户/金额币种/行数，未知不等于零）",
+      "pages": [
+        "wiki/虚拟形象与记忆方案.md"
+      ]
+    },
+    "packages/infrastructure/src/pet-quote-context.test.ts": {
+      "role": "报价小人只读报价摘要回归：空工作区/金额待定/币种/客户提炼",
+      "pages": [
+        "wiki/虚拟形象与记忆方案.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/pet-assistant.tsx": {
+      "role": "报价小人专属对话页：人设管理、多轮对话、按住说话语音转写",
+      "pages": [
+        "wiki/虚拟形象与记忆方案.md",
+        "wiki/pet/报价小人记忆.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/pet-mascot.tsx": {
+      "role": "报价小人看板娘组件：待机动画与表情状态联动（idle/thinking/success）",
+      "pages": [
+        "wiki/虚拟形象与记忆方案.md",
+        "wiki/pet/报价小人人设.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/use-speech-recognition.ts": {
+      "role": "按住说话语音识别 hook（Web Speech API，零后端零 key）",
+      "pages": [
+        "wiki/虚拟形象与记忆方案.md"
       ]
     }
   }

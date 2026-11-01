@@ -27,6 +27,34 @@ it("calls fixed HTTPS endpoint, disables redirects, bounds tokens and validates 
     thinking: { type: "disabled" },
   });
 });
+it("chat returns plain text without forcing json_object response format", async () => {
+  const transport = vi.fn<typeof fetch>().mockResolvedValue(
+    new Response(
+      JSON.stringify({
+        choices: [{ finish_reason: "stop", message: { content: "你好，我是报价助手！" } }],
+      }),
+    ),
+  );
+  const reply = await new DeepSeekProvider(creds, transport).chat([
+    { role: "user", content: "你好" },
+  ]);
+  expect(reply).toBe("你好，我是报价助手！");
+  const body = JSON.parse(String(transport.mock.calls[0]?.[1]?.body));
+  expect(body.response_format).toBeUndefined();
+  expect(body.max_tokens).toBe(2048);
+});
+it("chat rejects truncated or non-text responses", async () => {
+  const truncated = vi
+    .fn<typeof fetch>()
+    .mockResolvedValue(
+      new Response(
+        JSON.stringify({ choices: [{ finish_reason: "length", message: { content: "半句话" } }] }),
+      ),
+    );
+  await expect(new DeepSeekProvider(creds, truncated).chat(messages)).rejects.toMatchObject({
+    code: "MODEL_INVALID_OUTPUT",
+  });
+});
 it("redacts HTTP and network errors and rejects empty, truncated, oversized or malformed responses", async () => {
   for (const [response, code] of [
     [new Response("SECRET upstream body", { status: 401 }), "MODEL_AUTH_FAILED"],

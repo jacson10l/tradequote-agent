@@ -14,6 +14,7 @@ import type { KnowledgeBuildClient } from "./knowledge-build";
 import type { KnowledgeMaintenanceClient } from "./knowledge-maintenance";
 import type { WikiClient } from "./knowledge-wiki";
 import type { ModelEvaluationClient } from "./model-evaluation";
+import type { PetClient } from "./pet";
 import { IssueSchema } from "./protocol";
 import { AgentReadCommandSchema, AgentReadResultSchema, type ReadAgentClient } from "./read-tools";
 import { type RunClient, RunCommandSchema, RunListResultSchema, RunResultSchema } from "./runs";
@@ -25,6 +26,7 @@ export * from "./knowledge-maintenance";
 export * from "./knowledge-wiki";
 export * from "./model-evaluation";
 export { unavailableFirstBatchClient } from "./pending-client";
+export * from "./pet";
 export { FailureSchema, IssueSchema, PublicErrorSchema } from "./protocol";
 export * from "./read-tools";
 export * from "./run-events";
@@ -115,7 +117,8 @@ export interface DesktopClient
     RunClient,
     RunEventsClient,
     ReadAgentClient,
-    ModelEvaluationClient {
+    ModelEvaluationClient,
+    PetClient {
   getWorkspace(): Promise<WorkspaceResult>;
   createWorkspace(command: CreateWorkspace): Promise<WorkspaceResult>;
   renameWorkspace(command: RenameWorkspace): Promise<WorkspaceResult>;

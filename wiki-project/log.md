@@ -1680,3 +1680,42 @@ B07 已按 `0f837e35e0592050917a0c0f4914ca43f2fe9b64` 接收并合入集成分�
 - 远端集成分支在复验期间新增启动页合并提交 `7cd1812`；C 未覆盖远端变化，先同步该提交，再保留 B08 生产修复、客户回复测试和 Wiki 记录。
 - 合并后的定向验证仍为 4 个测试文件、17 项通过；`pnpm check`、`pnpm typecheck`、`pnpm wiki:test` 36/36 和 `check-wiki-sync` 通过。
 - 全量单测仍为 566 通过、3 跳过，另有既有 `worker-migration-gates` v6 Unicode fixture 重放失败；因此不把当前集成分支宣称为全量自动门禁绿色，build/e2e 本轮未重复执行。
+
+## 2026-10-31 虚拟形象 Phase 0（视觉层）
+
+- 给询报价工作台新增橙色暖色 2D Q 版看板娘形象（方案见 [[虚拟形象与记忆方案]]）。Phase 0 仅改 renderer，无后端/存储改动。
+- 素材：`apps/desktop/resources/pet-avatar.png` 为 512×512 圆形头像，`apps/desktop/resources/pet-mascot.png` 为趴姿透明小人；生成源位于被忽略的 `generated-images/`。
+- 接线：`model-settings.tsx` 的 DeepSeek 区块加入圆形头像；`workbench.tsx` 任务对话面板加入趴姿小人；`theme.css` 增加对应样式并复用品牌橙/暖底变量。
+- 验证：TypeScript、Biome 与 `electron-vite build` 通过，构建产物包含两张 PNG；Windows 实际桌面渲染未验证，素材商用授权仍待确认。
+
+## 2026-10-31 虚拟形象 Phase 1/2（记忆存储 + 对话）
+
+- 实现虚拟形象记忆与对话闭环。contracts 新增 `pet.ts`（人设、记忆、命令和客户端契约），infrastructure 新增独立 `pet-memory.db` 存储和 DeepSeek 纯文本 `chat()`，main/preload 注册 `pet.*` IPC，renderer 新增报价助手对话页。
+- 人设采用 candidate→approved 人工审核；会话记忆独立于业务对话与业务账本，使用有界滚动；对话支持独立上下文，不混入业务事件。
+- 后续补齐多轮 history（最多 20 轮）、只读报价摘要注入和 fact→summary 摘要压缩，金额未知显式标注待定，不把未知当零。
+- 验证：定向契约、基础设施和模型测试通过；TypeScript、Biome、`electron-vite build` 通过。
+
+## 2026-10-31 虚拟形象 Phase 3（待机动画 + 表情联动 + 语音）
+
+- `theme.css` 增加 `pet-idle` 呼吸/上浮动画并遵守 `prefers-reduced-motion`。
+- 新增 `PetMascot` 三态组件：idle、thinking、success；工作台和报价助手分别接入思考/成功状态，状态通过 CSS 变换和气泡表达，避免引入不一致的多表情贴图。
+- 新增 `use-speech-recognition.ts`，使用 Chromium 内置 Web Speech API 实现按住说话，零后端、零额外 key；不新增不存在的 DeepSeek ASR IPC。
+- 验证：TypeScript、Biome、`electron-vite build` 通过；真实 DeepSeek 计费与 Windows 桌面验收未运行。
+
+## 2026-11-01 虚拟形象收尾复盘与记忆板块纠正
+
+- 按用户原始要求将小人的长期记忆落到工程知识库独立板块 `wiki-project/wiki/pet/`：`报价小人人设.md` 维护固定人格，`报价小人记忆.md` 追加长期记忆并人工复核；运行时 `pet-memory.db` 仅承载会话态缓存。
+- 修正头像胸前标识为品牌 Logo「报价单 + 上升折线」，与 `apps/desktop/resources/icon.svg` 对齐；趴姿小人保留同一品牌方向。
+- 补齐 P0 Wiki 闭环：新增任务页 `wiki-project/wiki/tasks/虚拟形象看板娘.md`、方案总结、8 个 pet 源文件覆盖映射、导航入口及机械快照。
+- 验证：`pnpm typecheck`、小人定向测试 17 项、`pnpm build`、`pnpm wiki:check`、`pnpm wiki:test` 通过；`git diff --check` 通过。`wiki:sync` 以共同基线 `c0dacc2` 复验记录在本次交付验证中，Windows/签名包/真实 DeepSeek 未验证。
+
+## 2026-11-01 虚拟形象分支合入当前验收分支
+
+- 从 `origin/codex/a06-source-evidence` 合入小人既有实现，不重复开发；当前工作树保留其素材、契约、IPC、renderer、基础设施、测试和 Wiki 变更。
+- 合入后的源码映射追加 [[虚拟形象与记忆方案]]，保留既有职责页；日志、任务页、方案页和生成快照形成同一交付闭环。
+
+## 2026-11-01 虚拟形象合入后最终本机复验
+
+- 方案页、任务页、覆盖映射和机械清单已按当前实现修正；日志历史前缀保持 `c0dacc2` 原文并只做末尾追加。
+- 验证：`pnpm typecheck` 退出 0；小人定向 Vitest 3 文件/17 项通过；`pnpm build` 退出 0，renderer 产物包含 `pet-avatar`/`pet-mascot`；工程边界、图标、桌面检查 9 项通过；`pnpm wiki:test` 36/36 通过；`pnpm wiki:check` 和 `pnpm wiki:sync --base c0dacc2` 通过；`git diff --check` 通过。
+- 全量 `pnpm test` 为 576 passed/3 skipped，另有 1 个既有 Worker 迁移门禁用例因 Electron 输出截断导致 JSON 不完整并超时；未修改无关业务测试，已在任务页记录风险。

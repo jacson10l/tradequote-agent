@@ -13,6 +13,9 @@ import {
   ModelEvaluationResultSchema,
   ModelResultSchema,
   ModelSettingsCommandSchema,
+  PetChatResultSchema,
+  PetCommandSchema,
+  PetResultSchema,
   ResultSchema,
   RunCommandSchema,
   RunEventsCommandSchema,
@@ -174,6 +177,46 @@ const client: DesktopClient = {
       return ModelResultSchema.parse(await ipcRenderer.invoke(parsed.data.method, parsed.data));
     } catch {
       return failure("CAPABILITY_UNAVAILABLE", "模型设置连接失败，请重试");
+    }
+  },
+  getPetState: async (command) => {
+    const parsed = PetCommandSchema.safeParse(command);
+    if (!parsed.success || parsed.data.method !== "pet.getState")
+      return failure("VALIDATION_ERROR", "虚拟形象状态字段不合法");
+    try {
+      return PetResultSchema.parse(await ipcRenderer.invoke(parsed.data.method, parsed.data));
+    } catch {
+      return failure("CAPABILITY_UNAVAILABLE", "虚拟形象状态连接中断，请重新加载");
+    }
+  },
+  proposePersona: async (command) => {
+    const parsed = PetCommandSchema.safeParse(command);
+    if (!parsed.success || parsed.data.method !== "pet.proposePersona")
+      return failure("VALIDATION_ERROR", "人设字段不合法");
+    try {
+      return PetResultSchema.parse(await ipcRenderer.invoke(parsed.data.method, parsed.data));
+    } catch {
+      return failure("CAPABILITY_UNAVAILABLE", "人设保存连接中断，请重试");
+    }
+  },
+  approvePersona: async (command) => {
+    const parsed = PetCommandSchema.safeParse(command);
+    if (!parsed.success || parsed.data.method !== "pet.approvePersona")
+      return failure("VALIDATION_ERROR", "人设审核字段不合法");
+    try {
+      return PetResultSchema.parse(await ipcRenderer.invoke(parsed.data.method, parsed.data));
+    } catch {
+      return failure("CAPABILITY_UNAVAILABLE", "人设审核连接中断，请重试");
+    }
+  },
+  petChat: async (command) => {
+    const parsed = PetCommandSchema.safeParse(command);
+    if (!parsed.success || parsed.data.method !== "pet.chat")
+      return failure("VALIDATION_ERROR", "对话字段不合法");
+    try {
+      return PetChatResultSchema.parse(await ipcRenderer.invoke(parsed.data.method, parsed.data));
+    } catch {
+      return failure("CAPABILITY_UNAVAILABLE", "对话连接中断，请重试");
     }
   },
   getWorkspace: () =>
