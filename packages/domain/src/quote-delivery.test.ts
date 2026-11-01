@@ -61,3 +61,39 @@ describe("approved customer reply pending terms", () => {
     expect(body).not.toContain("FOB Shenzhen, 30 days");
   });
 });
+
+it("localizes both German outputs and hides unconfirmed source terms without mutating quotes", () => {
+  const quote = calculateQuoteV1(
+    {
+      scenarioId: id,
+      buyer: "Testkunde",
+      inquiry: "Inquiry",
+      payment: "30%预付",
+      delivery: "确认后30天交货",
+      lines: [{ productId: id, quantity: "5", unit: "piece" }],
+    },
+    { ...scenario, locales: ["en", "de"] },
+    [product],
+    { id, workspaceId: id, createdAt: now },
+  );
+  const before = JSON.stringify(quote);
+  const approval = approveQuote(
+    quote,
+    { approvedBy: "Reviewer", note: "" },
+    { id, approvedAt: now },
+  );
+  for (const output of approval.deliveries) {
+    expect(output.body).not.toContain(quote.payment);
+    expect(output.body).not.toContain(quote.delivery);
+    expect(output.body).not.toContain("付款条款待确认");
+    expect(output.body).toContain(product.name);
+    expect(output.body).toContain("50.00 USD");
+    if (output.locale === "de") {
+      expect(output.body).toContain("noch zu bestätigen");
+      expect(output.body).not.toMatch(
+        /Buyer:|Currency:|Goods total|Payment|Delivery:|Pending items|We have prepared|unit |line |Some details|This quotation/,
+      );
+    }
+  }
+  expect(JSON.stringify(quote)).toBe(before);
+});

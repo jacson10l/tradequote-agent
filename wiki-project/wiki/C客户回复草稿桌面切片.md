@@ -39,3 +39,12 @@ sources:
 ## C05c后续
 
 C05c工作台移除本地模板实现说明，保留需要用户决策的条款原文/语言核对、复制不会发送或审批。已保存报告与来源风险仍按冻结版本显示，清理演示措辞不篡改历史文件名、SKU或旧快照，也不把未确认来源冒充可交易。 具体实现/边界见[[C05c会话生命周期与业务对话]]，实际命令/电脑观察见[[C05c-会话收口与只读持久运行]]。
+
+
+## 2026-11-01 C11 英德客户产物修复
+
+C11 基于集成 491c027，组合 C09/C10 后修复两条客户产出路径。`customer-reply-format.ts` 的 customerText 与 `quote-delivery.ts` 的 summary/reply 都根据冻结快照 pending 中付款/交期的既有待确认标记（含后缀）显示目标语言 To be confirmed / Noch zu bestätigen；空值同样待确认，不把填写或人工生成产出当作条款确认。付款、交期原文继续保留于报价快照和桌面内部核对 text，不改金额、审批或确认状态。
+
+Domain 德语产物的买方/币种/商品合计/单价/行金额/付款/交期、说明和风险提示均使用德语固定文案；summary 不再直出中文 pending 原文，改用本地化待确认提示。商品名、客户名及单位仍来自冻结资料，明确提示商品名保留原语，不虚构商品翻译，也不新增模型/翻译服务。无契约、迁移或数据库变化；旧审批产物不改写，只对新生成内容生效。来源：`apps/desktop/src/renderer/src/features/customer-reply-format.ts`、`packages/domain/src/quote-delivery.ts` 及各自测试、`tests/e2e/quote-agent.spec.ts`。
+
+定向回归先出现两项预期失败，修复后14/14通过；实际 Electron EN→DE→EN复制、金额及整份TradeBoard保持由既有用例增强验证。完整命令与结果见 [[C11-英德客户产物修复]]；历史 C10 缺口证据保留，不把过去失败改写为通过。

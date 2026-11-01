@@ -375,9 +375,9 @@
     {
       "path": "apps/desktop/src/renderer/src/features/customer-reply-format.test.ts",
       "type": "ts",
-      "lines": 194,
-      "bytes": 8599,
-      "sha256": "ab4415e5b0c401fa0a907a58d388fc93b3cd122843ba1b85046c96cb91f15d1f",
+      "lines": 216,
+      "bytes": 9514,
+      "sha256": "ffdaaf50dbd9a62e1c08cb1cfa74055a1371b1cad89bd6ad47c06677b3992ce1",
       "role": "C本地确定性英德回复草稿、版本报告绑定及测试/设计",
       "pages": [
         "wiki/C客户回复草稿桌面切片.md",
@@ -387,9 +387,9 @@
     {
       "path": "apps/desktop/src/renderer/src/features/customer-reply-format.ts",
       "type": "ts",
-      "lines": 192,
-      "bytes": 8246,
-      "sha256": "075788c0e43581a817e2bf443b5082ae6ffc8dee9996290e16c24542d1523ae0",
+      "lines": 195,
+      "bytes": 8568,
+      "sha256": "cf9cc44cf3a124a4326ecb74503caaefef5c5c6e9507d781c270b86aa4383a5b",
       "role": "C本地确定性英德回复草稿、版本报告绑定及测试/设计",
       "pages": [
         "wiki/C客户回复草稿桌面切片.md",
@@ -2189,9 +2189,9 @@
     {
       "path": "packages/domain/src/quote-delivery.test.ts",
       "type": "ts",
-      "lines": 63,
-      "bytes": 2232,
-      "sha256": "e8fda06c10f358680261ae081ae1425a00d8246177816fc449f5c4edaad86101",
+      "lines": 99,
+      "bytes": 3505,
+      "sha256": "07ee3fae6b88ef536ba179a76325e626099fa9184d0e8ffd390e08efd5fd4df1",
       "role": "审批后客户回复 pending 边界回归测试",
       "pages": [
         "wiki/M2真实报价V1.md",
@@ -2201,9 +2201,9 @@
     {
       "path": "packages/domain/src/quote-delivery.ts",
       "type": "ts",
-      "lines": 153,
-      "bytes": 5634,
-      "sha256": "c80b6830e6bb0730053351209f75306f6c680d135534f43d3ab20ed8d7115d6e",
+      "lines": 185,
+      "bytes": 6967,
+      "sha256": "5c6e732f6e6a9da46b1ea271f00a9b0a323304cfc0c80a2e6d2fb6a34505e1d1",
       "role": "人工审批后的确定性报价摘要与客户回复渲染",
       "pages": [
         "wiki/M2真实报价V1.md",
@@ -3491,9 +3491,9 @@
     {
       "path": "tests/e2e/quote-agent.spec.ts",
       "type": "ts",
-      "lines": 299,
-      "bytes": 15174,
-      "sha256": "7d4769671771605b2ba0b3a66c08989823c88ab5694363d3fa6b77b1800bf011",
+      "lines": 301,
+      "bytes": 15355,
+      "sha256": "35994cbe3a03e5956ed78675de6d78c88f81cce574d1b1c222ae38d84e130a0b",
       "role": "真实Electron加HTTP替身两轮报价验收",
       "pages": [
         "wiki/M4模型与报价修订.md",

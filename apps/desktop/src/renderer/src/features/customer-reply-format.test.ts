@@ -192,3 +192,25 @@ it("keeps scenario-only noncommercial limits in EN/DE even when all product sour
     expect(draft.customerText).not.toContain("beispielhaft");
   }
 });
+
+it("localizes unconfirmed customer terms while retaining original internal evidence", () => {
+  const quote = {
+    ...checksQuote,
+    payment: "30%预付",
+    delivery: "确认后30天交货",
+    pending: ["付款条款待确认", "交期与交货条件待确认"],
+  };
+  const before = JSON.stringify(quote);
+  for (const language of ["en", "de"] as const) {
+    const draft = createCustomerReplyDraft(quote, language, []);
+    expect(draft.customerText).toContain(
+      language === "en" ? "Payment: To be confirmed" : "Zahlung: Noch zu bestätigen",
+    );
+    expect(draft.customerText).not.toContain(quote.payment);
+    expect(draft.customerText).not.toContain(quote.delivery);
+    expect(draft.customerText).toContain(quote.lines[0]!.product.name);
+    expect(draft.text).toContain(quote.payment);
+    expect(draft.text).toContain(quote.delivery);
+  }
+  expect(JSON.stringify(quote)).toBe(before);
+});

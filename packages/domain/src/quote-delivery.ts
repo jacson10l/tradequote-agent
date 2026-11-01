@@ -15,12 +15,42 @@ import {
 const COPY = {
   en: {
     subject: "Quotation summary",
+    quote: "Quote",
+    buyer: "Buyer",
+    currency: "Currency",
+    total: "Goods total",
+    excludedTotal: "Goods total (excl. freight/tax)",
+    payment: "Payment terms",
+    delivery: "Delivery",
+    pending: "to be confirmed",
+    pendingDetails: "Some details still require confirmation.",
+    prepared: "We have prepared the following quotation for",
+    unit: "unit",
+    line: "line",
+    names: "Product names are retained in their original language.",
+    draft:
+      "This quotation is provided as a draft for your confirmation; the goods total excludes freight, tax and other charges, which remain to be verified.",
     intro: "Thank you for your inquiry. Below is our quotation for your review.",
     disclaimer:
       "This document is an engineering demonstration. Amounts are deterministically calculated; freight, tax and platform rules are not yet verified.",
   },
   de: {
     subject: "Angebotsübersicht",
+    quote: "Angebot",
+    buyer: "Käufer",
+    currency: "Währung",
+    total: "Warenzwischensumme",
+    excludedTotal: "Warenzwischensumme (ohne Fracht/Steuern)",
+    payment: "Zahlungsbedingungen",
+    delivery: "Lieferung",
+    pending: "noch zu bestätigen",
+    pendingDetails: "Einige Angaben sind noch zu bestätigen.",
+    prepared: "Wir haben das folgende Angebot erstellt für",
+    unit: "Einzelpreis",
+    line: "Position",
+    names: "Produktnamen bleiben in der Originalsprache.",
+    draft:
+      "Dieses Angebot ist ein Entwurf zur Bestätigung; die Warenzwischensumme enthält keine Fracht, Steuern oder sonstigen Kosten. Diese sind noch zu prüfen.",
     intro: "Vielen Dank für Ihre Anfrage. Nachfolgend unser Angebot zur Prüfung.",
     disclaimer:
       "Dieses Dokument ist eine technische Demonstration. Beträge werden deterministisch berechnet; Fracht, Steuern und Plattformregeln sind noch nicht geprüft.",
@@ -45,17 +75,18 @@ function renderSummary(quote: QuoteSnapshot, locale: string): { subject: string;
     quote.goodsTotal === null ? "—" : `${quote.goodsTotal} ${currencyLabel(quote.currency)}`;
   const body = [
     copy.intro,
-    `Quote ${quote.number} · V${quote.version}`,
-    `Buyer: ${quote.buyer}`,
-    `Currency: ${currencyLabel(quote.currency)}`,
+    `${copy.quote} ${quote.number} · V${quote.version}`,
+    `${copy.buyer}: ${quote.buyer}`,
+    `${copy.currency}: ${currencyLabel(quote.currency)}`,
     ``,
     lines,
     ``,
-    `Goods total (excl. freight/tax): ${total}`,
-    `Payment: ${quote.payment || "to be confirmed"}`,
-    `Delivery: ${quote.delivery || "to be confirmed"}`,
-    ...(quote.pending.length ? [``, `Pending items:`, ...quote.pending.map((p) => `- ${p}`)] : []),
+    `${copy.excludedTotal}: ${total}`,
+    `${copy.payment}: ${quote.pending.some((item) => item.startsWith("付款条款待确认")) ? copy.pending : quote.payment || copy.pending}`,
+    `${copy.delivery}: ${quote.pending.some((item) => item.startsWith("交期与交货条件待确认")) ? copy.pending : quote.delivery || copy.pending}`,
+    ...(quote.pending.length ? [``, copy.pendingDetails] : []),
     ``,
+    copy.names,
     copy.disclaimer,
   ].join("\n");
   return { subject: `${copy.subject} — ${quote.number}`, body };
@@ -67,26 +98,27 @@ function renderReply(quote: QuoteSnapshot, locale: string): { subject: string; b
     quote.goodsTotal === null ? "—" : `${quote.goodsTotal} ${currencyLabel(quote.currency)}`;
   const paymentPending = quote.pending.some((item) => item.startsWith("付款条款待确认"));
   const deliveryPending = quote.pending.some((item) => item.startsWith("交期与交货条件待确认"));
-  const payment = paymentPending || !quote.payment ? "to be confirmed" : quote.payment;
-  const delivery = deliveryPending || !quote.delivery ? "to be confirmed" : quote.delivery;
+  const payment = paymentPending || !quote.payment ? copy.pending : quote.payment;
+  const delivery = deliveryPending || !quote.delivery ? copy.pending : quote.delivery;
   const body = [
     copy.intro,
     ``,
-    `We have prepared the following quotation for ${quote.buyer}:`,
+    `${copy.prepared} ${quote.buyer}:`,
     quote.lines
       .map((line) => {
         const amount =
           line.amount === null ? "—" : `${line.amount} ${currencyLabel(quote.currency)}`;
-        return `- ${line.product.name} (${line.product.sku}): ${line.quantity} ${line.product.unit}, unit ${line.unitPrice ?? "—"}, line ${amount}`;
+        return `- ${line.product.name} (${line.product.sku}): ${line.quantity} ${line.product.unit}, ${copy.unit} ${line.unitPrice ?? "—"}, ${copy.line} ${amount}`;
       })
       .join("\n"),
     ``,
-    `Goods total: ${total}.`,
-    `Payment terms: ${payment}.`,
-    `Delivery: ${delivery}.`,
-    ...(quote.pending.length ? ["", "Some details still require confirmation."] : []),
+    `${copy.total}: ${total}.`,
+    `${copy.payment}: ${payment}.`,
+    `${copy.delivery}: ${delivery}.`,
+    ...(quote.pending.length ? ["", copy.pendingDetails] : []),
     ``,
-    `This quotation is provided as a draft for your confirmation; the goods total excludes freight, tax and other charges, which remain to be verified.`,
+    copy.draft,
+    copy.names,
     copy.disclaimer,
   ].join("\n");
   return { subject: `${copy.subject} — ${quote.number}`, body };

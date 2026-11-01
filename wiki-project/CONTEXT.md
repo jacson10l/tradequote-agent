@@ -279,3 +279,6 @@ C封板技术稳定性补齐：真实deepseek-flash连续五轮、每轮7检查�
 2026-11-01 B08 已在最新集成基线接收：`calculateQuoteV1` 对付款/交期任何非空自由文本默认保持 pending，C 同步客户回复测试验证没有人工确认事实时输出 `to be confirmed`。定向 `foundation`、`trade`、`revision`、`quote-delivery` 共 17 项通过；人工受控确认入口仍未接入，正式审批/外发/PDF、Windows/签名包仍不计为完成。见[[B08拟议条款pending契约修复]]。
 
 2026-11-01 C08 合并复验补充：`pnpm check`、`pnpm typecheck`、`pnpm wiki:test` 36/36 和 `check-wiki-sync` 通过；全量单测 566 通过、3 跳过，另有既有 `worker-migration-gates` v6 Unicode fixture 重放失败，故本轮不宣称全量自动门禁绿色，且未重复执行 build/e2e。
+
+
+2026-11-01 C11：用户批准先修复英德客户产物。当前独立候选组合C09/C10，已修两路径未确认条款与domain德语固定正文，14定向/593全量单元通过，Electron14项通过/1跳过、check与固定基线sync通过；维护回归36/36通过；待集成到codex/m1-abc-integration和非作者审查，不能以此宣称最终交付。详见[[C11-英德客户产物修复]]。

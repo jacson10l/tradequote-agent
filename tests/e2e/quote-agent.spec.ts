@@ -188,7 +188,9 @@ test("desktop settings and HTTP adapter support inquiry plus two saved revisions
     await expect(replyText).toHaveValue(/Warenzwischensumme: 1080.00 USD/);
     await expect(reply.getByLabel("内部核对记录")).toHaveValue(/Nicht geprüfter Entwurf/);
     await expect(replyText).toHaveValue(/1080.00 USD/);
-    await expect(replyText).toHaveValue(/30%预付/);
+    await expect(replyText).toHaveValue(/Zahlung: Noch zu bestätigen/);
+    await expect(replyText).not.toHaveValue(/30%预付|确认后30天交货/);
+    await expect(reply.getByLabel("内部核对记录")).toHaveValue(/30%预付/);
     await expect(reply.getByLabel("内部核对记录")).toHaveValue(/SHA-256/);
     await expect(replyText).not.toHaveValue(/SHA-256/);
     await expect(page.getByRole("button", { name: "提交人工审核" })).toBeDisabled();

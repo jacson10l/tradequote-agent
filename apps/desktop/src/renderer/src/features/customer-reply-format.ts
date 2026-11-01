@@ -158,8 +158,11 @@ export function createCustomerReplyDraft(
     ),
     `${w.goods}: ${quote.goodsTotal ?? w.unknown} ${quote.currency}`,
     w.exclusions,
-    `${w.payment}: ${quote.payment || w.pending}`,
-    `${language === "en" ? "Proposed delivery (subject to confirmation)" : "Vorgesehene Lieferung (vorbehaltlich Bestätigung)"}: ${quote.delivery || w.pending}`,
+    language === "en"
+      ? "Product names are retained in their original language."
+      : "Produktnamen bleiben in der Originalsprache.",
+    `${w.payment}: ${quote.pending.some((item) => item.startsWith("付款条款待确认")) ? w.pending : quote.payment || w.pending}`,
+    `${language === "en" ? "Proposed delivery (subject to confirmation)" : "Vorgesehene Lieferung (vorbehaltlich Bestätigung)"}: ${quote.pending.some((item) => item.startsWith("交期与交货条件待确认")) ? w.pending : quote.delivery || w.pending}`,
     language === "en"
       ? "Product specifications and all terms above are proposed and require mutual confirmation."
       : "Produktspezifikationen und alle obigen Bedingungen bedürfen der gegenseitigen Bestätigung.",

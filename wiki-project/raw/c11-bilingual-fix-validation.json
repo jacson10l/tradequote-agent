@@ -1,0 +1,99 @@
+{
+  "task": "C11 bilingual customer output fix",
+  "base": "491c027792b70ff2611d911126a3644b96cf15d6",
+  "parent": "24c4a49ef199d90ae8d7dec25007a1cfa212303a",
+  "environment": {
+    "os": "macOS 26.4 arm64",
+    "node": "22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2"
+  },
+  "validation": [
+    {
+      "command": "pnpm exec vitest run apps/desktop/src/renderer/src/features/customer-reply-format.test.ts packages/domain/src/quote-delivery.test.ts",
+      "phase": "red",
+      "exitCode": 1,
+      "result": "2 expected failures: unconfirmed source terms leaked into customer outputs"
+    },
+    {
+      "command": "pnpm exec vitest run apps/desktop/src/renderer/src/features/customer-reply-format.test.ts packages/domain/src/quote-delivery.test.ts",
+      "phase": "green",
+      "exitCode": 0,
+      "result": "14 passed"
+    },
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm build",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm test",
+      "exitCode": 0,
+      "result": "593 passed, 3 skipped; 65 files passed, 2 skipped"
+    },
+    {
+      "command": "pnpm exec playwright test",
+      "exitCode": 0,
+      "result": "14 passed, 1 skipped; Electron EN-DE-EN clipboard equality and immutable TradeBoard verified"
+    },
+    {
+      "command": "pnpm check",
+      "exitCode": 0,
+      "result": "Biome, 9 engineering tests, boundaries, generated inventory readonly check and Wiki lint passed"
+    },
+    {
+      "command": "pnpm wiki:sync --base 491c027792b70ff2611d911126a3644b96cf15d6",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm wiki:test",
+      "exitCode": 0,
+      "result": "36 passed, 0 failed after correcting task headings"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "apps/desktop/src/renderer/src/features/customer-reply-format.ts",
+      "sha256": "cf9cc44cf3a124a4326ecb74503caaefef5c5c6e9507d781c270b86aa4383a5b"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/customer-reply-format.test.ts",
+      "sha256": "ffdaaf50dbd9a62e1c08cb1cfa74055a1371b1cad89bd6ad47c06677b3992ce1"
+    },
+    {
+      "path": "packages/domain/src/quote-delivery.ts",
+      "sha256": "5c6e732f6e6a9da46b1ea271f00a9b0a323304cfc0c80a2e6d2fb6a34505e1d1"
+    },
+    {
+      "path": "packages/domain/src/quote-delivery.test.ts",
+      "sha256": "07ee3fae6b88ef536ba179a76325e626099fa9184d0e8ffd390e08efd5fd4df1"
+    },
+    {
+      "path": "tests/e2e/quote-agent.spec.ts",
+      "sha256": "35994cbe3a03e5956ed78675de6d78c88f81cce574d1b1c222ae38d84e130a0b"
+    },
+    {
+      "path": ".runtime/customer-reply-en.png",
+      "sha256": "d178cac575c49b669a3d740aaaeebbf163cc90a7f9249c68fe436cf5d9af5ab1"
+    },
+    {
+      "path": ".runtime/customer-reply-de.png",
+      "sha256": "66c15dc93b366bf45af76480c33e64ca9640ad59ba0a67d2c957fe46f25b1f00"
+    }
+  ],
+  "review": "Independent Agent review_bilingual static review reported no P0/P1/P2 via root; not human semantic sign-off",
+  "notVerified": [
+    "Windows deferred",
+    "real model quality",
+    "human language/business sign-off",
+    "integration branch acceptance pending"
+  ],
+  "historicalFailures": [
+    "initial Wiki task headings missing required exact section names",
+    "initial combined log failed append-only; rebuilt base bytes plus both original commit deltas",
+    "initial Wiki tools regression copied pre-fix task headings; rerun after repair"
+  ]
+}
