@@ -1625,3 +1625,11 @@ C05提交前新鲜复验535单元/3显式live跳过、12Electron、36维护及ty
 - 语音：新增 features/use-speech-recognition.ts（封装 webkitSpeechRecognition，Chromium 内置零后端零 key），pet-assistant 加「按住说话」按钮（pointerdown 开始/pointerup+leave 停止，结果回填输入框）。
 - 关键判断：DeepSeek 官方 API 无 ASR 端点（已核实 api-docs.deepseek.com 仅 chat/completions），故语音走浏览器内置识别，不新增 IPC 对接不存在端点。
 - 验证：tsc 0；改动 5 文件 biome 全过；electron-vite build 成功（含 pet-mascot/pet-avatar）。全渲染层改动，dev 窗口 HMR 热更新。
+
+## 2026-11-01 虚拟形象收尾复盘（回顾最初任务，修正标识 + 口径）
+
+- 回顾最初需求逐条核对，发现两处需修正：
+  1. **头像胸前标识错误**：pet-avatar.png 原为六边形抽象符文，不符合最初「中间不要是充电/闪电，要报价单标识」的需求（趴姿小人原本就对）。用图生图（ImageGen 保持脸/发型/连帽衫不变）把胸前标识改为品牌 Logo「橙红 #fa520f 圆角方框 + 白色报价单横线 + 白色上升折线箭头」，与 icon.svg 一致；缩放到 512×512 替换 pet-avatar.png。
+  2. **记忆板块口径修正**：用户原始需求「在 llm wiki 知识库单独开一个板块」。经核对 A业务LLMWiki方案，明确「应用内业务 LLM Wiki」位于运行数据、不写工程 wiki-project；小人记忆 = 应用内 LLM wiki 的独立板块 PetMemory（独立 pet-memory.db），与业务知识分离、与工程 wiki 隔离。方案文档「模块2」与「关键设计决策」表口径已统一为「应用内业务 LLM Wiki 独立板块」，消除「LLM Wiki」可能被误解为工程 wiki-project 的歧义。
+- 验证：typecheck 0；pet-memory-store/pet-quote-context 测试 9/9；electron-vite build 成功（新头像资源已打包）。
+- 遗留（可选润色，未强求）：头像与趴姿小人为两次生成，脸部细节非严格一致；多表情派生须先锁「标准脸」。
