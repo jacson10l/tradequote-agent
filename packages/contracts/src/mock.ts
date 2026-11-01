@@ -34,6 +34,10 @@ export const readonlyMockClient: DesktopClient = {
   understandInquiry: async () => failure("CAPABILITY_UNAVAILABLE", "只读样例不能调用模型"),
   reviseQuote: async () => failure("CAPABILITY_UNAVAILABLE", "只读样例不能调用模型"),
   modelSettings: async () => failure("CAPABILITY_UNAVAILABLE", "请在桌面应用中配置模型"),
+  getPetState: async () => failure("CAPABILITY_UNAVAILABLE", "只读样例不提供虚拟形象记忆"),
+  proposePersona: async () => failure("CAPABILITY_UNAVAILABLE", "只读样例不能保存人设"),
+  approvePersona: async () => failure("CAPABILITY_UNAVAILABLE", "只读样例不能审核人设"),
+  petChat: async () => failure("CAPABILITY_UNAVAILABLE", "只读样例不能调用模型"),
   getWorkspace: async () => success(mockWorkspace),
   getTrade: async () => ({
     ok: true,

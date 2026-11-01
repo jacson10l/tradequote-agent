@@ -68,3 +68,6 @@ output/playwright/
 
 # Local agent/assistant state, not project source
 .workbuddy/
+
+# Raw AI-generated image sources (final assets live in apps/desktop/resources/)
+generated-images/

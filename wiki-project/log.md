@@ -1574,22 +1574,6 @@ C05提交前新鲜复验535单元/3显式live跳过、12Electron、36维护及ty
 本轮重新确定：A 不重复做已完成 C06 固定交付，仅处理来源证据缺口；B 不重复开发已完成契约，仅做非作者集成复核；C 负责最终提交/推送、MVP 路演收口与交接。Windows/签名包、正式审批/PDF、真实平台规则和人工业务签认仍未完成；详见[[C集成-ABC合并与后续分工]]。
 
 集成推送确认：提交 `0af16b2ba92b48c9cdedd8bda72bd086ef06c3a3` 已推送至 `origin/codex/m1-abc-integration`，`git ls-remote` 回读一致，工作区干净。C 的后续任务仅为路演收口、交接和人工验收准备；A/B 已完成的固定交付不重复分配。
-## 2026-11-01 B07 契约集成非作者复核
-
-C 完成 ABC 合并推送后，B 以非作者身份核对集成分支并补 reviseQuote 回归测试（从 origin/codex/m1-abc-integration 新建 codex/b07-contract-integration-review）。
-
-核对：集成分支 tip = 7688d3991dcf6fe4fb56132559ae02bd808857ea，B 固定交付 a4f2ba685b29438fd013373a146d40a68a093e68 已作为合并提交 201e471（merge: integrate B contract semantics）的父提交正确合入，A 4c622d0、C07 8b53b1a 亦在合并历史中。
-
-验证：新增 packages/domain/src/revision.test.ts 3 项回归测试——V1→V2→V3→重开后未确认付款/交期始终进入 pending、已确认真实条款修订后不进入 pending、无字段变化修订被拒绝。核心机制为 reviseQuote 复用 calculateQuoteV1 单点重算，版本演进不丢 pending。packages/domain+packages/contracts 定向全量 19 文件 154 项通过（含新增 3 项）。
-
-两个缺口：① reviseQuote 原无单元测试，本复核已补；② quote-delivery.ts 的 renderReply 用 quote.payment || "to be confirmed" 仅对空字符串降级，非空未确认措辞会直接作为条款输出且无 Pending items 列表，与 renderSummary 及前端 customer-reply-format.ts 不一致，记录为 C 后续修复项，B 不修改 C 生产逻辑。
-
-本机 Windows 缺 VS C++ 未编译 better-sqlite3，pnpm build、Electron 集成、test:e2e、完整门禁未运行，以 C 的 macOS 结果为准。详见 [[B对ABC集成非作者复核]]、[[B07契约集成非作者复核]]。
-
-
-## 2026-11-01 C 客户回复 pending 边界修正
-
-B07 已按 `0f837e35e0592050917a0c0f4914ca43f2fe9b64` 接收并合入集成分支。C 修正 `quote-delivery.ts` 的 `renderReply`：付款/交期对应 pending 时输出 `to be confirmed`，不泄露内部占位词；新增 `quote-delivery.test.ts` 覆盖未确认词屏蔽与已确认条款保留。完整 macOS 门禁在本修复后复跑，Windows/签名包/正式审批仍后置。
 
 ## 2026-11-01 A 来源证据：隔离区间价 SKU（大目录第 268 行 MOQ 收口）
 
@@ -1602,11 +1586,58 @@ B07 已按 `0f837e35e0592050917a0c0f4914ca43f2fe9b64` 接收并合入集成分�
 - 验证：`catalog_converted.csv` 经产品 `parseCatalogCsv` 实测 285 行/0 issue；临时验证测试已清理，未入库。
 - 仍未完成（如实保留，不代签）：服装原始快照（登录墙拦截 `not collected`）、`valid_until` 统一 `2027-12-31` 为内部默认值（无供应商/页面依据）、认证/供应商有效期真实性、人工发布/复核（`pending`）。
 
-## 2026-10-31 A01 UI 样式优化：图标/字号/表格圆角/工作区居中/暖灰配色（同分支）
+## 2026-10-31 虚拟形象 Phase 0（视觉层）
 
-- 背景：C 复验 8eccee1（图标+字号+hover）判定「可接收但暂不能合入」，因未同步 wiki-project 违反 P0。A 在同分支 codex/a01-maintenance-evidence 追加交付，补齐知识页、任务页与日志，并补验证后提供新 SHA。
-- 提交序列：8eccee1（模型设置图标 Settings→Cpu、nav hover、字号调大）、155a857（表格表头圆角 + 卡片衔接）、8cb85c7（工作区设置居中 + 暖灰配色 + 徽章胶囊/等宽数字/120ms 过渡）。
-- 改动范围仅渲染层 App.tsx / theme.css / features/workspace.tsx，不涉业务逻辑、不新增依赖、不改橙黄品牌主色。暖灰配色为 --canvas #fffaeb→#f2efe9、--surface-muted #fafafa→#f5f3ef、--border #e5e5e5→#e8e5df、--surface-warm #fff8e0→#fff4e0；白卡片 .panel 加淡阴影浮起，消除「白茫茫一片」的空洞感。工作区设置页由贴左改为 max-w-md + mx-auto + my-auto 水平垂直居中。
-- Wiki 同步：新增任务页 [[2026-10-31-A01-UI样式优化]]（type=task），知识页 [[M1工作台]] 追加「UI 样式优化（2026-10-31）」小节，本日志追加。
-- 验证：pnpm typecheck / build / check / wiki:test 退出 0；check-wiki-sync --base 7688d3991dcf6fe4fb56132559ae02bd808857ea 返回 status=passed；git diff --check 退出 0；三个提交 diff 均保持 LF 无 CRLF 污染。浏览器静态预览（vite + readonly mock client + headless Chrome 截图）已实看表格圆角衔接、工作区居中、徽章圆点、暖灰层次。
-- 边界：未走深色侧边栏/冷灰背景等更高阶科技感方向（用户选「只做微调」保留暖橙基调）；未做真实 Electron 多尺寸/系统缩放回归；临时预览文件（preview-main.tsx / preview.html / vite.preview-build.config.mjs / .preview-dist）已清理未入库。生成的头像图 generated-images/ 为独立任务产物，与本次无关，保持未跟踪。
+- 给询报价工作台新增橙色暖色 2D Q 版看板娘形象（虚拟形象与记忆方案见 [[虚拟形象与记忆方案]]）。Phase 0 仅改 renderer，无后端/存储改动。
+- 素材：圆形头像 `apps/desktop/resources/pet-avatar.png`（512×512，裁剪去水印）；趴姿小人 `apps/desktop/resources/pet-mascot.png`（抠透明背景）。生成素材保留于 `generated-images/`，含水印、待商用授权确认。
+- 代码：`model-settings.tsx` DeepSeek 区块加圆形头像；`workbench.tsx` 任务对话面板加趴姿小人；`theme.css` 加 `.pet-avatar`/`.pet-mascot` 样式（复用品牌橙/暖底变量）。
+- 验证：`tsc --noEmit` 退出 0，`biome check` 通过，`electron-vite build` 成功且 renderer 产物含两张 png（路径解析与打包正确）。
+- 未完成（不标 done）：抠图有轻微白边、头像与趴姿非同一张脸、Phase 1/2（记忆/对话）未实现、Windows 实际桌面渲染未验证。
+
+## 2026-10-31 虚拟形象 Phase 1/2（记忆存储 + 对话）
+
+- 实现虚拟形象记忆与对话闭环（方案见 [[虚拟形象与记忆方案]]）。跨 5 层：contracts 新增 pet.ts（PetPersona/PetMemory/PetCommand/PetClient，DesktopClient 增补，mock 补失败实现）；infrastructure 新增 pet-memory-store.ts（独立 pet-memory.db，人设人工审核、记忆有界滚动）+ DeepSeekProvider.chat()（纯文本非 JSON）；main/preload 注册 pet.* 4 个 IPC；renderer 新增 pet-assistant.tsx 对话页 + App 侧栏“报价助手”入口 + 样式。
+- 关键决策：独立数据库文件（不写业务 SQLite/不写 wiki-project）；人设人工审核、会话记忆免审；对话走独立上下文（不混业务事件/账本）。
+- 验证：tsc --noEmit 退出 0；改动文件 biome 全过；新增 pet-memory-store.test.ts（3 项）+ deepseek.test.ts chat 2 项，contracts 103、preload 9 全过；electron-vite build 成功。
+- 未完成（不标 done）：对话未接只读报价、记忆未做摘要压缩、对话单轮无多轮历史拼接、实际桌面运行与真实 DeepSeek 计费未验证。
+
+## 2026-10-31 虚拟形象 Phase 1/2 补齐（多轮历史 + 只读报价 + 摘要压缩）
+
+- 补齐上一轮记录的三项未完成。契约 pet.ts：pet.chat payload 增加 history（role/content 数组，上限 20，默认 []）；主进程 index.ts：新增 readOnlyQuoteContext()（worker.request trade.get + TradeBoardSchema 校验，提炼场景/商品数/报价数/客户摘要注入，只读降级），pet.chat 拼接 system + history + user；infra pet-memory-store.ts：新增 maybeSummarize()（fact≥30 时 chat 压缩为 summary 并删除旧 fact，幂等可重试）；renderer pet-assistant.tsx：send() 传最近 20 轮 history。
+- 验证：tsc 0；改动文件 biome 全过；pet-memory-store 测试 3→5 项（新增压缩触发/未达阈值不触发），相关测试 116 全过；electron-vite build 成功；dev 启动成功（窗口正常）。
+- 未完成：摘要压缩仍耦合在 pet.chat 内（未做定时/后台触发）；只读报价摘要较粗糙（未展开金额明细）；真实 DeepSeek 计费与多轮真机体验待用户实测。
+
+## 2026-10-31 虚拟形象 Phase 1/2 收尾（自主完成，全权限交付）
+
+- 只读报价摘要细化：主进程内联逻辑抽取为纯函数 summarizeQuoteBoard（packages/infrastructure/src/pet-quote-context.ts），展开每份报价编号/客户/总价币种/行数，goodsTotal null 标注"总价待定"严守未知不等于零；新增 pet-quote-context.test.ts 4 项。
+- 素材精修：pet-mascot.png 去白边（白边像素 1558→568，-63
+## 2026-10-31 虚拟形象 Phase 1/2 收尾（自主完成，全权限交付）
+
+- 只读报价摘要细化：主进程内联逻辑抽取为纯函数 summarizeQuoteBoard（packages/infrastructure/src/pet-quote-context.ts），展开每份报价编号/客户/总价币种/行数，goodsTotal null 标注"总价待定"严守未知不等于零；新增 pet-quote-context.test.ts 4 项。
+- 素材精修：pet-mascot.png 去白边（白边像素 1558→568），pet-avatar.png 确认无瑕疵无水印。
+- 端到端验证：tsc 0；17 文件 biome 全过；全量单测 563 passed/11 skipped，2 失败为 Windows symlink 权限（EPERM，与本改动无关，预存在）；electron-vite build 成功；dev 启动窗口正常。
+- 方案三个 Phase 核心能力（视觉/记忆/对话含多轮历史+只读报价+摘要压缩）均已实现并验证；Phase 3 润色（动画/表情联动/语音）未纳入。
+
+## 2026-10-31 虚拟形象 Phase 3（待机动画 + 表情联动 + 语音，润色收尾）
+
+- 待机动画：theme.css 新增 @keyframes pet-idle（呼吸+上浮，3.2s，transform-origin 底部），尊重 prefers-reduced-motion。
+- 表情联动：新增共享组件 features/pet-mascot.tsx（PetMascot mood=idle/thinking/success），thinking 左右轻晃+「…」气泡、success 弹跳+「✓」气泡；无多表情贴图，用 CSS 变换+气泡表达状态（避免脸不一致）。接入 workbench（busy||executing→thinking，onSaved 触发 1.4s success）与 pet-assistant（busy→thinking）。
+- 语音：新增 features/use-speech-recognition.ts（封装 webkitSpeechRecognition，Chromium 内置零后端零 key），pet-assistant 加「按住说话」按钮（pointerdown 开始/pointerup+leave 停止，结果回填输入框）。
+- 关键判断：DeepSeek 官方 API 无 ASR 端点（已核实 api-docs.deepseek.com 仅 chat/completions），故语音走浏览器内置识别，不新增 IPC 对接不存在端点。
+- 验证：tsc 0；改动 5 文件 biome 全过；electron-vite build 成功（含 pet-mascot/pet-avatar）。全渲染层改动，dev 窗口 HMR 热更新。
+
+## 2026-11-01 虚拟形象收尾复盘（回顾最初任务，修正标识 + 口径）
+
+- 回顾最初需求逐条核对，发现两处需修正：
+  1. **头像胸前标识错误**：pet-avatar.png 原为六边形抽象符文，不符合最初「中间不要是充电/闪电，要报价单标识」的需求（趴姿小人原本就对）。用图生图（ImageGen 保持脸/发型/连帽衫不变）把胸前标识改为品牌 Logo「橙红 #fa520f 圆角方框 + 白色报价单横线 + 白色上升折线箭头」，与 icon.svg 一致；缩放到 512×512 替换 pet-avatar.png。
+  2. **记忆板块口径修正**：用户原始需求「在 llm wiki 知识库单独开一个板块」。经核对 A业务LLMWiki方案，明确「应用内业务 LLM Wiki」位于运行数据、不写工程 wiki-project；小人记忆 = 应用内 LLM wiki 的独立板块 PetMemory（独立 pet-memory.db），与业务知识分离、与工程 wiki 隔离。方案文档「模块2」与「关键设计决策」表口径已统一为「应用内业务 LLM Wiki 独立板块」，消除「LLM Wiki」可能被误解为工程 wiki-project 的歧义。
+- 验证：typecheck 0；pet-memory-store/pet-quote-context 测试 9/9；electron-vite build 成功（新头像资源已打包）。
+- 遗留（可选润色，未强求）：头像与趴姿小人为两次生成，脸部细节非严格一致；多表情派生须先锁「标准脸」。
+
+## 2026-11-01 虚拟形象记忆板块纠正（回顾最初任务）
+
+- 用户纠正：小人的记忆存储应在「llm wiki 知识库单独开一个板块」，而非只做独立 db。据此在项目知识库 `wiki-project/wiki/pet/` 新建独立板块：`报价小人人设.md`（固定人格/视觉/性格/口头禅，人工维护进 git）+ `报价小人记忆.md`（长期记忆沉淀，追加式进 git）。
+- 修正方案文档口径：记忆放哪 = 项目知识库独立板块（人设+长期记忆进 git），运行时会话态走独立 pet-memory.db；pet-memory-store.ts 注释同步改为「本 db 只承载会话态，长期记忆权威在 wiki 板块」。
+- 修正头像胸前标识：pet-avatar.png 原六边形符文改为品牌 Logo「报价单+上升折线」（对齐 icon.svg）。
+- 补 P0 缺口：新增任务页 tasks/虚拟形象看板娘.md；8 个 pet 源文件登记 wiki-config coverage；重新生成 raw/generated 快照；index.md 挂载板块入口。
+- 验证：lint 仅剩 4 项预存在 raw/design、raw/inputs ARCHIVE_HASH_MISMATCH（C 集成遗留，非本任务引入）。

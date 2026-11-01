@@ -4,6 +4,7 @@ import {
   type ModelSettingsCommand,
 } from "@tradequote/contracts";
 import { useEffect, useState } from "react";
+import petAvatar from "../../../../resources/pet-avatar.png";
 import { Button } from "../shared/button";
 import { ModelEvaluationPanel } from "./model-evaluation";
 
@@ -67,8 +68,13 @@ export function ModelSettingsPage({ client }: { client: DesktopClient }) {
     <div className="space-y-4">
       <h1 className="sr-only">模型设置</h1>
       <section className="panel space-y-4">
-        <h2>DeepSeek 连接与凭据</h2>
-        <p className="description">接口：api.deepseek.com</p>
+        <div className="flex items-center gap-4">
+          <img className="pet-avatar" src={petAvatar} alt="报价助手形象" />
+          <div>
+            <h2>DeepSeek 连接与凭据</h2>
+            <p className="description">接口：api.deepseek.com</p>
+          </div>
+        </div>
         <p>保存连接后即可在工作台处理询价与报价。</p>
         <p className="description">
           密钥只用于连接

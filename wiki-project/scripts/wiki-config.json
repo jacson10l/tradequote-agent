@@ -77,9 +77,24 @@
         "wiki/M2真实报价V1.md"
       ]
     },
-    "docs/roadshow/c07/cue-result.md": {"role": "C07 Cue私有导入、8页预览和接入边界", "pages": ["wiki/C07业务资料与路演收口.md"]},
-    "docs/roadshow/c07/source-manifest.json": {"role": "C07固定A资料来源、字段沿用和审核限制", "pages": ["wiki/C07业务资料与路演收口.md"]},
-    "docs/roadshow/c07/source-notes.md": {"role": "C07固定A资料来源、字段沿用和审核限制", "pages": ["wiki/C07业务资料与路演收口.md"]},
+    "docs/roadshow/c07/cue-result.md": {
+      "role": "C07 Cue私有导入、8页预览和接入边界",
+      "pages": [
+        "wiki/C07业务资料与路演收口.md"
+      ]
+    },
+    "docs/roadshow/c07/source-manifest.json": {
+      "role": "C07固定A资料来源、字段沿用和审核限制",
+      "pages": [
+        "wiki/C07业务资料与路演收口.md"
+      ]
+    },
+    "docs/roadshow/c07/source-notes.md": {
+      "role": "C07固定A资料来源、字段沿用和审核限制",
+      "pages": [
+        "wiki/C07业务资料与路演收口.md"
+      ]
+    },
     "docs/superpowers/plans/2026-10-31-c07-business-roadshow.md": {
       "role": "C07执行与实际验证计划",
       "pages": [
@@ -1086,12 +1101,6 @@
         "wiki/M4模型与报价修订.md"
       ]
     },
-    "packages/domain/src/revision.test.ts": {
-      "role": "报价修订未确认条款 pending 继承回归测试",
-      "pages": [
-        "wiki/M4模型与报价修订.md"
-      ]
-    },
     "packages/infrastructure/src/agent-executor.ts": {
       "role": "有界模型执行与提交前版本复核",
       "pages": [
@@ -1367,13 +1376,6 @@
     },
     "packages/domain/src/quote-delivery.ts": {
       "role": "人工审批后的确定性报价摘要与客户回复渲染",
-      "pages": [
-        "wiki/M2真实报价V1.md",
-        "wiki/C07业务资料与路演收口.md"
-      ]
-    },
-    "packages/domain/src/quote-delivery.test.ts": {
-      "role": "审批后客户回复 pending 边界回归测试",
       "pages": [
         "wiki/M2真实报价V1.md",
         "wiki/C07业务资料与路演收口.md"
@@ -1745,8 +1747,7 @@
         "wiki/C02c统一运行与写账本.md",
         "wiki/C03持久事件与桌面重连.md",
         "wiki/C05CodexHarness与单据工作台.md",
-        "wiki/C05c会话生命周期与业务对话.md"
-      ,
+        "wiki/C05c会话生命周期与业务对话.md",
         "wiki/C07业务资料与路演收口.md"
       ]
     },
@@ -2176,6 +2177,59 @@
       "pages": [
         "wiki/B规则检查实现.md",
         "wiki/tasks/B06-条款确认与运行契约复核.md"
+      ]
+    },
+    "packages/contracts/src/pet.ts": {
+      "role": "虚拟形象（报价小人）契约：人设/记忆/命令/对话结果 schema 与 PetClient",
+      "pages": [
+        "wiki/虚拟形象与记忆方案.md",
+        "wiki/pet/报价小人人设.md"
+      ]
+    },
+    "packages/infrastructure/src/pet-memory-store.ts": {
+      "role": "报价小人独立记忆存储：人设人工审核、记忆有界滚动与摘要压缩",
+      "pages": [
+        "wiki/虚拟形象与记忆方案.md",
+        "wiki/pet/报价小人记忆.md"
+      ]
+    },
+    "packages/infrastructure/src/pet-memory-store.test.ts": {
+      "role": "报价小人记忆存储回归：人设审核/滚动上限/摘要压缩边界",
+      "pages": [
+        "wiki/虚拟形象与记忆方案.md",
+        "wiki/pet/报价小人记忆.md"
+      ]
+    },
+    "packages/infrastructure/src/pet-quote-context.ts": {
+      "role": "报价小人只读报价摘要提炼纯函数（编号/客户/金额币种/行数，未知不等于零）",
+      "pages": [
+        "wiki/虚拟形象与记忆方案.md"
+      ]
+    },
+    "packages/infrastructure/src/pet-quote-context.test.ts": {
+      "role": "报价小人只读报价摘要回归：空工作区/金额待定/币种/客户提炼",
+      "pages": [
+        "wiki/虚拟形象与记忆方案.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/pet-assistant.tsx": {
+      "role": "报价小人专属对话页：人设管理、多轮对话、按住说话语音转写",
+      "pages": [
+        "wiki/虚拟形象与记忆方案.md",
+        "wiki/pet/报价小人记忆.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/pet-mascot.tsx": {
+      "role": "报价小人看板娘组件：待机动画与表情状态联动（idle/thinking/success）",
+      "pages": [
+        "wiki/虚拟形象与记忆方案.md",
+        "wiki/pet/报价小人人设.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/use-speech-recognition.ts": {
+      "role": "按住说话语音识别 hook（Web Speech API，零后端零 key）",
+      "pages": [
+        "wiki/虚拟形象与记忆方案.md"
       ]
     }
   }

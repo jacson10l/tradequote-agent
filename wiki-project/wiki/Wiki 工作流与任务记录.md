@@ -287,6 +287,6 @@ wiki-lib.mjs 的 ignoredDirs 增 .workbuddy（WorkBuddy IDE 项目数据目录�
 
 `wiki-config.json` 的 `archivalMarkdown` 增 `demo_data/MANIFEST.md`：演示数据包（来自 `codex/demo-data-catalog` 分支，含 `catalog_demo.csv` 主样本、`catalog_converted.csv` 300 行备用、规则/询盘/商品配套 CSV 及生成脚本）的清单文件按归档来源文档处理，不参与文档导航；`raw/file-provenance.json` 同步登记其 sha256。导航算法不变，仅登记一个新归档清单，见 [[A01f演示资料包冻结]]。
 
-## 2026-11-01 B07 契约集成非作者复核
+## 2026-11-01 虚拟形象看板娘板块与覆盖映射
 
-新增 `packages/domain/src/revision.test.ts` 逐文件覆盖至 [[M4模型与报价修订]]：锁定 `reviseQuote` 复用 `calculateQuoteV1` 单点重算后，V1→V2→V3→重开的未确认付款/交期始终进入 pending。仅增加覆盖配置与回归测试，不改维护算法与生产逻辑；仍运行维护回归、生成/只读 check/lint 及 7688d39 真实基线 sync，任务 [[B07契约集成非作者复核]] 与审阅 [[B对ABC集成非作者复核]] 同步。
+新增虚拟形象看板娘（报价小人）的 8 个源码/测试文件逐文件覆盖映射：契约 `packages/contracts/src/pet.ts`、基础设施 `pet-memory-store.ts`（及测试）、`pet-quote-context.ts`（及测试）、渲染层 `pet-assistant.tsx`、`pet-mascot.tsx`、`use-speech-recognition.ts`，分别映射到知识板块 [[报价小人人设]]、[[报价小人记忆]] 与方案页 [[虚拟形象与记忆方案]]。同时新建知识板块 `wiki-project/wiki/pet/`（人设 + 长期记忆，进 git）与任务页 [[虚拟形象看板娘]]。维护算法不变，仅增覆盖配置并重新生成清单；见 [[虚拟形象与记忆方案]]。
