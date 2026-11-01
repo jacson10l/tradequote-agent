@@ -1587,3 +1587,12 @@ C 完成 ABC 合并推送后，B 以非作者身份核对集成分支并补 revi
 两个缺口：① reviseQuote 原无单元测试，本复核已补；② quote-delivery.ts 的 renderReply 用 quote.payment || "to be confirmed" 仅对空字符串降级，非空未确认措辞会直接作为条款输出且无 Pending items 列表，与 renderSummary 及前端 customer-reply-format.ts 不一致，记录为 C 后续修复项，B 不修改 C 生产逻辑。
 
 本机 Windows 缺 VS C++ 未编译 better-sqlite3，pnpm build、Electron 集成、test:e2e、完整门禁未运行，以 C 的 macOS 结果为准。详见 [[B对ABC集成非作者复核]]、[[B07契约集成非作者复核]]。
+## 2026-11-01 B08 拟议付款/交期 pending 契约修复
+
+响应 C08 转达，修复 calculateQuoteV1 对付款/交期只依赖 isUnconfirmedTermText 固定词表、导致 C07 实际英文拟议文本漏进 pending 的生产路径缺口。
+
+改动：trade.ts 把付款/交期判定改为 classifyTermConfirmation（空白 → "待确认"，其余非空 → "已填写但未获人工确认"），移除对 isUnconfirmedTermText 的依赖，与公共契约"非空文本默认 pending"语义对齐。修正 trade.test.ts、revision.test.ts 中把"具体拟议条款"当作"已确认条款"的错误预期，补 C07 英文反例（30% deposit; 70% before dispatch、EXW Guangzhou, China; 21 days after deposit and specification confirmation、Proposed、Subject to supplier confirmation）回归，覆盖 V1→V2→V3→重开。
+
+验证：trade.test.ts 7 项、revision.test.ts 4 项、foundation.test.ts 4 项（15/15）；packages/domain + packages/contracts 定向全量 19 文件 155 项通过；tsc --noEmit 退出 0；wiki:check、lint-wiki 通过。
+
+未完成：quote-delivery.ts 的 renderReply 缺 pending 标注（C 负责，需 C 协调）；人工受控确认入口未接入报价输入 DTO（QuoteInputSchema 未携带确认事实字段）；C 非作者只读接收与组合门禁待做。详见 [[B08拟议条款pending契约修复]]、[[B07契约集成非作者复核]]。
