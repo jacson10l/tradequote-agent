@@ -1,0 +1,73 @@
+{
+  "task": "C17",
+  "status": "passed",
+  "productBaseline": "99c167d5d0b2c693b8066a54b8bf080ecd67ad4c",
+  "slides": 10,
+  "speakerNotes": 10,
+  "method": "PPTX authored locally and imported through authenticated Cue UI; no Cue MCP connection",
+  "artifacts": [
+    {
+      "filename": "TradeQuote-LLM-Wiki-Codex-Harness.pptx",
+      "bytes": 2744109,
+      "sha256": "77349b42148f1da0ba86adeff7ed26b51058ac03853305fb0ee1f28118f53a91"
+    },
+    {
+      "filename": "TradeQuote-LLM-Wiki-Codex-Harness-讲稿.md",
+      "bytes": 4920,
+      "sha256": "d5d4ef0b763fa59d055dc93421f28e0c5dbe96887601cd2a77bca7f9566f34ba"
+    },
+    {
+      "filename": "enterprise-current.png",
+      "bytes": 1433534,
+      "sha256": "c1005c4703eb90212ba279ff9a3457437c8673dd3e11075cfd0234b6620a884b"
+    },
+    {
+      "filename": "cue-published.jpg",
+      "bytes": 67981,
+      "sha256": "fa77716298dbf448440f30c46610abeeb15ec382958c805014dbfbc77301034e"
+    }
+  ],
+  "localValidation": {
+    "pptxXml": "valid",
+    "pngSignatures": 4,
+    "nativeGraph": {
+      "nodes": 185,
+      "edges": 170
+    },
+    "startupTextAbsentInAllSlidesAndNotes": true,
+    "electronicPetIndependentMemoryPresent": true
+  },
+  "retainedFailure": "First import omitted current graph because native screenshot returned JPEG bytes with PNG suffix; converted to actual PNG, rebuilt and re-imported; first deck retained as unpublished check draft",
+  "limits": [
+    "Current local 88 knowledge candidates not automatically approved",
+    "Published rule knowledge consumed, general SOP RAG not implemented",
+    "Real model used synthetic isolated acceptance data",
+    "Electronic pet memory bounded; not permanent full chat retention"
+  ],
+  "cue": {
+    "editorUrl": "https://cue.humanmeetsai.com/deck/27f96b51-c562-4d72-be90-2f7e6d650506",
+    "published": true,
+    "version": "8f5eb79c-2c3d-43a7-aa1c-21ffd9ab92b6",
+    "share": "private link without account; key not committed",
+    "watchVerified": "Actual watch page loaded title and full cover 1/10; screenshot saved",
+    "visualReview": "Ten-page predecessor reviewed; final change limited to page 9, pet image and independent memory verified after re-import; no media errors"
+  },
+  "checks": [
+    {
+      "command": "PPTX XML slides/notes and PNG signatures; no startup text; pet and memory present",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm wiki:generate",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm wiki:check",
+      "exitCode": 0
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 99c167d",
+      "exitCode": 0
+    }
+  ]
+}
