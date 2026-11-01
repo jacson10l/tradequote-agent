@@ -15,7 +15,9 @@
     "tests/fixtures/knowledge/sources/src-terms-fibre-conflict.txt",
     "tests/fixtures/knowledge/sources/src-terms-incoterms-scope.txt",
     "tests/fixtures/knowledge/sources/src-terms-payment-split.txt",
-    "tests/fixtures/knowledge/sources/src-terms-validity.txt"
+    "tests/fixtures/knowledge/sources/src-terms-validity.txt",
+    "apps/desktop/resources/pet-avatar.png",
+    "apps/desktop/resources/pet-mascot.png"
   ],
   "exclusionPolicy": [
     "Wiki 自身不递归采集为应用源码；维护脚本另存指纹",
@@ -1099,6 +1101,25 @@
       "role": "不可变报价修订与确定性重算",
       "pages": [
         "wiki/M4模型与报价修订.md"
+      ]
+    },
+    "packages/domain/src/revision.test.ts": {
+      "role": "报价修订 pending 继承与无变化拒绝回归测试",
+      "pages": [
+        "wiki/M4模型与报价修订.md",
+        "wiki/B对ABC集成非作者复核.md"
+      ]
+    },
+    "apps/desktop/resources/pet-avatar.png": {
+      "role": "DeepSeek 模型头像素材",
+      "pages": [
+        "wiki/pet/报价小人人设.md"
+      ]
+    },
+    "apps/desktop/resources/pet-mascot.png": {
+      "role": "工作台趴姿看板娘素材",
+      "pages": [
+        "wiki/pet/报价小人人设.md"
       ]
     },
     "packages/infrastructure/src/agent-executor.ts": {
