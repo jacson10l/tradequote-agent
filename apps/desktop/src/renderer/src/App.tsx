@@ -9,12 +9,15 @@ import { Workbench } from "./features/workbench";
 import { useWorkspace, WorkspacePage } from "./features/workspace";
 
 import { MessageProvider } from "./shared/message";
+import { StartupScreen } from "./shared/startup-confetti";
 
 export function App({ client }: { client: DesktopClient }) {
   return (
-    <MessageProvider>
-      <AppContent client={client} />
-    </MessageProvider>
+    <StartupScreen>
+      <MessageProvider>
+        <AppContent client={client} />
+      </MessageProvider>
+    </StartupScreen>
   );
 }
 

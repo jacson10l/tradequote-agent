@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "b3d0957c0240b68d7a1e5c2e0311458c8c08b6322b84330d80ea4c7acad2c195",
-    "wiki-config.json": "63c8a6c5527880b1cc9207657a7ffb92003d88e4bdf0e936dc8af56b72f8b9cf",
+    "wiki-config.json": "b47224e43478e9a7b3c67d9d61491fa165d8eb00304eb5f7eb916e2abda8ff83",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -307,9 +307,9 @@
     {
       "path": "apps/desktop/src/renderer/src/App.tsx",
       "type": "tsx",
-      "lines": 71,
-      "bytes": 2971,
-      "sha256": "fc08d89b09fc89c4fe91c449822e1ce1f538ab740b824c51fb5698c6705036c3",
+      "lines": 74,
+      "bytes": 3077,
+      "sha256": "34f88d06cbf3bac504626fb828452a57045caa93166677e7b2b023e1735846c6",
       "role": "M1 React workspace form and document layout",
       "pages": [
         "wiki/M1工作台.md",
@@ -690,6 +690,30 @@
       ]
     },
     {
+      "path": "apps/desktop/src/renderer/src/shared/startup-confetti.test.tsx",
+      "type": "tsx",
+      "lines": 254,
+      "bytes": 8881,
+      "sha256": "7d441c04560af27033eed6d5ba548e78e283060b4c7156b8df61db1530c70660",
+      "role": "Startup particles and screen phase timing, inert workbench, high-DPI, reduced motion and cleanup regression",
+      "pages": [
+        "wiki/桌面启动五彩纸屑.md",
+        "wiki/M1验证与协作.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/shared/startup-confetti.tsx",
+      "type": "tsx",
+      "lines": 145,
+      "bytes": 4325,
+      "sha256": "74a95d42de8469d8ec7963fd4204c65cfc9d07d8bcce170c81a8dfce0b03f0fd",
+      "role": "Dedicated branded startup screen, confetti lifecycle, workbench fade-in and reduced-motion fallback",
+      "pages": [
+        "wiki/桌面启动五彩纸屑.md",
+        "wiki/M1工作台.md"
+      ]
+    },
+    {
       "path": "apps/desktop/src/renderer/src/shared/utils.ts",
       "type": "ts",
       "lines": 5,
@@ -703,9 +727,9 @@
     {
       "path": "apps/desktop/src/renderer/src/theme.css",
       "type": "css",
-      "lines": 671,
-      "bytes": 11846,
-      "sha256": "c6c04ef14d033eb5be4a89574d6a367475cb2f1f4b68c8886a842490f4f9bd3d",
+      "lines": 761,
+      "bytes": 13591,
+      "sha256": "0e8e5008e9bf23cf9e54c3f23ef871a0e8499bda6b919102b8141843b63dba51",
       "role": "M1 React workspace form and document layout",
       "pages": [
         "wiki/M1工作台.md",
@@ -892,6 +916,17 @@
       "role": "C本地确定性英德回复草稿、版本报告绑定及测试/设计",
       "pages": [
         "wiki/C客户回复草稿桌面切片.md"
+      ]
+    },
+    {
+      "path": "docs/superpowers/plans/2026-11-01-startup-confetti.md",
+      "type": "md",
+      "lines": 39,
+      "bytes": 3472,
+      "sha256": "512baa07a018a7d6a89af355051f065af6825d817faa1773e83e25b0d0844fa6",
+      "role": "Approved startup confetti design, test-first implementation and delivery boundaries",
+      "pages": [
+        "wiki/桌面启动五彩纸屑.md"
       ]
     },
     {
@@ -3407,6 +3442,18 @@
         "wiki/C05CodexHarness与单据工作台.md",
         "wiki/C05c会话生命周期与业务对话.md",
         "wiki/C07业务资料与路演收口.md"
+      ]
+    },
+    {
+      "path": "tests/e2e/startup-confetti.spec.ts",
+      "type": "ts",
+      "lines": 102,
+      "bytes": 4955,
+      "sha256": "dd2e56b10eb5cd863097175525c07b8f19e4057babb96c24bae2c678be222382",
+      "role": "Actual Electron dedicated startup brand, hidden workbench, ordered fade-in, reopen and reduced motion",
+      "pages": [
+        "wiki/桌面启动五彩纸屑.md",
+        "wiki/M1验证与协作.md"
       ]
     },
     {

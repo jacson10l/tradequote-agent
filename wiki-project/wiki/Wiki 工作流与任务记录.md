@@ -11,6 +11,12 @@ sources:
 
 # Wiki 工作流与任务记录
 
+## 2026-11-01 启动纸屑职责登记
+
+后续用户修订为独立启动页，原纳管文件不变；更新其职责为StartupScreen阶段状态、inert工作台、品牌缓显与粒子结束后淡入，新增决策[[0034-独立启动页与工作台淡入]]并由导航入链。新验证记录单独保存，不覆盖第一轮JSON/截图或删除失败记录；仍按87106d1基线生成/只读check/lint/sync，配置描述变化复跑维护36项，不修改门禁算法。
+
+为新增 startup-confetti.tsx、startup-confetti.test.tsx、tests/e2e/startup-confetti.spec.ts 和已确认方案计划登记逐文件职责，分别指向 [[桌面启动五彩纸屑]]、[[M1工作台]] 和 [[M1验证与协作]]；导航链接任务 [[C启动五彩纸屑动画]]。维护工具逻辑不变，配置变更仍运行 Wiki 回归、生成后只读 check/lint，以及固定 87106d1 基线 sync；实际证据与历史失败分列记录。
+
 ## B01 纯检查覆盖
 
 第三切片新增 infrastructure/check-store.ts 及其测试，逐文件映射到 [[B规则检查实现]]，记录表字段/插入与不可变约束、同连接事务、共享幂等/重放、完整性校验和 A 尚未登记的生产迁移。同步 [[M1接口与持久化]]、B01 任务、状态、CONTEXT、导航和追加日志；raw/b01-storage-validation.json 单独保存本轮实际输出及旧 raw/hash 保留验证，旧两切片证据不重写。映射变动运行 Wiki 回归，生成清单后只读 check/lint/固定 654fecc sync，不改工具实现。

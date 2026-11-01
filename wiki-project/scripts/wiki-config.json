@@ -1059,6 +1059,22 @@
         "wiki/M1工作台.md"
       ]
     },
+    "docs/superpowers/plans/2026-11-01-startup-confetti.md": {
+      "role": "Approved startup confetti design, test-first implementation and delivery boundaries",
+      "pages": ["wiki/桌面启动五彩纸屑.md"]
+    },
+    "apps/desktop/src/renderer/src/shared/startup-confetti.tsx": {
+      "role": "Dedicated branded startup screen, confetti lifecycle, workbench fade-in and reduced-motion fallback",
+      "pages": ["wiki/桌面启动五彩纸屑.md", "wiki/M1工作台.md"]
+    },
+    "apps/desktop/src/renderer/src/shared/startup-confetti.test.tsx": {
+      "role": "Startup particles and screen phase timing, inert workbench, high-DPI, reduced motion and cleanup regression",
+      "pages": ["wiki/桌面启动五彩纸屑.md", "wiki/M1验证与协作.md"]
+    },
+    "tests/e2e/startup-confetti.spec.ts": {
+      "role": "Actual Electron dedicated startup brand, hidden workbench, ordered fade-in, reopen and reduced motion",
+      "pages": ["wiki/桌面启动五彩纸屑.md", "wiki/M1验证与协作.md"]
+    },
     "apps/desktop/src/renderer/src/shared/feedback.test.tsx": {
       "role": "Feedback lifetime, retry, accessibility roles and dismissal regression",
       "pages": [

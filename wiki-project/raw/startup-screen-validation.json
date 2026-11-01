@@ -1,0 +1,58 @@
+{
+  "status": "passed",
+  "scope": "User-requested dedicated startup screen with centered brand reveal and simultaneous confetti, followed by workbench fade-in; local macOS candidate only",
+  "date": "2026-11-01",
+  "branch": "codex/startup-confetti",
+  "taskBase": "87106d170f50d44af81b7594b1b6c3308f177be3",
+  "environment": { "os": "macOS 26.4 arm64", "node": "22.22.0", "pnpm": "10.13.1", "electron": "44.9.2" },
+  "behavior": {
+    "introMilliseconds": 2200,
+    "brandRevealMilliseconds": 1400,
+    "handoffMilliseconds": 650,
+    "particles": 120,
+    "workbenchDuringIntro": "pre-mounted but opacity 0, inert and aria-hidden; no click-through",
+    "handoff": "starts after confetti completion; startup screen fades out as workbench fades in",
+    "reducedMotion": "skip intro and handoff, including preference changes during intro",
+    "canvasUnavailable": "omit particles but retain branded screen and timed handoff"
+  },
+  "checks": [
+    { "command": "pnpm exec vitest run apps/desktop/src/renderer/src/shared/startup-confetti.test.tsx", "exitCode": 0, "result": "13 passed: 8 preserved particle tests and 5 dedicated screen lifecycle regressions" },
+    { "command": "pnpm typecheck", "exitCode": 0, "result": "TypeScript strict passed" },
+    { "command": "pnpm build", "exitCode": 0, "result": "Main, preload and renderer built; existing renderer chunk above 500kB warning remains" },
+    { "command": "ELECTRON_RUN_AS_NODE=1 apps/desktop/node_modules/.bin/electron node_modules/vitest/vitest.mjs run --no-file-parallelism", "exitCode": 0, "result": "579 passed, 3 skipped; 63 files passed, 2 skipped; 47.85s; no exclusions or timeout changes" },
+    { "command": "pnpm exec playwright test tests/e2e/startup-confetti.spec.ts", "exitCode": 0, "result": "2 actual Electron tests passed in 11.6s: dedicated branded screen, actual pixels, hidden/inert workbench, entering and ready phases, no main-page particles, route/reopen and reduced-motion behavior" },
+    { "command": "pnpm exec playwright test", "exitCode": 0, "result": "14 actual Electron tests passed, 1 existing real-Codex opt-in test skipped; 2.3m" },
+    { "command": "pnpm check", "exitCode": 0, "result": "Biome, 9 Node engineering checks, module boundaries, read-only Wiki inventory check and lint passed" },
+    { "command": "pnpm wiki:test", "exitCode": 0, "result": "Frozen-source retry: 36 passed, 0 skipped; 44.18s; maintenance code unchanged" },
+    { "command": "node wiki-project/scripts/build-code-index.mjs .", "exitCode": 0, "result": "Inventory regenerated for current source and coverage descriptions" },
+    { "command": "node wiki-project/scripts/build-code-index.mjs . --check", "exitCode": 0, "result": "Read-only generated inventory check passed; 300 managed files" },
+    { "command": "node wiki-project/scripts/lint-wiki.mjs .", "exitCode": 0, "result": "301 Markdown pages, 267 semantic pages, 301 reachable" },
+    { "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 87106d170f50d44af81b7594b1b6c3308f177be3", "exitCode": 0, "result": "6 code/config files, 7 knowledge pages, 1 task; no errors" },
+    { "command": "git diff --check", "exitCode": 0, "result": "No whitespace errors" },
+    { "command": "git diff --cached --check", "exitCode": 0, "result": "No staged changes" }
+  ],
+  "historicalAttempts": [
+    { "phase": "test-first dedicated screen", "exitCode": 1, "result": "5 new tests failed because StartupScreen did not exist; original 8 particle tests passed; implementation followed this red run" },
+    { "phase": "first Wiki regression", "exitCode": 1, "result": "35 passed, 1 failed: symlink exclusion check found GENERATED_DRIFT while live source/config snapshots were being edited/regenerated during the regression run. Frozen-source retry passed all 36 without editing tests or gate logic." }
+  ],
+  "sourceSha256": {
+    "apps/desktop/src/renderer/src/App.tsx": "34f88d06cbf3bac504626fb828452a57045caa93166677e7b2b023e1735846c6",
+    "apps/desktop/src/renderer/src/theme.css": "0e8e5008e9bf23cf9e54c3f23ef871a0e8499bda6b919102b8141843b63dba51",
+    "apps/desktop/src/renderer/src/shared/startup-confetti.tsx": "74a95d42de8469d8ec7963fd4204c65cfc9d07d8bcce170c81a8dfce0b03f0fd",
+    "apps/desktop/src/renderer/src/shared/startup-confetti.test.tsx": "7d441c04560af27033eed6d5ba548e78e283060b4c7156b8df61db1530c70660",
+    "tests/e2e/startup-confetti.spec.ts": "dd2e56b10eb5cd863097175525c07b8f19e4057babb96c24bae2c678be222382"
+  },
+  "localEvidenceDirectory": ".runtime/startup-confetti",
+  "screenshots": [".runtime/startup-confetti/desktop-splash.png", ".runtime/startup-confetti/desktop-main.png"],
+  "preservedPreviousEvidence": {
+    "path": "wiki-project/raw/startup-confetti-validation.json",
+    "sha256": "08352fa314f77c1b4854cd161848d579d670cc995f4028d80aa490ad2a6e490f",
+    "scope": "Old main-page overlay only, superseded by user's latest visual direction; retained unchanged"
+  },
+  "limitations": [
+    "Default concurrent unit-runner legacy migration stdout truncation from the first implementation remains outside scope; this revision ran the complete serial suite",
+    "Real-Codex opt-in test not enabled; no live model calls or credential inspection",
+    "Windows and final installed/package behavior not tested; non-author visual signoff pending",
+    "No commits, pushes, integration merges, release tags or installation changes; separate source checkout and its running old app untouched"
+  ]
+}

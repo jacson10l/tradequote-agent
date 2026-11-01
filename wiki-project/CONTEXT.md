@@ -1,6 +1,10 @@
 # 当前上下文
-2026-11-01 B08拟议条款pending契约修复：响应C08转达，B在codex/b07-contract-integration-review修复calculateQuoteV1对付款/交期只依赖isUnconfirmedTermText固定词表、导致C07英文拟议文本（30% deposit; 70% before dispatch、EXW Guangzhou 21 days、Proposed、Subject to supplier confirmation）漏进pending的生产缺口。trade.ts改用classifyTermConfirmation（空白→blank，其余非空→pending_confirmation）；修正trade.test.ts/revision.test.ts把具体拟议条款当已确认条款的错误预期并补英文反例。C 集成后同步 quote-delivery.test.ts：在确认事实尚未进入 DTO 时，普通自由文本仍只能输出 `to be confirmed`。trade 7项/revision 4项/foundation 4项，加客户回复2项定向回归通过；人工受控确认入口仍未接入。见[[B08拟议条款pending契约修复]]、[[B07契约集成非作者复核]]。
 
+2026-11-01 最新授权：用户要求独立启动页完成后合并并推送codex/m1-abc-integration。已fetch目标405f6f9且本机/远端一致、目标工作区干净；将提交本分支代码/Wiki并在独立worktree组合最新交接文档、复验后快进目标与普通push/远端回读。集成当前active，下方“不提交/不合入”和本机done均为历史范围，不代表最终集成完成。见[[C启动五彩纸屑动画]]。
+
+2026-11-01 启动页修订优先于下方覆盖式历史：独立奶油背景、中央TradeQuote缓显和同期纸屑，2200ms结束纸屑后650ms淡入主页面；intro工作台预挂载但隐藏/inert/aria-hidden，主页面不再显示纸屑。当前13组件/串行全量579通过3跳过/真实Electron14通过1跳过/typecheck/build/check/Wiki维护36和最终固定87106d1 sync均通过；任务本机闭环done，新证据raw/startup-screen-validation.json，旧覆盖式JSON保持字节。维护首轮并发快照漂移已保留，冻结后复跑通过。非作者视觉/Windows/安装包后置，同一独立分支无提交推送合入；见[[0034-独立启动页与工作台淡入]]、[[桌面启动五彩纸屑]]、[[C启动五彩纸屑动画]]。
+
+2026-11-01 启动动画独立切片：用户确认覆盖式五彩纸屑；codex/startup-confetti 从 87106d1 独立 worktree 实施，原工作树未提交文档保留。120 粒子、2200ms 后移除、400ms 淡出，减少动态跳过，无业务/数据/接口变更。定向8/8、串行全量574通过/3跳过、真实Electron全量14通过/1跳过、typecheck/build/check、Wiki维护36与固定基线sync均通过；默认并发两轮旧迁移输出截断失败保留，未改无关代码。本机任务done，非作者视觉评审/Windows/安装包后置；无提交推送合入。证据raw/startup-confetti-validation.json，见[[桌面启动五彩纸屑]]、[[C启动五彩纸屑动画]]。
 2026-11-01 B07契约集成非作者复核：从 origin/codex/m1-abc-integration 新建 codex/b07-contract-integration-review，核对集成分支（tip 7688d39，B 固定交付 a4f2ba6 已作为 201e471 父提交正确合入），补 reviseQuote 的 V1→V2→V3→重开 pending 回归测试（revision.test.ts 3 项），记录 quote-delivery.ts renderReply 缺 pending 标注为 C 后续修复项。见[[B对ABC集成非作者复核]]、[[B07契约集成非作者复核]]。
 
 
@@ -266,3 +270,7 @@ C封板技术稳定性补齐：真实deepseek-flash连续五轮、每轮7检查�
 2026-11-01 新增[[MVP人工验收操作手册]]：固定macOS桌面启动、隔离工作区、C07小目录导入发布、300/500件V1/V2金额、可选V3、pending/报告/客户草稿/重开检查及验收记录模板；明确资料、商业与平台规则人工签认及正式审批/外发等边界。
 
 2026-11-01 项目负责人明确将`codex/m1-abc-integration`定为唯一集成主分支和后续人工验收基线：A/B/C所有最终交付必须合入该分支，成员分支已推送不等于完成；C合入后须回读`origin/codex/m1-abc-integration`并重跑适用门禁。规则已同步根目录`AGENTS.md`、`README.md`和`CONTRIBUTING.md`。
+
+2026-11-01 B08 已在最新集成基线接收：`calculateQuoteV1` 对付款/交期任何非空自由文本默认保持 pending，C 同步客户回复测试验证没有人工确认事实时输出 `to be confirmed`。定向 `foundation`、`trade`、`revision`、`quote-delivery` 共 17 项通过；人工受控确认入口仍未接入，正式审批/外发/PDF、Windows/签名包仍不计为完成。见[[B08拟议条款pending契约修复]]。
+
+2026-11-01 C08 合并复验补充：`pnpm check`、`pnpm typecheck`、`pnpm wiki:test` 36/36 和 `check-wiki-sync` 通过；全量单测 566 通过、3 跳过，另有既有 `worker-migration-gates` v6 Unicode fixture 重放失败，故本轮不宣称全量自动门禁绿色，且未重复执行 build/e2e。
