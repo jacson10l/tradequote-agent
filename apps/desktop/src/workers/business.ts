@@ -1,15 +1,15 @@
 import {
-  WikiCommandSchema,
-  KnowledgeMaintenanceCommandSchema,
-  KnowledgeDesktopCommandSchema,
-  failure,
   AgentCommandSchema,
   AgentReadCommandSchema,
   CheckCommandSchema,
+  failure,
+  KnowledgeDesktopCommandSchema,
+  KnowledgeMaintenanceCommandSchema,
   RunCommandSchema,
   RunEventsCommandSchema,
   RunEventsWatchSchema,
   TradeCommandSchema,
+  WikiCommandSchema,
   WorkerRequestSchema,
 } from "@tradequote/contracts";
 import { createTradeService, createWorkspaceService } from "@tradequote/domain";
@@ -58,17 +58,32 @@ process.parentPort.on("message", async (event: { data: unknown }) => {
   const { id, command } = parsed.data;
   const desktop = KnowledgeDesktopCommandSchema.safeParse(command);
   if (desktop.success) {
-    const provider = parsed.data.credentials ? new DeepSeekProvider(parsed.data.credentials, fetch, process.argv[3]) : undefined;
+    const provider = parsed.data.credentials
+      ? new DeepSeekProvider(parsed.data.credentials, fetch, process.argv[3])
+      : undefined;
     const result = await repository.executeKnowledgeDesktop(desktop.data, provider);
-    process.parentPort?.postMessage({ id, result }); return;
+    process.parentPort?.postMessage({ id, result });
+    return;
   }
   const wiki = WikiCommandSchema.safeParse(command);
   const maintenance = KnowledgeMaintenanceCommandSchema.safeParse(command);
   if (wiki.success || maintenance.success) {
     const workspace = repository.read();
-    const context = { actorId: "local-user", origin: "human_ui" as const, workspaceId: workspace?.id ?? "", now: new Date().toISOString() };
-    const result = !workspace ? failure("NOT_FOUND", "请先创建工作区") : wiki.success ? await repository.executeWiki(wiki.data, context) : maintenance.success ? repository.executeWikiMaintenance(maintenance.data, context) : failure("VALIDATION_ERROR", "知识请求无效");
-    process.parentPort?.postMessage({ id, result }); return;
+    const context = {
+      actorId: "local-user",
+      origin: "human_ui" as const,
+      workspaceId: workspace?.id ?? "",
+      now: new Date().toISOString(),
+    };
+    const result = !workspace
+      ? failure("NOT_FOUND", "请先创建工作区")
+      : wiki.success
+        ? await repository.executeWiki(wiki.data, context)
+        : maintenance.success
+          ? await repository.executeWikiMaintenance(maintenance.data, context)
+          : failure("VALIDATION_ERROR", "知识请求无效");
+    process.parentPort?.postMessage({ id, result });
+    return;
   }
   const check = CheckCommandSchema.safeParse(command);
   if (check.success) {

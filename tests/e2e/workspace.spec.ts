@@ -118,6 +118,7 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
         "createQuoteV1",
         "createWorkspace",
         "executeKnowledgeBuild",
+        "executeKnowledgeDesktop",
         "executeWiki",
         "executeWikiMaintenance",
         "getAgentRun",
@@ -180,17 +181,18 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
       ok: false,
       error: { code: "NOT_FOUND", retryable: false },
     });
-    const wikiResults = await page.evaluate(
-      async (commands) =>
-        Promise.all(commands.map((command) => window.tradequote.executeWiki(command))),
-      mockWikiCommands,
+    const overview = await page.evaluate(() =>
+      window.tradequote.executeKnowledgeDesktop({
+        schemaVersion: 1,
+        requestId: crypto.randomUUID(),
+        method: "knowledge.overview",
+        payload: {},
+      }),
     );
-    expect(wikiResults).toHaveLength(12);
-    for (const result of wikiResults)
-      expect(result).toMatchObject({
-        ok: false,
-        error: { code: "CAPABILITY_UNAVAILABLE", retryable: false },
-      });
+    expect(overview).toMatchObject({
+      ok: true,
+      data: { kind: "knowledgeOverview", sources: [], records: [] },
+    });
     const malformedWiki = await page.evaluate(
       async (command) =>
         window.tradequote.executeWiki(
@@ -211,11 +213,17 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
       { build: mockKnowledgeBuildCommands, maintenance: mockKnowledgeMaintenanceCommands },
     );
     expect(p1Results).toHaveLength(15);
-    for (const result of p1Results)
-      expect(result).toMatchObject({
-        ok: false,
-        error: { code: "CAPABILITY_UNAVAILABLE", retryable: false },
-      });
+    for (const [i, result] of p1Results.entries()) {
+      if (i < mockKnowledgeBuildCommands.length)
+        expect(result).toMatchObject({ ok: false, error: { code: "CAPABILITY_UNAVAILABLE" } });
+      else {
+        expect(result.ok).toBe(false);
+        if (!result.ok)
+          expect(["CAPABILITY_UNAVAILABLE", "NOT_FOUND", "SOURCE_CONFLICT"]).toContain(
+            result.error.code,
+          );
+      }
+    }
     const p1Invalid = await page.evaluate(
       async (command) =>
         window.tradequote.executeKnowledgeBuild(Object.assign({}, command, { origin: "human_ui" })),

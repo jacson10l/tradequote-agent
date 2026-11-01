@@ -77,8 +77,14 @@ export class SqliteWikiCheckSource implements CheckKnowledgeSource {
     if (!this.db.inTransaction) throw new Error("CHECK_TRANSACTION_REQUIRED");
     const found = this.resolveForQuote(quote, checkedAt, actor);
     const context: WikiHostContext = { ...actor, workspaceId: quote.workspaceId, now: checkedAt };
-    const scope = { platform: quote.scenario.platform, market: quote.scenario.market, category: ruleCategory(quote) };
-    const resolutions = new Map(found.map(r => [`${r.citation.revisionId}:${r.citation.sectionId}`, r]));
+    const scope = {
+      platform: quote.scenario.platform,
+      market: quote.scenario.market,
+      category: ruleCategory(quote),
+    };
+    const resolutions = new Map(
+      found.map((r) => [`${r.citation.revisionId}:${r.citation.sectionId}`, r]),
+    );
     const report = evaluateWikiQuote({
       quote: { ...quote, scenario: { ...quote.scenario, category: ruleCategory(quote) } },
       reportId,

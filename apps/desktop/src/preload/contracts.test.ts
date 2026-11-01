@@ -323,8 +323,7 @@ describe("B00a strict Wiki capability gate", () => {
     vi.clearAllMocks();
     const { mockWikiCommands } = await import("@tradequote/contracts/mock");
     await import("./index");
-    const desktop: DesktopClient = electron.exposeInMainWorld.mock.calls[0]?.[1];
-    for (const client of [readonlyMockClient, desktop]) {
+    for (const client of [readonlyMockClient]) {
       for (const command of mockWikiCommands) {
         expect(await client.executeWiki(command), command.method).toMatchObject({
           ok: false,
@@ -358,8 +357,7 @@ describe("B00a P1 build/maintenance capability gates", () => {
       "@tradequote/contracts/mock"
     );
     await import("./index");
-    const desktop: DesktopClient = electron.exposeInMainWorld.mock.calls[0]?.[1];
-    for (const client of [readonlyMockClient, desktop]) {
+    for (const client of [readonlyMockClient]) {
       for (const command of mockKnowledgeBuildCommands) {
         expect(await client.executeKnowledgeBuild(command)).toMatchObject({
           ok: false,
@@ -492,4 +490,40 @@ describe("C saved quote check bridge", () => {
       expect(JSON.stringify(await method())).not.toContain("synthetic-private");
     }
   });
+});
+
+it("enterprise Wiki bridge validates payloads and forwards only typed operations", async () => {
+  vi.resetModules();
+  vi.clearAllMocks();
+  await import("./index");
+  const desktop: DesktopClient = electron.exposeInMainWorld.mock.calls[0]?.[1];
+  const failure = {
+    ok: false,
+    error: { code: "NOT_FOUND", message: "no workspace", retryable: false, issues: [] },
+  };
+  electron.invoke.mockResolvedValue(failure);
+  const command = {
+    schemaVersion: 1 as const,
+    requestId: crypto.randomUUID(),
+    method: "knowledge.overview" as const,
+    payload: {},
+  };
+  expect(await desktop.executeKnowledgeDesktop(command)).toEqual(failure);
+  expect(electron.invoke).toHaveBeenCalledWith("knowledge.desktop", command);
+  const calls = electron.invoke.mock.calls.length;
+  expect(
+    await desktop.executeKnowledgeDesktop({ ...command, payload: { unexpected: true } } as never),
+  ).toMatchObject({ ok: false, error: { code: "VALIDATION_ERROR" } });
+  expect(electron.invoke).toHaveBeenCalledTimes(calls);
+  const { mockWikiCommands, mockKnowledgeMaintenanceCommands } = await import(
+    "@tradequote/contracts/mock"
+  );
+  for (const c of mockWikiCommands) {
+    expect(await desktop.executeWiki(c)).toEqual(failure);
+    expect(electron.invoke).toHaveBeenLastCalledWith("knowledge.wiki", c);
+  }
+  for (const c of mockKnowledgeMaintenanceCommands) {
+    expect(await desktop.executeWikiMaintenance(c)).toEqual(failure);
+    expect(electron.invoke).toHaveBeenLastCalledWith("knowledge.maintenance", c);
+  }
 });

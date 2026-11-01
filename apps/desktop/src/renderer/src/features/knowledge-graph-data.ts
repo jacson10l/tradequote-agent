@@ -1,41 +1,16 @@
-import type { CheckReport, QuoteSnapshot } from "@tradequote/contracts";
+import type {
+  CheckReport,
+  QuoteSnapshot,
+  WikiRevisionRecord,
+  WikiSourceRevision,
+} from "@tradequote/contracts";
 export type GraphNode = {
   id: string;
   label: string;
-  kind: "wiki" | "source" | "quote";
+  kind: "wiki" | "source" | "quote" | "scope";
   detail: string;
 };
 export type KnowledgeGraph = { nodes: GraphNode[]; edges: { source: string; target: string }[] };
-export function buildWikiGraph(files: Record<string, string>): KnowledgeGraph {
-  const nodes = Object.entries(files)
-    .sort(([a], [b]) => a.localeCompare(b))
-    .map(([id, text]) => ({
-      id,
-      label:
-        /^title:\s*(.+)$/m.exec(text)?.[1]?.trim() ?? id.split("/").at(-1)!.replace(/\.md$/, ""),
-      kind: "wiki" as const,
-      detail: text.replace(/^---\n[\s\S]*?\n---\s*/, "").slice(0, 6000),
-    }));
-  const byName = new Map(
-    nodes.flatMap((n) => [
-      [n.label, n.id],
-      [n.id.split("/").at(-1)!.replace(/\.md$/, ""), n.id],
-    ]),
-  );
-  const edges: KnowledgeGraph["edges"] = [];
-  const seen = new Set<string>();
-  for (const [id, text] of Object.entries(files))
-    for (const match of text.matchAll(/\[\[([^\]|#]+)(?:[^\]]*)\]\]/g)) {
-      const target = byName.get(match[1]!);
-      if (!target || target === id) continue;
-      const pair = [id, target].sort();
-      const key = JSON.stringify(pair);
-      if (seen.has(key)) continue;
-      seen.add(key);
-      edges.push({ source: pair[0]!, target: pair[1]! });
-    }
-  return { nodes, edges };
-}
 export function buildBusinessGraph(
   quotes: QuoteSnapshot[],
   reports: CheckReport[],
@@ -134,4 +109,63 @@ export function layoutGraph(graph: KnowledgeGraph) {
     }
   }
   return positions;
+}
+
+export function buildEnterpriseGraph(
+  sources: WikiSourceRevision[],
+  records: WikiRevisionRecord[],
+  quotes: QuoteSnapshot[] = [],
+  reports: CheckReport[] = [],
+): KnowledgeGraph {
+  const graph = buildBusinessGraph(quotes, reports);
+  const nodes = new Map(graph.nodes.map((n) => [n.id, n]));
+  const edges = new Map(graph.edges.map((e) => [`${e.source}:${e.target}`, e]));
+  const link = (source: string, target: string) =>
+    edges.set(`${source}:${target}`, { source, target });
+  const states = {
+    candidate: "待审核",
+    approved: "已批准待发布",
+    published: "已发布",
+    rejected: "已拒绝",
+    withdrawn: "已撤回",
+  };
+  for (const source of sources)
+    nodes.set(source.sourceRevisionId, {
+      id: source.sourceRevisionId,
+      label: `来源 · ${source.label}`,
+      kind: "source",
+      detail: `${source.sourceStatus === "synthetic" ? "合成演示" : "用户提供"} · V${source.version} · ${source.validity.status === "confirmed" ? "已确认有效性" : "有效性待核实"}\n${source.permissionNote}\n\n${source.sourceText}`,
+    });
+  for (const { revision: r, lifecycle } of records) {
+    const labels = r.content.sourceRefs.map(
+      (ref) => sources.find((s) => s.sourceRevisionId === ref.sourceRevisionId)?.sourceStatus,
+    );
+    nodes.set(r.revisionId, {
+      id: r.revisionId,
+      label: r.content.title,
+      kind: "wiki",
+      detail: `${states[lifecycle.state]} · V${r.version} · ${labels.includes("synthetic") ? "含合成演示来源" : "用户来源/历史引用"}\n适用范围：${JSON.stringify(r.content.scope)}\n\n${r.content.markdown}`,
+    });
+  }
+  for (const { revision: r } of records) {
+    for (const [dimension, values] of Object.entries(r.content.scope))
+      for (const value of values) {
+        const id = `scope:${dimension}:${value}`;
+        const label =
+          dimension === "categories" ? "品类" : dimension === "markets" ? "市场" : "平台";
+        nodes.set(id, {
+          id,
+          label: `${label} · ${value}`,
+          kind: "scope",
+          detail: `来自知识版本明确登记的${label}字段：${value}。范围关联不代表资料已经审核，也不代表推断出的商品关系。`,
+        });
+        link(r.revisionId, id);
+      }
+
+    for (const ref of r.content.sourceRefs)
+      if (nodes.has(ref.sourceRevisionId)) link(r.revisionId, ref.sourceRevisionId);
+    for (const rel of r.content.relations)
+      if (nodes.has(rel.revisionId)) link(r.revisionId, rel.revisionId);
+  }
+  return { nodes: [...nodes.values()], edges: [...edges.values()] };
 }

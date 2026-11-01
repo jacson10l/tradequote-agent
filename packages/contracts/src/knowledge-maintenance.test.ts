@@ -407,14 +407,14 @@ describe("B00a P1 maintenance protocols", () => {
       }).success,
     ).toBe(false);
   });
-  it("keeps all maintenance capabilities unavailable to legacy transports and host authority out of requests", () => {
+  it("transports typed maintenance commands while rejecting caller-supplied host authority", () => {
     expect(mockKnowledgeMaintenanceCommands).toHaveLength(10);
     for (const command of mockKnowledgeMaintenanceCommands) {
       expect(KnowledgeMaintenanceCommandSchema.safeParse(command).success, command.method).toBe(
         true,
       );
-      expect(RuntimeCommandSchema.safeParse(command).success).toBe(false);
-      expect(WorkerRequestSchema.safeParse({ id: id(99), command }).success).toBe(false);
+      expect(RuntimeCommandSchema.safeParse(command).success).toBe(true);
+      expect(WorkerRequestSchema.safeParse({ id: id(99), command }).success).toBe(true);
       expect(
         KnowledgeMaintenanceCommandSchema.safeParse({
           ...command,

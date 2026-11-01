@@ -1,9 +1,8 @@
 import { createHash, randomUUID } from "node:crypto";
 import {
   type AgentCommand,
-  type WikiCitationResolution,
-  KnowledgeCitationSchema,
   type CheckReport,
+  KnowledgeCitationSchema,
   KnowledgeListResultSchema,
   type KnowledgeQuery,
   KnowledgeQuerySchema,
@@ -13,6 +12,7 @@ import {
   type RevisionProposal,
   type TradeBoard,
   type Understanding,
+  type WikiCitationResolution,
 } from "@tradequote/contracts";
 import { calculateQuoteV1, quoteCheckService, reviseQuote, TradeFault } from "@tradequote/domain";
 import { z } from "zod";
@@ -118,15 +118,33 @@ export function checkDraft(
     reportId,
   });
 }
-export const wikiKnowledgeStamp = (resolutions: WikiCitationResolution[]) => digest(
-  resolutions.map(r => ({ citation: r.citation, contentHash: r.revision.contentHash, sourceSetHash: r.revision.sourceSetHash }))
-    .sort((a,b) => `${a.citation.revisionId}:${a.citation.sectionId}`.localeCompare(`${b.citation.revisionId}:${b.citation.sectionId}`)),
-);
-export const DraftAuthorizationSchema = z.strictObject({
-  calculated: QuoteSnapshotSchema,
-  knowledgeStamp: z.string().regex(/^[a-f0-9]{64}$/),
-  wikiStamp: z.string().regex(/^[a-f0-9]{64}$/).optional(),
-  wikiCitations: z.array(KnowledgeCitationSchema).min(1).max(100).optional(),
-  asOf: z.iso.datetime(),
-});
+export const wikiKnowledgeStamp = (resolutions: WikiCitationResolution[]) =>
+  digest(
+    resolutions
+      .map((r) => ({
+        citation: r.citation,
+        contentHash: r.revision.contentHash,
+        sourceSetHash: r.revision.sourceSetHash,
+      }))
+      .sort((a, b) =>
+        `${a.citation.revisionId}:${a.citation.sectionId}`.localeCompare(
+          `${b.citation.revisionId}:${b.citation.sectionId}`,
+        ),
+      ),
+  );
+export const DraftAuthorizationSchema = z
+  .strictObject({
+    calculated: QuoteSnapshotSchema,
+    knowledgeStamp: z.string().regex(/^[a-f0-9]{64}$/),
+    wikiStamp: z
+      .string()
+      .regex(/^[a-f0-9]{64}$/)
+      .optional(),
+    wikiCitations: z.array(KnowledgeCitationSchema).min(1).max(100).optional(),
+    asOf: z.iso.datetime(),
+  })
+  .refine(
+    (v) => (v.wikiStamp === undefined) === (v.wikiCitations === undefined),
+    "Wiki授权摘要与引用必须同时存在",
+  );
 export type DraftAuthorization = z.infer<typeof DraftAuthorizationSchema>;

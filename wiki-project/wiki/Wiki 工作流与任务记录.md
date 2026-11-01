@@ -305,3 +305,7 @@ wiki-lib.mjs 的 ignoredDirs 增 .workbuddy（WorkBuddy IDE 项目数据目录�
 ## 2026-11-01 C12 公开发布覆盖
 
 新增根LICENSE纳入已有显式LICENSE采集规则，coverage指向[[C12公开发布与README]]与[[0035-main公开入口与MIT许可]]；不改维护算法。README/AGENTS/CONTRIBUTING更新公开入口与集成分支职责，第三方声明保留来源权利。任务[[C12-main公开与README更新]]记录固定3f3332b基线、生成/只读check/lint/sync及因覆盖变化执行维护回归，发布状态必须由GitHub实测回读补记。
+
+## C14 企业知识闭环覆盖
+
+新增knowledge-desktop、enterprise-knowledge、enterprise-material、桌面enterprise-knowledge及真实模型opt-in测试逐文件映射至[[C14企业知识闭环方案]]。既有契约/IPC/Worker/Agent/图谱测试映射追加同页；生成后运行只读check/lint、4e24cca基线sync及维护工具回归。工程Wiki不再打包进产品图谱，但工程覆盖职责保留。任务[[C14-企业知识闭环]]同步命令与失败修复证据。

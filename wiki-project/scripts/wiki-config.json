@@ -170,7 +170,8 @@
         "wiki/C03持久事件与桌面重连.md",
         "wiki/C04收口与验收边界.md",
         "wiki/C05CodexHarness与单据工作台.md",
-        "wiki/C15知识关系图谱.md"
+        "wiki/C15知识关系图谱.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     "AGENTS.md": {
@@ -187,7 +188,8 @@
       "pages": [
         "wiki/decisions/0001-Mistral工作台风格.md",
         "wiki/C07业务资料与路演收口.md",
-        "wiki/C15知识关系图谱.md"
+        "wiki/C15知识关系图谱.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     "UPSTREAM.md": {
@@ -604,7 +606,8 @@
         "wiki/C已保存报价检查桌面切片.md",
         "wiki/C客户回复草稿桌面切片.md",
         "wiki/C05c会话生命周期与业务对话.md",
-        "wiki/虚拟形象与记忆方案.md"
+        "wiki/虚拟形象与记忆方案.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     "apps/desktop/src/main/worker-client.ts": {
@@ -613,7 +616,8 @@
         "wiki/M1工程基线.md",
         "wiki/C02c统一运行与写账本.md",
         "wiki/C02c多步报价工具闭环.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     "apps/desktop/src/preload/index.ts": {
@@ -625,7 +629,8 @@
         "wiki/C03持久事件与桌面重连.md",
         "wiki/C已保存报价检查桌面切片.md",
         "wiki/C05c会话生命周期与业务对话.md",
-        "wiki/虚拟形象与记忆方案.md"
+        "wiki/虚拟形象与记忆方案.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     "apps/desktop/src/renderer/index.html": {
@@ -709,7 +714,8 @@
         "wiki/C02c统一运行与写账本.md",
         "wiki/C03持久事件与桌面重连.md",
         "wiki/C已保存报价检查桌面切片.md",
-        "wiki/C05c会话生命周期与业务对话.md"
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     "biome.json": {
@@ -748,7 +754,8 @@
         "wiki/C04正式设置评估入口.md",
         "wiki/C03持久事件与桌面重连.md",
         "wiki/C已保存报价检查桌面切片.md",
-        "wiki/虚拟形象与记忆方案.md"
+        "wiki/虚拟形象与记忆方案.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     "packages/contracts/src/mock.ts": {
@@ -804,7 +811,8 @@
         "wiki/B谱系账本适配与P1回执交接.md",
         "wiki/C02c统一运行与写账本.md",
         "wiki/Ae7a9439接收与P1接线阻断复核.md",
-        "wiki/虚拟形象与记忆方案.md"
+        "wiki/虚拟形象与记忆方案.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     "packages/infrastructure/src/migration-lineage.ts": {
@@ -894,7 +902,8 @@
         "wiki/C已保存报价检查桌面切片.md",
         "wiki/C05CodexHarness与单据工作台.md",
         "wiki/C05c会话生命周期与业务对话.md",
-        "wiki/C07业务资料与路演收口.md"
+        "wiki/C07业务资料与路演收口.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     "tsconfig.json": {
@@ -1261,7 +1270,8 @@
         "wiki/B00a知识Wiki公共协议.md",
         "wiki/B00a知识整理与维护协议.md",
         "wiki/C03持久事件与桌面重连.md",
-        "wiki/C05c会话生命周期与业务对话.md"
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     "packages/contracts/src/knowledge.test.ts": {
@@ -1295,7 +1305,8 @@
         "wiki/C04正式设置评估入口.md",
         "wiki/C03持久事件与桌面重连.md",
         "wiki/C已保存报价检查桌面切片.md",
-        "wiki/C05c会话生命周期与业务对话.md"
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     "packages/domain/src/agent-run.ts": {
@@ -1400,7 +1411,8 @@
     "packages/contracts/src/knowledge-wiki.test.ts": {
       "role": "B00a P0 authority, provenance, historical-read, validity and pagination negative regressions",
       "pages": [
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     "packages/domain/src/quote-checks.ts": {
@@ -1498,7 +1510,8 @@
       "role": "同连接搜索解析、多来源hash与提交前复核、报告消费登记",
       "pages": [
         "wiki/B规则检查实现.md",
-        "wiki/A01c检索引用实现.md"
+        "wiki/A01c检索引用实现.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     "packages/infrastructure/src/wiki-check-integration.test.ts": {
@@ -1554,7 +1567,8 @@
     "packages/contracts/src/knowledge-maintenance.test.ts": {
       "role": "P1 unknown/failure reports, human resolution, paging and stale projection negative tests",
       "pages": [
-        "wiki/B00a知识整理与维护协议.md"
+        "wiki/B00a知识整理与维护协议.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     "packages/contracts/src/maintenance-evidence.test.ts": {
@@ -1739,7 +1753,8 @@
         "wiki/C02c多步报价工具闭环.md",
         "wiki/C03持久事件与桌面重连.md",
         "wiki/C05CodexHarness与单据工作台.md",
-        "wiki/C05c会话生命周期与业务对话.md"
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     "packages/infrastructure/src/agent-run-store.test.ts": {
@@ -1827,7 +1842,8 @@
     "packages/infrastructure/src/quote-draft-plan.ts": {
       "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
       "pages": [
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     "packages/infrastructure/src/quote-tool-agent.test.ts": {
@@ -1848,7 +1864,8 @@
         "wiki/C04剩余失败证据与收敛.md",
         "wiki/C04动作与澄清失败收敛.md",
         "wiki/C05CodexHarness与单据工作台.md",
-        "wiki/C05c会话生命周期与业务对话.md"
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     "tests/e2e/multistep-agent.spec.ts": {
@@ -2298,31 +2315,72 @@
     "apps/desktop/src/renderer/src/features/knowledge-graph.tsx": {
       "role": "C15只读知识关系图谱、来源边界及交互验证",
       "pages": [
-        "wiki/C15知识关系图谱.md"
+        "wiki/C15知识关系图谱.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     "apps/desktop/src/renderer/src/features/knowledge-graph-data.ts": {
       "role": "C15只读知识关系图谱、来源边界及交互验证",
       "pages": [
-        "wiki/C15知识关系图谱.md"
+        "wiki/C15知识关系图谱.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     "apps/desktop/src/renderer/src/features/knowledge-graph-data.test.ts": {
       "role": "C15只读知识关系图谱、来源边界及交互验证",
       "pages": [
-        "wiki/C15知识关系图谱.md"
+        "wiki/C15知识关系图谱.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     "apps/desktop/src/renderer/src/features/knowledge-graph.css": {
       "role": "C15只读知识关系图谱、来源边界及交互验证",
       "pages": [
-        "wiki/C15知识关系图谱.md"
+        "wiki/C15知识关系图谱.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     "tests/e2e/knowledge-graph.spec.ts": {
       "role": "C15只读知识关系图谱、来源边界及交互验证",
       "pages": [
-        "wiki/C15知识关系图谱.md"
+        "wiki/C15知识关系图谱.md",
+        "wiki/C14企业知识闭环方案.md"
+      ]
+    },
+    "packages/contracts/src/knowledge-desktop.ts": {
+      "role": "企业知识列表、单来源模型整理与幂等CSV/合成导入契约",
+      "pages": [
+        "wiki/C14企业知识闭环方案.md"
+      ]
+    },
+    "packages/infrastructure/src/enterprise-knowledge.test.ts": {
+      "role": "企业知识引用真实性、幂等、发布、报价消费与真实CSV回归",
+      "pages": [
+        "wiki/C14企业知识闭环方案.md"
+      ]
+    },
+    "packages/infrastructure/src/enterprise-knowledge.ts": {
+      "role": "企业知识概览与有界真实模型候选编排",
+      "pages": [
+        "wiki/C14企业知识闭环方案.md"
+      ]
+    },
+    "apps/desktop/src/renderer/src/features/enterprise-knowledge.tsx": {
+      "role": "企业原文录入、CSV/合成导入、模型整理及分步人工审核发布",
+      "pages": [
+        "wiki/C14企业知识闭环方案.md"
+      ]
+    },
+    "packages/infrastructure/src/enterprise-material.ts": {
+      "role": "用户CSV按SKU原文来源与候选导入、明确合成企业资料、原子幂等",
+      "pages": [
+        "wiki/C14企业知识闭环方案.md"
+      ]
+    },
+    "tests/e2e/enterprise-real-model.spec.ts": {
+      "role": "显式opt-in真实模型企业资料整理与知识引用报价验收",
+      "pages": [
+        "wiki/C14企业知识闭环方案.md"
       ]
     }
   }

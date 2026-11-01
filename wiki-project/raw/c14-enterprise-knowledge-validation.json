@@ -1,0 +1,106 @@
+{
+  "status": "passed",
+  "task": "C14",
+  "baseline": "4e24cca74e5a8de5aaa2ea88863a4bd7f25c1755",
+  "initialBase": "bc6ba9eaf27b67092a131a0eeabbbc9a397ee921",
+  "environment": "macOS arm64; Node 22.22.0; pnpm 10.13.1",
+  "checks": [
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "logSha256": "e7c80809e7dae19745fada8b080f551f47f2dbd8ea275a5a1ee589c4b6ed6994"
+    },
+    {
+      "command": "pnpm build",
+      "exitCode": 0,
+      "logSha256": "5378617fbaa658f70601e981b1db1e4405c923ac5ba00254ccf3428dd75db90d"
+    },
+    {
+      "command": "Electron Node vitest run --maxWorkers=1",
+      "exitCode": 0,
+      "logSha256": "b45b0d592cb3f7e95a84a13bca51de45d8a0d41e64926f732d68f2f7b0fae002"
+    },
+    {
+      "command": "pnpm exec playwright test",
+      "exitCode": 0,
+      "logSha256": "629a655dc9d4aa06b9fa297fea7d56a90caf2397a230c45b3e1d46b849a78e22"
+    },
+    {
+      "command": "TRADEQUOTE_LIVE_KNOWLEDGE=1 pnpm exec playwright test tests/e2e/enterprise-real-model.spec.ts",
+      "exitCode": 0,
+      "logSha256": "9f44e422a6afc6163eac1bdd21ba7b975c490920b0756c7f361d2a2b016942d8"
+    },
+    {
+      "command": "pnpm check",
+      "exitCode": 0,
+      "logSha256": "7c7a9afcce1c7cdb638cc328962606337b41b06fad054fd2f9df061bda42d1f5"
+    },
+    {
+      "command": "pnpm wiki:test",
+      "exitCode": 0,
+      "logSha256": "6eef67538ee6270dfccb2a7410185d446054fdd7193269ec83fd3ae1864b35e2"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 4e24cca",
+      "exitCode": 0,
+      "logSha256": "63c6d64b33a7b62f0543e91b6305c2439fe597cfe12ee0be69638a532b4b7df8"
+    }
+  ],
+  "counts": {
+    "unitPassed": 601,
+    "unitSkipped": 3,
+    "electronPassed": 15,
+    "electronSkipped": 2,
+    "wikiPassed": 36,
+    "explicitLiveModelPassed": 1
+  },
+  "liveModel": {
+    "status": "passed",
+    "model": "deepseek-flash",
+    "knowledgeCitations": 1,
+    "sourceReferences": 1,
+    "goodsTotal": "11763.00",
+    "quantity": "300",
+    "quoteRevisionId": "3417f8fb-047f-4411-b007-255de7d323c7",
+    "reportId": "9a242fe0-a641-4086-890f-6e0fd92efd7a",
+    "checks": [
+      {
+        "command": "opt-in real DeepSeek source organization + human UI review/publish + quote tools",
+        "exitCode": 0
+      }
+    ]
+  },
+  "localWorkspaceImport": {
+    "status": "passed",
+    "imported": {
+      "kind": "imported",
+      "sources": 82,
+      "records": 82,
+      "reused": false
+    },
+    "demo": {
+      "kind": "imported",
+      "sources": 6,
+      "records": 6,
+      "reused": false
+    },
+    "sources": 88,
+    "records": 88,
+    "published": 0,
+    "existingQuoteSnapshotsUnchanged": true,
+    "csvSha256": "0d73c71211cabcfd7775d4e6b0f4236b8849df108233a5195a5164ec37923fc9",
+    "backupCreated": true
+  },
+  "failuresRetained": [
+    "Original Wiki transport unavailable expectations corrected after enabling strict IPC",
+    "Native exact selector needed explicit label",
+    "Worker maintenance Promise not awaited; fixed and native lifecycle rerun",
+    "First live acceptance used incorrect catalog command field names; corrected; real model source phase had completed"
+  ],
+  "limits": [
+    "Only published rule pages participate in quote validation; SOP/term are managed and visualized, not general RAG",
+    "Single-source bounded model organization, not full P1 multi-candidate recovery",
+    "Windows/package/non-author business approval not verified",
+    "Application data and backups remain local and are not committed"
+  ]
+}

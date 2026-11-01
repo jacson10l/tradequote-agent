@@ -568,13 +568,13 @@ describe("B00a P0 Wiki contracts", async () => {
       }).success,
     ).toBe(false);
   });
-  it("keeps old B00 intact and rejects every new method at existing runtime/worker boundaries", async () => {
+  it("keeps old B00 intact while transporting strict Wiki commands without caller authority", async () => {
     expect(KnowledgeRevisionSchema.parse(mockKnowledgeRevision)).toEqual(mockKnowledgeRevision);
     expect(mockWikiCommands).toHaveLength(12);
     for (const command of mockWikiCommands) {
       expect(WikiCommandSchema.safeParse(command).success, command.method).toBe(true);
-      expect(RuntimeCommandSchema.safeParse(command).success).toBe(false);
-      expect(WorkerRequestSchema.safeParse({ id: mockWorkspace.id, command }).success).toBe(false);
+      expect(RuntimeCommandSchema.safeParse(command).success).toBe(true);
+      expect(WorkerRequestSchema.safeParse({ id: mockWorkspace.id, command }).success).toBe(true);
       expect(WikiCommandSchema.safeParse({ ...command, origin: "human_ui" }).success).toBe(false);
       const { idempotencyKey: _key, ...read } = { idempotencyKey: undefined, ...command };
       expect(

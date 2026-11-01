@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "b3d0957c0240b68d7a1e5c2e0311458c8c08b6322b84330d80ea4c7acad2c195",
-    "wiki-config.json": "46693fea596fee2dd1ffed55a129b56e3e40328205912888772f54f75202241c",
+    "wiki-config.json": "95d177549411592b659be405f5af018ead8748e19b28d1fc0805e766326106bd",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -86,14 +86,15 @@
     {
       "path": "DESIGN.md",
       "type": "md",
-      "lines": 129,
-      "bytes": 12822,
-      "sha256": "0dc861f4d86ffdce0104d0ddb579fab9cc829035d0ab14eb3d0339b281d405eb",
+      "lines": 134,
+      "bytes": 13261,
+      "sha256": "e09cc1c51b6360d137c3bcfe2aa1b0794d56650ca848224822651dc4decce610",
       "role": "当前视觉规范",
       "pages": [
         "wiki/decisions/0001-Mistral工作台风格.md",
         "wiki/C07业务资料与路演收口.md",
-        "wiki/C15知识关系图谱.md"
+        "wiki/C15知识关系图谱.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     {
@@ -112,8 +113,8 @@
       "path": "README.md",
       "type": "md",
       "lines": 125,
-      "bytes": 8427,
-      "sha256": "4b88576b0abe143b56af9087288c562759d1d98fa6a72a1392a716788af62a35",
+      "bytes": 8670,
+      "sha256": "7b95d5b0e97f2105a4fc7c630564aa4982f98e1fa368c583f884f072c844e5d6",
       "role": "项目入口与协作约束",
       "pages": [
         "wiki/项目状态.md",
@@ -121,7 +122,8 @@
         "wiki/C03持久事件与桌面重连.md",
         "wiki/C04收口与验收边界.md",
         "wiki/C05CodexHarness与单据工作台.md",
-        "wiki/C15知识关系图谱.md"
+        "wiki/C15知识关系图谱.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     {
@@ -231,9 +233,9 @@
     {
       "path": "apps/desktop/src/main/index.ts",
       "type": "ts",
-      "lines": 482,
-      "bytes": 20479,
-      "sha256": "27f2f1d86e28df5bff8352713d21d6a3c2a65a7599bf134eb40734ff0b496795",
+      "lines": 517,
+      "bytes": 22158,
+      "sha256": "d69a529d55c24e7a3879c1276bd85a07abef2dc131001d738652449f15d7da8a",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md",
@@ -243,7 +245,8 @@
         "wiki/C已保存报价检查桌面切片.md",
         "wiki/C客户回复草稿桌面切片.md",
         "wiki/C05c会话生命周期与业务对话.md",
-        "wiki/虚拟形象与记忆方案.md"
+        "wiki/虚拟形象与记忆方案.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     {
@@ -263,23 +266,24 @@
     {
       "path": "apps/desktop/src/main/worker-client.ts",
       "type": "ts",
-      "lines": 201,
-      "bytes": 6653,
-      "sha256": "d7f8a5b8050a484481ff7bce4a2436d4a310f6cfe2f96e8d62edd6cde3a23515",
+      "lines": 203,
+      "bytes": 6735,
+      "sha256": "0587574c2e477c6d630ac2f4a40addf60bdbbb8da5cb357ba203c1cff08afb1c",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md",
         "wiki/C02c统一运行与写账本.md",
         "wiki/C02c多步报价工具闭环.md",
-        "wiki/C03持久事件与桌面重连.md"
+        "wiki/C03持久事件与桌面重连.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     {
       "path": "apps/desktop/src/preload/contracts.test.ts",
       "type": "ts",
-      "lines": 495,
-      "bytes": 19175,
-      "sha256": "7f91097a1099d9b72e848ed5e83b95ea555bb7b4a709b3a906175f0938f53c02",
+      "lines": 529,
+      "bytes": 20515,
+      "sha256": "f09761c6a91cf3c1a1087fc6e665879a55081a06e280fe2cc98c45576be1b361",
       "role": "B00 preload and mock capability gate without new IPC",
       "pages": [
         "wiki/首批并行接口约定.md",
@@ -290,15 +294,16 @@
         "wiki/C04正式设置评估入口.md",
         "wiki/C03持久事件与桌面重连.md",
         "wiki/C已保存报价检查桌面切片.md",
-        "wiki/C05c会话生命周期与业务对话.md"
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     {
       "path": "apps/desktop/src/preload/index.ts",
       "type": "ts",
-      "lines": 241,
-      "bytes": 10408,
-      "sha256": "10ae1d63e08ce6b6ae0d40de3a82243dc7715560e2d4abab6d0b14c26b34b80e",
+      "lines": 278,
+      "bytes": 11985,
+      "sha256": "3f6dda852c096c84168ae77bc1e0472b7e2efff041169e20ba28613a7e2213ef",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md",
@@ -307,7 +312,8 @@
         "wiki/C03持久事件与桌面重连.md",
         "wiki/C已保存报价检查桌面切片.md",
         "wiki/C05c会话生命周期与业务对话.md",
-        "wiki/虚拟形象与记忆方案.md"
+        "wiki/虚拟形象与记忆方案.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     {
@@ -437,47 +443,62 @@
       ]
     },
     {
+      "path": "apps/desktop/src/renderer/src/features/enterprise-knowledge.tsx",
+      "type": "tsx",
+      "lines": 473,
+      "bytes": 19289,
+      "sha256": "1d14f28db01eaf5f8259b023e8b290a7862778de8bf259d417c21de2f417ef7f",
+      "role": "企业原文录入、CSV/合成导入、模型整理及分步人工审核发布",
+      "pages": [
+        "wiki/C14企业知识闭环方案.md"
+      ]
+    },
+    {
       "path": "apps/desktop/src/renderer/src/features/knowledge-graph-data.test.ts",
       "type": "ts",
-      "lines": 22,
-      "bytes": 926,
-      "sha256": "fbe37dcbc8a2b5958c2db1fc29b307f98f11eff80c9b75475d35589cc1f9d331",
+      "lines": 72,
+      "bytes": 2393,
+      "sha256": "34c4d6a5833c2c58ad625d42825414e8463165470c046bd93ced694bb413df53",
       "role": "C15只读知识关系图谱、来源边界及交互验证",
       "pages": [
-        "wiki/C15知识关系图谱.md"
+        "wiki/C15知识关系图谱.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     {
       "path": "apps/desktop/src/renderer/src/features/knowledge-graph-data.ts",
       "type": "ts",
-      "lines": 137,
-      "bytes": 5615,
-      "sha256": "df50bea86787c17aaa8840d31bb106cd9107631e3530bedf85fc061b30ad565f",
+      "lines": 171,
+      "bytes": 7181,
+      "sha256": "a1cf85ff1c6082b535822d24cadb00daed49a4b75ddecde56cf33afc6b59118a",
       "role": "C15只读知识关系图谱、来源边界及交互验证",
       "pages": [
-        "wiki/C15知识关系图谱.md"
+        "wiki/C15知识关系图谱.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     {
       "path": "apps/desktop/src/renderer/src/features/knowledge-graph.css",
       "type": "css",
-      "lines": 164,
-      "bytes": 2931,
-      "sha256": "acb84a41e7150f370b5cd0babf805578f2a790b7646e6d234512ff294b9b05fb",
+      "lines": 219,
+      "bytes": 3975,
+      "sha256": "4416f7d29df027ce5942f4a4309c5b5ec99c2bb91299ff00e0ff27682eef92fd",
       "role": "C15只读知识关系图谱、来源边界及交互验证",
       "pages": [
-        "wiki/C15知识关系图谱.md"
+        "wiki/C15知识关系图谱.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     {
       "path": "apps/desktop/src/renderer/src/features/knowledge-graph.tsx",
       "type": "tsx",
-      "lines": 313,
-      "bytes": 11271,
-      "sha256": "fee4c07bcfb66d64790a50bfff8434e0ec65f1f862dd3e0d9afd35baa4a2327f",
+      "lines": 344,
+      "bytes": 12287,
+      "sha256": "cd9c72e449c707e189fd0dd98781285ba69c2cc088cfc58c75280810f5295df7",
       "role": "C15只读知识关系图谱、来源边界及交互验证",
       "pages": [
-        "wiki/C15知识关系图谱.md"
+        "wiki/C15知识关系图谱.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     {
@@ -841,16 +862,17 @@
     {
       "path": "apps/desktop/src/workers/business.ts",
       "type": "ts",
-      "lines": 96,
-      "bytes": 3397,
-      "sha256": "3a4121b57f0cfd89d54abaa9dffde05b0add9ba54ee1f1cfe8802382f51a1390",
+      "lines": 129,
+      "bytes": 4678,
+      "sha256": "25a96c8b54aa9852ffab2bd09c36f2cd1c3e375bd7087b060a5df6f1db86b85f",
       "role": "M1 pinned workspace build and desktop process lifecycle",
       "pages": [
         "wiki/M1工程基线.md",
         "wiki/C02c统一运行与写账本.md",
         "wiki/C03持久事件与桌面重连.md",
         "wiki/C已保存报价检查桌面切片.md",
-        "wiki/C05c会话生命周期与业务对话.md"
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     {
@@ -1794,9 +1816,9 @@
     {
       "path": "packages/contracts/src/index.ts",
       "type": "ts",
-      "lines": 180,
-      "bytes": 6233,
-      "sha256": "4709457583f039187b86524493dffda93ba654cc8faf568d441cba8beb5e6a82",
+      "lines": 197,
+      "bytes": 6725,
+      "sha256": "3ece03da30771b61f10dd441abc19ded54dd4f5350ae0bdc6321dd9f0cc28733",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
@@ -1806,7 +1828,8 @@
         "wiki/C04正式设置评估入口.md",
         "wiki/C03持久事件与桌面重连.md",
         "wiki/C已保存报价检查桌面切片.md",
-        "wiki/虚拟形象与记忆方案.md"
+        "wiki/虚拟形象与记忆方案.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     {
@@ -1832,6 +1855,17 @@
       ]
     },
     {
+      "path": "packages/contracts/src/knowledge-desktop.ts",
+      "type": "ts",
+      "lines": 57,
+      "bytes": 2139,
+      "sha256": "8be3d936a4d3fe17dab3674af0cbeb7d2381b7a1301227215aac390452606c8d",
+      "role": "企业知识列表、单来源模型整理与幂等CSV/合成导入契约",
+      "pages": [
+        "wiki/C14企业知识闭环方案.md"
+      ]
+    },
+    {
       "path": "packages/contracts/src/knowledge-lint-review.test.ts",
       "type": "ts",
       "lines": 215,
@@ -1847,11 +1881,12 @@
       "path": "packages/contracts/src/knowledge-maintenance.test.ts",
       "type": "ts",
       "lines": 433,
-      "bytes": 13762,
-      "sha256": "cf1a9c9ba221260135899644a8e9546bdff7e2d10fb3b5b627688e21d80262c7",
+      "bytes": 13742,
+      "sha256": "a80761d14fa4bb9c98f1898e5a395fa9e2870b74c94c2b2ddf7a951b0338b1b0",
       "role": "P1 unknown/failure reports, human resolution, paging and stale projection negative tests",
       "pages": [
-        "wiki/B00a知识整理与维护协议.md"
+        "wiki/B00a知识整理与维护协议.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     {
@@ -1869,11 +1904,12 @@
       "path": "packages/contracts/src/knowledge-wiki.test.ts",
       "type": "ts",
       "lines": 587,
-      "bytes": 21230,
-      "sha256": "0d96348f8768f75a196d5e008c30fcca0e22fef2ff1800ec6099a7cd131c795f",
+      "bytes": 21226,
+      "sha256": "cca2c4877ee340cdaaa7b06ab3441359ec603cc7dc50122d0b9d1ac9d69cf7e2",
       "role": "B00a P0 authority, provenance, historical-read, validity and pagination negative regressions",
       "pages": [
-        "wiki/B00a知识Wiki公共协议.md"
+        "wiki/B00a知识Wiki公共协议.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     {
@@ -1953,16 +1989,17 @@
     {
       "path": "packages/contracts/src/pending-client.ts",
       "type": "ts",
-      "lines": 51,
-      "bytes": 2721,
-      "sha256": "0767cc4a497bb105dde8ff870574be82e247e2c18ad516a8db704acb7a63a40b",
+      "lines": 54,
+      "bytes": 2939,
+      "sha256": "218aac1a61ff1eb8e74b44dcb39044ed8b3075b343f078ab856696740eba0656",
       "role": "B00 strict knowledge/check/run protocols and boundary regression",
       "pages": [
         "wiki/首批并行接口约定.md",
         "wiki/B00a知识Wiki公共协议.md",
         "wiki/B00a知识整理与维护协议.md",
         "wiki/C03持久事件与桌面重连.md",
-        "wiki/C05c会话生命周期与业务对话.md"
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     {
@@ -2456,9 +2493,9 @@
     {
       "path": "packages/infrastructure/src/agent-run-store.ts",
       "type": "ts",
-      "lines": 906,
-      "bytes": 35430,
-      "sha256": "aede2c3d488161b4b9ca31bfffb3590ce1b743af9e46e792a80e5be702e27553",
+      "lines": 982,
+      "bytes": 38520,
+      "sha256": "cb9bcae320eb3172acf026f9759060281c603c496a35397e6679e38689e37ae5",
       "role": "持久运行存储、票据、控制重放与同连接报价原子提交",
       "pages": [
         "wiki/C02c持久运行与写入前置.md",
@@ -2466,7 +2503,8 @@
         "wiki/C02c多步报价工具闭环.md",
         "wiki/C03持久事件与桌面重连.md",
         "wiki/C05CodexHarness与单据工作台.md",
-        "wiki/C05c会话生命周期与业务对话.md"
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     {
@@ -2690,6 +2728,39 @@
       ]
     },
     {
+      "path": "packages/infrastructure/src/enterprise-knowledge.test.ts",
+      "type": "ts",
+      "lines": 351,
+      "bytes": 13052,
+      "sha256": "9a3baff268209f6515fd357f41a18c91148b71a0fb76dc9e7aaf6b8c1405cbab",
+      "role": "企业知识引用真实性、幂等、发布、报价消费与真实CSV回归",
+      "pages": [
+        "wiki/C14企业知识闭环方案.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/enterprise-knowledge.ts",
+      "type": "ts",
+      "lines": 252,
+      "bytes": 10880,
+      "sha256": "0920fc8f956bc3a671187d12ccf4eb4e0cb18b6e87d4db3cdd13d0d19091f098",
+      "role": "企业知识概览与有界真实模型候选编排",
+      "pages": [
+        "wiki/C14企业知识闭环方案.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/enterprise-material.ts",
+      "type": "ts",
+      "lines": 246,
+      "bytes": 10778,
+      "sha256": "93fbe8dbe65fd3794ad8033b9f4ecf28d2ddac76e5d450ea4874cb8b376f4fbc",
+      "role": "用户CSV按SKU原文来源与候选导入、明确合成企业资料、原子幂等",
+      "pages": [
+        "wiki/C14企业知识闭环方案.md"
+      ]
+    },
+    {
       "path": "packages/infrastructure/src/evaluation/action-regressions.test.ts",
       "type": "ts",
       "lines": 356,
@@ -2849,9 +2920,9 @@
     {
       "path": "packages/infrastructure/src/index.ts",
       "type": "ts",
-      "lines": 172,
-      "bytes": 6498,
-      "sha256": "304af01e0feffd53ecc96552ad53f7472348fdcaf88b1aff094d1a0d34df66c7",
+      "lines": 192,
+      "bytes": 7233,
+      "sha256": "429c235ada922a14c5f2af756bb00b2ac3bd14b06dd8397c2a54179fcb9e31cb",
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md",
@@ -2860,7 +2931,8 @@
         "wiki/B谱系账本适配与P1回执交接.md",
         "wiki/C02c统一运行与写账本.md",
         "wiki/Ae7a9439接收与P1接线阻断复核.md",
-        "wiki/虚拟形象与记忆方案.md"
+        "wiki/虚拟形象与记忆方案.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     {
@@ -3018,12 +3090,13 @@
     {
       "path": "packages/infrastructure/src/quote-draft-plan.ts",
       "type": "ts",
-      "lines": 124,
-      "bytes": 4578,
-      "sha256": "87111b9a887346454a449f46a186acd4fee2d1e74602c2dc91b4ffc7e6a669ef",
+      "lines": 150,
+      "bytes": 5393,
+      "sha256": "0c3f70e48e2392f1ac1a5fb0ddc21d03758cfcad9aacfdab0f90f50e21838434",
       "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
       "pages": [
-        "wiki/C02c多步报价工具闭环.md"
+        "wiki/C02c多步报价工具闭环.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     {
@@ -3043,9 +3116,9 @@
     {
       "path": "packages/infrastructure/src/quote-tool-agent.ts",
       "type": "ts",
-      "lines": 470,
-      "bytes": 20376,
-      "sha256": "2f4cddf49fa9d0335a8d9a4760f4d3f9a381975f1cdef310e64e72e368b3e50e",
+      "lines": 523,
+      "bytes": 22341,
+      "sha256": "a2ff6d859ee33b480d85756093a091fd3b04aa897c977777eebe1e6c8cee6b6a",
       "role": "C02c多步报价候选、来源规则、原子写授权与真实桌面/强杀验收",
       "pages": [
         "wiki/C02c多步报价工具闭环.md",
@@ -3054,7 +3127,8 @@
         "wiki/C04剩余失败证据与收敛.md",
         "wiki/C04动作与澄清失败收敛.md",
         "wiki/C05CodexHarness与单据工作台.md",
-        "wiki/C05c会话生命周期与业务对话.md"
+        "wiki/C05c会话生命周期与业务对话.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     {
@@ -3196,13 +3270,14 @@
     {
       "path": "packages/infrastructure/src/wiki-check-source.ts",
       "type": "ts",
-      "lines": 148,
-      "bytes": 5655,
-      "sha256": "2b63e2472fe345f0c807a43c775f0bc1986780f0c2718cabac6f33f39a8b974c",
+      "lines": 163,
+      "bytes": 6336,
+      "sha256": "839f0ce1f6ebe7b90242eb0bca9ef30bbd0c3c32a5a11d4ae9d706c442bab8c9",
       "role": "同连接搜索解析、多来源hash与提交前复核、报告消费登记",
       "pages": [
         "wiki/B规则检查实现.md",
-        "wiki/A01c检索引用实现.md"
+        "wiki/A01c检索引用实现.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     {
@@ -3509,6 +3584,17 @@
       ]
     },
     {
+      "path": "tests/e2e/enterprise-real-model.spec.ts",
+      "type": "ts",
+      "lines": 166,
+      "bytes": 7445,
+      "sha256": "d922119473742944e784f4023dc28f55d00c1a5a0fef3bf8d19092873b14a50c",
+      "role": "显式opt-in真实模型企业资料整理与知识引用报价验收",
+      "pages": [
+        "wiki/C14企业知识闭环方案.md"
+      ]
+    },
+    {
       "path": "tests/e2e/feedback.spec.ts",
       "type": "ts",
       "lines": 105,
@@ -3523,12 +3609,13 @@
     {
       "path": "tests/e2e/knowledge-graph.spec.ts",
       "type": "ts",
-      "lines": 35,
-      "bytes": 1944,
-      "sha256": "cedbda09cb76a3ad6dcb39656178d7ecd17d046dfb06dee3ab33d6e3f6ed3739",
+      "lines": 84,
+      "bytes": 4612,
+      "sha256": "21f75df9d94b4f4ca980007bdeca7dbd566a730f0a4cc6eba1d08706a95cf905",
       "role": "C15只读知识关系图谱、来源边界及交互验证",
       "pages": [
-        "wiki/C15知识关系图谱.md"
+        "wiki/C15知识关系图谱.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     {
@@ -3635,9 +3722,9 @@
     {
       "path": "tests/e2e/workspace.spec.ts",
       "type": "ts",
-      "lines": 357,
-      "bytes": 15001,
-      "sha256": "8fb11da76788f6c77cca565a105b5931e410bc271567a18a1424c8240304ce19",
+      "lines": 365,
+      "bytes": 15249,
+      "sha256": "0b2da12a18c5bf322878cbecf940a4f7ee01e53704f980934eb34ba0a1b883e1",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md",
@@ -3649,7 +3736,8 @@
         "wiki/C已保存报价检查桌面切片.md",
         "wiki/C05CodexHarness与单据工作台.md",
         "wiki/C05c会话生命周期与业务对话.md",
-        "wiki/C07业务资料与路演收口.md"
+        "wiki/C07业务资料与路演收口.md",
+        "wiki/C14企业知识闭环方案.md"
       ]
     },
     {

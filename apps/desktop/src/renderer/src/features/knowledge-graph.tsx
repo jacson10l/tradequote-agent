@@ -2,37 +2,35 @@ import { useQuery } from "@tanstack/react-query";
 import type { DesktopClient } from "@tradequote/contracts";
 import { useMemo, useRef, useState } from "react";
 import { Button } from "../shared/button";
-import {
-  buildBusinessGraph,
-  buildWikiGraph,
-  type KnowledgeGraph,
-  layoutGraph,
-} from "./knowledge-graph-data";
+import { buildEnterpriseGraph, type KnowledgeGraph, layoutGraph } from "./knowledge-graph-data";
 import "./knowledge-graph.css";
+import { Link } from "react-router-dom";
+import { EnterpriseKnowledgePanel } from "./enterprise-knowledge";
 
-const documents = import.meta.glob<string>("../../../../../../wiki-project/wiki/*.md", {
-  query: "?raw",
-  import: "default",
-  eager: true,
-});
-const engineering = buildWikiGraph(documents);
 const empty: KnowledgeGraph = { nodes: [], edges: [] };
 export function KnowledgeGraphPage({ client }: { client: DesktopClient }) {
-  const [scope, setScope] = useState("engineering");
+  const [scope, setScope] = useState("all");
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState("");
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const drag = useRef<{ x: number; y: number; px: number; py: number } | null>(null);
   const query = useQuery({
-    queryKey: ["knowledge-graph"],
-    enabled: scope === "business",
+    queryKey: ["enterprise-knowledge"],
     retry: false,
     queryFn: async () => {
+      const result = await client.executeKnowledgeDesktop({
+        schemaVersion: 1,
+        requestId: crypto.randomUUID(),
+        method: "knowledge.overview",
+        payload: {},
+      });
+      if (!result.ok) throw new Error(result.error.message);
+      if (result.data.kind !== "knowledgeOverview") throw new Error("知识列表返回格式异常");
       const board = await client.getTrade();
       if (!board.ok) throw new Error(board.error.message);
       const quotes = board.data.quotes.slice(0, 30);
-      const results = await Promise.all(
+      const checks = await Promise.all(
         quotes.map((q) =>
           client.getQuoteChecks({
             schemaVersion: 1,
@@ -42,14 +40,31 @@ export function KnowledgeGraphPage({ client }: { client: DesktopClient }) {
           }),
         ),
       );
-      const reports = results.flatMap((r) => {
+      const reports = checks.flatMap((r) => {
         if (!r.ok) throw new Error(r.error.message);
         return r.data;
       });
-      return { ...buildBusinessGraph(quotes, reports), limited: board.data.quotes.length > 30 };
+      return { ...result.data, quotes, reports };
     },
   });
-  const graph = scope === "engineering" ? engineering : (query.data ?? empty);
+  const graph = useMemo(() => {
+    if (!query.data) return empty;
+    const records =
+      scope === "published"
+        ? query.data.records.filter((r) => r.lifecycle.state === "published")
+        : query.data.records;
+    const sources =
+      scope === "published"
+        ? query.data.sources.filter((s) =>
+            records.some((r) =>
+              r.revision.content.sourceRefs.some(
+                (ref) => ref.sourceRevisionId === s.sourceRevisionId,
+              ),
+            ),
+          )
+        : query.data.sources;
+    return buildEnterpriseGraph(sources, records, query.data.quotes, query.data.reports);
+  }, [scope, query.data]);
   const positions = useMemo(() => layoutGraph(graph), [graph]);
   const degree = useMemo(() => {
     const result = new Map<string, number>();
@@ -97,8 +112,8 @@ export function KnowledgeGraphPage({ client }: { client: DesktopClient }) {
               reset();
             }}
           >
-            <option value="engineering">工程 Wiki · 实际文档</option>
-            <option value="business">企业知识 · 报价引用</option>
+            <option value="all">企业知识 · 全部资料与候选</option>
+            <option value="published">企业知识 · 已发布</option>
           </select>
         </label>
         <input
@@ -137,24 +152,38 @@ export function KnowledgeGraphPage({ client }: { client: DesktopClient }) {
         >
           重置视图
         </Button>
-        {scope === "business" && (
+        {
           <Button
             variant="outline"
             disabled={query.isFetching}
             onClick={() => void query.refetch()}
           >
-            刷新引用
+            刷新知识
           </Button>
-        )}
+        }
       </div>
       <p className="description">
-        {scope === "engineering"
-          ? "来自当前版本工程 Wiki 的真实文档与双向链接；用于展示项目知识结构，不代表企业业务知识已被采用。"
-          : "显示最近 30 个报价版本中已保存的 Wiki 引用和来源关系；尚未被报价引用的知识候选暂不包含。"}{" "}
-        拖动画布平移，点击节点查看邻居与依据。
+        当前工作区的企业资料、Wiki
+        候选与固定来源。待审核内容可以浏览，只有人工发布的适用知识可被报价采用。拖动画布平移，点击节点查看原文与关联。
       </p>
-      {query.isError && scope === "business" && <p role="alert">{query.error.message}</p>}
-      {query.isFetching && scope === "business" && <p role="status">正在读取实际报价引用…</p>}
+      {query.isError && (
+        <p role="alert">
+          {query.error.message} <Link to="/workspace">打开工作区设置</Link>
+        </p>
+      )}
+      {query.isFetching && <p role="status">正在读取企业知识…</p>}
+      {query.data?.hasMore && (
+        <p role="status">当前显示最近300个来源和400个知识版本，较早版本暂未展示。</p>
+      )}
+      {query.data && (
+        <EnterpriseKnowledgePanel
+          client={client}
+          sources={query.data.sources}
+          records={query.data.records}
+          onRefresh={() => query.refetch()}
+        />
+      )}
+
       <div className="kg-body">
         <div className="kg-canvas">
           <svg
@@ -246,9 +275,9 @@ export function KnowledgeGraphPage({ client }: { client: DesktopClient }) {
           </svg>
           {graph.nodes.length === 0 && !query.isFetching && !query.isError && (
             <div className="kg-empty">
-              暂无可展示的报价知识引用
+              暂无企业知识资料
               <br />
-              <small>知识审核发布并被报价采用后，这里会出现关系。</small>
+              <small>请录入资料、导入CSV或添加合成演示资料。</small>
             </div>
           )}
           <div className="kg-legend">
@@ -267,7 +296,9 @@ export function KnowledgeGraphPage({ client }: { client: DesktopClient }) {
                   ? "知识文档"
                   : current.kind === "source"
                     ? "固定来源"
-                    : "报价版本"}{" "}
+                    : current.kind === "scope"
+                      ? "适用范围"
+                      : "报价版本"}{" "}
                 · {neighbors.size} 个关联节点
               </p>
               <Button variant="outline" onClick={() => setSelected("")}>

@@ -11,8 +11,16 @@ import {
 } from "./checks";
 import type { KnowledgeClient } from "./knowledge";
 import type { KnowledgeBuildClient } from "./knowledge-build";
-import { type KnowledgeMaintenanceClient, KnowledgeMaintenanceCommandSchema, KnowledgeMaintenanceResultSchema } from "./knowledge-maintenance";
-import { type KnowledgeDesktopClient, KnowledgeDesktopCommandSchema, KnowledgeDesktopResultSchema } from "./knowledge-desktop";
+import {
+  type KnowledgeDesktopClient,
+  KnowledgeDesktopCommandSchema,
+  KnowledgeDesktopResultSchema,
+} from "./knowledge-desktop";
+import {
+  type KnowledgeMaintenanceClient,
+  KnowledgeMaintenanceCommandSchema,
+  KnowledgeMaintenanceResultSchema,
+} from "./knowledge-maintenance";
 import { type WikiClient, WikiCommandSchema, WikiResultSchema } from "./knowledge-wiki";
 import type { ModelEvaluationClient } from "./model-evaluation";
 import type { PetClient } from "./pet";
