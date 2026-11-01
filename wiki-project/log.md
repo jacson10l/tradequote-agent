@@ -1773,6 +1773,21 @@ C11最终维护回归 `pnpm wiki:test` 36/36通过、退出0；未修改工具�
 已将固定e33b68972a20d6c37270348fd3e5aeea2a2b3a32普通快进并原子推送至origin/main和origin/codex/m1-abc-integration，ls-remote两分支全SHA一致；原main历史完整保留。GitHub CLI可见性变更退出0，回读PUBLIC、默认main、MIT License，Actions仍disabled。无认证HTTPS读取仓库API、main的README与LICENSE均HTTP200，两个原文与本机逐字节一致。该任务已完成；下一文档提交仅保存回执，最终头部另行推送回读。代码能力和人工/Windows边界不变。证据见raw/c12-public-main-validation.json；关联[[C12公开发布与README]]、[[C12-main公开与README更新]]。
 
 
+## 2026-11-01 C15 图谱紧急交付
+
+用户要求10分钟简易Obsidian式图谱并发布main。独立bc6ba9e任务分支实现实际工程Wiki双链及报价Wiki引用图，不伪造企业知识；C14留在独立分支。类型与定向图数据测试通过，其余检查继续；覆盖映射/导航/README/DESIGN同步。见[[C15知识关系图谱]]、[[C15-知识图谱紧急交付]]。
+
+2026-11-01 C15本机只读图谱：类型/定向1项/构建/原生Electron1项/工程与固定bc6ba9e同步检查通过；截图确认节点分布与搜索详情。初次缺关联页门禁失败保留，修复后通过；完整业务套件未重跑，C14仍独立进行中。
+
+2026-11-01 C15图谱发布完成：3f39f7d在codex/m1-abc-integration复验typecheck/定向1项/check/固定bc6ba9e同步通过，main同SHA原子推送；ls-remote与fetch均一致。任务[[C15-知识图谱紧急交付]]已完成本轮简版范围；C14完整企业知识闭环仍独立进行中。
+
+2026-11-01 C16：用户要求图谱统一工作台浅色主题，C从ad00e1c独立修订CSS/SVG主题变量；不修改数据/引用，验证进行中。见[[C16-图谱统一浅色主题]]。
+
+2026-11-01 C16浅色主题本机验证通过：类型/构建/原生Electron图谱1项/工程及固定ad00e1c同步门禁，截图人工核对浅色卡片与统一图例；仅展示变化，未运行全量业务套件。证据raw/c16-graph-theme-validation.json。
+
+2026-11-01 C16已交付：浅色图谱修订91f58d9合入integration/main，集成check及固定ad00e1c同步通过；原子推送后ls-remote与fetch一致。见[[C16-图谱统一浅色主题]]。
+
+
 ## 2026-11-01 C14 企业知识闭环开工
 
 用户明确授权C单独实现与验收后集成。基线bc6ba9e，独立codex/c14-enterprise-wiki；复用现有知识服务，不派生Agent，不覆盖C13。方案及验收见[[C14企业知识闭环方案]]、[[C14-企业知识闭环]]。当前尚未完成实现或验收。

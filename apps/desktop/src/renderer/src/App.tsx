@@ -1,7 +1,8 @@
 import type { DesktopClient } from "@tradequote/contracts";
-import { FileText, Folder, LayoutDashboard, MessageSquare, Settings } from "lucide-react";
+import { FileText, Folder, LayoutDashboard, MessageSquare, Network, Settings } from "lucide-react";
 import { Navigate, NavLink, Route, Routes } from "react-router-dom";
 import brandIcon from "../../../resources/icon.svg";
+import { KnowledgeGraphPage } from "./features/knowledge-graph";
 import { ModelSettingsPage } from "./features/model-settings";
 import { PetAssistantPage } from "./features/pet-assistant";
 import { QuotesPage } from "./features/quotes";
@@ -46,6 +47,10 @@ function AppContent({ client }: { client: DesktopClient }) {
             <FileText size={18} />
             <span className="nav-label">资料与报价</span>
           </NavLink>
+          <NavLink to="/knowledge-graph" aria-label="知识图谱" title="知识图谱">
+            <Network size={18} />
+            <span className="nav-label">知识图谱</span>
+          </NavLink>
           <NavLink to="/workspace" aria-label="工作区设置" title="工作区设置">
             <Settings size={18} />
             <span className="nav-label">工作区设置</span>
@@ -68,6 +73,7 @@ function AppContent({ client }: { client: DesktopClient }) {
         <Routes>
           <Route path="/" element={<Workbench client={client} />} />
           <Route path="/quotes" element={<QuotesPage client={client} />} />
+          <Route path="/knowledge-graph" element={<KnowledgeGraphPage client={client} />} />
           <Route path="/model" element={<ModelSettingsPage client={client} />} />
           <Route path="/pet" element={<PetAssistantPage client={client} />} />
           <Route path="/assistant" element={<ReadAssistantPage client={client} />} />

@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "b3d0957c0240b68d7a1e5c2e0311458c8c08b6322b84330d80ea4c7acad2c195",
-    "wiki-config.json": "d225857b2f9a09cda5d671469fffc660f75738870bb7c3f09daced7bfdc64600",
+    "wiki-config.json": "46693fea596fee2dd1ffed55a129b56e3e40328205912888772f54f75202241c",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -86,13 +86,14 @@
     {
       "path": "DESIGN.md",
       "type": "md",
-      "lines": 119,
-      "bytes": 12011,
-      "sha256": "9b12db9a0b59be0cde09152dd4b95630958a8a38ba48b725d5328e02ec8d1f07",
+      "lines": 129,
+      "bytes": 12822,
+      "sha256": "0dc861f4d86ffdce0104d0ddb579fab9cc829035d0ab14eb3d0339b281d405eb",
       "role": "当前视觉规范",
       "pages": [
         "wiki/decisions/0001-Mistral工作台风格.md",
-        "wiki/C07业务资料与路演收口.md"
+        "wiki/C07业务资料与路演收口.md",
+        "wiki/C15知识关系图谱.md"
       ]
     },
     {
@@ -110,16 +111,17 @@
     {
       "path": "README.md",
       "type": "md",
-      "lines": 121,
-      "bytes": 8066,
-      "sha256": "b53989abf958663b6518663cc49be98a97c8104856a69686b6e05dd8b3ebf6cc",
+      "lines": 125,
+      "bytes": 8427,
+      "sha256": "4b88576b0abe143b56af9087288c562759d1d98fa6a72a1392a716788af62a35",
       "role": "项目入口与协作约束",
       "pages": [
         "wiki/项目状态.md",
         "wiki/Wiki 工作流与任务记录.md",
         "wiki/C03持久事件与桌面重连.md",
         "wiki/C04收口与验收边界.md",
-        "wiki/C05CodexHarness与单据工作台.md"
+        "wiki/C05CodexHarness与单据工作台.md",
+        "wiki/C15知识关系图谱.md"
       ]
     },
     {
@@ -322,15 +324,16 @@
     {
       "path": "apps/desktop/src/renderer/src/App.tsx",
       "type": "tsx",
-      "lines": 80,
-      "bytes": 3430,
-      "sha256": "66474d4685610e256137d39ac83bf2db083ca1a34ef78494c0a4e12b6309685d",
+      "lines": 86,
+      "bytes": 3801,
+      "sha256": "44a59a4e0fd0b862f0dde8cc4f6e26e8f1e27d4cd05bd3def84b306274f7570e",
       "role": "M1 React workspace form and document layout",
       "pages": [
         "wiki/M1工作台.md",
         "wiki/C05c会话生命周期与业务对话.md",
         "wiki/C07业务资料与路演收口.md",
-        "wiki/虚拟形象与记忆方案.md"
+        "wiki/虚拟形象与记忆方案.md",
+        "wiki/C15知识关系图谱.md"
       ]
     },
     {
@@ -431,6 +434,50 @@
         "wiki/C客户回复草稿桌面切片.md",
         "wiki/C05c会话生命周期与业务对话.md",
         "wiki/C07业务资料与路演收口.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/knowledge-graph-data.test.ts",
+      "type": "ts",
+      "lines": 22,
+      "bytes": 926,
+      "sha256": "fbe37dcbc8a2b5958c2db1fc29b307f98f11eff80c9b75475d35589cc1f9d331",
+      "role": "C15只读知识关系图谱、来源边界及交互验证",
+      "pages": [
+        "wiki/C15知识关系图谱.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/knowledge-graph-data.ts",
+      "type": "ts",
+      "lines": 137,
+      "bytes": 5615,
+      "sha256": "df50bea86787c17aaa8840d31bb106cd9107631e3530bedf85fc061b30ad565f",
+      "role": "C15只读知识关系图谱、来源边界及交互验证",
+      "pages": [
+        "wiki/C15知识关系图谱.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/knowledge-graph.css",
+      "type": "css",
+      "lines": 164,
+      "bytes": 2931,
+      "sha256": "acb84a41e7150f370b5cd0babf805578f2a790b7646e6d234512ff294b9b05fb",
+      "role": "C15只读知识关系图谱、来源边界及交互验证",
+      "pages": [
+        "wiki/C15知识关系图谱.md"
+      ]
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/features/knowledge-graph.tsx",
+      "type": "tsx",
+      "lines": 313,
+      "bytes": 11271,
+      "sha256": "fee4c07bcfb66d64790a50bfff8434e0ec65f1f862dd3e0d9afd35baa4a2327f",
+      "role": "C15只读知识关系图谱、来源边界及交互验证",
+      "pages": [
+        "wiki/C15知识关系图谱.md"
       ]
     },
     {
@@ -3471,6 +3518,17 @@
       "pages": [
         "wiki/M1验证与协作.md",
         "wiki/C05CodexHarness与单据工作台.md"
+      ]
+    },
+    {
+      "path": "tests/e2e/knowledge-graph.spec.ts",
+      "type": "ts",
+      "lines": 35,
+      "bytes": 1944,
+      "sha256": "cedbda09cb76a3ad6dcb39656178d7ecd17d046dfb06dee3ab33d6e3f6ed3739",
+      "role": "C15只读知识关系图谱、来源边界及交互验证",
+      "pages": [
+        "wiki/C15知识关系图谱.md"
       ]
     },
     {
