@@ -116,5 +116,23 @@
     "human business/language sign-off",
     "Windows deferred"
   ],
-  "review": "Independent Agent static review reported no P0/P1/P2, not human semantic approval"
+  "review": "Independent Agent static review reported no P0/P1/P2, not human semantic approval",
+  "remoteReadback": {
+    "historicalPendingPreserved": true,
+    "remote": "origin",
+    "branch": "codex/m1-abc-integration",
+    "push": {
+      "command": "git push origin codex/m1-abc-integration",
+      "exitCode": 0,
+      "range": "491c027..5597850"
+    },
+    "readback": {
+      "command": "git ls-remote origin refs/heads/codex/m1-abc-integration",
+      "exitCode": 0,
+      "sha": "5597850e92015b7e9355fc777a683ce1e1dea42f"
+    },
+    "integrationWikiChecks": "pnpm wiki:check and fixed 491c027 wiki:sync passed again on integration; 308 sources, 314 Markdown, 8 changed code files, 13 knowledge pages, 3 tasks",
+    "status": "Code and semantic Wiki integrated on remote; local technical verification passed. This follow-up documentation commit still requires its own push/readback.",
+    "reportedBy": "root coordinator after executing commands"
+  }
 }

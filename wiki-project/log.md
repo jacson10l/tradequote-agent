@@ -1751,3 +1751,10 @@ C11最终维护回归 `pnpm wiki:test` 36/36通过、退出0；未修改工具�
 ## 2026-11-01 C11 本机集成复验与新版Cue发布回执
 
 00022ce功能组合已快进本机codex/m1-abc-integration。typecheck/check/固定491c027 sync与Wiki维护36通过；首轮并发单元592通过/1失败/3跳过（apps/desktop/src/renderer/src/features/quote-checks.test.tsx:256 findByRole等待失败），不改代码/断言/超时，完整串行593通过/3跳过。首轮失败保留，未宣称并发根因已完全查明。pnpm test:e2e含build14通过/1跳过。新Cue重新制作8页PPTX及8页讲稿、经网页导入并逐页核对、已发布且观看页1/8与正文实际可见；无Cue MCP连接，启动为实际截图和时序说明而非嵌入视频，素材为合成Electron。分享密钥不入Git；原始日志与素材hash见raw/c11-integration-cue-receipt.json，详见[[C11-英德客户产物修复]]、[[C09交付冻结与Cue更新]]。本次仅追加文档，远端推送回读待主协作者随后执行，人工业务语言签认与Windows后置保持。
+
+
+## 2026-11-01 远端集成回读
+
+主协作者在唯一集成分支快进5597850后，重新通过只读Wiki check/lint及固定491c027 sync（308源码、314 Markdown；8改动源码、13知识页、3任务）。`git push origin codex/m1-abc-integration` 退出0，范围491c027..5597850；`git ls-remote origin refs/heads/codex/m1-abc-integration` 退出0，实际远端SHA为 `5597850e92015b7e9355fc777a683ce1e1dea42f`。本次代码和语义Wiki已远端集成，本机技术复验通过；前述pending保持为历史时点，新的回读证据见raw/c11-integration-cue-receipt.json的remoteReadback。
+
+本追加回执自身的最后文档提交由主协作者随后推送并核对最终head；不重跑未改变的业务测试。首轮并发组件失败与串行通过均保留，人工业务/语言签认、真实模型质量和Windows后置边界不变，不能用技术验收代签。

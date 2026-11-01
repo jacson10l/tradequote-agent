@@ -291,3 +291,10 @@ C封板技术稳定性补齐：真实deepseek-flash连续五轮、每轮7检查�
 新版 [Cue八页演示](https://cue.humanmeetsai.com/deck/0b01606d-f1ad-4aa5-ae81-c4cbea9a8162) 已重新制作PPTX并通过已登录网页导入，包含8页讲稿，主协作者逐页截图核对通过；已发布最新版本，凭分享链接无需账号可观看；观看页已实际打开并显示1/8和完整内容，发布截图已保存。分享密钥不写入Git，面向用户的观看链接由主协作者直接交付。没有Cue MCP连接，不称为MCP直建。使用修复后真实Electron合成验收截图，含英德客户回复、小人和启动页；启动动画以实际截图和时序说明呈现，并非嵌入实时视频。素材不是客户原件；模型质量、人工语言与业务签认、Windows与正式外发/PDF仍不宣称通过。
 
 本机素材和复验日志位于 `.runtime/c11-cue/`，不提交运行目录、PPTX或完整日志。发布、素材hash及各项真实命令/退出码见 `raw/c11-integration-cue-receipt.json`。远端推送回读仍是下一步，按后续实际结果追加；当前不宣称远端最终验收完成。
+
+
+## 2026-11-01 远端集成回读
+
+主协作者在唯一集成分支快进5597850后，重新通过只读Wiki check/lint及固定491c027 sync（308源码、314 Markdown；8改动源码、13知识页、3任务）。`git push origin codex/m1-abc-integration` 退出0，范围491c027..5597850；`git ls-remote origin refs/heads/codex/m1-abc-integration` 退出0，实际远端SHA为 `5597850e92015b7e9355fc777a683ce1e1dea42f`。本次代码和语义Wiki已远端集成，本机技术复验通过；前述pending保持为历史时点，新的回读证据见raw/c11-integration-cue-receipt.json的remoteReadback。
+
+本追加回执自身的最后文档提交由主协作者随后推送并核对最终head；不重跑未改变的业务测试。首轮并发组件失败与串行通过均保留，人工业务/语言签认、真实模型质量和Windows后置边界不变，不能用技术验收代签。
