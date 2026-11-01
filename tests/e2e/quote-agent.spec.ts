@@ -145,6 +145,8 @@ test("desktop settings and HTTP adapter support inquiry plus two saved revisions
     await expect(replyText).toHaveValue(/V3/);
     await expect(reply.getByLabel("内部核对记录")).toHaveValue(/\[pending\]/);
     const englishDraft = await replyText.inputValue();
+    const beforeLanguageSwitch = await page.evaluate(() => window.tradequote.getTrade());
+    await page.screenshot({ path: ".runtime/customer-reply-en.png" });
     await app.evaluate(({ clipboard }) => clipboard.writeText("SYNTHETIC-COPY-CONTROL"));
     await reply.getByRole("button", { name: "复制未审核草稿" }).click();
     await expect(
@@ -182,6 +184,8 @@ test("desktop settings and HTTP adapter support inquiry plus two saved revisions
       }),
     ).toBe(true);
     await reply.getByLabel("回复语言").selectOption("de");
+    await expect(replyText).toHaveValue(/Angebot · V3/);
+    await expect(replyText).toHaveValue(/Warenzwischensumme: 1080.00 USD/);
     await expect(reply.getByLabel("内部核对记录")).toHaveValue(/Nicht geprüfter Entwurf/);
     await expect(replyText).toHaveValue(/1080.00 USD/);
     await expect(replyText).toHaveValue(/30%预付/);
@@ -190,6 +194,19 @@ test("desktop settings and HTTP adapter support inquiry plus two saved revisions
     await expect(page.getByRole("button", { name: "提交人工审核" })).toBeDisabled();
     await reply.scrollIntoViewIfNeeded();
     await page.screenshot({ path: ".runtime/customer-reply-de.png" });
+    const germanDraft = await replyText.inputValue();
+    expect(germanDraft).not.toBe(englishDraft);
+    await reply.getByRole("button", { name: "复制未审核草稿" }).click();
+    await expect
+      .poll(() => app.evaluate(({ clipboard }) => clipboard.readText()))
+      .toBe(germanDraft);
+    await reply.getByLabel("回复语言").selectOption("en");
+    await expect(replyText).toHaveValue(englishDraft);
+    await reply.getByRole("button", { name: "复制未审核草稿" }).click();
+    await expect
+      .poll(() => app.evaluate(({ clipboard }) => clipboard.readText()))
+      .toBe(englishDraft);
+    expect(await page.evaluate(() => window.tradequote.getTrade())).toEqual(beforeLanguageSwitch);
     const saved = await page.evaluate(() => window.tradequote.getTrade());
     if (!saved.ok) throw new Error("read failed");
     expect(saved.data.quotes).toHaveLength(3);
@@ -256,6 +273,24 @@ test("desktop settings and HTTP adapter support inquiry plus two saved revisions
       await expect(reopened.getByText(/凭据：已配置/)).toBeVisible();
     await reopened.getByRole("button", { name: "清除本机凭据" }).click();
     await expect(reopened.getByText("本机模型凭据已清除。")).toBeVisible();
+    await reopened
+      .getByRole("navigation")
+      .getByRole("link", { name: "报价助手", exact: true })
+      .click();
+    await expect(reopened.getByRole("heading", { name: "报价助手 · 对话" })).toBeVisible();
+    await expect(reopened.getByLabel("人设内容")).toBeVisible();
+    await expect(reopened.locator(".pet-mascot")).toHaveAttribute("data-mood", "idle");
+    await expect
+      .poll(() =>
+        reopened
+          .locator(".pet-mascot")
+          .evaluate(
+            (image) =>
+              image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0,
+          ),
+      )
+      .toBe(true);
+    await reopened.screenshot({ path: ".runtime/pet-companion.png" });
   } finally {
     await app.close();
     await new Promise<void>((r) => server.close(() => r()));

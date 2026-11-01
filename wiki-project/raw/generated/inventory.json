@@ -3491,9 +3491,9 @@
     {
       "path": "tests/e2e/quote-agent.spec.ts",
       "type": "ts",
-      "lines": 264,
-      "bytes": 13447,
-      "sha256": "8d019310405696d2955979b38f9651e395e879a39462a52a84d76ba0dc614b7c",
+      "lines": 299,
+      "bytes": 15174,
+      "sha256": "7d4769671771605b2ba0b3a66c08989823c88ab5694363d3fa6b77b1800bf011",
       "role": "真实Electron加HTTP替身两轮报价验收",
       "pages": [
         "wiki/M4模型与报价修订.md",

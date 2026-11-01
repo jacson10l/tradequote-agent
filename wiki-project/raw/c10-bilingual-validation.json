@@ -1,0 +1,112 @@
+{
+  "task": "C10 bilingual audit and fresh presentation evidence",
+  "status": "partial_bilingual_support_confirmed_full_german_output_not_passed",
+  "base": "491c027792b70ff2611d911126a3644b96cf15d6",
+  "branch": "codex/c10-bilingual-audit",
+  "environment": {
+    "os": "macOS 26.4",
+    "arch": "arm64",
+    "node": "22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2"
+  },
+  "changedCode": [
+    {
+      "path": "tests/e2e/quote-agent.spec.ts",
+      "sha256": "7d4769671771605b2ba0b3a66c08989823c88ab5694363d3fa6b77b1800bf011"
+    }
+  ],
+  "productionChanged": false,
+  "commands": [
+    {
+      "command": "pnpm build",
+      "exitCode": 0,
+      "result": "passed; existing chunk/native config warnings retained",
+      "log": "/Users/jason/.codex/worktrees/c10-bilingual-audit/tradequote-agent/.runtime/c10-bilingual/build.log",
+      "sha256": "bdfb746530faae841b52316f84304e7628f844227a5e617ab531f0827c1b5272"
+    },
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "result": "passed",
+      "log": "/Users/jason/.codex/worktrees/c10-bilingual-audit/tradequote-agent/.runtime/c10-bilingual/typecheck.log",
+      "sha256": "32832f369fefeb496efbc10eff4df6c69889e44485738ce3437ddf07bcafdd7c"
+    },
+    {
+      "command": "ELECTRON_RUN_AS_NODE=1 electron vitest run customer-reply/customer-reply-format/quote-delivery/pet-memory-store/pet-quote-context/startup-confetti",
+      "exitCode": 0,
+      "result": "6 files, 38 passed",
+      "log": "/Users/jason/.codex/worktrees/c10-bilingual-audit/tradequote-agent/.runtime/c10-bilingual/unit.log",
+      "sha256": "a0dac1b82cf9843e3139a3324b551838af0902e240d722d4c0adf53bd224166f"
+    },
+    {
+      "command": "pnpm exec playwright test tests/e2e/quote-agent.spec.ts tests/e2e/startup-confetti.spec.ts",
+      "exitCode": 0,
+      "result": "3 passed; actual Electron and local HTTP model fixture; EN/DE/EN clipboard exact, TradeBoard unchanged; pet image; startup/reduced motion",
+      "log": "/Users/jason/.codex/worktrees/c10-bilingual-audit/tradequote-agent/.runtime/c10-bilingual/e2e.log",
+      "sha256": "2e24972818d92fadb79675f44239e5b172d8c5651670dd059bd2cc9e396be3f3"
+    },
+    {
+      "command": "pnpm check (first)",
+      "exitCode": 1,
+      "result": "Wiki task missing second related semantic page; engineering checks passed",
+      "log": "/Users/jason/.codex/worktrees/c10-bilingual-audit/tradequote-agent/.runtime/c10-bilingual/check.log",
+      "sha256": "9c76b60144ca585aed1e573621d922ec5c2fc16b327848d2bc3b5557b277ea5e"
+    },
+    {
+      "command": "pnpm check (after related-page links)",
+      "exitCode": 0,
+      "result": "passed: Biome, 9 engineering tests, boundaries, read-only index and Wiki lint",
+      "log": "/Users/jason/.codex/worktrees/c10-bilingual-audit/tradequote-agent/.runtime/c10-bilingual/check-final.log",
+      "sha256": "d7c5fd60382b12a87f3e1fb5005d2ab56dcbe71de568e68f3313e99deb2b7661"
+    },
+    {
+      "command": "pnpm wiki:sync --base 491c027792b70ff2611d911126a3644b96cf15d6",
+      "exitCode": 0,
+      "result": "passed: 1 code file, 5 knowledge pages, 1 task",
+      "log": "/Users/jason/.codex/worktrees/c10-bilingual-audit/tradequote-agent/.runtime/c10-bilingual/wiki-sync.log",
+      "sha256": "c95d32f8e9c4f42498083f0501e1ef375e5c5b88648648e8246b77225130fb27"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "/Users/jason/.codex/worktrees/c10-bilingual-audit/tradequote-agent/.runtime/customer-reply-en.png",
+      "sha256": "9f17e9ecf19c82dac83dad8f1cdbdc26cbb317050828dba8a4f77e7cc5556f74"
+    },
+    {
+      "path": "/Users/jason/.codex/worktrees/c10-bilingual-audit/tradequote-agent/.runtime/customer-reply-de.png",
+      "sha256": "3a18d4061d6abd45b862b6858a3caff29acc931f909784e01b6273191b6b5968"
+    },
+    {
+      "path": "/Users/jason/.codex/worktrees/c10-bilingual-audit/tradequote-agent/.runtime/pet-companion.png",
+      "sha256": "9d68f28986021e1c64a44030cce5909600d867bffc1b82f9b87372a7d1af922f"
+    },
+    {
+      "path": "/Users/jason/.codex/worktrees/c10-bilingual-audit/tradequote-agent/.runtime/startup-confetti/desktop-splash.png",
+      "sha256": "6c1dd96a2c9723938cea134ea5eb8734d45782ed898094efd1d2571cf1dbebd9"
+    },
+    {
+      "path": "/Users/jason/.codex/worktrees/c10-bilingual-audit/tradequote-agent/.runtime/startup-confetti/desktop-main.png",
+      "sha256": "cf0a62662c28591b4a9b5883c25b5d610670dd93635d6497019874b57180981a"
+    }
+  ],
+  "probeSource": "import { approveQuote } from '../../packages/domain/src/quote-delivery';\nimport { createCustomerReplyDraft } from '../../apps/desktop/src/renderer/src/features/customer-reply-format';\nimport { checksQuote } from '../../apps/desktop/src/renderer/src/features/quote-checks.fixture';\nconst quote = { ...checksQuote, scenario: { ...checksQuote.scenario, locales: ['en', 'de'] }, payment: '30%预付，70%发货前付清', delivery: '收到定金后30天', pending: ['付款条款待确认：已填写但未获人工确认', '交期与交货条件待确认：已填写但未获人工确认'] };\nconst approval = approveQuote(quote, { approvedBy: 'synthetic-audit', note: 'read-only in-memory probe' }, { id: '00000000-0000-4000-8000-000000000099', approvedAt: '2026-11-01T00:00:00.000Z' });\nconst english = createCustomerReplyDraft(quote, 'en', []).customerText;\nconst german = createCustomerReplyDraft(quote, 'de', []).customerText;\nconst germanDelivery = approval.deliveries.find(d => d.locale === 'de' && d.kind === 'reply')!;\nconsole.log(JSON.stringify({ desktop: { english, german, translatedTemplate: german.includes('Warenzwischensumme') && !german.includes('Goods subtotal'), originalTermsRemain: german.includes(quote.payment) && german.includes(quote.delivery) }, generatedArtifact: { locale: germanDelivery.locale, body: germanDelivery.body, hasHardcodedEnglish: germanDelivery.body.includes('We have prepared the following quotation') && germanDelivery.body.includes('Payment terms: to be confirmed') } }, null, 2));\n",
+  "probeOutput": "wiki-project/raw/c10-bilingual-output-probe.json",
+  "findings": [
+    "Desktop English/German template switching and exact native clipboard copy work; no saved quote or board changes",
+    "Original product names and free-form Chinese terms remain in German desktop draft",
+    "Domain QuoteDelivery locale=de still contains hardcoded English main-body strings",
+    "Domain pending-term masking is not the desktop CustomerReply formatting path",
+    "Pet route/avatar/mascot/persona field rendered; no real model/voice/persona approval quality claim",
+    "Startup and reduced-motion behavior passed actual Electron checks"
+  ],
+  "notRun": [
+    "full unit suite on C10",
+    "full Electron suite on C10",
+    "new real-provider semantic validation",
+    "human business/language acceptance",
+    "Windows and signed packages",
+    "Cue connection and new online deck"
+  ],
+  "oldLogPrefixPreserved": true
+}

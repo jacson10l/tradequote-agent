@@ -1,0 +1,13 @@
+{
+  "desktop": {
+    "english": "Quotation · V1\n\nDear 合成采购方,\nThank you for your inquiry. Please review the proposed quotation below.\n\nSYNTHETIC-PANEL · 合成板材: 1 m2 × Unknown USD = Unknown USD\nGoods subtotal: Unknown USD\nGoods only; freight, taxes and other charges are not included.\nPayment: 30%预付，70%发货前付清\nProposed delivery (subject to confirmation): 收到定金后30天\nProduct specifications and all terms above are proposed and require mutual confirmation.\nSome details still require confirmation. Please confirm the specifications, payment and delivery arrangements with us.\n\nFor review only: this draft is not a commercial offer.",
+    "german": "Angebot · V1\n\nGuten Tag 合成采购方,\nVielen Dank für Ihre Anfrage. Bitte prüfen Sie den folgenden Angebotsentwurf.\n\nSYNTHETIC-PANEL · 合成板材: 1 m2 × Unbekannt USD = Unbekannt USD\nWarenzwischensumme: Unbekannt USD\nNur Warenwert; Fracht, Steuern und sonstige Kosten sind nicht enthalten.\nZahlung: 30%预付，70%发货前付清\nVorgesehene Lieferung (vorbehaltlich Bestätigung): 收到定金后30天\nProduktspezifikationen und alle obigen Bedingungen bedürfen der gegenseitigen Bestätigung.\nEinige Angaben sind noch zu bestätigen. Bitte stimmen Sie Spezifikationen, Zahlung und Lieferung mit uns ab.\n\nNur zur Prüfung: Dieser Entwurf ist kein verbindliches Angebot.",
+    "translatedTemplate": true,
+    "originalTermsRemain": true
+  },
+  "generatedArtifact": {
+    "locale": "de",
+    "body": "Vielen Dank für Ihre Anfrage. Nachfolgend unser Angebot zur Prüfung.\n\nWe have prepared the following quotation for 合成采购方:\n- 合成板材 (SYNTHETIC-PANEL): 1 m2, unit —, line —\n\nGoods total: —.\nPayment terms: to be confirmed.\nDelivery: to be confirmed.\n\nSome details still require confirmation.\n\nThis quotation is provided as a draft for your confirmation; the goods total excludes freight, tax and other charges, which remain to be verified.\nDieses Dokument ist eine technische Demonstration. Beträge werden deterministisch berechnet; Fracht, Steuern und Plattformregeln sind noch nicht geprüft.",
+    "hasHardcodedEnglish": true
+  }
+}
