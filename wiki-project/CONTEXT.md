@@ -1,5 +1,7 @@
 # 当前上下文
 
+2026-11-01 启动页按用户授权已集成并普通推送codex/m1-abc-integration：功能ec056db、父87106d1；最新目标405f6f9合入后7cd1812（父ec056db/405f6f9），远端ls-remote/fetch回读全SHA一致。独立clone实际目标分支typecheck/build/check、串行579通过3跳过、Electron14通过1跳过、Wiki36及固定405f6f9 sync均通过，回读后再验typecheck/13动画/只读Wiki通过。原共享目标checkout被另一B08合并占用，安全检查保护且未更新其HEAD/内容；独立clone推送不影响该现场。任务done只指本启动页代码集成，非作者视觉/Windows/安装包后置。实际回执raw/startup-screen-integration-validation.json，见[[C启动五彩纸屑动画]]。
+
 2026-11-01 最新授权：用户要求独立启动页完成后合并并推送codex/m1-abc-integration。已fetch目标405f6f9且本机/远端一致、目标工作区干净；将提交本分支代码/Wiki并在独立worktree组合最新交接文档、复验后快进目标与普通push/远端回读。集成当前active，下方“不提交/不合入”和本机done均为历史范围，不代表最终集成完成。见[[C启动五彩纸屑动画]]。
 
 2026-11-01 启动页修订优先于下方覆盖式历史：独立奶油背景、中央TradeQuote缓显和同期纸屑，2200ms结束纸屑后650ms淡入主页面；intro工作台预挂载但隐藏/inert/aria-hidden，主页面不再显示纸屑。当前13组件/串行全量579通过3跳过/真实Electron14通过1跳过/typecheck/build/check/Wiki维护36和最终固定87106d1 sync均通过；任务本机闭环done，新证据raw/startup-screen-validation.json，旧覆盖式JSON保持字节。维护首轮并发快照漂移已保留，冻结后复跑通过。非作者视觉/Windows/安装包后置，同一独立分支无提交推送合入；见[[0034-独立启动页与工作台淡入]]、[[桌面启动五彩纸屑]]、[[C启动五彩纸屑动画]]。
