@@ -3188,9 +3188,9 @@
     {
       "path": "packages/infrastructure/src/worker-migration-gates.test.ts",
       "type": "ts",
-      "lines": 378,
-      "bytes": 15684,
-      "sha256": "5f0bcefd2b5ee341ae32524676ae203b8feba6b7be3597f5f11f0182d0568aab",
+      "lines": 388,
+      "bytes": 16013,
+      "sha256": "953f2101f127306c69f2f0f16e24c154bec9df60bcba80fa6fa9e0310178564d",
       "role": "C领域有效共同v3/C5/C6/C7升级回放、真实Worker互斥和启动拒绝验证",
       "pages": [
         "wiki/C领域旧库回放与Worker启动门禁.md"
@@ -3565,9 +3565,9 @@
     {
       "path": "tests/e2e/workspace.spec.ts",
       "type": "ts",
-      "lines": 353,
-      "bytes": 14907,
-      "sha256": "3708e7dddc82a03acaf21d2928432c6b8b7cc45c378592368d510504b5090d0d",
+      "lines": 357,
+      "bytes": 15001,
+      "sha256": "8fb11da76788f6c77cca565a105b5931e410bc271567a18a1424c8240304ce19",
       "role": "M1 quality checks, desktop verification and CI",
       "pages": [
         "wiki/M1验证与协作.md",
@@ -3752,9 +3752,9 @@
     {
       "path": "tests/fixtures/worker-gates-host.ts",
       "type": "ts",
-      "lines": 206,
-      "bytes": 6882,
-      "sha256": "002154147a71a88c9833f438d195a1605deebd4b63a719c62831823c80c8b6e0",
+      "lines": 212,
+      "bytes": 7109,
+      "sha256": "918fa32b27fae4446089c3335164b7cc7ab0e109f621e6e59cb0741acd47fbb6",
       "role": "仅测试的隔离Electron宿主，调用生产UtilityProcess与Main业务客户端验证启动恢复门禁",
       "pages": [
         "wiki/C领域旧库回放与Worker启动门禁.md"

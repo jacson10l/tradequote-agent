@@ -196,7 +196,13 @@ async function main() {
         await new Promise<void>((resolve) => server.close(() => resolve()));
       }
     }
-    console.log(`GATE_RESULT=${JSON.stringify(result)}`);
+    // Electron app.exit does not wait for buffered pipe output to finish.
+    await new Promise<void>((resolve, reject) => {
+      process.stdout.write(`GATE_RESULT=${JSON.stringify(result)}\n`, (error) => {
+        if (error) reject(error);
+        else resolve();
+      });
+    });
     app.exit(0);
   } catch (error) {
     console.error(error);

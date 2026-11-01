@@ -1,0 +1,143 @@
+{
+  "task": "C09 release acceptance",
+  "status": "technical_candidate_passed_awaiting_integration_and_human_acceptance",
+  "observedAt": "2026-11-01T13:16:11.786519+09:00",
+  "taskBase": "491c027792b70ff2611d911126a3644b96cf15d6",
+  "branch": "codex/c09-release-acceptance",
+  "environment": {
+    "os": "macOS 26.4 (25E246)",
+    "arch": "arm64",
+    "node": "22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2"
+  },
+  "remoteReadback": "491c027792b70ff2611d911126a3644b96cf15d6",
+  "changes": [
+    {
+      "path": "packages/infrastructure/src/worker-migration-gates.test.ts",
+      "sha256": "953f2101f127306c69f2f0f16e24c154bec9df60bcba80fa6fa9e0310178564d"
+    },
+    {
+      "path": "tests/fixtures/worker-gates-host.ts",
+      "sha256": "918fa32b27fae4446089c3335164b7cc7ab0e109f621e6e59cb0741acd47fbb6"
+    },
+    {
+      "path": "tests/e2e/workspace.spec.ts",
+      "sha256": "8fb11da76788f6c77cca565a105b5931e410bc271567a18a1424c8240304ce19"
+    }
+  ],
+  "commands": [
+    {
+      "command": "ELECTRON_RUN_AS_NODE=1 ./apps/desktop/node_modules/.bin/electron node_modules/vitest/vitest.mjs run --maxWorkers=1",
+      "exitCode": 1,
+      "result": "590 passed / 1 failed / 3 skipped; legacy v6 Chinese replacement characters",
+      "log": ".runtime/c09-acceptance/unit-baseline.log",
+      "sha256": "1089663109585ba42d15055a74c25e5945daa643e6efd453b70f0923539bd7e2"
+    },
+    {
+      "command": "pnpm test (UTF-8-only intermediate fix)",
+      "exitCode": 1,
+      "result": "590 passed / 1 failed / 3 skipped; 1 uncaught truncated JSON error and timeout",
+      "log": ".runtime/c09-acceptance/unit-fixed.log",
+      "sha256": "ec9a29767b07431111ebaca6a2cf5c4a694aceea87c9201b24265547c1a02dec"
+    },
+    {
+      "command": "pnpm test (flush/close/UTF-8 fix)",
+      "exitCode": 0,
+      "result": "591 passed / 3 skipped; no unhandled errors",
+      "log": ".runtime/c09-acceptance/unit-final.log",
+      "sha256": "66226d1a5a702146e3a38b594d773ecfe69a0a1e7ed9ce5493f86e783557e5c6"
+    },
+    {
+      "command": "pnpm test:e2e (initial)",
+      "exitCode": 1,
+      "result": "build passed; 13 passed / 1 failed / 1 skipped; four pet bridge names missing from expected whitelist",
+      "log": ".runtime/c09-acceptance/e2e.log",
+      "sha256": "c13649fca19225a22112ec5dcde1ef0f52507a5faacad41c35d58f1e59bf3535"
+    },
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "result": "passed",
+      "log": ".runtime/c09-acceptance/typecheck-final.log",
+      "sha256": "d46c6d6ad9c572e564b197933aa7f475698c7b1e4b3224ea1bcaaa1b184e3d85"
+    },
+    {
+      "command": "pnpm check",
+      "exitCode": 0,
+      "result": "Biome, 8 engineering tests, boundaries and Wiki read-only check/lint passed",
+      "log": ".runtime/c09-acceptance/check-final.log",
+      "sha256": "456b3ef14eaa2039e78b2b1d4dbe8b4972f2da8fbe774f9b424b191b5eab465d"
+    },
+    {
+      "command": "pnpm test:e2e",
+      "exitCode": 0,
+      "result": "build passed; 14 passed / 1 skipped (real provider opt-in test skipped)",
+      "log": ".runtime/c09-acceptance/e2e-final.log",
+      "sha256": "ec8e5b0c83053c769dfa643f317ced3966a298cf24a439711c78544b826c0024"
+    },
+    {
+      "command": "pnpm wiki:test",
+      "exitCode": 0,
+      "result": "36 passed / 0 failed",
+      "log": ".runtime/c09-acceptance/wiki-test.log",
+      "sha256": "c12f80a1b28aa27ee5dcfd984bf8a996467b59a305661a8df8459b08a13e133c"
+    },
+    {
+      "command": "pnpm wiki:sync --base 491c027792b70ff2611d911126a3644b96cf15d6",
+      "exitCode": 0,
+      "result": "passed: 3 code files, 5 knowledge pages, 1 task",
+      "log": ".runtime/c09-acceptance/wiki-sync.log",
+      "sha256": "af049dfd7f71b043cb93d2cc99afdb7ab230db50e1396bcd4a2b2a36f31642dd"
+    },
+    {
+      "command": "worker migration gates repeat 1: ELECTRON_RUN_AS_NODE=1 ./apps/desktop/node_modules/.bin/electron node_modules/vitest/vitest.mjs run packages/infrastructure/src/worker-migration-gates.test.ts",
+      "exitCode": 0,
+      "result": "8 passed / 0 failed",
+      "log": ".runtime/c09-acceptance/worker-repeat-1.log",
+      "sha256": "3d0fe233b7aa3bfa9e3932f5341fe1da74986d21ee307cfe1217d687dcae488c"
+    },
+    {
+      "command": "worker migration gates repeat 2: ELECTRON_RUN_AS_NODE=1 ./apps/desktop/node_modules/.bin/electron node_modules/vitest/vitest.mjs run packages/infrastructure/src/worker-migration-gates.test.ts",
+      "exitCode": 0,
+      "result": "8 passed / 0 failed",
+      "log": ".runtime/c09-acceptance/worker-repeat-2.log",
+      "sha256": "612797ccee4c376d53a90eef526b0cbc455f90d9ad983b00fbf2c906f8ce1c96"
+    },
+    {
+      "command": "worker migration gates repeat 3: ELECTRON_RUN_AS_NODE=1 ./apps/desktop/node_modules/.bin/electron node_modules/vitest/vitest.mjs run packages/infrastructure/src/worker-migration-gates.test.ts",
+      "exitCode": 0,
+      "result": "8 passed / 0 failed",
+      "log": ".runtime/c09-acceptance/worker-repeat-3.log",
+      "sha256": "f266938238f38b402b4b36cd5de5bd010d1b06e2b0f48115114b66c61eaf1657"
+    }
+  ],
+  "diagnosis": {
+    "utf8": {
+      "expected": "仅为工程演示不代表真实商品",
+      "received": "仅为工程演���不代表真实商品",
+      "probe": "split UTF-8 byte array at byte 16; independent Buffer coercion corrupts character; Readable.setEncoding preserves exact text"
+    },
+    "truncation": "Unterminated string in JSON at position 54112; parent exit parsing and immediate Electron app.exit could precede pipe draining; event callback throw left Promise unresolved",
+    "bridge": "approvePersona/getPetState/petChat/proposePersona are already exposed with strict schemas; updated exact expected list"
+  },
+  "pending": [
+    "C integration, remote readback and applicable gates",
+    "non-author review and actual human business acceptance",
+    "Cue MCP authorization and updated online deck",
+    "Windows and signed package deferred"
+  ],
+  "cue": {
+    "existingDeck": "https://cue.humanmeetsai.com/deck/e9d13069-7ede-4dc8-86a0-9de1b3d680e7",
+    "loginObserved": true,
+    "mcpConnected": false,
+    "newDeckCreated": false
+  },
+  "historicalEvidence": "Earlier failures and source evidence retained; no real model calls this round",
+  "warnings": [
+    "Existing renderer chunk-size warning",
+    "Existing Vite CommonJS/native config-loader warnings",
+    "Real Codex opt-in tests skipped; no new real provider validation"
+  ],
+  "oldLogPrefixPreserved": true
+}

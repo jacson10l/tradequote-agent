@@ -110,6 +110,7 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
       })),
     ).toEqual({
       bridge: [
+        "approvePersona",
         "approveQuote",
         "cancelAgentRun",
         "checkQuote",
@@ -122,6 +123,7 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
         "getAgentRun",
         "getAgentRunEvents",
         "getKnowledgeRevision",
+        "getPetState",
         "getQuoteChecks",
         "getTrade",
         "getWorkspace",
@@ -129,7 +131,9 @@ test("real desktop persists workspace, validates IPC, handles conflict and reope
         "modelEvaluation",
         "modelSettings",
         "onAgentRunEvents",
+        "petChat",
         "pickCatalogCsv",
+        "proposePersona",
         "publishCatalog",
         "publishKnowledge",
         "queryKnowledge",

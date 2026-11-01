@@ -204,6 +204,9 @@ async function host(input: {
       child.kill("SIGKILL");
       reject(Error("Electron host timeout"));
     }, 20000);
+    // Preserve UTF-8 characters split across pipe chunks in the replay JSON.
+    child.stdout.setEncoding("utf8");
+    child.stderr.setEncoding("utf8");
     child.stdout.on("data", (chunk) => {
       stdout += chunk;
     });
@@ -214,11 +217,18 @@ async function host(input: {
       clearTimeout(timer);
       reject(error);
     });
-    child.once("exit", (code) => {
+    // 'close' follows stdio draining; 'exit' can precede the last data chunk.
+    child.once("close", (code) => {
       clearTimeout(timer);
       const line = stdout.split("\n").find((line) => line.startsWith("GATE_RESULT="));
       if (code !== 0 || !line) reject(Error(`Electron host ${code}: ${stderr.slice(-3000)}`));
-      else res(JSON.parse(line.slice("GATE_RESULT=".length)));
+      else {
+        try {
+          res(JSON.parse(line.slice("GATE_RESULT=".length)));
+        } catch (error) {
+          reject(error);
+        }
+      }
     });
   });
 }

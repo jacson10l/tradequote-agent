@@ -1,3 +1,5 @@
+2026-11-01 C09按用户要求进入交付收紧：远端/fetch固定491c027已含B08、启动页和小人；独立codex/c09-release-acceptance复验并定位测试stdout分块UTF-8乱码，只修测试采集，不扩功能。最终结果见[[C09-交付冻结与组合验收]]，范围/阻塞/人工验收/Cue顺序见[[C09交付冻结与Cue更新]]。C09待集成，人工签认及新版Cue未完成；旧C07与启动切片数字保留历史，不作为最新组合通过结论。
+
 # 当前上下文
 
 2026-11-01 启动页按用户授权已集成并普通推送codex/m1-abc-integration：功能ec056db、父87106d1；最新目标405f6f9合入后7cd1812（父ec056db/405f6f9），远端ls-remote/fetch回读全SHA一致。独立clone实际目标分支typecheck/build/check、串行579通过3跳过、Electron14通过1跳过、Wiki36及固定405f6f9 sync均通过，回读后再验typecheck/13动画/只读Wiki通过。原共享目标checkout被另一B08合并占用，安全检查保护且未更新其HEAD/内容；独立clone推送不影响该现场。任务done只指本启动页代码集成，非作者视觉/Windows/安装包后置。实际回执raw/startup-screen-integration-validation.json，见[[C启动五彩纸屑动画]]。

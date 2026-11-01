@@ -1719,3 +1719,12 @@ B07 已按 `0f837e35e0592050917a0c0f4914ca43f2fe9b64` 接收并合入集成分�
 - 方案页、任务页、覆盖映射和机械清单已按当前实现修正；日志历史前缀保持 `c0dacc2` 原文并只做末尾追加。
 - 验证：`pnpm typecheck` 退出 0；小人定向 Vitest 3 文件/17 项通过；`pnpm build` 退出 0，renderer 产物包含 `pet-avatar`/`pet-mascot`；工程边界、图标、桌面检查 9 项通过；`pnpm wiki:test` 36/36 通过；`pnpm wiki:check` 和 `pnpm wiki:sync --base c0dacc2` 通过；`git diff --check` 通过。
 - 全量 `pnpm test` 为 576 passed/3 skipped，另有 1 个既有 Worker 迁移门禁用例因 Electron 输出截断导致 JSON 不完整并超时；未修改无关业务测试，已在任务页记录风险。
+
+
+## 2026-11-01 C09交付冻结与组合复验
+
+固定491c027，独立codex/c09-release-acceptance。原全量590通过/1失败/3跳过，确定性分块复现stdout中文损坏；仅修测试UTF-8流解码，原快照断言保持。同步[[C领域旧库回放与Worker启动门禁]]、[[C09交付冻结与Cue更新]]、[[C09-交付冻结与组合验收]]和状态/导航。组合回归结果见本轮raw/c09-acceptance-validation.json；人工签认/Cue更新与最终集成仍待，不代签。
+
+C09追加：默认全量进一步复现JSON截断/未捕获异常，补测试宿主flush、父进程close后解析及reject后，pnpm test退出0，591通过/3跳过。首次Electron13通过/1失败/1跳过，定位为小人四方法正式桥接白名单漏同步；核对契约/实现后补齐，完整相等与Node隔离断言保留。最终复验记录继续追加，不覆盖初次失败。
+
+C09最终本机候选：默认单测591通过/3跳过，Electron（含构建）14通过/1跳过，Worker专项三轮各8/8，Wiki36/36，typecheck/check/固定491c027 sync/diff通过。命令/结果/hash见raw/c09-acceptance-validation.json。生产源码/契约/迁移/依赖无变；原log前缀保留。当前仅待C接收本地候选，未推送合入；人工业务/非作者与Cue授权和新版在线预览仍待。
