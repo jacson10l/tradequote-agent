@@ -49,5 +49,37 @@
     "Full suite not rerun for this read-only UI slice",
     "Windows/package/non-author acceptance not run",
     "C14 enterprise knowledge closure remains separate and incomplete"
-  ]
+  ],
+  "integration": {
+    "commit": "3f39f7d3e822ff30dd07f473ae654bcab81872bc",
+    "parent": "bc6ba9eaf27b67092a131a0eeabbbc9a397ee921",
+    "branches": [
+      "codex/m1-abc-integration",
+      "main"
+    ],
+    "remoteReadback": "ls-remote + fetch matched both branches",
+    "checks": [
+      {
+        "command": "pnpm typecheck",
+        "exitCode": 0,
+        "logSha256": "6aa24b4410d9d857fb5d81ecf2381c1399d4d17eac01af226f9b33dd5d4a0bbd"
+      },
+      {
+        "command": "pnpm exec vitest run apps/desktop/src/renderer/src/features/knowledge-graph-data.test.ts",
+        "exitCode": 0,
+        "logSha256": "3b2810d3d4080f3a91cf46674734490438a1a49a7dcaf7a0f4cd8f429612c476"
+      },
+      {
+        "command": "pnpm check",
+        "exitCode": 0,
+        "logSha256": "8b9989103401a69ef569d4617e9d4e8ff96bcc9d4ae8b60e0c51c597518da688"
+      },
+      {
+        "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base bc6ba9e",
+        "exitCode": 0,
+        "logSha256": "de101387d3875b354422daae3d86c306b2dae63b0a41f85bb42fc9857ffba2d1"
+      }
+    ]
+  },
+  "status": "passed"
 }
