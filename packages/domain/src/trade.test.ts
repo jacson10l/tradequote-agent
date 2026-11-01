@@ -200,13 +200,49 @@ it("keeps non-empty unconfirmed terms in pending instead of treating them as con
     );
     expect(quote.pending.join(" ")).toContain("交期与交货条件待确认");
   }
-  // A concrete term is still not confirmed — it just no longer carries the explicit
-  // "unconfirmed wording" marker; the field remains pending by the confirmation semantics.
+  // 具体条款文字（无论中英文）也不等于已确认——自由文本本身不能自证已获人工确认，
+  // 因此仍须出现在 pending 中（措辞为"已填写但未获人工确认"）。
   const concrete = calculateQuoteV1(
     { ...input, payment: "30%预付，70%发货前付清", delivery: "确认后30天" },
     scenario,
     [product],
     metadata,
   );
-  expect(concrete.pending.join(" ")).toContain("运费、税费及其他费用未核定");
+  expect(concrete.pending.join(" ")).toContain("付款条款待确认（已填写但未获人工确认）");
+  expect(concrete.pending.join(" ")).toContain("交期与交货条件待确认（已填写但未获人工确认）");
+});
+
+it("keeps C07 real proposed terms in pending: proposed / subject to supplier confirmation / deposit / EXW", () => {
+  // C08 B 反例：实际 V1/V2 的 payment/delivery 写为英文拟议文本，之前因不命中
+  // 未确认措辞词表而漏出 pending。修复后，任何非空文本都默认 pending（未获人工确认）。
+  const cases: Array<{ payment?: string; delivery?: string }> = [
+    { payment: "30% deposit; 70% before dispatch" },
+    { delivery: "EXW Guangzhou, China; 21 days after deposit and specification confirmation" },
+    { payment: "Payment proposed, subject to supplier confirmation" },
+    { delivery: "Proposed: shipment subject to supplier confirmation" },
+    { payment: "30% deposit; 70% before dispatch", delivery: "EXW Guangzhou, China" },
+  ];
+  for (const c of cases) {
+    const quote = calculateQuoteV1(
+      { ...input, payment: c.payment ?? "", delivery: c.delivery ?? "" },
+      scenario,
+      [product],
+      metadata,
+    );
+    if (c.payment)
+      expect(quote.pending.join(" ")).toContain("付款条款待确认（已填写但未获人工确认）");
+    else expect(quote.pending.join(" ")).toContain("付款条款待确认");
+    if (c.delivery)
+      expect(quote.pending.join(" ")).toContain("交期与交货条件待确认（已填写但未获人工确认）");
+    else expect(quote.pending.join(" ")).toContain("交期与交货条件待确认");
+  }
+  // 空付款/空交期仍进入 pending。
+  const blank = calculateQuoteV1(
+    { ...input, payment: "", delivery: "" },
+    scenario,
+    [product],
+    metadata,
+  );
+  expect(blank.pending.join(" ")).toContain("付款条款待确认");
+  expect(blank.pending.join(" ")).toContain("交期与交货条件待确认");
 });

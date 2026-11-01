@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "4e5b1a0bfe9151ffb92c7ba6089b6205363cdc7eff8cc2b24b3983014248bceb",
     "wiki-lib.mjs": "b3d0957c0240b68d7a1e5c2e0311458c8c08b6322b84330d80ea4c7acad2c195",
-    "wiki-config.json": "d3bc2351e9d19c4a4ba76a8a440302d3bcb18ccb14aebe3eb9316fde2739f239",
+    "wiki-config.json": "85f9a1719b04514fde38b19efbf5ac6f021dc64b048ffbcbb4de209e3632f721",
     "lint-wiki.mjs": "2e94b99626c96b9639699ffd408c6ccec512eb75030165ddef64711d91786d9f",
     "wiki-tools.test.mjs": "366282472c9f3c1e63c7457636ab7a0c54fdf3af394cd36466bfbdfdf24e2b88",
     "check-wiki-sync.mjs": "2ec23c3f1c33124ef76dd351dbf00b74d9fc756f846d531d740fdd379b34c2e4",
@@ -2168,9 +2168,9 @@
     {
       "path": "packages/domain/src/trade.test.ts",
       "type": "ts",
-      "lines": 212,
-      "bytes": 7493,
-      "sha256": "62dcf56153c47618ea5bc9b907b93498a938b186f8b9ece468c5f742c980be30",
+      "lines": 248,
+      "bytes": 9404,
+      "sha256": "bfbedeb6662118f14be15d50e2c913af18260aaca6a986c4db283bc7a69a805f",
       "role": "Quote V1 amount, source, transaction, migration and real Electron regression evidence",
       "pages": [
         "wiki/M2真实报价V1.md",
@@ -2180,9 +2180,9 @@
     {
       "path": "packages/domain/src/trade.ts",
       "type": "ts",
-      "lines": 158,
-      "bytes": 5931,
-      "sha256": "197bd0569f86085a836010e99eff6b75d2f2f73883e6518e298c064b2e85a133",
+      "lines": 162,
+      "bytes": 6508,
+      "sha256": "52e10a29492cd56b97ea1a30a866fbc5ce8df9cb531ecbab11fe372049293268",
       "role": "Deterministic tier pricing, unknown amounts and human-only V1 service",
       "pages": [
         "wiki/M2真实报价V1.md",
@@ -2366,6 +2366,18 @@
       "role": "M1 shared contracts, workspace domain and storage adapters",
       "pages": [
         "wiki/M1接口与持久化.md"
+      ]
+    },
+    {
+      "path": "packages/infrastructure/src/c08-catalog-verify.test.ts",
+      "type": "ts",
+      "lines": 21,
+      "bytes": 1022,
+      "sha256": "368ea8057a370e9ccac26674dc7408fa5e1f5fbe753c93be029e075402ecde05",
+      "role": "C08 A 目录生产复验：parseCatalogCsv 对 catalog_converted.csv 285 行/82 SKU/0 issue 与隔离 SKU 断言",
+      "pages": [
+        "wiki/M2真实报价V1.md",
+        "wiki/tasks/A06-来源证据与适用规则包.md"
       ]
     },
     {

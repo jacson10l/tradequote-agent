@@ -1002,6 +1002,13 @@
         "wiki/M2真实报价V1.md"
       ]
     },
+    "packages/infrastructure/src/c08-catalog-verify.test.ts": {
+      "role": "C08 A 目录生产复验：parseCatalogCsv 对 catalog_converted.csv 285 行/82 SKU/0 issue 与隔离 SKU 断言",
+      "pages": [
+        "wiki/M2真实报价V1.md",
+        "wiki/tasks/A06-来源证据与适用规则包.md"
+      ]
+    },
     "packages/infrastructure/src/trade-store.ts": {
       "role": "Atomic scenario/catalog/immutable quote V1 storage and retries",
       "pages": [

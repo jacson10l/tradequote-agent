@@ -1,9 +1,9 @@
 import {
   type CatalogRow,
+  classifyTermConfirmation,
   type ExecutionContext,
   failure,
   type ImportIssue,
-  isUnconfirmedTermText,
   type Product,
   type QuoteInput,
   type QuoteV1,
@@ -98,12 +98,16 @@ export function calculateQuoteV1(
   if (!currency) throw new TradeFault("VALIDATION_ERROR", "至少选择一行商品");
   if (lines.some((line) => line.product.currency !== currency))
     throw new TradeFault("VALIDATION_ERROR", "同一草稿只能包含同币种商品；本阶段未接入汇率换算");
-  if (!input.payment) pending.push("付款条款待确认");
-  else if (isUnconfirmedTermText(input.payment))
-    pending.push("付款条款待确认（已填写但未获人工确认）");
-  if (!input.delivery) pending.push("交期与交货条件待确认");
-  else if (isUnconfirmedTermText(input.delivery))
-    pending.push("交期与交货条件待确认（已填写但未获人工确认）");
+  // 付款/交期条款：空白与非空文字都不等于"已获人工确认"。
+  // 契约语义（classifyTermConfirmation）冻结为"任何非空文字默认 pending_confirmation"，
+  // 只有人工受控入口（human_ui 审批）能产生 confirmed 事实，自由文本本身不能自证已确认。
+  // 因此这里不再用未确认措辞词表（isUnconfirmedTermText）做"命中才 pending"的判定——
+  // 那样会让 `Proposed` / `Subject to supplier confirmation` / `30% deposit; 70% before dispatch`
+  // 等真实拟议文本误判为已确认而漏出 pending。
+  if (classifyTermConfirmation(input.payment) === "blank") pending.push("付款条款待确认");
+  else pending.push("付款条款待确认（已填写但未获人工确认）");
+  if (classifyTermConfirmation(input.delivery) === "blank") pending.push("交期与交货条件待确认");
+  else pending.push("交期与交货条件待确认（已填写但未获人工确认）");
   pending.push(
     "运费、税费及其他费用未核定；商品合计不是完整应付总额",
     "平台与目标市场规则尚未核验；仅可保存草稿",

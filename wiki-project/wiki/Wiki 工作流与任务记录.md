@@ -290,3 +290,7 @@ wiki-lib.mjs 的 ignoredDirs 增 .workbuddy（WorkBuddy IDE 项目数据目录�
 ## 2026-11-01 虚拟形象看板娘板块与覆盖映射
 
 新增虚拟形象看板娘（报价小人）的 8 个源码/测试文件逐文件覆盖映射：契约 `packages/contracts/src/pet.ts`、基础设施 `pet-memory-store.ts`（及测试）、`pet-quote-context.ts`（及测试）、渲染层 `pet-assistant.tsx`、`pet-mascot.tsx`、`use-speech-recognition.ts`，分别映射到知识板块 [[报价小人人设]]、[[报价小人记忆]] 与方案页 [[虚拟形象与记忆方案]]。同时新建知识板块 `wiki-project/wiki/pet/`（人设 + 长期记忆，进 git）与任务页 [[虚拟形象看板娘]]。维护算法不变，仅增覆盖配置并重新生成清单；见 [[虚拟形象与记忆方案]]。
+
+## 2026-11-01 C08 A/B 修复的覆盖映射
+
+`wiki-config.json` 新增 `packages/infrastructure/src/c08-catalog-verify.test.ts` 覆盖映射（C08 A 目录生产复验，映射到 [[M2真实报价V1]] 与 [[A06-来源证据与适用规则包]]）。`trade.ts` 的 pending 判定由 `isUnconfirmedTermText` 词表改为 `classifyTermConfirmation` 语义，其关联页 [[M2真实报价V1]] 的付款/交期确认语义段落同步更新。维护算法不变，仅增覆盖配置并重新生成清单；见 [[B条款确认语义冻结与C运行契约审阅]]、[[A06-来源证据与适用规则包]]。

@@ -1,5 +1,7 @@
 # 当前上下文
 
+2026-11-01 C08 A/B问题修复：B在 `codex/a06-source-evidence` 分支修复 `calculateQuoteV1` 付款/交期 pending 判定——从 `isUnconfirmedTermText` 词表改为 `classifyTermConfirmation` 语义（任何非空文本默认 pending），关闭 C07 反例 `Proposed`/`Subject to supplier confirmation`/`30% deposit;70% before dispatch`/`EXW Guangzhou`；新增 trade.test.ts 英文反例。A新增 `c08-catalog-verify.test.ts` 用生产 `parseCatalogCsv` 复验 `catalog_converted.csv` 285行/82SKU/0issue、隔离 SKU 1600614614202 不在、SHA 0d73c712。contracts+domain 单测通过、全量 564 通过/2 symlink EPERM 预存在、tsc 0、biome 过。真实 DeepSeek/macOS/Windows 后置，C 非作者复验待执行。见[[B条款确认语义冻结与C运行契约审阅]]、[[A06-来源证据与适用规则包]]。
+
 2026-11-01 C07独立分支：菜单职责与客户正文分离已实现；沿用A4c622d0小目录13行/4SKU，实际DeepSeek→Codex工具完成300/500件V1/V2和重开。单测539通过/3跳过，Electron12通过/1跳过；Wiki check/sync通过、Cue最终8页私有导入与备注已核对，整体因A/B签认及Cue持久连接仍active。A大目录第268行空MOQ与来源签认、B拟议条款pending缺失仍开放。基线450e945；无推送合入，见[[C07业务资料与路演收口]]、[[C07-业务资料与路演收口]]。
 
 2026-11-01 A在独立分支 codex/a06-source-evidence（基线集成分支 7688d39）处理来源证据缺口「大目录第 268 行 MOQ」：SKU 1600614614202（三聚氰胺贴面 MDF）为区间价（¥38.99–238.12）+ 样品价 ¥66.19，不适用确定性核价。按 C 的 A1313-02 隔离该 SKU，catalog_converted.csv 286 行/83 SKU → 285 行/82 SKU，经产品 parseCatalogCsv 实测 0 issue、285 行全收；采集证据与截图保留于 source-archive/MDF-REAL-DATA.md。服装原始快照（登录墙 not collected）、valid_until 依据、认证/供应商有效期、人工发布复核仍未完成（不代签）。

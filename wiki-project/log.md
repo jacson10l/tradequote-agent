@@ -1641,3 +1641,12 @@ C05提交前新鲜复验535单元/3显式live跳过、12Electron、36维护及ty
 - 修正头像胸前标识：pet-avatar.png 原六边形符文改为品牌 Logo「报价单+上升折线」（对齐 icon.svg）。
 - 补 P0 缺口：新增任务页 tasks/虚拟形象看板娘.md；8 个 pet 源文件登记 wiki-config coverage；重新生成 raw/generated 快照；index.md 挂载板块入口。
 - 验证：lint 仅剩 4 项预存在 raw/design、raw/inputs ARCHIVE_HASH_MISMATCH（C 集成遗留，非本任务引入）。
+
+## 2026-11-01 C08 A/B 问题修复（B 拟议条款 pending + A 目录生产复验）
+
+- **B（核心代码修复）**：`calculateQuoteV1` 对付款/交期的 pending 判定，从 `isUnconfirmedTermText` 词表匹配改为 `classifyTermConfirmation` 语义——任何非空文本默认 `pending_confirmation` 进入 pending，只有人工受控入口能产生 confirmed。关闭 C07 真实反例：`Proposed` / `Subject to supplier confirmation` / `30% deposit; 70% before dispatch` / `EXW Guangzhou... 21 days` 此前因不命中词表漏出 pending，现已进入「已填写但未获人工确认」pending。
+  - 文件：`packages/domain/src/trade.ts`（改判据）、`packages/domain/src/trade.test.ts`（新增 C07 英文反例 + 修正旧「具体条款不进 pending」断言）。
+  - 契约 `values.ts` 未改（`classifyTermConfirmation` 语义本就正确冻结），修正的是生产层未调用契约的问题。
+- **A（生产复验）**：新增 `packages/infrastructure/src/c08-catalog-verify.test.ts`，用生产 `parseCatalogCsv` 复验 `catalog_converted.csv`：285 行 / 82 SKU / 0 issue，隔离 SKU `1600614614202` 不在；文件 SHA-256 `0d73c71211cabcfd7775d4e6b0f4236b8849df108233a5195a5164ec37923fc9`。服装快照 not collected / valid_until 内部默认 / CE 标签非证书等缺口如实保留，不代签。
+- **验证**：contracts+domain 单测通过；全量单测 564 通过 / 2 失败为 Windows symlink EPERM（storage.test.ts、worker-migration-gates.test.ts，预存在环境限制，与本改动无关）；`tsc --noEmit` 退出 0；改动文件 biome 全过。
+- **未完成**：真实 DeepSeek 语义核对、macOS Electron 桌面验收、Windows 验证后置；A 服装原件/有效期/认证供应商证据仍缺；C 非作者复验与组合门禁待执行。

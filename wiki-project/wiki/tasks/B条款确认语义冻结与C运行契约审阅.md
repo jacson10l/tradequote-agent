@@ -54,4 +54,15 @@ sources:
 - A 存储/来源/发布语义评审与 T00 人工签字未完成。
 - 本任务 done 不表示 C06 组合验收通过；C 组合接线与 macOS Q01~Q07 仍待 C 在收到本固定 SHA 后执行。
 
+## 2026-11-01 C08 修复：非空拟议条款默认 pending（关闭 C07 英文反例）
+
+C08 指出前一版只处理"未确认措辞字面量"（`isUnconfirmedTermText` 词表），真实拟议文本 `Proposed` / `Subject to supplier confirmation` / `30% deposit; 70% before dispatch` 因不命中词表而漏出 pending。本修复把 `calculateQuoteV1` 的付款/交期判定从词表匹配改为 `classifyTermConfirmation` 语义——**任何非空文本都默认 `pending_confirmation` 进入 pending**，只有人工受控入口（human_ui 审批）能产生 confirmed 事实。
+
+- **契约**：未改 `values.ts`（`classifyTermConfirmation` 语义已正确冻结）；修正的是 `domain/trade.ts` 未调用该契约、仍用词表的问题。
+- **领域**：`calculateQuoteV1` 对 payment/delivery 改为 `classifyTermConfirmation(...) === "blank"` 区分空白与非空；空白 →「付款条款待确认」/「交期与交货条件待确认」，非空 →「…（已填写但未获人工确认）」。删除 `isUnconfirmedTermText` 引用。
+- **回归**：`trade.test.ts` 新增 C07 英文反例（deposit/EXW/proposed/subject to supplier confirmation + 空值），并把原「具体条款不进 pending」的错误断言改为「具体条款仍 pending」。
+- **验证**：contracts+domain 单测通过；全量单测 564 通过，仅 2 项 Windows symlink EPERM（storage.test.ts / worker-migration-gates.test.ts，预存在环境限制，与本改动无关）；`tsc --noEmit` 退出 0；改动文件 biome 全过。
+- **版本链**：pending 由 `calculateQuoteV1` 每次重算，`reviseQuote`（V2/V3/V4/重开）复用同一计算路径，故未确认付款/交期在版本链与重开后不消失；旧快照/检查报告/来源快照不被回写。
+- **仍未完成**：真实 DeepSeek 语义核对、macOS Electron 桌面验收、Windows 验证后置；`confirmed` 事实的完整人工受控入口仍只有 `quote.approve`，付款/交期的逐条人工确认 UI 尚未单独建模。
+
 关联：[[M1接口与持久化]]、[[M2真实报价V1]]、[[B对C运行契约非作者审阅]]、[[B对A维护证据缺口裁定]]。
