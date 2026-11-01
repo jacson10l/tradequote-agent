@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "scope": "Local macOS startup confetti implementation and P0 Wiki synchronization; not integration or release approval",
+  "date": "2026-11-01",
+  "branch": "codex/startup-confetti",
+  "taskBase": "87106d170f50d44af81b7594b1b6c3308f177be3",
+  "environment": {
+    "os": "macOS 26.4 arm64",
+    "node": "22.22.0",
+    "pnpm": "10.13.1",
+    "electron": "44.9.2"
+  },
+  "checks": [
+    { "command": "pnpm install --frozen-lockfile", "exitCode": 0, "result": "435 packages, unchanged lockfile, Electron arm64 native rebuild completed" },
+    { "command": "pnpm exec vitest run apps/desktop/src/renderer/src/shared/startup-confetti.test.tsx", "exitCode": 0, "result": "8 passed; final tests also included in serial full suite" },
+    { "command": "pnpm typecheck", "exitCode": 0, "result": "TypeScript strict passed" },
+    { "command": "pnpm build", "exitCode": 0, "result": "Main, preload and renderer built; renderer bundle warning above 500kB remains" },
+    { "command": "ELECTRON_RUN_AS_NODE=1 apps/desktop/node_modules/.bin/electron node_modules/vitest/vitest.mjs run --no-file-parallelism", "exitCode": 0, "result": "63 files passed, 2 skipped; 574 tests passed, 3 skipped; 48.24s" },
+    { "command": "pnpm exec playwright test tests/e2e/startup-confetti.spec.ts", "exitCode": 0, "result": "2 actual Electron tests passed; painted pixels, high-DPI, click-through navigation, expiry, no route replay, reopen and reduced-motion verified" },
+    { "command": "pnpm exec playwright test", "exitCode": 0, "result": "14 passed, 1 skipped; existing real Codex opt-in test not enabled; 1.0m" },
+    { "command": "pnpm check", "exitCode": 0, "result": "Biome 214 files; 9 Node engineering regressions; module boundaries; read-only Wiki check and lint passed" },
+    { "command": "pnpm wiki:test", "exitCode": 0, "result": "36 passed; no skipped; maintenance algorithms unchanged" },
+    { "command": "node wiki-project/scripts/build-code-index.mjs .", "exitCode": 0, "result": "300 managed files, 78467 lines, 5 generated artifacts, 12 exclusions" },
+    { "command": "node wiki-project/scripts/build-code-index.mjs . --check", "exitCode": 0, "result": "Read-only generation drift check passed" },
+    { "command": "node wiki-project/scripts/lint-wiki.mjs .", "exitCode": 0, "result": "300 Markdown pages, 266 semantic pages, all 300 reachable" },
+    { "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 87106d170f50d44af81b7594b1b6c3308f177be3", "exitCode": 0, "result": "6 code/config files, 6 knowledge pages, 1 task; no errors" },
+    { "command": "git diff --check", "exitCode": 0, "result": "No whitespace errors" },
+    { "command": "git diff --cached --check", "exitCode": 0, "result": "No staged changes" }
+  ],
+  "historicalAttempts": [
+    { "phase": "TDD red", "exitCode": 1, "result": "New test could not resolve missing startup-confetti implementation, before writing component" },
+    { "phase": "first component test", "exitCode": 1, "result": "7 passed, floating point coordinate 903.9999999999999 required close-to assertion; implementation trajectory unchanged" },
+    { "phase": "first typecheck", "exitCode": 1, "result": "Test fixture wrote read-only MediaQueryList.matches and locator lacked Canvas narrowing; corrected test construction and instanceof guards" },
+    { "phase": "default pnpm test, attempts 1 and 2", "exitCode": 1, "result": "Each 573 passed, 1 legacy-v6 worker migration test failed, 3 skipped; existing worker-migration-gates.test.ts:221 JSON output truncation then timeout; unchanged old test. Complete serial suite passed without exclusions or timeout changes." },
+    { "phase": "first Wiki generation", "exitCode": 1, "result": "Plan file lacked coverage mapping; registered precise ownership without changing gate logic" },
+    { "phase": "Wiki sync before append-only log", "exitCode": 1, "result": "APPEND_ONLY_LOG_REQUIRED; appended new history, preserved old log" }
+  ],
+  "sourceSha256": {
+    "apps/desktop/src/renderer/src/App.tsx": "24359cc115f0f6f6db29608ea1448ac60be3a8372bddcacd10804bcf86142231",
+    "apps/desktop/src/renderer/src/theme.css": "0e8f92fd693ffbaf14a794069b4e4a3b5d78e70da7d3f92d22b748b7ad921639",
+    "apps/desktop/src/renderer/src/shared/startup-confetti.tsx": "2530b553cb8516602a0a56b88d22c6a46f4b84339796fafc9ebf4c25d9e829f7",
+    "apps/desktop/src/renderer/src/shared/startup-confetti.test.tsx": "f49d55ff62d166054d78c9edb4bd79b4b0034933813f0a79db216ca8a8bfc335",
+    "tests/e2e/startup-confetti.spec.ts": "9bee89ff11f4b009370830a77d5946ca87f4a287ae6a0d445e0e80b759ff24f5"
+  },
+  "localEvidenceDirectory": ".runtime/startup-confetti",
+  "screenshot": ".runtime/startup-confetti/desktop-confetti.png",
+  "limitations": [
+    "Default concurrent full unit runner retains existing legacy-v6 stdout truncation race; serial full suite passes",
+    "Windows and final packaged app not verified; non-author visual acceptance not substituted by author checks",
+    "No real model calls or credentials read; Electron used disposable synthetic workspace directories",
+    "No commit, push, integration merge, tag or release; source checkout pending manual-acceptance documents and running old app untouched"
+  ]
+}

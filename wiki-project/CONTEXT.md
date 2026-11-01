@@ -1,4 +1,10 @@
 # 当前上下文
+
+2026-11-01 最新授权：用户要求独立启动页完成后合并并推送codex/m1-abc-integration。已fetch目标405f6f9且本机/远端一致、目标工作区干净；将提交本分支代码/Wiki并在独立worktree组合最新交接文档、复验后快进目标与普通push/远端回读。集成当前active，下方“不提交/不合入”和本机done均为历史范围，不代表最终集成完成。见[[C启动五彩纸屑动画]]。
+
+2026-11-01 启动页修订优先于下方覆盖式历史：独立奶油背景、中央TradeQuote缓显和同期纸屑，2200ms结束纸屑后650ms淡入主页面；intro工作台预挂载但隐藏/inert/aria-hidden，主页面不再显示纸屑。当前13组件/串行全量579通过3跳过/真实Electron14通过1跳过/typecheck/build/check/Wiki维护36和最终固定87106d1 sync均通过；任务本机闭环done，新证据raw/startup-screen-validation.json，旧覆盖式JSON保持字节。维护首轮并发快照漂移已保留，冻结后复跑通过。非作者视觉/Windows/安装包后置，同一独立分支无提交推送合入；见[[0034-独立启动页与工作台淡入]]、[[桌面启动五彩纸屑]]、[[C启动五彩纸屑动画]]。
+
+2026-11-01 启动动画独立切片：用户确认覆盖式五彩纸屑；codex/startup-confetti 从 87106d1 独立 worktree 实施，原工作树未提交文档保留。120 粒子、2200ms 后移除、400ms 淡出，减少动态跳过，无业务/数据/接口变更。定向8/8、串行全量574通过/3跳过、真实Electron全量14通过/1跳过、typecheck/build/check、Wiki维护36与固定基线sync均通过；默认并发两轮旧迁移输出截断失败保留，未改无关代码。本机任务done，非作者视觉评审/Windows/安装包后置；无提交推送合入。证据raw/startup-confetti-validation.json，见[[桌面启动五彩纸屑]]、[[C启动五彩纸屑动画]]。
 2026-11-01 B07契约集成非作者复核：从 origin/codex/m1-abc-integration 新建 codex/b07-contract-integration-review，核对集成分支（tip 7688d39，B 固定交付 a4f2ba6 已作为 201e471 父提交正确合入），补 reviseQuote 的 V1→V2→V3→重开 pending 回归测试（revision.test.ts 3 项），记录 quote-delivery.ts renderReply 缺 pending 标注为 C 后续修复项。见[[B对ABC集成非作者复核]]、[[B07契约集成非作者复核]]。
 
 

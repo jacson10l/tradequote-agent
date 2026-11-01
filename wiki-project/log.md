@@ -1619,3 +1619,32 @@ B07 已按 `0f837e35e0592050917a0c0f4914ca43f2fe9b64` 接收并合入集成分�
 - 合入 `origin/codex/a01-maintenance-evidence` 的 `5d308241c17b25f953d05ec5d8032c905cee4903`：渲染层 UI 优化和 P0 Wiki 收尾；只保留与当前集成分支一致的导航、样式和工作区布局改动。
 - 最终集成 tip 已完成 macOS 自动化复验并回读远端一致：typecheck/build/check/wiki 回归通过，串行完整单测 566/3，Electron 12/1；并发单测曾出现 Worker 输出截断，单独及串行复跑通过。
 - 当前阶段转入人工 MVP 验收，路径为导入资料→生成 V1→修订 V2/V3→重开→核对 pending→检查 `Quotation · V3` 客户回复草稿。正式审批/发送、真实资料发布、认证/有效期、Windows/签名包和真实供应商签认不计为完成。
+
+## 2026-11-01 C 独立启动五彩纸屑动画
+
+- 用户确认覆盖式方案；独立 codex/startup-confetti 从 87106d170f50d44af81b7594b1b6c3308f177be3 开工，保护源工作树未提交手册/Wiki。新增路由外装饰 Canvas，120 粒子、按时间轨迹、2200ms 移除/400ms 淡出、高清 resize、减少动态跳过与完整清理；不改业务契约、存储和依赖。
+- 同步 [[桌面启动五彩纸屑]]、[[C启动五彩纸屑动画]]、[[M1工作台]]、[[M1验证与协作]]、CONTEXT、状态、导航及逐文件覆盖。首轮生成发现计划文件未登记，补人工职责后 generate/check/lint 均通过，未放宽门禁或重写采集基线。
+- TDD 缺模块红灯后定向8/8通过；typecheck/build退出0；真实Electron2/2验证绘制、导航穿透、结束、重开与减少动态，本地截图已实看。全量默认并发两轮均573通过/1旧迁移JSON截断后超时/3跳过，失败证据保留，改用原测试串行执行复验，不改无关测试或跳过用例。最终验证追加在下方。
+- 无提交、推送、合入或安装包发布。Windows/安装包未验证、非作者视觉评审后置；源工作树中运行的旧应用未替换。
+
+### 启动纸屑最终本机验证收口
+
+- 保留前述默认并发失败，改用 Electron Node ABI 的完整 `vitest run --no-file-parallelism` 实际退出0：574通过/3跳过、63文件通过/2跳过，48.24s。真实 `pnpm exec playwright test` 退出0：14通过/1跳过，包含动画2项和原业务桌面回归，不把显式Codex未启用项写成已验。
+- `pnpm check`、`pnpm wiki:test` 均退出0（工程Node9、维护36），generate/check/lint与固定87106d170f50d44af81b7594b1b6c3308f177be3的sync退出0；双diff whitespace检查通过。原始本机日志在`.runtime/startup-confetti/`，脱敏便携汇总与5源码SHA256在`raw/startup-confetti-validation.json`，任务只对本切片本机闭环标done，非作者视觉/Windows/安装包/集成审批不代签。
+
+## 2026-11-01 C 根据实看反馈改为独立启动页
+
+- 用户明确否定主页面纸屑，最新决定改为独立背景、中央软件名缓显、同期纸屑，纸屑结束后主界面淡入。沿用同一codex/startup-confetti与87106d1基线，原工作树不动。新增StartupScreen包装，intro2200ms/entering650ms/ready；独立奶油柔光背景与1400ms品牌显现，工作台预挂载但intro隐藏/inert/aria-hidden，粒子结束后才过渡；无业务接口、数据、依赖变更。
+- 原8粒子测试保留，新增5项先红灯（StartupScreen不存在）后13/13通过；typecheck/build退出0；串行完整单元579通过/3跳过、47.85s，不排除旧迁移测试。真实Electron专项2/2通过，已实看独立启动页新截图desktop-splash.png与进入后desktop-main.png；不覆盖旧图desktop-confetti.png或旧raw验证。
+- 同步[[桌面启动五彩纸屑]]、[[C启动五彩纸屑动画]]、[[0034-独立启动页与工作台淡入]]、M1工作台/验证、计划、状态、CONTEXT、导航和职责描述；任务改回active等待本轮全量桌面与最终门禁，旧done/验证明确保留为历史，不冒充新行为证据。新验证将独立写raw/startup-screen-validation.json。
+
+### 独立启动页最终验证
+
+- 本轮完整Electron14通过/1跳过（2.3m）、组件13/13、串行完整单元579通过/3跳过（47.85s）、typecheck/build/check均退出0。纸屑仅在独立启动页，启动期主页面隐藏不可操作，2200ms后650ms交叉淡变；新启动/主页面截图均实看。
+- Wiki首轮35/36的GENERATED_DRIFT保留于splash-wiki-tests.log，检查执行期间源码/配置及机械清单变化；冻结后原命令复跑36/36、44.18s，不改维护逻辑或测试。最终generate/只读check/lint/固定87106d1 sync与双diff检查通过，301Markdown/267语义页可达。新raw/startup-screen-validation.json保存本轮退出码及5源码SHA256，旧raw SHA256=08352fa314f77c1b4854cd161848d579d670cc995f4028d80aa490ad2a6e490f保持不变。
+- 本机任务重新done，仅对最新独立启动页/P0闭环；非作者视觉、Windows/安装包、合入发布仍待。无提交推送合入，不修改源工作树运行的旧应用。
+
+## 2026-11-01 启动页合并推送授权与基线
+
+- 用户明确要求完成后合并到codex/m1-abc-integration并推送。fetch后本地与远端目标均405f6f95995459276a856aa3125e9f08e5edc5a4，原工作区干净；新增验收手册/AGENTS/CONTRIBUTING交接规则将完整保留，功能实现5项SHA256仍与上一轮真实验证一致。
+- 任务重新active，按明确文件白名单提交代码/Wiki，在独立功能工作区合入最新目标、组合复验，再快进目标并执行其门禁、普通推送和远端回读；不强推，不加入其他成员未请求分支，不提交本机运行产物/凭据。旧“不提交/不合入”限制由本次用户授权替代，旧验证与日志不删除。
