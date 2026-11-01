@@ -1,9 +1,10 @@
 ---
 title: C启动五彩纸屑动画
 type: task
-status: active
+status: done
 updated: 2026-11-01
 verification:
+  - wiki-repo:raw/startup-screen-integration-validation.json:1
   - wiki-repo:raw/startup-screen-validation.json:1
   - wiki-repo:raw/startup-confetti-validation.json:1
 sources:
@@ -19,9 +20,11 @@ sources:
 
 ## 当前集成授权与交付状态
 
-用户于2026-11-01明确要求完成后合并到 `codex/m1-abc-integration` 并推送，替代下方历史“不提交/不合入”限制。当前目标已fetch并确认本机与远端均为405f6f95995459276a856aa3125e9f08e5edc5a4，目标工作区干净；新增手册与交接文档保留。先提交本分支代码/Wiki，合入目标最新文档并重新生成机械清单、复验实际组合，再将目标分支快进到已验证候选、执行目标分支门禁、普通push并回读远端。集成未结束前保持active，不把本机实现done等同于最终交付。
+用户于2026-11-01明确要求完成后合并到 `codex/m1-abc-integration` 并推送，替代下方历史“不提交/不合入”限制。功能固定提交ec056dbbb83816e4f4cd038cfe3911fcb368a18f，父87106d170f50d44af81b7594b1b6c3308f177be3。合入最新目标405f6f95995459276a856aa3125e9f08e5edc5a4后得到7cd18121fd7741123e4c3271da25b7cd5896f73a（父ec056db/405f6f9），保留全部交接资料；仅日志/生成清单冲突，保留双方追加历史并重新生成，目标日志原换行逐字节保留。
 
-提交范围白名单：App.tsx、theme.css、shared/startup-confetti.tsx与其测试、tests/e2e/startup-confetti.spec.ts、对应计划、Wiki知识/任务/ADR/状态/导航/追加日志/源码职责与生成清单，以及两份既有脱敏验证JSON；不包含客户资料、运行数据库、安装包、截图或完整运行日志。待集成固定SHA与父提交在实际提交后记录。
+初始目标工作区干净，快进前发现另一任务正在合入B08，安全检查拒绝改动，未stash/reset/abort其内容。改用独立clone的同名 `codex/m1-abc-integration`，实际快进到7cd1812并重跑typecheck/build/check、串行完整579通过3跳过（82.74s）、真实Electron14通过1跳过（2.4m）、Wiki36/36（62.53s）。普通push实际成功405f6f9..7cd1812；首次回读TLS失败，重试ls-remote/fetch均返回7cd18121fd7741123e4c3271da25b7cd5896f73a，与目标clone一致。回读后又在该分支执行typecheck、动画13/13及只读Wiki check/lint/固定405f6f9 sync全部通过。当前done表示启动页代码已集成并推送，不代替非作者人工批准；原共享目标checkout的B08合并现场保留，未声称本机该checkout已经同步。
+
+提交范围白名单：App.tsx、theme.css、shared/startup-confetti.tsx与其测试、tests/e2e/startup-confetti.spec.ts、对应计划、Wiki知识/任务/ADR/状态/导航/追加日志/源码职责与生成清单，以及两份既有脱敏验证JSON；完整23文件列表与实际检查/推送回执见raw/startup-screen-integration-validation.json。后续回执仅更新Wiki，不加入客户资料、数据库、安装包、截图或完整日志。Windows/安装包未验证、非作者视觉签认后置；他人B08分支未提交工作未混入本次推送。
 
 ## 用户修订：独立启动页（当前已验证）
 
