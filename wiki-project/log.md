@@ -1620,6 +1620,25 @@ B07 已按 `0f837e35e0592050917a0c0f4914ca43f2fe9b64` 接收并合入集成分�
 - 最终集成 tip 已完成 macOS 自动化复验并回读远端一致：typecheck/build/check/wiki 回归通过，串行完整单测 566/3，Electron 12/1；并发单测曾出现 Worker 输出截断，单独及串行复跑通过。
 - 当前阶段转入人工 MVP 验收，路径为导入资料→生成 V1→修订 V2/V3→重开→核对 pending→检查 `Quotation · V3` 客户回复草稿。正式审批/发送、真实资料发布、认证/有效期、Windows/签名包和真实供应商签认不计为完成。
 
+## 2026-11-01 C 编写 MVP 人工验收操作手册
+
+- 新增[[MVP人工验收操作手册]]，覆盖macOS启动、工作区/业务场景、`docs/roadshow/c07/catalog.csv`预览发布、DeepSeek授权配置、300/500件报价、可选V3、检查报告、pending、客户回复、重开与异常处理。
+- 手册记录C07资料与询盘的合成/待审核边界，明确本地资料发布不等于真实性签认、复制不等于审批/发送，并提供逐项验收记录模板。
+- 主流程按固定 `inquiry.md` 第1轮追问、第2轮拟议条款保存300件V1、第3轮改为500件V2排列；已更新[[C07业务资料与路演收口]]、Wiki导航、CONTEXT和任务页。
+- 验证：`pnpm wiki:check` 通过（300个Markdown、266个语义页均可达）；`pnpm wiki:test` 36/36通过；`check-wiki-sync --base 87106d170f50d44af81b7594b1b6c3308f177be3` 通过（`codeFiles=0`、`errors=[]`）；`git diff --check` 通过。
+
+## 2026-11-01 C 转达 A/B 收口要求
+
+- 新增[[C08-A-B问题修复需求转达]]，明确 A 需区分当前 285 行/82 SKU 隔离结果与历史 286 行/83 SKU 失败证据，并继续补齐服装快照、有效期、认证和供应商证据。
+- 明确 B 必须修复生产 pending 契约：C07 的 `Proposed`、`Subject to supplier confirmation` 付款/交期不能只保存为文字，必须在未经过人工受控确认时进入待确认状态，并覆盖版本链与重开。
+- A/B 交付前不得把资料真实性、供应商确认、正式审批、外发、PDF、Windows 或签名包写成已完成；C 接收以固定 SHA、实际反例和 Wiki 闭环为准。
+
+## 2026-11-01 固定集成与验收主分支
+
+- 项目负责人明确将 `codex/m1-abc-integration` 作为唯一集成主分支和后续人工验收基线；A/B/C 所有最终交付必须合入该分支。
+- 规则已写入根目录 `AGENTS.md`、`README.md`、`CONTRIBUTING.md`，并同步 `CONTEXT.md` 与本轮 A/B 需求转达页。成员分支推送不等于最终交付，C 合入后必须回读远端并重跑适用门禁。
+- 后续澄清：V3 仅为可选验收步骤，不是版本上限；客户需求未满足时可以从最新版本继续生成 V4+，见[[MVP人工验收操作手册]]。更新后 `pnpm wiki:check`、`check-wiki-sync --base 87106d170f50d44af81b7594b1b6c3308f177be3` 和 `git diff --check` 均通过。
+
 ## 2026-11-01 C 独立启动五彩纸屑动画
 
 - 用户确认覆盖式方案；独立 codex/startup-confetti 从 87106d170f50d44af81b7594b1b6c3308f177be3 开工，保护源工作树未提交手册/Wiki。新增路由外装饰 Canvas，120 粒子、按时间轨迹、2200ms 移除/400ms 淡出、高清 resize、减少动态跳过与完整清理；不改业务契约、存储和依赖。

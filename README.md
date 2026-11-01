@@ -72,7 +72,7 @@ pnpm wiki:test
 
 ## 三人并行开发交接
 
-本批共同起点/PR目标为 `origin/codex/m1-foundation`。成员必须在独立工作目录各开任务分支，禁止直接在main/集成分支开发。
+当前验收主分支为 `codex/m1-abc-integration`，远端对应 `origin/codex/m1-abc-integration`。A、B、C 的所有最终交付都必须合入该分支；未合入的成员分支不能作为验收代码。成员必须在独立工作目录各开任务分支，禁止直接在 `codex/m1-abc-integration`、main 或其他成员分支开发。
 
 | 成员 | 首批负责模块 | 分支与任务 |
 |---|---|---|
@@ -80,7 +80,7 @@ pnpm wiki:test
 | B | 公共契约、两类规则检查、风险标记＋文本批注 | 先codex/b00-first-batch-contracts，再codex/b01-rules-feedback；[B任务](wiki-project/wiki/tasks/B01-规则检查与双反馈.md) |
 | C | DeepSeek评估、Agent取消/中断/重试、桌面集成 | codex/c01-agent-recovery；[C01任务](wiki-project/wiki/tasks/C01-Agent运行恢复与集成.md) |
 
-开工命令、公共文件边界、依赖和验收见 [交接入口](wiki-project/wiki/三人并行开发交接.md)，新接口定义见 [首批接口约定](wiki-project/wiki/首批并行接口约定.md)。[B00公共契约](wiki-project/wiki/tasks/B00-首批公共契约.md)和C01a进程内状态机已完成独立技术复核并纳入本次收口，A01知识库方案与C01b存储准备一并保留。交付状态见[分支收口记录](wiki-project/wiki/分支收口与共同基线.md)。知识/检查/run正式服务仍待开发，客户端明确返回能力未接入；C01b仍需B的澄清/list与A的迁移/同事务入口。C同时按完整路线推进工具执行层，本轮C02a内部只读循环已验证，C02b生产适配与C02c持久写工具继续分别验收。
+开工命令、公共文件边界、依赖和验收见 [交接入口](wiki-project/wiki/三人并行开发交接.md)，新接口定义见 [首批接口约定](wiki-project/wiki/首批并行接口约定.md)。历史共同基线 `codex/m1-foundation` 仅作参考；当前以 `codex/m1-abc-integration` 的远端回读和门禁结果为准。交付状态见[分支收口记录](wiki-project/wiki/分支收口与共同基线.md)。
 
 ## 两个参考项目与 C 的完整任务
 

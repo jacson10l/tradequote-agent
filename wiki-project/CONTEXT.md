@@ -266,3 +266,7 @@ C封板技术稳定性补齐：真实deepseek-flash连续五轮、每轮7检查�
 
 2026-11-01 C 已合入 B07 非作者复核并修正客户回复 pending 边界：domain 的 `renderReply` 不再输出未确认付款/交期内部占位词，新增回归测试；等待 macOS 集成门禁复跑。
 2026-11-01 C 已将 A06 来源收口（`ffbf5ec`）和 A01 UI/P0 收口（`5d30824`）合入 `codex/m1-abc-integration`；A06 隔离区间价 SKU 后目录为285行/82 SKU且解析0 issue，A01样式优化保留。最终集成 tip 已推送并回读一致，typecheck/build/check/wiki回归、串行566/3单测、Electron 12/1 均通过，进入人工MVP验收；服装快照、valid_until依据、认证/供应商有效期、人工发布、Windows/签名包/正式审批仍不冒称完成，见[[C集成-ABC合并与后续分工]]和raw/c-integration-mvp-validation.json。
+
+2026-11-01 新增[[MVP人工验收操作手册]]：固定macOS桌面启动、隔离工作区、C07小目录导入发布、300/500件V1/V2金额、可选V3、pending/报告/客户草稿/重开检查及验收记录模板；明确资料、商业与平台规则人工签认及正式审批/外发等边界。
+
+2026-11-01 项目负责人明确将`codex/m1-abc-integration`定为唯一集成主分支和后续人工验收基线：A/B/C所有最终交付必须合入该分支，成员分支已推送不等于完成；C合入后须回读`origin/codex/m1-abc-integration`并重跑适用门禁。规则已同步根目录`AGENTS.md`、`README.md`和`CONTRIBUTING.md`。
