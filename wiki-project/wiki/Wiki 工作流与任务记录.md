@@ -286,3 +286,7 @@ wiki-lib.mjs 的 ignoredDirs 增 .workbuddy（WorkBuddy IDE 项目数据目录�
 ## 2026-10-31 演示数据包 demo_data 归档登记
 
 `wiki-config.json` 的 `archivalMarkdown` 增 `demo_data/MANIFEST.md`：演示数据包（来自 `codex/demo-data-catalog` 分支，含 `catalog_demo.csv` 主样本、`catalog_converted.csv` 300 行备用、规则/询盘/商品配套 CSV 及生成脚本）的清单文件按归档来源文档处理，不参与文档导航；`raw/file-provenance.json` 同步登记其 sha256。导航算法不变，仅登记一个新归档清单，见 [[A01f演示资料包冻结]]。
+
+## 2026-11-01 虚拟形象看板娘板块与覆盖映射
+
+新增虚拟形象看板娘（报价小人）的 8 个源码/测试文件逐文件覆盖映射：契约 `packages/contracts/src/pet.ts`、基础设施 `pet-memory-store.ts`（及测试）、`pet-quote-context.ts`（及测试）、渲染层 `pet-assistant.tsx`、`pet-mascot.tsx`、`use-speech-recognition.ts`，分别映射到知识板块 [[报价小人人设]]、[[报价小人记忆]] 与方案页 [[虚拟形象与记忆方案]]。同时新建知识板块 `wiki-project/wiki/pet/`（人设 + 长期记忆，进 git）与任务页 [[虚拟形象看板娘]]。维护算法不变，仅增覆盖配置并重新生成清单；见 [[虚拟形象与记忆方案]]。

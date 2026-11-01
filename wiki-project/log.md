@@ -1633,3 +1633,11 @@ C05提交前新鲜复验535单元/3显式live跳过、12Electron、36维护及ty
   2. **记忆板块口径修正**：用户原始需求「在 llm wiki 知识库单独开一个板块」。经核对 A业务LLMWiki方案，明确「应用内业务 LLM Wiki」位于运行数据、不写工程 wiki-project；小人记忆 = 应用内 LLM wiki 的独立板块 PetMemory（独立 pet-memory.db），与业务知识分离、与工程 wiki 隔离。方案文档「模块2」与「关键设计决策」表口径已统一为「应用内业务 LLM Wiki 独立板块」，消除「LLM Wiki」可能被误解为工程 wiki-project 的歧义。
 - 验证：typecheck 0；pet-memory-store/pet-quote-context 测试 9/9；electron-vite build 成功（新头像资源已打包）。
 - 遗留（可选润色，未强求）：头像与趴姿小人为两次生成，脸部细节非严格一致；多表情派生须先锁「标准脸」。
+
+## 2026-11-01 虚拟形象记忆板块纠正（回顾最初任务）
+
+- 用户纠正：小人的记忆存储应在「llm wiki 知识库单独开一个板块」，而非只做独立 db。据此在项目知识库 `wiki-project/wiki/pet/` 新建独立板块：`报价小人人设.md`（固定人格/视觉/性格/口头禅，人工维护进 git）+ `报价小人记忆.md`（长期记忆沉淀，追加式进 git）。
+- 修正方案文档口径：记忆放哪 = 项目知识库独立板块（人设+长期记忆进 git），运行时会话态走独立 pet-memory.db；pet-memory-store.ts 注释同步改为「本 db 只承载会话态，长期记忆权威在 wiki 板块」。
+- 修正头像胸前标识：pet-avatar.png 原六边形符文改为品牌 Logo「报价单+上升折线」（对齐 icon.svg）。
+- 补 P0 缺口：新增任务页 tasks/虚拟形象看板娘.md；8 个 pet 源文件登记 wiki-config coverage；重新生成 raw/generated 快照；index.md 挂载板块入口。
+- 验证：lint 仅剩 4 项预存在 raw/design、raw/inputs ARCHIVE_HASH_MISMATCH（C 集成遗留，非本任务引入）。

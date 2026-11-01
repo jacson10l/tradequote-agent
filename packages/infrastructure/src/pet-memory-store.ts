@@ -18,7 +18,11 @@ import type { DeepSeekProvider } from "./deepseek";
  * - 人设（persona）：人工审核后才生效（status=candidate → approved）。
  * - 会话记忆（memory）：免审自动写，kind ∈ {fact, summary}，有界（最多保留
  *   MAX_MEMORIES 条，超出按时间滚动删除最旧）。
- * - 不写入 wiki-project，不接入业务迁移谱系（独立 user_version=1）。
+ * - 不接入业务迁移谱系（独立 user_version=1）。
+ *
+ * 注意：本 db 只承载「运行时会话态」。小人的长期记忆与固定人设的权威载体在
+ * 项目知识库板块 `wiki-project/wiki/pet/`（人设.md + 记忆.md，进 git）；本 store
+ * 是高频会话缓存，重要长期记忆由人工沉淀回 wiki 板块。
  */
 
 const MAX_MEMORIES = 100;
