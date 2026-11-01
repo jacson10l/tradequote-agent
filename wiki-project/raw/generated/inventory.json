@@ -86,9 +86,9 @@
     {
       "path": "DESIGN.md",
       "type": "md",
-      "lines": 124,
-      "bytes": 12359,
-      "sha256": "3d37e8ee30a032ac82f2ef65fe96cbde98bd9cd2ad5f8a70975398cc79610b5f",
+      "lines": 129,
+      "bytes": 12822,
+      "sha256": "0dc861f4d86ffdce0104d0ddb579fab9cc829035d0ab14eb3d0339b281d405eb",
       "role": "当前视觉规范",
       "pages": [
         "wiki/decisions/0001-Mistral工作台风格.md",
@@ -461,9 +461,9 @@
     {
       "path": "apps/desktop/src/renderer/src/features/knowledge-graph.css",
       "type": "css",
-      "lines": 163,
-      "bytes": 2784,
-      "sha256": "e36d332996f8c69a91a124bb723489a48f820cd87c9810a3a39b727fe077a71f",
+      "lines": 164,
+      "bytes": 2931,
+      "sha256": "acb84a41e7150f370b5cd0babf805578f2a790b7646e6d234512ff294b9b05fb",
       "role": "C15只读知识关系图谱、来源边界及交互验证",
       "pages": [
         "wiki/C15知识关系图谱.md"
@@ -473,8 +473,8 @@
       "path": "apps/desktop/src/renderer/src/features/knowledge-graph.tsx",
       "type": "tsx",
       "lines": 313,
-      "bytes": 11213,
-      "sha256": "b66ffc36a4eee1e37cc5fcbe889fccd1f76394c285cfee94dfa94e024ee8550a",
+      "bytes": 11271,
+      "sha256": "fee4c07bcfb66d64790a50bfff8434e0ec65f1f862dd3e0d9afd35baa4a2327f",
       "role": "C15只读知识关系图谱、来源边界及交互验证",
       "pages": [
         "wiki/C15知识关系图谱.md"

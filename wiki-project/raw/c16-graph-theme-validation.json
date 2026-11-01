@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "baseline": "ad00e1ce0883174fd37251366b52d2463797e336",
+  "environment": "macOS arm64 / Node 22.22.0 / pnpm 10.13.1",
+  "checks": [
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "logSha256": "0c7ba9bc1901243441cb9a568151307b7c213f79931ecea5a0622523d037805d"
+    },
+    {
+      "command": "pnpm build",
+      "exitCode": 0,
+      "logSha256": "a5b1e42017fcbe7274c943187d0cddf4d0d17d3e34ce2b24e50d681ce23ca6e2"
+    },
+    {
+      "command": "pnpm exec playwright test tests/e2e/knowledge-graph.spec.ts",
+      "exitCode": 0,
+      "logSha256": "2c6d5ba32c134001e9623260b183f9476c22a44d1751c4576a9fa6461ee0b8dd"
+    },
+    {
+      "command": "pnpm check",
+      "exitCode": 0,
+      "logSha256": "fd30440f26acb5ed15206abd5f2483a1f4a37335681a89841c560fe224d80aa0"
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base ad00e1c",
+      "exitCode": 0,
+      "logSha256": "97b6301f15261c1dae8de95a1db2176abe852dff481c886e38fefb1438c99add"
+    }
+  ],
+  "visual": "Native Electron screenshot inspected: white graph card, warm cream legend, neutral text/nodes, existing shell and card geometry preserved",
+  "screenshotSha256": "4553e927fb68cec6eef0bb187c5be5d84ad3151da4ba21102e974b61c3ee5368",
+  "limits": [
+    "No full suite rerun for this color-only change",
+    "Windows, packaged installer and independent reviewer not verified",
+    "Existing large bundle build warning remains"
+  ]
+}

@@ -195,7 +195,7 @@ export function KnowledgeGraphPage({ client }: { client: DesktopClient }) {
                     y1={a.y}
                     x2={b.x}
                     y2={b.y}
-                    stroke={lit ? "#eea35d" : "#727879"}
+                    stroke={lit ? "var(--action)" : "var(--text-muted)"}
                     strokeWidth={lit ? 1.7 : 0.65}
                     opacity={lit ? 0.95 : selected ? 0.12 : 0.3}
                   />
@@ -224,12 +224,12 @@ export function KnowledgeGraphPage({ client }: { client: DesktopClient }) {
                       r={4 + Math.min(10, Math.sqrt(degree.get(n.id) ?? 0) * 1.3)}
                       fill={
                         selected === n.id
-                          ? "#ffb66c"
+                          ? "var(--action)"
                           : n.kind === "source"
-                            ? "#91c6b5"
+                            ? "var(--success)"
                             : n.kind === "quote"
-                              ? "#a5bfff"
-                              : "#bec3c1"
+                              ? "var(--action)"
+                              : "var(--text-muted)"
                       }
                     />
                     <text
@@ -253,8 +253,8 @@ export function KnowledgeGraphPage({ client }: { client: DesktopClient }) {
           )}
           <div className="kg-legend">
             <span>● 知识</span>
-            <span style={{ color: "#91c6b5" }}>● 来源</span>
-            <span style={{ color: "#a5bfff" }}>● 报价</span>
+            <span style={{ color: "var(--success)" }}>● 来源</span>
+            <span style={{ color: "var(--action)" }}>● 报价</span>
             <span>{Math.round(zoom * 100)}%</span>
           </div>
         </div>
