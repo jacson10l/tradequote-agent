@@ -5,6 +5,9 @@ import { basename, extname, join } from "node:path";
 import { pathToFileURL } from "node:url";
 import {
   failure,
+  WikiCommandSchema,
+  KnowledgeMaintenanceCommandSchema,
+  KnowledgeDesktopCommandSchema,
   ModelEvaluationCommandSchema,
   ModelSettingsCommandSchema,
   PetCommandSchema,
@@ -169,6 +172,18 @@ else {
         (contents, permission, callback, details) =>
           callback(clipboardWriter(contents, permission, details)),
       );
+      for (const channel of ["knowledge.wiki", "knowledge.maintenance", "knowledge.desktop"] as const) {
+        ipcMain.handle(channel, (event, input: unknown) => {
+          if (!trusted(event)) return failure("ACTION_NOT_ALLOWED", "调用来源不允许");
+          const schema = channel === "knowledge.wiki" ? WikiCommandSchema : channel === "knowledge.maintenance" ? KnowledgeMaintenanceCommandSchema : KnowledgeDesktopCommandSchema;
+          const parsed = schema.safeParse(input);
+          if (!parsed.success) return failure("VALIDATION_ERROR", "知识请求字段不合法");
+          if (channel === "knowledge.maintenance" && !["wiki.lint", "wiki.getLintReport", "source.withdraw"].includes(parsed.data.method)) return failure("CAPABILITY_UNAVAILABLE", "当前桌面仅提供知识检查、报告与来源撤回");
+          if (parsed.data.method === "wiki.registerConsumption") return failure("ACTION_NOT_ALLOWED", "来源消费仅由业务事务登记");
+          if (parsed.data.method === "knowledge.organize" && settingsBusy) return failure("CAPABILITY_UNAVAILABLE", "请等待模型设置保存完成");
+          return worker?.request(parsed.data, parsed.data.method === "knowledge.organize" ? settings.getCredentials() : undefined) ?? failure("CAPABILITY_UNAVAILABLE", "业务进程未启动");
+        });
+      }
       for (const method of [
         "modelEvaluation.start",
         "modelEvaluation.list",

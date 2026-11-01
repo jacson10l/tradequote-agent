@@ -171,7 +171,9 @@ export class BusinessWorker {
           // Terminate the uncertain writer; do not spawn until its exit is observed.
           child.kill();
         },
-        command.method === "agent.read"
+        command.method === "knowledge.organize"
+          ? 60000
+          : command.method === "agent.read"
           ? 135000
           : command.method === "agent.understand" || command.method === "agent.revise"
             ? command.payload.executionMode === "tool_loop"

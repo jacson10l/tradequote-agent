@@ -21,9 +21,11 @@ import {
   type Understanding,
   UnderstandingSchema,
 } from "@tradequote/contracts";
-import { TradeFault, transitionAgentRun } from "@tradequote/domain";
+import { evaluateWikiQuote, TradeFault, transitionAgentRun } from "@tradequote/domain";
 import type Database from "better-sqlite3";
 import { z } from "zod";
+import { CheckStore } from "./check-store";
+import { SqliteWikiCheckSource } from "./wiki-check-source";
 import { SqliteKnowledgeStore } from "./knowledge-store";
 import {
   checkDraft,
@@ -34,6 +36,8 @@ import {
   draftPlan,
   knowledgeQuery,
   knowledgeStamp,
+  ruleCategory,
+  wikiKnowledgeStamp,
   semanticQuote,
 } from "./quote-draft-plan";
 import { RunEventStore } from "./run-event-store";
@@ -133,6 +137,14 @@ export class AgentRunStore {
       if (!receipt?.validation_json) throw new TradeFault("STORAGE_ERROR", "缺少已保存校验依据");
       const proof = DraftAuthorizationSchema.parse(JSON.parse(receipt.validation_json));
       const report = run.validation.report;
+      if (proof.wikiStamp) {
+        const reports = new CheckStore(this.db, new SqliteWikiCheckSource(this.db)).execute({ schemaVersion: 1, requestId: randomUUID(), method: "quote.getChecks", payload: { revisionId: run.committedRevisionId } }, { actorId: "local-user", origin: "agent_tool" });
+        const saved = reports.ok && Array.isArray(reports.data) ? reports.data.find(r => r.reportId === report.reportId) : undefined;
+        const board = this.trades.execute({ schemaVersion: 1, requestId: randomUUID(), method: "trade.get" }, { actorId: "local-user", origin: "agent_tool" });
+        const quote = board.ok ? board.data.quotes.find(q => q.id === run.committedRevisionId) : undefined;
+        if (!saved || !quote || digest(saved) !== digest(report) || digest(saved.wikiCitations) !== digest(proof.wikiCitations) || digest(semanticQuote(quote)) !== digest(semanticQuote(proof.calculated))) throw new TradeFault("STORAGE_ERROR", "Wiki检查报告与已保存报价或消费依据不一致");
+        return run;
+      }
       const knowledgeStore = new SqliteKnowledgeStore(this.db);
       const knowledge = checkedKnowledge({
         ok: true,
@@ -710,18 +722,21 @@ export class AgentRunStore {
       if (digest(semanticQuote(planned)) !== digest(semanticQuote(proof.calculated)))
         throw new TradeFault("SOURCE_CONFLICT", "核价候选与当前资料不一致，请重新核价");
       const at = this.now();
+      const wikiQuote = { ...planned, scenario: { ...planned.scenario, category: ruleCategory(planned) } };
+      const resolved = new SqliteWikiCheckSource(this.db).resolveForQuote(wikiQuote, at, { actorId: "local-user", origin: "agent_tool" });
+      if (proof.wikiStamp ? wikiKnowledgeStamp(resolved) !== proof.wikiStamp : resolved.length > 0) throw new TradeFault("SOURCE_CONFLICT", "适用Wiki知识已变化，请重新检索校验");
       const knowledge = checkedKnowledge({
         ok: true,
         data: {
           kind: "list",
-          revisions: new SqliteKnowledgeStore(this.db).findPublished(knowledgeQuery(planned, at)),
+          revisions: proof.wikiStamp ? [] : new SqliteKnowledgeStore(this.db).findPublished(knowledgeQuery(planned, at)),
         },
         warnings: [],
         evidenceIds: [],
       });
       if (knowledgeStamp(knowledge) !== proof.knowledgeStamp)
         throw new TradeFault("SOURCE_CONFLICT", "适用知识版本已变化，请重新检索校验");
-      const checked = checkDraft(planned, knowledge, at);
+      const checked = proof.wikiStamp ? evaluateWikiQuote({ quote: wikiQuote, resolutions: resolved, checkedAt: at, reportId: randomUUID() }) : checkDraft(planned, knowledge, at);
       if (checked.issues.some((issue) => issue.severity === "block"))
         throw new TradeFault("RULE_BLOCKED", "候选仍有阻断规则问题，未保存");
       const done = this.commitWrite(ticket, toolCallId, proposal, model);
@@ -733,6 +748,14 @@ export class AgentRunStore {
       const quote = saved.data.quotes.find((quote) => quote.id === done.committedRevisionId);
       if (!quote || digest(semanticQuote(quote)) !== digest(semanticQuote(planned)))
         throw new TradeFault("SOURCE_CONFLICT", "实际保存与已核价候选不一致");
+      let savedReport = checkDraft(quote, knowledge, at);
+      if (proof.wikiStamp) {
+        const result = new CheckStore(this.db, new SqliteWikiCheckSource(this.db), () => at).execute({ schemaVersion: 1, requestId: randomUUID(), idempotencyKey: randomUUID(), method: "quote.check", payload: { revisionId: quote.id } }, { actorId: "local-user", origin: "agent_tool" });
+        if (!result.ok) throw new TradeFault(result.error.code, result.error.message);
+        if (Array.isArray(result.data)) throw new TradeFault("STORAGE_ERROR", "检查结果类型不符");
+        savedReport = result.data;
+        if (digest(savedReport.wikiCitations) !== digest(proof.wikiCitations)) throw new TradeFault("SOURCE_CONFLICT", "保存检查与已授权Wiki引用不一致");
+      }
       return this.appendToolStep(
         done,
         {
@@ -745,7 +768,7 @@ export class AgentRunStore {
           evidenceIds: [quote.id],
         },
         null,
-        { kind: "saved_revision", report: checkDraft(quote, knowledge, at) },
+        { kind: "saved_revision", report: savedReport },
       );
     });
   }

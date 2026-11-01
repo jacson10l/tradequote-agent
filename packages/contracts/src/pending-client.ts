@@ -1,3 +1,4 @@
+import { type KnowledgeDesktopClient, KnowledgeDesktopCommandSchema } from "./knowledge-desktop";
 import type { z } from "zod";
 import { type CheckClient, CheckCommandSchema } from "./checks";
 import { type KnowledgeClient, KnowledgeCommandSchema } from "./knowledge";
@@ -24,13 +25,14 @@ function unavailable(schema: z.ZodType, input: unknown): Promise<z.infer<typeof 
     },
   });
 }
-export const unavailableFirstBatchClient: KnowledgeClient &
+export const unavailableFirstBatchClient: KnowledgeDesktopClient & KnowledgeClient &
   CheckClient &
   RunClient &
   WikiClient &
   KnowledgeBuildClient &
   RunEventsClient &
   KnowledgeMaintenanceClient = {
+  executeKnowledgeDesktop: (command) => unavailable(KnowledgeDesktopCommandSchema, command),
   executeKnowledgeBuild: (command) => unavailable(KnowledgeBuildCommandSchema, command),
   executeWikiMaintenance: (command) => unavailable(KnowledgeMaintenanceCommandSchema, command),
   getAgentRunEvents: (command) => unavailable(RunEventsCommandSchema, command),

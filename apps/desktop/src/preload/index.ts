@@ -1,4 +1,10 @@
 import {
+  WikiCommandSchema,
+  WikiResultSchema,
+  KnowledgeMaintenanceCommandSchema,
+  KnowledgeMaintenanceResultSchema,
+  KnowledgeDesktopCommandSchema,
+  KnowledgeDesktopResultSchema,
   AgentCommandSchema,
   AgentReadCommandSchema,
   AgentReadResultSchema,
@@ -110,6 +116,24 @@ const client: DesktopClient = {
     }
   },
   ...unavailableFirstBatchClient,
+  executeWiki: async (command) => {
+    const parsed = WikiCommandSchema.safeParse(command);
+    if (!parsed.success) return failure("VALIDATION_ERROR", "知识请求字段不合法");
+    try { return WikiResultSchema.parse(await ipcRenderer.invoke("knowledge.wiki", parsed.data)); }
+    catch { return failure("CAPABILITY_UNAVAILABLE", "知识连接中断，请刷新后重试同一操作"); }
+  },
+  executeWikiMaintenance: async (command) => {
+    const parsed = KnowledgeMaintenanceCommandSchema.safeParse(command);
+    if (!parsed.success) return failure("VALIDATION_ERROR", "知识检查请求字段不合法");
+    try { return KnowledgeMaintenanceResultSchema.parse(await ipcRenderer.invoke("knowledge.maintenance", parsed.data)); }
+    catch { return failure("CAPABILITY_UNAVAILABLE", "知识检查连接中断，请刷新后重试"); }
+  },
+  executeKnowledgeDesktop: async (command) => {
+    const parsed = KnowledgeDesktopCommandSchema.safeParse(command);
+    if (!parsed.success) return failure("VALIDATION_ERROR", "知识整理请求字段不合法");
+    try { return KnowledgeDesktopResultSchema.parse(await ipcRenderer.invoke("knowledge.desktop", parsed.data)); }
+    catch { return failure("CAPABILITY_UNAVAILABLE", "整理结果未知，请刷新候选；不会自动重发模型请求"); }
+  },
   checkQuote: async (command) => CheckResultSchema.parse(await invokeCheck(command, "quote.check")),
   getQuoteChecks: async (command) =>
     CheckListResultSchema.parse(await invokeCheck(command, "quote.getChecks")),

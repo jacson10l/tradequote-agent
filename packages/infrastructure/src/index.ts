@@ -3,6 +3,7 @@ import { existsSync, mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import {
   type CheckListResult,
+  type QuoteSnapshot,
   type CheckResult,
   type Command,
   type ExecutionContext,
@@ -22,6 +23,8 @@ import {
 import Database from "better-sqlite3";
 import { drizzle } from "drizzle-orm/better-sqlite3";
 import { AgentRunStore } from "./agent-run-store";
+import { EnterpriseKnowledge } from "./enterprise-knowledge";
+import type { DeepSeekProvider } from "./deepseek";
 import { CheckStore } from "./check-store";
 import { SqliteKnowledgeStore } from "./knowledge-store";
 import { identify, migrate } from "./migrations";
@@ -117,6 +120,9 @@ export class SqliteWorkspaceRepository implements WorkspaceRepository {
   executeTrade(command: TradeCommand, context: ExecutionContext) {
     return new TradeStore(this.db).execute(command, context);
   }
+  executeKnowledgeDesktop(command: unknown, provider?: Pick<DeepSeekProvider, "json">) {
+    return new EnterpriseKnowledge(this.db).execute(command, provider);
+  }
   executeKnowledge(command: unknown, context: ExecutionContext) {
     return createKnowledgeService(new SqliteKnowledgeStore(this.db)).execute(command, context);
   }
@@ -128,6 +134,9 @@ export class SqliteWorkspaceRepository implements WorkspaceRepository {
       command,
       context,
     );
+  }
+  resolveQuoteWiki(quote: QuoteSnapshot, checkedAt: string) {
+    return this.db.transaction(() => new SqliteWikiCheckSource(this.db).resolveForQuote(quote, checkedAt, { actorId: "local-user", origin: "agent_tool" })).deferred();
   }
   executeChecks(command: unknown, context: ExecutionContext): CheckResult | CheckListResult {
     return new CheckStore(this.db, new SqliteWikiCheckSource(this.db)).execute(command, context);

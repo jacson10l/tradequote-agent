@@ -13,6 +13,7 @@ import {
 import { evaluateWikiQuote, TradeFault } from "@tradequote/domain";
 import type Database from "better-sqlite3";
 import type { CheckKnowledgeSource } from "./check-store";
+import { ruleCategory } from "./quote-draft-plan";
 import { SqliteWikiStore } from "./wiki-store";
 
 const hash = (text: string) => createHash("sha256").update(text, "utf8").digest("hex");
@@ -33,13 +34,12 @@ export class SqliteWikiCheckSource implements CheckKnowledgeSource {
     this.wiki = new SqliteWikiStore(db);
   }
 
-  prepare(quote: QuoteSnapshot, reportId: string, checkedAt: string, actor: ExecutionContext) {
-    if (!this.db.inTransaction) throw new Error("CHECK_TRANSACTION_REQUIRED");
+  resolveForQuote(quote: QuoteSnapshot, checkedAt: string, actor: ExecutionContext) {
     const context: WikiHostContext = { ...actor, workspaceId: quote.workspaceId, now: checkedAt };
     const scope = {
       platform: quote.scenario.platform,
       market: quote.scenario.market,
-      category: quote.scenario.category,
+      category: ruleCategory(quote),
     };
     const resolutions = new Map<string, WikiCitationResolution>();
     for (const locale of quote.scenario.locales) {
@@ -70,8 +70,17 @@ export class SqliteWikiCheckSource implements CheckKnowledgeSource {
         cursor = page.nextCursor;
       } while (cursor);
     }
+    return [...resolutions.values()];
+  }
+
+  prepare(quote: QuoteSnapshot, reportId: string, checkedAt: string, actor: ExecutionContext) {
+    if (!this.db.inTransaction) throw new Error("CHECK_TRANSACTION_REQUIRED");
+    const found = this.resolveForQuote(quote, checkedAt, actor);
+    const context: WikiHostContext = { ...actor, workspaceId: quote.workspaceId, now: checkedAt };
+    const scope = { platform: quote.scenario.platform, market: quote.scenario.market, category: ruleCategory(quote) };
+    const resolutions = new Map(found.map(r => [`${r.citation.revisionId}:${r.citation.sectionId}`, r]));
     const report = evaluateWikiQuote({
-      quote,
+      quote: { ...quote, scenario: { ...quote.scenario, category: ruleCategory(quote) } },
       reportId,
       checkedAt,
       resolutions: [...resolutions.values()],

@@ -1,6 +1,8 @@
 import { randomUUID } from "node:crypto";
 import {
   type AgentCommand,
+  type WikiCitationResolution,
+  WikiCitationResolutionSchema,
   type AgentRun,
   CalculationPreviewSchema,
   CheckReportSchema,
@@ -11,7 +13,7 @@ import {
   RevisionProposalSchema,
   UnderstandingSchema,
 } from "@tradequote/contracts";
-import { TradeFault } from "@tradequote/domain";
+import { evaluateWikiQuote, TradeFault } from "@tradequote/domain";
 import { z } from "zod";
 import { type AgentRunStore, type RunTicket } from "./agent-run-store";
 import { CatalogQuoteReadAgent } from "./catalog-quote-read-agent";
@@ -25,6 +27,8 @@ import {
   draftPlan,
   knowledgeQuery,
   knowledgeStamp,
+  ruleCategory,
+  wikiKnowledgeStamp,
 } from "./quote-draft-plan";
 import {
   BlockedExplanationFault,
@@ -81,6 +85,7 @@ export class QuoteToolAgent {
         }
       | undefined;
     let knowledge: ReturnType<typeof checkedKnowledge> | undefined;
+    let wikiKnowledge: WikiCitationResolution[] | undefined;
     let validation:
       | { id: string; report: z.infer<typeof CheckReportSchema>; proof: DraftAuthorization }
       | undefined;
@@ -91,12 +96,21 @@ export class QuoteToolAgent {
       defineBusinessTool({
         name: "search_knowledge",
         description:
-          "按宿主报价范围（商品实际品类、冻结场景平台/市场）与当前时间读取A的真实已发布适用规则版本，含原文/hash/来源定位；空结果是无覆盖，不代表检查通过。不是通用语义搜索。",
+          "按实际商品品类、场景平台/市场/语言读取已发布企业Wiki规则，返回知识正文、固定原文和来源引用；无Wiki命中时兼容旧结构化规则库。空结果代表无覆盖，不能认定通过。",
         inputSchema: z.strictObject({}),
-        outputSchema: KnowledgeListResultSchema,
+        outputSchema: z.union([KnowledgeListResultSchema, z.strictObject({ ok: z.literal(true), data: z.strictObject({ kind: z.literal("wikiKnowledge"), resolutions: z.array(WikiCitationResolutionSchema).max(100) }), evidenceIds: z.array(z.string()) })]),
         execute: async () => {
           if (!candidate)
             throw new ToolOrderFault("calculate_first", "请先核价，知识范围由实际候选商品确定");
+          const at = new Date().toISOString();
+          const quote = { ...candidate.calculated, scenario: { ...candidate.calculated.scenario, category: ruleCategory(candidate.calculated) } };
+          const resolved = this.repository.resolveQuoteWiki(quote, at);
+          wikiKnowledge = resolved.length ? resolved : undefined;
+          validation = undefined;
+          if (wikiKnowledge) {
+            knowledge = [];
+            return ok({ kind: "wikiKnowledge" as const, resolutions: wikiKnowledge }, [...new Set(wikiKnowledge.map(r => r.revision.revisionId))]);
+          }
           const result = KnowledgeListResultSchema.parse(
             this.repository.executeKnowledge(
               {
@@ -159,6 +173,7 @@ export class QuoteToolAgent {
           );
           candidate = { id, proposal, calculated };
           knowledge = undefined;
+          wikiKnowledge = undefined;
           validation = undefined;
           return ok(
             {
@@ -203,7 +218,8 @@ export class QuoteToolAgent {
             throw new TradeFault("ACTION_NOT_ALLOWED", "请先核价并读取适用知识，再校验当前候选");
           if (!knowledge)
             throw new ToolOrderFault("knowledge_first", "请先读取适用知识再校验当前候选");
-          const report = checkDraft(candidate.calculated, knowledge, new Date().toISOString());
+          const checkedAt = wikiKnowledge?.[0]?.checkedAt ?? new Date().toISOString();
+          const report = wikiKnowledge ? evaluateWikiQuote({ quote: { ...candidate.calculated, scenario: { ...candidate.calculated.scenario, category: ruleCategory(candidate.calculated) } }, resolutions: wikiKnowledge, checkedAt, reportId: randomUUID() }) : checkDraft(candidate.calculated, knowledge, checkedAt);
           const id = randomUUID();
           validation = {
             id,
@@ -212,6 +228,7 @@ export class QuoteToolAgent {
               calculated: candidate.calculated,
               asOf,
               knowledgeStamp: knowledgeStamp(knowledge),
+              ...(wikiKnowledge ? { wikiStamp: wikiKnowledgeStamp(wikiKnowledge), wikiCitations: report.wikiCitations! } : {}),
             },
           };
           return ok(

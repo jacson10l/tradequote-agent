@@ -1,6 +1,8 @@
 import { createHash, randomUUID } from "node:crypto";
 import {
   type AgentCommand,
+  type WikiCitationResolution,
+  KnowledgeCitationSchema,
   type CheckReport,
   KnowledgeListResultSchema,
   type KnowledgeQuery,
@@ -116,9 +118,15 @@ export function checkDraft(
     reportId,
   });
 }
+export const wikiKnowledgeStamp = (resolutions: WikiCitationResolution[]) => digest(
+  resolutions.map(r => ({ citation: r.citation, contentHash: r.revision.contentHash, sourceSetHash: r.revision.sourceSetHash }))
+    .sort((a,b) => `${a.citation.revisionId}:${a.citation.sectionId}`.localeCompare(`${b.citation.revisionId}:${b.citation.sectionId}`)),
+);
 export const DraftAuthorizationSchema = z.strictObject({
   calculated: QuoteSnapshotSchema,
   knowledgeStamp: z.string().regex(/^[a-f0-9]{64}$/),
+  wikiStamp: z.string().regex(/^[a-f0-9]{64}$/).optional(),
+  wikiCitations: z.array(KnowledgeCitationSchema).min(1).max(100).optional(),
   asOf: z.iso.datetime(),
 });
 export type DraftAuthorization = z.infer<typeof DraftAuthorizationSchema>;

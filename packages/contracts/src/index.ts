@@ -11,8 +11,9 @@ import {
 } from "./checks";
 import type { KnowledgeClient } from "./knowledge";
 import type { KnowledgeBuildClient } from "./knowledge-build";
-import type { KnowledgeMaintenanceClient } from "./knowledge-maintenance";
-import type { WikiClient } from "./knowledge-wiki";
+import { type KnowledgeMaintenanceClient, KnowledgeMaintenanceCommandSchema, KnowledgeMaintenanceResultSchema } from "./knowledge-maintenance";
+import { type KnowledgeDesktopClient, KnowledgeDesktopCommandSchema, KnowledgeDesktopResultSchema } from "./knowledge-desktop";
+import { type WikiClient, WikiCommandSchema, WikiResultSchema } from "./knowledge-wiki";
 import type { ModelEvaluationClient } from "./model-evaluation";
 import type { PetClient } from "./pet";
 import { IssueSchema } from "./protocol";
@@ -22,6 +23,7 @@ import { type RunClient, RunCommandSchema, RunListResultSchema, RunResultSchema 
 export * from "./checks";
 export * from "./knowledge";
 export * from "./knowledge-build";
+export * from "./knowledge-desktop";
 export * from "./knowledge-maintenance";
 export * from "./knowledge-wiki";
 export * from "./model-evaluation";
@@ -110,6 +112,7 @@ export interface DesktopClient
   extends TradeClient,
     AgentClient,
     KnowledgeClient,
+    KnowledgeDesktopClient,
     WikiClient,
     KnowledgeBuildClient,
     KnowledgeMaintenanceClient,
@@ -128,6 +131,9 @@ export interface ExecutionContext {
   origin: "human_ui" | "agent_tool" | "system_job";
 }
 export const RuntimeCommandSchema = z.union([
+  WikiCommandSchema,
+  KnowledgeMaintenanceCommandSchema,
+  KnowledgeDesktopCommandSchema,
   CommandSchema,
   TradeCommandSchema,
   AgentCommandSchema,
@@ -137,6 +143,9 @@ export const RuntimeCommandSchema = z.union([
   CheckCommandSchema,
 ]);
 export const RuntimeResultSchema = z.union([
+  WikiResultSchema,
+  KnowledgeMaintenanceResultSchema,
+  KnowledgeDesktopResultSchema,
   ResultSchema,
   TradeResultSchema,
   AgentReadResultSchema,
