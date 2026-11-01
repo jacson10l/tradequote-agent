@@ -298,3 +298,6 @@ C封板技术稳定性补齐：真实deepseek-flash连续五轮、每轮7检查�
 主协作者在唯一集成分支快进5597850后，重新通过只读Wiki check/lint及固定491c027 sync（308源码、314 Markdown；8改动源码、13知识页、3任务）。`git push origin codex/m1-abc-integration` 退出0，范围491c027..5597850；`git ls-remote origin refs/heads/codex/m1-abc-integration` 退出0，实际远端SHA为 `5597850e92015b7e9355fc777a683ce1e1dea42f`。本次代码和语义Wiki已远端集成，本机技术复验通过；前述pending保持为历史时点，新的回读证据见raw/c11-integration-cue-receipt.json的remoteReadback。
 
 本追加回执自身的最后文档提交由主协作者随后推送并核对最终head；不重跑未改变的业务测试。首轮并发组件失败与串行通过均保留，人工业务/语言签认、真实模型质量和Windows后置边界不变，不能用技术验收代签。
+
+
+2026-11-01 C12：用户授权集成分支同步main、GitHub公开、README更新，并选择MIT。独立codex/c12-public-main基于3f3332b，main独有0/集成独有213可快进。文档与许可准备中，实际发布状态待回读；main公开入口/集成验收分工见[[C12公开发布与README]]、[[C12-main公开与README更新]]。

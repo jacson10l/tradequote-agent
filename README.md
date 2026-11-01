@@ -1,144 +1,121 @@
-# tradequote-agent
+# TradeQuote
 
-外贸询报价协同桌面 Agent。以企业导入的商品、价格和知识资料为依据，辅助完成跨品类询盘理解、报价、需求变更、复核及多语言对外输出。
+**把一封询盘，推进到一份有依据、可供人工核对的报价回复草稿。**
 
-**可操作演示：[业务全流程 HTML](experiments/product-walkthrough/index.html)**，用浏览器打开即可体验假数据下的资料、报价、修订、确认、审批和输出；[操作指引](experiments/product-walkthrough/README.md)说明模拟边界。
+TradeQuote 是面向外贸询报价业务的桌面工作台。业务员提出目标，Agent 查询已发布商品资料、追问缺项、调用确定性业务工具核价、保存报价版本，并整理英语或德语客户回复。商品价格与金额来自业务服务；未知费用和未确认条款保持待确认。
 
-**新成员先读：[项目说明书](wiki-project/wiki/项目说明书.md)**。从最终产品、业务角色、主要功能和两条业务流程入手，再看完整案例、当前实现边界、源码地图与三人开发分工。
+项目处于 **M1 可运行原型阶段**，当前以 macOS 本机验证为准。正式人工审批、邮件外发、PDF 导出和签名安装包尚未完成验收。
 
-**正式 Electron＋React 工作台已接通手工报价 V1：演示场景、CSV 预览确认、价目表核价、草稿保存与重开；并新增正式 DeepSeek 设置、询盘理解、两轮 V2/V3 与差异；完整报价 MVP 尚未完成。** 首版单机保存数据，优先接入 DeepSeek；最终安装和双平台验收按用户决定暂缓。UI 使用 `getdesign` 的 **mistral.ai** 参考，并适配为浅色单据工作台。
+## 当前能力
 
-当前 C 独立候选以 **Codex app-server 原生 Harness** 驱动现有业务工具；真实本机V1与500数量修订、取消/显式重试已验证，最终Electron与门禁见 [C05任务](wiki-project/wiki/tasks/C05-CodexHarness纠偏与工作台迁移.md)。日常任务迁至单据工作台，资料与报价保留导入/发布/来源/历史入口。现有保存的 deepseek-flash 配置已通过原生 Responses → Codex 工具链及 Computer Use 验证；工作台必须先保存模型配置，不使用本机连接兜底。其他型号未验证。详见 [C05b任务](wiki-project/wiki/tasks/C05b-DeepSeek兼容与电脑验收.md)。
+- **单据工作台**：在任务对话中查询商品、补充信息、核价、保存草稿和修订数量；可查看运行与工具记录。
+- **资料与报价**：CSV 预览、人工确认发布、来源记录、价目表核价和历史报价读取。
+- **版本与恢复**：新版本保留旧快照，展示数量与金额变化；应用重开恢复只读记录，重试由用户显式发起。
+- **英语 / 德语客户产物**：固定文案切换、复制对应正文；未确认付款和交期显示对应语言的“待确认”。商品名、客户名和来源单位保留原文，不自动翻译或补造业务事实。
+- **两个小人，各有职责**：任务对话小人展示业务运行状态；独立报价助手使用单独的人设与记忆存储，读取只读报价摘要，没有修改报价的业务工具。独立记忆不等于永久保存完整聊天。
+- **启动体验**：独立奶油色品牌页和五彩纸屑，随后淡入工作台；系统开启减少动态时跳过动画。
 
-历史 [M0 平台验证记录](wiki-project/wiki/M0平台验证记录.md) 的 Harness 是 DeepSeek Harness；它在Electron中的初始化失败不是Codex验证结果。Solivio 不整体 Fork，CSV/金额继续使用 csv-parse 与 decimal.js。
+跨品类、市场和目标语言由业务配置组织；英语 / 德语是当前首批产物实现，不是产品永久限定的范围。
 
-正式前端已接入 **Tailwind CSS、shadcn 组件组织方式、Lucide、Zod、React Hook Form＋resolvers、React Router、TanStack Query**；Biome、tsc、Vitest、React Testing Library 与 Playwright Electron 已建立检查入口。当前真实业务包括工作区与手工 V1 持久化；当前候选首页已改为真实单据工作台；历史报价选中后进入工作台继续处理。实现与剩余范围见 [M1 工程基线](wiki-project/wiki/M1工程基线.md) 和 [M1 任务](wiki-project/wiki/tasks/2026-10-21-M1工程初始化.md)。
+## 快速开始
 
-当前独立C候选已接入[持久事件与桌面重连](wiki-project/wiki/C03持久事件与桌面重连.md)：进度从已提交日志补齐，Worker断线/reload只读恢复，不自动重发模型。[C04收口](wiki-project/wiki/C04收口与验收边界.md)为真实31业务技术通过、签认待补；17故障注入仍仅fixture，未触发分类不反填。旧章节按各自切片证据阅读。
-
-## 启动正式工程
-
-使用 Node **22.22.0**、pnpm **10.13.1**，无需安装数据库服务：
+已验证环境：macOS arm64、Node.js **22.22.0**、pnpm **10.13.1**；Electron **44.9.2** 由锁文件管理。原生 SQLite 模块需要 Electron 对应的 ABI。任务工作台另需本机可执行的 Codex CLI（支持 `app-server`）；源码通过 PATH 查找 `codex`，也可用 `TRADEQUOTE_CODEX_BINARY` 指定绝对路径。Codex CLI 不由本仓库的 pnpm 安装步骤自动安装。
 
 ```sh
+git clone https://github.com/jacson10l/tradequote-agent.git
+cd tradequote-agent
+corepack enable
+corepack prepare pnpm@10.13.1 --activate
 pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-安装时自动为 Electron 重建 SQLite。数据保存在 Electron userData 的 workspaces/default 目录，首次打开为空工作台。开发检查：
+首次使用：
+
+1. 在“工作区设置”创建本地工作区；填写“业务默认配置”（场景名称、岗位、平台、市场、品类与目标语言），点击“保存业务场景”。
+2. 在“模型设置”保存自己的 DeepSeek 配置，选择账户可用的模型，并显式测试连接。API Key 不要放进源码、聊天或提交记录。
+3. 在“资料与报价”导入 CSV、检查预览并人工确认发布。可先使用下方合成样本，格式见[报价 V1 说明](wiki-project/wiki/M2真实报价V1.md)。
+4. 回到“单据工作台”，填写本次询盘客户并输入询价目标，补充缺项后保存未审核草稿，再修改数量并查看版本差异。
+5. 查看检查结果，选择 English / Deutsch，复制回复草稿并人工核对。
+
+可将以下明确合成的样本保存为 UTF-8 CSV，用于试用：
+
+```csv
+sku,name,category,unit,currency,min_quantity,unit_price,valid_until,description
+DEMO-TEE,合成上衣,apparel,piece,USD,1,10.00,2027-12-31,仅为合成演示
+DEMO-TEE,合成上衣,apparel,piece,USD,100,9.00,2027-12-31,仅为合成演示
+```
+
+模型请求会使用已保存的配置并可能产生供应商费用；应用不会回退到本机 Codex 连接。业务数据保存在本机，但模型运行会向配置的服务发送相关任务与上下文。没有模型配置时先完成设置。
+
+遇到原生模块 ABI 不匹配时，执行 `pnpm native:rebuild` 后重试。
+
+## 架构
+
+```mermaid
+flowchart LR
+    U[业务员 / React 工作台] --> P[受限 Preload IPC]
+    P --> M[Electron Main]
+    M --> W[业务 Worker / 运行记录]
+    W --> H[Codex Harness 编排]
+    H --> T[受限业务工具]
+    T --> D[Domain 确定性核价与修订]
+    T --> I[Infrastructure 商品 / 知识 / SQLite]
+    D --> W
+    I --> W
+    W --> U
+```
+
+模型理解任务并选择工具，Domain 负责确定性金额、版本和规则。金额以十进制字符串跨模块传递；Agent 不获得任意 Shell、文件或网络工具。独立报价助手走单独的对话与记忆通路，并复用保存的模型配置。
+
+| 目录 | 职责 |
+| --- | --- |
+| `apps/desktop` | Electron 主进程、Preload、React 工作台与资源 |
+| `packages/contracts` | 校验过的跨模块类型与 IPC 契约 |
+| `packages/domain` | 确定性核价、报价修订、规则与产物 |
+| `packages/infrastructure` | 受限 Agent 编排、SQLite、模型适配与事件持久化 |
+| `tests/e2e` | 真实 Electron 桌面回归 |
+| `wiki-project` | 工程 Wiki、任务、ADR 与验证证据 |
+| `experiments` | 历史独立探针与合成演示，不等同正式产品 |
+
+## 验证
 
 ```sh
 pnpm typecheck
 pnpm test
 pnpm test:e2e
-pnpm build
-pnpm wiki:generate
 pnpm check
-pnpm wiki:sync --base <本次任务开始的提交>
 pnpm wiki:test
+pnpm wiki:sync --base <本次改动前的提交>
 ```
 
-产品图标已接入 Dock/窗口及打包；重启 `pnpm dev` 后生效。外壳固定到窗口，滚动由 main 主区域承担；≤1000px 显示图标导航。图标源修改后运行 `pnpm icons:generate`，构建会检查 SVG/PNG/ICNS/ICO 同步。当前增量与边界见 [M1 布局图标与契约任务](wiki-project/wiki/tasks/2026-10-21-M1布局图标与契约补齐.md)。
+2026-11-01 的功能版本 `00022ce` 已在集成分支完成本机复验：串行单元测试 **593 通过 / 3 跳过**、Electron **14 通过 / 1 跳过**、Wiki 工具 **36 通过**，类型、构建及工程检查通过。首轮并发单测有一项界面等待超时，未改代码、断言或超时，串行复跑通过；失败记录保留，根因未最终认定。上述数字是固定版本的历史证据，不代表每次新环境自动通过。
 
-原生测试使用 Electron 的 Node ABI；若重新安装原生依赖后报 ABI 不匹配，运行 `pnpm native:rebuild`。`package:mac`/`package:win` 配置 DMG/NSIS，不自动发布；本轮未做最终安装验收。C04已完成fixture防护和用户显式真实31业务技术验证，非作者/人工语义签认待补，见下节。本机验收与三人职责见 [M1 验证与协作](wiki-project/wiki/M1验证与协作.md)。
-
-## 模型评估样本与报告
-
-运行 `pnpm eval:model --mode fixture`，执行三品类、中英德、两轮修订及失败/取消/显式重试的48个合成检查点；默认在 `.runtime/c04-fixture.json` 与 `.md` 生成脱敏报告，可用 `--output` 指定报告前缀。这会调用真实业务服务及模型响应解析，但模型回答是预编排替身，不能证明 DeepSeek 语义通过。
-
-`pnpm eval:model --mode deepseek` 在当前 CLI 明确生成未运行报告并退出2：没有读取现存设置、Key文件或环境凭据，也不接受命令行Key。真实评估现由下述正式设置入口承接，必须经用户保存配置并显式启动；CLI仍不发真实请求；2026-10-22正式桌面用户显式Flash168次尝试、31业务全通过，当前状态以C04收口页为准。未知token/费用为null，规则仍限B00。范围与证据见 [C04评估](wiki-project/wiki/C04模型评估与脱敏报告.md) 和 [任务](wiki-project/wiki/tasks/C04-评估样本与脱敏报告.md)。
-
-## macOS 优先的本机验收
-
-本项目不使用 GitHub Actions 或云端自动测试；仓库Actions已关闭，本分支移除工程/Wiki两个workflow。上述pnpm本地命令保持，当前默认以macOS验收推进需求开发与PR；Windows验证后置，不阻塞当前开发/合入，记“未验证/后置”。你在macOS执行并记录实际提交、版本、命令/退出码及结果，保留非作者评审与P0代码/Wiki同步。核心需求完成后由Windows开发者补对应验收，详见[macOS优先决定](wiki-project/wiki/decisions/0014-macOS优先与Windows验收后置.md)。
-
-## 参赛方案与下一步
-
-依据用户提供的参赛任务截图，现行 [六项要求与验收](wiki-project/wiki/参赛要求对齐与验收.md) 明确：两种目标语言或两类角色/场景二选一；不要求两个电商平台；批量生成为鼓励项。项目选择英德首批实测，新增平台/文化适配 AC-17，并用风险标记＋文本批注验收两种反馈。手工草稿 V1 已实现，正式模型与受限修订已接入，C04真实业务技术验证已通过，签认和正式审批仍待。
-
-下一轮按 [开发优先级](wiki-project/wiki/05-三人分工与开发步骤.md) 推进：场景与契约→真实 V1→两轮对话修订→适配、检查和审批产出→稳定演示→双平台交付。跨品类、任意目标语言和原有项目交付门槛保留。
-
-## 试用真实手工报价 V1
-
-启动后创建工作区，进入“资料与报价”：保存可编辑演示场景→选择 UTF-8 CSV（或填入合成样本）→解析预览→人工确认发布→输入客户/询盘、选择商品和数量→计算并保存 V1。关闭应用重开可读取原报价。合成上衣 100 件按 9 USD 档位得到商品合计 900.00 USD；缺价格保持未知。
-
-固定 CSV 表头与边界见 [手工 V1 说明](wiki-project/wiki/M2真实报价V1.md)。商品合计未含运税费，所有报价仍为未审核草稿；不支持覆盖已有 SKU、正式审批或 PDF；V2/V3和模型入口见下节，C04真实31业务已有通过记录，正式签认仍待。样本是明确合成资料，不代表平台规则或真实价格。验证见 [本轮任务](wiki-project/wiki/tasks/2026-10-21-演示场景与报价V1.md)。
-
-## 试用询盘理解和两轮修改
-
-正式应用“模型设置”中保存 Key 并在下拉中选择账户可用型号，连接测试由用户自行点击；然后在“资料与报价”发布样本，填“询盘客户”和100件 DEMO-TEE 需求，点击理解保存V1。第一轮改数量为120存V2，第二轮改付款与交期存V3；下方选择历史版本并比较字段/金额。所有版本仍是未审核草稿。
-
-[模型与修订说明](wiki-project/wiki/M4模型与报价修订.md)记录支持字段、数据发送与加密边界。当前自动化使用本地HTTP替身；C04已有用户显式真实31业务通过记录；后续真实评估仍须在应用显式启动，不要把Key贴到聊天。C当前推进持久事件/重连，B负责双反馈；审批/语言/PDF和稳定演示/双平台按依赖继续。
-
-## 三人并行开发交接
-
-当前验收主分支为 `codex/m1-abc-integration`，远端对应 `origin/codex/m1-abc-integration`。A、B、C 的所有最终交付都必须合入该分支；未合入的成员分支不能作为验收代码。成员必须在独立工作目录各开任务分支，禁止直接在 `codex/m1-abc-integration`、main 或其他成员分支开发。
-
-| 成员 | 首批负责模块 | 分支与任务 |
-|---|---|---|
-| A | 知识资料暂存/人工发布、来源和适用性查询 | codex/a01-knowledge-publish；[A01任务](wiki-project/wiki/tasks/A01-知识发布与来源查询.md) |
-| B | 公共契约、两类规则检查、风险标记＋文本批注 | 先codex/b00-first-batch-contracts，再codex/b01-rules-feedback；[B任务](wiki-project/wiki/tasks/B01-规则检查与双反馈.md) |
-| C | DeepSeek评估、Agent取消/中断/重试、桌面集成 | codex/c01-agent-recovery；[C01任务](wiki-project/wiki/tasks/C01-Agent运行恢复与集成.md) |
-
-开工命令、公共文件边界、依赖和验收见 [交接入口](wiki-project/wiki/三人并行开发交接.md)，新接口定义见 [首批接口约定](wiki-project/wiki/首批并行接口约定.md)。历史共同基线 `codex/m1-foundation` 仅作参考；当前以 `codex/m1-abc-integration` 的远端回读和门禁结果为准。交付状态见[分支收口记录](wiki-project/wiki/分支收口与共同基线.md)。
-
-## 两个参考项目与 C 的完整任务
-
-Solivio参考业务工作流，Harness参考受控Agent执行；采用自有实现不减少对应功能的验收。当前源码逐项对照、已完成/待实现/延期、C00～C07任务/依赖/清单见[双参考项目与C路线](wiki-project/wiki/双参考项目功能对照与C开发路线.md)。C01只覆盖运行恢复；本轮[C02a](wiki-project/wiki/tasks/C02a-受限只读工具循环.md)新增有界只读工具循环内部模块，已用现有SQLite目录和确定性核价测试；后续C02b已接四工具正式Worker/桌面入口，该旧切片时真实语义未评估，最新以C04收口页为准。完整工具、写入账本、事件、语言/PDF和知识整理继续按账本交付。最新共同基线be53b98已合入A合成fixture，不能据此宣称知识服务、迁移或事务依赖就绪。
-
-## 从这里开工
-
-**P0 必须遵守：每次编码交付同步工程 Wiki。相关知识页、任务页、追加日志或校验缺一项，任务不得标完成、PR 不得合并。** 所有成员及编码 Agent 的具体要求见 [贡献规范](CONTRIBUTING.md) 和 [协作规则](AGENTS.md)。
-
-1. 三人一起读 [决策与 MVP 验收](wiki-project/wiki/01-MVP范围与验收.md)，确认交付口径。
-2. 按 [技术选型与架构](wiki-project/wiki/02-技术选型与架构.md) 执行 M0 技术验证，填写实测结果，冻结可运行的版本组合。
-3. 共同审阅 [数据契约](wiki-project/wiki/03-领域与数据契约.md) 和 [接口与 Agent 契约](wiki-project/wiki/04-接口与Agent契约.md)。
-4. 领取 [三人分工与开发步骤](wiki-project/wiki/05-三人分工与开发步骤.md) 中有明确依赖和完成标准的任务。
-5. 每个里程碑按 [测试与交付](wiki-project/wiki/06-测试与交付.md) 留下证据。
-
-完整导航见 [项目知识库](wiki-project/index.md)，界面规范见 [DESIGN.md](DESIGN.md)，协作规则见 [AGENTS.md](AGENTS.md)。
-
-## 运行状态
-
-独立探针可以复现，已实测 macOS arm64、Node 22.22.0、pnpm 10.13.1：
+原生 ABI 下的串行复验命令：
 
 ```sh
-pnpm --dir experiments/m0-reuse install --frozen-lockfile --ignore-scripts
-pnpm --dir experiments/m0-reuse test
+ELECTRON_RUN_AS_NODE=1 ./apps/desktop/node_modules/.bin/electron node_modules/vitest/vitest.mjs run --maxWorkers=1
 ```
 
-见 [探针说明与证据](experiments/m0-reuse/README.md)、[上游来源](UPSTREAM.md)和[许可声明](THIRD_PARTY_NOTICES.md)。历史实验使用真正安装的 Harness 与本地模拟模型/业务服务；不代表真实 DeepSeek 或 Windows 验收通过。独立实验锁文件保留，不纳入正式 workspace。
+详见 [C11 集成与 Cue 回执](wiki-project/raw/c11-integration-cue-receipt.json)和[英德产物修复任务](wiki-project/wiki/tasks/C11-英德客户产物修复.md)。本轮自动化采用合成数据与模型替身；真实模型质量、人工语言与业务签认、Windows 和签名安装包不据此宣称通过。本项目当前使用本机检查，不运行 GitHub Actions。
 
-## M0 平台探针与系统设置
+## 演示与边界
 
-[独立平台探针](experiments/m0-platform/README.md)验证真实 SQLite、解析、PDF 和最小工具执行器。启动模型设置页：
+[交互式流程演示](experiments/product-walkthrough/index.html)可下载后用浏览器打开，使用假数据说明业务流程；其中模拟的审批和输出不代表桌面已实现，见[演示说明](experiments/product-walkthrough/README.md)。新版 Cue 已完成八页产品演示，内容与记录见[C10 双语与演示核验](wiki-project/wiki/C10双语产物与新版演示核验.md)；私人分享密钥不保存在仓库。
 
-```sh
-pnpm --dir experiments/m0-platform settings
-```
+- 当前产物是未审核草稿，不是已审批、已发送或具约束力的客户报价。
+- 商品合计不包含未知的运费、税费及其他费用；未确认条款不自动转成已确认。
+- 规则检查是有限的业务规则实现，不等于完整市场合规认证。
+- 尚无人工基线计时对照，不宣称具体效率提升百分比。
 
-在页面填写 API Key，保存后测试连接、选择账户可用模型；Key 不放进聊天或仓库。该命令仅启动历史M0页面；正式应用已提供“模型设置”，不会自动读取或迁移M0凭据。真实模型结果只有执行连接/模型验证后才成立。
+## 参与开发
 
-macOS 开发启动使用本地 TradeQuote.app，Dock 名称与图标一致；重启 pnpm dev 生效，已有工作区目录保留。
+`main` 是公开默认入口，接收已验收的集成成果；`codex/m1-abc-integration` 保留为团队集成与人工验收基线。成员在独立 worktree / clone 的 `codex/` 任务分支开发，先合入集成分支并记录本机验证，再按发布安排同步 `main`。
 
-## C02b商品与报价只读工具
+代码、测试、配置与工程 Wiki 必须同次交付。先读[贡献规范](CONTRIBUTING.md)、[协作规则](AGENTS.md)和[项目说明书](wiki-project/wiki/项目说明书.md)。完整知识导航见 [Wiki 索引](wiki-project/index.md)，UI 变更遵循 [DESIGN.md](DESIGN.md)。
 
-[C02b接口与边界](wiki-project/wiki/C02b商品与报价只读工具.md)已把只读循环接到现有SQLite已发布商品、授权历史报价与确定性核价：宿主固定范围/日期，保留来源、真实错误和未保存预览，无报价写入。实现/验证见[C02b任务](wiki-project/wiki/tasks/C02b-商品与报价只读工具.md)。search_knowledge/validate_quote缺正式服务，继续未注册。后续已接正式Worker/Main/preload和侧栏“只读助手”：本分支启动pnpm dev后，配置模型、发布商品，进入只读助手选择报价并输入任务即可使用四工具，见[桌面使用说明](wiki-project/wiki/C02b桌面只读助手.md)。原understand/revise保存路径兼容；未完成持久运行恢复。
+不要提交真实 API Key、客户原件、运行数据库、完整敏感日志或生成安装包。提交问题时使用脱敏或合成复现材料。
 
-## 持久报价运行与恢复
+## 许可证
 
-本分支的询盘/修订已进入统一持久运行协调器，“资料与报价”下可刷新模型运行记录、取消、对失败/中断/取消任务显式重试。应用重开不自动调用模型；重试可能再次计费，旧键重送只回读事实。Worker独占锁、迁移6草稿写调用账本及真实强杀验证见 [运行说明](wiki-project/wiki/C02c统一运行与写账本.md) 和 [本轮任务](wiki-project/wiki/tasks/C02c-统一调度与强杀恢复.md)。独立只读助手仍为四工具；完整多步Agent、知识/规则工具、真实DeepSeek、Windows与最终安装未验收。
-
-## 多步工具报价
-
-在“资料与报价”勾选“多步工具报价（读取、核价、规则校验后保存）”，再理解询盘或修订：助手逐步读取真实商品/知识、确定性核价、执行两类有限规则，可修正候选后保存一版未审核草稿。阻断问题不保存；缺规则/未知金额明确待确认。运行记录可看实际步骤与来源、取消或显式重试，重开不自动收费。当前每次仅支持一个实际商品品类（允许场景标签不同）、B00 required/forbidden_literal 两字段规则，不是完整合规认证；说明与限制见 [C02c闭环](wiki-project/wiki/C02c多步报价工具闭环.md) 和 [任务验证](wiki-project/wiki/tasks/C02c-多步报价工具闭环.md)。
-
-## 在正式设置中显式评估
-
-进入“模型设置”下方评估面板，默认合成fixture，点击后在独立临时工作区验证，不写当前业务报价。真实DeepSeek须先保存Key/模型，切换真实模式并勾选可能计费确认再点击启动；最多372次请求/10分钟，token与费用未知。可取消、重开只读历史、不自动重跑，报告通过本机保存对话框下载JSON/Markdown。清除设置不代替取消在途请求。实际供应商结果只在用户启动后成立；已记录Flash31业务真实通过，自动化继续明确fixture，未签认项保留。详见[正式入口](wiki-project/wiki/C04正式设置评估入口.md)与[任务验证](wiki-project/wiki/tasks/C04-正式设置与显式真实评估.md)。
-
-## C本地集成候选
-
-[集成候选与依赖收口](wiki-project/wiki/C集成候选与依赖收口.md)在独立codex/c-integration-candidate组合C03/9e8695b与共同头654fecc；[评审说明](wiki-project/wiki/C集成候选评审说明.md)给出完整来源范围和组合证据。A01c迁移6不兼容、P1未合入均排除，A/B/非作者及C04人工签认仍待；没有推送、共同分支合入或真实复测。
-
-C05c将澄清补充、查询试算统一纳入持久任务：成功后关联收口原问题，只读可停止、重开读取结果/中断事实并显式重试。工作台按用户/助手消息显示，内核标签和演示默认输入已移除。实现与本机证据见 [C05c任务](wiki-project/wiki/tasks/C05c-会话收口与只读持久运行.md)，[A/B交接](wiki-project/wiki/C05c-AB业务依据与契约交接.md)保持独立待办。
+项目自有代码采用 [MIT License](LICENSE)。上游代码及依赖保留各自许可证，见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) 与 [UPSTREAM.md](UPSTREAM.md)。供应商图片、网页快照和其他引用资料的权利归原权利人，不因本仓库的 MIT 许可证而获得额外授权。

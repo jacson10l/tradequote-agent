@@ -15,7 +15,7 @@
   "toolchain": {
     "build-code-index.mjs": "df8f203be2d2108c3541d94a0aac75d3e79af293a48699d363616e373679b502",
     "wiki-lib.mjs": "b3d0957c0240b68d7a1e5c2e0311458c8c08b6322b84330d80ea4c7acad2c195",
-    "wiki-config.json": "01dfb1dbb6452de677fd692c8875c044e9a2dee0175fadda6789087b3fa746d4",
+    "wiki-config.json": "d225857b2f9a09cda5d671469fffc660f75738870bb7c3f09daced7bfdc64600",
     "lint-wiki.mjs": "9625e4f243c765d35c8438a8d9447602135387e88d0f8e5cc6ecfa74d38b442d",
     "wiki-tools.test.mjs": "963d9c10b8eb67d67f68c322ab7d8daf5f4f4156e635c5334b652b3aa9057f84",
     "check-wiki-sync.mjs": "e144e2f32793608ecc11b1cc794c5f162468adaf1af3b93d5b5b2a4f3825d5b7",
@@ -60,9 +60,9 @@
     {
       "path": "AGENTS.md",
       "type": "md",
-      "lines": 63,
-      "bytes": 7172,
-      "sha256": "2aeae24ccf68329e5e7b25efc2c1ad680ccaa513b11b4f8b4d2a936f5dfa83ed",
+      "lines": 64,
+      "bytes": 7408,
+      "sha256": "6e7a4cdd63272d051b0af39912831a14e388323268a2884b2b81648ff8dfd99d",
       "role": "项目入口与协作约束",
       "pages": [
         "wiki/项目状态.md",
@@ -74,9 +74,9 @@
     {
       "path": "CONTRIBUTING.md",
       "type": "md",
-      "lines": 56,
-      "bytes": 5452,
-      "sha256": "c0fca79c287d7a0ac1b6d7619eea928aa9f3a89ee3bc6c78ef9e90e047831bcb",
+      "lines": 57,
+      "bytes": 5652,
+      "sha256": "916acc95e7cd24c254296eb7b9f3d999d716f711664c193bcd36c994258e4c1c",
       "role": "Mandatory Wiki delivery policy and PR/CI enforcement",
       "pages": [
         "wiki/Wiki 工作流与任务记录.md",
@@ -96,11 +96,23 @@
       ]
     },
     {
+      "path": "LICENSE",
+      "type": "LICENSE",
+      "lines": 21,
+      "bytes": 1080,
+      "sha256": "12c69194ae6fdacf6381f4668fa2077dac81cd2a18d43eca0c85df28cedb607f",
+      "role": "项目自有代码MIT许可与第三方范围边界",
+      "pages": [
+        "wiki/C12公开发布与README.md",
+        "wiki/decisions/0035-main公开入口与MIT许可.md"
+      ]
+    },
+    {
       "path": "README.md",
       "type": "md",
-      "lines": 144,
-      "bytes": 16840,
-      "sha256": "2d5d110bb0a6f80005f57a256c06fab82a603d36cb542213f5f30337d7875b24",
+      "lines": 121,
+      "bytes": 8066,
+      "sha256": "b53989abf958663b6518663cc49be98a97c8104856a69686b6e05dd8b3ebf6cc",
       "role": "项目入口与协作约束",
       "pages": [
         "wiki/项目状态.md",
@@ -114,8 +126,8 @@
       "path": "THIRD_PARTY_NOTICES.md",
       "type": "md",
       "lines": 25,
-      "bytes": 1948,
-      "sha256": "d3a2ed0cf6e3d4708f0911ea19c4818381aae8ff874ae1c560260690690cb906",
+      "bytes": 2138,
+      "sha256": "e64cb44d1edb5ee2c83e3030a66b06f4df38fcabdc9bbea422fa07b2b617c19b",
       "role": "复用来源与许可边界",
       "pages": [
         "wiki/decisions/0002-上游复用方式.md",

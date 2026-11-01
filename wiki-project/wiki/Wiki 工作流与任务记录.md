@@ -296,3 +296,8 @@ wiki-lib.mjs 的 ignoredDirs 增 .workbuddy（WorkBuddy IDE 项目数据目录�
 ## 2026-11-01 虚拟形象看板娘板块与覆盖映射
 
 新增虚拟形象看板娘（报价小人）的 8 个源码/测试文件逐文件覆盖映射：契约 `packages/contracts/src/pet.ts`、基础设施 `pet-memory-store.ts`（及测试）、`pet-quote-context.ts`（及测试）、渲染层 `pet-assistant.tsx`、`pet-mascot.tsx`、`use-speech-recognition.ts`，分别映射到知识板块 [[报价小人人设]]、[[报价小人记忆]] 与方案页 [[虚拟形象与记忆方案]]。同时新建知识板块 `wiki-project/wiki/pet/`（人设 + 长期记忆，进 git）与任务页 [[虚拟形象看板娘]]。维护算法不变，仅增覆盖配置并重新生成清单；见 [[虚拟形象与记忆方案]]。
+
+
+## 2026-11-01 C12 公开发布覆盖
+
+新增根LICENSE纳入已有显式LICENSE采集规则，coverage指向[[C12公开发布与README]]与[[0035-main公开入口与MIT许可]]；不改维护算法。README/AGENTS/CONTRIBUTING更新公开入口与集成分支职责，第三方声明保留来源权利。任务[[C12-main公开与README更新]]记录固定3f3332b基线、生成/只读check/lint/sync及因覆盖变化执行维护回归，发布状态必须由GitHub实测回读补记。

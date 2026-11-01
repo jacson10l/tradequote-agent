@@ -29,7 +29,8 @@
 - A/B/C 必须从最新 `codex/m1-abc-integration` 同步后再开始新的任务分支。
 - 每个任务分支完成后，先提供固定 SHA、父提交、文件白名单和实际验证结果，再由 C 接收并合入 `codex/m1-abc-integration`。
 - C 合入后必须回读远端 `origin/codex/m1-abc-integration`，并在该分支重跑适用门禁；远端回读一致才算集成完成。
-- 旧的 `main`、`codex/m1-foundation`、成员开发分支和历史验证分支仅作历史资料或独立开发用途，不作为当前验收基线。
+- `main` 是公开默认入口，接收已验收的 `codex/m1-abc-integration` 成果；2026-11-01 用户授权首次同步并采用 MIT 公开。团队集成与人工验收仍以 `codex/m1-abc-integration` 为准，之后按发布安排同步 main。
+- `codex/m1-foundation`、成员开发分支和历史验证分支仅作历史资料或独立开发用途，不作为当前验收基线。
 - 未合入 `codex/m1-abc-integration` 的提交，即使已在成员分支推送，也只能标记为“已开发/待集成”，不能标记为最终交付。
 
 ## 业务与实现约束

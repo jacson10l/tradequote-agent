@@ -1,0 +1,60 @@
+{
+  "task": "C12 public main and README",
+  "taskBase": "3f3332b05ebf5527854685ac57e63a2586962961",
+  "mainBefore": "ef14fc3c1838f3b605956dd00922a2517f9144a6",
+  "branchComparison": {
+    "mainOnly": 0,
+    "integrationOnly": 213
+  },
+  "scope": "README, license, collaboration docs and Wiki coverage; no production or test code changes",
+  "licenseDecision": "User explicitly selected MIT",
+  "checks": [
+    {
+      "command": "pnpm install --frozen-lockfile",
+      "exitCode": 0,
+      "result": "passed",
+      "localLog": "/Users/jason/.codex/worktrees/c12-public-main/tradequote-agent/.runtime/c12-public-main/install.log",
+      "sha256": "aa65caf314f04e1aff19adc22ce9d6a0b3b220091f83908833dab90336dabf8e"
+    },
+    {
+      "command": "pnpm check",
+      "exitCode": 0,
+      "result": "Biome, 9 engineering tests, Wiki readonly/lint passed",
+      "localLog": "/Users/jason/.codex/worktrees/c12-public-main/tradequote-agent/.runtime/c12-public-main/check-ready.log",
+      "sha256": "4a24cbe3b09672a9f69489fae2d4efc5589d542afa75aed21fd5d1c501bfecae"
+    },
+    {
+      "command": "pnpm wiki:test",
+      "exitCode": 0,
+      "result": "36 passed",
+      "localLog": "/Users/jason/.codex/worktrees/c12-public-main/tradequote-agent/.runtime/c12-public-main/wiki-test-ready.log",
+      "sha256": "c85f627ea3b16ff21f1107583c27dfbfa0a7a405b9a3a4aa0911194df0a0ae64"
+    },
+    {
+      "command": "pnpm wiki:sync --base 3f3332b05ebf5527854685ac57e63a2586962961",
+      "exitCode": 0,
+      "result": "passed",
+      "localLog": "/Users/jason/.codex/worktrees/c12-public-main/tradequote-agent/.runtime/c12-public-main/wiki-sync-ready.log",
+      "sha256": "f266e7fbb1185e369bdd32030fa1f516156684b10e23d694fab6101abb314f2f"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "passed"
+    }
+  ],
+  "historyScan": {
+    "reachableBlobs": 3665,
+    "findings": [],
+    "largeBlobs": [],
+    "scope": "all locally available refs, values deliberately not printed"
+  },
+  "localLinkCheck": "All README relative link targets exist",
+  "review": "Independent Agent found missing business-scene save prerequisite; corrected and rechecked, no remaining findings",
+  "initialFailures": [
+    "First check lacked Electron dependency in fresh worktree; frozen install resolved environment",
+    "Initial ADR used unsupported accepted status and omitted required split sections; corrected; initial wiki regression 35/36, final 36/36"
+  ],
+  "publication": "pending authorized push and visibility change",
+  "productValidation": "C11 593/14/36 are fixed-version historical results; not rerun for this documentation-only task"
+}

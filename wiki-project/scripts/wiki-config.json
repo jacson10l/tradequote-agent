@@ -2284,6 +2284,13 @@
       "pages": [
         "wiki/虚拟形象与记忆方案.md"
       ]
+    },
+    "LICENSE": {
+      "role": "项目自有代码MIT许可与第三方范围边界",
+      "pages": [
+        "wiki/C12公开发布与README.md",
+        "wiki/decisions/0035-main公开入口与MIT许可.md"
+      ]
     }
   }
 }

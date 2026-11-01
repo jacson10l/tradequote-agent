@@ -1758,3 +1758,11 @@ C11最终维护回归 `pnpm wiki:test` 36/36通过、退出0；未修改工具�
 主协作者在唯一集成分支快进5597850后，重新通过只读Wiki check/lint及固定491c027 sync（308源码、314 Markdown；8改动源码、13知识页、3任务）。`git push origin codex/m1-abc-integration` 退出0，范围491c027..5597850；`git ls-remote origin refs/heads/codex/m1-abc-integration` 退出0，实际远端SHA为 `5597850e92015b7e9355fc777a683ce1e1dea42f`。本次代码和语义Wiki已远端集成，本机技术复验通过；前述pending保持为历史时点，新的回读证据见raw/c11-integration-cue-receipt.json的remoteReadback。
 
 本追加回执自身的最后文档提交由主协作者随后推送并核对最终head；不重跑未改变的业务测试。首轮并发组件失败与串行通过均保留，人工业务/语言签认、真实模型质量和Windows后置边界不变，不能用技术验收代签。
+
+
+## 2026-11-01 C12 main公开与README准备
+
+用户明确授权main合并、仓库公开并选择MIT；基线3f3332b，独立worktree。重写README，新增MIT LICENSE，保留第三方权利，更新main/集成职责和Wiki语义/覆盖。已核对祖先0/213、仓库PRIVATE/default main/Actions disabled和历史密钥格式扫描；最终文档门禁与远端回执待实测补记，未宣称已公开。见[[C12-main公开与README更新]]。
+
+
+2026-11-01 C12文档门禁完成：frozen install、check含9工程、固定3f3332b sync与diff检查通过；维护最终36/36，初次依赖/ADR格式失败保留。独立复核的场景保存前提遗漏已修，README链接有效，历史3665对象常见密钥格式无命中。证据raw/c12-public-main-validation.json；远端推送/公开仍待执行。
