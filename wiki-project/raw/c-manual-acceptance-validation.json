@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "recordedAt": "2026-11-01T11:21:14+09:00",
+  "branch": "codex/m1-abc-integration",
+  "taskBase": "87106d170f50d44af81b7594b1b6c3308f177be3",
+  "scope": "Created and reviewed the macOS MVP manual acceptance guide and synchronized the related Wiki pages. Documentation-only; no product code, commit, or push.",
+  "checks": [
+    {
+      "command": "pnpm wiki:check",
+      "exitCode": 0,
+      "result": "Passed. Generated snapshot check: 296 files. Wiki: 300 Markdown pages, 266 semantic pages, 300 reachable."
+    },
+    {
+      "command": "pnpm wiki:test",
+      "exitCode": 0,
+      "result": "36 passed, 0 failed, 0 skipped."
+    },
+    {
+      "command": "node wiki-project/scripts/check-wiki-sync.mjs . --base 87106d170f50d44af81b7594b1b6c3308f177be3",
+      "exitCode": 0,
+      "result": "Passed; codeFiles=0; errors=[]."
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "Passed; no whitespace errors."
+    }
+  ],
+  "limitations": [
+    "This record validates Wiki structure, Wiki tooling, and documentation synchronization only; it does not claim that a human ran the desktop acceptance flow.",
+    "No product code, commit, or push was included."
+  ]
+}
